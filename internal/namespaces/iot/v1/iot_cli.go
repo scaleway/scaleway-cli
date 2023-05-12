@@ -58,7 +58,7 @@ func GetGeneratedCommands() *core.Commands {
 func iotRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage IoT hubs and devices`,
-		Long:      `IoT API.`,
+		Long:      `IoT Hub API.`,
 		Namespace: "iot",
 	}
 }
@@ -102,7 +102,7 @@ func iotNetwork() *core.Command {
 func iotHubList() *core.Command {
 	return &core.Command{
 		Short:     `List hubs`,
-		Long:      `List hubs.`,
+		Long:      `List all Hubs in the specified zone. By default, returned Hubs are ordered by creation date in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "iot",
 		Resource:  "hub",
 		Verb:      "list",
@@ -111,7 +111,7 @@ func iotHubList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `Ordering of requested hub`,
+				Short:      `Sort order of Hubs in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -119,21 +119,21 @@ func iotHubList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Filter on project`,
+				Short:      `Only list Hubs of this Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Filter on the name`,
+				Short:      `Hub name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter on the organization`,
+				Short:      `Only list Hubs of this Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -210,7 +210,7 @@ func iotHubList() *core.Command {
 func iotHubCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a hub`,
-		Long:      `Create a hub.`,
+		Long:      `Create a new Hub in the targeted region, specifying its configuration including name and product plan.`,
 		Namespace: "iot",
 		Resource:  "hub",
 		Verb:      "create",
@@ -228,7 +228,7 @@ func iotHubCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "product-plan",
-				Short:      `Hub feature set`,
+				Short:      `Hub product plan`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -244,7 +244,7 @@ func iotHubCreate() *core.Command {
 			},
 			{
 				Name:       "events-topic-prefix",
-				Short:      `Hub events topic prefix (default '$SCW/events')`,
+				Short:      `Topic prefix (default '$SCW/events') of Hub events`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -271,7 +271,7 @@ func iotHubCreate() *core.Command {
 func iotHubGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a hub`,
-		Long:      `Get a hub.`,
+		Long:      `Retrieve information about an existing IoT Hub, specified by its Hub ID. Its full details, including name, status and endpoint, are returned in the response object.`,
 		Namespace: "iot",
 		Resource:  "hub",
 		Verb:      "get",
@@ -301,7 +301,7 @@ func iotHubGet() *core.Command {
 func iotHubUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a hub`,
-		Long:      `Update a hub.`,
+		Long:      `Update the parameters of an existing IoT Hub, specified by its Hub ID.`,
 		Namespace: "iot",
 		Resource:  "hub",
 		Verb:      "update",
@@ -310,7 +310,7 @@ func iotHubUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
-				Short:      `Hub ID`,
+				Short:      `ID of the Hub you want to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -324,7 +324,7 @@ func iotHubUpdate() *core.Command {
 			},
 			{
 				Name:       "product-plan",
-				Short:      `Hub feature set`,
+				Short:      `Hub product plan`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -339,7 +339,7 @@ func iotHubUpdate() *core.Command {
 			},
 			{
 				Name:       "events-topic-prefix",
-				Short:      `Hub events topic prefix`,
+				Short:      `Topic prefix of Hub events`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -373,7 +373,7 @@ func iotHubUpdate() *core.Command {
 func iotHubEnable() *core.Command {
 	return &core.Command{
 		Short:     `Enable a hub`,
-		Long:      `Enable a hub.`,
+		Long:      `Enable an existing IoT Hub, specified by its Hub ID.`,
 		Namespace: "iot",
 		Resource:  "hub",
 		Verb:      "enable",
@@ -403,7 +403,7 @@ func iotHubEnable() *core.Command {
 func iotHubDisable() *core.Command {
 	return &core.Command{
 		Short:     `Disable a hub`,
-		Long:      `Disable a hub.`,
+		Long:      `Disable an existing IoT Hub, specified by its Hub ID.`,
 		Namespace: "iot",
 		Resource:  "hub",
 		Verb:      "disable",
@@ -433,7 +433,7 @@ func iotHubDisable() *core.Command {
 func iotHubDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a hub`,
-		Long:      `Delete a hub.`,
+		Long:      `Delete an existing IoT Hub, specified by its Hub ID. Deleting a Hub is permanent, and cannot be undone.`,
 		Namespace: "iot",
 		Resource:  "hub",
 		Verb:      "delete",
@@ -449,7 +449,7 @@ func iotHubDelete() *core.Command {
 			},
 			{
 				Name:       "delete-devices",
-				Short:      `Force deletion of devices added to this hub instead of rejecting operation`,
+				Short:      `Defines whether to force the deletion of devices added to this Hub or reject the operation`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -476,7 +476,7 @@ func iotHubDelete() *core.Command {
 func iotHubSetCa() *core.Command {
 	return &core.Command{
 		Short:     `Set the certificate authority of a hub`,
-		Long:      `Set the certificate authority of a hub.`,
+		Long:      `Set a particular PEM-encoded certificate, specified by the Hub ID.`,
 		Namespace: "iot",
 		Resource:  "hub",
 		Verb:      "set-ca",
@@ -492,14 +492,14 @@ func iotHubSetCa() *core.Command {
 			},
 			{
 				Name:       "ca-cert-pem",
-				Short:      `The CA's PEM-encoded certificate`,
+				Short:      `CA's PEM-encoded certificate`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "challenge-cert-pem",
-				Short:      `Proof of possession PEM-encoded certificate`,
+				Short:      `Proof of possession of PEM-encoded certificate`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -520,7 +520,7 @@ func iotHubSetCa() *core.Command {
 func iotHubGetCa() *core.Command {
 	return &core.Command{
 		Short:     `Get the certificate authority of a hub`,
-		Long:      `Get the certificate authority of a hub.`,
+		Long:      `Get information for a particular PEM-encoded certificate, specified by the Hub ID.`,
 		Namespace: "iot",
 		Resource:  "hub",
 		Verb:      "get-ca",
@@ -549,7 +549,7 @@ func iotHubGetCa() *core.Command {
 func iotDeviceList() *core.Command {
 	return &core.Command{
 		Short:     `List devices`,
-		Long:      `List devices.`,
+		Long:      `List all devices in the specified region. By default, returned devices are ordered by creation date in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "list",
@@ -566,21 +566,21 @@ func iotDeviceList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Filter on the name`,
+				Short:      `Name to filter for, only devices with this name will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "hub-id",
-				Short:      `Filter on the hub`,
+				Short:      `Hub ID to filter for, only devices attached to this Hub will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "allow-insecure",
-				Short:      `Filter on the allow_insecure flag`,
+				Short:      `Defines wheter to filter the allow_insecure flag`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -656,7 +656,7 @@ func iotDeviceList() *core.Command {
 func iotDeviceCreate() *core.Command {
 	return &core.Command{
 		Short:     `Add a device`,
-		Long:      `Add a device.`,
+		Long:      `Attach a device to a given Hub.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "create",
@@ -673,21 +673,21 @@ func iotDeviceCreate() *core.Command {
 			},
 			{
 				Name:       "hub-id",
-				Short:      `ID of the device's hub`,
+				Short:      `Hub ID of the device`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "allow-insecure",
-				Short:      `Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones`,
+				Short:      `Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "allow-multiple-connections",
-				Short:      `Allow multiple physical devices to connect with this device's credentials`,
+				Short:      `Defines whether to allow multiple physical devices to connect with this device's credentials`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -745,7 +745,7 @@ func iotDeviceCreate() *core.Command {
 func iotDeviceGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a device`,
-		Long:      `Get a device.`,
+		Long:      `Retrieve information about an existing device, specified by its device ID. Its full details, including name, status and ID, are returned in the response object.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "get",
@@ -775,7 +775,7 @@ func iotDeviceGet() *core.Command {
 func iotDeviceUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a device`,
-		Long:      `Update a device.`,
+		Long:      `Update the parameters of an existing device, specified by its device ID.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "update",
@@ -791,21 +791,21 @@ func iotDeviceUpdate() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      `Device description`,
+				Short:      `Description for the device`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "allow-insecure",
-				Short:      `Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones`,
+				Short:      `Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "allow-multiple-connections",
-				Short:      `Allow multiple physical devices to connect with this device's credentials`,
+				Short:      `Defines whether to allow multiple physical devices to connect with this device's credentials`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -863,7 +863,7 @@ func iotDeviceUpdate() *core.Command {
 func iotDeviceEnable() *core.Command {
 	return &core.Command{
 		Short:     `Enable a device`,
-		Long:      `Enable a device.`,
+		Long:      `Enable a specific device, specified by its device ID.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "enable",
@@ -893,7 +893,7 @@ func iotDeviceEnable() *core.Command {
 func iotDeviceDisable() *core.Command {
 	return &core.Command{
 		Short:     `Disable a device`,
-		Long:      `Disable a device.`,
+		Long:      `Disable an existing device, specified by its device ID.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "disable",
@@ -923,7 +923,7 @@ func iotDeviceDisable() *core.Command {
 func iotDeviceRenewCertificate() *core.Command {
 	return &core.Command{
 		Short:     `Renew a device certificate`,
-		Long:      `Renew a device certificate.`,
+		Long:      `Renew the certificate of an existing device, specified by its device ID.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "renew-certificate",
@@ -953,7 +953,7 @@ func iotDeviceRenewCertificate() *core.Command {
 func iotDeviceSetCertificate() *core.Command {
 	return &core.Command{
 		Short:     `Set a custom certificate on a device`,
-		Long:      `Set a custom certificate on a device.`,
+		Long:      `Switch the existing certificate of a given device with an EM-encoded custom certificate.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "set-certificate",
@@ -969,7 +969,7 @@ func iotDeviceSetCertificate() *core.Command {
 			},
 			{
 				Name:       "certificate-pem",
-				Short:      `The PEM-encoded custom certificate`,
+				Short:      `PEM-encoded custom certificate`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -990,7 +990,7 @@ func iotDeviceSetCertificate() *core.Command {
 func iotDeviceGetCertificate() *core.Command {
 	return &core.Command{
 		Short:     `Get a device's certificate`,
-		Long:      `Get a device's certificate.`,
+		Long:      `Get information for a particular PEM-encoded certificate, specified by the device ID. The response returns full details of the device, including its type of certificate.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "get-certificate",
@@ -1020,7 +1020,7 @@ func iotDeviceGetCertificate() *core.Command {
 func iotDeviceDelete() *core.Command {
 	return &core.Command{
 		Short:     `Remove a device`,
-		Long:      `Remove a device.`,
+		Long:      `Remove a specific device from the specific Hub it is attached to.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "delete",
@@ -1056,7 +1056,7 @@ func iotDeviceDelete() *core.Command {
 func iotDeviceGetMetrics() *core.Command {
 	return &core.Command{
 		Short:     `Get a device's metrics`,
-		Long:      `Get a device's metrics.`,
+		Long:      `Get the metrics of an existing device, specified by its device ID.`,
 		Namespace: "iot",
 		Resource:  "device",
 		Verb:      "get-metrics",
@@ -1093,7 +1093,7 @@ func iotDeviceGetMetrics() *core.Command {
 func iotRouteList() *core.Command {
 	return &core.Command{
 		Short:     `List routes`,
-		Long:      `List routes.`,
+		Long:      `List all routes in the specified region. By default, returned routes are ordered by creation date in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "iot",
 		Resource:  "route",
 		Verb:      "list",
@@ -1110,14 +1110,14 @@ func iotRouteList() *core.Command {
 			},
 			{
 				Name:       "hub-id",
-				Short:      `Filter on the hub`,
+				Short:      `Hub ID to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Filter on route's name`,
+				Short:      `Route name to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1167,16 +1167,16 @@ func iotRouteList() *core.Command {
 func iotRouteCreate() *core.Command {
 	return &core.Command{
 		Short: `Create a route`,
-		Long: `Multiple route kinds can be created:
-- Database Route.
+		Long: `Multiple kinds of routes can be created, such as:
+- Database Route
   Create a route that will record subscribed MQTT messages into your database.
   <b>You need to manage the database by yourself</b>.
 - REST Route.
   Create a route that will call a REST API on received subscribed MQTT messages.
 - S3 Routes.
   Create a route that will put subscribed MQTT messages into an S3 bucket.
-  You need to create the bucket yourself and grant us write access.
-  The grant can be done with s3cmd (` + "`" + `s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031` + "`" + `).`,
+  You need to create the bucket yourself and grant write access.
+  Granting can be done with s3cmd (` + "`" + `s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031` + "`" + `).`,
 		Namespace: "iot",
 		Resource:  "route",
 		Verb:      "create",
@@ -1193,7 +1193,7 @@ func iotRouteCreate() *core.Command {
 			},
 			{
 				Name:       "hub-id",
-				Short:      `ID of the route's hub`,
+				Short:      `Hub ID of the route`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1308,7 +1308,7 @@ func iotRouteCreate() *core.Command {
 func iotRouteUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a route`,
-		Long:      `Update a route.`,
+		Long:      `Update the parameters of an existing route, specified by its route ID.`,
 		Namespace: "iot",
 		Resource:  "route",
 		Verb:      "update",
@@ -1439,7 +1439,7 @@ func iotRouteUpdate() *core.Command {
 func iotRouteGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a route`,
-		Long:      `Get a route.`,
+		Long:      `Get information for a particular route, specified by the route ID. The response returns full details of the route, including its type, the topic it subscribes to and its configuration.`,
 		Namespace: "iot",
 		Resource:  "route",
 		Verb:      "get",
@@ -1469,7 +1469,7 @@ func iotRouteGet() *core.Command {
 func iotRouteDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a route`,
-		Long:      `Delete a route.`,
+		Long:      `Delete an existing route, specified by its route ID. Deleting a route is permanent, and cannot be undone.`,
 		Namespace: "iot",
 		Resource:  "route",
 		Verb:      "delete",
@@ -1504,8 +1504,8 @@ func iotRouteDelete() *core.Command {
 
 func iotNetworkList() *core.Command {
 	return &core.Command{
-		Short:     `List the Networks`,
-		Long:      `List the Networks.`,
+		Short:     `List the networks`,
+		Long:      `List the networks.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "list",
@@ -1522,21 +1522,21 @@ func iotNetworkList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Filter on Network name`,
+				Short:      `Network name to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "hub-id",
-				Short:      `Filter on the hub`,
+				Short:      `Hub ID to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "topic-prefix",
-				Short:      `Filter on the topic prefix`,
+				Short:      `Topic prefix to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1588,8 +1588,8 @@ func iotNetworkList() *core.Command {
 
 func iotNetworkCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a new Network`,
-		Long:      `Create a new Network.`,
+		Short:     `Create a new network`,
+		Long:      `Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "create",
@@ -1641,8 +1641,8 @@ func iotNetworkCreate() *core.Command {
 
 func iotNetworkGet() *core.Command {
 	return &core.Command{
-		Short:     `Retrieve a specific Network`,
-		Long:      `Retrieve a specific Network.`,
+		Short:     `Retrieve a specific network`,
+		Long:      `Retrieve an existing network, specified by its network ID.  The response returns full details of the network, including its type, the topic prefix and its endpoint.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "get",
@@ -1672,7 +1672,7 @@ func iotNetworkGet() *core.Command {
 func iotNetworkDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a Network`,
-		Long:      `Delete a Network.`,
+		Long:      `Delete an existing network, specified by its network ID. Deleting a network is permanent, and cannot be undone.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "delete",

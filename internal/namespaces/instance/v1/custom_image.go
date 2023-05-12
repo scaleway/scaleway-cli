@@ -448,7 +448,7 @@ func imageWaitCommand() *core.Command {
 			return api.WaitForImage(&instance.WaitForImageRequest{
 				Zone:          argsI.(*instance.WaitForImageRequest).Zone,
 				ImageID:       argsI.(*instance.WaitForImageRequest).ImageID,
-				Timeout:       scw.TimeDurationPtr(imageActionTimeout),
+				Timeout:       argsI.(*instance.WaitForImageRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -460,6 +460,7 @@ func imageWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(),
+			core.WaitTimeoutArgSpec(imageActionTimeout),
 		},
 		Examples: []*core.Example{
 			{

@@ -23,12 +23,12 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		if !cmd.AllowAnonymousClient && !meta.isClientFromBootstrapConfig {
 			client, err := createClient(ctx, meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to create client: %w", err)
 			}
 			meta.Client = client
 			err = validateClient(meta.Client)
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to validate client: %w", err)
 			}
 		}
 

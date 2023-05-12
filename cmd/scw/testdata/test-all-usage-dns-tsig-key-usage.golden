@@ -6,8 +6,8 @@ USAGE:
   scw dns tsig-key <command>
 
 AVAILABLE COMMANDS:
-  delete      Delete the DNS zone TSIG Key
-  get         Get the DNS zone TSIG Key
+  delete      Delete the DNS zone's TSIG key
+  get         Get the DNS zone's TSIG key
 
 FLAGS:
   -h, --help   help for tsig-key

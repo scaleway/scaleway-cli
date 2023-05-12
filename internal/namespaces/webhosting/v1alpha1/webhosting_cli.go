@@ -34,17 +34,16 @@ func GetGeneratedCommands() *core.Commands {
 }
 func webhostingRoot() *core.Command {
 	return &core.Command{
-		Short:     `Webhosting API`,
-		Long:      `Webhosting API.`,
+		Short:     `Web Hosting API`,
+		Long:      `Web Hosting API.`,
 		Namespace: "webhosting",
 	}
 }
 
 func webhostingHosting() *core.Command {
 	return &core.Command{
-		Short: `Hosting management commands`,
-		Long: `A Scaleway web hosting associated with a domain name.
-`,
+		Short:     `Hosting management commands`,
+		Long:      `With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Create, list, update and delete your Web Hosting plans with these calls.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
 	}
@@ -52,9 +51,8 @@ func webhostingHosting() *core.Command {
 
 func webhostingOffer() *core.Command {
 	return &core.Command{
-		Short: `Offer management commands`,
-		Long: `A hosting offer, with a set of features, available for purchase.
-`,
+		Short:     `Offer management commands`,
+		Long:      `Web Hosting offers represent the different types of Web Hosting plan available to order at Scaleway.`,
 		Namespace: "webhosting",
 		Resource:  "offer",
 	}
@@ -62,8 +60,8 @@ func webhostingOffer() *core.Command {
 
 func webhostingHostingCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a hosting`,
-		Long:      `Create a hosting.`,
+		Short:     `Order a Web Hosting plan`,
+		Long:      `Order a Web Hosting plan, specifying the offer type required via the ` + "`" + `offer_id` + "`" + ` parameter.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
 		Verb:      "create",
@@ -72,7 +70,7 @@ func webhostingHostingCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
-				Short:      `ID of the selected offer for the hosting`,
+				Short:      `ID of the selected offer for the Web Hosting plan`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -80,28 +78,28 @@ func webhostingHostingCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "email",
-				Short:      `Contact email of the client for the hosting`,
+				Short:      `Contact email for the Web Hosting client`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags of the hosting`,
+				Short:      `List of tags for the Web Hosting plan`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "domain",
-				Short:      `The domain name of the hosting`,
+				Short:      `Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "option-ids.{index}",
-				Short:      `IDs of the selected options for the hosting`,
+				Short:      `IDs of any selected additional options for the Web Hosting plan`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -121,8 +119,8 @@ func webhostingHostingCreate() *core.Command {
 
 func webhostingHostingList() *core.Command {
 	return &core.Command{
-		Short:     `List all hostings`,
-		Long:      `List all hostings.`,
+		Short:     `List all Web Hosting plans`,
+		Long:      `List all of your existing Web Hosting plans. Various filters are available to limit the results, including filtering by domain, status, tag and Project ID.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
 		Verb:      "list",
@@ -131,7 +129,7 @@ func webhostingHostingList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `Define the order of the returned hostings`,
+				Short:      `Sort order for Web Hosting plans in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -139,14 +137,14 @@ func webhostingHostingList() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Return hostings with these tags`,
+				Short:      `Tags to filter for, only Web Hosting plans with matching tags will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "statuses.{index}",
-				Short:      `Return hostings with these statuses`,
+				Short:      `Statuses to filter for, only Web Hosting plans with matching statuses will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -154,21 +152,21 @@ func webhostingHostingList() *core.Command {
 			},
 			{
 				Name:       "domain",
-				Short:      `Return hostings with this domain`,
+				Short:      `Domain to filter for, only Web Hosting plans associated with this domain will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
-				Short:      `Return hostings from this project ID`,
+				Short:      `Project ID to filter for, only Web Hosting plans from this Project will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Return hostings from this organization ID`,
+				Short:      `Organization ID to filter for, only Web Hosting plans from this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -203,8 +201,8 @@ func webhostingHostingList() *core.Command {
 
 func webhostingHostingGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a hosting`,
-		Long:      `Get the details of a Hosting with the given ID.`,
+		Short:     `Get a Web Hosting plan`,
+		Long:      `Get the details of one of your existing Web Hosting plans, specified by its ` + "`" + `hosting_id` + "`" + `.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
 		Verb:      "get",
@@ -239,8 +237,8 @@ func webhostingHostingGet() *core.Command {
 
 func webhostingHostingUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a hosting`,
-		Long:      `Update a hosting.`,
+		Short:     `Update a Web Hosting plan`,
+		Long:      `Update the details of one of your existing Web Hosting plans, specified by its ` + "`" + `hosting_id` + "`" + `. You can update parameters including the contact email address, tags, options and offer.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
 		Verb:      "update",
@@ -256,28 +254,28 @@ func webhostingHostingUpdate() *core.Command {
 			},
 			{
 				Name:       "email",
-				Short:      `New contact email for the hosting`,
+				Short:      `New contact email for the Web Hosting plan`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `New tags for the hosting`,
+				Short:      `New tags for the Web Hosting plan`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "option-ids.{index}",
-				Short:      `New options IDs for the hosting`,
+				Short:      `IDs of the new options for the Web Hosting plan`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "offer-id",
-				Short:      `New offer ID for the hosting`,
+				Short:      `ID of the new offer for the Web Hosting plan`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -311,8 +309,8 @@ func webhostingHostingUpdate() *core.Command {
 
 func webhostingHostingDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a hosting`,
-		Long:      `Delete a hosting with the given ID.`,
+		Short:     `Delete a Web Hosting plan`,
+		Long:      `Delete a Web Hosting plan, specified by its ` + "`" + `hosting_id` + "`" + `. Note that deletion is not immediate: it will take place at the end of the calendar month, after which time your Web Hosting plan and all its data (files and emails) will be irreversibly lost.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
 		Verb:      "delete",
@@ -347,8 +345,8 @@ func webhostingHostingDelete() *core.Command {
 
 func webhostingHostingRestore() *core.Command {
 	return &core.Command{
-		Short:     `Restore a hosting`,
-		Long:      `Restore a hosting with the given ID.`,
+		Short:     `Restore a Web Hosting plan`,
+		Long:      `When you [delete a Web Hosting plan](#path-hostings-delete-a-hosting), definitive deletion does not take place until the end of the calendar month. In the time between initiating the deletion, and definitive deletion at the end of the month, you can choose to **restore** the Web Hosting plan, using this endpoint and specifying its ` + "`" + `hosting_id` + "`" + `.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
 		Verb:      "restore",
@@ -383,8 +381,8 @@ func webhostingHostingRestore() *core.Command {
 
 func webhostingHostingGetDNSRecords() *core.Command {
 	return &core.Command{
-		Short:     `Get the DNS records`,
-		Long:      `The set of DNS record of a specific domain associated to a hosting.`,
+		Short:     `Get DNS records`,
+		Long:      `Get the set of DNS records of a specified domain associated with a Web Hosting plan.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
 		Verb:      "get-dns-records",
@@ -393,7 +391,7 @@ func webhostingHostingGetDNSRecords() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
-				Short:      `Domain associated to the DNS records`,
+				Short:      `Domain associated with the DNS records`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -420,7 +418,7 @@ func webhostingHostingGetDNSRecords() *core.Command {
 func webhostingOfferList() *core.Command {
 	return &core.Command{
 		Short:     `List all offers`,
-		Long:      `List all offers.`,
+		Long:      `List the different Web Hosting offers, and their options, available to order from Scaleway.`,
 		Namespace: "webhosting",
 		Resource:  "offer",
 		Verb:      "list",
@@ -429,7 +427,7 @@ func webhostingOfferList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `Define the order of the returned hostings`,
+				Short:      `Sort order of offers in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -437,21 +435,21 @@ func webhostingOfferList() *core.Command {
 			},
 			{
 				Name:       "without-options",
-				Short:      `Select only offers, no options`,
+				Short:      `Defines whether the response should consist of offers only, without options`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "only-options",
-				Short:      `Select only options`,
+				Short:      `Defines whether the response should consist of options only, without offers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "hosting-id",
-				Short:      `Define a specific hosting id (optional)`,
+				Short:      `ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

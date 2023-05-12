@@ -1,3 +1,5 @@
+//go:build !wasm && !freebsd
+
 package container
 
 import (
@@ -7,10 +9,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"path/filepath"
 	"reflect"
 	"time"
 
+	pack "github.com/buildpacks/pack/pkg/client"
+	"github.com/buildpacks/pack/pkg/logging"
 	dockertypes "github.com/docker/docker/api/types"
 	docker "github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/archive"
@@ -28,8 +33,12 @@ import (
 type containerDeployRequest struct {
 	Region scw.Region
 
-	Name        string
-	Dockerfile  string
+	Name string
+
+	Builder      string
+	Dockerfile   string
+	ForceBuilder bool
+
 	BuildSource string
 	Cache       bool
 	BuildArgs   map[string]*string
@@ -52,9 +61,19 @@ func containerDeployCommand() *core.Command {
 				Short: "Name of the application (defaults to build-source's directory name)",
 			},
 			{
+				Name:    "builder",
+				Short:   "Builder image to use",
+				Default: core.DefaultValueSetter("paketobuildpacks/builder:base"),
+			},
+			{
 				Name:    "dockerfile",
 				Short:   "Path to the Dockerfile",
 				Default: core.DefaultValueSetter("Dockerfile"),
+			},
+			{
+				Name:    "force-builder",
+				Short:   "Force the use of the builder image (even if a Dockerfile is present)",
+				Default: core.DefaultValueSetter("false"),
 			},
 			{
 				Name:    "build-source",
@@ -115,8 +134,19 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 	}
 
 	tasks.Add(actions, "Fetch or create image registry", DeployStepFetchOrCreateRegistry)
-	tasks.Add(actions, "Packing image", DeployStepPackImage)
-	tasks.Add(actions, "Building image", DeployStepBuildImage)
+
+	hasDockerfile := false
+	if _, err := os.Stat(filepath.Join(args.BuildSource, args.Dockerfile)); err == nil {
+		hasDockerfile = true
+	}
+
+	if hasDockerfile && !args.ForceBuilder {
+		tasks.Add(actions, "Packing image", DeployStepDockerPackImage)
+		tasks.Add(actions, "Building image", DeployStepDockerBuildImage)
+	} else {
+		tasks.Add(actions, "Building image", DeployStepBuildpackBuildImage)
+	}
+
 	tasks.Add(actions, "Pushing image", DeployStepPushImage)
 	tasks.Add(actions, "Creating container", DeployStepCreateContainer)
 	tasks.Add(actions, "Deploying container", DeployStepDeployContainer)
@@ -204,7 +234,7 @@ type DeployStepPackImageResponse struct {
 	Tar              io.Reader
 }
 
-func DeployStepPackImage(_ *tasks.Task, data *DeployStepFetchOrCreateResponse) (*DeployStepPackImageResponse, error) {
+func DeployStepDockerPackImage(_ *tasks.Task, data *DeployStepFetchOrCreateResponse) (*DeployStepPackImageResponse, error) {
 	tar, err := archive.TarWithOptions(data.Args.BuildSource, &archive.TarOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("could not create tar: %w", err)
@@ -222,10 +252,10 @@ type DeployStepBuildImageResponse struct {
 	*DeployStepData
 	Namespace    *container.Namespace
 	Tag          string
-	DockerClient *docker.Client
+	DockerClient DockerClient
 }
 
-func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*DeployStepBuildImageResponse, error) {
+func DeployStepDockerBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*DeployStepBuildImageResponse, error) {
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
 	httpClient := core.ExtractHTTPClient(t.Ctx)
@@ -256,6 +286,39 @@ func DeployStepBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*De
 		}
 
 		return nil, err
+	}
+
+	return &DeployStepBuildImageResponse{
+		DeployStepData: data.DeployStepData,
+		Namespace:      data.Namespace,
+		Tag:            tag,
+		DockerClient:   dockerClient,
+	}, nil
+}
+
+func DeployStepBuildpackBuildImage(t *tasks.Task, data *DeployStepFetchOrCreateResponse) (*DeployStepBuildImageResponse, error) {
+	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
+
+	httpClient := core.ExtractHTTPClient(t.Ctx)
+	dockerClient, err := NewCustomDockerClient(httpClient)
+	if err != nil {
+		return nil, err
+	}
+
+	packClient, err := pack.NewClient(pack.WithDockerClient(dockerClient), pack.WithLogger(logging.NewLogWithWriters(t.Logs, t.Logs)))
+	if err != nil {
+		return nil, fmt.Errorf("could not create pack client: %w", err)
+	}
+
+	err = packClient.Build(t.Ctx, pack.BuildOptions{
+		AppPath:      data.Args.BuildSource,
+		Builder:      data.Args.Builder,
+		Image:        tag,
+		ClearCache:   !data.Args.Cache,
+		TrustBuilder: func(string) bool { return true },
+	})
+	if err != nil {
+		return nil, fmt.Errorf("could not build: %w", err)
 	}
 
 	return &DeployStepBuildImageResponse{

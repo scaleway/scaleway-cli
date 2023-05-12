@@ -20,7 +20,10 @@ import (
 )
 
 const (
-	instanceActionTimeout = 20 * time.Minute
+	instanceActionTimeout               = 20 * time.Minute
+	errorMessagePublicEndpointNotFound  = "public endpoint not found"
+	errorMessagePrivateEndpointNotFound = "private endpoint not found"
+	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
 
 var (
@@ -42,6 +45,7 @@ var (
 type serverWaitRequest struct {
 	InstanceID string
 	Region     scw.Region
+	Timeout    time.Duration
 }
 
 func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -373,7 +377,7 @@ func instanceWaitCommand() *core.Command {
 			return api.WaitForInstance(&rdb.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
-				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -385,6 +389,7 @@ func instanceWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.WaitTimeoutArgSpec(instanceActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
@@ -396,11 +401,12 @@ func instanceWaitCommand() *core.Command {
 }
 
 type instanceConnectArgs struct {
-	Region     scw.Region
-	InstanceID string
-	Username   string
-	Database   *string
-	CliDB      *string
+	Region         scw.Region
+	PrivateNetwork bool
+	InstanceID     string
+	Username       string
+	Database       *string
+	CliDB          *string
 }
 
 type engineFamily string
@@ -463,7 +469,27 @@ func detectEngineFamily(instance *rdb.Instance) (engineFamily, error) {
 	return Unknown, fmt.Errorf("unknown engine: %s", instance.Engine)
 }
 
-func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, args *instanceConnectArgs) ([]string, error) {
+func getPublicEndpoint(endpoints []*rdb.Endpoint) (*rdb.Endpoint, error) {
+	for _, e := range endpoints {
+		if e.LoadBalancer != nil {
+			return e, nil
+		}
+	}
+
+	return nil, fmt.Errorf(errorMessagePublicEndpointNotFound)
+}
+
+func getPrivateEndpoint(endpoints []*rdb.Endpoint) (*rdb.Endpoint, error) {
+	for _, e := range endpoints {
+		if e.PrivateNetwork != nil {
+			return e, nil
+		}
+	}
+
+	return nil, fmt.Errorf(errorMessagePrivateEndpointNotFound)
+}
+
+func createConnectCommandLineArgs(endpoint *rdb.Endpoint, family engineFamily, args *instanceConnectArgs) ([]string, error) {
 	database := "rdb"
 	if args.Database != nil {
 		database = *args.Database
@@ -479,8 +505,8 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 		// psql -h 51.159.25.206 --port 13917 -d rdb -U username
 		return []string{
 			clidb,
-			"--host", instance.Endpoints[0].IP.String(),
-			"--port", fmt.Sprintf("%d", instance.Endpoints[0].Port),
+			"--host", endpoint.IP.String(),
+			"--port", fmt.Sprintf("%d", endpoint.Port),
 			"--username", args.Username,
 			"--dbname", database,
 		}, nil
@@ -493,14 +519,14 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 		// mysql -h 195.154.69.163 --port 12210 -p -u username
 		return []string{
 			clidb,
-			"--host", instance.Endpoints[0].IP.String(),
-			"--port", fmt.Sprintf("%d", instance.Endpoints[0].Port),
+			"--host", endpoint.IP.String(),
+			"--port", fmt.Sprintf("%d", endpoint.Port),
 			"--database", database,
 			"--user", args.Username,
 		}, nil
 	}
 
-	return nil, fmt.Errorf("unrecognize database engine: %s", instance.Engine)
+	return nil, fmt.Errorf("unrecognize database engine: %s", family)
 }
 
 func instanceConnectCommand() *core.Command {
@@ -512,6 +538,12 @@ func instanceConnectCommand() *core.Command {
 		Long:      "Connect to an instance using locally installed CLI such as psql or mysql.",
 		ArgsType:  reflect.TypeOf(instanceConnectArgs{}),
 		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "private-network",
+				Short:    `Connect by the private network endpoint attached.`,
+				Required: false,
+				Default:  core.DefaultValueSetter("false"),
+			},
 			{
 				Name:       "instance-id",
 				Short:      `UUID of the instance`,
@@ -552,7 +584,25 @@ func instanceConnectCommand() *core.Command {
 				return nil, err
 			}
 
-			cmdArgs, err := createConnectCommandLineArgs(instance, engineFamily, args)
+			if len(instance.Endpoints) == 0 {
+				return nil, fmt.Errorf(errorMessageEndpointNotFound)
+			}
+
+			var endpoint *rdb.Endpoint
+			switch {
+			case args.PrivateNetwork:
+				endpoint, err = getPrivateEndpoint(instance.Endpoints)
+				if err != nil {
+					return nil, err
+				}
+			default:
+				endpoint, err = getPublicEndpoint(instance.Endpoints)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			cmdArgs, err := createConnectCommandLineArgs(endpoint, engineFamily, args)
 			if err != nil {
 				return nil, err
 			}

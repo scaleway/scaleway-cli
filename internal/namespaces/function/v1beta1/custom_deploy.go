@@ -1,3 +1,5 @@
+//go:build !wasm
+
 package function
 
 import (
@@ -260,8 +262,9 @@ func DeployStepFunctionDeploy(api *function.API, runtime function.FunctionRuntim
 			return nil, err
 		}
 		return api.WaitForFunction(&function.WaitForFunctionRequest{
-			FunctionID: fc.ID,
-			Region:     fc.Region,
+			FunctionID:    fc.ID,
+			Region:        fc.Region,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 }

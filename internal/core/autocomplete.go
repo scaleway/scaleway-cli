@@ -57,48 +57,11 @@ type FlagSpec struct {
 	EnumValues       []string
 }
 
-func (node *AutoCompleteNode) addGlobalFlags() {
-	printerTypes := []string{
-		PrinterTypeHuman.String(),
-		PrinterTypeJSON.String(),
-		PrinterTypeYAML.String(),
-		PrinterTypeTemplate.String(),
+func (node *AutoCompleteNode) addFlags(flags []FlagSpec) {
+	for i := range flags {
+		flag := &flags[i]
+		node.Children[flag.Name] = NewAutoCompleteFlagNode(node, flag)
 	}
-
-	node.Children["-c"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name: "-c",
-	})
-	node.Children["--config"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name: "--config",
-	})
-	node.Children["-D"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name: "-D",
-	})
-	node.Children["--debug"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name: "--debug",
-	})
-	node.Children["-h"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name: "-h",
-	})
-	node.Children["--help"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name: "--help",
-	})
-	node.Children["-o"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name:       "-o",
-		EnumValues: printerTypes,
-	})
-	node.Children["--output"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name:       "--output",
-		EnumValues: printerTypes,
-	})
-	node.Children["-p"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name:             "-p",
-		HasVariableValue: true,
-	})
-	node.Children["--profile"] = NewAutoCompleteFlagNode(node, &FlagSpec{
-		Name:             "--profile",
-		HasVariableValue: true,
-	})
 }
 
 // newAutoCompleteResponse builds a new AutocompleteResponse
@@ -111,11 +74,13 @@ func newAutoCompleteResponse(suggestions []string) *AutocompleteResponse {
 
 // NewAutoCompleteCommandNode creates a new node corresponding to a command or subcommand.
 // These nodes are not necessarily leaf nodes.
-func NewAutoCompleteCommandNode() *AutoCompleteNode {
-	return &AutoCompleteNode{
-		Children: make(map[string]*AutoCompleteNode),
+func NewAutoCompleteCommandNode(flags []FlagSpec) *AutoCompleteNode {
+	node := &AutoCompleteNode{
+		Children: make(map[string]*AutoCompleteNode, len(flags)),
 		Type:     AutoCompleteNodeTypeCommand,
 	}
+	node.addFlags(flags)
+	return node
 }
 
 // NewAutoCompleteArgNode creates a new node corresponding to a command argument.
@@ -136,10 +101,18 @@ func NewAutoCompleteArgNode(cmd *Command, argSpec *ArgSpec) *AutoCompleteNode {
 // or the lowest nodes are the possible values if the exist.
 func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *AutoCompleteNode {
 	node := &AutoCompleteNode{
-		Children: make(map[string]*AutoCompleteNode),
-		Type:     AutoCompleteNodeTypeFlag,
-		Name:     flagSpec.Name,
+		Type: AutoCompleteNodeTypeFlag,
+		Name: flagSpec.Name,
 	}
+	childrenCount := len(flagSpec.EnumValues)
+	if flagSpec.HasVariableValue {
+		childrenCount++
+	}
+
+	if childrenCount > 0 {
+		node.Children = make(map[string]*AutoCompleteNode, childrenCount)
+	}
+
 	if flagSpec.HasVariableValue {
 		node.Children[positionalValueNodeID] = &AutoCompleteNode{
 			Children: parent.Children,
@@ -161,9 +134,9 @@ func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *Auto
 // GetChildOrCreate search a child node by name,
 // and either returns it if found
 // or create new children with the given name and aliases, and returns it.
-func (node *AutoCompleteNode) GetChildOrCreate(name string, aliases []string) *AutoCompleteNode {
+func (node *AutoCompleteNode) GetChildOrCreate(name string, aliases []string, flags []FlagSpec) *AutoCompleteNode {
 	if _, exist := node.Children[name]; !exist {
-		childNode := NewAutoCompleteCommandNode()
+		childNode := NewAutoCompleteCommandNode(flags)
 		node.Children[name] = childNode
 		for _, alias := range aliases {
 			node.Children[alias] = childNode
@@ -209,17 +182,16 @@ func (node *AutoCompleteNode) isLeafCommand() bool {
 }
 
 // BuildAutoCompleteTree builds the autocomplete tree from the commands, subcommands and arguments
-func BuildAutoCompleteTree(commands *Commands) *AutoCompleteNode {
-	root := NewAutoCompleteCommandNode()
-	root.addGlobalFlags()
+func BuildAutoCompleteTree(ctx context.Context, commands *Commands) *AutoCompleteNode {
+	globalFlags := getGlobalFlags(ctx)
+	root := NewAutoCompleteCommandNode(globalFlags)
 	for _, cmd := range commands.commands {
 		node := root
 
 		// Creates nodes for namespaces, resources, verbs
 		for _, part := range []string{cmd.Namespace, cmd.Resource, cmd.Verb} {
 			if part != "" {
-				node = node.GetChildOrCreate(part, cmd.Aliases)
-				node.addGlobalFlags()
+				node = node.GetChildOrCreate(part, cmd.Aliases, globalFlags)
 			}
 		}
 
@@ -256,7 +228,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 	commands := ExtractCommands(ctx)
 
 	// Create AutoComplete Tree
-	commandTreeRoot := BuildAutoCompleteTree(commands)
+	commandTreeRoot := BuildAutoCompleteTree(ctx, commands)
 
 	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
 	node := commandTreeRoot

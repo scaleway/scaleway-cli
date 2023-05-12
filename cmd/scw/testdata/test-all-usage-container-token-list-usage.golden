@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all tokens.
+List all tokens belonging to a specified Organization or Project.
 
 USAGE:
   scw container token list [arg=value ...]
 
 ARGS:
-  [order-by]         (created_at_asc | created_at_desc)
-  [container-id]    
-  [namespace-id]    
+  [order-by]        Order of the tokens (created_at_asc | created_at_desc)
+  [container-id]    UUID of the container the token belongs to
+  [namespace-id]    UUID of the namespace the token belongs to
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

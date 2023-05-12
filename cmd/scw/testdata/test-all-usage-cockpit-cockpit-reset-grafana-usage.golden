@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Reset the Grafana of your cockpit associated with the given project ID.
+Reset your Cockpit's Grafana associated with the specified Project ID.
 
 USAGE:
   scw cockpit cockpit reset-grafana [arg=value ...]

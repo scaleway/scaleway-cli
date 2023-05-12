@@ -6,10 +6,10 @@ USAGE:
   scw fip mac <command>
 
 AVAILABLE COMMANDS:
-  create      Generate a virtual MAC on a given Flexible IP
-  delete      Remove a virtual MAC from a Flexible IP
-  duplicate   Duplicate a Virtual MAC
-  move        Move a virtual MAC
+  create      Generate a virtual MAC address on an existing flexible IP
+  delete      Detach a given virtual MAC address from an existing flexible IP
+  duplicate   Duplicate a virtual MAC address to another flexible IP
+  move        Relocate an existing virtual MAC address to a different flexible IP
 
 FLAGS:
   -h, --help   help for mac

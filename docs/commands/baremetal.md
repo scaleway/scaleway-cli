@@ -15,7 +15,7 @@ Elastic Metal API.
   - [Get option](#get-option)
   - [List options](#list-options)
 - [Operating System (OS) management commands](#operating-system-(os)-management-commands)
-  - [Get an OS with an ID](#get-an-os-with-an-id)
+  - [Get OS with an ID](#get-os-with-an-id)
   - [List available OSes](#list-available-oses)
 - [Private Network management command](#private-network-management-command)
   - [Add a server to a Private Network](#add-a-server-to-a-private-network)
@@ -28,7 +28,7 @@ Elastic Metal API.
   - [Get a specific Elastic Metal server](#get-a-specific-elastic-metal-server)
   - [Return server metrics](#return-server-metrics)
   - [Install an Elastic Metal server](#install-an-elastic-metal-server)
-  - [List Elastic Metal servers for an organization](#list-elastic-metal-servers-for-an-organization)
+  - [List Elastic Metal servers for an Organization](#list-elastic-metal-servers-for-an-organization)
   - [List server events](#list-server-events)
   - [Reboot an Elastic Metal server](#reboot-an-elastic-metal-server)
   - [Start an Elastic Metal server](#start-an-elastic-metal-server)
@@ -327,9 +327,9 @@ scw baremetal options list zone=fr-par-1
 An Operating System (OS) is the underlying software installed on your server
 
 
-### Get an OS with an ID
+### Get OS with an ID
 
-Return specific OS for the ID.
+Return the specific OS for the ID.
 
 **Usage:**
 
@@ -643,9 +643,9 @@ scw baremetal server install 11111111-1111-1111-1111-111111111111 os-id=11111111
 
 
 
-### List Elastic Metal servers for an organization
+### List Elastic Metal servers for an Organization
 
-List Elastic Metal servers for a specific organization.
+List Elastic Metal servers for a specific Organization.
 
 **Usage:**
 
@@ -864,6 +864,7 @@ scw baremetal server wait <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server affected by the action. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `20m0s` | Timeout of the wait |
 
 
 **Examples:**
@@ -885,7 +886,7 @@ Allows to configure the general settings for your Elastic Metal server.
 
 ### List all settings
 
-Return all settings for a project ID.
+Return all settings for a Project ID.
 
 **Usage:**
 
@@ -899,14 +900,14 @@ scw baremetal settings list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` | Sort order for items in the response |
-| project-id | Required | ID of the project |
+| project-id | Required | ID of the Project |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ### Update setting
 
-Update a setting for a project ID (enable or disable).
+Update a setting for a Project ID (enable or disable).
 
 **Usage:**
 

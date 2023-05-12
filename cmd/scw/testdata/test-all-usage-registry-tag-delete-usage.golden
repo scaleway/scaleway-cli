@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the tag associated with the given id.
+Delete a given image tag. You must specify, in the endpoint, the `region` and `tag_id` parameters of the tag you want to delete.
 
 USAGE:
   scw registry tag delete <tag-id ...> [arg=value ...]
 
 ARGS:
-  tag-id            The unique ID of the tag
+  tag-id            UUID of the tag
   [force]           If two tags share the same digest the deletion will fail unless this parameter is set to true
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

@@ -55,7 +55,7 @@ func GetGeneratedCommands() *core.Commands {
 func containerRoot() *core.Command {
 	return &core.Command{
 		Short:     `Container as a Service API`,
-		Long:      `Containers API.`,
+		Long:      `Serverless Containers API.`,
 		Namespace: "container",
 	}
 }
@@ -108,7 +108,7 @@ func containerToken() *core.Command {
 func containerNamespaceList() *core.Command {
 	return &core.Command{
 		Short:     `List all your namespaces`,
-		Long:      `List all your namespaces.`,
+		Long:      `List all namespaces in a specified region.`,
 		Namespace: "container",
 		Resource:  "namespace",
 		Verb:      "list",
@@ -117,6 +117,7 @@ func containerNamespaceList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order of the namespaces`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -124,18 +125,21 @@ func containerNamespaceList() *core.Command {
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the namespaces`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
+				Short:      `UUID of the Project the namespace belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
+				Short:      `UUID of the Organization the namespace belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -165,7 +169,7 @@ func containerNamespaceList() *core.Command {
 func containerNamespaceGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a namespace`,
-		Long:      `Get the namespace associated with the given id.`,
+		Long:      `Get the namespace associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "namespace",
 		Verb:      "get",
@@ -174,6 +178,7 @@ func containerNamespaceGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -194,7 +199,7 @@ func containerNamespaceGet() *core.Command {
 func containerNamespaceCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new namespace`,
-		Long:      `Create a new namespace.`,
+		Long:      `Create a new namespace in a specified region.`,
 		Namespace: "container",
 		Resource:  "namespace",
 		Verb:      "create",
@@ -203,6 +208,7 @@ func containerNamespaceCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
+				Short:      `Name of the namespace to create`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -210,6 +216,7 @@ func containerNamespaceCreate() *core.Command {
 			},
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the namespace to create`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -217,6 +224,7 @@ func containerNamespaceCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "description",
+				Short:      `Description of the namespace to create`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -249,7 +257,7 @@ func containerNamespaceCreate() *core.Command {
 func containerNamespaceUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an existing namespace`,
-		Long:      `Update the space associated with the given id.`,
+		Long:      `Update the space associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "namespace",
 		Verb:      "update",
@@ -258,18 +266,21 @@ func containerNamespaceUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the namespace to update`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the namespace to update`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -302,7 +313,7 @@ func containerNamespaceUpdate() *core.Command {
 func containerNamespaceDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an existing namespace`,
-		Long:      `Delete the namespace associated with the given id.`,
+		Long:      `Delete the namespace associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "namespace",
 		Verb:      "delete",
@@ -311,6 +322,7 @@ func containerNamespaceDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -331,7 +343,7 @@ func containerNamespaceDelete() *core.Command {
 func containerContainerList() *core.Command {
 	return &core.Command{
 		Short:     `List all your containers`,
-		Long:      `List all your containers.`,
+		Long:      `List all containers for a specified region.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "list",
@@ -340,6 +352,7 @@ func containerContainerList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order of the containers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -347,24 +360,28 @@ func containerContainerList() *core.Command {
 			},
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace the container belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
+				Short:      `UUID of the Project the container belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
+				Short:      `UUID of the Organization the container belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -394,7 +411,7 @@ func containerContainerList() *core.Command {
 func containerContainerGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a container`,
-		Long:      `Get the container associated with the given id.`,
+		Long:      `Get the container associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "get",
@@ -403,6 +420,7 @@ func containerContainerGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -423,7 +441,7 @@ func containerContainerGet() *core.Command {
 func containerContainerCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new container`,
-		Long:      `Create a new container.`,
+		Long:      `Create a new container in the specified region.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "create",
@@ -432,37 +450,49 @@ func containerContainerCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace the container belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.RandomValueGenerator("ctnr"),
 			},
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "min-scale",
+				Short:      `Minimum number of instances to scale the container to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "max-scale",
+				Short:      `Maximum number of instances to scale the container to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "memory-limit",
+				Short:      `Memory limit of the container in MB`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cpu-limit",
+				Short:      `CPU limit of the container in mvCPU`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -481,6 +511,7 @@ func containerContainerCreate() *core.Command {
 			},
 			{
 				Name:       "privacy",
+				Short:      `Privacy setting of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -488,24 +519,28 @@ func containerContainerCreate() *core.Command {
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "registry-image",
+				Short:      `Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "max-concurrency",
+				Short:      `Number of maximum concurrent executions of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "protocol",
+				Short:      `Protocol the container uses`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -513,6 +548,7 @@ func containerContainerCreate() *core.Command {
 			},
 			{
 				Name:       "port",
+				Short:      `Port the container listens on`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -554,7 +590,7 @@ func containerContainerCreate() *core.Command {
 func containerContainerUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an existing container`,
-		Long:      `Update the container associated with the given id.`,
+		Long:      `Update the container associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "update",
@@ -563,30 +599,42 @@ func containerContainerUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "min-scale",
+				Short:      `Minimum number of instances to scale the container to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "max-scale",
+				Short:      `Maximum number of instances to scale the container to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "memory-limit",
+				Short:      `Memory limit of the container in MB`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cpu-limit",
+				Short:      `CPU limit of the container in mvCPU`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -605,12 +653,14 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "redeploy",
+				Short:      `Defines whether to redeploy failed containers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "privacy",
+				Short:      `Privacy settings of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -618,18 +668,21 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "registry-image",
+				Short:      `Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "max-concurrency",
+				Short:      `Number of maximum concurrent executions of the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -684,7 +737,7 @@ func containerContainerUpdate() *core.Command {
 func containerContainerDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a container`,
-		Long:      `Delete the container associated with the given id.`,
+		Long:      `Delete the container associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "delete",
@@ -693,6 +746,7 @@ func containerContainerDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -713,7 +767,7 @@ func containerContainerDelete() *core.Command {
 func containerContainerDeploy() *core.Command {
 	return &core.Command{
 		Short:     `Deploy a container`,
-		Long:      `Deploy a container associated with the given id.`,
+		Long:      `Deploy a container associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "deploy",
@@ -722,6 +776,7 @@ func containerContainerDeploy() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container to deploy`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -751,6 +806,7 @@ func containerCronList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order of the crons`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -758,6 +814,7 @@ func containerCronList() *core.Command {
 			},
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container invoked by the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -787,7 +844,7 @@ func containerCronList() *core.Command {
 func containerCronGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a cron`,
-		Long:      `Get the cron associated with the given id.`,
+		Long:      `Get the cron associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "cron",
 		Verb:      "get",
@@ -796,6 +853,7 @@ func containerCronGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cron-id",
+				Short:      `UUID of the cron to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -825,24 +883,28 @@ func containerCronCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container to invoke by the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "schedule",
+				Short:      `UNIX cron shedule`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "args",
+				Short:      `Arguments to pass with the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the cron to create`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -863,7 +925,7 @@ func containerCronCreate() *core.Command {
 func containerCronUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an existing cron`,
-		Long:      `Update the cron associated with the given id.`,
+		Long:      `Update the cron associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "cron",
 		Verb:      "update",
@@ -872,30 +934,35 @@ func containerCronUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cron-id",
+				Short:      `UUID of the cron to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container invoked by the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "schedule",
+				Short:      `UNIX cron schedule`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "args",
+				Short:      `Arguments to pass with the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the cron`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -916,7 +983,7 @@ func containerCronUpdate() *core.Command {
 func containerCronDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an existing cron`,
-		Long:      `Delete the cron associated with the given id.`,
+		Long:      `Delete the cron associated with the specified ID.`,
 		Namespace: "container",
 		Resource:  "cron",
 		Verb:      "delete",
@@ -925,6 +992,7 @@ func containerCronDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cron-id",
+				Short:      `UUID of the cron to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -945,7 +1013,7 @@ func containerCronDelete() *core.Command {
 func containerContainerGetLogs() *core.Command {
 	return &core.Command{
 		Short:     `List your container logs`,
-		Long:      `List your container logs.`,
+		Long:      `List the logs of the container with the specified ID.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "get-logs",
@@ -954,12 +1022,14 @@ func containerContainerGetLogs() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "order-by",
+				Short:      `Order of the logs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -990,7 +1060,7 @@ func containerContainerGetLogs() *core.Command {
 func containerDomainList() *core.Command {
 	return &core.Command{
 		Short:     `List all domain name bindings`,
-		Long:      `List all domain name bindings.`,
+		Long:      `List all domain name bindings in a specified region.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "list",
@@ -999,6 +1069,7 @@ func containerDomainList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order of the domains`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1006,6 +1077,7 @@ func containerDomainList() *core.Command {
 			},
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container the domain belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1035,7 +1107,7 @@ func containerDomainList() *core.Command {
 func containerDomainGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a domain name binding`,
-		Long:      `Get a domain name binding.`,
+		Long:      `Get a domain name binding for the container with the specified ID.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "get",
@@ -1044,6 +1116,7 @@ func containerDomainGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
+				Short:      `UUID of the domain to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1064,7 +1137,7 @@ func containerDomainGet() *core.Command {
 func containerDomainCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a domain name binding`,
-		Long:      `Create a domain name binding.`,
+		Long:      `Create a domain name binding for the container with the specified ID.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "create",
@@ -1073,12 +1146,14 @@ func containerDomainCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hostname",
+				Short:      `Domain to assign`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container to assign the domain to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1099,7 +1174,7 @@ func containerDomainCreate() *core.Command {
 func containerDomainDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a domain name binding`,
-		Long:      `Delete a domain name binding.`,
+		Long:      `Delete the domain name binding with the specific ID.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "delete",
@@ -1108,6 +1183,7 @@ func containerDomainDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
+				Short:      `UUID of the domain to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1137,24 +1213,28 @@ func containerTokenCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container to create the token for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace to create the token for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the token`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "expires-at",
+				Short:      `Expiry date of the token`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1175,7 +1255,7 @@ func containerTokenCreate() *core.Command {
 func containerTokenGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a token`,
-		Long:      `Get a token.`,
+		Long:      `Get a token with a specified ID.`,
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "get",
@@ -1184,6 +1264,7 @@ func containerTokenGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
+				Short:      `UUID of the token to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1204,7 +1285,7 @@ func containerTokenGet() *core.Command {
 func containerTokenList() *core.Command {
 	return &core.Command{
 		Short:     `List all tokens`,
-		Long:      `List all tokens.`,
+		Long:      `List all tokens belonging to a specified Organization or Project.`,
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "list",
@@ -1213,6 +1294,7 @@ func containerTokenList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order of the tokens`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1220,12 +1302,14 @@ func containerTokenList() *core.Command {
 			},
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container the token belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace the token belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1255,7 +1339,7 @@ func containerTokenList() *core.Command {
 func containerTokenDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a token`,
-		Long:      `Delete a token.`,
+		Long:      `Delete a token with a specified ID.`,
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "delete",
@@ -1264,6 +1348,7 @@ func containerTokenDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
+				Short:      `UUID of the token to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
