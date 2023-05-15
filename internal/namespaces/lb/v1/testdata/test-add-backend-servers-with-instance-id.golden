@@ -123,6 +123,8 @@ ID                                    STATUS   IP ADDRESS    CREATED AT       UP
   "ignore_ssl_server_verify": null,
   "redispatch_attempt_count": null,
   "max_retries": null,
+  "max_connections": null,
+  "timeout_queue": null,
   "timeout_server": null,
   "timeout_connect": null,
   "timeout_tunnel": null
