@@ -123,6 +123,8 @@ c4758b0e-8741-4498-920a-6ed7463e925a  pending  10.65.66.73  few seconds ago  few
   "ignore_ssl_server_verify": null,
   "redispatch_attempt_count": null,
   "max_retries": null,
+  "max_connections": null,
+  "timeout_queue": null,
   "timeout_server": null,
   "timeout_connect": null,
   "timeout_tunnel": null
