@@ -15,6 +15,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -46,6 +48,40 @@ type serverWaitRequest struct {
 	InstanceID string
 	Region     scw.Region
 	Timeout    time.Duration
+}
+
+type createInstanceResult struct {
+	*rdb.Instance
+	Password string
+}
+
+func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	instanceResult := i.(createInstanceResult)
+
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "Endpoint",
+		},
+		{
+			FieldName: "Volume",
+		},
+		{
+			FieldName: "BackupSchedule",
+		},
+		{
+			FieldName: "Settings",
+		},
+	}
+
+	instanceStr, err := human.Marshal(instanceResult.Instance, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return strings.Join([]string{
+		instanceStr,
+		terminal.Style("Password: ", color.Bold) + "\n" + instanceResult.Password,
+	}, "\n\n"), nil
 }
 
 func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -154,22 +190,79 @@ func autoCompleteNodeType(ctx context.Context, prefix string) core.AutocompleteS
 }
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
+	type rdbCreateInstanceRequestCustom struct {
+		*rdb.CreateInstanceRequest
+		GeneratePassword bool
+	}
+
+	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
+		Name:       "generate-password",
+		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("true"),
+	})
+	c.ArgSpecs.GetByName("password").Required = false
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
+	c.ArgsType = reflect.TypeOf(rdbCreateInstanceRequestCustom{})
+
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
-		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdb.Instance).ID,
-			Region:        respI.(*rdb.Instance).Region,
+		instance, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
+			InstanceID:    respI.(createInstanceResult).Instance.ID,
+			Region:        respI.(createInstanceResult).Instance.Region,
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
+		if err != nil {
+			return nil, err
+		}
+
+		result := createInstanceResult{
+			Instance: instance,
+			Password: respI.(createInstanceResult).Password,
+		}
+
+		return result, nil
+	}
+
+	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		client := core.ExtractClient(ctx)
+		api := rdb.NewAPI(client)
+
+		customRequest := argsI.(*rdbCreateInstanceRequestCustom)
+		createInstanceRequest := customRequest.CreateInstanceRequest
+
+		var err error
+		createInstanceRequest.NodeType = strings.ToLower(createInstanceRequest.NodeType)
+		if customRequest.GeneratePassword && customRequest.Password == "" {
+			createInstanceRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			if err != nil {
+				return nil, err
+			}
+			fmt.Printf("Your generated password is %s \n", createInstanceRequest.Password)
+			fmt.Printf("\n")
+		}
+
+		instance, err := api.CreateInstance(createInstanceRequest)
+		if err != nil {
+			return nil, err
+		}
+
+		result := createInstanceResult{
+			Instance: instance,
+			Password: createInstanceRequest.Password,
+		}
+
+		return result, nil
 	}
 
 	// Waiting for API to accept uppercase node-type
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		args := argsI.(*rdb.CreateInstanceRequest)
+		args := argsI.(*rdbCreateInstanceRequestCustom)
 		args.NodeType = strings.ToLower(args.NodeType)
 		return runner(ctx, args)
 	}

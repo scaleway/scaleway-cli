@@ -6,11 +6,12 @@ USAGE:
   scw rdb user create [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the Database Instance in which you want to create a user
-  [name]            Name of the user you want to create
-  [password]        Password of the user you want to create
-  [is-admin]        Defines whether the user will have administrative privileges
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  instance-id                UUID of the Database Instance in which you want to create a user
+  [name]                     Name of the user you want to create
+  [password]                 Password of the user you want to create
+  [generate-password=true]   Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
+  [is-admin]                 Defines whether the user will have administrative privileges
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create

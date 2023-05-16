@@ -36,6 +36,13 @@ func Test_CreateInstance(t *testing.T) {
 		Check:     core.TestCheckGolden(),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
 	}))
+
+	t.Run("With password generator", core.Test(&core.TestConfig{
+		Commands:  GetCommands(),
+		Cmd:       fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s generate-password=true --wait", name, engine, user),
+		Check:     core.TestCheckGolden(),
+		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
+	}))
 }
 
 func Test_GetInstance(t *testing.T) {

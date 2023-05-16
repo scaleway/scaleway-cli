@@ -688,7 +688,8 @@ scw rdb instance create [arg=value ...]
 | name | Default: `<generated>` | Name of the Database Instance |
 | engine | Required | Database engine of the Database Instance (PostgreSQL, MySQL, ...) |
 | user-name | Required | Username created when the Database Instance is created |
-| password | Required | Password of the user |
+| generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
+| password |  | Password of the user |
 | node-type | Required<br />Default: `DB-DEV-S` | Type of node to use for the Database Instance |
 | is-ha-cluster |  | Defines whether or not High-Availability is enabled |
 | disable-backup |  | Defines whether or not backups are disabled |
@@ -1514,6 +1515,7 @@ scw rdb user create [arg=value ...]
 | instance-id | Required | UUID of the Database Instance in which you want to create a user |
 | name |  | Name of the user you want to create |
 | password |  | Password of the user you want to create |
+| generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
 | is-admin |  | Defines whether the user will have administrative privileges |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -1580,6 +1582,7 @@ scw rdb user update [arg=value ...]
 | instance-id | Required | UUID of the Database Instance the user belongs to |
 | name | Required | Name of the database user |
 | password |  | Password of the database user |
+| generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
 | is-admin |  | Defines whether or not this user got administrative privileges |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
