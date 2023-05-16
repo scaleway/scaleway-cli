@@ -62,12 +62,12 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 
 		return &struct {
 			*vpc.PrivateNetwork
-			InstanceServers  []customInstanceServer  `json:"instance_servers"`
-			BaremetalServers []customBaremetalServer `json:"baremetal_servers"`
-			LBs              []customLB              `json:"lbs"`
-			RdbInstances     []customRdb             `json:"rdb_instances"`
-			RedisClusters    []customRedis           `json:"redis_clusters"`
-			Gateways         []customGateway         `json:"gateways"`
+			InstanceServers  []customInstanceServer  `json:"instance_servers,omitempty"`
+			BaremetalServers []customBaremetalServer `json:"baremetal_servers,omitempty"`
+			LBs              []customLB              `json:"lbs,omitempty"`
+			RdbInstances     []customRdb             `json:"rdb_instances,omitempty"`
+			RedisClusters    []customRedis           `json:"redis_clusters,omitempty"`
+			Gateways         []customGateway         `json:"gateways,omitempty"`
 		}{
 			pn,
 			listInstanceServers,
@@ -82,28 +82,34 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 	c.View = &core.View{
 		Sections: []*core.ViewSection{
 			{
-				FieldName: "InstanceServers",
-				Title:     "Instance Servers",
+				FieldName:   "InstanceServers",
+				Title:       "Instance Servers",
+				HideIfEmpty: true,
 			},
 			{
-				FieldName: "BaremetalServers",
-				Title:     "Baremetal Servers",
+				FieldName:   "BaremetalServers",
+				Title:       "Baremetal Servers",
+				HideIfEmpty: true,
 			},
 			{
-				FieldName: "LBs",
-				Title:     "Load-Balancers",
+				FieldName:   "LBs",
+				Title:       "Load-Balancers",
+				HideIfEmpty: true,
 			},
 			{
-				FieldName: "RdbInstances",
-				Title:     "Rdb Instances",
+				FieldName:   "RdbInstances",
+				Title:       "Rdb Instances",
+				HideIfEmpty: true,
 			},
 			{
-				FieldName: "RedisClusters",
-				Title:     "Redis Clusters",
+				FieldName:   "RedisClusters",
+				Title:       "Redis Clusters",
+				HideIfEmpty: true,
 			},
 			{
-				FieldName: "Gateways",
-				Title:     "Public Gateways",
+				FieldName:   "Gateways",
+				Title:       "Public Gateways",
+				HideIfEmpty: true,
 			},
 		},
 	}
