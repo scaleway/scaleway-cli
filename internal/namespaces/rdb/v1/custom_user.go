@@ -92,7 +92,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 
 	type rdbCreateUserResponseCustom struct {
 		*rdb.User
-		Password string
+		Password string `json:"password"`
 	}
 
 	c.ArgSpecs.AddBefore("is-admin", &core.ArgSpec{
@@ -146,7 +146,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 
 	type rdbUpdateUserResponseCustom struct {
 		*rdb.User
-		Password string
+		Password string `json:"password"`
 	}
 
 	c.ArgSpecs.AddBefore("is-admin", &core.ArgSpec{
@@ -171,6 +171,9 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		if customRequest.GeneratePassword && customRequest.Password == nil {
 			updateUserRequest.Password = new(string)
 			*updateUserRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			if err != nil {
+				return nil, err
+			}
 			fmt.Printf("Your generated password is %v \n", *updateUserRequest.Password)
 			fmt.Printf("\n")
 		}

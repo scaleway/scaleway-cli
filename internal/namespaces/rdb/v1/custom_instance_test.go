@@ -38,9 +38,10 @@ func Test_CreateInstance(t *testing.T) {
 	}))
 
 	t.Run("With password generator", core.Test(&core.TestConfig{
-		Commands:  GetCommands(),
-		Cmd:       fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s generate-password=true --wait", name, engine, user),
-		Check:     core.TestCheckGolden(),
+		Commands: GetCommands(),
+		Cmd:      fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s generate-password=true --wait", name, engine, user),
+		// do not check the golden as the password generated locally and on CI will necessarily be different
+		Check:     core.TestCheckExitCode(0),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
 	}))
 }

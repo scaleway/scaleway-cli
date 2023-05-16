@@ -52,7 +52,7 @@ type serverWaitRequest struct {
 
 type createInstanceResult struct {
 	*rdb.Instance
-	Password string
+	Password string `json:"password"`
 }
 
 func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {

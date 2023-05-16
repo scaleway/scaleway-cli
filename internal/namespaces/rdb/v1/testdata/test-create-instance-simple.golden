@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          74e25138-7a48-4da1-ab36-ad538ada116c
+ID                          c1918625-81e0-44a2-aa6b-49f79d49805a
 Name                        cli-test
 OrganizationID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 ProjectID                   564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
@@ -10,16 +10,16 @@ Status                      ready
 Engine                      PostgreSQL-12
 IsHaCluster                 false
 NodeType                    db-dev-s
-Endpoints.0.ID              e1992a87-05be-4ce2-a515-92d19c255977
-Endpoints.0.IP              51.159.112.115
-Endpoints.0.Port            23092
+Endpoints.0.ID              8318bbbb-6a02-49cf-8494-dd32884d8d6a
+Endpoints.0.IP              51.159.113.51
+Endpoints.0.Port            2467
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 
 Endpoint:
-ID    e1992a87-05be-4ce2-a515-92d19c255977
-IP    51.159.112.115
-Port  23092
+ID    8318bbbb-6a02-49cf-8494-dd32884d8d6a
+IP    51.159.113.51
+Port  2467
 
 Volume:
 Type  lssd
@@ -49,7 +49,7 @@ Password:
     "size": 5000000000
   },
   "region": "fr-par",
-  "id": "74e25138-7a48-4da1-ab36-ad538ada116c",
+  "id": "c1918625-81e0-44a2-aa6b-49f79d49805a",
   "name": "cli-test",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
@@ -57,9 +57,9 @@ Password:
   "engine": "PostgreSQL-12",
   "upgradable_version": [],
   "endpoint": {
-    "id": "e1992a87-05be-4ce2-a515-92d19c255977",
-    "ip": "51.159.112.115",
-    "port": 23092,
+    "id": "8318bbbb-6a02-49cf-8494-dd32884d8d6a",
+    "ip": "51.159.113.51",
+    "port": 2467,
     "name": null,
     "load_balancer": {}
   },
@@ -101,9 +101,9 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "e1992a87-05be-4ce2-a515-92d19c255977",
-      "ip": "51.159.112.115",
-      "port": 23092,
+      "id": "8318bbbb-6a02-49cf-8494-dd32884d8d6a",
+      "ip": "51.159.113.51",
+      "port": 2467,
       "name": null,
       "load_balancer": {}
     }
@@ -114,5 +114,5 @@ Password:
   },
   "backup_same_region": false,
   "maintenances": [],
-  "Password": "{4xdl*#QOoP+\u00263XRkGA)]"
+  "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }

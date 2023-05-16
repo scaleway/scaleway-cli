@@ -7,5 +7,5 @@ Password  Newp1ssw0rd!
 {
   "name": "cli-test",
   "is_admin": true,
-  "Password": "Newp1ssw0rd!"
+  "password": "Newp1ssw0rd!"
 }

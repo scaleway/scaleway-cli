@@ -7,5 +7,5 @@ Password  {4xdl*#QOoP+&3XRkGA)]
 {
   "name": "cli-test",
   "is_admin": false,
-  "Password": "{4xdl*#QOoP+\u00263XRkGA)]"
+  "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }

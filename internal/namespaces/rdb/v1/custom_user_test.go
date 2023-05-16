@@ -30,8 +30,9 @@ func Test_CreateUser(t *testing.T) {
 		Commands:   GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        fmt.Sprintf("scw rdb user create instance-id={{ $.Instance.Instance.ID }} name=%s generate-password=true", name),
-		Check:      core.TestCheckGolden(),
-		AfterFunc:  deleteInstance(),
+		// do not check the golden as the password generated locally and on CI will necessarily be different
+		Check:     core.TestCheckExitCode(0),
+		AfterFunc: deleteInstance(),
 	}))
 }
 
@@ -53,8 +54,9 @@ func Test_UpdateUser(t *testing.T) {
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd(fmt.Sprintf("scw rdb user create instance-id={{ $.Instance.Instance.ID }} name=%s password=%s", name, password)),
 		),
-		Cmd:       fmt.Sprintf("scw rdb user update instance-id={{ $.Instance.Instance.ID }} name=%s generate-password=true is-admin=true", name),
-		Check:     core.TestCheckGolden(),
+		Cmd: fmt.Sprintf("scw rdb user update instance-id={{ $.Instance.Instance.ID }} name=%s generate-password=true is-admin=true", name),
+		// do not check the golden as the password generated locally and on CI will necessarily be different
+		Check:     core.TestCheckExitCode(0),
 		AfterFunc: deleteInstance(),
 	}))
 }
