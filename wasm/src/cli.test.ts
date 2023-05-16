@@ -6,14 +6,14 @@ import {describe, it, expect} from 'vitest'
 
 import '../wasm_exec_node.cjs'
 import '../wasm_exec.cjs'
-import {CLI} from '../cli'
+import {CLI, RunConfig} from '../cli'
 import * as fs from 'fs'
 
 const CLI_PACKAGE = 'scw'
 const CLI_CALLBACK = 'cliLoaded'
 
-const runWithError = async (cli: CLI, expected: string | RegExp, ...command: string[]) => {
-    await expect((async () => await cli.run(...command))).rejects.toThrowError(expected)
+const runWithError = async (cli: CLI, runCfg: RunConfig, expected: string | RegExp, command: string[]) => {
+    await expect((async () => await cli.run(runCfg, command))).rejects.toThrowError(expected)
 }
 
 describe('With wasm CLI', async () => {
@@ -38,11 +38,16 @@ describe('With wasm CLI', async () => {
     await waitForCLI
     // @ts-ignore
     const cli = globalThis[CLI_PACKAGE] as CLI
+    const runCfg: RunConfig = {
+        jwt: "",
+    }
 
     it('can run cli commands', async () => {
-        const res = await cli.run('info')
+        const res = await cli.run(runCfg, ['info'])
         expect(res).toMatch(/profile.*default/)
     })
 
-    it('can run help', async () => runWithError(cli, /USAGE:\n.*scw <command>.*/))
+    it('can run help', async () => runWithError(cli, runCfg, /USAGE:\n.*scw <command>.*/, []))
+
+    it('can use jwt', async () => runWithError(cli, runCfg, /.*denied authentication.*invalid JWT.*/, ['instance', 'server', 'list']))
 })

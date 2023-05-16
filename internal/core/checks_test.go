@@ -60,8 +60,10 @@ func TestCheckAPIKey(t *testing.T) {
 			ctx.Meta[metadataKey] = apiKey
 			cfg := &scw.Config{
 				Profile: scw.Profile{
-					AccessKey: &apiKey.AccessKey,
-					SecretKey: apiKey.SecretKey,
+					AccessKey:             &apiKey.AccessKey,
+					SecretKey:             apiKey.SecretKey,
+					DefaultProjectID:      &apiKey.DefaultProjectID,
+					DefaultOrganizationID: &apiKey.DefaultProjectID,
 				},
 			}
 			configPath := filepath.Join(ctx.OverrideEnv["HOME"], ".config", "scw", "config.yaml")

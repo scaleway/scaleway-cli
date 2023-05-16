@@ -72,6 +72,8 @@ func Test_InitSSH(t *testing.T) {
 		"secret-key":           "{{ .SecretKey }}",
 		"send-telemetry":       "false",
 		"install-autocomplete": "false",
+		"organization-id":      "{{ .OrganizationID }}",
+		"project-id":           "{{ .ProjectID }}",
 	}
 	cmds := GetCommands()
 	cmds.Merge(iamcommands.GetCommands())

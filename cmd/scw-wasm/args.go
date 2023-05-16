@@ -2,7 +2,9 @@
 
 package main
 
-import "os"
+import (
+	"os"
+)
 
 type Args struct {
 	callback     string

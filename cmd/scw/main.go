@@ -10,6 +10,7 @@ import (
 	"github.com/mattn/go-colorable"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -76,6 +77,7 @@ func main() {
 		Stderr:    colorable.NewColorableStderr(),
 		Stdin:     os.Stdin,
 		BetaMode:  BetaMode,
+		Platform:  terminal.NewPlatform(buildInfo.GetUserAgent()),
 	})
 
 	os.Exit(exitCode)

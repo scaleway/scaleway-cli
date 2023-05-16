@@ -4,15 +4,17 @@ package main
 
 import (
 	"fmt"
+	"runtime/debug"
 	"syscall/js"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
 )
 
 type fn func(this js.Value, args []js.Value) (any, error)
 
 var (
-	jsErr     js.Value = js.Global().Get("Error")
-	jsObject  js.Value = js.Global().Get("Object")
-	jsPromise js.Value = js.Global().Get("Promise")
+	jsErr     = js.Global().Get("Error")
+	jsPromise = js.Global().Get("Promise")
 )
 
 func asyncFunc(innerFunc fn) js.Func {
@@ -23,15 +25,15 @@ func asyncFunc(innerFunc fn) js.Func {
 			go func() {
 				defer func() {
 					if r := recover(); r != nil {
-						reject.Invoke(jsErr.New(fmt.Sprint("panic:", r)))
+						reject.Invoke(jshelpers.NewError(
+							fmt.Sprintf("panic: %v\n%s", r, string(debug.Stack())),
+						))
 					}
 				}()
 
 				res, err := innerFunc(this, args)
 				if err != nil {
-					errContent := jsObject.New()
-					errContent.Set("cause", err.Error())
-					reject.Invoke(jsErr.New(res, errContent))
+					reject.Invoke(jshelpers.NewErrorWithCause(res, err.Error()))
 				} else {
 					resolve.Invoke(res)
 				}
