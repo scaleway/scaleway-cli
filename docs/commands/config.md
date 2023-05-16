@@ -280,9 +280,25 @@ scw config unset <key ...> [arg=value ...]
 
 ## Validate the config
 
+This command validates the configuration of your Scaleway CLI tool.
 
+		It performs the following checks:
 
+		- YAML syntax correctness: It checks whether your config file is a valid YAML file.
+		- Field validity: It checks whether the fields present in the config file are valid and expected fields. This includes fields like AccessKey, SecretKey, DefaultOrganizationID, DefaultProjectID, DefaultRegion, DefaultZone, and APIURL.
+		- Field values: For each of the fields mentioned above, it checks whether the value assigned to it is valid. For example, it checks if the AccessKey and SecretKey are non-empty and meet the format expectations.
 
+		The command goes through each profile present in the config file and validates it.
+
+This command validates the configuration of your Scaleway CLI tool.
+
+		It performs the following checks:
+
+		- YAML syntax correctness: It checks whether your config file is a valid YAML file.
+		- Field validity: It checks whether the fields present in the config file are valid and expected fields. This includes fields like AccessKey, SecretKey, DefaultOrganizationID, DefaultProjectID, DefaultRegion, DefaultZone, and APIURL.
+		- Field values: For each of the fields mentioned above, it checks whether the value assigned to it is valid. For example, it checks if the AccessKey and SecretKey are non-empty and meet the format expectations.
+
+		The command goes through each profile present in the config file and validates it.
 
 **Usage:**
 
