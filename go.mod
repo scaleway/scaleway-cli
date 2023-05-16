@@ -26,7 +26,7 @@ require (
 	github.com/moby/buildkit v0.11.6
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.16.0.20230510093006-b00ddce97048
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.16.0.20230511075319-50307678b060
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.2
@@ -74,7 +74,7 @@ require (
 	github.com/buildpacks/lifecycle v0.17.0-pre.1 // indirect
 	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
 	github.com/chrismellard/docker-credential-acr-env v0.0.0-20230304212654-82a0ddb27589 // indirect
-	github.com/cloudflare/circl v1.3.2 // indirect
+	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/containerd/containerd v1.7.0 // indirect
 	github.com/containerd/continuity v0.3.1-0.20230206214859-2a963a2f56e8 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.14.3 // indirect
@@ -83,7 +83,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
 	github.com/docker/cli v23.0.5+incompatible // indirect
-	github.com/docker/distribution v2.8.1+incompatible // indirect
+	github.com/docker/distribution v2.8.2+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.7.0 // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
