@@ -853,60 +853,70 @@ func validateSecretKey(profile *scw.Profile) error {
 }
 
 func validateDefaultOrganizationID(profile *scw.Profile) error {
-	if *profile.DefaultOrganizationID == "" {
-		return &core.CliError{
-			Err: fmt.Errorf("default organization ID cannot be empty"),
+	if profile.DefaultOrganizationID != nil {
+		if *profile.DefaultOrganizationID == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default organization ID cannot be empty"),
+			}
 		}
-	}
 
-	if !validation.IsOrganizationID(*profile.DefaultOrganizationID) {
-		return core.InvalidOrganizationIDError(*profile.DefaultOrganizationID)
+		if !validation.IsOrganizationID(*profile.DefaultOrganizationID) {
+			return core.InvalidOrganizationIDError(*profile.DefaultOrganizationID)
+		}
 	}
 	return nil
 }
 
 func validateDefaultProjectID(profile *scw.Profile) error {
-	if *profile.DefaultProjectID == "" {
-		return &core.CliError{
-			Err: fmt.Errorf("default project ID cannot be empty"),
+	if profile.DefaultProjectID != nil {
+		if *profile.DefaultProjectID == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default project ID cannot be empty"),
+			}
 		}
-	}
 
-	if !validation.IsProjectID(*profile.DefaultProjectID) {
-		return core.InvalidProjectIDError(*profile.DefaultProjectID)
+		if !validation.IsProjectID(*profile.DefaultProjectID) {
+			return core.InvalidProjectIDError(*profile.DefaultProjectID)
+		}
 	}
 	return nil
 }
 
 func validateDefaultRegion(profile *scw.Profile) error {
-	if *profile.DefaultRegion == "" {
-		return &core.CliError{
-			Err: fmt.Errorf("default region cannot be empty"),
+	if profile.DefaultRegion != nil {
+		if *profile.DefaultRegion == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default region cannot be empty"),
+			}
 		}
-	}
 
-	if !validation.IsRegion(*profile.DefaultRegion) {
-		return core.InvalidRegionError(*profile.DefaultRegion)
+		if !validation.IsRegion(*profile.DefaultRegion) {
+			return core.InvalidRegionError(*profile.DefaultRegion)
+		}
 	}
 	return nil
 }
 
 func validateDefaultZone(profile *scw.Profile) error {
-	if *profile.DefaultZone == "" {
-		return &core.CliError{
-			Err: fmt.Errorf("default zone cannot be empty"),
+	if profile.DefaultZone != nil {
+		if *profile.DefaultZone == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default zone cannot be empty"),
+			}
 		}
-	}
 
-	if !validation.IsZone(*profile.DefaultZone) {
-		return core.InvalidZoneError(*profile.DefaultZone)
+		if !validation.IsZone(*profile.DefaultZone) {
+			return core.InvalidZoneError(*profile.DefaultZone)
+		}
 	}
 	return nil
 }
 
 func validateAPIURL(profile *scw.Profile) error {
-	if *profile.APIURL != "" && !validation.IsURL(*profile.APIURL) {
-		return core.InvalidAPIURLError(*profile.APIURL)
+	if profile.APIURL != nil {
+		if *profile.APIURL != "" && !validation.IsURL(*profile.APIURL) {
+			return core.InvalidAPIURLError(*profile.APIURL)
+		}
 	}
 	return nil
 }
