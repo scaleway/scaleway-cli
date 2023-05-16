@@ -95,7 +95,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 		Password string `json:"password"`
 	}
 
-	c.ArgSpecs.AddBefore("is-admin", &core.ArgSpec{
+	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
 		Name:       "generate-password",
 		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
 		Required:   false,
@@ -149,7 +149,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		Password string `json:"password"`
 	}
 
-	c.ArgSpecs.AddBefore("is-admin", &core.ArgSpec{
+	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
 		Name:       "generate-password",
 		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
 		Required:   false,

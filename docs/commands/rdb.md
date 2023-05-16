@@ -1514,8 +1514,8 @@ scw rdb user create [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance in which you want to create a user |
 | name |  | Name of the user you want to create |
-| password |  | Password of the user you want to create |
 | generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
+| password |  | Password of the user you want to create |
 | is-admin |  | Defines whether the user will have administrative privileges |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -1581,8 +1581,8 @@ scw rdb user update [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance the user belongs to |
 | name | Required | Name of the database user |
-| password |  | Password of the database user |
 | generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
+| password |  | Password of the database user |
 | is-admin |  | Defines whether or not this user got administrative privileges |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
