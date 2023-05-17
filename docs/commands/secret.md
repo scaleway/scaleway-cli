@@ -177,6 +177,7 @@ scw secret version access [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
+| only-data | Default: `false` | Retrieve only data |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
