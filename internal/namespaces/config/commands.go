@@ -816,10 +816,7 @@ func validateProfile(profile *scw.Profile) error {
 	if err := validateDefaultZone(profile); err != nil {
 		return err
 	}
-	if err := validateAPIURL(profile); err != nil {
-		return err
-	}
-	return nil
+	return validateAPIURL(profile)
 }
 
 func validateAccessKey(profile *scw.Profile) error {
