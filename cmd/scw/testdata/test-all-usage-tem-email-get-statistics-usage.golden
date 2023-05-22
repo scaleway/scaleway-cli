@@ -6,11 +6,11 @@ USAGE:
   scw tem email get-statistics [arg=value ...]
 
 ARGS:
-  [project-id]      Number of emails for this Project (optional)
-  [domain-id]       Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`) (optional)
-  [since]           Number of emails created after this date (optional)
-  [until]           Number of emails created before this date (optional)
-  [mail-from]       Number of emails sent with this `mail_from` sender's address (optional)
+  [project-id]      (Optional) Number of emails for this Project
+  [domain-id]       (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`)
+  [since]           (Optional) Number of emails created after this date
+  [until]           (Optional) Number of emails created before this date
+  [mail-from]       (Optional) Number of emails sent with this sender's email address
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
