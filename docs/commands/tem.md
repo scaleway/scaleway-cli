@@ -221,11 +221,11 @@ scw tem email get-statistics [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| project-id |  | Number of emails for this Project (optional) |
-| domain-id |  | Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`) (optional) |
-| since |  | Number of emails created after this date (optional) |
-| until |  | Number of emails created before this date (optional) |
-| mail-from |  | Number of emails sent with this `mail_from` sender's address (optional) |
+| project-id |  | (Optional) Number of emails for this Project |
+| domain-id |  | (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`) |
+| since |  | (Optional) Number of emails created after this date |
+| until |  | (Optional) Number of emails created before this date |
+| mail-from |  | (Optional) Number of emails sent with this sender's email address |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -233,6 +233,13 @@ scw tem email get-statistics [arg=value ...]
 ### List emails
 
 Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
+You can filter your emails in ascending or descending order using:
+  - created_at
+  - updated_at
+  - status
+  - mail_from
+  - mail_rcpt
+  - subject.
 
 **Usage:**
 
@@ -245,15 +252,17 @@ scw tem email list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| project-id |  | ID of the Project in which to list the emails (optional) |
-| domain-id |  | ID of the domain for which to list the emails (optional) |
-| message-id |  | ID of the message for which to list the emails (optional) |
-| subject |  | Subject of the email |
-| since |  | List emails created after this date (optional) |
-| until |  | List emails created before this date (optional) |
-| mail-from |  | List emails sent with this `mail_from` sender's address (optional) |
-| mail-to |  | List emails sent with this `mail_to` recipient's address (optional) |
-| statuses.{index} | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled` | List emails having any of this status (optional) |
+| project-id |  | (Optional) ID of the Project in which to list the emails |
+| domain-id |  | (Optional) ID of the domain for which to list the emails |
+| message-id |  | (Optional) ID of the message for which to list the emails |
+| since |  | (Optional) List emails created after this date |
+| until |  | (Optional) List emails created before this date |
+| mail-from |  | (Optional) List emails sent with this sender's email address |
+| ~~mail-to~~ | Deprecated | (Deprecated) List emails sent to this recipient's email address |
+| mail-rcpt |  | (Optional) List emails sent to this recipient's email address |
+| statuses.{index} | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled` | (Optional) List emails with any of these statuses |
+| subject |  | (Optional) List emails with this subject |
+| order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `status_desc`, `status_asc`, `mail_from_desc`, `mail_from_asc`, `mail_rcpt_desc`, `mail_rcpt_asc`, `subject_desc`, `subject_asc` | (Optional) List emails corresponding to specific criteria |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
