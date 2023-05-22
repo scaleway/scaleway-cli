@@ -13,11 +13,23 @@ var (
 )
 
 func jsValue(val any) js.Value {
-	switch reflect.TypeOf(val).Kind() {
+	valType := reflect.TypeOf(val)
+	if valType.Kind() == reflect.Pointer {
+		valType = valType.Elem()
+	}
+
+	switch valType.Kind() {
 	case reflect.Struct:
 		return FromObject(val)
 	}
 	return js.ValueOf(val)
+}
+
+func errValue(val any) error {
+	if val == nil {
+		return nil
+	}
+	return val.(error)
 }
 
 // AsFunction convert a classic Go function to a function taking js arguments.
@@ -48,13 +60,13 @@ func AsFunction(goFunc any) func(this js.Value, args []js.Value) (any, error) {
 		for i, argType := range goFuncArgs {
 			arg, err := goValue(argType, args[i])
 			if err != nil {
-				return nil, fmt.Errorf("invalid argument at index %d: %w", err)
+				return nil, fmt.Errorf("invalid argument at index %d with type %s: %w", i, argType.String(), err)
 			}
 			argValues[i] = reflect.ValueOf(arg)
 		}
 
 		returnValues := goFuncValue.Call(argValues)
 
-		return jsValue(returnValues[0].Interface()), returnValues[1].Interface().(error)
+		return jsValue(returnValues[0].Interface()), errValue(returnValues[1].Interface())
 	}
 }

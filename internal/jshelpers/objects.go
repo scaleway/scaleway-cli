@@ -17,12 +17,14 @@ func asString(value js.Value) (string, error) {
 
 func goValue(typ reflect.Type, value js.Value) (any, error) {
 	switch typ.Kind() {
+	case reflect.Pointer:
+		return goValue(typ.Elem(), value)
 	case reflect.String:
 		return asString(value)
 	case reflect.Struct:
 		return asObject(typ, value)
 	case reflect.Slice:
-		return asSlice(typ, value)
+		return asSlice(typ.Elem(), value)
 	}
 	return nil, fmt.Errorf("value type is unknown")
 }

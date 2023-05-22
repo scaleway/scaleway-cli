@@ -4,6 +4,9 @@ package main
 
 import (
 	"syscall/js"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
+	"github.com/scaleway/scaleway-cli/v2/internal/wasm"
 )
 
 func main() {
@@ -11,7 +14,7 @@ func main() {
 
 	if args.targetObject != "" {
 		cliPackage := js.ValueOf(map[string]any{})
-		cliPackage.Set("run", asyncFunc(wasmRun))
+		cliPackage.Set("run", asyncFunc(jshelpers.AsFunction(wasm.Run)))
 		js.Global().Set(args.targetObject, cliPackage)
 	}
 

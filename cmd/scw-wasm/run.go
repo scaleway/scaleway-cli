@@ -25,7 +25,7 @@ func wasmRun(this js.Value, args []js.Value) (any, error) {
 		return nil, fmt.Errorf("invalid args given: %w", err)
 	}
 
-	resp := wasm.Run(runCfg, givenArgs)
+	resp, err := wasm.Run(runCfg, givenArgs)
 
 	return jshelpers.FromObject(resp), nil
 }
