@@ -17,8 +17,14 @@ func asString(value js.Value) (string, error) {
 
 func goValue(typ reflect.Type, value js.Value) (any, error) {
 	switch typ.Kind() {
+	case reflect.Pointer:
+		return goValue(typ.Elem(), value)
 	case reflect.String:
 		return asString(value)
+	case reflect.Struct:
+		return asObject(typ, value)
+	case reflect.Slice:
+		return asSlice(typ.Elem(), value)
 	}
 	return nil, fmt.Errorf("value type is unknown")
 }
@@ -59,4 +65,23 @@ func AsObject[T any](value js.Value) (*T, error) {
 	}
 
 	return obj.(*T), nil
+}
+
+// FromObject converts a Go struct to a JS Object
+// Given Go struct must have "js" tags to specify fields mapping
+func FromObject(from any) js.Value {
+	fromValue := reflect.Indirect(reflect.ValueOf(from))
+	fromType := fromValue.Type()
+
+	obj := jsObject.New()
+
+	for i := 0; i < fromValue.NumField(); i++ {
+		field := fromType.Field(i)
+		jsFieldName := field.Tag.Get("js")
+		if jsFieldName != "" {
+			obj.Set(jsFieldName, js.ValueOf(fromValue.Field(i).Interface()))
+		}
+	}
+
+	return obj
 }
