@@ -28,24 +28,20 @@ type RunResponse struct {
 	ExitCode int    `js:"exitCode"`
 }
 
-func runCommand(cfg *RunConfig, args []string, stdout io.Writer, stderr io.Writer) chan int {
-	ret := make(chan int, 1)
-	go func() {
-		exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
-			Args:      args,
-			Commands:  getCommands(),
-			BuildInfo: &core.BuildInfo{},
-			Stdout:    stdout,
-			Stderr:    stderr,
-			Stdin:     nil,
-			Platform: &web.Platform{
-				JWT: cfg.JWT,
-			},
-		})
-		ret <- exitCode
-	}()
+func runCommand(cfg *RunConfig, args []string, stdout io.Writer, stderr io.Writer) int {
+	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
+		Args:      args,
+		Commands:  getCommands(),
+		BuildInfo: &core.BuildInfo{},
+		Stdout:    stdout,
+		Stderr:    stderr,
+		Stdin:     nil,
+		Platform: &web.Platform{
+			JWT: cfg.JWT,
+		},
+	})
 
-	return ret
+	return exitCode
 }
 
 func Run(cfg *RunConfig, args []string) (*RunResponse, error) {
@@ -55,8 +51,7 @@ func Run(cfg *RunConfig, args []string) (*RunResponse, error) {
 
 	cliArgs = append(cliArgs, args...)
 
-	exitCodeChan := runCommand(cfg, cliArgs, stdout, stderr)
-	exitCode := <-exitCodeChan
+	exitCode := runCommand(cfg, cliArgs, stdout, stderr)
 
 	return &RunResponse{
 		Stdout:   stdout.String(),
