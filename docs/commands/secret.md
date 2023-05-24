@@ -14,6 +14,7 @@ This API allows you to conveniently store, access and share sensitive data.
   - [Delete a version](#delete-a-version)
   - [Disable a version](#disable-a-version)
   - [Enable a version](#enable-a-version)
+  - [Generate a password in a new version](#generate-a-password-in-a-new-version)
   - [Get metadata of a secret's version using the secret's ID](#get-metadata-of-a-secret's-version-using-the-secret's-id)
   - [List versions of a secret using the secret's ID](#list-versions-of-a-secret-using-the-secret's-id)
   - [Update metadata of a version](#update-metadata-of-a-version)
@@ -200,12 +201,7 @@ scw secret version create [arg=value ...]
 | data | Required | Content of the secret version. Base64 is handled by the SDK |
 | description |  | Description of the version |
 | disable-previous |  | Disable the previous secret version |
-| password-generation.length |  | Length of the password to generate (between 1 and 1024) |
-| password-generation.no-lowercase-letters |  | Do not include lower case letters by default in the alphabet |
-| password-generation.no-uppercase-letters |  | Do not include upper case letters by default in the alphabet |
-| password-generation.no-digits |  | Do not include digits by default in the alphabet |
-| password-generation.additional-chars |  | Additional ascii characters to be included in the alphabet |
-| data-crc32 |  | The CRC32 checksum of the data as a base-10 integer |
+| data-crc32 |  | (Optional.) The CRC32 checksum of the data as a base-10 integer |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -279,6 +275,33 @@ scw secret version enable [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Generate a password in a new version
+
+Generate a password for the given secret specified by the `region` and `secret_id` parameters. This will also create a new version of the secret that will store the password.
+
+**Usage:**
+
+```
+scw secret version generate-password [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| secret-id | Required | ID of the secret |
+| description |  | Description of the version |
+| disable-previous |  | (Optional.) Disable the previous secret version |
+| length |  | Length of the password to generate (between 1 and 1024 characters) |
+| no-lowercase-letters |  | (Optional.) Exclude lower case letters by default in the password character set |
+| no-uppercase-letters |  | (Optional.) Exclude upper case letters by default in the password character set |
+| no-digits |  | (Optional.) Exclude digits by default in the password character set |
+| additional-chars |  | (Optional.) Additional ASCII characters to be included in the password character set |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

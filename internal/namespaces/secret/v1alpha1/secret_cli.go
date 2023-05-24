@@ -28,6 +28,7 @@ func GetGeneratedCommands() *core.Commands {
 		secretSecretList(),
 		secretSecretDelete(),
 		secretVersionCreate(),
+		secretVersionGeneratePassword(),
 		secretVersionGet(),
 		secretVersionUpdate(),
 		secretVersionList(),
@@ -350,43 +351,8 @@ func secretVersionCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "password-generation.length",
-				Short:      `Length of the password to generate (between 1 and 1024)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "password-generation.no-lowercase-letters",
-				Short:      `Do not include lower case letters by default in the alphabet`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "password-generation.no-uppercase-letters",
-				Short:      `Do not include upper case letters by default in the alphabet`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "password-generation.no-digits",
-				Short:      `Do not include digits by default in the alphabet`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "password-generation.additional-chars",
-				Short:      `Additional ascii characters to be included in the alphabet`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "data-crc32",
-				Short:      `The CRC32 checksum of the data as a base-10 integer`,
+				Short:      `(Optional.) The CRC32 checksum of the data as a base-10 integer`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -399,6 +365,85 @@ func secretVersionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.CreateSecretVersion(request)
+
+		},
+	}
+}
+
+func secretVersionGeneratePassword() *core.Command {
+	return &core.Command{
+		Short:     `Generate a password in a new version`,
+		Long:      `Generate a password for the given secret specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `secret_id` + "`" + ` parameters. This will also create a new version of the secret that will store the password.`,
+		Namespace: "secret",
+		Resource:  "version",
+		Verb:      "generate-password",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.GeneratePasswordRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Short:      `Description of the version`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "disable-previous",
+				Short:      `(Optional.) Disable the previous secret version`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "length",
+				Short:      `Length of the password to generate (between 1 and 1024 characters)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "no-lowercase-letters",
+				Short:      `(Optional.) Exclude lower case letters by default in the password character set`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "no-uppercase-letters",
+				Short:      `(Optional.) Exclude upper case letters by default in the password character set`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "no-digits",
+				Short:      `(Optional.) Exclude digits by default in the password character set`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "additional-chars",
+				Short:      `(Optional.) Additional ASCII characters to be included in the password character set`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.GeneratePasswordRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.GeneratePassword(request)
 
 		},
 	}
