@@ -1192,6 +1192,7 @@ scw rdb read-replica create <instance-id ...> [arg=value ...]
 | instance-id | Required | UUID of the Database Instance you want to create a Read Replica from |
 | endpoint-spec.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Read Replica |
 | endpoint-spec.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
+| same-zone |  | Defines whether to create the replica in the same availability zone as the main instance nodes or not. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
