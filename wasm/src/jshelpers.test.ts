@@ -1,13 +1,11 @@
 
-import {describe, it, expect, afterAll} from 'vitest'
+import {describe, it, expect, afterAll, beforeAll} from 'vitest'
 
 import '../wasm_exec_node.cjs'
 import '../wasm_exec.cjs'
 import {RunConfig} from '../cli'
 import * as fs from 'fs'
-
-const CLI_PACKAGE = 'scw'
-const CLI_CALLBACK = 'cliLoaded'
+import {loadWasmBinary} from "./utils";
 
 type CLITester = {
     stop: () => Promise<void>
@@ -15,27 +13,12 @@ type CLITester = {
 }
 
 describe('With test environment', async () => {
-    // @ts-ignore
-    const go = new globalThis.Go()
+    let cli: CLITester
 
-    const waitForCLI = new Promise((resolve) => {
+    beforeAll(async () => {
         // @ts-ignore
-        globalThis[CLI_CALLBACK] = () => {
-            resolve({})
-        }
+        cli = await loadWasmBinary('./cliTester.wasm') as CLITester
     })
-    go.argv = [CLI_CALLBACK, CLI_PACKAGE]
-
-    WebAssembly.instantiate(fs.readFileSync('./cliTester.wasm'), go.importObject).then((result) => {
-        return go.run(result.instance)
-    }).catch((err) => {
-        console.error(err)
-        console.error("webassembly error")
-        process.exit(1)
-    })
-    await waitForCLI
-    // @ts-ignore
-    const cli = globalThis[CLI_PACKAGE] as CLITester
 
     it('can return array', async () => {
         const array = cli.FromSlice()
