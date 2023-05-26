@@ -26,7 +26,7 @@ require (
 	github.com/moby/buildkit v0.11.6
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.17.0.20230524152841-3978517139f0
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.17.0.20230525084459-040bfc54c6de
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.2
