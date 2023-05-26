@@ -33,7 +33,7 @@ func asyncFunc(innerFunc fn) js.Func {
 
 				res, err := innerFunc(this, args)
 				if err != nil {
-					reject.Invoke(jshelpers.NewErrorWithCause(res, err.Error()))
+					reject.Invoke(jshelpers.NewError(err.Error()))
 				} else {
 					resolve.Invoke(res)
 				}
