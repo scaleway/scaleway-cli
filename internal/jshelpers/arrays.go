@@ -43,3 +43,15 @@ func AsSlice[T any](value js.Value) ([]T, error) {
 
 	return slice.([]T), nil
 }
+
+// FromSlice converts a Go slice to a JS Array
+func FromSlice(from any) js.Value {
+	fromValue := reflect.ValueOf(from)
+
+	arrayItems := make([]any, fromValue.Len())
+	for i := 0; i < len(arrayItems); i++ {
+		arrayItems[i] = jsValue(fromValue.Index(i).Interface())
+	}
+
+	return jsArray.New(arrayItems...)
+}

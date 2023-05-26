@@ -1,4 +1,5 @@
 node_modules
 cli.wasm
+cliTester.wasm
 lib
 .idea

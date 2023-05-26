@@ -28,3 +28,7 @@ jobs:
         run: ./scripts/build-wasm.sh
       - name: Run npm package tests
         run: ./scripts/run-tests-wasm.sh
+      - name: Run custom tester
+        run: ./scripts/run-tests-wasm.sh
+        env:
+          TESTER: true

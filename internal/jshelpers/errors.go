@@ -4,11 +4,6 @@ package jshelpers
 
 import "syscall/js"
 
-var (
-	jsObject = js.Global().Get("Object")
-	jsErr    = js.Global().Get("Error")
-)
-
 func NewError(msg any) js.Value {
 	return jsErr.New(msg)
 }

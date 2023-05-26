@@ -2,19 +2,20 @@
 // It will load go misc files in
 // /usr/local/go/misc/wasm
 
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect, afterAll} from 'vitest'
 
 import '../wasm_exec_node.cjs'
 import '../wasm_exec.cjs'
 import {CLI, RunConfig} from '../cli'
 import * as fs from 'fs'
+import {Go} from "../wasm_exec";
 
 const CLI_PACKAGE = 'scw'
 const CLI_CALLBACK = 'cliLoaded'
 
 describe('With wasm CLI', async () => {
     // @ts-ignore
-    const go = new globalThis.Go()
+    const go = new globalThis.Go() as Go
 
     const waitForCLI = new Promise((resolve) => {
         // @ts-ignore
@@ -58,9 +59,37 @@ describe('With wasm CLI', async () => {
         expect(resp.stderr).toMatch(expected)
     }
 
+    const complete = async (expected: string[], command: string[], runCfg: RunConfig | null = null) => {
+        if (runCfg === null) {
+            runCfg = {
+                jwt: "",
+            }
+        }
+        let toComplete = command.pop() || ""
+
+        const suggestions = await cli.complete({
+            jwt: runCfg.jwt,
+            leftWords: command,
+            rightWords: [],
+            selectedWord: toComplete
+        })
+        expected.forEach(suggestion => expect(suggestions).toContain(suggestion))
+    }
+
     it('can run cli commands', async () => run(/profile.*default/, ['info']))
 
     it('can run help', async () => runWithError(/USAGE:\n.*scw <command>.*/, []))
 
     it('can use jwt', async () => runWithError(/.*denied authentication.*invalid JWT.*/, ['instance', 'server', 'list']))
+
+    it('can complete', async () => complete(['server', 'image', 'volume'], ['instance', '']))
+
+    afterAll(async () => {
+        try {
+            await cli.stop()
+            go._resume()
+        } catch (e) {
+            console.log(e)
+        }
+    })
 })
