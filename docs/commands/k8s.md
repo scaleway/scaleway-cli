@@ -8,6 +8,7 @@ Kubernetes API.
   - [Get a Cluster](#get-a-cluster)
   - [List Clusters](#list-clusters)
   - [List available versions for a Cluster](#list-available-versions-for-a-cluster)
+  - [Migrate an existing cluster to a Private Network cluster](#migrate-an-existing-cluster-to-a-private-network-cluster)
   - [Reset the admin token of a Cluster](#reset-the-admin-token-of-a-cluster)
   - [Change the Cluster type](#change-the-cluster-type)
   - [Update a Cluster](#update-a-cluster)
@@ -264,6 +265,37 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 List all versions that a cluster can upgrade to
 ```
 scw k8s cluster list-available-versions 11111111-1111-1111-111111111111
+```
+
+
+
+
+### Migrate an existing cluster to a Private Network cluster
+
+Migrate a cluster that was created before the release of Private Network clusters to a new one with a Private Network.
+
+**Usage:**
+
+```
+scw k8s cluster migrate-to-private-network <cluster-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | ID of the cluster to migrate |
+| private-network-id | Required | ID of the Private Network to link to the cluster |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Migrate a cluster to a Private Network cluster
+```
+scw k8s cluster migrate-to-private-network 11111111-1111-1111-111111111111 private-network-id=11111111-1111-1111-111111111111
 ```
 
 
