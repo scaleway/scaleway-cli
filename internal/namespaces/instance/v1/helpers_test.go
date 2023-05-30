@@ -62,7 +62,7 @@ func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeVolume
 }
 
 // deleteVolume deletes a volume previously registered in the context Meta at metaKey.
-func deleteVolume(metaKey string) core.AfterFunc {
+func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
 	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
 }
 

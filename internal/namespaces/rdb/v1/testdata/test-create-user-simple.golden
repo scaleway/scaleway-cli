@@ -1,0 +1,11 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Name      cli-test
+IsAdmin   false
+Password  {4xdl*#QOoP+&3XRkGA)]
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "name": "cli-test",
+  "is_admin": false,
+  "password": "{4xdl*#QOoP+\u00263XRkGA)]"
+}

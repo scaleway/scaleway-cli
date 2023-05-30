@@ -31,6 +31,7 @@ var (
 func cockpitWaitCommand() *core.Command {
 	type cockpitWaitRequest struct {
 		ProjectID string
+		Timeout   time.Duration
 	}
 
 	return &core.Command{
@@ -42,11 +43,13 @@ func cockpitWaitCommand() *core.Command {
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(cockpitWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*cockpitWaitRequest)
+
 			api := cockpit.NewAPI(core.ExtractClient(ctx))
 			logger.Debugf("starting to wait for cockpit to reach a stable delivery status")
 			targetCockpit, err := api.WaitForCockpit(&cockpit.WaitForCockpitRequest{
-				ProjectID:     argsI.(*cockpitWaitRequest).ProjectID,
-				Timeout:       scw.TimeDurationPtr(cockpitActionTimeout),
+				ProjectID:     args.ProjectID,
+				Timeout:       scw.TimeDurationPtr(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -69,6 +72,7 @@ func cockpitWaitCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
+			core.WaitTimeoutArgSpec(cockpitActionTimeout),
 		},
 		Examples: []*core.Example{
 			{

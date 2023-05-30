@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a specific marketplace image.
+Get detailed information about a marketplace image, specified by its `image_id` (UUID format).
 
 USAGE:
   scw marketplace image get [arg=value ...]

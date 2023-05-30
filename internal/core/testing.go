@@ -18,12 +18,11 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/dnaeon/go-vcr/cassette"
-	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/hashicorp/go-version"
 	args "github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -391,6 +390,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Ctx:              ctx,
 				Logger:           testLogger,
 				HTTPClient:       httpClient,
+				Platform:         terminal.NewPlatform(buildInfo.GetUserAgent()),
 			})
 			require.NoError(t, err, "error executing cmd (%s)\nstdout: %s\nstderr: %s", args, stdoutBuffer.String(), stderrBuffer.String())
 
@@ -451,6 +451,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Ctx:              ctx,
 				Logger:           cmdLogger,
 				HTTPClient:       httpClient,
+				Platform:         terminal.NewPlatform(buildInfo.GetUserAgent()),
 			})
 
 			meta["CmdResult"] = result
@@ -684,46 +685,6 @@ var regTimestamp = regexp.MustCompile(`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`)
 // uniformTimestamps replaces all timestamp to the date "1970-01-01T00:00:00.0Z"
 func uniformTimestamps(input string) string {
 	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
-}
-
-// getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
-// This cassette is then replayed whenever tests are executed again. This means that once the
-// requests are recorded in the cassette, no more real HTTP request must be made to run the tests.
-//
-// It is important to call add a `defer cleanup()` so the given cassette files are correctly
-// closed and saved after the requests.
-func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
-	recorderMode := recorder.ModeReplaying
-	if update {
-		recorderMode = recorder.ModeRecording
-	}
-
-	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(getTestFilePath(t, ".cassette"), recorderMode, &SocketPassthroughTransport{})
-	if err != nil {
-		return nil, nil, err
-	}
-
-	// Add a filter which removes Authorization headers from all requests:
-	r.AddFilter(func(i *cassette.Interaction) error {
-		delete(i.Request.Headers, "x-auth-token")
-		delete(i.Request.Headers, "X-Auth-Token")
-		i.Request.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").ReplaceAllString(i.Request.URL, "organization_id=11111111-1111-1111-1111-111111111111")
-		i.Request.URL = regexp.MustCompile(`api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}`).ReplaceAllString(i.Request.URL, "api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
-		return nil
-	})
-
-	r.SetMatcher(func(r *http.Request, i cassette.Request) bool {
-		if r.URL.Host == "//./pipe/docker_engine" {
-			r.URL.Host = "/var/run/docker.sock"
-		}
-
-		return cassette.DefaultMatcher(r, i)
-	})
-
-	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
-		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
-	}, nil
 }
 
 func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {

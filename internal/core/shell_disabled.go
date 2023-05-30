@@ -1,5 +1,4 @@
-//go:build freebsd
-// +build freebsd
+//go:build freebsd || wasm
 
 package core
 

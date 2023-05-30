@@ -1,0 +1,131 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
+    method: GET
+  response:
+    body: '{"access_key":"SCWQN1ZYHWPFGJD28Q70","secret_key":null,"description":"iam","created_at":"2022-08-22T09:13:42.922733Z","updated_at":"2022-10-20T08:29:52.752429Z","expires_at":null,"default_project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","editable":true,"creation_ip":"51.159.73.9","user_id":"38d8ec28-dbee-4dbe-a4e8-56adcc285e8b"}'
+    headers:
+      Content-Length:
+      - "332"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 21 Apr 2023 08:49:57 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 634498cb-4310-4fde-bb42-5837a80a83e0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"user_id":"38d8ec28-dbee-4dbe-a4e8-56adcc285e8b","expires_at":"2023-04-21T11:49:57.648653377+02:00","default_project_id":null,"description":"test-cli-TestCheckAPIKey"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys
+    method: POST
+  response:
+    body: '{"access_key":"SCWSSR032HM4AQTGK4XM","secret_key":"11111111-1111-1111-1111-111111111111","description":"test-cli-TestCheckAPIKey","created_at":"2023-04-21T08:49:57.791116Z","updated_at":"2023-04-21T08:49:57.791116Z","expires_at":"2023-04-21T09:49:57.648653Z","default_project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","editable":true,"creation_ip":"51.159.73.9","user_id":"38d8ec28-dbee-4dbe-a4e8-56adcc285e8b"}'
+    headers:
+      Content-Length:
+      - "412"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 21 Apr 2023 08:49:57 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f05522cd-b4c9-4abf-9b7a-f044d242210e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) scaleway-cli/0.0.0+test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
+    method: GET
+  response:
+    body: '{"access_key":"SCWSSR032HM4AQTGK4XM","secret_key":null,"description":"test-cli-TestCheckAPIKey","created_at":"2023-04-21T08:49:57.791116Z","updated_at":"2023-04-21T08:49:57.791116Z","expires_at":"2023-04-21T09:49:57.648653Z","default_project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","editable":true,"creation_ip":"51.159.73.9","user_id":"38d8ec28-dbee-4dbe-a4e8-56adcc285e8b"}'
+    headers:
+      Content-Length:
+      - "378"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 21 Apr 2023 08:49:57 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9820373b-2b5d-4282-a0ed-00b2c4b95961
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 21 Apr 2023 08:49:57 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 56eb4536-35a7-46de-8bba-a05f3bc0aaf7
+    status: 204 No Content
+    code: 204
+    duration: ""

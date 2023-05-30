@@ -12,6 +12,7 @@ EXAMPLES:
 ARGS:
   pool-id           ID of the pool.
   [region=fr-par]   Region to target. If none is passed will use default region from the config
+  [timeout=10m0s]   Timeout of the wait
 
 FLAGS:
   -h, --help   help for wait

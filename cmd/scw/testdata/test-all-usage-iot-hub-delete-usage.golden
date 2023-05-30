@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a hub.
+Delete an existing IoT Hub, specified by its Hub ID. Deleting a Hub is permanent, and cannot be undone.
 
 USAGE:
   scw iot hub delete <hub-id ...> [arg=value ...]
 
 ARGS:
   hub-id             Hub ID
-  [delete-devices]   Force deletion of devices added to this hub instead of rejecting operation
+  [delete-devices]   Defines whether to force the deletion of devices added to this Hub or reject the operation
   [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:

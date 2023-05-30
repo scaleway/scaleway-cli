@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the certificate authority of a hub.
+Get information for a particular PEM-encoded certificate, specified by the Hub ID.
 
 USAGE:
   scw iot hub get-ca [arg=value ...]

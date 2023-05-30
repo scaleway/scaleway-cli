@@ -30,7 +30,7 @@ scw account project create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  | Name of the Project |
+| name | Default: `<generated>` | Name of the Project |
 | description |  | Description of the Project |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 

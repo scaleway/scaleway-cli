@@ -9,7 +9,7 @@ AVAILABLE COMMANDS:
   create      Create a new cron
   delete      Delete an existing cron
   get         Get a cron
-  list        List all your crons
+  list        List all crons
   update      Update an existing cron
 
 FLAGS:

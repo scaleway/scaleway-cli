@@ -9,6 +9,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -26,6 +27,7 @@ type meta struct {
 	OverrideEnv  map[string]string
 	OverrideExec OverrideExecFunc
 	CliConfig    *cliConfig.Config
+	Platform     platform.Platform
 
 	command                     *Command
 	stdout                      io.Writer
@@ -51,6 +53,20 @@ func injectMeta(ctx context.Context, meta *meta) context.Context {
 // extractMeta extracts meta from a given context.
 func extractMeta(ctx context.Context) *meta {
 	return ctx.Value(metaContextKey).(*meta)
+}
+
+// injectSDKConfig add config to a meta context
+func injectConfig(ctx context.Context, config *scw.Config) {
+	extractMeta(ctx).Platform.SetScwConfig(config)
+}
+
+func extractConfig(ctx context.Context) *scw.Config {
+	m := extractMeta(ctx)
+	if m.Platform != nil {
+		return m.Platform.ScwConfig()
+	}
+
+	return nil
 }
 
 func ExtractCommands(ctx context.Context) *Commands {
@@ -181,12 +197,7 @@ func ExtractCliConfigPath(ctx context.Context) string {
 func ReloadClient(ctx context.Context) error {
 	var err error
 	meta := extractMeta(ctx)
-	// if client is from bootstrap we are probably running test
-	// if we reload the client we loose the cassette recorder
-	if meta.isClientFromBootstrapConfig {
-		return nil
-	}
-	meta.Client, err = createClient(ctx, meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
+	meta.Client, err = meta.Platform.CreateClient(meta.httpClient, ExtractConfigPath(ctx), ExtractProfileName(ctx))
 	return err
 }
 

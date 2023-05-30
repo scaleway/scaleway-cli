@@ -14,6 +14,50 @@ import (
 
 var autoCompleteCache *cache.Cache
 
+// getGlobalFlags returns the list of flags that should be added to all commands
+func getGlobalFlags(ctx context.Context) []FlagSpec {
+	printerTypes := []string{
+		PrinterTypeHuman.String(),
+		PrinterTypeJSON.String(),
+		PrinterTypeYAML.String(),
+		PrinterTypeTemplate.String(),
+	}
+	profiles := []string(nil)
+	cfg := extractConfig(ctx)
+	if cfg != nil {
+		for profile := range cfg.Profiles {
+			profiles = append(profiles, profile)
+		}
+	}
+
+	return []FlagSpec{
+		{Name: "-c"},
+		{Name: "--config"},
+		{Name: "-D"},
+		{Name: "--debug"},
+		{Name: "-h"},
+		{Name: "--help"},
+		{
+			Name:       "-o",
+			EnumValues: printerTypes,
+		},
+		{
+			Name:       "--output",
+			EnumValues: printerTypes,
+		},
+		{
+			Name:             "-p",
+			HasVariableValue: true,
+			EnumValues:       profiles,
+		},
+		{
+			Name:             "--profile",
+			HasVariableValue: true,
+			EnumValues:       profiles,
+		},
+	}
+}
+
 func AutocompleteProfileName() AutoCompleteArgFunc {
 	return func(ctx context.Context, prefix string) AutocompleteSuggestions {
 		res := AutocompleteSuggestions(nil)
@@ -50,7 +94,8 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 	// ex with "scw instance private-nic list server-id=<tab>"
 	// we get server as resource instead of private-nic to find command "scw instance server list"
 	if !strings.HasPrefix(argName, cmd.Resource) {
-		dashIndex := strings.Index(argName, "-")
+		// Use last index as resource name might contain a dash (ex: security-group-id)
+		dashIndex := strings.LastIndex(argName, "-")
 		if dashIndex > 0 {
 			argResource = argName[:dashIndex]
 		}

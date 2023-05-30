@@ -37,8 +37,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func fipRoot() *core.Command {
 	return &core.Command{
-		Short:     `Flexible IP API`,
-		Long:      `Flexible IP API.`,
+		Short:     `Elastic Metal - Flexible IP API`,
+		Long:      `Elastic Metal - Flexible IP API.`,
 		Namespace: "fip",
 	}
 }
@@ -46,8 +46,8 @@ func fipRoot() *core.Command {
 func fipIP() *core.Command {
 	return &core.Command{
 		Short: `Flexible IP management commands`,
-		Long: `A Flexible IP can be attached to any server in the same zone.
-A server can be linked with multiple Flexible IPs attached to it.
+		Long: `A flexible IP can be attached to any Elastic Metal server within the same zone.
+Multiple flexible IPs can be attached to a server.
 `,
 		Namespace: "fip",
 		Resource:  "ip",
@@ -65,8 +65,8 @@ func fipMac() *core.Command {
 
 func fipIPCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a Flexible IP`,
-		Long:      `Create a Flexible IP.`,
+		Short:     `Create a new flexible IP`,
+		Long:      `Generate a new flexible IP within a given zone, specifying its configuration including Project ID and description.`,
 		Namespace: "fip",
 		Resource:  "ip",
 		Verb:      "create",
@@ -76,35 +76,35 @@ func fipIPCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "description",
-				Short:      `Description to associate with the Flexible IP, max 255 characters`,
+				Short:      `Flexible IP description (max. of 255 characters)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags to associate to the Flexible IP`,
+				Short:      `Tags to associate to the flexible IP`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "server-id",
-				Short:      `Server ID on which to attach the created Flexible IP`,
+				Short:      `ID of the server to which the newly created flexible IP will be attached.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "reverse",
-				Short:      `Reverse DNS value`,
+				Short:      `Value of the reverse DNS`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "is-ipv6",
-				Short:      `If true, creates a Flexible IP with an ipv6 address`,
+				Short:      `Defines whether the flexible IP has an IPv6 address.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -124,8 +124,8 @@ func fipIPCreate() *core.Command {
 
 func fipIPGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a Flexible IP`,
-		Long:      `Get a Flexible IP.`,
+		Short:     `Get an existing flexible IP`,
+		Long:      `Retrieve information about an existing flexible IP, specified by its ID and zone. Its full details, including Project ID, description and status, are returned in the response object.`,
 		Namespace: "fip",
 		Resource:  "ip",
 		Verb:      "get",
@@ -134,7 +134,7 @@ func fipIPGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
-				Short:      `Flexible IP ID`,
+				Short:      `ID of the flexible IP`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -154,8 +154,8 @@ func fipIPGet() *core.Command {
 
 func fipIPList() *core.Command {
 	return &core.Command{
-		Short:     `List Flexible IPs`,
-		Long:      `List Flexible IPs.`,
+		Short:     `List flexible IPs`,
+		Long:      `List all flexible IPs within a given zone.`,
 		Namespace: "fip",
 		Resource:  "ip",
 		Verb:      "list",
@@ -164,7 +164,7 @@ func fipIPList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `The sort order of the returned Flexible IPs`,
+				Short:      `Sort order of the returned flexible IPs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -172,14 +172,14 @@ func fipIPList() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Filter Flexible IPs with one or more matching tags`,
+				Short:      `Filter by tag, only flexible IPs with one or more matching tags will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "status.{index}",
-				Short:      `Filter Flexible IPs by status`,
+				Short:      `Filter by status, only flexible IPs with this status will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -187,21 +187,21 @@ func fipIPList() *core.Command {
 			},
 			{
 				Name:       "server-ids.{index}",
-				Short:      `Filter Flexible IPs by server IDs`,
+				Short:      `Filter by server IDs, only flexible IPs with these server IDs will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
-				Short:      `Filter Flexible IPs by project ID`,
+				Short:      `Filter by Project ID, only flexible IPs from this Project will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter Flexible IPs by organization ID`,
+				Short:      `Filter by Organization ID, only flexible IPs from this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -265,8 +265,8 @@ func fipIPList() *core.Command {
 
 func fipIPUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a Flexible IP`,
-		Long:      `Update a Flexible IP.`,
+		Short:     `Update an existing flexible IP`,
+		Long:      `Update the parameters of an existing flexible IP, specified by its ID and zone. These parameters include tags and description.`,
 		Namespace: "fip",
 		Resource:  "ip",
 		Verb:      "update",
@@ -275,28 +275,28 @@ func fipIPUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
-				Short:      `ID of the Flexible IP to update`,
+				Short:      `ID of the flexible IP to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "description",
-				Short:      `Description to associate with the Flexible IP, max 255 characters`,
+				Short:      `Flexible IP description (max. 255 characters)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags to associate with the Flexible IP`,
+				Short:      `Tags associated with the flexible IP`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "reverse",
-				Short:      `Reverse DNS value`,
+				Short:      `Value of the reverse DNS`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -316,8 +316,8 @@ func fipIPUpdate() *core.Command {
 
 func fipIPDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a Flexible IP`,
-		Long:      `Delete a Flexible IP.`,
+		Short:     `Delete an existing flexible IP`,
+		Long:      `Delete an existing flexible IP, specified by its ID and zone. Note that deleting a flexible IP is permanent and cannot be undone.`,
 		Namespace: "fip",
 		Resource:  "ip",
 		Verb:      "delete",
@@ -326,7 +326,7 @@ func fipIPDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
-				Short:      `ID of the Flexible IP to delete`,
+				Short:      `ID of the flexible IP to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -352,8 +352,8 @@ func fipIPDelete() *core.Command {
 
 func fipIPAttach() *core.Command {
 	return &core.Command{
-		Short:     `Attach a Flexible IP to a server`,
-		Long:      `Attach a Flexible IP to a server.`,
+		Short:     `Attach an existing flexible IP to a server`,
+		Long:      `Attach an existing flexible IP to a specified Elastic Metal server.`,
 		Namespace: "fip",
 		Resource:  "ip",
 		Verb:      "attach",
@@ -362,14 +362,14 @@ func fipIPAttach() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fips-ids.{index}",
-				Short:      `A list of Flexible IP IDs to attach`,
+				Short:      `List of flexible IP IDs to attach to a server`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "server-id",
-				Short:      `A server ID on which to attach the Flexible IPs`,
+				Short:      `ID of the server on which to attach the flexible IPs`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -389,8 +389,8 @@ func fipIPAttach() *core.Command {
 
 func fipIPDetach() *core.Command {
 	return &core.Command{
-		Short:     `Detach a Flexible IP from a server`,
-		Long:      `Detach a Flexible IP from a server.`,
+		Short:     `Detach an existing flexible IP from a server`,
+		Long:      `Detach an existing flexible IP from a specified Elastic Metal server.`,
 		Namespace: "fip",
 		Resource:  "ip",
 		Verb:      "detach",
@@ -399,7 +399,7 @@ func fipIPDetach() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fips-ids.{index}",
-				Short:      `A list of Flexible IP IDs to detach`,
+				Short:      `List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group.`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -419,8 +419,8 @@ func fipIPDetach() *core.Command {
 
 func fipMacCreate() *core.Command {
 	return &core.Command{
-		Short:     `Generate a virtual MAC on a given Flexible IP`,
-		Long:      `Generate a virtual MAC on a given Flexible IP.`,
+		Short:     `Generate a virtual MAC address on an existing flexible IP`,
+		Long:      `Generate a virtual MAC (Media Access Control) address on an existing flexible IP.`,
 		Namespace: "fip",
 		Resource:  "mac",
 		Verb:      "create",
@@ -429,7 +429,7 @@ func fipMacCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
-				Short:      `Flexible IP ID on which to generate a Virtual MAC`,
+				Short:      `ID of the flexible IP for which to generate a virtual MAC`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -457,8 +457,8 @@ func fipMacCreate() *core.Command {
 
 func fipMacDuplicate() *core.Command {
 	return &core.Command{
-		Short:     `Duplicate a Virtual MAC`,
-		Long:      `Duplicate a Virtual MAC from a given Flexible IP onto another attached on the same server.`,
+		Short:     `Duplicate a virtual MAC address to another flexible IP`,
+		Long:      `Duplicate a virtual MAC address from a given flexible IP to another flexible IP attached to the same server.`,
 		Namespace: "fip",
 		Resource:  "mac",
 		Verb:      "duplicate",
@@ -467,14 +467,14 @@ func fipMacDuplicate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
-				Short:      `Flexible IP ID on which to duplicate the Virtual MAC`,
+				Short:      `ID of the flexible IP on which to duplicate the virtual MAC`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "duplicate-from-fip-id",
-				Short:      `Flexible IP ID to duplicate the Virtual MAC from`,
+				Short:      `ID of the flexible IP to duplicate the Virtual MAC from`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -494,8 +494,8 @@ func fipMacDuplicate() *core.Command {
 
 func fipMacMove() *core.Command {
 	return &core.Command{
-		Short:     `Move a virtual MAC`,
-		Long:      `Move a Virtual MAC from a given Flexible IP onto another Flexible IP.`,
+		Short:     `Relocate an existing virtual MAC address to a different flexible IP`,
+		Long:      `Relocate a virtual MAC (Media Access Control) address from an existing flexible IP to a different flexible IP.`,
 		Namespace: "fip",
 		Resource:  "mac",
 		Verb:      "move",
@@ -529,8 +529,8 @@ func fipMacMove() *core.Command {
 
 func fipMacDelete() *core.Command {
 	return &core.Command{
-		Short:     `Remove a virtual MAC from a Flexible IP`,
-		Long:      `Remove a virtual MAC from a Flexible IP.`,
+		Short:     `Detach a given virtual MAC address from an existing flexible IP`,
+		Long:      `Detach a given MAC (Media Access Control) address from an existing flexible IP.`,
 		Namespace: "fip",
 		Resource:  "mac",
 		Verb:      "delete",
@@ -539,7 +539,7 @@ func fipMacDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
-				Short:      `Flexible IP ID from which to delete the Virtual MAC`,
+				Short:      `ID of the flexible IP from which to delete the virtual MAC`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,

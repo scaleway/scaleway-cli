@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the name and/or the organizations for a DNS zone.
+Update the name and/or the Organizations for a DNS zone.
 
 USAGE:
   scw dns zone update [arg=value ...]
 
 ARGS:
-  dns-zone       The DNS zone to update
-  new-dns-zone   The new DNS zone
+  dns-zone       DNS zone to update
+  new-dns-zone   Name of the new DNS zone to create
   [project-id]   Project ID to use. If none is passed the default project ID will be used
 
 FLAGS:

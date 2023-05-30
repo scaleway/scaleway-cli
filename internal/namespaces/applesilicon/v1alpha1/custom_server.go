@@ -98,7 +98,7 @@ func serverWaitCommand() *core.Command {
 			cluster, err := api.WaitForServer(&applesilicon.WaitForServerRequest{
 				Zone:          args.Zone,
 				ServerID:      args.ServerID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       args.Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -115,6 +115,7 @@ func serverWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(),
+			core.WaitTimeoutArgSpec(serverActionTimeout),
 		},
 		Examples: []*core.Example{
 			{

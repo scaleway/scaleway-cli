@@ -18,7 +18,7 @@ ARGS:
   [user-id]                                      ID of user attributed to the policy
   [group-id]                                     ID of group attributed to the policy
   [application-id]                               ID of application attributed to the policy
-  [no-principal]                                 Whether or not a policy is attributed to a principal
+  [no-principal]                                 Defines whether or not a policy is attributed to a principal
   [organization-id]                              Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
