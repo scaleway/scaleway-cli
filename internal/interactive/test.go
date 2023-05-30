@@ -33,6 +33,15 @@ func popMockResponseFromContext(ctx context.Context) (string, bool) {
 	return str, true
 }
 
+func hasMockedResponse(ctx context.Context) bool {
+	contextValue := ctx.Value(contextKey)
+	if contextValue == nil {
+		return false
+	}
+
+	return true
+}
+
 type mockResponseReader struct {
 	ctx           context.Context
 	defaultReader io.ReadCloser

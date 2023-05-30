@@ -69,11 +69,18 @@ func (m *ListPrompt) View() string {
 func (m *ListPrompt) Execute(ctx context.Context) (int, error) {
 	m.cursor = m.DefaultIndex
 
-	p := tea.NewProgram(m,
-		tea.WithInput(&mockResponseReader{
+	opts := []tea.ProgramOption{
+		tea.WithContext(ctx),
+	}
+
+	if hasMockedResponse(ctx) {
+		opts = append(opts, tea.WithInput(&mockResponseReader{
 			ctx:           ctx,
 			defaultReader: os.Stdin,
 		}))
+	}
+
+	p := tea.NewProgram(m, opts...)
 	_, err := p.Run()
 	if err != nil {
 		return -1, fmt.Errorf("error running prompt: %w", err)
