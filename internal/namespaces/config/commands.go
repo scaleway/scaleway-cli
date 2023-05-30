@@ -33,6 +33,7 @@ func GetCommands() *core.Commands {
 		configDestroyCommand(),
 		configInfoCommand(),
 		configImportCommand(),
+		configValidateCommand(),
 	)
 }
 
@@ -695,6 +696,52 @@ func configImportCommand() *core.Command {
 	}
 }
 
+// configValidateCommand validates the config
+func configValidateCommand() *core.Command {
+	type configValidateArgs struct{}
+
+	return &core.Command{
+		Short: `Validate the config`,
+		Long: `This command validates the configuration of your Scaleway CLI tool.
+
+It performs the following checks:
+
+	- YAML syntax correctness: It checks whether your config file is a valid YAML file.
+	- Field validity: It checks whether the fields present in the config file are valid and expected fields. This includes fields like AccessKey, SecretKey, DefaultOrganizationID, DefaultProjectID, DefaultRegion, DefaultZone, and APIURL.
+	- Field values: For each of the fields mentioned above, it checks whether the value assigned to it is valid. For example, it checks if the AccessKey and SecretKey are non-empty and meet the format expectations.
+
+The command goes through each profile present in the config file and validates it.`,
+		Namespace:            "config",
+		Resource:             "validate",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(configValidateArgs{}),
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			configPath := core.ExtractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
+			if err != nil {
+				return nil, err
+			}
+
+			// validate default profile
+			err = validateProfile(&config.Profile)
+			if err != nil {
+				return nil, err
+			}
+			// validate the remaining profiles
+			for _, profile := range config.Profiles {
+				err = validateProfile(profile)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			return &core.SuccessResult{
+				Message: "successfully validate config",
+			}, nil
+		},
+	}
+}
+
 // Helper functions
 func getProfileValue(profile *scw.Profile, fieldName string) (interface{}, error) {
 	field, err := getProfileField(profile, fieldName)
@@ -748,4 +795,125 @@ func getProfile(config *scw.Config, profileName string) (*scw.Profile, error) {
 		return nil, unknownProfileError(profileName)
 	}
 	return profile, nil
+}
+
+func validateProfile(profile *scw.Profile) error {
+	if err := validateAccessKey(profile); err != nil {
+		return err
+	}
+	if err := validateSecretKey(profile); err != nil {
+		return err
+	}
+	if err := validateDefaultOrganizationID(profile); err != nil {
+		return err
+	}
+	if err := validateDefaultProjectID(profile); err != nil {
+		return err
+	}
+	if err := validateDefaultRegion(profile); err != nil {
+		return err
+	}
+	if err := validateDefaultZone(profile); err != nil {
+		return err
+	}
+	return validateAPIURL(profile)
+}
+
+func validateAccessKey(profile *scw.Profile) error {
+	if profile.AccessKey != nil {
+		if *profile.AccessKey == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("access key cannot be empty"),
+			}
+		}
+
+		if !validation.IsAccessKey(*profile.AccessKey) {
+			return core.InvalidAccessKeyError(*profile.AccessKey)
+		}
+	}
+	return nil
+}
+
+func validateSecretKey(profile *scw.Profile) error {
+	if profile.SecretKey != nil {
+		if *profile.SecretKey == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("secret key cannot be empty"),
+			}
+		}
+
+		if !validation.IsSecretKey(*profile.SecretKey) {
+			return core.InvalidSecretKeyError(*profile.SecretKey)
+		}
+	}
+	return nil
+}
+
+func validateDefaultOrganizationID(profile *scw.Profile) error {
+	if profile.DefaultOrganizationID != nil {
+		if *profile.DefaultOrganizationID == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default organization ID cannot be empty"),
+			}
+		}
+
+		if !validation.IsOrganizationID(*profile.DefaultOrganizationID) {
+			return core.InvalidOrganizationIDError(*profile.DefaultOrganizationID)
+		}
+	}
+	return nil
+}
+
+func validateDefaultProjectID(profile *scw.Profile) error {
+	if profile.DefaultProjectID != nil {
+		if *profile.DefaultProjectID == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default project ID cannot be empty"),
+			}
+		}
+
+		if !validation.IsProjectID(*profile.DefaultProjectID) {
+			return core.InvalidProjectIDError(*profile.DefaultProjectID)
+		}
+	}
+	return nil
+}
+
+func validateDefaultRegion(profile *scw.Profile) error {
+	if profile.DefaultRegion != nil {
+		if *profile.DefaultRegion == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default region cannot be empty"),
+			}
+		}
+
+		if !validation.IsRegion(*profile.DefaultRegion) {
+			return core.InvalidRegionError(*profile.DefaultRegion)
+		}
+	}
+	return nil
+}
+
+func validateDefaultZone(profile *scw.Profile) error {
+	if profile.DefaultZone != nil {
+		if *profile.DefaultZone == "" {
+			return &core.CliError{
+				Err: fmt.Errorf("default zone cannot be empty"),
+			}
+		}
+
+		if !validation.IsZone(*profile.DefaultZone) {
+			return core.InvalidZoneError(*profile.DefaultZone)
+		}
+	}
+	return nil
+}
+
+func validateAPIURL(profile *scw.Profile) error {
+	if profile.APIURL != nil {
+		if *profile.APIURL != "" && !validation.IsURL(*profile.APIURL) {
+			return core.InvalidAPIURLError(*profile.APIURL)
+		}
+	}
+	return nil
 }

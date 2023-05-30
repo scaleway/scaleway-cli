@@ -17,6 +17,7 @@ import (
 	pack "github.com/buildpacks/pack/pkg/client"
 	"github.com/buildpacks/pack/pkg/logging"
 	dockertypes "github.com/docker/docker/api/types"
+	dockerregistry "github.com/docker/docker/api/types/registry"
 	docker "github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/archive"
 	"github.com/docker/docker/pkg/jsonmessage"
@@ -338,7 +339,7 @@ type DeployStepPushImageResponse struct {
 func DeployStepPushImage(t *tasks.Task, data *DeployStepBuildImageResponse) (*DeployStepPushImageResponse, error) {
 	accessKey, _ := data.Client.GetAccessKey()
 	secretKey, _ := data.Client.GetSecretKey()
-	authConfig := dockertypes.AuthConfig{
+	authConfig := dockerregistry.AuthConfig{
 		ServerAddress: data.Namespace.RegistryEndpoint,
 		Username:      accessKey,
 		Password:      secretKey,
