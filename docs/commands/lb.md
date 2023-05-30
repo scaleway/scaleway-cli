@@ -965,6 +965,7 @@ scw lb lb get-stats <lb-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | lb-id | Required | Load Balancer ID |
+| backend-id |  | ID of the backend |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
