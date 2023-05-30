@@ -1,6 +1,6 @@
 module github.com/scaleway/scaleway-cli/v2
 
-go 1.19
+go 1.20
 
 // https://github.com/buildpacks/pack/pull/1735
 replace github.com/buildpacks/pack => github.com/quantumsheep/pack v0.30.0-pre1.0.20230505095233-37158bb223a4
