@@ -3,6 +3,7 @@ package init
 import (
 	"fmt"
 	"path"
+	"regexp"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -221,7 +222,18 @@ func TestInit_Prompt(t *testing.T) {
 		TmpHomeDir: true,
 		Cmd:        "scw init",
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckGoldenAndReplacePatterns(
+				core.GoldenReplacement{
+					Pattern:       regexp.MustCompile("\\s\\sExcept for autocomplete: unsupported OS 'windows'\n"),
+					Replacement:   "",
+					OptionalMatch: true,
+				},
+				core.GoldenReplacement{
+					Pattern:       regexp.MustCompile("Except for autocomplete: unsupported OS 'windows'\\n"),
+					Replacement:   "",
+					OptionalMatch: true,
+				},
+			),
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.SecretKey)

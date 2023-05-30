@@ -599,6 +599,10 @@ type GoldenReplacement struct {
 	// This is the format for repl in (*regexp.Regexp).ReplaceAll
 	// You can use $ to represent groups $1, $2...
 	Replacement string
+
+	// OptionalMatch allow the golden to not contain the given patterns
+	// if false, the golden must contain the given pattern
+	OptionalMatch bool
 }
 
 // goldenReplacePatterns replace the list of patterns with their given replacement
@@ -608,7 +612,9 @@ func goldenReplacePatterns(golden string, replacements ...GoldenReplacement) (st
 
 	for _, replacement := range replacements {
 		if !replacement.Pattern.MatchString(changedGolden) {
-			matchFailed = append(matchFailed, replacement.Pattern.String())
+			if !replacement.OptionalMatch {
+				matchFailed = append(matchFailed, replacement.Pattern.String())
+			}
 			continue
 		}
 		changedGolden = replacement.Pattern.ReplaceAllString(changedGolden, replacement.Replacement)
