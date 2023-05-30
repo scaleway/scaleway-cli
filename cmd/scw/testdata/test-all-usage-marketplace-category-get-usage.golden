@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get marketplace resources.
+Get information about a specific category of the marketplace catalog, specified by its `category_id` (UUID format).
 
 USAGE:
   scw marketplace category get [arg=value ...]

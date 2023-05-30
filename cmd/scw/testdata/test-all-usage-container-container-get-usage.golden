@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the container associated with the given id.
+Get the container associated with the specified ID.
 
 USAGE:
   scw container container get <container-id ...> [arg=value ...]
 
 ARGS:
-  container-id      
+  container-id      UUID of the container to get
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

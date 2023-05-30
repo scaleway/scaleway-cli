@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all your namespaces.
+List all namespaces in a specified region.
 
 USAGE:
   scw container namespace list [arg=value ...]
 
 ARGS:
-  [order-by]           (created_at_asc | created_at_desc | name_asc | name_desc)
-  [name]              
-  [project-id]        
-  [organization-id]   
+  [order-by]          Order of the namespaces (created_at_asc | created_at_desc | name_asc | name_desc)
+  [name]              Name of the namespaces
+  [project-id]        UUID of the Project the namespace belongs to
+  [organization-id]   UUID of the Organization the namespace belongs to
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

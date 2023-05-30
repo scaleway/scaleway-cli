@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Disable a device.
+Disable an existing device, specified by its device ID.
 
 USAGE:
   scw iot device disable <device-id ...> [arg=value ...]

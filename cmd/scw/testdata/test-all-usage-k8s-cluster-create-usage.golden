@@ -1,40 +1,40 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new Kubernetes cluster on a Scaleway account.
+Create a new Kubernetes cluster in a Scaleway region.
 
 USAGE:
   scw k8s cluster create [arg=value ...]
 
 EXAMPLES:
-  Create a Kubernetes cluster named foo with cilium as CNI, in version 1.24.7 and with a pool named default composed of 3 DEV1-M
-    scw k8s cluster create name=foo version=1.24.7 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
+  Create a Kubernetes cluster named foo with cilium as CNI, in version 1.27.0 and with a pool named default composed of 3 DEV1-M
+    scw k8s cluster create name=foo version=1.27.0 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
 
-  Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.24.7 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
-    scw k8s cluster create name=bar version=1.24.7 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
+  Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.27.0 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
+    scw k8s cluster create name=bar version=1.27.0 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
 
 ARGS:
   [project-id]                                           Project ID to use. If none is passed the default project ID will be used
-  [type]                                                 Type of the cluster
-  name=<generated>                                       Name of the cluster
-  [description]                                          Description of the cluster
+  [type]                                                 Type of the cluster (possible values are kapsule, multicloud, kapsule-dedicated-8, kapsule-dedicated-16)
+  name=<generated>                                       Cluster name
+  [description]                                          Cluster description
   [tags.{index}]                                         Tags associated with the cluster
   version=latest                                         Kubernetes version of the cluster
-  cni=cilium                                             Container Network Interface (CNI) plugin that will run in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo)
+  cni=cilium                                             Container Network Interface (CNI) plugin running in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo)
   pools.{index}.name                                     Name of the pool
-  pools.{index}.node-type                                Node type is the type of Scaleway Instance wanted for the pool
+  pools.{index}.node-type                                Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster
   [pools.{index}.placement-group-id]                     Placement group ID in which all the nodes of the pool will be created
   [pools.{index}.autoscaling]                            Defines whether the autoscaling feature is enabled for the pool
   pools.{index}.size                                     Size (number of nodes) of the pool
-  [pools.{index}.min-size]                               Minimum size of the pool
-  [pools.{index}.max-size]                               Maximum size of the pool
-  [pools.{index}.container-runtime]                      Container runtime for the nodes of the pool (unknown_runtime | docker | containerd | crio)
+  [pools.{index}.min-size]                               Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
+  [pools.{index}.max-size]                               Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
+  [pools.{index}.container-runtime]                      Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24 (unknown_runtime | docker | containerd | crio)
   [pools.{index}.autohealing]                            Defines whether the autohealing feature is enabled for the pool
   [pools.{index}.tags.{index}]                           Tags associated with the pool
-  [pools.{index}.kubelet-args.{key}]                     Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental
+  [pools.{index}.kubelet-args.{key}]                     Kubelet arguments to be used by this pool. Note that this feature is experimental
   [pools.{index}.upgrade-policy.max-unavailable]         The maximum number of nodes that can be not ready at the same time
   [pools.{index}.upgrade-policy.max-surge]               The maximum number of nodes to be created during the upgrade
   [pools.{index}.zone]                                   Zone in which the pool's nodes will be spawned
-  [pools.{index}.root-volume-type]                       System volume disk type (default_volume_type | l_ssd | b_ssd)
+  [pools.{index}.root-volume-type]                       Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster (default_volume_type | l_ssd | b_ssd)
   [pools.{index}.root-volume-size]                       System volume disk size
   [autoscaler-config.scale-down-disabled]                Disable the cluster autoscaler
   [autoscaler-config.scale-down-delay-after-add]         How long after scale up that scale down evaluation resumes
@@ -42,30 +42,30 @@ ARGS:
   [autoscaler-config.expander]                           Type of node group expander to be used in scale up (unknown_expander | random | most_pods | least_waste | priority | price)
   [autoscaler-config.ignore-daemonsets-utilization]      Ignore DaemonSet pods when calculating resource utilization for scaling down
   [autoscaler-config.balance-similar-node-groups]        Detect similar node groups and balance the number of nodes between them
-  [autoscaler-config.expendable-pods-priority-cutoff]    Pods with priority below cutoff will be expendable
-  [autoscaler-config.scale-down-unneeded-time]           How long a node should be unneeded before it is eligible for scale down
-  [autoscaler-config.scale-down-utilization-threshold]   Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down
+  [autoscaler-config.expendable-pods-priority-cutoff]    Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable
+  [autoscaler-config.scale-down-unneeded-time]           How long a node should be unneeded before it is eligible to be scaled down
+  [autoscaler-config.scale-down-utilization-threshold]   Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down
   [autoscaler-config.max-graceful-termination-sec]       Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node
-  [auto-upgrade.enable]                                  Whether or not auto upgrade is enabled for the cluster
+  [auto-upgrade.enable]                                  Defines whether auto upgrade is enabled for the cluster
   [auto-upgrade.maintenance-window.start-hour]           Start time of the two-hour maintenance window
   [auto-upgrade.maintenance-window.day]                  Day of the week for the maintenance window (any | monday | tuesday | wednesday | thursday | friday | saturday | sunday)
   [feature-gates.{index}]                                List of feature gates to enable
   [admission-plugins.{index}]                            List of admission plugins to enable
-  [open-id-connect-config.issuer-url]                    URL of the provider which allows the API server to discover public signing keys
-  [open-id-connect-config.client-id]                     A client id that all tokens must be issued for
-  [open-id-connect-config.username-claim]                JWT claim to use as the user name
-  [open-id-connect-config.username-prefix]               Prefix prepended to username
+  [open-id-connect-config.issuer-url]                    URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com"
+  [open-id-connect-config.client-id]                     A client ID that all tokens must be issued for
+  [open-id-connect-config.username-claim]                JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision
+  [open-id-connect-config.username-prefix]               Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing
   [open-id-connect-config.groups-claim.{index}]          JWT claim to use as the user's group
-  [open-id-connect-config.groups-prefix]                 Prefix prepended to group claims
-  [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs that describes a required claim in the ID token
+  [open-id-connect-config.groups-prefix]                 Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`
+  [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value
   [apiserver-cert-sans.{index}]                          Additional Subject Alternative Names for the Kubernetes API server certificate
   [private-network-id]                                   Private network ID for internal cluster communication (cannot be changed later)
   [organization-id]                                      Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:
-  [enable-dashboard]   Defines if the Kubernetes Dashboard is enabled in the cluster
-  [ingress]            Ingress Controller that will run in the cluster (unknown_ingress | none | nginx | traefik | traefik2)
+  [enable-dashboard]   Defines whether the Kubernetes Dashboard is enabled in the cluster
+  [ingress]            Ingress Controller running in the cluster (deprecated feature) (unknown_ingress | none | nginx | traefik | traefik2)
 
 FLAGS:
   -h, --help   help for create

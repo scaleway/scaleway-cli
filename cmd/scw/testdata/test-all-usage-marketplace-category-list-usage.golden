@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List marketplace resources.
+Get a list of all existing categories. The output can be paginated.
 
 USAGE:
   scw marketplace category list

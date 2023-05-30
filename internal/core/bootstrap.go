@@ -10,6 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/account"
 	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/spf13/cobra"
@@ -68,6 +69,9 @@ type BootstrapConfig struct {
 
 	// Enable beta functionalities
 	BetaMode bool
+
+	// The current platform, should probably be platform.Default
+	Platform platform.Platform
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -166,6 +170,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		OverrideExec:   config.OverrideExec,
 		ConfigPathFlag: configPathFlag,
 		Logger:         log,
+		Platform:       config.Platform,
 
 		stdout:                      config.Stdout,
 		stderr:                      config.Stderr,
@@ -216,9 +221,10 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		}
 	}
 
-	// Check CLI new version when exiting the bootstrap
+	// Run checks after command has been executed
 	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
-		config.BuildInfo.checkVersion(ctx)
+		// Check CLI new version and api key expiration date
+		runAfterCommandChecks(ctx, config.BuildInfo.checkVersion, checkAPIKey)
 	}()
 
 	if !config.DisableAliases {

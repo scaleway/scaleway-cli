@@ -123,6 +123,8 @@ b973c899-dc1d-4a7c-b928-f29de01fcc19  pending  10.72.38.11  few seconds ago  few
   "ignore_ssl_server_verify": null,
   "redispatch_attempt_count": null,
   "max_retries": null,
+  "max_connections": null,
+  "timeout_queue": null,
   "timeout_server": null,
   "timeout_connect": null,
   "timeout_tunnel": null

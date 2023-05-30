@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create or return the zone TLS certificate.
+Create a new TLS certificate or retrieve information about an existing TLS certificate.
 
 USAGE:
   scw dns certificate create <dns-zone ...> [arg=value ...]

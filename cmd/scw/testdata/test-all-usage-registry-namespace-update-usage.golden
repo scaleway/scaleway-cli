@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the namespace associated with the given id.
+Update the parameters of a given namespace, specified by its `namespace_id` and `region`. You can update the `description` and `is_public` parameters.
 
 USAGE:
   scw registry namespace update <namespace-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id      Namespace ID to update
-  [description]     Define a description
-  [is-public]       Define the default visibility policy
+  namespace-id      ID of the namespace to update
+  [description]     Namespace description
+  [is-public]       Defines whether or not the namespace is public
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

@@ -7,8 +7,8 @@ USAGE:
 
 AVAILABLE COMMANDS:
   create      Create a token
-  delete      Delete token
-  get         Get token
+  delete      Delete a token
+  get         Get a token
   list        List tokens
 
 FLAGS:

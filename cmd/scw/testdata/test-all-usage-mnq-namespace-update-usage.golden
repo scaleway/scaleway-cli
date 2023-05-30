@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the name of a namespace.
+Update the name of a Messaging and Queuing namespace, specified by its namespace ID.
 
 USAGE:
   scw mnq namespace update <namespace-id ...> [arg=value ...]

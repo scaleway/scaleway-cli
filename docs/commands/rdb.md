@@ -374,6 +374,7 @@ scw rdb backup wait <backup-id ...> [arg=value ...]
 |------|---|-------------|
 | backup-id | Required | ID of the backup you want to wait for. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| timeout | Default: `20m0s` | Timeout of the wait |
 
 
 **Examples:**
@@ -616,7 +617,7 @@ scw rdb engine settings name=MySQL version=8
 
 A Database Instance is made up of one or multiple dedicated compute nodes running a single database engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica, and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous replication. Synchronous replication offers the ability to confirm that all changes intended by a transaction have been transferred and applied to the synchronous replica node, providing durability to the data.
 
-**Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](https://developers.scaleway.com/en/products/rdb/api/#read-replicas-8e2cf2)
+**Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](#path-read-replicas-create-a-read-replica)
 
 Read Replicas can be used for certain read-only workflows such as Business Intelligence, or for a read-only scaling of your application. Read Replicas use asynchronous replication to replicate data from the main node.
 
@@ -659,6 +660,7 @@ scw rdb instance connect <instance-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| private-network | Default: `false` | Connect by the private network endpoint attached. |
 | instance-id | Required | UUID of the instance |
 | username | Required | Name of the user to connect with to the database |
 | database | Default: `rdb` | Name of the database |
@@ -686,7 +688,8 @@ scw rdb instance create [arg=value ...]
 | name | Default: `<generated>` | Name of the Database Instance |
 | engine | Required | Database engine of the Database Instance (PostgreSQL, MySQL, ...) |
 | user-name | Required | Username created when the Database Instance is created |
-| password | Required | Password of the user |
+| generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
+| password |  | Password of the user |
 | node-type | Required<br />Default: `DB-DEV-S` | Type of node to use for the Database Instance |
 | is-ha-cluster |  | Defines whether or not High-Availability is enabled |
 | disable-backup |  | Defines whether or not backups are disabled |
@@ -942,6 +945,7 @@ scw rdb instance wait <instance-id ...> [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | ID of the instance you want to wait for. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| timeout | Default: `20m0s` | Timeout of the wait |
 
 
 **Examples:**
@@ -1159,7 +1163,7 @@ The replica mirrors the data of the primary Database node and any changes made a
 
 A Read Replica can have at most one direct access and one Private Network endpoint. `Loadbalancer` endpoints are not available on Read Replicas even if this resource is displayed in the Read Replica response example.
 
-If you want to remove a Read Replica endpoint, you can use [delete a Database Instance endpoint](https://developers.scaleway.com/en/products/rdb/api/#delete-401f48) API call.
+If you want to remove a Read Replica endpoint, you can use [delete a Database Instance endpoint](#path-endpoints-delete-a-database-instance-endpoint) API call.
 
 Instance Access Control Lists (ACL) also apply to Read Replica direct access endpoints.
 
@@ -1188,6 +1192,7 @@ scw rdb read-replica create <instance-id ...> [arg=value ...]
 | instance-id | Required | UUID of the Database Instance you want to create a Read Replica from |
 | endpoint-spec.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Read Replica |
 | endpoint-spec.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
+| same-zone |  | Defines whether to create the replica in the same availability zone as the main instance nodes or not. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -1279,7 +1284,7 @@ scw rdb read-replica reset <read-replica-id ...> [arg=value ...]
 
 Advanced Database Instance settings allow you to tune the behavior of your database engines to better fit your needs.
 
-Available settings depend on the database engine and its version. Note that some settings can only be defined upon database engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available database engines](https://developers.scaleway.com/en/products/rdb/api/#get-1eafb7) endpoint.
+Available settings depend on the database engine and its version. Note that some settings can only be defined upon database engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available database engines](#path-databases-list-databases-in-a-database-instance) endpoint.
 
 Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
 
@@ -1510,6 +1515,7 @@ scw rdb user create [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance in which you want to create a user |
 | name |  | Name of the user you want to create |
+| generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
 | password |  | Password of the user you want to create |
 | is-admin |  | Defines whether the user will have administrative privileges |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -1576,6 +1582,7 @@ scw rdb user update [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance the user belongs to |
 | name | Required | Name of the database user |
+| generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
 | password |  | Password of the database user |
 | is-admin |  | Defines whether or not this user got administrative privileges |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |

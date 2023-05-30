@@ -6,10 +6,10 @@ USAGE:
   scw cockpit grafana-user <command>
 
 AVAILABLE COMMANDS:
-  create         Create a grafana user
-  delete         Delete a grafana user
-  list           List grafana users
-  reset-password Reset Grafana user password
+  create         Create a Grafana user
+  delete         Delete a Grafana user
+  list           List Grafana users
+  reset-password Reset a Grafana user's password
 
 FLAGS:
   -h, --help   help for grafana-user

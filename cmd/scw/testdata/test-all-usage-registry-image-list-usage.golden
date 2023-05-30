@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all your images.
+List all images in a specified region. By default, the images listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `namespace_id` and `project_id` parameters.
 
 USAGE:
   scw registry image list [arg=value ...]
 
 ARGS:
-  [order-by]          Field by which to order the display of Images (created_at_asc | created_at_desc | name_asc | name_desc)
-  [namespace-id]      Filter by the Namespace ID
-  [name]              Filter by the Image name (exact match)
+  [order-by]          Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. (created_at_asc | created_at_desc | name_asc | name_desc)
+  [namespace-id]      Filter by the namespace ID
+  [name]              Filter by the image name (exact match)
   [project-id]        Filter by Project ID
   [organization-id]   Filter by Organization ID
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)

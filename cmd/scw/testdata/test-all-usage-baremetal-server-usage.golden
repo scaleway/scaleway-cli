@@ -11,7 +11,7 @@ AVAILABLE COMMANDS:
   get         Get a specific Elastic Metal server
   get-metrics Return server metrics
   install     Install an Elastic Metal server
-  list        List Elastic Metal servers for an organization
+  list        List Elastic Metal servers for an Organization
   list-events List server events
   reboot      Reboot an Elastic Metal server
   start       Start an Elastic Metal server

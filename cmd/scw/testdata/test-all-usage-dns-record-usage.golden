@@ -7,13 +7,13 @@ USAGE:
 
 AVAILABLE COMMANDS:
   add                Add a new DNS record
-  bulk-update        Update DNS zone records
-  clear              Clear DNS zone records
+  bulk-update        Update records within a DNS zone
+  clear              Clear records within a DNS zone
   delete             Delete a DNS record
-  list               List DNS zone records
-  list-nameservers   List DNS zone nameservers
+  list               List records within a DNS zone
+  list-nameservers   List name servers within a DNS zone
   set                Update a DNS record
-  update-nameservers Update DNS zone nameservers
+  update-nameservers Update name servers within a DNS zone
 
 FLAGS:
   -h, --help   help for record

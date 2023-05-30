@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Clone an existed DNS zone with all its records into a new one.
+Clone an existing DNS zone with all its records into a new DNS zone.
 
 USAGE:
   scw dns zone clone [arg=value ...]
 
 ARGS:
-  dns-zone        The DNS zone to clone
-  dest-dns-zone   The destinaton DNS zone
-  [overwrite]     Whether or not the destination DNS zone will be overwritten
-  [project-id]    The project ID of the destination DNS zone
+  dns-zone        DNS zone to clone
+  dest-dns-zone   Destination DNS zone in which to clone the chosen DNS zone
+  [overwrite]     Specifies whether or not the destination DNS zone will be overwritten
+  [project-id]    Project ID of the destination DNS zone
 
 FLAGS:
   -h, --help   help for clone

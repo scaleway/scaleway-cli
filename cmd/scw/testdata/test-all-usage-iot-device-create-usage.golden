@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Add a device.
+Attach a device to a given Hub.
 
 USAGE:
   scw iot device create [arg=value ...]
 
 ARGS:
   name=<generated>                             Device name
-  hub-id                                       ID of the device's hub
-  [allow-insecure]                             Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones
-  [allow-multiple-connections]                 Allow multiple physical devices to connect with this device's credentials
+  hub-id                                       Hub ID of the device
+  [allow-insecure]                             Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones
+  [allow-multiple-connections]                 Defines whether to allow multiple physical devices to connect with this device's credentials
   [message-filters.publish.policy]             How to use the topic list (unknown | accept | reject)
   [message-filters.publish.topics.{index}]     List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters
   [message-filters.subscribe.policy]           How to use the topic list (unknown | accept | reject)

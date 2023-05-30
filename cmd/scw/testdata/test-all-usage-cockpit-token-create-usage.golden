@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a token associated with the given project ID.
+Create a token associated with the specified Project ID.
 
 USAGE:
   scw cockpit token create [arg=value ...]
 
 ARGS:
   [project-id]                   Project ID to use. If none is passed the default project ID will be used
-  [name=<generated>]             
-  [scopes.query-metrics]         
-  [scopes.write-metrics]         
-  [scopes.setup-metrics-rules]   
-  [scopes.query-logs]            
-  [scopes.write-logs]            
-  [scopes.setup-logs-rules]      
-  [scopes.setup-alerts]          
+  [name=<generated>]             Name of the token
+  [scopes.query-metrics]         Permission to fetch metrics
+  [scopes.write-metrics]         Permission to write metrics
+  [scopes.setup-metrics-rules]   Permission to setup metrics rules
+  [scopes.query-logs]            Permission to fetch logs
+  [scopes.write-logs]            Permission to write logs
+  [scopes.setup-logs-rules]      Permission to setup logs rules
+  [scopes.setup-alerts]          Permission to setup alerts
 
 FLAGS:
   -h, --help   help for create

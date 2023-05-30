@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Reboot a specific node. This node will first be cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (in a one-node cluster, for instance), you may experience some disruption of your applications.
+Reboot a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
 
 USAGE:
   scw k8s node reboot <node-id ...> [arg=value ...]

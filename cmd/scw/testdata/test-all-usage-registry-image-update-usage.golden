@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the image associated with the given id.
+Update the parameters of a given image, specified by its `image_id` and `region`. You can update the `visibility` parameter.
 
 USAGE:
   scw registry image update <image-id ...> [arg=value ...]
 
 ARGS:
-  image-id          Image ID to update
-  [visibility]      A `public` image is pullable from internet without authentication, opposed to a `private` image. `inherit` will use the namespace `is_public` parameter (visibility_unknown | inherit | public | private)
+  image-id          ID of the image to update
+  [visibility]      Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace (visibility_unknown | inherit | public | private)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

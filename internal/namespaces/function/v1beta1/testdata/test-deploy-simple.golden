@@ -1,0 +1,43 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID              4446ab71-78d6-4a19-b210-d7d96d2c4ed1
+Name            cli-test-function-deploy
+NamespaceID     24360d69-3355-4708-84f8-1f71131cd23b
+Status          ready
+MinScale        0
+MaxScale        5
+Runtime         go120
+MemoryLimit     256
+CPULimit        140
+Timeout         5 minutes
+Handler         Handle
+Privacy         public
+Description     -
+DomainName      clitestfunctiondeploeqj6jxof-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
+Region          fr-par
+HTTPOption      enabled
+RuntimeMessage  -
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "4446ab71-78d6-4a19-b210-d7d96d2c4ed1",
+  "name": "cli-test-function-deploy",
+  "namespace_id": "24360d69-3355-4708-84f8-1f71131cd23b",
+  "status": "ready",
+  "environment_variables": {},
+  "min_scale": 0,
+  "max_scale": 5,
+  "runtime": "go120",
+  "memory_limit": 256,
+  "cpu_limit": 140,
+  "timeout": "300.000000000s",
+  "handler": "Handle",
+  "error_message": null,
+  "build_message": null,
+  "privacy": "public",
+  "description": "",
+  "domain_name": "clitestfunctiondeploeqj6jxof-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
+  "secret_environment_variables": [],
+  "region": "fr-par",
+  "http_option": "enabled",
+  "runtime_message": ""
+}

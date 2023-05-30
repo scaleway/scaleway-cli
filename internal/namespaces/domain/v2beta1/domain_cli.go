@@ -52,8 +52,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func dnsRoot() *core.Command {
 	return &core.Command{
-		Short:     `DNS API`,
-		Long:      `Manage your DNS zones and records.`,
+		Short:     `Domains and DNS API`,
+		Long:      `Manage your domains, DNS zones and records with the Domains and DNS API.`,
 		Namespace: "dns",
 	}
 }
@@ -105,9 +105,8 @@ func dnsCertificate() *core.Command {
 
 func dnsZoneList() *core.Command {
 	return &core.Command{
-		Short: `List DNS zones`,
-		Long: `Returns a list of manageable DNS zones.
-You can filter the DNS zones by domain name.`,
+		Short:     `List DNS zones`,
+		Long:      `Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.`,
 		Namespace: "dns",
 		Resource:  "zone",
 		Verb:      "list",
@@ -116,14 +115,14 @@ You can filter the DNS zones by domain name.`,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `The project ID on which to filter the returned DNS zones`,
+				Short:      `Project ID on which to filter the returned DNS zones`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `The sort order of the returned DNS zones`,
+				Short:      `Sort order of the returned DNS zones`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -131,21 +130,21 @@ You can filter the DNS zones by domain name.`,
 			},
 			{
 				Name:       "domain",
-				Short:      `The domain on which to filter the returned DNS zones`,
+				Short:      `Domain on which to filter the returned DNS zones`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone on which to filter the returned DNS zones`,
+				Short:      `DNS zone on which to filter the returned DNS zones`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `The organization ID on which to filter the returned DNS zones`,
+				Short:      `Organization ID on which to filter the returned DNS zones`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -199,7 +198,7 @@ You can filter the DNS zones by domain name.`,
 func dnsZoneCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a DNS zone`,
-		Long:      `Create a new DNS zone.`,
+		Long:      `Create a new DNS zone specified by the domain name, the subdomain and the Project ID.`,
 		Namespace: "dns",
 		Resource:  "zone",
 		Verb:      "create",
@@ -208,14 +207,14 @@ func dnsZoneCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
-				Short:      `The domain of the DNS zone to create`,
+				Short:      `Domain in which to crreate the DNS zone`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "subdomain",
-				Short:      `The subdomain of the DNS zone to create`,
+				Short:      `Subdomain of the DNS zone to create`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -236,7 +235,7 @@ func dnsZoneCreate() *core.Command {
 func dnsZoneUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a DNS zone`,
-		Long:      `Update the name and/or the organizations for a DNS zone.`,
+		Long:      `Update the name and/or the Organizations for a DNS zone.`,
 		Namespace: "dns",
 		Resource:  "zone",
 		Verb:      "update",
@@ -245,14 +244,14 @@ func dnsZoneUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone to update`,
+				Short:      `DNS zone to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "new-dns-zone",
-				Short:      `The new DNS zone`,
+				Short:      `Name of the new DNS zone to create`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -273,7 +272,7 @@ func dnsZoneUpdate() *core.Command {
 func dnsZoneClone() *core.Command {
 	return &core.Command{
 		Short:     `Clone a DNS zone`,
-		Long:      `Clone an existed DNS zone with all its records into a new one.`,
+		Long:      `Clone an existing DNS zone with all its records into a new DNS zone.`,
 		Namespace: "dns",
 		Resource:  "zone",
 		Verb:      "clone",
@@ -282,28 +281,28 @@ func dnsZoneClone() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone to clone`,
+				Short:      `DNS zone to clone`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dest-dns-zone",
-				Short:      `The destinaton DNS zone`,
+				Short:      `Destination DNS zone in which to clone the chosen DNS zone`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "overwrite",
-				Short:      `Whether or not the destination DNS zone will be overwritten`,
+				Short:      `Specifies whether or not the destination DNS zone will be overwritten`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
-				Short:      `The project ID of the destination DNS zone`,
+				Short:      `Project ID of the destination DNS zone`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -322,8 +321,8 @@ func dnsZoneClone() *core.Command {
 
 func dnsZoneDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete DNS zone`,
-		Long:      `Delete a DNS zone and all it's records.`,
+		Short:     `Delete a DNS zone`,
+		Long:      `Delete a DNS zone and all its records.`,
 		Namespace: "dns",
 		Resource:  "zone",
 		Verb:      "delete",
@@ -332,7 +331,7 @@ func dnsZoneDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone to delete`,
+				Short:      `DNS zone to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -352,9 +351,9 @@ func dnsZoneDelete() *core.Command {
 
 func dnsRecordList() *core.Command {
 	return &core.Command{
-		Short: `List DNS zone records`,
-		Long: `Returns a list of DNS records of a DNS zone with default NS.
-You can filter the records by type and name.`,
+		Short: `List records within a DNS zone`,
+		Long: `Retrieve a list of DNS records within a DNS zone that has default name servers.
+You can filter records by type and name.`,
 		Namespace: "dns",
 		Resource:  "record",
 		Verb:      "list",
@@ -363,14 +362,14 @@ You can filter the records by type and name.`,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `The project ID on which to filter the returned DNS zone records`,
+				Short:      `Project ID on which to filter the returned DNS zone records`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `The sort order of the returned DNS zone records`,
+				Short:      `Sort order of the returned DNS zone records`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -378,21 +377,21 @@ You can filter the records by type and name.`,
 			},
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone on which to filter the returned DNS zone records`,
+				Short:      `DNS zone on which to filter the returned DNS zone records`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `The name on which to filter the returned DNS zone records`,
+				Short:      `Name on which to filter the returned DNS zone records`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "type",
-				Short:      `The record type on which to filter the returned DNS zone records`,
+				Short:      `Record type on which to filter the returned DNS zone records`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -400,7 +399,7 @@ You can filter the records by type and name.`,
 			},
 			{
 				Name:       "id",
-				Short:      `The record ID on which to filter the returned DNS zone records`,
+				Short:      `Record ID on which to filter the returned DNS zone records`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -447,22 +446,14 @@ You can filter the records by type and name.`,
 
 func dnsRecordBulkUpdate() *core.Command {
 	return &core.Command{
-		Short: `Update DNS zone records`,
-		Long: `Only available with default NS.<br/>
-Send a list of actions and records.
+		Short: `Update records within a DNS zone`,
+		Long: `Update records within a DNS zone that has default name servers and perform several actions on your records.
 
-Action can be:
- - add:
-  - Add new record
-  - Can be more specific and add a new IP to an existing A record for example
- - set:
-  - Edit a record
-  - Can be more specific and edit an IP from an existing A record for example
- - delete:
-  - Delete a record
-  - Can be more specific and delete an IP from an existing A record for example
- - clear:
-  - Delete all records from a DNS zone
+Actions include:
+ - add: allows you to add a new record or add a new IP to an existing A record, for example
+ - set: allows you to edit a record or edit an IP from an existing A record, for example
+ - delete: allows you to delete a record or delete an IP from an existing A record, for example
+ - clear: allows you to delete all records from a DNS zone
 
 All edits will be versioned.`,
 		Namespace: "dns",
@@ -473,7 +464,7 @@ All edits will be versioned.`,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone where the DNS zone records will be updated`,
+				Short:      `DNS zone in which to update the DNS zone records`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -786,21 +777,21 @@ All edits will be versioned.`,
 			},
 			{
 				Name:       "return-all-records",
-				Short:      `Whether or not to return all the records`,
+				Short:      `Specifies whether or not to return all the records`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "disallow-new-zone-creation",
-				Short:      `Forbid the creation of the target zone if not existing (default action is yes)`,
+				Short:      `Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "serial",
-				Short:      `Don't use the autoincremenent serial but the provided one (0 to keep the same)`,
+				Short:      `Use the provided serial (0) instead of the auto-increment serial`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -819,8 +810,8 @@ All edits will be versioned.`,
 
 func dnsRecordListNameservers() *core.Command {
 	return &core.Command{
-		Short:     `List DNS zone nameservers`,
-		Long:      `Returns a list of Nameservers and their optional glue records for a DNS zone.`,
+		Short:     `List name servers within a DNS zone`,
+		Long:      `Retrieve a list of name servers within a DNS zone and their optional glue records.`,
 		Namespace: "dns",
 		Resource:  "record",
 		Verb:      "list-nameservers",
@@ -829,14 +820,14 @@ func dnsRecordListNameservers() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `The project ID on which to filter the returned DNS zone nameservers`,
+				Short:      `Project ID on which to filter the returned DNS zone name servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone on which to filter the returned DNS zone nameservers`,
+				Short:      `DNS zone on which to filter the returned DNS zone name servers`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -855,8 +846,8 @@ func dnsRecordListNameservers() *core.Command {
 
 func dnsRecordUpdateNameservers() *core.Command {
 	return &core.Command{
-		Short:     `Update DNS zone nameservers`,
-		Long:      `Update DNS zone nameservers and set optional glue records.`,
+		Short:     `Update name servers within a DNS zone`,
+		Long:      `Update name servers within a DNS zone and set optional glue records.`,
 		Namespace: "dns",
 		Resource:  "record",
 		Verb:      "update-nameservers",
@@ -865,7 +856,7 @@ func dnsRecordUpdateNameservers() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone where the DNS zone nameservers will be updated`,
+				Short:      `DNS zone in which to update the DNS zone name servers`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -896,9 +887,8 @@ func dnsRecordUpdateNameservers() *core.Command {
 
 func dnsRecordClear() *core.Command {
 	return &core.Command{
-		Short: `Clear DNS zone records`,
-		Long: `Only available with default NS.<br/>
-Delete all the records from a DNS zone.
+		Short: `Clear records within a DNS zone`,
+		Long: `Delete all records within a DNS zone that has default name servers.<br/>
 All edits will be versioned.`,
 		Namespace: "dns",
 		Resource:  "record",
@@ -908,7 +898,7 @@ All edits will be versioned.`,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone to clear`,
+				Short:      `DNS zone to clear`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -927,8 +917,8 @@ All edits will be versioned.`,
 
 func dnsZoneExport() *core.Command {
 	return &core.Command{
-		Short:     `Export raw DNS zone`,
-		Long:      `Get a DNS zone in a given format with default NS.`,
+		Short:     `Export a raw DNS zone`,
+		Long:      `Export a DNS zone with default name servers, in a specific format.`,
 		Namespace: "dns",
 		Resource:  "zone",
 		Verb:      "export",
@@ -937,14 +927,14 @@ func dnsZoneExport() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone to export`,
+				Short:      `DNS zone to export`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "format",
-				Short:      `Format for DNS zone`,
+				Short:      `DNS zone format`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -965,8 +955,8 @@ func dnsZoneExport() *core.Command {
 
 func dnsZoneImport() *core.Command {
 	return &core.Command{
-		Short:     `Import raw DNS zone`,
-		Long:      `Import and replace records from a given provider format with default NS.`,
+		Short:     `Import a raw DNS zone`,
+		Long:      `Import and replace the format of records from a given provider, with default name servers.`,
 		Namespace: "dns",
 		Resource:  "zone",
 		Verb:      "import",
@@ -975,7 +965,7 @@ func dnsZoneImport() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone to import`,
+				Short:      `DNS zone to import`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1038,8 +1028,8 @@ func dnsZoneImport() *core.Command {
 
 func dnsZoneRefresh() *core.Command {
 	return &core.Command{
-		Short: `Refresh DNS zone`,
-		Long: `Refresh SOA DNS zone.
+		Short: `Refresh a DNS zone`,
+		Long: `Refresh an SOA DNS zone to reload the records in the DNS zone and update the SOA serial.
 You can recreate the given DNS zone and its sub DNS zone if needed.`,
 		Namespace: "dns",
 		Resource:  "zone",
@@ -1049,21 +1039,21 @@ You can recreate the given DNS zone and its sub DNS zone if needed.`,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `The DNS zone to refresh`,
+				Short:      `DNS zone to refresh`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "recreate-dns-zone",
-				Short:      `Whether or not to recreate the DNS zone`,
+				Short:      `Specifies whether or not to recreate the DNS zone`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "recreate-sub-dns-zone",
-				Short:      `Whether or not to recreate the sub DNS zone`,
+				Short:      `Specifies whether or not to recreate the sub DNS zone`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1082,10 +1072,9 @@ You can recreate the given DNS zone and its sub DNS zone if needed.`,
 
 func dnsVersionList() *core.Command {
 	return &core.Command{
-		Short: `List DNS zone versions`,
-		Long: `Get a list of DNS zone versions.<br/>
-The maximum version count is 100.<br/>
-If the count reaches this limit, the oldest version will be deleted after each new modification.`,
+		Short: `List versions of a DNS zone`,
+		Long: `Retrieve a list of a DNS zone's versions.<br/>
+The maximum version count is 100. If the count reaches this limit, the oldest version will be deleted after each new modification.`,
 		Namespace: "dns",
 		Resource:  "version",
 		Verb:      "list",
@@ -1125,8 +1114,8 @@ If the count reaches this limit, the oldest version will be deleted after each n
 
 func dnsVersionShow() *core.Command {
 	return &core.Command{
-		Short:     `List DNS zone version records`,
-		Long:      `Get a list of records from a previous DNS zone version.`,
+		Short:     `List records from a given version of a specific DNS zone`,
+		Long:      `Retrieve a list of records from a specific DNS zone version.`,
 		Namespace: "dns",
 		Resource:  "version",
 		Verb:      "show",
@@ -1158,8 +1147,8 @@ func dnsVersionShow() *core.Command {
 
 func dnsVersionDiff() *core.Command {
 	return &core.Command{
-		Short:     `Get DNS zone version diff`,
-		Long:      `Get all differences from a previous DNS zone version.`,
+		Short:     `Access differences from a specific DNS zone version`,
+		Long:      `Access a previous DNS zone version to see the differences from another specific version.`,
 		Namespace: "dns",
 		Resource:  "version",
 		Verb:      "diff",
@@ -1186,8 +1175,8 @@ func dnsVersionDiff() *core.Command {
 
 func dnsVersionRestore() *core.Command {
 	return &core.Command{
-		Short:     `Restore DNS zone version`,
-		Long:      `Restore and activate a previous DNS zone version.`,
+		Short:     `Restore a DNS zone version`,
+		Long:      `Restore and activate a version of a specific DNS zone.`,
 		Namespace: "dns",
 		Resource:  "version",
 		Verb:      "restore",
@@ -1214,8 +1203,8 @@ func dnsVersionRestore() *core.Command {
 
 func dnsCertificateGet() *core.Command {
 	return &core.Command{
-		Short:     `Get the zone TLS certificate if it exists`,
-		Long:      `Get the zone TLS certificate if it exists.`,
+		Short:     `Get a DNS zone's TLS certificate`,
+		Long:      `Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns ` + "`" + `no certificate found` + "`" + `.`,
 		Namespace: "dns",
 		Resource:  "certificate",
 		Verb:      "get",
@@ -1242,8 +1231,8 @@ func dnsCertificateGet() *core.Command {
 
 func dnsCertificateCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create or return the zone TLS certificate`,
-		Long:      `Create or return the zone TLS certificate.`,
+		Short:     `Create or get the DNS zone's TLS certificate`,
+		Long:      `Create a new TLS certificate or retrieve information about an existing TLS certificate.`,
 		Namespace: "dns",
 		Resource:  "certificate",
 		Verb:      "create",
@@ -1276,8 +1265,8 @@ func dnsCertificateCreate() *core.Command {
 
 func dnsCertificateList() *core.Command {
 	return &core.Command{
-		Short:     `List all user TLS certificates`,
-		Long:      `List all user TLS certificates.`,
+		Short:     `List a user's TLS certificates`,
+		Long:      `List all the TLS certificates a user has created, specified by the user's Project ID and the DNS zone.`,
 		Namespace: "dns",
 		Resource:  "certificate",
 		Verb:      "list",
@@ -1315,8 +1304,8 @@ func dnsCertificateList() *core.Command {
 
 func dnsCertificateDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an TLS certificate`,
-		Long:      `Delete an TLS certificate.`,
+		Short:     `Delete a TLS certificate`,
+		Long:      `Delete an existing TLS certificate specified by its DNS zone. Deleting a TLS certificate is permanent and cannot be undone.`,
 		Namespace: "dns",
 		Resource:  "certificate",
 		Verb:      "delete",
@@ -1343,8 +1332,8 @@ func dnsCertificateDelete() *core.Command {
 
 func dnsTsigKeyGet() *core.Command {
 	return &core.Command{
-		Short:     `Get the DNS zone TSIG Key`,
-		Long:      `Get the DNS zone TSIG Key to allow AXFR request.`,
+		Short:     `Get the DNS zone's TSIG key`,
+		Long:      `Retrieve information about the TSIG key of a given DNS zone to allow AXFR requests.`,
 		Namespace: "dns",
 		Resource:  "tsig-key",
 		Verb:      "get",
@@ -1371,8 +1360,8 @@ func dnsTsigKeyGet() *core.Command {
 
 func dnsTsigKeyDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete the DNS zone TSIG Key`,
-		Long:      `Delete the DNS zone TSIG Key.`,
+		Short:     `Delete the DNS zone's TSIG key`,
+		Long:      `Delete an existing TSIG key specified by its DNS zone. Deleting a TSIG key is permanent and cannot be undone.`,
 		Namespace: "dns",
 		Resource:  "tsig-key",
 		Verb:      "delete",

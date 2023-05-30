@@ -9,8 +9,8 @@ ARGS:
   [application-id]       ID of the application
   [user-id]              ID of the user
   [expires-at]           Expiration date of the API key
-  [default-project-id]   The default Project ID to use with Object Storage
-  [description]          The description of the API key (max length is 200 characters)
+  [default-project-id]   Default Project ID to use with Object Storage
+  [description]          Description of the API key (max length is 200 characters)
 
 FLAGS:
   -h, --help   help for create

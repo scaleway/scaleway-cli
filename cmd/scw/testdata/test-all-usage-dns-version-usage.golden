@@ -6,10 +6,10 @@ USAGE:
   scw dns version <command>
 
 AVAILABLE COMMANDS:
-  diff        Get DNS zone version diff
-  list        List DNS zone versions
-  restore     Restore DNS zone version
-  show        List DNS zone version records
+  diff        Access differences from a specific DNS zone version
+  list        List versions of a DNS zone
+  restore     Restore a DNS zone version
+  show        List records from a given version of a specific DNS zone
 
 FLAGS:
   -h, --help   help for version

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Enable managed alerts.
+Enable the sending of managed alerts for the specified Project's Cockpit.
 
 USAGE:
   scw cockpit alert enable [arg=value ...]

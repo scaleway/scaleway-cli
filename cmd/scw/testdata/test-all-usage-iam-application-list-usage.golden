@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   [order-by=created_at_asc]                 Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
   [name]                                    Name of the application to filter
-  [editable]                                Whether to filter out editable applications or not
+  [editable]                                Defines whether to filter out editable applications or not
   [application-ids.{index}]                 Filter by list of IDs
   organization-id=<retrieved from config>   ID of the Organization to filter
 
