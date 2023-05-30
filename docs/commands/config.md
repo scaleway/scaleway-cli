@@ -37,6 +37,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 - [Reset the config](#reset-the-config)
 - [Set a line from the config file](#set-a-line-from-the-config-file)
 - [Unset a line from the config file](#unset-a-line-from-the-config-file)
+- [Validate the config](#validate-the-config)
 
   
 ## Destroy the config file
@@ -274,6 +275,36 @@ scw config unset <key ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the config config key name to unset |
+
+
+
+## Validate the config
+
+This command validates the configuration of your Scaleway CLI tool.
+
+It performs the following checks:
+
+	- YAML syntax correctness: It checks whether your config file is a valid YAML file.
+	- Field validity: It checks whether the fields present in the config file are valid and expected fields. This includes fields like AccessKey, SecretKey, DefaultOrganizationID, DefaultProjectID, DefaultRegion, DefaultZone, and APIURL.
+	- Field values: For each of the fields mentioned above, it checks whether the value assigned to it is valid. For example, it checks if the AccessKey and SecretKey are non-empty and meet the format expectations.
+
+The command goes through each profile present in the config file and validates it.
+
+This command validates the configuration of your Scaleway CLI tool.
+
+It performs the following checks:
+
+	- YAML syntax correctness: It checks whether your config file is a valid YAML file.
+	- Field validity: It checks whether the fields present in the config file are valid and expected fields. This includes fields like AccessKey, SecretKey, DefaultOrganizationID, DefaultProjectID, DefaultRegion, DefaultZone, and APIURL.
+	- Field values: For each of the fields mentioned above, it checks whether the value assigned to it is valid. For example, it checks if the AccessKey and SecretKey are non-empty and meet the format expectations.
+
+The command goes through each profile present in the config file and validates it.
+
+**Usage:**
+
+```
+scw config validate
+```
 
 
 

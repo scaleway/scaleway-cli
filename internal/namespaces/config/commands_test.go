@@ -336,6 +336,42 @@ func Test_ConfigImportCommand(t *testing.T) {
 	})
 }
 
+func Test_ConfigValidateCommand(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw config validate",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+	t.Run("Invalid default access key", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: beforeFuncCreateInvalidConfig(),
+		Cmd:        "scw config validate",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+	t.Run("Invalid profile p1 secret key", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			beforeFuncCreateInvalidConfig(),
+			core.ExecBeforeCmd("scw config set access-key=SCWNEWXXXXXXXXXXXXXX"),
+		),
+		Cmd: "scw config validate",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+}
+
 func checkConfig(f func(t *testing.T, config *scw.Config)) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		homeDir := ctx.OverrideEnv["HOME"]
@@ -385,6 +421,33 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 				AccessKey:             scw.StringPtr("SCWP2XXXXXXXXXXXXXXX"),
 				SecretKey:             scw.StringPtr("11111111-1111-1111-1111-111111111111"),
 				APIURL:                scw.StringPtr("https://p2-mock-api-url.com"),
+				Insecure:              scw.BoolPtr(true),
+				DefaultOrganizationID: scw.StringPtr("11111111-1111-1111-1111-111111111111"),
+				DefaultRegion:         scw.StringPtr("fr-par"),
+				DefaultZone:           scw.StringPtr("fr-par-1"),
+				SendTelemetry:         scw.BoolPtr(true),
+			},
+		},
+	})
+}
+
+func beforeFuncCreateInvalidConfig() core.BeforeFunc {
+	return beforeFuncCreateConfigFile(&scw.Config{
+		Profile: scw.Profile{
+			AccessKey:             scw.StringPtr("invalidAccessKey"),
+			SecretKey:             scw.StringPtr("11111111-1111-1111-1111-111111111111"),
+			APIURL:                scw.StringPtr("https://mock-api-url.com"),
+			Insecure:              scw.BoolPtr(true),
+			DefaultOrganizationID: scw.StringPtr("11111111-1111-1111-1111-111111111111"),
+			DefaultRegion:         scw.StringPtr("fr-par"),
+			DefaultZone:           scw.StringPtr("fr-par-1"),
+			SendTelemetry:         scw.BoolPtr(true),
+		},
+		Profiles: map[string]*scw.Profile{
+			"p1": {
+				AccessKey:             scw.StringPtr("SCWP1XXXXXXXXXXXXXXX"),
+				SecretKey:             scw.StringPtr("invalidSecretKey"),
+				APIURL:                scw.StringPtr("https://p1-mock-api-url.com"),
 				Insecure:              scw.BoolPtr(true),
 				DefaultOrganizationID: scw.StringPtr("11111111-1111-1111-1111-111111111111"),
 				DefaultRegion:         scw.StringPtr("fr-par"),
