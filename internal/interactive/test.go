@@ -34,12 +34,7 @@ func popMockResponseFromContext(ctx context.Context) (string, bool) {
 }
 
 func hasMockedResponse(ctx context.Context) bool {
-	contextValue := ctx.Value(contextKey)
-	if contextValue == nil {
-		return false
-	}
-
-	return true
+	return ctx.Value(contextKey) != nil
 }
 
 type mockResponseReader struct {

@@ -229,7 +229,7 @@ func TestInit_Prompt(t *testing.T) {
 					OptionalMatch: true,
 				},
 				core.GoldenReplacement{
-					Pattern:       regexp.MustCompile("Except for autocomplete: unsupported OS 'windows'\\n"),
+					Pattern:       regexp.MustCompile(`Except for autocomplete: unsupported OS 'windows'\n`),
 					Replacement:   "",
 					OptionalMatch: true,
 				},
