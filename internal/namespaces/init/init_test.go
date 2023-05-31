@@ -3,6 +3,7 @@ package init
 import (
 	"fmt"
 	"path"
+	"regexp"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -197,4 +198,49 @@ func TestInit(t *testing.T) {
 			},
 		}))
 	})
+}
+
+func TestInit_Prompt(t *testing.T) {
+	promptResponse := []string{
+		"secret-key",
+		"access-key",
+		"organization-id",
+		" ",
+	}
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			baseBeforeFunc(),
+			func(ctx *core.BeforeFuncCtx) error {
+				promptResponse[0] = ctx.Meta["SecretKey"].(string)
+				promptResponse[1] = ctx.Meta["AccessKey"].(string)
+				promptResponse[2] = ctx.Meta["OrganizationID"].(string)
+
+				return nil
+			}),
+		TmpHomeDir: true,
+		Cmd:        "scw init",
+		Check: core.TestCheckCombine(
+			core.TestCheckGoldenAndReplacePatterns(
+				core.GoldenReplacement{
+					Pattern:       regexp.MustCompile("\\s\\sExcept for autocomplete: unsupported OS 'windows'\n"),
+					Replacement:   "",
+					OptionalMatch: true,
+				},
+				core.GoldenReplacement{
+					Pattern:       regexp.MustCompile(`Except for autocomplete: unsupported OS 'windows'\\n`),
+					Replacement:   "",
+					OptionalMatch: true,
+				},
+			),
+			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				secretKey, _ := ctx.Client.GetSecretKey()
+				assert.Equal(t, secretKey, *config.SecretKey)
+				assert.NotEmpty(t, *config.DefaultProjectID)
+				assert.Equal(t, *config.DefaultProjectID, *config.DefaultProjectID)
+			}),
+		),
+		PromptResponseMocks: promptResponse,
+	}))
 }

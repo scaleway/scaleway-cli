@@ -170,10 +170,7 @@ Default path for configuration file is based on the following priority order:
 
 			if args.ProjectID == "" {
 				args.ProjectID = getAPIKeyDefaultProjectID(ctx, args.AccessKey, args.SecretKey)
-			}
-
-			if args.ProjectID == "" {
-				args.ProjectID, err = promptProjectID(ctx)
+				args.ProjectID, err = promptProjectID(ctx, args.AccessKey, args.SecretKey, args.OrganizationID, args.ProjectID)
 				if err != nil {
 					return nil, err
 				}

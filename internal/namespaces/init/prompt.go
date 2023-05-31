@@ -5,8 +5,10 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
+	"github.com/scaleway/scaleway-sdk-go/api/account/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -26,18 +28,40 @@ func promptOrganizationID(ctx context.Context) (string, error) {
 	})
 }
 
-func promptProjectID(ctx context.Context) (string, error) {
+func promptProjectID(ctx context.Context, accessKey string, secretKey string, organizationID string, defaultProjectID string) (string, error) {
+	client := core.ExtractClient(ctx)
+	api := account.NewAPI(client)
+
+	res, err := api.ListProjects(&account.ListProjectsRequest{
+		OrganizationID: organizationID,
+	}, scw.WithAllPages(), scw.WithContext(ctx), scw.WithAuthRequest(accessKey, secretKey))
+	if err != nil {
+		return "", fmt.Errorf("failed to list projects: %w", err)
+	}
+
+	defaultIndex := 0
+
+	projects := make([]string, len(res.Projects))
+	for i := range res.Projects {
+		if res.Projects[i].ID == defaultProjectID {
+			defaultIndex = i
+		}
+		projects[i] = fmt.Sprintf("%s (%s)", res.Projects[i].Name, res.Projects[i].ID)
+	}
+
+	prompt := interactive.ListPrompt{
+		Prompt:       "Choose your default project ID",
+		Choices:      projects,
+		DefaultIndex: defaultIndex,
+	}
+
 	_, _ = interactive.Println()
-	return interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-		Ctx:    ctx,
-		Prompt: "Default project ID",
-		ValidateFunc: func(s string) error {
-			if !validation.IsUUID(s) {
-				return fmt.Errorf("given project ID is not a valid UUID")
-			}
-			return nil
-		},
-	})
+	index, err := prompt.Execute(ctx)
+	if err != nil {
+		return "", err
+	}
+
+	return res.Projects[index].ID, nil
 }
 
 func promptTelemetry(ctx context.Context) (*bool, error) {
