@@ -221,15 +221,8 @@ func temEmailGet() *core.Command {
 
 func temEmailList() *core.Command {
 	return &core.Command{
-		Short: `List emails`,
-		Long: `Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the ` + "`" + `region` + "`" + `.
-You can filter your emails in ascending or descending order using:
-  - created_at
-  - updated_at
-  - status
-  - mail_from
-  - mail_rcpt
-  - subject.`,
+		Short:     `List emails`,
+		Long:      `Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the ` + "`" + `region` + "`" + `.`,
 		Namespace: "tem",
 		Resource:  "email",
 		Verb:      "list",
@@ -303,6 +296,13 @@ You can filter your emails in ascending or descending order using:
 			{
 				Name:       "subject",
 				Short:      `(Optional) List emails with this subject`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "search",
+				Short:      `(Optional) List emails by searching to all fields`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

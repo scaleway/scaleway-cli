@@ -233,13 +233,6 @@ scw tem email get-statistics [arg=value ...]
 ### List emails
 
 Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
-You can filter your emails in ascending or descending order using:
-  - created_at
-  - updated_at
-  - status
-  - mail_from
-  - mail_rcpt
-  - subject.
 
 **Usage:**
 
@@ -262,6 +255,7 @@ scw tem email list [arg=value ...]
 | mail-rcpt |  | (Optional) List emails sent to this recipient's email address |
 | statuses.{index} | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled` | (Optional) List emails with any of these statuses |
 | subject |  | (Optional) List emails with this subject |
+| search |  | (Optional) List emails by searching to all fields |
 | order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `status_desc`, `status_asc`, `mail_from_desc`, `mail_from_asc`, `mail_rcpt_desc`, `mail_rcpt_asc`, `subject_desc`, `subject_asc` | (Optional) List emails corresponding to specific criteria |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
