@@ -7,8 +7,10 @@ USAGE:
 
 ARGS:
   tag-id            UUID of the tag
-  [force]           If two tags share the same digest the deletion will fail unless this parameter is set to true
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [force]   If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated)
 
 FLAGS:
   -h, --help   help for delete

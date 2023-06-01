@@ -638,9 +638,9 @@ func registryTagDelete() *core.Command {
 			},
 			{
 				Name:       "force",
-				Short:      `If two tags share the same digest the deletion will fail unless this parameter is set to true`,
+				Short:      `If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated)`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
