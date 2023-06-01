@@ -335,7 +335,7 @@ scw registry tag delete <tag-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | tag-id | Required | UUID of the tag |
-| force |  | If two tags share the same digest the deletion will fail unless this parameter is set to true |
+| ~~force~~ | Deprecated | If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
