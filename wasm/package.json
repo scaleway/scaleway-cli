@@ -1,11 +1,11 @@
 {
   "name": "@scaleway/scaleway-cli-wasm",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest src"
   },
   "types": "index.d.ts",
   "keywords": [],
