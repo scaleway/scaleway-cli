@@ -63,7 +63,7 @@ func AsPromise(goFunc any) JsFunc {
 		for i, argType := range goFuncArgs {
 			arg, err := goValue(argType, args[i])
 			if err != nil {
-				return nil, fmt.Errorf("invalid argument at index %d with type %s: %w", i, argType.String(), err)
+				return nil, fmt.Errorf("invalid argument at index %d, expected type %s: %w", i, argType.String(), err)
 			}
 			argValues[i] = reflect.ValueOf(arg)
 		}
