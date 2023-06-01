@@ -20,41 +20,45 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		ipfsRoot(),
-		ipfsIpfs(),
+		ipfsPin(),
 		ipfsVolume(),
 		ipfsVolumeCreate(),
 		ipfsVolumeGet(),
 		ipfsVolumeList(),
 		ipfsVolumeUpdate(),
 		ipfsVolumeDelete(),
-		ipfsIpfsAddURL(),
-		ipfsIpfsAddCid(),
-		ipfsIpfsGetPinID(),
-		ipfsIpfsListPins(),
-		ipfsIpfsRmPinID(),
+		ipfsPinCreateByURL(),
+		ipfsPinCreateByCid(),
+		ipfsPinGet(),
+		ipfsPinList(),
+		ipfsPinDelete(),
 	)
 }
 func ipfsRoot() *core.Command {
 	return &core.Command{
-		Short:     `Pinning service ipfs API for Scaleway`,
-		Long:      `Ipfs pinning service v1alpha1.`,
+		Short:     `IPFS Pinning service API`,
+		Long:      `IPFS Pinning service API.`,
 		Namespace: "ipfs",
 	}
 }
 
-func ipfsIpfs() *core.Command {
+func ipfsPin() *core.Command {
 	return &core.Command{
-		Short:     `add content by cid or url and manage pins`,
-		Long:      `add content by cid or url and manage pins.`,
+		Short: `Manage your pins (create-by-*, delete, list by volume ID)`,
+		Long: `A pin is an abstract object that holds a Content Identifier (CID). It is defined that during the lifespan of a pin, the CID (and all sub-CIDs) must be hosted by the service
+It is possible that many pins target the same CID, regardless of the user.
+`,
 		Namespace: "ipfs",
-		Resource:  "ipfs",
+		Resource:  "pin",
 	}
 }
 
 func ipfsVolume() *core.Command {
 	return &core.Command{
-		Short:     `manage volumes`,
-		Long:      `manage volumes.`,
+		Short: `Manage your volumes (create, delete, list by Project ID)`,
+		Long: `A volume is bucket of pins. It is similar to an Object Storage bucket. Volumes are useful to gather pins with similar lifespans
+All pins must be attached to a volume. And all volumes must be attached to a Project ID.
+`,
 		Namespace: "ipfs",
 		Resource:  "volume",
 	}
@@ -62,8 +66,9 @@ func ipfsVolume() *core.Command {
 
 func ipfsVolumeCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create volume`,
-		Long:      `Create volume.`,
+		Short: `Create a new volume from a Project ID. Volume is identified by an ID and used to host pin references`,
+		Long: `Volume is personal (at least to your organization) even if IPFS blocks and CID are available to anyone.
+Should be the first command you made because every pin must be attached to a volume.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
 		Verb:      "create",
@@ -92,8 +97,8 @@ func ipfsVolumeCreate() *core.Command {
 
 func ipfsVolumeGet() *core.Command {
 	return &core.Command{
-		Short:     `Get information about volume`,
-		Long:      `Get information about volume.`,
+		Short:     `Retrieve information about a specific volume`,
+		Long:      `Retrieve information about a specific volume.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
 		Verb:      "get",
@@ -121,8 +126,8 @@ func ipfsVolumeGet() *core.Command {
 
 func ipfsVolumeList() *core.Command {
 	return &core.Command{
-		Short:     `List volumes in project-id`,
-		Long:      `List volumes in project-id.`,
+		Short:     `Retrieve information about all volumes from a Project ID`,
+		Long:      `Retrieve information about all volumes from a Project ID.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
 		Verb:      "list",
@@ -161,8 +166,8 @@ func ipfsVolumeList() *core.Command {
 
 func ipfsVolumeUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update volume name or tag`,
-		Long:      `Update volume name or tag.`,
+		Short:     `Update volume information (tag, name...)`,
+		Long:      `Update volume information (tag, name...).`,
 		Namespace: "ipfs",
 		Resource:  "volume",
 		Verb:      "update",
@@ -202,8 +207,8 @@ func ipfsVolumeUpdate() *core.Command {
 
 func ipfsVolumeDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete volume`,
-		Long:      `Delete volume.`,
+		Short:     `Delete a volume by its ID and every pin attached to this volume. Can take a while, depending of your pinned content`,
+		Long:      `Delete a volume by its ID and every pin attached to this volume. Can take a while, depending of your pinned content.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
 		Verb:      "delete",
@@ -235,13 +240,16 @@ func ipfsVolumeDelete() *core.Command {
 	}
 }
 
-func ipfsIpfsAddURL() *core.Command {
+func ipfsPinCreateByURL() *core.Command {
 	return &core.Command{
-		Short:     `Add content in volume by url`,
-		Long:      `Add content in volume by url.`,
+		Short: `Create a pin request. Will fetch and store the content pointed by the provided URL. The content must be available on the public IPFS network`,
+		Long: `The content (IPFS blocks) will be host by the pinning service until pin deletion.
+From that point, any other IPFS peer can fetch and host your content: Make sure to pin public or encrypted content.
+Many pin requests (from different users) can target the same CID.
+A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.`,
 		Namespace: "ipfs",
-		Resource:  "ipfs",
-		Verb:      "add-url",
+		Resource:  "pin",
+		Verb:      "create-by-url",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(ipfs.CreatePinByURLRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -288,13 +296,16 @@ func ipfsIpfsAddURL() *core.Command {
 	}
 }
 
-func ipfsIpfsAddCid() *core.Command {
+func ipfsPinCreateByCid() *core.Command {
 	return &core.Command{
-		Short:     `Add content in volume by cid`,
-		Long:      `Add content in volume by cid.`,
+		Short: `Create a pin request. Will fetch and store the content pointed by the provided CID. The content must be available on the public IPFS network`,
+		Long: `The content (IPFS blocks) will be host by the pinning service until pin deletion.
+From that point, any other IPFS peer can fetch and host your content: Make sure to pin public or encrypted content.
+Many pin requests (from different users) can target the same CID.
+A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.`,
 		Namespace: "ipfs",
-		Resource:  "ipfs",
-		Verb:      "add-cid",
+		Resource:  "pin",
+		Verb:      "create-by-cid",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(ipfs.CreatePinByCIDRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -359,13 +370,13 @@ func ipfsIpfsAddCid() *core.Command {
 	}
 }
 
-func ipfsIpfsGetPinID() *core.Command {
+func ipfsPinGet() *core.Command {
 	return &core.Command{
-		Short:     `Get pin id in volume`,
-		Long:      `Get pin id in volume.`,
+		Short:     `Retrieve information about the provided pin ID (not the CID): status, last modification, CID`,
+		Long:      `Retrieve information about the provided pin ID (not the CID): status, last modification, CID.`,
 		Namespace: "ipfs",
-		Resource:  "ipfs",
-		Verb:      "get-pin-id",
+		Resource:  "pin",
+		Verb:      "get",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(ipfs.GetPinRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -394,13 +405,13 @@ func ipfsIpfsGetPinID() *core.Command {
 	}
 }
 
-func ipfsIpfsListPins() *core.Command {
+func ipfsPinList() *core.Command {
 	return &core.Command{
-		Short:     `List pins in specific volume`,
-		Long:      `List pins in specific volume.`,
+		Short:     `Retrieve information about all pins into a volume`,
+		Long:      `Retrieve information about all pins into a volume.`,
 		Namespace: "ipfs",
-		Resource:  "ipfs",
-		Verb:      "list-pins",
+		Resource:  "pin",
+		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(ipfs.ListPinsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -458,13 +469,13 @@ func ipfsIpfsListPins() *core.Command {
 	}
 }
 
-func ipfsIpfsRmPinID() *core.Command {
+func ipfsPinDelete() *core.Command {
 	return &core.Command{
-		Short:     `Remove by pin id`,
-		Long:      `Remove by pin id.`,
+		Short:     `Create an unpin request. If the pin was the last to target a specific CID, the content will be erase from storage`,
+		Long:      `The function is indempotent.`,
 		Namespace: "ipfs",
-		Resource:  "ipfs",
-		Verb:      "rm-pin-id",
+		Resource:  "pin",
+		Verb:      "delete",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(ipfs.DeletePinRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -492,8 +503,8 @@ func ipfsIpfsRmPinID() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "ipfs",
-				Verb:     "rm-pin-id",
+				Resource: "pin",
+				Verb:     "delete",
 			}, nil
 		},
 	}
