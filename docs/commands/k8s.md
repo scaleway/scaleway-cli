@@ -145,7 +145,7 @@ scw k8s cluster delete <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | ID of the cluster to delete |
-| with-additional-resources |  | Defines whether all volumes (including retain volume type) and Load Balancers with a name starting with the cluster ID will also be deleted |
+| with-additional-resources |  | Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

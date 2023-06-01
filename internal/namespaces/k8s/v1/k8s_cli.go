@@ -906,7 +906,7 @@ func k8sClusterDelete() *core.Command {
 			},
 			{
 				Name:       "with-additional-resources",
-				Short:      `Defines whether all volumes (including retain volume type) and Load Balancers with a name starting with the cluster ID will also be deleted`,
+				Short:      `Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
