@@ -334,18 +334,6 @@ A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed
 				Positional: false,
 			},
 			{
-				Name:       "meta.app-id",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "meta.url",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "pin-options.required-zones.{index}",
 				Required:   false,
 				Deprecated: false,
