@@ -3,15 +3,12 @@ package sshconfig
 import (
 	"bufio"
 	"bytes"
-	"context"
 	"errors"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 var (
@@ -20,6 +17,8 @@ var (
 	// sshDefaultConfigFileName is the name of the default ssh config
 	sshDefaultConfigFileName = "config"
 	sshConfigFolderHomePath  = ".ssh"
+
+	sshConfigMode = os.FileMode(0600)
 
 	ErrFileNotFound = errors.New("file not found")
 )
@@ -41,26 +40,25 @@ func Generate(hosts []Host) ([]byte, error) {
 
 // ConfigFilePath returns the path of the generated file
 // should be ~/.ssh/scaleway.config
-func ConfigFilePath(ctx context.Context) string {
-	configFolder := sshConfigFolder(ctx)
+func ConfigFilePath(homeDir string) string {
+	configFolder := sshConfigFolder(homeDir)
 	configFile := filepath.Join(configFolder, sshConfigFileName)
 
 	return configFile
 }
 
-func Save(ctx context.Context, hosts []Host) error {
+func Save(homeDir string, hosts []Host) error {
 	cfg, err := Generate(hosts)
 	if err != nil {
 		return err
 	}
 
-	configFile := ConfigFilePath(ctx)
+	configFile := ConfigFilePath(homeDir)
 
 	return os.WriteFile(configFile, cfg, 0600)
 }
 
-func sshConfigFolder(ctx context.Context) string {
-	homeDir := core.ExtractUserHomeDir(ctx)
+func sshConfigFolder(homeDir string) string {
 	return filepath.Join(homeDir, sshConfigFolderHomePath)
 }
 
@@ -70,15 +68,15 @@ func includeLine() string {
 
 // DefaultConfigFilePath returns the default ssh config file path
 // should be ~/.ssh/config
-func DefaultConfigFilePath(ctx context.Context) string {
-	configFolder := sshConfigFolder(ctx)
+func DefaultConfigFilePath(homeDir string) string {
+	configFolder := sshConfigFolder(homeDir)
 	configFilePath := filepath.Join(configFolder, sshDefaultConfigFileName)
 
 	return configFilePath
 }
 
-func openDefaultConfigFile(ctx context.Context) (*os.File, error) {
-	configFilePath := DefaultConfigFilePath(ctx)
+func openDefaultConfigFile(homeDir string) (*os.File, error) {
+	configFilePath := DefaultConfigFilePath(homeDir)
 
 	configFile, err := os.Open(configFilePath)
 	if err != nil {
@@ -93,8 +91,8 @@ func openDefaultConfigFile(ctx context.Context) (*os.File, error) {
 
 // ConfigIsIncluded checks that ssh config file is included in user's .ssh/config
 // Default config file ~/.ssh/config should start with "Include scaleway.config"
-func ConfigIsIncluded(ctx context.Context) (bool, error) {
-	configFile, err := openDefaultConfigFile(ctx)
+func ConfigIsIncluded(homeDir string) (bool, error) {
+	configFile, err := openDefaultConfigFile(homeDir)
 	if err != nil {
 		return false, err
 	}
@@ -115,11 +113,11 @@ func ConfigIsIncluded(ctx context.Context) (bool, error) {
 
 // IncludeConfigFile edit default ssh config to include this package generated file
 // ~/.ssh/config will be prepended with "Include scaleway.config"
-func IncludeConfigFile(ctx context.Context) error {
-	configFileMode := os.FileMode(0600)
+func IncludeConfigFile(homeDir string) error {
+	configFileMode := sshConfigMode
 	fileContent := []byte(nil)
 
-	configFile, err := openDefaultConfigFile(ctx)
+	configFile, err := openDefaultConfigFile(homeDir)
 	if err != nil && err != ErrFileNotFound {
 		return err
 	}
@@ -145,7 +143,7 @@ func IncludeConfigFile(ctx context.Context) error {
 	// Prepend config file with Include line
 	fileContent = append([]byte(includeLine()+"\n"), fileContent...)
 
-	configFolder := sshConfigFolder(ctx)
+	configFolder := sshConfigFolder(homeDir)
 	configFilePath := filepath.Join(configFolder, sshDefaultConfigFileName)
 
 	err = os.WriteFile(configFilePath, fileContent, configFileMode)

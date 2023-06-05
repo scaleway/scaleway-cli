@@ -52,6 +52,7 @@ func sshConfigInstallCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			args := argsI.(*sshConfigRequest)
+			homeDir := core.ExtractUserHomeDir(ctx)
 
 			// Start server list with instances
 			servers, err := sshConfigListServers(ctx, args)
@@ -89,23 +90,24 @@ func sshConfigInstallCommand() *core.Command {
 			}
 			hosts = append(hosts, bastionHosts...)
 
-			err = sshconfig.Save(ctx, hosts)
+			err = sshconfig.Save(homeDir, hosts)
 			if err != nil {
 				return nil, err
 			}
 
+			configFilePath := sshconfig.ConfigFilePath(homeDir)
 			includePrompt := fmt.Sprintf(`Generated config file needs to be included in your default ssh config (%s)
-Do you want the include statement to be added at the beginning of your file ?`, sshconfig.DefaultConfigFilePath(ctx))
+Do you want the include statement to be added at the beginning of your file ?`, sshconfig.DefaultConfigFilePath(homeDir))
 
 			// Generated config needs an include statement in default config
-			included, err := sshconfig.ConfigIsIncluded(ctx)
+			included, err := sshconfig.ConfigIsIncluded(homeDir)
 			if err != nil {
 				if err == sshconfig.ErrFileNotFound {
 					includePrompt += "\nFile was not found, it will be created"
 				} else {
 					logger.Warningf("Failed to check default config file, skipping include prompt\n")
 					return &core.SuccessResult{
-						Message: "Config file was generated to " + sshconfig.ConfigFilePath(ctx),
+						Message: "Config file was generated to " + configFilePath,
 					}, nil
 				}
 			}
@@ -113,7 +115,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			// Generated config is already included
 			if included {
 				return &core.SuccessResult{
-					Message: "Config file was generated to " + sshconfig.ConfigFilePath(ctx),
+					Message: "Config file was generated to " + configFilePath,
 				}, nil
 			}
 
@@ -125,19 +127,19 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			if err != nil {
 				logger.Warningf("Failed to prompt, skipping include\n")
 				return &core.SuccessResult{
-					Message: "Config file was generated to " + sshconfig.ConfigFilePath(ctx),
+					Message: "Config file was generated to " + configFilePath,
 				}, nil
 			}
 
 			if shouldIncludeConfig {
-				err := sshconfig.IncludeConfigFile(ctx)
+				err := sshconfig.IncludeConfigFile(homeDir)
 				if err != nil {
 					return nil, fmt.Errorf("failed to add include statement: %w", err)
 				}
 			}
 
 			return &core.SuccessResult{
-				Message: "Config file was generated to " + sshconfig.ConfigFilePath(ctx),
+				Message: "Config file was generated to " + configFilePath,
 			}, nil
 		},
 		Groups: []string{"workflow"},
