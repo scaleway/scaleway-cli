@@ -187,6 +187,7 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		instanceSSH(),
 		sshAddKeyCommand(),
+		sshConfigInstallCommand(),
 		sshListKeysCommand(),
 		sshRemoveKeyCommand(),
 	))
