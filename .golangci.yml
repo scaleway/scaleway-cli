@@ -14,7 +14,6 @@ linters:
   # Please keep them sorted alphabetically
   enable:
     - bodyclose
-    - depguard
     - dogsled
     - errcheck
     - goconst
