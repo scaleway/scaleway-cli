@@ -78,6 +78,11 @@ Instance API.
   - [List snapshots](#list-snapshots)
   - [Update a snapshot](#update-a-snapshot)
   - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
+- [SSH Utilities](#ssh-utilities)
+  - [Add an ssh-key to a server](#add-an-ssh-key-to-a-server)
+  - [Install a ssh config with all your servers as host](#install-a-ssh-config-with-all-your-servers-as-host)
+  - [List ssh keys added to a server](#list-ssh-keys-added-to-a-server)
+  - [Remove an ssh-key from a server](#remove-an-ssh-key-from-a-server)
 - [User data management commands](#user-data-management-commands)
   - [Delete user data](#delete-user-data)
   - [Get user data](#get-user-data)
@@ -2585,6 +2590,103 @@ Wait for a snapshot to reach a stable state
 scw instance snapshot wait 11111111-1111-1111-1111-111111111111
 ```
 
+
+
+
+## SSH Utilities
+
+Command utilities around server SSH
+- Manage keys per server
+- Generate ssh config
+
+
+### Add an ssh-key to a server
+
+Key will be added to server's tags and added to root user on next restart.
+Key is expected in openssh format "(format) (key) (comment)".
+The comment will be used as key name, otherwise its name will be its index in key list
+Lookup /root/.ssh/authorized_keys on your server for more information
+
+**Usage:**
+
+```
+scw instance ssh add-key [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id |  | Server to add your key to |
+| public-key |  | Public key you want to add to your server |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Install a ssh config with all your servers as host
+
+Path of the config will be $HOME/.ssh/scaleway.config
+
+**Usage:**
+
+```
+scw instance ssh install-config [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List ssh keys added to a server
+
+List only keys added manually to a server using tags.
+The key comment is used as key name, otherwise its name is its index in key list
+Lookup /root/.ssh/authorized_keys on your server for more information
+
+**Usage:**
+
+```
+scw instance ssh list-keys <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | Server to add your key to |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Remove an ssh-key from a server
+
+Key will be remove from server's tags and removed from root user on next restart.
+Keys are identified by their comment as in openssh format.
+Lookup /root/.ssh/authorized_keys on your server for more information
+
+**Usage:**
+
+```
+scw instance ssh remove-key [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | Server to add your key to |
+| name |  | Name of the key you want to remove, has to be the key comment or the index |
+| public-key |  | Public key you want to remove |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 

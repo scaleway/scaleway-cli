@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Command utilities around server SSH
+- Manage keys per server
+- Generate ssh config
+
+USAGE:
+  scw instance ssh <command>
+
+UTILITY COMMANDS:
+  add-key        Add an ssh-key to a server
+  list-keys      List ssh keys added to a server
+  remove-key     Remove an ssh-key from a server
+
+WORKFLOW COMMANDS:
+  install-config Install a ssh config with all your servers as host
+
+FLAGS:
+  -h, --help   help for ssh
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw instance ssh [command] --help" for more information about a command.
