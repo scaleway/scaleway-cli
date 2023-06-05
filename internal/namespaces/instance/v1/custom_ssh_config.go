@@ -92,7 +92,7 @@ func sshConfigInstallCommand() *core.Command {
 
 			err = sshconfig.Save(homeDir, hosts)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("failed to save config file: %w", err)
 			}
 
 			configFilePath := sshconfig.ConfigFilePath(homeDir)

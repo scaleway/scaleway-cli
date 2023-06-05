@@ -18,7 +18,8 @@ var (
 	sshDefaultConfigFileName = "config"
 	sshConfigFolderHomePath  = ".ssh"
 
-	sshConfigMode = os.FileMode(0600)
+	sshConfigFileMode   = os.FileMode(0600)
+	sshConfigFolderMode = os.FileMode(0700)
 
 	ErrFileNotFound = errors.New("file not found")
 )
@@ -55,7 +56,21 @@ func Save(homeDir string, hosts []Host) error {
 
 	configFile := ConfigFilePath(homeDir)
 
-	return os.WriteFile(configFile, cfg, 0600)
+	err = os.WriteFile(configFile, cfg, sshConfigFileMode)
+	if err != nil {
+		if os.IsNotExist(err) {
+			err := os.Mkdir(sshConfigFolder(homeDir), sshConfigFolderMode)
+			if err != nil {
+				return fmt.Errorf("failed to create ssh config folder: %w", err)
+			}
+
+			return os.WriteFile(configFile, cfg, sshConfigFileMode)
+		}
+
+		return err
+	}
+
+	return nil
 }
 
 func sshConfigFolder(homeDir string) string {
@@ -114,7 +129,7 @@ func ConfigIsIncluded(homeDir string) (bool, error) {
 // IncludeConfigFile edit default ssh config to include this package generated file
 // ~/.ssh/config will be prepended with "Include scaleway.config"
 func IncludeConfigFile(homeDir string) error {
-	configFileMode := sshConfigMode
+	configFileMode := sshConfigFileMode
 	fileContent := []byte(nil)
 
 	configFile, err := openDefaultConfigFile(homeDir)
