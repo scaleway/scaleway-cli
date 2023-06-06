@@ -2,12 +2,9 @@ module github.com/scaleway/scaleway-cli/v2
 
 go 1.20
 
-// https://github.com/buildpacks/pack/pull/1735
-replace github.com/buildpacks/pack => github.com/quantumsheep/pack v0.30.0-pre1.0.20230505095233-37158bb223a4
-
 require (
 	github.com/alecthomas/assert v1.0.0
-	github.com/buildpacks/pack v0.30.0-pre1.0.20230418191058-1190b6c52128
+	github.com/buildpacks/pack v0.30.0-pre2.0.20230525202136-52902b093e04
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v0.24.1
 	github.com/chzyer/readline v1.5.1
@@ -27,7 +24,7 @@ require (
 	github.com/moby/buildkit v0.11.6
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.17.0.20230526161530-cf508019231d
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.17.0.20230601085652-73d98e0bd94d
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.4
@@ -72,8 +69,8 @@ require (
 	github.com/aws/smithy-go v1.13.5 // indirect
 	github.com/awslabs/amazon-ecr-credential-helper/ecr-login v0.0.0-20230322223720-077b4a917a90 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
-	github.com/buildpacks/imgutil v0.0.0-20230420161652-580610d0124b // indirect
-	github.com/buildpacks/lifecycle v0.17.0-pre.1 // indirect
+	github.com/buildpacks/imgutil v0.0.0-20230428141433-24db5a78c900 // indirect
+	github.com/buildpacks/lifecycle v0.17.0-pre.2 // indirect
 	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
 	github.com/chrismellard/docker-credential-acr-env v0.0.0-20230304212654-82a0ddb27589 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
@@ -84,7 +81,7 @@ require (
 	github.com/containerd/typeurl/v2 v2.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
-	github.com/docker/cli v23.0.5+incompatible // indirect
+	github.com/docker/cli v24.0.0+incompatible // indirect
 	github.com/docker/distribution v2.8.2+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.7.0 // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
@@ -104,7 +101,7 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
-	github.com/google/go-containerregistry v0.14.0 // indirect
+	github.com/google/go-containerregistry v0.15.2 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
@@ -131,7 +128,7 @@ require (
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/reflow v0.3.0 // indirect
 	github.com/muesli/termenv v0.15.1 // indirect
-	github.com/opencontainers/image-spec v1.1.0-rc2.0.20221005185240-3a7f492d3f1b // indirect
+	github.com/opencontainers/image-spec v1.1.0-rc3 // indirect
 	github.com/opencontainers/runc v1.1.6 // indirect
 	github.com/opencontainers/selinux v1.11.0 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
@@ -156,17 +153,16 @@ require (
 	go.opentelemetry.io/otel/sdk v1.14.0 // indirect
 	go.opentelemetry.io/otel/trace v1.14.0 // indirect
 	go.opentelemetry.io/proto/otlp v0.19.0 // indirect
-	golang.org/x/crypto v0.8.0 // indirect
+	golang.org/x/crypto v0.9.0 // indirect
 	golang.org/x/mod v0.10.0 // indirect
-	golang.org/x/net v0.9.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
+	golang.org/x/net v0.10.0 // indirect
+	golang.org/x/sync v0.2.0 // indirect
 	golang.org/x/sys v0.8.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
-	golang.org/x/tools v0.8.0 // indirect
+	golang.org/x/tools v0.9.1 // indirect
 	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
 	google.golang.org/grpc v1.54.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gotest.tools/v3 v3.4.0 // indirect
 )
