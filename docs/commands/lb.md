@@ -788,6 +788,7 @@ scw lb ip create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | reverse |  | Reverse DNS (domain name) for the IP address |
+| is-ipv6 |  | If true, creates a Flexible IP with an ipv6 address |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -899,7 +900,9 @@ scw lb lb create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name | Required<br />Default: `<generated>` | Name for the Load Balancer |
 | description |  | Description for the Load Balancer |
-| ip-id |  | ID of an existing flexible IP address to attach to the Load Balancer |
+| ~~ip-id~~ | Deprecated | ID of an existing flexible IP address to attach to the Load Balancer |
+| assign-flexible-ip |  | Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign). |
+| ip-ids.{index} |  | List of IP IDs to attach to the Load Balancer |
 | assign-flexible-ip |  | Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign). |
 | tags.{index} |  | List of tags for the Load Balancer |
 | type | Default: `LB-S`<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L` | Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types |
