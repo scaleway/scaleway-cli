@@ -21,7 +21,10 @@ func jsValue(val any) js.Value {
 	switch valType.Kind() {
 	case reflect.Struct:
 		return FromObject(val)
+	case reflect.Slice:
+		return FromSlice(val)
 	}
+
 	return js.ValueOf(val)
 }
 
@@ -32,10 +35,10 @@ func errValue(val any) error {
 	return val.(error)
 }
 
-// AsFunction convert a classic Go function to a function taking js arguments.
+// AsPromise convert a classic Go function to a function taking js arguments.
 // arguments and return types must be types handled by this package
 // function must return 2 variables, second one must be an error
-func AsFunction(goFunc any) func(this js.Value, args []js.Value) (any, error) {
+func AsPromise(goFunc any) JsFunc {
 	goFuncValue := reflect.ValueOf(goFunc)
 	goFuncType := goFuncValue.Type()
 
@@ -51,7 +54,7 @@ func AsFunction(goFunc any) func(this js.Value, args []js.Value) (any, error) {
 		panic("function must return an error")
 	}
 
-	return func(this js.Value, args []js.Value) (any, error) {
+	return AsyncJsFunc(func(this js.Value, args []js.Value) (any, error) {
 		if len(args) != len(goFuncArgs) {
 			return nil, fmt.Errorf("invalid number of arguments, expected %d, got %d", len(goFuncArgs), len(args))
 		}
@@ -60,7 +63,7 @@ func AsFunction(goFunc any) func(this js.Value, args []js.Value) (any, error) {
 		for i, argType := range goFuncArgs {
 			arg, err := goValue(argType, args[i])
 			if err != nil {
-				return nil, fmt.Errorf("invalid argument at index %d with type %s: %w", i, argType.String(), err)
+				return nil, fmt.Errorf("invalid argument at index %d, expected type %s: %w", i, argType.String(), err)
 			}
 			argValues[i] = reflect.ValueOf(arg)
 		}
@@ -68,5 +71,5 @@ func AsFunction(goFunc any) func(this js.Value, args []js.Value) (any, error) {
 		returnValues := goFuncValue.Call(argValues)
 
 		return jsValue(returnValues[0].Interface()), errValue(returnValues[1].Interface())
-	}
+	})
 }

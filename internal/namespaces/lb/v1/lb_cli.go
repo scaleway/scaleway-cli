@@ -293,6 +293,13 @@ func lbLBCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "assign-flexible-ip",
+				Short:      `Defines whether to automatically assign a flexible public IP to lb. Default value is ` + "`" + `false` + "`" + ` (do not assign).`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "tags.{index}",
 				Short:      `List of tags for the Load Balancer`,
 				Required:   false,

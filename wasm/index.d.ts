@@ -1,9 +1,4 @@
-import {CLI, RunConfig, RunResponse} from "./cli";
+export type {CLI, RunConfig, RunResponse } from './cli'
+export type { Go } from './wasm_exec'
 
-export type _ = {
-    wasmURL: URL,
-    RunConfig,
-    RunResponse,
-    CLI,
-    Go,
-}
+export declare const wasmURL: URL;
