@@ -79,7 +79,7 @@ type Command struct {
 	// Can contain template of values in request, ex: "url/{{ .Zone }}/{{ .ResourceID }}"
 	WebURL string
 
-  // WaitUsage override the usage for the -w (--wait) flag
+	// WaitUsage override the usage for the -w (--wait) flag
 	WaitUsage string
 
 	// Aliases contains a list of aliases for a command
