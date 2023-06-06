@@ -30,6 +30,10 @@ func goValue(typ reflect.Type, value js.Value) (any, error) {
 }
 
 func asObject(typ reflect.Type, value js.Value) (any, error) {
+	if value.Type() != js.TypeObject {
+		return nil, fmt.Errorf("value type should be Object")
+	}
+
 	objPtr := reflect.New(typ)
 	obj := objPtr.Elem()
 
@@ -54,10 +58,6 @@ func asObject(typ reflect.Type, value js.Value) (any, error) {
 // Given Go struct must have "js" tags to specify fields mapping
 func AsObject[T any](value js.Value) (*T, error) {
 	var t T
-
-	if value.Type() != js.TypeObject {
-		return nil, fmt.Errorf("value type should be Object")
-	}
 
 	obj, err := asObject(reflect.TypeOf(t), value)
 	if err != nil {

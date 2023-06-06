@@ -13,6 +13,10 @@ var (
 )
 
 func asSlice(typ reflect.Type, value js.Value) (any, error) {
+	if !value.InstanceOf(jsArray) {
+		return nil, fmt.Errorf("value type should be Array")
+	}
+
 	l := value.Length()
 
 	slice := reflect.MakeSlice(reflect.SliceOf(typ), l, l)
@@ -32,14 +36,22 @@ func asSlice(typ reflect.Type, value js.Value) (any, error) {
 func AsSlice[T any](value js.Value) ([]T, error) {
 	var t T
 
-	if !value.InstanceOf(jsArray) {
-		return nil, fmt.Errorf("value type should be Array")
-	}
-
 	slice, err := asSlice(reflect.TypeOf(t), value)
 	if err != nil {
 		return nil, err
 	}
 
 	return slice.([]T), nil
+}
+
+// FromSlice converts a Go slice to a JS Array
+func FromSlice(from any) js.Value {
+	fromValue := reflect.ValueOf(from)
+
+	arrayItems := make([]any, fromValue.Len())
+	for i := 0; i < len(arrayItems); i++ {
+		arrayItems[i] = jsValue(fromValue.Index(i).Interface())
+	}
+
+	return jsArray.New(arrayItems...)
 }

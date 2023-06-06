@@ -6,8 +6,13 @@ import (
 	"syscall/js"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
-	"github.com/scaleway/scaleway-cli/v2/internal/wasm"
 )
+
+type jsFunction func(js.Value, []js.Value) any
+
+var tests = map[string]jsFunction{
+	"FromSlice": wasmTestFromSlice,
+}
 
 func main() {
 	stopChan := make(chan struct{})
@@ -20,8 +25,9 @@ func main() {
 
 	if args.targetObject != "" {
 		cliPackage := js.ValueOf(map[string]any{})
-		cliPackage.Set("run", js.FuncOf(jshelpers.AsPromise(wasm.Run)))
-		cliPackage.Set("complete", js.FuncOf(jshelpers.AsPromise(wasm.Autocomplete)))
+		for funcName, testFunc := range tests {
+			cliPackage.Set(funcName, js.FuncOf(testFunc))
+		}
 		cliPackage.Set("stop", js.FuncOf(jshelpers.AsyncJsFunc(stop)))
 		js.Global().Set(args.targetObject, cliPackage)
 	}
