@@ -262,7 +262,7 @@ func functionNamespaceGet() *core.Command {
 func functionNamespaceCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new namespace`,
-		Long:      `Create a new namespace in a specified Organization or Project.`,
+		Long:      `Create a new namespace in a specified Organization or Proejct.`,
 		Namespace: "function",
 		Resource:  "namespace",
 		Verb:      "create",
