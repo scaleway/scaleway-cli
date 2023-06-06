@@ -19,6 +19,8 @@ type SuccessResult struct {
 	Resource string
 	Verb     string
 	Empty    bool
+	// Used to pass resource to an AfterFunc on success
+	TargetResource any
 }
 
 // This type can be return by a command that need to output specific content on stdout directly.

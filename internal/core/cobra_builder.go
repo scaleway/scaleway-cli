@@ -164,7 +164,11 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, group
 	}
 
 	if cmd.WaitFunc != nil {
-		cobraCmd.PersistentFlags().BoolP("wait", "w", false, "wait until the "+cmd.Resource+" is ready")
+		waitUsage := "wait until the " + cmd.Resource + " is ready"
+		if cmd.WaitUsage != "" {
+			waitUsage = cmd.WaitUsage
+		}
+		cobraCmd.PersistentFlags().BoolP("wait", "w", false, waitUsage)
 	}
 
 	if commandHasWeb(cmd) {

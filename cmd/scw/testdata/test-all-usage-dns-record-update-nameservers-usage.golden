@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update DNS zone nameservers and set optional glue records.
+Update name servers within a DNS zone and set optional glue records.
 
 USAGE:
   scw dns record update-nameservers <dns-zone ...> [arg=value ...]
 
 ARGS:
-  dns-zone                  The DNS zone where the DNS zone nameservers will be updated
+  dns-zone                  DNS zone in which to update the DNS zone name servers
   [ns.{index}.name]         
   [ns.{index}.ip.{index}]   
 

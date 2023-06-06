@@ -15,9 +15,7 @@ import (
 	iamcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 /*
@@ -129,95 +127,60 @@ Default path for configuration file is based on the following priority order:
 				Command: "scw config --help",
 			},
 		},
-		PreValidateFunc: func(ctx context.Context, argsI interface{}) error {
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			args := argsI.(*initArgs)
 
+			profileName := core.ExtractProfileName(ctx)
+			configPath := core.ExtractConfigPath(ctx)
+
 			// Show logo banner, or simple welcome message
-			if terminal.GetWidth() >= 80 {
-				interactive.Printf("%s\n%s\n\n", interactive.Center(logo), interactive.Line("-"))
-			} else {
-				interactive.Printf("Welcome to the Scaleway Cli\n\n")
+			printScalewayBanner()
+
+			config, err := loadConfigOrEmpty(configPath)
+			if err != nil {
+				return nil, err
 			}
 
-			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
-
-			// If it is not a new config, ask if we want to override the existing config
-			if err == nil && !config.IsEmpty() {
-				_, _ = interactive.PrintlnWithoutIndent(`
-					Current config is located at ` + core.ExtractConfigPath(ctx) + `
-					` + terminal.Style(fmt.Sprint(config), color.Faint) + `
-				`)
-				overrideConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-					Prompt:       "Do you want to override the current config?",
-					DefaultValue: true,
-					Ctx:          ctx,
-				})
-				if err != nil {
-					return err
-				}
-				if !overrideConfig {
-					return fmt.Errorf("initialization canceled")
-				}
+			err = promptProfileOverride(ctx, config, configPath, profileName)
+			if err != nil {
+				return nil, err
 			}
-
-			// Manually prompt for missing args:
 
 			// Credentials
 			if args.SecretKey == "" {
-				_, _ = interactive.Println()
-				args.SecretKey, err = promptSecret(ctx)
+				args.SecretKey, err = promptSecretKey(ctx)
 				if err != nil {
-					return err
+					return nil, err
 				}
 			}
 
 			if args.AccessKey == "" {
-				_, _ = interactive.Println()
 				args.AccessKey, err = promptAccessKey(ctx)
 				if err != nil {
-					return err
+					return nil, err
 				}
 			}
 
 			if args.OrganizationID == "" {
-				_, _ = interactive.Println()
-				args.OrganizationID, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-					Ctx:    ctx,
-					Prompt: "Choose your default organization ID",
-					ValidateFunc: func(s string) error {
-						if !validation.IsUUID(s) {
-							return fmt.Errorf("organization id is not a valid uuid")
-						}
-						return nil
-					},
-				})
+				args.OrganizationID, err = promptOrganizationID(ctx)
 				if err != nil {
-					return err
+					return nil, err
 				}
 			}
 
-			// Zone
-			if args.Zone == "" {
-				_, _ = interactive.Println()
-				zone, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-					Ctx:             ctx,
-					Prompt:          "Select a zone",
-					DefaultValueDoc: "fr-par-1",
-					DefaultValue:    "fr-par-1",
-					ValidateFunc: func(s string) error {
-						logger.Debugf("s: %v", s)
-						if !validation.IsZone(s) {
-							return fmt.Errorf("invalid zone")
-						}
-						return nil
-					},
-				})
+			if args.ProjectID == "" {
+				args.ProjectID = getAPIKeyDefaultProjectID(ctx, args.AccessKey, args.SecretKey)
+				args.ProjectID, err = promptProjectID(ctx, args.AccessKey, args.SecretKey, args.OrganizationID, args.ProjectID)
 				if err != nil {
-					return err
+					return nil, err
 				}
-				args.Zone, err = scw.ParseZone(zone)
+			}
+
+			// Ask for default zone, currently not used as CLI will default to fr-par-1
+			if args.Zone == "" {
+				args.Zone, err = promptDefaultZone(ctx)
 				if err != nil {
-					return err
+					return nil, err
 				}
 			}
 
@@ -225,95 +188,21 @@ Default path for configuration file is based on the following priority order:
 			if args.Region == "" {
 				args.Region, err = args.Zone.Region()
 				if err != nil {
-					return err
+					return nil, err
 				}
 			}
 
 			// Ask for send usage permission
 			if args.SendTelemetry == nil {
-				_, _ = interactive.Println()
-				_, _ = interactive.PrintlnWithoutIndent(`
-					To improve this tool we rely on diagnostic and usage data.
-					Sending such data is optional and can be disabled at any time by running "scw config set send-telemetry=false".
-				`)
-
-				sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-					Prompt:       "Do you want to send usage statistics and diagnostics?",
-					DefaultValue: true,
-					Ctx:          ctx,
-				})
+				args.SendTelemetry, err = promptTelemetry(ctx)
 				if err != nil {
-					return err
-				}
-
-				args.SendTelemetry = scw.BoolPtr(sendTelemetry)
-			}
-
-			// Ask whether we should install autocomplete
-			if args.InstallAutocomplete == nil {
-				_, _ = interactive.Println()
-				_, _ = interactive.PrintlnWithoutIndent(`
-					To fully enjoy Scaleway CLI we recommend you install autocomplete support in your shell.
-				`)
-
-				installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-					Ctx:          ctx,
-					Prompt:       "Do you want to install autocomplete?",
-					DefaultValue: true,
-				})
-				if err != nil {
-					return err
-				}
-
-				args.InstallAutocomplete = scw.BoolPtr(installAutocomplete)
-			}
-
-			return nil
-		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*initArgs)
-			// Check if a config exists
-			// Creates a new one if it does not
-			configPath := core.ExtractConfigPath(ctx)
-			config, err := scw.LoadConfigFromPath(configPath)
-			if err != nil {
-				_, ok := err.(*scw.ConfigFileNotFoundError)
-				if ok {
-					config = &scw.Config{}
-					interactive.Printf("Creating new config at %s\n", configPath)
-				} else {
 					return nil, err
 				}
 			}
 
-			if args.SendTelemetry != nil {
-				config.SendTelemetry = args.SendTelemetry
-			}
-
-			client := core.ExtractClient(ctx)
-			api := iam.NewAPI(client)
-
-			apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{AccessKey: args.AccessKey}, scw.WithAuthRequest(args.AccessKey, args.SecretKey))
-			if err != nil && !is403Error(err) {
-				// If 403 Unauthorized, API Key does not have permissions to get himself
-				return nil, err
-			}
-
-			if apiKey != nil && args.ProjectID == "" {
-				args.ProjectID = apiKey.DefaultProjectID
-			}
-
-			if args.ProjectID == "" {
-				args.ProjectID, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-					Ctx:    ctx,
-					Prompt: "Default project ID",
-					ValidateFunc: func(s string) error {
-						if !validation.IsUUID(s) {
-							return fmt.Errorf("given project ID is not a valid UUID")
-						}
-						return nil
-					},
-				})
+			// Ask whether we should install autocomplete
+			if args.InstallAutocomplete == nil {
+				args.InstallAutocomplete, err = promptAutocomplete(ctx)
 				if err != nil {
 					return nil, err
 				}
@@ -329,7 +218,6 @@ Default path for configuration file is based on the following priority order:
 			}
 
 			// Save the profile as default or as a named profile
-			profileName := core.ExtractProfileName(ctx)
 			if profileName == scw.DefaultProfileName {
 				// Default configuration
 				config.Profile = *profile
@@ -382,67 +270,48 @@ Default path for configuration file is based on the following priority order:
 	}
 }
 
-func promptSecret(ctx context.Context) (string, error) {
-	secret, err := interactive.Readline(&interactive.ReadlineConfig{
-		Ctx: ctx,
-		PromptFunc: func(value string) string {
-			secretKey := "secret-key"
-			switch {
-			case validation.IsUUID(value):
-				secretKey = terminal.Style(secretKey, color.FgBlue)
-			}
-			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", secretKey), color.Bold)
-		},
-		ValidateFunc: func(s string) error {
-			if validation.IsSecretKey(s) {
-				return nil
-			}
-			return fmt.Errorf("invalid secret-key")
-		},
-	})
-	if err != nil {
-		return "", err
-	}
-
-	switch {
-	case validation.IsUUID(secret):
-		return secret, nil
-
-	default:
-		return "", fmt.Errorf("invalid secret-key: '%v'", secret)
+func printScalewayBanner() {
+	if terminal.GetWidth() >= 80 {
+		interactive.Printf("%s\n%s\n\n", interactive.Center(logo), interactive.Line("-"))
+	} else {
+		interactive.Printf("Welcome to the Scaleway Cli\n\n")
 	}
 }
 
-func promptAccessKey(ctx context.Context) (string, error) {
-	key, err := interactive.Readline(&interactive.ReadlineConfig{
-		Ctx: ctx,
-		PromptFunc: func(value string) string {
-			accessKey := "access-key"
-			switch {
-			case validation.IsAccessKey(value):
-				accessKey = terminal.Style(accessKey, color.FgBlue)
-			}
-			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", accessKey), color.Bold)
-		},
-		ValidateFunc: func(s string) error {
-			if !validation.IsAccessKey(s) {
-				return fmt.Errorf("invalid access-key")
-			}
-
-			return nil
-		},
-	})
+// loadConfigOrEmpty checks if a config exists
+// Creates a new one if it does not
+func loadConfigOrEmpty(configPath string) (*scw.Config, error) {
+	config, err := scw.LoadConfigFromPath(configPath)
 	if err != nil {
-		return "", err
+		_, ok := err.(*scw.ConfigFileNotFoundError)
+		if ok {
+			config = &scw.Config{}
+			interactive.Printf("Creating new config\n")
+		} else {
+			return nil, err
+		}
+	}
+	return config, nil
+}
+
+// getAPIKeyDefaultProjectID tries to find the api-key default project ID
+// return an empty string if it cannot find it
+func getAPIKeyDefaultProjectID(ctx context.Context, accessKey string, secretKey string) string {
+	client := core.ExtractClient(ctx)
+	api := iam.NewAPI(client)
+
+	apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{AccessKey: accessKey}, scw.WithAuthRequest(accessKey, secretKey))
+	if err != nil && !is403Error(err) {
+		// If 403 Unauthorized, API Key does not have permissions to get himself
+		// It requires IAM permission to fetch an API Key
+		return ""
 	}
 
-	switch {
-	case validation.IsAccessKey(key):
-		return key, nil
-
-	default:
-		return "", fmt.Errorf("invalid access-key: '%v'", key)
+	if apiKey == nil {
+		return ""
 	}
+
+	return apiKey.DefaultProjectID
 }
 
 // isHTTPCodeError returns true if err is an http error with code statusCode

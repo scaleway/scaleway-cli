@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a specific pool from a cluster. All of the pool's nodes will also be deleted.
+Delete a specific pool from a cluster. Note that all the pool's nodes will also be deleted.
 
 USAGE:
   scw k8s pool delete <pool-id ...> [arg=value ...]

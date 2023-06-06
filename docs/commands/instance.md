@@ -3,10 +3,10 @@
 Instance API.
   
 - [Image management commands](#image-management-commands)
-  - [Create an instance image](#create-an-instance-image)
-  - [Delete an instance image](#delete-an-instance-image)
-  - [Get an instance image](#get-an-instance-image)
-  - [List instance images](#list-instance-images)
+  - [Create an Instance image](#create-an-instance-image)
+  - [Delete an Instance image](#delete-an-instance-image)
+  - [Get an Instance image](#get-an-instance-image)
+  - [List Instance images](#list-instance-images)
   - [Update an instance image](#update-an-instance-image)
   - [Wait for image to reach a stable state](#wait-for-image-to-reach-a-stable-state)
 - [IP management commands](#ip-management-commands)
@@ -19,7 +19,7 @@ Instance API.
   - [Update a flexible IP](#update-a-flexible-ip)
 - [Placement group management commands](#placement-group-management-commands)
   - [Create a placement group](#create-a-placement-group)
-  - [Delete the given placement group](#delete-the-given-placement-group)
+  - [Delete the specified placement group](#delete-the-specified-placement-group)
   - [Get a placement group](#get-a-placement-group)
   - [Get placement group servers](#get-placement-group-servers)
   - [List placement groups](#list-placement-groups)
@@ -28,7 +28,7 @@ Instance API.
   - [Update a placement group](#update-a-placement-group)
   - [Update placement group servers](#update-placement-group-servers)
 - [Private NIC management commands](#private-nic-management-commands)
-  - [Create a private NIC connecting a server to a private network](#create-a-private-nic-connecting-a-server-to-a-private-network)
+  - [Create a private NIC connecting an Instance to a Private Network](#create-a-private-nic-connecting-an-instance-to-a-private-network)
   - [Delete a private NIC](#delete-a-private-nic)
   - [Get a private NIC](#get-a-private-nic)
   - [List all private NICs](#list-all-private-nics)
@@ -47,7 +47,7 @@ Instance API.
   - [List rules](#list-rules)
   - [Update all the rules of a security group](#update-all-the-rules-of-a-security-group)
   - [Update security group](#update-security-group)
-- [Server management commands](#server-management-commands)
+- [Instance management commands](#instance-management-commands)
   - [Attach an IP to a server](#attach-an-ip-to-a-server)
   - [Attach a volume to a server](#attach-a-volume-to-a-server)
   - [Backup server](#backup-server)
@@ -56,32 +56,33 @@ Instance API.
   - [Delete server](#delete-server)
   - [Detach an IP from a server](#detach-an-ip-from-a-server)
   - [Detach a volume from its server](#detach-a-volume-from-its-server)
-  - [Get a server](#get-a-server)
-  - [List all servers](#list-all-servers)
-  - [List server actions](#list-server-actions)
+  - [Get an Instance](#get-an-instance)
+  - [List all Instances](#list-all-instances)
+  - [List Instance actions](#list-instance-actions)
   - [Reboot server](#reboot-server)
   - [SSH into a server](#ssh-into-a-server)
   - [Put server in standby mode](#put-server-in-standby-mode)
   - [Power on server](#power-on-server)
   - [Power off server](#power-off-server)
   - [Terminate server](#terminate-server)
-  - [Update a server](#update-a-server)
+  - [Update an Instance](#update-an-instance)
   - [Wait for server to reach a stable state](#wait-for-server-to-reach-a-stable-state)
-- [Server type management commands](#server-type-management-commands)
+- [Instance type management commands](#instance-type-management-commands)
   - [Get availability](#get-availability)
-  - [List server types](#list-server-types)
+  - [List Instance types](#list-instance-types)
 - [Snapshot management commands](#snapshot-management-commands)
-  - [Create a snapshot from a given volume or from a QCOW2 file](#create-a-snapshot-from-a-given-volume-or-from-a-qcow2-file)
+  - [Create a snapshot from a specified volume or from a QCOW2 file](#create-a-snapshot-from-a-specified-volume-or-from-a-qcow2-file)
   - [Delete a snapshot](#delete-a-snapshot)
   - [Export a snapshot](#export-a-snapshot)
   - [Get a snapshot](#get-a-snapshot)
   - [List snapshots](#list-snapshots)
+  - [Update a snapshot](#update-a-snapshot)
   - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
 - [User data management commands](#user-data-management-commands)
   - [Delete user data](#delete-user-data)
   - [Get user data](#get-user-data)
   - [List user data](#list-user-data)
-  - [Add/Set user data](#addset-user-data)
+  - [Add/set user data](#addset-user-data)
 - [Volume management commands](#volume-management-commands)
   - [Create a volume](#create-a-volume)
   - [Delete a volume](#delete-a-volume)
@@ -89,21 +90,20 @@ Instance API.
   - [List volumes](#list-volumes)
   - [Update a volume](#update-a-volume)
 - [Volume type management commands](#volume-type-management-commands)
-  - [List volumes types](#list-volumes-types)
+  - [List volume types](#list-volume-types)
 
   
 ## Image management commands
 
-Images are backups of your instances.
-You can reuse that image to restore your data or create a series of instances with a predefined configuration.
-
-An image is a complete backup of your server including all volumes.
-
+Images are backups of your Instances.
+One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration. 
+To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
 
 
-### Create an instance image
 
-Create an instance image.
+### Create an Instance image
+
+Create an Instance image from the specified snapshot ID.
 
 **Usage:**
 
@@ -127,7 +127,7 @@ scw instance image create [arg=value ...]
 | additional-snapshots.{index}.project-id |  | Project ID that own the additional snapshot |
 | ~~additional-snapshots.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| tags.{index} |  | The tags of the image |
+| tags.{index} |  | Tags of the image |
 | public |  | True to create a public image |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
@@ -136,17 +136,17 @@ scw instance image create [arg=value ...]
 **Examples:**
 
 
-Create an image named 'foobar' for x86_64 instances from the given snapshot ID
+Create an image named 'foobar' for x86_64 Instances from the specified snapshot ID
 ```
-scw instance image create name=foobar snapshot-id=11111111-1111-1111-1111-111111111111 arch=x86_64
+scw instance server image create name=foobar snapshot-id=11111111-1111-1111-1111-111111111111 arch=x86_64
 ```
 
 
 
 
-### Delete an instance image
+### Delete an Instance image
 
-Delete the image with the given ID.
+Delete the image with the specified ID.
 
 **Usage:**
 
@@ -167,12 +167,12 @@ scw instance image delete <image-id ...> [arg=value ...]
 **Examples:**
 
 
-Delete an image in the default zone with the given ID
+Delete an image in the default zone with the specified ID
 ```
 scw instance image delete 11111111-1111-1111-1111-111111111111
 ```
 
-Delete an image in fr-par-1 zone with the given ID
+Delete an image in fr-par-1 zone with the specified ID
 ```
 scw instance image delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
@@ -180,9 +180,9 @@ scw instance image delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
-### Get an instance image
+### Get an Instance image
 
-Get details of an image with the given ID.
+Get details of an image with the specified ID.
 
 **Usage:**
 
@@ -202,12 +202,12 @@ scw instance image get <image-id ...> [arg=value ...]
 **Examples:**
 
 
-Get an image in the default zone with the given ID
+Get an image in the default zone with the specified ID
 ```
 scw instance image get 11111111-1111-1111-1111-111111111111
 ```
 
-Get an image in fr-par-1 zone with the given ID
+Get an image in fr-par-1 zone with the specified ID
 ```
 scw instance image get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
@@ -215,9 +215,9 @@ scw instance image get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
-### List instance images
+### List Instance images
 
-List all images available in an account.
+List all existing Instance images.
 
 **Usage:**
 
@@ -315,6 +315,7 @@ scw instance image wait <image-id ...> [arg=value ...]
 |------|---|-------------|
 | image-id | Required | ID of the image. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `1h0m0s` | Timeout of the wait |
 
 
 **Examples:**
@@ -330,10 +331,10 @@ scw instance image wait 11111111-1111-1111-1111-111111111111
 
 ## IP management commands
 
-A flexible IP address is an IP address which you hold independently of any server.
-You can attach it to any of your servers and do live migration of the IP address between your servers.
+A flexible IP address is an IP address which you hold independently of any Instance.
+You can attach it to any of your Instances and do live migration of the IP address between your Instances.
 
-Be aware that attaching a flexible IP address to a server will remove the previous public IP address of the server and cut any ongoing public connection to the server.
+Note that attaching a flexible IP address to an Instance will remove the previous public IP address of the Instance and cut any ongoing public connection to the Instance.
 
 
 
@@ -370,7 +371,7 @@ scw instance ip attach 1.2.3.4 server-id=11111111-1111-1111-1111-111111111111
 
 ### Reserve a flexible IP
 
-Reserve a flexible IP.
+Reserve a flexible IP and attach it to the specified Instance.
 
 **Usage:**
 
@@ -384,8 +385,8 @@ scw instance ip create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| tags.{index} |  | The tags of the IP |
-| server |  | UUID of the server you want to attach the IP to |
+| tags.{index} |  | Tags of the IP |
+| server |  | UUID of the Instance you want to attach the IP to |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -403,7 +404,7 @@ Create an IP in fr-par-1 zone
 scw instance ip create zone=fr-par-1
 ```
 
-Create an IP and attach it to the given server
+Create an IP and attach it to the specified Instance
 ```
 scw instance ip create server=11111111-1111-1111-1111-111111111111
 ```
@@ -413,7 +414,7 @@ scw instance ip create server=11111111-1111-1111-1111-111111111111
 
 ### Delete a flexible IP
 
-Delete the IP with the given ID.
+Delete the IP with the specified ID.
 
 **Usage:**
 
@@ -426,24 +427,24 @@ scw instance ip delete <ip ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| ip | Required | The ID or the address of the IP to delete |
+| ip | Required | ID or address of the IP to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
 
 
-Delete an IP in the default zone with the given ID
+Delete an IP in the default zone with the specified ID
 ```
 scw instance ip delete 11111111-1111-1111-1111-111111111111
 ```
 
-Delete an IP in fr-par-1 zone with the given ID
+Delete an IP in fr-par-1 zone with the specified ID
 ```
 scw instance ip delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
 
-Delete an IP using directly the given IP address
+Delete an IP using directly the specified IP address
 ```
 scw instance ip delete 51.15.253.183
 ```
@@ -488,7 +489,7 @@ scw instance ip detach 1.2.3.4
 
 ### Get a flexible IP
 
-Get details of an IP with the given ID or address.
+Get details of an IP with the specified ID or address.
 
 **Usage:**
 
@@ -501,24 +502,24 @@ scw instance ip get <ip ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| ip | Required | The IP ID or address to get |
+| ip | Required | IP ID or address to get |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
 
 
-Get an IP in the default zone with the given ID
+Get an IP in the default zone with the specified ID
 ```
 scw instance ip get 11111111-1111-1111-1111-111111111111
 ```
 
-Get an IP in fr-par-1 zone with the given ID
+Get an IP in fr-par-1 zone with the specified ID
 ```
 scw instance ip get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
 
-Get an IP using directly the given IP address
+Get an IP, directly using the specified IP address
 ```
 scw instance ip get 51.15.253.183
 ```
@@ -528,7 +529,7 @@ scw instance ip get 51.15.253.183
 
 ### List all flexible IPs
 
-List all flexible IPs.
+List all flexible IPs in a specified zone.
 
 **Usage:**
 
@@ -541,10 +542,10 @@ scw instance ip list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| project-id |  | The project ID the IPs are reserved in |
+| project-id |  | Project ID in which the IPs are reserved |
 | tags.{index} |  | Filter IPs with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter on the IP address (Works as a LIKE operation on the IP address) |
-| organization-id |  | The organization ID the IPs are reserved in |
+| organization-id |  | Organization ID in which the IPs are reserved |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -566,7 +567,7 @@ scw instance ip list zone=fr-par-1
 
 ### Update a flexible IP
 
-Update a flexible IP.
+Update a flexible IP in the specified zone with the specified ID.
 
 **Usage:**
 
@@ -588,17 +589,17 @@ scw instance ip update <ip ...> [arg=value ...]
 **Examples:**
 
 
-Update an IP in the default zone with the given ID
+Update an IP in the default zone with the specified ID
 ```
 scw instance ip update 11111111-1111-1111-1111-111111111111 reverse=example.com
 ```
 
-Update an IP in fr-par-1 zone with the given ID
+Update an IP in fr-par-1 zone with the specified ID
 ```
 scw instance ip update 11111111-1111-1111-1111-111111111111 zone=fr-par-1 reverse=example.com
 ```
 
-Update an IP using directly the given IP address
+Update an IP using directly the specified IP address
 ```
 scw instance ip update 51.15.253.183 reverse=example.com
 ```
@@ -609,21 +610,21 @@ scw instance ip update 51.15.253.183 reverse=example.com
 ## Placement group management commands
 
 Placement groups allow the user to express a preference regarding
-the physical position of a group of instances. It'll let the user
-choose to either group instances on the same physical hardware for
-best network throughput and low latency or to spread instances on
-far away hardware to reduce the risk of physical failure.
+the physical position of a group of Instances. The feature lets the user
+choose to either group Instances on the same physical hardware for
+best network throughput and low latency or to spread Instances across
+physically distanced hardware to reduce the risk of physical failure.
 
 The operating mode is selected by a `policy_type`. Two policy
 types are available:
-  - `low_latency` will group instances on the same hypervisors
-  - `max_availability` will spread instances on far away hypervisors
+  - `low_latency` will group Instances on the same hypervisors
+  - `max_availability` will spread Instances across physically distanced hypervisors
 
-The `policy_type` is set by default to `max_availability`.
+The `policy_type` is set to `max_availability` by default.
 
 For each policy types, one of the two `policy_mode` may be selected:
-  - `optional` will start your instances even if the constraint is not respected
-  - `enforced` guarantee that if the instance starts, the constraint is respected
+  - `optional` will start your Instances even if the constraint is not respected
+  - `enforced` guarantees that if the Instance starts, the constraint is respected
 
 The `policy_mode` is set by default to `optional`.
 
@@ -631,7 +632,7 @@ The `policy_mode` is set by default to `optional`.
 
 ### Create a placement group
 
-Create a new placement group.
+Create a new placement group in a specified Availability Zone.
 
 **Usage:**
 
@@ -646,9 +647,9 @@ scw instance placement-group create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` | Name of the placement group |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| tags.{index} |  | The tags of the placement group |
-| policy-mode | One of: `optional`, `enforced` | The operating mode of the placement group |
-| policy-type | One of: `max_availability`, `low_latency` | The policy type of the placement group |
+| tags.{index} |  | Tags of the placement group |
+| policy-mode | One of: `optional`, `enforced` | Operating mode of the placement group |
+| policy-type | One of: `max_availability`, `low_latency` | Policy type of the placement group |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -661,7 +662,7 @@ Create a placement group with default name
 scw instance placement-group create
 ```
 
-Create a placement group with the given name
+Create a placement group with the specified name
 ```
 scw instance placement-group create name=foobar
 ```
@@ -689,9 +690,9 @@ scw instance placement-group create policy-mode=enforced policy-type=low_latency
 
 
 
-### Delete the given placement group
+### Delete the specified placement group
 
-Delete the given placement group.
+Delete the specified placement group.
 
 **Usage:**
 
@@ -711,12 +712,12 @@ scw instance placement-group delete <placement-group-id ...> [arg=value ...]
 **Examples:**
 
 
-Delete a placement group in the default zone with the given ID
+Delete a placement group in the default zone with the specified ID
 ```
 scw instance placement-group delete 11111111-1111-1111-1111-111111111111
 ```
 
-Delete a placement group in fr-par-1 zone with the given ID
+Delete a placement group in fr-par-1 zone with the specified ID
 ```
 scw instance placement-group delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
@@ -726,7 +727,7 @@ scw instance placement-group delete 11111111-1111-1111-1111-111111111111 zone=fr
 
 ### Get a placement group
 
-Get the given placement group.
+Get the specified placement group.
 
 **Usage:**
 
@@ -746,7 +747,7 @@ scw instance placement-group get <placement-group-id ...> [arg=value ...]
 **Examples:**
 
 
-Get a placement group with the given ID
+Get a placement group with the specified ID
 ```
 scw instance placement-group get 6c15f411-3b6f-402d-8eba-ae24ef9254e9
 ```
@@ -756,12 +757,12 @@ scw instance placement-group get 6c15f411-3b6f-402d-8eba-ae24ef9254e9
 
 ### Get placement group servers
 
-Get all servers belonging to the given placement group.
+Get all Instances belonging to the specified placement group.
 
 **Usage:**
 
 ```
-scw instance placement-group get-servers [arg=value ...]
+scw instance placement-group get-servers <placement-group-id ...> [arg=value ...]
 ```
 
 
@@ -769,14 +770,14 @@ scw instance placement-group get-servers [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| placement-group-id | Required |  |
+| placement-group-id | Required | UUID of the placement group you want to get |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ### List placement groups
 
-List all placement groups.
+List all placement groups in a specified Availability Zone.
 
 **Usage:**
 
@@ -789,10 +790,10 @@ scw instance placement-group list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| project-id |  | List only placement groups of this project ID |
+| project-id |  | List only placement groups of this Project ID |
 | tags.{index} |  | List placement groups with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo") |
-| organization-id |  | List only placement groups of this organization ID |
+| organization-id |  | List only placement groups of this Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -804,7 +805,7 @@ List all placement groups in the default zone
 scw instance placement-group list
 ```
 
-List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
+List placement groups that match a specified name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
 ```
 scw instance placement-group list name=cluster1
 ```
@@ -814,7 +815,7 @@ scw instance placement-group list name=cluster1
 
 ### Set placement group
 
-Set all parameters of the given placement group.
+Set all parameters of the specified placement group.
 
 **Usage:**
 
@@ -840,7 +841,7 @@ scw instance placement-group set [arg=value ...]
 
 ### Set placement group servers
 
-Set all servers belonging to the given placement group.
+Set all Instances belonging to the specified placement group.
 
 **Usage:**
 
@@ -853,15 +854,15 @@ scw instance placement-group set-servers [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| placement-group-id | Required |  |
-| servers.{index} |  |  |
+| placement-group-id | Required | UUID of the placement group you want to set |
+| servers.{index} | Required | An array of the Instances' UUIDs you want to configure |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
 
 
-Update the complete set of instances in a given placement group. (All instances must be down)
+Update the complete set of Instances in a specified placement group (all Instances must be shut down)
 ```
 scw instance placement-group set-servers placement-group-id=ced0fd4d-bcf0-4479-85b6-7027e54456e6 servers.0=5a250608-24ec-4c31-9631-b3ded8c861cb servers.1=e54fd249-0787-4794-ab14-af6ee74df274
 ```
@@ -871,7 +872,7 @@ scw instance placement-group set-servers placement-group-id=ced0fd4d-bcf0-4479-8
 
 ### Update a placement group
 
-Update one or more parameter of the given placement group.
+Update one or more parameter of the specified placement group.
 
 **Usage:**
 
@@ -886,9 +887,9 @@ scw instance placement-group update <placement-group-id ...> [arg=value ...]
 |------|---|-------------|
 | placement-group-id | Required | UUID of the placement group |
 | name |  | Name of the placement group |
-| tags.{index} |  | The tags of the placement group |
-| policy-mode | One of: `optional`, `enforced` | The operating mode of the placement group |
-| policy-type | One of: `max_availability`, `low_latency` | The policy type of the placement group |
+| tags.{index} |  | Tags of the placement group |
+| policy-mode | One of: `optional`, `enforced` | Operating mode of the placement group |
+| policy-type | One of: `max_availability`, `low_latency` | Policy type of the placement group |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -900,12 +901,12 @@ Update the name of a placement group
 scw instance placement-group update 95053f33-cd3c-4cdc-b2b0-57d2dda97b13 name=foobar
 ```
 
-Update the policy mode of a placement group (All instances in your placement group MUST be shutdown)
+Update the policy mode of a placement group (all Instances in your placement group MUST be shut down)
 ```
 scw instance placement-group update 1f883434-8c2d-40f0-b686-d0754b3a7bc0 policy-mode=enforced
 ```
 
-Update the policy type of a placement group (All instances in your placement group MUST be shutdown)
+Update the policy type of a placement group (all Instances in your placement group MUST be shutdown)
 ```
 scw instance placement-group update 0954ec26-9917-47b6-8c5c-7bc81d7bb9d2 policy-type=low_latency
 ```
@@ -915,7 +916,7 @@ scw instance placement-group update 0954ec26-9917-47b6-8c5c-7bc81d7bb9d2 policy-
 
 ### Update placement group servers
 
-Update all servers belonging to the given placement group.
+Update all Instances belonging to the specified placement group.
 
 **Usage:**
 
@@ -928,23 +929,23 @@ scw instance placement-group update-servers [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| placement-group-id | Required | UUID of the placement group |
-| servers.{index} | Required |  |
+| placement-group-id | Required | UUID of the placement group you want to update |
+| servers.{index} | Required | An array of the Instances' UUIDs you want to configure |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## Private NIC management commands
 
-A Private NIC is the network interface that connects a server to a
-Private Network. There can be at most one Private NIC connecting a
-server to a network.
+A Private NIC is the network interface that connects an Instance to a
+Private Network. An Instance can have multiple private NICs at the same
+time, but each NIC must belong to a different Private Network.
 
 
 
-### Create a private NIC connecting a server to a private network
+### Create a private NIC connecting an Instance to a Private Network
 
-Create a private NIC connecting a server to a private network.
+Create a private NIC connecting an Instance to a Private Network.
 
 **Usage:**
 
@@ -957,9 +958,9 @@ scw instance private-nic create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | UUID of the server the private NIC will be attached to |
+| server-id | Required | UUID of the Instance the private NIC will be attached to |
 | private-network-id | Required | UUID of the private network where the private NIC will be attached |
-| tags.{index} |  | The private NIC tags |
+| tags.{index} |  | Private NIC tags |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -979,8 +980,8 @@ scw instance private-nic delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | The server the private NIC is attached to |
-| private-nic-id | Required | The private NIC unique ID |
+| server-id | Required | Instance to which the private NIC is attached |
+| private-nic-id | Required | Private NIC unique ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1000,7 +1001,7 @@ scw instance private-nic get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | The server the private NIC is attached to |
+| server-id | Required | Instance to which the private NIC is attached |
 | private-nic-id | Required | The private NIC unique ID or MAC address |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -1008,7 +1009,7 @@ scw instance private-nic get [arg=value ...]
 
 ### List all private NICs
 
-List all private NICs of a given server.
+List all private NICs of a specified Instance.
 
 **Usage:**
 
@@ -1021,20 +1022,20 @@ scw instance private-nic list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | The server the private NIC is attached to |
-| tags.{index} |  | The private NIC tags |
+| server-id | Required | Instance to which the private NIC is attached |
+| tags.{index} |  | Private NIC tags |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
 
 
-List all private NICs on a specific server
+List all private NICs on a specified server
 ```
 scw instance private-nic list
 ```
 
-List private NICs of the server ID 'my_server_id'
+List private NICs of the Instance ID 'my_server_id'
 ```
 scw instance private-nic list server-id=my_server_id
 ```
@@ -1044,7 +1045,7 @@ scw instance private-nic list server-id=my_server_id
 
 ### Update a private NIC
 
-Update one or more parameter/s to a given private NIC.
+Update one or more parameter(s) of a specified private NIC.
 
 **Usage:**
 
@@ -1057,8 +1058,8 @@ scw instance private-nic update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | UUID of the server the private NIC will be attached to |
-| private-nic-id | Required | The private NIC unique ID |
+| server-id | Required | UUID of the Instance the private NIC will be attached to |
+| private-nic-id | Required | Private NIC unique ID |
 | tags.{index} |  | Tags used to select private NIC/s |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -1076,10 +1077,10 @@ scw instance private-nic update server-id=11111111-1111-1111-1111-111111111111 p
 
 ## Security group management commands
 
-A security group is a set of firewall rules on a set of instances.
-Security groups enable to create rules that either drop or allow incoming traffic from certain ports of your instances.
+A security group is a set of firewall rules on a set of Instances.
+Security groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.
 
-Security Groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
+Security groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
 As a contrary, you have to switch in a stateless mode to define explicitly allowed.
 
 
@@ -1116,7 +1117,7 @@ scw instance security-group clear security-group-id=11111111-1111-1111-1111-1111
 
 ### Create a security group
 
-Create a security group.
+Create a security group with a specified name and description.
 
 **Usage:**
 
@@ -1132,13 +1133,13 @@ scw instance security-group create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name of the security group |
 | description |  | Description of the security group |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| tags.{index} |  | The tags of the security group |
-| ~~organization-default~~ | Deprecated<br />Default: `false` | Whether this security group becomes the default security group for new instances |
-| project-default | Default: `false` | Whether this security group becomes the default security group for new instances |
+| tags.{index} |  | Tags of the security group |
+| ~~organization-default~~ | Deprecated<br />Default: `false` | Defines whether this security group becomes the default security group for new Instances |
+| project-default | Default: `false` | Whether this security group becomes the default security group for new Instances |
 | stateful | Default: `true` | Whether the security group is stateful or not |
 | inbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for inbound rules |
 | outbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for outbound rules |
-| enable-default-security |  | True to block SMTP on IPv4 and IPv6 |
+| enable-default-security |  | True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -1146,27 +1147,27 @@ scw instance security-group create [arg=value ...]
 **Examples:**
 
 
-Create a Security Group with the given name and description
+Create a security group with a specified name and description
 ```
 scw instance security-group create name=foobar description=foobar foobar
 ```
 
-Create a Security Group that will be applied as a default on instances of your project
+Create a security group that will be applied as default on all Instances of this Project
 ```
 scw instance security-group create project-default=true
 ```
 
-Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)
+Create a security group that will have a default drop inbound policy (traffic your Instance receives)
 ```
 scw instance security-group create inbound-default-policy=drop
 ```
 
-Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)
+Create a security group that will have a default drop outbound policy (traffic your Instance transmits)
 ```
 scw instance security-group create outbound-default-policy=drop
 ```
 
-Create a stateless Security Group
+Create a stateless security group
 ```
 scw instance security-group create
 ```
@@ -1176,7 +1177,7 @@ scw instance security-group create
 
 ### Create rule
 
-Create rule.
+Create a rule in the specified security group ID.
 
 **Usage:**
 
@@ -1194,9 +1195,9 @@ scw instance security-group create-rule [arg=value ...]
 | direction | Required<br />One of: `inbound`, `outbound` |  |
 | action | Required<br />One of: `accept`, `drop` |  |
 | ip-range | Required<br />Default: `0.0.0.0/0` |  |
-| dest-port-from |  | The beginning of the range of ports to apply this rule to (inclusive) |
-| dest-port-to |  | The end of the range of ports to apply this rule to (inclusive) |
-| position |  | The position of this rule in the security group rules list |
+| dest-port-from |  | Beginning of the range of ports to apply this rule to (inclusive) |
+| dest-port-to |  | End of the range of ports to apply this rule to (inclusive) |
+| position |  | Position of this rule in the security group rules list |
 | editable |  | Indicates if this rule is editable (will be ignored) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -1219,7 +1220,7 @@ Allow HTTPS
 scw instance security-group create-rule security-group-id=e5906437-8650-4fe2-8ca7-32e1d7320c1b protocol=TCP direction=inbound action=accept ip-range=<nil> dest-port-from=443
 ```
 
-Allow a specific IP range
+Allow a specified IP range
 ```
 scw instance security-group create-rule security-group-id=b6a58155-a2f8-48bd-9da9-3ff9783fa0d4 protocol=ANY direction=inbound action=accept ip-range=10.0.0.0/16
 ```
@@ -1234,7 +1235,7 @@ scw instance security-group create-rule security-group-id=9c46df03-83c2-46fb-936
 
 ### Delete a security group
 
-Delete a security group.
+Delete a security group with the specified ID.
 
 **Usage:**
 
@@ -1254,7 +1255,7 @@ scw instance security-group delete <security-group-id ...> [arg=value ...]
 **Examples:**
 
 
-Delete a security group with the given ID
+Delete the security group with the specified ID
 ```
 scw instance security-group delete 69e17c83-9945-47ac-8b29-8c1ad050ee83
 ```
@@ -1264,7 +1265,7 @@ scw instance security-group delete 69e17c83-9945-47ac-8b29-8c1ad050ee83
 
 ### Delete rule
 
-Delete a security group rule with the given ID.
+Delete a security group rule with the specified ID.
 
 **Usage:**
 
@@ -1285,7 +1286,7 @@ scw instance security-group delete-rule [arg=value ...]
 **Examples:**
 
 
-Delete a Security Group Rule with the given ID
+Delete a security group rule with the specified ID
 ```
 scw instance security-group delete-rule security-group-id=a01a36e5-5c0c-42c1-ae06-167e587b7ac4 security-group-rule-id=b8c773ef-a6ea-4b50-a7c1-737864290a3f
 ```
@@ -1317,7 +1318,7 @@ scw instance security-group edit <security-group-id ...> [arg=value ...]
 
 ### Get a security group
 
-Get the details of a Security Group with the given ID.
+Get the details of a security group with the specified ID.
 
 **Usage:**
 
@@ -1337,7 +1338,7 @@ scw instance security-group get <security-group-id ...> [arg=value ...]
 **Examples:**
 
 
-Get a security group with the given ID
+Get a security group with the specified ID
 ```
 scw instance security-group get a3244331-5d32-4e36-9bf9-b60233e201c7
 ```
@@ -1347,7 +1348,7 @@ scw instance security-group get a3244331-5d32-4e36-9bf9-b60233e201c7
 
 ### Get rule
 
-Get details of a security group rule with the given ID.
+Get details of a security group rule with the specified ID.
 
 **Usage:**
 
@@ -1368,7 +1369,7 @@ scw instance security-group get-rule [arg=value ...]
 **Examples:**
 
 
-Get details of a security group rule with the given ID
+Get details of a security group rule with the specified ID
 ```
 scw instance security-group get-rule security-group-id=d900fa38-2f0d-4b09-b6d7-f3e46a13f34c security-group-rule-id=1f9a16a5-7229-4c03-9327-253e257cf38a
 ```
@@ -1378,7 +1379,7 @@ scw instance security-group get-rule security-group-id=d900fa38-2f0d-4b09-b6d7-f
 
 ### List security groups
 
-List all security groups available in an account.
+List all existing security groups.
 
 **Usage:**
 
@@ -1392,17 +1393,17 @@ scw instance security-group list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name |  | Name of the security group |
-| project-id |  | The security group project ID |
+| project-id |  | Security group Project ID |
 | tags.{index} |  | List security groups with these exact tags (to filter with several tags, use commas to separate them) |
 | project-default |  | Filter security groups with this value for project_default |
-| organization-id |  | The security group organization ID |
+| organization-id |  | Security group Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
 
 
-List all security groups that match the given name
+List all security groups that match the specified name
 ```
 scw instance security-group list name=foobar
 ```
@@ -1431,7 +1432,7 @@ scw instance security-group list-default-rules [arg=value ...]
 
 ### List rules
 
-List rules.
+List the rules of the a specified security group ID.
 
 **Usage:**
 
@@ -1451,7 +1452,7 @@ scw instance security-group list-rules [arg=value ...]
 
 ### Update all the rules of a security group
 
-Replaces the rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.
+Replaces the existing rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.
 
 **Usage:**
 
@@ -1469,7 +1470,7 @@ scw instance security-group set-rules [arg=value ...]
 | rules.{index}.action | One of: `accept`, `drop` | Action to apply when the rule matches a packet |
 | rules.{index}.protocol | One of: `TCP`, `UDP`, `ICMP`, `ANY` | Protocol family this rule applies to |
 | rules.{index}.direction | One of: `inbound`, `outbound` | Direction the rule applies to |
-| rules.{index}.ip-range |  | The range of IP address this rules applies to |
+| rules.{index}.ip-range |  | Range of IP addresses these rules apply to |
 | rules.{index}.dest-port-from |  | Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY |
 | rules.{index}.dest-port-to |  | End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from |
 | rules.{index}.position |  | Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined |
@@ -1541,38 +1542,11 @@ scw instance security-group update security-group-id=11111111-1111-1111-1111-111
 
 
 
-## Server management commands
+## Instance management commands
 
-Server types are denomination of the different instances we provide.
-Scaleway offers **Virtual Cloud** and **dedicated GPU** instances.
-
-**Virtual Cloud Instances**
-
-Virtual cloud instances are offering the best performance/price ratio for most workloads.
-Different instance ranges are proposed:
-
-* The **Development** instances range provides stable and consistent performance for
-  development and testing needs. Spin up a development or test environment within seconds.
-  Refer to the [Development Instance offer details](https://www.scaleway.com/en/virtual-instances/play2/)
-  for more information.
-
-* The **General Purpose** instances range is the solution for production workloads. Powerful
-  AMD EPYC CPUs back those instances and offer up to 48 Cores, 256GB of RAM and storage
-  options up to 600GB of replicated local NVMe SSD storage and/or up to 10TB of Block Storage.
-  Refer to the [General Purpose offer details](https://www.scaleway.com/en/virtual-instances/pro2/) for more information.
-
-* The **Enterprise** instances range is the solution for most demanding workloads and
-  mission-critical applications. Powerful AMD EPYC CPUs back those instances and
-  offer up to 96 Cores, 384GB of RAM and up to 10TB of Block Storage. Refer to the
-  [Enterprise offer details](https://www.scaleway.com/en/virtual-instances/enterprise/) for more information.
-
-**Dedicated GPU Instances**
-
-Scaleway GPU Instances are virtual compute instances equipped with dedicated high-end
-Nvidia graphical processing unit (GPUs). They are ideal for data processing, artificial
-intelligence, rendering and video encoding. The GPU is dedicated to each instance and
-directly exposed through PCI-e. For more information, refer to the
-[GPU Instances Developper Documentation](https://www.scaleway.com/en/docs/compute/gpu/quickstart/).
+Instances are computing units providing resources to run your applications on.
+Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
+**Note: Instances can be referenced as "servers" in API endpoints.**
 
 
 
@@ -1759,6 +1733,11 @@ Create an instance with 2 local volumes (10GB and 10GB)
 scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB
 ```
 
+Create an instance with volumes from snapshots
+```
+scw instance server create image=ubuntu_focal root-volume=local:<snapshot_id> additional-volumes.0=block:<snapshot_id>
+```
+
 Use an existing IP
 ```
 ip=$(scw instance ip create | grep id | awk '{ print $2 }')
@@ -1784,7 +1763,7 @@ scw instance server delete <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required |  |
-| with-volumes | Default: `none`<br />One of: `none`, `local`, `block`, `root`, `all` | Delete the volumes attached to the server |
+| with-volumes | Default: `all`<br />One of: `none`, `local`, `block`, `root`, `all` | Delete the volumes attached to the server |
 | with-ip |  | Delete the IP attached to the server |
 | force-shutdown |  | Force shutdown of the instance server before deleting it |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
@@ -1866,9 +1845,9 @@ scw instance server detach-volume volume-id=22222222-1111-5555-2222-666666111111
 
 
 
-### Get a server
+### Get an Instance
 
-Get the details of a specified Server.
+Get the details of a specified Instance.
 
 **Usage:**
 
@@ -1881,14 +1860,14 @@ scw instance server get <server-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | UUID of the server you want to get |
+| server-id | Required | UUID of the Instance you want to get |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
 
 
-Get a server with the given ID
+Get the Instance with its specified ID
 ```
 scw instance server get 94ededdf-358d-4019-9886-d754f8a2e78d
 ```
@@ -1896,9 +1875,9 @@ scw instance server get 94ededdf-358d-4019-9886-d754f8a2e78d
 
 
 
-### List all servers
+### List all Instances
 
-List all servers.
+List all Instances in a specified Availability Zone, e.g. `fr-par-1`.
 
 **Usage:**
 
@@ -1911,38 +1890,38 @@ scw instance server list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| project-id |  | List only servers of this project ID |
-| name |  | Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo") |
-| private-ip |  | List servers by private_ip |
-| without-ip |  | List servers that are not attached to a public IP |
-| commercial-type |  | List servers of this commercial type |
-| state | One of: `running`, `stopped`, `stopped in place`, `starting`, `stopping`, `locked` | List servers in this state |
-| tags.{index} |  | List servers with these exact tags (to filter with several tags, use commas to separate them) |
-| private-network |  | List servers in this Private Network |
+| project-id |  | List only Instances of this Project ID |
+| name |  | Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo") |
+| private-ip |  | List Instances by private_ip |
+| without-ip |  | List Instances that are not attached to a public IP |
+| commercial-type |  | List Instances of this commercial type |
+| state | One of: `running`, `stopped`, `stopped in place`, `starting`, `stopping`, `locked` | List Instances in this state |
+| tags.{index} |  | List Instances with these exact tags (to filter with several tags, use commas to separate them) |
+| private-network |  | List Instances in this Private Network |
 | order | One of: `creation_date_desc`, `creation_date_asc`, `modification_date_desc`, `modification_date_asc` | Define the order of the returned servers |
-| organization-id |  | List only servers of this organization ID |
+| organization-id |  | List only Instances of this Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
 
 
-List all servers on your default zone
+List all Instances on your default zone
 ```
 scw instance server list
 ```
 
-List servers of this commercial type
+List Instances of this commercial type
 ```
 scw instance server list commercial-type=DEV1-S
 ```
 
-List servers that are not attached to a public IP
+List Instances that are not attached to a public IP
 ```
 scw instance server list without-ip=true
 ```
 
-List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')
+List Instances that match the specified name ('server1' will return 'server100' and 'server1' but not 'foo')
 ```
 scw instance server list name=server1
 ```
@@ -1950,9 +1929,9 @@ scw instance server list name=server1
 
 
 
-### List server actions
+### List Instance actions
 
-List all actions that can currently be performed on a server.
+List all actions (e.g. power on, power off, reboot) that can currently be performed on an Instance.
 
 **Usage:**
 
@@ -2175,9 +2154,9 @@ scw instance server terminate 11111111-1111-1111-1111-111111111111 with-ip=true
 
 
 
-### Update a server
+### Update an Instance
 
-Update a server.
+Update the Instance information, such as name, boot mode, or tags.
 
 **Usage:**
 
@@ -2190,14 +2169,14 @@ scw instance server update <server-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | UUID of the server |
-| name |  | Name of the server |
+| server-id | Required | UUID of the Instance |
+| name |  | Name of the Instance |
 | ip |  | IP that should be attached to the server (use ip=none to detach) |
 | cloud-init |  | The cloud-init script to use |
 | boot-type | One of: `local`, `bootscript`, `rescue` |  |
-| tags.{index} |  | Tags of the server |
-| volumes.{key}.boot | Default: `false` | Force the server to boot on this volume |
-| volumes.{key}.base-snapshot |  | The ID of the snapshot on which this volume will be based |
+| tags.{index} |  | Tags of the Instance |
+| volumes.{key}.boot | Default: `false` | Force the Instance to boot on this volume |
+| volumes.{key}.base-snapshot |  | ID of the snapshot on which this volume will be based |
 | volumes.{key}.project |  | Project ID of the volume |
 | volumes.{key}.organization |  | Organization ID of the volume |
 | ~~bootscript~~ | Deprecated |  |
@@ -2206,47 +2185,47 @@ scw instance server update <server-id ...> [arg=value ...]
 | protected |  |  |
 | security-group-id |  |  |
 | volume-ids.{index} |  | Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes) |
-| placement-group-id |  | Placement group ID if server must be part of a placement group |
-| private-nics.{index}.id |  | The private NIC unique ID |
-| private-nics.{index}.server-id |  | The server the private NIC is attached to |
-| private-nics.{index}.private-network-id |  | The private network where the private NIC is attached |
-| private-nics.{index}.mac-address |  | The private NIC MAC address |
-| private-nics.{index}.state | One of: `available`, `syncing`, `syncing_error` | The private NIC state |
-| private-nics.{index}.tags.{index} |  | The private NIC tags |
+| placement-group-id |  | Placement group ID if Instance must be part of a placement group |
+| private-nics.{index}.id |  | Private NIC unique ID |
+| private-nics.{index}.server-id |  | Instance to which the private NIC is attached |
+| private-nics.{index}.private-network-id |  | Private Network the private NIC is attached to |
+| private-nics.{index}.mac-address |  | Private NIC MAC address |
+| private-nics.{index}.state | One of: `available`, `syncing`, `syncing_error` | Private NIC state |
+| private-nics.{index}.tags.{index} |  | Private NIC tags |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
 
 
-Update the name of a given server
+Update the name of a specified Instance
 ```
 scw instance server update 11111111-1111-1111-1111-111111111111 name=foobar
 ```
 
-Put a given instance in rescue mode (reboot is required to access rescue mode)
+Switch a specified Instance to rescue mode (reboot is required to access rescue mode)
 ```
 scw instance server update 11111111-1111-1111-1111-111111111111 boot-type=rescue
 ```
 
-Overwrite tags of a given server
+Overwrite tags of a specified Instance
 ```
 scw instance server update 11111111-1111-1111-1111-111111111111 tags.0=foo tags.1=bar
 ```
 
-Enable IPv6 on a given server
+Enable IPv6 on a specified Instance. Assigns an IPv6 block to the specified Instance and configures the first IP of the block.
 ```
 scw instance server update 11111111-1111-1111-1111-111111111111 enable-ipv6=true
 ```
 
-Apply the given security group to a given server
+Apply the specified security group to a specified server
 ```
-scw instance server update 11111111-1111-1111-1111-111111111111 security-group-id=11111111-1111-1111-1111-111111111111
+scw instance server server update 11111111-1111-1111-1111-111111111111 security-group-id=11111111-1111-1111-1111-111111111111
 ```
 
-Put a given server in the given placement group. Server must be off
+Put a specified Instance in the specified placement group. Instance must be off
 ```
-scw instance server update 11111111-1111-1111-1111-111111111111 placement-group-id=11111111-1111-1111-1111-111111111111
+scw instance server server update 11111111-1111-1111-1111-111111111111 placement-group-id=11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -2267,6 +2246,7 @@ scw instance server wait <server-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| timeout | Default: `10m0s` | Timeout of the wait |
 | server-id | Required | ID of the server affected by the action. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2282,16 +2262,16 @@ scw instance server wait 11111111-1111-1111-1111-111111111111
 
 
 
-## Server type management commands
+## Instance type management commands
 
-Server types will answer with all instance types available in a given zone.
-Each of these types will contains all the features of the instance (CPU, RAM, Storage) with their associated pricing.
+All Instance types available in a specified zone.
+Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
 
 
 
 ### Get availability
 
-Get availability for all server types.
+Get availability for all Instance types.
 
 **Usage:**
 
@@ -2308,9 +2288,9 @@ scw instance server-type get [arg=value ...]
 
 
 
-### List server types
+### List Instance types
 
-Get server types technical details.
+List available Instance types and their technical details.
 
 **Usage:**
 
@@ -2344,14 +2324,14 @@ scw instance server-type list zone=fr-par-1
 
 ## Snapshot management commands
 
-Snapshots contain the data of a specific volume at a particular point in time.
-The data can include the instance's operating system,
-configuration information or files stored on the volume.
+Snapshots contain the data of a specified volume at a particular point in time.
+The data can include the Instance's operating system,
+configuration information and/or files stored on the volume.
 
-A snapshot can be done from a specific volume (for example you
-have a server with a volume containing the OS and another one
+A snapshot can be done from a specified volume, e.g. you
+have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
-snapshot strategies on both volumes).
+snapshot strategies on both volumes.
 
 A snapshot's volume type can be either its original volume's type
 (`l_ssd` or `b_ssd`) or `unified`. Similarly, volumes can be created as well from snapshots
@@ -2362,9 +2342,9 @@ of the data of the original volume.
 
 
 
-### Create a snapshot from a given volume or from a QCOW2 file
+### Create a snapshot from a specified volume or from a QCOW2 file
 
-Create a snapshot from a given volume or from a QCOW2 file.
+Create a snapshot from a specified volume or from a QCOW2 file in a specified Availability Zone.
 
 **Usage:**
 
@@ -2380,7 +2360,7 @@ scw instance snapshot create [arg=value ...]
 | name | Default: `<generated>` | Name of the snapshot |
 | volume-id |  | UUID of the volume |
 | unified |  | Whether a snapshot is unified or not. |
-| tags.{index} |  | The tags of the snapshot |
+| tags.{index} |  | Tags of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | bucket |  | Bucket name for snapshot imports |
 | key |  | Object key for snapshot imports |
@@ -2392,22 +2372,22 @@ scw instance snapshot create [arg=value ...]
 **Examples:**
 
 
-Create a snapshot in the default zone from the given volume ID
+Create a snapshot in the default zone from the specified volume ID
 ```
 scw instance snapshot create volume-id=11111111-1111-1111-1111-111111111111
 ```
 
-Create a snapshot in fr-par-1 zone from the given volume ID
+Create a snapshot in fr-par-1 zone from the specified volume ID
 ```
 scw instance snapshot create zone=fr-par-1 volume-id=11111111-1111-1111-1111-111111111111
 ```
 
-Create a named snapshot from the given volume ID
+Create a named snapshot from the specified volume ID
 ```
 scw instance snapshot create name=foobar volume-id=11111111-1111-1111-1111-111111111111
 ```
 
-Import a QCOW file as an instance snapshot
+Import a QCOW file as an Instance snapshot
 ```
 scw instance snapshot create zone=fr-par-1 name=my-imported-snapshot volume-type=unified bucket=my-bucket key=my-qcow2-file-name
 ```
@@ -2417,7 +2397,7 @@ scw instance snapshot create zone=fr-par-1 name=my-imported-snapshot volume-type
 
 ### Delete a snapshot
 
-Delete the snapshot with the given ID.
+Delete the snapshot with the specified ID.
 
 **Usage:**
 
@@ -2437,12 +2417,12 @@ scw instance snapshot delete <snapshot-id ...> [arg=value ...]
 **Examples:**
 
 
-Delete a snapshot in the default zone with the given ID
+Delete a snapshot in the default zone with the specified ID
 ```
 scw instance snapshot delete 11111111-1111-1111-1111-111111111111
 ```
 
-Delete a snapshot in fr-par-1 zone with the given ID
+Delete a snapshot in fr-par-1 zone with the specified ID
 ```
 scw instance snapshot delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
@@ -2452,7 +2432,7 @@ scw instance snapshot delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 ### Export a snapshot
 
-Export a snapshot to a given S3 bucket in the same region.
+Export a snapshot to a specified S3 bucket in the same region.
 
 **Usage:**
 
@@ -2467,7 +2447,7 @@ scw instance snapshot export [arg=value ...]
 |------|---|-------------|
 | bucket |  | S3 bucket name |
 | key |  | S3 object key |
-| snapshot-id | Required | The snapshot ID |
+| snapshot-id | Required | Snapshot ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -2484,7 +2464,7 @@ scw instance snapshot export zone=fr-par-1 snapshot-id=11111111-1111-1111-1111-1
 
 ### Get a snapshot
 
-Get details of a snapshot with the given ID.
+Get details of a snapshot with the specified ID.
 
 **Usage:**
 
@@ -2504,12 +2484,12 @@ scw instance snapshot get <snapshot-id ...> [arg=value ...]
 **Examples:**
 
 
-Get a snapshot in the default zone with the given ID
+Get a snapshot in the default zone with the specified ID
 ```
 scw instance snapshot get 11111111-1111-1111-1111-111111111111
 ```
 
-Get a snapshot in fr-par-1 zone with the given ID
+Get a snapshot in fr-par-1 zone with the specified ID
 ```
 scw instance snapshot get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
@@ -2519,7 +2499,7 @@ scw instance snapshot get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 ### List snapshots
 
-List snapshots.
+List all snapshots of an Organization in a specified Availability Zone.
 
 **Usage:**
 
@@ -2555,6 +2535,28 @@ scw instance snapshot list zone=fr-par-1
 
 
 
+### Update a snapshot
+
+
+
+**Usage:**
+
+```
+scw instance snapshot update <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot. |
+| name |  | Name of the snapshot. |
+| tags.{index} |  | Tags of the snapshot. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### Wait for snapshot to reach a stable state
 
 Wait for snapshot to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the snapshot.
@@ -2572,6 +2574,7 @@ scw instance snapshot wait <snapshot-id ...> [arg=value ...]
 |------|---|-------------|
 | snapshot-id | Required | ID of the snapshot. |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `1h0m0s` | Timeout of the wait |
 
 
 **Examples:**
@@ -2587,23 +2590,23 @@ scw instance snapshot wait 11111111-1111-1111-1111-111111111111
 
 ## User data management commands
 
-User data is a key value store API you can use to provide data from and to your server without authentication.
+User data is a key value store API you can use to provide data to your Instance without authentication.
 
-As an example of use, Scaleway images contain the script scw-generate-ssh-keys which generates SSH server’s host keys then stores their fingerprints as user data under the key “ssh-host-fingerprints”.
-This way, we ensure they are really connecting to their Scaleway instance and they are not victim of a man-in-the-middle attack.
+As an example of use, Scaleway images contain the script `scw-generate-ssh-keys` which generates SSH server’s host keys then stores their fingerprints as user data under the key “ssh-host-fingerprints”.
+This way, we ensure they are really connecting to their Scaleway Instance and they are not victim of a man-in-the-middle attack.
 
 There are two endpoints to access user data:
- - **From a running instance**, by using the metadata API at http://169.254.42.42/user_data.
+ - **From a running Instance**, by using the metadata API at http://169.254.42.42/user_data.
    To enhance security, we only allow user data viewing and editing as root.
-   To know if the query is issued by the root user, we only accept queries made from a local port below 1024 (by default, non-root users can’t bind ports below 1024).
+   To know if the query is issued by the root user, we only accept queries made from a local port below 1024 (by default, non-root users can not bind ports below 1024).
    To specify the local port with cURL, use `curl --local-port 1-1024 http://169.254.42.42/user_data`
- - **From the instance API** at using methods described bellow.
+ - **From the Instance API** at using methods described bellow.
 
 
 
 ### Delete user data
 
-Delete the given key from a server user data.
+Delete the specified key from an Instance's user data.
 
 **Usage:**
 
@@ -2616,7 +2619,7 @@ scw instance user-data delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | UUID of the server |
+| server-id | Required | UUID of the Instance |
 | key | Required | Key of the user data to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2624,7 +2627,7 @@ scw instance user-data delete [arg=value ...]
 
 ### Get user data
 
-Get the content of a user data with the given key on a server.
+Get the content of a user data with the specified key on an Instance.
 
 **Usage:**
 
@@ -2637,7 +2640,7 @@ scw instance user-data get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | UUID of the server |
+| server-id | Required | UUID of the Instance |
 | key | Required | Key of the user data to get |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2645,7 +2648,7 @@ scw instance user-data get [arg=value ...]
 
 ### List user data
 
-List all user data keys registered on a given server.
+List all user data keys registered on a specified Instance.
 
 **Usage:**
 
@@ -2658,14 +2661,14 @@ scw instance user-data list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | UUID of the server |
+| server-id | Required | UUID of the Instance |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Add/Set user data
+### Add/set user data
 
-Add or update a user data with the given key on a server.
+Add or update a user data with the specified key on an Instance.
 
 **Usage:**
 
@@ -2678,7 +2681,7 @@ scw instance user-data set [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | UUID of the server |
+| server-id | Required | UUID of the Instance |
 | key | Required | Key of the user data to set |
 | content | Required | Content of the user data |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
@@ -2687,20 +2690,19 @@ scw instance user-data set [arg=value ...]
 
 ## Volume management commands
 
-A volume is where you store your data inside your instance. It
+A volume is where you store your data inside your Instance. It
 appears as a block device on Linux that you can use to create
 a filesystem and mount it.
 
-We have two different types of volume (`volume_type`):
+Two different types of volume (`volume_type`) are available:
   - `l_ssd` is a local block storage: your data is downloaded on
-    the hypervisor and you need to power off your instance to attach
+    the hypervisor and you need to power off your Instance to attach
     or detach a volume.
   - `b_ssd` is a remote block storage: your data is stored on a
-    centralised cluster. You can plug and unplug a volume while
-    your instance is running. As of today, `b_ssd` is only available
-    for `DEV1`, `GP1` and `RENDER` offers.
+    centralized cluster. You can plug and unplug a volume while
+    your Instance is running.
 
-note: The `unified` volume type is not available for volumes. This
+Note: The `unified` volume type is not available for volumes. This
 type can only be used on snapshots.
 
 Minimum and maximum volume sizes for each volume types can be queried
@@ -2708,12 +2710,12 @@ from the zone `/products/volumes` API endpoint. _I.e_ for:
   - `fr-par-1`  use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
   - `nl-ams-1`  use https://api.scaleway.com/instance/v1/zones/nl-ams-1/products/volumes
 
-Each types of volumes is also subject to a global quota for the sum of all the
+Each type of volume is also subject to a global quota for the sum of all the
 volumes. This quota depends of the level of support and may be
 changed on demand.
 
-Be wary that when terminating an instance, if you want to keep
-your block storage volume, **you must** detach it beforehand you
+Be wary that when terminating an Instance, if you want to keep
+your block storage volume, **you must** detach it before you
 issue the `terminate` call.
 
 When using multiple block devices, it's advised to mount them by
@@ -2725,7 +2727,7 @@ UUIDs can be found in `/dev/disk/by-id/`.
 
 ### Create a volume
 
-Create a volume.
+Create a volume of a specified type in an Availability Zone.
 
 **Usage:**
 
@@ -2738,13 +2740,13 @@ scw instance volume create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Default: `<generated>` | The volume name |
+| name | Default: `<generated>` | Volume name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| tags.{index} |  | The volume tags |
-| volume-type | One of: `l_ssd`, `b_ssd`, `unified` | The volume type |
-| size |  | The volume disk size, must be a multiple of 512 |
-| base-volume |  | The ID of the volume on which this volume will be based |
-| base-snapshot |  | The ID of the snapshot on which this volume will be based |
+| tags.{index} |  | Volume tags |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified` | Volume type |
+| size |  | Volume disk size, must be a multiple of 512 |
+| base-volume |  | ID of the volume on which this volume will be based |
+| base-snapshot |  | ID of the snapshot on which this volume will be based |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2772,7 +2774,7 @@ scw instance volume create volume-type=l_ssd base-volume=00112233-4455-6677-8899
 
 ### Delete a volume
 
-Delete the volume with the given ID.
+Delete the volume with the specified ID.
 
 **Usage:**
 
@@ -2792,7 +2794,7 @@ scw instance volume delete <volume-id ...> [arg=value ...]
 **Examples:**
 
 
-Delete a volume with the given ID
+Delete a volume with the specified ID
 ```
 scw instance volume delete af136619-bc59-4b48-a0ed-ed7dceaad9a6
 ```
@@ -2802,7 +2804,7 @@ scw instance volume delete af136619-bc59-4b48-a0ed-ed7dceaad9a6
 
 ### Get a volume
 
-Get details of a volume with the given ID.
+Get details of a volume with the specified ID.
 
 **Usage:**
 
@@ -2822,7 +2824,7 @@ scw instance volume get <volume-id ...> [arg=value ...]
 **Examples:**
 
 
-Get a volume with the given ID
+Get a volume with the specified ID
 ```
 scw instance volume get b70e9a0e-28b1-4542-bb9b-06d2d6debc0f
 ```
@@ -2832,7 +2834,7 @@ scw instance volume get b70e9a0e-28b1-4542-bb9b-06d2d6debc0f
 
 ### List volumes
 
-List volumes.
+List volumes in the specified Availability Zone. You can filter the output by volume type.
 
 **Usage:**
 
@@ -2846,10 +2848,10 @@ scw instance volume list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-type | One of: `l_ssd`, `b_ssd`, `unified` | Filter by volume type |
-| project-id |  | Filter volume by project ID |
+| project-id |  | Filter volume by Project ID |
 | tags.{index} |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter volume by name (for eg. "vol" will return "myvolume" but not "data") |
-| organization-id |  | Filter volume by organization ID |
+| organization-id |  | Filter volume by Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -2886,7 +2888,7 @@ scw instance volume list volume-type=b_ssd name=foobar
 
 ### Update a volume
 
-Replace name and/or size properties of given ID volume with the given value(s). Any volume name can be changed while, for now, only `b_ssd` volume growing is supported.
+Replace the name and/or size properties of a volume specified by its ID, with the specified value(s). Any volume name can be changed, however only `b_ssd` volumes can currently be increased in size.
 
 **Usage:**
 
@@ -2900,9 +2902,9 @@ scw instance volume update <volume-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id | Required | UUID of the volume |
-| name |  | The volume name |
-| tags.{index} |  | The tags of the volume |
-| size |  | The volume disk size, must be a multiple of 512 |
+| name |  | Volume name |
+| tags.{index} |  | Tags of the volume |
+| size |  | Volume disk size, must be a multiple of 512 |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -2929,14 +2931,14 @@ scw instance volume update 11111111-1111-1111-1111-111111111111 name=a-new-name 
 
 ## Volume type management commands
 
-Volume types will answer with all volume types available in a given zone.
+All volume types available in a specified zone.
 Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
 
 
 
-### List volumes types
+### List volume types
 
-Get volumes technical details.
+List all volume types and their technical details.
 
 **Usage:**
 

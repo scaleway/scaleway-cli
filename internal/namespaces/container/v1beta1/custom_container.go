@@ -26,18 +26,30 @@ var (
 	}
 )
 
-func containerContainerDeployBuilder(command *core.Command) *core.Command {
-	command.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		req := argsI.(*container.DeployContainerRequest)
+func waitForContainer(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c := respI.(*container.Container)
 
-		client := core.ExtractClient(ctx)
-		api := container.NewAPI(client)
-		return api.WaitForContainer(&container.WaitForContainerRequest{
-			ContainerID:   req.ContainerID,
-			Region:        req.Region,
-			Timeout:       scw.TimeDurationPtr(containerDeployTimeout),
-			RetryInterval: core.DefaultRetryInterval,
-		})
-	}
+	client := core.ExtractClient(ctx)
+	api := container.NewAPI(client)
+	return api.WaitForContainer(&container.WaitForContainerRequest{
+		ContainerID:   c.ID,
+		Region:        c.Region,
+		Timeout:       scw.TimeDurationPtr(containerDeployTimeout),
+		RetryInterval: core.DefaultRetryInterval,
+	})
+}
+
+func containerContainerDeployBuilder(command *core.Command) *core.Command {
+	command.WaitFunc = waitForContainer
+	return command
+}
+
+func containerContainerCreateBuilder(command *core.Command) *core.Command {
+	command.WaitFunc = waitForContainer
+	return command
+}
+
+func containerContainerUpdateBuilder(command *core.Command) *core.Command {
+	command.WaitFunc = waitForContainer
 	return command
 }

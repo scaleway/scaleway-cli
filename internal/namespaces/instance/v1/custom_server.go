@@ -3,6 +3,7 @@ package instance
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"reflect"
@@ -43,7 +44,7 @@ var (
 )
 
 // serverLocationMarshalerFunc marshals a instance.ServerLocation.
-func serverLocationMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func serverLocationMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	location := i.(instance.ServerLocation)
 	zone, err := scw.ParseZone(location.ZoneID)
 	if err != nil {
@@ -130,7 +131,7 @@ func orderVolumes(v map[string]*instance.VolumeServer) []*instance.VolumeServer 
 }
 
 // serversMarshalerFunc marshals a BootscriptID.
-func bootscriptMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func bootscriptMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	bootscript := i.(instance.Bootscript)
 	return bootscript.Title, nil
 }
@@ -346,10 +347,10 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		vpcAPI := vpc.NewAPI(client)
 
 		type customNICs struct {
-			ID                 string
-			MacAddress         string
-			PrivateNetworkName string
-			PrivateNetworkID   string
+			ID                 string `json:"id"`
+			MacAddress         string `json:"mac_address"`
+			PrivateNetworkName string `json:"private_network_name"`
+			PrivateNetworkID   string `json:"private_network_id"`
 		}
 
 		nics := []customNICs{}
@@ -831,6 +832,12 @@ Once your image is ready you will be able to create a new server based on this i
 	}
 }
 
+type serverWaitRequest struct {
+	Zone     scw.Zone
+	ServerID string
+	Timeout  time.Duration
+}
+
 func serverWaitCommand() *core.Command {
 	return &core.Command{
 		Short:     `Wait for server to reach a stable state`,
@@ -839,11 +846,27 @@ func serverWaitCommand() *core.Command {
 		Resource:  "server",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
+		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-			return waitForServerFunc()(ctx, argsI, nil)
+			args := argsI.(*serverWaitRequest)
+
+			return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
+				Zone:          args.Zone,
+				ServerID:      args.ServerID,
+				Timeout:       scw.TimeDurationPtr(args.Timeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
 		},
-		ArgSpecs: serverActionArgSpecs,
+		ArgSpecs: core.ArgSpecs{
+			core.WaitTimeoutArgSpec(serverActionTimeout),
+			{
+				Name:       "server-id",
+				Short:      `ID of the server affected by the action.`,
+				Required:   true,
+				Positional: true,
+			},
+			core.ZoneArgSpec(),
+		},
 		Examples: []*core.Example{
 			{
 				Short:    "Wait for a server to reach a stable state",
@@ -915,7 +938,7 @@ func serverDeleteCommand() *core.Command {
 			{
 				Name:    "with-volumes",
 				Short:   "Delete the volumes attached to the server",
-				Default: core.DefaultValueSetter("none"),
+				Default: core.DefaultValueSetter("all"),
 				EnumValues: []string{
 					string(withVolumesNone),
 					string(withVolumesLocal),
@@ -1013,10 +1036,11 @@ func serverDeleteCommand() *core.Command {
 			}
 
 			deletedVolumeMessages := [][2]string(nil)
+		volumeDelete:
 			for index, volume := range server.Server.Volumes {
 				switch {
 				case deleteServerArgs.WithVolumes == withVolumesNone:
-					break
+					break volumeDelete
 				case deleteServerArgs.WithVolumes == withVolumesRoot && index != "0":
 					continue
 				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeServerVolumeTypeLSSD:
@@ -1126,6 +1150,48 @@ func serverTerminateCommand() *core.Command {
 				Short:   "Stop a running server",
 			},
 		},
+		WaitUsage: "wait until the server and its resources are deleted",
+		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+			terminateServerArgs := argsI.(*customTerminateServerRequest)
+			server := respI.(*core.SuccessResult).TargetResource.(*instance.Server)
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			notFoundErr := &scw.ResourceNotFoundError{}
+
+			_, err := api.WaitForServer(&instance.WaitForServerRequest{
+				Zone:          server.Zone,
+				ServerID:      server.ID,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+			if err != nil {
+				err = errors.Unwrap(err)
+				if !errors.As(err, &notFoundErr) {
+					return nil, err
+				}
+			}
+
+			if terminateServerArgs.WithBlock == withBlockTrue {
+				for _, volume := range server.Volumes {
+					if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD {
+						continue
+					}
+					_, err := api.WaitForVolume(&instance.WaitForVolumeRequest{
+						VolumeID: volume.ID,
+						Zone:     volume.Zone,
+					})
+					if err != nil {
+						if errors.As(err, &notFoundErr) {
+							continue
+						}
+						return nil, err
+					}
+				}
+			}
+
+			return respI, nil
+		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			terminateServerArgs := argsI.(*customTerminateServerRequest)
 
@@ -1182,7 +1248,9 @@ func serverTerminateCommand() *core.Command {
 				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 			}
 
-			return &core.SuccessResult{}, err
+			return &core.SuccessResult{
+				TargetResource: server.Server,
+			}, err
 		},
 	}
 }

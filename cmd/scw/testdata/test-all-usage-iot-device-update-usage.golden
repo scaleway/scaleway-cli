@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a device.
+Update the parameters of an existing device, specified by its device ID.
 
 USAGE:
   scw iot device update <device-id ...> [arg=value ...]
 
 ARGS:
   device-id                                    Device ID
-  [description]                                Device description
-  [allow-insecure]                             Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones
-  [allow-multiple-connections]                 Allow multiple physical devices to connect with this device's credentials
+  [description]                                Description for the device
+  [allow-insecure]                             Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones
+  [allow-multiple-connections]                 Defines whether to allow multiple physical devices to connect with this device's credentials
   [message-filters.publish.policy]             How to use the topic list (unknown | accept | reject)
   [message-filters.publish.topics.{index}]     List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters
   [message-filters.subscribe.policy]           How to use the topic list (unknown | accept | reject)

@@ -36,6 +36,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("k8s", "cluster", "update").Override(clusterUpdateBuilder)
 	cmds.MustFind("k8s", "cluster", "upgrade").Override(clusterUpgradeBuilder)
 	cmds.MustFind("k8s", "cluster", "delete").Override(clusterDeleteBuilder)
+	cmds.MustFind("k8s", "cluster", "migrate-to-private-network").Override(clusterMigrateToPrivateNetworkBuilder)
 
 	cmds.MustFind("k8s", "pool", "create").Override(poolCreateBuilder)
 	cmds.MustFind("k8s", "pool", "update").Override(poolUpdateBuilder)

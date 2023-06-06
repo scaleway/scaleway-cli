@@ -177,6 +177,10 @@ func serverCreateCommand() *core.Command {
 				ArgsJSON: `{"image":"ubuntu_focal","root_volume":"local:10GB","additional_volumes":["local:10GB"]}`,
 			},
 			{
+				Short:    "Create an instance with volumes from snapshots",
+				ArgsJSON: `{"image":"ubuntu_focal","root_volume":"local:<snapshot_id>","additional_volumes":["block:<snapshot_id>"]}`,
+			},
+			{
 				Short: "Use an existing IP",
 				Raw: `ip=$(scw instance ip create | grep id | awk '{ print $2 }')
 scw instance server create image=ubuntu_focal ip=$ip`,
@@ -250,7 +254,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		logger.Warningf("cannot get image %s: %s", serverReq.Image, err)
 	}
 
-	serverType := getServeType(apiInstance, serverReq.Zone, serverReq.CommercialType)
+	serverType := getServerType(apiInstance, serverReq.Zone, serverReq.CommercialType)
 
 	if serverType != nil && getImageResponse != nil {
 		if err := validateImageServerTypeCompatibility(getImageResponse.Image, serverType, serverReq.CommercialType); err != nil {
@@ -316,8 +320,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// Validate total local volume sizes.
-		if serverType != nil {
-			if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType); err != nil {
+		if serverType != nil && getImageResponse != nil {
+			if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType, getImageResponse.Image.RootVolume.Size); err != nil {
 				return nil, err
 			}
 		} else {
@@ -493,6 +497,7 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 //
 // A valid volume format is either
 // - a "creation" format: ^((local|l|block|b):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
+// - a "creation" format with a snapshot id: l:<uuid> b:<uuid>
 // - a UUID format
 func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeServerTemplate, error) {
 	parts := strings.Split(strings.TrimSpace(flagV), ":")
@@ -508,6 +513,10 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*insta
 			vt.VolumeType = instance.VolumeVolumeTypeBSSD
 		default:
 			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
+		}
+
+		if validation.IsUUID(parts[1]) {
+			return buildVolumeTemplateFromSnapshot(api, zone, parts[1], vt.VolumeType)
 		}
 
 		size, err := humanize.ParseBytes(parts[1])
@@ -534,14 +543,17 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*insta
 // buildVolumeTemplateFromUUID validate an UUID volume and add their types and sizes.
 // Add volume types and sizes allow US to treat UUID volumes like the others and simplify the implementation.
 // The instance API refuse the type and the size for UUID volumes, therefore,
-// buildVolumeMap function will remove them.
+// sanitizeVolumeMap function will remove them.
 func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID string) (*instance.VolumeServerTemplate, error) {
 	res, err := api.GetVolume(&instance.GetVolumeRequest{
 		Zone:     zone,
 		VolumeID: volumeUUID,
 	})
-	if err != nil { // FIXME: isNotFoundError
-		return nil, fmt.Errorf("volume %s does not exist", volumeUUID)
+	if err != nil {
+		if core.IsNotFoundError(err) {
+			return nil, fmt.Errorf("volume %s does not exist", volumeUUID)
+		}
+		return nil, err
 	}
 
 	// Check that volume is not already attached to a server.
@@ -553,6 +565,35 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 		ID:         res.Volume.ID,
 		VolumeType: res.Volume.VolumeType,
 		Size:       res.Volume.Size,
+	}, nil
+}
+
+// buildVolumeTemplateFromUUID validate a snapshot UUID and check that requested volume type is compatible.
+// The instance API refuse the size for Snapshot volumes, therefore,
+// sanitizeVolumeMap function will remove them.
+func buildVolumeTemplateFromSnapshot(api *instance.API, zone scw.Zone, snapshotUUID string, volumeType instance.VolumeVolumeType) (*instance.VolumeServerTemplate, error) {
+	res, err := api.GetSnapshot(&instance.GetSnapshotRequest{
+		Zone:       zone,
+		SnapshotID: snapshotUUID,
+	})
+	if err != nil {
+		if core.IsNotFoundError(err) {
+			return nil, fmt.Errorf("snapshot %s does not exist", snapshotUUID)
+		}
+		return nil, err
+	}
+
+	snapshotType := res.Snapshot.VolumeType
+
+	if snapshotType != instance.VolumeVolumeTypeUnified && snapshotType != volumeType {
+		return nil, fmt.Errorf("snapshot of type %s not compatible with requested volume type %s", snapshotType, volumeType)
+	}
+
+	return &instance.VolumeServerTemplate{
+		Name:         res.Snapshot.Name,
+		VolumeType:   volumeType,
+		BaseSnapshot: res.Snapshot.ID,
+		Size:         res.Snapshot.Size,
 	}, nil
 }
 
@@ -575,7 +616,7 @@ func validateImageServerTypeCompatibility(image *instance.Image, serverType *ins
 }
 
 // validateLocalVolumeSizes validates the total size of local volumes.
-func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate, serverType *instance.ServerType, commercialType string) error {
+func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate, serverType *instance.ServerType, commercialType string, defaultRootVolumeSize scw.Size) error {
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
@@ -588,7 +629,7 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate,
 
 	// If no root volume provided, count the default root volume size added by the API.
 	if rootVolume := volumes["0"]; rootVolume == nil {
-		localVolumeTotalSize += volumeConstraint.MinSize
+		localVolumeTotalSize += defaultRootVolumeSize
 	}
 
 	if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
@@ -637,6 +678,12 @@ func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeSer
 				ID:   v.ID,
 				Name: v.Name,
 			}
+		case v.BaseSnapshot != "":
+			v = &instance.VolumeServerTemplate{
+				BaseSnapshot: v.BaseSnapshot,
+				Name:         v.Name,
+				VolumeType:   v.VolumeType,
+			}
 		case index == "0" && v.Size != 0:
 			v = &instance.VolumeServerTemplate{
 				VolumeType: v.VolumeType,
@@ -677,13 +724,13 @@ func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix strin
 	return suggestions
 }
 
-// getServeType is a util to get a instance.ServerType by its commercialType
-func getServeType(apiInstance *instance.API, zone scw.Zone, commercialType string) *instance.ServerType {
+// getServerType is a util to get a instance.ServerType by its commercialType
+func getServerType(apiInstance *instance.API, zone scw.Zone, commercialType string) *instance.ServerType {
 	serverType := (*instance.ServerType)(nil)
 
 	serverTypesRes, err := apiInstance.ListServersTypes(&instance.ListServersTypesRequest{
 		Zone: zone,
-	})
+	}, scw.WithAllPages())
 	if err != nil {
 		logger.Warningf("cannot get server types: %s", err)
 	} else {

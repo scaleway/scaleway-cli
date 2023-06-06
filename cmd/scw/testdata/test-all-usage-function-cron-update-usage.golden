@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the cron associated with the given id.
+Update the cron associated with the specified ID.
 
 USAGE:
   scw function cron update <cron-id ...> [arg=value ...]
 
 ARGS:
-  cron-id           
-  [function-id]     
-  [schedule]        
-  [args]            
-  [name]            
+  cron-id           UUID of the cron to update
+  [function-id]     UUID of the function to use the cron with
+  [schedule]        Schedule of the cron in UNIX cron format
+  [args]            Arguments to use with the cron
+  [name]            Name of the cron
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

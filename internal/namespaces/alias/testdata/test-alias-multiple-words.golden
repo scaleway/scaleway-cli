@@ -1,34 +1,34 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all servers.
+List all Instances in a specified Availability Zone, e.g. `fr-par-1`.
 
 USAGE:
   scw instance server list [arg=value ...]
 
 EXAMPLES:
-  List all servers on your default zone
+  List all Instances on your default zone
     scw instance server list
 
-  List servers of this commercial type
+  List Instances of this commercial type
     scw instance server list commercial-type=DEV1-S
 
-  List servers that are not attached to a public IP
+  List Instances that are not attached to a public IP
     scw instance server list without-ip=true
 
-  List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')
+  List Instances that match the specified name ('server1' will return 'server100' and 'server1' but not 'foo')
     scw instance server list name=server1
 
 ARGS:
-  [project-id]        List only servers of this project ID
-  [name]              Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")
-  [private-ip]        List servers by private_ip
-  [without-ip]        List servers that are not attached to a public IP
-  [commercial-type]   List servers of this commercial type
-  [state]             List servers in this state (running | stopped | stopped in place | starting | stopping | locked)
-  [tags.{index}]      List servers with these exact tags (to filter with several tags, use commas to separate them)
-  [private-network]   List servers in this Private Network
+  [project-id]        List only Instances of this Project ID
+  [name]              Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo")
+  [private-ip]        List Instances by private_ip
+  [without-ip]        List Instances that are not attached to a public IP
+  [commercial-type]   List Instances of this commercial type
+  [state]             List Instances in this state (running | stopped | stopped in place | starting | stopping | locked)
+  [tags.{index}]      List Instances with these exact tags (to filter with several tags, use commas to separate them)
+  [private-network]   List Instances in this Private Network
   [order]             Define the order of the returned servers (creation_date_desc | creation_date_asc | modification_date_desc | modification_date_asc)
-  [organization-id]   List only servers of this organization ID
+  [organization-id]   List only Instances of this Organization ID
   [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2 | all)
 
 FLAGS:

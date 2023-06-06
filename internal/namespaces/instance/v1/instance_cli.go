@@ -98,10 +98,9 @@ func instanceRoot() *core.Command {
 func instanceImage() *core.Command {
 	return &core.Command{
 		Short: `Image management commands`,
-		Long: `Images are backups of your instances.
-You can reuse that image to restore your data or create a series of instances with a predefined configuration.
-
-An image is a complete backup of your server including all volumes.
+		Long: `Images are backups of your Instances.
+One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration. 
+To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
 `,
 		Namespace: "instance",
 		Resource:  "image",
@@ -111,10 +110,10 @@ An image is a complete backup of your server including all volumes.
 func instanceIP() *core.Command {
 	return &core.Command{
 		Short: `IP management commands`,
-		Long: `A flexible IP address is an IP address which you hold independently of any server.
-You can attach it to any of your servers and do live migration of the IP address between your servers.
+		Long: `A flexible IP address is an IP address which you hold independently of any Instance.
+You can attach it to any of your Instances and do live migration of the IP address between your Instances.
 
-Be aware that attaching a flexible IP address to a server will remove the previous public IP address of the server and cut any ongoing public connection to the server.
+Note that attaching a flexible IP address to an Instance will remove the previous public IP address of the Instance and cut any ongoing public connection to the Instance.
 `,
 		Namespace: "instance",
 		Resource:  "ip",
@@ -125,21 +124,21 @@ func instancePlacementGroup() *core.Command {
 	return &core.Command{
 		Short: `Placement group management commands`,
 		Long: `Placement groups allow the user to express a preference regarding
-the physical position of a group of instances. It'll let the user
-choose to either group instances on the same physical hardware for
-best network throughput and low latency or to spread instances on
-far away hardware to reduce the risk of physical failure.
+the physical position of a group of Instances. The feature lets the user
+choose to either group Instances on the same physical hardware for
+best network throughput and low latency or to spread Instances across
+physically distanced hardware to reduce the risk of physical failure.
 
 The operating mode is selected by a ` + "`" + `policy_type` + "`" + `. Two policy
 types are available:
-  - ` + "`" + `low_latency` + "`" + ` will group instances on the same hypervisors
-  - ` + "`" + `max_availability` + "`" + ` will spread instances on far away hypervisors
+  - ` + "`" + `low_latency` + "`" + ` will group Instances on the same hypervisors
+  - ` + "`" + `max_availability` + "`" + ` will spread Instances across physically distanced hypervisors
 
-The ` + "`" + `policy_type` + "`" + ` is set by default to ` + "`" + `max_availability` + "`" + `.
+The ` + "`" + `policy_type` + "`" + ` is set to ` + "`" + `max_availability` + "`" + ` by default.
 
 For each policy types, one of the two ` + "`" + `policy_mode` + "`" + ` may be selected:
-  - ` + "`" + `optional` + "`" + ` will start your instances even if the constraint is not respected
-  - ` + "`" + `enforced` + "`" + ` guarantee that if the instance starts, the constraint is respected
+  - ` + "`" + `optional` + "`" + ` will start your Instances even if the constraint is not respected
+  - ` + "`" + `enforced` + "`" + ` guarantees that if the Instance starts, the constraint is respected
 
 The ` + "`" + `policy_mode` + "`" + ` is set by default to ` + "`" + `optional` + "`" + `.
 `,
@@ -151,10 +150,10 @@ The ` + "`" + `policy_mode` + "`" + ` is set by default to ` + "`" + `optional` 
 func instanceSecurityGroup() *core.Command {
 	return &core.Command{
 		Short: `Security group management commands`,
-		Long: `A security group is a set of firewall rules on a set of instances.
-Security groups enable to create rules that either drop or allow incoming traffic from certain ports of your instances.
+		Long: `A security group is a set of firewall rules on a set of Instances.
+Security groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.
 
-Security Groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
+Security groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
 As a contrary, you have to switch in a stateless mode to define explicitly allowed.
 `,
 		Namespace: "instance",
@@ -164,37 +163,10 @@ As a contrary, you have to switch in a stateless mode to define explicitly allow
 
 func instanceServer() *core.Command {
 	return &core.Command{
-		Short: `Server management commands`,
-		Long: `Server types are denomination of the different instances we provide.
-Scaleway offers **Virtual Cloud** and **dedicated GPU** instances.
-
-**Virtual Cloud Instances**
-
-Virtual cloud instances are offering the best performance/price ratio for most workloads.
-Different instance ranges are proposed:
-
-* The **Development** instances range provides stable and consistent performance for
-  development and testing needs. Spin up a development or test environment within seconds.
-  Refer to the [Development Instance offer details](https://www.scaleway.com/en/virtual-instances/play2/)
-  for more information.
-
-* The **General Purpose** instances range is the solution for production workloads. Powerful
-  AMD EPYC CPUs back those instances and offer up to 48 Cores, 256GB of RAM and storage
-  options up to 600GB of replicated local NVMe SSD storage and/or up to 10TB of Block Storage.
-  Refer to the [General Purpose offer details](https://www.scaleway.com/en/virtual-instances/pro2/) for more information.
-
-* The **Enterprise** instances range is the solution for most demanding workloads and
-  mission-critical applications. Powerful AMD EPYC CPUs back those instances and
-  offer up to 96 Cores, 384GB of RAM and up to 10TB of Block Storage. Refer to the
-  [Enterprise offer details](https://www.scaleway.com/en/virtual-instances/enterprise/) for more information.
-
-**Dedicated GPU Instances**
-
-Scaleway GPU Instances are virtual compute instances equipped with dedicated high-end
-Nvidia graphical processing unit (GPUs). They are ideal for data processing, artificial
-intelligence, rendering and video encoding. The GPU is dedicated to each instance and
-directly exposed through PCI-e. For more information, refer to the
-[GPU Instances Developper Documentation](https://www.scaleway.com/en/docs/compute/gpu/quickstart/).
+		Short: `Instance management commands`,
+		Long: `Instances are computing units providing resources to run your applications on.
+Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
+**Note: Instances can be referenced as "servers" in API endpoints.**
 `,
 		Namespace: "instance",
 		Resource:  "server",
@@ -203,9 +175,9 @@ directly exposed through PCI-e. For more information, refer to the
 
 func instanceServerType() *core.Command {
 	return &core.Command{
-		Short: `Server type management commands`,
-		Long: `Server types will answer with all instance types available in a given zone.
-Each of these types will contains all the features of the instance (CPU, RAM, Storage) with their associated pricing.
+		Short: `Instance type management commands`,
+		Long: `All Instance types available in a specified zone.
+Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
 `,
 		Namespace: "instance",
 		Resource:  "server-type",
@@ -215,7 +187,7 @@ Each of these types will contains all the features of the instance (CPU, RAM, St
 func instanceVolumeType() *core.Command {
 	return &core.Command{
 		Short: `Volume type management commands`,
-		Long: `Volume types will answer with all volume types available in a given zone.
+		Long: `All volume types available in a specified zone.
 Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
 `,
 		Namespace: "instance",
@@ -226,14 +198,14 @@ Each of these types will contains all the capabilities and constraints of the vo
 func instanceSnapshot() *core.Command {
 	return &core.Command{
 		Short: `Snapshot management commands`,
-		Long: `Snapshots contain the data of a specific volume at a particular point in time.
-The data can include the instance's operating system,
-configuration information or files stored on the volume.
+		Long: `Snapshots contain the data of a specified volume at a particular point in time.
+The data can include the Instance's operating system,
+configuration information and/or files stored on the volume.
 
-A snapshot can be done from a specific volume (for example you
-have a server with a volume containing the OS and another one
+A snapshot can be done from a specified volume, e.g. you
+have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
-snapshot strategies on both volumes).
+snapshot strategies on both volumes.
 
 A snapshot's volume type can be either its original volume's type
 (` + "`" + `l_ssd` + "`" + ` or ` + "`" + `b_ssd` + "`" + `) or ` + "`" + `unified` + "`" + `. Similarly, volumes can be created as well from snapshots
@@ -250,17 +222,17 @@ of the data of the original volume.
 func instanceUserData() *core.Command {
 	return &core.Command{
 		Short: `User data management commands`,
-		Long: `User data is a key value store API you can use to provide data from and to your server without authentication.
+		Long: `User data is a key value store API you can use to provide data to your Instance without authentication.
 
-As an example of use, Scaleway images contain the script scw-generate-ssh-keys which generates SSH server’s host keys then stores their fingerprints as user data under the key “ssh-host-fingerprints”.
-This way, we ensure they are really connecting to their Scaleway instance and they are not victim of a man-in-the-middle attack.
+As an example of use, Scaleway images contain the script ` + "`" + `scw-generate-ssh-keys` + "`" + ` which generates SSH server’s host keys then stores their fingerprints as user data under the key “ssh-host-fingerprints”.
+This way, we ensure they are really connecting to their Scaleway Instance and they are not victim of a man-in-the-middle attack.
 
 There are two endpoints to access user data:
- - **From a running instance**, by using the metadata API at http://169.254.42.42/user_data.
+ - **From a running Instance**, by using the metadata API at http://169.254.42.42/user_data.
    To enhance security, we only allow user data viewing and editing as root.
-   To know if the query is issued by the root user, we only accept queries made from a local port below 1024 (by default, non-root users can’t bind ports below 1024).
+   To know if the query is issued by the root user, we only accept queries made from a local port below 1024 (by default, non-root users can not bind ports below 1024).
    To specify the local port with cURL, use ` + "`" + `curl --local-port 1-1024 http://169.254.42.42/user_data` + "`" + `
- - **From the instance API** at using methods described bellow.
+ - **From the Instance API** at using methods described bellow.
 `,
 		Namespace: "instance",
 		Resource:  "user-data",
@@ -270,20 +242,19 @@ There are two endpoints to access user data:
 func instanceVolume() *core.Command {
 	return &core.Command{
 		Short: `Volume management commands`,
-		Long: `A volume is where you store your data inside your instance. It
+		Long: `A volume is where you store your data inside your Instance. It
 appears as a block device on Linux that you can use to create
 a filesystem and mount it.
 
-We have two different types of volume (` + "`" + `volume_type` + "`" + `):
+Two different types of volume (` + "`" + `volume_type` + "`" + `) are available:
   - ` + "`" + `l_ssd` + "`" + ` is a local block storage: your data is downloaded on
-    the hypervisor and you need to power off your instance to attach
+    the hypervisor and you need to power off your Instance to attach
     or detach a volume.
   - ` + "`" + `b_ssd` + "`" + ` is a remote block storage: your data is stored on a
-    centralised cluster. You can plug and unplug a volume while
-    your instance is running. As of today, ` + "`" + `b_ssd` + "`" + ` is only available
-    for ` + "`" + `DEV1` + "`" + `, ` + "`" + `GP1` + "`" + ` and ` + "`" + `RENDER` + "`" + ` offers.
+    centralized cluster. You can plug and unplug a volume while
+    your Instance is running.
 
-note: The ` + "`" + `unified` + "`" + ` volume type is not available for volumes. This
+Note: The ` + "`" + `unified` + "`" + ` volume type is not available for volumes. This
 type can only be used on snapshots.
 
 Minimum and maximum volume sizes for each volume types can be queried
@@ -291,12 +262,12 @@ from the zone ` + "`" + `/products/volumes` + "`" + ` API endpoint. _I.e_ for:
   - ` + "`" + `fr-par-1` + "`" + `  use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
   - ` + "`" + `nl-ams-1` + "`" + `  use https://api.scaleway.com/instance/v1/zones/nl-ams-1/products/volumes
 
-Each types of volumes is also subject to a global quota for the sum of all the
+Each type of volume is also subject to a global quota for the sum of all the
 volumes. This quota depends of the level of support and may be
 changed on demand.
 
-Be wary that when terminating an instance, if you want to keep
-your block storage volume, **you must** detach it beforehand you
+Be wary that when terminating an Instance, if you want to keep
+your block storage volume, **you must** detach it before you
 issue the ` + "`" + `terminate` + "`" + ` call.
 
 When using multiple block devices, it's advised to mount them by
@@ -312,9 +283,9 @@ UUIDs can be found in ` + "`" + `/dev/disk/by-id/` + "`" + `.
 func instancePrivateNic() *core.Command {
 	return &core.Command{
 		Short: `Private NIC management commands`,
-		Long: `A Private NIC is the network interface that connects a server to a
-Private Network. There can be at most one Private NIC connecting a
-server to a network.
+		Long: `A Private NIC is the network interface that connects an Instance to a
+Private Network. An Instance can have multiple private NICs at the same
+time, but each NIC must belong to a different Private Network.
 `,
 		Namespace: "instance",
 		Resource:  "private-nic",
@@ -324,7 +295,7 @@ server to a network.
 func instanceServerTypeGet() *core.Command {
 	return &core.Command{
 		Short:     `Get availability`,
-		Long:      `Get availability for all server types.`,
+		Long:      `Get availability for all Instance types.`,
 		Namespace: "instance",
 		Resource:  "server-type",
 		Verb:      "get",
@@ -346,8 +317,8 @@ func instanceServerTypeGet() *core.Command {
 
 func instanceServerTypeList() *core.Command {
 	return &core.Command{
-		Short:     `List server types`,
-		Long:      `Get server types technical details.`,
+		Short:     `List Instance types`,
+		Long:      `List available Instance types and their technical details.`,
 		Namespace: "instance",
 		Resource:  "server-type",
 		Verb:      "list",
@@ -379,8 +350,8 @@ func instanceServerTypeList() *core.Command {
 
 func instanceVolumeTypeList() *core.Command {
 	return &core.Command{
-		Short:     `List volumes types`,
-		Long:      `Get volumes technical details.`,
+		Short:     `List volume types`,
+		Long:      `List all volume types and their technical details.`,
 		Namespace: "instance",
 		Resource:  "volume-type",
 		Verb:      "list",
@@ -412,8 +383,8 @@ func instanceVolumeTypeList() *core.Command {
 
 func instanceServerList() *core.Command {
 	return &core.Command{
-		Short:     `List all servers`,
-		Long:      `List all servers.`,
+		Short:     `List all Instances`,
+		Long:      `List all Instances in a specified Availability Zone, e.g. ` + "`" + `fr-par-1` + "`" + `.`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "list",
@@ -422,42 +393,42 @@ func instanceServerList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
-				Short:      `List only servers of this project ID`,
+				Short:      `List only Instances of this Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")`,
+				Short:      `Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo")`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-ip",
-				Short:      `List servers by private_ip`,
+				Short:      `List Instances by private_ip`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "without-ip",
-				Short:      `List servers that are not attached to a public IP`,
+				Short:      `List Instances that are not attached to a public IP`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "commercial-type",
-				Short:      `List servers of this commercial type`,
+				Short:      `List Instances of this commercial type`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "state",
-				Short:      `List servers in this state`,
+				Short:      `List Instances in this state`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -465,14 +436,14 @@ func instanceServerList() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `List servers with these exact tags (to filter with several tags, use commas to separate them)`,
+				Short:      `List Instances with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-network",
-				Short:      `List servers in this Private Network`,
+				Short:      `List Instances in this Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -487,7 +458,7 @@ func instanceServerList() *core.Command {
 			},
 			{
 				Name:       "organization",
-				Short:      `List only servers of this organization ID`,
+				Short:      `List only Instances of this Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -513,19 +484,19 @@ func instanceServerList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "List all servers on your default zone",
+				Short:    "List all Instances on your default zone",
 				ArgsJSON: `null`,
 			},
 			{
-				Short:    "List servers of this commercial type",
+				Short:    "List Instances of this commercial type",
 				ArgsJSON: `{"commercial_type":"DEV1-S"}`,
 			},
 			{
-				Short:    "List servers that are not attached to a public IP",
+				Short:    "List Instances that are not attached to a public IP",
 				ArgsJSON: `{"without_ip":true}`,
 			},
 			{
-				Short:    "List servers that match the given name ('server1' will return 'server100' and 'server1' but not 'foo')",
+				Short:    "List Instances that match the specified name ('server1' will return 'server100' and 'server1' but not 'foo')",
 				ArgsJSON: `{"name":"server1"}`,
 			},
 		},
@@ -534,8 +505,8 @@ func instanceServerList() *core.Command {
 
 func instanceServerGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a server`,
-		Long:      `Get the details of a specified Server.`,
+		Short:     `Get an Instance`,
+		Long:      `Get the details of a specified Instance.`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "get",
@@ -544,7 +515,7 @@ func instanceServerGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `UUID of the server you want to get`,
+				Short:      `UUID of the Instance you want to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -561,7 +532,7 @@ func instanceServerGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get a server with the given ID",
+				Short:    "Get the Instance with its specified ID",
 				ArgsJSON: `{"server_id":"94ededdf-358d-4019-9886-d754f8a2e78d"}`,
 			},
 		},
@@ -570,8 +541,8 @@ func instanceServerGet() *core.Command {
 
 func instanceServerUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a server`,
-		Long:      `Update a server.`,
+		Short:     `Update an Instance`,
+		Long:      `Update the Instance information, such as name, boot mode, or tags.`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "update",
@@ -580,14 +551,14 @@ func instanceServerUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `UUID of the server`,
+				Short:      `UUID of the Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `Name of the server`,
+				Short:      `Name of the Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -601,7 +572,7 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags of the server`,
+				Short:      `Tags of the Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -615,7 +586,7 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:       "volumes.{key}.boot",
-				Short:      `Force the server to boot on this volume`,
+				Short:      `Force the Instance to boot on this volume`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -645,7 +616,7 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:       "volumes.{key}.base-snapshot",
-				Short:      `The ID of the snapshot on which this volume will be based`,
+				Short:      `ID of the snapshot on which this volume will be based`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -702,42 +673,42 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:       "placement-group",
-				Short:      `Placement group ID if server must be part of a placement group`,
+				Short:      `Placement group ID if Instance must be part of a placement group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nics.{index}.id",
-				Short:      `The private NIC unique ID`,
+				Short:      `Private NIC unique ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nics.{index}.server-id",
-				Short:      `The server the private NIC is attached to`,
+				Short:      `Instance to which the private NIC is attached`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nics.{index}.private-network-id",
-				Short:      `The private network where the private NIC is attached`,
+				Short:      `Private Network the private NIC is attached to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nics.{index}.mac-address",
-				Short:      `The private NIC MAC address`,
+				Short:      `Private NIC MAC address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nics.{index}.state",
-				Short:      `The private NIC state`,
+				Short:      `Private NIC state`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -745,7 +716,7 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:       "private-nics.{index}.tags.{index}",
-				Short:      `The private NIC tags`,
+				Short:      `Private NIC tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -762,28 +733,28 @@ func instanceServerUpdate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Update the name of a given server",
+				Short:    "Update the name of a specified Instance",
 				ArgsJSON: `{"name":"foobar","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Put a given instance in rescue mode (reboot is required to access rescue mode)",
+				Short:    "Switch a specified Instance to rescue mode (reboot is required to access rescue mode)",
 				ArgsJSON: `{"boot_type":"rescue","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Overwrite tags of a given server",
+				Short:    "Overwrite tags of a specified Instance",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111","tags":["foo","bar"]}`,
 			},
 			{
-				Short:    "Enable IPv6 on a given server",
+				Short:    "Enable IPv6 on a specified Instance. Assigns an IPv6 block to the specified Instance and configures the first IP of the block.",
 				ArgsJSON: `{"enable_ipv6":true,"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short: "Apply the given security group to a given server",
-				Raw:   `scw instance server update 11111111-1111-1111-1111-111111111111 security-group-id=11111111-1111-1111-1111-111111111111`,
+				Short: "Apply the specified security group to a specified server",
+				Raw:   `scw instance server server update 11111111-1111-1111-1111-111111111111 security-group-id=11111111-1111-1111-1111-111111111111`,
 			},
 			{
-				Short: "Put a given server in the given placement group. Server must be off",
-				Raw:   `scw instance server update 11111111-1111-1111-1111-111111111111 placement-group-id=11111111-1111-1111-1111-111111111111`,
+				Short: "Put a specified Instance in the specified placement group. Instance must be off",
+				Raw:   `scw instance server server update 11111111-1111-1111-1111-111111111111 placement-group-id=11111111-1111-1111-1111-111111111111`,
 			},
 		},
 	}
@@ -791,8 +762,8 @@ func instanceServerUpdate() *core.Command {
 
 func instanceServerListActions() *core.Command {
 	return &core.Command{
-		Short:     `List server actions`,
-		Long:      `List all actions that can currently be performed on a server.`,
+		Short:     `List Instance actions`,
+		Long:      `List all actions (e.g. power on, power off, reboot) that can currently be performed on an Instance.`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "list-actions",
@@ -821,7 +792,7 @@ func instanceServerListActions() *core.Command {
 func instanceUserDataList() *core.Command {
 	return &core.Command{
 		Short:     `List user data`,
-		Long:      `List all user data keys registered on a given server.`,
+		Long:      `List all user data keys registered on a specified Instance.`,
 		Namespace: "instance",
 		Resource:  "user-data",
 		Verb:      "list",
@@ -830,7 +801,7 @@ func instanceUserDataList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `UUID of the server`,
+				Short:      `UUID of the Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -851,7 +822,7 @@ func instanceUserDataList() *core.Command {
 func instanceUserDataDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete user data`,
-		Long:      `Delete the given key from a server user data.`,
+		Long:      `Delete the specified key from an Instance's user data.`,
 		Namespace: "instance",
 		Resource:  "user-data",
 		Verb:      "delete",
@@ -860,7 +831,7 @@ func instanceUserDataDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `UUID of the server`,
+				Short:      `UUID of the Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -893,8 +864,8 @@ func instanceUserDataDelete() *core.Command {
 
 func instanceUserDataSet() *core.Command {
 	return &core.Command{
-		Short:     `Add/Set user data`,
-		Long:      `Add or update a user data with the given key on a server.`,
+		Short:     `Add/set user data`,
+		Long:      `Add or update a user data with the specified key on an Instance.`,
 		Namespace: "instance",
 		Resource:  "user-data",
 		Verb:      "set",
@@ -903,7 +874,7 @@ func instanceUserDataSet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `UUID of the server`,
+				Short:      `UUID of the Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -955,7 +926,7 @@ func instanceUserDataSet() *core.Command {
 func instanceUserDataGet() *core.Command {
 	return &core.Command{
 		Short:     `Get user data`,
-		Long:      `Get the content of a user data with the given key on a server.`,
+		Long:      `Get the content of a user data with the specified key on an Instance.`,
 		Namespace: "instance",
 		Resource:  "user-data",
 		Verb:      "get",
@@ -964,7 +935,7 @@ func instanceUserDataGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `UUID of the server`,
+				Short:      `UUID of the Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -991,8 +962,8 @@ func instanceUserDataGet() *core.Command {
 
 func instanceImageList() *core.Command {
 	return &core.Command{
-		Short:     `List instance images`,
-		Long:      `List all images available in an account.`,
+		Short:     `List Instance images`,
+		Long:      `List all existing Instance images.`,
 		Namespace: "instance",
 		Resource:  "image",
 		Verb:      "list",
@@ -1071,8 +1042,8 @@ func instanceImageList() *core.Command {
 
 func instanceImageGet() *core.Command {
 	return &core.Command{
-		Short:     `Get an instance image`,
-		Long:      `Get details of an image with the given ID.`,
+		Short:     `Get an Instance image`,
+		Long:      `Get details of an image with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "image",
 		Verb:      "get",
@@ -1098,11 +1069,11 @@ func instanceImageGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get an image in the default zone with the given ID",
+				Short:    "Get an image in the default zone with the specified ID",
 				ArgsJSON: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Get an image in fr-par-1 zone with the given ID",
+				Short:    "Get an image in fr-par-1 zone with the specified ID",
 				ArgsJSON: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
@@ -1111,8 +1082,8 @@ func instanceImageGet() *core.Command {
 
 func instanceImageCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create an instance image`,
-		Long:      `Create an instance image.`,
+		Short:     `Create an Instance image`,
+		Long:      `Create an Instance image from the specified snapshot ID.`,
 		Namespace: "instance",
 		Resource:  "image",
 		Verb:      "create",
@@ -1195,7 +1166,7 @@ func instanceImageCreate() *core.Command {
 			core.ProjectArgSpec(),
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags of the image`,
+				Short:      `Tags of the image`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1220,8 +1191,8 @@ func instanceImageCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Create an image named 'foobar' for x86_64 instances from the given snapshot ID",
-				Raw:   `scw instance image create name=foobar snapshot-id=11111111-1111-1111-1111-111111111111 arch=x86_64`,
+				Short: "Create an image named 'foobar' for x86_64 Instances from the specified snapshot ID",
+				Raw:   `scw instance server image create name=foobar snapshot-id=11111111-1111-1111-1111-111111111111 arch=x86_64`,
 			},
 		},
 	}
@@ -1229,8 +1200,8 @@ func instanceImageCreate() *core.Command {
 
 func instanceImageDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an instance image`,
-		Long:      `Delete the image with the given ID.`,
+		Short:     `Delete an Instance image`,
+		Long:      `Delete the image with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "image",
 		Verb:      "delete",
@@ -1262,11 +1233,11 @@ func instanceImageDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete an image in the default zone with the given ID",
+				Short:    "Delete an image in the default zone with the specified ID",
 				ArgsJSON: `{"image_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Delete an image in fr-par-1 zone with the given ID",
+				Short:    "Delete an image in fr-par-1 zone with the specified ID",
 				ArgsJSON: `{"image_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
@@ -1276,7 +1247,7 @@ func instanceImageDelete() *core.Command {
 func instanceSnapshotList() *core.Command {
 	return &core.Command{
 		Short:     `List snapshots`,
-		Long:      `List snapshots.`,
+		Long:      `List all snapshots of an Organization in a specified Availability Zone.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "list",
@@ -1341,8 +1312,8 @@ func instanceSnapshotList() *core.Command {
 
 func instanceSnapshotCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a snapshot from a given volume or from a QCOW2 file`,
-		Long:      `Create a snapshot from a given volume or from a QCOW2 file.`,
+		Short:     `Create a snapshot from a specified volume or from a QCOW2 file`,
+		Long:      `Create a snapshot from a specified volume or from a QCOW2 file in a specified Availability Zone.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "create",
@@ -1366,7 +1337,7 @@ func instanceSnapshotCreate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags of the snapshot`,
+				Short:      `Tags of the snapshot`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1374,7 +1345,7 @@ func instanceSnapshotCreate() *core.Command {
 			core.ProjectArgSpec(),
 			{
 				Name:       "volume-type",
-				Short:      `The volume type of the snapshot`,
+				Short:      `Volume type of the snapshot`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1414,19 +1385,19 @@ func instanceSnapshotCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Create a snapshot in the default zone from the given volume ID",
+				Short:    "Create a snapshot in the default zone from the specified volume ID",
 				ArgsJSON: `{"volume_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Create a snapshot in fr-par-1 zone from the given volume ID",
+				Short:    "Create a snapshot in fr-par-1 zone from the specified volume ID",
 				ArgsJSON: `{"volume_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 			{
-				Short:    "Create a named snapshot from the given volume ID",
+				Short:    "Create a named snapshot from the specified volume ID",
 				ArgsJSON: `{"name":"foobar","volume_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Import a QCOW file as an instance snapshot",
+				Short:    "Import a QCOW file as an Instance snapshot",
 				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","name":"my-imported-snapshot","volume_type":"unified","zone":"fr-par-1"}`,
 			},
 		},
@@ -1436,7 +1407,7 @@ func instanceSnapshotCreate() *core.Command {
 func instanceSnapshotGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a snapshot`,
-		Long:      `Get details of a snapshot with the given ID.`,
+		Long:      `Get details of a snapshot with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "get",
@@ -1462,11 +1433,11 @@ func instanceSnapshotGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get a snapshot in the default zone with the given ID",
+				Short:    "Get a snapshot in the default zone with the specified ID",
 				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Get a snapshot in fr-par-1 zone with the given ID",
+				Short:    "Get a snapshot in fr-par-1 zone with the specified ID",
 				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
@@ -1476,7 +1447,7 @@ func instanceSnapshotGet() *core.Command {
 func instanceSnapshotDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a snapshot`,
-		Long:      `Delete the snapshot with the given ID.`,
+		Long:      `Delete the snapshot with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "delete",
@@ -1508,11 +1479,11 @@ func instanceSnapshotDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a snapshot in the default zone with the given ID",
+				Short:    "Delete a snapshot in the default zone with the specified ID",
 				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Delete a snapshot in fr-par-1 zone with the given ID",
+				Short:    "Delete a snapshot in fr-par-1 zone with the specified ID",
 				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
@@ -1522,7 +1493,7 @@ func instanceSnapshotDelete() *core.Command {
 func instanceSnapshotExport() *core.Command {
 	return &core.Command{
 		Short:     `Export a snapshot`,
-		Long:      `Export a snapshot to a given S3 bucket in the same region.`,
+		Long:      `Export a snapshot to a specified S3 bucket in the same region.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "export",
@@ -1545,7 +1516,7 @@ func instanceSnapshotExport() *core.Command {
 			},
 			{
 				Name:       "snapshot-id",
-				Short:      `The snapshot ID`,
+				Short:      `Snapshot ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1572,7 +1543,7 @@ func instanceSnapshotExport() *core.Command {
 func instanceVolumeList() *core.Command {
 	return &core.Command{
 		Short:     `List volumes`,
-		Long:      `List volumes.`,
+		Long:      `List volumes in the specified Availability Zone. You can filter the output by volume type.`,
 		Namespace: "instance",
 		Resource:  "volume",
 		Verb:      "list",
@@ -1589,7 +1560,7 @@ func instanceVolumeList() *core.Command {
 			},
 			{
 				Name:       "project",
-				Short:      `Filter volume by project ID`,
+				Short:      `Filter volume by Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1610,7 +1581,7 @@ func instanceVolumeList() *core.Command {
 			},
 			{
 				Name:       "organization",
-				Short:      `Filter volume by organization ID`,
+				Short:      `Filter volume by Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1700,7 +1671,7 @@ func instanceVolumeList() *core.Command {
 func instanceVolumeCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a volume`,
-		Long:      `Create a volume.`,
+		Long:      `Create a volume of a specified type in an Availability Zone.`,
 		Namespace: "instance",
 		Resource:  "volume",
 		Verb:      "create",
@@ -1709,7 +1680,7 @@ func instanceVolumeCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `The volume name`,
+				Short:      `Volume name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1718,14 +1689,14 @@ func instanceVolumeCreate() *core.Command {
 			core.ProjectArgSpec(),
 			{
 				Name:       "tags.{index}",
-				Short:      `The volume tags`,
+				Short:      `Volume tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "volume-type",
-				Short:      `The volume type`,
+				Short:      `Volume type`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1733,21 +1704,21 @@ func instanceVolumeCreate() *core.Command {
 			},
 			{
 				Name:       "size",
-				Short:      `The volume disk size, must be a multiple of 512`,
+				Short:      `Volume disk size, must be a multiple of 512`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "base-volume",
-				Short:      `The ID of the volume on which this volume will be based`,
+				Short:      `ID of the volume on which this volume will be based`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "base-snapshot",
-				Short:      `The ID of the snapshot on which this volume will be based`,
+				Short:      `ID of the snapshot on which this volume will be based`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1783,7 +1754,7 @@ func instanceVolumeCreate() *core.Command {
 func instanceVolumeGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a volume`,
-		Long:      `Get details of a volume with the given ID.`,
+		Long:      `Get details of a volume with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "volume",
 		Verb:      "get",
@@ -1809,7 +1780,7 @@ func instanceVolumeGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get a volume with the given ID",
+				Short:    "Get a volume with the specified ID",
 				ArgsJSON: `{"volume_id":"b70e9a0e-28b1-4542-bb9b-06d2d6debc0f"}`,
 			},
 		},
@@ -1819,7 +1790,7 @@ func instanceVolumeGet() *core.Command {
 func instanceVolumeUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a volume`,
-		Long:      `Replace name and/or size properties of given ID volume with the given value(s). Any volume name can be changed while, for now, only ` + "`" + `b_ssd` + "`" + ` volume growing is supported.`,
+		Long:      `Replace the name and/or size properties of a volume specified by its ID, with the specified value(s). Any volume name can be changed, however only ` + "`" + `b_ssd` + "`" + ` volumes can currently be increased in size.`,
 		Namespace: "instance",
 		Resource:  "volume",
 		Verb:      "update",
@@ -1835,21 +1806,21 @@ func instanceVolumeUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `The volume name`,
+				Short:      `Volume name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags of the volume`,
+				Short:      `Tags of the volume`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "size",
-				Short:      `The volume disk size, must be a multiple of 512`,
+				Short:      `Volume disk size, must be a multiple of 512`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1884,7 +1855,7 @@ func instanceVolumeUpdate() *core.Command {
 func instanceVolumeDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a volume`,
-		Long:      `Delete the volume with the given ID.`,
+		Long:      `Delete the volume with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "volume",
 		Verb:      "delete",
@@ -1916,7 +1887,7 @@ func instanceVolumeDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a volume with the given ID",
+				Short:    "Delete a volume with the specified ID",
 				ArgsJSON: `{"volume_id":"af136619-bc59-4b48-a0ed-ed7dceaad9a6"}`,
 			},
 		},
@@ -1926,7 +1897,7 @@ func instanceVolumeDelete() *core.Command {
 func instanceSecurityGroupList() *core.Command {
 	return &core.Command{
 		Short:     `List security groups`,
-		Long:      `List all security groups available in an account.`,
+		Long:      `List all existing security groups.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "list",
@@ -1942,7 +1913,7 @@ func instanceSecurityGroupList() *core.Command {
 			},
 			{
 				Name:       "project",
-				Short:      `The security group project ID`,
+				Short:      `Security group Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1963,7 +1934,7 @@ func instanceSecurityGroupList() *core.Command {
 			},
 			{
 				Name:       "organization",
-				Short:      `The security group organization ID`,
+				Short:      `Security group Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1989,7 +1960,7 @@ func instanceSecurityGroupList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "List all security groups that match the given name",
+				Short:    "List all security groups that match the specified name",
 				ArgsJSON: `{"name":"foobar"}`,
 			},
 		},
@@ -1999,7 +1970,7 @@ func instanceSecurityGroupList() *core.Command {
 func instanceSecurityGroupCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a security group`,
-		Long:      `Create a security group.`,
+		Long:      `Create a security group with a specified name and description.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "create",
@@ -2024,14 +1995,14 @@ func instanceSecurityGroupCreate() *core.Command {
 			core.ProjectArgSpec(),
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags of the security group`,
+				Short:      `Tags of the security group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-default",
-				Short:      `Whether this security group becomes the default security group for new instances`,
+				Short:      `Defines whether this security group becomes the default security group for new Instances`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
@@ -2039,7 +2010,7 @@ func instanceSecurityGroupCreate() *core.Command {
 			},
 			{
 				Name:       "project-default",
-				Short:      `Whether this security group becomes the default security group for new instances`,
+				Short:      `Whether this security group becomes the default security group for new Instances`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2073,7 +2044,7 @@ func instanceSecurityGroupCreate() *core.Command {
 			},
 			{
 				Name:       "enable-default-security",
-				Short:      `True to block SMTP on IPv4 and IPv6`,
+				Short:      `True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2091,23 +2062,23 @@ func instanceSecurityGroupCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Create a Security Group with the given name and description",
+				Short:    "Create a security group with a specified name and description",
 				ArgsJSON: `{"description":"foobar foobar","name":"foobar"}`,
 			},
 			{
-				Short:    "Create a Security Group that will be applied as a default on instances of your project",
+				Short:    "Create a security group that will be applied as default on all Instances of this Project",
 				ArgsJSON: `{"project_default":true}`,
 			},
 			{
-				Short:    "Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)",
+				Short:    "Create a security group that will have a default drop inbound policy (traffic your Instance receives)",
 				ArgsJSON: `{"inbound_default_policy":"drop"}`,
 			},
 			{
-				Short:    "Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)",
+				Short:    "Create a security group that will have a default drop outbound policy (traffic your Instance transmits)",
 				ArgsJSON: `{"outbound_default_policy":"drop"}`,
 			},
 			{
-				Short:    "Create a stateless Security Group",
+				Short:    "Create a stateless security group",
 				ArgsJSON: `{"stateful":false}`,
 			},
 		},
@@ -2117,7 +2088,7 @@ func instanceSecurityGroupCreate() *core.Command {
 func instanceSecurityGroupGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a security group`,
-		Long:      `Get the details of a Security Group with the given ID.`,
+		Long:      `Get the details of a security group with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "get",
@@ -2143,7 +2114,7 @@ func instanceSecurityGroupGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get a security group with the given ID",
+				Short:    "Get a security group with the specified ID",
 				ArgsJSON: `{"security_group_id":"a3244331-5d32-4e36-9bf9-b60233e201c7"}`,
 			},
 		},
@@ -2153,7 +2124,7 @@ func instanceSecurityGroupGet() *core.Command {
 func instanceSecurityGroupDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a security group`,
-		Long:      `Delete a security group.`,
+		Long:      `Delete a security group with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "delete",
@@ -2185,7 +2156,7 @@ func instanceSecurityGroupDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a security group with the given ID",
+				Short:    "Delete the security group with the specified ID",
 				ArgsJSON: `{"security_group_id":"69e17c83-9945-47ac-8b29-8c1ad050ee83"}`,
 			},
 		},
@@ -2218,7 +2189,7 @@ func instanceSecurityGroupListDefaultRules() *core.Command {
 func instanceSecurityGroupListRules() *core.Command {
 	return &core.Command{
 		Short:     `List rules`,
-		Long:      `List rules.`,
+		Long:      `List the rules of the a specified security group ID.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "list-rules",
@@ -2257,7 +2228,7 @@ func instanceSecurityGroupListRules() *core.Command {
 func instanceSecurityGroupCreateRule() *core.Command {
 	return &core.Command{
 		Short:     `Create rule`,
-		Long:      `Create rule.`,
+		Long:      `Create a rule in the specified security group ID.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "create-rule",
@@ -2301,21 +2272,21 @@ func instanceSecurityGroupCreateRule() *core.Command {
 			},
 			{
 				Name:       "dest-port-from",
-				Short:      `The beginning of the range of ports to apply this rule to (inclusive)`,
+				Short:      `Beginning of the range of ports to apply this rule to (inclusive)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "dest-port-to",
-				Short:      `The end of the range of ports to apply this rule to (inclusive)`,
+				Short:      `End of the range of ports to apply this rule to (inclusive)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "position",
-				Short:      `The position of this rule in the security group rules list`,
+				Short:      `Position of this rule in the security group rules list`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2351,7 +2322,7 @@ func instanceSecurityGroupCreateRule() *core.Command {
 				ArgsJSON: `{"action":"accept","dest_port_from":443,"direction":"inbound","protocol":"TCP","security_group_id":"e5906437-8650-4fe2-8ca7-32e1d7320c1b"}`,
 			},
 			{
-				Short:    "Allow a specific IP range",
+				Short:    "Allow a specified IP range",
 				ArgsJSON: `{"action":"accept","direction":"inbound","ip_range":"10.0.0.0/16","protocol":"ANY","security_group_id":"b6a58155-a2f8-48bd-9da9-3ff9783fa0d4"}`,
 			},
 			{
@@ -2365,7 +2336,7 @@ func instanceSecurityGroupCreateRule() *core.Command {
 func instanceSecurityGroupSetRules() *core.Command {
 	return &core.Command{
 		Short:     `Update all the rules of a security group`,
-		Long:      `Replaces the rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.`,
+		Long:      `Replaces the existing rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "set-rules",
@@ -2412,7 +2383,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 			},
 			{
 				Name:       "rules.{index}.ip-range",
-				Short:      `The range of IP address this rules applies to`,
+				Short:      `Range of IP addresses these rules apply to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2468,7 +2439,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 func instanceSecurityGroupDeleteRule() *core.Command {
 	return &core.Command{
 		Short:     `Delete rule`,
-		Long:      `Delete a security group rule with the given ID.`,
+		Long:      `Delete a security group rule with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "delete-rule",
@@ -2505,7 +2476,7 @@ func instanceSecurityGroupDeleteRule() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a Security Group Rule with the given ID",
+				Short:    "Delete a security group rule with the specified ID",
 				ArgsJSON: `{"security_group_id":"a01a36e5-5c0c-42c1-ae06-167e587b7ac4","security_group_rule_id":"b8c773ef-a6ea-4b50-a7c1-737864290a3f"}`,
 			},
 		},
@@ -2515,7 +2486,7 @@ func instanceSecurityGroupDeleteRule() *core.Command {
 func instanceSecurityGroupGetRule() *core.Command {
 	return &core.Command{
 		Short:     `Get rule`,
-		Long:      `Get details of a security group rule with the given ID.`,
+		Long:      `Get details of a security group rule with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "get-rule",
@@ -2546,7 +2517,7 @@ func instanceSecurityGroupGetRule() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get details of a security group rule with the given ID",
+				Short:    "Get details of a security group rule with the specified ID",
 				ArgsJSON: `{"security_group_id":"d900fa38-2f0d-4b09-b6d7-f3e46a13f34c","security_group_rule_id":"1f9a16a5-7229-4c03-9327-253e257cf38a"}`,
 			},
 		},
@@ -2556,7 +2527,7 @@ func instanceSecurityGroupGetRule() *core.Command {
 func instancePlacementGroupList() *core.Command {
 	return &core.Command{
 		Short:     `List placement groups`,
-		Long:      `List all placement groups.`,
+		Long:      `List all placement groups in a specified Availability Zone.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 		Verb:      "list",
@@ -2565,7 +2536,7 @@ func instancePlacementGroupList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
-				Short:      `List only placement groups of this project ID`,
+				Short:      `List only placement groups of this Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2586,7 +2557,7 @@ func instancePlacementGroupList() *core.Command {
 			},
 			{
 				Name:       "organization",
-				Short:      `List only placement groups of this organization ID`,
+				Short:      `List only placement groups of this Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2616,7 +2587,7 @@ func instancePlacementGroupList() *core.Command {
 				ArgsJSON: `null`,
 			},
 			{
-				Short:    "List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
+				Short:    "List placement groups that match a specified name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
 				ArgsJSON: `{"name":"cluster1"}`,
 			},
 		},
@@ -2626,7 +2597,7 @@ func instancePlacementGroupList() *core.Command {
 func instancePlacementGroupCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a placement group`,
-		Long:      `Create a new placement group.`,
+		Long:      `Create a new placement group in a specified Availability Zone.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 		Verb:      "create",
@@ -2644,14 +2615,14 @@ func instancePlacementGroupCreate() *core.Command {
 			core.ProjectArgSpec(),
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags of the placement group`,
+				Short:      `Tags of the placement group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "policy-mode",
-				Short:      `The operating mode of the placement group`,
+				Short:      `Operating mode of the placement group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2659,7 +2630,7 @@ func instancePlacementGroupCreate() *core.Command {
 			},
 			{
 				Name:       "policy-type",
-				Short:      `The policy type of the placement group`,
+				Short:      `Policy type of the placement group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2682,7 +2653,7 @@ func instancePlacementGroupCreate() *core.Command {
 				ArgsJSON: `null`,
 			},
 			{
-				Short:    "Create a placement group with the given name",
+				Short:    "Create a placement group with the specified name",
 				ArgsJSON: `{"name":"foobar"}`,
 			},
 			{
@@ -2708,7 +2679,7 @@ func instancePlacementGroupCreate() *core.Command {
 func instancePlacementGroupGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a placement group`,
-		Long:      `Get the given placement group.`,
+		Long:      `Get the specified placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 		Verb:      "get",
@@ -2734,7 +2705,7 @@ func instancePlacementGroupGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get a placement group with the given ID",
+				Short:    "Get a placement group with the specified ID",
 				ArgsJSON: `{"placement_group_id":"6c15f411-3b6f-402d-8eba-ae24ef9254e9"}`,
 			},
 		},
@@ -2744,7 +2715,7 @@ func instancePlacementGroupGet() *core.Command {
 func instancePlacementGroupSet() *core.Command {
 	return &core.Command{
 		Short:     `Set placement group`,
-		Long:      `Set all parameters of the given placement group.`,
+		Long:      `Set all parameters of the specified placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 		Verb:      "set",
@@ -2801,7 +2772,7 @@ func instancePlacementGroupSet() *core.Command {
 func instancePlacementGroupUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a placement group`,
-		Long:      `Update one or more parameter of the given placement group.`,
+		Long:      `Update one or more parameter of the specified placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 		Verb:      "update",
@@ -2824,14 +2795,14 @@ func instancePlacementGroupUpdate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags of the placement group`,
+				Short:      `Tags of the placement group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "policy-mode",
-				Short:      `The operating mode of the placement group`,
+				Short:      `Operating mode of the placement group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2839,7 +2810,7 @@ func instancePlacementGroupUpdate() *core.Command {
 			},
 			{
 				Name:       "policy-type",
-				Short:      `The policy type of the placement group`,
+				Short:      `Policy type of the placement group`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2861,11 +2832,11 @@ func instancePlacementGroupUpdate() *core.Command {
 				ArgsJSON: `{"name":"foobar","placement_group_id":"95053f33-cd3c-4cdc-b2b0-57d2dda97b13"}`,
 			},
 			{
-				Short:    "Update the policy mode of a placement group (All instances in your placement group MUST be shutdown)",
+				Short:    "Update the policy mode of a placement group (all Instances in your placement group MUST be shut down)",
 				ArgsJSON: `{"placement_group_id":"1f883434-8c2d-40f0-b686-d0754b3a7bc0","policy_mode":"enforced"}`,
 			},
 			{
-				Short:    "Update the policy type of a placement group (All instances in your placement group MUST be shutdown)",
+				Short:    "Update the policy type of a placement group (all Instances in your placement group MUST be shutdown)",
 				ArgsJSON: `{"placement_group_id":"0954ec26-9917-47b6-8c5c-7bc81d7bb9d2","policy_type":"low_latency"}`,
 			},
 		},
@@ -2874,8 +2845,8 @@ func instancePlacementGroupUpdate() *core.Command {
 
 func instancePlacementGroupDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete the given placement group`,
-		Long:      `Delete the given placement group.`,
+		Short:     `Delete the specified placement group`,
+		Long:      `Delete the specified placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 		Verb:      "delete",
@@ -2907,11 +2878,11 @@ func instancePlacementGroupDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a placement group in the default zone with the given ID",
+				Short:    "Delete a placement group in the default zone with the specified ID",
 				ArgsJSON: `{"placement_group_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Delete a placement group in fr-par-1 zone with the given ID",
+				Short:    "Delete a placement group in fr-par-1 zone with the specified ID",
 				ArgsJSON: `{"placement_group_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
@@ -2921,7 +2892,7 @@ func instancePlacementGroupDelete() *core.Command {
 func instancePlacementGroupGetServers() *core.Command {
 	return &core.Command{
 		Short:     `Get placement group servers`,
-		Long:      `Get all servers belonging to the given placement group.`,
+		Long:      `Get all Instances belonging to the specified placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 		Verb:      "get-servers",
@@ -2930,9 +2901,10 @@ func instancePlacementGroupGetServers() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
+				Short:      `UUID of the placement group you want to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
@@ -2950,7 +2922,7 @@ func instancePlacementGroupGetServers() *core.Command {
 func instancePlacementGroupSetServers() *core.Command {
 	return &core.Command{
 		Short:     `Set placement group servers`,
-		Long:      `Set all servers belonging to the given placement group.`,
+		Long:      `Set all Instances belonging to the specified placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 		Verb:      "set-servers",
@@ -2959,13 +2931,15 @@ func instancePlacementGroupSetServers() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
+				Short:      `UUID of the placement group you want to set`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "servers.{index}",
-				Required:   false,
+				Short:      `An array of the Instances' UUIDs you want to configure`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -2981,7 +2955,7 @@ func instancePlacementGroupSetServers() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Update the complete set of instances in a given placement group. (All instances must be down)",
+				Short:    "Update the complete set of Instances in a specified placement group (all Instances must be shut down)",
 				ArgsJSON: `{"placement_group_id":"ced0fd4d-bcf0-4479-85b6-7027e54456e6","servers":["5a250608-24ec-4c31-9631-b3ded8c861cb","e54fd249-0787-4794-ab14-af6ee74df274"]}`,
 			},
 		},
@@ -2991,7 +2965,7 @@ func instancePlacementGroupSetServers() *core.Command {
 func instancePlacementGroupUpdateServers() *core.Command {
 	return &core.Command{
 		Short:     `Update placement group servers`,
-		Long:      `Update all servers belonging to the given placement group.`,
+		Long:      `Update all Instances belonging to the specified placement group.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 		Verb:      "update-servers",
@@ -3000,13 +2974,14 @@ func instancePlacementGroupUpdateServers() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
-				Short:      `UUID of the placement group`,
+				Short:      `UUID of the placement group you want to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "servers.{index}",
+				Short:      `An array of the Instances' UUIDs you want to configure`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -3027,7 +3002,7 @@ func instancePlacementGroupUpdateServers() *core.Command {
 func instanceIPList() *core.Command {
 	return &core.Command{
 		Short:     `List all flexible IPs`,
-		Long:      `List all flexible IPs.`,
+		Long:      `List all flexible IPs in a specified zone.`,
 		Namespace: "instance",
 		Resource:  "ip",
 		Verb:      "list",
@@ -3036,7 +3011,7 @@ func instanceIPList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
-				Short:      `The project ID the IPs are reserved in`,
+				Short:      `Project ID in which the IPs are reserved`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3057,7 +3032,7 @@ func instanceIPList() *core.Command {
 			},
 			{
 				Name:       "organization",
-				Short:      `The organization ID the IPs are reserved in`,
+				Short:      `Organization ID in which the IPs are reserved`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3126,7 +3101,7 @@ func instanceIPList() *core.Command {
 func instanceIPCreate() *core.Command {
 	return &core.Command{
 		Short:     `Reserve a flexible IP`,
-		Long:      `Reserve a flexible IP.`,
+		Long:      `Reserve a flexible IP and attach it to the specified Instance.`,
 		Namespace: "instance",
 		Resource:  "ip",
 		Verb:      "create",
@@ -3136,14 +3111,14 @@ func instanceIPCreate() *core.Command {
 			core.ProjectArgSpec(),
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags of the IP`,
+				Short:      `Tags of the IP`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "server",
-				Short:      `UUID of the server you want to attach the IP to`,
+				Short:      `UUID of the Instance you want to attach the IP to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3169,7 +3144,7 @@ func instanceIPCreate() *core.Command {
 				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
 			{
-				Short:    "Create an IP and attach it to the given server",
+				Short:    "Create an IP and attach it to the specified Instance",
 				ArgsJSON: `{"server":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -3179,7 +3154,7 @@ func instanceIPCreate() *core.Command {
 func instanceIPGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a flexible IP`,
-		Long:      `Get details of an IP with the given ID or address.`,
+		Long:      `Get details of an IP with the specified ID or address.`,
 		Namespace: "instance",
 		Resource:  "ip",
 		Verb:      "get",
@@ -3188,7 +3163,7 @@ func instanceIPGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip",
-				Short:      `The IP ID or address to get`,
+				Short:      `IP ID or address to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -3205,15 +3180,15 @@ func instanceIPGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get an IP in the default zone with the given ID",
+				Short:    "Get an IP in the default zone with the specified ID",
 				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Get an IP in fr-par-1 zone with the given ID",
+				Short:    "Get an IP in fr-par-1 zone with the specified ID",
 				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 			{
-				Short:    "Get an IP using directly the given IP address",
+				Short:    "Get an IP, directly using the specified IP address",
 				ArgsJSON: `{"ip":"51.15.253.183"}`,
 			},
 		},
@@ -3223,7 +3198,7 @@ func instanceIPGet() *core.Command {
 func instanceIPUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a flexible IP`,
-		Long:      `Update a flexible IP.`,
+		Long:      `Update a flexible IP in the specified zone with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "ip",
 		Verb:      "update",
@@ -3263,15 +3238,15 @@ func instanceIPUpdate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Update an IP in the default zone with the given ID",
+				Short:    "Update an IP in the default zone with the specified ID",
 				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com"}`,
 			},
 			{
-				Short:    "Update an IP in fr-par-1 zone with the given ID",
+				Short:    "Update an IP in fr-par-1 zone with the specified ID",
 				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111","reverse":"example.com","zone":"fr-par-1"}`,
 			},
 			{
-				Short:    "Update an IP using directly the given IP address",
+				Short:    "Update an IP using directly the specified IP address",
 				ArgsJSON: `{"ip":"51.15.253.183","reverse":"example.com"}`,
 			},
 		},
@@ -3281,7 +3256,7 @@ func instanceIPUpdate() *core.Command {
 func instanceIPDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a flexible IP`,
-		Long:      `Delete the IP with the given ID.`,
+		Long:      `Delete the IP with the specified ID.`,
 		Namespace: "instance",
 		Resource:  "ip",
 		Verb:      "delete",
@@ -3290,7 +3265,7 @@ func instanceIPDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip",
-				Short:      `The ID or the address of the IP to delete`,
+				Short:      `ID or address of the IP to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -3313,15 +3288,15 @@ func instanceIPDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete an IP in the default zone with the given ID",
+				Short:    "Delete an IP in the default zone with the specified ID",
 				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
-				Short:    "Delete an IP in fr-par-1 zone with the given ID",
+				Short:    "Delete an IP in fr-par-1 zone with the specified ID",
 				ArgsJSON: `{"ip":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 			{
-				Short:    "Delete an IP using directly the given IP address",
+				Short:    "Delete an IP using directly the specified IP address",
 				ArgsJSON: `{"ip":"51.15.253.183"}`,
 			},
 		},
@@ -3331,7 +3306,7 @@ func instanceIPDelete() *core.Command {
 func instancePrivateNicList() *core.Command {
 	return &core.Command{
 		Short:     `List all private NICs`,
-		Long:      `List all private NICs of a given server.`,
+		Long:      `List all private NICs of a specified Instance.`,
 		Namespace: "instance",
 		Resource:  "private-nic",
 		Verb:      "list",
@@ -3340,14 +3315,14 @@ func instancePrivateNicList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `The server the private NIC is attached to`,
+				Short:      `Instance to which the private NIC is attached`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The private NIC tags`,
+				Short:      `Private NIC tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3373,11 +3348,11 @@ func instancePrivateNicList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "List all private NICs on a specific server",
+				Short:    "List all private NICs on a specified server",
 				ArgsJSON: `null`,
 			},
 			{
-				Short:    "List private NICs of the server ID 'my_server_id'",
+				Short:    "List private NICs of the Instance ID 'my_server_id'",
 				ArgsJSON: `{"server_id":"my_server_id"}`,
 			},
 		},
@@ -3386,8 +3361,8 @@ func instancePrivateNicList() *core.Command {
 
 func instancePrivateNicCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a private NIC connecting a server to a private network`,
-		Long:      `Create a private NIC connecting a server to a private network.`,
+		Short:     `Create a private NIC connecting an Instance to a Private Network`,
+		Long:      `Create a private NIC connecting an Instance to a Private Network.`,
 		Namespace: "instance",
 		Resource:  "private-nic",
 		Verb:      "create",
@@ -3396,7 +3371,7 @@ func instancePrivateNicCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `UUID of the server the private NIC will be attached to`,
+				Short:      `UUID of the Instance the private NIC will be attached to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -3410,7 +3385,7 @@ func instancePrivateNicCreate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The private NIC tags`,
+				Short:      `Private NIC tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3440,14 +3415,14 @@ func instancePrivateNicGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `The server the private NIC is attached to`,
+				Short:      `Instance to which the private NIC is attached`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nic-id",
-				Short:      `The private NIC unique ID`,
+				Short:      `Private NIC unique ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -3468,7 +3443,7 @@ func instancePrivateNicGet() *core.Command {
 func instancePrivateNicUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a private NIC`,
-		Long:      `Update one or more parameter/s to a given private NIC.`,
+		Long:      `Update one or more parameter(s) of a specified private NIC.`,
 		Namespace: "instance",
 		Resource:  "private-nic",
 		Verb:      "update",
@@ -3477,14 +3452,14 @@ func instancePrivateNicUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `UUID of the server the private NIC will be attached to`,
+				Short:      `UUID of the Instance the private NIC will be attached to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nic-id",
-				Short:      `The private NIC unique ID`,
+				Short:      `Private NIC unique ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -3527,14 +3502,14 @@ func instancePrivateNicDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      `The server the private NIC is attached to`,
+				Short:      `Instance to which the private NIC is attached`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-nic-id",
-				Short:      `The private NIC unique ID`,
+				Short:      `Private NIC unique ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get all differences from a previous DNS zone version.
+Access a previous DNS zone version to see the differences from another specific version.
 
 USAGE:
   scw dns version diff <dns-zone-version-id ...> [arg=value ...]

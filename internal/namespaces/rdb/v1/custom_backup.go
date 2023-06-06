@@ -37,6 +37,7 @@ var (
 type backupWaitRequest struct {
 	BackupID string
 	Region   scw.Region
+	Timeout  time.Duration
 }
 
 func backupWaitCommand() *core.Command {
@@ -53,7 +54,7 @@ func backupWaitCommand() *core.Command {
 			return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: argsI.(*backupWaitRequest).BackupID,
 				Region:           argsI.(*backupWaitRequest).Region,
-				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
+				Timeout:          scw.TimeDurationPtr(argsI.(*backupWaitRequest).Timeout),
 				RetryInterval:    core.DefaultRetryInterval,
 			})
 		},
@@ -65,6 +66,7 @@ func backupWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.WaitTimeoutArgSpec(backupActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
@@ -253,7 +255,7 @@ type backupDownloadResult struct {
 	FileName string   `json:"file_name"`
 }
 
-func backupResultMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func backupResultMarshallerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	backupResult := i.(backupDownloadResult)
 	sizeStr, err := human.Marshal(backupResult.Size, nil)
 	if err != nil {

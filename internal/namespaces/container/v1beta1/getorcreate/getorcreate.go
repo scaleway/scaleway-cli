@@ -12,7 +12,7 @@ func Namespace(ctx context.Context, api *container.API, region scw.Region, name 
 	listNamespacesResponse, err := api.ListNamespaces(&container.ListNamespacesRequest{
 		Region: region,
 		Name:   &name,
-	}, scw.WithContext(ctx))
+	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func Container(ctx context.Context, api *container.API, region scw.Region, names
 		Region:      region,
 		NamespaceID: namespaceID,
 		Name:        &name,
-	}, scw.WithContext(ctx))
+	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
@@ -82,7 +82,7 @@ func Registry(ctx context.Context, api *registry.API, region scw.Region, name st
 	listNamespacesResponse, err := api.ListNamespaces(&registry.ListNamespacesRequest{
 		Region: region,
 		Name:   &name,
-	}, scw.WithContext(ctx))
+	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A tag represents a container tag of an image.
+Tags allow you to organize your container images. This gives you the possibility of sorting and filtering your images in any organizational pattern of your choice, which in turn helps you arrange, control and monitor your cloud resources. You can assign as many tags as you want to each image.
 
 USAGE:
   scw registry tag <command>
@@ -8,7 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   delete      Delete a tag
   get         Get a tag
-  list        List all your tags
+  list        List tags
 
 FLAGS:
   -h, --help   help for tag

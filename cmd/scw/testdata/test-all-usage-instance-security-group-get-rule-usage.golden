@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get details of a security group rule with the given ID.
+Get details of a security group rule with the specified ID.
 
 USAGE:
   scw instance security-group get-rule [arg=value ...]
 
 EXAMPLES:
-  Get details of a security group rule with the given ID
+  Get details of a security group rule with the specified ID
     scw instance security-group get-rule security-group-id=d900fa38-2f0d-4b09-b6d7-f3e46a13f34c security-group-rule-id=1f9a16a5-7229-4c03-9327-253e257cf38a
 
 ARGS:

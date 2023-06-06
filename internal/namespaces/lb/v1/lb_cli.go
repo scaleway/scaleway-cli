@@ -279,6 +279,13 @@ func lbLBCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "assign-flexible-ip",
+				Short:      `Defines whether to automatically assign a flexible public IP to lb. Default value is ` + "`" + `false` + "`" + ` (do not assign).`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "tags.{index}",
 				Short:      `List of tags for the Load Balancer`,
 				Required:   false,
@@ -784,10 +791,34 @@ func lbBackendCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "health-check.mysql-config.user",
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.port",
+				Short:      `Port to use for the backend server health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "health-check.check-delay",
+				Short:      `Time to wait between two consecutive health checks`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("3s"),
+			},
+			{
+				Name:       "health-check.check-timeout",
+				Short:      `Maximum time a backend server has to reply to the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("1s"),
 			},
 			{
 				Name:       "health-check.check-max-retries",
@@ -797,7 +828,15 @@ func lbBackendCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "health-check.mysql-config.user",
+				Short:      `MySQL user to use for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "health-check.pgsql-config.user",
+				Short:      `PostgreSQL user to use for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -866,27 +905,6 @@ func lbBackendCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "health-check.port",
-				Short:      `Port to use for the backend server health check`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.check-timeout",
-				Short:      `Maximum time a backend server has to reply to the health check`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.check-delay",
-				Short:      `Time to wait between two consecutive health checks`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "health-check.check-send-proxy",
 				Short:      `Defines whether proxy protocol should be activated for the health check`,
 				Required:   false,
@@ -902,13 +920,6 @@ func lbBackendCreate() *core.Command {
 			{
 				Name:       "health-check.transient-check-delay.nanos",
 				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "lb-id",
-				Short:      `Load Balancer ID`,
-				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -932,6 +943,7 @@ func lbBackendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "timeout-connect",
@@ -939,6 +951,7 @@ func lbBackendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5s"),
 			},
 			{
 				Name:       "timeout-tunnel",
@@ -946,6 +959,7 @@ func lbBackendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("15m"),
 			},
 			{
 				Name:       "on-marked-down-action",
@@ -957,7 +971,7 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "proxy-protocol",
-				Short:      `PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software`,
+				Short:      `Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -965,14 +979,14 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "failover-host",
-				Short:      `Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://)`,
+				Short:      `Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ssl-bridging",
-				Short:      `Defines whether to enable SSL between the Load Balancer and backend servers`,
+				Short:      `Defines whether to enable SSL bridging between the Load Balancer and backend servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1116,6 +1130,7 @@ func lbBackendUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "timeout-connect",
@@ -1123,6 +1138,7 @@ func lbBackendUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5s"),
 			},
 			{
 				Name:       "timeout-tunnel",
@@ -1130,10 +1146,11 @@ func lbBackendUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("15m"),
 			},
 			{
 				Name:       "on-marked-down-action",
-				Short:      `Action to take when a backend server is marked down`,
+				Short:      `Action to take when a backend server is marked as down`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1141,7 +1158,7 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "proxy-protocol",
-				Short:      `PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software`,
+				Short:      `Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1149,7 +1166,7 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "failover-host",
-				Short:      `Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://)`,
+				Short:      `Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1170,7 +1187,7 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "redispatch-attempt-count",
-				Short:      `Whether to use another backend server on each retries`,
+				Short:      `Whether to use another backend server on each attempt`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1375,7 +1392,7 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			},
 			{
 				Name:       "check-max-retries",
-				Short:      `Number of consecutive unsuccessful health checks, after which the server will be considered dead`,
+				Short:      `Number of consecutive unsuccessful health checks after which the server will be considered dead`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1388,13 +1405,22 @@ func lbBackendUpdateHealthcheck() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "check-send-proxy",
+				Short:      `Defines whether proxy protocol should be activated for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "mysql-config.user",
+				Short:      `MySQL user to use for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pgsql-config.user",
+				Short:      `PostgreSQL user to use for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1458,13 +1484,6 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			{
 				Name:       "https-config.sni",
 				Short:      `SNI used for SSL health checks`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "check-send-proxy",
-				Short:      `Defines whether proxy protocol should be activated for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1593,6 +1612,7 @@ func lbFrontendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "certificate-id",
@@ -1702,6 +1722,7 @@ func lbFrontendUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "certificate-id",
@@ -1793,6 +1814,7 @@ func lbRouteList() *core.Command {
 			},
 			{
 				Name:       "frontend-id",
+				Short:      `Frontend ID to filter for, only Routes from this Frontend will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2003,6 +2025,13 @@ func lbLBGetStats() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "backend-id",
+				Short:      `ID of the backend`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
@@ -3178,6 +3207,7 @@ func lbPrivateNetworkAttach() *core.Command {
 			},
 			{
 				Name:       "static-config.ip-address.{index}",
+				Short:      `Array of a local IP address for the Load Balancer on this Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

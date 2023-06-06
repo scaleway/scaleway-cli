@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List rules.
+List the rules of the a specified security group ID.
 
 USAGE:
   scw instance security-group list-rules [arg=value ...]

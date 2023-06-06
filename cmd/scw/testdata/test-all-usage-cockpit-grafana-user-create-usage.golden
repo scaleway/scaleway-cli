@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a grafana user for your grafana instance.
+Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID.
 
 USAGE:
   scw cockpit grafana-user create [arg=value ...]
 
 ARGS:
   [project-id]   Project ID to use. If none is passed the default project ID will be used
-  [login]        
-  [role]          (unknown_role | editor | viewer)
+  [login]        Username of the Grafana user
+  [role]         Role assigned to the Grafana user (unknown_role | editor | viewer)
 
 FLAGS:
   -h, --help   help for create

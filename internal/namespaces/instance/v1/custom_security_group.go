@@ -41,15 +41,16 @@ var (
 	}
 )
 
-func marshalSecurityGroupRules(i interface{}, opt *human.MarshalOpt) (out string, err error) {
+func marshalSecurityGroupRules(i interface{}, _ *human.MarshalOpt) (out string, err error) {
 	rules := i.([]*instance.SecurityGroupRule)
 
 	type humanRule struct {
-		ID       string
-		Protocol instance.SecurityGroupRuleProtocol
-		Action   instance.SecurityGroupRuleAction
-		IPRange  string
-		Dest     string
+		ID        string
+		Direction string
+		Protocol  instance.SecurityGroupRuleProtocol
+		Action    instance.SecurityGroupRuleAction
+		IPRange   string
+		Dest      string
 	}
 
 	toHumanRule := func(rule *instance.SecurityGroupRule) *humanRule {
@@ -61,11 +62,12 @@ func marshalSecurityGroupRules(i interface{}, opt *human.MarshalOpt) (out string
 			dest += "-" + strconv.Itoa(int(*rule.DestPortTo))
 		}
 		return &humanRule{
-			ID:       rule.ID,
-			Protocol: rule.Protocol,
-			Action:   rule.Action,
-			IPRange:  rule.IPRange.String(),
-			Dest:     dest,
+			ID:        rule.ID,
+			Direction: string(rule.Direction),
+			Protocol:  rule.Protocol,
+			Action:    rule.Action,
+			IPRange:   rule.IPRange.String(),
+			Dest:      dest,
 		}
 	}
 	humanRules := make([]*humanRule, len(rules))

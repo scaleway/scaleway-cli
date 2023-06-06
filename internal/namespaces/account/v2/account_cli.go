@@ -61,6 +61,7 @@ func accountProjectCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("proj"),
 			},
 			{
 				Name:       "description",

@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the volume with the given ID.
+Delete the volume with the specified ID.
 
 USAGE:
   scw instance volume delete <volume-id ...> [arg=value ...]
 
 EXAMPLES:
-  Delete a volume with the given ID
+  Delete a volume with the specified ID
     scw instance volume delete af136619-bc59-4b48-a0ed-ed7dceaad9a6
 
 ARGS:

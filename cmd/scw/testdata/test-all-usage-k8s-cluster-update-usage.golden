@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a specific Kubernetes cluster. Note that this method is designed to update details such as name, description, tags and configuration. However, you cannot upgrade a cluster with this method. To do so, use the dedicated endpoint.
+Update information on a specific Kubernetes cluster. You can update details such as its name, description, tags and configuration. To upgrade a cluster, you will need to use the dedicated endpoint.
 
 USAGE:
   scw k8s cluster update <cluster-id ...> [arg=value ...]
@@ -14,8 +14,8 @@ EXAMPLES:
 
 ARGS:
   cluster-id                                             ID of the cluster to update
-  [name]                                                 New external name of the cluster
-  [description]                                          New description of the cluster
+  [name]                                                 New external name for the cluster
+  [description]                                          New description for the cluster
   [tags.{index}]                                         New tags associated with the cluster
   [autoscaler-config.scale-down-disabled]                Disable the cluster autoscaler
   [autoscaler-config.scale-down-delay-after-add]         How long after scale up that scale down evaluation resumes
@@ -23,28 +23,28 @@ ARGS:
   [autoscaler-config.expander]                           Type of node group expander to be used in scale up (unknown_expander | random | most_pods | least_waste | priority | price)
   [autoscaler-config.ignore-daemonsets-utilization]      Ignore DaemonSet pods when calculating resource utilization for scaling down
   [autoscaler-config.balance-similar-node-groups]        Detect similar node groups and balance the number of nodes between them
-  [autoscaler-config.expendable-pods-priority-cutoff]    Pods with priority below cutoff will be expendable
-  [autoscaler-config.scale-down-unneeded-time]           How long a node should be unneeded before it is eligible for scale down
-  [autoscaler-config.scale-down-utilization-threshold]   Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down
+  [autoscaler-config.expendable-pods-priority-cutoff]    Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable
+  [autoscaler-config.scale-down-unneeded-time]           How long a node should be unneeded before it is eligible to be scaled down
+  [autoscaler-config.scale-down-utilization-threshold]   Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down
   [autoscaler-config.max-graceful-termination-sec]       Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node
-  [auto-upgrade.enable]                                  Whether or not auto upgrade is enabled for the cluster
+  [auto-upgrade.enable]                                  Defines whether auto upgrade is enabled for the cluster
   [auto-upgrade.maintenance-window.start-hour]           Start time of the two-hour maintenance window
   [auto-upgrade.maintenance-window.day]                  Day of the week for the maintenance window (any | monday | tuesday | wednesday | thursday | friday | saturday | sunday)
   [feature-gates.{index}]                                List of feature gates to enable
   [admission-plugins.{index}]                            List of admission plugins to enable
-  [open-id-connect-config.issuer-url]                    URL of the provider which allows the API server to discover public signing keys
-  [open-id-connect-config.client-id]                     A client id that all tokens must be issued for
-  [open-id-connect-config.username-claim]                JWT claim to use as the user name
-  [open-id-connect-config.username-prefix]               Prefix prepended to username
+  [open-id-connect-config.issuer-url]                    URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com"
+  [open-id-connect-config.client-id]                     A client ID that all tokens must be issued for
+  [open-id-connect-config.username-claim]                JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision
+  [open-id-connect-config.username-prefix]               Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing
   [open-id-connect-config.groups-claim.{index}]          JWT claim to use as the user's group
-  [open-id-connect-config.groups-prefix]                 Prefix prepended to group claims
-  [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs that describes a required claim in the ID token
+  [open-id-connect-config.groups-prefix]                 Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`
+  [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value
   [apiserver-cert-sans.{index}]                          Additional Subject Alternative Names for the Kubernetes API server certificate
   [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:
-  [enable-dashboard]   New value of the Kubernetes Dashboard enablement
-  [ingress]            New Ingress Controller for the cluster (unknown_ingress | none | nginx | traefik | traefik2)
+  [enable-dashboard]   New value for the Kubernetes Dashboard enablement
+  [ingress]            New Ingress Controller for the cluster (deprecated feature) (unknown_ingress | none | nginx | traefik | traefik2)
 
 FLAGS:
   -h, --help   help for update

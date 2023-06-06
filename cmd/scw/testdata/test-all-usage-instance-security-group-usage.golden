@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A security group is a set of firewall rules on a set of instances.
-Security groups enable to create rules that either drop or allow incoming traffic from certain ports of your instances.
+A security group is a set of firewall rules on a set of Instances.
+Security groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.
 
-Security Groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
+Security groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
 As a contrary, you have to switch in a stateless mode to define explicitly allowed.
 
 USAGE:

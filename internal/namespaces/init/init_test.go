@@ -3,6 +3,7 @@ package init
 import (
 	"fmt"
 	"path"
+	"regexp"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -108,8 +109,9 @@ func TestInit(t *testing.T) {
 			},
 			Profiles: map[string]*scw.Profile{
 				"test": {
-					AccessKey: &dummyAccessKey,
-					SecretKey: &dummySecretKey,
+					AccessKey:   &dummyAccessKey,
+					SecretKey:   &dummySecretKey,
+					DefaultZone: scw.StringPtr("fr-test"), // Used to check profile override
 				},
 			},
 		}
@@ -154,5 +156,91 @@ func TestInit(t *testing.T) {
 				"yes",
 			},
 		}))
+
+		t.Run("No Prompt Overwrite for new profile", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: core.BeforeFuncCombine(
+				baseBeforeFunc(),
+				beforeFuncSaveConfig(dummyConfig),
+			),
+			Cmd: appendArgs("scw -p test2 init", defaultArgs),
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+					assert.NotNil(t, config.Profiles["test2"], "new profile should have been created")
+				}),
+			),
+			TmpHomeDir: true,
+			PromptResponseMocks: []string{
+				// Do you want to override the current config? (Should not be prompted as profile is a new one)
+				"no",
+			},
+		}))
+
+		t.Run("Prompt Overwrite for existing profile", core.Test(&core.TestConfig{
+			Commands: GetCommands(),
+			BeforeFunc: core.BeforeFuncCombine(
+				baseBeforeFunc(),
+				beforeFuncSaveConfig(dummyConfig),
+			),
+			Cmd: appendArgs("scw -p test init", defaultArgs),
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+					assert.NotNil(t, config.Profiles["test"].DefaultZone)
+					assert.Equal(t, *config.Profiles["test"].DefaultZone, "fr-test")
+				}),
+			),
+			TmpHomeDir: true,
+			PromptResponseMocks: []string{
+				// Do you want to override the current config? (Should not be prompted as profile is a new one)
+				"no",
+			},
+		}))
 	})
+}
+
+func TestInit_Prompt(t *testing.T) {
+	promptResponse := []string{
+		"secret-key",
+		"access-key",
+		"organization-id",
+		" ",
+	}
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			baseBeforeFunc(),
+			func(ctx *core.BeforeFuncCtx) error {
+				promptResponse[0] = ctx.Meta["SecretKey"].(string)
+				promptResponse[1] = ctx.Meta["AccessKey"].(string)
+				promptResponse[2] = ctx.Meta["OrganizationID"].(string)
+
+				return nil
+			}),
+		TmpHomeDir: true,
+		Cmd:        "scw init",
+		Check: core.TestCheckCombine(
+			core.TestCheckGoldenAndReplacePatterns(
+				core.GoldenReplacement{
+					Pattern:       regexp.MustCompile("\\s\\sExcept for autocomplete: unsupported OS 'windows'\n"),
+					Replacement:   "",
+					OptionalMatch: true,
+				},
+				core.GoldenReplacement{
+					Pattern:       regexp.MustCompile(`Except for autocomplete: unsupported OS 'windows'\\n`),
+					Replacement:   "",
+					OptionalMatch: true,
+				},
+			),
+			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				secretKey, _ := ctx.Client.GetSecretKey()
+				assert.Equal(t, secretKey, *config.SecretKey)
+				assert.NotEmpty(t, *config.DefaultProjectID)
+				assert.Equal(t, *config.DefaultProjectID, *config.DefaultProjectID)
+			}),
+		),
+		PromptResponseMocks: promptResponse,
+	}))
 }

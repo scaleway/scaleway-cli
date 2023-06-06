@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Replaces the rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.
+Replaces the existing rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.
 
 USAGE:
   scw instance security-group set-rules [arg=value ...]
@@ -11,7 +11,7 @@ ARGS:
   [rules.{index}.action]           Action to apply when the rule matches a packet (accept | drop)
   [rules.{index}.protocol]         Protocol family this rule applies to (TCP | UDP | ICMP | ANY)
   [rules.{index}.direction]        Direction the rule applies to (inbound | outbound)
-  [rules.{index}.ip-range]         The range of IP address this rules applies to
+  [rules.{index}.ip-range]         Range of IP addresses these rules apply to
   [rules.{index}.dest-port-from]   Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY
   [rules.{index}.dest-port-to]     End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from
   [rules.{index}.position]         Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined

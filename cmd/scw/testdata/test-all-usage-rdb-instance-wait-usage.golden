@@ -12,6 +12,7 @@ EXAMPLES:
 ARGS:
   instance-id       ID of the instance you want to wait for.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [timeout=20m0s]   Timeout of the wait
 
 FLAGS:
   -h, --help   help for wait

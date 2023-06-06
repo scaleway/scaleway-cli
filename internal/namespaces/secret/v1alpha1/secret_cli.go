@@ -28,28 +28,28 @@ func GetGeneratedCommands() *core.Commands {
 		secretSecretList(),
 		secretSecretDelete(),
 		secretVersionCreate(),
+		secretVersionGeneratePassword(),
 		secretVersionGet(),
 		secretVersionUpdate(),
 		secretVersionList(),
-		secretVersionDelete(),
 		secretVersionEnable(),
 		secretVersionDisable(),
 		secretVersionAccess(),
+		secretVersionDelete(),
 	)
 }
 func secretRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to conveniently store, access and share sensitive data`,
-		Long:      `Secret Manager API documentation.`,
+		Short:     `Secret Manager API`,
+		Long:      `This API allows you to conveniently store, access and share sensitive data.`,
 		Namespace: "secret",
 	}
 }
 
 func secretSecret() *core.Command {
 	return &core.Command{
-		Short: `Secret management commands`,
-		Long: `Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.
-`,
+		Short:     `Secret management commands`,
+		Long:      `Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.`,
 		Namespace: "secret",
 		Resource:  "secret",
 	}
@@ -57,9 +57,8 @@ func secretSecret() *core.Command {
 
 func secretVersion() *core.Command {
 	return &core.Command{
-		Short: `Secret Version management commands`,
-		Long: `Versions store the sensitive data contained in your secrets (API keys, passwords, or certificates).
-`,
+		Short:     `Secret Version management commands`,
+		Long:      `Versions store the sensitive data contained in your secrets (API keys, passwords, or certificates).`,
 		Namespace: "secret",
 		Resource:  "version",
 	}
@@ -215,11 +214,11 @@ func secretSecretList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "name",
-				Short:      `Filter by secret name (optional)`,
+				Name:       "order-by",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
 			},
 			{
 				Name:       "tags.{index}",
@@ -229,11 +228,18 @@ func secretSecretList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "order-by",
+				Name:       "name",
+				Short:      `Filter by secret name (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+			},
+			{
+				Name:       "is-managed",
+				Short:      `Filter by managed / not managed (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "organization-id",
@@ -344,6 +350,48 @@ func secretVersionCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "password-generation.length",
+				Short:      `Length of the password to generate (between 1 and 1024)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "password-generation.no-lowercase-letters",
+				Short:      `Do not include lower case letters by default in the alphabet`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "password-generation.no-uppercase-letters",
+				Short:      `Do not include upper case letters by default in the alphabet`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "password-generation.no-digits",
+				Short:      `Do not include digits by default in the alphabet`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "password-generation.additional-chars",
+				Short:      `Additional ascii characters to be included in the alphabet`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "data-crc32",
+				Short:      `(Optional.) The CRC32 checksum of the data as a base-10 integer`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -352,6 +400,85 @@ func secretVersionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.CreateSecretVersion(request)
+
+		},
+	}
+}
+
+func secretVersionGeneratePassword() *core.Command {
+	return &core.Command{
+		Short:     `Generate a password in a new version`,
+		Long:      `Generate a password for the given secret specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `secret_id` + "`" + ` parameters. This will also create a new version of the secret that will store the password.`,
+		Namespace: "secret",
+		Resource:  "version",
+		Verb:      "generate-password",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.GeneratePasswordRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Short:      `Description of the version`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "disable-previous",
+				Short:      `(Optional.) Disable the previous secret version`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "length",
+				Short:      `Length of the password to generate (between 1 and 1024 characters)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "no-lowercase-letters",
+				Short:      `(Optional.) Exclude lower case letters by default in the password character set`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "no-uppercase-letters",
+				Short:      `(Optional.) Exclude upper case letters by default in the password character set`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "no-digits",
+				Short:      `(Optional.) Exclude digits by default in the password character set`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "additional-chars",
+				Short:      `(Optional.) Additional ASCII characters to be included in the password character set`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.GeneratePasswordRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.GeneratePassword(request)
 
 		},
 	}
@@ -376,7 +503,7 @@ func secretVersionGet() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -413,7 +540,7 @@ func secretVersionUpdate() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -485,49 +612,6 @@ func secretVersionList() *core.Command {
 	}
 }
 
-func secretVersionDelete() *core.Command {
-	return &core.Command{
-		Short:     `Delete a version`,
-		Long:      `Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.`,
-		Namespace: "secret",
-		Resource:  "version",
-		Verb:      "delete",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.DestroySecretVersionRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "secret-id",
-				Short:      `ID of the secret`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*secret.DestroySecretVersionRequest)
-
-			client := core.ExtractClient(ctx)
-			api := secret.NewAPI(client)
-			return api.DestroySecretVersion(request)
-
-		},
-		Examples: []*core.Example{
-			{
-				Short:    "Delete a given Secret Version",
-				ArgsJSON: `{"revision":"1","secret_id":"11111111-1111-1111-1111-111111111111"}`,
-			},
-		},
-	}
-}
-
 func secretVersionEnable() *core.Command {
 	return &core.Command{
 		Short:     `Enable a version`,
@@ -547,7 +631,7 @@ func secretVersionEnable() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -584,7 +668,7 @@ func secretVersionDisable() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -621,7 +705,7 @@ func secretVersionAccess() *core.Command {
 			},
 			{
 				Name:       "revision",
-				Short:      `Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest"`,
+				Short:      `Version number`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -635,6 +719,49 @@ func secretVersionAccess() *core.Command {
 			api := secret.NewAPI(client)
 			return api.AccessSecretVersion(request)
 
+		},
+	}
+}
+
+func secretVersionDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a version`,
+		Long:      `Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.`,
+		Namespace: "secret",
+		Resource:  "version",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.DestroySecretVersionRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "revision",
+				Short:      `Version number`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.DestroySecretVersionRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.DestroySecretVersion(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Delete a given Secret Version",
+				ArgsJSON: `{"revision":"1","secret_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
 		},
 	}
 }

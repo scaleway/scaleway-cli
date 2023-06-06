@@ -10,7 +10,8 @@ EXAMPLES:
     scw cockpit cockpit wait 11111111-1111-1111-1111-111111111111
 
 ARGS:
-  project-id   The ID of the project the cockpit is attached to
+  project-id       The ID of the project the cockpit is attached to
+  [timeout=3m0s]   Timeout of the wait
 
 FLAGS:
   -h, --help   help for wait

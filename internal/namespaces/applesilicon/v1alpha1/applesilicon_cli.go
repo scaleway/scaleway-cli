@@ -38,18 +38,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func appleSiliconRoot() *core.Command {
 	return &core.Command{
-		Short: `Apple silicon API`,
-		Long: `Scaleway Apple silicon as-a-Service is built using the latest generation of Apple Mac mini hardware (fifth generation).
-
-These dedicated Mac mini M1s are designed for developing, building, testing, and signing applications for Apple devices, including iPhones, iPads, Mac computers and much more.
-
-Get set to explore, learn and build on a dedicated Mac mini M1 with more performance and speed than you ever thought possible.
-
-**Apple silicon as a Service comes with a minimum allocation period of 24 hours**.
-
-Mac mini and macOS are trademarks of Apple Inc., registered in the U.S. and other countries and regions.
-IOS is a trademark or registered trademark of Cisco in the U.S. and other countries and is used by Apple under license.
-Scaleway is not affiliated with Apple Inc.`,
+		Short:     `Apple silicon API`,
+		Long:      `Apple silicon API.`,
 		Namespace: "apple-silicon",
 	}
 }
@@ -107,7 +97,7 @@ func appleSiliconServerTypeList() *core.Command {
 func appleSiliconServerTypeGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a server type`,
-		Long:      `Get a server technical details.`,
+		Long:      `Get technical details (CPU, disk size etc.) of a server type.`,
 		Namespace: "apple-silicon",
 		Resource:  "server-type",
 		Verb:      "get",
@@ -230,8 +220,8 @@ func appleSiliconServerList() *core.Command {
 
 func appleSiliconOsList() *core.Command {
 	return &core.Command{
-		Short:     `List all Operating System (OS)`,
-		Long:      `List all Operating System (OS). The response will include the total number of OS as well as their associated IDs, names and labels.`,
+		Short:     `List all Operating Systems (OS)`,
+		Long:      `List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.`,
 		Namespace: "apple-silicon",
 		Resource:  "os",
 		Verb:      "list",

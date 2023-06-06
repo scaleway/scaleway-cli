@@ -1,0 +1,34 @@
+name: WebAssembly
+
+on:
+  pull_request:
+  merge_group:
+
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        go-version: [1.20.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Build
+        run: ./scripts/build-wasm.sh
+      - name: Run npm package tests
+        run: ./scripts/run-tests-wasm.sh
+      - name: Run custom tester
+        run: ./scripts/run-tests-wasm.sh
+        env:
+          TESTER: true

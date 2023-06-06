@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a specific Kubernetes version and the details about the version.
+Retrieve a specific Kubernetes version and its details.
 
 USAGE:
   scw k8s version get <version-name ...> [arg=value ...]
 
 EXAMPLES:
-  Get the Kubernetes version 1.24.7
-    scw k8s version get 1.24.7
+  Get the Kubernetes version 1.27.0
+    scw k8s version get 1.27.0
 
 ARGS:
   version-name      Requested version name

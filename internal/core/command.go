@@ -35,6 +35,9 @@ type Command struct {
 	// DisableTelemetry disable telemetry for the command.
 	DisableTelemetry bool
 
+	// DisableAfterChecks disable checks that run after the command to avoid superfluous message
+	DisableAfterChecks bool
+
 	// Hidden hides the command form usage and auto-complete.
 	Hidden bool
 
@@ -75,6 +78,9 @@ type Command struct {
 	// WebURL will be used as url to open when the --web flag is passed
 	// Can contain template of values in request, ex: "url/{{ .Zone }}/{{ .ResourceID }}"
 	WebURL string
+
+  // WaitUsage override the usage for the -w (--wait) flag
+	WaitUsage string
 
 	// Aliases contains a list of aliases for a command
 	Aliases []string

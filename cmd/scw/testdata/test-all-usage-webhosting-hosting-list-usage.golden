@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all hostings.
+List all of your existing Web Hosting plans. Various filters are available to limit the results, including filtering by domain, status, tag and Project ID.
 
 USAGE:
   scw webhosting hosting list [arg=value ...]
@@ -10,12 +10,12 @@ EXAMPLES:
     scw webhosting hosting list project-id=a3244331-5d32-4e36-9bf9-b60233e201c7 organization-id=a3244331-5d32-4e36-9bf9-b60233e201c7
 
 ARGS:
-  [order-by]           Define the order of the returned hostings (created_at_asc | created_at_desc)
-  [tags.{index}]       Return hostings with these tags
-  [statuses.{index}]   Return hostings with these statuses (unknown_status | delivering | ready | deleting | error | locked)
-  [domain]             Return hostings with this domain
-  [project-id]         Return hostings from this project ID
-  [organization-id]    Return hostings from this organization ID
+  [order-by]           Sort order for Web Hosting plans in the response (created_at_asc | created_at_desc)
+  [tags.{index}]       Tags to filter for, only Web Hosting plans with matching tags will be returned
+  [statuses.{index}]   Statuses to filter for, only Web Hosting plans with matching statuses will be returned (unknown_status | delivering | ready | deleting | error | locked)
+  [domain]             Domain to filter for, only Web Hosting plans associated with this domain will be returned
+  [project-id]         Project ID to filter for, only Web Hosting plans from this Project will be returned
+  [organization-id]    Organization ID to filter for, only Web Hosting plans from this Organization will be returned
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:

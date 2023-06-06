@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the given placement group.
+Get the specified placement group.
 
 USAGE:
   scw instance placement-group get <placement-group-id ...> [arg=value ...]
 
 EXAMPLES:
-  Get a placement group with the given ID
+  Get a placement group with the specified ID
     scw instance placement-group get 6c15f411-3b6f-402d-8eba-ae24ef9254e9
 
 ARGS:

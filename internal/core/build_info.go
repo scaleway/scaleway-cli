@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -35,11 +33,10 @@ func (b *BuildInfo) MarshalJSON() ([]byte, error) {
 }
 
 const (
-	scwDisableCheckVersionEnv        = "SCW_DISABLE_CHECK_VERSION"
-	latestGithubReleaseURL           = "https://api.github.com/repos/scaleway/scaleway-cli/releases/latest"
-	latestVersionUpdateFileLocalName = "latest-cli-version"
-	latestVersionRequestTimeout      = 1 * time.Second
-	userAgentPrefix                  = "scaleway-cli"
+	scwDisableCheckVersionEnv   = "SCW_DISABLE_CHECK_VERSION"
+	latestGithubReleaseURL      = "https://api.github.com/repos/scaleway/scaleway-cli/releases/latest"
+	latestVersionRequestTimeout = 1 * time.Second
+	userAgentPrefix             = "scaleway-cli"
 )
 
 // IsRelease returns true when the version of the CLI is an official release:
@@ -62,21 +59,6 @@ func (b *BuildInfo) checkVersion(ctx context.Context) {
 		return
 	}
 
-	latestVersionUpdateFilePath := getLatestVersionUpdateFilePath(ExtractCacheDir(ctx))
-
-	// do nothing if last refresh at during the last 24h
-	if wasFileModifiedLast24h(latestVersionUpdateFilePath) {
-		ExtractLogger(ctx).Debug("version was already checked during past 24 hours")
-		return
-	}
-
-	// do nothing if we cannot create the file
-	err := createAndCloseFile(latestVersionUpdateFilePath)
-	if err != nil {
-		ExtractLogger(ctx).Debug(err.Error())
-		return
-	}
-
 	// pull latest version
 	latestVersion, err := getLatestVersion(ExtractHTTPClient(ctx))
 	if err != nil {
@@ -85,14 +67,10 @@ func (b *BuildInfo) checkVersion(ctx context.Context) {
 	}
 
 	if b.Version.LessThan(latestVersion) {
-		ExtractLogger(ctx).Warningf("a new version of scw is available (%s), beware that you are currently running %s\n", latestVersion, b.Version)
+		ExtractLogger(ctx).Warningf("A new version of scw is available (%s), beware that you are currently running %s\n", latestVersion, b.Version)
 	} else {
 		ExtractLogger(ctx).Debugf("version is up to date (%s)\n", b.Version)
 	}
-}
-
-func getLatestVersionUpdateFilePath(cacheDir string) string {
-	return filepath.Join(cacheDir, latestVersionUpdateFileLocalName)
 }
 
 // getLatestVersion attempt to read the latest version of the remote file at latestVersionFileURL.
@@ -126,30 +104,4 @@ func getLatestVersion(client *http.Client) (*version.Version, error) {
 	}
 
 	return version.NewSemver(strings.TrimPrefix(jsonBody.TagName, "v"))
-}
-
-// wasFileModifiedLast24h checks whether the file has been updated during last 24 hours.
-func wasFileModifiedLast24h(path string) bool {
-	stat, err := os.Stat(path)
-	if err != nil {
-		return false
-	}
-
-	yesterday := time.Now().AddDate(0, 0, -1)
-	lastUpdate := stat.ModTime()
-	return lastUpdate.After(yesterday)
-}
-
-// createAndCloseFile creates a file and closes it. It returns true on succeed, false on failure.
-func createAndCloseFile(path string) error {
-	err := os.MkdirAll(filepath.Dir(path), 0700)
-	if err != nil {
-		return fmt.Errorf("failed creating path %s: %s", path, err)
-	}
-	newFile, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0600)
-	if err != nil {
-		return fmt.Errorf("failed creating file %s: %s", path, err)
-	}
-
-	return newFile.Close()
 }

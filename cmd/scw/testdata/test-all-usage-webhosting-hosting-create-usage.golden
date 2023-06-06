@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a hosting.
+Order a Web Hosting plan, specifying the offer type required via the `offer_id` parameter.
 
 USAGE:
   scw webhosting hosting create [arg=value ...]
 
 ARGS:
-  [offer-id]             ID of the selected offer for the hosting
+  [offer-id]             ID of the selected offer for the Web Hosting plan
   [project-id]           Project ID to use. If none is passed the default project ID will be used
-  [email]                Contact email of the client for the hosting
-  [tags.{index}]         The tags of the hosting
-  [domain]               The domain name of the hosting
-  [option-ids.{index}]   IDs of the selected options for the hosting
+  [email]                Contact email for the Web Hosting client
+  [tags.{index}]         List of tags for the Web Hosting plan
+  [domain]               Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand
+  [option-ids.{index}]   IDs of any selected additional options for the Web Hosting plan
   [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:

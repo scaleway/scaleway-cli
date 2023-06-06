@@ -3,14 +3,13 @@ package namespaces
 import (
 	"os"
 
-	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
+	billing "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2alpha1"
 	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1beta1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
@@ -39,14 +38,18 @@ import (
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
+	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
 )
 
-var labs = os.Getenv("SCW_LABS") == "true"
+var labs = os.Getenv("SCW_ENABLE_LABS") == "true"
+
+// Enable beta in the code when products are in beta
+// var beta = os.Getenv(scw.ScwEnableBeta) == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
 // We can not put it in `core` package as it would result in a import cycle `core` -> `namespaces/autocomplete` -> `core`.
-func GetCommands(beta ...bool) *core.Commands {
+func GetCommands() *core.Commands {
 	// Import all commands available in CLI from various packages.
 	// NB: Merge order impacts scw usage sort.
 	commands := core.NewCommandsMerge(
@@ -83,6 +86,7 @@ func GetCommands(beta ...bool) *core.Commands {
 		mnq.GetCommands(),
 		alias.GetCommands(),
 		webhosting.GetCommands(),
+		billing.GetCommands(),
 	)
 	if labs {
 		commands.Merge(ipfs.GetCommands())
