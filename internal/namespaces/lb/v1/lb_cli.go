@@ -293,13 +293,6 @@ func lbLBCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "assign-flexible-ip",
-				Short:      `Defines whether to automatically assign a flexible public IP to lb. Default value is ` + "`" + `false` + "`" + ` (do not assign).`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "tags.{index}",
 				Short:      `List of tags for the Load Balancer`,
 				Required:   false,
@@ -2203,7 +2196,7 @@ func lbACLCreate() *core.Command {
 			},
 			{
 				Name:       "action.redirect.target",
-				Short:      `Redirect target. For a location redirect, you can use a URL e.g. ` + "`" + `https://scaleway.com` + "`" + `. Using a scheme name (e.g. ` + "`" + `https` + "`" + `, ` + "`" + `http` + "`" + `, ` + "`" + `ftp` + "`" + `, ` + "`" + `git` + "`" + `) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a ` + "`" + `location` + "`" + ` redirect to preserve parts of the original request in the redirection URL are {{ host }}, {{ query }}, {{ path }} and {{ scheme }}`,
+				Short:      `Redirect target. For a location redirect, you can use a URL e.g. ` + "`" + `https://scaleway.com` + "`" + `. Using a scheme name (e.g. ` + "`" + `https` + "`" + `, ` + "`" + `http` + "`" + `, ` + "`" + `ftp` + "`" + `, ` + "`" + `git` + "`" + `) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a ` + "`" + `location` + "`" + ` redirect to preserve parts of the original request in the redirection URL are \{\{ host \}\}, \{\{ query \}\}, \{\{ path \}\} and \{\{ scheme \}\}`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2350,7 +2343,7 @@ func lbACLUpdate() *core.Command {
 			},
 			{
 				Name:       "action.redirect.target",
-				Short:      `Redirect target. For a location redirect, you can use a URL e.g. ` + "`" + `https://scaleway.com` + "`" + `. Using a scheme name (e.g. ` + "`" + `https` + "`" + `, ` + "`" + `http` + "`" + `, ` + "`" + `ftp` + "`" + `, ` + "`" + `git` + "`" + `) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a ` + "`" + `location` + "`" + ` redirect to preserve parts of the original request in the redirection URL are {{ host }}, {{ query }}, {{ path }} and {{ scheme }}`,
+				Short:      `Redirect target. For a location redirect, you can use a URL e.g. ` + "`" + `https://scaleway.com` + "`" + `. Using a scheme name (e.g. ` + "`" + `https` + "`" + `, ` + "`" + `http` + "`" + `, ` + "`" + `ftp` + "`" + `, ` + "`" + `git` + "`" + `) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a ` + "`" + `location` + "`" + ` redirect to preserve parts of the original request in the redirection URL are \{\{ host \}\}, \{\{ query \}\}, \{\{ path \}\} and \{\{ scheme \}\}`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2496,7 +2489,7 @@ func lbACLSet() *core.Command {
 			},
 			{
 				Name:       "acls.{index}.action.redirect.target",
-				Short:      `Redirect target. For a location redirect, you can use a URL e.g. ` + "`" + `https://scaleway.com` + "`" + `. Using a scheme name (e.g. ` + "`" + `https` + "`" + `, ` + "`" + `http` + "`" + `, ` + "`" + `ftp` + "`" + `, ` + "`" + `git` + "`" + `) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a ` + "`" + `location` + "`" + ` redirect to preserve parts of the original request in the redirection URL are {{ host }}, {{ query }}, {{ path }} and {{ scheme }}`,
+				Short:      `Redirect target. For a location redirect, you can use a URL e.g. ` + "`" + `https://scaleway.com` + "`" + `. Using a scheme name (e.g. ` + "`" + `https` + "`" + `, ` + "`" + `http` + "`" + `, ` + "`" + `ftp` + "`" + `, ` + "`" + `git` + "`" + `) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a ` + "`" + `location` + "`" + ` redirect to preserve parts of the original request in the redirection URL are \{\{ host \}\}, \{\{ query \}\}, \{\{ path \}\} and \{\{ scheme \}\}`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
