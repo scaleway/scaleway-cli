@@ -75,6 +75,10 @@ type Command struct {
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
 
+	// WebURL will be used as url to open when the --web flag is passed
+	// Can contain template of values in request, ex: "url/{{ .Zone }}/{{ .ResourceID }}"
+	WebURL string
+
 	// WaitUsage override the usage for the -w (--wait) flag
 	WaitUsage string
 

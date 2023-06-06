@@ -144,13 +144,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, group
 	} else {
 		// If command is not runnable we create a default run function that
 		// will print usage of the parent command and exit with code 1
-		cobraCmd.RunE = func(cmd *cobra.Command, args []string) error {
-			err := cmd.Help()
-			if err != nil {
-				return err
-			}
-			return &CliError{Empty: true, Code: 1}
-		}
+		cobraCmd.RunE = cobraRunHelp(cmd)
 	}
 
 	// If a command has no groups, we add it to the available group.
@@ -175,6 +169,10 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, group
 			waitUsage = cmd.WaitUsage
 		}
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, waitUsage)
+	}
+
+	if commandHasWeb(cmd) {
+		cobraCmd.PersistentFlags().Bool("web", false, "open console page for the current ressource")
 	}
 }
 
