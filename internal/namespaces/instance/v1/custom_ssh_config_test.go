@@ -21,8 +21,8 @@ func Test_SSHConfigInstall(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGoldenAndReplacePatterns(
 				core.GoldenReplacement{
-					Pattern:     regexp.MustCompile("/tmp/scw.*/"),
-					Replacement: "/tmp/scw/",
+					Pattern:     regexp.MustCompile("generated to .*scaleway.config"),
+					Replacement: "generated to /tmp/scw/.ssh/scaleway.config",
 				},
 			),
 			core.TestCheckExitCode(0),
@@ -62,8 +62,8 @@ func Test_SSHConfigInstall(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGoldenAndReplacePatterns(
 				core.GoldenReplacement{
-					Pattern:     regexp.MustCompile("/tmp/scw.*/"),
-					Replacement: "/tmp/scw/",
+					Pattern:     regexp.MustCompile("generated to .*scaleway.config"),
+					Replacement: "generated to /tmp/scw/.ssh/scaleway.config",
 				},
 			),
 			core.TestCheckExitCode(0),
