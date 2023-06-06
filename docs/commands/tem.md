@@ -251,7 +251,7 @@ scw tem email list [arg=value ...]
 | since |  | (Optional) List emails created after this date |
 | until |  | (Optional) List emails created before this date |
 | mail-from |  | (Optional) List emails sent with this sender's email address |
-| ~~mail-to~~ | Deprecated | (Deprecated) List emails sent to this recipient's email address |
+| ~~mail-to~~ | Deprecated | List emails sent to this recipient's email address |
 | mail-rcpt |  | (Optional) List emails sent to this recipient's email address |
 | statuses.{index} | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled` | (Optional) List emails with any of these statuses |
 | subject |  | (Optional) List emails with this subject |

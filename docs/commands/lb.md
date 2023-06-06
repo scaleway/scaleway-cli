@@ -93,7 +93,7 @@ scw lb acl create [arg=value ...]
 | name | Required<br />Default: `<generated>` | ACL name |
 | action.type | One of: `allow`, `deny`, `redirect` | Action to take when incoming traffic matches an ACL filter |
 | action.redirect.type | One of: `location`, `scheme` | Redirect type |
-| action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are {{ host }}, {{ query }}, {{ path }} and {{ scheme }} |
+| action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{ host \}\}, \{\{ query \}\}, \{\{ path \}\} and \{\{ scheme \}\} |
 | action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
 | match.ip-subnet.{index} |  | List of IPs or CIDR v4/v6 addresses to filter for from the client side |
 | match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends |
@@ -186,7 +186,7 @@ scw lb acl set [arg=value ...]
 | acls.{index}.name | Required | ACL name |
 | acls.{index}.action.type | One of: `allow`, `deny`, `redirect` | Action to take when incoming traffic matches an ACL filter |
 | acls.{index}.action.redirect.type | One of: `location`, `scheme` | Redirect type |
-| acls.{index}.action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are {{ host }}, {{ query }}, {{ path }} and {{ scheme }} |
+| acls.{index}.action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{ host \}\}, \{\{ query \}\}, \{\{ path \}\} and \{\{ scheme \}\} |
 | acls.{index}.action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
 | acls.{index}.match.ip-subnet.{index} |  | List of IPs or CIDR v4/v6 addresses to filter for from the client side |
 | acls.{index}.match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends |
@@ -219,7 +219,7 @@ scw lb acl update <acl-id ...> [arg=value ...]
 | name | Required | ACL name |
 | action.type | One of: `allow`, `deny`, `redirect` | Action to take when incoming traffic matches an ACL filter |
 | action.redirect.type | One of: `location`, `scheme` | Redirect type |
-| action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are {{ host }}, {{ query }}, {{ path }} and {{ scheme }} |
+| action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{ host \}\}, \{\{ query \}\}, \{\{ path \}\} and \{\{ scheme \}\} |
 | action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
 | match.ip-subnet.{index} |  | List of IPs or CIDR v4/v6 addresses to filter for from the client side |
 | match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends |
@@ -402,6 +402,7 @@ scw lb backend list-statistics <lb-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | lb-id | Required | Load Balancer ID |
+| backend-id |  | ID of the backend |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -788,7 +789,6 @@ scw lb ip create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | reverse |  | Reverse DNS (domain name) for the IP address |
-| is-ipv6 |  | If true, creates a Flexible IP with an ipv6 address |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -901,8 +901,6 @@ scw lb lb create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name for the Load Balancer |
 | description |  | Description for the Load Balancer |
 | ~~ip-id~~ | Deprecated | ID of an existing flexible IP address to attach to the Load Balancer |
-| assign-flexible-ip |  | Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign). |
-| ip-ids.{index} |  | List of IP IDs to attach to the Load Balancer |
 | assign-flexible-ip |  | Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign). |
 | tags.{index} |  | List of tags for the Load Balancer |
 | type | Default: `LB-S`<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L` | Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types |
