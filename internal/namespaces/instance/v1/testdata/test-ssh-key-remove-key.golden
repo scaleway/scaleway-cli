@@ -1,0 +1,10 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Removed keys
+NAME  TYPE         KEY
+key2  ssh-ed25519  AAAAC3NzaC1lZDI1.
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "Removed keys\nNAME  TYPE         KEY\nkey2  ssh-ed25519  AAAAC3NzaC1lZDI1",
+  "details": ""
+}

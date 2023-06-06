@@ -180,6 +180,18 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
 
+	// SSH Utilities
+
+	human.RegisterMarshalerFunc([]*SSHKeyFormat(nil), marshalSSHKeys)
+
+	cmds.Merge(core.NewCommands(
+		instanceSSH(),
+		sshAddKeyCommand(),
+		sshConfigInstallCommand(),
+		sshListKeysCommand(),
+		sshRemoveKeyCommand(),
+	))
+
 	return cmds
 }
 

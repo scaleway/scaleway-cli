@@ -14,6 +14,7 @@ AVAILABLE COMMANDS:
   server          Instance management commands
   server-type     Instance type management commands
   snapshot        Snapshot management commands
+  ssh             SSH Utilities
   user-data       User data management commands
   volume          Volume management commands
   volume-type     Volume type management commands
