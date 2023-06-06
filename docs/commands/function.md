@@ -496,7 +496,7 @@ Function namespace management commands.
 
 ### Create a new namespace
 
-Create a new namespace in a specified Organization or Project.
+Create a new namespace in a specified Organization or Proejct.
 
 **Usage:**
 
