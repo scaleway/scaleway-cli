@@ -2,7 +2,7 @@
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Key will be added to server's tags and added to root user on next restart.
 Key is expected in openssh format "(format) (key) (comment)".
-The comment will be used as key name, otherwise its name will be its index in key list
+The comment will be used as key name or generated
 Lookup /root/.ssh/authorized_keys on your server for more information
 
 USAGE:

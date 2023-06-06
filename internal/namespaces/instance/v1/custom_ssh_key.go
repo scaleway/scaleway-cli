@@ -75,10 +75,10 @@ func sshAddKeyCommand() *core.Command {
 		Resource:  "ssh",
 		Verb:      "add-key",
 		Groups:    []string{"utility"},
-		Short:     "Add an ssh-key to a server",
+		Short:     "Add a public key to a server",
 		Long: `Key will be added to server's tags and added to root user on next restart.
 Key is expected in openssh format "(format) (key) (comment)".
-The comment will be used as key name, otherwise its name will be its index in key list
+The comment will be used as key name or generated
 Lookup /root/.ssh/authorized_keys on your server for more information`,
 		ArgsType: reflect.TypeOf(sshAddKeyRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -142,9 +142,9 @@ func sshListKeysCommand() *core.Command {
 		Resource:  "ssh",
 		Verb:      "list-keys",
 		Groups:    []string{"utility"},
-		Short:     "List ssh keys added to a server",
+		Short:     "List manually added public keys",
 		Long: `List only keys added manually to a server using tags.
-The key comment is used as key name, otherwise its name is its index in key list
+The key comment is used as key name or generated
 Lookup /root/.ssh/authorized_keys on your server for more information`,
 		ArgsType: reflect.TypeOf(sshListKeysRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -195,7 +195,7 @@ func sshRemoveKeyCommand() *core.Command {
 		Resource:  "ssh",
 		Verb:      "remove-key",
 		Groups:    []string{"utility"},
-		Short:     "Remove an ssh-key from a server",
+		Short:     "Remove a manually added public key from a server",
 		Long: `Key will be remove from server's tags and removed from root user on next restart.
 Keys are identified by their comment as in openssh format.
 Lookup /root/.ssh/authorized_keys on your server for more information`,

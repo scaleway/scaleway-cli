@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 List only keys added manually to a server using tags.
-The key comment is used as key name, otherwise its name is its index in key list
+The key comment is used as key name or generated
 Lookup /root/.ssh/authorized_keys on your server for more information
 
 USAGE:

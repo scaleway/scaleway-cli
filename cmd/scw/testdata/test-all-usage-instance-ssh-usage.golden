@@ -8,12 +8,13 @@ USAGE:
   scw instance ssh <command>
 
 UTILITY COMMANDS:
-  add-key        Add an ssh-key to a server
-  list-keys      List ssh keys added to a server
-  remove-key     Remove an ssh-key from a server
+  add-key        Add a public key to a server
+  list-keys      List manually added public keys
+  remove-key     Remove a manually added public key from a server
 
 WORKFLOW COMMANDS:
   install-config Install a ssh config with all your servers as host
+It generate hosts for instance servers, baremetal, apple-silicon and bastions
 
 FLAGS:
   -h, --help   help for ssh

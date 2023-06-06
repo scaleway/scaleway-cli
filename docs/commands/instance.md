@@ -79,10 +79,12 @@ Instance API.
   - [Update a snapshot](#update-a-snapshot)
   - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
 - [SSH Utilities](#ssh-utilities)
-  - [Add an ssh-key to a server](#add-an-ssh-key-to-a-server)
-  - [Install a ssh config with all your servers as host](#install-a-ssh-config-with-all-your-servers-as-host)
-  - [List ssh keys added to a server](#list-ssh-keys-added-to-a-server)
-  - [Remove an ssh-key from a server](#remove-an-ssh-key-from-a-server)
+  - [Add a public key to a server](#add-a-public-key-to-a-server)
+  - [Install a ssh config with all your servers as host
+It generate hosts for instance servers, baremetal, apple-silicon and bastions](#install-a-ssh-config-with-all-your-servers-as-host
+it-generate-hosts-for-instance-servers,-baremetal,-apple-silicon-and-bastions)
+  - [List manually added public keys](#list-manually-added-public-keys)
+  - [Remove a manually added public key from a server](#remove-a-manually-added-public-key-from-a-server)
 - [User data management commands](#user-data-management-commands)
   - [Delete user data](#delete-user-data)
   - [Get user data](#get-user-data)
@@ -2600,11 +2602,11 @@ Command utilities around server SSH
 - Generate ssh config
 
 
-### Add an ssh-key to a server
+### Add a public key to a server
 
 Key will be added to server's tags and added to root user on next restart.
 Key is expected in openssh format "(format) (key) (comment)".
-The comment will be used as key name, otherwise its name will be its index in key list
+The comment will be used as key name or generated
 Lookup /root/.ssh/authorized_keys on your server for more information
 
 **Usage:**
@@ -2625,6 +2627,7 @@ scw instance ssh add-key [arg=value ...]
 
 
 ### Install a ssh config with all your servers as host
+It generate hosts for instance servers, baremetal, apple-silicon and bastions
 
 Path of the config will be $HOME/.ssh/scaleway.config
 
@@ -2644,10 +2647,10 @@ scw instance ssh install-config [arg=value ...]
 
 
 
-### List ssh keys added to a server
+### List manually added public keys
 
 List only keys added manually to a server using tags.
-The key comment is used as key name, otherwise its name is its index in key list
+The key comment is used as key name or generated
 Lookup /root/.ssh/authorized_keys on your server for more information
 
 **Usage:**
@@ -2666,7 +2669,7 @@ scw instance ssh list-keys <server-id ...> [arg=value ...]
 
 
 
-### Remove an ssh-key from a server
+### Remove a manually added public key from a server
 
 Key will be remove from server's tags and removed from root user on next restart.
 Keys are identified by their comment as in openssh format.
