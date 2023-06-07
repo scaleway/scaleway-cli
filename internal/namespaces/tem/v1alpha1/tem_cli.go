@@ -273,7 +273,7 @@ func temEmailList() *core.Command {
 			},
 			{
 				Name:       "mail-to",
-				Short:      `(Deprecated) List emails sent to this recipient's email address`,
+				Short:      `List emails sent to this recipient's email address`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
