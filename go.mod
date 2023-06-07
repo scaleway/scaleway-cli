@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/assert v1.0.0
 	github.com/buildpacks/pack v0.30.0-pre2.0.20230525202136-52902b093e04
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/charmbracelet/bubbletea v0.24.1
+	github.com/charmbracelet/bubbletea v0.24.2
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.4-0.20230313162750-1ae8d489ac81
 	github.com/dnaeon/go-vcr v1.2.0
