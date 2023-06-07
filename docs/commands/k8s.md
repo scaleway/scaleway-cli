@@ -14,6 +14,7 @@ Kubernetes API.
   - [Update a Cluster](#update-a-cluster)
   - [Upgrade a Cluster](#upgrade-a-cluster)
   - [Wait for a cluster to reach a stable state](#wait-for-a-cluster-to-reach-a-stable-state)
+- [Cluster type management commands](#cluster-type-management-commands)
 - [Manage your Kubernetes Kapsule cluster's kubeconfig files](#manage-your-kubernetes-kapsule-cluster's-kubeconfig-files)
   - [Retrieve a kubeconfig](#retrieve-a-kubeconfig)
   - [Install a kubeconfig](#install-a-kubeconfig)
@@ -491,6 +492,24 @@ Wait for a cluster to reach a stable state
 scw k8s cluster wait 11111111-1111-1111-1111-111111111111
 ```
 
+
+
+
+## Cluster type management commands
+
+All cluster types available in a specified region
+A cluster type represents the different commercial types of clusters offered by Scaleway.
+
+
+All cluster types available in a specified region
+A cluster type represents the different commercial types of clusters offered by Scaleway.
+
+
+**Usage:**
+
+```
+scw k8s cluster-type
+```
 
 
 
