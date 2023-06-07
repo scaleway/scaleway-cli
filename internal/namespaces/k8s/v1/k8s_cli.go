@@ -24,6 +24,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sPool(),
 		k8sNode(),
 		k8sVersion(),
+		k8sClusterType(),
 		k8sClusterList(),
 		k8sClusterCreate(),
 		k8sClusterGet(),
@@ -98,6 +99,17 @@ It comprises a major version ` + "`" + `x` + "`" + `, a minor version ` + "`" + 
 `,
 		Namespace: "k8s",
 		Resource:  "version",
+	}
+}
+
+func k8sClusterType() *core.Command {
+	return &core.Command{
+		Short: `Cluster type management commands`,
+		Long: `All cluster types available in a specified region
+A cluster type represents the different commercial types of clusters offered by Scaleway.
+`,
+		Namespace: "k8s",
+		Resource:  "cluster-type",
 	}
 }
 
