@@ -2077,6 +2077,13 @@ func lbBackendListStatistics() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			{
+				Name:       "backend-id",
+				Short:      `ID of the backend`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
