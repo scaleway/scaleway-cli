@@ -286,13 +286,6 @@ func lbLBCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "ip-ids.{index}",
-				Short:      `List of IP IDs to attach to the Load Balancer`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "tags.{index}",
 				Short:      `List of tags for the Load Balancer`,
 				Required:   false,
@@ -564,13 +557,6 @@ func lbIPCreate() *core.Command {
 			{
 				Name:       "reverse",
 				Short:      `Reverse DNS (domain name) for the IP address`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "is-ipv6",
-				Short:      `If true, creates a Flexible IP with an ipv6 address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
