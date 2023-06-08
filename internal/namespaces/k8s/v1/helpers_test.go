@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	kapsuleVersion = "1.17.3"
+	kapsuleVersion = "1.27.1"
 )
 
 //
