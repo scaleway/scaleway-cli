@@ -65,7 +65,7 @@ var serverTypes = []string{
 	"POP2-HC-64C-128G",
 }
 
-func completeServerType(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+func completeServerType(_ context.Context, prefix string) core.AutocompleteSuggestions {
 	suggestions := []string(nil)
 
 	for _, serverType := range serverTypes {
