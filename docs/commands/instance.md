@@ -1699,7 +1699,7 @@ scw instance server create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | image | Required<br />Default: `ubuntu_jammy` | Image ID or label of the server |
-| type | Required<br />Default: `DEV1-S`<br />One of: `GP1-XS`, `GP1-S`, `GP1-M`, `GP1-L`, `GP1-XL`, `DEV1-S`, `DEV1-M`, `DEV1-L`, `DEV1-XL`, `RENDER-S`, `STARDUST1-S`, `ENT1-XXS`, `ENT1-XS`, `ENT1-S`, `ENT1-M`, `ENT1-L`, `ENT1-XL`, `ENT1-2XL`, `PRO2-XXS`, `PRO2-XS`, `PRO2-S`, `PRO2-M`, `PRO2-L`, `PLAY2-PICO`, `PLAY2-NANO`, `PLAY2-MICRO`, `GPU-3070-S` | Server commercial type |
+| type | Required<br />Default: `DEV1-S` | Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/) |
 | name | Default: `<generated>` | Server name |
 | root-volume |  | Local root volume of the server |
 | additional-volumes.{index} |  | Additional local and block volumes attached to your server |
