@@ -49,7 +49,7 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		if err != nil {
 			return reflect.Value{}, fmt.Errorf("trying to access array %s but %s is not a numerical index", strings.Join(parents, "."), path[0])
 		}
-		if idx > value.Len() {
+		if idx >= value.Len() {
 			return reflect.Value{}, fmt.Errorf("trying to access array %s but %d is out of range", strings.Join(parents, "."), idx)
 		}
 		return getValue(value.Index(idx), append(parents, path[0]), path[1:])
