@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
-	"github.com/karrick/tparse"
+	"github.com/karrick/tparse/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
@@ -67,6 +67,10 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		if absoluteErr == nil {
 			*(dest.(*time.Time)) = absoluteTimeParsed
 			return nil
+		}
+
+		if len(value) == 0 {
+			return fmt.Errorf("empty time given")
 		}
 
 		// Handle relative time
