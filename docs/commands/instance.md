@@ -1699,7 +1699,7 @@ scw instance server create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | image | Required<br />Default: `ubuntu_jammy` | Image ID or label of the server |
-| type | Required<br />Default: `DEV1-S`<br />One of: `GP1-XS`, `GP1-S`, `GP1-M`, `GP1-L`, `GP1-XL`, `DEV1-S`, `DEV1-M`, `DEV1-L`, `DEV1-XL`, `RENDER-S`, `STARDUST1-S`, `ENT1-XXS`, `ENT1-XS`, `ENT1-S`, `ENT1-M`, `ENT1-L`, `ENT1-XL`, `ENT1-2XL`, `PRO2-XXS`, `PRO2-XS`, `PRO2-S`, `PRO2-M`, `PRO2-L`, `PLAY2-PICO`, `PLAY2-NANO`, `PLAY2-MICRO`, `GPU-3070-S` | Server commercial type |
+| type | Required<br />Default: `DEV1-S`<br />One of: `GP1-XS`, `GP1-S`, `GP1-M`, `GP1-L`, `GP1-XL`, `DEV1-S`, `DEV1-M`, `DEV1-L`, `DEV1-XL`, `ENT1-XXS`, `ENT1-XS`, `ENT1-S`, `ENT1-M`, `ENT1-L`, `ENT1-XL`, `ENT1-2XL`, `RENDER-S`, `STARDUST1-S`, `GPU-3070-S`, `PRO2-XXS`, `PRO2-XS`, `PRO2-S`, `PRO2-M`, `PRO2-L`, `PLAY2-PICO`, `PLAY2-NANO`, `PLAY2-MICRO`, `POP2-2C-8G`, `POP2-4C-16G`, `POP2-8C-32G`, `POP2-16C-64G`, `POP2-32C-128G`, `POP2-64C-256G`, `POP2-HM-2C-16G`, `POP2-HM-4C-32G`, `POP2-HM-8C-64G`, `POP2-HM-16C-128G`, `POP2-HM-32C-256G`, `POP2-HM-64C-512G`, `POP2-HC-2C-4G`, `POP2-HC-4C-8G`, `POP2-HC-8C-16G`, `POP2-HC-16C-32G`, `POP2-HC-32C-63G`, `POP2-HC-64C-128G` | Server commercial type |
 | name | Default: `<generated>` | Server name |
 | root-volume |  | Local root volume of the server |
 | additional-volumes.{index} |  | Additional local and block volumes attached to your server |
