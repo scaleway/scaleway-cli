@@ -271,6 +271,12 @@ func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *meta) func(s 
 			return
 		}
 
+		// command is nil if it does not have a Run function
+		// ex: instance -h
+		if meta.command == nil {
+			return
+		}
+
 		autoCompleteCache.Update(meta.command.Namespace)
 
 		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
