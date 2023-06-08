@@ -58,15 +58,15 @@ func serverCreateCommand() *core.Command {
 				AutoCompleteFunc: instanceServerCreateImageAutoCompleteFunc,
 			},
 			{
-				Name:       "type",
-				Short:      "Server commercial type",
-				Default:    core.DefaultValueSetter("DEV1-S"),
-				Required:   true,
-				EnumValues: serverTypes,
+				Name:     "type",
+				Short:    "Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/)",
+				Default:  core.DefaultValueSetter("DEV1-S"),
+				Required: true,
 				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
 					// Allow all commercial types
 					return nil
 				},
+				AutoCompleteFunc: completeServerType,
 			},
 			{
 				Name:    "name",

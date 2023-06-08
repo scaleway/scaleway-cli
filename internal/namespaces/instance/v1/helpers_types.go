@@ -1,5 +1,12 @@
 package instance
 
+import (
+	"context"
+	"strings"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+)
+
 var serverTypes = []string{
 	"GP1-XS",
 	"GP1-S",
@@ -56,4 +63,16 @@ var serverTypes = []string{
 	"POP2-HC-16C-32G",
 	"POP2-HC-32C-63G",
 	"POP2-HC-64C-128G",
+}
+
+func completeServerType(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+	suggestions := []string(nil)
+
+	for _, serverType := range serverTypes {
+		if strings.HasPrefix(serverType, prefix) {
+			suggestions = append(suggestions, serverType)
+		}
+	}
+
+	return suggestions
 }
