@@ -474,7 +474,7 @@ Load Balancers are used to forward traffic to the right node based on the node s
 
 ### Create a new Database Instance endpoint
 
-Create a new endpoint for a Database Instance. You can add `load_balancer` and `private_network` specifications to the body of the request. Note that this action replaces your current endpoint, which means you might need to update any environment configurations that point to the old endpoint.
+Create a new endpoint for a Database Instance. You can add `load_balancer` and `private_network` specifications to the body of the request.
 
 **Usage:**
 

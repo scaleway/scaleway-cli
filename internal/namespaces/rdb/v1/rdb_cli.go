@@ -2663,7 +2663,7 @@ func rdbSnapshotRestore() *core.Command {
 func rdbEndpointCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new Database Instance endpoint`,
-		Long:      `Create a new endpoint for a Database Instance. You can add ` + "`" + `load_balancer` + "`" + ` and ` + "`" + `private_network` + "`" + ` specifications to the body of the request. Note that this action replaces your current endpoint, which means you might need to update any environment configurations that point to the old endpoint.`,
+		Long:      `Create a new endpoint for a Database Instance. You can add ` + "`" + `load_balancer` + "`" + ` and ` + "`" + `private_network` + "`" + ` specifications to the body of the request.`,
 		Namespace: "rdb",
 		Resource:  "endpoint",
 		Verb:      "create",
