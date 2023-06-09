@@ -33,6 +33,8 @@ var (
 	BetaMode  = os.Getenv(scw.ScwEnableBeta) == "true"
 )
 
+// cleanup does the recover
+// If name change, must be reported in internal/sentry
 func cleanup(buildInfo *core.BuildInfo) {
 	if err := recover(); err != nil {
 		fmt.Println(sentry.ErrorBanner)
@@ -41,7 +43,7 @@ func cleanup(buildInfo *core.BuildInfo) {
 
 		// This will send an anonymous report on Scaleway's sentry.
 		if buildInfo.IsRelease() {
-			sentry.RecoverPanicAndSendReport(buildInfo, err)
+			sentry.RecoverPanicAndSendReport(buildInfo.Tags(), buildInfo.Version.String(), err)
 		}
 	}
 }

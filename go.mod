@@ -13,7 +13,7 @@ require (
 	github.com/docker/docker v24.0.2+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.15.0
-	github.com/getsentry/raven-go v0.2.0
+	github.com/getsentry/sentry-go v0.20.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/gorilla/websocket v1.5.0
 	github.com/hashicorp/go-version v1.6.0
@@ -72,7 +72,6 @@ require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/buildpacks/imgutil v0.0.0-20230428141433-24db5a78c900 // indirect
 	github.com/buildpacks/lifecycle v0.17.0-pre.2 // indirect
-	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
 	github.com/chrismellard/docker-credential-acr-env v0.0.0-20230304212654-82a0ddb27589 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/containerd/containerd v1.7.0 // indirect

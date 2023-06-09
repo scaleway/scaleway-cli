@@ -14,6 +14,7 @@ import (
 	"github.com/c-bata/go-prompt"
 	"github.com/scaleway/scaleway-cli/v2/internal/cache"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/spf13/cobra"
 )
 
@@ -255,6 +256,9 @@ func NewShellCompleter(ctx context.Context) *Completer {
 func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *meta) func(s string) {
 	return func(s string) {
 		args := strings.Fields(s)
+
+		sentry.AddCommandContext(strings.Join(removeOptions(args), " "))
+
 		rootCmd.SetArgs(meta.CliConfig.Alias.ResolveAliases(args))
 
 		err := rootCmd.Execute()

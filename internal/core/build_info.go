@@ -53,6 +53,15 @@ func (b *BuildInfo) GetUserAgent() string {
 	return userAgentPrefix
 }
 
+func (b *BuildInfo) Tags() map[string]string {
+	return map[string]string{
+		"version":    b.Version.String(),
+		"go_arch":    b.GoArch,
+		"go_os":      b.GoOS,
+		"go_version": b.GoVersion,
+	}
+}
+
 func (b *BuildInfo) checkVersion(ctx context.Context) {
 	if !b.IsRelease() || ExtractEnv(ctx, scwDisableCheckVersionEnv) == "true" {
 		ExtractLogger(ctx).Debug("skipping check version")
