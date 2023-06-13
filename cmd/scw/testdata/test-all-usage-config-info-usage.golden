@@ -23,4 +23,4 @@ GLOBAL FLAGS:
 
 SEE ALSO:
   # Config management help
-  scw config --help
+  scw config
