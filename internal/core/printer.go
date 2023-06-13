@@ -1,9 +1,12 @@
 package core
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"text/template"
@@ -12,6 +15,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/terraform"
 )
 
 // Type defines an formatter format.
@@ -28,6 +32,9 @@ const (
 	// PrinterTypeYAML defines a YAML formatter.
 	PrinterTypeYAML = PrinterType("yaml")
 
+	// PrinterTypeYAML defines a Terraform formatter.
+	PrinterTypeTerraform = PrinterType("terraform")
+
 	// PrinterTypeHuman defines a human readable formatted formatter.
 	PrinterTypeHuman = PrinterType("human")
 
@@ -39,6 +46,9 @@ const (
 
 	// Option to enable pretty output on json printer.
 	PrinterOptJSONPretty = "pretty"
+
+	// Option to enable pretty output on json printer.
+	PrinterOptTerraformWithChildren = "with-children"
 )
 
 type PrinterConfig struct {
@@ -75,6 +85,11 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 		}
 	case PrinterTypeYAML.String():
 		printer.printerType = PrinterTypeYAML
+	case PrinterTypeTerraform.String():
+		err := setupTerraformPrinter(printer, printerOpt)
+		if err != nil {
+			return nil, err
+		}
 	case PrinterTypeTemplate.String():
 		err := setupTemplatePrinter(printer, printerOpt)
 		if err != nil {
@@ -97,6 +112,28 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 	default:
 		return fmt.Errorf("invalid option %s for json outout. Valid options are: %s", opts, PrinterOptJSONPretty)
 	}
+	return nil
+}
+
+func setupTerraformPrinter(printer *Printer, opts string) error {
+	printer.printerType = PrinterTypeTerraform
+	switch opts {
+	case PrinterOptTerraformWithChildren:
+		printer.terraformWithChildren = true
+	case "":
+	default:
+		return fmt.Errorf("invalid option %s for terraform outout. Valid options are: %s", opts, PrinterOptTerraformWithChildren)
+	}
+
+	terraformVersion, err := terraform.GetVersion()
+	if err != nil {
+		return err
+	}
+
+	if terraformVersion.Major < 1 || (terraformVersion.Major == 1 && terraformVersion.Minor < 5) {
+		return fmt.Errorf("terraform version %s is not supported. Please upgrade to terraform >= 1.5.0", terraformVersion.String())
+	}
+
 	return nil
 }
 
@@ -139,6 +176,9 @@ type Printer struct {
 	// Enable pretty print on json output
 	jsonPretty bool
 
+	// Enable children fetching on terraform output
+	terraformWithChildren bool
+
 	// go template to use on template output
 	template *template.Template
 
@@ -163,6 +203,8 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 		err = p.printJSON(data)
 	case PrinterTypeYAML:
 		err = p.printYAML(data)
+	case PrinterTypeTerraform:
+		err = p.printTerraform(data)
 	case PrinterTypeTemplate:
 		err = p.printTemplate(data)
 	default:
@@ -281,6 +323,120 @@ func (p *Printer) printYAML(data interface{}) error {
 	encoder := yaml.NewEncoder(writer)
 
 	return encoder.Encode(data)
+}
+
+type TerraformImportTemplateData struct {
+	ResourceID   string
+	ResourceName string
+}
+
+const terraformImportTemplate = `
+terraform {
+	required_providers {
+	  	scaleway = {
+			source = "scaleway/scaleway"
+	  	}
+	}
+	required_version = ">= 0.13"
+}
+  
+import {
+	# ID of the cloud resource
+	# Check provider documentation for importable resources and format
+	id = "{{ .ResourceID }}"
+  
+	# Resource address
+	to = {{ .ResourceName }}.main
+}  
+`
+
+func (p *Printer) printTerraform(data interface{}) error {
+	writer := p.stdout
+	if _, isError := data.(error); isError {
+		return p.printHuman(data, nil)
+	}
+
+	dataValue := reflect.ValueOf(data)
+	dataType := dataValue.Type().Elem()
+
+	for i, association := range terraform.Associations {
+		iValue := reflect.ValueOf(i)
+		iType := iValue.Type().Elem()
+		if dataType != iType {
+			continue
+		}
+
+		tmpl, err := template.New("terraform").Parse(association.ImportFormat)
+		if err != nil {
+			return err
+		}
+
+		var resourceID bytes.Buffer
+		err = tmpl.Execute(&resourceID, data)
+		if err != nil {
+			return err
+		}
+
+		// Create temporary directory
+		tmpDir, err := os.MkdirTemp("", "scw-*")
+		if err != nil {
+			return err
+		}
+
+		tmplFile, err := os.CreateTemp(tmpDir, "*.tf")
+		if err != nil {
+			return err
+		}
+		defer os.Remove(tmplFile.Name())
+
+		tmpl, err = template.New("terraform").Parse(terraformImportTemplate)
+		if err != nil {
+			return err
+		}
+		// Write the terraform file
+		err = tmpl.Execute(tmplFile, TerraformImportTemplateData{
+			ResourceID:   resourceID.String(),
+			ResourceName: association.ResourceName,
+		})
+		if err != nil {
+			return err
+		}
+
+		// Close the file
+		err = tmplFile.Close()
+		if err != nil {
+			return err
+		}
+
+		res, err := terraform.Init(tmpDir)
+		if err != nil {
+			return err
+		}
+		if res.ExitCode != 0 {
+			return fmt.Errorf("terraform init failed: %s", res.Stderr)
+		}
+
+		res, err = terraform.GenerateConfig(tmpDir, "output.tf")
+		if err != nil {
+			return err
+		}
+		if res.ExitCode != 0 {
+			return fmt.Errorf("terraform generate failed: %s", res.Stderr)
+		}
+
+		// Print the generated config
+		data, err := os.ReadFile(filepath.Join(tmpDir, "output.tf"))
+		if err != nil {
+			return err
+		}
+
+		_, err = writer.Write(data)
+		return err
+	}
+
+	return p.printHuman(&CliError{
+		Err: fmt.Errorf("no terraform association found for this resource type (%s)", dataType),
+	}, nil)
 }
 
 func (p *Printer) printTemplate(data interface{}) error {
