@@ -22,6 +22,7 @@ func LintCommands(commands *core.Commands) []error {
 	errors = append(errors, testArgSpecInvalidError(commands)...)
 	errors = append(errors, testArgSpecMissingError(commands)...)
 	errors = append(errors, testCommandInvalidJSONExampleError(commands)...)
+	errors = append(errors, testCommandInvalidSeeAlsoError(commands)...)
 
 	errors = filterIgnore(errors)
 
