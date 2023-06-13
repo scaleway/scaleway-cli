@@ -2,6 +2,7 @@ package container
 
 import (
 	"context"
+	"reflect"
 	"time"
 
 	"github.com/fatih/color"
@@ -45,6 +46,37 @@ func containerContainerDeployBuilder(command *core.Command) *core.Command {
 }
 
 func containerContainerCreateBuilder(command *core.Command) *core.Command {
+	// Add an interceptor that will deploy container after it was created
+	type CustomCreateContainerRequest struct {
+		*container.CreateContainerRequest
+		Deploy bool `json:"deploy"`
+	}
+
+	command.ArgSpecs.AddBefore("region", &core.ArgSpec{
+		Name:     "deploy",
+		Short:    "Deploy container after creation",
+		Required: false,
+		Default:  core.DefaultValueSetter("true"),
+	})
+
+	command.ArgsType = reflect.TypeOf(CustomCreateContainerRequest{})
+
+	command.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		args := argsI.(*CustomCreateContainerRequest)
+		resI, err := runner(ctx, args.CreateContainerRequest)
+		if err != nil {
+			return resI, err
+		}
+
+		c := resI.(*container.Container)
+		containerAPI := container.NewAPI(core.ExtractClient(ctx))
+
+		return containerAPI.DeployContainer(&container.DeployContainerRequest{
+			Region:      c.Region,
+			ContainerID: c.ID,
+		}, scw.WithContext(ctx))
+	})
+
 	command.WaitFunc = waitForContainer
 	return command
 }
