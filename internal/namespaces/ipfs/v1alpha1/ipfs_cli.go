@@ -66,8 +66,9 @@ All pins must be attached to a volume. And all volumes must be attached to a Pro
 
 func ipfsVolumeCreate() *core.Command {
 	return &core.Command{
-		Short: `Create a new volume from a Project ID. Volume is identified by an ID and used to host pin references`,
-		Long: `Volume is personal (at least to your organization) even if IPFS blocks and CID are available to anyone.
+		Short: `Create a new volume`,
+		Long: `Create a new volume from a Project ID. Volume is identified by an ID and used to host pin references.
+Volume is personal (at least to your organization) even if IPFS blocks and CID are available to anyone.
 Should be the first command you made because every pin must be attached to a volume.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
@@ -97,7 +98,7 @@ Should be the first command you made because every pin must be attached to a vol
 
 func ipfsVolumeGet() *core.Command {
 	return &core.Command{
-		Short:     `Retrieve information about a specific volume`,
+		Short:     `Get information about a volume`,
 		Long:      `Retrieve information about a specific volume.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
@@ -126,7 +127,7 @@ func ipfsVolumeGet() *core.Command {
 
 func ipfsVolumeList() *core.Command {
 	return &core.Command{
-		Short:     `Retrieve information about all volumes from a Project ID`,
+		Short:     `List all volumes by a Project ID`,
 		Long:      `Retrieve information about all volumes from a Project ID.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
@@ -166,7 +167,7 @@ func ipfsVolumeList() *core.Command {
 
 func ipfsVolumeUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update volume information (tag, name...)`,
+		Short:     `Update volume information`,
 		Long:      `Update volume information (tag, name...).`,
 		Namespace: "ipfs",
 		Resource:  "volume",
@@ -207,8 +208,8 @@ func ipfsVolumeUpdate() *core.Command {
 
 func ipfsVolumeDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a volume by its ID and every pin attached to this volume. Can take a while, depending of your pinned content`,
-		Long:      `Delete a volume by its ID and every pin attached to this volume. Can take a while, depending of your pinned content.`,
+		Short:     `Delete an existing volume`,
+		Long:      `Delete a volume by its ID and every pin attached to this volume. This process can take a while to conclude, depending on the size of your pinned content.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
 		Verb:      "delete",
@@ -242,8 +243,9 @@ func ipfsVolumeDelete() *core.Command {
 
 func ipfsPinCreateByURL() *core.Command {
 	return &core.Command{
-		Short: `Create a pin request. Will fetch and store the content pointed by the provided URL. The content must be available on the public IPFS network`,
-		Long: `The content (IPFS blocks) will be host by the pinning service until pin deletion.
+		Short: `Create a pin by URL`,
+		Long: `Will fetch and store the content pointed by the provided URL. The content must be available on the public IPFS network.
+The content (IPFS blocks) will be host by the pinning service until pin deletion.
 From that point, any other IPFS peer can fetch and host your content: Make sure to pin public or encrypted content.
 Many pin requests (from different users) can target the same CID.
 A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.`,
@@ -298,8 +300,9 @@ A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed
 
 func ipfsPinCreateByCid() *core.Command {
 	return &core.Command{
-		Short: `Create a pin request. Will fetch and store the content pointed by the provided CID. The content must be available on the public IPFS network`,
-		Long: `The content (IPFS blocks) will be host by the pinning service until pin deletion.
+		Short: `Create a pin by CID`,
+		Long: `Will fetch and store the content pointed by the provided CID. The content must be available on the public IPFS network.
+The content (IPFS blocks) will be host by the pinning service until pin deletion.
 From that point, any other IPFS peer can fetch and host your content: Make sure to pin public or encrypted content.
 Many pin requests (from different users) can target the same CID.
 A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.`,
@@ -360,8 +363,8 @@ A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed
 
 func ipfsPinGet() *core.Command {
 	return &core.Command{
-		Short:     `Retrieve information about the provided pin ID (not the CID): status, last modification, CID`,
-		Long:      `Retrieve information about the provided pin ID (not the CID): status, last modification, CID.`,
+		Short:     `Get pin information`,
+		Long:      `Retrieve information about the provided **pin ID**, such as status, last modification, and CID.`,
 		Namespace: "ipfs",
 		Resource:  "pin",
 		Verb:      "get",
@@ -395,7 +398,7 @@ func ipfsPinGet() *core.Command {
 
 func ipfsPinList() *core.Command {
 	return &core.Command{
-		Short:     `Retrieve information about all pins into a volume`,
+		Short:     `List all pins within a volume`,
 		Long:      `Retrieve information about all pins into a volume.`,
 		Namespace: "ipfs",
 		Resource:  "pin",
@@ -459,8 +462,9 @@ func ipfsPinList() *core.Command {
 
 func ipfsPinDelete() *core.Command {
 	return &core.Command{
-		Short:     `Create an unpin request. If the pin was the last to target a specific CID, the content will be erase from storage`,
-		Long:      `The function is indempotent.`,
+		Short: `Create an unpin request`,
+		Long: `An unpin request means that you no longer own the content.
+This content can therefore be removed and no longer provided on the IPFS network.`,
 		Namespace: "ipfs",
 		Resource:  "pin",
 		Verb:      "delete",
