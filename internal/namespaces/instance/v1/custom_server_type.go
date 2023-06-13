@@ -83,7 +83,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		// Get server availabilities.
 		availabilitiesResponse, err := api.GetServerTypesAvailability(&instance.GetServerTypesAvailabilityRequest{
 			Zone: request.Zone,
-		})
+		}, scw.WithAllPages())
 		if err != nil {
 			return nil, err
 		}
