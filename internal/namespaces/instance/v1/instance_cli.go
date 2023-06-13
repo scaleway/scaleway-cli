@@ -1033,7 +1033,7 @@ func instanceImageList() *core.Command {
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
-				Command: "scw marketplace list images",
+				Command: "scw marketplace image list",
 				Short:   "List marketplace images",
 			},
 		},

@@ -22,4 +22,4 @@ GLOBAL FLAGS:
 
 SEE ALSO:
   # List all images available in an account
-  scw instance list images
+  scw instance image list

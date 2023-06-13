@@ -162,7 +162,7 @@ func marketplaceImageList() *core.Command {
 		}},
 		SeeAlsos: []*core.SeeAlso{
 			{
-				Command: "scw instance list images",
+				Command: "scw instance image list",
 				Short:   "List all images available in an account",
 			},
 		},
