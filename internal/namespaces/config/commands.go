@@ -80,15 +80,15 @@ func configRoot() *core.Command {
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Short:   "Init your Scaleway config",
-				Command: "scw config init",
+				Command: "scw init",
 			},
 			{
 				Short:   "Set a config attribute",
-				Command: "scw config set --help",
+				Command: "scw config set",
 			},
 			{
 				Short:   "Set a config attribute",
-				Command: "scw config get --help",
+				Command: "scw config get",
 			},
 			{
 				Short:   "Dump the config",
@@ -137,7 +137,7 @@ func configGetCommand() *core.Command {
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Short:   "Config management help",
-				Command: "scw config --help",
+				Command: "scw config",
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -260,7 +260,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Short:   "Config management help",
-				Command: "scw config --help",
+				Command: "scw config",
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
@@ -377,7 +377,7 @@ func configDumpCommand() *core.Command {
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Short:   "Config management help",
-				Command: "scw config --help",
+				Command: "scw config",
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -574,7 +574,7 @@ func configInfoCommand() *core.Command {
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Short:   "Config management help",
-				Command: "scw config --help",
+				Command: "scw config",
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {

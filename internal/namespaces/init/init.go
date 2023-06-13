@@ -124,7 +124,7 @@ Default path for configuration file is based on the following priority order:
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Short:   "Config management help",
-				Command: "scw config --help",
+				Command: "scw config",
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
