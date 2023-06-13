@@ -26,7 +26,7 @@ func deleteServer(metaKey string) core.AfterFunc {
 func addSSH(metaKey string, key string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		ctx.Meta[metaKey] = ctx.ExecuteCmd([]string{
-			"scw", "account", "ssh-key", "add", "public-key=" + key,
+			"scw", "iam", "ssh-key", "create", "public-key=" + key,
 		})
 		return nil
 	}
@@ -34,5 +34,5 @@ func addSSH(metaKey string, key string) core.BeforeFunc {
 
 // delete an ssh key with a given meta key
 func deleteSSH(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw account ssh-key remove {{ ." + metaKey + ".ID }}")
+	return core.ExecAfterCmd("scw iam ssh-key delete {{ ." + metaKey + ".ID }}")
 }
