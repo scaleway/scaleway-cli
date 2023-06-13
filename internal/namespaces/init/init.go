@@ -169,7 +169,7 @@ Default path for configuration file is based on the following priority order:
 			}
 
 			if args.ProjectID == "" {
-				args.ProjectID = getAPIKeyDefaultProjectID(ctx, args.AccessKey, args.SecretKey)
+				args.ProjectID = getAPIKeyDefaultProjectID(ctx, args.AccessKey, args.SecretKey, args.OrganizationID)
 				args.ProjectID, err = promptProjectID(ctx, args.AccessKey, args.SecretKey, args.OrganizationID, args.ProjectID)
 				if err != nil {
 					return nil, err
@@ -295,8 +295,8 @@ func loadConfigOrEmpty(configPath string) (*scw.Config, error) {
 }
 
 // getAPIKeyDefaultProjectID tries to find the api-key default project ID
-// return an empty string if it cannot find it
-func getAPIKeyDefaultProjectID(ctx context.Context, accessKey string, secretKey string) string {
+// return default project ID (organization ID) if it cannot find it
+func getAPIKeyDefaultProjectID(ctx context.Context, accessKey string, secretKey string, organizationID string) string {
 	client := core.ExtractClient(ctx)
 	api := iam.NewAPI(client)
 
@@ -304,11 +304,11 @@ func getAPIKeyDefaultProjectID(ctx context.Context, accessKey string, secretKey 
 	if err != nil && !is403Error(err) {
 		// If 403 Unauthorized, API Key does not have permissions to get himself
 		// It requires IAM permission to fetch an API Key
-		return ""
+		return organizationID
 	}
 
 	if apiKey == nil {
-		return ""
+		return organizationID
 	}
 
 	return apiKey.DefaultProjectID

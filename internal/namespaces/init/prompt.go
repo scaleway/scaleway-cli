@@ -28,7 +28,31 @@ func promptOrganizationID(ctx context.Context) (string, error) {
 	})
 }
 
+func promptManualProjectID(ctx context.Context, defaultProjectID string) (string, error) {
+	_, _ = interactive.Println()
+	return interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+		Ctx:             ctx,
+		Prompt:          "Choose your default project ID",
+		DefaultValue:    defaultProjectID,
+		DefaultValueDoc: defaultProjectID,
+		ValidateFunc: func(s string) error {
+			if !validation.IsProjectID(s) {
+				return fmt.Errorf("organization id is not a valid uuid")
+			}
+			return nil
+		},
+	})
+}
+
 func promptProjectID(ctx context.Context, accessKey string, secretKey string, organizationID string, defaultProjectID string) (string, error) {
+	if defaultProjectID == "" {
+		defaultProjectID = organizationID
+	}
+
+	if !interactive.IsInteractive {
+		return defaultProjectID, nil
+	}
+
 	client := core.ExtractClient(ctx)
 	api := account.NewAPI(client)
 
@@ -37,6 +61,10 @@ func promptProjectID(ctx context.Context, accessKey string, secretKey string, or
 	}, scw.WithAllPages(), scw.WithContext(ctx), scw.WithAuthRequest(accessKey, secretKey))
 	if err != nil {
 		return "", fmt.Errorf("failed to list projects: %w", err)
+	}
+
+	if len(res.Projects) == 0 {
+		return promptManualProjectID(ctx, defaultProjectID)
 	}
 
 	defaultIndex := 0
