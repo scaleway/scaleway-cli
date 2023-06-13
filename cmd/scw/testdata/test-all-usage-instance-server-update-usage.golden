@@ -36,6 +36,14 @@ ARGS:
   [volumes.{key}.project]                     Project ID of the volume
   [volumes.{key}.organization]                Organization ID of the volume
   [dynamic-ip-required]                       
+  [routed-ip-enabled]                         True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False)
+  [public-ips.{index}.id]                     Unique ID of the IP address
+  [public-ips.{index}.address]                Instance's public IP-Address
+  [public-ips.{index}.gateway]                Gateway's IP address
+  [public-ips.{index}.netmask]                CIDR netmask
+  [public-ips.{index}.family]                 IP address family (inet or inet6) (inet | inet6)
+  [public-ips.{index}.dynamic]                True if the IP address is dynamic
+  [public-ips.{index}.provisioning-mode]      Information about this address provisioning mode (manual | dhcp | slaac)
   [enable-ipv6]                               
   [protected]                                 
   [security-group-id]                         

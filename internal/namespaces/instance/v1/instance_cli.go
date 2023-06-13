@@ -113,7 +113,7 @@ func instanceIP() *core.Command {
 		Long: `A flexible IP address is an IP address which you hold independently of any Instance.
 You can attach it to any of your Instances and do live migration of the IP address between your Instances.
 
-Note that attaching a flexible IP address to an Instance will remove the previous public IP address of the Instance and cut any ongoing public connection to the Instance.
+Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts any ongoing public connection to the Instance. This does not apply if you have migrated your server to the new Network stack and have at least one flexible IP attached to the Instance.
 `,
 		Namespace: "instance",
 		Resource:  "ip",
@@ -646,6 +646,64 @@ func instanceServerUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "routed-ip-enabled",
+				Short:      `True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-ips.{index}.id",
+				Short:      `Unique ID of the IP address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-ips.{index}.address",
+				Short:      `Instance's public IP-Address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-ips.{index}.gateway",
+				Short:      `Gateway's IP address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-ips.{index}.netmask",
+				Short:      `CIDR netmask`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-ips.{index}.family",
+				Short:      `IP address family (inet or inet6)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"inet", "inet6"},
+			},
+			{
+				Name:       "public-ips.{index}.dynamic",
+				Short:      `True if the IP address is dynamic`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-ips.{index}.provisioning-mode",
+				Short:      `Information about this address provisioning mode`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"manual", "dhcp", "slaac"},
 			},
 			{
 				Name:       "enable-ipv6",
@@ -3123,6 +3181,14 @@ func instanceIPCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "type",
+				Short:      `IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6')`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_iptype", "nat", "routed_ipv4", "routed_ipv6"},
+			},
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
@@ -3218,6 +3284,14 @@ func instanceIPUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "type",
+				Short:      `Convert a 'nat' IP to a 'routed_ipv4'`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_iptype", "nat", "routed_ipv4", "routed_ipv6"},
 			},
 			{
 				Name:       "tags.{index}",

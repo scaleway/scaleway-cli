@@ -341,7 +341,7 @@ scw instance image wait 11111111-1111-1111-1111-111111111111
 A flexible IP address is an IP address which you hold independently of any Instance.
 You can attach it to any of your Instances and do live migration of the IP address between your Instances.
 
-Note that attaching a flexible IP address to an Instance will remove the previous public IP address of the Instance and cut any ongoing public connection to the Instance.
+Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts any ongoing public connection to the Instance. This does not apply if you have migrated your server to the new Network stack and have at least one flexible IP attached to the Instance.
 
 
 
@@ -394,6 +394,7 @@ scw instance ip create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags of the IP |
 | server |  | UUID of the Instance you want to attach the IP to |
+| type | One of: `unknown_iptype`, `nat`, `routed_ipv4`, `routed_ipv6` | IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6') |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -589,6 +590,7 @@ scw instance ip update <ip ...> [arg=value ...]
 |------|---|-------------|
 | ip | Required | IP ID or IP address |
 | reverse |  | Reverse domain name |
+| type | One of: `unknown_iptype`, `nat`, `routed_ipv4`, `routed_ipv6` | Convert a 'nat' IP to a 'routed_ipv4' |
 | tags.{index} |  | An array of keywords you want to tag this IP with |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2188,6 +2190,14 @@ scw instance server update <server-id ...> [arg=value ...]
 | volumes.{key}.organization |  | Organization ID of the volume |
 | ~~bootscript~~ | Deprecated |  |
 | dynamic-ip-required |  |  |
+| routed-ip-enabled |  | True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False) |
+| public-ips.{index}.id |  | Unique ID of the IP address |
+| public-ips.{index}.address |  | Instance's public IP-Address |
+| public-ips.{index}.gateway |  | Gateway's IP address |
+| public-ips.{index}.netmask |  | CIDR netmask |
+| public-ips.{index}.family | One of: `inet`, `inet6` | IP address family (inet or inet6) |
+| public-ips.{index}.dynamic |  | True if the IP address is dynamic |
+| public-ips.{index}.provisioning-mode | One of: `manual`, `dhcp`, `slaac` | Information about this address provisioning mode |
 | enable-ipv6 |  |  |
 | protected |  |  |
 | security-group-id |  |  |
