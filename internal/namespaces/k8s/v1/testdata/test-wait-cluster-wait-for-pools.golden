@@ -1,22 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                af9af50a-de91-4d4c-aab3-de61db807d8a
+ID                b4d01188-08ab-43cc-b889-02f8979f4b11
 Type              kapsule
-Name              cli-test
+Name              cli-test-wait-cluster
 Status            ready
-Version           1.17.3
+Version           1.27.1
 Region            fr-par
-OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
+OrganizationID    fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
 Cni               cilium
 Description       -
-ClusterURL        https://af9af50a-de91-4d4c-aab3-de61db807d8a.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.af9af50a-de91-4d4c-aab3-de61db807d8a.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://b4d01188-08ab-43cc-b889-02f8979f4b11.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.b4d01188-08ab-43cc-b889-02f8979f4b11.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 DashboardEnabled  false
 Ingress           none
-UpgradeAvailable  true
+UpgradeAvailable  false
+PrivateNetworkID  d74ffd0f-d524-4941-93e9-e0d5885b21f4
 
 Autoscaler configuration:
 ScaleDownDisabled              false
@@ -43,19 +44,19 @@ UsernamePrefix  -
 GroupsPrefix    -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "af9af50a-de91-4d4c-aab3-de61db807d8a",
+  "id": "b4d01188-08ab-43cc-b889-02f8979f4b11",
   "type": "kapsule",
-  "name": "cli-test",
+  "name": "cli-test-wait-cluster",
   "status": "ready",
-  "version": "1.17.3",
+  "version": "1.27.1",
   "region": "fr-par",
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://af9af50a-de91-4d4c-aab3-de61db807d8a.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.af9af50a-de91-4d4c-aab3-de61db807d8a.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://b4d01188-08ab-43cc-b889-02f8979f4b11.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.b4d01188-08ab-43cc-b889-02f8979f4b11.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -79,7 +80,7 @@ GroupsPrefix    -
       "day": "any"
     }
   },
-  "upgrade_available": true,
+  "upgrade_available": false,
   "feature_gates": [],
   "admission_plugins": [],
   "open_id_connect_config": {
@@ -92,5 +93,5 @@ GroupsPrefix    -
     "required_claim": []
   },
   "apiserver_cert_sans": [],
-  "private_network_id": null
+  "private_network_id": "d74ffd0f-d524-4941-93e9-e0d5885b21f4"
 }
