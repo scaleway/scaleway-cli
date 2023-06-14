@@ -6,12 +6,14 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -88,6 +90,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgSpecs.GetByName("cni").Default = core.DefaultValueSetter("cilium")
 	c.ArgSpecs.GetByName("version").Default = core.DefaultValueSetter("latest")
+	c.ArgSpecs.GetByName("private-network-id").Short += ". For Kapsule clusters, if none is provided, a private network will be created"
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		args := argsI.(*k8s.CreateClusterRequest)
@@ -102,6 +105,84 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return runner(ctx, args)
+	}
+
+	c.Run = func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		request := args.(*k8s.CreateClusterRequest)
+
+		client := core.ExtractClient(ctx)
+		k8sAPI := k8s.NewAPI(client)
+		vpcAPI := vpc.NewAPI(client)
+
+		pnCreated := false
+		var pn *vpc.PrivateNetwork
+		var err error
+
+		if request.Type == "" || strings.HasPrefix(request.Type, "kapsule") {
+			if request.PrivateNetworkID == nil {
+				pn, err = vpcAPI.CreatePrivateNetwork(&vpc.CreatePrivateNetworkRequest{
+					Region: request.Region,
+					Tags:   []string{"created-along-with-k8s-cluster", "created-by-cli"},
+				}, scw.WithContext(ctx))
+				if err != nil {
+					return nil, err
+				}
+				request.PrivateNetworkID = scw.StringPtr(pn.ID)
+				pnCreated = true
+			} else {
+				pn, err = vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
+					Region:           request.Region,
+					PrivateNetworkID: pn.ID,
+				}, scw.WithContext(ctx))
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+
+		cluster, err := k8sAPI.CreateCluster(request, scw.WithContext(ctx))
+		if err != nil {
+			if pnCreated {
+				errPN := vpcAPI.DeletePrivateNetwork(&vpc.DeletePrivateNetworkRequest{
+					Region:           request.Region,
+					PrivateNetworkID: pn.ID,
+				}, scw.WithContext(ctx))
+
+				if err != nil {
+					return nil, errors.Join(err, errPN)
+				}
+			}
+			return nil, err
+		}
+
+		return struct {
+			*k8s.Cluster
+			PrivateNetwork *vpc.PrivateNetwork `json:"private_network"`
+		}{
+			cluster,
+			pn,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName: "AutoscalerConfig",
+				Title:     "Autoscaler configuration",
+			},
+			{
+				FieldName: "AutoUpgrade",
+				Title:     "Auto-upgrade settings",
+			},
+			{
+				FieldName: "OpenIDConnectConfig",
+				Title:     "Open ID Connect configuration",
+			},
+			{
+				FieldName: "PrivateNetwork",
+				Title:     "Private Network",
+			},
+		},
 	}
 
 	return c
@@ -204,9 +285,18 @@ func clusterUpdateBuilder(c *core.Command) *core.Command {
 
 func waitForClusterFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+		var clusterResponse *k8s.Cluster
+		if action == clusterActionCreate {
+			clusterResponse = respI.(struct {
+				*k8s.Cluster
+				PrivateNetwork *vpc.PrivateNetwork `json:"private_network"`
+			}).Cluster
+		} else {
+			clusterResponse = respI.(*k8s.Cluster)
+		}
 		cluster, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForCluster(&k8s.WaitForClusterRequest{
-			Region:        respI.(*k8s.Cluster).Region,
-			ClusterID:     respI.(*k8s.Cluster).ID,
+			Region:        clusterResponse.Region,
+			ClusterID:     clusterResponse.ID,
 			Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -223,7 +313,7 @@ func waitForClusterFunc(action int) core.WaitFunc {
 				notFoundError := &scw.ResourceNotFoundError{}
 				responseError := &scw.ResponseError{}
 				if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
-					return fmt.Sprintf("Cluster %s successfully deleted.", respI.(*k8s.Cluster).ID), nil
+					return fmt.Sprintf("Cluster %s successfully deleted.", clusterResponse.ID), nil
 				}
 			}
 		}

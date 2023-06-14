@@ -59,7 +59,7 @@ ARGS:
   [open-id-connect-config.groups-prefix]                 Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`
   [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value
   [apiserver-cert-sans.{index}]                          Additional Subject Alternative Names for the Kubernetes API server certificate
-  [private-network-id]                                   Private network ID for internal cluster communication (cannot be changed later)
+  [private-network-id]                                   Private network ID for internal cluster communication (cannot be changed later). For Kapsule clusters, if none is provided, a private network will be created
   [organization-id]                                      Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
