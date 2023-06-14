@@ -44,7 +44,7 @@ scw autocomplete script [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| shell | Default: `/usr/bin/zsh` |  |
+| shell | Default: `/bin/bash` |  |
 
 
 
