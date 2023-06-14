@@ -117,8 +117,8 @@ func secretSecretCreate() *core.Command {
 
 func secretSecretGet() *core.Command {
 	return &core.Command{
-		Short:     `Get metadata using the secret's name`,
-		Long:      `Retrieve the metadata of a secret specified by the ` + "`" + `region` + "`" + ` and the ` + "`" + `secret_name` + "`" + ` parameters.`,
+		Short:     `Get metadata using the secret's ID`,
+		Long:      `Retrieve the metadata of a secret specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `secret_id` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "get",
