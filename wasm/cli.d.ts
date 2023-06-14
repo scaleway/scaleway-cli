@@ -20,6 +20,7 @@ export type Int = number
 
 export type ConfigureOutputConfig = {
     width: Int
+    color: boolean
 }
 
 

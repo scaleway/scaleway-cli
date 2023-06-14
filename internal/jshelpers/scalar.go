@@ -27,3 +27,11 @@ func asInt(value js.Value) (int, error) {
 
 	return int(f), nil
 }
+
+func asBool(value js.Value) (bool, error) {
+	if value.Type() == js.TypeBoolean {
+		return value.Bool(), nil
+	}
+
+	return false, fmt.Errorf("value type should be boolean")
+}

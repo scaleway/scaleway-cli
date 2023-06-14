@@ -20,6 +20,8 @@ func goValue(typ reflect.Type, value js.Value) (any, error) {
 		return asSlice(typ.Elem(), value)
 	case reflect.Int:
 		return asInt(value)
+	case reflect.Bool:
+		return asBool(value)
 	}
 	return nil, fmt.Errorf("value type is unknown")
 }
