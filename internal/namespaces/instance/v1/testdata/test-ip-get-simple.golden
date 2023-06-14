@@ -4,6 +4,9 @@ IP.ID            dc78c1dd-4436-4193-b82f-94bd5881ea35
 IP.Address       51.15.215.79
 IP.Organization  951df375-e094-4d26-97c1-ba548eeb9c42
 IP.Project       951df375-e094-4d26-97c1-ba548eeb9c42
+IP.Type          unknown_iptype
+IP.State         unknown_state
+IP.Prefix        <nil>
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
@@ -15,6 +18,9 @@ IP.Zone          fr-par-1
     "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "tags": [],
     "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "type": "unknown_iptype",
+    "state": "unknown_state",
+    "prefix": "",
     "zone": "fr-par-1"
   }
 }

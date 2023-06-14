@@ -18,8 +18,9 @@ EXAMPLES:
 ARGS:
   ip                IP ID or IP address
   [reverse]         Reverse domain name
+  [type]            Convert a 'nat' IP to a 'routed_ipv4' (unknown_iptype | nat | routed_ipv4 | routed_ipv6)
   [tags.{index}]    An array of keywords you want to tag this IP with
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2)
 
 FLAGS:
   -h, --help   help for update

@@ -20,6 +20,7 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
     "commercial_type": "DEV1-S",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "dynamic_ip_required": false,
+    "routed_ip_enabled": false,
     "enable_ipv6": false,
     "hostname": "cli-srv-distracted-chandrasekhar",
     "image": {
@@ -48,9 +49,10 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
     "private_ip": null,
     "public_ip": {
       "id": "dd9e8df6-6775-4863-b517-e0b0ee3d7477",
-      "address": "212.47.232.136",
-      "dynamic": false
+      "address": "212.47.232.136"
     },
+    "public_ips": null,
+    "mac_address": "",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "state": "stopped",
     "location": null,
@@ -132,6 +134,7 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
     "commercial_type": "DEV1-S",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "dynamic_ip_required": false,
+    "routed_ip_enabled": false,
     "enable_ipv6": false,
     "hostname": "cli-srv-agitated-benz",
     "image": {
@@ -160,9 +163,10 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
     "private_ip": null,
     "public_ip": {
       "id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b",
-      "address": "51.15.248.118",
-      "dynamic": false
+      "address": "51.15.248.118"
     },
+    "public_ips": null,
+    "mac_address": "",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "state": "stopped",
     "location": null,
@@ -244,6 +248,7 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
     "commercial_type": "DEV1-S",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "dynamic_ip_required": false,
+    "routed_ip_enabled": false,
     "enable_ipv6": false,
     "hostname": "cli-srv-heuristic-hugle",
     "image": {
@@ -272,9 +277,10 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
     "private_ip": null,
     "public_ip": {
       "id": "3006a180-67e0-433c-8b6a-142e202bd931",
-      "address": "51.158.70.223",
-      "dynamic": false
+      "address": "51.158.70.223"
     },
+    "public_ips": null,
+    "mac_address": "",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "state": "stopped",
     "location": null,
@@ -337,6 +343,7 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
     "commercial_type": "GP1-S",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "dynamic_ip_required": false,
+    "routed_ip_enabled": false,
     "enable_ipv6": true,
     "hostname": "juju",
     "image": {
@@ -378,9 +385,10 @@ fa37ff62-4665-4b94-93bf-385d264a7b4d  juju                              GP1-S   
     "private_ip": "10.12.174.9",
     "public_ip": {
       "id": "8ed1c207-86db-4e60-84cd-0a4e84031239",
-      "address": "51.15.253.183",
-      "dynamic": false
+      "address": "51.15.253.183"
     },
+    "public_ips": null,
+    "mac_address": "",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "state": "running",
     "location": {
