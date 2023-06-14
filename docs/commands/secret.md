@@ -5,7 +5,7 @@ This API allows you to conveniently store, access and share sensitive data.
 - [Secret management commands](#secret-management-commands)
   - [Create a secret](#create-a-secret)
   - [Delete a secret](#delete-a-secret)
-  - [Get metadata using the secret's name](#get-metadata-using-the-secret's-name)
+  - [Get metadata using the secret's ID](#get-metadata-using-the-secret's-id)
   - [List secrets](#list-secrets)
   - [Update metadata of a secret](#update-metadata-of-a-secret)
 - [Secret Version management commands](#secret-version-management-commands)
@@ -88,9 +88,9 @@ scw secret secret delete secret-id=11111111-1111-1111-1111-111111111111
 
 
 
-### Get metadata using the secret's name
+### Get metadata using the secret's ID
 
-Retrieve the metadata of a secret specified by the `region` and the `secret_name` parameters.
+Retrieve the metadata of a secret specified by the `region` and `secret_id` parameters.
 
 **Usage:**
 

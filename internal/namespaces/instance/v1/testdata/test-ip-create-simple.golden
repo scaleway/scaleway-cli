@@ -4,6 +4,9 @@ ID            dc78c1dd-4436-4193-b82f-94bd5881ea35
 Address       51.15.215.79
 Organization  951df375-e094-4d26-97c1-ba548eeb9c42
 Project       951df375-e094-4d26-97c1-ba548eeb9c42
+Type          unknown_iptype
+State         unknown_state
+Prefix        <nil>
 Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
@@ -15,6 +18,9 @@ Zone          fr-par-1
     "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "tags": [],
     "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "type": "unknown_iptype",
+    "state": "unknown_state",
+    "prefix": "",
     "zone": "fr-par-1"
   }
 }

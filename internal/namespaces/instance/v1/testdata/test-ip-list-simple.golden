@@ -19,6 +19,9 @@ dc78c1dd-4436-4193-b82f-94bd5881ea35  51.15.215.79    -        951df375-e094-4d2
     "organization": "32f707c5-df07-43c7-8b57-6e09b687dd03",
     "tags": [],
     "project": "32f707c5-df07-43c7-8b57-6e09b687dd03",
+    "type": "unknown_iptype",
+    "state": "unknown_state",
+    "prefix": "",
     "zone": "fr-par-1"
   },
   {
@@ -29,6 +32,9 @@ dc78c1dd-4436-4193-b82f-94bd5881ea35  51.15.215.79    -        951df375-e094-4d2
     "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "tags": [],
     "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "type": "unknown_iptype",
+    "state": "unknown_state",
+    "prefix": "",
     "zone": "fr-par-1"
   },
   {
@@ -42,6 +48,9 @@ dc78c1dd-4436-4193-b82f-94bd5881ea35  51.15.215.79    -        951df375-e094-4d2
     "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "tags": [],
     "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "type": "unknown_iptype",
+    "state": "unknown_state",
+    "prefix": "",
     "zone": "fr-par-1"
   },
   {
@@ -52,6 +61,9 @@ dc78c1dd-4436-4193-b82f-94bd5881ea35  51.15.215.79    -        951df375-e094-4d2
     "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "tags": [],
     "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "type": "unknown_iptype",
+    "state": "unknown_state",
+    "prefix": "",
     "zone": "fr-par-1"
   },
   {
@@ -62,6 +74,9 @@ dc78c1dd-4436-4193-b82f-94bd5881ea35  51.15.215.79    -        951df375-e094-4d2
     "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "tags": [],
     "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "type": "unknown_iptype",
+    "state": "unknown_state",
+    "prefix": "",
     "zone": "fr-par-1"
   }
 ]
