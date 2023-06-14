@@ -12,7 +12,7 @@ import (
 )
 
 func RunShell(ctx context.Context, printer *Printer, meta *meta, rootCmd *cobra.Command, args []string) {
-	err := printer.Print(fmt.Errorf("shell is currently disabled on %s/%s", runtime.GOARCH, runtime.GOOS), nil)
+	err := printer.Print(meta.Client, fmt.Errorf("shell is currently disabled on %s/%s", runtime.GOARCH, runtime.GOOS), nil)
 	if err != nil {
 		_, _ = fmt.Fprintln(os.Stderr, err)
 	}

@@ -267,7 +267,7 @@ func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *meta) func(s 
 				return
 			}
 
-			printErr := printer.Print(err, nil)
+			printErr := printer.Print(meta.Client, err, nil)
 			if printErr != nil {
 				_, _ = fmt.Fprintln(os.Stderr, err)
 			}
@@ -283,7 +283,7 @@ func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *meta) func(s 
 
 		autoCompleteCache.Update(meta.command.Namespace)
 
-		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
+		printErr := printer.Print(meta.Client, meta.result, meta.command.getHumanMarshalerOpt())
 		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, printErr)
 		}

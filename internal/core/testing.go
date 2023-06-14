@@ -726,11 +726,11 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	require.NoError(t, err)
 
 	if ctx.Err != nil {
-		err = jsonPrinter.Print(ctx.Err, nil)
+		err = jsonPrinter.Print(nil, ctx.Err, nil)
 		require.NoError(t, err)
 	}
 	if ctx.Result != nil {
-		err = jsonPrinter.Print(ctx.Result, nil)
+		err = jsonPrinter.Print(nil, ctx.Result, nil)
 		require.NoError(t, err)
 	}
 

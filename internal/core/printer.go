@@ -13,6 +13,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/terraform"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 // Type defines an formatter format.
@@ -44,8 +45,12 @@ const (
 	// Option to enable pretty output on json printer.
 	PrinterOptJSONPretty = "pretty"
 
-	// Option to enable pretty output on json printer.
-	PrinterOptTerraformWithChildren = "with-children"
+	// Option to disable parents output on terraform printer.
+	PrinterOptTerraformSkipParents = "skip-parents"
+	// Option to disable children output on terraform printer.
+	PrinterOptTerraformSkipChildren = "skip-children"
+	// Option to disable parents and children output on terraform printer.
+	PrinterOptTerraformSkipParentsAndChildren = "skip-parents-and-children"
 )
 
 type PrinterConfig struct {
@@ -115,11 +120,16 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 func setupTerraformPrinter(printer *Printer, opts string) error {
 	printer.printerType = PrinterTypeTerraform
 	switch opts {
-	case PrinterOptTerraformWithChildren:
-		printer.terraformWithChildren = true
+	case PrinterOptTerraformSkipParents:
+		printer.terraformSkipParents = true
+	case PrinterOptTerraformSkipChildren:
+		printer.terraformSkipChildren = true
+	case PrinterOptTerraformSkipParentsAndChildren:
+		printer.terraformSkipParents = true
+		printer.terraformSkipChildren = true
 	case "":
 	default:
-		return fmt.Errorf("invalid option %s for terraform outout. Valid options are: %s", opts, PrinterOptTerraformWithChildren)
+		return fmt.Errorf("invalid option %s for terraform outout. Valid options are: %s and %s", opts, PrinterOptTerraformSkipParents, PrinterOptTerraformSkipChildren)
 	}
 
 	terraformVersion, err := terraform.GetLocalClientVersion()
@@ -173,8 +183,10 @@ type Printer struct {
 	// Enable pretty print on json output
 	jsonPretty bool
 
-	// Enable children fetching on terraform output
-	terraformWithChildren bool
+	// Disable children fetching on terraform output
+	terraformSkipParents bool
+	// Disable children fetching on terraform output
+	terraformSkipChildren bool
 
 	// go template to use on template output
 	template *template.Template
@@ -183,7 +195,7 @@ type Printer struct {
 	humanFields []string
 }
 
-func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
+func (p *Printer) Print(client *scw.Client, data interface{}, opt *human.MarshalOpt) error {
 	// No matter the printer type if data is a RawResult we should print it as is.
 	if rawResult, isRawResult := data.(RawResult); isRawResult {
 		_, err := p.stdout.Write(rawResult)
@@ -201,7 +213,7 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 	case PrinterTypeYAML:
 		err = p.printYAML(data)
 	case PrinterTypeTerraform:
-		err = p.printTerraform(data)
+		err = p.printTerraform(client, data)
 	case PrinterTypeTemplate:
 		err = p.printTemplate(data)
 	default:
@@ -322,13 +334,18 @@ func (p *Printer) printYAML(data interface{}) error {
 	return encoder.Encode(data)
 }
 
-func (p *Printer) printTerraform(data interface{}) error {
+func (p *Printer) printTerraform(client *scw.Client, data interface{}) error {
 	writer := p.stdout
 	if _, isError := data.(error); isError {
 		return p.printHuman(data, nil)
 	}
 
-	hcl, err := terraform.GetHCL(data)
+	hcl, err := terraform.GetHCL(&terraform.GetHCLConfig{
+		Client:       client,
+		Data:         data,
+		SkipParents:  p.terraformSkipParents,
+		SkipChildren: p.terraformSkipChildren,
+	})
 	if err != nil {
 		return err
 	}
