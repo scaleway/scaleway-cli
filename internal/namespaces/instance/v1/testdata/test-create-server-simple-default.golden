@@ -9,6 +9,7 @@ AllowedActions.1            backup
 CommercialType              DEV1-S
 CreationDate                few seconds ago
 DynamicIPRequired           false
+RoutedIPEnabled             false
 EnableIPv6                  false
 Hostname                    cli-srv-wonderful-darwin
 Image.ID                    96cfdd7b-a266-4bfd-8177-0b05ec324229
@@ -27,7 +28,11 @@ Image.Zone                  fr-par-1
 Protected                   false
 PublicIP.ID                 10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
 PublicIP.Address            51.15.248.118
+PublicIP.Netmask            -
+PublicIP.Family             inet
 PublicIP.Dynamic            false
+PublicIP.ProvisioningMode   manual
+MacAddress                  -
 ModificationDate            few seconds ago
 State                       archived
 Bootscript                  x86_64 mainline 4.4.230 rev1
@@ -65,6 +70,7 @@ Zone                        fr-par-1
   "commercial_type": "DEV1-S",
   "creation_date": "1970-01-01T00:00:00.0Z",
   "dynamic_ip_required": false,
+  "routed_ip_enabled": false,
   "enable_ipv6": false,
   "hostname": "cli-srv-wonderful-darwin",
   "image": {
@@ -93,9 +99,10 @@ Zone                        fr-par-1
   "private_ip": null,
   "public_ip": {
     "id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b",
-    "address": "51.15.248.118",
-    "dynamic": false
+    "address": "51.15.248.118"
   },
+  "public_ips": null,
+  "mac_address": "",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
