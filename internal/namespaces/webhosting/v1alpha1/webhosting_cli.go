@@ -148,7 +148,7 @@ func webhostingHostingList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_status", "delivering", "ready", "deleting", "error", "locked"},
+				EnumValues: []string{"unknown_status", "delivering", "ready", "deleting", "error", "locked", "migrating"},
 			},
 			{
 				Name:       "domain",
