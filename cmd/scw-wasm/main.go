@@ -22,6 +22,7 @@ func main() {
 		cliPackage := js.ValueOf(map[string]any{})
 		cliPackage.Set("run", js.FuncOf(jshelpers.AsPromise(wasm.Run)))
 		cliPackage.Set("complete", js.FuncOf(jshelpers.AsPromise(wasm.Autocomplete)))
+		cliPackage.Set("configureOutput", js.FuncOf(jshelpers.AsPromise(wasm.ConfigureOutput)))
 		cliPackage.Set("stop", js.FuncOf(jshelpers.AsyncJsFunc(stop)))
 		js.Global().Set(args.targetObject, cliPackage)
 	}

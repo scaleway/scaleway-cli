@@ -73,6 +73,21 @@ describe('With wasm CLI', async () => {
 
     it('can complete', async () => complete(['server', 'image', 'volume'], ['instance', '']))
 
+    it('can configure terminal size', async () => {
+        const runCfg = {
+            jwt: "",
+            defaultProjectID: ""
+        }
+
+        await cli.configureOutput({width: 100})
+        const resp = await cli.run(runCfg, ['marketplace', 'image', 'list'])
+        console.log(resp)
+        expect(resp.exitCode).toBe(0)
+        const lines = resp.stdout.split("\n")
+        expect(lines.length).toBeGreaterThan(1)
+        expect(lines[2].length).toBeLessThan(100)
+    })
+
     afterAll(async () => {
         try {
             await cli.stop()

@@ -1,13 +1,14 @@
-//go:build !wasm
+//go:build wasm
 
 package terminal
 
 import (
-	"os"
-
-	"golang.org/x/term"
-
 	"github.com/fatih/color"
+)
+
+var (
+	Width  int = 0
+	Height int = 0
 )
 
 func Style(msg string, styles ...color.Attribute) string {
@@ -15,22 +16,14 @@ func Style(msg string, styles ...color.Attribute) string {
 }
 
 func GetWidth() int {
-	w, _, err := term.GetSize(int(os.Stderr.Fd()))
-	if err != nil {
-		return -1
-	}
-	return w
+	return Width
 }
 
 func GetHeight() int {
-	_, h, err := term.GetSize(int(os.Stderr.Fd()))
-	if err != nil {
-		return -1
-	}
-	return h
+	return Height
 }
 
 // IsTerm returns if stdout is considered a tty
 func IsTerm() bool {
-	return !color.NoColor
+	return true
 }

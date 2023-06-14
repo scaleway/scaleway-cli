@@ -418,7 +418,7 @@ func computeMaxCols(grid [][]string) int {
 	maxCols := len(grid[0])
 	width := terminal.GetWidth()
 	// If we are not writing to Stdout or through a tty Stdout, returns max length
-	if color.NoColor || width == 0 {
+	if !terminal.IsTerm() || width == 0 {
 		return maxCols
 	}
 	colMaxSize := make([]int, len(grid[0]))
