@@ -1,22 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                6e68d924-956f-4511-bfdb-1a796a190d33
+ID                79044276-ee55-4f60-8c71-95d4369500b0
 Type              kapsule
-Name              cli-test
+Name              cli-test-get-cluster
 Status            creating
-Version           1.17.3
+Version           1.27.1
 Region            fr-par
-OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID         951df375-e094-4d26-97c1-ba548eeb9c42
+OrganizationID    fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
 Cni               cilium
 Description       -
-ClusterURL        https://6e68d924-956f-4511-bfdb-1a796a190d33.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.6e68d924-956f-4511-bfdb-1a796a190d33.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://79044276-ee55-4f60-8c71-95d4369500b0.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.79044276-ee55-4f60-8c71-95d4369500b0.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 DashboardEnabled  false
 Ingress           none
-UpgradeAvailable  true
+UpgradeAvailable  false
+PrivateNetworkID  861698b7-d572-4ce7-b4b3-1b9a51d9dc18
 
 Autoscaler configuration:
 ScaleDownDisabled              false
@@ -44,22 +45,22 @@ GroupsPrefix    -
 
 Pools:
 ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN SIZE  SIZE  MAX SIZE  AUTOSCALING  AUTOHEALING
-42b228cf-ad4b-458e-b69b-046f8aa3c10c  default  scaling  1.17.3   dev1_m     0         1     1         false        false
+094d8ce1-6bc6-40ad-8bdd-bc14c7febea6  default  scaling  1.27.1   dev1_m     0         1     1         false        false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "6e68d924-956f-4511-bfdb-1a796a190d33",
+  "id": "79044276-ee55-4f60-8c71-95d4369500b0",
   "type": "kapsule",
-  "name": "cli-test",
+  "name": "cli-test-get-cluster",
   "status": "creating",
-  "version": "1.17.3",
+  "version": "1.27.1",
   "region": "fr-par",
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://6e68d924-956f-4511-bfdb-1a796a190d33.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.6e68d924-956f-4511-bfdb-1a796a190d33.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://79044276-ee55-4f60-8c71-95d4369500b0.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.79044276-ee55-4f60-8c71-95d4369500b0.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -83,7 +84,7 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
       "day": "any"
     }
   },
-  "upgrade_available": true,
+  "upgrade_available": false,
   "feature_gates": [],
   "admission_plugins": [],
   "open_id_connect_config": {
@@ -96,13 +97,13 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
     "required_claim": []
   },
   "apiserver_cert_sans": [],
-  "private_network_id": null,
+  "private_network_id": "861698b7-d572-4ce7-b4b3-1b9a51d9dc18",
   "pools": [
     {
-      "id": "42b228cf-ad4b-458e-b69b-046f8aa3c10c",
+      "id": "094d8ce1-6bc6-40ad-8bdd-bc14c7febea6",
       "name": "default",
       "status": "scaling",
-      "version": "1.17.3",
+      "version": "1.27.1",
       "node_type": "dev1_m",
       "min_size": 0,
       "size": 1,

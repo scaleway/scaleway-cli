@@ -1,67 +1,61 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name    1.20.2
-Label   Kubernetes 1.20.2
+Name    1.27.1
+Label   Kubernetes 1.27.1
 Region  fr-par
 
 Available Kubelet Arguments:
-map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
+map[containerLogMaxFiles:uint16 containerLogMaxSize:quantity cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static enableDebuggingHandlers:bool imageGCHighThresholdPercent:uint32 imageGCLowThresholdPercent:uint32 maxPods:uint16]
 
 Available CNIs:
-[cilium calico weave flannel]
+[cilium calico kilo]
 
 Available Ingresses:
-[none nginx traefik traefik2]
+[none]
 
 Available Container Runtimes:
-[containerd crio docker]
+[containerd]
 
 Available Feature Gates:
-[TTLAfterFinished HPAScaleToZero ServiceTopology EphemeralContainers KubeletCredentialProviders GenericEphemeralVolume]
+[HPAScaleToZero GRPCContainerProbe ReadWriteOncePod]
 
 Available Admission Plugins:
-[PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]
+[PodNodeSelector AlwaysPullImages PodTolerationRestriction]
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "name": "1.20.2",
-  "label": "Kubernetes 1.20.2",
+  "name": "1.27.1",
+  "label": "Kubernetes 1.27.1",
   "region": "fr-par",
   "available_cnis": [
     "cilium",
     "calico",
-    "weave",
-    "flannel"
+    "kilo"
   ],
   "available_ingresses": [
-    "none",
-    "nginx",
-    "traefik",
-    "traefik2"
+    "none"
   ],
   "available_container_runtimes": [
-    "containerd",
-    "crio",
-    "docker"
+    "containerd"
   ],
   "available_feature_gates": [
-    "TTLAfterFinished",
     "HPAScaleToZero",
-    "ServiceTopology",
-    "EphemeralContainers",
-    "KubeletCredentialProviders",
-    "GenericEphemeralVolume"
+    "GRPCContainerProbe",
+    "ReadWriteOncePod"
   ],
   "available_admission_plugins": [
-    "PodSecurityPolicy",
     "PodNodeSelector",
     "AlwaysPullImages",
-    "PodPreset",
     "PodTolerationRestriction"
   ],
   "available_kubelet_args": {
+    "containerLogMaxFiles": "uint16",
+    "containerLogMaxSize": "quantity",
     "cpuCFSQuota": "bool",
     "cpuCFSQuotaPeriod": "duration",
     "cpuManagerPolicy": "enum:none|static",
+    "enableDebuggingHandlers": "bool",
+    "imageGCHighThresholdPercent": "uint32",
+    "imageGCLowThresholdPercent": "uint32",
     "maxPods": "uint16"
   }
 }

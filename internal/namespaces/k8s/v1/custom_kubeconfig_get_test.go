@@ -15,7 +15,7 @@ func Test_GetKubeconfig(t *testing.T) {
 	////
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig("Cluster", "Kubeconfig", kapsuleVersion),
+		BeforeFunc: createClusterAndWaitAndKubeconfig("get-kubeconfig", "Cluster", "Kubeconfig", kapsuleVersion),
 		Cmd:        "scw k8s kubeconfig get {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
