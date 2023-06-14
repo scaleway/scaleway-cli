@@ -26,6 +26,7 @@ describe('With wasm CLI', async () => {
         if (runCfg === null) {
             runCfg = {
                 jwt: "",
+                defaultProjectID: ""
             }
         }
 
@@ -38,6 +39,7 @@ describe('With wasm CLI', async () => {
         if (runCfg === null) {
             runCfg = {
                 jwt: "",
+                defaultProjectID: "",
             }
         }
         const resp = await cli.run(runCfg, command)
@@ -49,6 +51,7 @@ describe('With wasm CLI', async () => {
         if (runCfg === null) {
             runCfg = {
                 jwt: "",
+                defaultProjectID: ""
             }
         }
         let toComplete = command.pop() || ""
