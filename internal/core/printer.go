@@ -1,12 +1,9 @@
 package core
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
-	"os"
-	"path/filepath"
 	"reflect"
 	"strings"
 	"text/template"
@@ -125,7 +122,7 @@ func setupTerraformPrinter(printer *Printer, opts string) error {
 		return fmt.Errorf("invalid option %s for terraform outout. Valid options are: %s", opts, PrinterOptTerraformWithChildren)
 	}
 
-	terraformVersion, err := terraform.GetVersion()
+	terraformVersion, err := terraform.GetLocalClientVersion()
 	if err != nil {
 		return err
 	}
@@ -325,118 +322,19 @@ func (p *Printer) printYAML(data interface{}) error {
 	return encoder.Encode(data)
 }
 
-type TerraformImportTemplateData struct {
-	ResourceID   string
-	ResourceName string
-}
-
-const terraformImportTemplate = `
-terraform {
-	required_providers {
-	  	scaleway = {
-			source = "scaleway/scaleway"
-	  	}
-	}
-	required_version = ">= 0.13"
-}
-  
-import {
-	# ID of the cloud resource
-	# Check provider documentation for importable resources and format
-	id = "{{ .ResourceID }}"
-  
-	# Resource address
-	to = {{ .ResourceName }}.main
-}  
-`
-
 func (p *Printer) printTerraform(data interface{}) error {
 	writer := p.stdout
 	if _, isError := data.(error); isError {
 		return p.printHuman(data, nil)
 	}
 
-	dataValue := reflect.ValueOf(data)
-	dataType := dataValue.Type().Elem()
-
-	for i, association := range terraform.Associations {
-		iValue := reflect.ValueOf(i)
-		iType := iValue.Type().Elem()
-		if dataType != iType {
-			continue
-		}
-
-		tmpl, err := template.New("terraform").Parse(association.ImportFormat)
-		if err != nil {
-			return err
-		}
-
-		var resourceID bytes.Buffer
-		err = tmpl.Execute(&resourceID, data)
-		if err != nil {
-			return err
-		}
-
-		// Create temporary directory
-		tmpDir, err := os.MkdirTemp("", "scw-*")
-		if err != nil {
-			return err
-		}
-
-		tmplFile, err := os.CreateTemp(tmpDir, "*.tf")
-		if err != nil {
-			return err
-		}
-		defer os.Remove(tmplFile.Name())
-
-		tmpl, err = template.New("terraform").Parse(terraformImportTemplate)
-		if err != nil {
-			return err
-		}
-		// Write the terraform file
-		err = tmpl.Execute(tmplFile, TerraformImportTemplateData{
-			ResourceID:   resourceID.String(),
-			ResourceName: association.ResourceName,
-		})
-		if err != nil {
-			return err
-		}
-
-		// Close the file
-		err = tmplFile.Close()
-		if err != nil {
-			return err
-		}
-
-		res, err := terraform.Init(tmpDir)
-		if err != nil {
-			return err
-		}
-		if res.ExitCode != 0 {
-			return fmt.Errorf("terraform init failed: %s", res.Stderr)
-		}
-
-		res, err = terraform.GenerateConfig(tmpDir, "output.tf")
-		if err != nil {
-			return err
-		}
-		if res.ExitCode != 0 {
-			return fmt.Errorf("terraform generate failed: %s", res.Stderr)
-		}
-
-		// Print the generated config
-		data, err := os.ReadFile(filepath.Join(tmpDir, "output.tf"))
-		if err != nil {
-			return err
-		}
-
-		_, err = writer.Write(data)
+	hcl, err := terraform.GetHCL(data)
+	if err != nil {
 		return err
 	}
 
-	return p.printHuman(&CliError{
-		Err: fmt.Errorf("no terraform association found for this resource type (%s)", dataType),
-	}, nil)
+	_, err = writer.Write([]byte(hcl))
+	return err
 }
 
 func (p *Printer) printTemplate(data interface{}) error {
