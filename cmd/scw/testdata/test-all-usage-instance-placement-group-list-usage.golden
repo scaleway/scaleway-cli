@@ -17,7 +17,7 @@ ARGS:
   [tags.{index}]      List placement groups with these exact tags (to filter with several tags, use commas to separate them)
   [name]              Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo")
   [organization-id]   List only placement groups of this Organization ID
-  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2 | all)
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | all)
 
 FLAGS:
   -h, --help   help for list

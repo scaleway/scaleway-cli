@@ -9,6 +9,7 @@ Server.AllowedActions.1            backup
 Server.CommercialType              DEV1-S
 Server.CreationDate                few seconds ago
 Server.DynamicIPRequired           false
+Server.RoutedIPEnabled             false
 Server.EnableIPv6                  false
 Server.Hostname                    cli-srv-serene-diffie
 Server.Image.ID                    96cfdd7b-a266-4bfd-8177-0b05ec324229
@@ -27,7 +28,11 @@ Server.Image.Zone                  fr-par-1
 Server.Protected                   false
 Server.PublicIP.ID                 c87da022-ca2c-485a-8bcd-0480df0343b6
 Server.PublicIP.Address            51.15.218.186
+Server.PublicIP.Netmask            -
+Server.PublicIP.Family             inet
 Server.PublicIP.Dynamic            false
+Server.PublicIP.ProvisioningMode   manual
+Server.MacAddress                  -
 Server.ModificationDate            few seconds ago
 Server.State                       archived
 Server.Bootscript                  x86_64 mainline 4.4.230 rev1
@@ -66,6 +71,7 @@ Server.Zone                        fr-par-1
     "commercial_type": "DEV1-S",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "dynamic_ip_required": false,
+    "routed_ip_enabled": false,
     "enable_ipv6": false,
     "hostname": "cli-srv-serene-diffie",
     "image": {
@@ -94,9 +100,10 @@ Server.Zone                        fr-par-1
     "private_ip": null,
     "public_ip": {
       "id": "c87da022-ca2c-485a-8bcd-0480df0343b6",
-      "address": "51.15.218.186",
-      "dynamic": false
+      "address": "51.15.218.186"
     },
+    "public_ips": null,
+    "mac_address": "",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "state": "stopped",
     "location": null,
