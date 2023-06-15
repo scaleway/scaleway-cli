@@ -1,6 +1,7 @@
 export type RunConfig = {
     jwt: string
     defaultProjectID: string
+    defaultOrganizationID: string
 }
 
 export type RunResponse = {

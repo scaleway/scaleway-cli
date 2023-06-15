@@ -21,8 +21,9 @@ func getCommands() *core.Commands {
 }
 
 type RunConfig struct {
-	JWT              string `js:"jwt"`
-	DefaultProjectID string `js:"defaultProjectID"`
+	JWT                   string `js:"jwt"`
+	DefaultProjectID      string `js:"defaultProjectID"`
+	DefaultOrganizationID string `js:"defaultOrganizationID"`
 }
 
 type RunResponse struct {
@@ -40,8 +41,9 @@ func runCommand(cfg *RunConfig, args []string, stdout io.Writer, stderr io.Write
 		Stderr:    stderr,
 		Stdin:     nil,
 		Platform: &web.Platform{
-			JWT:              cfg.JWT,
-			DefaultProjectID: cfg.DefaultProjectID,
+			JWT:                   cfg.JWT,
+			DefaultProjectID:      cfg.DefaultProjectID,
+			DefaultOrganizationID: cfg.DefaultOrganizationID,
 		},
 	})
 
