@@ -151,7 +151,7 @@ scw webhosting hosting list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` | Sort order for Web Hosting plans in the response |
 | tags.{index} |  | Tags to filter for, only Web Hosting plans with matching tags will be returned |
-| statuses.{index} | One of: `unknown_status`, `delivering`, `ready`, `deleting`, `error`, `locked` | Statuses to filter for, only Web Hosting plans with matching statuses will be returned |
+| statuses.{index} | One of: `unknown_status`, `delivering`, `ready`, `deleting`, `error`, `locked`, `migrating` | Statuses to filter for, only Web Hosting plans with matching statuses will be returned |
 | domain |  | Domain to filter for, only Web Hosting plans associated with this domain will be returned |
 | project-id |  | Project ID to filter for, only Web Hosting plans from this Project will be returned |
 | organization-id |  | Organization ID to filter for, only Web Hosting plans from this Organization will be returned |
