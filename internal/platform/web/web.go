@@ -7,9 +7,10 @@ import (
 )
 
 type Platform struct {
-	UserAgent        string
-	JWT              string
-	DefaultProjectID string
+	UserAgent             string
+	JWT                   string
+	DefaultProjectID      string
+	DefaultOrganizationID string
 }
 
 func (p *Platform) CreateClient(client *http.Client, _ string, _ string) (*scw.Client, error) {
@@ -25,6 +26,10 @@ func (p *Platform) CreateClient(client *http.Client, _ string, _ string) (*scw.C
 
 	if p.DefaultProjectID != "" {
 		opts = append(opts, scw.WithDefaultProjectID(p.DefaultProjectID))
+	}
+
+	if p.DefaultOrganizationID != "" {
+		opts = append(opts, scw.WithDefaultOrganizationID(p.DefaultOrganizationID))
 	}
 
 	return scw.NewClient(opts...)
