@@ -63,10 +63,16 @@ func injectConfig(ctx context.Context, config *scw.Config) {
 func extractConfig(ctx context.Context) *scw.Config {
 	m := extractMeta(ctx)
 	if m.Platform != nil {
-		return m.Platform.ScwConfig()
+		cfg, _ := m.Platform.ScwConfig(ExtractConfigPath(ctx))
+
+		return cfg
 	}
 
 	return nil
+}
+
+func ExtractPlatform(ctx context.Context) platform.Platform {
+	return extractMeta(ctx).Platform
 }
 
 func ExtractCommands(ctx context.Context) *Commands {

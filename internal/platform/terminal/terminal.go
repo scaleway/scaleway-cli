@@ -11,12 +11,21 @@ type Platform struct {
 	cfg *scw.Config
 }
 
-func (p *Platform) ScwConfig() *scw.Config {
+func (p *Platform) ScwConfig(path string) (*scw.Config, error) {
 	if p == nil {
-		return nil
+		return nil, nil
 	}
 
-	return p.cfg
+	if p.cfg == nil && path != "" {
+		config, err := scw.LoadConfigFromPath(path)
+		if err != nil {
+			return nil, err
+		}
+
+		p.cfg = config
+	}
+
+	return p.cfg, nil
 }
 
 func (p *Platform) SetScwConfig(cfg *scw.Config) {

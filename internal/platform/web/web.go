@@ -1,6 +1,7 @@
 package web
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -30,8 +31,8 @@ func (p *Platform) CreateClient(client *http.Client, _ string, _ string) (*scw.C
 	return scw.NewClient(opts...)
 }
 
-func (p *Platform) ScwConfig() *scw.Config {
-	return nil
+func (p *Platform) ScwConfig(path string) (*scw.Config, error) {
+	return nil, fmt.Errorf("Not implemented for current platform")
 }
 
 func (p *Platform) SetScwConfig(_ *scw.Config) {}
