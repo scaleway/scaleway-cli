@@ -79,13 +79,28 @@ describe('With wasm CLI', async () => {
             defaultProjectID: ""
         }
 
-        await cli.configureOutput({width: 100})
+        await cli.configureOutput({width: 100, color: false})
         const resp = await cli.run(runCfg, ['marketplace', 'image', 'list'])
         console.log(resp)
         expect(resp.exitCode).toBe(0)
         const lines = resp.stdout.split("\n")
         expect(lines.length).toBeGreaterThan(1)
         expect(lines[2].length).toBeLessThan(100)
+    })
+
+    it('can enable colors', async () => {
+        const runCfg = {
+            jwt: "",
+            defaultProjectID: ""
+        }
+
+        await cli.configureOutput({width: 100, color: false})
+        const resp = await cli.run(runCfg, ['invalid'])
+        await cli.configureOutput({width: 100, color: true})
+        const coloredResp = await cli.run(runCfg, ['invalid'])
+
+        expect(coloredResp.stderr.length).toBeGreaterThan(resp.stderr.length)
+        expect(coloredResp.stderr).not.toEqual(resp.stderr)
     })
 
     afterAll(async () => {
