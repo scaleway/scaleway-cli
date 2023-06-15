@@ -38,7 +38,7 @@ scw vpc private-network create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags for the Private Network |
 | subnets.{index} |  | Private Network subnets CIDR |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -58,7 +58,7 @@ scw vpc private-network delete <private-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | private-network-id | Required | Private Network ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -78,7 +78,7 @@ scw vpc private-network get <private-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | private-network-id | Required | Private Network ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -104,7 +104,7 @@ scw vpc private-network list [arg=value ...]
 | private-network-ids.{index} |  | Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned |
 | include-regional |  | Defines whether to include regional Private Networks in the response |
 | organization-id |  | Organization ID to filter for. Only Private Networks belonging to this Organization will be returned |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -127,7 +127,7 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 | name |  | Name of the private network |
 | tags.{index} |  | Tags for the Private Network |
 | ~~subnets.{index}~~ | Deprecated | Private Network subnets CIDR (deprecated) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
