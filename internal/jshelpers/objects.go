@@ -8,13 +8,6 @@ import (
 	"syscall/js"
 )
 
-func asString(value js.Value) (string, error) {
-	if value.Type() == js.TypeString {
-		return value.String(), nil
-	}
-	return "", fmt.Errorf("value type should be string")
-}
-
 func goValue(typ reflect.Type, value js.Value) (any, error) {
 	switch typ.Kind() {
 	case reflect.Pointer:
@@ -25,6 +18,10 @@ func goValue(typ reflect.Type, value js.Value) (any, error) {
 		return asObject(typ, value)
 	case reflect.Slice:
 		return asSlice(typ.Elem(), value)
+	case reflect.Int:
+		return asInt(value)
+	case reflect.Bool:
+		return asBool(value)
 	}
 	return nil, fmt.Errorf("value type is unknown")
 }

@@ -16,8 +16,17 @@ export type AutocompleteConfig = {
     rightWords: string[]
 }
 
+export type Int = number
+
+export type ConfigureOutputConfig = {
+    width: Int
+    color: boolean
+}
+
+
 export type CLI = {
     run(cfg: RunConfig, args: string[]): Promise<RunResponse>
     complete(cfg: AutocompleteConfig): Promise<string[]>
+    configureOutput(cfg: ConfigureOutputConfig): Promise<{}>
     stop(): Promise<void>
 }
