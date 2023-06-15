@@ -12,7 +12,7 @@ EXAMPLES:
 ARGS:
   [order-by]           Sort order for Web Hosting plans in the response (created_at_asc | created_at_desc)
   [tags.{index}]       Tags to filter for, only Web Hosting plans with matching tags will be returned
-  [statuses.{index}]   Statuses to filter for, only Web Hosting plans with matching statuses will be returned (unknown_status | delivering | ready | deleting | error | locked)
+  [statuses.{index}]   Statuses to filter for, only Web Hosting plans with matching statuses will be returned (unknown_status | delivering | ready | deleting | error | locked | migrating)
   [domain]             Domain to filter for, only Web Hosting plans associated with this domain will be returned
   [project-id]         Project ID to filter for, only Web Hosting plans from this Project will be returned
   [organization-id]    Organization ID to filter for, only Web Hosting plans from this Organization will be returned
