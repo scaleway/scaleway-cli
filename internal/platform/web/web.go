@@ -11,6 +11,7 @@ type Platform struct {
 	JWT                   string
 	DefaultProjectID      string
 	DefaultOrganizationID string
+	APIUrl                string
 }
 
 func (p *Platform) CreateClient(client *http.Client, _ string, _ string) (*scw.Client, error) {
@@ -30,6 +31,10 @@ func (p *Platform) CreateClient(client *http.Client, _ string, _ string) (*scw.C
 
 	if p.DefaultOrganizationID != "" {
 		opts = append(opts, scw.WithDefaultOrganizationID(p.DefaultOrganizationID))
+	}
+
+	if p.APIUrl != "" {
+		opts = append(opts, scw.WithAPIURL(p.APIUrl))
 	}
 
 	return scw.NewClient(opts...)

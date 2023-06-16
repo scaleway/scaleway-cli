@@ -18,12 +18,14 @@ const emptyConfig = (
     override?: {
         jwt?: string,
         defaultProjectID?: string,
-        defaultOrganizationID?: string
+        defaultOrganizationID?: string,
+        apiUrl?: string
     }
 ): RunConfig => ({
     jwt: override?.jwt || "",
     defaultProjectID: override?.defaultProjectID || "",
     defaultOrganizationID: override?.defaultOrganizationID || "",
+    apiUrl: override?.apiUrl || ""
 })
 
 describe('With wasm CLI', async () => {

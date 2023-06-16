@@ -24,6 +24,7 @@ type RunConfig struct {
 	JWT                   string `js:"jwt"`
 	DefaultProjectID      string `js:"defaultProjectID"`
 	DefaultOrganizationID string `js:"defaultOrganizationID"`
+	APIUrl                string `js:"apiUrl"`
 }
 
 type RunResponse struct {
@@ -44,6 +45,7 @@ func runCommand(cfg *RunConfig, args []string, stdout io.Writer, stderr io.Write
 			JWT:                   cfg.JWT,
 			DefaultProjectID:      cfg.DefaultProjectID,
 			DefaultOrganizationID: cfg.DefaultOrganizationID,
+			APIUrl:                cfg.APIUrl,
 		},
 	})
 
