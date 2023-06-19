@@ -78,6 +78,9 @@ It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 			// Fill hosts with servers
 			hosts := make([]sshconfig.Host, 0, len(servers))
 			for _, server := range servers {
+				if server.Address == "" {
+					continue
+				}
 				hosts = append(hosts, sshconfig.SimpleHost{
 					Name:    server.Name,
 					Address: server.Address,
@@ -171,9 +174,14 @@ func sshConfigListServers(ctx context.Context, args *sshConfigRequest) ([]sshCon
 			pnIDs[j] = nic.PrivateNetworkID
 		}
 
+		serverAddress := ""
+		if server.PublicIP != nil {
+			serverAddress = server.PublicIP.Address.String()
+		}
+
 		servers[i] = sshConfigServer{
 			Name:              server.Name,
-			Address:           server.PublicIP.Address.String(),
+			Address:           serverAddress,
 			PrivateNetworksID: pnIDs,
 		}
 	}
