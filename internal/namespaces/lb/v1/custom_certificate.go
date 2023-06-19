@@ -155,19 +155,20 @@ func interceptCertificate() core.CommandInterceptor {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
+		getCertificate, err := api.GetCertificate(&lb.ZonedAPIGetCertificateRequest{
+			Zone:          argsI.(*lb.ZonedAPIDeleteCertificateRequest).Zone,
+			CertificateID: argsI.(*lb.ZonedAPIDeleteCertificateRequest).CertificateID,
+		})
+		if err != nil {
+			return nil, err
+		}
+
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
 		}
 
 		if _, ok := res.(*core.SuccessResult); ok {
-			getCertificate, err := api.GetCertificate(&lb.ZonedAPIGetCertificateRequest{
-				Zone:          argsI.(*lb.ZonedAPIDeleteCertificateRequest).Zone,
-				CertificateID: argsI.(*lb.ZonedAPIDeleteCertificateRequest).CertificateID,
-			})
-			if err != nil {
-				return nil, err
-			}
 			if len(getCertificate.LB.Tags) != 0 && getCertificate.LB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}

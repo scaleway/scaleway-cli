@@ -66,19 +66,20 @@ func interceptFrontend() core.CommandInterceptor {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
+		getFrontend, err := api.GetFrontend(&lb.ZonedAPIGetFrontendRequest{
+			Zone:       argsI.(*lb.ZonedAPIDeleteFrontendRequest).Zone,
+			FrontendID: argsI.(*lb.ZonedAPIDeleteFrontendRequest).FrontendID,
+		})
+		if err != nil {
+			return nil, err
+		}
+
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
 		}
 
 		if _, ok := res.(*core.SuccessResult); ok {
-			getFrontend, err := api.GetFrontend(&lb.ZonedAPIGetFrontendRequest{
-				Zone:       argsI.(*lb.ZonedAPIDeleteFrontendRequest).Zone,
-				FrontendID: argsI.(*lb.ZonedAPIDeleteFrontendRequest).FrontendID,
-			})
-			if err != nil {
-				return nil, err
-			}
 			if len(getFrontend.LB.Tags) != 0 && getFrontend.LB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}

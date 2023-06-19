@@ -167,19 +167,20 @@ func interceptLB() core.CommandInterceptor {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
+		getLB, err := api.GetLB(&lb.ZonedAPIGetLBRequest{
+			Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
+			LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
+		})
+		if err != nil {
+			return nil, err
+		}
+
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
 		}
 
 		if _, ok := res.(*core.SuccessResult); ok {
-			getLB, err := api.GetLB(&lb.ZonedAPIGetLBRequest{
-				Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
-				LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
-			})
-			if err != nil {
-				return nil, err
-			}
 			if len(getLB.Tags) != 0 && getLB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}
