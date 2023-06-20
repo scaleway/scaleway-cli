@@ -287,8 +287,8 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 			for i, volumeID := range *customRequest.VolumeIDs {
 				index := strconv.Itoa(i)
 				volumes[index] = &instance.VolumeServerTemplate{
-					ID:   volumeID,
-					Name: getServerResponse.Server.Name + "-" + index,
+					ID:   &volumeID,
+					Name: scw.StringPtr(getServerResponse.Server.Name + "-" + index),
 				}
 			}
 			customRequest.Volumes = &volumes

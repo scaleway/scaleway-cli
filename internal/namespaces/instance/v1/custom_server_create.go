@@ -447,10 +447,10 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 			return nil, err
 		}
 		index := strconv.Itoa(i + 1)
-		volumeTemplate.Name = serverName + "-" + index
+		volumeTemplate.Name = scw.StringPtr(serverName + "-" + index)
 
 		// Remove extra data for API validation.
-		if volumeTemplate.ID != "" {
+		if volumeTemplate.ID != nil {
 			volumeTemplate = &instance.VolumeServerTemplate{
 				ID:   volumeTemplate.ID,
 				Name: volumeTemplate.Name,
@@ -495,7 +495,7 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*insta
 		if err != nil {
 			return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV)
 		}
-		vt.Size = scw.Size(size)
+		vt.Size = scw.SizePtr(scw.Size(size))
 
 		return vt, nil
 	}
@@ -534,9 +534,9 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 	}
 
 	return &instance.VolumeServerTemplate{
-		ID:         res.Volume.ID,
+		ID:         &res.Volume.ID,
 		VolumeType: res.Volume.VolumeType,
-		Size:       res.Volume.Size,
+		Size:       &res.Volume.Size,
 	}, nil
 }
 
@@ -562,10 +562,10 @@ func buildVolumeTemplateFromSnapshot(api *instance.API, zone scw.Zone, snapshotU
 	}
 
 	return &instance.VolumeServerTemplate{
-		Name:         res.Snapshot.Name,
+		Name:         &res.Snapshot.Name,
 		VolumeType:   volumeType,
-		BaseSnapshot: res.Snapshot.ID,
-		Size:         res.Snapshot.Size,
+		BaseSnapshot: &res.Snapshot.ID,
+		Size:         &res.Snapshot.Size,
 	}, nil
 }
 
@@ -592,8 +592,8 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate,
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
-		if volume.VolumeType == instance.VolumeVolumeTypeLSSD {
-			localVolumeTotalSize += volume.Size
+		if volume.VolumeType == instance.VolumeVolumeTypeLSSD && volume.Size != nil {
+			localVolumeTotalSize += *volume.Size
 		}
 	}
 
@@ -622,14 +622,14 @@ func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeS
 		return nil
 	}
 
-	if rootVolume.ID != "" {
+	if rootVolume.ID != nil {
 		return &core.CliError{
 			Err:     fmt.Errorf("you cannot use an existing volume as a root volume"),
 			Details: "You must create an image of this volume and use its ID in the 'image' argument.",
 		}
 	}
 
-	if rootVolume.Size < imageRequiredSize {
+	if rootVolume.Size != nil && *rootVolume.Size < imageRequiredSize {
 		return fmt.Errorf("first volume size must be at least %s for this image", humanize.Bytes(uint64(imageRequiredSize)))
 	}
 
@@ -641,22 +641,22 @@ func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeSer
 	m := make(map[string]*instance.VolumeServerTemplate)
 
 	for index, v := range volumes {
-		v.Name = serverName + "-" + index
+		v.Name = scw.StringPtr(serverName + "-" + index)
 
 		// Remove extra data for API validation.
 		switch {
-		case v.ID != "":
+		case v.ID != nil:
 			v = &instance.VolumeServerTemplate{
 				ID:   v.ID,
 				Name: v.Name,
 			}
-		case v.BaseSnapshot != "":
+		case v.BaseSnapshot != nil:
 			v = &instance.VolumeServerTemplate{
 				BaseSnapshot: v.BaseSnapshot,
 				Name:         v.Name,
 				VolumeType:   v.VolumeType,
 			}
-		case index == "0" && v.Size != 0:
+		case index == "0" && v.Size != nil:
 			v = &instance.VolumeServerTemplate{
 				VolumeType: v.VolumeType,
 				Size:       v.Size,
