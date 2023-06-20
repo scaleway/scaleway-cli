@@ -16,6 +16,7 @@ IAM API.
   - [Update an application](#update-an-application)
 - [Groups management commands](#groups-management-commands)
   - [Add a user or an application to a group](#add-a-user-or-an-application-to-a-group)
+  - [Add multiple users and applications to a group](#add-multiple-users-and-applications-to-a-group)
   - [Create a group](#create-a-group)
   - [Delete a group](#delete-a-group)
   - [Get a group](#get-a-group)
@@ -308,6 +309,27 @@ scw iam group add-member <group-id ...> [arg=value ...]
 | group-id | Required | ID of the group |
 | user-id |  | ID of the user to add |
 | application-id |  | ID of the application to add |
+
+
+
+### Add multiple users and applications to a group
+
+Add multiple users and applications to a group in a single call. You can specify an array of `user_id`s and `application_id`s. Note that any existing users and applications in the group will remain. To add new users/applications and delete pre-existing ones, use the [Overwrite users and applications of a group](#path-groups-overwrite-users-and-applications-of-a-group) method.
+
+**Usage:**
+
+```
+scw iam group add-members [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| group-id | Required | ID of the group |
+| user-ids.{index} |  | IDs of the users to add |
+| application-ids.{index} |  | IDs of the applications to add |
 
 
 
