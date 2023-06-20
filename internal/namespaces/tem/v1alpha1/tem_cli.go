@@ -32,6 +32,7 @@ func GetGeneratedCommands() *core.Commands {
 		temDomainList(),
 		temDomainRevoke(),
 		temDomainCheck(),
+		temDomainGetLastStatus(),
 	)
 }
 func temRoot() *core.Command {
@@ -605,6 +606,36 @@ func temDomainCheck() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.CheckDomain(request)
+
+		},
+	}
+}
+
+func temDomainGetLastStatus() *core.Command {
+	return &core.Command{
+		Short:     `Display SPF and DKIM records status and potential errors`,
+		Long:      `Display SPF and DKIM records status and potential errors, including the found records to make debugging easier.`,
+		Namespace: "tem",
+		Resource:  "domain",
+		Verb:      "get-last-status",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.GetDomainLastStatusRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-id",
+				Short:      `ID of the domain to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.GetDomainLastStatusRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			return api.GetDomainLastStatus(request)
 
 		},
 	}

@@ -15,6 +15,7 @@ Kubernetes API.
   - [Upgrade a Cluster](#upgrade-a-cluster)
   - [Wait for a cluster to reach a stable state](#wait-for-a-cluster-to-reach-a-stable-state)
 - [Cluster type management commands](#cluster-type-management-commands)
+  - [List cluster types](#list-cluster-types)
 - [Manage your Kubernetes Kapsule cluster's kubeconfig files](#manage-your-kubernetes-kapsule-cluster's-kubeconfig-files)
   - [Retrieve a kubeconfig](#retrieve-a-kubeconfig)
   - [Install a kubeconfig](#install-a-kubeconfig)
@@ -501,15 +502,23 @@ All cluster types available in a specified region
 A cluster type represents the different commercial types of clusters offered by Scaleway.
 
 
-All cluster types available in a specified region
-A cluster type represents the different commercial types of clusters offered by Scaleway.
 
+### List cluster types
+
+List available cluster types and their technical details.
 
 **Usage:**
 
 ```
-scw k8s cluster-type
+scw k8s cluster-type list [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

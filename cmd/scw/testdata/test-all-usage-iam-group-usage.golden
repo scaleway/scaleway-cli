@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   add-member    Add a user or an application to a group
+  add-members   Add multiple users and applications to a group
   create        Create a group
   delete        Delete a group
   get           Get a group
