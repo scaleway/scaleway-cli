@@ -48,6 +48,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamGroupUpdate(),
 		iamGroupSetMembers(),
 		iamGroupAddMember(),
+		iamGroupAddMembers(),
 		iamGroupRemoveMember(),
 		iamGroupDelete(),
 		iamPolicyList(),
@@ -1050,6 +1051,49 @@ func iamGroupAddMember() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.AddGroupMember(request)
+
+		},
+	}
+}
+
+func iamGroupAddMembers() *core.Command {
+	return &core.Command{
+		Short:     `Add multiple users and applications to a group`,
+		Long:      `Add multiple users and applications to a group in a single call. You can specify an array of ` + "`" + `user_id` + "`" + `s and ` + "`" + `application_id` + "`" + `s. Note that any existing users and applications in the group will remain. To add new users/applications and delete pre-existing ones, use the [Overwrite users and applications of a group](#path-groups-overwrite-users-and-applications-of-a-group) method.`,
+		Namespace: "iam",
+		Resource:  "group",
+		Verb:      "add-members",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.AddGroupMembersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "group-id",
+				Short:      `ID of the group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "user-ids.{index}",
+				Short:      `IDs of the users to add`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "application-ids.{index}",
+				Short:      `IDs of the applications to add`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.AddGroupMembersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.AddGroupMembers(request)
 
 		},
 	}
