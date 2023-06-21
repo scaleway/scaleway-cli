@@ -48,6 +48,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sNodeDelete(),
 		k8sVersionList(),
 		k8sVersionGet(),
+		k8sClusterTypeList(),
 	)
 }
 func k8sRoot() *core.Command {
@@ -2059,6 +2060,38 @@ func k8sVersionGet() *core.Command {
 				Short: "Get the Kubernetes version 1.27.0",
 				Raw:   `scw k8s version get 1.27.0`,
 			},
+		},
+	}
+}
+
+func k8sClusterTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List cluster types`,
+		Long:      `List available cluster types and their technical details.`,
+		Namespace: "k8s",
+		Resource:  "cluster-type",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.ListClusterTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ListClusterTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListClusterTypes(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.ClusterTypes, nil
+
 		},
 	}
 }
