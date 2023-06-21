@@ -6,6 +6,7 @@ Transactional Email API.
   - [Domain DNS check](#domain-dns-check)
   - [Register a domain in a project](#register-a-domain-in-a-project)
   - [Get information about a domain](#get-information-about-a-domain)
+  - [Display SPF and DKIM records status and potential errors](#display-spf-and-dkim-records-status-and-potential-errors)
   - [List domains](#list-domains)
   - [Delete a domain](#delete-a-domain)
 - [Email management commands](#email-management-commands)
@@ -79,6 +80,26 @@ scw tem domain get <domain-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | domain-id | Required | ID of the domain |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Display SPF and DKIM records status and potential errors
+
+Display SPF and DKIM records status and potential errors, including the found records to make debugging easier.
+
+**Usage:**
+
+```
+scw tem domain get-last-status <domain-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain-id | Required | ID of the domain to delete |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
