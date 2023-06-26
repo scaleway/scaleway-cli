@@ -33,6 +33,7 @@ Serverless Containers API.
   - [Delete a token](#delete-a-token)
   - [Get a token](#get-a-token)
   - [List all tokens](#list-all-tokens)
+- [Trigger management commands](#trigger-management-commands)
 
   
 ## Container management commands
@@ -654,6 +655,20 @@ scw container token list [arg=value ...]
 | container-id |  | UUID of the container the token belongs to |
 | namespace-id |  | UUID of the namespace the token belongs to |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Trigger management commands
+
+Trigger management commands.
+
+Trigger management commands.
+
+**Usage:**
+
+```
+scw container trigger
+```
 
 
 
