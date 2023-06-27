@@ -970,6 +970,7 @@ scw instance private-nic create [arg=value ...]
 | server-id | Required | UUID of the Instance the private NIC will be attached to |
 | private-network-id | Required | UUID of the private network where the private NIC will be attached |
 | tags.{index} |  | Private NIC tags |
+| ip-ids.{index} |  | Ip_ids defined from IPAM |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
