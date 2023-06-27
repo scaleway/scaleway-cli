@@ -1046,6 +1046,13 @@ func rdbInstanceUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "backup-schedule-start-hour",
+				Short:      `Defines the start time of the autobackup`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
