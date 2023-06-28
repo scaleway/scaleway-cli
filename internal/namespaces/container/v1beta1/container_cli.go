@@ -25,6 +25,7 @@ func GetGeneratedCommands() *core.Commands {
 		containerCron(),
 		containerDomain(),
 		containerToken(),
+		containerTrigger(),
 		containerNamespaceList(),
 		containerNamespaceGet(),
 		containerNamespaceCreate(),
@@ -102,6 +103,15 @@ func containerToken() *core.Command {
 		Long:      `Token management commands.`,
 		Namespace: "container",
 		Resource:  "token",
+	}
+}
+
+func containerTrigger() *core.Command {
+	return &core.Command{
+		Short:     `Trigger management commands`,
+		Long:      `Trigger management commands.`,
+		Namespace: "container",
+		Resource:  "trigger",
 	}
 }
 
