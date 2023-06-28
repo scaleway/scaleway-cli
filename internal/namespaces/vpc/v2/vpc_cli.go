@@ -364,6 +364,13 @@ func vpcPrivateNetworkList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "dhcp-enabled",
+				Short:      `DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for. Only Private Networks belonging to this Organization will be returned`,
 				Required:   false,
