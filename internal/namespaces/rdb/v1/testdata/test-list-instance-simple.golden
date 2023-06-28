@@ -64,7 +64,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
@@ -137,7 +138,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
@@ -210,7 +212,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
@@ -283,7 +286,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
@@ -356,7 +360,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
@@ -429,7 +434,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
@@ -502,7 +508,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
@@ -575,7 +582,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
@@ -648,7 +656,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
@@ -714,7 +723,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "backup_schedule": {
       "frequency": 24,
       "retention": 7,
-      "disabled": false
+      "disabled": false,
+      "next_run_at": null
     },
     "is_ha_cluster": false,
     "read_replicas": [],
