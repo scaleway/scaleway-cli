@@ -78,8 +78,8 @@ func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 			ServerName:       image.ServerName,
 			ServerID:         image.ServerID,
 			Arch:             image.Arch,
-			OrganizationID:   image.OrganizationID,
-			ProjectID:        image.ProjectID,
+			OrganizationID:   image.Organization,
+			ProjectID:        image.Project,
 			CreationDate:     image.CreationDate,
 			ModificationDate: image.ModificationDate,
 		})
@@ -153,23 +153,11 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 // customImage is based on instance.Image, with additional information about the server
 type imageListItem struct {
-	ID                string                      `json:"id"`
-	Name              string                      `json:"name"`
-	Arch              instance.Arch               `json:"arch"`
-	CreationDate      *time.Time                  `json:"creation_date"`
-	ModificationDate  *time.Time                  `json:"modification_date"`
-	DefaultBootscript *instance.Bootscript        `json:"default_bootscript"`
-	ExtraVolumes      map[string]*instance.Volume `json:"extra_volumes"`
-	OrganizationID    string                      `json:"organization"`
-	ProjectID         string                      `json:"project"`
-	Public            bool                        `json:"public"`
-	RootVolume        *instance.VolumeSummary     `json:"root_volume"`
-	State             instance.ImageState         `json:"state"`
+	*instance.Image
 
 	// Replace Image.FromServer
-	ServerID   string   `json:"server_id"`
-	ServerName string   `json:"server_name"`
-	Zone       scw.Zone `json:"zone"`
+	ServerID   string `json:"server_id"`
+	ServerName string `json:"server_name"`
 }
 
 // imageListBuilder list the images for a given organization/project.
@@ -210,19 +198,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 		customImages := []*imageListItem(nil)
 		for _, image := range images {
 			newCustomImage := &imageListItem{
-				ID:                image.ID,
-				Name:              image.Name,
-				Arch:              image.Arch,
-				CreationDate:      image.CreationDate,
-				ModificationDate:  image.ModificationDate,
-				DefaultBootscript: image.DefaultBootscript,
-				ExtraVolumes:      image.ExtraVolumes,
-				OrganizationID:    image.Organization,
-				ProjectID:         image.Project,
-				Public:            image.Public,
-				RootVolume:        image.RootVolume,
-				State:             image.State,
-				Zone:              image.Zone,
+				Image: image,
 			}
 			customImages = append(customImages, newCustomImage)
 
