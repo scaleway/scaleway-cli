@@ -95,7 +95,8 @@ timezone                         UTC
   "backup_schedule": {
     "frequency": 24,
     "retention": 7,
-    "disabled": false
+    "disabled": false,
+    "next_run_at": null
   },
   "is_ha_cluster": false,
   "read_replicas": [],
