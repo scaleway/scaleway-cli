@@ -51,6 +51,11 @@ func GetGeneratedCommands() *core.Commands {
 		containerTokenGet(),
 		containerTokenList(),
 		containerTokenDelete(),
+		containerTriggerCreate(),
+		containerTriggerGet(),
+		containerTriggerList(),
+		containerTriggerUpdate(),
+		containerTriggerDelete(),
 	)
 }
 func containerRoot() *core.Command {
@@ -1371,6 +1376,282 @@ func containerTokenDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteToken(request)
+
+		},
+	}
+}
+
+func containerTriggerCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a trigger`,
+		Long:      `Create a new trigger for a specified container.`,
+		Namespace: "container",
+		Resource:  "trigger",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.CreateTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "container-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-sqs-config.mnq-namespace-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-sqs-config.queue",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-sqs-config.mnq-project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-sqs-config.mnq-region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.endpoint",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.queue-url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.access-key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.secret-key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.mnq-namespace-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.subject",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.mnq-project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.mnq-region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.CreateTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.CreateTrigger(request)
+
+		},
+	}
+}
+
+func containerTriggerGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a trigger`,
+		Long:      `Get a trigger with a specified ID.`,
+		Namespace: "container",
+		Resource:  "trigger",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.GetTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "trigger-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.GetTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.GetTrigger(request)
+
+		},
+	}
+}
+
+func containerTriggerList() *core.Command {
+	return &core.Command{
+		Short:     `List all triggers`,
+		Long:      `List all triggers belonging to a specified Organization or Project.`,
+		Namespace: "container",
+		Resource:  "trigger",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.ListTriggersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "container-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "namespace-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.ListTriggersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListTriggers(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Triggers, nil
+
+		},
+	}
+}
+
+func containerTriggerUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a trigger`,
+		Long:      `Update a trigger with a specified ID.`,
+		Namespace: "container",
+		Resource:  "trigger",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.UpdateTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "trigger-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.access-key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "sqs-config.secret-key",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.UpdateTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.UpdateTrigger(request)
+
+		},
+	}
+}
+
+func containerTriggerDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a trigger`,
+		Long:      `Delete a trigger with a specified ID.`,
+		Namespace: "container",
+		Resource:  "trigger",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(container.DeleteTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "trigger-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*container.DeleteTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+			return api.DeleteTrigger(request)
 
 		},
 	}
