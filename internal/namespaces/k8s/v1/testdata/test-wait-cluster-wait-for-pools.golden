@@ -93,5 +93,6 @@ GroupsPrefix    -
     "required_claim": []
   },
   "apiserver_cert_sans": [],
-  "private_network_id": "d74ffd0f-d524-4941-93e9-e0d5885b21f4"
+  "private_network_id": "d74ffd0f-d524-4941-93e9-e0d5885b21f4",
+  "commitment_ends_at": null
 }
