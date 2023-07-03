@@ -1012,6 +1012,25 @@ func lbBackendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "max-connections",
+				Short:      `Maximum number of connections allowed per backend server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "timeout-queue.seconds",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "timeout-queue.nanos",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1195,6 +1214,25 @@ func lbBackendUpdate() *core.Command {
 			{
 				Name:       "max-retries",
 				Short:      `Number of retries when a backend server connection failed`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-connections",
+				Short:      `Maximum number of connections allowed per backend server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "timeout-queue.seconds",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "timeout-queue.nanos",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

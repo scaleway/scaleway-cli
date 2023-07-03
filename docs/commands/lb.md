@@ -320,6 +320,9 @@ scw lb backend create [arg=value ...]
 | ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
 | redispatch-attempt-count |  | Whether to use another backend server on each attempt |
 | max-retries |  | Number of retries when a backend server connection failed |
+| max-connections |  | Maximum number of connections allowed per backend server |
+| timeout-queue.seconds |  |  |
+| timeout-queue.nanos |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -492,6 +495,9 @@ scw lb backend update <backend-id ...> [arg=value ...]
 | ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
 | redispatch-attempt-count |  | Whether to use another backend server on each attempt |
 | max-retries |  | Number of retries when a backend server connection failed |
+| max-connections |  | Maximum number of connections allowed per backend server |
+| timeout-queue.seconds |  |  |
+| timeout-queue.nanos |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
