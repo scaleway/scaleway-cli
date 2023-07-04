@@ -3,13 +3,15 @@ package instance
 import "github.com/scaleway/scaleway-cli/v2/internal/core"
 
 func addWebUrls(cmds *core.Commands) {
+	const imageURL = "https://console.scaleway.com/instance/images"
+
 	cmds.MustFind("instance").WebURL = "https://console.scaleway.com/instance/servers"
 
 	cmds.MustFind("instance", "server").WebURL = "https://console.scaleway.com/instance/servers"
 	cmds.MustFind("instance", "server", "get").WebURL = "https://console.scaleway.com/instance/servers/{{ .Zone }}/{{ .ServerID }}/overview"
 	cmds.MustFind("instance", "server", "create").WebURL = "https://console.scaleway.com/instance/servers/create?zone={{ .Zone }}&offerName={{ .Type }}"
 
-	cmds.MustFind("instance", "image").WebURL = "https://console.scaleway.com/instance/images"
+	cmds.MustFind("instance", "image").WebURL = imageURL
 
 	cmds.MustFind("instance", "ip").WebURL = "https://console.scaleway.com/instance/ips"
 
@@ -22,6 +24,6 @@ func addWebUrls(cmds *core.Commands) {
 	cmds.MustFind("instance", "snapshot").WebURL = "https://console.scaleway.com/instance/snapshots"
 	cmds.MustFind("instance", "volume").WebURL = "https://console.scaleway.com/instance/volumes"
 
-	cmds.MustFind("instance", "snapshot").WebURL = "https://console.scaleway.com/instance/images"
-	cmds.MustFind("instance", "snapshot").WebURL = "https://console.scaleway.com/instance/images"
+	cmds.MustFind("instance", "snapshot").WebURL = imageURL
+	cmds.MustFind("instance", "snapshot").WebURL = imageURL
 }
