@@ -28,7 +28,6 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitContact(),
 		cockpitCockpitActivate(),
 		cockpitCockpitGet(),
-		cockpitCockpitGetMetrics(),
 		cockpitCockpitDeactivate(),
 		cockpitCockpitResetGrafana(),
 		cockpitTokenCreate(),
@@ -152,50 +151,6 @@ func cockpitCockpitGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewAPI(client)
 			return api.GetCockpit(request)
-
-		},
-	}
-}
-
-func cockpitCockpitGetMetrics() *core.Command {
-	return &core.Command{
-		Short:     `Get Cockpit metrics`,
-		Long:      `Get metrics from your Cockpit with the specified Project ID.`,
-		Namespace: "cockpit",
-		Resource:  "cockpit",
-		Verb:      "get-metrics",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GetCockpitMetricsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			{
-				Name:       "start-date",
-				Short:      `Desired time range's start date for the metrics`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "end-date",
-				Short:      `Desired time range's end date for the metrics`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "metric-name",
-				Short:      `Name of the metric requested`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*cockpit.GetCockpitMetricsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := cockpit.NewAPI(client)
-			return api.GetCockpitMetrics(request)
 
 		},
 	}

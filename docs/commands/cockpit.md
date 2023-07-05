@@ -10,7 +10,6 @@ Cockpit's API allows you to activate your Cockpit on your Projects. Scaleway's C
   - [Activate a Cockpit](#activate-a-cockpit)
   - [Deactivate a Cockpit](#deactivate-a-cockpit)
   - [Get a Cockpit](#get-a-cockpit)
-  - [Get Cockpit metrics](#get-cockpit-metrics)
   - [Reset a Grafana](#reset-a-grafana)
   - [Wait for a cockpit to reach a stable state (installation)](#wait-for-a-cockpit-to-reach-a-stable-state-(installation))
 - [Contacts management commands](#contacts-management-commands)
@@ -153,28 +152,6 @@ scw cockpit cockpit get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-
-
-
-### Get Cockpit metrics
-
-Get metrics from your Cockpit with the specified Project ID.
-
-**Usage:**
-
-```
-scw cockpit cockpit get-metrics [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| start-date |  | Desired time range's start date for the metrics |
-| end-date |  | Desired time range's end date for the metrics |
-| metric-name |  | Name of the metric requested |
 
 
 
