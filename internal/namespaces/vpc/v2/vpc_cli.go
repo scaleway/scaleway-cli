@@ -171,14 +171,6 @@ func vpcVpcCreate() *core.Command {
 				Positional: false,
 				Default:    core.RandomValueGenerator("vpc"),
 			},
-			{
-				Name:       "default-private-network-name",
-				Short:      `Name for the VPC's associated default Private Network`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				Default:    core.DefaultValueSetter("default"),
-			},
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "tags.{index}",
