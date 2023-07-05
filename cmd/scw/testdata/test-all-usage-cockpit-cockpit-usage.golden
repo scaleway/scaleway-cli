@@ -9,7 +9,6 @@ AVAILABLE COMMANDS:
   activate      Activate a Cockpit
   deactivate    Deactivate a Cockpit
   get           Get a Cockpit
-  get-metrics   Get Cockpit metrics
   reset-grafana Reset a Grafana
 
 WORKFLOW COMMANDS:

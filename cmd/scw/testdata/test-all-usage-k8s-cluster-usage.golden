@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   delete                     Delete a Cluster
   get                        Get a Cluster
   list                       List Clusters
+  list-available-types       List available cluster types for a cluster
   list-available-versions    List available versions for a Cluster
   migrate-to-private-network Migrate an existing cluster to a Private Network cluster
   reset-admin-token          Reset the admin token of a Cluster
