@@ -33,6 +33,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterUpgrade(),
 		k8sClusterSetType(),
 		k8sClusterListAvailableVersions(),
+		k8sClusterListAvailableTypes(),
 		k8sClusterResetAdminToken(),
 		k8sClusterMigrateToPrivateNetwork(),
 		k8sPoolList(),
@@ -1089,6 +1090,47 @@ func k8sClusterListAvailableVersions() *core.Command {
 			},
 			{
 				FieldName: "AvailableContainerRuntimes",
+			},
+		}},
+	}
+}
+
+func k8sClusterListAvailableTypes() *core.Command {
+	return &core.Command{
+		Short:     `List available cluster types for a cluster`,
+		Long:      `List the cluster types that a specific Kubernetes cluster is allowed to switch to.`,
+		Namespace: "k8s",
+		Resource:  "cluster",
+		Verb:      "list-available-types",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.ListClusterAvailableTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `Cluster ID for which the available Kubernetes types will be listed`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ListClusterAvailableTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.ListClusterAvailableTypes(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short: "List all cluster types that a cluster can upgrade to",
+				Raw:   `scw k8s cluster list-available-types 11111111-1111-1111-111111111111`,
+			},
+		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "Name",
 			},
 		}},
 	}
