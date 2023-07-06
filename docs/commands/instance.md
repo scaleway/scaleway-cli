@@ -2210,6 +2210,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | private-nics.{index}.mac-address |  | Private NIC MAC address |
 | private-nics.{index}.state | One of: `available`, `syncing`, `syncing_error` | Private NIC state |
 | private-nics.{index}.tags.{index} |  | Private NIC tags |
+| commercial-type |  | Set the commercial_type for this Instance. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
