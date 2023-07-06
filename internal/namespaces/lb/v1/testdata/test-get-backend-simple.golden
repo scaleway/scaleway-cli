@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        43aed3b6-d477-4a60-b954-88bff5d5bb4b
+ID                        b315a039-90b2-439d-bfd6-9857fb0ac030
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -8,6 +8,9 @@ ForwardPortAlgorithm      roundrobin
 StickySessions            none
 StickySessionsCookieName  -
 SendProxyV2               false
+TimeoutServer             5m0s
+TimeoutConnect            5s
+TimeoutTunnel             15m0s
 OnMarkedDownAction        on_marked_down_action_none
 ProxyProtocol             proxy_protocol_unknown
 CreatedAt                 few seconds ago
@@ -22,10 +25,10 @@ CheckMaxRetries  5
 CheckSendProxy   false
 
 Pool:
-[163.172.182.127]
+[51.15.238.185]
 
 Lb:
-ID                     79c45a6e-c468-41d1-9d56-c4023fda02a6
+ID                     6c45b2ed-b155-43b4-ad61-7e6829e42426
 Name                   cli-test
 Description            cli-test
 Status                 ready
@@ -43,15 +46,15 @@ Region                 fr-par
 Zone                   fr-par-1
 
 IPs:
-ID                                    IP ADDRESS     ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                            REGION  ZONE
-0e64643e-4113-4cbd-ad38-217e69d3e851  51.159.27.169  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  79c45a6e-c468-41d1-9d56-c4023fda02a6  51-159-27-169.lb.fr-par.scw.cloud  fr-par  fr-par-1
+ID                                    IP ADDRESS       ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                              REGION  ZONE
+b4469d93-58d5-4579-956d-1beee3b360f7  195.154.196.168  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  6c45b2ed-b155-43b4-ad61-7e6829e42426  195-154-196-168.lb.fr-par.scw.cloud  fr-par  fr-par-1
 
-Backends:
-ID                                    STATUS   IP ADDRESS   CREATED AT       UPDATED AT       REGION  ZONE
-5b0650ba-12c2-4e52-b5e2-71b2d64cb03a  pending  10.65.142.3  few seconds ago  few seconds ago  fr-par  fr-par-1
+LB Instances:
+ID                                    STATUS  IP ADDRESS    CREATED AT       UPDATED AT       REGION  ZONE
+19eb9083-197a-4973-b7ce-8e180bfdf770  ready   10.68.112.33  few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "43aed3b6-d477-4a60-b954-88bff5d5bb4b",
+  "id": "b315a039-90b2-439d-bfd6-9857fb0ac030",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -68,18 +71,18 @@ ID                                    STATUS   IP ADDRESS   CREATED AT       UPD
     "check_timeout": 1000
   },
   "pool": [
-    "163.172.182.127"
+    "51.15.238.185"
   ],
   "lb": {
-    "id": "79c45a6e-c468-41d1-9d56-c4023fda02a6",
+    "id": "6c45b2ed-b155-43b4-ad61-7e6829e42426",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "5b0650ba-12c2-4e52-b5e2-71b2d64cb03a",
-        "status": "pending",
-        "ip_address": "10.65.142.3",
+        "id": "19eb9083-197a-4973-b7ce-8e180bfdf770",
+        "status": "ready",
+        "ip_address": "10.68.112.33",
         "created_at": "1970-01-01T00:00:00.0Z",
         "updated_at": "1970-01-01T00:00:00.0Z",
         "region": "fr-par",
@@ -90,12 +93,12 @@ ID                                    STATUS   IP ADDRESS   CREATED AT       UPD
     "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
     "ip": [
       {
-        "id": "0e64643e-4113-4cbd-ad38-217e69d3e851",
-        "ip_address": "51.159.27.169",
+        "id": "b4469d93-58d5-4579-956d-1beee3b360f7",
+        "ip_address": "195.154.196.168",
         "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
         "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "lb_id": "79c45a6e-c468-41d1-9d56-c4023fda02a6",
-        "reverse": "51-159-27-169.lb.fr-par.scw.cloud",
+        "lb_id": "6c45b2ed-b155-43b4-ad61-7e6829e42426",
+        "reverse": "195-154-196-168.lb.fr-par.scw.cloud",
         "region": "fr-par",
         "zone": "fr-par-1"
       }
@@ -125,7 +128,7 @@ ID                                    STATUS   IP ADDRESS   CREATED AT       UPD
   "max_retries": null,
   "max_connections": null,
   "timeout_queue": null,
-  "timeout_server": null,
-  "timeout_connect": null,
-  "timeout_tunnel": null
+  "timeout_server": 300000,
+  "timeout_connect": 5000,
+  "timeout_tunnel": 900000
 }

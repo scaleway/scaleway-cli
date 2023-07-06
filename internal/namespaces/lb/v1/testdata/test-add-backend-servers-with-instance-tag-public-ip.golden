@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        e0aee921-4bae-41c2-b790-7c58bcd7f41c
+ID                        d6817c38-7bec-4bf6-b3bc-9d1312b2a61e
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -8,6 +8,9 @@ ForwardPortAlgorithm      roundrobin
 StickySessions            none
 StickySessionsCookieName  -
 SendProxyV2               false
+TimeoutServer             5m0s
+TimeoutConnect            5s
+TimeoutTunnel             15m0s
 OnMarkedDownAction        on_marked_down_action_none
 ProxyProtocol             proxy_protocol_unknown
 CreatedAt                 few seconds ago
@@ -22,10 +25,10 @@ CheckMaxRetries  5
 CheckSendProxy   false
 
 Pool:
-[163.172.172.203]
+[163.172.183.135 51.15.207.142]
 
 Lb:
-ID                     d60134ef-1957-4486-a497-bd8ead8a3482
+ID                     4ac5ad26-5bb1-493b-95ea-79ea82a6632e
 Name                   cli-test
 Description            cli-test
 Status                 ready
@@ -44,14 +47,14 @@ Zone                   fr-par-1
 
 IPs:
 ID                                    IP ADDRESS      ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                             REGION  ZONE
-9f868c96-54ef-4662-b24c-07268031ba58  51.159.115.142  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  d60134ef-1957-4486-a497-bd8ead8a3482  51-159-115-142.lb.fr-par.scw.cloud  fr-par  fr-par-1
+c2c24b68-db83-4614-9b58-b2e03b9242a9  51.159.113.163  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  4ac5ad26-5bb1-493b-95ea-79ea82a6632e  51-159-113-163.lb.fr-par.scw.cloud  fr-par  fr-par-1
 
-Backends:
-ID                                    STATUS   IP ADDRESS     CREATED AT       UPDATED AT       REGION  ZONE
-14e6ba53-d282-47c0-a9ea-a931329c096c  pending  10.64.208.101  few seconds ago  few seconds ago  fr-par  fr-par-1
+LB Instances:
+ID                                    STATUS   IP ADDRESS    CREATED AT       UPDATED AT       REGION  ZONE
+6278ffcd-e1b3-4f29-b128-583a1bbd679d  pending  10.76.88.115  few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "e0aee921-4bae-41c2-b790-7c58bcd7f41c",
+  "id": "d6817c38-7bec-4bf6-b3bc-9d1312b2a61e",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -68,18 +71,19 @@ ID                                    STATUS   IP ADDRESS     CREATED AT       U
     "check_timeout": 1000
   },
   "pool": [
-    "163.172.172.203"
+    "163.172.183.135",
+    "51.15.207.142"
   ],
   "lb": {
-    "id": "d60134ef-1957-4486-a497-bd8ead8a3482",
+    "id": "4ac5ad26-5bb1-493b-95ea-79ea82a6632e",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "14e6ba53-d282-47c0-a9ea-a931329c096c",
+        "id": "6278ffcd-e1b3-4f29-b128-583a1bbd679d",
         "status": "pending",
-        "ip_address": "10.64.208.101",
+        "ip_address": "10.76.88.115",
         "created_at": "1970-01-01T00:00:00.0Z",
         "updated_at": "1970-01-01T00:00:00.0Z",
         "region": "fr-par",
@@ -90,12 +94,12 @@ ID                                    STATUS   IP ADDRESS     CREATED AT       U
     "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
     "ip": [
       {
-        "id": "9f868c96-54ef-4662-b24c-07268031ba58",
-        "ip_address": "51.159.115.142",
+        "id": "c2c24b68-db83-4614-9b58-b2e03b9242a9",
+        "ip_address": "51.159.113.163",
         "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
         "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "lb_id": "d60134ef-1957-4486-a497-bd8ead8a3482",
-        "reverse": "51-159-115-142.lb.fr-par.scw.cloud",
+        "lb_id": "4ac5ad26-5bb1-493b-95ea-79ea82a6632e",
+        "reverse": "51-159-113-163.lb.fr-par.scw.cloud",
         "region": "fr-par",
         "zone": "fr-par-1"
       }
@@ -125,7 +129,7 @@ ID                                    STATUS   IP ADDRESS     CREATED AT       U
   "max_retries": null,
   "max_connections": null,
   "timeout_queue": null,
-  "timeout_server": null,
-  "timeout_connect": null,
-  "timeout_tunnel": null
+  "timeout_server": 300000,
+  "timeout_connect": 5000,
+  "timeout_tunnel": 900000
 }
