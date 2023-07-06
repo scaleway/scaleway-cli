@@ -7,6 +7,7 @@ Kubernetes API.
   - [Delete a Cluster](#delete-a-cluster)
   - [Get a Cluster](#get-a-cluster)
   - [List Clusters](#list-clusters)
+  - [List available cluster types for a cluster](#list-available-cluster-types-for-a-cluster)
   - [List available versions for a Cluster](#list-available-versions-for-a-cluster)
   - [Migrate an existing cluster to a Private Network cluster](#migrate-an-existing-cluster-to-a-private-network-cluster)
   - [Reset the admin token of a Cluster](#reset-the-admin-token-of-a-cluster)
@@ -237,6 +238,36 @@ scw k8s cluster list status=ready
 List the clusters that match the given name on fr-par ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
 ```
 scw k8s cluster list region=fr-par name=cluster1
+```
+
+
+
+
+### List available cluster types for a cluster
+
+List the cluster types that a specific Kubernetes cluster is allowed to switch to.
+
+**Usage:**
+
+```
+scw k8s cluster list-available-types <cluster-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | Cluster ID for which the available Kubernetes types will be listed |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+List all cluster types that a cluster can upgrade to
+```
+scw k8s cluster list-available-types 11111111-1111-1111-111111111111
 ```
 
 
