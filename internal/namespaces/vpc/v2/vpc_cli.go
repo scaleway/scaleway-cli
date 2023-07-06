@@ -171,14 +171,6 @@ func vpcVpcCreate() *core.Command {
 				Positional: false,
 				Default:    core.RandomValueGenerator("vpc"),
 			},
-			{
-				Name:       "default-private-network-name",
-				Short:      `Name for the VPC's associated default Private Network`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				Default:    core.DefaultValueSetter("default"),
-			},
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "tags.{index}",
@@ -359,6 +351,13 @@ func vpcPrivateNetworkList() *core.Command {
 			{
 				Name:       "vpc-id",
 				Short:      `VPC ID to filter for. Only Private Networks belonging to this VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dhcp-enabled",
+				Short:      `DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

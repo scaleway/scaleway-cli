@@ -33,6 +33,12 @@ Serverless Containers API.
   - [Delete a token](#delete-a-token)
   - [Get a token](#get-a-token)
   - [List all tokens](#list-all-tokens)
+- [Trigger management commands](#trigger-management-commands)
+  - [Create a trigger](#create-a-trigger)
+  - [Delete a trigger](#delete-a-trigger)
+  - [Get a trigger](#get-a-trigger)
+  - [List all triggers](#list-all-triggers)
+  - [Update a trigger](#update-a-trigger)
 
   
 ## Container management commands
@@ -654,6 +660,132 @@ scw container token list [arg=value ...]
 | container-id |  | UUID of the container the token belongs to |
 | namespace-id |  | UUID of the namespace the token belongs to |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Trigger management commands
+
+Trigger management commands.
+
+
+### Create a trigger
+
+Create a new trigger for a specified container.
+
+**Usage:**
+
+```
+scw container trigger create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name |  |  |
+| description |  |  |
+| container-id |  |  |
+| scw-sqs-config.mnq-namespace-id |  |  |
+| scw-sqs-config.queue |  |  |
+| scw-sqs-config.mnq-project-id |  |  |
+| scw-sqs-config.mnq-region |  |  |
+| sqs-config.endpoint |  |  |
+| sqs-config.queue-url |  |  |
+| sqs-config.access-key |  |  |
+| sqs-config.secret-key |  |  |
+| scw-nats-config.mnq-namespace-id |  |  |
+| scw-nats-config.subject |  |  |
+| scw-nats-config.mnq-project-id |  |  |
+| scw-nats-config.mnq-region |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a trigger
+
+Delete a trigger with a specified ID.
+
+**Usage:**
+
+```
+scw container trigger delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| trigger-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a trigger
+
+Get a trigger with a specified ID.
+
+**Usage:**
+
+```
+scw container trigger get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| trigger-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all triggers
+
+List all triggers belonging to a specified Organization or Project.
+
+**Usage:**
+
+```
+scw container trigger list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc` |  |
+| container-id |  |  |
+| namespace-id |  |  |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update a trigger
+
+Update a trigger with a specified ID.
+
+**Usage:**
+
+```
+scw container trigger update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| trigger-id | Required |  |
+| name |  |  |
+| description |  |  |
+| sqs-config.access-key |  |  |
+| sqs-config.secret-key |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

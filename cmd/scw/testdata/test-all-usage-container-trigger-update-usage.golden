@@ -1,14 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the reverse DNS of a Load Balancer flexible IP address.
+Update a trigger with a specified ID.
 
 USAGE:
-  scw lb ip update <ip-id ...> [arg=value ...]
+  scw container trigger update [arg=value ...]
 
 ARGS:
-  ip-id             IP address ID
-  [reverse]         Reverse DNS (domain name) for the IP address
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2)
+  trigger-id                
+  [name]                    
+  [description]             
+  [sqs-config.access-key]   
+  [sqs-config.secret-key]   
+  [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update
