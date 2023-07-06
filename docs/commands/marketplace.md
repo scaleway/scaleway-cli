@@ -142,6 +142,7 @@ scw marketplace local-image list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | image-label |  |  |
 | zone |  |  |
+| type | One of: `unknown_type`, `instance_local`, `instance_sbs` |  |
 
 
 

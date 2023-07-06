@@ -1,5 +1,5 @@
 {
-  "name": "@scaleway/scaleway-cli-wasm",
+  "name": "@scaleway-internal/scaleway-cli-wasm",
   "version": "0.0.11",
   "description": "",
   "type": "module",

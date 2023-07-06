@@ -307,6 +307,13 @@ func marketplaceLocalImageList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "instance_local", "instance_sbs"},
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*marketplace.ListLocalImagesRequest)
