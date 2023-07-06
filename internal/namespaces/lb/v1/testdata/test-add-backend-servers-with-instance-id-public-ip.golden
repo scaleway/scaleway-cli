@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        11668e84-c1b3-44d7-99a0-4dbf0356e771
+ID                        6dc47536-1924-49cb-b498-19b8c964ef16
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -8,6 +8,9 @@ ForwardPortAlgorithm      roundrobin
 StickySessions            none
 StickySessionsCookieName  -
 SendProxyV2               false
+TimeoutServer             5m0s
+TimeoutConnect            5s
+TimeoutTunnel             15m0s
 OnMarkedDownAction        on_marked_down_action_none
 ProxyProtocol             proxy_protocol_unknown
 CreatedAt                 few seconds ago
@@ -22,10 +25,10 @@ CheckMaxRetries  5
 CheckSendProxy   false
 
 Pool:
-[212.47.249.224]
+[163.172.158.242]
 
 Lb:
-ID                     eefaad34-0240-409c-b061-4a65e15e8746
+ID                     7b4dd418-07f8-4c77-8f95-5754b1f264a6
 Name                   cli-test
 Description            cli-test
 Status                 ready
@@ -44,14 +47,14 @@ Zone                   fr-par-1
 
 IPs:
 ID                                    IP ADDRESS    ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                           REGION  ZONE
-b8c43d89-7237-4982-862d-230c28acaecd  51.159.74.78  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  eefaad34-0240-409c-b061-4a65e15e8746  51-159-74-78.lb.fr-par.scw.cloud  fr-par  fr-par-1
+c2ab13f8-4a47-4c31-8aad-513ff4c75ac2  51.159.74.67  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  7b4dd418-07f8-4c77-8f95-5754b1f264a6  51-159-74-67.lb.fr-par.scw.cloud  fr-par  fr-par-1
 
-Backends:
+LB Instances:
 ID                                    STATUS   IP ADDRESS   CREATED AT       UPDATED AT       REGION  ZONE
-c4758b0e-8741-4498-920a-6ed7463e925a  pending  10.65.66.73  few seconds ago  few seconds ago  fr-par  fr-par-1
+9ba0c233-7ed4-41f5-85ff-3788034b8ad3  pending  10.76.22.49  few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "11668e84-c1b3-44d7-99a0-4dbf0356e771",
+  "id": "6dc47536-1924-49cb-b498-19b8c964ef16",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -68,18 +71,18 @@ c4758b0e-8741-4498-920a-6ed7463e925a  pending  10.65.66.73  few seconds ago  few
     "check_timeout": 1000
   },
   "pool": [
-    "212.47.249.224"
+    "163.172.158.242"
   ],
   "lb": {
-    "id": "eefaad34-0240-409c-b061-4a65e15e8746",
+    "id": "7b4dd418-07f8-4c77-8f95-5754b1f264a6",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "c4758b0e-8741-4498-920a-6ed7463e925a",
+        "id": "9ba0c233-7ed4-41f5-85ff-3788034b8ad3",
         "status": "pending",
-        "ip_address": "10.65.66.73",
+        "ip_address": "10.76.22.49",
         "created_at": "1970-01-01T00:00:00.0Z",
         "updated_at": "1970-01-01T00:00:00.0Z",
         "region": "fr-par",
@@ -90,12 +93,12 @@ c4758b0e-8741-4498-920a-6ed7463e925a  pending  10.65.66.73  few seconds ago  few
     "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
     "ip": [
       {
-        "id": "b8c43d89-7237-4982-862d-230c28acaecd",
-        "ip_address": "51.159.74.78",
+        "id": "c2ab13f8-4a47-4c31-8aad-513ff4c75ac2",
+        "ip_address": "51.159.74.67",
         "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
         "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "lb_id": "eefaad34-0240-409c-b061-4a65e15e8746",
-        "reverse": "51-159-74-78.lb.fr-par.scw.cloud",
+        "lb_id": "7b4dd418-07f8-4c77-8f95-5754b1f264a6",
+        "reverse": "51-159-74-67.lb.fr-par.scw.cloud",
         "region": "fr-par",
         "zone": "fr-par-1"
       }
@@ -125,7 +128,7 @@ c4758b0e-8741-4498-920a-6ed7463e925a  pending  10.65.66.73  few seconds ago  few
   "max_retries": null,
   "max_connections": null,
   "timeout_queue": null,
-  "timeout_server": null,
-  "timeout_connect": null,
-  "timeout_tunnel": null
+  "timeout_server": 300000,
+  "timeout_connect": 5000,
+  "timeout_tunnel": 900000
 }
