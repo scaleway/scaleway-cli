@@ -36,17 +36,15 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
-	vpcV1 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v1"
-	vpcV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var labs = os.Getenv("SCW_ENABLE_LABS") == "true"
 
 // Enable beta in the code when products are in beta
-var beta = os.Getenv(scw.ScwEnableBeta) == "true"
+// var beta = os.Getenv(scw.ScwEnableBeta) == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
@@ -74,7 +72,7 @@ func GetCommands() *core.Commands {
 		lb.GetCommands(),
 		iot.GetCommands(),
 		help.GetCommands(),
-		vpcV1.GetCommands(),
+		vpc.GetCommands(),
 		domain.GetCommands(),
 		applesilicon.GetCommands(),
 		flexibleip.GetCommands(),
@@ -92,9 +90,6 @@ func GetCommands() *core.Commands {
 	)
 	if labs {
 		commands.Merge(ipfs.GetCommands())
-	}
-	if beta {
-		commands.Merge(vpcV2.GetCommands())
 	}
 
 	return commands

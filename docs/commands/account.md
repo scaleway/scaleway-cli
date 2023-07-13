@@ -17,6 +17,7 @@ Project management commands.
 
 ### Create a new Project for an Organization
 
+Deprecated in favor of Account API v3.
 Generate a new Project for an Organization, specifying its configuration including name and description.
 
 **Usage:**
@@ -38,6 +39,7 @@ scw account project create [arg=value ...]
 
 ### Delete an existing Project
 
+Deprecated in favor of Account API v3.
 Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
 
 **Usage:**
@@ -57,6 +59,7 @@ scw account project delete [arg=value ...]
 
 ### Get an existing Project
 
+Deprecated in favor of Account API v3.
 Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
 
 **Usage:**
@@ -76,6 +79,7 @@ scw account project get [arg=value ...]
 
 ### List all Projects of an Organization
 
+Deprecated in favor of Account API v3.
 List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
 
 **Usage:**
@@ -98,6 +102,7 @@ scw account project list [arg=value ...]
 
 ### Update Project
 
+Deprecated in favor of Account API v3.
 Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
 
 **Usage:**

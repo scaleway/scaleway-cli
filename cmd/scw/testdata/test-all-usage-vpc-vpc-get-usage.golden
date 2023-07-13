@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Deprecated in favor of Account API v3.
-Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
+Retrieve details of an existing VPC, specified by its VPC ID.
 
 USAGE:
-  scw account project get [arg=value ...]
+  scw vpc vpc get <vpc-id ...> [arg=value ...]
 
 ARGS:
-  [project-id]   Project ID to use. If none is passed the default project ID will be used
+  vpc-id            VPC ID
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for get

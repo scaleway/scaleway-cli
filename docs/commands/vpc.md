@@ -8,20 +8,27 @@ VPC API.
   - [Get a Private Network](#get-a-private-network)
   - [List Private Networks](#list-private-networks)
   - [Update Private Network](#update-private-network)
+- [Subnet management command](#subnet-management-command)
+- [VPC management command](#vpc-management-command)
+  - [Create a VPC](#create-a-vpc)
+  - [Delete a VPC](#delete-a-vpc)
+  - [Get a VPC](#get-a-vpc)
+  - [List VPCs](#list-vpcs)
+  - [Update VPC](#update-vpc)
 
   
 ## Private network management command
 
-A Private Network allows you to interconnect your Scaleway resources in an
-isolated and private network. Network reachability is limited
-to resources that are on the same Private Network. Note that a resource can
-be part of multiple Private Networks.
+A Private Network allows you to interconnect your Scaleway resources
+in an isolated and private network. Network reachability is limited
+to resources that are on the same Private Network. Note that a
+resource can be a part of multiple private networks.
 
 
 
 ### Create a Private Network
 
-Create a new Private Network. Once created, you can attach Scaleway resources in the same Availability Zone.
+Create a new Private Network. Once created, you can attach Scaleway resources which are in the same region.
 
 **Usage:**
 
@@ -38,7 +45,8 @@ scw vpc private-network create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags for the Private Network |
 | subnets.{index} |  | Private Network subnets CIDR |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| vpc-id |  | VPC in which to create the Private Network |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -58,7 +66,7 @@ scw vpc private-network delete <private-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | private-network-id | Required | Private Network ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -78,13 +86,13 @@ scw vpc private-network get <private-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | private-network-id | Required | Private Network ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### List Private Networks
 
-List existing Private Networks in a specified Availability Zone. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+List existing Private Networks in the specified region. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
 
 **Usage:**
 
@@ -102,9 +110,10 @@ scw vpc private-network list [arg=value ...]
 | tags.{index} |  | Tags to filter for. Only Private Networks with one or more matching tags will be returned |
 | project-id |  | Project ID to filter for. Only Private Networks belonging to this Project will be returned |
 | private-network-ids.{index} |  | Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned |
-| include-regional |  | Defines whether to include regional Private Networks in the response |
+| vpc-id |  | VPC ID to filter for. Only Private Networks belonging to this VPC will be returned |
+| dhcp-enabled |  | DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned |
 | organization-id |  | Organization ID to filter for. Only Private Networks belonging to this Organization will be returned |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -124,10 +133,140 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | private-network-id | Required | Private Network ID |
-| name |  | Name of the private network |
+| name |  | Name for the Private Network |
 | tags.{index} |  | Tags for the Private Network |
-| ~~subnets.{index}~~ | Deprecated | Private Network subnets CIDR (deprecated) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Subnet management command
+
+CIDR Subnet
+
+CIDR Subnet
+
+**Usage:**
+
+```
+scw vpc subnet
+```
+
+
+
+## VPC management command
+
+A Virtual Private Cloud (VPC) allows you to group your regional 
+Private Networks together. Note that a Private Network can be a 
+part of only one VPC.
+
+
+
+### Create a VPC
+
+Create a new VPC in the specified region.
+
+**Usage:**
+
+```
+scw vpc vpc create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required<br />Default: `<generated>` | Name for the VPC |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  | Tags for the VPC |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a VPC
+
+Delete a VPC specified by its VPC ID.
+
+**Usage:**
+
+```
+scw vpc vpc delete <vpc-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | VPC ID |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a VPC
+
+Retrieve details of an existing VPC, specified by its VPC ID.
+
+**Usage:**
+
+```
+scw vpc vpc get <vpc-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | VPC ID |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List VPCs
+
+List existing VPCs in the specified region.
+
+**Usage:**
+
+```
+scw vpc vpc list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of the returned VPCs |
+| name |  | Name to filter for. Only VPCs with names containing this string will be returned |
+| tags.{index} |  | Tags to filter for. Only VPCs with one more more matching tags will be returned |
+| project-id |  | Project ID to filter for. Only VPCs belonging to this Project will be returned |
+| is-default |  | Defines whether to filter only for VPCs which are the default one for their Project |
+| organization-id |  | Organization ID to filter for. Only VPCs belonging to this Organization will be returned |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update VPC
+
+Update parameters including name and tags of the specified VPC.
+
+**Usage:**
+
+```
+scw vpc vpc update <vpc-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | VPC ID |
+| name |  | Name for the VPC |
+| tags.{index} |  | Tags for the VPC |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Deprecated in favor of Account API v3.
 Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
 
 USAGE:
