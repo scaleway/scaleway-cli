@@ -6,8 +6,8 @@ import (
 
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
-	for _, cmd := range cmds.GetAll() {
-		cmd.Namespace = "vpc_v2"
-	}
+
+	cmds.Remove("vpc", "post")
+
 	return cmds
 }
