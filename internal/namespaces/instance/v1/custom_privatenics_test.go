@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 )
 
 func Test_ListNICs(t *testing.T) {
