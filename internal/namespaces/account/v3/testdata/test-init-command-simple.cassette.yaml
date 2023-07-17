@@ -2,39 +2,66 @@
 version: 1
 interactions:
 - request:
-    body: ""
+    body: '{"ssh_keys":[{"id":"495d0e9f-a22b-4ff5-8324-0cb4746c57dc", "name":"rleone@scaleway.com",
+      "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6Lfs9IrfEUsw2oALOKucAqjeJo3vdADJAZS0BrJ4Vl
+      rleone@scaleway.com", "fingerprint":"256 MD5:0d:6d:20:43:4c:0f:38:a3:65:de:8f:72:77:70:26:55
+      rleone@scaleway.com (ssh-ed25519)", "created_at":"2022-03-29T07:50:11.839583Z",
+      "updated_at":"2022-03-29T07:50:17.762922Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e2e9d140-c387-43e8-af1b-5b133f8fe90d",
+      "name":"leila''s ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIG4S+vO03k8VY0qdhRThHbyiDFbIqvzH+94x24b4hbQ
+      lmarabese", "fingerprint":"256 MD5:69:c9:cf:52:7d:07:cc:ff:a4:58:e4:7e:96:77:18:63
+      lmarabese (ssh-ed25519)", "created_at":"2023-02-07T10:19:17.608707Z", "updated_at":"2023-02-07T10:19:17.608707Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}, {"id":"1f5abae8-78f7-41a2-a787-780166d3f736", "name":"foobar",
+      "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
+      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:52.688903Z",
+      "updated_at":"2023-07-17T14:47:52.688903Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"459e72de-56f0-4177-a3fd-f8bf47571915",
+      "name":"foobar", "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
+      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:55.834080Z",
+      "updated_at":"2023-07-17T14:47:55.834080Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}], "total_count":4}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/account/v2alpha1/ssh-keys?order_by=created_at_asc&page=1
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.6; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys?order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"ssh_keys":[{"id":"1ef19b65-53c9-4789-a760-0e0d2e26cf35","name":"scw-test","public_key":"ssh-rsa
-      AAAAB3NzaC1yc2EAAAADAQABAAACAQDfEI5h63XLQTu7sQKJjjBXe1S4//qsYPhWv09P0n5dLyae5oaAuS15p4o7TTx2tEi5/cixiNbkvnR5TCoxU0VWJN0X09t+LILLHefEFhGocyQ94pw79QZVKAcw2gwE+jq8/PDCwdyi4bVLi4AcvLbx9z2kn182MBkz4pwkS0rpWN2v8Lcjk9/neoxxlxyHJsGZPPql67N/XcNJtUUoagJZEwkf+/etuLqJqB8P5YKyrORrPJFNiiBqQQCkVEX40uR4dBVmRPe+oWsJY+NfGgOqjTjaaRXmfhrQnu2pM1fIDt7Zh4BbabHms7qGQuDqQTbeJ/0AVE+HhVXZ+dNiMm4/70vfX3Cuoia2swEJCbVoLSV7I1I7ojlPGYEAt0Ka6jW3Jdr2D/BratRpeNRMdMRuVYpwx8uXakAizpG8mfn/k56LL9PziKxDG6Q6GccdPszMWsVcSOaA9Kt03ZS8+T+r4VBVy89PSs3Vwh541eVjuVQ8QxB0PjQ2usY8xN6mIbLtb/Ezlp7uHlJccfjPNvZ+01YMqVugAj+oNKfVUIj3HBIh+VvAsQDXN04cl4YsOpNmhc6MFG5EhF119BK2mpu3Df/it7rf/RJNLM1NOlW3ZBMvfsV63CARMXaDncAQNZqC4HpX0rr+l58F2MY/H/Vrq8wr2UJKecZoQYPsTD2Znw==
-      lbourgois@scw-loic-mac.local","fingerprint":"4096 MD5:a6:97:64:f1:92:5b:2c:68:b6:b8:bb:cc:4c:30:f2:1e
-      lbourgois@scw-loic-mac.local (ssh-rsa)","created_at":"2020-03-06T13:36:01.678719Z","updated_at":"2020-03-06T13:36:01.678719Z","creation_info":{"address":"195.154.229.35","user_agent":"Mozilla/5.0
-      (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0","country_code":"FR"},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"},{"id":"4719404d-3056-41c5-b5e4-1db2d4d0238f","name":"","public_key":"ssh-rsa
-      AAAAB3NzaC1yc2EAAAADAQABAAABAQC/wF8Q8LjEexuWDc8YfKmWVZ1CiiHK6KvO0E/Rk9+d6szqbrvtbJWRsJXZFC8+DGWVM0UFFicmOfTwEjDWzuQPFkYhmpXrD1UiLx9Viku1g1qEJgcsyH2uAwwW3OnsH1W44D6Ni/zOzMButFeKZgPeD8H9YNkpbZBZ9QrKFiAhvEyJDYSY0bsbH1/qR5DE+dLNuGlJ/g3kUMVaXSI6dHNcBHTbK0Mse23Uopk2U3BSpvX9JdbcLaYtHDOytwd16rNYui7el3uOmlR8oUpAXkeKQxBPoxgy3qI/P8/l44L9RFpbklkmdiw2ph2ymiSkRSYCWdvEVIK/A+0D8VFjGXOb
-      lbourgois@MacBook-Pro-de-Loic.local\n","fingerprint":"2048 MD5:6c:4b:6c:7f:ca:16:46:7a:61:3d:e5:bd:5b:2f:02:9e
-      lbourgois@MacBook-Pro-de-Loic.local (ssh-rsa)","created_at":"2020-03-10T10:31:12.749497Z","updated_at":"2020-03-10T10:31:12.749497Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"},{"id":"6ff5bb48-add1-458a-95bf-a3f5eda3767c","name":"","public_key":"ssh-rsa
-      AAAAB3NzaC1yc2EAAAADAQABAAABAQC/wF8Q8LjEexuWDc8TfKmWVZ1CiiHK6KvO0E/Rk9+d6szqbrvtbJWRsJXZFC8+DGWVM0UFFicmOfTwEjDWzuQPFkYhmpXrD1UiLx9Viku1g1qEJgcsyH2uAwwW3OnsH1W44D6Ni/zOzMButFeKZgPeD8H9YNkpbZBZ9QrKFiAhvEyJDYSY0bsbH1/qR5DE+dLNuGlJ/g3kUMVaXSI6dHNcBHTbK0Mse23Uopk2U3BSpvX9JdbcLaYtHDOytwd16rNYui7el3uOmlR8oUpAXkeKQxBPoxgy3qI/P8/l44L9RFpbklkmdiw2ph2ymiSkRSYCWdvEVIK/A+0D8VFjGXOb
-      lbourgois@MacBook-Pro-de-Loic.local\n","fingerprint":"2048 MD5:de:57:c6:c4:a5:4a:cc:cd:6f:00:33:99:94:7a:8b:08
-      lbourgois@MacBook-Pro-de-Loic.local (ssh-rsa)","created_at":"2020-03-20T14:00:34.537763Z","updated_at":"2020-03-20T14:00:34.537763Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"},{"id":"695899a9-2b74-4dd1-b806-4d56bd5828bd","name":"","public_key":"ssh-rsa
-      AAAAB3NzaC1yc2EAAAADAQABAAABAQC/wF8Q8LjEexuWDc8TfKmWVZ1CiiHK6KvO0E/Rk9+d6ssqbrvtbJWRsJXZFC8+DGWVM0UFFicmOfTwEjDWzuQPFkYhmpXrD1UiLx9Viku1g1qEJgcsyH2uAwwW3OnsH1W44D6Ni/zOzMButFeKZgPeD8H9YNkpbZBZ9QrKFiAhvEyJDYSY0bsbH1/qR5DE+dLNuGlJ/g3kUMVaXSI6dHNcBHTbK0Mse23Uopk2U3BSpvX9JdbcLaYtHDOytwd16rNYui7el3uOmlR8oUpAXkeKQxBPoxgy3qI/P8/l44L9RFpbklkmdiw2ph2ymiSkRSYCWdvEVIK/A+0D8VFjGXOb
-      email","fingerprint":"2048 MD5:b4:9f:bd:7b:fc:66:66:cc:b3:33:41:72:fc:be:05:c8
-      email (ssh-rsa)","created_at":"2020-03-20T16:30:55.236831Z","updated_at":"2020-03-20T16:30:55.236831Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}],"total_count":4}'
+    body: '{"ssh_keys":[{"id":"495d0e9f-a22b-4ff5-8324-0cb4746c57dc", "name":"rleone@scaleway.com",
+      "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6Lfs9IrfEUsw2oALOKucAqjeJo3vdADJAZS0BrJ4Vl
+      rleone@scaleway.com", "fingerprint":"256 MD5:0d:6d:20:43:4c:0f:38:a3:65:de:8f:72:77:70:26:55
+      rleone@scaleway.com (ssh-ed25519)", "created_at":"2022-03-29T07:50:11.839583Z",
+      "updated_at":"2022-03-29T07:50:17.762922Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e2e9d140-c387-43e8-af1b-5b133f8fe90d",
+      "name":"leila''s ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIG4S+vO03k8VY0qdhRThHbyiDFbIqvzH+94x24b4hbQ
+      lmarabese", "fingerprint":"256 MD5:69:c9:cf:52:7d:07:cc:ff:a4:58:e4:7e:96:77:18:63
+      lmarabese (ssh-ed25519)", "created_at":"2023-02-07T10:19:17.608707Z", "updated_at":"2023-02-07T10:19:17.608707Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}, {"id":"1f5abae8-78f7-41a2-a787-780166d3f736", "name":"foobar",
+      "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
+      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:52.688903Z",
+      "updated_at":"2023-07-17T14:47:52.688903Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"459e72de-56f0-4177-a3fd-f8bf47571915",
+      "name":"foobar", "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
+      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:55.834080Z",
+      "updated_at":"2023-07-17T14:47:55.834080Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}], "total_count":4}'
     headers:
       Content-Length:
-      - "3670"
+      - "2204"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 23 Mar 2020 18:00:13 GMT
+      - Mon, 17 Jul 2023 15:05:30 GMT
       Server:
-      - scaleway_api
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -42,37 +69,43 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4115f527-fef6-4baf-97c7-ab5dc93c5b15
+      - a301a5b9-84a3-481f-a91c-e3ad0782f4dc
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"name":"","public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAEDAQABAAABAQC/wF8Q8LjEexuWDc8TfKmWVZ1CiiHK6KvO0E/Rk9+d6ssqbrvtbJWRsJXZFC8+DGWVM0UFFicmOfTwEjDWzuQPFkYhmpXrD1UiLx9Viku1g1qEJgcsyH2uAwwW3OnsH1W44D6Ni/zOzMButFeKZgPeD8H9YNkpbZBZ9QrKFiAhvEyJDYSY0bsbH1/qR5DE+dLNuGlJ/g3kUMVaXSI6dHNcBHTbK0Mse23Uopk2U3BSpvX9JdbcLaYtHDOytwd16rNYui7el3uOmlR8oUpAXkeKQxBPoxgy3qI/P8/l44L9RFpbklkmdiw2ph2ymiSkRSYCWdvEVIK/A+0D8VFjGXOb
-      email","organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
+    body: '{"id":"e4572020-36e1-41fc-9bbc-2faa56c12e93", "name":"key-elastic-allen",
+      "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x
+      foo@foobar.com", "fingerprint":"256 MD5:1e:f8:f7:cb:c4:b7:a8:6d:96:20:49:d0:d0:af:a0:9e
+      foo@foobar.com (ssh-ed25519)", "created_at":"2023-07-17T15:05:30.415306Z", "updated_at":"2023-07-17T15:05:30.415306Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.13.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/account/v2alpha1/ssh-keys
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.6; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
     method: POST
   response:
-    body: '{"id":"901636bc-37e5-4678-bcbf-e4606cf41238","name":"","public_key":"ssh-rsa
-      AAAAB3NzaC1yc2EAAAEDAQABAAABAQC/wF8Q8LjEexuWDc8TfKmWVZ1CiiHK6KvO0E/Rk9+d6ssqbrvtbJWRsJXZFC8+DGWVM0UFFicmOfTwEjDWzuQPFkYhmpXrD1UiLx9Viku1g1qEJgcsyH2uAwwW3OnsH1W44D6Ni/zOzMButFeKZgPeD8H9YNkpbZBZ9QrKFiAhvEyJDYSY0bsbH1/qR5DE+dLNuGlJ/g3kUMVaXSI6dHNcBHTbK0Mse23Uopk2U3BSpvX9JdbcLaYtHDOytwd16rNYui7el3uOmlR8oUpAXkeKQxBPoxgy3qI/P8/l44L9RFpbklkmdiw2ph2ymiSkRSYCWdvEVIK/A+0D8VFjGXOb
-      email","fingerprint":"None MD5:9e:19:2e:19:40:88:a9:58:7e:ca:ec:00:1b:36:96:57
-      email (ssh-rsa)","created_at":"2020-03-23T18:00:14.135950Z","updated_at":"2020-03-23T18:00:14.135950Z","creation_info":{"address":"","user_agent":"","country_code":""},"organization_id":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
+    body: '{"id":"e4572020-36e1-41fc-9bbc-2faa56c12e93", "name":"key-elastic-allen",
+      "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x
+      foo@foobar.com", "fingerprint":"256 MD5:1e:f8:f7:cb:c4:b7:a8:6d:96:20:49:d0:d0:af:a0:9e
+      foo@foobar.com (ssh-ed25519)", "created_at":"2023-07-17T15:05:30.415306Z", "updated_at":"2023-07-17T15:05:30.415306Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}'
     headers:
       Content-Length:
-      - "754"
+      - "504"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 23 Mar 2020 18:00:14 GMT
+      - Mon, 17 Jul 2023 15:05:30 GMT
       Server:
-      - scaleway_api
+      - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -80,7 +113,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 284c68f3-2c62-4592-9b57-c5b15e50df04
+      - 36daf5fd-494e-41dc-acb5-d7ac6ee02e2e
     status: 200 OK
     code: 200
     duration: ""
