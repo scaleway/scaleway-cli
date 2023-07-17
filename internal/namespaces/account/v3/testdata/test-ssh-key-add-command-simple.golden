@@ -1,3 +1,7 @@
-🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟩🟩🟩 STDOUT️ 🟩🟩🟩️
--
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Unknown command "iam" for "scw"
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "unknown command \"iam\" for \"scw\""
+}
