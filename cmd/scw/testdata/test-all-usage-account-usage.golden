@@ -8,9 +8,6 @@ USAGE:
 AVAILABLE COMMANDS:
   project     Project management commands
 
-WORKFLOW COMMANDS:
-  ssh-key     Initialize SSH key
-
 FLAGS:
   -h, --help   help for account
 
