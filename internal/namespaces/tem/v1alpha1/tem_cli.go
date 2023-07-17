@@ -316,6 +316,14 @@ func temEmailList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_desc", "created_at_asc", "updated_at_desc", "updated_at_asc", "status_desc", "status_asc", "mail_from_desc", "mail_from_asc", "mail_rcpt_desc", "mail_rcpt_asc", "subject_desc", "subject_asc"},
 			},
+			{
+				Name:       "flags.{index}",
+				Short:      `(Optional) List emails containing only specific flags`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_flag", "soft_bounce", "hard_bounce"},
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
