@@ -10,7 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	account "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
+	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -60,8 +60,8 @@ func InitRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
 
 	// Get all SSH keys from Scaleway
 	client := core.ExtractClient(ctx)
-	api := account.NewAPI(client)
-	listSSHKeysResponse, err := api.ListSSHKeys(&account.ListSSHKeysRequest{}, scw.WithAllPages())
+	api := iam.NewAPI(client)
+	listSSHKeysResponse, err := api.ListSSHKeys(&iam.ListSSHKeysRequest{}, scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +91,7 @@ func InitRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
 	}
 
 	// Add key
-	_, err = api.CreateSSHKey(&account.CreateSSHKeyRequest{
+	_, err = api.CreateSSHKey(&iam.CreateSSHKeyRequest{
 		PublicKey: string(localSSHKeyContent),
 	})
 	if err != nil {
