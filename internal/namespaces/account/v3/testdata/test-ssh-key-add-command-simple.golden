@@ -1,29 +1,3 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        29e8be8f-ad33-4299-b816-72b8d45b2fb0
-Name                      foobar
-PublicKey                 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar
-Fingerprint               256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 foobar@foobar (ecdsa-sha2-nistp256)
-CreatedAt                 few seconds ago
-UpdatedAt                 few seconds ago
-CreationInfo.Address      -
-CreationInfo.UserAgent    -
-CreationInfo.CountryCode  -
-OrganizationID            951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID                 -
-🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-{
-  "id": "29e8be8f-ad33-4299-b816-72b8d45b2fb0",
-  "name": "foobar",
-  "public_key": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar",
-  "fingerprint": "256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 foobar@foobar (ecdsa-sha2-nistp256)",
-  "created_at": "1970-01-01T00:00:00.0Z",
-  "updated_at": "1970-01-01T00:00:00.0Z",
-  "creation_info": {
-    "address": "",
-    "user_agent": "",
-    "country_code": ""
-  },
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": ""
-}
+-
