@@ -1715,6 +1715,7 @@ scw instance server create [arg=value ...]
 | bootscript-id |  | The bootscript ID to use, if empty the local boot will be used |
 | cloud-init |  | The cloud-init script to use |
 | boot-type | Default: `local`<br />One of: `local`, `bootscript`, `rescue` | The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set. |
+| routed-ip-enabled |  | Enable routed IP support |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
