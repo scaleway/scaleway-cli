@@ -395,8 +395,8 @@ func serverGetBuilder(c *core.Command) *core.Command {
 				Title:     "Volumes",
 			},
 			{
-				Title:     "Public IP",
-				FieldName: "PublicIP",
+				Title:     "Public IPs",
+				FieldName: "PublicIPs",
 			},
 			{
 				Title:     "IPv6",
