@@ -102,7 +102,7 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_secret_type", "opaque", "network_edge_certificate"},
+				EnumValues: []string{"unknown_secret_type", "opaque", "certificate"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
