@@ -87,7 +87,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 24 Jul 2023 13:05:06 GMT
+      - Mon, 24 Jul 2023 13:06:00 GMT
       Link:
       - </servers?page=1&per_page=50&order=creation_date_desc>; rel="last"
       Server:
@@ -99,7 +99,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - e51c7fb6-50ad-40de-9eeb-065fe820e924
+      - 514bbf47-106f-4024-add1-b05545f81f0f
       X-Total-Count:
       - "1"
     status: 200 OK
