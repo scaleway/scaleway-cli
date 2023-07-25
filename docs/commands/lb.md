@@ -1303,8 +1303,8 @@ scw lb subscriber create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required | Subscriber name |
-| email-config.email | Required | Email address to send alerts to |
-| webhook-config.uri | Required | URI to receive POST requests |
+| email-config.email |  | Email address to send alerts to |
+| webhook-config.uri |  | URI to receive POST requests |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
@@ -1432,8 +1432,8 @@ scw lb subscriber update <subscriber-id ...> [arg=value ...]
 |------|---|-------------|
 | subscriber-id | Required | Subscriber ID |
 | name | Required | Subscriber name |
-| email-config.email | Required | Email address to send alerts to |
-| webhook-config.uri | Required | URI to receive POST requests |
+| email-config.email |  | Email address to send alerts to |
+| webhook-config.uri |  | URI to receive POST requests |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 

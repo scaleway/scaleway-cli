@@ -2908,14 +2908,14 @@ func lbSubscriberCreate() *core.Command {
 			{
 				Name:       "email-config.email",
 				Short:      `Email address to send alerts to`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "webhook-config.uri",
 				Short:      `URI to receive POST requests`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -3052,14 +3052,14 @@ func lbSubscriberUpdate() *core.Command {
 			{
 				Name:       "email-config.email",
 				Short:      `Email address to send alerts to`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "webhook-config.uri",
 				Short:      `URI to receive POST requests`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
