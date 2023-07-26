@@ -56,6 +56,7 @@ Instance API.
   - [Delete server](#delete-server)
   - [Detach an IP from a server](#detach-an-ip-from-a-server)
   - [Detach a volume from its server](#detach-a-volume-from-its-server)
+  - [Migrate server to IP mobility](#migrate-server-to-ip-mobility)
   - [Get an Instance](#get-an-instance)
   - [List all Instances](#list-all-instances)
   - [List Instance actions](#list-instance-actions)
@@ -1851,6 +1852,39 @@ scw instance server detach-volume [arg=value ...]
 Detach a volume from its server
 ```
 scw instance server detach-volume volume-id=22222222-1111-5555-2222-666666111111
+```
+
+
+
+
+### Migrate server to IP mobility
+
+Enable routed IP for this server and migrate the nat public IP to routed
+Server will reboot !
+https://www.scaleway.com/en/docs/compute/instances/api-cli/using-ip-mobility/
+
+
+**Usage:**
+
+```
+scw instance server enable-routed-ip <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server affected by the action. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Migrate a server with legacy network to IP mobility
+```
+scw instance server enable-routed-ip 11111111-1111-1111-1111-111111111111
 ```
 
 
