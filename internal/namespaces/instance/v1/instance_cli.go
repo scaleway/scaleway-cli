@@ -3139,6 +3139,12 @@ func instanceIPList() *core.Command {
 				FieldName: "Address",
 			},
 			{
+				FieldName: "Prefix",
+			},
+			{
+				FieldName: "Type",
+			},
+			{
 				FieldName: "Reverse",
 			},
 			{
