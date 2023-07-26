@@ -457,6 +457,13 @@ func instanceServerList() *core.Command {
 				EnumValues: []string{"creation_date_desc", "creation_date_asc", "modification_date_desc", "modification_date_asc"},
 			},
 			{
+				Name:       "private-networks.{index}",
+				Short:      `List Instances from the given Private Networks (use commas to separate them)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `List only Instances of this Organization ID`,
 				Required:   false,
@@ -3137,6 +3144,12 @@ func instanceIPList() *core.Command {
 			},
 			{
 				FieldName: "Address",
+			},
+			{
+				FieldName: "Prefix",
+			},
+			{
+				FieldName: "Type",
 			},
 			{
 				FieldName: "Reverse",
