@@ -394,3 +394,34 @@ func Test_ServerBackup(t *testing.T) {
 		),
 	}))
 }
+
+func Test_ServerEnableRoutedIP(t *testing.T) {
+	t.Run("simple", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create zone=fr-par-3 type=PRO2-XXS image=ubuntu_jammy ip=new --wait"),
+		Cmd:        `scw instance server enable-routed-ip zone=fr-par-3 {{ .Server.ID }} --wait`,
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				storedServer := ctx.Meta["Server"].(*instance.Server)
+				api := instance.NewAPI(ctx.Client)
+				server, err := api.GetServer(&instance.GetServerRequest{
+					Zone:     storedServer.Zone,
+					ServerID: storedServer.ID,
+				})
+				assert.Nil(t, err)
+				assert.Equal(t, true, server.Server.RoutedIPEnabled)
+				ip, err := api.GetIP(&instance.GetIPRequest{
+					Zone: storedServer.Zone,
+					IP:   storedServer.PublicIP.ID,
+				})
+				assert.Nil(t, err)
+				assert.Equal(t, instance.IPTypeRoutedIPv4, ip.IP.Type)
+			},
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd("scw instance server delete zone=fr-par-3 {{ .Server.ID }} force-shutdown=true with-ip=true with-volumes=local"),
+		),
+	}))
+}

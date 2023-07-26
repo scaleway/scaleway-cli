@@ -731,6 +731,29 @@ func serverRebootCommand() *core.Command {
 	}
 }
 
+func serverEnableRoutedIPCommand() *core.Command {
+	return &core.Command{
+		Short: `Migrate server to IP mobility`,
+		Long: `Enable routed IP for this server and migrate the nat public IP to routed
+Server will reboot !
+https://www.scaleway.com/en/docs/compute/instances/api-cli/using-ip-mobility/
+`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "enable-routed-ip",
+		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
+		Run:       getRunServerAction("enable_routed_ip"),
+		WaitFunc:  waitForServerFunc(),
+		ArgSpecs:  serverActionArgSpecs,
+		Examples: []*core.Example{
+			{
+				Short:    "Migrate a server with legacy network to IP mobility",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
 func serverBackupCommand() *core.Command {
 	type instanceBackupRequest struct {
 		Zone     scw.Zone

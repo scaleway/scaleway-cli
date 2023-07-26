@@ -60,6 +60,7 @@ func GetCommands() *core.Commands {
 		serverStopCommand(),
 		serverStandbyCommand(),
 		serverRebootCommand(),
+		serverEnableRoutedIPCommand(),
 		serverWaitCommand(),
 		serverAttachIPCommand(),
 		serverDetachIPCommand(),
