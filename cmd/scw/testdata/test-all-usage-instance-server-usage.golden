@@ -8,6 +8,7 @@ USAGE:
   scw instance server <command>
 
 AVAILABLE COMMANDS:
+  action           Perform an action on a server
   attach-ip        Attach an IP to a server
   attach-volume    Attach a volume to a server
   backup           Backup server
