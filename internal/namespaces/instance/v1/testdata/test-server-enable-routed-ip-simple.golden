@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                            cd59793b-e990-4b4a-9288-4d154a22defb
-Name                          cli-srv-quizzical-jepsen
+ID                            b1c0af08-ed8e-4d93-a1ff-ae820de7610c
+Name                          cli-srv-infallible-beaver
 Organization                  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Project                       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 AllowedActions.0              poweroff
@@ -14,7 +14,7 @@ CreationDate                  few seconds ago
 DynamicIPRequired             true
 RoutedIPEnabled               true
 EnableIPv6                    false
-Hostname                      cli-srv-quizzical-jepsen
+Hostname                      cli-srv-infallible-beaver
 Image.ID                      670ac22a-8f62-4c60-99b7-f59ad838a34a
 Image.Name                    Ubuntu 22.04 Jammy Jellyfish
 Image.Arch                    x86_64
@@ -29,32 +29,32 @@ Image.State                   available
 Image.Project                 51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone                    fr-par-3
 Protected                     false
-PublicIP.ID                   d05b34a7-43b2-454d-bbe3-bfb283331cbc
-PublicIP.Address              51.159.82.45
+PublicIP.ID                   8febb0af-cde7-414a-bff1-a38146808bbf
+PublicIP.Address              51.159.82.142
 PublicIP.Gateway              62.210.0.1
 PublicIP.Netmask              32
 PublicIP.Family               inet
 PublicIP.Dynamic              false
 PublicIP.ProvisioningMode     dhcp
-PublicIPs.0.ID                d05b34a7-43b2-454d-bbe3-bfb283331cbc
-PublicIPs.0.Address           51.159.82.45
+PublicIPs.0.ID                8febb0af-cde7-414a-bff1-a38146808bbf
+PublicIPs.0.Address           51.159.82.142
 PublicIPs.0.Gateway           62.210.0.1
 PublicIPs.0.Netmask           32
 PublicIPs.0.Family            inet
 PublicIPs.0.Dynamic           false
 PublicIPs.0.ProvisioningMode  dhcp
-MacAddress                    de:00:00:04:c0:99
+MacAddress                    de:00:00:04:c5:5d
 ModificationDate              few seconds ago
 State                         running
 Location                      fr-par-3
 Bootscript                    x86_64 mainline 4.4.230 rev1
 BootType                      local
-Volumes.0.ID                  2d5768a8-b8a4-4475-8313-750da34accc3
+Volumes.0.ID                  bb929319-6d11-4f96-a822-53cb85ebece9
 Volumes.0.Name                Ubuntu 22.04 Jammy Jellyfish
 Volumes.0.ExportURI           -
 Volumes.0.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Volumes.0.Server.ID           cd59793b-e990-4b4a-9288-4d154a22defb
-Volumes.0.Server.Name         cli-srv-quizzical-jepsen
+Volumes.0.Server.ID           b1c0af08-ed8e-4d93-a1ff-ae820de7610c
+Volumes.0.Server.Name         cli-srv-infallible-beaver
 Volumes.0.Size                10 GB
 Volumes.0.VolumeType          b_ssd
 Volumes.0.CreationDate        few seconds ago
@@ -70,8 +70,8 @@ Arch                          x86_64
 Zone                          fr-par-3
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "cd59793b-e990-4b4a-9288-4d154a22defb",
-  "name": "cli-srv-quizzical-jepsen",
+  "id": "b1c0af08-ed8e-4d93-a1ff-ae820de7610c",
+  "name": "cli-srv-infallible-beaver",
   "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "allowed_actions": [
@@ -87,7 +87,7 @@ Zone                          fr-par-3
   "dynamic_ip_required": true,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-quizzical-jepsen",
+  "hostname": "cli-srv-infallible-beaver",
   "image": {
     "id": "670ac22a-8f62-4c60-99b7-f59ad838a34a",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
@@ -113,8 +113,8 @@ Zone                          fr-par-3
   "protected": false,
   "private_ip": null,
   "public_ip": {
-    "id": "d05b34a7-43b2-454d-bbe3-bfb283331cbc",
-    "address": "51.159.82.45",
+    "id": "8febb0af-cde7-414a-bff1-a38146808bbf",
+    "address": "51.159.82.142",
     "gateway": "62.210.0.1",
     "netmask": "32",
     "family": "inet",
@@ -122,21 +122,21 @@ Zone                          fr-par-3
   },
   "public_ips": [
     {
-      "id": "d05b34a7-43b2-454d-bbe3-bfb283331cbc",
-      "address": "51.159.82.45",
+      "id": "8febb0af-cde7-414a-bff1-a38146808bbf",
+      "address": "51.159.82.142",
       "gateway": "62.210.0.1",
       "netmask": "32",
       "family": "inet",
       "provisioning_mode": "dhcp"
     }
   ],
-  "mac_address": "de:00:00:04:c0:99",
+  "mac_address": "de:00:00:04:c5:5d",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "running",
   "location": {
     "cluster_id": "6",
-    "hypervisor_id": "401",
-    "node_id": "3",
+    "hypervisor_id": "101",
+    "node_id": "1",
     "platform_id": "60",
     "zone_id": "fr-par-3"
   },
@@ -158,13 +158,13 @@ Zone                          fr-par-3
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "2d5768a8-b8a4-4475-8313-750da34accc3",
+      "id": "bb929319-6d11-4f96-a822-53cb85ebece9",
       "name": "Ubuntu 22.04 Jammy Jellyfish",
       "export_uri": "",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
-        "id": "cd59793b-e990-4b4a-9288-4d154a22defb",
-        "name": "cli-srv-quizzical-jepsen"
+        "id": "b1c0af08-ed8e-4d93-a1ff-ae820de7610c",
+        "name": "cli-srv-infallible-beaver"
       },
       "size": 10000000000,
       "volume_type": "b_ssd",
