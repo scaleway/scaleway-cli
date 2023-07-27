@@ -482,12 +482,12 @@ func serverActionCommand() *core.Command {
 	argSpecs := serverActionArgSpecs
 	argSpecs.AddBefore("server-id", &core.ArgSpec{
 		Name:     "action",
-		Short:    "The action to perform",
+		Short:    "The raw API action to perform, as listed with 'scw instance server list-actions'",
 		Required: true,
 	})
 
 	return &core.Command{
-		Short:     `Perform an action on a server`,
+		Short:     `Perform a raw API action on a server`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "action",
@@ -512,7 +512,7 @@ func serverActionCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short:    "Start a server in the default zone with a given id",
-				ArgsJSON: `{"action":"start", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+				ArgsJSON: `{"action":"poweron", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
