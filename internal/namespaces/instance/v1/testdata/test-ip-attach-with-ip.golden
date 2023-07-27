@@ -1,30 +1,30 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            21601ab1-8b75-4d2f-bbb0-2b8b71c4bc13
-IP.Address       51.15.252.241
-IP.Server.ID     6413b5bc-45ef-4ed3-90f4-20a8decef6da
-IP.Server.Name   cli-srv-vigorous-mclaren
+IP.ID            452ea82f-500e-42fd-9200-8e5e921dd007
+IP.Address       51.15.249.127
+IP.Server.ID     c40aa639-c13d-472b-8ac8-7e04f95de69b
+IP.Server.Name   cli-srv-compassionate-moser
 IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-IP.Type          unknown_iptype
-IP.State         unknown_state
-IP.Prefix        <nil>
+IP.Type          nat
+IP.State         attached
+IP.Prefix        -
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "21601ab1-8b75-4d2f-bbb0-2b8b71c4bc13",
-    "address": "51.15.252.241",
+    "id": "452ea82f-500e-42fd-9200-8e5e921dd007",
+    "address": "51.15.249.127",
     "reverse": null,
     "server": {
-      "id": "6413b5bc-45ef-4ed3-90f4-20a8decef6da",
-      "name": "cli-srv-vigorous-mclaren"
+      "id": "c40aa639-c13d-472b-8ac8-7e04f95de69b",
+      "name": "cli-srv-compassionate-moser"
     },
     "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "tags": [],
     "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "type": "unknown_iptype",
-    "state": "unknown_state",
+    "type": "nat",
+    "state": "attached",
     "prefix": "",
     "zone": "fr-par-1"
   }

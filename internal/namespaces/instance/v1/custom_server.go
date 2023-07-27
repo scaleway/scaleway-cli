@@ -66,6 +66,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		PrivateIP         *string
 		Tags              []string
 		ImageName         string
+		RoutedIPEnabled   bool
 		PlacementGroup    *instance.PlacementGroup
 		ModificationDate  *time.Time
 		CreationDate      *time.Time
@@ -101,6 +102,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 			PrivateIP:         server.PrivateIP,
 			Tags:              server.Tags,
 			ImageName:         serverImageName,
+			RoutedIPEnabled:   server.RoutedIPEnabled,
 			PlacementGroup:    server.PlacementGroup,
 			ModificationDate:  server.ModificationDate,
 			CreationDate:      server.CreationDate,
@@ -395,8 +397,8 @@ func serverGetBuilder(c *core.Command) *core.Command {
 				Title:     "Volumes",
 			},
 			{
-				Title:     "Public IP",
-				FieldName: "PublicIP",
+				Title:     "Public IPs",
+				FieldName: "PublicIPs",
 			},
 			{
 				Title:     "IPv6",
@@ -724,6 +726,29 @@ func serverRebootCommand() *core.Command {
 			{
 				Short:    "Reboot a server in fr-par-1 zone with a given id",
 				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func serverEnableRoutedIPCommand() *core.Command {
+	return &core.Command{
+		Short: `Migrate server to IP mobility`,
+		Long: `Enable routed IP for this server and migrate the nat public IP to routed
+Server will reboot !
+https://www.scaleway.com/en/docs/compute/instances/api-cli/using-ip-mobility/
+`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "enable-routed-ip",
+		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
+		Run:       getRunServerAction("enable_routed_ip"),
+		WaitFunc:  waitForServerFunc(),
+		ArgSpecs:  serverActionArgSpecs,
+		Examples: []*core.Example{
+			{
+				Short:    "Migrate a server with legacy network to IP mobility",
+				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
