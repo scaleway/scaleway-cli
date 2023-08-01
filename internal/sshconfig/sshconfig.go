@@ -133,7 +133,7 @@ func IncludeConfigFile(homeDir string) error {
 	fileContent := []byte(nil)
 
 	configFile, err := openDefaultConfigFile(homeDir)
-	if err != nil && err != ErrFileNotFound {
+	if err != nil && !errors.Is(err, ErrFileNotFound) {
 		return err
 	}
 
