@@ -579,7 +579,7 @@ func validateImageServerTypeCompatibility(image *instance.Image, serverType *ins
 	if serverType.VolumesConstraint.MaxSize == 0 {
 		return nil
 	}
-	if image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
+	if image.RootVolume.VolumeType == instance.VolumeVolumeTypeLSSD && image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
 		return fmt.Errorf("image %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
 			image.ID,
 			humanize.Bytes(uint64(image.RootVolume.Size)),
