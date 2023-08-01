@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 	"strings"
@@ -110,7 +111,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			// Generated config needs an include statement in default config
 			included, err := sshconfig.ConfigIsIncluded(homeDir)
 			if err != nil {
-				if err == sshconfig.ErrFileNotFound {
+				if errors.Is(err, sshconfig.ErrFileNotFound) {
 					includePrompt += "\nFile was not found, it will be created"
 				} else {
 					logger.Warningf("Failed to check default config file, skipping include prompt\n")
