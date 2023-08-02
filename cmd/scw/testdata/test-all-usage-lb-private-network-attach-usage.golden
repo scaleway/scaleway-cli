@@ -6,10 +6,13 @@ USAGE:
   scw lb private-network attach <lb-id ...> [arg=value ...]
 
 ARGS:
-  lb-id                                Load Balancer ID
-  private-network-id                   Private Network ID
+  lb-id                 Load Balancer ID
+  private-network-id    Private Network ID
+  [dhcp-config.ip-id]   
+  [zone=fr-par-1]       Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2)
+
+DEPRECATED ARGS:
   [static-config.ip-address.{index}]   Array of a local IP address for the Load Balancer on this Private Network
-  [zone=fr-par-1]                      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2)
 
 FLAGS:
   -h, --help   help for attach

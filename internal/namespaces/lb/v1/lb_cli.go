@@ -3254,6 +3254,12 @@ func lbPrivateNetworkAttach() *core.Command {
 				Name:       "static-config.ip-address.{index}",
 				Short:      `Array of a local IP address for the Load Balancer on this Private Network`,
 				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "dhcp-config.ip-id",
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
