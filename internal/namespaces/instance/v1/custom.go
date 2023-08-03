@@ -56,6 +56,7 @@ func GetCommands() *core.Commands {
 		serverTerminateCommand(),
 		serverDetachVolumeCommand(),
 		serverSSHCommand(),
+		serverActionCommand(),
 		serverStartCommand(),
 		serverStopCommand(),
 		serverStandbyCommand(),

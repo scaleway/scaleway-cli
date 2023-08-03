@@ -48,6 +48,7 @@ Instance API.
   - [Update all the rules of a security group](#update-all-the-rules-of-a-security-group)
   - [Update security group](#update-security-group)
 - [Instance management commands](#instance-management-commands)
+  - [Perform a raw API action on a server](#perform-a-raw-api-action-on-a-server)
   - [Attach an IP to a server](#attach-an-ip-to-a-server)
   - [Attach a volume to a server](#attach-a-volume-to-a-server)
   - [Backup server](#backup-server)
@@ -1558,6 +1559,37 @@ scw instance security-group update security-group-id=11111111-1111-1111-1111-111
 Instances are computing units providing resources to run your applications on.
 Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
 **Note: Instances can be referenced as "servers" in API endpoints.**
+
+
+
+### Perform a raw API action on a server
+
+
+
+**Usage:**
+
+```
+scw instance server action <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| action | Required | The raw API action to perform, as listed with 'scw instance server list-actions' |
+| server-id | Required | ID of the server affected by the action. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Start a server in the default zone with a given id
+```
+scw instance server action 11111111-1111-1111-1111-111111111111 action=poweron
+```
+
 
 
 
