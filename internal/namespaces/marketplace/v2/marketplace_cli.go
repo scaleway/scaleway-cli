@@ -328,6 +328,23 @@ func marketplaceLocalImageList() *core.Command {
 			return resp.LocalImages, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Label",
+			},
+			{
+				FieldName: "Arch",
+			},
+			{
+				FieldName: "Zone",
+			},
+			{
+				FieldName: "CompatibleCommercialTypes",
+			},
+		}},
 	}
 }
 
