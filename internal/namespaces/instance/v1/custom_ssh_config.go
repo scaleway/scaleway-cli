@@ -293,6 +293,9 @@ func sshConfigBastionHosts(ctx context.Context, args *sshConfigInstallRequest, s
 		Zone: args.Zone,
 	}, reqOpts...)
 	if err != nil {
+		if strings.Contains(err.Error(), "unknown service") {
+			return nil, nil
+		}
 		// TODO: check permissions and print warning
 		return nil, err
 	}
