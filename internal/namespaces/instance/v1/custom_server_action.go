@@ -115,7 +115,7 @@ https://www.scaleway.com/en/docs/compute/instances/api-cli/using-ip-mobility/
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "enable-routed-ip",
-		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
+		ArgsType:  reflect.TypeOf(instanceUniqueActionRequest{}),
 		Run:       getRunServerAction("enable_routed_ip"),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
