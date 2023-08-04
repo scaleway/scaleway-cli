@@ -6,6 +6,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
@@ -32,6 +33,12 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 
 		// Baremetal
 		listBaremetalServers, err := listCustomBaremetalServers(client, pn)
+		if err != nil {
+			return nil, err
+		}
+
+		// K8s
+		listK8sClusters, err := listCustomK8sClusters(client, pn)
 		if err != nil {
 			return nil, err
 		}
@@ -64,6 +71,7 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 			*vpc.PrivateNetwork
 			InstanceServers  []customInstanceServer  `json:"instance_servers,omitempty"`
 			BaremetalServers []customBaremetalServer `json:"baremetal_servers,omitempty"`
+			K8sClusters      []customK8sCluster      `json:"K8s_clusters,omitempty"`
 			LBs              []customLB              `json:"lbs,omitempty"`
 			RdbInstances     []customRdb             `json:"rdb_instances,omitempty"`
 			RedisClusters    []customRedis           `json:"redis_clusters,omitempty"`
@@ -72,6 +80,7 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 			pn,
 			listInstanceServers,
 			listBaremetalServers,
+			listK8sClusters,
 			listLBs,
 			listRdbInstances,
 			listRedisClusters,
@@ -126,31 +135,36 @@ type customInstanceServer struct {
 }
 type customBaremetalServer struct {
 	ID                 string                 `json:"id"`
-	Name               string                 `json:"server_id"`
+	Name               string                 `json:"name"`
 	State              baremetal.ServerStatus `json:"state"`
 	BaremetalNetworkID string                 `json:"baremetal_network_id"`
 	Vlan               *uint32                `json:"vlan"`
 }
+type customK8sCluster struct {
+	ID    string            `json:"id"`
+	Name  string            `json:"name"`
+	State k8s.ClusterStatus `json:"state"`
+}
 type customLB struct {
 	ID    string      `json:"id"`
-	Name  string      `json:"server_id"`
+	Name  string      `json:"name"`
 	State lb.LBStatus `json:"state"`
 }
 type customRdb struct {
 	ID         string             `json:"id"`
-	Name       string             `json:"server_id"`
+	Name       string             `json:"name"`
 	State      rdb.InstanceStatus `json:"state"`
 	EndpointID string             `json:"endpoint_id"`
 }
 type customRedis struct {
 	ID         string              `json:"id"`
-	Name       string              `json:"server_id"`
+	Name       string              `json:"name"`
 	State      redis.ClusterStatus `json:"state"`
 	EndpointID string              `json:"endpoint_id"`
 }
 type customGateway struct {
 	ID               string              `json:"id"`
-	Name             string              `json:"server_id"`
+	Name             string              `json:"name"`
 	State            vpcgw.GatewayStatus `json:"state"`
 	GatewayNetworkID string              `json:"gateway_network_id"`
 }
@@ -226,6 +240,28 @@ func listCustomBaremetalServers(client *scw.Client, pn *vpc.PrivateNetwork) ([]c
 		}
 	}
 	return customBaremetalServers, nil
+}
+
+func listCustomK8sClusters(client *scw.Client, pn *vpc.PrivateNetwork) ([]customK8sCluster, error) {
+	k8sAPI := k8s.NewAPI(client)
+
+	listK8sClusters, err := k8sAPI.ListClusters(&k8s.ListClustersRequest{
+		Region: pn.Region,
+	}, scw.WithAllPages())
+	if err != nil {
+		return nil, err
+	}
+	var customK8sClusters []customK8sCluster
+	for _, cluster := range listK8sClusters.Clusters {
+		if cluster.PrivateNetworkID != nil && *cluster.PrivateNetworkID == pn.ID {
+			customK8sClusters = append(customK8sClusters, customK8sCluster{
+				ID:    cluster.ID,
+				Name:  cluster.Name,
+				State: cluster.Status,
+			})
+		}
+	}
+	return customK8sClusters, nil
 }
 
 func listCustomLBs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customLB, error) {
