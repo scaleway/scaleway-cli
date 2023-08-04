@@ -1,0 +1,82 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                   17e5e487-8290-41c0-97ca-5ea5d269581f
+Name                 cli-pn-quirky-booth
+OrganizationID       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Region               fr-par
+CreatedAt            few seconds ago
+UpdatedAt            few seconds ago
+Subnets.0.ID         3e8761fc-87e2-4120-af38-c427a47529ed
+Subnets.0.CreatedAt  few seconds ago
+Subnets.0.UpdatedAt  few seconds ago
+Subnets.0.Subnet     172.16.32.0/22
+Subnets.1.ID         04f63521-281a-4c1a-8e9b-3e76f6bda7a7
+Subnets.1.CreatedAt  few seconds ago
+Subnets.1.UpdatedAt  few seconds ago
+Subnets.1.Subnet     fd46:78ab:30b8:3145::/64
+VpcID                086a5171-f7ab-4667-a231-840a81203f19
+DHCPEnabled          true
+
+Instance Servers:
+ID                                    NAME                STATE     NIC ID                                MAC ADDRESS
+90b1a749-3f23-4d22-9991-f871a1dace10  cli-srv-goofy-ride  archived  9f6b2c56-ec9b-4d78-9373-94a412bf5435  02:00:00:13:8d:03
+
+Load-Balancers:
+ID                                    NAME      STATE
+99ac7bd0-4f13-42cc-aab2-03f7bb644f71  cli-test  ready
+
+Rdb Instances:
+ID                                    NAME      STATE  ENDPOINT ID
+cf4bfe8b-5da8-47ab-bdfb-a942e2596d39  cli-test  ready  358a3878-ce91-4e8d-98f7-e6f32903a2be
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "17e5e487-8290-41c0-97ca-5ea5d269581f",
+  "name": "cli-pn-quirky-booth",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "region": "fr-par",
+  "tags": [],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "subnets": [
+    {
+      "id": "3e8761fc-87e2-4120-af38-c427a47529ed",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "subnet": "172.16.32.0/22"
+    },
+    {
+      "id": "04f63521-281a-4c1a-8e9b-3e76f6bda7a7",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "subnet": "fd46:78ab:30b8:3145::/64"
+    }
+  ],
+  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+  "dhcp_enabled": true,
+  "instance_servers": [
+    {
+      "id": "90b1a749-3f23-4d22-9991-f871a1dace10",
+      "name": "cli-srv-goofy-ride",
+      "state": "stopped",
+      "nic_id": "9f6b2c56-ec9b-4d78-9373-94a412bf5435",
+      "mac": "02:00:00:13:8d:03"
+    }
+  ],
+  "lbs": [
+    {
+      "id": "99ac7bd0-4f13-42cc-aab2-03f7bb644f71",
+      "server_id": "cli-test",
+      "state": "ready"
+    }
+  ],
+  "rdb_instances": [
+    {
+      "id": "cf4bfe8b-5da8-47ab-bdfb-a942e2596d39",
+      "server_id": "cli-test",
+      "state": "ready",
+      "endpoint_id": "358a3878-ce91-4e8d-98f7-e6f32903a2be"
+    }
+  ]
+}

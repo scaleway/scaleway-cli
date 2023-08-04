@@ -1,0 +1,59 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                   5625cfbe-e153-432f-b4ee-7bbb1c41d15a
+Name                 cli-pn-adoring-sutherland
+OrganizationID       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Region               fr-par
+CreatedAt            few seconds ago
+UpdatedAt            few seconds ago
+Subnets.0.ID         5185e27d-938f-458e-8490-373c17ecaaaf
+Subnets.0.CreatedAt  few seconds ago
+Subnets.0.UpdatedAt  few seconds ago
+Subnets.0.Subnet     172.16.0.0/22
+Subnets.1.ID         4e6178e4-1b16-42be-8f7f-54d780050f67
+Subnets.1.CreatedAt  few seconds ago
+Subnets.1.UpdatedAt  few seconds ago
+Subnets.1.Subnet     fd46:78ab:30b8:546c::/64
+VpcID                086a5171-f7ab-4667-a231-840a81203f19
+DHCPEnabled          true
+
+Instance Servers:
+ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
+c452159d-e139-442b-807c-ea2ab47155cc  cli-srv-stupefied-gould  archived  73ca0bab-8752-4307-bb79-ebc4bfd4fa22  02:00:00:13:8d:02
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "5625cfbe-e153-432f-b4ee-7bbb1c41d15a",
+  "name": "cli-pn-adoring-sutherland",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "region": "fr-par",
+  "tags": [],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "subnets": [
+    {
+      "id": "5185e27d-938f-458e-8490-373c17ecaaaf",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "subnet": "172.16.0.0/22"
+    },
+    {
+      "id": "4e6178e4-1b16-42be-8f7f-54d780050f67",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "subnet": "fd46:78ab:30b8:546c::/64"
+    }
+  ],
+  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+  "dhcp_enabled": true,
+  "instance_servers": [
+    {
+      "id": "c452159d-e139-442b-807c-ea2ab47155cc",
+      "name": "cli-srv-stupefied-gould",
+      "state": "stopped",
+      "nic_id": "73ca0bab-8752-4307-bb79-ebc4bfd4fa22",
+      "mac": "02:00:00:13:8d:02"
+    }
+  ]
+}
