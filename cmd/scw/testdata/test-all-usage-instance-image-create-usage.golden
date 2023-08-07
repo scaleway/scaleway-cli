@@ -12,7 +12,7 @@ EXAMPLES:
 ARGS:
   [name=<generated>]                           Name of the image
   snapshot-id                                  UUID of the snapshot that will be used as root volume in the image
-  arch                                         Architecture of the image (x86_64 | arm)
+  arch                                         Architecture of the image (x86_64 | arm | arm64)
   [additional-snapshots.{index}.id]            UUID of the snapshot to add
   [additional-snapshots.{index}.name]          Name of the additional snapshot
   [additional-snapshots.{index}.size]          Size of the additional snapshot
