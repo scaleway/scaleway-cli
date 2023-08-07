@@ -1183,7 +1183,7 @@ func instanceImageCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"x86_64", "arm"},
+				EnumValues: []string{"x86_64", "arm", "arm64"},
 			},
 			{
 				Name:       "default-bootscript",
