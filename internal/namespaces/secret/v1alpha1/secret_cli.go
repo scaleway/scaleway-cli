@@ -67,7 +67,7 @@ func secretVersion() *core.Command {
 func secretSecretCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a secret`,
-		Long:      `You must sepcify the ` + "`" + `region` + "`" + ` to create a secret.`,
+		Long:      `You must specify the ` + "`" + `region` + "`" + ` to create a secret.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "create",
@@ -103,6 +103,13 @@ func secretSecretCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_secret_type", "opaque", "certificate"},
+			},
+			{
+				Name:       "path",
+				Short:      `Path of the secret`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -191,6 +198,13 @@ func secretSecretUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "path",
+				Short:      `Path of the folder`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -245,6 +259,13 @@ func secretSecretList() *core.Command {
 			{
 				Name:       "is-managed",
 				Short:      `Filter by managed / not managed (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "path",
+				Short:      `Filter by path (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

@@ -27,7 +27,7 @@ Secrets are logical containers made up of zero or more immutable versions, that 
 
 ### Create a secret
 
-You must sepcify the `region` to create a secret.
+You must specify the `region` to create a secret.
 
 **Usage:**
 
@@ -45,6 +45,7 @@ scw secret secret create [arg=value ...]
 | tags.{index} |  | List of the secret's tags |
 | description |  | Description of the secret |
 | type | One of: `unknown_secret_type`, `opaque`, `certificate` | Type of the secret |
+| path |  | Path of the secret |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -129,6 +130,7 @@ scw secret secret list [arg=value ...]
 | tags.{index} |  | List of tags to filter on (optional) |
 | name |  | Filter by secret name (optional) |
 | is-managed |  | Filter by managed / not managed (optional) |
+| path |  | Filter by path (optional) |
 | organization-id |  | Filter by Organization ID (optional) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
@@ -153,6 +155,7 @@ scw secret secret update [arg=value ...]
 | name |  | Secret's updated name (optional) |
 | tags.{index} |  | Secret's updated list of tags (optional) |
 | description |  | Description of the secret |
+| path |  | Path of the folder |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
