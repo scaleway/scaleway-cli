@@ -75,7 +75,7 @@ func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string
 
 		resp, err := c.httpClient.Do(&http.Request{
 			Method:     http.MethodPost,
-			Host:       requestURL.Host,
+			Host:       "docker",
 			URL:        requestURL,
 			Proto:      "HTTP/1.1",
 			ProtoMajor: 1,
