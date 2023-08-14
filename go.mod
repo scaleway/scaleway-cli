@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/alecthomas/assert v1.0.0
-	github.com/buildpacks/pack v0.30.0-rc1
+	github.com/buildpacks/pack v0.30.0-rc2
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v0.24.2
 	github.com/chzyer/readline v1.5.1
@@ -72,7 +72,7 @@ require (
 	github.com/awslabs/amazon-ecr-credential-helper/ecr-login v0.0.0-20230522190001-adf1bafd791a // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/buildpacks/imgutil v0.0.0-20230626185301-726f02e4225c // indirect
-	github.com/buildpacks/lifecycle v0.17.0-rc.4 // indirect
+	github.com/buildpacks/lifecycle v0.17.0 // indirect
 	github.com/chrismellard/docker-credential-acr-env v0.0.0-20230304212654-82a0ddb27589 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/containerd/containerd v1.7.2 // indirect
@@ -155,7 +155,7 @@ require (
 	go.opentelemetry.io/proto/otlp v0.19.0 // indirect
 	golang.org/x/crypto v0.12.0 // indirect
 	golang.org/x/mod v0.12.0 // indirect
-	golang.org/x/net v0.12.0 // indirect
+	golang.org/x/net v0.14.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
 	golang.org/x/sys v0.11.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
