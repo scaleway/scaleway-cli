@@ -6,9 +6,9 @@ USAGE:
   scw function function get-upload-url <function-id ...> [arg=value ...]
 
 ARGS:
-  function-id        UUID of the function to get the upload URL for
-  [content-length]   
-  [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  function-id       UUID of the function to get the upload URL for
+  content-length    Size of the archive to upload in bytes
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for get-upload-url

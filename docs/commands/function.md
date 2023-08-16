@@ -426,7 +426,7 @@ scw function function get-upload-url <function-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | function-id | Required | UUID of the function to get the upload URL for |
-| content-length |  |  |
+| content-length | Required | Size of the archive to upload in bytes |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
