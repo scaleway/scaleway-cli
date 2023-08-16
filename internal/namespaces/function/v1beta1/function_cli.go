@@ -859,7 +859,8 @@ func functionFunctionGetUploadURL() *core.Command {
 			},
 			{
 				Name:       "content-length",
-				Required:   false,
+				Short:      `Size of the archive to upload in bytes`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
