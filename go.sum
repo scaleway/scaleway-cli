@@ -149,8 +149,8 @@ github.com/buildpacks/imgutil v0.0.0-20230626185301-726f02e4225c h1:HlRuSz+JGAzu
 github.com/buildpacks/imgutil v0.0.0-20230626185301-726f02e4225c/go.mod h1:mBG5M3GJW5nknCEOOqtmMHyPYnSpw/5GEiciuYU/COw=
 github.com/buildpacks/lifecycle v0.17.0 h1:vX/kpQfuh4LZvsIhi1wNkx/zahvwiF72bgc46rQ+3z0=
 github.com/buildpacks/lifecycle v0.17.0/go.mod h1:WFzcNp1WG4bwgHuXtKxMg4tdU3AguL44ZlP3knANeVs=
-github.com/buildpacks/pack v0.30.0-rc2 h1:kWJ4U7PyzGlnwrdDfMpQJYXNKO7NmFcBLtLWOzZMBxc=
-github.com/buildpacks/pack v0.30.0-rc2/go.mod h1:ZtkyUJKcTdWgEDFi0KOmtHQAOkeQeOeJ2wre1+0ipnA=
+github.com/buildpacks/pack v0.30.0 h1:1beK8QAp7By4K40QigYl9JG/Os4nA93dQxYR/GMMbTo=
+github.com/buildpacks/pack v0.30.0/go.mod h1:ZtkyUJKcTdWgEDFi0KOmtHQAOkeQeOeJ2wre1+0ipnA=
 github.com/bwesterb/go-ristretto v1.2.3/go.mod h1:fUIoIZaG73pV5biE2Blr2xEzDoMj7NFEuV9ekS419A0=
 github.com/c-bata/go-prompt v0.2.6 h1:POP+nrHE+DfLYx370bedwNhsqmpCUynWPxuHi0C5vZI=
 github.com/c-bata/go-prompt v0.2.6/go.mod h1:/LMAke8wD2FsNu9EXNdHxNLbd9MedkPnCdfpU9wwHfY=
