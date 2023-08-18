@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/alecthomas/assert v1.0.0
-	github.com/buildpacks/pack v0.30.0-rc2
+	github.com/buildpacks/pack v0.30.0
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v0.24.2
 	github.com/chzyer/readline v1.5.1
