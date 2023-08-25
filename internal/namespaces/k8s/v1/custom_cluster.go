@@ -132,7 +132,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			} else {
 				pn, err = vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
 					Region:           request.Region,
-					PrivateNetworkID: pn.ID,
+					PrivateNetworkID: *request.PrivateNetworkID,
 				}, scw.WithContext(ctx))
 				if err != nil {
 					return nil, err
