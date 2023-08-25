@@ -50,7 +50,10 @@ func userListBuilder(c *core.Command) *core.Command {
 
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		listPrivileges, err := api.ListPrivileges(
-			&rdb.ListPrivilegesRequest{InstanceID: listUserRequest.InstanceID},
+			&rdb.ListPrivilegesRequest{
+				InstanceID: listUserRequest.InstanceID,
+				Region:     listUserRequest.Region,
+			},
 			scw.WithAllPages(),
 		)
 		if err != nil {
