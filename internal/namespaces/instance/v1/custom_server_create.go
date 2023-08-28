@@ -291,6 +291,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			return nil, err
 		}
 
+		volumes = addDefaultVolumes(apiInstance, args.Zone, serverType, volumes)
+
 		// Validate root volume type and size.
 		if getImageResponse != nil {
 			if err := validateRootVolume(getImageResponse.Image.RootVolume.Size, volumes["0"]); err != nil {
@@ -433,6 +435,30 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	return server, nil
 }
 
+func addDefaultVolumes(api *instance.API, zone scw.Zone, serverType *instance.ServerType, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
+	needScratch := false
+	hasScratch := false
+	if serverType.ScratchStorageMaxSize > 0 {
+		needScratch = true
+	}
+	for _, volume := range volumes {
+		if volume.VolumeType == instance.VolumeVolumeTypeScratch {
+			hasScratch = true
+		}
+	}
+
+	if needScratch && !hasScratch {
+		volumeKey := strconv.Itoa(len(volumes))
+		volumes[volumeKey] = &instance.VolumeServerTemplate{
+			Name:       scw.StringPtr("default-cli-scratch-volume"),
+			Size:       scw.SizePtr(serverType.ScratchStorageMaxSize),
+			VolumeType: instance.VolumeVolumeTypeScratch,
+		}
+	}
+
+	return volumes
+}
+
 // buildVolumes creates the initial volume map.
 // It is not the definitive one, it will be mutated all along the process.
 func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeServerTemplate, error) {
@@ -473,7 +499,7 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 // Volumes definition must be through multiple arguments (eg: volumes.0="l:20GB" volumes.1="b:100GB")
 //
 // A valid volume format is either
-// - a "creation" format: ^((local|l|block|b):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
+// - a "creation" format: ^((local|l|block|b|s|scratch):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
 // - a "creation" format with a snapshot id: l:<uuid> b:<uuid>
 // - a UUID format
 func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeServerTemplate, error) {
@@ -488,6 +514,8 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*insta
 			vt.VolumeType = instance.VolumeVolumeTypeLSSD
 		case "b", "block":
 			vt.VolumeType = instance.VolumeVolumeTypeBSSD
+		case "s", "scratch":
+			vt.VolumeType = instance.VolumeVolumeTypeScratch
 		default:
 			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
 		}
