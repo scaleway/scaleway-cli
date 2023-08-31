@@ -438,7 +438,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 func addDefaultVolumes(api *instance.API, zone scw.Zone, serverType *instance.ServerType, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
 	needScratch := false
 	hasScratch := false
-	if serverType.ScratchStorageMaxSize > 0 {
+	if serverType.ScratchStorageMaxSize != nil && *serverType.ScratchStorageMaxSize > 0 {
 		needScratch = true
 	}
 	for _, volume := range volumes {
@@ -451,7 +451,7 @@ func addDefaultVolumes(api *instance.API, zone scw.Zone, serverType *instance.Se
 		volumeKey := strconv.Itoa(len(volumes))
 		volumes[volumeKey] = &instance.VolumeServerTemplate{
 			Name:       scw.StringPtr("default-cli-scratch-volume"),
-			Size:       scw.SizePtr(serverType.ScratchStorageMaxSize),
+			Size:       serverType.ScratchStorageMaxSize,
 			VolumeType: instance.VolumeVolumeTypeScratch,
 		}
 	}
