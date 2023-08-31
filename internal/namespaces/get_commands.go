@@ -1,7 +1,6 @@
 package namespaces
 
 import (
-	document_db "github.com/scaleway/scaleway-cli/v2/internal/namespaces/document_db/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"os"
 
@@ -15,6 +14,7 @@ import (
 	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1beta1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	document_db "github.com/scaleway/scaleway-cli/v2/internal/namespaces/document_db/v1beta1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
