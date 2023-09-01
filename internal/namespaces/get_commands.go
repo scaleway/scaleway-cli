@@ -1,7 +1,6 @@
 package namespaces
 
 import (
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"os"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -41,6 +40,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var labs = os.Getenv("SCW_ENABLE_LABS") == "true"
