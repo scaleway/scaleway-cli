@@ -67,7 +67,7 @@ scw baremetal bmc get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -91,7 +91,7 @@ scw baremetal bmc start [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server |
 | ip | Required | The IP authorized to connect to the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -111,7 +111,7 @@ scw baremetal bmc stop [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -138,7 +138,7 @@ scw baremetal offer get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | offer-id | Required | ID of the researched Offer |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -168,7 +168,7 @@ scw baremetal offer list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | subscription-period | One of: `unknown_subscription_period`, `hourly`, `monthly` | Subscription period type to filter offers by |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -211,7 +211,7 @@ scw baremetal options add [arg=value ...]
 | server-id | Required | ID of the server |
 | option-id | Required | ID of the option to add |
 | expires-at |  | Auto expire the option after this date |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -242,7 +242,7 @@ scw baremetal options delete [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server |
 | option-id | Required | ID of the option to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -272,7 +272,7 @@ scw baremetal options get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | option-id | Required | ID of the option |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -303,7 +303,7 @@ scw baremetal options list [arg=value ...]
 |------|---|-------------|
 | offer-id |  | Offer ID to filter options for |
 | name |  | Name to filter options for |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -343,7 +343,7 @@ scw baremetal os get <os-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | os-id | Required | ID of the OS |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -373,7 +373,7 @@ scw baremetal os list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | offer-id |  | Offer IDs to filter OSes for |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -511,7 +511,7 @@ scw baremetal server create [arg=value ...]
 | install.service-password |  | Password used for the service to install |
 | option-ids.{index} |  | IDs of options to enable on server |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -541,7 +541,7 @@ scw baremetal server delete <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -571,7 +571,7 @@ scw baremetal server get <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -601,7 +601,7 @@ scw baremetal server get-metrics [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | Server ID to get the metrics |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -629,7 +629,7 @@ scw baremetal server install <server-id ...> [arg=value ...]
 | password |  | Password used for the installation |
 | service-user |  | User used for the service to install |
 | service-password |  | Password used for the service to install |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -665,7 +665,7 @@ scw baremetal server list [arg=value ...]
 | project-id |  | Project ID to filter for |
 | option-id |  | Option ID to filter for |
 | organization-id |  | Organization ID to filter for |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -696,7 +696,7 @@ scw baremetal server list-events [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server events searched |
 | order-by | One of: `created_at_asc`, `created_at_desc` | Order of the server events |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -717,7 +717,7 @@ scw baremetal server reboot <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server to reboot |
 | boot-type | Default: `normal`<br />One of: `unknown_boot_type`, `normal`, `rescue` | The type of boot |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -753,7 +753,7 @@ scw baremetal server start <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server to start |
 | boot-type | One of: `unknown_boot_type`, `normal`, `rescue` | The type of boot |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -788,7 +788,7 @@ scw baremetal server stop <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server to stop |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -821,7 +821,7 @@ scw baremetal server update <server-id ...> [arg=value ...]
 | name |  | Name of the server (≠hostname), not updated if null |
 | description |  | Description associated with the server, max 255 characters, not updated if null |
 | tags.{index} |  | Tags associated with the server, not updated if null |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -843,7 +843,7 @@ scw baremetal server update-ip [arg=value ...]
 | server-id | Required | ID of the server |
 | ip-id | Required | ID of the IP to update |
 | reverse |  | New reverse IP to update, not updated if null |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -901,7 +901,7 @@ scw baremetal settings list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` | Sort order for items in the response |
 | project-id | Required | ID of the Project |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -922,7 +922,7 @@ scw baremetal settings update [arg=value ...]
 |------|---|-------------|
 | setting-id | Required | ID of the setting |
 | enabled |  | Defines whether the setting is enabled |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 

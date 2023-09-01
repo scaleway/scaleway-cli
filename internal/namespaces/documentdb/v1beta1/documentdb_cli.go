@@ -1,14 +1,14 @@
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-package document_db
+package documentdb
 
 import (
 	"context"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/document_db/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/documentdb/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -253,7 +253,7 @@ func documentDbEngineList() *core.Command {
 		Resource:  "engine",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListDatabaseEnginesRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListDatabaseEnginesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -272,10 +272,10 @@ func documentDbEngineList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListDatabaseEnginesRequest)
+			request := args.(*documentdb.ListDatabaseEnginesRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			opts := []scw.RequestOption{scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
@@ -299,7 +299,7 @@ func documentDbNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListNodeTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
@@ -311,10 +311,10 @@ func documentDbNodeTypeList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListNodeTypesRequest)
+			request := args.(*documentdb.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			opts := []scw.RequestOption{scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
@@ -338,7 +338,7 @@ func documentDbInstanceUpgrade() *core.Command {
 		Resource:  "instance",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.UpgradeInstanceRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.UpgradeInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -386,10 +386,10 @@ func documentDbInstanceUpgrade() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.UpgradeInstanceRequest)
+			request := args.(*documentdb.UpgradeInstanceRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.UpgradeInstance(request)
 
 		},
@@ -404,7 +404,7 @@ func documentDbInstanceList() *core.Command {
 		Resource:  "instance",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListInstancesRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListInstancesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -445,10 +445,10 @@ func documentDbInstanceList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListInstancesRequest)
+			request := args.(*documentdb.ListInstancesRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			opts := []scw.RequestOption{scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
@@ -504,7 +504,7 @@ func documentDbInstanceGet() *core.Command {
 		Resource:  "instance",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.GetInstanceRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.GetInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -516,10 +516,10 @@ func documentDbInstanceGet() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.GetInstanceRequest)
+			request := args.(*documentdb.GetInstanceRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.GetInstance(request)
 
 		},
@@ -534,7 +534,7 @@ func documentDbInstanceCreate() *core.Command {
 		Resource:  "instance",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.CreateInstanceRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.CreateInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -646,10 +646,10 @@ func documentDbInstanceCreate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.CreateInstanceRequest)
+			request := args.(*documentdb.CreateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.CreateInstance(request)
 
 		},
@@ -664,7 +664,7 @@ func documentDbInstanceUpdate() *core.Command {
 		Resource:  "instance",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.UpdateInstanceRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.UpdateInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backup-schedule-frequency",
@@ -739,10 +739,10 @@ func documentDbInstanceUpdate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.UpdateInstanceRequest)
+			request := args.(*documentdb.UpdateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.UpdateInstance(request)
 
 		},
@@ -757,7 +757,7 @@ func documentDbInstanceDelete() *core.Command {
 		Resource:  "instance",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.DeleteInstanceRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.DeleteInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -769,10 +769,10 @@ func documentDbInstanceDelete() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.DeleteInstanceRequest)
+			request := args.(*documentdb.DeleteInstanceRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.DeleteInstance(request)
 
 		},
@@ -787,7 +787,7 @@ func documentDbInstanceClone() *core.Command {
 		Resource:  "instance",
 		Verb:      "clone",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.CloneInstanceRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.CloneInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -813,10 +813,10 @@ func documentDbInstanceClone() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.CloneInstanceRequest)
+			request := args.(*documentdb.CloneInstanceRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.CloneInstance(request)
 
 		},
@@ -831,7 +831,7 @@ func documentDbInstanceRestart() *core.Command {
 		Resource:  "instance",
 		Verb:      "restart",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.RestartInstanceRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.RestartInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -843,10 +843,10 @@ func documentDbInstanceRestart() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.RestartInstanceRequest)
+			request := args.(*documentdb.RestartInstanceRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.RestartInstance(request)
 
 		},
@@ -861,7 +861,7 @@ func documentDbInstanceGetCertificate() *core.Command {
 		Resource:  "instance",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.GetInstanceCertificateRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.GetInstanceCertificateRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -873,10 +873,10 @@ func documentDbInstanceGetCertificate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.GetInstanceCertificateRequest)
+			request := args.(*documentdb.GetInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.GetInstanceCertificate(request)
 
 		},
@@ -891,7 +891,7 @@ func documentDbInstanceRenewCertificate() *core.Command {
 		Resource:  "instance",
 		Verb:      "renew-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.RenewInstanceCertificateRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.RenewInstanceCertificateRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -903,10 +903,10 @@ func documentDbInstanceRenewCertificate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.RenewInstanceCertificateRequest)
+			request := args.(*documentdb.RenewInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			e = api.RenewInstanceCertificate(request)
 			if e != nil {
 				return nil, e
@@ -927,7 +927,7 @@ func documentDbInstanceGetMetrics() *core.Command {
 		Resource:  "instance",
 		Verb:      "get-metrics",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.GetInstanceMetricsRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.GetInstanceMetricsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -960,10 +960,10 @@ func documentDbInstanceGetMetrics() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.GetInstanceMetricsRequest)
+			request := args.(*documentdb.GetInstanceMetricsRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.GetInstanceMetrics(request)
 
 		},
@@ -978,7 +978,7 @@ func documentDbReadReplicaCreate() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.CreateReadReplicaRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.CreateReadReplicaRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1011,10 +1011,10 @@ func documentDbReadReplicaCreate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.CreateReadReplicaRequest)
+			request := args.(*documentdb.CreateReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.CreateReadReplica(request)
 
 		},
@@ -1029,7 +1029,7 @@ func documentDbReadReplicaGet() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.GetReadReplicaRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.GetReadReplicaRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1041,10 +1041,10 @@ func documentDbReadReplicaGet() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.GetReadReplicaRequest)
+			request := args.(*documentdb.GetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.GetReadReplica(request)
 
 		},
@@ -1059,7 +1059,7 @@ func documentDbReadReplicaDelete() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.DeleteReadReplicaRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.DeleteReadReplicaRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1071,10 +1071,10 @@ func documentDbReadReplicaDelete() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.DeleteReadReplicaRequest)
+			request := args.(*documentdb.DeleteReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.DeleteReadReplica(request)
 
 		},
@@ -1090,7 +1090,7 @@ The configured endpoints do not change.`,
 		Resource:  "read-replica",
 		Verb:      "reset",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ResetReadReplicaRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ResetReadReplicaRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1102,10 +1102,10 @@ The configured endpoints do not change.`,
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ResetReadReplicaRequest)
+			request := args.(*documentdb.ResetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.ResetReadReplica(request)
 
 		},
@@ -1120,7 +1120,7 @@ func documentDbReadReplicaCreateEndpoint() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "create-endpoint",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.CreateReadReplicaEndpointRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.CreateReadReplicaEndpointRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1146,10 +1146,10 @@ func documentDbReadReplicaCreateEndpoint() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.CreateReadReplicaEndpointRequest)
+			request := args.(*documentdb.CreateReadReplicaEndpointRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.CreateReadReplicaEndpoint(request)
 
 		},
@@ -1164,7 +1164,7 @@ func documentDbLogList() *core.Command {
 		Resource:  "log",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListInstanceLogsRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListInstanceLogsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1184,10 +1184,10 @@ func documentDbLogList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListInstanceLogsRequest)
+			request := args.(*documentdb.ListInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.ListInstanceLogs(request)
 
 		},
@@ -1202,7 +1202,7 @@ func documentDbLogGet() *core.Command {
 		Resource:  "log",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.GetInstanceLogRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.GetInstanceLogRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-log-id",
@@ -1214,10 +1214,10 @@ func documentDbLogGet() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.GetInstanceLogRequest)
+			request := args.(*documentdb.GetInstanceLogRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.GetInstanceLog(request)
 
 		},
@@ -1232,7 +1232,7 @@ func documentDbLogPurge() *core.Command {
 		Resource:  "log",
 		Verb:      "purge",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.PurgeInstanceLogsRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.PurgeInstanceLogsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1251,10 +1251,10 @@ func documentDbLogPurge() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.PurgeInstanceLogsRequest)
+			request := args.(*documentdb.PurgeInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			e = api.PurgeInstanceLogs(request)
 			if e != nil {
 				return nil, e
@@ -1275,7 +1275,7 @@ func documentDbLogListDetails() *core.Command {
 		Resource:  "log",
 		Verb:      "list-details",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListInstanceLogsDetailsRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListInstanceLogsDetailsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1287,10 +1287,10 @@ func documentDbLogListDetails() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListInstanceLogsDetailsRequest)
+			request := args.(*documentdb.ListInstanceLogsDetailsRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.ListInstanceLogsDetails(request)
 
 		},
@@ -1305,7 +1305,7 @@ func documentDbSettingAdd() *core.Command {
 		Resource:  "setting",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.AddInstanceSettingsRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.AddInstanceSettingsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1329,10 +1329,10 @@ func documentDbSettingAdd() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.AddInstanceSettingsRequest)
+			request := args.(*documentdb.AddInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.AddInstanceSettings(request)
 
 		},
@@ -1347,7 +1347,7 @@ func documentDbSettingDelete() *core.Command {
 		Resource:  "setting",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.DeleteInstanceSettingsRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.DeleteInstanceSettingsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1366,10 +1366,10 @@ func documentDbSettingDelete() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.DeleteInstanceSettingsRequest)
+			request := args.(*documentdb.DeleteInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.DeleteInstanceSettings(request)
 
 		},
@@ -1384,7 +1384,7 @@ func documentDbSettingSet() *core.Command {
 		Resource:  "setting",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.SetInstanceSettingsRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.SetInstanceSettingsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1408,10 +1408,10 @@ func documentDbSettingSet() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.SetInstanceSettingsRequest)
+			request := args.(*documentdb.SetInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.SetInstanceSettings(request)
 
 		},
@@ -1426,7 +1426,7 @@ func documentDbACLList() *core.Command {
 		Resource:  "acl",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListInstanceACLRulesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1438,10 +1438,10 @@ func documentDbACLList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListInstanceACLRulesRequest)
+			request := args.(*documentdb.ListInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			opts := []scw.RequestOption{scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
@@ -1465,7 +1465,7 @@ func documentDbACLAdd() *core.Command {
 		Resource:  "acl",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.AddInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.AddInstanceACLRulesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1489,10 +1489,10 @@ func documentDbACLAdd() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.AddInstanceACLRulesRequest)
+			request := args.(*documentdb.AddInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.AddInstanceACLRules(request)
 
 		},
@@ -1507,7 +1507,7 @@ func documentDbACLSet() *core.Command {
 		Resource:  "acl",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.SetInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.SetInstanceACLRulesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1531,10 +1531,10 @@ func documentDbACLSet() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.SetInstanceACLRulesRequest)
+			request := args.(*documentdb.SetInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.SetInstanceACLRules(request)
 
 		},
@@ -1549,7 +1549,7 @@ func documentDbACLDelete() *core.Command {
 		Resource:  "acl",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.DeleteInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.DeleteInstanceACLRulesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1568,10 +1568,10 @@ func documentDbACLDelete() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.DeleteInstanceACLRulesRequest)
+			request := args.(*documentdb.DeleteInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.DeleteInstanceACLRules(request)
 
 		},
@@ -1586,7 +1586,7 @@ func documentDbUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListUsersRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListUsersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1613,10 +1613,10 @@ func documentDbUserList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListUsersRequest)
+			request := args.(*documentdb.ListUsersRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			opts := []scw.RequestOption{scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
@@ -1640,7 +1640,7 @@ func documentDbUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.CreateUserRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.CreateUserRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1673,10 +1673,10 @@ func documentDbUserCreate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.CreateUserRequest)
+			request := args.(*documentdb.CreateUserRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.CreateUser(request)
 
 		},
@@ -1691,7 +1691,7 @@ func documentDbUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.UpdateUserRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.UpdateUserRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1724,10 +1724,10 @@ func documentDbUserUpdate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.UpdateUserRequest)
+			request := args.(*documentdb.UpdateUserRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.UpdateUser(request)
 
 		},
@@ -1742,7 +1742,7 @@ func documentDbUserDelete() *core.Command {
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.DeleteUserRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.DeleteUserRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1761,10 +1761,10 @@ func documentDbUserDelete() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.DeleteUserRequest)
+			request := args.(*documentdb.DeleteUserRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			e = api.DeleteUser(request)
 			if e != nil {
 				return nil, e
@@ -1785,7 +1785,7 @@ func documentDbDatabaseList() *core.Command {
 		Resource:  "database",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListDatabasesRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListDatabasesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1826,10 +1826,10 @@ func documentDbDatabaseList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListDatabasesRequest)
+			request := args.(*documentdb.ListDatabasesRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			opts := []scw.RequestOption{scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
@@ -1853,7 +1853,7 @@ func documentDbDatabaseCreate() *core.Command {
 		Resource:  "database",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.CreateDatabaseRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.CreateDatabaseRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1872,10 +1872,10 @@ func documentDbDatabaseCreate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.CreateDatabaseRequest)
+			request := args.(*documentdb.CreateDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.CreateDatabase(request)
 
 		},
@@ -1890,7 +1890,7 @@ func documentDbDatabaseDelete() *core.Command {
 		Resource:  "database",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.DeleteDatabaseRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.DeleteDatabaseRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1909,10 +1909,10 @@ func documentDbDatabaseDelete() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.DeleteDatabaseRequest)
+			request := args.(*documentdb.DeleteDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			e = api.DeleteDatabase(request)
 			if e != nil {
 				return nil, e
@@ -1933,7 +1933,7 @@ func documentDbPrivilegeList() *core.Command {
 		Resource:  "privilege",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListPrivilegesRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListPrivilegesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1967,10 +1967,10 @@ func documentDbPrivilegeList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListPrivilegesRequest)
+			request := args.(*documentdb.ListPrivilegesRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			opts := []scw.RequestOption{scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
@@ -1994,7 +1994,7 @@ func documentDbPrivilegeSet() *core.Command {
 		Resource:  "privilege",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.SetPrivilegeRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.SetPrivilegeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2028,10 +2028,10 @@ func documentDbPrivilegeSet() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.SetPrivilegeRequest)
+			request := args.(*documentdb.SetPrivilegeRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.SetPrivilege(request)
 
 		},
@@ -2046,7 +2046,7 @@ func documentDbSnapshotList() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.ListSnapshotsRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.ListSnapshotsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2087,10 +2087,10 @@ func documentDbSnapshotList() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.ListSnapshotsRequest)
+			request := args.(*documentdb.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			opts := []scw.RequestOption{scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
@@ -2114,7 +2114,7 @@ func documentDbSnapshotGet() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.GetSnapshotRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.GetSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2126,10 +2126,10 @@ func documentDbSnapshotGet() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.GetSnapshotRequest)
+			request := args.(*documentdb.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.GetSnapshot(request)
 
 		},
@@ -2144,7 +2144,7 @@ func documentDbSnapshotCreate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.CreateSnapshotRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.CreateSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2171,10 +2171,10 @@ func documentDbSnapshotCreate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.CreateSnapshotRequest)
+			request := args.(*documentdb.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.CreateSnapshot(request)
 
 		},
@@ -2189,7 +2189,7 @@ func documentDbSnapshotUpdate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.UpdateSnapshotRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.UpdateSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2215,10 +2215,10 @@ func documentDbSnapshotUpdate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.UpdateSnapshotRequest)
+			request := args.(*documentdb.UpdateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.UpdateSnapshot(request)
 
 		},
@@ -2233,7 +2233,7 @@ func documentDbSnapshotDelete() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.DeleteSnapshotRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.DeleteSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2245,10 +2245,10 @@ func documentDbSnapshotDelete() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.DeleteSnapshotRequest)
+			request := args.(*documentdb.DeleteSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.DeleteSnapshot(request)
 
 		},
@@ -2263,7 +2263,7 @@ func documentDbSnapshotRestore() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.CreateInstanceFromSnapshotRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.CreateInstanceFromSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2296,10 +2296,10 @@ func documentDbSnapshotRestore() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.CreateInstanceFromSnapshotRequest)
+			request := args.(*documentdb.CreateInstanceFromSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.CreateInstanceFromSnapshot(request)
 
 		},
@@ -2314,7 +2314,7 @@ func documentDbEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.CreateEndpointRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2340,10 +2340,10 @@ func documentDbEndpointCreate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.CreateEndpointRequest)
+			request := args.(*documentdb.CreateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.CreateEndpoint(request)
 
 		},
@@ -2358,7 +2358,7 @@ func documentDbEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.DeleteEndpointRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -2370,10 +2370,10 @@ func documentDbEndpointDelete() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.DeleteEndpointRequest)
+			request := args.(*documentdb.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			e = api.DeleteEndpoint(request)
 			if e != nil {
 				return nil, e
@@ -2394,7 +2394,7 @@ func documentDbEndpointGet() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.GetEndpointRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.GetEndpointRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -2406,10 +2406,10 @@ func documentDbEndpointGet() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.GetEndpointRequest)
+			request := args.(*documentdb.GetEndpointRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.GetEndpoint(request)
 
 		},
@@ -2424,7 +2424,7 @@ func documentDbEndpointMigrate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "migrate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(document_db.MigrateEndpointRequest{}),
+		ArgsType: reflect.TypeOf(documentdb.MigrateEndpointRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -2443,10 +2443,10 @@ func documentDbEndpointMigrate() *core.Command {
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*document_db.MigrateEndpointRequest)
+			request := args.(*documentdb.MigrateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
-			api := document_db.NewAPI(client)
+			api := documentdb.NewAPI(client)
 			return api.MigrateEndpoint(request)
 
 		},

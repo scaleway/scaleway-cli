@@ -1,9 +1,9 @@
-package document_db
+package documentdb
 
 import (
 	"context"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	document_db "github.com/scaleway/scaleway-sdk-go/api/document_db/v1beta1"
+	documentdb "github.com/scaleway/scaleway-sdk-go/api/documentdb/v1beta1"
 	"time"
 )
 
@@ -36,7 +36,7 @@ func engineListBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return listEngineResp, err
 		}
-		engineList := listEngineResp.([]*document_db.DatabaseEngine)
+		engineList := listEngineResp.([]*documentdb.DatabaseEngine)
 		var res []customEngine
 		for _, engine := range engineList {
 			for _, version := range engine.Versions {
