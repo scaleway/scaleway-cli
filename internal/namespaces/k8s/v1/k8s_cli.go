@@ -1005,7 +1005,7 @@ func k8sClusterUpgrade() *core.Command {
 func k8sClusterSetType() *core.Command {
 	return &core.Command{
 		Short:     `Change the Cluster type`,
-		Long:      `Change the type of a specific Kubernetes cluster.`,
+		Long:      `Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the ` + "`" + `type` + "`" + ` field, [list available cluster types](#path-clusters-list-available-cluster-types-for-a-cluster).`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "set-type",
@@ -1826,12 +1826,6 @@ func k8sNodeList() *core.Command {
 			},
 			{
 				FieldName: "Status",
-			},
-			{
-				FieldName: "PublicIPV4",
-			},
-			{
-				FieldName: "PublicIPV6",
 			},
 			{
 				FieldName: "PoolID",
