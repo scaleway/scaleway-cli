@@ -366,7 +366,7 @@ scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111
 
 ### Change the Cluster type
 
-Change the type of a specific Kubernetes cluster.
+Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#path-clusters-list-available-cluster-types-for-a-cluster).
 
 **Usage:**
 
