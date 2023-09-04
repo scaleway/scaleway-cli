@@ -2,9 +2,10 @@ package documentdb
 
 import (
 	"context"
+	"time"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	documentdb "github.com/scaleway/scaleway-sdk-go/api/documentdb/v1beta1"
-	"time"
 )
 
 func engineListBuilder(c *core.Command) *core.Command {
