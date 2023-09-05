@@ -516,9 +516,10 @@ scw vpc-gw gateway-network create [arg=value ...]
 | gateway-id |  | Public Gateway to connect |
 | private-network-id |  | Private Network to connect |
 | enable-masquerade |  | Defines whether to enable masquerade (dynamic NAT) on this network |
+| enable-dhcp |  | Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present |
 | dhcp-id |  | ID of an existing DHCP configuration object to use for this GatewayNetwork |
 | address |  | Static IP address in CIDR format to to use without DHCP |
-| enable-dhcp |  | Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present |
+| ipam-config.push-default-route |  | Defines whether the default route is enabled on that Gateway Network. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -606,9 +607,10 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 |------|---|-------------|
 | gateway-network-id | Required | ID of the GatewayNetwork to update |
 | enable-masquerade |  | Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork |
-| dhcp-id |  | ID of the new DHCP configuration object to use with this GatewayNetwork |
 | enable-dhcp |  | Defines whether to enable DHCP on the connected Private Network |
+| dhcp-id |  | ID of the new DHCP configuration object to use with this GatewayNetwork |
 | address |  | New static IP address |
+| ipam-config.push-default-route |  | Defines whether the default route is enabled on that Gateway Network. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
