@@ -1828,12 +1828,6 @@ func k8sNodeList() *core.Command {
 				FieldName: "Status",
 			},
 			{
-				FieldName: "PublicIPV4",
-			},
-			{
-				FieldName: "PublicIPV6",
-			},
-			{
 				FieldName: "PoolID",
 			},
 			{

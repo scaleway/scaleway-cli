@@ -697,6 +697,13 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "enable-dhcp",
+				Short:      `Defines whether to enable DHCP on this Private Network. Defaults to ` + "`" + `true` + "`" + ` if either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` are present. If set to ` + "`" + `true` + "`" + `, either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` must be present`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "dhcp-id",
 				Short:      `ID of an existing DHCP configuration object to use for this GatewayNetwork`,
 				Required:   false,
@@ -711,8 +718,8 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "enable-dhcp",
-				Short:      `Defines whether to enable DHCP on this Private Network. Defaults to ` + "`" + `true` + "`" + ` if either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` are present. If set to ` + "`" + `true` + "`" + `, either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` must be present`,
+				Name:       "ipam-config.push-default-route",
+				Short:      `Defines whether the default route is enabled on that Gateway Network.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -755,13 +762,6 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "dhcp-id",
-				Short:      `ID of the new DHCP configuration object to use with this GatewayNetwork`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "enable-dhcp",
 				Short:      `Defines whether to enable DHCP on the connected Private Network`,
 				Required:   false,
@@ -769,8 +769,22 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "dhcp-id",
+				Short:      `ID of the new DHCP configuration object to use with this GatewayNetwork`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "address",
 				Short:      `New static IP address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-config.push-default-route",
+				Short:      `Defines whether the default route is enabled on that Gateway Network.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
