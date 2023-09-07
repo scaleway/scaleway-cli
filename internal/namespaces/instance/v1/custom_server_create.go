@@ -291,7 +291,9 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			return nil, err
 		}
 
-		volumes = addDefaultVolumes(apiInstance, args.Zone, serverType, volumes)
+		if serverType != nil {
+			volumes = addDefaultVolumes(serverType, volumes)
+		}
 
 		// Validate root volume type and size.
 		if getImageResponse != nil {
@@ -435,7 +437,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	return server, nil
 }
 
-func addDefaultVolumes(api *instance.API, zone scw.Zone, serverType *instance.ServerType, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
+func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
 	needScratch := false
 	hasScratch := false
 	if serverType.ScratchStorageMaxSize != nil && *serverType.ScratchStorageMaxSize > 0 {
