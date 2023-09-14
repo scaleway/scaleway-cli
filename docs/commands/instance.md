@@ -132,7 +132,7 @@ scw instance image create [arg=value ...]
 | additional-snapshots.{index}.id |  | UUID of the snapshot to add |
 | additional-snapshots.{index}.name |  | Name of the additional snapshot |
 | additional-snapshots.{index}.size |  | Size of the additional snapshot |
-| additional-snapshots.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch` | Underlying volume type of the additional snapshot |
+| additional-snapshots.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Underlying volume type of the additional snapshot |
 | additional-snapshots.{index}.project-id |  | Project ID that own the additional snapshot |
 | ~~additional-snapshots.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
@@ -1977,6 +1977,7 @@ scw instance server list [arg=value ...]
 | private-network |  | List Instances in this Private Network |
 | order | One of: `creation_date_desc`, `creation_date_asc`, `modification_date_desc`, `modification_date_asc` | Define the order of the returned servers |
 | private-networks.{index} |  | List Instances from the given Private Networks (use commas to separate them) |
+| private-nic-mac-address |  | List Instances associated with the given private NIC MAC address |
 | organization-id |  | List only Instances of this Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2928,7 +2929,7 @@ scw instance volume create [arg=value ...]
 | name | Default: `<generated>` | Volume name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Volume tags |
-| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch` | Volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Volume type |
 | size |  | Volume disk size, must be a multiple of 512 |
 | base-volume |  | ID of the volume on which this volume will be based |
 | base-snapshot |  | ID of the snapshot on which this volume will be based |
@@ -3032,7 +3033,7 @@ scw instance volume list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch` | Filter by volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Filter by volume type |
 | project-id |  | Filter volume by Project ID |
 | tags.{index} |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter volume by name (for eg. "vol" will return "myvolume" but not "data") |

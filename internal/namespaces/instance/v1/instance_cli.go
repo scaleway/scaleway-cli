@@ -464,6 +464,13 @@ func instanceServerList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "private-nic-mac-address",
+				Short:      `List Instances associated with the given private NIC MAC address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `List only Instances of this Organization ID`,
 				Required:   false,
@@ -619,7 +626,7 @@ func instanceServerUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
 			},
 			{
 				Name:       "volumes.{key}.base-snapshot",
@@ -1219,7 +1226,7 @@ func instanceImageCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
 			},
 			{
 				Name:       "extra-volumes.{key}.project",
@@ -1628,7 +1635,7 @@ func instanceVolumeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
 			},
 			{
 				Name:       "project",
@@ -1772,7 +1779,7 @@ func instanceVolumeCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
 			},
 			{
 				Name:       "size",
