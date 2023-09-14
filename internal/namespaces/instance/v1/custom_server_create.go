@@ -518,7 +518,7 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 // Volumes definition must be through multiple arguments (eg: volumes.0="l:20GB" volumes.1="b:100GB")
 //
 // A valid volume format is either
-// - a "creation" format: ^((local|l|block|b|s|scratch):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
+// - a "creation" format: ^((local|l|block|b|scratch|s):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
 // - a "creation" format with a snapshot id: l:<uuid> b:<uuid>
 // - a UUID format
 func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeServerTemplate, error) {
