@@ -322,7 +322,7 @@ func temEmailList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_flag", "soft_bounce", "hard_bounce", "spam", "mailbox_full"},
+				EnumValues: []string{"unknown_flag", "soft_bounce", "hard_bounce", "spam", "mailbox_full", "mailbox_not_found", "greylisted", "send_before_expiration"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
