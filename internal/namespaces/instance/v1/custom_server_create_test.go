@@ -490,7 +490,7 @@ func Test_CreateServerErrors(t *testing.T) {
 func Test_CreateServerScratchStorage(t *testing.T) {
 	t.Run("Default scratch storage", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      "scw instance server create type=H100-1-80G image=ubuntu_jammy_gpu_os_12 --debug",
+		Cmd:      "scw instance server create type=H100-1-80G image=ubuntu_jammy_gpu_os_12",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
