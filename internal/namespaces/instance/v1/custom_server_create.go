@@ -464,7 +464,7 @@ func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*inst
 
 	if defaultVolumes != nil {
 		maxKey := 1
-		for k, _ := range volumes {
+		for k := range volumes {
 			key, err := strconv.Atoi(k)
 			if err == nil && key > maxKey {
 				maxKey = key
