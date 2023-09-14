@@ -3110,6 +3110,13 @@ func instanceIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "type",
+				Short:      `Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6')`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `Organization ID in which the IPs are reserved`,
 				Required:   false,
