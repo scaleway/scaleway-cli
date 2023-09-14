@@ -452,9 +452,6 @@ func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*inst
 	}
 
 	if needScratch && !hasScratch {
-		if volumes == nil {
-			volumes = make(map[string]*instance.VolumeServerTemplate)
-		}
 		defaultVolumes = append(defaultVolumes, &instance.VolumeServerTemplate{
 			Name:       scw.StringPtr("default-cli-scratch-volume"),
 			Size:       serverType.ScratchStorageMaxSize,
@@ -463,6 +460,9 @@ func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*inst
 	}
 
 	if defaultVolumes != nil {
+		if volumes == nil {
+			volumes = make(map[string]*instance.VolumeServerTemplate)
+		}
 		maxKey := 1
 		for k := range volumes {
 			key, err := strconv.Atoi(k)
