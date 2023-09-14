@@ -13,8 +13,10 @@ ARGS:
   [scopes.setup-metrics-rules]   Permission to setup metrics rules
   [scopes.query-logs]            Permission to fetch logs
   [scopes.write-logs]            Permission to write logs
-  [scopes.setup-logs-rules]      Permission to setup logs rules
-  [scopes.setup-alerts]          Permission to setup alerts
+  [scopes.setup-logs-rules]      Permission to set up logs rules
+  [scopes.setup-alerts]          Permission to set up alerts
+  [scopes.query-traces]          Permission to fetch traces
+  [scopes.write-traces]          Permission to write traces
 
 FLAGS:
   -h, --help   help for create
