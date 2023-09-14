@@ -506,7 +506,7 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 				if !exist {
 					t.Fatalf("Expected an additional scratch volume, found none")
 				}
-				assert.Equal(t, additionalVolume.VolumeType, instance.VolumeServerVolumeTypeBSSD)
+				assert.Equal(t, additionalVolume.VolumeType, instance.VolumeServerVolumeTypeScratch)
 			},
 		),
 		DisableParallel: true,
