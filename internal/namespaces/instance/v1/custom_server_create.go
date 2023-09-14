@@ -291,10 +291,6 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			return nil, err
 		}
 
-		if serverType != nil {
-			volumes = addDefaultVolumes(serverType, volumes)
-		}
-
 		// Validate root volume type and size.
 		if getImageResponse != nil {
 			if err := validateRootVolume(getImageResponse.Image.RootVolume.Size, volumes["0"]); err != nil {
@@ -315,6 +311,11 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 
 		// Sanitize the volume map to respect API schemas
 		serverReq.Volumes = sanitizeVolumeMap(serverReq.Name, volumes)
+	}
+
+	// Add default volumes to server, ex: scratch storage for GPU servers
+	if serverType != nil {
+		serverReq.Volumes = addDefaultVolumes(serverType, serverReq.Volumes)
 	}
 
 	//
@@ -440,6 +441,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
 	needScratch := false
 	hasScratch := false
+	defaultVolumes := []*instance.VolumeServerTemplate(nil)
 	if serverType.ScratchStorageMaxSize != nil && *serverType.ScratchStorageMaxSize > 0 {
 		needScratch = true
 	}
@@ -450,11 +452,26 @@ func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*inst
 	}
 
 	if needScratch && !hasScratch {
-		volumeKey := strconv.Itoa(len(volumes))
-		volumes[volumeKey] = &instance.VolumeServerTemplate{
+		if volumes == nil {
+			volumes = make(map[string]*instance.VolumeServerTemplate)
+		}
+		defaultVolumes = append(defaultVolumes, &instance.VolumeServerTemplate{
 			Name:       scw.StringPtr("default-cli-scratch-volume"),
 			Size:       serverType.ScratchStorageMaxSize,
 			VolumeType: instance.VolumeVolumeTypeScratch,
+		})
+	}
+
+	if defaultVolumes != nil {
+		maxKey := 1
+		for k, _ := range volumes {
+			key, err := strconv.Atoi(k)
+			if err == nil && key > maxKey {
+				maxKey = key
+			}
+		}
+		for i, vol := range defaultVolumes {
+			volumes[strconv.Itoa(maxKey+i)] = vol
 		}
 	}
 
