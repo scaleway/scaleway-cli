@@ -811,6 +811,8 @@ func serverDeleteCommand() *core.Command {
 					continue
 				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeServerVolumeTypeBSSD:
 					continue
+				case volume.VolumeType == instance.VolumeServerVolumeTypeScratch:
+					continue
 				}
 				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
 					Zone:     deleteServerArgs.Zone,
