@@ -8,8 +8,8 @@ USAGE:
 ARGS:
   [gateway-id]                       Public Gateway to connect
   [private-network-id]               Private Network to connect
-  [enable-masquerade]                Defines whether to enable masquerade (dynamic NAT) on this network
-  [enable-dhcp]                      Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present
+  [enable-masquerade]                Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
+  [enable-dhcp]                      Defines whether to enable DHCP on this Private Network.
   [dhcp-id]                          ID of an existing DHCP configuration object to use for this GatewayNetwork
   [address]                          Static IP address in CIDR format to to use without DHCP
   [ipam-config.push-default-route]   Defines whether the default route is enabled on that Gateway Network.

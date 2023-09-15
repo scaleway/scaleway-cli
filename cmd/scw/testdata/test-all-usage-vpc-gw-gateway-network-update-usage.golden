@@ -7,8 +7,8 @@ USAGE:
 
 ARGS:
   gateway-network-id                 ID of the GatewayNetwork to update
-  [enable-masquerade]                Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork
-  [enable-dhcp]                      Defines whether to enable DHCP on the connected Private Network
+  [enable-masquerade]                Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
+  [enable-dhcp]                      Defines whether to enable DHCP on this Private Network.
   [dhcp-id]                          ID of the new DHCP configuration object to use with this GatewayNetwork
   [address]                          New static IP address
   [ipam-config.push-default-route]   Defines whether the default route is enabled on that Gateway Network.
