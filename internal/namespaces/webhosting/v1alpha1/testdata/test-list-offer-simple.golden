@@ -22,7 +22,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 0,
         "support_included": false,
         "v_cpu": 0,
-        "ram": 0
+        "ram": 0,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
@@ -45,7 +46,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 10,
         "support_included": true,
         "v_cpu": 1,
-        "ram": 1
+        "ram": 1,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
@@ -68,7 +70,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 50,
         "support_included": true,
         "v_cpu": 2,
-        "ram": 1
+        "ram": 1,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
@@ -91,7 +94,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 100,
         "support_included": true,
         "v_cpu": 4,
-        "ram": 2
+        "ram": 2,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
@@ -114,7 +118,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 250,
         "support_included": true,
         "v_cpu": 8,
-        "ram": 8
+        "ram": 8,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
