@@ -1352,6 +1352,12 @@ func instanceSnapshotList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "base-volume-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Required:   false,
 				Deprecated: false,
