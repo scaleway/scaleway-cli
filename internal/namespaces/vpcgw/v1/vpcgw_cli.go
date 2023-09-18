@@ -691,14 +691,14 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			},
 			{
 				Name:       "enable-masquerade",
-				Short:      `Defines whether to enable masquerade (dynamic NAT) on this network`,
+				Short:      `Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-dhcp",
-				Short:      `Defines whether to enable DHCP on this Private Network. Defaults to ` + "`" + `true` + "`" + ` if either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` are present. If set to ` + "`" + `true` + "`" + `, either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` must be present`,
+				Short:      `Defines whether to enable DHCP on this Private Network.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -756,14 +756,14 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 			},
 			{
 				Name:       "enable-masquerade",
-				Short:      `Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork`,
+				Short:      `Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-dhcp",
-				Short:      `Defines whether to enable DHCP on the connected Private Network`,
+				Short:      `Defines whether to enable DHCP on this Private Network.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
