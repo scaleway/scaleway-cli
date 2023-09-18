@@ -2604,6 +2604,7 @@ scw instance snapshot list [arg=value ...]
 | name |  |  |
 | project-id |  |  |
 | tags |  |  |
+| base-volume-id |  |  |
 | organization-id |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
