@@ -1,6 +1,7 @@
 package instance
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -483,5 +484,31 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+	}))
+}
+
+func Test_CreateServerScratchStorage(t *testing.T) {
+	t.Run("Default scratch storage", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      "scw instance server create type=H100-1-80G image=ubuntu_jammy_gpu_os_12",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				fmt.Println(ctx.LogBuffer)
+			},
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				server, isServer := ctx.Result.(*instance.Server)
+				if !isServer {
+					t.Fatalf("Result is not a server")
+				}
+				additionalVolume, exist := server.Volumes["1"]
+				if !exist {
+					t.Fatalf("Expected an additional scratch volume, found none")
+				}
+				assert.Equal(t, additionalVolume.VolumeType, instance.VolumeServerVolumeTypeScratch)
+			},
+		),
+		DisableParallel: true,
 	}))
 }

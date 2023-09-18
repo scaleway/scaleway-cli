@@ -464,6 +464,13 @@ func instanceServerList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "private-nic-mac-address",
+				Short:      `List Instances associated with the given private NIC MAC address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `List only Instances of this Organization ID`,
 				Required:   false,
@@ -619,7 +626,7 @@ func instanceServerUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
 			},
 			{
 				Name:       "volumes.{key}.base-snapshot",
@@ -1219,7 +1226,7 @@ func instanceImageCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
 			},
 			{
 				Name:       "extra-volumes.{key}.project",
@@ -1628,7 +1635,7 @@ func instanceVolumeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
 			},
 			{
 				Name:       "project",
@@ -1772,7 +1779,7 @@ func instanceVolumeCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
 			},
 			{
 				Name:       "size",
@@ -3098,6 +3105,13 @@ func instanceIPList() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Filter on the IP address (Works as a LIKE operation on the IP address)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "type",
+				Short:      `Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6')`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
