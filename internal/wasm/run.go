@@ -33,11 +33,11 @@ type RunResponse struct {
 	ExitCode int    `js:"exitCode"`
 }
 
-func runCommand(cfg *RunConfig, args []string, stdout io.Writer, stderr io.Writer) int {
+func runCommand(buildInfo *core.BuildInfo, cfg *RunConfig, args []string, stdout io.Writer, stderr io.Writer) int {
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      args,
 		Commands:  getCommands(),
-		BuildInfo: &core.BuildInfo{},
+		BuildInfo: buildInfo,
 		Stdout:    stdout,
 		Stderr:    stderr,
 		Stdin:     nil,
@@ -52,18 +52,24 @@ func runCommand(cfg *RunConfig, args []string, stdout io.Writer, stderr io.Write
 	return exitCode
 }
 
-func Run(cfg *RunConfig, args []string) (*RunResponse, error) {
+func Run(buildInfo *core.BuildInfo, cfg *RunConfig, args []string) (*RunResponse, error) {
 	cliArgs := []string{"scw"}
 	stdout := bytes.NewBuffer(nil)
 	stderr := bytes.NewBuffer(nil)
 
 	cliArgs = append(cliArgs, args...)
 
-	exitCode := runCommand(cfg, cliArgs, stdout, stderr)
+	exitCode := runCommand(buildInfo, cfg, cliArgs, stdout, stderr)
 
 	return &RunResponse{
 		Stdout:   stdout.String(),
 		Stderr:   stderr.String(),
 		ExitCode: exitCode,
 	}, nil
+}
+
+func RunWithBuildInfo(buildInfo *core.BuildInfo) func(config *RunConfig, args []string) (*RunResponse, error) {
+	return func(config *RunConfig, args []string) (*RunResponse, error) {
+		return Run(buildInfo, config, args)
+	}
 }

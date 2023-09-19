@@ -1,8 +1,8 @@
 import '../wasm_exec_node.cjs'
 import '../wasm_exec.cjs'
-import { CLI, RunConfig } from '../cli'
 import * as fs from 'fs'
 import { Go } from '../wasm_exec'
+import { expect } from 'vitest'
 
 const CLI_PACKAGE = 'scw'
 const CLI_CALLBACK = 'cliLoaded'
@@ -19,13 +19,14 @@ export const loadWasmBinary = async (binaryName: string): Promise<unknown> => {
   })
   go.argv = [CLI_CALLBACK, CLI_PACKAGE]
 
-  WebAssembly.instantiate(fs.readFileSync(binaryName), go.importObject)
+  const buffer: BufferSource = await fs.promises.readFile(binaryName)
+
+  WebAssembly.instantiate(buffer, go.importObject)
     .then(result => {
       return go.run(result.instance)
     })
     .catch(err => {
-      console.error(err)
-      console.error('webassembly error')
+      expect(err, err).toBeNull()
       process.exit(1)
     })
   await waitForCLI
