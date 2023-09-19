@@ -34,5 +34,5 @@ jobs:
           TESTER: true
       - name: Run prettier
         uses: actionsx/prettier@v2
-        working-directory: wasm
-        run: prettier --check .
+        with:
+          args: --config wasm/.prettierrc --ignore-path wasm/.prettierignore --check wasm
