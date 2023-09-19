@@ -6,9 +6,9 @@ USAGE:
   scw cockpit contact <command>
 
 AVAILABLE COMMANDS:
-  create      Create a contact point
-  delete      Delete an alert contact point
-  list        List contact points
+  create      Create a contact point to receive alerts for the default receiver
+  delete      Delete a contact point for the default receiver
+  list        Get a list of contact points for the Cockpit associated with the specified Project ID
 
 FLAGS:
   -h, --help   help for contact

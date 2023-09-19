@@ -6,9 +6,9 @@ USAGE:
   scw cockpit alert <command>
 
 AVAILABLE COMMANDS:
-  disable     Disable managed alerts
-  enable      Enable managed alerts
-  test        Trigger a test alert
+  disable     Disable the sending of managed alerts for the specified Project's Cockpit
+  enable      Enable the sending of managed alerts for the specified Project's Cockpit
+  test        Trigger a test alert to all of the Cockpit's receivers
 
 FLAGS:
   -h, --help   help for alert
