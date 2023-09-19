@@ -4,15 +4,10 @@
 
 import { describe, it, expect, afterAll, beforeAll } from 'vitest'
 
-import '../wasm_exec_node.cjs'
-import '../wasm_exec.cjs'
 import { CLI, RunConfig } from '../cli'
-import * as fs from 'fs'
-import { Go } from '../wasm_exec'
 import { loadWasmBinary } from './utils'
+import {wasmURL} from "../index";
 
-const CLI_PACKAGE = 'scw'
-const CLI_CALLBACK = 'cliLoaded'
 
 const emptyConfig = (override?: {
   jwt?: string
@@ -31,7 +26,7 @@ describe('With wasm CLI', async () => {
 
   beforeAll(async () => {
     // @ts-ignore
-    cli = (await loadWasmBinary('./cli.wasm')) as CLI
+    cli = (await loadWasmBinary(wasmURL)) as CLI
   })
 
   const run = async (
@@ -45,7 +40,7 @@ describe('With wasm CLI', async () => {
 
     const resp = await cli.run(runCfg, command)
     expect(resp.exitCode).toBe(0)
-    expect(resp.stdout).toMatch(expected)
+    expect(resp.stdout, `out: '${resp.stdout}'`).toMatch(expected)
   }
 
   const runWithError = async (
@@ -58,7 +53,7 @@ describe('With wasm CLI', async () => {
     }
     const resp = await cli.run(runCfg, command)
     expect(resp.exitCode).toBeGreaterThan(0)
-    expect(resp.stderr).toMatch(expected)
+    expect(resp.stderr, `error: '${resp.stderr}'`).toMatch(expected)
   }
 
   const complete = async (
@@ -99,7 +94,7 @@ describe('With wasm CLI', async () => {
 
     await cli.configureOutput({ width: 100, color: false })
     const resp = await cli.run(runCfg, ['marketplace', 'image', 'list'])
-    expect(resp.exitCode).toBe(0)
+    expect(resp.exitCode, `error: '${resp.stderr}'`).toBe(0)
 
     const lines = resp.stdout.split('\n')
     expect(lines.length).toBeGreaterThan(1)
@@ -117,6 +112,8 @@ describe('With wasm CLI', async () => {
     expect(coloredResp.stderr.length).toBeGreaterThan(resp.stderr.length)
     expect(coloredResp.stderr).not.toEqual(resp.stderr)
   })
+
+  it('print version', async () => run(/Version +2\.\d+\.\d+.*/, ['version']))
 
   afterAll(async () => {
     try {

@@ -1,14 +1,11 @@
 import { describe, it, expect, afterAll, beforeAll } from 'vitest'
 
-import '../wasm_exec_node.cjs'
-import '../wasm_exec.cjs'
-import { RunConfig } from '../cli'
-import * as fs from 'fs'
 import { loadWasmBinary } from './utils'
 
 type CLITester = {
   stop: () => Promise<void>
   FromSlice: () => string[]
+  MarshalBuildInfo: () => string
 }
 
 describe('With test environment', async () => {
@@ -26,6 +23,12 @@ describe('With test environment', async () => {
     expect(array).toContain('1')
     expect(array).toContain('2')
     expect(array).toContain('3')
+  })
+
+  it('can marshal build info', async () => {
+    const buildInfo = cli.MarshalBuildInfo()
+    expect(buildInfo).toContain('Version')
+    expect(buildInfo).toContain('2.0.0')
   })
 
   afterAll(async () => {
