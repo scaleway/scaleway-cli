@@ -6,8 +6,7 @@ import { describe, it, expect, afterAll, beforeAll } from 'vitest'
 
 import { CLI, RunConfig } from '../cli'
 import { loadWasmBinary } from './utils'
-import {wasmURL} from "../index";
-
+import { wasmURL } from '../index'
 
 const emptyConfig = (override?: {
   jwt?: string

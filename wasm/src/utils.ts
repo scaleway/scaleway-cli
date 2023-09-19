@@ -2,7 +2,7 @@ import '../wasm_exec_node.cjs'
 import '../wasm_exec.cjs'
 import * as fs from 'fs'
 import { Go } from '../wasm_exec'
-import {expect} from "vitest";
+import { expect } from 'vitest'
 
 const CLI_PACKAGE = 'scw'
 const CLI_CALLBACK = 'cliLoaded'
@@ -18,7 +18,6 @@ export const loadWasmBinary = async (binaryName: string): Promise<unknown> => {
     }
   })
   go.argv = [CLI_CALLBACK, CLI_PACKAGE]
-
 
   const buffer: BufferSource = await fs.promises.readFile(binaryName)
 
