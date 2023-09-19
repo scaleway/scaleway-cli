@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cockpit's API allows you to activate your Cockpit on your Projects. Scaleway's Cockpit stores metrics and logs and provides a dedicated Grafana for dashboarding to visualize them.
+Cockpit API.
 
 USAGE:
   scw cockpit <command>
@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   alert        Managed alerts management commands
   cockpit      Cockpit management commands
   contact      Contacts management commands
+  datasource   Datasource management commands
   grafana-user Grafana user management commands
   plan         Pricing plans management commands
   token        Token management commands

@@ -6,10 +6,10 @@ USAGE:
   scw cockpit grafana-user <command>
 
 AVAILABLE COMMANDS:
-  create         Create a Grafana user
-  delete         Delete a Grafana user
-  list           List Grafana users
-  reset-password Reset a Grafana user's password
+  create         Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID
+  delete         Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID
+  list           Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance
+  reset-password Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID
 
 FLAGS:
   -h, --help   help for grafana-user
