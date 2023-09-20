@@ -10,7 +10,7 @@ ARGS:
   [node-type]               Node type of the Database Instance you want to upgrade to
   [enable-ha]               Defines whether or not high availability should be enabled on the Database Instance
   [volume-size]             Increase your block storage volume size
-  [volume-type]             Change your Database Instance storage type (lssd | bssd)
+  [volume-type]             Change your Database Instance storage type (lssd | bssd | sbs)
   [upgradable-version-id]   Update your database engine to a newer version
   [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

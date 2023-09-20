@@ -691,7 +691,7 @@ func rdbInstanceUpgrade() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"lssd", "bssd"},
+				EnumValues: []string{"lssd", "bssd", "sbs"},
 			},
 			{
 				Name:       "upgradable-version-id",
@@ -929,7 +929,7 @@ func rdbInstanceCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"lssd", "bssd"},
+				EnumValues: []string{"lssd", "bssd", "sbs"},
 			},
 			{
 				Name:       "volume-size",
