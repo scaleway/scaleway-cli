@@ -1124,7 +1124,7 @@ scw lb private-network attach <lb-id ...> [arg=value ...]
 | lb-id | Required | Load Balancer ID |
 | private-network-id | Required | Private Network ID |
 | ~~static-config.ip-address.{index}~~ | Deprecated | Array of a local IP address for the Load Balancer on this Private Network |
-| dhcp-config.ip-id |  |  |
+| ~~dhcp-config.ip-id~~ | Deprecated |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 

@@ -2601,11 +2601,11 @@ scw instance snapshot list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  |  |
-| project-id |  |  |
-| tags |  |  |
-| base-volume-id |  |  |
-| organization-id |  |  |
+| project-id |  | List snapshots only for this Project ID |
+| name |  | List snapshots of the requested name |
+| tags |  | List snapshots that have the requested tag |
+| base-volume-id |  | List snapshots originating only from this volume |
+| organization-id |  | List snapshots only for this Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
