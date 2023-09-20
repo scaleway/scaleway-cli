@@ -163,6 +163,13 @@ func k8sClusterList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "private-network-id",
+				Short:      `Private Network ID to filter on, only clusters within this Private Network will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID on which to filter the returned clusters`,
 				Required:   false,
