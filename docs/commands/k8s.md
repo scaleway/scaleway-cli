@@ -218,6 +218,7 @@ scw k8s cluster list [arg=value ...]
 | name |  | Name to filter on, only clusters containing this substring in their name will be returned |
 | status | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required` | Status to filter on, only clusters with this status will be returned |
 | type |  | Type to filter on, only clusters with this type will be returned |
+| private-network-id |  | Private Network ID to filter on, only clusters within this Private Network will be returned |
 | organization-id |  | Organization ID on which to filter the returned clusters |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
