@@ -2,6 +2,10 @@
 # Documentation for `scw secret`
 This API allows you to conveniently store, access and share sensitive data.
   
+- [Folder management commands](#folder-management-commands)
+  - [Create folder](#create-folder)
+  - [Delete a given folder specified by the `region` and `folder_id` parameters](#delete-a-given-folder-specified-by-the-`region`-and-`folder_id`-parameters)
+  - [List folders](#list-folders)
 - [Secret management commands](#secret-management-commands)
   - [Create a secret](#create-a-secret)
   - [Delete a secret](#delete-a-secret)
@@ -20,6 +24,75 @@ This API allows you to conveniently store, access and share sensitive data.
   - [Update metadata of a version](#update-metadata-of-a-version)
 
   
+## Folder management commands
+
+Location of the secret in the directory structure.
+
+
+### Create folder
+
+Create folder.
+
+**Usage:**
+
+```
+scw secret folder create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| name |  | Name of the folder |
+| path |  | Path of the folder |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a given folder specified by the `region` and `folder_id` parameters
+
+Delete a given folder specified by the `region` and `folder_id` parameters.
+
+**Usage:**
+
+```
+scw secret folder delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| folder-id | Required | ID of the folder |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List folders
+
+Retrieve the list of folders created within a Project.
+
+**Usage:**
+
+```
+scw secret folder list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Filter by Project ID (optional) |
+| path |  | Filter by path (optional) |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
 ## Secret management commands
 
 Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.

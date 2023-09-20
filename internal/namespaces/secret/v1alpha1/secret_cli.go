@@ -20,13 +20,17 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		secretRoot(),
+		secretFolder(),
 		secretSecret(),
 		secretVersion(),
 		secretSecretCreate(),
+		secretFolderCreate(),
 		secretSecretGet(),
 		secretSecretUpdate(),
 		secretSecretList(),
+		secretFolderList(),
 		secretSecretDelete(),
+		secretFolderDelete(),
 		secretVersionCreate(),
 		secretVersionGeneratePassword(),
 		secretVersionGet(),
@@ -43,6 +47,15 @@ func secretRoot() *core.Command {
 		Short:     `Secret Manager API`,
 		Long:      `This API allows you to conveniently store, access and share sensitive data.`,
 		Namespace: "secret",
+	}
+}
+
+func secretFolder() *core.Command {
+	return &core.Command{
+		Short:     `Folder management commands`,
+		Long:      `Location of the secret in the directory structure.`,
+		Namespace: "secret",
+		Resource:  "folder",
 	}
 }
 
@@ -126,6 +139,44 @@ func secretSecretCreate() *core.Command {
 				Short: "Add a given secret",
 				Raw:   `scw secret secret create name=foobar description="$(cat <path/to/your/secret>)"`,
 			},
+		},
+	}
+}
+
+func secretFolderCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create folder`,
+		Long:      `Create folder.`,
+		Namespace: "secret",
+		Resource:  "folder",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.CreateFolderRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "name",
+				Short:      `Name of the folder`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "path",
+				Short:      `Path of the folder`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.CreateFolderRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.CreateFolder(request)
+
 		},
 	}
 }
@@ -299,6 +350,59 @@ func secretSecretList() *core.Command {
 	}
 }
 
+func secretFolderList() *core.Command {
+	return &core.Command{
+		Short:     `List folders`,
+		Long:      `Retrieve the list of folders created within a Project.`,
+		Namespace: "secret",
+		Resource:  "folder",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.ListFoldersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "project-id",
+				Short:      `Filter by Project ID (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "path",
+				Short:      `Filter by path (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.ListFoldersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListFolders(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Folders, nil
+
+		},
+	}
+}
+
 func secretSecretDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a secret`,
@@ -337,6 +441,42 @@ func secretSecretDelete() *core.Command {
 				Short:    "Delete a given secret",
 				ArgsJSON: `{"secret_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
+		},
+	}
+}
+
+func secretFolderDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a given folder specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `folder_id` + "`" + ` parameters`,
+		Long:      `Delete a given folder specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `folder_id` + "`" + ` parameters.`,
+		Namespace: "secret",
+		Resource:  "folder",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.DeleteFolderRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "folder-id",
+				Short:      `ID of the folder`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.DeleteFolderRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			e = api.DeleteFolder(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "folder",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
