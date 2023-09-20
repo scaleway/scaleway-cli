@@ -1334,31 +1334,36 @@ func instanceSnapshotList() *core.Command {
 		ArgsType: reflect.TypeOf(instance.ListSnapshotsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "name",
+				Name:       "project",
+				Short:      `List snapshots only for this Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "project",
+				Name:       "name",
+				Short:      `List snapshots of the requested name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags",
+				Short:      `List snapshots that have the requested tag`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "base-volume-id",
+				Short:      `List snapshots originating only from this volume`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization",
+				Short:      `List snapshots only for this Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
