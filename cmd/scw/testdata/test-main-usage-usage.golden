@@ -12,6 +12,7 @@ AVAILABLE COMMANDS:
   cockpit       Cockpit API
   container     Container as a Service API
   dns           Domains and DNS API
+  document-db   Managed Database for FerretDB API
   fip           Elastic Metal - Flexible IP API
   function      Function as a Service API
   help          Get help about how the CLI works
