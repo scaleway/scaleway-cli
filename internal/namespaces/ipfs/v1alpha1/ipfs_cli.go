@@ -40,6 +40,7 @@ func ipfsRoot() *core.Command {
 		Short:     `IPFS Pinning service API`,
 		Long:      `IPFS Pinning service API.`,
 		Namespace: "ipfs",
+		Groups:    []string{"labs"},
 	}
 }
 

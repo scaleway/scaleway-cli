@@ -43,8 +43,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var labs = os.Getenv("SCW_ENABLE_LABS") == "true"
-
 // Enable beta in the code when products are in beta
 var beta = os.Getenv(scw.ScwEnableBeta) == "true"
 
@@ -89,10 +87,8 @@ func GetCommands() *core.Commands {
 		alias.GetCommands(),
 		webhosting.GetCommands(),
 		billing.GetCommands(),
+		ipfs.GetCommands(),
 	)
-	if labs {
-		commands.Merge(ipfs.GetCommands())
-	}
 	if beta {
 		commands.Merge(documentdb.GetCommands())
 	}
