@@ -84,8 +84,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func documentDbRoot() *core.Command {
 	return &core.Command{
-		Short:     `Managed Database for FerretDB API`,
-		Long:      `Managed Database for FerretDB API.`,
+		Short:     `Managed Document Databases API`,
+		Long:      `Managed Document Databases API.`,
 		Namespace: "document-db",
 	}
 }
