@@ -89,12 +89,12 @@ func GetCommands() *core.Commands {
 		alias.GetCommands(),
 		webhosting.GetCommands(),
 		billing.GetCommands(),
+		documentdb.GetCommands(),
 	)
 	if labs {
 		commands.Merge(ipfs.GetCommands())
 	}
 	if beta {
-		commands.Merge(documentdb.GetCommands())
 	}
 
 	return commands
