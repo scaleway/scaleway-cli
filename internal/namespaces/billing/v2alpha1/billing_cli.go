@@ -44,8 +44,8 @@ func billingInvoice() *core.Command {
 
 func billingInvoiceList() *core.Command {
 	return &core.Command{
-		Short:     `List billing resources`,
-		Long:      `List billing resources.`,
+		Short:     `List invoices`,
+		Long:      `List all your invoices, filtering by ` + "`" + `start_date` + "`" + ` and ` + "`" + `invoice_type` + "`" + `. Each invoice has its own ID.`,
 		Namespace: "billing",
 		Resource:  "invoice",
 		Verb:      "list",
@@ -108,8 +108,8 @@ func billingInvoiceList() *core.Command {
 
 func billingInvoiceDownload() *core.Command {
 	return &core.Command{
-		Short:     `Download billing resources`,
-		Long:      `Download billing resources.`,
+		Short:     `Download an invoice`,
+		Long:      `Download a specific invoice, specified by its ID.`,
 		Namespace: "billing",
 		Resource:  "invoice",
 		Verb:      "download",

@@ -6,8 +6,8 @@ USAGE:
   scw billing invoice <command>
 
 AVAILABLE COMMANDS:
-  download    Download billing resources
-  list        List billing resources
+  download    Download an invoice
+  list        List invoices
 
 FLAGS:
   -h, --help   help for invoice
