@@ -1979,6 +1979,7 @@ scw instance server list [arg=value ...]
 | order | One of: `creation_date_desc`, `creation_date_asc`, `modification_date_desc`, `modification_date_asc` | Define the order of the returned servers |
 | private-networks.{index} |  | List Instances from the given Private Networks (use commas to separate them) |
 | private-nic-mac-address |  | List Instances associated with the given private NIC MAC address |
+| servers.{index} |  | List Instances from these server ids (use commas to separate them) |
 | organization-id |  | List only Instances of this Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
