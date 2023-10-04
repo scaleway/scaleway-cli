@@ -3,8 +3,8 @@
 Billing API.
   
 - [Invoices management commands](#invoices-management-commands)
-  - [Download billing resources](#download-billing-resources)
-  - [List billing resources](#list-billing-resources)
+  - [Download an invoice](#download-an-invoice)
+  - [List invoices](#list-invoices)
 
   
 ## Invoices management commands
@@ -12,9 +12,9 @@ Billing API.
 Invoices management commands.
 
 
-### Download billing resources
+### Download an invoice
 
-Download billing resources.
+Download a specific invoice, specified by its ID.
 
 **Usage:**
 
@@ -34,9 +34,9 @@ scw billing invoice download [arg=value ...]
 
 
 
-### List billing resources
+### List invoices
 
-List billing resources.
+List all your invoices, filtering by `start_date` and `invoice_type`. Each invoice has its own ID.
 
 **Usage:**
 
