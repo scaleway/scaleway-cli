@@ -471,6 +471,13 @@ func instanceServerList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "servers.{index}",
+				Short:      `List Instances from these server ids (use commas to separate them)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `List only Instances of this Organization ID`,
 				Required:   false,
