@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all your invoices, filtering by `start_date` and `invoice_type`. Each invoice has its own ID.
+List billing resources.
 
 USAGE:
   scw billing invoice list [arg=value ...]
