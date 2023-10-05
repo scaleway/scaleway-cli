@@ -86,7 +86,8 @@ Should be the first command you made because every pin must be attached to a vol
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
-				Required:   false,
+				Short:      `Volume name`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -115,6 +116,7 @@ func ipfsVolumeGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
+				Short:      `Volume id`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -145,6 +147,7 @@ func ipfsVolumeList() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "order-by",
+				Short:      `Sort order of the returned Volume`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -183,19 +186,22 @@ func ipfsVolumeUpdate() *core.Command {
 		ArgsType: reflect.TypeOf(ipfs.UpdateVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "volume-id",
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "name",
+				Short:      `Volume name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
+				Name:       "volume-id",
+				Short:      `Volume id`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "tags.{index}",
+				Short:      `Tags for the Volume`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -225,6 +231,7 @@ func ipfsVolumeDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
+				Short:      `Volume id`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -264,18 +271,21 @@ A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
-				Required:   false,
+				Short:      `Volume Id on which you wish to pin your content`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "url",
-				Required:   false,
+				Short:      `Url whose content you wish to pin`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
+				Short:      `Pin name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -321,24 +331,28 @@ A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
-				Required:   false,
+				Short:      `Volume Id on which you wish to pin your content`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "cid",
+				Short:      `Cid whose content you wish to pin`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "origins.{index}",
+				Short:      `Node containing the content you wish to pin`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "origins.{index}",
+				Short:      `Pin name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -380,12 +394,14 @@ func ipfsPinGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
+				Short:      `Volume id`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pin-id",
+				Short:      `Pin id for which you wish to obtain information`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -415,18 +431,21 @@ func ipfsPinList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
-				Required:   false,
+				Short:      `Volume ID for which you wish to list the pins`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
+				Short:      `Project id`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
+				Short:      `Sort order of the returned Volume`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -434,6 +453,7 @@ func ipfsPinList() *core.Command {
 			},
 			{
 				Name:       "status",
+				Short:      `List pins by status`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -441,6 +461,7 @@ func ipfsPinList() *core.Command {
 			},
 			{
 				Name:       "organization-id",
+				Short:      `Organization id`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -480,12 +501,14 @@ This content can therefore be removed and no longer provided on the IPFS network
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
+				Short:      `Volume id`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pin-id",
+				Short:      `Pin id you wish to remove from the volume`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
