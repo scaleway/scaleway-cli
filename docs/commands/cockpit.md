@@ -500,7 +500,7 @@ scw cockpit token list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | How the response is ordered |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 
 
