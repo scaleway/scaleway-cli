@@ -63,6 +63,9 @@ var serverTypes = []string{
 	"POP2-HC-16C-32G",
 	"POP2-HC-32C-63G",
 	"POP2-HC-64C-128G",
+
+	"H100-1-80G",
+	"H100-2-80G",
 }
 
 func completeServerType(_ context.Context, prefix string) core.AutocompleteSuggestions {
