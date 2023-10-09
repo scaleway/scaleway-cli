@@ -318,6 +318,7 @@ func cockpitTokenList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `How the response is ordered`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
