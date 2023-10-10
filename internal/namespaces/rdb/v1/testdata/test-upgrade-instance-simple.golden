@@ -22,8 +22,9 @@ IP    195.154.70.113
 Port  44028
 
 Volume:
-Type  lssd
-Size  25 GB
+Type   lssd
+Size   25 GB
+Class  unknown_storage_class
 
 Backup Schedule:
 Disabled   false
@@ -43,7 +44,8 @@ max_parallel_workers_per_gather  0
   "created_at": "1970-01-01T00:00:00.0Z",
   "volume": {
     "type": "lssd",
-    "size": 25000000000
+    "size": 25000000000,
+    "class": "unknown_storage_class"
   },
   "region": "fr-par",
   "id": "143f084f-2d48-48d2-9094-4363c81d6fcf",
