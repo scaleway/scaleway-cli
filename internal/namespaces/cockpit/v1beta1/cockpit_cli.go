@@ -27,6 +27,7 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitPlan(),
 		cockpitAlert(),
 		cockpitContact(),
+		cockpitProductDashboards(),
 		cockpitCockpitActivate(),
 		cockpitCockpitGet(),
 		cockpitCockpitDeactivate(),
@@ -117,6 +118,15 @@ func cockpitContact() *core.Command {
 		Long:      `Contacts management commands.`,
 		Namespace: "cockpit",
 		Resource:  "contact",
+	}
+}
+
+func cockpitProductDashboards() *core.Command {
+	return &core.Command{
+		Short:     `Product dashboards management commands`,
+		Long:      `Product dashboards management commands.`,
+		Namespace: "cockpit",
+		Resource:  "product-dashboards",
 	}
 }
 
