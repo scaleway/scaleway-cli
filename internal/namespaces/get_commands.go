@@ -1,8 +1,6 @@
 package namespaces
 
 import (
-	"os"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"

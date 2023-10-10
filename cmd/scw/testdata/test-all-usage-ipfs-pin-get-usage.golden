@@ -6,8 +6,8 @@ USAGE:
   scw ipfs pin get [arg=value ...]
 
 ARGS:
-  [volume-id]       
-  pin-id            
+  [volume-id]       Volume id
+  pin-id            Pin id for which you wish to obtain information
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

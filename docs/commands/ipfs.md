@@ -55,10 +55,10 @@ scw ipfs pin create-by-cid [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id |  |  |
-| cid |  |  |
-| name |  |  |
-| origins.{index} |  |  |
+| volume-id | Required | Volume Id on which you wish to pin your content |
+| cid | Required | Cid whose content you wish to pin |
+| origins.{index} |  | Node containing the content you wish to pin |
+| name |  | Pin name |
 | pin-options.required-zones.{index} |  |  |
 | pin-options.replication-count |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -84,9 +84,9 @@ scw ipfs pin create-by-url [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id |  |  |
-| url |  |  |
-| name |  |  |
+| volume-id | Required | Volume Id on which you wish to pin your content |
+| url | Required | Url whose content you wish to pin |
+| name |  | Pin name |
 | pin-options.required-zones.{index} |  |  |
 | pin-options.replication-count |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -109,8 +109,8 @@ scw ipfs pin delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id |  |  |
-| pin-id | Required |  |
+| volume-id |  | Volume id |
+| pin-id | Required | Pin id you wish to remove from the volume |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -130,8 +130,8 @@ scw ipfs pin get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id |  |  |
-| pin-id | Required |  |
+| volume-id |  | Volume id |
+| pin-id | Required | Pin id for which you wish to obtain information |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -151,11 +151,11 @@ scw ipfs pin list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id |  |  |
-| project-id |  |  |
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| status | One of: `unknown_status`, `queued`, `pinning`, `failed`, `pinned` |  |
-| organization-id |  |  |
+| volume-id | Required | Volume ID for which you wish to list the pins |
+| project-id |  | Project id |
+| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of the returned Volume |
+| status | One of: `unknown_status`, `queued`, `pinning`, `failed`, `pinned` | List pins by status |
+| organization-id |  | Organization id |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -183,7 +183,7 @@ scw ipfs volume create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  |  |
+| name | Required | Volume name |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -203,7 +203,7 @@ scw ipfs volume delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id | Required |  |
+| volume-id | Required | Volume id |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -223,7 +223,7 @@ scw ipfs volume get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id | Required |  |
+| volume-id | Required | Volume id |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -244,7 +244,7 @@ scw ipfs volume list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
+| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of the returned Volume |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -264,9 +264,9 @@ scw ipfs volume update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id | Required |  |
-| name |  |  |
-| tags.{index} |  |  |
+| name |  | Volume name |
+| volume-id | Required | Volume id |
+| tags.{index} |  | Tags for the Volume |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

@@ -6,9 +6,9 @@ USAGE:
   scw ipfs volume update [arg=value ...]
 
 ARGS:
-  volume-id         
-  [name]            
-  [tags.{index}]    
+  [name]            Volume name
+  volume-id         Volume id
+  [tags.{index}]    Tags for the Volume
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

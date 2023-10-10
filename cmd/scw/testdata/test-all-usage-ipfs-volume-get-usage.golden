@@ -6,7 +6,7 @@ USAGE:
   scw ipfs volume get [arg=value ...]
 
 ARGS:
-  volume-id         
+  volume-id         Volume id
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
