@@ -25,6 +25,7 @@ Cockpit API.
 - [Pricing plans management commands](#pricing-plans-management-commands)
   - [Get a list of all pricing plans available](#get-a-list-of-all-pricing-plans-available)
   - [Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request](#select-your-chosen-pricing-plan-for-your-cockpit,-specifying-the-cockpit's-project-id-and-the-pricing-plan's-id-in-the-request)
+- [Product dashboards management commands](#product-dashboards-management-commands)
 - [Token management commands](#token-management-commands)
   - [Create a token associated with the specified Project ID](#create-a-token-associated-with-the-specified-project-id)
   - [Delete the token associated with the specified token ID](#delete-the-token-associated-with-the-specified-token-id)
@@ -410,6 +411,20 @@ scw cockpit plan select [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | plan-id |  | ID of the pricing plan |
+
+
+
+## Product dashboards management commands
+
+Product dashboards management commands.
+
+Product dashboards management commands.
+
+**Usage:**
+
+```
+scw cockpit product-dashboards
+```
 
 
 
