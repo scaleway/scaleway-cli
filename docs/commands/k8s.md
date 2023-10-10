@@ -88,6 +88,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.zone |  | Zone in which the pool's nodes will be spawned |
 | pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
 | pools.{index}.root-volume-size |  | System volume disk size |
+| pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up that scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
@@ -904,6 +905,7 @@ scw k8s pool create [arg=value ...]
 | zone |  | Zone in which the pool's nodes will be spawned |
 | root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
 | root-volume-size |  | System volume disk size |
+| public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

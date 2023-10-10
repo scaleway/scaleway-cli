@@ -698,6 +698,7 @@ scw container trigger create [arg=value ...]
 | scw-nats-config.subject |  |  |
 | scw-nats-config.mnq-project-id |  |  |
 | scw-nats-config.mnq-region |  |  |
+| scw-nats-config.mnq-nats-account-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
