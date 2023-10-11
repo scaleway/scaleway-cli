@@ -33,6 +33,9 @@ AVAILABLE COMMANDS:
   vpc-gw        Public Gateways API
   webhosting    Web Hosting API
 
+AVAILABLE LABS COMMANDS:
+  ipfs          IPFS Pinning service API
+
 CONFIGURATION COMMANDS:
   alias         Alias related commands
   config        Config file management

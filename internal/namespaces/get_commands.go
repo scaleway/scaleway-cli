@@ -1,8 +1,6 @@
 package namespaces
 
 import (
-	"os"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
@@ -41,8 +39,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
 )
-
-var labs = os.Getenv("SCW_ENABLE_LABS") == "true"
 
 // Enable beta in the code when products are in beta
 //var beta = os.Getenv(scw.ScwEnableBeta) == "true"
@@ -88,11 +84,10 @@ func GetCommands() *core.Commands {
 		alias.GetCommands(),
 		webhosting.GetCommands(),
 		billing.GetCommands(),
+		ipfs.GetCommands(),
 		documentdb.GetCommands(),
 	)
-	if labs {
-		commands.Merge(ipfs.GetCommands())
-	}
+
 	//if beta {
 	//}
 
