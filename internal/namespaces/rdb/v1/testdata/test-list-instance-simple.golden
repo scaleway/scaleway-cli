@@ -17,7 +17,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 5000000000
+      "size": 5000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "178f6c5c-e501-4c28-a407-297591aa6035",
@@ -91,7 +92,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 5000000000
+      "size": 5000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "864d9a9a-83c6-4f13-a6c7-3de52febf65d",
@@ -165,7 +167,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 5000000000
+      "size": 5000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "ed1e22a6-7a29-4428-8fa7-86b1df2ab015",
@@ -239,7 +242,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 5000000000
+      "size": 5000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "968a1a31-2526-4603-9018-5214520dad82",
@@ -313,7 +317,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 5000000000
+      "size": 5000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "2265e5a1-8cde-4050-9b9c-b9cc46db2803",
@@ -387,7 +392,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 25000000000
+      "size": 25000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "143f084f-2d48-48d2-9094-4363c81d6fcf",
@@ -461,7 +467,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 5000000000
+      "size": 5000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "b51d2372-01a1-4249-9ce3-0e47600033ae",
@@ -535,7 +542,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 5000000000
+      "size": 5000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "4394e72b-df3b-43eb-acdb-608f85c06528",
@@ -609,7 +617,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 5000000000
+      "size": 5000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "24221349-073b-4ad5-a467-ff6f9e6dd818",
@@ -683,7 +692,8 @@ b51d2372-01a1-4249-9ce3-0e47600033ae  cli-test                               db-
     "created_at": "1970-01-01T00:00:00.0Z",
     "volume": {
       "type": "lssd",
-      "size": 25000000000
+      "size": 25000000000,
+      "class": "unknown_storage_class"
     },
     "region": "fr-par",
     "id": "1221fbbf-b6b8-48ba-a337-f9df98c8e2a6",
