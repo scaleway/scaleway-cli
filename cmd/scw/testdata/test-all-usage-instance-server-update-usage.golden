@@ -44,6 +44,7 @@ ARGS:
   [public-ips.{index}.family]                 IP address family (inet or inet6) (inet | inet6)
   [public-ips.{index}.dynamic]                True if the IP address is dynamic
   [public-ips.{index}.provisioning-mode]      Information about this address provisioning mode (manual | dhcp | slaac)
+  [public-ips.{index}.tags.{index}]           Tags associated with the IP
   [enable-ipv6]                               
   [protected]                                 
   [security-group-id]                         

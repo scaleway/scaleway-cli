@@ -727,6 +727,13 @@ func instanceServerUpdate() *core.Command {
 				EnumValues: []string{"manual", "dhcp", "slaac"},
 			},
 			{
+				Name:       "public-ips.{index}.tags.{index}",
+				Short:      `Tags associated with the IP`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "enable-ipv6",
 				Required:   false,
 				Deprecated: false,
