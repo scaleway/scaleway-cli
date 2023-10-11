@@ -129,12 +129,12 @@ scw instance image create [arg=value ...]
 | snapshot-id | Required | UUID of the snapshot that will be used as root volume in the image |
 | arch | Required<br />One of: `x86_64`, `arm`, `arm64` | Architecture of the image |
 | ~~default-bootscript~~ | Deprecated | Default bootscript of the image |
-| additional-snapshots.{index}.id |  | UUID of the snapshot to add |
-| additional-snapshots.{index}.name |  | Name of the additional snapshot |
-| additional-snapshots.{index}.size |  | Size of the additional snapshot |
-| additional-snapshots.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Underlying volume type of the additional snapshot |
-| additional-snapshots.{index}.project-id |  | Project ID that own the additional snapshot |
-| ~~additional-snapshots.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
+| additional-volumes.{index}.id |  | UUID of the snapshot to add |
+| additional-volumes.{index}.name |  | Name of the additional snapshot |
+| additional-volumes.{index}.size |  | Size of the additional snapshot |
+| additional-volumes.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Underlying volume type of the additional snapshot |
+| additional-volumes.{index}.project-id |  | Project ID that own the additional snapshot |
+| ~~additional-volumes.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags of the image |
 | public |  | True to create a public image |
