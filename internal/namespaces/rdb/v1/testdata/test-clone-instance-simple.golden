@@ -22,8 +22,9 @@ IP    51.159.112.132
 Port  10606
 
 Volume:
-Type  lssd
-Size  25 GB
+Type   lssd
+Size   25 GB
+Class  unknown_storage_class
 
 Backup Schedule:
 Disabled   false
@@ -43,7 +44,8 @@ max_parallel_workers_per_gather  0
   "created_at": "1970-01-01T00:00:00.0Z",
   "volume": {
     "type": "lssd",
-    "size": 25000000000
+    "size": 25000000000,
+    "class": "unknown_storage_class"
   },
   "region": "fr-par",
   "id": "1221fbbf-b6b8-48ba-a337-f9df98c8e2a6",
