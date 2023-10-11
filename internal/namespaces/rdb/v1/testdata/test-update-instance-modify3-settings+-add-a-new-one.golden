@@ -22,8 +22,9 @@ IP    195.154.69.50
 Port  42321
 
 Volume:
-Type  lssd
-Size  5.0 GB
+Type   lssd
+Size   5.0 GB
+Class  unknown_storage_class
 
 Backup Schedule:
 Disabled   false
@@ -43,7 +44,8 @@ max_parallel_workers_per_gather  0
   "created_at": "1970-01-01T00:00:00.0Z",
   "volume": {
     "type": "lssd",
-    "size": 5000000000
+    "size": 5000000000,
+    "class": "unknown_storage_class"
   },
   "region": "fr-par",
   "id": "4943db86-f7a2-4a30-a9bb-a0ef5f7b557e",

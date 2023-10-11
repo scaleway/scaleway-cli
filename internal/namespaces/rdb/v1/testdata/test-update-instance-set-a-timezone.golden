@@ -22,8 +22,9 @@ IP    51.158.57.216
 Port  17040
 
 Volume:
-Type  lssd
-Size  5.0 GB
+Type   lssd
+Size   5.0 GB
+Class  unknown_storage_class
 
 Backup Schedule:
 Disabled   false
@@ -44,7 +45,8 @@ timezone                         UTC
   "created_at": "1970-01-01T00:00:00.0Z",
   "volume": {
     "type": "lssd",
-    "size": 5000000000
+    "size": 5000000000,
+    "class": "unknown_storage_class"
   },
   "region": "fr-par",
   "id": "167a841d-8a1c-4d74-8e4c-cb71d843ac6b",

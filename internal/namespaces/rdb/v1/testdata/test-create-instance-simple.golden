@@ -22,8 +22,9 @@ IP    51.159.113.51
 Port  2467
 
 Volume:
-Type  lssd
-Size  5.0 GB
+Type   lssd
+Size   5.0 GB
+Class  unknown_storage_class
 
 Backup Schedule:
 Disabled   false
@@ -46,7 +47,8 @@ Password:
   "created_at": "1970-01-01T00:00:00.0Z",
   "volume": {
     "type": "lssd",
-    "size": 5000000000
+    "size": 5000000000,
+    "class": "unknown_storage_class"
   },
   "region": "fr-par",
   "id": "c1918625-81e0-44a2-aa6b-49f79d49805a",
