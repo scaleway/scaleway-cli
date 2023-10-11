@@ -2270,6 +2270,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | public-ips.{index}.family | One of: `inet`, `inet6` | IP address family (inet or inet6) |
 | public-ips.{index}.dynamic |  | True if the IP address is dynamic |
 | public-ips.{index}.provisioning-mode | One of: `manual`, `dhcp`, `slaac` | Information about this address provisioning mode |
+| public-ips.{index}.tags.{index} |  | Tags associated with the IP |
 | enable-ipv6 |  |  |
 | protected |  |  |
 | security-group-id |  |  |
