@@ -633,7 +633,7 @@ func instanceServerUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume", "sbs_snapshot"},
 			},
 			{
 				Name:       "volumes.{key}.base-snapshot",
@@ -1240,7 +1240,7 @@ func instanceImageCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume", "sbs_snapshot"},
 			},
 			{
 				Name:       "extra-volumes.{key}.project",
@@ -1660,7 +1660,7 @@ func instanceVolumeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume", "sbs_snapshot"},
 			},
 			{
 				Name:       "project",
@@ -1804,7 +1804,7 @@ func instanceVolumeCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume", "sbs_snapshot"},
 			},
 			{
 				Name:       "size",

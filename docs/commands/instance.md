@@ -132,7 +132,7 @@ scw instance image create [arg=value ...]
 | additional-volumes.{index}.id |  | UUID of the snapshot to add |
 | additional-volumes.{index}.name |  | Name of the additional snapshot |
 | additional-volumes.{index}.size |  | Size of the additional snapshot |
-| additional-volumes.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Underlying volume type of the additional snapshot |
+| additional-volumes.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Underlying volume type of the additional snapshot |
 | additional-volumes.{index}.project-id |  | Project ID that own the additional snapshot |
 | ~~additional-volumes.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
@@ -2933,7 +2933,7 @@ scw instance volume create [arg=value ...]
 | name | Default: `<generated>` | Volume name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Volume tags |
-| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Volume type |
 | size |  | Volume disk size, must be a multiple of 512 |
 | base-volume |  | ID of the volume on which this volume will be based |
 | base-snapshot |  | ID of the snapshot on which this volume will be based |
@@ -3037,7 +3037,7 @@ scw instance volume list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Filter by volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Filter by volume type |
 | project-id |  | Filter volume by Project ID |
 | tags.{index} |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter volume by name (for eg. "vol" will return "myvolume" but not "data") |
