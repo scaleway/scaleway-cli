@@ -104,22 +104,22 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 	}
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Short = "UUID of the snapshot to add"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-snapshots.{index}.id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-volumes.{index}.id"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Short = "Name of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-snapshots.{index}.name"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-volumes.{index}.name"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Short = "Size of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-snapshots.{index}.size"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-volumes.{index}.size"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Short = "Underlying volume type of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-snapshots.{index}.volume-type"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-volumes.{index}.volume-type"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Short = "Organization ID that own the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-snapshots.{index}.organization-id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-volumes.{index}.organization-id"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Short = "Project ID that own the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Name = "additional-snapshots.{index}.project-id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Name = "additional-volumes.{index}.project-id"
 
 	c.ArgSpecs.GetByName("root-volume").Short = "UUID of the snapshot that will be used as root volume in the image"
 	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
