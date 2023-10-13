@@ -6,6 +6,7 @@ USAGE:
   scw iam user <command>
 
 AVAILABLE COMMANDS:
+  create      Create a new user
   delete      Delete a guest user from an Organization
   get         Get a given user
   list        List users of an Organization
