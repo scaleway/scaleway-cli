@@ -7,8 +7,8 @@ USAGE:
   scw ipfs pin delete [arg=value ...]
 
 ARGS:
-  [volume-id]       Volume id
-  pin-id            Pin id you wish to remove from the volume
+  [volume-id]       Volume ID
+  pin-id            Pin ID you want to remove from the volume
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
