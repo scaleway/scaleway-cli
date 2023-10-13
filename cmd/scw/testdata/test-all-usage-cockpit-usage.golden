@@ -6,14 +6,13 @@ USAGE:
   scw cockpit <command>
 
 AVAILABLE COMMANDS:
-  alert              Managed alerts management commands
-  cockpit            Cockpit management commands
-  contact            Contacts management commands
-  datasource         Datasource management commands
-  grafana-user       Grafana user management commands
-  plan               Pricing plans management commands
-  product-dashboards Product dashboards management commands
-  token              Token management commands
+  alert        Managed alerts management commands
+  cockpit      Cockpit management commands
+  contact      Contacts management commands
+  datasource   Datasource management commands
+  grafana-user Grafana user management commands
+  plan         Pricing plans management commands
+  token        Token management commands
 
 FLAGS:
   -h, --help   help for cockpit

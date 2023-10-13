@@ -48,7 +48,6 @@ IAM API.
   - [List SSH keys](#list-ssh-keys)
   - [Update an SSH key](#update-an-ssh-key)
 - [Users management commands](#users-management-commands)
-  - [Create a new user](#create-a-new-user)
   - [Delete a guest user from an Organization](#delete-a-guest-user-from-an-organization)
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
@@ -929,26 +928,6 @@ scw iam ssh-key update <ssh-key-id ...> [arg=value ...]
 ## Users management commands
 
 Users management commands.
-
-
-### Create a new user
-
-Create a new user. You must define the `organization_id` and the `email` in your request.
-
-**Usage:**
-
-```
-scw iam user create [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| email | Required | Email of the user |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-
 
 
 ### Delete a guest user from an Organization

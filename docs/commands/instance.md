@@ -132,7 +132,7 @@ scw instance image create [arg=value ...]
 | additional-volumes.{index}.id |  | UUID of the snapshot to add |
 | additional-volumes.{index}.name |  | Name of the additional snapshot |
 | additional-volumes.{index}.size |  | Size of the additional snapshot |
-| additional-volumes.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Underlying volume type of the additional snapshot |
+| additional-volumes.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Underlying volume type of the additional snapshot |
 | additional-volumes.{index}.project-id |  | Project ID that own the additional snapshot |
 | ~~additional-volumes.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
@@ -2263,13 +2263,24 @@ scw instance server update <server-id ...> [arg=value ...]
 | ~~bootscript~~ | Deprecated |  |
 | dynamic-ip-required |  |  |
 | routed-ip-enabled |  | True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False) |
-| public-ips.{index} |  | A list of reserved IP IDs to attach to the Instance |
+| public-ips.{index}.id |  | Unique ID of the IP address |
+| public-ips.{index}.address |  | Instance's public IP-Address |
+| public-ips.{index}.gateway |  | Gateway's IP address |
+| public-ips.{index}.netmask |  | CIDR netmask |
+| public-ips.{index}.family | One of: `inet`, `inet6` | IP address family (inet or inet6) |
+| public-ips.{index}.dynamic |  | True if the IP address is dynamic |
+| public-ips.{index}.provisioning-mode | One of: `manual`, `dhcp`, `slaac` | Information about this address provisioning mode |
 | enable-ipv6 |  |  |
 | protected |  |  |
 | security-group-id |  |  |
 | volume-ids.{index} |  | Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes) |
 | placement-group-id |  | Placement group ID if Instance must be part of a placement group |
-| private-nics.{index} |  | Instance private NICs |
+| private-nics.{index}.id |  | Private NIC unique ID |
+| private-nics.{index}.server-id |  | Instance to which the private NIC is attached |
+| private-nics.{index}.private-network-id |  | Private Network the private NIC is attached to |
+| private-nics.{index}.mac-address |  | Private NIC MAC address |
+| private-nics.{index}.state | One of: `available`, `syncing`, `syncing_error` | Private NIC state |
+| private-nics.{index}.tags.{index} |  | Private NIC tags |
 | commercial-type |  | Set the commercial_type for this Instance. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2921,7 +2932,7 @@ scw instance volume create [arg=value ...]
 | name | Default: `<generated>` | Volume name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Volume tags |
-| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Volume type |
 | size |  | Volume disk size, must be a multiple of 512 |
 | base-volume |  | ID of the volume on which this volume will be based |
 | base-snapshot |  | ID of the snapshot on which this volume will be based |
@@ -3025,7 +3036,7 @@ scw instance volume list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Filter by volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume` | Filter by volume type |
 | project-id |  | Filter volume by Project ID |
 | tags.{index} |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter volume by name (for eg. "vol" will return "myvolume" but not "data") |

@@ -6,7 +6,7 @@ USAGE:
   scw cockpit token list [arg=value ...]
 
 ARGS:
-  [order-by]     How the response is ordered (created_at_asc | created_at_desc | name_asc | name_desc)
+  [order-by]      (created_at_asc | created_at_desc | name_asc | name_desc)
   [project-id]   Project ID to use. If none is passed the default project ID will be used
 
 FLAGS:

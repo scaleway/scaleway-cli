@@ -22,7 +22,7 @@ EXAMPLES:
     scw instance volume list volume-type=b_ssd name=foobar
 
 ARGS:
-  [volume-type]       Filter by volume type (l_ssd | b_ssd | unified | scratch | sbs_volume | sbs_snapshot)
+  [volume-type]       Filter by volume type (l_ssd | b_ssd | unified | scratch | sbs_volume)
   [project-id]        Filter volume by Project ID
   [tags.{index}]      Filter volumes with these exact tags (to filter with several tags, use commas to separate them)
   [name]              Filter volume by name (for eg. "vol" will return "myvolume" but not "data")
