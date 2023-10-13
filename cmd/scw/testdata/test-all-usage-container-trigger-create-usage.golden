@@ -9,7 +9,6 @@ ARGS:
   [name]                                  
   [description]                           
   [container-id]                          
-  [scw-sqs-config.mnq-namespace-id]       
   [scw-sqs-config.queue]                  
   [scw-sqs-config.mnq-project-id]         
   [scw-sqs-config.mnq-region]             
@@ -17,12 +16,15 @@ ARGS:
   [sqs-config.queue-url]                  
   [sqs-config.access-key]                 
   [sqs-config.secret-key]                 
-  [scw-nats-config.mnq-namespace-id]      
   [scw-nats-config.subject]               
   [scw-nats-config.mnq-project-id]        
   [scw-nats-config.mnq-region]            
   [scw-nats-config.mnq-nats-account-id]   
   [region=fr-par]                         Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [scw-sqs-config.mnq-namespace-id]    
+  [scw-nats-config.mnq-namespace-id]   
 
 FLAGS:
   -h, --help   help for create
