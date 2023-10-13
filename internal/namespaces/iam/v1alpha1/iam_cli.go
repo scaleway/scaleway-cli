@@ -37,6 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamUserList(),
 		iamUserGet(),
 		iamUserDelete(),
+		iamUserCreate(),
 		iamApplicationList(),
 		iamApplicationCreate(),
 		iamApplicationGet(),
@@ -535,6 +536,36 @@ func iamUserDelete() *core.Command {
 				Resource: "user",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func iamUserCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new user`,
+		Long:      `Create a new user. You must define the ` + "`" + `organization_id` + "`" + ` and the ` + "`" + `email` + "`" + ` in your request.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.CreateUserRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "email",
+				Short:      `Email of the user`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.CreateUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.CreateUser(request)
+
 		},
 	}
 }
