@@ -6,11 +6,11 @@ USAGE:
   scw ipfs pin list [arg=value ...]
 
 ARGS:
-  volume-id           Volume ID for which you wish to list the pins
-  [project-id]        Project id
+  volume-id           Volume ID of which you want to list the pins
+  [project-id]        Project ID
   [order-by]          Sort order of the returned Volume (created_at_asc | created_at_desc)
   [status]            List pins by status (unknown_status | queued | pinning | failed | pinned)
-  [organization-id]   Organization id
+  [organization-id]   Organization ID
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

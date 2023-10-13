@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [project-id]      Project ID to use. If none is passed the default project ID will be used
-  [order-by]        Sort order of the returned Volume (created_at_asc | created_at_desc)
+  [order-by]        Sort the order of the returned volumes (created_at_asc | created_at_desc)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

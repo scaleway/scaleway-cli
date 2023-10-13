@@ -10,9 +10,9 @@ USAGE:
   scw ipfs pin create-by-cid [arg=value ...]
 
 ARGS:
-  volume-id                              Volume Id on which you wish to pin your content
-  cid                                    Cid whose content you wish to pin
-  [origins.{index}]                      Node containing the content you wish to pin
+  volume-id                              Volume ID on which you want to pin your content
+  cid                                    CID containing the content you want to pin
+  [origins.{index}]                      Node containing the content you want to pin
   [name]                                 Pin name
   [pin-options.required-zones.{index}]   
   [pin-options.replication-count]        
