@@ -7,8 +7,8 @@ USAGE:
 
 ARGS:
   [name]            Volume name
-  volume-id         Volume id
-  [tags.{index}]    Tags for the Volume
+  volume-id         Volume ID
+  [tags.{index}]    Tags of the volume
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
