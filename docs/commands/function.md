@@ -743,7 +743,7 @@ scw function trigger create [arg=value ...]
 | name |  |  |
 | description |  |  |
 | function-id |  |  |
-| scw-sqs-config.mnq-namespace-id |  |  |
+| ~~scw-sqs-config.mnq-namespace-id~~ | Deprecated |  |
 | scw-sqs-config.queue |  |  |
 | scw-sqs-config.mnq-project-id |  |  |
 | scw-sqs-config.mnq-region |  |  |
@@ -751,7 +751,7 @@ scw function trigger create [arg=value ...]
 | sqs-config.queue-url |  |  |
 | sqs-config.access-key |  |  |
 | sqs-config.secret-key |  |  |
-| scw-nats-config.mnq-namespace-id |  |  |
+| ~~scw-nats-config.mnq-namespace-id~~ | Deprecated |  |
 | scw-nats-config.subject |  |  |
 | scw-nats-config.mnq-project-id |  |  |
 | scw-nats-config.mnq-region |  |  |
