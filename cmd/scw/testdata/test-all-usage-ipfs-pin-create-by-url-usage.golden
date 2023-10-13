@@ -10,8 +10,8 @@ USAGE:
   scw ipfs pin create-by-url [arg=value ...]
 
 ARGS:
-  volume-id                              Volume Id on which you wish to pin your content
-  url                                    Url whose content you wish to pin
+  volume-id                              Volume ID on which you want to pin your content
+  url                                    URL containing the content you want to pin
   [name]                                 Pin name
   [pin-options.required-zones.{index}]   
   [pin-options.replication-count]        
