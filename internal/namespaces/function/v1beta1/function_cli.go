@@ -1510,7 +1510,7 @@ func functionTriggerCreate() *core.Command {
 			{
 				Name:       "scw-sqs-config.mnq-namespace-id",
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -1558,7 +1558,7 @@ func functionTriggerCreate() *core.Command {
 			{
 				Name:       "scw-nats-config.mnq-namespace-id",
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
