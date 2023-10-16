@@ -23,11 +23,11 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic stopped=true",
+			Cmd:      "scw instance server create image=ubuntu_jammy stopped=true",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					assert.Equal(t, "Ubuntu 18.04 Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
+					assert.Equal(t, "Ubuntu 22.04 Jammy Jellyfish", ctx.Result.(*instance.Server).Image.Name)
 				},
 				core.TestCheckExitCode(0),
 			),

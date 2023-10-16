@@ -16,7 +16,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 		t.Run("simple block volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				createServer("Server"),
+				createServerBionic("Server"),
 				createVolume("Volume", 10, instance.VolumeVolumeTypeBSSD),
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
@@ -33,7 +33,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 		t.Run("simple local volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				createServer("Server"),
+				createServerBionic("Server"),
 				createVolume("Volume", 10, instance.VolumeVolumeTypeLSSD),
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
@@ -49,7 +49,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 
 		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
 			Commands:   GetCommands(),
-			BeforeFunc: createServer("Server"),
+			BeforeFunc: createServerBionic("Server"),
 			Cmd:        "scw instance server attach-volume server-id={{ .Server.ID }} volume-id=11111111-1111-1111-1111-111111111111",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
@@ -79,7 +79,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 
 		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
 			Commands:   GetCommands(),
-			BeforeFunc: createServer("Server"),
+			BeforeFunc: createServerBionic("Server"),
 			Cmd:        "scw instance server detach-volume volume-id=11111111-1111-1111-1111-111111111111",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
@@ -95,7 +95,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	// IP cases.
 	t.Run("Try to remove ip from server without ip", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createServer("Server"),
+		BeforeFunc: createServerBionic("Server"),
 		Cmd:        "scw instance server update {{ .Server.ID }} ip=none",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -109,7 +109,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	t.Run("Update server ip from server without ip", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			createServerBionic("Server"),
 			createIP("IP"),
 		),
 		Cmd: "scw instance server update {{ .Server.ID }} ip={{ .IP.Address }}",
@@ -125,7 +125,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	t.Run("Update server ip from server with ip", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			createServerBionic("Server"),
 			createIP("IP1"),
 			createIP("IP2"),
 
@@ -205,7 +205,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		t.Run("valid simple block volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				createServer("Server"),
+				createServerBionic("Server"),
 				createVolume("Volume", 10, instance.VolumeVolumeTypeBSSD),
 			),
 			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }}`,

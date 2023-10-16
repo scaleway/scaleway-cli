@@ -122,17 +122,23 @@ Zone                          fr-par-2
   "public_ip": {
     "id": "0b94b3a0-db5f-4927-b1c9-98f0d13527f4",
     "address": "51.159.166.126",
+    "gateway": "",
     "netmask": "32",
     "family": "inet",
-    "provisioning_mode": "dhcp"
+    "dynamic": false,
+    "provisioning_mode": "dhcp",
+    "tags": null
   },
   "public_ips": [
     {
       "id": "0b94b3a0-db5f-4927-b1c9-98f0d13527f4",
       "address": "51.159.166.126",
+      "gateway": "",
       "netmask": "32",
       "family": "inet",
-      "provisioning_mode": "dhcp"
+      "dynamic": false,
+      "provisioning_mode": "dhcp",
+      "tags": null
     }
   ],
   "mac_address": "de:00:00:1c:59:5b",
