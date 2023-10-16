@@ -100,7 +100,11 @@ Server.Zone                        fr-par-1
     "private_ip": null,
     "public_ip": {
       "id": "c87da022-ca2c-485a-8bcd-0480df0343b6",
-      "address": "51.15.218.186"
+      "address": "51.15.218.186",
+      "gateway": "",
+      "netmask": "",
+      "family": "inet",
+      "dynamic": false
     },
     "public_ips": null,
     "mac_address": "",

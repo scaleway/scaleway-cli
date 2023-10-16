@@ -50,16 +50,20 @@ c66fe648-06c8-4cab-83d4-d963bf0ef8df  kubetest-runner  PRO2-S  archived  fr-par-
     "public_ip": {
       "id": "58542407-77e1-444b-9fa3-30c4a0d9d7fb",
       "address": "163.172.170.102",
+      "gateway": "",
       "netmask": "32",
       "family": "inet",
+      "dynamic": false,
       "provisioning_mode": "dhcp"
     },
     "public_ips": [
       {
         "id": "58542407-77e1-444b-9fa3-30c4a0d9d7fb",
         "address": "163.172.170.102",
+        "gateway": "",
         "netmask": "32",
         "family": "inet",
+        "dynamic": false,
         "provisioning_mode": "dhcp"
       }
     ],

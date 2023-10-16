@@ -12,6 +12,7 @@ PrivateNic.State             available
     "server_id": "3ad60b0e-6215-47e6-9c41-46fcc7eb2a9b",
     "private_network_id": "4e892ad4-3092-463a-860b-5899195cd258",
     "mac_address": "02:00:00:13:5e:8b",
-    "state": "available"
+    "state": "available",
+    "tags": []
   }
 }

@@ -99,7 +99,11 @@ Zone                        fr-par-1
   "private_ip": null,
   "public_ip": {
     "id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b",
-    "address": "51.15.248.118"
+    "address": "51.15.248.118",
+    "gateway": "",
+    "netmask": "",
+    "family": "inet",
+    "dynamic": false
   },
   "public_ips": null,
   "mac_address": "",
