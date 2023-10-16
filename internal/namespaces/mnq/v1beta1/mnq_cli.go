@@ -20,62 +20,50 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		mnqRoot(),
-		mnqNatsAccounts(),
-		mnqNatsCredentials(),
+		mnqNats(),
 		mnqSns(),
-		mnqSnsCredentials(),
 		mnqSqs(),
-		mnqSqsCredentials(),
-		mnqNatsAccountsCreate(),
-		mnqNatsAccountsDelete(),
-		mnqNatsAccountsUpdate(),
-		mnqNatsAccountsGet(),
-		mnqNatsAccountsList(),
-		mnqNatsCredentialsCreate(),
-		mnqNatsCredentialsDelete(),
-		mnqNatsCredentialsGet(),
-		mnqNatsCredentialsList(),
+		mnqNatsCreateAccount(),
+		mnqNatsDeleteAccount(),
+		mnqNatsUpdateAccount(),
+		mnqNatsGetAccount(),
+		mnqNatsListAccounts(),
+		mnqNatsCreateCredentials(),
+		mnqNatsDeleteCredentials(),
+		mnqNatsGetCredentials(),
+		mnqNatsListCredentials(),
 		mnqSnsActivate(),
-		mnqSnsGet(),
+		mnqSnsGetInfo(),
 		mnqSnsDeactivate(),
-		mnqSnsCredentialsCreate(),
-		mnqSnsCredentialsDelete(),
-		mnqSnsCredentialsUpdate(),
-		mnqSnsCredentialsGet(),
-		mnqSnsCredentialsList(),
+		mnqSnsCreateCredentials(),
+		mnqSnsDeleteCredentials(),
+		mnqSnsUpdateCredentials(),
+		mnqSnsGetCredentials(),
+		mnqSnsListCredentials(),
 		mnqSqsActivate(),
-		mnqSqsGet(),
+		mnqSqsGetInfo(),
 		mnqSqsDeactivate(),
-		mnqSqsCredentialsCreate(),
-		mnqSqsCredentialsDelete(),
-		mnqSqsCredentialsUpdate(),
-		mnqSqsCredentialsGet(),
-		mnqSqsCredentialsList(),
+		mnqSqsCreateCredentials(),
+		mnqSqsDeleteCredentials(),
+		mnqSqsUpdateCredentials(),
+		mnqSqsGetCredentials(),
+		mnqSqsListCredentials(),
 	)
 }
 func mnqRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage Scaleway Messaging and Queueing NATS accounts`,
+		Short:     `Messaging and Queuing APIs`,
 		Long:      `Messaging and Queuing NATS API.`,
 		Namespace: "mnq",
 	}
 }
 
-func mnqNatsAccounts() *core.Command {
+func mnqNats() *core.Command {
 	return &core.Command{
-		Short:     `MnQ NATS Accounts commands`,
-		Long:      `MnQ NATS Accounts commands.`,
+		Short:     `MnQ NATS commands`,
+		Long:      `MnQ NATS commands.`,
 		Namespace: "mnq",
-		Resource:  "nats-accounts",
-	}
-}
-
-func mnqNatsCredentials() *core.Command {
-	return &core.Command{
-		Short:     `MnQ NATS Credentials commands`,
-		Long:      `MnQ NATS Credentials commands.`,
-		Namespace: "mnq",
-		Resource:  "nats-credentials",
+		Resource:  "nats",
 	}
 }
 
@@ -88,15 +76,6 @@ func mnqSns() *core.Command {
 	}
 }
 
-func mnqSnsCredentials() *core.Command {
-	return &core.Command{
-		Short:     `MnQ SNS Credentials commands`,
-		Long:      `MnQ SNS Credentials commands.`,
-		Namespace: "mnq",
-		Resource:  "sns-credentials",
-	}
-}
-
 func mnqSqs() *core.Command {
 	return &core.Command{
 		Short:     `MnQ SQS commands`,
@@ -106,22 +85,13 @@ func mnqSqs() *core.Command {
 	}
 }
 
-func mnqSqsCredentials() *core.Command {
-	return &core.Command{
-		Short:     `MnQ SQS Credentials commands`,
-		Long:      `MnQ SQS Credentials commands.`,
-		Namespace: "mnq",
-		Resource:  "sqs-credentials",
-	}
-}
-
-func mnqNatsAccountsCreate() *core.Command {
+func mnqNatsCreateAccount() *core.Command {
 	return &core.Command{
 		Short:     `Create a NATS account`,
 		Long:      `Create a NATS account associated with a Project.`,
 		Namespace: "mnq",
-		Resource:  "nats-accounts",
-		Verb:      "create",
+		Resource:  "nats",
+		Verb:      "create-account",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.NatsAPICreateNatsAccountRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -147,13 +117,13 @@ func mnqNatsAccountsCreate() *core.Command {
 	}
 }
 
-func mnqNatsAccountsDelete() *core.Command {
+func mnqNatsDeleteAccount() *core.Command {
 	return &core.Command{
 		Short:     `Delete a NATS account`,
 		Long:      `Delete a NATS account, specified by its NATS account ID. Note that deleting a NATS account is irreversible, and any credentials, streams, consumer and stored messages belonging to this NATS account will also be deleted.`,
 		Namespace: "mnq",
-		Resource:  "nats-accounts",
-		Verb:      "delete",
+		Resource:  "nats",
+		Verb:      "delete-account",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.NatsAPIDeleteNatsAccountRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -176,20 +146,20 @@ func mnqNatsAccountsDelete() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "nats-accounts",
-				Verb:     "delete",
+				Resource: "nats",
+				Verb:     "delete-account",
 			}, nil
 		},
 	}
 }
 
-func mnqNatsAccountsUpdate() *core.Command {
+func mnqNatsUpdateAccount() *core.Command {
 	return &core.Command{
 		Short:     `Update the name of a NATS account`,
 		Long:      `Update the name of a NATS account, specified by its NATS account ID.`,
 		Namespace: "mnq",
-		Resource:  "nats-accounts",
-		Verb:      "update",
+		Resource:  "nats",
+		Verb:      "update-account",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.NatsAPIUpdateNatsAccountRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -220,13 +190,13 @@ func mnqNatsAccountsUpdate() *core.Command {
 	}
 }
 
-func mnqNatsAccountsGet() *core.Command {
+func mnqNatsGetAccount() *core.Command {
 	return &core.Command{
 		Short:     `Get a NATS account`,
 		Long:      `Retrieve information about an existing NATS account identified by its NATS account ID. Its full details, including name and endpoint, are returned in the response.`,
 		Namespace: "mnq",
-		Resource:  "nats-accounts",
-		Verb:      "get",
+		Resource:  "nats",
+		Verb:      "get-account",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.NatsAPIGetNatsAccountRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -250,13 +220,13 @@ func mnqNatsAccountsGet() *core.Command {
 	}
 }
 
-func mnqNatsAccountsList() *core.Command {
+func mnqNatsListAccounts() *core.Command {
 	return &core.Command{
 		Short:     `List NATS accounts`,
 		Long:      `List all NATS accounts in the specified region, for a Scaleway Organization or Project. By default, the NATS accounts returned in the list are ordered by creation date in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "mnq",
-		Resource:  "nats-accounts",
-		Verb:      "list",
+		Resource:  "nats",
+		Verb:      "list-accounts",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.NatsAPIListNatsAccountsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -297,13 +267,13 @@ func mnqNatsAccountsList() *core.Command {
 	}
 }
 
-func mnqNatsCredentialsCreate() *core.Command {
+func mnqNatsCreateCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Create NATS credentials`,
 		Long:      `Create a set of credentials for a NATS account, specified by its NATS account ID.`,
 		Namespace: "mnq",
-		Resource:  "nats-credentials",
-		Verb:      "create",
+		Resource:  "nats",
+		Verb:      "create-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.NatsAPICreateNatsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -335,13 +305,13 @@ func mnqNatsCredentialsCreate() *core.Command {
 	}
 }
 
-func mnqNatsCredentialsDelete() *core.Command {
+func mnqNatsDeleteCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Delete NATS credentials`,
 		Long:      `Delete a set of credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can no longer be used to access the NATS account, and active connections using this credentials will be closed.`,
 		Namespace: "mnq",
-		Resource:  "nats-credentials",
-		Verb:      "delete",
+		Resource:  "nats",
+		Verb:      "delete-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.NatsAPIDeleteNatsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -364,20 +334,20 @@ func mnqNatsCredentialsDelete() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "nats-credentials",
-				Verb:     "delete",
+				Resource: "nats",
+				Verb:     "delete-credentials",
 			}, nil
 		},
 	}
 }
 
-func mnqNatsCredentialsGet() *core.Command {
+func mnqNatsGetCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Get NATS credentials`,
 		Long:      `Retrieve an existing set of credentials, identified by the ` + "`" + `nats_credentials_id` + "`" + `. The credentials themselves are NOT returned, only their metadata (NATS account ID, credentials name, etc), are returned in the response.`,
 		Namespace: "mnq",
-		Resource:  "nats-credentials",
-		Verb:      "get",
+		Resource:  "nats",
+		Verb:      "get-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.NatsAPIGetNatsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -401,13 +371,13 @@ func mnqNatsCredentialsGet() *core.Command {
 	}
 }
 
-func mnqNatsCredentialsList() *core.Command {
+func mnqNatsListCredentials() *core.Command {
 	return &core.Command{
 		Short:     `List NATS credentials`,
 		Long:      `List existing credentials in the specified NATS account. The response contains only the metadata for the credentials, not the credentials themselves, which are only returned after a **Create Credentials** call.`,
 		Namespace: "mnq",
-		Resource:  "nats-credentials",
-		Verb:      "list",
+		Resource:  "nats",
+		Verb:      "list-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.NatsAPIListNatsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -472,13 +442,13 @@ func mnqSnsActivate() *core.Command {
 	}
 }
 
-func mnqSnsGet() *core.Command {
+func mnqSnsGetInfo() *core.Command {
 	return &core.Command{
 		Short:     `Get SNS info`,
 		Long:      `Retrieve the SNS information of the specified Project ID. Informations include the activation status and the SNS API endpoint URL.`,
 		Namespace: "mnq",
 		Resource:  "sns",
-		Verb:      "get",
+		Verb:      "get-info",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SnsAPIGetSnsInfoRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -520,13 +490,13 @@ func mnqSnsDeactivate() *core.Command {
 	}
 }
 
-func mnqSnsCredentialsCreate() *core.Command {
+func mnqSnsCreateCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Create SNS credentials`,
 		Long:      `Create a set of credentials for SNS, specified by a Project ID. Credentials give the bearer access to topics, and the level of permissions can be defined granularly.`,
 		Namespace: "mnq",
-		Resource:  "sns-credentials",
-		Verb:      "create",
+		Resource:  "sns",
+		Verb:      "create-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SnsAPICreateSnsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -573,13 +543,13 @@ func mnqSnsCredentialsCreate() *core.Command {
 	}
 }
 
-func mnqSnsCredentialsDelete() *core.Command {
+func mnqSnsDeleteCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Delete SNS credentials`,
 		Long:      `Delete a set of SNS credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access SNS.`,
 		Namespace: "mnq",
-		Resource:  "sns-credentials",
-		Verb:      "delete",
+		Resource:  "sns",
+		Verb:      "delete-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SnsAPIDeleteSnsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -602,20 +572,20 @@ func mnqSnsCredentialsDelete() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "sns-credentials",
-				Verb:     "delete",
+				Resource: "sns",
+				Verb:     "delete-credentials",
 			}, nil
 		},
 	}
 }
 
-func mnqSnsCredentialsUpdate() *core.Command {
+func mnqSnsUpdateCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Update SNS credentials`,
 		Long:      `Update a set of SNS credentials. You can update the credentials' name, or their permissions.`,
 		Namespace: "mnq",
-		Resource:  "sns-credentials",
-		Verb:      "update",
+		Resource:  "sns",
+		Verb:      "update-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SnsAPIUpdateSnsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -667,13 +637,13 @@ func mnqSnsCredentialsUpdate() *core.Command {
 	}
 }
 
-func mnqSnsCredentialsGet() *core.Command {
+func mnqSnsGetCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Get SNS credentials`,
 		Long:      `Retrieve an existing set of credentials, identified by the ` + "`" + `credentials_id` + "`" + `. The credentials themselves, as well as their metadata (name, project ID etc), are returned in the response.`,
 		Namespace: "mnq",
-		Resource:  "sns-credentials",
-		Verb:      "get",
+		Resource:  "sns",
+		Verb:      "get-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SnsAPIGetSnsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -697,13 +667,13 @@ func mnqSnsCredentialsGet() *core.Command {
 	}
 }
 
-func mnqSnsCredentialsList() *core.Command {
+func mnqSnsListCredentials() *core.Command {
 	return &core.Command{
 		Short:     `List SNS credentials`,
 		Long:      `List existing SNS credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.`,
 		Namespace: "mnq",
-		Resource:  "sns-credentials",
-		Verb:      "list",
+		Resource:  "sns",
+		Verb:      "list-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SnsAPIListSnsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -768,13 +738,13 @@ func mnqSqsActivate() *core.Command {
 	}
 }
 
-func mnqSqsGet() *core.Command {
+func mnqSqsGetInfo() *core.Command {
 	return &core.Command{
 		Short:     `Get SQS info`,
 		Long:      `Retrieve the SQS information of the specified Project ID. Informations include the activation status and the SQS API endpoint URL.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
-		Verb:      "get",
+		Verb:      "get-info",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SqsAPIGetSqsInfoRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -816,13 +786,13 @@ func mnqSqsDeactivate() *core.Command {
 	}
 }
 
-func mnqSqsCredentialsCreate() *core.Command {
+func mnqSqsCreateCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Create SQS credentials`,
 		Long:      `Create a set of credentials for SQS, specified by a Project ID. Credentials give the bearer access to queues, and the level of permissions can be defined granularly.`,
 		Namespace: "mnq",
-		Resource:  "sqs-credentials",
-		Verb:      "create",
+		Resource:  "sqs",
+		Verb:      "create-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SqsAPICreateSqsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -869,13 +839,13 @@ func mnqSqsCredentialsCreate() *core.Command {
 	}
 }
 
-func mnqSqsCredentialsDelete() *core.Command {
+func mnqSqsDeleteCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Delete SQS credentials`,
 		Long:      `Delete a set of SQS credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access SQS.`,
 		Namespace: "mnq",
-		Resource:  "sqs-credentials",
-		Verb:      "delete",
+		Resource:  "sqs",
+		Verb:      "delete-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SqsAPIDeleteSqsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -898,20 +868,20 @@ func mnqSqsCredentialsDelete() *core.Command {
 				return nil, e
 			}
 			return &core.SuccessResult{
-				Resource: "sqs-credentials",
-				Verb:     "delete",
+				Resource: "sqs",
+				Verb:     "delete-credentials",
 			}, nil
 		},
 	}
 }
 
-func mnqSqsCredentialsUpdate() *core.Command {
+func mnqSqsUpdateCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Update SQS credentials`,
 		Long:      `Update a set of SQS credentials. You can update the credentials' name, or their permissions.`,
 		Namespace: "mnq",
-		Resource:  "sqs-credentials",
-		Verb:      "update",
+		Resource:  "sqs",
+		Verb:      "update-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SqsAPIUpdateSqsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -963,13 +933,13 @@ func mnqSqsCredentialsUpdate() *core.Command {
 	}
 }
 
-func mnqSqsCredentialsGet() *core.Command {
+func mnqSqsGetCredentials() *core.Command {
 	return &core.Command{
 		Short:     `Get SQS credentials`,
 		Long:      `Retrieve an existing set of credentials, identified by the ` + "`" + `credentials_id` + "`" + `. The credentials themselves, as well as their metadata (name, project ID etc), are returned in the response.`,
 		Namespace: "mnq",
-		Resource:  "sqs-credentials",
-		Verb:      "get",
+		Resource:  "sqs",
+		Verb:      "get-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SqsAPIGetSqsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -993,13 +963,13 @@ func mnqSqsCredentialsGet() *core.Command {
 	}
 }
 
-func mnqSqsCredentialsList() *core.Command {
+func mnqSqsListCredentials() *core.Command {
 	return &core.Command{
 		Short:     `List SQS credentials`,
 		Long:      `List existing SQS credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.`,
 		Namespace: "mnq",
-		Resource:  "sqs-credentials",
-		Verb:      "list",
+		Resource:  "sqs",
+		Verb:      "list-credentials",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(mnq.SqsAPIListSqsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
