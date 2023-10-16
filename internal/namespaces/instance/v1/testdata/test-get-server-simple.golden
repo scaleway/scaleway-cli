@@ -51,8 +51,8 @@ ID                                    NAME                        EXPORT URI  OR
 24d7bed8-b88c-4059-87cc-8373145e35ff  Ubuntu 18.04 Bionic Beaver  -           ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  20 GB  l_ssd        few seconds ago  few seconds ago    available  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  false  fr-par-1
 
 Public IPs:
-ID                                    ADDRESS        GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE
-647be9ab-3627-4f02-b205-2ae3fe896c5d  51.15.214.148  -        32       inet    false    dhcp
+ID                                    ADDRESS        GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS
+647be9ab-3627-4f02-b205-2ae3fe896c5d  51.15.214.148  -        32       inet    false    dhcp               -
 
 IPv6:
 -
