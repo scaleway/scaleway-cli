@@ -7,8 +7,9 @@ import (
 )
 
 func GetCommands() *core.Commands {
+	cmds := GetGeneratedCommands()
 
 	human.RegisterMarshalerFunc(mnq.SnsInfoStatus(""), human.EnumMarshalFunc(mnqSqsInfoStatusMarshalSpecs))
 
-	return nil
+	return cmds
 }
