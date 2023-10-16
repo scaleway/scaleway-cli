@@ -2,7 +2,6 @@
 # Documentation for `scw ipfs`
 IPFS Pinning service API.
   
-- [A name is a hash of the public key within the IPNS (InterPlanetary Name System)](#a-name-is-a-hash-of-the-public-key-within-the-ipns-(interplanetary-name-system))
 - [A pin is an abstract object that holds a Content Identifier (CID). It is defined that during the lifespan of a pin, the CID (and all sub-CIDs) must be hosted by the service](#a-pin-is-an-abstract-object-that-holds-a-content-identifier-(cid).-it-is-defined-that-during-the-lifespan-of-a-pin,-the-cid-(and-all-sub-cids)-must-be-hosted-by-the-service)
   - [Create a pin by CID](#create-a-pin-by-cid)
   - [Create a pin by URL](#create-a-pin-by-url)
@@ -17,20 +16,6 @@ IPFS Pinning service API.
   - [Update volume information](#update-volume-information)
 
   
-## A name is a hash of the public key within the IPNS (InterPlanetary Name System)
-
-This is the PKI namespace, where the private key is used to publish (sign) a record.
-
-This is the PKI namespace, where the private key is used to publish (sign) a record.
-
-**Usage:**
-
-```
-scw ipfs name
-```
-
-
-
 ## A pin is an abstract object that holds a Content Identifier (CID). It is defined that during the lifespan of a pin, the CID (and all sub-CIDs) must be hosted by the service
 
 It is possible that many pins target the same CID, regardless of the user.

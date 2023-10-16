@@ -22,7 +22,6 @@ func GetGeneratedCommands() *core.Commands {
 		ipfsRoot(),
 		ipfsPin(),
 		ipfsVolume(),
-		ipfsName(),
 		ipfsVolumeCreate(),
 		ipfsVolumeGet(),
 		ipfsVolumeList(),
@@ -58,15 +57,6 @@ func ipfsVolume() *core.Command {
 		Long:      `All pins must be attached to a volume. And all volumes must be attached to a Project ID.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
-	}
-}
-
-func ipfsName() *core.Command {
-	return &core.Command{
-		Short:     `A name is a hash of the public key within the IPNS (InterPlanetary Name System)`,
-		Long:      `This is the PKI namespace, where the private key is used to publish (sign) a record.`,
-		Namespace: "ipfs",
-		Resource:  "name",
 	}
 }
 
