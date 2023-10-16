@@ -10,7 +10,7 @@ func Test_ServerSSH(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			createServerBionic("Server"),
 			startServer("Server"),
 		),
 		Cmd: "scw instance server ssh {{ .Server.ID }}",
@@ -29,7 +29,7 @@ func Test_ServerSSH(t *testing.T) {
 	t.Run("With-Exit-Code", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			createServerBionic("Server"),
 			startServer("Server"),
 		),
 		Cmd: "scw instance server ssh {{ .Server.ID }}",
@@ -47,7 +47,7 @@ func Test_ServerSSH(t *testing.T) {
 
 	t.Run("Stopped server", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createServer("Server"),
+		BeforeFunc: createServerBionic("Server"),
 		Cmd:        "scw instance server ssh {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

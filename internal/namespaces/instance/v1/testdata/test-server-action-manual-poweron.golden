@@ -114,17 +114,23 @@ Zone                          fr-par-1
   "public_ip": {
     "id": "e6b4161c-85e3-4d3b-bdcc-f881afdf7c46",
     "address": "163.172.133.158",
+    "gateway": "",
     "netmask": "32",
     "family": "inet",
-    "provisioning_mode": "dhcp"
+    "dynamic": false,
+    "provisioning_mode": "dhcp",
+    "tags": null
   },
   "public_ips": [
     {
       "id": "e6b4161c-85e3-4d3b-bdcc-f881afdf7c46",
       "address": "163.172.133.158",
+      "gateway": "",
       "netmask": "32",
       "family": "inet",
-      "provisioning_mode": "dhcp"
+      "dynamic": false,
+      "provisioning_mode": "dhcp",
+      "tags": null
     }
   ],
   "mac_address": "de:00:00:1e:f5:b5",

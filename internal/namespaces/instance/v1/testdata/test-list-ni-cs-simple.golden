@@ -9,6 +9,7 @@ ID                                    SERVER ID                             PRIV
     "server_id": "b1bf8481-b273-42db-a319-4820690dd2c3",
     "private_network_id": "190d9c04-d79d-4913-af41-843fc85ad1a4",
     "mac_address": "02:00:00:13:5e:88",
-    "state": "available"
+    "state": "available",
+    "tags": []
   }
 ]

@@ -15,7 +15,7 @@ func Test_ListNICs(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createServer("Server"),
+			createServerBionic("Server"),
 			createNIC(),
 		),
 		Cmd: "scw instance private-nic list server-id={{ .Server.ID }}",
@@ -46,7 +46,7 @@ func Test_GetPrivateNIC(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createServer("Server"),
+			createServerBionic("Server"),
 			createNIC(),
 		),
 		Cmd: "scw instance private-nic get server-id={{ .Server.ID }} private-nic-id={{ .NIC.PrivateNic.MacAddress }}",

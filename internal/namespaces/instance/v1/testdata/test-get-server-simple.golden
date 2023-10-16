@@ -103,17 +103,23 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "public_ip": {
     "id": "647be9ab-3627-4f02-b205-2ae3fe896c5d",
     "address": "51.15.214.148",
+    "gateway": "",
     "netmask": "32",
     "family": "inet",
-    "provisioning_mode": "dhcp"
+    "dynamic": false,
+    "provisioning_mode": "dhcp",
+    "tags": null
   },
   "public_ips": [
     {
       "id": "647be9ab-3627-4f02-b205-2ae3fe896c5d",
       "address": "51.15.214.148",
+      "gateway": "",
       "netmask": "32",
       "family": "inet",
-      "provisioning_mode": "dhcp"
+      "dynamic": false,
+      "provisioning_mode": "dhcp",
+      "tags": null
     }
   ],
   "mac_address": "de:00:00:1e:87:b1",

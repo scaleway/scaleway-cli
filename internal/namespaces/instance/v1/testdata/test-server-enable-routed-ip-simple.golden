@@ -118,7 +118,9 @@ Zone                          fr-par-3
     "gateway": "62.210.0.1",
     "netmask": "32",
     "family": "inet",
-    "provisioning_mode": "dhcp"
+    "dynamic": false,
+    "provisioning_mode": "dhcp",
+    "tags": null
   },
   "public_ips": [
     {
@@ -127,7 +129,9 @@ Zone                          fr-par-3
       "gateway": "62.210.0.1",
       "netmask": "32",
       "family": "inet",
-      "provisioning_mode": "dhcp"
+      "dynamic": false,
+      "provisioning_mode": "dhcp",
+      "tags": null
     }
   ],
   "mac_address": "de:00:00:04:c5:5d",
