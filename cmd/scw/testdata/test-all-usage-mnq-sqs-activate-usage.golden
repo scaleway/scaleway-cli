@@ -1,0 +1,19 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Activate SQS for the specified Project ID. SQS must be activated before any usage such as creating credentials and queues. Activating SQS does not trigger any billing, and you can deactivate at any time.
+
+USAGE:
+  scw mnq sqs activate [arg=value ...]
+
+ARGS:
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for activate
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
