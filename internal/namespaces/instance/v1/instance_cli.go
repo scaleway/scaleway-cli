@@ -1641,10 +1641,10 @@ func instanceVolumeList() *core.Command {
 				FieldName: "State",
 			},
 			{
-				FieldName: "Server.id",
+				FieldName: "Server.ID",
 			},
 			{
-				FieldName: "Server.name",
+				FieldName: "Server.Name",
 			},
 			{
 				FieldName: "Name",
@@ -3099,10 +3099,10 @@ func instanceIPList() *core.Command {
 				FieldName: "Project",
 			},
 			{
-				FieldName: "Server.id",
+				FieldName: "Server.ID",
 			},
 			{
-				FieldName: "Server.name",
+				FieldName: "Server.Name",
 			},
 			{
 				FieldName: "Tags",
