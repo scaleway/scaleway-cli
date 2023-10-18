@@ -197,6 +197,21 @@ func TestInit(t *testing.T) {
 				"no",
 			},
 		}))
+
+		t.Run("Default profile activated", core.Test(&core.TestConfig{
+			Commands:   GetCommands(),
+			BeforeFunc: baseBeforeFunc(),
+			TmpHomeDir: true,
+			Cmd:        appendArgs("scw -p newprofile init", defaultArgs),
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+					assert.NotNil(t, config.ActiveProfile)
+					assert.Equal(t, "newprofile", *config.ActiveProfile)
+				}),
+			),
+		}))
+
 	})
 }
 
