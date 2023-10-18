@@ -572,18 +572,18 @@ func rdbBackupRestore() *core.Command {
 		ArgsType: reflect.TypeOf(rdb.RestoreDatabaseBackupRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "database-backup-id",
-				Short:      `Backup of a logical database`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
 				Name:       "database-name",
 				Short:      `Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "database-backup-id",
+				Short:      `Backup of a logical database`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
 			},
 			{
 				Name:       "instance-id",
@@ -972,13 +972,6 @@ func rdbInstanceUpdate() *core.Command {
 		ArgsType: reflect.TypeOf(rdb.UpdateInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "instance-id",
-				Short:      `UUID of the Database Instance to update`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
 				Name:       "backup-schedule-frequency",
 				Short:      `In hours`,
 				Required:   false,
@@ -1005,6 +998,13 @@ func rdbInstanceUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
 			},
 			{
 				Name:       "tags.{index}",
@@ -1938,13 +1938,6 @@ func rdbUserList() *core.Command {
 		ArgsType: reflect.TypeOf(rdb.ListUsersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "instance-id",
-				Short:      `UUID of the Database Instance`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "name",
 				Short:      `Name of the user`,
 				Required:   false,
@@ -1958,6 +1951,13 @@ func rdbUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"name_asc", "name_desc", "is_admin_asc", "is_admin_desc"},
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
@@ -2137,13 +2137,6 @@ func rdbDatabaseList() *core.Command {
 		ArgsType: reflect.TypeOf(rdb.ListDatabasesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "instance-id",
-				Short:      `UUID of the Database Instance to list the databases of`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "name",
 				Short:      `Name of the database`,
 				Required:   false,
@@ -2171,6 +2164,13 @@ func rdbDatabaseList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"name_asc", "name_desc", "size_asc", "size_desc"},
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance to list the databases of`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
@@ -2285,13 +2285,6 @@ func rdbPrivilegeList() *core.Command {
 		ArgsType: reflect.TypeOf(rdb.ListPrivilegesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "instance-id",
-				Short:      `UUID of the Database Instance`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "order-by",
 				Short:      `Criteria to use when ordering privileges listing`,
 				Required:   false,
@@ -2303,6 +2296,13 @@ func rdbPrivilegeList() *core.Command {
 				Name:       "database-name",
 				Short:      `Name of the database`,
 				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},

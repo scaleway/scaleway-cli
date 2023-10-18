@@ -1214,13 +1214,7 @@ func baremetalSettingsList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc"},
 			},
-			{
-				Name:       "project-id",
-				Short:      `ID of the Project`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
+			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

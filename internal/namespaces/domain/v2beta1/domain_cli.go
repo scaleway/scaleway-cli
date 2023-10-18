@@ -396,13 +396,6 @@ You can filter records by type and name.`,
 		ArgsType: reflect.TypeOf(domain.ListDNSZoneRecordsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "dns-zone",
-				Short:      `DNS zone on which to filter the returned DNS zone records`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
 				Name:       "project-id",
 				Short:      `Project ID on which to filter the returned DNS zone records`,
 				Required:   false,
@@ -416,6 +409,13 @@ You can filter records by type and name.`,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"name_asc", "name_desc"},
+			},
+			{
+				Name:       "dns-zone",
+				Short:      `DNS zone on which to filter the returned DNS zone records`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -854,18 +854,18 @@ func dnsRecordListNameservers() *core.Command {
 		ArgsType: reflect.TypeOf(domain.ListDNSZoneNameserversRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "dns-zone",
-				Short:      `DNS zone on which to filter the returned DNS zone name servers`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
 				Name:       "project-id",
 				Short:      `Project ID on which to filter the returned DNS zone name servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "dns-zone",
+				Short:      `DNS zone on which to filter the returned DNS zone name servers`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

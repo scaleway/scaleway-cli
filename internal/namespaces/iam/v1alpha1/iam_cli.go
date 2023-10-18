@@ -452,13 +452,7 @@ func iamUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "organization-id",
-				Short:      `ID of the Organization to filter`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
+			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.ListUsersRequest)
@@ -1754,13 +1748,7 @@ func iamAPIKeyList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_bearer_type", "user", "application"},
 			},
-			{
-				Name:       "organization-id",
-				Short:      `ID of Organization`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
+			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.ListAPIKeysRequest)

@@ -678,6 +678,7 @@ func cockpitGrafanaUserDelete() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.DeleteGrafanaUserRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "grafana-user-id",
 				Short:      `ID of the Grafana user`,
@@ -685,7 +686,6 @@ func cockpitGrafanaUserDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ProjectIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*cockpit.DeleteGrafanaUserRequest)
@@ -714,6 +714,7 @@ func cockpitGrafanaUserResetPassword() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.ResetGrafanaUserPasswordRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
 			{
 				Name:       "grafana-user-id",
 				Short:      `ID of the Grafana user`,
@@ -721,7 +722,6 @@ func cockpitGrafanaUserResetPassword() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ProjectIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*cockpit.ResetGrafanaUserPasswordRequest)

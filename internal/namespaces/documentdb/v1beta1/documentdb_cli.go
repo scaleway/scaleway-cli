@@ -656,13 +656,6 @@ func documentDbInstanceUpdate() *core.Command {
 		ArgsType: reflect.TypeOf(documentdb.UpdateInstanceRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "instance-id",
-				Short:      `UUID of the Database Instance to update`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
 				Name:       "backup-schedule-frequency",
 				Short:      `In hours`,
 				Required:   false,
@@ -689,6 +682,13 @@ func documentDbInstanceUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
 			},
 			{
 				Name:       "tags.{index}",
@@ -1578,13 +1578,6 @@ func documentDbUserList() *core.Command {
 		ArgsType: reflect.TypeOf(documentdb.ListUsersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "instance-id",
-				Short:      `UUID of the Database Instance`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "name",
 				Short:      `Name of the user`,
 				Required:   false,
@@ -1598,6 +1591,13 @@ func documentDbUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"name_asc", "name_desc", "is_admin_asc", "is_admin_desc"},
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
@@ -1777,13 +1777,6 @@ func documentDbDatabaseList() *core.Command {
 		ArgsType: reflect.TypeOf(documentdb.ListDatabasesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "instance-id",
-				Short:      `UUID of the Database Instance to list the databases of`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "name",
 				Short:      `Name of the database`,
 				Required:   false,
@@ -1811,6 +1804,13 @@ func documentDbDatabaseList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"name_asc", "name_desc", "size_asc", "size_desc"},
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance to list the databases of`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
@@ -1925,13 +1925,6 @@ func documentDbPrivilegeList() *core.Command {
 		ArgsType: reflect.TypeOf(documentdb.ListPrivilegesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "instance-id",
-				Short:      `UUID of the Database Instance`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "order-by",
 				Short:      `Criteria to use when ordering privileges listing`,
 				Required:   false,
@@ -1943,6 +1936,13 @@ func documentDbPrivilegeList() *core.Command {
 				Name:       "database-name",
 				Short:      `Name of the database`,
 				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},

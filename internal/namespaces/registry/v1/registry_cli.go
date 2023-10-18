@@ -543,19 +543,19 @@ func registryTagList() *core.Command {
 		ArgsType: reflect.TypeOf(registry.ListTagsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "image-id",
-				Short:      `UUID of the image`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "order-by",
 				Short:      `Criteria to use when ordering tag listings. Possible values are ` + "`" + `created_at_asc` + "`" + `, ` + "`" + `created_at_desc` + "`" + `, ` + "`" + `name_asc` + "`" + `, ` + "`" + `name_desc` + "`" + `, ` + "`" + `region` + "`" + `, ` + "`" + `status_asc` + "`" + ` and ` + "`" + `status_desc` + "`" + `. The default value is ` + "`" + `created_at_asc` + "`" + `.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+			},
+			{
+				Name:       "image-id",
+				Short:      `UUID of the image`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "name",

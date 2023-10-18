@@ -249,13 +249,6 @@ func redisClusterUpdate() *core.Command {
 		ArgsType: reflect.TypeOf(redis.UpdateClusterRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "cluster-id",
-				Short:      `UUID of the Database Instance to update`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
 				Name:       "name",
 				Short:      `Name of the Database Instance`,
 				Required:   false,
@@ -282,6 +275,13 @@ func redisClusterUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "cluster-id",
+				Short:      `UUID of the Database Instance to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
@@ -412,13 +412,6 @@ func redisClusterMigrate() *core.Command {
 		ArgsType: reflect.TypeOf(redis.MigrateClusterRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "cluster-id",
-				Short:      `UUID of the Database Instance to update`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
 				Name:       "version",
 				Short:      `Redis™ engine version of the Database Instance`,
 				Required:   false,
@@ -438,6 +431,13 @@ func redisClusterMigrate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "cluster-id",
+				Short:      `UUID of the Database Instance to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},

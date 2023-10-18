@@ -743,13 +743,6 @@ func lbBackendCreate() *core.Command {
 		ArgsType: reflect.TypeOf(lb.ZonedAPICreateBackendRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "lb-id",
-				Short:      `Load Balancer ID`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "name",
 				Short:      `Name for the backend`,
 				Required:   true,
@@ -794,6 +787,13 @@ func lbBackendCreate() *core.Command {
 				Name:       "sticky-sessions-cookie-name",
 				Short:      `Cookie name for cookie-based sticky sessions`,
 				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1408,13 +1408,6 @@ func lbBackendUpdateHealthcheck() *core.Command {
 		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateHealthCheckRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "backend-id",
-				Short:      `Backend ID`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "port",
 				Short:      `Port to use for the backend server health check`,
 				Required:   true,
@@ -1438,6 +1431,13 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			{
 				Name:       "check-max-retries",
 				Short:      `Number of consecutive unsuccessful health checks after which the server will be considered dead`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backend-id",
+				Short:      `Backend ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1616,13 +1616,6 @@ func lbFrontendCreate() *core.Command {
 		ArgsType: reflect.TypeOf(lb.ZonedAPICreateFrontendRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "lb-id",
-				Short:      `Load Balancer ID (ID of the Load Balancer to attach the frontend to)`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "name",
 				Short:      `Name for the frontend`,
 				Required:   true,
@@ -1633,6 +1626,13 @@ func lbFrontendCreate() *core.Command {
 			{
 				Name:       "inbound-port",
 				Short:      `Port the frontend should listen on`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID (ID of the Load Balancer to attach the frontend to)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -2496,13 +2496,6 @@ func lbACLSet() *core.Command {
 		ArgsType: reflect.TypeOf(lb.ZonedAPISetACLsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "frontend-id",
-				Short:      `Frontend ID`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "acls.{index}.name",
 				Short:      `ACL name`,
 				Required:   true,
@@ -2586,6 +2579,13 @@ func lbACLSet() *core.Command {
 				Name:       "acls.{index}.description",
 				Short:      `ACL description`,
 				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "frontend-id",
+				Short:      `Frontend ID`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -3190,19 +3190,19 @@ func lbPrivateNetworkList() *core.Command {
 		ArgsType: reflect.TypeOf(lb.ZonedAPIListLBPrivateNetworksRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "lb-id",
-				Short:      `Load Balancer ID`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
 				Name:       "order-by",
 				Short:      `Sort order of Private Network objects in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},

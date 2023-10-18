@@ -1540,13 +1540,6 @@ func instanceSnapshotExport() *core.Command {
 		ArgsType: reflect.TypeOf(instance.ExportSnapshotRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "snapshot-id",
-				Short:      `Snapshot ID`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "bucket",
 				Short:      `S3 bucket name`,
 				Required:   false,
@@ -1557,6 +1550,13 @@ func instanceSnapshotExport() *core.Command {
 				Name:       "key",
 				Short:      `S3 object key`,
 				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "snapshot-id",
+				Short:      `Snapshot ID`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
