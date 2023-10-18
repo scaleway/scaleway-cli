@@ -12,9 +12,5 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("mnq").Short = "Messaging and Queuing Alpha APIs"
 
-	for _, cmd := range cmds.GetAll() {
-		cmd.Namespace = "mnq-v1alpha1"
-	}
-
 	return cmds
 }

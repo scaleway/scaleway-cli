@@ -26,7 +26,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
-	mnqAlpha "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1alpha1"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
@@ -86,7 +85,6 @@ func GetCommands() *core.Commands {
 		billing.GetCommands(),
 		ipfs.GetCommands(),
 		documentdb.GetCommands(),
-		mnqAlpha.GetCommands(),
 		mnq.GetCommands(),
 	)
 
