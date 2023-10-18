@@ -54,16 +54,15 @@ func GetGeneratedCommands() *core.Commands {
 func redisRoot() *core.Command {
 	return &core.Command{
 		Short:     `Managed Database for Redis™ API`,
-		Long:      `Managed Database for Redis™ API.`,
+		Long:      ``,
 		Namespace: "redis",
 	}
 }
 
 func redisCluster() *core.Command {
 	return &core.Command{
-		Short: `Cluster management commands`,
-		Long: `A Redis™ Database Instance, also known as a Redis™ cluster, consists of either one standalone node or a cluster composed of three to six nodes. The cluster uses partitioning to split the keyspace. Each partition is replicated and can be reassigned or elected as the primary when necessary. Standalone mode creates a standalone database provisioned on a single node.
-`,
+		Short:     `Cluster management commands`,
+		Long:      `A Redis™ Database Instance, also known as a Redis™ cluster, consists of either one standalone node or a cluster composed of three to six nodes. The cluster uses partitioning to split the keyspace. Each partition is replicated and can be reassigned or elected as the primary when necessary. Standalone mode creates a standalone database provisioned on a single node.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 	}
@@ -71,9 +70,8 @@ func redisCluster() *core.Command {
 
 func redisNodeType() *core.Command {
 	return &core.Command{
-		Short: `Node Types management commands`,
-		Long: `Nodes are the compute units that make up your Redis™ Database Instance. Different node types are available with varying amounts of RAM and vCPU.
-`,
+		Short:     `Node Types management commands`,
+		Long:      `Nodes are the compute units that make up your Redis™ Database Instance. Different node types are available with varying amounts of RAM and vCPU.`,
 		Namespace: "redis",
 		Resource:  "node-type",
 	}
@@ -93,8 +91,7 @@ func redisSetting() *core.Command {
 		Short: `Settings management commands`,
 		Long: `Advanced settings allow you to tune the behavior of your Redis™ database engine to better fit your needs. Available settings depend on the version of the Redis™ engine. Note that some settings can only be defined upon the Redis™ engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available Redis™ versions](#path-redistm-engine-versions-list-available-redistm-versions) endpoint.
 
-Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
-`,
+Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.`,
 		Namespace: "redis",
 		Resource:  "setting",
 	}
@@ -102,9 +99,8 @@ Each advanced setting entry has a default value that users can override. The del
 
 func redisACL() *core.Command {
 	return &core.Command{
-		Short: `Access Control List (ACL) management commands`,
-		Long: `Network Access Control Lists (ACLs) allow you to manage network inbound traffic by setting up ACL rules.
-`,
+		Short:     `Access Control List (ACL) management commands`,
+		Long:      `Network Access Control Lists (ACLs) allow you to manage network inbound traffic by setting up ACL rules.`,
 		Namespace: "redis",
 		Resource:  "acl",
 	}
@@ -112,9 +108,8 @@ func redisACL() *core.Command {
 
 func redisEndpoint() *core.Command {
 	return &core.Command{
-		Short: `Endpoints management commands`,
-		Long: `Manage endpoint access to your Redis™ Database Instance through Public or Private Networks
-`,
+		Short:     `Endpoints management commands`,
+		Long:      `Manage endpoint access to your Redis™ Database Instance through Public or Private Networks.`,
 		Namespace: "redis",
 		Resource:  "endpoint",
 	}
@@ -254,6 +249,13 @@ func redisClusterUpdate() *core.Command {
 		ArgsType: reflect.TypeOf(redis.UpdateClusterRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
+				Name:       "cluster-id",
+				Short:      `UUID of the Database Instance to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
 				Name:       "name",
 				Short:      `Name of the Database Instance`,
 				Required:   false,
@@ -280,13 +282,6 @@ func redisClusterUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-			},
-			{
-				Name:       "cluster-id",
-				Short:      `UUID of the Database Instance to update`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},
@@ -417,6 +412,13 @@ func redisClusterMigrate() *core.Command {
 		ArgsType: reflect.TypeOf(redis.MigrateClusterRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
+				Name:       "cluster-id",
+				Short:      `UUID of the Database Instance to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
 				Name:       "version",
 				Short:      `Redis™ engine version of the Database Instance`,
 				Required:   false,
@@ -436,13 +438,6 @@ func redisClusterMigrate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-			},
-			{
-				Name:       "cluster-id",
-				Short:      `UUID of the Database Instance to update`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
 		},

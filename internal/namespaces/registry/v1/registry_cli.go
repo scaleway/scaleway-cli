@@ -52,8 +52,7 @@ func registryNamespace() *core.Command {
 
 Each namespace must have a globally unique name within its region. This means no namespaces in the same region can bear the same name.
 
-You can use namespace privacy policies to specify whether everyone has the right to pull an image from a namespace or not. When an image is in a public namespace, anyone is able to pull it. You can set your namespace to private if you want to restrict access.
-`,
+You can use namespace privacy policies to specify whether everyone has the right to pull an image from a namespace or not. When an image is in a public namespace, anyone is able to pull it. You can set your namespace to private if you want to restrict access.`,
 		Namespace: "registry",
 		Resource:  "namespace",
 	}
@@ -64,8 +63,7 @@ func registryImage() *core.Command {
 		Short: `Image management commands`,
 		Long: `An image represents a container image. A container image is a file that includes all the requirements and instructions of a complete and executable version of an application. When running, it becomes one or multiple instances of that application.
 
-The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](#path-images-update-an-image).
-`,
+The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](#path-images-update-an-image).`,
 		Namespace: "registry",
 		Resource:  "image",
 	}
@@ -73,9 +71,8 @@ The visibility of an image can be public - when anyone can pull it, private - wh
 
 func registryTag() *core.Command {
 	return &core.Command{
-		Short: `Tag management commands`,
-		Long: `Tags allow you to organize your container images. This gives you the possibility of sorting and filtering your images in any organizational pattern of your choice, which in turn helps you arrange, control and monitor your cloud resources. You can assign as many tags as you want to each image.
-`,
+		Short:     `Tag management commands`,
+		Long:      `Tags allow you to organize your container images. This gives you the possibility of sorting and filtering your images in any organizational pattern of your choice, which in turn helps you arrange, control and monitor your cloud resources. You can assign as many tags as you want to each image.`,
 		Namespace: "registry",
 		Resource:  "tag",
 	}
@@ -546,19 +543,19 @@ func registryTagList() *core.Command {
 		ArgsType: reflect.TypeOf(registry.ListTagsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
+				Name:       "image-id",
+				Short:      `UUID of the image`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "order-by",
 				Short:      `Criteria to use when ordering tag listings. Possible values are ` + "`" + `created_at_asc` + "`" + `, ` + "`" + `created_at_desc` + "`" + `, ` + "`" + `name_asc` + "`" + `, ` + "`" + `name_desc` + "`" + `, ` + "`" + `region` + "`" + `, ` + "`" + `status_asc` + "`" + ` and ` + "`" + `status_desc` + "`" + `. The default value is ` + "`" + `created_at_asc` + "`" + `.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
-			},
-			{
-				Name:       "image-id",
-				Short:      `UUID of the image`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
 			},
 			{
 				Name:       "name",
