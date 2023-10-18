@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage Scaleway Messaging and Queueing brokers.
+Messaging and Queuing APIs.
 
 USAGE:
   scw mnq <command>
