@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a Messaging and Queuing namespace, specified by its namespace ID. Note that deleting a namespace is irreversible, and any URLs, credentials and queued messages belonging to this namespace will also be deleted.
+Delete a NATS account, specified by its NATS account ID. Note that deleting a NATS account is irreversible, and any credentials, streams, consumer and stored messages belonging to this NATS account will also be deleted.
 
 USAGE:
-  scw mnq namespace delete <namespace-id ...> [arg=value ...]
+  scw mnq nats delete-account <nats-account-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id      ID of the namespace to delete
+  nats-account-id   ID of the NATS account to delete
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help   help for delete-account
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

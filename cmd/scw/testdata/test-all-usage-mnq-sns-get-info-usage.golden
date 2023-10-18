@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve information about an existing Messaging and Queuing namespace, identified by its namespace ID. Its full details, including name, endpoint and protocol, are returned in the response.
+Retrieve the SNS information of the specified Project ID. Informations include the activation status and the SNS API endpoint URL.
 
 USAGE:
-  scw mnq namespace get <namespace-id ...> [arg=value ...]
+  scw mnq sns get-info [arg=value ...]
 
 ARGS:
-  namespace-id      ID of the Namespace to get
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help   help for get-info
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

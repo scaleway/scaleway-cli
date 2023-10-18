@@ -22,7 +22,7 @@ AVAILABLE COMMANDS:
   k8s           Kubernetes API
   lb            This API allows you to manage your Scaleway Load Balancer services
   marketplace   Marketplace API
-  mnq           This API allows you to manage Scaleway Messaging and Queueing brokers
+  mnq           Messaging and Queuing APIs
   object        Object-storage utils
   rdb           Managed Database for PostgreSQL and MySQL API
   redis         Managed Database for Redis™ API

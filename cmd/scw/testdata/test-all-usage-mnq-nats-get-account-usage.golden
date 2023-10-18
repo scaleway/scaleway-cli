@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve an existing set of credentials, identified by the `credential_id`. The credentials themselves, as well as their metadata (protocol, namespace ID etc), are returned in the response.
+Retrieve information about an existing NATS account identified by its NATS account ID. Its full details, including name and endpoint, are returned in the response.
 
 USAGE:
-  scw mnq credential get <credential-id ...> [arg=value ...]
+  scw mnq nats get-account <nats-account-id ...> [arg=value ...]
 
 ARGS:
-  credential-id     ID of the credentials to get
+  nats-account-id   ID of the NATS account to get
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help   help for get-account
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

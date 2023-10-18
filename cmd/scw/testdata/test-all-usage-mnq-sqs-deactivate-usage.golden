@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a set of credentials, specified by their credential ID. Deleting credentials is irreversible and cannot be undone. The credentials can no longer be used to access the namespace.
+Deactivate SQS for the specified Project ID. You must delete all queues and credentials before this call or you need to set the force_delete parameter.
 
 USAGE:
-  scw mnq credential delete <credential-id ...> [arg=value ...]
+  scw mnq sqs deactivate [arg=value ...]
 
 ARGS:
-  credential-id     ID of the credentials to delete
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help   help for deactivate
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
