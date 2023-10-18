@@ -314,23 +314,14 @@ func instanceServerTypeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(instance.ListServersTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListServersTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
-			if request.Zone == scw.Zone(core.AllLocalities) {
-				opts = append(opts, scw.WithZones(api.Zones()...))
-				request.Zone = ""
-			}
-			resp, err := api.ListServersTypes(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-			return resp.Servers, nil
+			return api.ListServersTypes(request)
 
 		},
 		Examples: []*core.Example{
@@ -356,23 +347,14 @@ func instanceVolumeTypeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(instance.ListVolumesTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListVolumesTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
-			if request.Zone == scw.Zone(core.AllLocalities) {
-				opts = append(opts, scw.WithZones(api.Zones()...))
-				request.Zone = ""
-			}
-			resp, err := api.ListVolumesTypes(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-			return resp.Volumes, nil
+			return api.ListVolumesTypes(request)
 
 		},
 		Examples: []*core.Example{
