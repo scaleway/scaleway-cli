@@ -47,7 +47,6 @@ A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 
-
 ### Create a new Cluster
 
 Create a new Kubernetes cluster in a Scaleway region.
@@ -72,11 +71,11 @@ scw k8s cluster create [arg=value ...]
 | cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo` | Container Network Interface (CNI) plugin running in the cluster |
 | ~~enable-dashboard~~ | Deprecated | Defines whether the Kubernetes Dashboard is enabled in the cluster |
 | ~~ingress~~ | Deprecated<br />One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | Ingress Controller running in the cluster (deprecated feature) |
-| pools.{index}.name | Required | Name of the pool |
-| pools.{index}.node-type | Required | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
+| pools.{index}.name |  | Name of the pool |
+| pools.{index}.node-type |  | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
 | pools.{index}.placement-group-id |  | Placement group ID in which all the nodes of the pool will be created |
 | pools.{index}.autoscaling |  | Defines whether the autoscaling feature is enabled for the pool |
-| pools.{index}.size | Required | Size (number of nodes) of the pool |
+| pools.{index}.size |  | Size (number of nodes) of the pool |
 | pools.{index}.min-size |  | Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
 | pools.{index}.max-size |  | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
 | pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24 |
@@ -535,7 +534,6 @@ All cluster types available in a specified region
 A cluster type represents the different commercial types of clusters offered by Scaleway.
 
 
-
 ### List cluster types
 
 List available cluster types and their technical details.
@@ -656,7 +654,6 @@ scw k8s kubeconfig uninstall 11111111-1111-1111-1111-111111111111
 
 A node (short for worker node) is an abstraction for a Scaleway Instance
 A node is always part of a pool. Each of them has the Kubernetes software automatically installed and configured by Scaleway.
-
 
 
 ### Delete a Node in a Cluster
@@ -870,7 +867,6 @@ scw k8s node wait 11111111-1111-1111-1111-111111111111
 
 A pool is a set of identical nodes
 A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled. A "default pool" is automatically created with every cluster via the console.
-
 
 
 ### Create a new Pool in a Cluster
@@ -1153,7 +1149,6 @@ scw k8s pool wait 11111111-1111-1111-1111-111111111111
 
 A version is a vanilla Kubernetes version like `x.y.z`
 It comprises a major version `x`, a minor version `y`, and a patch version `z`. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/containers/kubernetes/reference-content/version-support-policy/).
-
 
 
 ### Get a Version

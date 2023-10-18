@@ -262,7 +262,7 @@ scw iam application list [arg=value ...]
 | name |  | Name of the application to filter |
 | editable |  | Defines whether to filter out editable applications or not |
 | application-ids.{index} |  | Filter by list of IDs |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
+| organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -433,7 +433,7 @@ scw iam group list [arg=value ...]
 | application-ids.{index} |  | Filter by a list of application IDs |
 | user-ids.{index} |  | Filter by a list of user IDs |
 | group-ids.{index} |  | Filter by a list of group IDs |
-| organization-id | Default: `<retrieved from config>` | Filter by Organization ID |
+| organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -711,7 +711,7 @@ scw iam policy list [arg=value ...]
 | application-ids.{index} |  | Filter by a list of application IDs |
 | no-principal |  | Defines whether or not the policy is attributed to a principal |
 | policy-name |  | Name of the policy to fetch |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
+| organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
