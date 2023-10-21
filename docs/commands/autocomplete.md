@@ -10,8 +10,6 @@ Autocomplete related commands
 
 Install autocomplete script for a given shell and OS.
 
-Install autocomplete script for a given shell and OS.
-
 **Usage:**
 
 ```
@@ -28,8 +26,6 @@ scw autocomplete install [arg=value ...]
 
 
 ## Show autocomplete script for current shell
-
-Show autocomplete script for current shell.
 
 Show autocomplete script for current shell.
 
