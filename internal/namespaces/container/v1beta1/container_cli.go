@@ -1393,18 +1393,21 @@ func containerTriggerCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "description",
-				Required:   false,
+				Short:      `Name of the trigger`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "container-id",
+				Short:      `ID of the container to trigger`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Short:      `Description of the trigger`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1417,43 +1420,22 @@ func containerTriggerCreate() *core.Command {
 			},
 			{
 				Name:       "scw-sqs-config.queue",
-				Required:   false,
+				Short:      `Name of the SQS queue the trigger should listen to`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-sqs-config.mnq-project-id",
-				Required:   false,
+				Short:      `ID of the M&Q project`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-sqs-config.mnq-region",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.endpoint",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.queue-url",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.access-key",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.secret-key",
-				Required:   false,
+				Short:      `Region in which the M&Q project is activated`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1465,25 +1447,29 @@ func containerTriggerCreate() *core.Command {
 			},
 			{
 				Name:       "scw-nats-config.subject",
-				Required:   false,
+				Short:      `Name of the NATS subject the trigger should listen to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.mnq-nats-account-id",
+				Short:      `ID of the M&Q NATS account`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-nats-config.mnq-project-id",
+				Short:      `ID of the M&Q project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-nats-config.mnq-region",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "scw-nats-config.mnq-nats-account-id",
-				Required:   false,
+				Short:      `Region of the M&Q project`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1512,9 +1498,10 @@ func containerTriggerGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
+				Short:      `ID of the trigger to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -1541,6 +1528,7 @@ func containerTriggerList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order in which to return results`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1548,12 +1536,14 @@ func containerTriggerList() *core.Command {
 			},
 			{
 				Name:       "container-id",
+				Short:      `ID of the container the triggers belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "namespace-id",
+				Short:      `ID of the namespace the triggers belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1593,30 +1583,21 @@ func containerTriggerUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
+				Short:      `ID of the trigger to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the trigger`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.access-key",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.secret-key",
+				Short:      `Description of the trigger`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1646,9 +1627,10 @@ func containerTriggerDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
+				Short:      `ID of the trigger to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},

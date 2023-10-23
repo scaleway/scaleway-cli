@@ -740,22 +740,18 @@ scw function trigger create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  |  |
-| description |  |  |
-| function-id |  |  |
+| name | Required | Name of the trigger |
+| function-id | Required | ID of the function to trigger |
+| description |  | Description of the trigger |
 | ~~scw-sqs-config.mnq-namespace-id~~ | Deprecated |  |
-| scw-sqs-config.queue |  |  |
-| scw-sqs-config.mnq-project-id |  |  |
-| scw-sqs-config.mnq-region |  |  |
-| sqs-config.endpoint |  |  |
-| sqs-config.queue-url |  |  |
-| sqs-config.access-key |  |  |
-| sqs-config.secret-key |  |  |
+| scw-sqs-config.queue | Required | Name of the SQS queue the trigger should listen to |
+| scw-sqs-config.mnq-project-id | Required | ID of the M&Q project |
+| scw-sqs-config.mnq-region | Required | Region in which the M&Q project is activated |
 | ~~scw-nats-config.mnq-namespace-id~~ | Deprecated |  |
-| scw-nats-config.subject |  |  |
-| scw-nats-config.mnq-project-id |  |  |
-| scw-nats-config.mnq-region |  |  |
-| scw-nats-config.mnq-nats-account-id |  |  |
+| scw-nats-config.subject | Required | Name of the NATS subject the trigger should listen to |
+| scw-nats-config.mnq-nats-account-id | Required | ID of the M&Q NATS account |
+| scw-nats-config.mnq-project-id |  | ID of the M&Q project |
+| scw-nats-config.mnq-region | Required | Region of the M&Q project |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -767,7 +763,7 @@ Delete function resources.
 **Usage:**
 
 ```
-scw function trigger delete [arg=value ...]
+scw function trigger delete <trigger-id ...> [arg=value ...]
 ```
 
 
@@ -775,7 +771,7 @@ scw function trigger delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| trigger-id | Required |  |
+| trigger-id | Required | ID of the trigger to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -787,7 +783,7 @@ Get function resources.
 **Usage:**
 
 ```
-scw function trigger get [arg=value ...]
+scw function trigger get <trigger-id ...> [arg=value ...]
 ```
 
 
@@ -795,7 +791,7 @@ scw function trigger get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| trigger-id | Required |  |
+| trigger-id | Required | ID of the trigger to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -815,9 +811,9 @@ scw function trigger list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| function-id |  |  |
-| namespace-id |  |  |
+| order-by | One of: `created_at_asc`, `created_at_desc` | Order in which to return results |
+| function-id |  | ID of the function the triggers belongs to |
+| namespace-id |  | ID of the namespace the triggers belongs to |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
@@ -830,7 +826,7 @@ Update function resources.
 **Usage:**
 
 ```
-scw function trigger update [arg=value ...]
+scw function trigger update <trigger-id ...> [arg=value ...]
 ```
 
 
@@ -838,11 +834,9 @@ scw function trigger update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| trigger-id | Required |  |
-| name |  |  |
-| description |  |  |
-| sqs-config.access-key |  |  |
-| sqs-config.secret-key |  |  |
+| trigger-id | Required | ID of the trigger to update |
+| name |  | Name of the trigger |
+| description |  | Description of the trigger |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

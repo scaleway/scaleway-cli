@@ -6,9 +6,9 @@ USAGE:
   scw container trigger list [arg=value ...]
 
 ARGS:
-  [order-by]         (created_at_asc | created_at_desc)
-  [container-id]    
-  [namespace-id]    
+  [order-by]        Order in which to return results (created_at_asc | created_at_desc)
+  [container-id]    ID of the container the triggers belongs to
+  [namespace-id]    ID of the namespace the triggers belongs to
   [project-id]      Project ID to use. If none is passed the default project ID will be used
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 

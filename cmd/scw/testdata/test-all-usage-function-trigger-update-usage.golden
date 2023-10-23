@@ -3,15 +3,13 @@
 Update function resources.
 
 USAGE:
-  scw function trigger update [arg=value ...]
+  scw function trigger update <trigger-id ...> [arg=value ...]
 
 ARGS:
-  trigger-id                
-  [name]                    
-  [description]             
-  [sqs-config.access-key]   
-  [sqs-config.secret-key]   
-  [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  trigger-id        ID of the trigger to update
+  [name]            Name of the trigger
+  [description]     Description of the trigger
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update
