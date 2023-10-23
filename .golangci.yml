@@ -60,3 +60,7 @@ issues:
       linters:
         - unused
         - errcheck
+
+    - path: internal/tabwriter/.*_test\.go
+      linters:
+        - goconst
