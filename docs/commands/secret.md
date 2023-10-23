@@ -117,7 +117,7 @@ scw secret secret create [arg=value ...]
 | name |  | Name of the secret |
 | tags.{index} |  | List of the secret's tags |
 | description |  | Description of the secret |
-| type | One of: `unknown_secret_type`, `opaque`, `certificate`, `key_value` | Type of the secret |
+| type | One of: `unknown_secret_type`, `opaque`, `certificate` | Type of the secret |
 | path |  | Path of the secret |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
