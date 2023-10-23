@@ -42,8 +42,7 @@ func vpcPrivateNetwork() *core.Command {
 		Long: `A Private Network allows you to interconnect your Scaleway resources in an
 isolated and private network. Network reachability is limited
 to resources that are on the same Private Network. Note that a resource can
-be part of multiple Private Networks.
-`,
+be part of multiple Private Networks.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
 	}

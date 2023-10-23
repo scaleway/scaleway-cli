@@ -23,7 +23,6 @@ A flexible IP can be attached to any Elastic Metal server within the same zone.
 Multiple flexible IPs can be attached to a server.
 
 
-
 ### Attach an existing flexible IP to a server
 
 Attach an existing flexible IP to a specified Elastic Metal server.

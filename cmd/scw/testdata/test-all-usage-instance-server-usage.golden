@@ -2,7 +2,7 @@
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Instances are computing units providing resources to run your applications on.
 Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
-**Note: Instances can be referenced as "servers" in API endpoints.**
+**Note: Instances can be referenced as "servers" in API endpoints.**.
 
 USAGE:
   scw instance server <command>

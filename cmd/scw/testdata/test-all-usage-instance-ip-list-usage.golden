@@ -14,7 +14,7 @@ EXAMPLES:
 
 ARGS:
   [project-id]        Project ID in which the IPs are reserved
-  [tags.{index}]      Filter IPs with these exact tags (to filter with several tags, use commas to separate them)
+  [tags]              Filter IPs with these exact tags (to filter with several tags, use commas to separate them)
   [name]              Filter on the IP address (Works as a LIKE operation on the IP address)
   [type]              Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6')
   [organization-id]   Organization ID in which the IPs are reserved

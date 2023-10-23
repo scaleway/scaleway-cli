@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-IoT Hub API.
+This API allows you to manage IoT hubs and devices.
 
 USAGE:
   scw iot <command>

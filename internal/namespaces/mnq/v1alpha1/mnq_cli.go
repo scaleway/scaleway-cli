@@ -37,7 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 func mnqRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage Scaleway Messaging and Queueing brokers`,
-		Long:      `Messaging and Queuing API.`,
+		Long:      `This API allows you to manage Scaleway Messaging and Queueing brokers.`,
 		Namespace: "mnq",
 	}
 }

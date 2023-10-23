@@ -47,7 +47,7 @@ func appleSiliconRoot() *core.Command {
 func appleSiliconServer() *core.Command {
 	return &core.Command{
 		Short:     `Apple silicon management commands`,
-		Long:      `Apple silicon management commands`,
+		Long:      `Apple silicon management commands.`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 	}
@@ -56,7 +56,7 @@ func appleSiliconServer() *core.Command {
 func appleSiliconOs() *core.Command {
 	return &core.Command{
 		Short:     `OS management commands`,
-		Long:      `OS management commands`,
+		Long:      `OS management commands.`,
 		Namespace: "apple-silicon",
 		Resource:  "os",
 	}
@@ -65,7 +65,7 @@ func appleSiliconOs() *core.Command {
 func appleSiliconServerType() *core.Command {
 	return &core.Command{
 		Short:     `Server-Types management commands`,
-		Long:      `Server-Types management commands`,
+		Long:      `Server-Types management commands.`,
 		Namespace: "apple-silicon",
 		Resource:  "server-type",
 	}

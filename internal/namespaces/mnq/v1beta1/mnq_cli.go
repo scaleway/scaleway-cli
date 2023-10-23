@@ -53,7 +53,7 @@ func GetGeneratedCommands() *core.Commands {
 func mnqRoot() *core.Command {
 	return &core.Command{
 		Short:     `Messaging and Queuing APIs`,
-		Long:      `Messaging and Queuing NATS API.`,
+		Long:      `Messaging and Queuing APIs.`,
 		Namespace: "mnq",
 	}
 }

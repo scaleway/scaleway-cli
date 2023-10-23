@@ -64,8 +64,7 @@ func k8sCluster() *core.Command {
 	return &core.Command{
 		Short: `Kapsule cluster management commands`,
 		Long: `A cluster is a fully managed Kubernetes cluster
-It is composed of different pools, each pool containing the same kind of nodes.
-`,
+It is composed of different pools, each pool containing the same kind of nodes.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 	}
@@ -75,8 +74,7 @@ func k8sPool() *core.Command {
 	return &core.Command{
 		Short: `Kapsule pool management commands`,
 		Long: `A pool is a set of identical nodes
-A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled. A "default pool" is automatically created with every cluster via the console.
-`,
+A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled. A "default pool" is automatically created with every cluster via the console.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 	}
@@ -86,8 +84,7 @@ func k8sNode() *core.Command {
 	return &core.Command{
 		Short: `Kapsule node management commands`,
 		Long: `A node (short for worker node) is an abstraction for a Scaleway Instance
-A node is always part of a pool. Each of them has the Kubernetes software automatically installed and configured by Scaleway.
-`,
+A node is always part of a pool. Each of them has the Kubernetes software automatically installed and configured by Scaleway.`,
 		Namespace: "k8s",
 		Resource:  "node",
 	}
@@ -97,8 +94,7 @@ func k8sVersion() *core.Command {
 	return &core.Command{
 		Short: `Available Kubernetes versions commands`,
 		Long: `A version is a vanilla Kubernetes version like ` + "`" + `x.y.z` + "`" + `
-It comprises a major version ` + "`" + `x` + "`" + `, a minor version ` + "`" + `y` + "`" + `, and a patch version ` + "`" + `z` + "`" + `. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/containers/kubernetes/reference-content/version-support-policy/).
-`,
+It comprises a major version ` + "`" + `x` + "`" + `, a minor version ` + "`" + `y` + "`" + `, and a patch version ` + "`" + `z` + "`" + `. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/containers/kubernetes/reference-content/version-support-policy/).`,
 		Namespace: "k8s",
 		Resource:  "version",
 	}
@@ -108,8 +104,7 @@ func k8sClusterType() *core.Command {
 	return &core.Command{
 		Short: `Cluster type management commands`,
 		Long: `All cluster types available in a specified region
-A cluster type represents the different commercial types of clusters offered by Scaleway.
-`,
+A cluster type represents the different commercial types of clusters offered by Scaleway.`,
 		Namespace: "k8s",
 		Resource:  "cluster-type",
 	}
@@ -326,14 +321,14 @@ func k8sClusterCreate() *core.Command {
 			{
 				Name:       "pools.{index}.name",
 				Short:      `Name of the pool`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.node-type",
 				Short:      `Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -354,7 +349,7 @@ func k8sClusterCreate() *core.Command {
 			{
 				Name:       "pools.{index}.size",
 				Short:      `Size (number of nodes) of the pool`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},

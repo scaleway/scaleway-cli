@@ -69,7 +69,7 @@ func baremetalRoot() *core.Command {
 func baremetalServer() *core.Command {
 	return &core.Command{
 		Short:     `Server management commands`,
-		Long:      `A server is a denomination of a type of instances provided by Scaleway`,
+		Long:      `A server is a denomination of a type of instances provided by Scaleway.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 	}
@@ -79,8 +79,7 @@ func baremetalOffer() *core.Command {
 	return &core.Command{
 		Short: `Server offer management commands`,
 		Long: `Server offers will answer with all different Elastic Metal server ranges available in a  zone.
-Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.
-`,
+Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.`,
 		Namespace: "baremetal",
 		Resource:  "offer",
 	}
@@ -89,7 +88,7 @@ Each of them will contain all the features of the server (CPUs, memory, disks) w
 func baremetalOs() *core.Command {
 	return &core.Command{
 		Short:     `Operating System (OS) management commands`,
-		Long:      `An Operating System (OS) is the underlying software installed on your server`,
+		Long:      `An Operating System (OS) is the underlying software installed on your server.`,
 		Namespace: "baremetal",
 		Resource:  "os",
 	}
@@ -102,8 +101,7 @@ func baremetalBmc() *core.Command {
 For instance, your KVM-IP management console could be accessed with it.
 You need first to create an Remote Access option. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then you can add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd. Do not forget to delete the Option.
 Then you need to create Remote Access https://developers.scaleway.com/en/products/baremetal/api/#post-1af723.
-And finally Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.
-`,
+And finally Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.`,
 		Namespace: "baremetal",
 		Resource:  "bmc",
 	}
@@ -111,9 +109,8 @@ And finally Get Remote Access to get the login/password https://developers.scale
 
 func baremetalOptions() *core.Command {
 	return &core.Command{
-		Short: `Server options management commands`,
-		Long: `A Server has additional options that let you personalize it to better fit your needs.
-`,
+		Short:     `Server options management commands`,
+		Long:      `A Server has additional options that let you personalize it to better fit your needs.`,
 		Namespace: "baremetal",
 		Resource:  "options",
 	}
@@ -121,9 +118,8 @@ func baremetalOptions() *core.Command {
 
 func baremetalSettings() *core.Command {
 	return &core.Command{
-		Short: `Settings management commands`,
-		Long: `Allows to configure the general settings for your Elastic Metal server.
-`,
+		Short:     `Settings management commands`,
+		Long:      `Allows to configure the general settings for your Elastic Metal server.`,
 		Namespace: "baremetal",
 		Resource:  "settings",
 	}
@@ -139,8 +135,7 @@ resources that are on the same Private Network .  A VLAN
 interface is available on the server and can be freely
 managed (adding IP addresses, shutdown interface...).
 
-Note that a resource can be a part of multiple Private Networks.
-`,
+Note that a resource can be a part of multiple Private Networks.`,
 		Namespace: "baremetal",
 		Resource:  "private-network",
 	}

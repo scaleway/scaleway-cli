@@ -6,14 +6,14 @@ USAGE:
   scw iam policy list [arg=value ...]
 
 ARGS:
-  [order-by=created_at_asc]                 Criteria for sorting results (policy_name_asc | policy_name_desc | created_at_asc | created_at_desc)
-  [editable]                                Defines whether or not filter out editable policies
-  [user-ids.{index}]                        Defines whether or not to filter by list of user IDs
-  [group-ids.{index}]                       Defines whether or not to filter by list of group IDs
-  [application-ids.{index}]                 Filter by a list of application IDs
-  [no-principal]                            Defines whether or not the policy is attributed to a principal
-  [policy-name]                             Name of the policy to fetch
-  organization-id=<retrieved from config>   ID of the Organization to filter
+  [order-by=created_at_asc]                   Criteria for sorting results (policy_name_asc | policy_name_desc | created_at_asc | created_at_desc)
+  [editable]                                  Defines whether or not filter out editable policies
+  [user-ids.{index}]                          Defines whether or not to filter by list of user IDs
+  [group-ids.{index}]                         Defines whether or not to filter by list of group IDs
+  [application-ids.{index}]                   Filter by a list of application IDs
+  [no-principal]                              Defines whether or not the policy is attributed to a principal
+  [policy-name]                               Name of the policy to fetch
+  [organization-id=<retrieved from config>]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
   -h, --help   help for list

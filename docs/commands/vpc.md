@@ -25,7 +25,6 @@ to resources that are on the same Private Network. Note that a
 resource can be a part of multiple private networks.
 
 
-
 ### Create a Private Network
 
 Create a new Private Network. Once created, you can attach Scaleway resources which are in the same region.
@@ -141,9 +140,9 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 
 ## Subnet management command
 
-CIDR Subnet
+CIDR Subnet.
 
-CIDR Subnet
+CIDR Subnet.
 
 **Usage:**
 
@@ -158,7 +157,6 @@ scw vpc subnet
 A Virtual Private Cloud (VPC) allows you to group your regional 
 Private Networks together. Note that a Private Network can be a 
 part of only one VPC.
-
 
 
 ### Create a VPC

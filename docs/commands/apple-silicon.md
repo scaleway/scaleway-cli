@@ -22,7 +22,7 @@ Apple silicon API.
   
 ## OS management commands
 
-OS management commands
+OS management commands.
 
 
 ### Get an Operating System (OS)
@@ -68,7 +68,7 @@ scw apple-silicon os list [arg=value ...]
 
 ## Apple silicon management commands
 
-Apple silicon management commands
+Apple silicon management commands.
 
 
 ### Create a server
@@ -272,7 +272,7 @@ scw apple-silicon server wait 11111111-1111-1111-1111-111111111111
 
 ## Server-Types management commands
 
-Server-Types management commands
+Server-Types management commands.
 
 
 ### Get a server type

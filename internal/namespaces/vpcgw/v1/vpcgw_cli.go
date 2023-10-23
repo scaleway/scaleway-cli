@@ -74,9 +74,8 @@ func vpcGwRoot() *core.Command {
 
 func vpcGwGateway() *core.Command {
 	return &core.Command{
-		Short: `Public Gateway management`,
-		Long: `Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.
-`,
+		Short:     `Public Gateway management`,
+		Long:      `Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 	}
@@ -84,9 +83,8 @@ func vpcGwGateway() *core.Command {
 
 func vpcGwGatewayNetwork() *core.Command {
 	return &core.Command{
-		Short: `Gateway Networks management`,
-		Long: `A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.
-`,
+		Short:     `Gateway Networks management`,
+		Long:      `A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 	}
@@ -94,9 +92,8 @@ func vpcGwGatewayNetwork() *core.Command {
 
 func vpcGwDHCP() *core.Command {
 	return &core.Command{
-		Short: `DHCP configuration management`,
-		Long: `These objects define a DHCP configuration, i.e. how IP addresses should be assigned to devices on a Private Network attached to a Public Gateway. Definable parameters include the subnet for the DHCP server, the validity  period for DHCP entries, whether to use dynamic pooling, and more. A DHCP configuration object has a DHCP ID, which can then be used as part of a  call to create or update a Gateway Network. This lets you attach an existing DHCP configuration to a Public Gateway attached to a Private Network. Similarly, you can use a DHCP ID as a query parameter to list Gateway Networks which use this DHCP configuration object.
-`,
+		Short:     `DHCP configuration management`,
+		Long:      `These objects define a DHCP configuration, i.e. how IP addresses should be assigned to devices on a Private Network attached to a Public Gateway. Definable parameters include the subnet for the DHCP server, the validity  period for DHCP entries, whether to use dynamic pooling, and more. A DHCP configuration object has a DHCP ID, which can then be used as part of a  call to create or update a Gateway Network. This lets you attach an existing DHCP configuration to a Public Gateway attached to a Private Network. Similarly, you can use a DHCP ID as a query parameter to list Gateway Networks which use this DHCP configuration object.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 	}
@@ -104,9 +101,8 @@ func vpcGwDHCP() *core.Command {
 
 func vpcGwDHCPEntry() *core.Command {
 	return &core.Command{
-		Short: `DHCP entries management`,
-		Long: `DHCP entries belong to a specified Gateway Network (Public Gateway / Private Network connection). A DHCP entry can hold either a dynamic DHCP lease (an IP address dynamically assigned by the Public Gateway to a device) or a static, user-created DHCP reservation.
-`,
+		Short:     `DHCP entries management`,
+		Long:      `DHCP entries belong to a specified Gateway Network (Public Gateway / Private Network connection). A DHCP entry can hold either a dynamic DHCP lease (an IP address dynamically assigned by the Public Gateway to a device) or a static, user-created DHCP reservation.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 	}
@@ -114,9 +110,8 @@ func vpcGwDHCPEntry() *core.Command {
 
 func vpcGwPatRule() *core.Command {
 	return &core.Command{
-		Short: `PAT rules management`,
-		Long: `PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
-`,
+		Short:     `PAT rules management`,
+		Long:      `PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 	}
@@ -124,9 +119,8 @@ func vpcGwPatRule() *core.Command {
 
 func vpcGwIP() *core.Command {
 	return &core.Command{
-		Short: `IP address management`,
-		Long: `Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.
-`,
+		Short:     `IP address management`,
+		Long:      `Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.`,
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 	}
@@ -134,9 +128,8 @@ func vpcGwIP() *core.Command {
 
 func vpcGwGatewayType() *core.Command {
 	return &core.Command{
-		Short: `Gateway types information`,
-		Long: `Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
-`,
+		Short:     `Gateway types information`,
+		Long:      `Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-type",
 	}

@@ -610,13 +610,7 @@ func iamApplicationList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "organization-id",
-				Short:      `ID of the Organization to filter`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
+			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.ListApplicationsRequest)
@@ -826,13 +820,7 @@ func iamGroupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "organization-id",
-				Short:      `Filter by Organization ID`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
+			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.ListGroupsRequest)
@@ -1295,13 +1283,7 @@ func iamPolicyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "organization-id",
-				Short:      `ID of the Organization to filter`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
+			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.ListPoliciesRequest)

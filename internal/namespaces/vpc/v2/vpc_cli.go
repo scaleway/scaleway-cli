@@ -49,8 +49,7 @@ func vpcVpc() *core.Command {
 		Short: `VPC management command`,
 		Long: `A Virtual Private Cloud (VPC) allows you to group your regional 
 Private Networks together. Note that a Private Network can be a 
-part of only one VPC.
-`,
+part of only one VPC.`,
 		Namespace: "vpc",
 		Resource:  "vpc",
 	}
@@ -62,8 +61,7 @@ func vpcPrivateNetwork() *core.Command {
 		Long: `A Private Network allows you to interconnect your Scaleway resources
 in an isolated and private network. Network reachability is limited
 to resources that are on the same Private Network. Note that a
-resource can be a part of multiple private networks.
-`,
+resource can be a part of multiple private networks.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
 	}
@@ -72,7 +70,7 @@ resource can be a part of multiple private networks.
 func vpcSubnet() *core.Command {
 	return &core.Command{
 		Short:     `Subnet management command`,
-		Long:      `CIDR Subnet`,
+		Long:      `CIDR Subnet.`,
 		Namespace: "vpc",
 		Resource:  "subnet",
 	}

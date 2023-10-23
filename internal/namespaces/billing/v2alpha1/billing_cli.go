@@ -28,7 +28,7 @@ func GetGeneratedCommands() *core.Commands {
 func billingRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to query your consumption`,
-		Long:      `Billing API.`,
+		Long:      `This API allows you to query your consumption.`,
 		Namespace: "billing",
 	}
 }
