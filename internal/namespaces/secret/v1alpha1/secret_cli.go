@@ -115,7 +115,7 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_secret_type", "opaque", "certificate"},
+				EnumValues: []string{"unknown_secret_type", "opaque", "certificate", "key_value"},
 			},
 			{
 				Name:       "path",
