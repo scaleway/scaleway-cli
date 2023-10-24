@@ -2,11 +2,26 @@
 # Documentation for `scw billing`
 This API allows you to query your consumption.
   
+- [Discounts management commands](#discounts-management-commands)
 - [Invoices management commands](#invoices-management-commands)
   - [Download an invoice](#download-an-invoice)
   - [List invoices](#list-invoices)
 
   
+## Discounts management commands
+
+Discounts management commands.
+
+Discounts management commands.
+
+**Usage:**
+
+```
+scw billing discount
+```
+
+
+
 ## Invoices management commands
 
 Invoices management commands.
