@@ -65,7 +65,7 @@ func GetGeneratedCommands() *core.Commands {
 func functionRoot() *core.Command {
 	return &core.Command{
 		Short:     `Function as a Service API`,
-		Long:      `Serverless Functions API.`,
+		Long:      `Function as a Service API.`,
 		Namespace: "function",
 	}
 }
@@ -1519,21 +1519,21 @@ func functionTriggerCreate() *core.Command {
 			{
 				Name:       "scw-sqs-config.queue",
 				Short:      `Name of the SQS queue the trigger should listen to`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-sqs-config.mnq-project-id",
 				Short:      `ID of the M&Q project`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-sqs-config.mnq-region",
 				Short:      `Region in which the M&Q project is activated`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1546,14 +1546,14 @@ func functionTriggerCreate() *core.Command {
 			{
 				Name:       "scw-nats-config.subject",
 				Short:      `Name of the NATS subject the trigger should listen to`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-nats-config.mnq-nats-account-id",
 				Short:      `ID of the M&Q NATS account`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1567,7 +1567,7 @@ func functionTriggerCreate() *core.Command {
 			{
 				Name:       "scw-nats-config.mnq-region",
 				Short:      `Region of the M&Q project`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},

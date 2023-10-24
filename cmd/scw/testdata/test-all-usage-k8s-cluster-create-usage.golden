@@ -20,11 +20,11 @@ ARGS:
   [tags.{index}]                                         Tags associated with the cluster
   version=latest                                         Kubernetes version of the cluster
   cni=cilium                                             Container Network Interface (CNI) plugin running in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo)
-  pools.{index}.name                                     Name of the pool
-  pools.{index}.node-type                                Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster
+  [pools.{index}.name]                                   Name of the pool
+  [pools.{index}.node-type]                              Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster
   [pools.{index}.placement-group-id]                     Placement group ID in which all the nodes of the pool will be created
   [pools.{index}.autoscaling]                            Defines whether the autoscaling feature is enabled for the pool
-  pools.{index}.size                                     Size (number of nodes) of the pool
+  [pools.{index}.size]                                   Size (number of nodes) of the pool
   [pools.{index}.min-size]                               Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
   [pools.{index}.max-size]                               Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
   [pools.{index}.container-runtime]                      Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24 (unknown_runtime | docker | containerd | crio)

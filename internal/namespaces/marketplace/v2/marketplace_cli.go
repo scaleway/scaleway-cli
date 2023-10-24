@@ -37,7 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 func marketplaceRoot() *core.Command {
 	return &core.Command{
 		Short:     `Marketplace API`,
-		Long:      `Marketplace API.`,
+		Long:      ``,
 		Namespace: "marketplace",
 	}
 }

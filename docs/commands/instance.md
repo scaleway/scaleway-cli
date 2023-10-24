@@ -109,7 +109,6 @@ One image will contain all of the volumes of your Instance, and can be used to r
 To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
 
 
-
 ### Create an Instance image
 
 Create an Instance image from the specified snapshot ID.
@@ -346,7 +345,6 @@ You can attach it to any of your Instances and do live migration of the IP addre
 Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts any ongoing public connection to the Instance. This does not apply if you have migrated your server to the new Network stack and have at least one flexible IP attached to the Instance.
 
 
-
 ### Attach an IP to a given server
 
 Attach an IP to a given server.
@@ -553,7 +551,7 @@ scw instance ip list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID in which the IPs are reserved |
-| tags.{index} |  | Filter IPs with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | Filter IPs with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter on the IP address (Works as a LIKE operation on the IP address) |
 | type |  | Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6') |
 | organization-id |  | Organization ID in which the IPs are reserved |
@@ -639,7 +637,6 @@ For each policy types, one of the two `policy_mode` may be selected:
   - `enforced` guarantees that if the Instance starts, the constraint is respected
 
 The `policy_mode` is set by default to `optional`.
-
 
 
 ### Create a placement group
@@ -803,7 +800,7 @@ scw instance placement-group list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | List only placement groups of this Project ID |
-| tags.{index} |  | List placement groups with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | List placement groups with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo") |
 | organization-id |  | List only placement groups of this Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
@@ -954,7 +951,6 @@ Private Network. An Instance can have multiple private NICs at the same
 time, but each NIC must belong to a different Private Network.
 
 
-
 ### Create a private NIC connecting an Instance to a Private Network
 
 Create a private NIC connecting an Instance to a Private Network.
@@ -1036,7 +1032,7 @@ scw instance private-nic list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | Instance to which the private NIC is attached |
-| tags.{index} |  | Private NIC tags |
+| tags |  | Private NIC tags |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1095,7 +1091,6 @@ Security groups enable you to create rules that either drop or allow incoming tr
 
 Security groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
 As a contrary, you have to switch in a stateless mode to define explicitly allowed.
-
 
 
 ### Remove all rules of a security group
@@ -1407,7 +1402,7 @@ scw instance security-group list [arg=value ...]
 |------|---|-------------|
 | name |  | Name of the security group |
 | project-id |  | Security group Project ID |
-| tags.{index} |  | List security groups with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | List security groups with these exact tags (to filter with several tags, use commas to separate them) |
 | project-default |  | Filter security groups with this value for project_default |
 | organization-id |  | Security group Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
@@ -1560,7 +1555,6 @@ scw instance security-group update security-group-id=11111111-1111-1111-1111-111
 Instances are computing units providing resources to run your applications on.
 Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
 **Note: Instances can be referenced as "servers" in API endpoints.**
-
 
 
 ### Perform a raw API action on a server
@@ -1974,12 +1968,12 @@ scw instance server list [arg=value ...]
 | without-ip |  | List Instances that are not attached to a public IP |
 | commercial-type |  | List Instances of this commercial type |
 | state | One of: `running`, `stopped`, `stopped in place`, `starting`, `stopping`, `locked` | List Instances in this state |
-| tags.{index} |  | List Instances with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | List Instances with these exact tags (to filter with several tags, use commas to separate them) |
 | private-network |  | List Instances in this Private Network |
 | order | One of: `creation_date_desc`, `creation_date_asc`, `modification_date_desc`, `modification_date_asc` | Define the order of the returned servers |
-| private-networks.{index} |  | List Instances from the given Private Networks (use commas to separate them) |
+| private-networks |  | List Instances from the given Private Networks (use commas to separate them) |
 | private-nic-mac-address |  | List Instances associated with the given private NIC MAC address |
-| servers.{index} |  | List Instances from these server ids (use commas to separate them) |
+| servers |  | List Instances from these server ids (use commas to separate them) |
 | organization-id |  | List only Instances of this Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2347,7 +2341,6 @@ All Instance types available in a specified zone.
 Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
 
 
-
 ### Get availability
 
 Get availability for all Instance types.
@@ -2418,7 +2411,6 @@ of their own type or `unified`. Therefore, to migrate data from a `l_ssd` volume
 to a `b_ssd` volume, one can create a `unified` snapshot from the original volume
 and a new `b_ssd` volume from this snapshot. The newly created volume will hold a copy
 of the data of the original volume.
-
 
 
 ### Create a snapshot from a specified volume or from a QCOW2 file
@@ -2781,7 +2773,6 @@ There are two endpoints to access user data:
  - **From the Instance API** at using methods described bellow.
 
 
-
 ### Delete user data
 
 Delete the specified key from an Instance's user data.
@@ -2900,7 +2891,6 @@ When using multiple block devices, it's advised to mount them by
 using their UUID instead of their device name. A device name is
 subject to change depending on the volumes order. Block devices
 UUIDs can be found in `/dev/disk/by-id/`.
-
 
 
 ### Create a volume
@@ -3027,7 +3017,7 @@ scw instance volume list [arg=value ...]
 |------|---|-------------|
 | volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Filter by volume type |
 | project-id |  | Filter volume by Project ID |
-| tags.{index} |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter volume by name (for eg. "vol" will return "myvolume" but not "data") |
 | organization-id |  | Filter volume by Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
@@ -3111,7 +3101,6 @@ scw instance volume update 11111111-1111-1111-1111-111111111111 name=a-new-name 
 
 All volume types available in a specified zone.
 Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
-
 
 
 ### List volume types

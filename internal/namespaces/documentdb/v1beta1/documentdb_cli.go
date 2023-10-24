@@ -85,16 +85,15 @@ func GetGeneratedCommands() *core.Commands {
 func documentDbRoot() *core.Command {
 	return &core.Command{
 		Short:     `Managed Document Databases API`,
-		Long:      `Managed Document Databases API.`,
+		Long:      ``,
 		Namespace: "document-db",
 	}
 }
 
 func documentDbEngine() *core.Command {
 	return &core.Command{
-		Short: `Database engines commands`,
-		Long: `A database engine is the software component that stores and retrieves your data from a database. Currently FerretDB 1.X is available.
-`,
+		Short:     `Database engines commands`,
+		Long:      `A database engine is the software component that stores and retrieves your data from a database. Currently FerretDB 1.X is available.`,
 		Namespace: "document-db",
 		Resource:  "engine",
 	}
@@ -107,8 +106,7 @@ func documentDbInstance() *core.Command {
 
 **Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](#path-read-replicas-create-a-read-replica)
 
-Read Replicas can be used for certain read-only workflows such as Business Intelligence, or for a read-only scaling of your application. Read Replicas use asynchronous replication to replicate data from the main node.
-`,
+Read Replicas can be used for certain read-only workflows such as Business Intelligence, or for a read-only scaling of your application. Read Replicas use asynchronous replication to replicate data from the main node.`,
 		Namespace: "document-db",
 		Resource:  "instance",
 	}
@@ -116,9 +114,8 @@ Read Replicas can be used for certain read-only workflows such as Business Intel
 
 func documentDbACL() *core.Command {
 	return &core.Command{
-		Short: `Access Control List (ACL) management commands`,
-		Long: `Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
-`,
+		Short:     `Access Control List (ACL) management commands`,
+		Long:      `Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.`,
 		Namespace: "document-db",
 		Resource:  "acl",
 	}
@@ -134,8 +131,7 @@ Each user has associated permissions that give them access to zero or more logic
 * **None:** No access to the database
 * **Read:** Allow users to read tables and fields in a database
 * **Write:** Allow users to write content in databases.
-* **Admin:** Read and write access to the data, and extended privileges depending on the database engine.
-`,
+* **Admin:** Read and write access to the data, and extended privileges depending on the database engine.`,
 		Namespace: "document-db",
 		Resource:  "privilege",
 	}
@@ -143,9 +139,8 @@ Each user has associated permissions that give them access to zero or more logic
 
 func documentDbUser() *core.Command {
 	return &core.Command{
-		Short: `User management commands`,
-		Long: `Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage. For example, users with an ` + "`" + `admin` + "`" + ` role can create new databases and users.
-`,
+		Short:     `User management commands`,
+		Long:      `Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage. For example, users with an ` + "`" + `admin` + "`" + ` role can create new databases and users.`,
 		Namespace: "document-db",
 		Resource:  "user",
 	}
@@ -153,9 +148,8 @@ func documentDbUser() *core.Command {
 
 func documentDbDatabase() *core.Command {
 	return &core.Command{
-		Short: `Database management commands`,
-		Long: `Databases can be used to store and manage sets of structured information, or data. The interaction between the user and a database is done using a Database Engine, which provides a structured query language to add, modify or delete information from the database.
-`,
+		Short:     `Database management commands`,
+		Long:      `Databases can be used to store and manage sets of structured information, or data. The interaction between the user and a database is done using a Database Engine, which provides a structured query language to add, modify or delete information from the database.`,
 		Namespace: "document-db",
 		Resource:  "database",
 	}
@@ -167,8 +161,7 @@ func documentDbNodeType() *core.Command {
 		Long: `Two node type ranges are available:
 
 * **General Purpose:** production-grade nodes designed for scalable database infrastructures.
-* **Development:** sandbox environments and reliable performance for development and testing purposes.
-`,
+* **Development:** sandbox environments and reliable performance for development and testing purposes.`,
 		Namespace: "document-db",
 		Resource:  "node-type",
 	}
@@ -185,9 +178,8 @@ func documentDbLog() *core.Command {
 
 func documentDbSnapshot() *core.Command {
 	return &core.Command{
-		Short: `Block snapshot management`,
-		Long: `A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time. They are designed to recover your data in case of failure or accidental alterations of the data by a user. They allow you to quickly create a new Instance from a previous state of your database, regardless of the size of the volume. Their limitation is that, unlike backups, snapshots can only be stored in the same location as the original data.
-`,
+		Short:     `Block snapshot management`,
+		Long:      `A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time. They are designed to recover your data in case of failure or accidental alterations of the data by a user. They allow you to quickly create a new Instance from a previous state of your database, regardless of the size of the volume. Their limitation is that, unlike backups, snapshots can only be stored in the same location as the original data.`,
 		Namespace: "document-db",
 		Resource:  "snapshot",
 	}
@@ -208,8 +200,7 @@ Instance Access Control Lists (ACL) also apply to Read Replica direct access end
 **Limitations:**
 There might be replication lags between the primary node and its Read Replica nodes. You can try to reduce this lag with some good practices:
 * All your tables should have a primary key
-* Don't run large transactions that modify, delete or insert lots of rows. Try to split it into several small transactions.
-`,
+* Don't run large transactions that modify, delete or insert lots of rows. Try to split it into several small transactions.`,
 		Namespace: "document-db",
 		Resource:  "read-replica",
 	}
@@ -222,8 +213,7 @@ func documentDbSetting() *core.Command {
 
 Available settings depend on the database engine and its version. Note that some settings can only be defined upon database engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available database engines](#path-databases-list-databases-in-a-database-instance) endpoint.
 
-Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
-`,
+Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.`,
 		Namespace: "document-db",
 		Resource:  "setting",
 	}
@@ -238,8 +228,7 @@ All endpoints have TLS enabled. You can use TLS to make your data and your passw
 
 For added security, you can set up ACL rules to restrict access to your endpoint to a set of trusted hosts or networks of your choice.
 
-Load Balancers are used to forward traffic to the right node based on the node state (active/hot standby). The Load Balancers' configuration is set to cut off inactive connections if no TCP traffic is sent within a 6-hour timeframe. We recommend using connection pooling on the application side to renew database connections regularly.
-`,
+Load Balancers are used to forward traffic to the right node based on the node state (active/hot standby). The Load Balancers' configuration is set to cut off inactive connections if no TCP traffic is sent within a 6-hour timeframe. We recommend using connection pooling on the application side to renew database connections regularly.`,
 		Namespace: "document-db",
 		Resource:  "endpoint",
 	}

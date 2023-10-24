@@ -100,8 +100,7 @@ func instanceImage() *core.Command {
 		Short: `Image management commands`,
 		Long: `Images are backups of your Instances.
 One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration. 
-To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
-`,
+To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.`,
 		Namespace: "instance",
 		Resource:  "image",
 	}
@@ -113,8 +112,7 @@ func instanceIP() *core.Command {
 		Long: `A flexible IP address is an IP address which you hold independently of any Instance.
 You can attach it to any of your Instances and do live migration of the IP address between your Instances.
 
-Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts any ongoing public connection to the Instance. This does not apply if you have migrated your server to the new Network stack and have at least one flexible IP attached to the Instance.
-`,
+Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts any ongoing public connection to the Instance. This does not apply if you have migrated your server to the new Network stack and have at least one flexible IP attached to the Instance.`,
 		Namespace: "instance",
 		Resource:  "ip",
 	}
@@ -140,8 +138,7 @@ For each policy types, one of the two ` + "`" + `policy_mode` + "`" + ` may be s
   - ` + "`" + `optional` + "`" + ` will start your Instances even if the constraint is not respected
   - ` + "`" + `enforced` + "`" + ` guarantees that if the Instance starts, the constraint is respected
 
-The ` + "`" + `policy_mode` + "`" + ` is set by default to ` + "`" + `optional` + "`" + `.
-`,
+The ` + "`" + `policy_mode` + "`" + ` is set by default to ` + "`" + `optional` + "`" + `.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 	}
@@ -154,8 +151,7 @@ func instanceSecurityGroup() *core.Command {
 Security groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.
 
 Security groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
-As a contrary, you have to switch in a stateless mode to define explicitly allowed.
-`,
+As a contrary, you have to switch in a stateless mode to define explicitly allowed.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 	}
@@ -166,8 +162,7 @@ func instanceServer() *core.Command {
 		Short: `Instance management commands`,
 		Long: `Instances are computing units providing resources to run your applications on.
 Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
-**Note: Instances can be referenced as "servers" in API endpoints.**
-`,
+**Note: Instances can be referenced as "servers" in API endpoints.**`,
 		Namespace: "instance",
 		Resource:  "server",
 	}
@@ -177,8 +172,7 @@ func instanceServerType() *core.Command {
 	return &core.Command{
 		Short: `Instance type management commands`,
 		Long: `All Instance types available in a specified zone.
-Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
-`,
+Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.`,
 		Namespace: "instance",
 		Resource:  "server-type",
 	}
@@ -188,8 +182,7 @@ func instanceVolumeType() *core.Command {
 	return &core.Command{
 		Short: `Volume type management commands`,
 		Long: `All volume types available in a specified zone.
-Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
-`,
+Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).`,
 		Namespace: "instance",
 		Resource:  "volume-type",
 	}
@@ -212,8 +205,7 @@ A snapshot's volume type can be either its original volume's type
 of their own type or ` + "`" + `unified` + "`" + `. Therefore, to migrate data from a ` + "`" + `l_ssd` + "`" + ` volume
 to a ` + "`" + `b_ssd` + "`" + ` volume, one can create a ` + "`" + `unified` + "`" + ` snapshot from the original volume
 and a new ` + "`" + `b_ssd` + "`" + ` volume from this snapshot. The newly created volume will hold a copy
-of the data of the original volume.
-`,
+of the data of the original volume.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 	}
@@ -232,8 +224,7 @@ There are two endpoints to access user data:
    To enhance security, we only allow user data viewing and editing as root.
    To know if the query is issued by the root user, we only accept queries made from a local port below 1024 (by default, non-root users can not bind ports below 1024).
    To specify the local port with cURL, use ` + "`" + `curl --local-port 1-1024 http://169.254.42.42/user_data` + "`" + `
- - **From the Instance API** at using methods described bellow.
-`,
+ - **From the Instance API** at using methods described bellow.`,
 		Namespace: "instance",
 		Resource:  "user-data",
 	}
@@ -273,8 +264,7 @@ issue the ` + "`" + `terminate` + "`" + ` call.
 When using multiple block devices, it's advised to mount them by
 using their UUID instead of their device name. A device name is
 subject to change depending on the volumes order. Block devices
-UUIDs can be found in ` + "`" + `/dev/disk/by-id/` + "`" + `.
-`,
+UUIDs can be found in ` + "`" + `/dev/disk/by-id/` + "`" + `.`,
 		Namespace: "instance",
 		Resource:  "volume",
 	}
@@ -285,8 +275,7 @@ func instancePrivateNic() *core.Command {
 		Short: `Private NIC management commands`,
 		Long: `A Private NIC is the network interface that connects an Instance to a
 Private Network. An Instance can have multiple private NICs at the same
-time, but each NIC must belong to a different Private Network.
-`,
+time, but each NIC must belong to a different Private Network.`,
 		Namespace: "instance",
 		Resource:  "private-nic",
 	}
@@ -435,7 +424,7 @@ func instanceServerList() *core.Command {
 				EnumValues: []string{"running", "stopped", "stopped in place", "starting", "stopping", "locked"},
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `List Instances with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -457,7 +446,7 @@ func instanceServerList() *core.Command {
 				EnumValues: []string{"creation_date_desc", "creation_date_asc", "modification_date_desc", "modification_date_asc"},
 			},
 			{
-				Name:       "private-networks.{index}",
+				Name:       "private-networks",
 				Short:      `List Instances from the given Private Networks (use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -471,7 +460,7 @@ func instanceServerList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "servers.{index}",
+				Name:       "servers",
 				Short:      `List Instances from these server ids (use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -1583,7 +1572,7 @@ func instanceVolumeList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `Filter volumes with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -1936,7 +1925,7 @@ func instanceSecurityGroupList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `List security groups with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -2559,7 +2548,7 @@ func instancePlacementGroupList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `List placement groups with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -3034,7 +3023,7 @@ func instanceIPList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `Filter IPs with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -3367,7 +3356,7 @@ func instancePrivateNicList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `Private NIC tags`,
 				Required:   false,
 				Deprecated: false,
