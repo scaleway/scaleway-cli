@@ -51,7 +51,6 @@ Public Gateways API.
 These objects define a DHCP configuration, i.e. how IP addresses should be assigned to devices on a Private Network attached to a Public Gateway. Definable parameters include the subnet for the DHCP server, the validity  period for DHCP entries, whether to use dynamic pooling, and more. A DHCP configuration object has a DHCP ID, which can then be used as part of a  call to create or update a Gateway Network. This lets you attach an existing DHCP configuration to a Public Gateway attached to a Private Network. Similarly, you can use a DHCP ID as a query parameter to list Gateway Networks which use this DHCP configuration object.
 
 
-
 ### Create a DHCP configuration
 
 Create a new DHCP configuration object, containing settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. The response object includes the ID of the DHCP configuration object. You can use this ID as part of a call to `Create a Public Gateway connection to a Private Network` or `Update a Public Gateway connection to a Private Network` to directly apply this DHCP configuration.
@@ -193,7 +192,6 @@ scw vpc-gw dhcp update <dhcp-id ...> [arg=value ...]
 DHCP entries belong to a specified Gateway Network (Public Gateway / Private Network connection). A DHCP entry can hold either a dynamic DHCP lease (an IP address dynamically assigned by the Public Gateway to a device) or a static, user-created DHCP reservation.
 
 
-
 ### Create a DHCP entry
 
 Create a static DHCP reservation, specifying the Gateway Network for the reservation, the MAC address of the target device and the IP address to assign this device. The response is a DHCP entry object, confirming the ID and configuration details of the static DHCP reservation.
@@ -327,7 +325,6 @@ scw vpc-gw dhcp-entry update <dhcp-entry-id ...> [arg=value ...]
 ## Public Gateway management
 
 Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.
-
 
 
 ### Create a Public Gateway
@@ -497,7 +494,6 @@ scw vpc-gw gateway upgrade <gateway-id ...> [arg=value ...]
 A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.
 
 
-
 ### Attach a Public Gateway to a Private Network
 
 Attach a specific Public Gateway to a specific Private Network (create a GatewayNetwork). You can configure parameters for the connection including DHCP settings, whether to enable masquerade (dynamic NAT), and more.
@@ -520,7 +516,7 @@ scw vpc-gw gateway-network create [arg=value ...]
 | dhcp-id |  | ID of an existing DHCP configuration object to use for this GatewayNetwork |
 | address |  | Static IP address in CIDR format to to use without DHCP |
 | ipam-config.push-default-route |  | Enabling the default route also enables masquerading |
-| ipam-config.ipam-ipid |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
+| ipam-config.ipam-ip-id |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -612,7 +608,7 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 | dhcp-id |  | ID of the new DHCP configuration object to use with this GatewayNetwork |
 | address |  | New static IP address |
 | ipam-config.push-default-route |  | Enabling the default route also enables masquerading |
-| ipam-config.ipam-ipid |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
+| ipam-config.ipam-ip-id |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -620,7 +616,6 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 ## Gateway types information
 
 Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
-
 
 
 ### List Public Gateway types
@@ -645,7 +640,6 @@ scw vpc-gw gateway-type list [arg=value ...]
 ## IP address management
 
 Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.
-
 
 
 ### Reserve an IP
@@ -760,7 +754,6 @@ scw vpc-gw ip update <ip-id ...> [arg=value ...]
 ## PAT rules management
 
 PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
-
 
 
 ### Create a PAT rule
