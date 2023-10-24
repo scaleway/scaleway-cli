@@ -719,7 +719,14 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			},
 			{
 				Name:       "ipam-config.push-default-route",
-				Short:      `Defines whether the default route is enabled on that Gateway Network.`,
+				Short:      `Enabling the default route also enables masquerading`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-config.ipam-ipid",
+				Short:      `Use this IPAM-booked IP ID as the Gateway's IP in this Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -784,7 +791,14 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 			},
 			{
 				Name:       "ipam-config.push-default-route",
-				Short:      `Defines whether the default route is enabled on that Gateway Network.`,
+				Short:      `Enabling the default route also enables masquerading`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-config.ipam-ipid",
+				Short:      `Use this IPAM-booked IP ID as the Gateway's IP in this Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

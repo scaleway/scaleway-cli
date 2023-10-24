@@ -519,7 +519,8 @@ scw vpc-gw gateway-network create [arg=value ...]
 | enable-dhcp |  | Defines whether to enable DHCP on this Private Network. |
 | dhcp-id |  | ID of an existing DHCP configuration object to use for this GatewayNetwork |
 | address |  | Static IP address in CIDR format to to use without DHCP |
-| ipam-config.push-default-route |  | Defines whether the default route is enabled on that Gateway Network. |
+| ipam-config.push-default-route |  | Enabling the default route also enables masquerading |
+| ipam-config.ipam-ipid |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -610,7 +611,8 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 | enable-dhcp |  | Defines whether to enable DHCP on this Private Network. |
 | dhcp-id |  | ID of the new DHCP configuration object to use with this GatewayNetwork |
 | address |  | New static IP address |
-| ipam-config.push-default-route |  | Defines whether the default route is enabled on that Gateway Network. |
+| ipam-config.push-default-route |  | Enabling the default route also enables masquerading |
+| ipam-config.ipam-ipid |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
