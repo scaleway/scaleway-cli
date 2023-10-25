@@ -44,8 +44,6 @@ scw ipfs pin create-by-cid [arg=value ...]
 | cid | Required | CID containing the content you want to pin |
 | origins.{index} |  | Node containing the content you want to pin |
 | name |  | Pin name |
-| pin-options.required-zones.{index} |  |  |
-| pin-options.replication-count |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -72,8 +70,6 @@ scw ipfs pin create-by-url [arg=value ...]
 | volume-id | Required | Volume ID on which you want to pin your content |
 | url | Required | URL containing the content you want to pin |
 | name |  | Pin name |
-| pin-options.required-zones.{index} |  |  |
-| pin-options.replication-count |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

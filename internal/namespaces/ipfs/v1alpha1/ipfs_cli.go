@@ -279,18 +279,6 @@ A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "pin-options.required-zones.{index}",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "pin-options.replication-count",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -342,18 +330,6 @@ A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed
 			{
 				Name:       "name",
 				Short:      `Pin name`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "pin-options.required-zones.{index}",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "pin-options.replication-count",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
