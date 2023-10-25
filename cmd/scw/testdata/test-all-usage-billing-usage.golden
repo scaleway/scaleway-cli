@@ -6,6 +6,7 @@ USAGE:
   scw billing <command>
 
 AVAILABLE COMMANDS:
+  discount    Discounts management commands
   invoice     Invoices management commands
 
 FLAGS:
