@@ -918,6 +918,8 @@ scw rdb instance upgrade <instance-id ...> [arg=value ...]
 | volume-size |  | Increase your block storage volume size |
 | volume-type | One of: `lssd`, `bssd`, `sbs_5k`, `sbs_15k` | Change your Database Instance storage type |
 | upgradable-version-id |  | Update your database engine to a newer version |
+| major-upgrade-workflow.upgradable-version-id |  | Update your database engine to a newer version |
+| major-upgrade-workflow.with-endpoints |  | Include endpoint during the migration |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
