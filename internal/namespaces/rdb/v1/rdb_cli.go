@@ -688,6 +688,20 @@ func rdbInstanceUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "major-upgrade-workflow.upgradable-version-id",
+				Short:      `Update your database engine to a newer version`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "major-upgrade-workflow.with-endpoints",
+				Short:      `Include endpoint during the migration`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
