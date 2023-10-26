@@ -21,6 +21,7 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		billingRoot(),
 		billingInvoice(),
+		billingDiscount(),
 		billingInvoiceList(),
 		billingInvoiceDownload(),
 	)
@@ -39,6 +40,15 @@ func billingInvoice() *core.Command {
 		Long:      `Invoices management commands.`,
 		Namespace: "billing",
 		Resource:  "invoice",
+	}
+}
+
+func billingDiscount() *core.Command {
+	return &core.Command{
+		Short:     `Discounts management commands`,
+		Long:      `Discounts management commands.`,
+		Namespace: "billing",
+		Resource:  "discount",
 	}
 }
 
