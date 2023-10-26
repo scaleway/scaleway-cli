@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List function resources.
+List all triggers belonging to a specified Organization or Project.
 
 USAGE:
   scw function trigger list [arg=value ...]

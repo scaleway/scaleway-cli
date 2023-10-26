@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a trigger with a specified ID.
+Retrieve information about a specific name.
 
 USAGE:
-  scw function trigger delete <trigger-id ...> [arg=value ...]
+  scw ipns name get [arg=value ...]
 
 ARGS:
-  trigger-id        ID of the trigger to delete
+  name-id           Name ID whose information you want to retrieve
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help   help for get
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

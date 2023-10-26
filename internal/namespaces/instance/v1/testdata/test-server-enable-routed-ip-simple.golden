@@ -36,6 +36,7 @@ PublicIP.Netmask              32
 PublicIP.Family               inet
 PublicIP.Dynamic              false
 PublicIP.ProvisioningMode     dhcp
+PublicIP.State                unknown_state
 PublicIPs.0.ID                8febb0af-cde7-414a-bff1-a38146808bbf
 PublicIPs.0.Address           51.159.82.142
 PublicIPs.0.Gateway           62.210.0.1
@@ -43,6 +44,7 @@ PublicIPs.0.Netmask           32
 PublicIPs.0.Family            inet
 PublicIPs.0.Dynamic           false
 PublicIPs.0.ProvisioningMode  dhcp
+PublicIPs.0.State             unknown_state
 MacAddress                    de:00:00:04:c5:5d
 ModificationDate              few seconds ago
 State                         running
@@ -120,7 +122,8 @@ Zone                          fr-par-3
     "family": "inet",
     "dynamic": false,
     "provisioning_mode": "dhcp",
-    "tags": null
+    "tags": null,
+    "state": "unknown_state"
   },
   "public_ips": [
     {
@@ -131,7 +134,8 @@ Zone                          fr-par-3
       "family": "inet",
       "dynamic": false,
       "provisioning_mode": "dhcp",
-      "tags": null
+      "tags": null,
+      "state": "unknown_state"
     }
   ],
   "mac_address": "de:00:00:04:c5:5d",

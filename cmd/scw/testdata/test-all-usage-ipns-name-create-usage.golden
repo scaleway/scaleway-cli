@@ -1,16 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a trigger with a specified ID.
+You can use the `ipns key` command to list and generate more names and their respective keys.
 
 USAGE:
-  scw function trigger delete <trigger-id ...> [arg=value ...]
+  scw ipns name create [arg=value ...]
 
 ARGS:
-  trigger-id        ID of the trigger to delete
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  [name]            Name for your records
+  [value]           Value you want to associate with your records, CID or IPNS key
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help   help for create
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

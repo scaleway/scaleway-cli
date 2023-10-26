@@ -38,11 +38,11 @@ Function as a Service API.
   - [Get a token](#get-a-token)
   - [List all tokens](#list-all-tokens)
 - [Trigger management commands](#trigger-management-commands)
-  - [Create function resources](#create-function-resources)
-  - [Delete function resources](#delete-function-resources)
-  - [Get function resources](#get-function-resources)
-  - [List function resources](#list-function-resources)
-  - [Update function resources](#update-function-resources)
+  - [Create a trigger](#create-a-trigger)
+  - [Delete a trigger](#delete-a-trigger)
+  - [Get a trigger](#get-a-trigger)
+  - [List all triggers](#list-all-triggers)
+  - [Update a trigger](#update-a-trigger)
 
   
 ## Cron management commands
@@ -725,9 +725,9 @@ scw function token list [arg=value ...]
 Trigger management commands.
 
 
-### Create function resources
+### Create a trigger
 
-Create function resources.
+Create a new trigger for a specified function.
 
 **Usage:**
 
@@ -756,9 +756,9 @@ scw function trigger create [arg=value ...]
 
 
 
-### Delete function resources
+### Delete a trigger
 
-Delete function resources.
+Delete a trigger with a specified ID.
 
 **Usage:**
 
@@ -776,9 +776,9 @@ scw function trigger delete <trigger-id ...> [arg=value ...]
 
 
 
-### Get function resources
+### Get a trigger
 
-Get function resources.
+Get a trigger with a specified ID.
 
 **Usage:**
 
@@ -796,9 +796,9 @@ scw function trigger get <trigger-id ...> [arg=value ...]
 
 
 
-### List function resources
+### List all triggers
 
-List function resources.
+List all triggers belonging to a specified Organization or Project.
 
 **Usage:**
 
@@ -819,9 +819,9 @@ scw function trigger list [arg=value ...]
 
 
 
-### Update function resources
+### Update a trigger
 
-Update function resources.
+Update a trigger with a specified ID.
 
 **Usage:**
 
