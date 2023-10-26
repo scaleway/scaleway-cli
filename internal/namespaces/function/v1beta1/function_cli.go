@@ -1481,8 +1481,8 @@ func functionTokenDelete() *core.Command {
 
 func functionTriggerCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create function resources`,
-		Long:      `Create function resources.`,
+		Short:     `Create a trigger`,
+		Long:      `Create a new trigger for a specified function.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "create",
@@ -1586,8 +1586,8 @@ func functionTriggerCreate() *core.Command {
 
 func functionTriggerGet() *core.Command {
 	return &core.Command{
-		Short:     `Get function resources`,
-		Long:      `Get function resources.`,
+		Short:     `Get a trigger`,
+		Long:      `Get a trigger with a specified ID.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "get",
@@ -1616,8 +1616,8 @@ func functionTriggerGet() *core.Command {
 
 func functionTriggerList() *core.Command {
 	return &core.Command{
-		Short:     `List function resources`,
-		Long:      `List function resources.`,
+		Short:     `List all triggers`,
+		Long:      `List all triggers belonging to a specified Organization or Project.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "list",
@@ -1671,8 +1671,8 @@ func functionTriggerList() *core.Command {
 
 func functionTriggerUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update function resources`,
-		Long:      `Update function resources.`,
+		Short:     `Update a trigger`,
+		Long:      `Update a trigger with a specified ID.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "update",
@@ -1715,8 +1715,8 @@ func functionTriggerUpdate() *core.Command {
 
 func functionTriggerDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete function resources`,
-		Long:      `Delete function resources.`,
+		Short:     `Delete a trigger`,
+		Long:      `Delete a trigger with a specified ID.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "delete",
