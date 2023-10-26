@@ -55,7 +55,8 @@ c66fe648-06c8-4cab-83d4-d963bf0ef8df  kubetest-runner  PRO2-S  archived  fr-par-
       "family": "inet",
       "dynamic": false,
       "provisioning_mode": "dhcp",
-      "tags": null
+      "tags": null,
+      "state": "unknown_state"
     },
     "public_ips": [
       {
@@ -66,7 +67,8 @@ c66fe648-06c8-4cab-83d4-d963bf0ef8df  kubetest-runner  PRO2-S  archived  fr-par-
         "family": "inet",
         "dynamic": false,
         "provisioning_mode": "dhcp",
-        "tags": null
+        "tags": null,
+        "state": "unknown_state"
       }
     ],
     "mac_address": "de:00:00:13:02:db",

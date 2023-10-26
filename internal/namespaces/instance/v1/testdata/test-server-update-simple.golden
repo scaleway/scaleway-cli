@@ -32,6 +32,7 @@ Server.PublicIP.Netmask            -
 Server.PublicIP.Family             inet
 Server.PublicIP.Dynamic            false
 Server.PublicIP.ProvisioningMode   manual
+Server.PublicIP.State              unknown_state
 Server.MacAddress                  -
 Server.ModificationDate            few seconds ago
 Server.State                       archived
@@ -106,7 +107,8 @@ Server.Zone                        fr-par-1
       "family": "inet",
       "dynamic": false,
       "provisioning_mode": "manual",
-      "tags": null
+      "tags": null,
+      "state": "unknown_state"
     },
     "public_ips": null,
     "mac_address": "",
