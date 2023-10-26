@@ -124,6 +124,21 @@ func secretSecretCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "expires-at",
+				Short:      `Expiration date of the secret`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ephemeral-action",
+				Short:      `Action to be taken when the secret expires`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_ephemeral_action", "delete_secret", "disable_secret"},
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -317,6 +332,13 @@ func secretSecretList() *core.Command {
 			{
 				Name:       "path",
 				Short:      `Filter by path (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-ephemeral",
+				Short:      `Filter by ephemeral / not ephemeral (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

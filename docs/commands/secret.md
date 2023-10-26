@@ -119,6 +119,8 @@ scw secret secret create [arg=value ...]
 | description |  | Description of the secret |
 | type | One of: `unknown_secret_type`, `opaque`, `certificate`, `key_value` | Type of the secret |
 | path |  | Path of the secret |
+| expires-at |  | Expiration date of the secret |
+| ephemeral-action | One of: `unknown_ephemeral_action`, `delete_secret`, `disable_secret` | Action to be taken when the secret expires |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -204,6 +206,7 @@ scw secret secret list [arg=value ...]
 | name |  | Filter by secret name (optional) |
 | is-managed |  | Filter by managed / not managed (optional) |
 | path |  | Filter by path (optional) |
+| is-ephemeral |  | Filter by ephemeral / not ephemeral (optional) |
 | organization-id |  | Filter by Organization ID (optional) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
