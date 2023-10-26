@@ -475,7 +475,7 @@ func temDomainCreate() *core.Command {
 func temDomainGet() *core.Command {
 	return &core.Command{
 		Short:     `Get information about a domain`,
-		Long:      `Retrieve information about a specific domain using the ` + "`" + `region` + "`" + ` and ` + "`" + `domain_id` + "`" + ` parameters.`,
+		Long:      `Retrieve information about a specific domain using the ` + "`" + `region` + "`" + ` and ` + "`" + `domain_id` + "`" + ` parameters. Monitor your domain's reputation and improve **average** and **bad** reputation statuses, using your domain's **Email activity** tab on the [Scaleway console](https://console.scaleway.com/transactional-email/domains) to get a more detailed report. Check out our [dedicated documentation](https://www.scaleway.com/en/docs/managed-services/transactional-email/reference-content/understanding-tem-reputation-score/) to improve your domain's reputation.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "get",
@@ -505,7 +505,7 @@ func temDomainGet() *core.Command {
 func temDomainList() *core.Command {
 	return &core.Command{
 		Short:     `List domains`,
-		Long:      `Retrieve domains in a specific project or in a specific Organization using the ` + "`" + `region` + "`" + ` parameter.`,
+		Long:      `Retrieve domains in a specific Project or in a specific Organization using the ` + "`" + `region` + "`" + ` parameter.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "list",

@@ -66,7 +66,7 @@ scw tem domain create [arg=value ...]
 
 ### Get information about a domain
 
-Retrieve information about a specific domain using the `region` and `domain_id` parameters.
+Retrieve information about a specific domain using the `region` and `domain_id` parameters. Monitor your domain's reputation and improve **average** and **bad** reputation statuses, using your domain's **Email activity** tab on the [Scaleway console](https://console.scaleway.com/transactional-email/domains) to get a more detailed report. Check out our [dedicated documentation](https://www.scaleway.com/en/docs/managed-services/transactional-email/reference-content/understanding-tem-reputation-score/) to improve your domain's reputation.
 
 **Usage:**
 
@@ -106,7 +106,7 @@ scw tem domain get-last-status <domain-id ...> [arg=value ...]
 
 ### List domains
 
-Retrieve domains in a specific project or in a specific Organization using the `region` parameter.
+Retrieve domains in a specific Project or in a specific Organization using the `region` parameter.
 
 **Usage:**
 
