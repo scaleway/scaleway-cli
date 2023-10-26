@@ -13,13 +13,22 @@ func newIpfsRoot() *core.Command {
 	}
 }
 
+func newIpnsRoot() *core.Command {
+	return &core.Command{
+		Short:     `IPFS Naming service API`,
+		Long:      ``,
+		Namespace: "ipns",
+		Groups:    []string{"labs"},
+	}
+}
+
 // GetCommands returns the list of commands for the 'ipfs' namespace.
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
 	commands := cmds.GetAll()
-	commands = append(commands[:0], commands[1:]...)
-	commands = append([]*core.Command{newIpfsRoot()}, commands...)
+	commands = append(commands[:0], commands[2:]...)
+	commands = append([]*core.Command{newIpfsRoot(), newIpnsRoot()}, commands...)
 
 	return core.NewCommands(commands...)
 }
