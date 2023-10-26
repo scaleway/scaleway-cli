@@ -19,6 +19,7 @@ AVAILABLE COMMANDS:
   iam           IAM API
   instance      Instance API
   iot           This API allows you to manage IoT hubs and devices
+  ipns          IPFS Naming service API
   k8s           Kubernetes API
   lb            This API allows you to manage your Scaleway Load Balancer services
   marketplace   Marketplace API

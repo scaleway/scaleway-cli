@@ -20,8 +20,10 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		ipfsRoot(),
+		ipnsRoot(),
 		ipfsPin(),
 		ipfsVolume(),
+		ipnsName(),
 		ipfsVolumeCreate(),
 		ipfsVolumeGet(),
 		ipfsVolumeList(),
@@ -32,6 +34,13 @@ func GetGeneratedCommands() *core.Commands {
 		ipfsPinGet(),
 		ipfsPinList(),
 		ipfsPinDelete(),
+		ipnsNameCreate(),
+		ipnsNameGet(),
+		ipnsNameDelete(),
+		ipnsNameList(),
+		ipnsNameUpdate(),
+		ipnsNameExportKey(),
+		ipnsNameImportKey(),
 	)
 }
 func ipfsRoot() *core.Command {
@@ -39,6 +48,14 @@ func ipfsRoot() *core.Command {
 		Short:     `IPFS Pinning service API`,
 		Long:      `IPFS Pinning service API.`,
 		Namespace: "ipfs",
+	}
+}
+
+func ipnsRoot() *core.Command {
+	return &core.Command{
+		Short:     `IPFS Naming service API`,
+		Long:      ``,
+		Namespace: "ipns",
 	}
 }
 
@@ -57,6 +74,15 @@ func ipfsVolume() *core.Command {
 		Long:      `All pins must be attached to a volume. And all volumes must be attached to a Project ID.`,
 		Namespace: "ipfs",
 		Resource:  "volume",
+	}
+}
+
+func ipnsName() *core.Command {
+	return &core.Command{
+		Short:     `A name is a hash of the public key within the IPNS (InterPlanetary Name System)`,
+		Long:      `This is the PKI namespace, where the private key is used to publish (sign) a record.`,
+		Namespace: "ipns",
+		Resource:  "name",
 	}
 }
 
@@ -493,6 +519,290 @@ This content can therefore be removed and no longer provided on the IPFS network
 				Resource: "pin",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func ipnsNameCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new name`,
+		Long:      `You can use the ` + "`" + `ipns key` + "`" + ` command to list and generate more names and their respective keys.`,
+		Namespace: "ipns",
+		Resource:  "name",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipfs.IpnsAPICreateNameRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "name",
+				Short:      `Name for your records`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "value",
+				Short:      `Value you want to associate with your records, CID or IPNS key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipfs.IpnsAPICreateNameRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipfs.NewIpnsAPI(client)
+			return api.CreateName(request)
+
+		},
+	}
+}
+
+func ipnsNameGet() *core.Command {
+	return &core.Command{
+		Short:     `Get information about a name`,
+		Long:      `Retrieve information about a specific name.`,
+		Namespace: "ipns",
+		Resource:  "name",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipfs.IpnsAPIGetNameRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name-id",
+				Short:      `Name ID whose information you want to retrieve`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipfs.IpnsAPIGetNameRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipfs.NewIpnsAPI(client)
+			return api.GetName(request)
+
+		},
+	}
+}
+
+func ipnsNameDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete an existing name`,
+		Long:      `Delete a name by its ID.`,
+		Namespace: "ipns",
+		Resource:  "name",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipfs.IpnsAPIDeleteNameRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name-id",
+				Short:      `Name ID you wish to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipfs.IpnsAPIDeleteNameRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipfs.NewIpnsAPI(client)
+			e = api.DeleteName(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "name",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func ipnsNameList() *core.Command {
+	return &core.Command{
+		Short:     `List all names by a Project ID`,
+		Long:      `Retrieve information about all names from a Project ID.`,
+		Namespace: "ipns",
+		Resource:  "name",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipfs.IpnsAPIListNamesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "project-id",
+				Short:      `Project ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Sort the order of the returned names`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipfs.IpnsAPIListNamesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipfs.NewIpnsAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListNames(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Names, nil
+
+		},
+	}
+}
+
+func ipnsNameUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update name information`,
+		Long:      `Update name information (CID, tag, name...).`,
+		Namespace: "ipns",
+		Resource:  "name",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipfs.IpnsAPIUpdateNameRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name-id",
+				Short:      `Name ID you wish to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `New name you want to associate with your record`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags you want to associate with your record`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "value",
+				Short:      `Value you want to associate with your records, CID or IPNS key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipfs.IpnsAPIUpdateNameRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipfs.NewIpnsAPI(client)
+			return api.UpdateName(request)
+
+		},
+	}
+}
+
+func ipnsNameExportKey() *core.Command {
+	return &core.Command{
+		Short:     `Export your private key`,
+		Long:      `Export a private key by its ID.`,
+		Namespace: "ipns",
+		Resource:  "name",
+		Verb:      "export-key",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipfs.IpnsAPIExportKeyNameRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name-id",
+				Short:      `Name ID whose keys you want to export`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipfs.IpnsAPIExportKeyNameRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipfs.NewIpnsAPI(client)
+			return api.ExportKeyName(request)
+
+		},
+	}
+}
+
+func ipnsNameImportKey() *core.Command {
+	return &core.Command{
+		Short:     `Import your private key`,
+		Long:      `Import a private key.`,
+		Namespace: "ipns",
+		Resource:  "name",
+		Verb:      "import-key",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipfs.IpnsAPIImportKeyNameRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "name",
+				Short:      `Name for your records`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-key",
+				Short:      `Base64 private key`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "value",
+				Short:      `Value you want to associate with your records, CID or IPNS key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipfs.IpnsAPIImportKeyNameRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipfs.NewIpnsAPI(client)
+			return api.ImportKeyName(request)
+
 		},
 	}
 }
