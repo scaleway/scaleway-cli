@@ -101,6 +101,11 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 				HideIfEmpty: true,
 			},
 			{
+				FieldName:   "K8sClusters",
+				Title:       "K8s Clusters",
+				HideIfEmpty: true,
+			},
+			{
 				FieldName:   "LBs",
 				Title:       "Load-Balancers",
 				HideIfEmpty: true,
