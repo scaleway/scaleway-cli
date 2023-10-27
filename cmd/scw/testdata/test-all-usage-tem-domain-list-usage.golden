@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve domains in a specific project or in a specific Organization using the `region` parameter.
+Retrieve domains in a specific Project or in a specific Organization using the `region` parameter.
 
 USAGE:
   scw tem domain list [arg=value ...]
