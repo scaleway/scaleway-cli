@@ -27,7 +27,8 @@ func createServer(metaKey string) core.BeforeFunc {
 // createServer creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 func startServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+".ID }}")
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+
+		".ID }}") //nolint: goconst
 }
 
 // deleteServer deletes a server and its attached IP and volumes

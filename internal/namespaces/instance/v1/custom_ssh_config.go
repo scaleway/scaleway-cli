@@ -18,6 +18,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+const configFileGeneratedMessage = "Config file was generated to"
+
 type sshConfigServer struct {
 	Name              string
 	Address           string
@@ -116,7 +118,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 				} else {
 					logger.Warningf("Failed to check default config file, skipping include prompt\n")
 					return &core.SuccessResult{
-						Message: "Config file was generated to " + configFilePath,
+						Message: configFileGeneratedMessage + " " + configFilePath,
 					}, nil
 				}
 			}
@@ -124,7 +126,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			// Generated config is already included
 			if included {
 				return &core.SuccessResult{
-					Message: "Config file was generated to " + configFilePath,
+					Message: configFileGeneratedMessage + " " + configFilePath,
 				}, nil
 			}
 
@@ -136,7 +138,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			if err != nil {
 				logger.Warningf("Failed to prompt, skipping include\n")
 				return &core.SuccessResult{
-					Message: "Config file was generated to " + configFilePath,
+					Message: configFileGeneratedMessage + " " + configFilePath,
 				}, nil
 			}
 
@@ -148,7 +150,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			}
 
 			return &core.SuccessResult{
-				Message: "Config file was generated to " + configFilePath,
+				Message: configFileGeneratedMessage + " " + configFilePath,
 			}, nil
 		},
 		Groups: []string{"workflow"},
