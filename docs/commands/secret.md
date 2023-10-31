@@ -47,7 +47,7 @@ scw secret folder create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | Name of the folder |
 | path |  | Path of the folder |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -67,7 +67,7 @@ scw secret folder delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | folder-id | Required | ID of the folder |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -89,7 +89,7 @@ scw secret folder list [arg=value ...]
 | project-id |  | Filter by Project ID (optional) |
 | path |  | Filter by path (optional) |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -119,7 +119,9 @@ scw secret secret create [arg=value ...]
 | description |  | Description of the secret |
 | type | One of: `unknown_secret_type`, `opaque`, `certificate`, `key_value` | Type of the secret |
 | path |  | Path of the secret |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| expires-at |  | Expiration date of the secret |
+| ephemeral-action | One of: `unknown_ephemeral_action`, `delete_secret`, `disable_secret` | Action to be taken when the secret expires |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -149,7 +151,7 @@ scw secret secret delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -179,7 +181,7 @@ scw secret secret get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -204,8 +206,9 @@ scw secret secret list [arg=value ...]
 | name |  | Filter by secret name (optional) |
 | is-managed |  | Filter by managed / not managed (optional) |
 | path |  | Filter by path (optional) |
+| is-ephemeral |  | Filter by ephemeral / not ephemeral (optional) |
 | organization-id |  | Filter by Organization ID (optional) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -229,7 +232,7 @@ scw secret secret update [arg=value ...]
 | tags.{index} |  | Secret's updated list of tags (optional) |
 | description |  | Description of the secret |
 | path |  | Path of the folder |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -255,7 +258,7 @@ scw secret version access [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -284,7 +287,7 @@ scw secret version create [arg=value ...]
 | password-generation.no-digits |  | Do not include digits by default in the alphabet |
 | password-generation.additional-chars |  | Additional ascii characters to be included in the alphabet |
 | data-crc32 |  | (Optional.) The CRC32 checksum of the data as a base-10 integer |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -305,7 +308,7 @@ scw secret version delete [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -336,7 +339,7 @@ scw secret version disable [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -357,7 +360,7 @@ scw secret version enable [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -384,7 +387,7 @@ scw secret version generate-password [arg=value ...]
 | no-uppercase-letters |  | (Optional.) Exclude upper case letters by default in the password character set |
 | no-digits |  | (Optional.) Exclude digits by default in the password character set |
 | additional-chars |  | (Optional.) Additional ASCII characters to be included in the password character set |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -405,7 +408,7 @@ scw secret version get [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -426,7 +429,7 @@ scw secret version list [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | status.{index} | One of: `unknown`, `enabled`, `disabled`, `destroyed` | Filter results by status |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -448,7 +451,7 @@ scw secret version update [arg=value ...]
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
 | description |  | Description of the version |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
