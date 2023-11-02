@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"sort"
 	"strconv"
@@ -11,7 +12,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -357,7 +357,7 @@ func imageUpdateCommand() *core.Command {
 				ImageID: request.ImageID,
 			})
 			if err != nil {
-				logger.Warningf("cannot get image %s: %s", request.Name, err)
+				return nil, fmt.Errorf("cannot get image %s: %w", request.Name, err)
 			}
 
 			if request.Name == nil {
