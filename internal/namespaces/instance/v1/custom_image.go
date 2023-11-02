@@ -307,7 +307,7 @@ func imageUpdateCommand() *core.Command {
 			{
 				Name:       "image-id",
 				Required:   true,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",

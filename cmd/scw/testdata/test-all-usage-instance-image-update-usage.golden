@@ -3,7 +3,7 @@
 Update properties of an instance image.
 
 USAGE:
-  scw instance image update [arg=value ...]
+  scw instance image update <image-id ...> [arg=value ...]
 
 EXAMPLES:
   Update image name
