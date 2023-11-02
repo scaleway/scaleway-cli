@@ -1,3 +1,5 @@
+//go:build !wasm
+
 package instance
 
 import (
@@ -6,10 +8,10 @@ import (
 	"reflect"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/gotty"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/gotty"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )

@@ -1,12 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List available database engines.
+List the PostgreSQL and MySQL database engines available at Scaleway.
 
 USAGE:
   scw rdb engine list [arg=value ...]
 
 ARGS:
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [name]            Name of the database engine
+  [version]         Version of the database engine
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

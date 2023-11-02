@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
+	"os"
 	"reflect"
 	"strings"
 
@@ -27,13 +27,13 @@ func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
 		for _, v := range fieldValues {
 			switch i := v.Interface().(type) {
 			case io.Reader:
-				b, err := ioutil.ReadAll(i)
+				b, err := io.ReadAll(i)
 				if err != nil {
 					return fmt.Errorf("could not read argument: %s", err)
 				}
 
 				if strings.HasPrefix(string(b), "@") {
-					content, err := ioutil.ReadFile(string(b)[1:])
+					content, err := os.ReadFile(string(b)[1:])
 					if err != nil {
 						return fmt.Errorf("could not open requested file: %s", err)
 					}
@@ -42,7 +42,7 @@ func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
 				}
 			case *string:
 				if strings.HasPrefix(*i, "@") {
-					content, err := ioutil.ReadFile((*i)[1:])
+					content, err := os.ReadFile((*i)[1:])
 					if err != nil {
 						return fmt.Errorf("could not open requested file: %s", err)
 					}
@@ -50,12 +50,22 @@ func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
 				}
 			case string:
 				if strings.HasPrefix(i, "@") {
-					content, err := ioutil.ReadFile(i[1:])
+					content, err := os.ReadFile(i[1:])
 					if err != nil {
 						return fmt.Errorf("could not open requested file: %s", err)
 					}
 					v.SetString(string(content))
 				}
+			case []byte:
+				if strings.HasPrefix(string(i), "@") {
+					content, err := os.ReadFile(string(i)[1:])
+					if err != nil {
+						return fmt.Errorf("could not open requested file: %s", err)
+					}
+					v.SetBytes(content)
+				}
+			case nil:
+				continue
 			default:
 				panic(fmt.Errorf("unsupported field type: %T", v.Interface()))
 			}

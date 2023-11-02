@@ -1,18 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Attach a gateway to a Private Network.
+Attach a specific Public Gateway to a specific Private Network (create a GatewayNetwork). You can configure parameters for the connection including DHCP settings, whether to enable masquerade (dynamic NAT), and more.
 
 USAGE:
   scw vpc-gw gateway-network create [arg=value ...]
 
 ARGS:
-  [gateway-id]           Gateway to connect
-  [private-network-id]   Private Network to connect
-  [enable-masquerade]    Whether to enable masquerade on this network
-  [dhcpid]               Existing configuration
-  [address]              Static IP address in CIDR format to to use without DHCP
-  [enable-dhcp]          Whether to enable DHCP on this Private Network
-  [zone=fr-par-1]        Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+  [gateway-id]                       Public Gateway to connect
+  [private-network-id]               Private Network to connect
+  [enable-masquerade]                Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
+  [enable-dhcp]                      Defines whether to enable DHCP on this Private Network.
+  [dhcp-id]                          ID of an existing DHCP configuration object to use for this GatewayNetwork
+  [address]                          Static IP address in CIDR format to to use without DHCP
+  [ipam-config.push-default-route]   Enabling the default route also enables masquerading
+  [ipam-config.ipam-ip-id]           Use this IPAM-booked IP ID as the Gateway's IP in this Private Network
+  [zone=fr-par-1]                    Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2)
 
 FLAGS:
   -h, --help   help for create

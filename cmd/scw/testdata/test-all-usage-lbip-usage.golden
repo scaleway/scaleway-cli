@@ -6,11 +6,11 @@ USAGE:
   scw lb ip <command>
 
 AVAILABLE COMMANDS:
-  create      Create an IP
-  delete      Delete an IP
-  get         Get an IP
-  list        List IPs
-  update      Update an IP
+  create      Create an IP address
+  delete      Delete an IP address
+  get         Get an IP address
+  list        List IP addresses
+  update      Update an IP address
 
 FLAGS:
   -h, --help   help for ip

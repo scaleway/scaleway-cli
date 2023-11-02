@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -37,6 +37,7 @@ var (
 type backupWaitRequest struct {
 	BackupID string
 	Region   scw.Region
+	Timeout  time.Duration
 }
 
 func backupWaitCommand() *core.Command {
@@ -46,13 +47,14 @@ func backupWaitCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(backupWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: argsI.(*backupWaitRequest).BackupID,
 				Region:           argsI.(*backupWaitRequest).Region,
-				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
+				Timeout:          scw.TimeDurationPtr(argsI.(*backupWaitRequest).Timeout),
 				RetryInterval:    core.DefaultRetryInterval,
 			})
 		},
@@ -64,6 +66,7 @@ func backupWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.WaitTimeoutArgSpec(backupActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
@@ -119,6 +122,124 @@ func backupRestoreBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func backupListBuilder(c *core.Command) *core.Command {
+	type customBackup struct {
+		ID           string                   `json:"ID"`
+		InstanceID   string                   `json:"instance_ID"`
+		DatabaseName string                   `json:"database_name"`
+		Name         string                   `json:"name"`
+		Status       rdb.DatabaseBackupStatus `json:"status"`
+		Size         *scw.Size                `json:"size"`
+		ExpiresAt    *time.Time               `json:"expires_at"`
+		CreatedAt    *time.Time               `json:"created_at"`
+		UpdatedAt    *time.Time               `json:"updated_at"`
+		InstanceName string                   `json:"instance_name"`
+		DownloadURL  string                   `json:"download_url"`
+		URLExpired   bool                     `json:"url_expired"`
+		Region       scw.Region               `json:"region"`
+		SameRegion   bool                     `json:"same_region"`
+	}
+
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{
+				Label:     "ID",
+				FieldName: "ID",
+			},
+			{
+				Label:     "Name",
+				FieldName: "Name",
+			},
+			{
+				Label:     "Database Name",
+				FieldName: "DatabaseName",
+			},
+			{
+				Label:     "Size",
+				FieldName: "Size",
+			},
+			{
+				Label:     "Status",
+				FieldName: "Status",
+			},
+			{
+				Label:     "Instance ID",
+				FieldName: "InstanceID",
+			},
+			{
+				Label:     "URL Expired",
+				FieldName: "URLExpired",
+			},
+			{
+				Label:     "Download URL",
+				FieldName: "DownloadURL",
+			},
+			{
+				Label:     "Expires At",
+				FieldName: "ExpiresAt",
+			},
+			{
+				Label:     "Created At",
+				FieldName: "CreatedAt",
+			},
+			{
+				Label:     "Updated At",
+				FieldName: "UpdatedAt",
+			},
+			{
+				Label:     "Region",
+				FieldName: "Region",
+			},
+			{
+				Label:     "Same Region",
+				FieldName: "SameRegion",
+			},
+		},
+	}
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		listBackupResp, err := runner(ctx, argsI)
+		if err != nil {
+			return listBackupResp, err
+		}
+		backupList := listBackupResp.([]*rdb.DatabaseBackup)
+		var res []customBackup
+		for _, backup := range backupList {
+			downloadURL := ""
+			if backup.DownloadURL != nil {
+				downloadURL = *backup.DownloadURL
+			}
+			res = append(res, customBackup{
+				ID:           backup.ID,
+				InstanceID:   backup.InstanceID,
+				DatabaseName: backup.DatabaseName,
+				Name:         backup.Name,
+				Status:       backup.Status,
+				Size:         backup.Size,
+				ExpiresAt:    backup.ExpiresAt,
+				CreatedAt:    backup.CreatedAt,
+				UpdatedAt:    backup.UpdatedAt,
+				InstanceName: backup.InstanceName,
+				DownloadURL:  downloadURL,
+				URLExpired:   urlExpired(backup.DownloadURLExpiresAt),
+				Region:       backup.Region,
+				SameRegion:   backup.SameRegion,
+			})
+		}
+		return res, nil
+	})
+
+	return c
+}
+
+// urlExpired: indicates if the backup url is still valid after the indicated date.
+func urlExpired(expirationDate *time.Time) bool {
+	if expirationDate == nil {
+		return true
+	}
+	return time.Now().After(*expirationDate)
+}
+
 func getDefaultFileName(rawURL string) (string, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
@@ -134,7 +255,7 @@ type backupDownloadResult struct {
 	FileName string   `json:"file_name"`
 }
 
-func backupResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func backupResultMarshallerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	backupResult := i.(backupDownloadResult)
 	sizeStr, err := human.Marshal(backupResult.Size, nil)
 	if err != nil {
@@ -160,17 +281,30 @@ func backupDownloadCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*backupDownloadArgs)
 			api := rdb.NewAPI(core.ExtractClient(ctx))
-			backup, err := api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
+			backupRequest := &rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: args.BackupID,
 				Region:           args.Region,
 				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
 				RetryInterval:    core.DefaultRetryInterval,
-			})
+			}
+			backup, err := api.WaitForDatabaseBackup(backupRequest)
 			if err != nil {
 				return nil, err
 			}
 			if backup.DownloadURL == nil {
-				return nil, fmt.Errorf("no download URL found")
+				exportRequest := rdb.ExportDatabaseBackupRequest{
+					DatabaseBackupID: args.BackupID,
+					Region:           args.Region,
+				}
+				_, err = api.ExportDatabaseBackup(&exportRequest)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			backup, err = api.WaitForDatabaseBackup(backupRequest)
+			if err != nil {
+				return nil, err
 			}
 
 			httpClient := core.ExtractHTTPClient(ctx)

@@ -1,0 +1,72 @@
+before:
+  hooks:
+    - go mod download
+    # We generate the flag file in the before hook, so that we can use it in blobs section
+    - sh -c "echo {{ .Version }} > scw-cli-v2-version"
+
+builds:
+  - id: binaries
+    env:
+      - CGO_ENABLED=0
+    main: ./cmd/scw/main.go
+    goos:
+      - freebsd
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - 386
+      - amd64
+      - arm64
+    ignore:
+      - goos: darwin
+        goarch: 386
+    ldflags:
+      - -s -w
+      - -X main.Version={{ .Version }}
+      - -X main.BuildDate={{ .Date }}
+      - -X main.GitBranch={{ .Branch }}
+      - -X main.GitCommit={{ .ShortCommit }}
+
+archives:
+  - format: binary
+
+checksum:
+  name_template: 'SHA256SUMS'
+  algorithm: sha256
+
+changelog:
+  use: github
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+dockers:
+  - image_templates:
+      - "scaleway/cli:latest"
+      - "scaleway/cli:{{ .Tag }}"
+      - "scaleway/cli:{{ .Major }}"
+      - "scaleway/cli:{{ .Major }}.{{ .Minor }}"
+    extra_files:
+      - go.mod
+      - go.sum
+      - scripts
+      - cmd
+      - internal
+      - .git
+    build_flag_templates:
+      - "--build-arg=VERSION={{ .Version }}"
+
+release:
+  github:
+    owner: scaleway
+    name: scaleway-cli
+
+  # If set to auto, will mark the release as not ready for production
+  # in case there is an indicator for this in the tag e.g. v1.0.0-rc1
+  # If set to true, will mark the release as not ready for production.
+  prerelease: auto
+  draft: true
+  name_template: "{{ .Tag }}"

@@ -1,12 +1,13 @@
 name: Documentation Workflows
 on:
   pull_request:
+  merge_group:
 jobs:
   ensure-docs-generated:
     name: Ensure docs are generated
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Generate code
         run: go run ./cmd/scw-doc-gen
         env:
@@ -14,3 +15,14 @@ jobs:
           SHELL: /bin/bash
       - name: Exit 1 if not empty
         run: git diff --exit-code
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: '.markdownlinkcheck.json'
+          folder-path: 'docs'
+          file-extension: '.md'

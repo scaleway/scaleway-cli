@@ -1,29 +1,29 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a DHCP configuration.
+Update a DHCP configuration object, identified by its DHCP ID.
 
 USAGE:
-  scw vpc-gw dhcp update <dhcpid ...> [arg=value ...]
+  scw vpc-gw dhcp update <dhcp-id ...> [arg=value ...]
 
 ARGS:
-  dhcpid                           DHCP config to update
+  dhcp-id                          DHCP configuration to update
   [subnet]                         Subnet for the DHCP server
-  [address]                        Address of the DHCP server. This will be the gateway's address in the private network
-  [pool-low]                       Low IP (included) of the dynamic address pool
-  [pool-high]                      High IP (included) of the dynamic address pool
-  [enable-dynamic]                 Whether to enable dynamic pooling of IPs
+  [address]                        IP address of the DHCP server. This will be the Public Gateway's address in the Private Network. It must be part of config's subnet
+  [pool-low]                       Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet
+  [pool-high]                      High IP (inclusive) of the dynamic address pool. Must be in the config's subnet
+  [enable-dynamic]                 Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true
   [valid-lifetime.seconds]         
   [valid-lifetime.nanos]           
   [renew-timer.seconds]            
   [renew-timer.nanos]              
   [rebind-timer.seconds]           
   [rebind-timer.nanos]             
-  [push-default-route]             Whether the gateway should push a default route to DHCP clients or only hand out IPs
-  [push-dns-server]                Whether the gateway should push custom DNS servers to clients
-  [dns-servers-override.{index}]   Override the DNS server list pushed to DHCP clients, instead of the gateway itself
-  [dns-search.{index}]             Additional DNS search paths
-  [dns-local-name]                 TLD given to hosts in the Private Network
-  [zone=fr-par-1]                  Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+  [push-default-route]             Defines whether the gateway should push a default route to DHCP clients, or only hand out IPs
+  [push-dns-server]                Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution
+  [dns-servers-override.{index}]   Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself
+  [dns-search.{index}]             Array of search paths in addition to the pushed DNS configuration
+  [dns-local-name]                 TLD given to hostnames in the Private Networks. If an instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve. Allowed characters are `a-z0-9-.`
+  [zone=fr-par-1]                  Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2)
 
 FLAGS:
   -h, --help   help for update

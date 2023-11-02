@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-DHCP entries hold both dynamic DHCP leases (IP addresses dynamically assigned by the gateway to instances) and static user-created DHCP reservations.
+DHCP entries belong to a specified Gateway Network (Public Gateway / Private Network connection). A DHCP entry can hold either a dynamic DHCP lease (an IP address dynamically assigned by the Public Gateway to a device) or a static, user-created DHCP reservation.
 
 USAGE:
   scw vpc-gw dhcp-entry <command>
 
 AVAILABLE COMMANDS:
-  create      Create a static DHCP reservation
-  delete      Delete a DHCP reservation
-  get         Get DHCP entries
+  create      Create a DHCP entry
+  delete      Delete a DHCP entry
+  get         Get a DHCP entry
   list        List DHCP entries
   set         Set all DHCP reservations on a Gateway Network
   update      Update a DHCP entry

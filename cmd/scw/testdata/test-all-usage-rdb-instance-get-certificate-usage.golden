@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the TLS certificate of an instance.
+Retrieve information about the TLS certificate of a given Database Instance. Details like name and content are returned in the response.
 
 USAGE:
   scw rdb instance get-certificate <instance-id ...> [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance
+  instance-id       UUID of the Database Instance
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

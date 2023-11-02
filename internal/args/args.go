@@ -255,3 +255,66 @@ func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
 
 	return recursiveFunc(argType, strings.Split(name, "."))
 }
+
+var listArgTypeFieldsSkippedArguments = []string{
+	"page",
+	"page-size",
+	"per-page",
+}
+
+func listArgTypeFields(base string, argType reflect.Type) []string {
+	if argType.Kind() != reflect.Ptr {
+		// Can be a handled type like time.Time
+		// If so, use it like a scalar type
+		_, isHandled := unmarshalFuncs[argType]
+		if isHandled {
+			return []string{base}
+		}
+	}
+
+	switch argType.Kind() {
+	case reflect.Ptr:
+		return listArgTypeFields(base, argType.Elem())
+
+	case reflect.Slice:
+		return listArgTypeFields(base+"."+sliceSchema, argType.Elem())
+
+	case reflect.Map:
+		return listArgTypeFields(base+"."+mapSchema, argType.Elem())
+
+	case reflect.Struct:
+		fields := []string(nil)
+
+		for i := 0; i < argType.NumField(); i++ {
+			field := argType.Field(i)
+			fieldBase := base
+
+			// If this is an embedded struct, skip adding its name to base
+			if field.Anonymous {
+				fields = append(fields, listArgTypeFields(fieldBase, field.Type)...)
+				continue
+			}
+
+			if fieldBase == "" {
+				fieldBase = strcase.ToBashArg(field.Name)
+			} else {
+				fieldBase += "." + strcase.ToBashArg(field.Name)
+			}
+			fields = append(fields, listArgTypeFields(fieldBase, field.Type)...)
+		}
+
+		return fields
+	default:
+		for _, skippedArg := range listArgTypeFieldsSkippedArguments {
+			if base == skippedArg {
+				return []string{}
+			}
+		}
+		return []string{base}
+	}
+}
+
+// ListArgTypeFields take a go struct and return a list of name that comply with ArgSpec name notation (e.g "friends.{index}.name")
+func ListArgTypeFields(argType reflect.Type) []string {
+	return listArgTypeFields("", argType)
+}

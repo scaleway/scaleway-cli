@@ -1,7 +1,6 @@
 package k8s
 
 import (
-	"io/ioutil"
 	"os"
 	"path"
 	"testing"
@@ -9,7 +8,7 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
 	api "github.com/kubernetes-client/go-base/config/api"
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
@@ -92,7 +91,7 @@ y7JHcXauRKI7bxgOugSep2d0lhYxJl65CPOCllawcu70Ds34MKi3XkCe20I=
 // testIfKubeconfigInFile checks if the given kubeconfig is in the given file
 // it test if the user, cluster and context of the kubeconfig file are in the given file
 func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
-	kubeconfigBytes, err := ioutil.ReadFile(filePath)
+	kubeconfigBytes, err := os.ReadFile(filePath)
 	assert.Nil(t, err)
 	var existingKubeconfig api.Config
 	err = yaml.Unmarshal(kubeconfigBytes, &existingKubeconfig)
@@ -142,7 +141,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 	////
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig("Cluster", "Kubeconfig", kapsuleVersion),
+		BeforeFunc: createClusterAndWaitAndKubeconfig("install-kubeconfig-simple", "Cluster", "Kubeconfig", kapsuleVersion),
 		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
@@ -159,7 +158,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 
 	t.Run("merge", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile("Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-merge-test"), []byte(existingKubeconfig)),
+		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile("install-kubeconfig-merge", "Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-merge-test"), []byte(existingKubeconfig)),
 		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific

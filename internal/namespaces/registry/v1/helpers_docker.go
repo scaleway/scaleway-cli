@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"path"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 const (
@@ -65,7 +65,7 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 
 	dockerConfig := map[string]interface{}{}
 
-	dockerConfigRaw, err := ioutil.ReadAll(f)
+	dockerConfigRaw, err := io.ReadAll(f)
 	if err != nil {
 		return err
 	}

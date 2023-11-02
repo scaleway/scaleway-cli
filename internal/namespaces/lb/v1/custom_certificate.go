@@ -4,10 +4,11 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -19,6 +20,35 @@ var (
 		lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
 	}
 )
+
+func lbCertificateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp lb.Certificate
+	certificate := tmp(i.(lb.Certificate))
+
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "LB",
+		},
+	}
+
+	if len(certificate.LB.Tags) != 0 && certificate.LB.Tags[0] == kapsuleTag {
+		certificateResp, err := human.Marshal(certificate, opt)
+		if err != nil {
+			return "", err
+		}
+		return strings.Join([]string{
+			certificateResp,
+			warningKapsuleTaggedMessageView(),
+		}, "\n\n"), nil
+	}
+
+	str, err := human.Marshal(certificate, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
 
 func certificateCreateBuilder(c *core.Command) *core.Command {
 	leCommonNameArgSpecs := c.ArgSpecs.GetByName("letsencrypt.common-name")
@@ -61,7 +91,16 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 					CertificateChain: args.CustomCertificateChain,
 				},
 			}
-			return runner(ctx, createCertificateRequest)
+			res, err := runner(ctx, createCertificateRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+				return warningKapsuleTaggedMessageView(), nil
+			}
+
+			return res, nil
 		}
 
 		if args.LetsencryptCommonName != "" {
@@ -74,7 +113,16 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 					SubjectAlternativeName: args.LetsencryptAlternativeName,
 				},
 			}
-			return runner(ctx, createCertificateRequest)
+			res, err := runner(ctx, createCertificateRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			if len(res.(*lb.Certificate).LB.Tags) != 0 && res.(*lb.Certificate).LB.Tags[0] == kapsuleTag {
+				return warningKapsuleTaggedMessageView(), nil
+			}
+
+			return res, nil
 		}
 
 		return nil, &core.CliError{
@@ -85,4 +133,46 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func certificateGetBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptCertificate()
+	return c
+}
+
+func certificateUpdateBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptCertificate()
+	return c
+}
+
+func certificateDeleteBuilder(c *core.Command) *core.Command {
+	c.Interceptor = interceptCertificate()
+	return c
+}
+
+func interceptCertificate() core.CommandInterceptor {
+	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		client := core.ExtractClient(ctx)
+		api := lb.NewZonedAPI(client)
+
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+
+		if _, ok := res.(*core.SuccessResult); ok {
+			getCertificate, err := api.GetCertificate(&lb.ZonedAPIGetCertificateRequest{
+				Zone:          argsI.(*lb.ZonedAPIDeleteCertificateRequest).Zone,
+				CertificateID: argsI.(*lb.ZonedAPIDeleteCertificateRequest).CertificateID,
+			})
+			if err != nil {
+				return nil, err
+			}
+			if len(getCertificate.LB.Tags) != 0 && getCertificate.LB.Tags[0] == kapsuleTag {
+				return warningKapsuleTaggedMessageView(), nil
+			}
+		}
+
+		return res, nil
+	}
 }

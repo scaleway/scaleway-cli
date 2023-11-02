@@ -1,0 +1,18 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NAME  TYPE         KEY
+key1  ssh-ed25519  AAAAC3NzaC1lZDI1
+key2  ssh-ed25519  AAAAC3NzaC1lZDI1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "name": "key1",
+    "type": "ssh-ed25519",
+    "key": "AAAAC3NzaC1lZDI1NTE5AAAAICC/GwZzzlDeSKN6SliDqfRIUp7u9kDpArZ6Cj+BH1LH"
+  },
+  {
+    "name": "key2",
+    "type": "ssh-ed25519",
+    "key": "AAAAC3NzaC1lZDI1NTE5AAAAIOLfjymSzcwMG56dOUum91KzyuKlf4AI+S1fCmXI8P78"
+  }
+]

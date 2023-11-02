@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A flexible IP address is an IP address which you hold independently of any server.
-You can attach it to any of your servers and do live migration of the IP address between your servers.
+A flexible IP address is an IP address which you hold independently of any Instance.
+You can attach it to any of your Instances and do live migration of the IP address between your Instances.
 
-Be aware that attaching a flexible IP address to a server will remove the previous public IP address of the server and cut any ongoing public connection to the server.
+Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts any ongoing public connection to the Instance. This does not apply if you have migrated your server to the new Network stack and have at least one flexible IP attached to the Instance.
 
 USAGE:
   scw instance ip <command>

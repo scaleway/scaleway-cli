@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new namespace.
+Create a new Container Registry namespace. You must specify the namespace name and region in which you want it to be created. Optionally, you can specify the `project_id` and `is_public` in the request payload.
 
 USAGE:
   scw registry namespace create [arg=value ...]
 
 ARGS:
-  name=<generated>    Define a namespace name
-  [description]       Define a description
+  name=<generated>    Name of the namespace
+  [description]       Description of the namespace
   [project-id]        Project ID to use. If none is passed the default project ID will be used
-  [is-public]         Define the default visibility policy
+  [is-public]         Defines whether or not namespace is public
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

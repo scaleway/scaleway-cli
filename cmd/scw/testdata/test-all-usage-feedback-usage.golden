@@ -5,7 +5,7 @@ Send feedback to the Scaleway CLI Team!
 USAGE:
   scw feedback <command>
 
-AVAILABLE COMMANDS:
+UTILITY COMMANDS:
   bug         Send a bug-report
   feature     Send a feature request
 

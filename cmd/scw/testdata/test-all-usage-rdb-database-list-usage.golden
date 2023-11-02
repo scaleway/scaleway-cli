@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all database in a given instance.
+List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`.
 
 USAGE:
   scw rdb database list [arg=value ...]
 
 ARGS:
   [name]            Name of the database
-  [managed]         Whether or not the database is managed
+  [managed]         Defines whether or not the database is managed
   [owner]           User that owns this database
   [order-by]        Criteria to use when ordering database listing (name_asc | name_desc | size_asc | size_desc)
-  instance-id       UUID of the instance to list database of
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  instance-id       UUID of the Database Instance to list the databases of
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

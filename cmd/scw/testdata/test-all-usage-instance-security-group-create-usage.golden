@@ -1,41 +1,41 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a security group.
+Create a security group with a specified name and description.
 
 USAGE:
   scw instance security-group create [arg=value ...]
 
 EXAMPLES:
-  Create a Security Group with the given name and description
+  Create a security group with a specified name and description
     scw instance security-group create name=foobar description=foobar foobar
 
-  Create a Security Group that will be applied as a default on instances of your project
+  Create a security group that will be applied as default on all Instances of this Project
     scw instance security-group create project-default=true
 
-  Create a Security Group that will have a default drop inbound policy (Traffic your instance receive)
+  Create a security group that will have a default drop inbound policy (traffic your Instance receives)
     scw instance security-group create inbound-default-policy=drop
 
-  Create a Security Group that will have a default drop outbound policy (Traffic your instance transmit)
+  Create a security group that will have a default drop outbound policy (traffic your Instance transmits)
     scw instance security-group create outbound-default-policy=drop
 
-  Create a stateless Security Group
+  Create a stateless security group
     scw instance security-group create
 
 ARGS:
   name=<generated>                   Name of the security group
   [description]                      Description of the security group
   [project-id]                       Project ID to use. If none is passed the default project ID will be used
-  [tags.{index}]                     The tags of the security group
-  [project-default=false]            Whether this security group becomes the default security group for new instances
+  [tags.{index}]                     Tags of the security group
+  [project-default=false]            Whether this security group becomes the default security group for new Instances
   [stateful=true]                    Whether the security group is stateful or not
   [inbound-default-policy=accept]    Default policy for inbound rules (accept | drop)
   [outbound-default-policy=accept]   Default policy for outbound rules (accept | drop)
-  [enable-default-security]          True to block SMTP on IPv4 and IPv6
+  [enable-default-security]          True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable
   [organization-id]                  Organization ID to use. If none is passed the default organization ID will be used
-  [zone=fr-par-1]                    Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | pl-waw-1)
+  [zone=fr-par-1]                    Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 DEPRECATED ARGS:
-  [organization-default=false]   Whether this security group becomes the default security group for new instances
+  [organization-default=false]   Defines whether this security group becomes the default security group for new Instances
 
 FLAGS:
   -h, --help   help for create

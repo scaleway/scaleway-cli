@@ -1,18 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List IPs.
+List Public Gateway flexible IP addresses. A number of filter options are available for limiting results in the response.
 
 USAGE:
   scw vpc-gw ip list [arg=value ...]
 
 ARGS:
   [order-by]          Order in which to return results (created_at_asc | created_at_desc | ip_asc | ip_desc | reverse_asc | reverse_desc)
-  [project-id]        Include only IPs in this project
-  [tags.{index}]      Filter IPs with these tags
-  [reverse]           Filter by reverse containing this string
-  [is-free]           Filter whether the IP is attached to a gateway or not
-  [organization-id]   Include only IPs in this organization
-  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+  [project-id]        Filter for IP addresses in this Project
+  [tags.{index}]      Filter for IP addresses with these tags
+  [reverse]           Filter for IP addresses that have a reverse containing this string
+  [is-free]           Filter based on whether the IP is attached to a gateway or not
+  [organization-id]   Filter for IP addresses in this Organization
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | all)
 
 FLAGS:
   -h, --help   help for list

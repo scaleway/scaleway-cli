@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a database in a given instance.
+Create a new database. You must define the `name` parameter in the request.
 
 USAGE:
   scw rdb database create [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance where to create the database
+  instance-id       UUID of the Database Instance where to create the database
   [name]            Name of the database
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

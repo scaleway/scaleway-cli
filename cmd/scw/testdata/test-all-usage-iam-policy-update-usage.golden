@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update the parameters of a policy, including `name`, `description`, `user_id`, `group_id`, `application_id` and `no_principal`.
+
+USAGE:
+  scw iam policy update <policy-id ...> [arg=value ...]
+
+ARGS:
+  policy-id          Id of policy to update
+  [name]             New name for the policy (max length is 64 characters)
+  [description]      New description of policy (max length is 200 characters)
+  [user-id]          New ID of user attributed to the policy
+  [group-id]         New ID of group attributed to the policy
+  [application-id]   New ID of application attributed to the policy
+  [no-principal]     Defines whether or not the policy is attributed to a principal
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

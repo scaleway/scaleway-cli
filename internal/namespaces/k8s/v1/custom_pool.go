@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -101,13 +101,14 @@ func k8sPoolWaitCommand() *core.Command {
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(k8s.WaitForPoolRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForPool(&k8s.WaitForPoolRequest{
 				Region:        argsI.(*k8s.WaitForPoolRequest).Region,
 				PoolID:        argsI.(*k8s.WaitForPoolRequest).PoolID,
-				Timeout:       scw.TimeDurationPtr(poolActionTimeout),
+				Timeout:       argsI.(*k8s.WaitForPoolRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -119,6 +120,7 @@ func k8sPoolWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.RegionArgSpec(),
+			core.WaitTimeoutArgSpec(poolActionTimeout),
 		},
 		Examples: []*core.Example{
 			{

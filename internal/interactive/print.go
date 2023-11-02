@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
 func Print(a ...interface{}) (int, error) {

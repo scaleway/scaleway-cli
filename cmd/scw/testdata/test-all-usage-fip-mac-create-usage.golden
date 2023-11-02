@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Generate a virtual MAC on a given Flexible IP.
+Generate a virtual MAC (Media Access Control) address on an existing flexible IP.
 
 USAGE:
   scw fip mac create [arg=value ...]
 
 ARGS:
-  fip-id            Flexible IP ID on which to generate a Virtual MAC
+  fip-id            ID of the flexible IP for which to generate a virtual MAC
   mac-type          TODO (unknown_type | vmware | xen | kvm)
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for create

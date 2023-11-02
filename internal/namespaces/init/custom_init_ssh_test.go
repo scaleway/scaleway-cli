@@ -1,15 +1,14 @@
 package init
 
 import (
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
-	account "github.com/scaleway/scaleway-cli/internal/namespaces/account/v2alpha1"
-	accountsdk "github.com/scaleway/scaleway-sdk-go/api/account/v2alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	iamcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -27,7 +26,7 @@ func setUpSSHKeyLocallyWithKeyName(key string, name string) core.BeforeFunc {
 		}
 
 		// Write the configuration file
-		err = ioutil.WriteFile(keyPath, []byte(key), 0600)
+		err = os.WriteFile(keyPath, []byte(key), 0600)
 		if err != nil {
 			return err
 		}
@@ -37,8 +36,8 @@ func setUpSSHKeyLocallyWithKeyName(key string, name string) core.BeforeFunc {
 
 func removeSSHKeyFromAccount(publicSSHKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
-		api := accountsdk.NewAPI(ctx.Client)
-		resp, err := api.ListSSHKeys(&accountsdk.ListSSHKeysRequest{},
+		api := iamsdk.NewAPI(ctx.Client)
+		resp, err := api.ListSSHKeys(&iamsdk.ListSSHKeysRequest{},
 			scw.WithAllPages())
 		if err != nil {
 			return err
@@ -50,7 +49,7 @@ func removeSSHKeyFromAccount(publicSSHKey string) core.AfterFunc {
 			}
 		}
 		if id != "" {
-			err = api.DeleteSSHKey(&accountsdk.DeleteSSHKeyRequest{SSHKeyID: id})
+			err = api.DeleteSSHKey(&iamsdk.DeleteSSHKeyRequest{SSHKeyID: id})
 		}
 		return err
 	}
@@ -60,7 +59,7 @@ func removeSSHKeyFromAccount(publicSSHKey string) core.AfterFunc {
 func addSSHKeyToAccount(metaKey string, name string, key string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := []string{
-			"scw", "account", "ssh-key", "add", "public-key=" + key, "name=" + name,
+			"scw", "iam", "ssh-key", "create", "public-key=" + key, "name=" + name,
 		}
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(cmd)
 		return nil
@@ -69,13 +68,15 @@ func addSSHKeyToAccount(metaKey string, name string, key string) core.BeforeFunc
 
 func Test_InitSSH(t *testing.T) {
 	defaultSettings := map[string]string{
+		"access-key":           "{{ .AccessKey }}",
 		"secret-key":           "{{ .SecretKey }}",
 		"send-telemetry":       "false",
-		"remove-v1-config":     "false",
 		"install-autocomplete": "false",
+		"organization-id":      "{{ .OrganizationID }}",
+		"project-id":           "{{ .ProjectID }}",
 	}
 	cmds := GetCommands()
-	cmds.Merge(account.GetCommands())
+	cmds.Merge(iamcommands.GetCommands())
 
 	// We create a key in each tests to be able to run those tests in parallel
 
@@ -119,7 +120,7 @@ func Test_InitSSH(t *testing.T) {
 	}))
 
 	t.Run("WithLocalEd25519Key", func(t *testing.T) {
-		dummySSHKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJb42xh9l10D/u9imDFfLZ+U6KrZmr/F/qBClnmijCFF/qEehPJxK/3thmMiZg foobaz@foobaz"
+		dummySSHKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg foobar@foobar"
 		core.Test(&core.TestConfig{
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(

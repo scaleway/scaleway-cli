@@ -24,6 +24,14 @@ type Struct struct {
 	Stringer    Stringer
 	StringerPtr *Stringer
 	Size        *scw.Size
+	Bytes       []byte
+}
+
+type StructAny struct {
+	String    interface{}
+	StringPtr interface{}
+	Map       map[string]interface{}
+	MapPtr    map[string]interface{}
 }
 
 type Address struct {
@@ -106,6 +114,7 @@ func TestMarshal(t *testing.T) {
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
 			Size:        scw.SizePtr(13200),
+			Bytes:       []byte{0, 1},
 		},
 		result: `
 			String              This is a string
@@ -129,6 +138,7 @@ func TestMarshal(t *testing.T) {
 			Stringer            a stringer
 			StringerPtr         a stringer
 			Size                13 kB
+			Bytes               AAE=
 		`,
 	}))
 
@@ -165,6 +175,97 @@ func TestMarshal(t *testing.T) {
 		`,
 	}))
 
+	t.Run("hide if empty pointer 1", run(&testCase{
+		data: &Human{
+			Name:    "Sherlock Holmes",
+			Age:     42,
+			Address: nil,
+			Acquaintances: []*Acquaintance{
+				{Name: "Dr watson", Link: "Assistant"},
+				{Name: "Mrs. Hudson", Link: "Landlady"},
+			},
+		},
+		opt: &MarshalOpt{
+			Title: "Personal Information",
+			Sections: []*MarshalSection{
+				{FieldName: "Address", HideIfEmpty: true},
+				{Title: "Relationship", FieldName: "Acquaintances"},
+			},
+		},
+		result: `
+			Personal Information:
+			Name  Sherlock Holmes
+			Age   42
+			
+			Relationship:
+			NAME         LINK
+			Dr watson    Assistant
+			Mrs. Hudson  Landlady
+		`,
+	}))
+
+	t.Run("hide if empty pointer 2", run(&testCase{
+		data: &Human{
+			Name:    "Sherlock Holmes",
+			Age:     42,
+			Address: nil,
+			Acquaintances: []*Acquaintance{
+				{Name: "Dr watson", Link: "Assistant"},
+				{Name: "Mrs. Hudson", Link: "Landlady"},
+			},
+		},
+		opt: &MarshalOpt{
+			Title: "Personal Information",
+			Sections: []*MarshalSection{
+				{FieldName: "Address.Street", HideIfEmpty: true},
+				{Title: "Relationship", FieldName: "Acquaintances"},
+			},
+		},
+		result: `
+			Personal Information:
+			Name  Sherlock Holmes
+			Age   42
+			
+			Relationship:
+			NAME         LINK
+			Dr watson    Assistant
+			Mrs. Hudson  Landlady
+		`,
+	}))
+
+	t.Run("hide if empty string", run(&testCase{
+		data: &Human{
+			Name:    "",
+			Age:     42,
+			Address: &Address{Street: "221b Baker St", City: "London"},
+			Acquaintances: []*Acquaintance{
+				{Name: "Dr watson", Link: "Assistant"},
+				{Name: "Mrs. Hudson", Link: "Landlady"},
+			},
+		},
+		opt: &MarshalOpt{
+			Title: "Personal Information",
+			Sections: []*MarshalSection{
+				{FieldName: "Name", HideIfEmpty: true},
+				{FieldName: "Address"},
+				{Title: "Relationship", FieldName: "Acquaintances"},
+			},
+		},
+		result: `
+			Personal Information:
+			Age  42
+			
+			Address:
+			Street  221b Baker St
+			City    London
+			
+			Relationship:
+			NAME         LINK
+			Dr watson    Assistant
+			Mrs. Hudson  Landlady
+		`,
+	}))
+
 	t.Run("empty string", run(&testCase{
 		data:   "",
 		result: `-`,
@@ -183,6 +284,26 @@ func TestMarshal(t *testing.T) {
 			Name: "Paul",
 		},
 		result: `Name  Paul`,
+	}))
+
+	var testAnyString = "MyString"
+	t.Run("any", run(&testCase{
+		data: &StructAny{
+			String:    testAnyString,
+			StringPtr: &testAnyString,
+			Map: map[string]interface{}{
+				"String": testAnyString,
+			},
+			MapPtr: map[string]interface{}{
+				"String": &testAnyString,
+			},
+		},
+		result: `
+			String         MyString
+			StringPtr      MyString
+			Map.String     MyString
+			MapPtr.String  MyString
+`,
 	}))
 }
 
@@ -215,7 +336,7 @@ func Test_getStructFieldsIndex(t *testing.T) {
 					Strings: []string{"aa", "ab"}},
 				),
 			},
-			want: [][]int{{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}},
+			want: [][]int{{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}},
 		},
 	}
 	for _, tt := range tests {

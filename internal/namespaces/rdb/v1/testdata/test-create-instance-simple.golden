@@ -2,28 +2,29 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          82ebbabf-3471-40dd-ad76-e86b79e7ad2a
+ID                          c1918625-81e0-44a2-aa6b-49f79d49805a
 Name                        cli-test
-OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID                   951df375-e094-4d26-97c1-ba548eeb9c42
+OrganizationID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID                   564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 Status                      ready
 Engine                      PostgreSQL-12
 IsHaCluster                 false
 NodeType                    db-dev-s
-Endpoints.0.ID              96840902-c630-4ece-99f1-3ee6c5006e7c
-Endpoints.0.IP              195.154.70.55
-Endpoints.0.Port            47677
+Endpoints.0.ID              8318bbbb-6a02-49cf-8494-dd32884d8d6a
+Endpoints.0.IP              51.159.113.51
+Endpoints.0.Port            2467
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 
 Endpoint:
-ID    96840902-c630-4ece-99f1-3ee6c5006e7c
-IP    195.154.70.55
-Port  47677
+ID    8318bbbb-6a02-49cf-8494-dd32884d8d6a
+IP    51.159.113.51
+Port  2467
 
 Volume:
-Type  lssd
-Size  5.0 GB
+Type   lssd
+Size   5.0 GB
+Class  unknown_storage_class
 
 Backup Schedule:
 Disabled   false
@@ -32,43 +33,40 @@ Retention  7 days
 
 Settings:
 NAME                             VALUE
-work_mem                         4
-max_connections                  100
 effective_cache_size             1300
 maintenance_work_mem             150
+max_connections                  100
 max_parallel_workers             0
 max_parallel_workers_per_gather  0
+work_mem                         4
+
+Password: 
+{4xdl*#QOoP+&3XRkGA)]
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "created_at": "1970-01-01T00:00:00.0Z",
   "volume": {
     "type": "lssd",
-    "size": 5000000000
+    "size": 5000000000,
+    "class": "unknown_storage_class"
   },
   "region": "fr-par",
-  "id": "82ebbabf-3471-40dd-ad76-e86b79e7ad2a",
+  "id": "c1918625-81e0-44a2-aa6b-49f79d49805a",
   "name": "cli-test",
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "status": "ready",
   "engine": "PostgreSQL-12",
+  "upgradable_version": [],
   "endpoint": {
-    "id": "96840902-c630-4ece-99f1-3ee6c5006e7c",
-    "ip": "195.154.70.55",
-    "port": 47677,
+    "id": "8318bbbb-6a02-49cf-8494-dd32884d8d6a",
+    "ip": "51.159.113.51",
+    "port": 2467,
     "name": null,
     "load_balancer": {}
   },
   "tags": [],
   "settings": [
-    {
-      "name": "work_mem",
-      "value": "4"
-    },
-    {
-      "name": "max_connections",
-      "value": "100"
-    },
     {
       "name": "effective_cache_size",
       "value": "1300"
@@ -78,18 +76,27 @@ max_parallel_workers_per_gather  0
       "value": "150"
     },
     {
+      "name": "max_connections",
+      "value": "100"
+    },
+    {
       "name": "max_parallel_workers",
       "value": "0"
     },
     {
       "name": "max_parallel_workers_per_gather",
       "value": "0"
+    },
+    {
+      "name": "work_mem",
+      "value": "4"
     }
   ],
   "backup_schedule": {
     "frequency": 24,
     "retention": 7,
-    "disabled": false
+    "disabled": false,
+    "next_run_at": null
   },
   "is_ha_cluster": false,
   "read_replicas": [],
@@ -97,9 +104,9 @@ max_parallel_workers_per_gather  0
   "init_settings": [],
   "endpoints": [
     {
-      "id": "96840902-c630-4ece-99f1-3ee6c5006e7c",
-      "ip": "195.154.70.55",
-      "port": 47677,
+      "id": "8318bbbb-6a02-49cf-8494-dd32884d8d6a",
+      "ip": "51.159.113.51",
+      "port": 2467,
       "name": null,
       "load_balancer": {}
     }
@@ -109,5 +116,6 @@ max_parallel_workers_per_gather  0
     "total_disk_retention": null
   },
   "backup_same_region": false,
-  "maintenances": []
+  "maintenances": [],
+  "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }

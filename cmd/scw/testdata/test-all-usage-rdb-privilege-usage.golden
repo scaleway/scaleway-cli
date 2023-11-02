@@ -1,13 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Define some privileges to a user on a specific database.
+Privileges are permissions that can be granted to database users. You can manage user permissions either via the console, the Scaleway APIs or SQL. Managed Database for PostgreSQL and MySQL provides a simplified and unified permission model through the API and the console to make things easier to manage and understand.
+
+Each user has associated permissions that give them access to zero or more logical databases. These include:
+
+* **None:** No access to the database
+* **Read:** Allow users to read tables and fields in a database
+* **Write:** Allow users to write content in databases.
+* **Admin:** Read and write access to the data, and extended privileges depending on the database engine.
 
 USAGE:
   scw rdb privilege <command>
 
 AVAILABLE COMMANDS:
-  list        List privileges of a given user for a given database on a given instance
-  set         Set privileges of a given user for a given database on a given instance
+  list        List user privileges for a database
+  set         Set user privileges for a database
 
 FLAGS:
   -h, --help   help for privilege

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This method allows to get details about a specific pool.
+Retrieve details about a specific pool in a Kubernetes cluster.
 
 USAGE:
   scw k8s pool get <pool-id ...> [arg=value ...]
@@ -10,7 +10,7 @@ EXAMPLES:
     scw k8s pool get 11111111-1111-1111-111111111111
 
 ARGS:
-  pool-id           The ID of the requested pool
+  pool-id           ID of the requested pool
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

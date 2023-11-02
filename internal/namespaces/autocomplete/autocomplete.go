@@ -3,7 +3,7 @@ package autocomplete
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"path"
 	"path/filepath"
@@ -12,14 +12,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/args"
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 )
 
 func GetCommands() *core.Commands {
-	return core.NewCommands(
+	cmds := core.NewCommands(
 		autocompleteRootCommand(),
 		autocompleteInstallCommand(),
 		autocompleteCompleteBashCommand(),
@@ -27,6 +27,12 @@ func GetCommands() *core.Commands {
 		autocompleteCompleteZshCommand(),
 		autocompleteScriptCommand(),
 	)
+
+	for _, cmd := range cmds.GetAll() {
+		cmd.DisableAfterChecks = true
+	}
+
+	return cmds
 }
 
 func autocompleteRootCommand() *core.Command {
@@ -197,7 +203,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 
 	// Early exit if eval line is already present in the shell configuration.
-	shellConfigurationFileContent, err := ioutil.ReadAll(f)
+	shellConfigurationFileContent, err := io.ReadAll(f)
 	if err != nil {
 		return nil, err
 	}
@@ -255,14 +261,23 @@ func autocompleteCompleteBashCommand() *core.Command {
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
+			if len(rawArgs) < 3 {
+				return nil, fmt.Errorf("not enough arguments")
+			}
 			wordIndex, err := strconv.Atoi(rawArgs[1])
 			if err != nil {
 				return nil, err
 			}
 			words := rawArgs[2:]
-			leftWords := words[:wordIndex]
+			if len(words) <= wordIndex {
+				return nil, fmt.Errorf("index to complete is invalid")
+			}
+
+			aliases := core.ExtractAliases(ctx)
+
+			leftWords := aliases.ResolveAliases(words[:wordIndex])
 			wordToComplete := words[wordIndex]
-			rightWords := words[wordIndex+1:]
+			rightWords := aliases.ResolveAliases(words[wordIndex+1:])
 
 			// If the wordToComplete is an argument label (cf. `arg=`), remove
 			// this prefix for all suggestions.
@@ -293,7 +308,13 @@ func autocompleteCompleteFishCommand() *core.Command {
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
-			leftWords := rawArgs[3:]
+			if len(rawArgs) < 4 {
+				return nil, fmt.Errorf("not enough arguments")
+			}
+
+			aliases := core.ExtractAliases(ctx)
+
+			leftWords := aliases.ResolveAliases(rawArgs[3:])
 			wordToComplete := rawArgs[2]
 
 			// TODO: compute rightWords once used by core.AutoComplete()
@@ -325,6 +346,9 @@ func autocompleteCompleteZshCommand() *core.Command {
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
+			if len(rawArgs) < 2 {
+				return nil, fmt.Errorf("not enough arguments")
+			}
 
 			// First arg is the word index.
 			wordIndex, err := strconv.Atoi(rawArgs[0])
@@ -333,15 +357,21 @@ func autocompleteCompleteZshCommand() *core.Command {
 			}
 			wordIndex-- // In zsh word index starts at 1.
 
+			if wordIndex <= 0 {
+				return nil, fmt.Errorf("index cannot be 1 (0) or lower")
+			}
+
 			// Other args are all the words.
 			words := rawArgs[1:]
 			if len(words) <= wordIndex {
 				words = append(words, "") // Handle case when last word is empty.
 			}
 
-			leftWords := words[:wordIndex]
+			aliases := core.ExtractAliases(ctx)
+
+			leftWords := aliases.ResolveAliases(words[:wordIndex])
 			wordToComplete := words[wordIndex]
-			rightWords := words[wordIndex+1:]
+			rightWords := aliases.ResolveAliases(words[wordIndex+1:])
 
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 			return strings.Join(res.Suggestions, " "), nil

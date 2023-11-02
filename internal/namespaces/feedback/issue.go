@@ -10,8 +10,8 @@ import (
 	"os/exec"
 	"runtime"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 )
 
 const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
@@ -92,11 +92,11 @@ func (i issue) openInBrowser(ctx context.Context) error {
 
 	switch runtime.GOOS {
 	case linux:
-		openCmd = exec.Command("xdg-open", i.getURL()) // nolint:gosec
+		openCmd = exec.Command("xdg-open", i.getURL()) //nolint:gosec
 	case windows:
-		openCmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", i.getURL()) // nolint:gosec
+		openCmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", i.getURL()) //nolint:gosec
 	case darwin:
-		openCmd = exec.Command("open", i.getURL()) // nolint:gosec
+		openCmd = exec.Command("open", i.getURL()) //nolint:gosec
 	default:
 		return fmt.Errorf("unsupported platform")
 	}

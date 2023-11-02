@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a load balancer.
+Update the parameters of an existing Load Balancer, specified by its Load Balancer ID. Note that the request type is PUT and not PATCH. You must set all parameters.
 
 USAGE:
   scw lb lb update <lb-id ...> [arg=value ...]
 
 ARGS:
-  lb-id                       Load balancer ID
-  name                        Resource name
-  description                 Resource description
-  [tags.{index}]              List of keywords
-  [ssl-compatibility-level]    (ssl_compatibility_level_unknown | ssl_compatibility_level_intermediate | ssl_compatibility_level_modern | ssl_compatibility_level_old)
-  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+  lb-id                       Load Balancer ID
+  name                        Load Balancer name
+  description                 Load Balancer description
+  [tags.{index}]              List of tags for the Load Balancer
+  [ssl-compatibility-level]   Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort (ssl_compatibility_level_unknown | ssl_compatibility_level_intermediate | ssl_compatibility_level_modern | ssl_compatibility_level_old)
+  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for update

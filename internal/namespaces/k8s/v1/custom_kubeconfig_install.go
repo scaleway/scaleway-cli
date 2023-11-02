@@ -9,7 +9,7 @@ import (
 
 	"github.com/ghodss/yaml"
 	api "github.com/kubernetes-client/go-base/config/api"
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -101,7 +101,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// create the file
-		f, err := os.OpenFile(kubeconfigPath, os.O_CREATE, 0644)
+		f, err := os.OpenFile(kubeconfigPath, os.O_CREATE, 0600)
 		if err != nil {
 			return nil, err
 		}

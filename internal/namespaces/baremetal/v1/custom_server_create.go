@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -25,6 +25,8 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		Tags []string `json:"tags"`
 		// Type of the server
 		Type string
+		// Installation configuration
+		Install *baremetal.CreateServerRequestInstall
 	}
 
 	c.ArgsType = reflect.TypeOf(baremetalCreateServerRequestCustom{})
@@ -51,6 +53,10 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 			Name:           tmpRequest.Name,
 			Description:    tmpRequest.Description,
 			Tags:           tmpRequest.Tags,
+		}
+
+		if tmpRequest.Install != nil {
+			request.Install = tmpRequest.Install
 		}
 
 		// We need to find the offer ID.
@@ -86,10 +92,6 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		{
 			Short:    "Create instance",
 			ArgsJSON: `{}`,
-		},
-		{
-			Short:    "Create a GP-BM1-M instance, give it a name and add tags",
-			ArgsJSON: `{"type":"GP-BM1-M","name":"foo","tags":["prod","blue"]}`,
 		},
 	}
 

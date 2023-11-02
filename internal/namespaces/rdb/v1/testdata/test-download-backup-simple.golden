@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Backup downloaded to dump successfully (2.5 kB written)
+Backup downloaded to simple_dump successfully (2.1 kB written)
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "size": 2547,
-  "file_name": "dump"
+  "size": 2107,
+  "file_name": "simple_dump"
 }

@@ -1,6 +1,7 @@
 package human
 
 import (
+	"encoding/json"
 	"fmt"
 	"net"
 	"reflect"
@@ -11,7 +12,7 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/fatih/color"
 	"github.com/hashicorp/go-version"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -79,7 +80,12 @@ func init() {
 	})
 	marshalerFuncs.Store(reflect.TypeOf(scw.IPNet{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		v := i.(scw.IPNet)
-		return v.String(), nil
+		str := v.String()
+		if str == "<nil>" {
+			return "-", nil
+		}
+
+		return str, nil
 	})
 	marshalerFuncs.Store(reflect.TypeOf(version.Version{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		v := i.(version.Version)
@@ -117,6 +123,27 @@ func init() {
 		}
 		return strings.Join(res, " "), nil
 	})
+	registerMarshaler(func(i scw.JSONObject, opt *MarshalOpt) (string, error) {
+		data, err := json.Marshal(i)
+		if err != nil {
+			return "", err
+		}
+		return string(data), nil
+	})
+	registerMarshaler(func(i []byte, opt *MarshalOpt) (string, error) {
+		data, err := json.Marshal(i)
+		if err != nil {
+			return "", err
+		}
+		return strings.Trim(string(data), "\""), nil
+	})
+}
+
+func registerMarshaler[T any](marshalFunc func(i T, opt *MarshalOpt) (string, error)) {
+	var val T
+	marshalerFuncs.Store(reflect.TypeOf(val), func(i interface{}, opt *MarshalOpt) (string, error) {
+		return marshalFunc(i.(T), opt)
+	})
 }
 
 // TODO: implement the same logic as args.RegisterMarshalFunc(), where i must be a pointer
@@ -137,7 +164,7 @@ func getMarshalerFunc(key reflect.Type) (MarshalerFunc, bool) {
 }
 
 // DefaultMarshalerFunc is used by default for all non-registered type
-func defaultMarshalerFunc(i interface{}, opt *MarshalOpt) (string, error) {
+func defaultMarshalerFunc(i interface{}, _ *MarshalOpt) (string, error) {
 	if i == nil {
 		i = "-"
 	}

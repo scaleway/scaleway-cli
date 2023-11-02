@@ -1,12 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a server technical details.
+Get technical details (CPU, disk size etc.) of a server type.
 
 USAGE:
   scw apple-silicon server-type get <server-type ...> [arg=value ...]
 
 ARGS:
-  server-type   Server type identifier
+  server-type       Server type identifier
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-3)
 
 FLAGS:
   -h, --help   help for get

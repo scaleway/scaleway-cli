@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update the parameters of an application, including `name` and `description`.
+
+USAGE:
+  scw iam application update <application-id ...> [arg=value ...]
+
+ARGS:
+  application-id   ID of the application to update
+  [name]           New name for the application (max length is 64 chars)
+  [description]    New description for the application (max length is 200 chars)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

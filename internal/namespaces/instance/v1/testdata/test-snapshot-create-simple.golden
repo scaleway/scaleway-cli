@@ -1,34 +1,46 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                69edd934-c6a6-4eb4-8854-c4dd0de988eb
-Name              cli-snp-frosty-noether
-Organization      b8fdefc6-c926-4a47-af24-24f14f724d6a
-Project           b8fdefc6-c926-4a47-af24-24f14f724d6a
+ID                70731561-4e15-4f74-b238-f3140160ade8
+Name              cli-snp-ecstatic-babbage
+Organization      951df375-e094-4d26-97c1-ba548eeb9c42
+Project           951df375-e094-4d26-97c1-ba548eeb9c42
 VolumeType        l_ssd
 Size              20 GB
 State             available
-BaseVolume.ID     f79252f4-89d3-485f-9d0a-9b85bdb273b6
-BaseVolume.Name   snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13
+BaseVolume.ID     d4f7cc25-07f7-4151-b0a5-0a1b0a5268c7
+BaseVolume.Name   ubuntu_18.04_bionic_beaver:volume-0
 CreationDate      few seconds ago
 ModificationDate  few seconds ago
 Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "snapshot": {
-    "id": "69edd934-c6a6-4eb4-8854-c4dd0de988eb",
-    "name": "cli-snp-frosty-noether",
-    "organization": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
-    "project": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
-    "tags": null,
+    "id": "70731561-4e15-4f74-b238-f3140160ade8",
+    "name": "cli-snp-ecstatic-babbage",
+    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "tags": [],
     "volume_type": "l_ssd",
     "size": 20000000000,
     "state": "available",
     "base_volume": {
-      "id": "f79252f4-89d3-485f-9d0a-9b85bdb273b6",
-      "name": "snapshot-de728daa-0bf6-4c64-abf5-a9477e791c83-2019-03-05_10:13"
+      "id": "d4f7cc25-07f7-4151-b0a5-0a1b0a5268c7",
+      "name": "ubuntu_18.04_bionic_beaver:volume-0"
     },
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
-    "zone": "fr-par-1"
+    "zone": "fr-par-1",
+    "error_reason": null
+  },
+  "task": {
+    "id": "8a0e4c45-36c3-40f4-bc25-7c1834ce074d",
+    "description": "nop",
+    "progress": 0,
+    "started_at": "1970-01-01T00:00:00.0Z",
+    "terminated_at": null,
+    "status": "pending",
+    "href_from": "/snapshots",
+    "href_result": "snapshots/70731561-4e15-4f74-b238-f3140160ade8",
+    "zone": ""
   }
 }

@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Restore a database backup.
+Launch the process of restoring database backup. You must specify the `instance_id` of the Database Instance of destination, where the backup will be restored. Note that large database backups can take up to several hours to restore.
 
 USAGE:
   scw rdb backup restore <database-backup-id ...> [arg=value ...]
 
 ARGS:
-  [database-name]      Defines the destination database in order to restore into a specified database, the default destination is set to the origin database of the backup
+  [database-name]      Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup)
   database-backup-id   Backup of a logical database
-  instance-id          Defines the rdb instance where the backup has to be restored
+  instance-id          Defines the Database Instance where the backup has to be restored
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

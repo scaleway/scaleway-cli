@@ -4,7 +4,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func GetCommands() *core.Commands {
@@ -13,6 +13,7 @@ func GetCommands() *core.Commands {
 
 func versionCommand() *core.Command {
 	return &core.Command{
+		Groups:               []string{"utility"},
 		Short:                `Display cli version`,
 		Namespace:            "version",
 		AllowAnonymousClient: true,

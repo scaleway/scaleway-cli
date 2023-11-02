@@ -1,16 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Deploy a container associated with the given id.
+Deploy a container associated with the specified ID.
 
 USAGE:
   scw container container deploy <container-id ...> [arg=value ...]
 
 ARGS:
-  container-id      
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  container-id      UUID of the container to deploy
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for deploy
+  -w, --wait   wait until the container is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -1,20 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            dc78c1dd-4436-4193-b82f-94bd5881ea35
-IP.Address       51.15.215.79
-IP.Organization  951df375-e094-4d26-97c1-ba548eeb9c42
-IP.Project       951df375-e094-4d26-97c1-ba548eeb9c42
+IP.ID            647be9ab-3627-4f02-b205-2ae3fe896c5d
+IP.Address       51.15.214.148
+IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+IP.Type          nat
+IP.State         attached
+IP.Prefix        -
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "dc78c1dd-4436-4193-b82f-94bd5881ea35",
-    "address": "51.15.215.79",
+    "id": "647be9ab-3627-4f02-b205-2ae3fe896c5d",
+    "address": "51.15.214.148",
     "reverse": null,
     "server": null,
-    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "tags": [],
-    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "type": "nat",
+    "state": "attached",
+    "prefix": "",
     "zone": "fr-par-1"
   }
 }

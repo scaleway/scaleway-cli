@@ -16,8 +16,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -160,7 +160,7 @@ func registryDockerHelperGetCommand() *core.Command {
 	}
 }
 
-func registryDockerHelperGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func registryDockerHelperGetRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
 	var serverURL string
 	serverURL, err := bufio.NewReader(core.ExtractStdin(ctx)).ReadString('\n')
 	if err != nil && err != io.EOF {

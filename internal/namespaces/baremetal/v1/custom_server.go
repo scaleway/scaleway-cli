@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -30,6 +30,7 @@ func serverWaitCommand() *core.Command {
 	type serverWaitRequest struct {
 		ServerID string
 		Zone     scw.Zone
+		Timeout  time.Duration
 	}
 
 	return &core.Command{
@@ -38,14 +39,17 @@ func serverWaitCommand() *core.Command {
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*serverWaitRequest)
+
 			api := baremetal.NewAPI(core.ExtractClient(ctx))
 			logger.Debugf("starting to wait for server to reach a stable delivery status")
 			server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
-				ServerID:      argsI.(*serverWaitRequest).ServerID,
-				Zone:          argsI.(*serverWaitRequest).Zone,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				ServerID:      args.ServerID,
+				Zone:          args.Zone,
+				Timeout:       scw.TimeDurationPtr(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -63,9 +67,9 @@ func serverWaitCommand() *core.Command {
 
 			logger.Debugf("server reached a stable delivery status. Will now starting to wait for server to reach a stable installation status")
 			server, err = api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
-				ServerID:      argsI.(*serverWaitRequest).ServerID,
-				Zone:          argsI.(*serverWaitRequest).Zone,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				ServerID:      args.ServerID,
+				Zone:          args.Zone,
+				Timeout:       scw.TimeDurationPtr(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -88,6 +92,7 @@ func serverWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(),
+			core.WaitTimeoutArgSpec(serverActionTimeout),
 		},
 		Examples: []*core.Example{
 			{

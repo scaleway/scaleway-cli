@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Volume types will answer with all volume types available in a given zone.
+All volume types available in a specified zone.
 Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
 
 USAGE:
   scw instance volume-type <command>
 
 AVAILABLE COMMANDS:
-  list        List volumes types
+  list        List volume types
 
 FLAGS:
   -h, --help   help for volume-type

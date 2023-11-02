@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Set privileges of a given user for a given database on a given instance.
+Set the privileges of a user on a database. You must define `database_name`, `user_name` and `permission` in the request body.
 
 USAGE:
   scw rdb privilege set [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance
+  instance-id       UUID of the Database Instance
   [database-name]   Name of the database
   [user-name]       Name of the user
   [permission]      Permission to set (Read, Read/Write, All, Custom) (readonly | readwrite | all | custom | none)

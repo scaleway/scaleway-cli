@@ -1,8 +1,8 @@
 package k8s
 
 import (
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
@@ -36,6 +36,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("k8s", "cluster", "update").Override(clusterUpdateBuilder)
 	cmds.MustFind("k8s", "cluster", "upgrade").Override(clusterUpgradeBuilder)
 	cmds.MustFind("k8s", "cluster", "delete").Override(clusterDeleteBuilder)
+	cmds.MustFind("k8s", "cluster", "migrate-to-private-network").Override(clusterMigrateToPrivateNetworkBuilder)
 
 	cmds.MustFind("k8s", "pool", "create").Override(poolCreateBuilder)
 	cmds.MustFind("k8s", "pool", "update").Override(poolUpdateBuilder)

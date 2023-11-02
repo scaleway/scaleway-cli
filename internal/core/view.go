@@ -1,7 +1,7 @@
 package core
 
 import (
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 )
 
 // View hydrates human.MarshalOpt
@@ -21,8 +21,9 @@ type ViewField struct {
 }
 
 type ViewSection struct {
-	Title     string
-	FieldName string
+	Title       string
+	FieldName   string
+	HideIfEmpty bool
 }
 
 func (v *View) getHumanMarshalerOpt() *human.MarshalOpt {
@@ -38,8 +39,9 @@ func (v *View) getHumanMarshalerOpt() *human.MarshalOpt {
 	}
 	for _, section := range v.Sections {
 		opt.Sections = append(opt.Sections, &human.MarshalSection{
-			Title:     section.Title,
-			FieldName: section.FieldName,
+			Title:       section.Title,
+			FieldName:   section.FieldName,
+			HideIfEmpty: section.HideIfEmpty,
 		})
 	}
 	opt.Title = v.Title

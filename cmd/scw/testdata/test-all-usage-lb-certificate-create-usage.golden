@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Generate a new TLS certificate using Let's Encrypt or import your certificate.
+Generate a new SSL/TLS certificate for a given Load Balancer. You can choose to create a Let's Encrypt certificate, or import a custom certificate.
 
 USAGE:
   scw lb certificate create [arg=value ...]
 
 ARGS:
-  lb-id                                    Load balancer ID
-  name=<generated>                         Certificate name
-  [letsencrypt-common-name]                Main domain name of certificate (make sure this domain exists and resolves to your load balancer HA IP)
-  [letsencrypt-alternative-name.{index}]   Alternative domain names (make sure all domain names exists and resolves to your load balancer HA IP)
-  [custom-certificate-chain]               The full PEM-formatted include an entire certificate chain including public key, private key, and optionally certificate authorities.
-  [zone=fr-par-1]                          Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | pl-waw-1)
+  lb-id                                    Load Balancer ID
+  name=<generated>                         Name for the certificate
+  [letsencrypt-common-name]                Main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address)
+  [letsencrypt-alternative-name.{index}]   Alternative domain names (all domain names must exist and resolve to your Load Balancer IP address)
+  [custom-certificate-chain]               Full PEM-formatted certificate, consisting of the entire certificate chain including public key, private key, and (optionally) Certificate Authorities
+  [zone=fr-par-1]                          Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for create

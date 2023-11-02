@@ -2,6 +2,7 @@
 
 export CGO_ENABLED=0
 LDFLAGS=(
+   -s
    -w
    -extldflags
    -static
@@ -12,7 +13,10 @@ LDFLAGS=(
 
 # If we are build from the dockerfile only build required binary
 if [[ "${BUILD_IN_DOCKER}" == "true" ]]; then
-    GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "${LDFLAGS[*]}" ./cmd/scw
+    if [[ "${VERSION}" != "" ]]; then
+      LDFLAGS+=(-X main.Version="${VERSION}")
+    fi
+    GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "${LDFLAGS[*]} " ./cmd/scw
     exit 0
  fi
 

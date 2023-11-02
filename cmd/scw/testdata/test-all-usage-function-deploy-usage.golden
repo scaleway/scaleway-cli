@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create or fetch, upload and deploy your function
+
+USAGE:
+  scw function deploy [arg=value ...]
+
+ARGS:
+  [namespace-id]    Function Namespace ID to deploy to
+  name              Name of the function to deploy, will be used in namespace's name if no ID is provided
+  runtime            (unknown_runtime | golang | python | python3 | node8 | node10 | node14 | node16 | node17 | python37 | python38 | python39 | python310 | go113 | go117 | go118 | node18 | rust165 | go119 | python311 | php82 | node19 | go120 | node20 | go121)
+  zip-file          Path of the zip file that contains your code
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for deploy
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

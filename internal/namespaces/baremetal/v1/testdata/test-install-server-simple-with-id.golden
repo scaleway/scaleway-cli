@@ -27,7 +27,7 @@ BootType                    normal
 Zone                        nl-ams-1
 Install.OsID                03b7f4ba-a6a1-4305-984e-b54fafbf1681
 Install.Hostname            test-install-server
-Install.SSHKeyIDs.0         48734124-36fc-409c-a515-40c87ed0e1b8
+Install.SSHKeyIDs.0         02aeb573-5220-4e1d-8983-fbd12fc38b5f
 Install.Status              completed
 Install.User                -
 Install.ServiceUser         -
@@ -71,7 +71,7 @@ PingStatus                  down
     "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "48734124-36fc-409c-a515-40c87ed0e1b8"
+      "02aeb573-5220-4e1d-8983-fbd12fc38b5f"
     ],
     "status": "completed",
     "user": "",
@@ -79,5 +79,6 @@ PingStatus                  down
     "service_url": ""
   },
   "ping_status": "ping_status_down",
-  "options": null
+  "options": null,
+  "rescue_server": null
 }

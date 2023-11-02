@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -50,7 +50,7 @@ func registryLoginRun(ctx context.Context, argsI interface{}) (i interface{}, e 
 	}
 
 	cmdArgs := []string{"login", "-u", "scaleway", "--password-stdin", endpoint}
-	cmd := exec.Command(args.Program, cmdArgs...) // nolint:gosec
+	cmd := exec.Command(args.Program, cmdArgs...) //nolint:gosec
 	cmd.Stdin = bytes.NewBufferString(secretKey)
 	exitCode, err := core.ExecCmd(ctx, cmd)
 

@@ -3,13 +3,13 @@ package docgen
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"path"
 	"regexp"
 	"strings"
 	"text/template"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 type tplData struct {
@@ -29,7 +29,7 @@ type tplResource struct {
 
 const ansi = "[\u001B\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PRZcf-ntqry=><~]))"
 
-// Generate markdown documentation for a given list of commands
+// GenerateDocs generates markdown documentation for a given list of commands
 func GenerateDocs(commands *core.Commands, outDir string) error {
 	// Prepare data that will be sent to template engine
 	data := &tplData{
@@ -77,7 +77,7 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 		if err != nil {
 			return err
 		}
-		err = ioutil.WriteFile(path.Join(outDir, name+".md"), []byte(namespaceDoc), 0600)
+		err = os.WriteFile(path.Join(outDir, name+".md"), []byte(namespaceDoc), 0600)
 		if err != nil {
 			return err
 		}

@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -26,6 +26,7 @@ func serverSSHCommand() *core.Command {
 		Namespace: "apple-silicon",
 		Verb:      "ssh",
 		Resource:  "server",
+		Groups:    []string{"utility"},
 		ArgsType:  reflect.TypeOf(serverSSHConnectRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{

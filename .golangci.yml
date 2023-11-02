@@ -3,6 +3,10 @@
 #
 # To execute linters in local the ./scripts/lint.sh script can be used.
 
+run:
+  skip-dirs:
+    - internal/pkg
+
 linters:
   disable-all: true
 
@@ -10,8 +14,6 @@ linters:
   # Please keep them sorted alphabetically
   enable:
     - bodyclose
-    - deadcode
-    - depguard
     - dogsled
     - errcheck
     - goconst
@@ -27,13 +29,11 @@ linters:
     - revive
     - rowserrcheck
     - staticcheck
-    - structcheck
     - stylecheck
     - typecheck
     - unconvert
     - unparam
     - unused
-    - varcheck
     - whitespace
 
 linters-settings:
@@ -60,3 +60,7 @@ issues:
       linters:
         - unused
         - errcheck
+
+    - path: internal/tabwriter/.*_test\.go
+      linters:
+        - goconst

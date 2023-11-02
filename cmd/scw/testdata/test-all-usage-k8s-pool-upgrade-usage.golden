@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This method allows to upgrade the Kubernetes version of a specific pool. Note that this will work when the targeted version is the same than the version of the cluster.
+Upgrade the Kubernetes version of a specific pool. Note that it only works if the targeted version matches the cluster's version.
 
 USAGE:
   scw k8s pool upgrade <pool-id ...> [arg=value ...]
 
 EXAMPLES:
-  Upgrade a given pool to the Kubernetes version 1.17.4
-    scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.17.4
+  Upgrade a specific pool to the Kubernetes version 1.27.0
+    scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.27.0
 
 ARGS:
-  pool-id           The ID of the pool to upgrade
-  version           The new Kubernetes version for the pool
+  pool-id           ID of the pool to upgrade
+  version           New Kubernetes version for the pool
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

@@ -1,0 +1,18 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://github.com/[^/]+/[^/]+/(issues|labels|pull)"
+    },
+    {
+      "pattern": "^http://169.254.42.42/[^/])"
+    },
+    {
+      "pattern": "^https://api.scaleway.com/account/v1"
+    }
+  ],
+  "timeout": "20s",
+  "retryOn429": true,
+  "retryCount": 5,
+  "fallbackRetryDelay": "30s",
+  "aliveStatusCodes": [200, 206]
+}

@@ -3,7 +3,7 @@ package core
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -105,7 +105,7 @@ func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner Comman
 		var hint string
 		switch resourceName := sdkError.Resource; resourceName {
 		case "account_token":
-			hint = "Try to generate a new token here https://console.scaleway.com/project/credentials"
+			hint = "Try to generate a new token here https://console.scaleway.com/iam/api-keys"
 		}
 
 		return nil, &CliError{
@@ -127,7 +127,7 @@ func sdkStdTypeInterceptor(ctx context.Context, args interface{}, runner Command
 	switch sdkValue := res.(type) {
 	case *scw.File:
 		ExtractLogger(ctx).Debug("Intercepting scw.File type, rendering as string")
-		fileContent, err := ioutil.ReadAll(sdkValue.Content)
+		fileContent, err := io.ReadAll(sdkValue.Content)
 		if err != nil {
 			return nil, err
 		}

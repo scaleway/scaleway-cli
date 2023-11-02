@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -89,6 +89,7 @@ func serverWaitCommand() *core.Command {
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(customServerWaitArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*customServerWaitArgs)
@@ -97,7 +98,7 @@ func serverWaitCommand() *core.Command {
 			cluster, err := api.WaitForServer(&applesilicon.WaitForServerRequest{
 				Zone:          args.Zone,
 				ServerID:      args.ServerID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       args.Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -114,6 +115,7 @@ func serverWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(),
+			core.WaitTimeoutArgSpec(serverActionTimeout),
 		},
 		Examples: []*core.Example{
 			{

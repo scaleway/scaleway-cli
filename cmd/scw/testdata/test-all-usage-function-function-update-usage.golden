@@ -1,26 +1,27 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the function associated with the given id.
+Update the function associated with the specified ID.
 
 USAGE:
   scw function function update <function-id ...> [arg=value ...]
 
 ARGS:
-  function-id                                    
-  [environment-variables.value.{key}]            
-  [min-scale]                                    
-  [max-scale]                                    
-  [memory-limit]                                 
+  function-id                                    UUID of the function to update
+  [environment-variables.{key}]                  Environment variables of the function to update
+  [min-scale]                                    Minumum number of instances to scale the function to
+  [max-scale]                                    Maximum number of instances to scale the function to
+  [runtime]                                      Runtime to use with the function (unknown_runtime | golang | python | python3 | node8 | node10 | node14 | node16 | node17 | python37 | python38 | python39 | python310 | go113 | go117 | go118 | node18 | rust165 | go119 | python311 | php82 | node19 | go120 | node20 | go121)
+  [memory-limit]                                 Memory limit of the function in MB
   [timeout.seconds]                              
   [timeout.nanos]                                
-  [redeploy]                                     
-  [handler]                                      
-  [privacy]                                       (unknown_privacy | public | private)
-  [description]                                  
+  [redeploy]                                     Redeploy failed function
+  [handler]                                      Handler to use with the function
+  [privacy]                                      Privacy setting of the function (unknown_privacy | public | private)
+  [description]                                  Description of the function
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
-  [http-option]                                  Configure how HTTP and HTTPS requests are handled
-  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)
+  [http-option=enabled]                          Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
+  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update

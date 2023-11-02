@@ -3,10 +3,10 @@ package core
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -18,12 +18,11 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/dnaeon/go-vcr/cassette"
-	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/hashicorp/go-version"
-	args "github.com/scaleway/scaleway-cli/internal/args"
-	"github.com/scaleway/scaleway-cli/internal/human"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	args "github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -193,6 +192,9 @@ type TestConfig struct {
 
 	// Allow to mock stdin
 	Stdin io.Reader
+
+	// EnabledAliases enables aliases that are disabled in tests
+	EnableAliases bool
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -222,7 +224,7 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 		scw.WithDefaultProjectID("11111111-1111-1111-1111-111111111111"),
 		scw.WithUserAgent("cli-e2e-test"),
 		scw.WithHTTPClient(&http.Client{
-			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+			Transport: &retryableHTTPTransport{transport: &SocketPassthroughTransport{}},
 		}),
 	}
 
@@ -330,7 +332,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		if config.TmpHomeDir {
-			dir, err := ioutil.TempDir(os.TempDir(), "scw")
+			dir, err := os.MkdirTemp(os.TempDir(), "scw")
 			require.NoError(t, err)
 			defer func() {
 				err = os.RemoveAll(dir)
@@ -376,17 +378,19 @@ func Test(config *TestConfig) func(t *testing.T) {
 			stderrBuffer := &bytes.Buffer{}
 			_, result, err := Bootstrap(&BootstrapConfig{
 				Args:             args,
-				Commands:         config.Commands,
+				Commands:         config.Commands.Copy(), // Copy commands to ensure they are not modified
 				BuildInfo:        buildInfo,
 				Stdout:           stdoutBuffer,
 				Stderr:           stderrBuffer,
 				Client:           client,
 				DisableTelemetry: true,
+				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
 				Logger:           testLogger,
 				HTTPClient:       httpClient,
+				Platform:         terminal.NewPlatform(buildInfo.GetUserAgent()),
 			})
 			require.NoError(t, err, "error executing cmd (%s)\nstdout: %s\nstderr: %s", args, stdoutBuffer.String(), stderrBuffer.String())
 
@@ -441,11 +445,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Stdin:            stdin,
 				Client:           client,
 				DisableTelemetry: true,
+				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
 				Ctx:              ctx,
 				Logger:           cmdLogger,
 				HTTPClient:       httpClient,
+				Platform:         terminal.NewPlatform(buildInfo.GetUserAgent()),
 			})
 
 			meta["CmdResult"] = result
@@ -547,6 +553,18 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 	}
 }
 
+// ExecBeforeCmdArgs executes the given command before command.
+func ExecBeforeCmdArgs(args []string) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		for i := range args {
+			args[i] = ctx.Meta.render(args[i])
+		}
+		ctx.Logger.Debugf("ExecBeforeCmdArgs: args=%s\n", args)
+		ctx.ExecuteCmd(args)
+		return nil
+	}
+}
+
 // ExecAfterCmd executes the given before command.
 func ExecAfterCmd(cmd string) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
@@ -573,6 +591,62 @@ func TestCheckExitCode(expectedCode int) TestCheck {
 	}
 }
 
+// GoldenReplacement describe patterns to be replaced in goldens
+type GoldenReplacement struct {
+	// Line will be matched using this regex
+	Pattern *regexp.Regexp
+	// Content that will replace the matched regex
+	// This is the format for repl in (*regexp.Regexp).ReplaceAll
+	// You can use $ to represent groups $1, $2...
+	Replacement string
+
+	// OptionalMatch allow the golden to not contain the given patterns
+	// if false, the golden must contain the given pattern
+	OptionalMatch bool
+}
+
+// goldenReplacePatterns replace the list of patterns with their given replacement
+func goldenReplacePatterns(golden string, replacements ...GoldenReplacement) (string, error) {
+	var matchFailed []string
+	var changedGolden = golden
+
+	for _, replacement := range replacements {
+		if !replacement.Pattern.MatchString(changedGolden) {
+			if !replacement.OptionalMatch {
+				matchFailed = append(matchFailed, replacement.Pattern.String())
+			}
+			continue
+		}
+		changedGolden = replacement.Pattern.ReplaceAllString(changedGolden, replacement.Replacement)
+	}
+
+	if len(matchFailed) > 0 {
+		return changedGolden, fmt.Errorf("failed to match regex in golden: %#q", matchFailed)
+	}
+	return changedGolden, nil
+}
+
+// TestCheckGoldenAndReplacePatterns assert stderr and stdout using golden,
+// golden are matched against given regex and edited with replacements
+func TestCheckGoldenAndReplacePatterns(replacements ...GoldenReplacement) TestCheck {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		actual := marshalGolden(t, ctx)
+		actual, actualReplaceErr := goldenReplacePatterns(actual, replacements...)
+
+		goldenPath := getTestFilePath(t, ".golden")
+		// In order to avoid diff in goldens we set all timestamp to the same date
+		if *UpdateGoldens {
+			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
+			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+		}
+
+		expected, err := os.ReadFile(goldenPath)
+		require.NoError(t, err, "expected to find golden file %s", goldenPath)
+		assert.Equal(t, string(expected), actual)
+		assert.Nil(t, actualReplaceErr, "failed to match test output with regexes")
+	}
+}
+
 // TestCheckGolden assert stderr and stdout using golden
 func TestCheckGolden() TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
@@ -582,10 +656,10 @@ func TestCheckGolden() TestCheck {
 		// In order to avoid diff in goldens we set all timestamp to the same date
 		if *UpdateGoldens {
 			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, ioutil.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
 		}
 
-		expected, err := ioutil.ReadFile(goldenPath)
+		expected, err := os.ReadFile(goldenPath)
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
 		assert.Equal(t, string(expected), actual)
 	}
@@ -619,36 +693,16 @@ func uniformTimestamps(input string) string {
 	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
 }
 
-// getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
-// This cassette is then replayed whenever tests are executed again. This means that once the
-// requests are recorded in the cassette, no more real HTTP request must be made to run the tests.
-//
-// It is important to call add a `defer cleanup()` so the given cassette files are correctly
-// closed and saved after the requests.
-func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
-	recorderMode := recorder.ModeReplaying
-	if update {
-		recorderMode = recorder.ModeRecording
+func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {
+	var jsonInterface interface{}
+	if jsonStdout.Len() > 0 {
+		err := json.Unmarshal(jsonStdout.Bytes(), &jsonInterface)
+		require.NoError(t, err, "json stdout is invalid (%s)", getTestFilePath(t, ".cassette"))
 	}
-
-	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(getTestFilePath(t, ".cassette"), recorderMode, nil)
-	if err != nil {
-		return nil, nil, err
+	if jsonStderr.Len() > 0 {
+		err := json.Unmarshal(jsonStderr.Bytes(), &jsonInterface)
+		require.NoError(t, err, "json stderr is invalid (%s)", getTestFilePath(t, ".cassette"))
 	}
-
-	// Add a filter which removes Authorization headers from all requests:
-	r.AddFilter(func(i *cassette.Interaction) error {
-		delete(i.Request.Headers, "x-auth-token")
-		delete(i.Request.Headers, "X-Auth-Token")
-		i.Request.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").ReplaceAllString(i.Request.URL, "organization_id=11111111-1111-1111-1111-111111111111")
-		i.Request.URL = regexp.MustCompile(`account\.scaleway\.com/tokens/[0-9a-f-]{36}`).ReplaceAllString(i.Request.URL, "account.scaleway.com/tokens/11111111-1111-1111-1111-111111111111")
-		return nil
-	})
-
-	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
-		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
-	}, nil
 }
 
 func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
@@ -669,6 +723,10 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	if ctx.Result != nil {
 		err = jsonPrinter.Print(ctx.Result, nil)
 		require.NoError(t, err)
+	}
+
+	if _, isRawResult := ctx.Result.(RawResult); !isRawResult {
+		validateJSONGolden(t, jsonStdout, jsonStderr)
 	}
 
 	buffer := bytes.Buffer{}

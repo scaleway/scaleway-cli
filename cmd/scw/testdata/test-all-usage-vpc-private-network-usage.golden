@@ -1,22 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A private network allows interconnecting your instances in an
-isolated and private network. The network reachability is limited
-to the instances that are on the same private network.  Network
-Interface Controllers (NICs) are available on the instance and can
-be freely managed (adding IP addresses, shutdown interface...)
-
-Note that an instance can be a part of multiple private networks.
+A Private Network allows you to interconnect your Scaleway resources
+in an isolated and private network. Network reachability is limited
+to resources that are on the same Private Network. Note that a
+resource can be a part of multiple private networks.
 
 USAGE:
   scw vpc private-network <command>
 
 AVAILABLE COMMANDS:
-  create      Create a private network
-  delete      Delete a private network
-  get         Get a private network
-  list        List private networks
-  update      Update private network
+  create      Create a Private Network
+  delete      Delete a Private Network
+  get         Get a Private Network
+  list        List Private Networks
+  update      Update Private Network
 
 FLAGS:
   -h, --help   help for private-network

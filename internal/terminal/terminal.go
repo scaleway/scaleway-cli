@@ -1,10 +1,13 @@
+//go:build !wasm
+
 package terminal
 
 import (
 	"os"
 
-	"github.com/fatih/color"
 	"golang.org/x/term"
+
+	"github.com/fatih/color"
 )
 
 func Style(msg string, styles ...color.Attribute) string {
@@ -25,4 +28,9 @@ func GetHeight() int {
 		return -1
 	}
 	return h
+}
+
+// IsTerm returns if stdout is considered a tty
+func IsTerm() bool {
+	return !color.NoColor
 }

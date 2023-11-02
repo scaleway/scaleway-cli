@@ -7,10 +7,13 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/scaleway/scaleway-cli/internal/account"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/account"
+	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
 
@@ -41,6 +44,9 @@ type BootstrapConfig struct {
 	// This is useful when running test to avoid sending meaningless telemetries.
 	DisableTelemetry bool
 
+	// DisableAliases, if set to true this will disable aliases expanding
+	DisableAliases bool
+
 	// OverrideEnv overrides environment variables returned by core.ExtractEnv function.
 	// This is useful for tests as it allows overriding env without relying on global state.
 	OverrideEnv map[string]string
@@ -60,6 +66,12 @@ type BootstrapConfig struct {
 	// Default HTTPClient to use. If not provided it will use a basic http client with a simple retry policy
 	// This client will be used to create SDK client, account call, version checking and telemetry
 	HTTPClient *http.Client
+
+	// Enable beta functionalities
+	BetaMode bool
+
+	// The current platform, should probably be platform.Default
+	Platform platform.Platform
 }
 
 // Bootstrap is the main entry point. It is directly called from main.
@@ -75,7 +87,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
 	flags.StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
 	flags.StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
-	flags.StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human")
+	flags.StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human")
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
@@ -92,11 +104,15 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// If debug flag is set enable debug mode in SDK logger
 	logLevel := logger.LogLevelWarning
+	if outputFlag != cliConfig.DefaultOutput {
+		logLevel = logger.LogLevelError
+	}
+
 	if debug {
 		logLevel = logger.LogLevelDebug // enable debug mode
 	}
 
-	// We force log to os.Stderr because we dont have a scoped logger feature and it create
+	// We force log to os.Stderr because we don't have a scoped logger feature, and it creates
 	// concurrency situation with golden files
 	log := config.Logger
 	if log == nil {
@@ -123,7 +139,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	httpClient := config.HTTPClient
 	if httpClient == nil {
 		httpClient = &http.Client{
-			Transport: &retryableHTTPTransport{transport: http.DefaultTransport},
+			Transport: &retryableHTTPTransport{transport: &SocketPassthroughTransport{}},
 		}
 	}
 
@@ -154,6 +170,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		OverrideExec:   config.OverrideExec,
 		ConfigPathFlag: configPathFlag,
 		Logger:         log,
+		Platform:       config.Platform,
 
 		stdout:                      config.Stdout,
 		stderr:                      config.Stderr,
@@ -162,6 +179,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		command:                     nil, // command is later injected by cobra_utils.go/cobraRun()
 		httpClient:                  httpClient,
 		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
+		betaMode:                    config.BetaMode,
 	}
 	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
@@ -180,27 +198,68 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	ctx = account.InjectHTTPClient(ctx, httpClient)
 	ctx = injectMeta(ctx, meta)
 
-	// Check CLI new version when exiting the bootstrap
+	// Load CLI config
+	cliCfg, err := cliConfig.LoadConfig(ExtractCliConfigPath(ctx))
+	if err != nil {
+		printErr := printer.Print(err, nil)
+		if printErr != nil {
+			_, _ = fmt.Fprintln(config.Stderr, printErr)
+		}
+		return 1, nil, err
+	}
+	meta.CliConfig = cliCfg
+	if cliCfg.Output != cliConfig.DefaultOutput {
+		outputFlag = cliCfg.Output
+		printer, err = NewPrinter(&PrinterConfig{
+			OutputFlag: outputFlag,
+			Stdout:     config.Stdout,
+			Stderr:     config.Stderr,
+		})
+		if err != nil {
+			_, _ = fmt.Fprintln(config.Stderr, err)
+			return 1, nil, err
+		}
+	}
+
+	// Run checks after command has been executed
 	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
-		config.BuildInfo.checkVersion(ctx)
+		// Check CLI new version and api key expiration date
+		runAfterCommandChecks(ctx, config.BuildInfo.checkVersion, checkAPIKey)
 	}()
+
+	if !config.DisableAliases {
+		config.Commands.applyAliases(meta.CliConfig.Alias)
+	}
 
 	// cobraBuilder will build a Cobra root command from a list of Command
 	builder := cobraBuilder{
-		commands: config.Commands.GetSortedCommand(),
+		commands: config.Commands,
 		meta:     meta,
 		ctx:      ctx,
 	}
 
 	rootCmd := builder.build()
 
+	// ShellMode
+	if len(config.Args) >= 2 && config.Args[1] == "shell" {
+		RunShell(ctx, printer, meta, rootCmd, config.Args)
+		return 0, meta.result, nil
+	}
+
+	args := config.Args[1:]
+	// Do not resolve aliases if using a disabled namespace
+	if (len(config.Args) < 2 || !aliasDisabled(config.Args[1])) && !config.DisableAliases {
+		args = meta.CliConfig.Alias.ResolveAliases(args)
+	}
+
 	// These flag are already handle at the beginning of this function but we keep this
 	// declaration in order for them to be shown in the cobra usage documentation.
-	rootCmd.PersistentFlags().StringVarP(&configPathFlag, "profile", "p", "", "The config profile to use")
-	rootCmd.PersistentFlags().StringVarP(&profileFlag, "config", "c", "", "The path to the config file")
-	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "human", "Output format: json or human, see 'scw help output' for more info")
+	rootCmd.PersistentFlags().StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
+	rootCmd.PersistentFlags().StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
+	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
-	rootCmd.SetArgs(config.Args[1:])
+	rootCmd.SetArgs(args)
+	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()
 
 	if err != nil {

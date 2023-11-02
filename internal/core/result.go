@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/human"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/terminal"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
@@ -19,6 +19,8 @@ type SuccessResult struct {
 	Resource string
 	Verb     string
 	Empty    bool
+	// Used to pass resource to an AfterFunc on success
+	TargetResource any
 }
 
 // This type can be return by a command that need to output specific content on stdout directly.

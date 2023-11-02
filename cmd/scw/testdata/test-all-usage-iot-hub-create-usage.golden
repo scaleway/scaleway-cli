@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a hub.
+Create a new Hub in the targeted region, specifying its configuration including name and product plan.
 
 USAGE:
   scw iot hub create [arg=value ...]
@@ -8,14 +8,15 @@ USAGE:
 ARGS:
   name=<generated>                   Hub name (up to 255 characters)
   [project-id]                       Project ID to use. If none is passed the default project ID will be used
-  product-plan=plan_shared           Hub feature set (plan_unknown | plan_shared | plan_dedicated | plan_ha)
+  product-plan=plan_shared           Hub product plan (plan_unknown | plan_shared | plan_dedicated | plan_ha)
   [disable-events]                   Disable Hub events
-  [events-topic-prefix]              Hub events topic prefix (default '$SCW/events')
+  [events-topic-prefix]              Topic prefix (default '$SCW/events') of Hub events
   [twins-graphite-config.push-uri]   
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for create
+  -w, --wait   wait until the hub is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

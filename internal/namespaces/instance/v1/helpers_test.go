@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
@@ -12,22 +12,29 @@ import (
 // Server
 //
 
-// createServer creates a stopped ubuntu-bionic server and
+// createServerBionic creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
-// nolint:unparam
-func createServer(metaKey string) core.BeforeFunc {
+//
+//nolint:unparam
+func createServerBionic(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-bionic")
+}
+
+func createServer(metaKey string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-jammy")
 }
 
 // createServer creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 func startServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+".ID }}")
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+
+		".ID }}") //nolint: goconst
 }
 
 // deleteServer deletes a server and its attached IP and volumes
 // previously registered in the context Meta at metaKey.
-// nolint:unparam
+//
+//nolint:unparam
 func deleteServer(metaKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
 		server := ctx.Meta[metaKey].(*instance.Server)
@@ -47,7 +54,8 @@ func deleteServer(metaKey string) core.AfterFunc {
 
 // createVolume creates a volume of the given size and type and
 // register it in the context Meta at metaKey.
-// nolint:unparam
+//
+//nolint:unparam
 func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeVolumeType) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw instance volume create name=cli-test size=%dGB volume-type=%s", sizeInGb, volumeType)
@@ -59,7 +67,7 @@ func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeVolume
 }
 
 // deleteVolume deletes a volume previously registered in the context Meta at metaKey.
-func deleteVolume(metaKey string) core.AfterFunc {
+func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
 	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
 }
 
@@ -131,4 +139,18 @@ func deleteSecurityGroup(metaKey string) core.AfterFunc {
 // deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.
 func deleteSnapshot(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw instance snapshot delete {{ ." + metaKey + ".Snapshot.ID }}")
+}
+
+func createPN() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"PN",
+		"scw vpc private-network create",
+	)
+}
+
+func createNIC() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"NIC",
+		"scw instance private-nic create server-id={{ .Server.ID }} private-network-id={{ .PN.ID }}",
+	)
 }

@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Returns a list of Nameservers and their optional glue records for a DNS zone.
+Retrieve a list of name servers within a DNS zone and their optional glue records.
 
 USAGE:
   scw dns record list-nameservers <dns-zone ...> [arg=value ...]
 
 ARGS:
-  [project-id]   The project ID on which to filter the returned DNS zone nameservers
-  dns-zone       The DNS zone on which to filter the returned DNS zone nameservers
+  [project-id]   Project ID on which to filter the returned DNS zone name servers
+  dns-zone       DNS zone on which to filter the returned DNS zone name servers
 
 FLAGS:
   -h, --help   help for list-nameservers

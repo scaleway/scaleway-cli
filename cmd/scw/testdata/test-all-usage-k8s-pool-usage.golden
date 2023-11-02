@@ -1,19 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A pool is a set of identical Nodes. A pool has a name, a size (its current number of nodes), nodes number limits (min, max) and a Scaleway instance type.
-Changing those limits increases/decreases the size of a pool. Thus, when autoscaling is enabled, the pool will grow or shrink inside those limits, depending on its load.
-A "default pool" is automatically created with every cluster.
+A pool is a set of identical nodes
+A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled. A "default pool" is automatically created with every cluster via the console.
 
 USAGE:
   scw k8s pool <command>
 
 AVAILABLE COMMANDS:
-  create      Create a new pool in a cluster
-  delete      Delete a pool in a cluster
-  get         Get a pool in a cluster
-  list        List all the pools in a cluster
-  update      Update a pool in a cluster
-  upgrade     Upgrade a pool in a cluster
+  create      Create a new Pool in a Cluster
+  delete      Delete a Pool in a Cluster
+  get         Get a Pool in a Cluster
+  list        List Pools in a Cluster
+  update      Update a Pool in a Cluster
+  upgrade     Upgrade a Pool in a Cluster
+
+WORKFLOW COMMANDS:
   wait        Wait for a pool to reach a stable state
 
 FLAGS:

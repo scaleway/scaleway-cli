@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update the parameters of group, including `name` and `description`.
+
+USAGE:
+  scw iam group update <group-id ...> [arg=value ...]
+
+ARGS:
+  group-id        ID of the group to update
+  [name]          New name for the group (max length is 64 chars). MUST be unique inside an Organization
+  [description]   New description for the group (max length is 200 chars)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

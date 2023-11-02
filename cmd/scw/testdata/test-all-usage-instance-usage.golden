@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Instance API
+Instance API.
 
 USAGE:
   scw instance <command>
@@ -11,9 +11,10 @@ AVAILABLE COMMANDS:
   placement-group Placement group management commands
   private-nic     Private NIC management commands
   security-group  Security group management commands
-  server          Server management commands
-  server-type     Server type management commands
+  server          Instance management commands
+  server-type     Instance type management commands
   snapshot        Snapshot management commands
+  ssh             SSH Utilities
   user-data       User data management commands
   volume          Volume management commands
   volume-type     Volume type management commands

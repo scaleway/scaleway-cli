@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Account API
+This API allows you to manage projects.
 
 USAGE:
   scw account <command>
 
 AVAILABLE COMMANDS:
-  ssh-key     SSH keys management commands
+  project     Project management commands
 
 FLAGS:
   -h, --help   help for account

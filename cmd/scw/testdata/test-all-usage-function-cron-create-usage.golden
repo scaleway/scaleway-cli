@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a new cronjob for a function with the specified ID.
+
+USAGE:
+  scw function cron create [arg=value ...]
+
+ARGS:
+  [function-id]     UUID of the function to use the cron with
+  [schedule]        Schedule of the cron in UNIX cron format
+  [args]            Arguments to use with the cron
+  [name]            Name of the cron
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

@@ -1,0 +1,34 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a new group. You must define the `name` and `organization_id` parameters in the request.
+
+USAGE:
+  scw iam group create [arg=value ...]
+
+EXAMPLES:
+  Create a group
+    scw iam group create name=foobar
+
+ARGS:
+  name=<generated>    Name of the group to create (max length is 64 chars). MUST be unique inside an Organization
+  [description]       Description of the group to create (max length is 200 chars)
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Add a group member
+  scw iam group add-member
+
+  # Delete a group
+  scw iam group delete
+
+  # Create a policy for a group
+  scw iam policy create

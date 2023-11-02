@@ -6,10 +6,10 @@ USAGE:
   scw lb frontend <command>
 
 AVAILABLE COMMANDS:
-  create      Create a frontend in a given load balancer
+  create      Create a frontend in a given Load Balancer
   delete      Delete a frontend
   get         Get a frontend
-  list        List frontends in a given load balancer
+  list        List frontends of a given Load Balancer
   update      Update a frontend
 
 FLAGS:

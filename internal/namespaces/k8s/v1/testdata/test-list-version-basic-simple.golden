@@ -1,70 +1,183 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAME     AVAILABLE CNIS                 AVAILABLE INGRESSES            AVAILABLE CONTAINER RUNTIMES  AVAILABLE FEATURE GATES                                                                                                                                AVAILABLE ADMISSION PLUGINS                                                              AVAILABLE KUBELET ARGS
-1.20.3   [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished HPAScaleToZero ServiceTopology EphemeralContainers KubeletCredentialProviders GenericEphemeralVolume]                                [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
-1.19.8   [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished ServiceNodeExclusion EndpointSlice EndpointSliceProxying HPAScaleToZero ServiceTopology EphemeralContainers GenericEphemeralVolume]  [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
-1.18.16  [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished ServiceNodeExclusion EndpointSlice EndpointSliceProxying HPAScaleToZero ServiceTopology EphemeralContainers]                         [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
-1.17.17  [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished ServiceNodeExclusion EndpointSlice HPAScaleToZero ServiceTopology EphemeralContainers]                                               [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
-1.16.15  [cilium calico weave flannel]  [none nginx traefik traefik2]  [containerd crio docker]      [TTLAfterFinished ServiceNodeExclusion EndpointSlice HPAScaleToZero EphemeralContainers]                                                               [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodPreset PodTolerationRestriction]  map[cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static maxPods:uint16]
+NAME     AVAILABLE CNIS                      AVAILABLE INGRESSES    AVAILABLE CONTAINER RUNTIMES  AVAILABLE FEATURE GATES                                                                              AVAILABLE ADMISSION PLUGINS                                                    AVAILABLE KUBELET ARGS
+1.27.2   [cilium calico kilo]                [none]                 [containerd]                  [HPAScaleToZero GRPCContainerProbe ReadWriteOncePod]                                                 [PodNodeSelector AlwaysPullImages PodTolerationRestriction]                    map[containerLogMaxFiles:uint16 containerLogMaxSize:quantity cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static enableDebuggingHandlers:bool imageGCHighThresholdPercent:uint32 imageGCLowThresholdPercent:uint32 maxPods:uint16]
+1.26.5   [cilium calico kilo]                [none]                 [containerd]                  [HPAScaleToZero GRPCContainerProbe ReadWriteOncePod]                                                 [PodNodeSelector AlwaysPullImages PodTolerationRestriction]                    map[containerLogMaxFiles:uint16 containerLogMaxSize:quantity cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static enableDebuggingHandlers:bool imageGCHighThresholdPercent:uint32 imageGCLowThresholdPercent:uint32 maxPods:uint16]
+1.25.10  [cilium calico kilo]                [none]                 [containerd]                  [HPAScaleToZero KubeletCredentialProviders GRPCContainerProbe ReadWriteOncePod]                      [PodNodeSelector AlwaysPullImages PodTolerationRestriction]                    map[containerLogMaxFiles:uint16 containerLogMaxSize:quantity cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static enableDebuggingHandlers:bool imageGCHighThresholdPercent:uint32 imageGCLowThresholdPercent:uint32 maxPods:uint16]
+1.24.14  [cilium calico weave flannel kilo]  [none]                 [containerd crio]             [HPAScaleToZero EphemeralContainers KubeletCredentialProviders GRPCContainerProbe ReadWriteOncePod]  [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodTolerationRestriction]  map[containerLogMaxFiles:uint16 containerLogMaxSize:quantity cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static enableDebuggingHandlers:bool imageGCHighThresholdPercent:uint32 imageGCLowThresholdPercent:uint32 maxPods:uint16]
+1.23.17  [cilium calico weave flannel kilo]  [none nginx traefik2]  [containerd crio docker]      [HPAScaleToZero EphemeralContainers KubeletCredentialProviders GRPCContainerProbe]                   [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodTolerationRestriction]  map[containerLogMaxFiles:uint16 containerLogMaxSize:quantity cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static enableDebuggingHandlers:bool imageGCHighThresholdPercent:uint32 imageGCLowThresholdPercent:uint32 maxPods:uint16]
+1.22.17  [cilium calico weave flannel kilo]  [none nginx traefik2]  [containerd crio docker]      [TTLAfterFinished HPAScaleToZero EphemeralContainers KubeletCredentialProviders]                     [PodSecurityPolicy PodNodeSelector AlwaysPullImages PodTolerationRestriction]  map[containerLogMaxFiles:uint16 containerLogMaxSize:quantity cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static enableDebuggingHandlers:bool imageGCHighThresholdPercent:uint32 imageGCLowThresholdPercent:uint32 maxPods:uint16]
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "name": "1.20.3",
-    "label": "Kubernetes 1.20.3",
+    "name": "1.27.2",
+    "label": "Kubernetes 1.27.2",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "calico",
+      "kilo"
+    ],
+    "available_ingresses": [
+      "none"
+    ],
+    "available_container_runtimes": [
+      "containerd"
+    ],
+    "available_feature_gates": [
+      "HPAScaleToZero",
+      "GRPCContainerProbe",
+      "ReadWriteOncePod"
+    ],
+    "available_admission_plugins": [
+      "PodNodeSelector",
+      "AlwaysPullImages",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "containerLogMaxFiles": "uint16",
+      "containerLogMaxSize": "quantity",
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "enableDebuggingHandlers": "bool",
+      "imageGCHighThresholdPercent": "uint32",
+      "imageGCLowThresholdPercent": "uint32",
+      "maxPods": "uint16"
+    }
+  },
+  {
+    "name": "1.26.5",
+    "label": "Kubernetes 1.26.5",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "calico",
+      "kilo"
+    ],
+    "available_ingresses": [
+      "none"
+    ],
+    "available_container_runtimes": [
+      "containerd"
+    ],
+    "available_feature_gates": [
+      "HPAScaleToZero",
+      "GRPCContainerProbe",
+      "ReadWriteOncePod"
+    ],
+    "available_admission_plugins": [
+      "PodNodeSelector",
+      "AlwaysPullImages",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "containerLogMaxFiles": "uint16",
+      "containerLogMaxSize": "quantity",
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "enableDebuggingHandlers": "bool",
+      "imageGCHighThresholdPercent": "uint32",
+      "imageGCLowThresholdPercent": "uint32",
+      "maxPods": "uint16"
+    }
+  },
+  {
+    "name": "1.25.10",
+    "label": "Kubernetes 1.25.10",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "calico",
+      "kilo"
+    ],
+    "available_ingresses": [
+      "none"
+    ],
+    "available_container_runtimes": [
+      "containerd"
+    ],
+    "available_feature_gates": [
+      "HPAScaleToZero",
+      "KubeletCredentialProviders",
+      "GRPCContainerProbe",
+      "ReadWriteOncePod"
+    ],
+    "available_admission_plugins": [
+      "PodNodeSelector",
+      "AlwaysPullImages",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "containerLogMaxFiles": "uint16",
+      "containerLogMaxSize": "quantity",
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "enableDebuggingHandlers": "bool",
+      "imageGCHighThresholdPercent": "uint32",
+      "imageGCLowThresholdPercent": "uint32",
+      "maxPods": "uint16"
+    }
+  },
+  {
+    "name": "1.24.14",
+    "label": "Kubernetes 1.24.14",
     "region": "fr-par",
     "available_cnis": [
       "cilium",
       "calico",
       "weave",
-      "flannel"
+      "flannel",
+      "kilo"
     ],
     "available_ingresses": [
-      "none",
-      "nginx",
-      "traefik",
-      "traefik2"
+      "none"
     ],
     "available_container_runtimes": [
       "containerd",
-      "crio",
-      "docker"
+      "crio"
     ],
     "available_feature_gates": [
-      "TTLAfterFinished",
       "HPAScaleToZero",
-      "ServiceTopology",
       "EphemeralContainers",
       "KubeletCredentialProviders",
-      "GenericEphemeralVolume"
+      "GRPCContainerProbe",
+      "ReadWriteOncePod"
     ],
     "available_admission_plugins": [
       "PodSecurityPolicy",
       "PodNodeSelector",
       "AlwaysPullImages",
-      "PodPreset",
       "PodTolerationRestriction"
     ],
     "available_kubelet_args": {
+      "containerLogMaxFiles": "uint16",
+      "containerLogMaxSize": "quantity",
       "cpuCFSQuota": "bool",
       "cpuCFSQuotaPeriod": "duration",
       "cpuManagerPolicy": "enum:none|static",
+      "enableDebuggingHandlers": "bool",
+      "imageGCHighThresholdPercent": "uint32",
+      "imageGCLowThresholdPercent": "uint32",
       "maxPods": "uint16"
     }
   },
   {
-    "name": "1.19.8",
-    "label": "Kubernetes 1.19.8",
+    "name": "1.23.17",
+    "label": "Kubernetes 1.23.17",
     "region": "fr-par",
     "available_cnis": [
       "cilium",
       "calico",
       "weave",
-      "flannel"
+      "flannel",
+      "kilo"
     ],
     "available_ingresses": [
       "none",
       "nginx",
-      "traefik",
       "traefik2"
     ],
     "available_container_runtimes": [
@@ -73,43 +186,43 @@ NAME     AVAILABLE CNIS                 AVAILABLE INGRESSES            AVAILABLE
       "docker"
     ],
     "available_feature_gates": [
-      "TTLAfterFinished",
-      "ServiceNodeExclusion",
-      "EndpointSlice",
-      "EndpointSliceProxying",
       "HPAScaleToZero",
-      "ServiceTopology",
       "EphemeralContainers",
-      "GenericEphemeralVolume"
+      "KubeletCredentialProviders",
+      "GRPCContainerProbe"
     ],
     "available_admission_plugins": [
       "PodSecurityPolicy",
       "PodNodeSelector",
       "AlwaysPullImages",
-      "PodPreset",
       "PodTolerationRestriction"
     ],
     "available_kubelet_args": {
+      "containerLogMaxFiles": "uint16",
+      "containerLogMaxSize": "quantity",
       "cpuCFSQuota": "bool",
       "cpuCFSQuotaPeriod": "duration",
       "cpuManagerPolicy": "enum:none|static",
+      "enableDebuggingHandlers": "bool",
+      "imageGCHighThresholdPercent": "uint32",
+      "imageGCLowThresholdPercent": "uint32",
       "maxPods": "uint16"
     }
   },
   {
-    "name": "1.18.16",
-    "label": "Kubernetes 1.18.16",
+    "name": "1.22.17",
+    "label": "Kubernetes 1.22.17",
     "region": "fr-par",
     "available_cnis": [
       "cilium",
       "calico",
       "weave",
-      "flannel"
+      "flannel",
+      "kilo"
     ],
     "available_ingresses": [
       "none",
       "nginx",
-      "traefik",
       "traefik2"
     ],
     "available_container_runtimes": [
@@ -119,109 +232,25 @@ NAME     AVAILABLE CNIS                 AVAILABLE INGRESSES            AVAILABLE
     ],
     "available_feature_gates": [
       "TTLAfterFinished",
-      "ServiceNodeExclusion",
-      "EndpointSlice",
-      "EndpointSliceProxying",
       "HPAScaleToZero",
-      "ServiceTopology",
-      "EphemeralContainers"
+      "EphemeralContainers",
+      "KubeletCredentialProviders"
     ],
     "available_admission_plugins": [
       "PodSecurityPolicy",
       "PodNodeSelector",
       "AlwaysPullImages",
-      "PodPreset",
       "PodTolerationRestriction"
     ],
     "available_kubelet_args": {
+      "containerLogMaxFiles": "uint16",
+      "containerLogMaxSize": "quantity",
       "cpuCFSQuota": "bool",
       "cpuCFSQuotaPeriod": "duration",
       "cpuManagerPolicy": "enum:none|static",
-      "maxPods": "uint16"
-    }
-  },
-  {
-    "name": "1.17.17",
-    "label": "Kubernetes 1.17.17",
-    "region": "fr-par",
-    "available_cnis": [
-      "cilium",
-      "calico",
-      "weave",
-      "flannel"
-    ],
-    "available_ingresses": [
-      "none",
-      "nginx",
-      "traefik",
-      "traefik2"
-    ],
-    "available_container_runtimes": [
-      "containerd",
-      "crio",
-      "docker"
-    ],
-    "available_feature_gates": [
-      "TTLAfterFinished",
-      "ServiceNodeExclusion",
-      "EndpointSlice",
-      "HPAScaleToZero",
-      "ServiceTopology",
-      "EphemeralContainers"
-    ],
-    "available_admission_plugins": [
-      "PodSecurityPolicy",
-      "PodNodeSelector",
-      "AlwaysPullImages",
-      "PodPreset",
-      "PodTolerationRestriction"
-    ],
-    "available_kubelet_args": {
-      "cpuCFSQuota": "bool",
-      "cpuCFSQuotaPeriod": "duration",
-      "cpuManagerPolicy": "enum:none|static",
-      "maxPods": "uint16"
-    }
-  },
-  {
-    "name": "1.16.15",
-    "label": "Kubernetes 1.16.15",
-    "region": "fr-par",
-    "available_cnis": [
-      "cilium",
-      "calico",
-      "weave",
-      "flannel"
-    ],
-    "available_ingresses": [
-      "none",
-      "nginx",
-      "traefik",
-      "traefik2"
-    ],
-    "available_container_runtimes": [
-      "containerd",
-      "crio",
-      "docker"
-    ],
-    "available_feature_gates": [
-      "TTLAfterFinished",
-      "ServiceNodeExclusion",
-      "EndpointSlice",
-      "HPAScaleToZero",
-      "EphemeralContainers"
-    ],
-    "available_admission_plugins": [
-      "PodSecurityPolicy",
-      "PodNodeSelector",
-      "AlwaysPullImages",
-      "PodPreset",
-      "PodTolerationRestriction"
-    ],
-    "available_kubelet_args": {
-      "cpuCFSQuota": "bool",
-      "cpuCFSQuotaPeriod": "duration",
-      "cpuManagerPolicy": "enum:none|static",
+      "enableDebuggingHandlers": "bool",
+      "imageGCHighThresholdPercent": "uint32",
+      "imageGCLowThresholdPercent": "uint32",
       "maxPods": "uint16"
     }
   }

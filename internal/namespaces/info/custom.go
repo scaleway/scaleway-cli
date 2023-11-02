@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -55,6 +55,7 @@ func infosRoot() *core.Command {
 	}
 
 	return &core.Command{
+		Groups:               []string{"config"},
 		Short:                `Get info about current settings`,
 		Namespace:            "info",
 		AllowAnonymousClient: true,

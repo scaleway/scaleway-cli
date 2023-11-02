@@ -3,13 +3,12 @@ package object
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -100,7 +99,7 @@ func configInstallCommand() *core.Command {
 			}
 
 			// Write the configuration file
-			err = ioutil.WriteFile(configPath, []byte(newConfig), 0600)
+			err = os.WriteFile(configPath, []byte(newConfig), 0600)
 			if err != nil {
 				return "", err
 			}

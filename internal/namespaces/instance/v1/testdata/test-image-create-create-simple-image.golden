@@ -1,41 +1,40 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                fce45eba-ec76-46b2-b80d-fc0c7e178736
-Name              cli-img-dreamy-shaw
+ID                34ad3a60-0672-48cb-bd24-e524e5f57ac0
+Name              cli-img-nice-cohen
 Arch              x86_64
 CreationDate      few seconds ago
 ModificationDate  few seconds ago
 ExtraVolumes      0
 FromServer        -
-Organization      b8fdefc6-c926-4a47-af24-24f14f724d6a
+Organization      951df375-e094-4d26-97c1-ba548eeb9c42
 Public            false
-RootVolume        b55ec607-2a37-4c45-a865-92b5b8b725e0
+RootVolume        3bc8ea2b-198d-4ca1-a96b-e6a65105097e
 State             available
-Project           b8fdefc6-c926-4a47-af24-24f14f724d6a
+Project           951df375-e094-4d26-97c1-ba548eeb9c42
 Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "fce45eba-ec76-46b2-b80d-fc0c7e178736",
-    "name": "cli-img-dreamy-shaw",
+    "id": "34ad3a60-0672-48cb-bd24-e524e5f57ac0",
+    "name": "cli-img-nice-cohen",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
     "extra_volumes": {},
     "from_server": "",
-    "organization": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
+    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
     "public": false,
     "root_volume": {
-      "id": "b55ec607-2a37-4c45-a865-92b5b8b725e0",
-      "name": "cli-snp-peaceful-kepler",
+      "id": "3bc8ea2b-198d-4ca1-a96b-e6a65105097e",
+      "name": "cli-snp-objective-sinoussi",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
     "state": "available",
-    "project": "b8fdefc6-c926-4a47-af24-24f14f724d6a",
-    "tags": null,
+    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "tags": [],
     "zone": "fr-par-1"
-  },
-  "Location": ""
+  }
 }

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new placement group.
+Create a new placement group in a specified Availability Zone.
 
 USAGE:
   scw instance placement-group create [arg=value ...]
@@ -9,7 +9,7 @@ EXAMPLES:
   Create a placement group with default name
     scw instance placement-group create
 
-  Create a placement group with the given name
+  Create a placement group with the specified name
     scw instance placement-group create name=foobar
 
   Create an enforced placement group
@@ -27,11 +27,11 @@ EXAMPLES:
 ARGS:
   [name=<generated>]   Name of the placement group
   [project-id]         Project ID to use. If none is passed the default project ID will be used
-  [tags.{index}]       The tags of the placement group
-  [policy-mode]        The operating mode of the placement group (optional | enforced)
-  [policy-type]        The policy type of the placement group (max_availability | low_latency)
+  [tags.{index}]       Tags of the placement group
+  [policy-mode]        Operating mode of the placement group (optional | enforced)
+  [policy-type]        Policy type of the placement group (max_availability | low_latency)
   [organization-id]    Organization ID to use. If none is passed the default organization ID will be used
-  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | pl-waw-1)
+  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for create

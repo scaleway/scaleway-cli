@@ -1,20 +1,22 @@
 package init
 
 import (
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"runtime"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/stretchr/testify/require"
 )
 
 func baseBeforeFunc() core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
+		ctx.Meta["AccessKey"], _ = ctx.Client.GetAccessKey()
 		ctx.Meta["SecretKey"], _ = ctx.Client.GetSecretKey()
+		ctx.Meta["ProjectID"], _ = ctx.Client.GetDefaultProjectID()
+		ctx.Meta["OrganizationID"], _ = ctx.Client.GetDefaultOrganizationID()
 		return nil
 	}
 }
@@ -27,10 +29,12 @@ const (
 
 func Test_InitAutocomplete(t *testing.T) {
 	defaultSettings := map[string]string{
-		"secret-key":       "{{ .SecretKey }}",
-		"send-telemetry":   "false",
-		"remove-v1-config": "false",
-		"with-ssh-key":     "false",
+		"access-key":      "{{ .AccessKey }}",
+		"secret-key":      "{{ .SecretKey }}",
+		"send-telemetry":  "false",
+		"with-ssh-key":    "false",
+		"organization-id": "{{ .OrganizationID }}",
+		"project-id":      "{{ .ProjectID }}",
 	}
 
 	runAllShells := func(t *testing.T) {
@@ -60,7 +64,7 @@ eval "$(scw autocomplete script shell=zsh)"
 						}
 						homeDir := ctx.OverrideEnv["HOME"]
 						filePath := path.Join(homeDir, ".zshrc")
-						fileContent, err := ioutil.ReadFile(filePath)
+						fileContent, err := os.ReadFile(filePath)
 						require.NoError(t, err)
 						require.Equal(t, evalLine, string(fileContent))
 					},
@@ -109,7 +113,7 @@ eval (scw autocomplete script shell=fish)
 						}
 						homeDir := ctx.OverrideEnv["HOME"]
 						filePath := path.Join(homeDir, ".config", "fish", "config.fish")
-						fileContent, err := ioutil.ReadFile(filePath)
+						fileContent, err := os.ReadFile(filePath)
 						require.NoError(t, err)
 						require.Equal(t, evalLine, string(fileContent))
 					},
@@ -152,7 +156,7 @@ eval "$(scw autocomplete script shell=bash)"
 						default:
 							t.Fatalf("unsupported OS")
 						}
-						fileContent, err := ioutil.ReadFile(filePath)
+						fileContent, err := os.ReadFile(filePath)
 						if err != nil {
 							require.NoError(t, err)
 						}

@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
@@ -16,7 +16,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 		t.Run("simple block volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				createServer("Server"),
+				createServerBionic("Server"),
 				createVolume("Volume", 10, instance.VolumeVolumeTypeBSSD),
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
@@ -33,7 +33,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 		t.Run("simple local volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				createServer("Server"),
+				createServerBionic("Server"),
 				createVolume("Volume", 10, instance.VolumeVolumeTypeLSSD),
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
@@ -49,7 +49,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 
 		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
 			Commands:   GetCommands(),
-			BeforeFunc: createServer("Server"),
+			BeforeFunc: createServerBionic("Server"),
 			Cmd:        "scw instance server attach-volume server-id={{ .Server.ID }} volume-id=11111111-1111-1111-1111-111111111111",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
@@ -79,7 +79,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 
 		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
 			Commands:   GetCommands(),
-			BeforeFunc: createServer("Server"),
+			BeforeFunc: createServerBionic("Server"),
 			Cmd:        "scw instance server detach-volume volume-id=11111111-1111-1111-1111-111111111111",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
@@ -95,7 +95,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	// IP cases.
 	t.Run("Try to remove ip from server without ip", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createServer("Server"),
+		BeforeFunc: createServerBionic("Server"),
 		Cmd:        "scw instance server update {{ .Server.ID }} ip=none",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -109,7 +109,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	t.Run("Update server ip from server without ip", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			createServerBionic("Server"),
 			createIP("IP"),
 		),
 		Cmd: "scw instance server update {{ .Server.ID }} ip={{ .IP.Address }}",
@@ -125,7 +125,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	t.Run("Update server ip from server with ip", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			createServerBionic("Server"),
 			createIP("IP1"),
 			createIP("IP2"),
 
@@ -205,7 +205,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		t.Run("valid simple block volume", core.Test(&core.TestConfig{
 			Commands: GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				createServer("Server"),
+				createServerBionic("Server"),
 				createVolume("Volume", 10, instance.VolumeVolumeTypeBSSD),
 			),
 			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }}`,
@@ -274,94 +274,25 @@ func Test_ServerDelete(t *testing.T) {
 		DisableParallel: true,
 	}))
 
-	interactive.IsInteractive = false
-}
-
-// These tests needs to be run in sequence
-// since they are using the interactive print
-func Test_ServerTerminate(t *testing.T) {
-	interactive.IsInteractive = true
-
-	t.Run("without IP", core.Test(&core.TestConfig{
+	t.Run("with none volumes", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic -w"),
-		Cmd:        `scw instance server terminate {{ .Server.ID }}`,
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=none`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				api := instance.NewAPI(ctx.Client)
 				server := ctx.Meta["Server"].(*instance.Server)
-				_, err := api.GetIP(&instance.GetIPRequest{
-					IP: server.PublicIP.ID,
+				_, err := api.GetVolume(&instance.GetVolumeRequest{
+					VolumeID: server.Volumes["0"].ID,
 				})
 				assert.NoError(t, err)
 			},
 		),
-		AfterFunc:       core.ExecAfterCmd(`scw instance ip delete {{ index .Server.PublicIP.ID }}`),
-		DisableParallel: true,
-	}))
-
-	t.Run("with IP", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic -w"),
-		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true`,
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				api := instance.NewAPI(ctx.Client)
-				server := ctx.Meta["Server"].(*instance.Server)
-				_, err := api.GetIP(&instance.GetIPRequest{
-					IP: server.PublicIP.ID,
-				})
-				require.IsType(t, &scw.ResponseError{}, err)
-				assert.Equal(t, 403, err.(*scw.ResponseError).StatusCode)
-			},
-		),
-		DisableParallel: true,
-	}))
-
-	t.Run("without block", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic additional-volumes.0=block:10G -w"),
-		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=false`,
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
-		DisableParallel: true,
-	}))
-
-	t.Run("with block", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic additional-volumes.0=block:10G -w"),
-		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true`,
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
+		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`),
 		DisableParallel: true,
 	}))
 
 	interactive.IsInteractive = false
-}
-
-// These tests needs to be run in sequence
-// since they are using the interactive print
-func Test_ServerBackup(t *testing.T) {
-	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
-		Cmd:        `scw instance server backup {{ .Server.ID }} name=backup`,
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd("scw instance image delete {{ .CmdResult.Image.ID }} with-snapshots=true"),
-			core.ExecAfterCmd("scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local"),
-		),
-	}))
 }

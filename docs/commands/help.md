@@ -102,6 +102,23 @@ You can select the columns that you want to print with commands that return a li
 	NAME                                            PUBLIC IP
 	scw-cool-franklin                               51.15.251.251
 
+Wide output (Human without column shrinking)
+
+	scw instance server list -o wide
+
+	ID                                    NAME               TYPE    STATE    ZONE      PUBLIC IP
+	088b01da-9ba7-40d2-bc55-eb3170f42185  scw-cool-franklin  DEV1-S  running  fr-par-1  51.15.251.251
+
+Wide with column selection
+
+You can select the columns that you want to print with commands that return a list 
+
+	scw instance server list -o wide=Name,PublicIP
+
+	NAME                                            PUBLIC IP
+	scw-cool-franklin                               51.15.251.251
+
+
 Standard JSON output
 
 	scw config dump -o json
@@ -161,6 +178,23 @@ You can select the columns that you want to print with commands that return a li
 
 	NAME                                            PUBLIC IP
 	scw-cool-franklin                               51.15.251.251
+
+Wide output (Human without column shrinking)
+
+	scw instance server list -o wide
+
+	ID                                    NAME               TYPE    STATE    ZONE      PUBLIC IP
+	088b01da-9ba7-40d2-bc55-eb3170f42185  scw-cool-franklin  DEV1-S  running  fr-par-1  51.15.251.251
+
+Wide with column selection
+
+You can select the columns that you want to print with commands that return a list 
+
+	scw instance server list -o wide=Name,PublicIP
+
+	NAME                                            PUBLIC IP
+	scw-cool-franklin                               51.15.251.251
+
 
 Standard JSON output
 

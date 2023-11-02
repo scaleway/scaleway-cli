@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This method allows to list all the existing Kubernetes clusters in an account.
+List all existing Kubernetes clusters in a specific region.
 
 USAGE:
   scw k8s cluster list [arg=value ...]
 
 EXAMPLES:
-  List all the clusters on your default region
+  List all clusters on your default region
     scw k8s cluster list
 
   List the ready clusters on your default region
@@ -16,13 +16,14 @@ EXAMPLES:
     scw k8s cluster list region=fr-par name=cluster1
 
 ARGS:
-  [project-id]        The project ID on which to filter the returned clusters
-  [order-by]          The sort order of the returned clusters (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc | status_asc | status_desc | version_asc | version_desc)
-  [name]              The name on which to filter the returned clusters
-  [status]            The status on which to filter the returned clusters (unknown | creating | ready | deleting | deleted | updating | locked | pool_required)
-  [type]              The type on which to filter the returned clusters
-  [organization-id]   The organization ID on which to filter the returned clusters
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [project-id]           Project ID on which to filter the returned clusters
+  [order-by]             Sort order of returned clusters (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc | status_asc | status_desc | version_asc | version_desc)
+  [name]                 Name to filter on, only clusters containing this substring in their name will be returned
+  [status]               Status to filter on, only clusters with this status will be returned (unknown | creating | ready | deleting | deleted | updating | locked | pool_required)
+  [type]                 Type to filter on, only clusters with this type will be returned
+  [private-network-id]   Private Network ID to filter on, only clusters within this Private Network will be returned
+  [organization-id]      Organization ID on which to filter the returned clusters
+  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

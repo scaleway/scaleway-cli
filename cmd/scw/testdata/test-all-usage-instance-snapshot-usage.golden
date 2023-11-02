@@ -1,25 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Snapshots contain the data of a specific volume at a particular point in time.
-The data can include the instance's operating system,
-configuration information or files stored on the volume.
+Snapshots contain the data of a specified volume at a particular point in time.
+The data can include the Instance's operating system,
+configuration information and/or files stored on the volume.
 
-A snapshot can be done from a specific volume (for example you
-have a server with a volume containing the OS and another one
+A snapshot can be done from a specified volume, e.g. you
+have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
-snapshot strategies on both volumes).
+snapshot strategies on both volumes.
 
-Snapshots only work on `l_ssd` volume type at the moment. `b_ssd`
-snapshots will be available starting 2020.
+A snapshot's volume type can be either its original volume's type
+(`l_ssd` or `b_ssd`) or `unified`. Similarly, volumes can be created as well from snapshots
+of their own type or `unified`. Therefore, to migrate data from a `l_ssd` volume
+to a `b_ssd` volume, one can create a `unified` snapshot from the original volume
+and a new `b_ssd` volume from this snapshot. The newly created volume will hold a copy
+of the data of the original volume.
 
 USAGE:
   scw instance snapshot <command>
 
 AVAILABLE COMMANDS:
-  create      Create a snapshot from a given volume
+  create      Create a snapshot from a specified volume or from a QCOW2 file
   delete      Delete a snapshot
+  export      Export a snapshot
   get         Get a snapshot
   list        List snapshots
+  update      Update a snapshot
+
+WORKFLOW COMMANDS:
   wait        Wait for snapshot to reach a stable state
 
 FLAGS:

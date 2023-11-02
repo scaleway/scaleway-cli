@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the given placement group.
+Get the specified placement group.
 
 USAGE:
   scw instance placement-group get <placement-group-id ...> [arg=value ...]
 
 EXAMPLES:
-  Get a placement group with the given ID
+  Get a placement group with the specified ID
     scw instance placement-group get 6c15f411-3b6f-402d-8eba-ae24ef9254e9
 
 ARGS:
   placement-group-id   UUID of the placement group you want to get
-  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | pl-waw-1)
+  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for get

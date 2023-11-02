@@ -1,0 +1,74 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"cli-key-friendly-stonebraker","public_key":"ecdsa-sha2-nistp256
+      AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGh9rvkJKMu5ljnevB4oRu4i/EnxGS734/UJ6fSDvXGIvT08jIglahc7tM5dvo02abPVXsbiazO25avZZtL6fjo=
+      foobar@foobar","project_id":"105bdce1-64c0-48ab-899d-868455867ecf"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
+    method: POST
+  response:
+    body: '{"id":"812d00b5-213d-4fbc-919b-9dd03beec81d", "name":"cli-key-friendly-stonebraker",
+      "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGh9rvkJKMu5ljnevB4oRu4i/EnxGS734/UJ6fSDvXGIvT08jIglahc7tM5dvo02abPVXsbiazO25avZZtL6fjo=
+      foobar@foobar", "fingerprint":"256 MD5:66:2f:05:a4:64:d2:22:89:b6:ad:e8:a9:3e:38:22:95
+      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-02-15T11:01:13.868674Z",
+      "updated_at":"2023-02-15T11:01:13.868674Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}'
+    headers:
+      Content-Length:
+      - "601"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 15 Feb 2023 11:01:13 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 95d47c94-4622-4cf2-9cac-01769a55fc5d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys/812d00b5-213d-4fbc-919b-9dd03beec81d
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 15 Feb 2023 11:01:13 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a4d77bdd-36b2-49f9-bdb5-3314b6c3a072
+    status: 204 No Content
+    code: 204
+    duration: ""

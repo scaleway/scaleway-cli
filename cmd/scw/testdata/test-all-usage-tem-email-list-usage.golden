@@ -1,0 +1,33 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
+
+USAGE:
+  scw tem email list [arg=value ...]
+
+ARGS:
+  [project-id]         (Optional) ID of the Project in which to list the emails
+  [domain-id]          (Optional) ID of the domain for which to list the emails
+  [message-id]         (Optional) ID of the message for which to list the emails
+  [since]              (Optional) List emails created after this date
+  [until]              (Optional) List emails created before this date
+  [mail-from]          (Optional) List emails sent with this sender's email address
+  [mail-rcpt]          (Optional) List emails sent to this recipient's email address
+  [statuses.{index}]   (Optional) List emails with any of these statuses (unknown | new | sending | sent | failed | canceled)
+  [subject]            (Optional) List emails with this subject
+  [search]             (Optional) List emails by searching to all fields
+  [order-by]           (Optional) List emails corresponding to specific criteria (created_at_desc | created_at_asc | updated_at_desc | updated_at_asc | status_desc | status_asc | mail_from_desc | mail_from_asc | mail_rcpt_desc | mail_rcpt_asc | subject_desc | subject_asc)
+  [flags.{index}]      (Optional) List emails containing only specific flags (unknown_flag | soft_bounce | hard_bounce | spam | mailbox_full | mailbox_not_found | greylisted | send_before_expiration)
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | all)
+
+DEPRECATED ARGS:
+  [mail-to]   List emails sent to this recipient's email address
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

@@ -7,6 +7,18 @@ import (
 	"strings"
 )
 
+type NilValueError struct {
+	Path string
+}
+
+func NewNilValueError(path string) *NilValueError {
+	return &NilValueError{Path: path}
+}
+
+func (e *NilValueError) Error() string {
+	return fmt.Sprintf("field %s is nil", e.Path)
+}
+
 // GetValue will extract the value at the given path from the data Go struct
 // E.g data = { Friends: []Friend{ { Name: "John" } }, path = "Friends.0.Name"  will return "John"
 func GetValue(data interface{}, path string) (interface{}, error) {
@@ -23,8 +35,8 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		return value, nil
 	}
 
-	if !value.IsValid() || isNil(value) {
-		return reflect.Value{}, fmt.Errorf("field %s is nil", strings.Join(parents, "."))
+	if !value.IsValid() || IsNil(value) {
+		return reflect.Value{}, NewNilValueError(strings.Join(parents, "."))
 	}
 
 	if value.Type().Kind() == reflect.Ptr {
@@ -37,7 +49,7 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		if err != nil {
 			return reflect.Value{}, fmt.Errorf("trying to access array %s but %s is not a numerical index", strings.Join(parents, "."), path[0])
 		}
-		if idx > value.Len() {
+		if idx >= value.Len() {
 			return reflect.Value{}, fmt.Errorf("trying to access array %s but %d is out of range", strings.Join(parents, "."), idx)
 		}
 		return getValue(value.Index(idx), append(parents, path[0]), path[1:])
@@ -148,8 +160,8 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 	}
 }
 
-// isNil test if a given value is nil. It is saf to call the mthod with non nillable value like scalar types
-func isNil(value reflect.Value) bool {
+// IsNil test if a given value is nil. It is saf to call the mthod with non nillable value like scalar types
+func IsNil(value reflect.Value) bool {
 	return (value.Kind() == reflect.Ptr || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) && value.IsNil()
 }
 

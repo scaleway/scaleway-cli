@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update an instance snapshot.
+Update the parameters of a snapshot of a Database Instance. You can update the `name` and `expires_at` parameters.
 
 USAGE:
   scw rdb snapshot update <snapshot-id ...> [arg=value ...]
@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   snapshot-id       UUID of the snapshot to update
   [name]            Name of the snapshot
-  [expires-at]      Expiration date (Format ISO 8601)
+  [expires-at]      Expiration date (must follow the ISO 8601 format)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

@@ -1,8 +1,8 @@
 package iot
 
 import (
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
 
@@ -12,6 +12,10 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(iot.HubStatus(""), human.EnumMarshalFunc(hubStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(iot.DeviceMessageFiltersRulePolicy(""), human.EnumMarshalFunc(deviceMessageFiltersRulePolicyMarshalSpecs))
 	human.RegisterMarshalerFunc(iot.DeviceStatus(""), human.EnumMarshalFunc(deviceStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(iot.CreateNetworkResponse{}, iotNetworkCreateResponsedMarshalerFunc)
+	human.RegisterMarshalerFunc(iot.CreateDeviceResponse{}, iotDeviceCreateResponsedMarshalerFunc)
+
+	cmds.MustFind("iot", "hub", "create").Override(hubCreateBuilder)
 
 	return cmds
 }

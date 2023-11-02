@@ -1,18 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Load-balancer management commands.
+Load balancer management commands.
 
 USAGE:
   scw lb lb <command>
 
 AVAILABLE COMMANDS:
-  create      Create a load balancer
-  delete      Delete a load balancer
-  get         Get a load balancer
-  get-stats   Get usage statistics of a given load balancer
-  list        List load balancers
-  migrate     Migrate a load balancer
-  update      Update a load balancer
+  create      Create a Load Balancer
+  delete      Delete a Load Balancer
+  get         Get a Load Balancer
+  get-stats   Get usage statistics of a given Load Balancer
+  list        List Load Balancers
+  migrate     Migrate a Load Balancer
+  update      Update a Load Balancer
+
+WORKFLOW COMMANDS:
   wait        Wait for a load balancer to reach a stable state
 
 FLAGS:

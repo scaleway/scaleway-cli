@@ -1,20 +1,21 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the space associated with the given id.
+Update the space associated with the specified ID.
 
 USAGE:
   scw container namespace update <namespace-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id                                   
-  [environment-variables.value.{key}]            
-  [description]                                  
+  namespace-id                                   UUID of the namespace to update
+  [environment-variables.{key}]                  Environment variables of the namespace to update
+  [description]                                  Description of the namespace to update
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
-  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update
+  -w, --wait   wait until the namespace is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

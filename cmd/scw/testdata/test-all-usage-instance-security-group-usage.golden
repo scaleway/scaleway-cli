@@ -1,21 +1,28 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A security group is a set of firewall rules on a set of instances.
-Security groups enable to create rules that either drop or allow incoming traffic from certain ports of your instances.
+A security group is a set of firewall rules on a set of Instances.
+Security groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.
 
-Security Groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
+Security groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
 As a contrary, you have to switch in a stateless mode to define explicitly allowed.
 
 USAGE:
   scw instance security-group <command>
 
 AVAILABLE COMMANDS:
-  clear       Remove all rules of a security group
-  create      Create a security group
-  delete      Delete a security group
-  get         Get a security group
-  list        List security groups
-  update      Update security group
+  clear              Remove all rules of a security group
+  create             Create a security group
+  create-rule        Create rule
+  delete             Delete a security group
+  delete-rule        Delete rule
+  edit               Edit all rules of a security group
+  get                Get a security group
+  get-rule           Get rule
+  list               List security groups
+  list-default-rules Get default rules
+  list-rules         List rules
+  set-rules          Update all the rules of a security group
+  update             Update security group
 
 FLAGS:
   -h, --help   help for security-group

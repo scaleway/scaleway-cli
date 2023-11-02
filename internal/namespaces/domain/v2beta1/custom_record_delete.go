@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
@@ -99,9 +99,9 @@ func dnsRecordDeleteRun(ctx context.Context, argsI interface{}) (i interface{}, 
 	client := core.ExtractClient(ctx)
 	apiDomain := domain.NewAPI(client)
 
-	_, err := apiDomain.UpdateDNSZoneRecords(dnsRecordDeleteReq)
+	resp, err := apiDomain.UpdateDNSZoneRecords(dnsRecordDeleteReq)
 	if err != nil {
 		return nil, fmt.Errorf("cannot delete the record: %s", err)
 	}
-	return nil, nil
+	return resp, nil
 }

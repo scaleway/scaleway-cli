@@ -2,10 +2,11 @@ package instance
 
 import (
 	"context"
+	"net"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/internal/core"
-	"github.com/scaleway/scaleway-cli/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
@@ -17,17 +18,37 @@ var (
 	}
 )
 
-func privateNicListBuilder(c *core.Command) *core.Command {
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		listPrivateNicResp, err := runner(ctx, argsI)
-		if err != nil {
-			return listPrivateNicResp, err
-		}
-		l := listPrivateNicResp.(*instance.ListPrivateNICsResponse)
-		privateNic := l.PrivateNics
+func privateNicGetBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("private-nic-id").Short = "The private NIC unique ID or MAC address"
 
-		return privateNic, nil
-	})
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		tmpRequest := argsI.(*instance.GetPrivateNICRequest)
+
+		if isMacAddress(tmpRequest.PrivateNicID) {
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			listPrivateNICs, err := api.ListPrivateNICs(&instance.ListPrivateNICsRequest{
+				Zone:     tmpRequest.Zone,
+				ServerID: tmpRequest.ServerID,
+			})
+			if err != nil {
+				return nil, err
+			}
+			for _, pn := range listPrivateNICs.PrivateNics {
+				if pn.MacAddress == tmpRequest.PrivateNicID {
+					tmpRequest.PrivateNicID = pn.ID
+				}
+			}
+		}
+
+		return runner(ctx, tmpRequest)
+	}
 
 	return c
+}
+
+func isMacAddress(address string) bool {
+	_, err := net.ParseMAC(address)
+	return err == nil
 }

@@ -61,3 +61,10 @@ complete -F _scw scw
 ```
 
 The trick is to remove the `-t` when using docker inside the completion function.
+
+# Using the CLI with Podman
+If running with Podman and SELinux in enforcing mode, one must use the :Z option when mounting the configuration file.  
+For instance:  
+```bash
+podman run -it --rm -v $HOME/.config/scw:/root/.config/scw:Z scaleway/cli:v2.3.0
+```

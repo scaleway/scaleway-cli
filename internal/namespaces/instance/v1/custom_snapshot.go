@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -21,10 +21,16 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		*instance.CreateSnapshotRequest
 		OrganizationID *string
 		ProjectID      *string
+		Unified        bool
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
+	c.ArgSpecs.DeleteByName("volume-type")
+	c.ArgSpecs.AddBefore("tags.{index}", &core.ArgSpec{
+		Name:  "unified",
+		Short: "Whether a snapshot is unified or not.",
+	})
 
 	c.ArgsType = reflect.TypeOf(customCreateSnapshotRequest{})
 
@@ -38,6 +44,24 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		request := args.CreateSnapshotRequest
 		request.Organization = args.OrganizationID
 		request.Project = args.ProjectID
+
+		client := core.ExtractClient(ctx)
+		api := instance.NewAPI(client)
+		if args.Unified {
+			request.VolumeType = instance.SnapshotVolumeTypeUnified
+		} else if request.VolumeID != nil {
+			// If the snapshot is not unified, we need to set the snapshot volume type to the same type as the volume we target.
+			// Done only when creating snapshot from volume
+			volume, err := api.GetVolume(&instance.GetVolumeRequest{
+				VolumeID: *args.VolumeID,
+				Zone:     args.Zone,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			request.VolumeType = instance.SnapshotVolumeType(volume.Volume.VolumeType)
+		}
 
 		return runner(ctx, request)
 	})
@@ -90,13 +114,14 @@ func snapshotWaitCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(instance.WaitForSnapshotRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 				Zone:          argsI.(*instance.WaitForSnapshotRequest).Zone,
 				SnapshotID:    argsI.(*instance.WaitForSnapshotRequest).SnapshotID,
-				Timeout:       scw.TimeDurationPtr(snapshotActionTimeout),
+				Timeout:       argsI.(*instance.WaitForSnapshotRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -108,12 +133,54 @@ func snapshotWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(),
+			core.WaitTimeoutArgSpec(snapshotActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
 				Short:    "Wait for a snapshot to reach a stable state",
 				ArgsJSON: `{"snapshot_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
+		},
+	}
+}
+
+func snapshotUpdateCommand() *core.Command {
+	return &core.Command{
+		Short:     `Update a snapshot`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(instance.UpdateSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      "UUID of the snapshot.",
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:  "name",
+				Short: "Name of the snapshot.",
+			},
+			{
+				Name:  "tags.{index}",
+				Short: "Tags of the snapshot.",
+			},
+			core.ZoneArgSpec(),
+		},
+		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+			snapshot := respI.(*instance.UpdateSnapshotResponse).Snapshot
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
+				SnapshotID:    snapshot.ID,
+				Zone:          snapshot.Zone,
+				Timeout:       scw.TimeDurationPtr(snapshotActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			return api.UpdateSnapshot(argsI.(*instance.UpdateSnapshotRequest))
 		},
 	}
 }

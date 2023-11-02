@@ -3,8 +3,8 @@ package baremetal
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/internal/core"
-	account "github.com/scaleway/scaleway-cli/internal/namespaces/account/v2alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 )
 
 func Test_InstallServer(t *testing.T) {
@@ -14,7 +14,7 @@ func Test_InstallServer(t *testing.T) {
 		sshKey := `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw== foobar@foobar`
 		osID := `03b7f4ba-a6a1-4305-984e-b54fafbf1681` // Ubuntu 20.04 LTS (Focal)
 		cmds := GetCommands()
-		cmds.Merge(account.GetCommands())
+		cmds.Merge(iam.GetCommands())
 
 		t.Run("With ID", core.Test(&core.TestConfig{
 			BeforeFunc: core.BeforeFuncCombine(

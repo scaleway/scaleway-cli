@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          72c5e970-a6ea-48af-b0e9-3ccaf6b52ee3
+ID                          143f084f-2d48-48d2-9094-4363c81d6fcf
 Name                        cli-test
 OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
 ProjectID                   951df375-e094-4d26-97c1-ba548eeb9c42
@@ -10,20 +10,21 @@ Status                      ready
 Engine                      PostgreSQL-12
 IsHaCluster                 false
 NodeType                    db-dev-m
-Endpoints.0.ID              2666b142-8613-41d7-8b4a-e7dbedcd70fd
-Endpoints.0.IP              51.159.9.176
-Endpoints.0.Port            55147
+Endpoints.0.ID              63a508a6-9d76-4656-a420-320e21ab1ece
+Endpoints.0.IP              195.154.70.113
+Endpoints.0.Port            44028
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 
 Endpoint:
-ID    2666b142-8613-41d7-8b4a-e7dbedcd70fd
-IP    51.159.9.176
-Port  55147
+ID    63a508a6-9d76-4656-a420-320e21ab1ece
+IP    195.154.70.113
+Port  44028
 
 Volume:
-Type  lssd
-Size  25 GB
+Type   lssd
+Size   25 GB
+Class  unknown_storage_class
 
 Backup Schedule:
 Disabled   false
@@ -43,19 +44,21 @@ max_parallel_workers_per_gather  0
   "created_at": "1970-01-01T00:00:00.0Z",
   "volume": {
     "type": "lssd",
-    "size": 25000000000
+    "size": 25000000000,
+    "class": "unknown_storage_class"
   },
   "region": "fr-par",
-  "id": "72c5e970-a6ea-48af-b0e9-3ccaf6b52ee3",
+  "id": "143f084f-2d48-48d2-9094-4363c81d6fcf",
   "name": "cli-test",
   "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
   "engine": "PostgreSQL-12",
+  "upgradable_version": null,
   "endpoint": {
-    "id": "2666b142-8613-41d7-8b4a-e7dbedcd70fd",
-    "ip": "51.159.9.176",
-    "port": 55147,
+    "id": "63a508a6-9d76-4656-a420-320e21ab1ece",
+    "ip": "195.154.70.113",
+    "port": 44028,
     "name": null,
     "load_balancer": {}
   },
@@ -89,7 +92,8 @@ max_parallel_workers_per_gather  0
   "backup_schedule": {
     "frequency": 24,
     "retention": 7,
-    "disabled": false
+    "disabled": false,
+    "next_run_at": null
   },
   "is_ha_cluster": false,
   "read_replicas": [],
@@ -97,9 +101,9 @@ max_parallel_workers_per_gather  0
   "init_settings": [],
   "endpoints": [
     {
-      "id": "2666b142-8613-41d7-8b4a-e7dbedcd70fd",
-      "ip": "51.159.9.176",
-      "port": 55147,
+      "id": "63a508a6-9d76-4656-a420-320e21ab1ece",
+      "ip": "195.154.70.113",
+      "port": 44028,
       "name": null,
       "load_balancer": {}
     }

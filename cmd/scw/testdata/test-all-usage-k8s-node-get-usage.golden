@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This method allows to get details about a specific Kubernetes node.
+Retrieve details about a specific Kubernetes Node.
 
 USAGE:
   scw k8s node get <node-id ...> [arg=value ...]
 
 EXAMPLES:
-  Get a given node
+  Get a node
     scw k8s node get 11111111-1111-1111-111111111111
 
 ARGS:
-  node-id           The ID of the requested node
+  node-id           ID of the requested node
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

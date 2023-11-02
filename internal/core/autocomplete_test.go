@@ -7,6 +7,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -66,37 +68,49 @@ func testAutocompleteGetCommands() *Commands {
 	)
 }
 
+type autoCompleteTestCase struct {
+	Suggestions         AutocompleteSuggestions
+	WordToCompleteIndex int
+	Words               []string
+}
+
+func runAutocompleteTest(ctx context.Context, tc *autoCompleteTestCase) func(*testing.T) {
+	return func(t *testing.T) {
+		words := tc.Words
+		if len(words) == 0 {
+			name := strings.Replace(t.Name(), "TestAutocomplete/", "", -1)
+			name = strings.Replace(name, "_", " ", -1)
+			// Test can contain a sharp if duplicated
+			// MyTest/scw_-flag_#01
+			sharpIndex := strings.Index(name, "#")
+			if sharpIndex != -1 {
+				name = name[:sharpIndex]
+			}
+			words = strings.Split(name, " ")
+		}
+
+		wordToCompleteIndex := len(words) - 1
+		if tc.WordToCompleteIndex != 0 {
+			wordToCompleteIndex = tc.WordToCompleteIndex
+		}
+		leftWords := words[:wordToCompleteIndex]
+		wordToComplete := words[wordToCompleteIndex]
+		rightWord := words[wordToCompleteIndex+1:]
+
+		result := AutoComplete(ctx, leftWords, wordToComplete, rightWord)
+		assert.Equal(t, tc.Suggestions, result.Suggestions)
+	}
+}
+
 func TestAutocomplete(t *testing.T) {
 	ctx := injectMeta(context.Background(), &meta{
 		Commands: testAutocompleteGetCommands(),
 	})
 
-	type testCase struct {
-		Suggestions         AutocompleteSuggestions
-		WordToCompleteIndex int
-		Words               []string
-	}
+	type testCase = autoCompleteTestCase
 
 	run := func(tc *testCase) func(*testing.T) {
-		return func(t *testing.T) {
-			words := tc.Words
-			if len(words) == 0 {
-				name := strings.Replace(t.Name(), "TestAutocomplete/", "", -1)
-				name = strings.Replace(name, "_", " ", -1)
-				words = strings.Split(name, " ")
-			}
-
-			wordToCompleteIndex := len(words) - 1
-			if tc.WordToCompleteIndex != 0 {
-				wordToCompleteIndex = tc.WordToCompleteIndex
-			}
-			leftWords := words[:wordToCompleteIndex]
-			wordToComplete := words[wordToCompleteIndex]
-			rightWord := words[wordToCompleteIndex+1:]
-
-			result := AutoComplete(ctx, leftWords, wordToComplete, rightWord)
-			assert.Equal(t, tc.Suggestions, result.Suggestions)
-		}
+		return runAutocompleteTest(ctx, tc)
 	}
 
 	t.Run("scw ", run(&testCase{Suggestions: AutocompleteSuggestions{"test"}}))
@@ -147,10 +161,10 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test flower delete hibiscus with-leaves=tr", run(&testCase{Suggestions: AutocompleteSuggestions{"with-leaves=true"}}))
 	t.Run("scw test flower delete hibiscus with-leaves=yes", run(&testCase{Suggestions: nil}))
 	t.Run("scw test flower create leaves.0.size=", run(&testCase{Suggestions: AutocompleteSuggestions{"leaves.0.size=L", "leaves.0.size=M", "leaves.0.size=S", "leaves.0.size=XL", "leaves.0.size=XXL"}}))
-	t.Run("scw -", run(&testCase{Suggestions: AutocompleteSuggestions{"--debug", "--help", "--output", "--profile", "-D", "-h", "-o", "-p"}}))
+	t.Run("scw -", run(&testCase{Suggestions: AutocompleteSuggestions{"--config", "--debug", "--help", "--output", "--profile", "-D", "-c", "-h", "-o", "-p"}}))
 	t.Run("scw test -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
 	t.Run("scw test flower -o ", run(&testCase{Suggestions: AutocompleteSuggestions{PrinterTypeHuman.String(), PrinterTypeJSON.String(), PrinterTypeTemplate.String(), PrinterTypeYAML.String()}}))
-	t.Run("scw test flower -o json create -", run(&testCase{Suggestions: AutocompleteSuggestions{"--debug", "--help", "--output", "--profile", "--wait", "-D", "-h", "-p", "-w"}}))
+	t.Run("scw test flower -o json create -", run(&testCase{Suggestions: AutocompleteSuggestions{"--config", "--debug", "--help", "--output", "--profile", "--wait", "-D", "-c", "-h", "-p", "-w"}}))
 	t.Run("scw test flower create name=p -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
 	t.Run("scw test flower create name=p -o json ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.", "size=", "species="}}))
 	t.Run("scw test flower create name=p -o=json ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.", "size=", "species="}}))
@@ -161,11 +175,117 @@ func TestAutocomplete(t *testing.T) {
 	t.Run("scw test --profile xxxx flower create name=p ", run(&testCase{Suggestions: AutocompleteSuggestions{"colours.0=", "leaves.", "size=", "species="}}))
 	t.Run("scw test flower create name=p --profile xxxx", run(&testCase{Suggestions: nil}))
 
-	t.Run("scw test flower -o json delete -", run(&testCase{Suggestions: AutocompleteSuggestions{"--debug", "--help", "--output", "--profile", "-D", "-h", "-p"}}))
+	t.Run("scw test flower -o json delete -", run(&testCase{Suggestions: AutocompleteSuggestions{"--config", "--debug", "--help", "--output", "--profile", "-D", "-c", "-h", "-p"}}))
 	t.Run("scw test flower delete -o ", run(&testCase{Suggestions: AutocompleteSuggestions{PrinterTypeHuman.String(), PrinterTypeJSON.String(), PrinterTypeTemplate.String(), PrinterTypeYAML.String()}}))
 	t.Run("scw test flower delete -o j", run(&testCase{Suggestions: AutocompleteSuggestions{"json"}}))
 	t.Run("scw test flower delete -o json ", run(&testCase{Suggestions: AutocompleteSuggestions{"anemone", "hibiscus", "with-leaves="}}))
 	t.Run("scw test flower delete -o=json ", run(&testCase{Suggestions: AutocompleteSuggestions{"anemone", "hibiscus", "with-leaves="}}))
 	t.Run("scw test flower delete -o json hibiscus w", run(&testCase{Suggestions: AutocompleteSuggestions{"with-leaves="}}))
 	t.Run("scw test flower delete -o=json hibiscus w", run(&testCase{Suggestions: AutocompleteSuggestions{"with-leaves="}}))
+}
+
+func TestAutocompleteArgs(t *testing.T) {
+	commands := testAutocompleteGetCommands()
+	commands.Add(&Command{
+		Namespace: "test",
+		Resource:  "flower",
+		Verb:      "get",
+		ArgsType: reflect.TypeOf(struct {
+			Name         string
+			MaterialName string
+		}{}),
+		ArgSpecs: ArgSpecs{
+			{
+				Name:       "name",
+				Positional: true,
+			},
+			{
+				Name: "material-name",
+			},
+		},
+	})
+	commands.Add(&Command{
+		Namespace: "test",
+		Resource:  "flower",
+		Verb:      "list",
+		ArgsType: reflect.TypeOf(struct {
+		}{}),
+		ArgSpecs: ArgSpecs{},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			return []*struct {
+				Name string
+			}{
+				{
+					Name: "flower1",
+				},
+				{
+					Name: "flower2",
+				},
+			}, nil
+		},
+	})
+	commands.Add(&Command{
+		Namespace: "test",
+		Resource:  "material",
+		Verb:      "list",
+		ArgsType: reflect.TypeOf(struct {
+		}{}),
+		ArgSpecs: ArgSpecs{},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			return []*struct {
+				Name string
+			}{
+				{
+					Name: "material1",
+				},
+				{
+					Name: "material2",
+				},
+			}, nil
+		},
+	})
+	ctx := injectMeta(context.Background(), &meta{
+		Commands: commands,
+		betaMode: true,
+	})
+
+	type testCase = autoCompleteTestCase
+
+	run := func(tc *testCase) func(*testing.T) {
+		return runAutocompleteTest(ctx, tc)
+	}
+
+	t.Run("scw test flower get ", run(&testCase{Suggestions: AutocompleteSuggestions{"flower1", "flower2", "material-name="}}))
+	t.Run("scw test flower get material-name=", run(&testCase{Suggestions: AutocompleteSuggestions{"material-name=material1", "material-name=material2"}}))
+	t.Run("scw test flower get material-name=mat ", run(&testCase{Suggestions: AutocompleteSuggestions{"flower1", "flower2"}}))
+	t.Run("scw test flower create name=", run(&testCase{Suggestions: AutocompleteSuggestions(nil)}))
+}
+
+func TestAutocompleteProfiles(t *testing.T) {
+	commands := testAutocompleteGetCommands()
+	ctx := injectMeta(context.Background(), &meta{
+		Commands: commands,
+		betaMode: true,
+		Platform: terminal.NewPlatform(""),
+	})
+
+	type testCase = autoCompleteTestCase
+
+	run := func(tc *testCase) func(*testing.T) {
+		return runAutocompleteTest(ctx, tc)
+	}
+	t.Run("scw -p ", run(&testCase{Suggestions: nil}))
+	t.Run("scw test -p ", run(&testCase{Suggestions: nil}))
+	t.Run("scw test flower --profile ", run(&testCase{Suggestions: nil}))
+
+	injectConfig(ctx, &scw.Config{
+		Profiles: map[string]*scw.Profile{
+			"p1": nil,
+			"p2": nil,
+		},
+	})
+
+	t.Run("scw -p ", run(&testCase{Suggestions: AutocompleteSuggestions{"p1", "p2"}}))
+	t.Run("scw test -p ", run(&testCase{Suggestions: AutocompleteSuggestions{"p1", "p2"}}))
+	t.Run("scw test flower --profile ", run(&testCase{Suggestions: AutocompleteSuggestions{"p1", "p2"}}))
 }

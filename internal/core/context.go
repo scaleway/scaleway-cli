@@ -7,6 +7,9 @@ import (
 	"os"
 	"path"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/alias"
+	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -23,6 +26,8 @@ type meta struct {
 	Commands     *Commands
 	OverrideEnv  map[string]string
 	OverrideExec OverrideExecFunc
+	CliConfig    *cliConfig.Config
+	Platform     platform.Platform
 
 	command                     *Command
 	stdout                      io.Writer
@@ -31,6 +36,7 @@ type meta struct {
 	result                      interface{}
 	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
+	betaMode                    bool
 }
 
 type contextKey int
@@ -49,20 +55,39 @@ func extractMeta(ctx context.Context) *meta {
 	return ctx.Value(metaContextKey).(*meta)
 }
 
+// injectSDKConfig add config to a meta context
+func injectConfig(ctx context.Context, config *scw.Config) {
+	extractMeta(ctx).Platform.SetScwConfig(config)
+}
+
+func extractConfig(ctx context.Context) *scw.Config {
+	m := extractMeta(ctx)
+	if m.Platform != nil {
+		return m.Platform.ScwConfig()
+	}
+
+	return nil
+}
+
 func ExtractCommands(ctx context.Context) *Commands {
 	return extractMeta(ctx).Commands
 }
 
-func GetOrganizationIDFromContext(ctx context.Context) (organizationID string) {
+func ExtractCliConfig(ctx context.Context) *cliConfig.Config {
+	return extractMeta(ctx).CliConfig
+}
+
+func ExtractAliases(ctx context.Context) *alias.Config {
+	return ExtractCliConfig(ctx).Alias
+}
+
+func GetOrganizationIDFromContext(ctx context.Context) string {
 	client := ExtractClient(ctx)
-	organizationID, exists := client.GetDefaultOrganizationID()
-	if !exists {
-		panic("no default organization ID found")
-	}
+	organizationID, _ := client.GetDefaultOrganizationID()
 	return organizationID
 }
 
-func GetProjectIDFromContext(ctx context.Context) (projectID string) {
+func GetProjectIDFromContext(ctx context.Context) string {
 	client := ExtractClient(ctx)
 	projectID, exists := client.GetDefaultProjectID()
 	if !exists {
@@ -81,6 +106,10 @@ func ExtractLogger(ctx context.Context) *Logger {
 
 func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 	return extractMeta(ctx).BuildInfo
+}
+
+func ExtractBetaMode(ctx context.Context) bool {
+	return extractMeta(ctx).betaMode
 }
 
 func ExtractEnv(ctx context.Context, envKey string) string {
@@ -155,15 +184,20 @@ func ExtractConfigPath(ctx context.Context) string {
 	return scw.GetConfigPath()
 }
 
+func ExtractCliConfigPath(ctx context.Context) string {
+	meta := extractMeta(ctx)
+	// This is only useful for test when we override home environment variable
+	if home := meta.OverrideEnv["HOME"]; home != "" {
+		return path.Join(home, ".config", "scw", cliConfig.DefaultConfigFileName)
+	}
+	configPath, _ := cliConfig.FilePath()
+	return configPath
+}
+
 func ReloadClient(ctx context.Context) error {
 	var err error
 	meta := extractMeta(ctx)
-	// if client is from bootstrap we are probably running test
-	// if we reload the client we loose the cassette recorder
-	if meta.isClientFromBootstrapConfig {
-		return nil
-	}
-	meta.Client, err = createClient(meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
+	meta.Client, err = meta.Platform.CreateClient(meta.httpClient, ExtractConfigPath(ctx), ExtractProfileName(ctx))
 	return err
 }
 
@@ -175,7 +209,7 @@ func ExtractProfileFlag(ctx context.Context) string {
 	return extractMeta(ctx).ProfileFlag
 }
 
-// GetDocGenContext reuturn a minimal context that can be used by scw-doc-gen
+// GetDocGenContext returns a minimal context that can be used by scw-doc-gen
 func GetDocGenContext() context.Context {
 	ctx := context.Background()
 	client, _ := scw.NewClient(

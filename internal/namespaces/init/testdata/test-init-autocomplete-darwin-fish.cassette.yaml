@@ -4,29 +4,32 @@ interactions:
 - request:
     body: ""
     form: {}
-    headers: {}
-    url: https://account.scaleway.com/tokens/11111111-1111-1111-1111-111111111111
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
     method: GET
   response:
-    body: '{"token": {"access_key": "SCW8XT5JRAV4B0WQSHPE", "user_id": "721f2fde-1a01-4854-822b-fcca5638d73e",
-      "expires": null, "creation_date": "2020-06-23T14:06:56.763352+00:00", "creation_ip":
-      "195.154.229.35", "category": "user_created", "deletion_date": null, "inherits_user_perms":
-      true, "roles": {"role": null, "organization": null}, "description": "sieben-macbook",
-      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "use_role_key": false}}'
+    body: '{"access_key":"SCWXXXXXXXXXXXXXXXXX","secret_key":null,"description":"default","created_at":"2023-02-08T13:37:42.867291Z","updated_at":"2023-02-08T13:37:42.867291Z","expires_at":null,"default_project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","editable":true,"creation_ip":"195.154.228.158","user_id":"284d6fc3-6cf7-485b-bd32-efa92c2335d9"}'
     headers:
-      Connection:
-      - keep-alive
       Content-Length:
-      - "445"
+      - "340"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 23 Jun 2020 15:46:15 GMT
+      - Mon, 20 Feb 2023 13:44:28 GMT
       Server:
-      - nginx
+      - Scaleway API-Gateway
       Strict-Transport-Security:
-      - max-age=15552000
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8ba42abf-4aaa-4e0c-bf83-6dd99a4a6c73
     status: 200 OK
     code: 200
     duration: ""
