@@ -99,7 +99,7 @@ func Test_ImageUpdate(t *testing.T) {
 	t.Run("Change name", core.Test(&core.TestConfig{
 		BeforeFunc: createImage("ImageName"),
 		Commands:   GetCommands(),
-		Cmd:        "scw instance image update image-id={{ .ImageName.Image.ID }} name=foo",
+		Cmd:        "scw instance image update {{ .ImageName.Image.ID }} name=foo",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.Equal(t, "foo", ctx.Result.(*instance.UpdateImageResponse).Image.Name)
@@ -116,7 +116,7 @@ func Test_ImageUpdate(t *testing.T) {
 	t.Run("Change public from default false to true", core.Test(&core.TestConfig{
 		BeforeFunc: createImage("ImagePub"),
 		Commands:   GetCommands(),
-		Cmd:        "scw instance image update image-id={{ .ImagePub.Image.ID }} public=true",
+		Cmd:        "scw instance image update {{ .ImagePub.Image.ID }} public=true",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.Equal(t, true, ctx.Result.(*instance.UpdateImageResponse).Image.Public)
@@ -137,7 +137,7 @@ func Test_ImageUpdate(t *testing.T) {
 			createImage("ImageExtraVol"),
 		),
 		Commands: GetCommands(),
-		Cmd:      "scw instance image update image-id={{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
+		Cmd:      "scw instance image update {{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.Equal(t, "snapVol", ctx.Result.(*instance.UpdateImageResponse).Image.ExtraVolumes["1"].Name)
