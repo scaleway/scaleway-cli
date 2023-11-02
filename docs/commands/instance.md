@@ -265,7 +265,7 @@ Update properties of an instance image.
 **Usage:**
 
 ```
-scw instance image update [arg=value ...]
+scw instance image update <image-id ...> [arg=value ...]
 ```
 
 
