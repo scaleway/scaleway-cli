@@ -357,7 +357,7 @@ func imageUpdateCommand() *core.Command {
 				ImageID: request.ImageID,
 			})
 			if err != nil {
-				return nil, fmt.Errorf("cannot get image %s: %w", request.Name, err)
+				return nil, fmt.Errorf("cannot get image %s: %w", request.ImageID, err)
 			}
 
 			if request.Name == nil {
