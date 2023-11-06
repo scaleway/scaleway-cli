@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                         few seconds ago
 Region                            fr-par
-ID                                47e59e5e-aacc-48ee-a41c-d0982b844419
+ID                                cd243660-af1e-45f6-9f04-0c6fdf22ce6c
 Name                              cli-test
 OrganizationID                    fa1e3217-dc80-42ac-85c3-3f034b78b552
 ProjectID                         fa1e3217-dc80-42ac-85c3-3f034b78b552
@@ -22,23 +22,23 @@ UpgradableVersion.2.Version       15
 UpgradableVersion.2.MinorVersion  15.4
 IsHaCluster                       false
 NodeType                          db-dev-s
-Endpoints.0.ID                    eebcec72-ae05-4c7f-82c5-bab2c5165090
-Endpoints.0.IP                    195.154.70.34
-Endpoints.0.Port                  14515
+Endpoints.0.ID                    ca968a49-bf25-4de3-bb24-e84d04aa7a4b
+Endpoints.0.IP                    51.158.58.219
+Endpoints.0.Port                  10495
 LogsPolicy.MaxAgeRetention        30
 BackupSameRegion                  false
 
 Endpoint:
-ID    eebcec72-ae05-4c7f-82c5-bab2c5165090
-IP    195.154.70.34
-Port  14515
+ID    ca968a49-bf25-4de3-bb24-e84d04aa7a4b
+IP    51.158.58.219
+Port  10495
 
 Volume:
 Type   lssd
 Size   5.0 GB
 Class  lssd
 
-Backup Schedule:
+Backup schedule:
 Disabled   false
 NextRunAt  few seconds ago
 Frequency  1 days
@@ -52,6 +52,10 @@ max_connections                  100
 max_parallel_workers             0
 max_parallel_workers_per_gather  0
 work_mem                         4
+
+ACLs:
+IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0  10495  tcp       inbound    allow   Allow All
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -61,7 +65,7 @@ work_mem                         4
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "47e59e5e-aacc-48ee-a41c-d0982b844419",
+  "id": "cd243660-af1e-45f6-9f04-0c6fdf22ce6c",
   "name": "cli-test",
   "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
@@ -88,9 +92,9 @@ work_mem                         4
     }
   ],
   "endpoint": {
-    "id": "eebcec72-ae05-4c7f-82c5-bab2c5165090",
-    "ip": "195.154.70.34",
-    "port": 14515,
+    "id": "ca968a49-bf25-4de3-bb24-e84d04aa7a4b",
+    "ip": "51.158.58.219",
+    "port": 10495,
     "name": null,
     "load_balancer": {}
   },
@@ -133,9 +137,9 @@ work_mem                         4
   "init_settings": [],
   "endpoints": [
     {
-      "id": "eebcec72-ae05-4c7f-82c5-bab2c5165090",
-      "ip": "195.154.70.34",
-      "port": 14515,
+      "id": "ca968a49-bf25-4de3-bb24-e84d04aa7a4b",
+      "ip": "51.158.58.219",
+      "port": 10495,
       "name": null,
       "load_balancer": {}
     }
@@ -145,5 +149,15 @@ work_mem                         4
     "total_disk_retention": null
   },
   "backup_same_region": false,
-  "maintenances": []
+  "maintenances": [],
+  "acls": [
+    {
+      "ip": "0.0.0.0/0",
+      "port": 10495,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow All"
+    }
+  ]
 }

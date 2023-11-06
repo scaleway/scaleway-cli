@@ -270,6 +270,62 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func instanceGetBuilder(c *core.Command) *core.Command {
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+		instance := res.(*rdb.Instance)
+
+		args := argsI.(*rdb.GetInstanceRequest)
+
+		acls, err := rdb.NewAPI(core.ExtractClient(ctx)).ListInstanceACLRules(&rdb.ListInstanceACLRulesRequest{
+			Region:     args.Region,
+			InstanceID: args.InstanceID,
+		}, scw.WithAllPages())
+		if err != nil {
+			return res, nil
+		}
+
+		return struct {
+			*rdb.Instance
+			ACLs []*rdb.ACLRule `json:"acls"`
+		}{
+			instance,
+			acls.Rules,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName: "Endpoint",
+				Title:     "Endpoint",
+			},
+			{
+				FieldName: "Volume",
+				Title:     "Volume",
+			},
+			{
+				FieldName: "BackupSchedule",
+				Title:     "Backup schedule",
+			},
+			{
+				FieldName:   "Settings",
+				Title:       "Settings",
+				HideIfEmpty: true,
+			},
+			{
+				FieldName:   "ACLs",
+				Title:       "ACLs",
+				HideIfEmpty: true,
+			},
+		},
+	}
+	return c
+}
+
 func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
