@@ -24,6 +24,7 @@ func GetGeneratedCommands() *core.Commands {
 		billingDiscount(),
 		billingInvoiceList(),
 		billingInvoiceDownload(),
+		billingDiscountList(),
 	)
 }
 func billingRoot() *core.Command {
@@ -148,6 +149,48 @@ func billingInvoiceDownload() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 			return api.DownloadInvoice(request)
+
+		},
+	}
+}
+
+func billingDiscountList() *core.Command {
+	return &core.Command{
+		Short:     `List all user's discounts`,
+		Long:      `List all discounts for an organization and usable categories/products/offers/references/regions/zones where the discount can be applied.`,
+		Namespace: "billing",
+		Resource:  "discount",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(billing.ListDiscountsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Order discounts in the response by their description`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"creation_date_desc", "creation_date_asc"},
+			},
+			{
+				Name:       "organization-id",
+				Short:      `ID of the organization`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*billing.ListDiscountsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := billing.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListDiscounts(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Discounts, nil
 
 		},
 	}

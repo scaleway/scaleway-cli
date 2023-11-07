@@ -3,6 +3,7 @@
 This API allows you to query your consumption.
   
 - [Discounts management commands](#discounts-management-commands)
+  - [List all user's discounts](#list-all-user's-discounts)
 - [Invoices management commands](#invoices-management-commands)
   - [Download an invoice](#download-an-invoice)
   - [List invoices](#list-invoices)
@@ -12,13 +13,24 @@ This API allows you to query your consumption.
 
 Discounts management commands.
 
-Discounts management commands.
+
+### List all user's discounts
+
+List all discounts for an organization and usable categories/products/offers/references/regions/zones where the discount can be applied.
 
 **Usage:**
 
 ```
-scw billing discount
+scw billing discount list [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `creation_date_desc`, `creation_date_asc` | Order discounts in the response by their description |
+| organization-id |  | ID of the organization |
 
 
 
