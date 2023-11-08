@@ -14,6 +14,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -291,7 +292,12 @@ func backupDownloadCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			if backup.DownloadURL == nil {
+			needExport := backup.DownloadURL == nil
+			if needExport {
+				_, err = interactive.Print("Exporting backup... ")
+				if err != nil {
+					return nil, err
+				}
 				exportRequest := rdb.ExportDatabaseBackupRequest{
 					DatabaseBackupID: args.BackupID,
 					Region:           args.Region,
@@ -303,6 +309,12 @@ func backupDownloadCommand() *core.Command {
 			}
 
 			backup, err = api.WaitForDatabaseBackup(backupRequest)
+			if err != nil {
+				return nil, err
+			}
+			if needExport {
+				_, err = interactive.Println("OK")
+			}
 			if err != nil {
 				return nil, err
 			}
