@@ -1,33 +1,46 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt                   few seconds ago
-Region                      fr-par
-ID                          c1918625-81e0-44a2-aa6b-49f79d49805a
-Name                        cli-test
-OrganizationID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID                   564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-Status                      ready
-Engine                      PostgreSQL-12
-IsHaCluster                 false
-NodeType                    db-dev-s
-Endpoints.0.ID              8318bbbb-6a02-49cf-8494-dd32884d8d6a
-Endpoints.0.IP              51.159.113.51
-Endpoints.0.Port            2467
-LogsPolicy.MaxAgeRetention  30
-BackupSameRegion            false
+CreatedAt                         few seconds ago
+Region                            fr-par
+ID                                8bb48925-7a8d-48e4-a3df-0a9976eca2ee
+Name                              cli-test
+OrganizationID                    fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                         fa1e3217-dc80-42ac-85c3-3f034b78b552
+Status                            ready
+Engine                            PostgreSQL-12
+UpgradableVersion.0.ID            2e670f5c-493b-443f-92bd-986f23da2750
+UpgradableVersion.0.Name          PostgreSQL-13
+UpgradableVersion.0.Version       13
+UpgradableVersion.0.MinorVersion  13.12
+UpgradableVersion.1.ID            2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9
+UpgradableVersion.1.Name          PostgreSQL-14
+UpgradableVersion.1.Version       14
+UpgradableVersion.1.MinorVersion  14.9
+UpgradableVersion.2.ID            d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d
+UpgradableVersion.2.Name          PostgreSQL-15
+UpgradableVersion.2.Version       15
+UpgradableVersion.2.MinorVersion  15.4
+IsHaCluster                       false
+NodeType                          db-dev-s
+Endpoints.0.ID                    af2d405e-7b77-472d-b9c4-25db1654bef7
+Endpoints.0.IP                    51.159.204.209
+Endpoints.0.Port                  3705
+LogsPolicy.MaxAgeRetention        30
+BackupSameRegion                  false
 
 Endpoint:
-ID    8318bbbb-6a02-49cf-8494-dd32884d8d6a
-IP    51.159.113.51
-Port  2467
+ID    af2d405e-7b77-472d-b9c4-25db1654bef7
+IP    51.159.204.209
+Port  3705
 
 Volume:
 Type   lssd
 Size   5.0 GB
-Class  unknown_storage_class
+Class  lssd
 
 Backup Schedule:
 Disabled   false
+NextRunAt  few seconds ago
 Frequency  1 days
 Retention  7 days
 
@@ -48,20 +61,39 @@ Password:
   "volume": {
     "type": "lssd",
     "size": 5000000000,
-    "class": "unknown_storage_class"
+    "class": "lssd"
   },
   "region": "fr-par",
-  "id": "c1918625-81e0-44a2-aa6b-49f79d49805a",
+  "id": "8bb48925-7a8d-48e4-a3df-0a9976eca2ee",
   "name": "cli-test",
-  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
   "engine": "PostgreSQL-12",
-  "upgradable_version": [],
+  "upgradable_version": [
+    {
+      "id": "2e670f5c-493b-443f-92bd-986f23da2750",
+      "name": "PostgreSQL-13",
+      "version": "13",
+      "minor_version": "13.12"
+    },
+    {
+      "id": "2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9",
+      "name": "PostgreSQL-14",
+      "version": "14",
+      "minor_version": "14.9"
+    },
+    {
+      "id": "d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d",
+      "name": "PostgreSQL-15",
+      "version": "15",
+      "minor_version": "15.4"
+    }
+  ],
   "endpoint": {
-    "id": "8318bbbb-6a02-49cf-8494-dd32884d8d6a",
-    "ip": "51.159.113.51",
-    "port": 2467,
+    "id": "af2d405e-7b77-472d-b9c4-25db1654bef7",
+    "ip": "51.159.204.209",
+    "port": 3705,
     "name": null,
     "load_balancer": {}
   },
@@ -96,7 +128,7 @@ Password:
     "frequency": 24,
     "retention": 7,
     "disabled": false,
-    "next_run_at": null
+    "next_run_at": "1970-01-01T00:00:00.0Z"
   },
   "is_ha_cluster": false,
   "read_replicas": [],
@@ -104,9 +136,9 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "8318bbbb-6a02-49cf-8494-dd32884d8d6a",
-      "ip": "51.159.113.51",
-      "port": 2467,
+      "id": "af2d405e-7b77-472d-b9c4-25db1654bef7",
+      "ip": "51.159.204.209",
+      "port": 3705,
       "name": null,
       "load_balancer": {}
     }
