@@ -8,6 +8,7 @@ IPFS Pinning service API.
   - [Create an unpin request](#create-an-unpin-request)
   - [Get pin information](#get-pin-information)
   - [List all pins within a volume](#list-all-pins-within-a-volume)
+  - [Replace pin by CID](#replace-pin-by-cid)
 - [A volume is bucket of pins. It is similar to an Object Storage bucket. Volumes are useful to gather pins with similar lifespans](#a-volume-is-bucket-of-pins.-it-is-similar-to-an-object-storage-bucket.-volumes-are-useful-to-gather-pins-with-similar-lifespans)
   - [Create a new volume](#create-a-new-volume)
   - [Delete an existing volume](#delete-an-existing-volume)
@@ -138,6 +139,35 @@ scw ipfs pin list [arg=value ...]
 | status | One of: `unknown_status`, `queued`, `pinning`, `failed`, `pinned` | List pins by status |
 | organization-id |  | Organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Replace pin by CID
+
+Deletes the given resource ID and pins the new CID in its place.
+Will fetch and store the content pointed by the provided CID. The content must be available on the public IPFS network.
+The content (IPFS blocks) is hosted by the pinning service until the pin is deleted.
+While the content is available any other IPFS peer can fetch and host your content. For this reason, we recommend that you pin either public or encrypted content.
+Several different pin requests can target the same CID.
+A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.
+
+**Usage:**
+
+```
+scw ipfs pin replace [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| volume-id |  | Volume ID |
+| pin-id | Required | Pin ID whose information you wish to replace |
+| cid |  | New CID you want to pin in place of the old one |
+| name |  | New name to replace |
+| origins.{index} |  | Node containing the content you want to pin |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
