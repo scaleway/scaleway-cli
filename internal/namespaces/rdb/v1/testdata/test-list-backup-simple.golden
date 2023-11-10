@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    Name                  Database Name  Size    Status  Instance ID                           URL Expired  Download URL                                                                                                                                                                                                                                                                                                                                                                                                                Expires At       Created At       Updated At       Region  Same Region
-2b9ed709-8958-4bba-bf5e-64edf2e3233f  will_be_exported      rdb            2.1 kB  ready   ecb7cd08-420c-4cd5-a92d-429c9d0dcea9  false        https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/ecb7cd08-420c-4cd5-a92d-429c9d0dcea9/2b9ed709-8958-4bba-bf5e-64edf2e3233f.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=SCW2HJV1WMKPE0CKDAW5%2F20231110%2Fnl-ams%2Fs3%2Faws4_request&X-Amz-Date=20231110T094836Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=a074ed0e29f618a8dac93398b737cfbb11b825fef9dfb5b16e4a4e0e9887f432  few seconds ago  few seconds ago  few seconds ago  fr-par  false
-0b1110b2-8e4d-4d50-b539-b38e198e6b6f  will_not_be_exported  rdb            2.1 kB  ready   ecb7cd08-420c-4cd5-a92d-429c9d0dcea9  true         -                                                                                                                                                                                                                                                                                                                                                                                                                           few seconds ago  few seconds ago  few seconds ago  fr-par  false
+6d576d04-9dc3-4081-8c3f-ab16d4bd2b3d  will_be_exported      rdb            2.1 kB  ready   1b79dceb-5632-4176-b594-d6a73bfb06e1  false        https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/1b79dceb-5632-4176-b594-d6a73bfb06e1/6d576d04-9dc3-4081-8c3f-ab16d4bd2b3d.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=SCW2HJV1WMKPE0CKDAW5%2F20231109%2Fnl-ams%2Fs3%2Faws4_request&X-Amz-Date=20231109T192408Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=cc0e126290d5bd4dc7fa3db04e5293928a4e311ffa9466a015629361c33361ea  few seconds ago  few seconds ago  few seconds ago  fr-par  false
+0aab45e7-e1de-493f-807b-4d843f8b383d  will_not_be_exported  rdb            2.1 kB  ready   1b79dceb-5632-4176-b594-d6a73bfb06e1  true         -                                                                                                                                                                                                                                                                                                                                                                                                                           few seconds ago  few seconds ago  few seconds ago  fr-par  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "ID": "2b9ed709-8958-4bba-bf5e-64edf2e3233f",
-    "instance_ID": "ecb7cd08-420c-4cd5-a92d-429c9d0dcea9",
+    "ID": "6d576d04-9dc3-4081-8c3f-ab16d4bd2b3d",
+    "instance_ID": "1b79dceb-5632-4176-b594-d6a73bfb06e1",
     "database_name": "rdb",
     "name": "will_be_exported",
     "status": "ready",
@@ -16,14 +16,14 @@ ID                                    Name                  Database Name  Size 
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "instance_name": "cli-test",
-    "download_url": "https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/ecb7cd08-420c-4cd5-a92d-429c9d0dcea9/2b9ed709-8958-4bba-bf5e-64edf2e3233f.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=SCW2HJV1WMKPE0CKDAW5%2F20231110%2Fnl-ams%2Fs3%2Faws4_request\u0026X-Amz-Date=20231110T094836Z\u0026X-Amz-Expires=86400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=a074ed0e29f618a8dac93398b737cfbb11b825fef9dfb5b16e4a4e0e9887f432",
+    "download_url": "https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/1b79dceb-5632-4176-b594-d6a73bfb06e1/6d576d04-9dc3-4081-8c3f-ab16d4bd2b3d.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=SCW2HJV1WMKPE0CKDAW5%2F20231109%2Fnl-ams%2Fs3%2Faws4_request\u0026X-Amz-Date=20231109T192408Z\u0026X-Amz-Expires=86400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=cc0e126290d5bd4dc7fa3db04e5293928a4e311ffa9466a015629361c33361ea",
     "url_expired": false,
     "region": "fr-par",
     "same_region": false
   },
   {
-    "ID": "0b1110b2-8e4d-4d50-b539-b38e198e6b6f",
-    "instance_ID": "ecb7cd08-420c-4cd5-a92d-429c9d0dcea9",
+    "ID": "0aab45e7-e1de-493f-807b-4d843f8b383d",
+    "instance_ID": "1b79dceb-5632-4176-b594-d6a73bfb06e1",
     "database_name": "rdb",
     "name": "will_not_be_exported",
     "status": "ready",
