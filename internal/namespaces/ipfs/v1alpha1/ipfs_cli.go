@@ -31,6 +31,7 @@ func GetGeneratedCommands() *core.Commands {
 		ipfsVolumeDelete(),
 		ipfsPinCreateByURL(),
 		ipfsPinCreateByCid(),
+		ipfsPinReplace(),
 		ipfsPinGet(),
 		ipfsPinList(),
 		ipfsPinDelete(),
@@ -368,6 +369,69 @@ A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed
 			client := core.ExtractClient(ctx)
 			api := ipfs.NewAPI(client)
 			return api.CreatePinByCID(request)
+
+		},
+	}
+}
+
+func ipfsPinReplace() *core.Command {
+	return &core.Command{
+		Short: `Replace pin by CID`,
+		Long: `Deletes the given resource ID and pins the new CID in its place.
+Will fetch and store the content pointed by the provided CID. The content must be available on the public IPFS network.
+The content (IPFS blocks) is hosted by the pinning service until the pin is deleted.
+While the content is available any other IPFS peer can fetch and host your content. For this reason, we recommend that you pin either public or encrypted content.
+Several different pin requests can target the same CID.
+A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.`,
+		Namespace: "ipfs",
+		Resource:  "pin",
+		Verb:      "replace",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipfs.ReplacePinRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `Volume ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pin-id",
+				Short:      `Pin ID whose information you wish to replace`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cid",
+				Short:      `New CID you want to pin in place of the old one`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `New name to replace`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "origins.{index}",
+				Short:      `Node containing the content you want to pin`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipfs.ReplacePinRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipfs.NewAPI(client)
+			return api.ReplacePin(request)
 
 		},
 	}
