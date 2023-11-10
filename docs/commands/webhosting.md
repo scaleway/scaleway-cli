@@ -2,6 +2,7 @@
 # Documentation for `scw webhosting`
 Web Hosting API.
   
+- [Control Panels](#control-panels)
 - [Hosting management commands](#hosting-management-commands)
   - [Order a Web Hosting plan](#order-a-web-hosting-plan)
   - [Delete a Web Hosting plan](#delete-a-web-hosting-plan)
@@ -14,6 +15,20 @@ Web Hosting API.
   - [List all offers](#list-all-offers)
 
   
+## Control Panels
+
+Control panels represent the kind of administration panel to manage your Web Hosting plan, cPanel or plesk.
+
+Control panels represent the kind of administration panel to manage your Web Hosting plan, cPanel or plesk.
+
+**Usage:**
+
+```
+scw webhosting control-panels
+```
+
+
+
 ## Hosting management commands
 
 With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Create, list, update and delete your Web Hosting plans with these calls.
@@ -40,7 +55,7 @@ scw webhosting hosting create [arg=value ...]
 | tags.{index} |  | List of tags for the Web Hosting plan |
 | domain |  | Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand |
 | option-ids.{index} |  | IDs of any selected additional options for the Web Hosting plan |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -60,7 +75,7 @@ scw webhosting hosting delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | hosting-id | Required | Hosting ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -90,7 +105,7 @@ scw webhosting hosting get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | hosting-id | Required | Hosting ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -120,7 +135,7 @@ scw webhosting hosting get-dns-records [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | domain | Required | Domain associated with the DNS records |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -154,8 +169,9 @@ scw webhosting hosting list [arg=value ...]
 | statuses.{index} | One of: `unknown_status`, `delivering`, `ready`, `deleting`, `error`, `locked`, `migrating` | Statuses to filter for, only Web Hosting plans with matching statuses will be returned |
 | domain |  | Domain to filter for, only Web Hosting plans associated with this domain will be returned |
 | project-id |  | Project ID to filter for, only Web Hosting plans from this Project will be returned |
+| control-panels.{index} |  | Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned |
 | organization-id |  | Organization ID to filter for, only Web Hosting plans from this Organization will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -185,7 +201,7 @@ scw webhosting hosting restore [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | hosting-id | Required | Hosting ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -219,7 +235,7 @@ scw webhosting hosting update [arg=value ...]
 | tags.{index} |  | New tags for the Web Hosting plan |
 | option-ids.{index} |  | IDs of the new options for the Web Hosting plan |
 | offer-id |  | ID of the new offer for the Web Hosting plan |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -267,7 +283,7 @@ scw webhosting offer list [arg=value ...]
 | without-options |  | Defines whether the response should consist of offers only, without options |
 | only-options |  | Defines whether the response should consist of options only, without offers |
 | hosting-id |  | ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan) |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
