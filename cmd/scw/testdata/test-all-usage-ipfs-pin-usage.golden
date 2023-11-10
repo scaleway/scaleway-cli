@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   delete        Create an unpin request
   get           Get pin information
   list          List all pins within a volume
+  replace       Replace pin by CID
 
 FLAGS:
   -h, --help   help for pin
