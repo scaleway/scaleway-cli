@@ -1719,7 +1719,7 @@ func instanceVolumeCreate() *core.Command {
 				Name:       "base-volume",
 				Short:      `ID of the volume on which this volume will be based`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
