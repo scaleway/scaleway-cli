@@ -1125,9 +1125,10 @@ func redisEndpointUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
+				Short:      `UUID of the endpoint you want to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "private-network.id",
