@@ -17,6 +17,7 @@ Managed Database for Redis™ API
   - [Scale up a Redis™ Database Instance](#scale-up-a-redis™-database-instance)
   - [Renew the TLS certificate of a cluster](#renew-the-tls-certificate-of-a-cluster)
   - [Update a Redis™ Database Instance](#update-a-redis™-database-instance)
+  - [Wait for a Redis cluster to reach a stable state](#wait-for-a-redis-cluster-to-reach-a-stable-state)
 - [Endpoints management commands](#endpoints-management-commands)
   - [Add endpoints for a cluster](#add-endpoints-for-a-cluster)
   - [Delete an endpoint for a cluster](#delete-an-endpoint-for-a-cluster)
@@ -152,6 +153,7 @@ scw redis cluster create [arg=value ...]
 | cluster-size |  | Number of nodes in the Redis™ cluster |
 | acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
+| endpoints.{index}.private-network.enable-ipam | Default: `false` | Will configure your Private Network endpoint with Scaleway IPAM service if true |
 | endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
 | endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
 | tls-enabled |  | Defines whether or not TLS is enabled |
@@ -333,6 +335,37 @@ scw redis cluster update <cluster-id ...> [arg=value ...]
 | password |  | Password of the Database Instance user |
 | cluster-id | Required | UUID of the Database Instance to update |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Wait for a Redis cluster to reach a stable state
+
+Wait for a Redis cluster to reach a stable state. This is similar to using --wait flag.
+
+**Usage:**
+
+```
+scw redis cluster wait <cluster-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | ID of the cluster you want to wait for |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `15m0s` | Timeout of the wait |
+
+
+**Examples:**
+
+
+Wait for a Redis cluster to reach a stable state
+```
+scw redis cluster wait
+```
+
 
 
 

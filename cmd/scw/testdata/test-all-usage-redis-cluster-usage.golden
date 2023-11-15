@@ -15,6 +15,7 @@ AVAILABLE COMMANDS:
   migrate           Scale up a Redis™ Database Instance
   renew-certificate Renew the TLS certificate of a cluster
   update            Update a Redis™ Database Instance
+  wait              Wait for a Redis cluster to reach a stable state
 
 FLAGS:
   -h, --help   help for cluster
