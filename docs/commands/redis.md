@@ -432,7 +432,7 @@ Update information about a Redis™ Database Instance (Redis™ cluster) endpoin
 **Usage:**
 
 ```
-scw redis endpoint update [arg=value ...]
+scw redis endpoint update <endpoint-id ...> [arg=value ...]
 ```
 
 
@@ -440,7 +440,7 @@ scw redis endpoint update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| endpoint-id | Required |  |
+| endpoint-id | Required | UUID of the endpoint you want to get |
 | private-network.id |  | UUID of the Private Network to connect to the Database Instance |
 | private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
