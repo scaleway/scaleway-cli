@@ -10,7 +10,6 @@ Cockpit API.
   - [Activate the Cockpit of the specified Project ID](#activate-the-cockpit-of-the-specified-project-id)
   - [Deactivate the Cockpit of the specified Project ID](#deactivate-the-cockpit-of-the-specified-project-id)
   - [Retrieve the Cockpit of the specified Project ID](#retrieve-the-cockpit-of-the-specified-project-id)
-  - [Reset your Cockpit's Grafana associated with the specified Project ID](#reset-your-cockpit's-grafana-associated-with-the-specified-project-id)
   - [Wait for a cockpit to reach a stable state (installation)](#wait-for-a-cockpit-to-reach-a-stable-state-(installation))
 - [Contacts management commands](#contacts-management-commands)
   - [Create a contact point to receive alerts for the default receiver](#create-a-contact-point-to-receive-alerts-for-the-default-receiver)
@@ -146,25 +145,6 @@ Retrieve the Cockpit of the specified Project ID.
 
 ```
 scw cockpit cockpit get [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-
-
-
-### Reset your Cockpit's Grafana associated with the specified Project ID
-
-Reset your Cockpit's Grafana associated with the specified Project ID.
-
-**Usage:**
-
-```
-scw cockpit cockpit reset-grafana [arg=value ...]
 ```
 
 

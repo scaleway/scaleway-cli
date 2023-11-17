@@ -6,13 +6,12 @@ USAGE:
   scw cockpit cockpit <command>
 
 AVAILABLE COMMANDS:
-  activate      Activate the Cockpit of the specified Project ID
-  deactivate    Deactivate the Cockpit of the specified Project ID
-  get           Retrieve the Cockpit of the specified Project ID
-  reset-grafana Reset your Cockpit's Grafana associated with the specified Project ID
+  activate    Activate the Cockpit of the specified Project ID
+  deactivate  Deactivate the Cockpit of the specified Project ID
+  get         Retrieve the Cockpit of the specified Project ID
 
 WORKFLOW COMMANDS:
-  wait          Wait for a cockpit to reach a stable state (installation)
+  wait        Wait for a cockpit to reach a stable state (installation)
 
 FLAGS:
   -h, --help   help for cockpit
