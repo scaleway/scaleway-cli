@@ -99,7 +99,7 @@ func instanceImage() *core.Command {
 	return &core.Command{
 		Short: `Image management commands`,
 		Long: `Images are backups of your Instances.
-One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration. 
+One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
 To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.`,
 		Namespace: "instance",
 		Resource:  "image",
