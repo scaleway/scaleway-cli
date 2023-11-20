@@ -31,7 +31,6 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitCockpitActivate(),
 		cockpitCockpitGet(),
 		cockpitCockpitDeactivate(),
-		cockpitCockpitResetGrafana(),
 		cockpitTokenCreate(),
 		cockpitTokenList(),
 		cockpitTokenGet(),
@@ -194,29 +193,6 @@ func cockpitCockpitDeactivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewAPI(client)
 			return api.DeactivateCockpit(request)
-
-		},
-	}
-}
-
-func cockpitCockpitResetGrafana() *core.Command {
-	return &core.Command{
-		Short:     `Reset your Cockpit's Grafana associated with the specified Project ID`,
-		Long:      `Reset your Cockpit's Grafana associated with the specified Project ID.`,
-		Namespace: "cockpit",
-		Resource:  "cockpit",
-		Verb:      "reset-grafana",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.ResetCockpitGrafanaRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*cockpit.ResetCockpitGrafanaRequest)
-
-			client := core.ExtractClient(ctx)
-			api := cockpit.NewAPI(client)
-			return api.ResetCockpitGrafana(request)
 
 		},
 	}
