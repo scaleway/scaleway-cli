@@ -8,6 +8,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -123,4 +124,73 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+var rdbACLEditYamlExample = `rules:
+- description: your description
+  ip: 0.0.0.0/0
+`
+
+type rdbACLEditArgs struct {
+	Region     scw.Region
+	InstanceID string
+	Mode       editor.MarshalMode
+}
+
+func aclEditCommand() *core.Command {
+	return &core.Command{
+		Short:     "Edit a database instance's ACL",
+		Long:      editor.LongDescription,
+		Namespace: "rdb",
+		Resource:  "acl",
+		Verb:      "edit",
+		ArgsType:  reflect.TypeOf(rdbACLEditArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      "ID of the database instance ",
+				Required:   true,
+				Positional: true,
+			},
+			editor.MarshalModeArgSpec(),
+			core.RegionArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			args := argsI.(*rdbACLEditArgs)
+
+			client := core.ExtractClient(ctx)
+			api := rdb.NewAPI(client)
+
+			setRequest := &rdb.SetInstanceACLRulesRequest{
+				Region:     args.Region,
+				InstanceID: args.InstanceID,
+			}
+
+			rules, err := api.ListInstanceACLRules(&rdb.ListInstanceACLRulesRequest{
+				Region:     args.Region,
+				InstanceID: args.InstanceID,
+			}, scw.WithAllPages(), scw.WithContext(ctx))
+			if err != nil {
+				return nil, fmt.Errorf("failed to list ACL rules: %w", err)
+			}
+
+			editedSetRequest, err := editor.UpdateResourceEditor(rules, setRequest, &editor.Config{
+				PutRequest:  true,
+				MarshalMode: args.Mode,
+				Template:    rdbACLEditYamlExample,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			setRequest = editedSetRequest.(*rdb.SetInstanceACLRulesRequest)
+
+			resp, err := api.SetInstanceACLRules(setRequest, scw.WithContext(ctx))
+			if err != nil {
+				return nil, fmt.Errorf("failed to set ACL rules: %w", err)
+			}
+
+			return resp.Rules, nil
+		},
+	}
 }

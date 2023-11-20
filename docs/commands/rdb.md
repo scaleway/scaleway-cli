@@ -5,6 +5,7 @@ Managed Database for PostgreSQL and MySQL API
 - [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
   - [Add an ACL rule to a Database Instance](#add-an-acl-rule-to-a-database-instance)
   - [Delete ACL rules of a Database Instance](#delete-acl-rules-of-a-database-instance)
+  - [Edit a database instance's ACL](#edit-a-database-instance's-acl)
   - [List ACL rules of a Database Instance](#list-acl-rules-of-a-database-instance)
   - [Set ACL rules for a Database Instance](#set-acl-rules-for-a-database-instance)
 - [Backup management commands](#backup-management-commands)
@@ -123,6 +124,28 @@ scw rdb acl delete [arg=value ...]
 | instance-id | Required | UUID of the Database Instance you want to delete an ACL rule from |
 | rules.{index}.ip | Required | IP addresses defined in the ACL rules of the Database Instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Edit a database instance's ACL
+
+This command starts your default editor to edit a marshaled version of your resource
+Default editor will be taken from $VISUAL, then $EDITOR or an editor based on your system
+
+**Usage:**
+
+```
+scw rdb acl edit <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | ID of the database instance  |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
