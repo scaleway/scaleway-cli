@@ -1716,13 +1716,6 @@ func instanceVolumeCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "base-volume",
-				Short:      `ID of the volume on which this volume will be based`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
 				Name:       "base-snapshot",
 				Short:      `ID of the snapshot on which this volume will be based`,
 				Required:   false,
@@ -1748,10 +1741,6 @@ func instanceVolumeCreate() *core.Command {
 			{
 				Short:    "Create a volume with a size of 50GB",
 				ArgsJSON: `{"size":50000000000}`,
-			},
-			{
-				Short:    "Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'",
-				ArgsJSON: `{"base_volume":"00112233-4455-6677-8899-aabbccddeeff","volume_type":"l_ssd"}`,
 			},
 		},
 	}
