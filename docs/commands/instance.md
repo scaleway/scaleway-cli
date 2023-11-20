@@ -2913,7 +2913,6 @@ scw instance volume create [arg=value ...]
 | tags.{index} |  | Volume tags |
 | volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Volume type |
 | size |  | Volume disk size, must be a multiple of 512 |
-| ~~base-volume~~ | Deprecated | ID of the volume on which this volume will be based |
 | base-snapshot |  | ID of the snapshot on which this volume will be based |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
@@ -2930,11 +2929,6 @@ scw instance volume create name=my-volume
 Create a volume with a size of 50GB
 ```
 scw instance volume create size=50GB
-```
-
-Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'
-```
-scw instance volume create volume-type=l_ssd base-volume=00112233-4455-6677-8899-aabbccddeeff
 ```
 
 
