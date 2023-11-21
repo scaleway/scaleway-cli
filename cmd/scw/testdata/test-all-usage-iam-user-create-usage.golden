@@ -7,6 +7,7 @@ USAGE:
 
 ARGS:
   email               Email of the user
+  [tags.{index}]      Tags associated with the user
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
