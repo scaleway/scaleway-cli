@@ -11,6 +11,7 @@ ARGS:
   [application-ids.{index}]                   Filter by a list of application IDs
   [user-ids.{index}]                          Filter by a list of user IDs
   [group-ids.{index}]                         Filter by a list of group IDs
+  [tag]                                       Filter by tags containing a given string
   [organization-id=<retrieved from config>]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
