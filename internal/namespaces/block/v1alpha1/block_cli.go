@@ -142,6 +142,13 @@ func blockVolumeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter by Organization ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -391,6 +398,13 @@ func blockSnapshotList() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Filter snapshots by their names`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter by Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

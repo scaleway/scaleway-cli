@@ -10,6 +10,7 @@ ARGS:
   [name]                                      Name of the application to filter
   [editable]                                  Defines whether to filter out editable applications or not
   [application-ids.{index}]                   Filter by list of IDs
+  [tag]                                       Filter by tags containing a given string
   [organization-id=<retrieved from config>]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:

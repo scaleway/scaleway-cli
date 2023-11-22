@@ -6,9 +6,10 @@ USAGE:
   scw iam group update <group-id ...> [arg=value ...]
 
 ARGS:
-  group-id        ID of the group to update
-  [name]          New name for the group (max length is 64 chars). MUST be unique inside an Organization
-  [description]   New description for the group (max length is 200 chars)
+  group-id         ID of the group to update
+  [name]           New name for the group (max length is 64 chars). MUST be unique inside an Organization
+  [description]    New description for the group (max length is 200 chars)
+  [tags.{index}]   New tags for the group (maximum of 10 tags)
 
 FLAGS:
   -h, --help   help for update

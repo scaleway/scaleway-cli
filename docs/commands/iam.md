@@ -201,6 +201,7 @@ scw iam application create [arg=value ...]
 |------|---|-------------|
 | name | Required<br />Default: `<generated>` | Name of the application to create (max length is 64 characters) |
 | description |  | Description of the application (max length is 200 characters) |
+| tags.{index} |  | Tags associated with the application (maximum of 10 tags) |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -262,6 +263,7 @@ scw iam application list [arg=value ...]
 | name |  | Name of the application to filter |
 | editable |  | Defines whether to filter out editable applications or not |
 | application-ids.{index} |  | Filter by list of IDs |
+| tag |  | Filter by tags containing a given string |
 | organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -284,6 +286,7 @@ scw iam application update <application-id ...> [arg=value ...]
 | application-id | Required | ID of the application to update |
 | name |  | New name for the application (max length is 64 chars) |
 | description |  | New description for the application (max length is 200 chars) |
+| tags.{index} |  | New tags for the application (maximum of 10 tags) |
 
 
 
@@ -351,6 +354,7 @@ scw iam group create [arg=value ...]
 |------|---|-------------|
 | name | Required<br />Default: `<generated>` | Name of the group to create (max length is 64 chars). MUST be unique inside an Organization |
 | description |  | Description of the group to create (max length is 200 chars) |
+| tags.{index} |  | Tags associated with the group (maximum of 10 tags) |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -433,6 +437,7 @@ scw iam group list [arg=value ...]
 | application-ids.{index} |  | Filter by a list of application IDs |
 | user-ids.{index} |  | Filter by a list of user IDs |
 | group-ids.{index} |  | Filter by a list of group IDs |
+| tag |  | Filter by tags containing a given string |
 | organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -497,6 +502,7 @@ scw iam group update <group-id ...> [arg=value ...]
 | group-id | Required | ID of the group to update |
 | name |  | New name for the group (max length is 64 chars). MUST be unique inside an Organization |
 | description |  | New description for the group (max length is 200 chars) |
+| tags.{index} |  | New tags for the group (maximum of 10 tags) |
 
 
 
@@ -633,6 +639,7 @@ scw iam policy create [arg=value ...]
 | rules.{index}.permission-set-names.{index} |  | Names of permission sets bound to the rule |
 | rules.{index}.project-ids.{index} |  | List of Project IDs the rule is scoped to |
 | rules.{index}.organization-id |  | ID of Organization the rule is scoped to |
+| tags.{index} |  | Tags associated with the policy (maximum of 10 tags) |
 | user-id |  | ID of user attributed to the policy |
 | group-id |  | ID of group attributed to the policy |
 | application-id |  | ID of application attributed to the policy |
@@ -711,6 +718,7 @@ scw iam policy list [arg=value ...]
 | application-ids.{index} |  | Filter by a list of application IDs |
 | no-principal |  | Defines whether or not the policy is attributed to a principal |
 | policy-name |  | Name of the policy to fetch |
+| tag |  | Filter by tags containing a given string |
 | organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -733,6 +741,7 @@ scw iam policy update <policy-id ...> [arg=value ...]
 | policy-id | Required | Id of policy to update |
 | name |  | New name for the policy (max length is 64 characters) |
 | description |  | New description of policy (max length is 200 characters) |
+| tags.{index} |  | New tags for the policy (maximum of 10 tags) |
 | user-id |  | New ID of user attributed to the policy |
 | group-id |  | New ID of group attributed to the policy |
 | application-id |  | New ID of application attributed to the policy |
@@ -947,6 +956,7 @@ scw iam user create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | email | Required | Email of the user |
+| tags.{index} |  | Tags associated with the user |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -1007,6 +1017,7 @@ scw iam user list [arg=value ...]
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc` | Criteria for sorting results |
 | user-ids.{index} |  | Filter by list of IDs |
 | mfa |  | Filter by MFA status |
+| tag |  | Filter by tags containing a given string |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
 

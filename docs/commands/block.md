@@ -106,6 +106,7 @@ scw block snapshot list [arg=value ...]
 | project-id |  | Filter by Project ID |
 | volume-id |  | Filter snapshots by the ID of the original volume |
 | name |  | Filter snapshots by their names |
+| organization-id |  | Filter by Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -223,6 +224,7 @@ scw block volume list [arg=value ...]
 | project-id |  | Filter by Project ID |
 | name |  | Filter the return volumes by their names |
 | product-resource-id |  | Filter by a product resource ID linked to this volume (such as an Instance ID) |
+| organization-id |  | Filter by Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 

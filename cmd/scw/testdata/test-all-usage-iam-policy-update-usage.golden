@@ -9,6 +9,7 @@ ARGS:
   policy-id          Id of policy to update
   [name]             New name for the policy (max length is 64 characters)
   [description]      New description of policy (max length is 200 characters)
+  [tags.{index}]     New tags for the policy (maximum of 10 tags)
   [user-id]          New ID of user attributed to the policy
   [group-id]         New ID of group attributed to the policy
   [application-id]   New ID of application attributed to the policy
