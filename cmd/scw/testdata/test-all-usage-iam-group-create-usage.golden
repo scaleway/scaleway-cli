@@ -12,6 +12,7 @@ EXAMPLES:
 ARGS:
   name=<generated>    Name of the group to create (max length is 64 chars). MUST be unique inside an Organization
   [description]       Description of the group to create (max length is 200 chars)
+  [tags.{index}]      Tags associated with the group (maximum of 10 tags)
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
