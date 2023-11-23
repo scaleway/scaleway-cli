@@ -26,7 +26,7 @@ brew install scw
 
 ### Arch Linux
 
-Install the latest stable release on Arch Linux from [official repositories](https://archlinux.org/packages/community/x86_64/scaleway-cli/).
+Install the latest stable release on Arch Linux from [official repositories](https://archlinux.org/packages/extra/x86_64/scaleway-cli/).
 For instance with `pacman`:
 
 ```sh

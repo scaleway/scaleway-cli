@@ -8,6 +8,7 @@ import (
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	billing "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1beta1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
@@ -86,6 +87,7 @@ func GetCommands() *core.Commands {
 		ipfs.GetCommands(),
 		documentdb.GetCommands(),
 		mnq.GetCommands(),
+		block.GetCommands(),
 	)
 
 	//if beta {}

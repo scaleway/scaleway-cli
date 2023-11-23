@@ -46,8 +46,8 @@ func blockRoot() *core.Command {
 
 func blockVolumeType() *core.Command {
 	return &core.Command{
-		Short:     `Block Storage volume types are determined by their storage class and their IOPS ratio. There are two storage classes available: ` + "`" + `bssd` + "`" + ` and ` + "`" + `sbs` + "`" + `. The IOPS ratio can be chosen for volumes of the ` + "`" + `sbs` + "`" + ` storage class`,
-		Long:      `Block Storage volume types are determined by their storage class and their IOPS ratio. There are two storage classes available: ` + "`" + `bssd` + "`" + ` and ` + "`" + `sbs` + "`" + `. The IOPS ratio can be chosen for volumes of the ` + "`" + `sbs` + "`" + ` storage class.`,
+		Short:     `Block Storage volume types are determined by their storage class and their IOPS. There are two storage classes available: ` + "`" + `bssd` + "`" + ` and ` + "`" + `sbs` + "`" + `. The IOPS can be chosen for volumes of the ` + "`" + `sbs` + "`" + ` storage class`,
+		Long:      `Block Storage volume types are determined by their storage class and their IOPS. There are two storage classes available: ` + "`" + `bssd` + "`" + ` and ` + "`" + `sbs` + "`" + `. The IOPS can be chosen for volumes of the ` + "`" + `sbs` + "`" + ` storage class.`,
 		Namespace: "block",
 		Resource:  "volume-type",
 	}

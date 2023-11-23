@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   autocomplete  Autocomplete related commands
   baremetal     Elastic Metal API
   billing       This API allows you to query your consumption
+  block         This API allows you to use and manage your Block Storage volumes
   cockpit       Cockpit API
   container     Container as a Service API
   dns           Domains and DNS API
