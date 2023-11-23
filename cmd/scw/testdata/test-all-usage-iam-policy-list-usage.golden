@@ -13,6 +13,7 @@ ARGS:
   [application-ids.{index}]                   Filter by a list of application IDs
   [no-principal]                              Defines whether or not the policy is attributed to a principal
   [policy-name]                               Name of the policy to fetch
+  [tag]                                       Filter by tags containing a given string
   [organization-id=<retrieved from config>]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:

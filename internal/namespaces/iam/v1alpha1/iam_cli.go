@@ -453,6 +453,13 @@ func iamUserList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "tag",
+				Short:      `Filter by tags containing a given string`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `ID of the Organization to filter`,
 				Required:   true,
@@ -557,6 +564,13 @@ func iamUserCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -610,6 +624,13 @@ func iamApplicationList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "tag",
+				Short:      `Filter by tags containing a given string`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -649,6 +670,13 @@ func iamApplicationCreate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `Description of the application (max length is 200 characters)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the application (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -722,6 +750,13 @@ func iamApplicationUpdate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `New description for the application (max length is 200 chars)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags for the application (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -820,6 +855,13 @@ func iamGroupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "tag",
+				Short:      `Filter by tags containing a given string`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -873,6 +915,13 @@ func iamGroupCreate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `Description of the group to create (max length is 200 chars)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the group (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -966,6 +1015,13 @@ func iamGroupUpdate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `New description for the group (max length is 200 chars)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags for the group (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1283,6 +1339,13 @@ func iamPolicyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "tag",
+				Short:      `Filter by tags containing a given string`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1343,6 +1406,13 @@ func iamPolicyCreate() *core.Command {
 			{
 				Name:       "rules.{index}.organization-id",
 				Short:      `ID of Organization the rule is scoped to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the policy (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1450,6 +1520,13 @@ func iamPolicyUpdate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `New description of policy (max length is 200 characters)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags for the policy (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
