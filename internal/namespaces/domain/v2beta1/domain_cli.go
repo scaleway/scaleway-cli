@@ -226,6 +226,9 @@ func dnsZoneList() *core.Command {
 			{
 				FieldName: "NsMaster",
 			},
+			{
+				FieldName: "LinkedProducts",
+			},
 		}},
 	}
 }
