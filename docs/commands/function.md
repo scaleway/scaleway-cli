@@ -297,8 +297,7 @@ scw function function create [arg=value ...]
 | max-scale |  | Maximum number of instances to scale the function to |
 | runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121` | Runtime to use with the function |
 | memory-limit |  | Memory limit of the function in MB |
-| timeout.seconds |  |  |
-| timeout.nanos |  |  |
+| timeout |  | Request processing time limit for the function |
 | handler |  | Handler to use with the function |
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the function |
 | description |  | Description of the function |
@@ -476,8 +475,7 @@ scw function function update <function-id ...> [arg=value ...]
 | max-scale |  | Maximum number of instances to scale the function to |
 | runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121` | Runtime to use with the function |
 | memory-limit |  | Memory limit of the function in MB |
-| timeout.seconds |  |  |
-| timeout.nanos |  |  |
+| timeout |  | Processing time limit for the function |
 | redeploy |  | Redeploy failed function |
 | handler |  | Handler to use with the function |
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the function |

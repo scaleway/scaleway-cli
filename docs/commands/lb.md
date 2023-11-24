@@ -301,8 +301,7 @@ scw lb backend create [arg=value ...]
 | health-check.https-config.host-header |  | HTTP host header used for the health check |
 | health-check.https-config.sni |  | SNI used for SSL health checks |
 | health-check.check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
-| health-check.transient-check-delay.seconds |  |  |
-| health-check.transient-check-delay.nanos |  |  |
+| health-check.transient-check-delay | Default: `0.5s` | Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN) |
 | instance-server-id.{index} |  | UIID of the instance server. |
 | instance-server-tag.{index} |  | Tag of the instance server. |
 | use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
@@ -321,8 +320,7 @@ scw lb backend create [arg=value ...]
 | redispatch-attempt-count |  | Whether to use another backend server on each attempt |
 | max-retries |  | Number of retries when a backend server connection failed |
 | max-connections |  | Maximum number of connections allowed per backend server |
-| timeout-queue.seconds |  |  |
-| timeout-queue.nanos |  |  |
+| timeout-queue |  | Maximum time for a request to be left pending in queue when `max_connections` is reached |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -496,8 +494,7 @@ scw lb backend update <backend-id ...> [arg=value ...]
 | redispatch-attempt-count |  | Whether to use another backend server on each attempt |
 | max-retries |  | Number of retries when a backend server connection failed |
 | max-connections |  | Maximum number of connections allowed per backend server |
-| timeout-queue.seconds |  |  |
-| timeout-queue.nanos |  |  |
+| timeout-queue |  | Maximum time for a request to be left pending in queue when `max_connections` is reached |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -534,8 +531,7 @@ scw lb backend update-healthcheck [arg=value ...]
 | https-config.code |  | HTTP response code expected for a successful health check |
 | https-config.host-header |  | HTTP host header used for the health check |
 | https-config.sni |  | SNI used for SSL health checks |
-| transient-check-delay.seconds |  |  |
-| transient-check-delay.nanos |  |  |
+| transient-check-delay | Default: `0.5s` | Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 

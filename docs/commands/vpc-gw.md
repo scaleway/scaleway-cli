@@ -72,12 +72,9 @@ scw vpc-gw dhcp create [arg=value ...]
 | pool-low |  | Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet |
 | pool-high |  | High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet |
 | enable-dynamic |  | Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true |
-| valid-lifetime.seconds |  |  |
-| valid-lifetime.nanos |  |  |
-| renew-timer.seconds |  |  |
-| renew-timer.nanos |  |  |
-| rebind-timer.seconds |  |  |
-| rebind-timer.nanos |  |  |
+| valid-lifetime |  | How long DHCP entries will be valid for. Defaults to 1h (3600s) |
+| renew-timer |  | After how long a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s) |
+| rebind-timer |  | After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s) |
 | push-default-route |  | Defines whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true |
 | push-dns-server |  | Defines whether the gateway should push custom DNS servers to clients. This allows for Instance hostname -> IP resolution. Defaults to true |
 | dns-servers-override.{index} |  | Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself |
@@ -172,12 +169,9 @@ scw vpc-gw dhcp update <dhcp-id ...> [arg=value ...]
 | pool-low |  | Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet |
 | pool-high |  | High IP (inclusive) of the dynamic address pool. Must be in the config's subnet |
 | enable-dynamic |  | Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true |
-| valid-lifetime.seconds |  |  |
-| valid-lifetime.nanos |  |  |
-| renew-timer.seconds |  |  |
-| renew-timer.nanos |  |  |
-| rebind-timer.seconds |  |  |
-| rebind-timer.nanos |  |  |
+| valid-lifetime |  | How long DHCP entries will be valid for |
+| renew-timer |  | After how long a renew will be attempted. Must be 30s lower than `rebind_timer` |
+| rebind-timer |  | After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime` |
 | push-default-route |  | Defines whether the gateway should push a default route to DHCP clients, or only hand out IPs |
 | push-dns-server |  | Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution |
 | dns-servers-override.{index} |  | Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself |

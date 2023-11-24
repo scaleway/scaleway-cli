@@ -562,13 +562,8 @@ func functionFunctionCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "timeout.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "timeout.nanos",
+				Name:       "timeout",
+				Short:      `Request processing time limit for the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -683,13 +678,8 @@ func functionFunctionUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "timeout.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "timeout.nanos",
+				Name:       "timeout",
+				Short:      `Processing time limit for the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
