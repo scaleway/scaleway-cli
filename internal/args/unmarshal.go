@@ -115,6 +115,14 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		*(dest.(*[]byte)) = []byte(value)
 		return nil
 	},
+	reflect.TypeOf((*scw.Duration)(nil)).Elem(): func(value string, dest interface{}) error {
+		duration, err := time.ParseDuration(value)
+		if err != nil {
+			return fmt.Errorf("failed to parse duration: %w", err)
+		}
+		*(dest.(*scw.Duration)) = *scw.NewDurationFromTimeDuration(duration)
+		return nil
+	},
 }
 
 // UnmarshalStruct parses args like ["arg1=1", "arg2=2"] to a Go structure using reflection.

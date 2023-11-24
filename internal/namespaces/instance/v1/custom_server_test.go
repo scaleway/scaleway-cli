@@ -6,6 +6,8 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	blockCli "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
@@ -291,6 +293,33 @@ func Test_ServerDelete(t *testing.T) {
 			},
 		),
 		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`),
+		DisableParallel: true,
+	}))
+
+	t.Run("with sbs volumes", core.Test(&core.TestConfig{
+		Commands: core.NewCommandsMerge(
+			GetCommands(),
+			blockCli.GetCommands(),
+		),
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmd("BlockVolume", "scw block volume create perf-iops=5000 from-empty.size=10G name=cli-test-server-delete-with-sbs-volumes"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-jammy"),
+			core.ExecBeforeCmd("scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .BlockVolume.ID }}"),
+		),
+		Cmd: `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				api := block.NewAPI(ctx.Client)
+				blockVolume := ctx.Meta["BlockVolume"].(*block.Volume)
+				resp, err := api.GetVolume(&block.GetVolumeRequest{
+					Zone:     blockVolume.Zone,
+					VolumeID: blockVolume.ID,
+				})
+				assert.Error(t, err, "%v", resp)
+			},
+		),
 		DisableParallel: true,
 	}))
 

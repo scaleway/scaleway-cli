@@ -15,6 +15,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -809,15 +810,22 @@ func serverDeleteCommand() *core.Command {
 					continue
 				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeServerVolumeTypeLSSD:
 					continue
-				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeServerVolumeTypeBSSD:
+				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeServerVolumeTypeBSSD && volume.VolumeType != instance.VolumeServerVolumeTypeSbsVolume:
 					continue
 				case volume.VolumeType == instance.VolumeServerVolumeTypeScratch:
 					continue
 				}
-				err = api.DeleteVolume(&instance.DeleteVolumeRequest{
-					Zone:     deleteServerArgs.Zone,
-					VolumeID: volume.ID,
-				})
+				if volume.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {
+					err = block.NewAPI(client).DeleteVolume(&block.DeleteVolumeRequest{
+						Zone:     deleteServerArgs.Zone,
+						VolumeID: volume.ID,
+					})
+				} else {
+					err = api.DeleteVolume(&instance.DeleteVolumeRequest{
+						Zone:     deleteServerArgs.Zone,
+						VolumeID: volume.ID,
+					})
+				}
 				if err != nil {
 					return nil, &core.CliError{
 						Err:  err,
