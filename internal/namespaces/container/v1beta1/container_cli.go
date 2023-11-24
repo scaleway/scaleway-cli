@@ -513,13 +513,8 @@ func containerContainerCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "timeout.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "timeout.nanos",
+				Name:       "timeout",
+				Short:      `Processing time limit for the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -655,13 +650,8 @@ func containerContainerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "timeout.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "timeout.nanos",
+				Name:       "timeout",
+				Short:      `Processing time limit for the container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

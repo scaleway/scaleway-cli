@@ -68,8 +68,7 @@ scw container container create [arg=value ...]
 | max-scale |  | Maximum number of instances to scale the container to |
 | memory-limit |  | Memory limit of the container in MB |
 | cpu-limit |  | CPU limit of the container in mvCPU |
-| timeout.seconds |  |  |
-| timeout.nanos |  |  |
+| timeout |  | Processing time limit for the container |
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the container |
 | description |  | Description of the container |
 | registry-image |  | Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag"). |
@@ -210,8 +209,7 @@ scw container container update <container-id ...> [arg=value ...]
 | max-scale |  | Maximum number of instances to scale the container to |
 | memory-limit |  | Memory limit of the container in MB |
 | cpu-limit |  | CPU limit of the container in mvCPU |
-| timeout.seconds |  |  |
-| timeout.nanos |  |  |
+| timeout |  | Processing time limit for the container |
 | redeploy |  | Defines whether to redeploy failed containers |
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy settings of the container |
 | description |  | Description of the container |
