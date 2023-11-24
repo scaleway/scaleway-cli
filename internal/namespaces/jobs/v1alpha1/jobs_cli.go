@@ -114,13 +114,7 @@ func jobsDefinitionCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "job-timeout.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "job-timeout.nanos",
+				Name:       "job-timeout",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -271,13 +265,7 @@ func jobsDefinitionUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "job-timeout.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "job-timeout.nanos",
+				Name:       "job-timeout",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
