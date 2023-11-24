@@ -16,13 +16,13 @@ import (
 
 const (
 	// GoTTY ingress message code
-	outputCode         = '0'
-	setWindowTitleCode = '2'
+	outputCode         = '1'
+	setWindowTitleCode = '3'
 
 	// GoTTY egress message code
-	inputCode          = '0'
-	pingCode           = '1'
-	resizeTerminalCode = '2'
+	inputCode          = '1'
+	pingCode           = '2'
+	resizeTerminalCode = '3'
 )
 
 type Client struct {
