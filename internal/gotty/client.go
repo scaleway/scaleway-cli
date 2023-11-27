@@ -140,9 +140,17 @@ func (c *Client) Connect() error {
 
 		// If we receive an error from one of the 2 reader we return it
 		case err := <-wsErrChan:
-			return fmt.Errorf("websocket reader error: %w", err)
+			if err != nil {
+				return fmt.Errorf("websocket reader error: %w", err)
+			}
+
+			return nil
 		case err := <-cnsErrChan:
-			return fmt.Errorf("console reader error: %w", err)
+			if err != nil {
+				return fmt.Errorf("console reader error: %w", err)
+			}
+
+			return nil
 		}
 	}
 }
