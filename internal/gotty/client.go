@@ -143,10 +143,14 @@ func (c *Client) Connect() error {
 			if err != nil {
 				return fmt.Errorf("websocket reader error: %w", err)
 			}
+
+			return nil
 		case err := <-cnsErrChan:
 			if err != nil {
 				return fmt.Errorf("console reader error: %w", err)
 			}
+
+			return nil
 		}
 	}
 }
