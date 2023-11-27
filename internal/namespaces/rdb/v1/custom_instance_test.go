@@ -6,7 +6,16 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
+	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
+)
+
+const (
+	publicEndpoint        = "public"
+	privateEndpointIpam   = "private IPAM"
+	privateEndpointStatic = "private static"
 )
 
 func Test_ListInstance(t *testing.T) {
@@ -31,9 +40,14 @@ func Test_CloneInstance(t *testing.T) {
 
 func Test_CreateInstance(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:  GetCommands(),
-		Cmd:       fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
-		Check:     core.TestCheckGolden(),
+		Commands: GetCommands(),
+		Cmd:      fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				checkEndpoints(ctx, t, []string{publicEndpoint})
+			},
+		),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
 	}))
 
@@ -41,8 +55,56 @@ func Test_CreateInstance(t *testing.T) {
 		Commands: GetCommands(),
 		Cmd:      fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s generate-password=true --wait", name, engine, user),
 		// do not check the golden as the password generated locally and on CI will necessarily be different
-		Check:     core.TestCheckExitCode(0),
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				checkEndpoints(ctx, t, []string{publicEndpoint})
+			},
+		),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
+	}))
+
+	cmds := GetCommands()
+	cmds.Merge(vpc.GetCommands())
+
+	t.Run("With static private endpoint", core.Test(&core.TestConfig{
+		Commands: cmds,
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmd("PrivateNetwork", "scw vpc private-network create"),
+		),
+		Cmd: fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s "+
+			"user-name=%s password=%s init-endpoints.0.private-network.private-network-id={{ .PrivateNetwork.ID }} "+
+			"init-endpoints.0.private-network.service-ip=172.16.4.1/22 --wait", name, engine, user, password),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				checkEndpoints(ctx, t, []string{publicEndpoint, privateEndpointStatic})
+			},
+		),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }} --wait"),
+			deletePrivateNetwork("PrivateNetwork"),
+		),
+	}))
+
+	t.Run("With IPAM private endpoint", core.Test(&core.TestConfig{
+		Commands: cmds,
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmd("PrivateNetwork", "scw vpc private-network create"),
+		),
+		Cmd: fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s "+
+			"user-name=%s password=%s init-endpoints.0.private-network.private-network-id={{ .PrivateNetwork.ID }} "+
+			"init-endpoints.0.private-network.enable-ipam=true --wait", name, engine, user, password),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				checkEndpoints(ctx, t, []string{publicEndpoint, privateEndpointIpam})
+			},
+		),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }} --wait"),
+			deletePrivateNetwork("PrivateNetwork"),
+		),
 	}))
 }
 
@@ -203,4 +265,54 @@ func Test_Connect(t *testing.T) {
 		OverrideExec: core.OverrideExecSimple("psql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --username {{ .username }} --dbname rdb", 0),
 		AfterFunc:    deleteInstance(),
 	}))
+}
+
+func deletePrivateNetwork(metaName string) core.AfterFunc {
+	return core.ExecAfterCmd(fmt.Sprintf("scw vpc private-network delete {{ .%s.ID }}", metaName))
+}
+
+func checkEndpoints(ctx *core.CheckFuncCtx, t *testing.T, expected []string) {
+	instance := ctx.Result.(createInstanceResult).Instance
+	ipamAPI := ipam.NewAPI(ctx.Client)
+	var foundEndpoints = map[string]bool{}
+
+	for _, endpoint := range instance.Endpoints {
+		if endpoint.LoadBalancer != nil {
+			foundEndpoints[publicEndpoint] = true
+		}
+		if endpoint.PrivateNetwork != nil {
+			ips, err := ipamAPI.ListIPs(&ipam.ListIPsRequest{
+				Region:       instance.Region,
+				ResourceID:   &instance.ID,
+				ResourceType: "rdb_instance",
+				IsIPv6:       scw.BoolPtr(false),
+			}, scw.WithAllPages())
+			if err != nil {
+				t.Errorf("could not list IPs: %v", err)
+			}
+			switch ips.TotalCount {
+			case 1:
+				foundEndpoints[privateEndpointIpam] = true
+			case 0:
+				foundEndpoints[privateEndpointStatic] = true
+			default:
+				t.Errorf("expected no more than 1 IP for instance, got %d", ips.TotalCount)
+			}
+		}
+	}
+
+	// Check that every expected endpoint got found
+	for _, e := range expected {
+		_, ok := foundEndpoints[e]
+		if !ok {
+			t.Errorf("expected a %s endpoint but got none", e)
+		}
+		delete(foundEndpoints, e)
+	}
+	// Check that no unexpected endpoint was found
+	if len(foundEndpoints) > 0 {
+		for e := range foundEndpoints {
+			t.Errorf("found a %s endpoint when none was expected", e)
+		}
+	}
 }
