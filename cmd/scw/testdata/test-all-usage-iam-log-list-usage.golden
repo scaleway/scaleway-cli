@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List logs available for given Organization. You must define the `organization_id` in the query path of your request.
+
+USAGE:
+  scw iam log list [arg=value ...]
+
+ARGS:
+  [order-by=created_at_asc]   Criteria for sorting results (created_at_asc | created_at_desc)
+  [created-after]             Defined whether or not to filter out logs created after this timestamp
+  [created-before]            Defined whether or not to filter out logs created before this timestamp
+  [action]                    Defined whether or not to filter out by a specific action (unknown_action | created | updated | deleted)
+  [resource-type]             Defined whether or not to filter out by a specific type of resource (unknown_resource_type | api_key | user | application | group | policy)
+  [search]                    Defined whether or not to filter out log by bearer ID or resource ID
+  [organization-id]           Organization ID to use. If none is passed the default organization ID will be used
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

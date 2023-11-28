@@ -29,6 +29,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamRule(),
 		iamPermissionSet(),
 		iamJwt(),
+		iamLog(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -69,6 +70,8 @@ func GetGeneratedCommands() *core.Commands {
 		iamJwtList(),
 		iamJwtGet(),
 		iamJwtDelete(),
+		iamLogList(),
+		iamLogGet(),
 	)
 }
 func iamRoot() *core.Command {
@@ -157,6 +160,15 @@ func iamJwt() *core.Command {
 		Long:      `JWTs management commands.`,
 		Namespace: "iam",
 		Resource:  "jwt",
+	}
+}
+
+func iamLog() *core.Command {
+	return &core.Command{
+		Short:     `Log management commands`,
+		Long:      `Log management commands.`,
+		Namespace: "iam",
+		Resource:  "log",
 	}
 }
 
@@ -2172,6 +2184,109 @@ func iamJwtDelete() *core.Command {
 				Resource: "jwt",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func iamLogList() *core.Command {
+	return &core.Command{
+		Short:     `List logs`,
+		Long:      `List logs available for given Organization. You must define the ` + "`" + `organization_id` + "`" + ` in the query path of your request.`,
+		Namespace: "iam",
+		Resource:  "log",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.ListLogsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Criteria for sorting results`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "created-after",
+				Short:      `Defined whether or not to filter out logs created after this timestamp`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "created-before",
+				Short:      `Defined whether or not to filter out logs created before this timestamp`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "action",
+				Short:      `Defined whether or not to filter out by a specific action`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_action", "created", "updated", "deleted"},
+			},
+			{
+				Name:       "resource-type",
+				Short:      `Defined whether or not to filter out by a specific type of resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_resource_type", "api_key", "user", "application", "group", "policy"},
+			},
+			{
+				Name:       "search",
+				Short:      `Defined whether or not to filter out log by bearer ID or resource ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.ListLogsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListLogs(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Logs, nil
+
+		},
+	}
+}
+
+func iamLogGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a log`,
+		Long:      `Retrieve information about a log, specified by the ` + "`" + `log_id` + "`" + ` parameter. The log's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `ip` + "`" + `, ` + "`" + `user_agent` + "`" + `, ` + "`" + `action` + "`" + `, ` + "`" + `bearer_id` + "`" + `, ` + "`" + `resource_type` + "`" + ` and ` + "`" + `resource_id` + "`" + ` are returned in the response.`,
+		Namespace: "iam",
+		Resource:  "log",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.GetLogRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "log-id",
+				Short:      `ID of the log`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.GetLogRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.GetLog(request)
+
 		},
 	}
 }
