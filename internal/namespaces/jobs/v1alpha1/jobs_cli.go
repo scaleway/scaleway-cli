@@ -143,7 +143,7 @@ func jobsDefinitionGet() *core.Command {
 		ArgsType: reflect.TypeOf(jobs.GetJobDefinitionRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "id",
+				Name:       "job-definition-id",
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -217,7 +217,7 @@ func jobsDefinitionUpdate() *core.Command {
 		ArgsType: reflect.TypeOf(jobs.UpdateJobDefinitionRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "id",
+				Name:       "job-definition-id",
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -294,7 +294,7 @@ func jobsDefinitionDelete() *core.Command {
 		ArgsType: reflect.TypeOf(jobs.DeleteJobDefinitionRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "id",
+				Name:       "job-definition-id",
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -329,7 +329,7 @@ func jobsDefinitionStart() *core.Command {
 		ArgsType: reflect.TypeOf(jobs.StartJobDefinitionRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "id",
+				Name:       "job-definition-id",
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -358,7 +358,7 @@ func jobsRunGet() *core.Command {
 		ArgsType: reflect.TypeOf(jobs.GetJobRunRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "id",
+				Name:       "job-run-id",
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -387,7 +387,7 @@ func jobsRunStop() *core.Command {
 		ArgsType: reflect.TypeOf(jobs.StopJobRunRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "id",
+				Name:       "job-run-id",
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -423,7 +423,7 @@ func jobsRunList() *core.Command {
 				EnumValues: []string{"created_at_asc", "created_at_desc"},
 			},
 			{
-				Name:       "id",
+				Name:       "job-definition-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
