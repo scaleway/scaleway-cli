@@ -6,8 +6,8 @@ USAGE:
   scw container cron list [arg=value ...]
 
 ARGS:
-  [order-by]         (created_at_asc | created_at_desc)
-  [container-id]    
+  [order-by]        Order of the crons (created_at_asc | created_at_desc)
+  [container-id]    UUID of the container invoked by the cron
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

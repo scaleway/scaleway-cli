@@ -12,7 +12,7 @@ func Test_GetVersion(t *testing.T) {
 	////
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      "scw k8s version get 1.20.2",
+		Cmd:      "scw k8s version get " + kapsuleVersion,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

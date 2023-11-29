@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Network Access Control List allows to control network inbound traffic allowed by setting up ACL rules. ACL rules could be created, edited, deleted.
+Network Access Control Lists (ACLs) allow you to manage network inbound traffic by setting up ACL rules.
 
 USAGE:
   scw redis acl <command>
 
 AVAILABLE COMMANDS:
-  add         Add ACL rules for a given cluster
-  delete      Delete an ACL rule for a given cluster
+  add         Add ACL rules for a cluster
+  delete      Delete an ACL rule for a cluster
   get         Get an ACL rule
-  set         Set ACL rules for a given cluster
+  set         Set ACL rules for a cluster
 
 FLAGS:
   -h, --help   help for acl

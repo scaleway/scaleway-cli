@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-An Operating System (OS) is the underlying software installed on your server
+An Operating System (OS) is the underlying software installed on your server.
 
 USAGE:
   scw baremetal os <command>
 
 AVAILABLE COMMANDS:
-  get         Get an OS with a given ID
-  list        List all available OS that can be install on an elastic metal server
+  get         Get OS with an ID
+  list        List available OSes
 
 FLAGS:
   -h, --help   help for os

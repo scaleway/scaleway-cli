@@ -1,13 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Register a domain in a project.
+You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project.
 
 USAGE:
   scw tem domain create [arg=value ...]
 
 ARGS:
   [project-id]      Project ID to use. If none is passed the default project ID will be used
-  [domain-name]     
+  [domain-name]     Fully qualified domain dame
+  [accept-tos]      Accept Scaleway's Terms of Service
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:

@@ -1,0 +1,59 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                   6d07fef2-711c-4a0f-8129-56d4807ba9ee
+Name                 cli-pn-happy-solomon
+OrganizationID       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Region               fr-par
+CreatedAt            few seconds ago
+UpdatedAt            few seconds ago
+Subnets.0.ID         ac5fb759-b68b-416f-8c85-f1a053a62e53
+Subnets.0.CreatedAt  few seconds ago
+Subnets.0.UpdatedAt  few seconds ago
+Subnets.0.Subnet     172.16.20.0/22
+Subnets.1.ID         5146130e-e87e-4aa0-afb2-5c52a275c504
+Subnets.1.CreatedAt  few seconds ago
+Subnets.1.UpdatedAt  few seconds ago
+Subnets.1.Subnet     fd46:78ab:30b8:2a6d::/64
+VpcID                086a5171-f7ab-4667-a231-840a81203f19
+DHCPEnabled          true
+
+Instance Servers:
+ID                                    NAME                   STATE     NIC ID                                MAC ADDRESS
+1c3fe303-fb3f-48ea-8905-e8c93ecc4202  cli-srv-goofy-volhard  archived  62b7dad1-58ba-4ca1-b83a-b5ddcfc812d0  02:00:00:13:8d:1a
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "6d07fef2-711c-4a0f-8129-56d4807ba9ee",
+  "name": "cli-pn-happy-solomon",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "region": "fr-par",
+  "tags": [],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "subnets": [
+    {
+      "id": "ac5fb759-b68b-416f-8c85-f1a053a62e53",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "subnet": "172.16.20.0/22"
+    },
+    {
+      "id": "5146130e-e87e-4aa0-afb2-5c52a275c504",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "subnet": "fd46:78ab:30b8:2a6d::/64"
+    }
+  ],
+  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+  "dhcp_enabled": true,
+  "instance_servers": [
+    {
+      "id": "1c3fe303-fb3f-48ea-8905-e8c93ecc4202",
+      "name": "cli-srv-goofy-volhard",
+      "state": "stopped",
+      "nic_id": "62b7dad1-58ba-4ca1-b83a-b5ddcfc812d0",
+      "mac": "02:00:00:13:8d:1a"
+    }
+  ]
+}

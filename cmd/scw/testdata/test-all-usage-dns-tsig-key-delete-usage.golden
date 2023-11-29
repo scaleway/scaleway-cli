@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the DNS zone TSIG Key.
+Delete an existing TSIG key specified by its DNS zone. Deleting a TSIG key is permanent and cannot be undone.
 
 USAGE:
   scw dns tsig-key delete <dns-zone ...> [arg=value ...]

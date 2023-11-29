@@ -1,0 +1,18 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Get information such as the name, creation date, last update and published date for an image version specified by its `version_id` (UUID format).
+
+USAGE:
+  scw marketplace version get [arg=value ...]
+
+ARGS:
+  version-id   
+
+FLAGS:
+  -h, --help   help for get
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

@@ -12,18 +12,23 @@ import (
 // Server
 //
 
-// createServer creates a stopped ubuntu-bionic server and
+// createServerBionic creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 //
 //nolint:unparam
-func createServer(metaKey string) core.BeforeFunc {
+func createServerBionic(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-bionic")
+}
+
+func createServer(metaKey string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-jammy")
 }
 
 // createServer creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 func startServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+".ID }}")
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+
+		".ID }}") //nolint: goconst
 }
 
 // deleteServer deletes a server and its attached IP and volumes
@@ -62,7 +67,7 @@ func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeVolume
 }
 
 // deleteVolume deletes a volume previously registered in the context Meta at metaKey.
-func deleteVolume(metaKey string) core.AfterFunc {
+func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
 	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
 }
 
@@ -134,4 +139,18 @@ func deleteSecurityGroup(metaKey string) core.AfterFunc {
 // deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.
 func deleteSnapshot(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw instance snapshot delete {{ ." + metaKey + ".Snapshot.ID }}")
+}
+
+func createPN() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"PN",
+		"scw vpc private-network create",
+	)
+}
+
+func createNIC() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"NIC",
+		"scw instance private-nic create server-id={{ .Server.ID }} private-network-id={{ .PN.ID }}",
+	)
 }

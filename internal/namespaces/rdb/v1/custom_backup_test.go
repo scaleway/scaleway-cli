@@ -22,7 +22,7 @@ func Test_CreateBackup(t *testing.T) {
 				},
 			),
 		),
-		Cmd:           "scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+		Cmd:           "scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
 		Check:         core.TestCheckGolden(),
 		AfterFunc:     deleteInstance(),
 		DefaultRegion: scw.RegionNlAms,
@@ -43,7 +43,7 @@ func Test_RestoreBackup(t *testing.T) {
 			),
 			core.ExecStoreBeforeCmd(
 				"Backup",
-				"scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+				"scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
 			),
 		),
 		Cmd: "scw rdb backup restore {{ .Backup.ID }} instance-id={{ .Instance.ID }} --wait",
@@ -69,7 +69,7 @@ func Test_ExportBackup(t *testing.T) {
 			),
 			core.ExecStoreBeforeCmd(
 				"Backup",
-				"scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+				"scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
 			),
 		),
 		Cmd: "scw rdb backup export {{ .Backup.ID }} --wait",
@@ -88,7 +88,7 @@ func Test_DownloadBackup(t *testing.T) {
 			createInstance(engine),
 			core.ExecStoreBeforeCmd(
 				"Backup",
-				"scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+				"scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
 			),
 			core.ExecStoreBeforeCmd(
 				"BackupExport",
@@ -117,7 +117,7 @@ func Test_DownloadBackup(t *testing.T) {
 			createInstance(engine),
 			core.ExecStoreBeforeCmd(
 				"Backup",
-				"scw rdb backup create name=foobar expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+				"scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
 			),
 		),
 		Cmd: "scw rdb backup download {{ .Backup.ID }} output=no_previous_export_dump",
@@ -139,7 +139,7 @@ func Test_DownloadBackup(t *testing.T) {
 
 // If ran please update the cassette by changing 'download_url_expires_at'
 // when it's not null to a much later date
-// E.g. from "2022-09-05T13:14:54.437192Z" to "2999-09-05T13:14:54.437192Z"
+// E.g. from "2022-09-05T13:14:54.437192Z" to "2032-09-05T13:14:54.437192Z"
 func Test_ListBackup(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -147,11 +147,11 @@ func Test_ListBackup(t *testing.T) {
 			createInstance(engine),
 			core.ExecStoreBeforeCmd(
 				"BackupA",
-				"scw rdb backup create name=will_be_exported expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+				"scw rdb backup create name=will_be_exported expires-at=2032-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
 			),
 			core.ExecStoreBeforeCmd(
 				"BackupB",
-				"scw rdb backup create name=will_not_be_exported expires-at=2999-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+				"scw rdb backup create name=will_not_be_exported expires-at=2032-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
 			),
 			core.ExecStoreBeforeCmd(
 				"BackupExport",

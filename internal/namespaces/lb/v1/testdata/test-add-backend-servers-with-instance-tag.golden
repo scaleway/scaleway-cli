@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        20b5489d-65d8-4b59-89c7-17d1336037de
+ID                        b347664e-303f-4beb-9a5a-2c2bc86141df
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -8,6 +8,9 @@ ForwardPortAlgorithm      roundrobin
 StickySessions            none
 StickySessionsCookieName  -
 SendProxyV2               false
+TimeoutServer             5m0s
+TimeoutConnect            5s
+TimeoutTunnel             15m0s
 OnMarkedDownAction        on_marked_down_action_none
 ProxyProtocol             proxy_protocol_unknown
 CreatedAt                 few seconds ago
@@ -15,17 +18,17 @@ UpdatedAt                 few seconds ago
 SslBridging               false
 
 Health Check:
-CheckMaxRetries  5
 Port             8888
-CheckTimeout     1s
 CheckDelay       3s
+CheckTimeout     1s
+CheckMaxRetries  5
 CheckSendProxy   false
 
 Pool:
-[10.74.60.61]
+[10.68.78.33 10.64.226.137]
 
 Lb:
-ID                     3e604976-3dcc-4c7b-b619-5a2bf6644452
+ID                     c50531a1-9da8-40e4-bbc5-70ee22b79f16
 Name                   cli-test
 Description            cli-test
 Status                 ready
@@ -43,15 +46,15 @@ Region                 fr-par
 Zone                   fr-par-1
 
 IPs:
-ID                                    IP ADDRESS      ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                             REGION  ZONE
-8b829a49-b92e-407a-8512-4fa7e0401ac0  51.159.205.101  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3e604976-3dcc-4c7b-b619-5a2bf6644452  51-159-205-101.lb.fr-par.scw.cloud  fr-par  fr-par-1
+ID                                    IP ADDRESS    ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                           REGION  ZONE
+71b9066c-cba6-4d03-a163-9c62cf8cb1d2  51.159.206.7  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  c50531a1-9da8-40e4-bbc5-70ee22b79f16  51-159-206-7.lb.fr-par.scw.cloud  fr-par  fr-par-1
 
-Backends:
-ID                                    STATUS   IP ADDRESS   CREATED AT       UPDATED AT       REGION  ZONE
-78482aa9-773c-4016-ad29-83cb047305bb  pending  10.74.38.39  few seconds ago  few seconds ago  fr-par  fr-par-1
+LB Instances:
+ID                                    STATUS   IP ADDRESS    CREATED AT       UPDATED AT       REGION  ZONE
+28ba20b9-0136-4339-bc00-1a658e64d08f  pending  10.194.168.7  few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "20b5489d-65d8-4b59-89c7-17d1336037de",
+  "id": "b347664e-303f-4beb-9a5a-2c2bc86141df",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -59,26 +62,28 @@ ID                                    STATUS   IP ADDRESS   CREATED AT       UPD
   "sticky_sessions": "none",
   "sticky_sessions_cookie_name": "",
   "health_check": {
+    "port": 8888,
     "check_max_retries": 5,
     "tcp_config": {},
-    "port": 8888,
     "check_send_proxy": false,
-    "check_timeout": 1000,
-    "check_delay": 3000
+    "transient_check_delay": null,
+    "check_delay": 3000,
+    "check_timeout": 1000
   },
   "pool": [
-    "10.74.60.61"
+    "10.68.78.33",
+    "10.64.226.137"
   ],
   "lb": {
-    "id": "3e604976-3dcc-4c7b-b619-5a2bf6644452",
+    "id": "c50531a1-9da8-40e4-bbc5-70ee22b79f16",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "78482aa9-773c-4016-ad29-83cb047305bb",
+        "id": "28ba20b9-0136-4339-bc00-1a658e64d08f",
         "status": "pending",
-        "ip_address": "10.74.38.39",
+        "ip_address": "10.194.168.7",
         "created_at": "1970-01-01T00:00:00.0Z",
         "updated_at": "1970-01-01T00:00:00.0Z",
         "region": "fr-par",
@@ -89,12 +94,12 @@ ID                                    STATUS   IP ADDRESS   CREATED AT       UPD
     "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
     "ip": [
       {
-        "id": "8b829a49-b92e-407a-8512-4fa7e0401ac0",
-        "ip_address": "51.159.205.101",
+        "id": "71b9066c-cba6-4d03-a163-9c62cf8cb1d2",
+        "ip_address": "51.159.206.7",
         "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
         "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "lb_id": "3e604976-3dcc-4c7b-b619-5a2bf6644452",
-        "reverse": "51-159-205-101.lb.fr-par.scw.cloud",
+        "lb_id": "c50531a1-9da8-40e4-bbc5-70ee22b79f16",
+        "reverse": "51-159-206-7.lb.fr-par.scw.cloud",
         "region": "fr-par",
         "zone": "fr-par-1"
       }
@@ -120,7 +125,11 @@ ID                                    STATUS   IP ADDRESS   CREATED AT       UPD
   "failover_host": null,
   "ssl_bridging": false,
   "ignore_ssl_server_verify": null,
-  "timeout_server": null,
-  "timeout_connect": null,
-  "timeout_tunnel": null
+  "redispatch_attempt_count": null,
+  "max_retries": null,
+  "max_connections": null,
+  "timeout_queue": null,
+  "timeout_server": 300000,
+  "timeout_connect": 5000,
+  "timeout_tunnel": 900000
 }

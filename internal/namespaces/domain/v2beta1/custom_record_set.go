@@ -54,7 +54,7 @@ func dnsRecordSetCommand() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.DefaultValueSetter("300"),
+				Default:    core.DefaultValueSetter(defaultTTL),
 			},
 			{
 				Name:       "type",

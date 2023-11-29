@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Enable a device.
+Enable a specific device, specified by its device ID.
 
 USAGE:
   scw iot device enable <device-id ...> [arg=value ...]

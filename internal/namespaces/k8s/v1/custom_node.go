@@ -60,13 +60,14 @@ func k8sNodeWaitCommand() *core.Command {
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(k8s.WaitForNodeRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForNode(&k8s.WaitForNodeRequest{
 				Region:        argsI.(*k8s.WaitForNodeRequest).Region,
 				NodeID:        argsI.(*k8s.WaitForNodeRequest).NodeID,
-				Timeout:       scw.TimeDurationPtr(nodeActionTimeout),
+				Timeout:       argsI.(*k8s.WaitForNodeRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -78,6 +79,7 @@ func k8sNodeWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.RegionArgSpec(),
+			core.WaitTimeoutArgSpec(nodeActionTimeout),
 		},
 		Examples: []*core.Example{
 			{

@@ -1,18 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Upgrade your current instance specifications like node type, high availability, volume, or db engine version.
+Upgrade your current Database Instance specifications like node type, high availability, volume, or the database engine version. Note that upon upgrade the `enable_ha` parameter can only be set to `true`.
 
 USAGE:
   scw rdb instance upgrade <instance-id ...> [arg=value ...]
 
 ARGS:
-  instance-id               UUID of the instance you want to upgrade
-  [node-type]               Node type of the instance you want to upgrade to (DB-DEV-S | DB-DEV-M | DB-DEV-L | DB-DEV-XL | DB-GP-XS | DB-GP-S | DB-GP-M | DB-GP-L | DB-GP-XL)
-  [enable-ha]               Set to true to enable high availability on your instance
-  [volume-size]             Increase your block storage volume size
-  [volume-type]             Change your instance storage type (lssd | bssd)
-  [upgradable-version-id]   Update your instance database engine to a newer version
-  [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  instance-id                                      UUID of the Database Instance you want to upgrade
+  [node-type]                                      Node type of the Database Instance you want to upgrade to
+  [enable-ha]                                      Defines whether or not high availability should be enabled on the Database Instance
+  [volume-size]                                    Increase your block storage volume size
+  [volume-type]                                    Change your Database Instance storage type (lssd | bssd | sbs_5k | sbs_15k)
+  [upgradable-version-id]                          Update your database engine to a newer version
+  [major-upgrade-workflow.upgradable-version-id]   Update your database engine to a newer version
+  [major-upgrade-workflow.with-endpoints]          Include endpoint during the migration
+  [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for upgrade

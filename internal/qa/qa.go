@@ -19,6 +19,10 @@ func LintCommands(commands *core.Commands) []error {
 	errors = append(errors, testDifferentLocalizationForNamespaceError(commands)...)
 	errors = append(errors, testDuplicatedCommandError(commands)...)
 	errors = append(errors, testAtLeastOneExampleIsPresentError(commands)...)
+	errors = append(errors, testArgSpecInvalidError(commands)...)
+	errors = append(errors, testArgSpecMissingError(commands)...)
+	errors = append(errors, testCommandInvalidJSONExampleError(commands)...)
+	errors = append(errors, testCommandInvalidSeeAlsoError(commands)...)
 
 	errors = filterIgnore(errors)
 
@@ -71,7 +75,7 @@ type WellKnownArgOrderError struct {
 }
 
 func (err WellKnownArgOrderError) Error() string {
-	return "well-known arg order must be respected '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
+	return "well-known arg order must be respected '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'" //nolint: goconst
 }
 
 type WellKnownArgAtTheEndError struct {

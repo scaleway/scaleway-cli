@@ -1,0 +1,32 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List the different Web Hosting offers, and their options, available to order from Scaleway.
+
+USAGE:
+  scw webhosting offer list [arg=value ...]
+
+EXAMPLES:
+  List all offers available for purchase
+    scw webhosting offer list hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
+
+  List only offers, no options
+    scw webhosting offer list without-options=true
+
+  List only options
+    scw webhosting offer list only-options=true
+
+ARGS:
+  [order-by]          Sort order of offers in the response (price_asc)
+  [without-options]   Defines whether the response should consist of offers only, without options
+  [only-options]      Defines whether the response should consist of options only, without offers
+  [hosting-id]        ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

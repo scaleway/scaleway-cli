@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete an application.
+Delete an application. Note that this action is irreversible and will automatically delete the application's API keys. Policies attached to users and applications via this group will no longer apply.
 
 USAGE:
   scw iam application delete <application-id ...> [arg=value ...]
 
 ARGS:
-  application-id   ID of application to delete
+  application-id   ID of the application to delete
 
 FLAGS:
   -h, --help   help for delete

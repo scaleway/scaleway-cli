@@ -28,6 +28,8 @@ func GetGeneratedCommands() *core.Commands {
 		lbACL(),
 		lbLBTypes(),
 		lbPrivateNetwork(),
+		lbRoute(),
+		lbSubscriber(),
 		lbLBList(),
 		lbLBCreate(),
 		lbLBGet(),
@@ -53,7 +55,13 @@ func GetGeneratedCommands() *core.Commands {
 		lbFrontendGet(),
 		lbFrontendUpdate(),
 		lbFrontendDelete(),
+		lbRouteList(),
+		lbRouteCreate(),
+		lbRouteGet(),
+		lbRouteUpdate(),
+		lbRouteDelete(),
 		lbLBGetStats(),
+		lbBackendListStatistics(),
 		lbACLList(),
 		lbACLCreate(),
 		lbACLGet(),
@@ -66,6 +74,13 @@ func GetGeneratedCommands() *core.Commands {
 		lbCertificateUpdate(),
 		lbCertificateDelete(),
 		lbLBTypesList(),
+		lbSubscriberCreate(),
+		lbSubscriberGet(),
+		lbSubscriberList(),
+		lbSubscriberUpdate(),
+		lbSubscriberDelete(),
+		lbSubscriberSubscribe(),
+		lbSubscriberUnsubscribe(),
 		lbPrivateNetworkList(),
 		lbPrivateNetworkAttach(),
 		lbPrivateNetworkDetach(),
@@ -73,8 +88,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func lbRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your load balancer service`,
-		Long:      ``,
+		Short:     `This API allows you to manage your Scaleway Load Balancer services`,
+		Long:      `This API allows you to manage your Scaleway Load Balancer services.`,
 		Namespace: "lb",
 	}
 }
@@ -151,10 +166,28 @@ func lbPrivateNetwork() *core.Command {
 	}
 }
 
+func lbRoute() *core.Command {
+	return &core.Command{
+		Short:     `Route rules management commands`,
+		Long:      `Route rules management commands.`,
+		Namespace: "lb",
+		Resource:  "route",
+	}
+}
+
+func lbSubscriber() *core.Command {
+	return &core.Command{
+		Short:     `Subscriber management commands`,
+		Long:      `Subscriber management commands.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+	}
+}
+
 func lbLBList() *core.Command {
 	return &core.Command{
-		Short:     `List load balancers`,
-		Long:      `List load balancers.`,
+		Short:     `List Load Balancers`,
+		Long:      `List all Load Balancers in the specified zone, for a Scaleway Organization or Scaleway Project. By default, the Load Balancers returned in the list are ordered by creation date in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "list",
@@ -163,14 +196,14 @@ func lbLBList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Use this to search by name`,
+				Short:      `Load Balancer name to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `Response order`,
+				Short:      `Sort order of Load Balancers in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -178,19 +211,19 @@ func lbLBList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Filter LBs by project ID`,
+				Short:      `Project ID to filter for, only Load Balancers from this Project will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter LBs by organization ID`,
+				Short:      `Organization ID to filter for, only Load Balancers from this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListLBsRequest)
@@ -214,8 +247,8 @@ func lbLBList() *core.Command {
 
 func lbLBCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a load balancer`,
-		Long:      `Create a load balancer.`,
+		Short:     `Create a Load Balancer`,
+		Long:      `Create a new Load Balancer. Note that the Load Balancer will be created without frontends or backends; these must be created separately via the dedicated endpoints.`,
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "create",
@@ -225,7 +258,7 @@ func lbLBCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
-				Short:      `Resource names`,
+				Short:      `Name for the Load Balancer`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -233,41 +266,49 @@ func lbLBCreate() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      `Resource description`,
+				Short:      `Description for the Load Balancer`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ip-id",
-				Short:      `Just like for compute instances, when you destroy a load balancer, you can keep its highly available IP address and reuse it for another load balancer later`,
+				Short:      `ID of an existing flexible IP address to attach to the Load Balancer`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "assign-flexible-ip",
+				Short:      `Defines whether to automatically assign a flexible public IP to lb. Default value is ` + "`" + `false` + "`" + ` (do not assign).`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `List of keyword`,
+				Short:      `List of tags for the Load Balancer`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "type",
-				Short:      `Load balancer offer type`,
+				Short:      `Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ssl-compatibility-level",
+				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"ssl_compatibility_level_unknown", "ssl_compatibility_level_intermediate", "ssl_compatibility_level_modern", "ssl_compatibility_level_old"},
 			},
 			core.OrganizationIDArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateLBRequest)
@@ -282,8 +323,8 @@ func lbLBCreate() *core.Command {
 
 func lbLBGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a load balancer`,
-		Long:      `Get a load balancer.`,
+		Short:     `Get a Load Balancer`,
+		Long:      `Retrieve information about an existing Load Balancer, specified by its Load Balancer ID. Its full details, including name, status and IP address, are returned in the response object.`,
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "get",
@@ -292,12 +333,12 @@ func lbLBGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetLBRequest)
@@ -312,8 +353,8 @@ func lbLBGet() *core.Command {
 
 func lbLBUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a load balancer`,
-		Long:      `Update a load balancer.`,
+		Short:     `Update a Load Balancer`,
+		Long:      `Update the parameters of an existing Load Balancer, specified by its Load Balancer ID. Note that the request type is PUT and not PATCH. You must set all parameters.`,
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "update",
@@ -322,40 +363,41 @@ func lbLBUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `Resource name`,
+				Short:      `Load Balancer name`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Resource description`,
+				Short:      `Load Balancer description`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `List of keywords`,
+				Short:      `List of tags for the Load Balancer`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ssl-compatibility-level",
+				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"ssl_compatibility_level_unknown", "ssl_compatibility_level_intermediate", "ssl_compatibility_level_modern", "ssl_compatibility_level_old"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateLBRequest)
@@ -370,8 +412,8 @@ func lbLBUpdate() *core.Command {
 
 func lbLBDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a load balancer`,
-		Long:      `Delete a load balancer.`,
+		Short:     `Delete a Load Balancer`,
+		Long:      `Delete an existing Load Balancer, specified by its Load Balancer ID. Deleting a Load Balancer is permanent, and cannot be undone. The Load Balancer's flexible IP address can either be deleted with the Load Balancer, or kept in your account for future use.`,
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "delete",
@@ -380,19 +422,19 @@ func lbLBDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `ID of the Load Balancer to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "release-ip",
-				Short:      `Set true if you don't want to keep this IP address`,
+				Short:      `Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteLBRequest)
@@ -413,8 +455,8 @@ func lbLBDelete() *core.Command {
 
 func lbLBMigrate() *core.Command {
 	return &core.Command{
-		Short:     `Migrate a load balancer`,
-		Long:      `Migrate a load balancer.`,
+		Short:     `Migrate a Load Balancer`,
+		Long:      `Migrate an existing Load Balancer from one commercial type to another. Allows you to scale your Load Balancer up or down in terms of bandwidth or multi-cloud provision.`,
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "migrate",
@@ -423,19 +465,19 @@ func lbLBMigrate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "type",
-				Short:      `Load balancer type (check /lb-types to list all type)`,
+				Short:      `Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIMigrateLBRequest)
@@ -450,8 +492,8 @@ func lbLBMigrate() *core.Command {
 
 func lbIPList() *core.Command {
 	return &core.Command{
-		Short:     `List IPs`,
-		Long:      `List IPs.`,
+		Short:     `List IP addresses`,
+		Long:      `List the Load Balancer flexible IP addresses held in the account (filtered by Organization ID or Project ID). It is also possible to search for a specific IP address.`,
 		Namespace: "lb",
 		Resource:  "ip",
 		Verb:      "list",
@@ -460,26 +502,26 @@ func lbIPList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-address",
-				Short:      `Use this to search by IP address`,
+				Short:      `IP address to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
-				Short:      `Filter IPs by project ID`,
+				Short:      `Project ID to filter for, only Load Balancer IP addresses from this Project will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter IPs by organization id`,
+				Short:      `Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListIPsRequest)
@@ -503,8 +545,8 @@ func lbIPList() *core.Command {
 
 func lbIPCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create an IP`,
-		Long:      `Create an IP.`,
+		Short:     `Create an IP address`,
+		Long:      `Create a new Load Balancer flexible IP address, in the specified Scaleway Project. This can be attached to new Load Balancers created in the future.`,
 		Namespace: "lb",
 		Resource:  "ip",
 		Verb:      "create",
@@ -514,13 +556,13 @@ func lbIPCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "reverse",
-				Short:      `Reverse domain name`,
+				Short:      `Reverse DNS (domain name) for the IP address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateIPRequest)
@@ -535,8 +577,8 @@ func lbIPCreate() *core.Command {
 
 func lbIPGet() *core.Command {
 	return &core.Command{
-		Short:     `Get an IP`,
-		Long:      `Get an IP.`,
+		Short:     `Get an IP address`,
+		Long:      `Retrieve the full details of a Load Balancer flexible IP address.`,
 		Namespace: "lb",
 		Resource:  "ip",
 		Verb:      "get",
@@ -550,7 +592,7 @@ func lbIPGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetIPRequest)
@@ -565,8 +607,8 @@ func lbIPGet() *core.Command {
 
 func lbIPDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an IP`,
-		Long:      `Delete an IP.`,
+		Short:     `Delete an IP address`,
+		Long:      `Delete a Load Balancer flexible IP address. This action is irreversible, and cannot be undone.`,
 		Namespace: "lb",
 		Resource:  "ip",
 		Verb:      "delete",
@@ -580,7 +622,7 @@ func lbIPDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIReleaseIPRequest)
@@ -601,8 +643,8 @@ func lbIPDelete() *core.Command {
 
 func lbIPUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an IP`,
-		Long:      `Update an IP.`,
+		Short:     `Update an IP address`,
+		Long:      `Update the reverse DNS of a Load Balancer flexible IP address.`,
 		Namespace: "lb",
 		Resource:  "ip",
 		Verb:      "update",
@@ -618,12 +660,12 @@ func lbIPUpdate() *core.Command {
 			},
 			{
 				Name:       "reverse",
-				Short:      `Reverse DNS`,
+				Short:      `Reverse DNS (domain name) for the IP address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateIPRequest)
@@ -638,8 +680,8 @@ func lbIPUpdate() *core.Command {
 
 func lbBackendList() *core.Command {
 	return &core.Command{
-		Short:     `List backends in a given load balancer`,
-		Long:      `List backends in a given load balancer.`,
+		Short:     `List the backends of a given Load Balancer`,
+		Long:      `List all the backends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each backend. The response is an array of backend objects, containing full details of each one including their configuration parameters such as protocol, port and forwarding algorithm.`,
 		Namespace: "lb",
 		Resource:  "backend",
 		Verb:      "list",
@@ -648,27 +690,27 @@ func lbBackendList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Use this to search by name`,
+				Short:      `Name of the backend to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `Response order`,
+				Short:      `Sort order of backends in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListBackendsRequest)
@@ -692,8 +734,8 @@ func lbBackendList() *core.Command {
 
 func lbBackendCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a backend in a given load balancer`,
-		Long:      `Create a backend in a given load balancer.`,
+		Short:     `Create a backend for a given Load Balancer`,
+		Long:      `Create a new backend for a given Load Balancer, specifying its full configuration including protocol, port and forwarding algorithm.`,
 		Namespace: "lb",
 		Resource:  "backend",
 		Verb:      "create",
@@ -702,7 +744,7 @@ func lbBackendCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Resource name`,
+				Short:      `Name for the backend`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -710,7 +752,7 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "forward-protocol",
-				Short:      `Backend protocol. TCP or HTTP`,
+				Short:      `Protocol to be used by the backend when forwarding traffic to backend servers`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -718,14 +760,14 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "forward-port",
-				Short:      `User sessions will be forwarded to this port of backend servers`,
+				Short:      `Port to be used by the backend when forwarding traffic to backend servers`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "forward-port-algorithm",
-				Short:      `Load balancing algorithm`,
+				Short:      `Load balancing algorithm to be used when determining which backend server to forward new traffic to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -734,7 +776,7 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "sticky-sessions",
-				Short:      `Enables cookie-based session persistence`,
+				Short:      `Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -743,99 +785,32 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "sticky-sessions-cookie-name",
-				Short:      `Cookie name for sticky sessions`,
+				Short:      `Cookie name for cookie-based sticky sessions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "health-check.mysql-config.user",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.check-max-retries",
-				Short:      `Number of consecutive unsuccessful health checks, after which the server will be considered dead`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.pgsql-config.user",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.http-config.uri",
-				Short:      `HTTP uri used with the request`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.http-config.method",
-				Short:      `HTTP method used with the request`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.http-config.code",
-				Short:      `HTTP response code so the Healthcheck is considered successfull`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.http-config.host-header",
-				Short:      `HTTP host header used with the request`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.https-config.uri",
-				Short:      `HTTP uri used with the request`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.https-config.method",
-				Short:      `HTTP method used with the request`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.https-config.code",
-				Short:      `HTTP response code so the Healthcheck is considered successfull`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.https-config.host-header",
-				Short:      `HTTP host header used with the request`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "health-check.https-config.sni",
-				Short:      `Specifies the SNI to use to do health checks over SSL`,
-				Required:   false,
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.port",
-				Short:      `TCP port to use for the backend server health check`,
+				Short:      `Port to use for the backend server health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "health-check.check-delay",
+				Short:      `Time to wait between two consecutive health checks`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("3s"),
 			},
 			{
 				Name:       "health-check.check-timeout",
@@ -843,66 +818,148 @@ func lbBackendCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("1s"),
 			},
 			{
-				Name:       "health-check.check-delay",
-				Short:      `Time between two consecutive health checks`,
+				Name:       "health-check.check-max-retries",
+				Short:      `Number of consecutive unsuccessful health checks after which the server will be considered dead`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.mysql-config.user",
+				Short:      `MySQL user to use for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.pgsql-config.user",
+				Short:      `PostgreSQL user to use for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.http-config.uri",
+				Short:      `HTTP URI used for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.http-config.method",
+				Short:      `HTTP method used for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.http-config.code",
+				Short:      `HTTP response code expected for a successful health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.http-config.host-header",
+				Short:      `HTTP host header used for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.https-config.uri",
+				Short:      `HTTP URI used for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.https-config.method",
+				Short:      `HTTP method used for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.https-config.code",
+				Short:      `HTTP response code expected for a successful health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.https-config.host-header",
+				Short:      `HTTP host header used for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.https-config.sni",
+				Short:      `SNI used for SSL health checks`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "health-check.check-send-proxy",
-				Short:      `It defines whether the health check should be done considering the proxy protocol`,
+				Short:      `Defines whether proxy protocol should be activated for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "lb-id",
-				Short:      `Load balancer ID`,
-				Required:   true,
+				Name:       "health-check.transient-check-delay",
+				Short:      `Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN)`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("0.5s"),
 			},
 			{
 				Name:       "server-ip.{index}",
-				Short:      `Backend server IP addresses list (IPv4 or IPv6)`,
+				Short:      `List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "send-proxy-v2",
-				Short:      `Deprecated in favor of proxy_protocol field !`,
+				Short:      `Deprecated in favor of proxy_protocol field`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "timeout-server",
-				Short:      `Maximum server connection inactivity time (allowed time the server has to process the request)`,
+				Short:      `Maximum allowed time for a backend server to process a request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "timeout-connect",
-				Short:      `Maximum initial server connection establishment time`,
+				Short:      `Maximum allowed time for establishing a connection to a backend server`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5s"),
 			},
 			{
 				Name:       "timeout-tunnel",
-				Short:      `Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)`,
+				Short:      `Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("15m"),
 			},
 			{
 				Name:       "on-marked-down-action",
-				Short:      `Modify what occurs when a backend server is marked down`,
+				Short:      `Action to take when a backend server is marked as down`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -910,7 +967,7 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "proxy-protocol",
-				Short:      `PROXY protocol, forward client's address (must be supported by backend servers software)`,
+				Short:      `Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -918,26 +975,54 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "failover-host",
-				Short:      `Scaleway S3 bucket website to be served in case all backend servers are down`,
+				Short:      `Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ssl-bridging",
-				Short:      `Enable SSL between load balancer and backend servers`,
+				Short:      `Defines whether to enable SSL bridging between the Load Balancer and backend servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ignore-ssl-server-verify",
-				Short:      `Set to true to ignore server certificate verification`,
+				Short:      `Defines whether the server certificate verification should be ignored`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			{
+				Name:       "redispatch-attempt-count",
+				Short:      `Whether to use another backend server on each attempt`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-retries",
+				Short:      `Number of retries when a backend server connection failed`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-connections",
+				Short:      `Maximum number of connections allowed per backend server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "timeout-queue",
+				Short:      `Maximum time for a request to be left pending in queue when ` + "`" + `max_connections` + "`" + ` is reached`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateBackendRequest)
@@ -952,8 +1037,8 @@ func lbBackendCreate() *core.Command {
 
 func lbBackendGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a backend in a given load balancer`,
-		Long:      `Get a backend in a given load balancer.`,
+		Short:     `Get a backend of a given Load Balancer`,
+		Long:      `Get the full details of a given backend, specified by its backend ID. The response contains the backend's full configuration parameters including protocol, port and forwarding algorithm.`,
 		Namespace: "lb",
 		Resource:  "backend",
 		Verb:      "get",
@@ -967,7 +1052,7 @@ func lbBackendGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetBackendRequest)
@@ -982,8 +1067,8 @@ func lbBackendGet() *core.Command {
 
 func lbBackendUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a backend in a given load balancer`,
-		Long:      `Update a backend in a given load balancer.`,
+		Short:     `Update a backend of a given Load Balancer`,
+		Long:      `Update a backend of a given Load Balancer, specified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.`,
 		Namespace: "lb",
 		Resource:  "backend",
 		Verb:      "update",
@@ -992,21 +1077,21 @@ func lbBackendUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-id",
-				Short:      `Backend ID to update`,
+				Short:      `Backend ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `Resource name`,
+				Short:      `Backend name`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "forward-protocol",
-				Short:      `Backend protocol. TCP or HTTP`,
+				Short:      `Protocol to be used by the backend when forwarding traffic to backend servers`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1014,14 +1099,14 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "forward-port",
-				Short:      `User sessions will be forwarded to this port of backend servers`,
+				Short:      `Port to be used by the backend when forwarding traffic to backend servers`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "forward-port-algorithm",
-				Short:      `Load balancing algorithm`,
+				Short:      `Load balancing algorithm to be used when determining which backend server to forward new traffic to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1029,7 +1114,7 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "sticky-sessions",
-				Short:      `Enable cookie-based session persistence`,
+				Short:      `Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1037,42 +1122,45 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "sticky-sessions-cookie-name",
-				Short:      `Cookie name for sticky sessions`,
+				Short:      `Cookie name for cookie-based sticky sessions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "send-proxy-v2",
-				Short:      `Deprecated in favor of proxy_protocol field!`,
+				Short:      `Deprecated in favor of proxy_protocol field`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "timeout-server",
-				Short:      `Maximum server connection inactivity time (allowed time the server has to process the request)`,
+				Short:      `Maximum allowed time for a backend server to process a request`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "timeout-connect",
-				Short:      `Maximum initial server connection establishment time`,
+				Short:      `Maximum allowed time for establishing a connection to a backend server`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5s"),
 			},
 			{
 				Name:       "timeout-tunnel",
-				Short:      `Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)`,
+				Short:      `Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("15m"),
 			},
 			{
 				Name:       "on-marked-down-action",
-				Short:      `Modify what occurs when a backend server is marked down`,
+				Short:      `Action to take when a backend server is marked as down`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1080,7 +1168,7 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "proxy-protocol",
-				Short:      `PROXY protocol, forward client's address (must be supported by backend servers software)`,
+				Short:      `Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1088,26 +1176,54 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "failover-host",
-				Short:      `Scaleway S3 bucket website to be served in case all backend servers are down`,
+				Short:      `Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ssl-bridging",
-				Short:      `Enable SSL between load balancer and backend servers`,
+				Short:      `Defines whether to enable SSL bridging between the Load Balancer and backend servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "ignore-ssl-server-verify",
-				Short:      `Set to true to ignore server certificate verification`,
+				Short:      `Defines whether the server certificate verification should be ignored`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			{
+				Name:       "redispatch-attempt-count",
+				Short:      `Whether to use another backend server on each attempt`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-retries",
+				Short:      `Number of retries when a backend server connection failed`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-connections",
+				Short:      `Maximum number of connections allowed per backend server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "timeout-queue",
+				Short:      `Maximum time for a request to be left pending in queue when ` + "`" + `max_connections` + "`" + ` is reached`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateBackendRequest)
@@ -1122,8 +1238,8 @@ func lbBackendUpdate() *core.Command {
 
 func lbBackendDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a backend in a given load balancer`,
-		Long:      `Delete a backend in a given load balancer.`,
+		Short:     `Delete a backend of a given Load Balancer`,
+		Long:      `Delete a backend of a given Load Balancer, specified by its backend ID. This action is irreversible and cannot be undone.`,
 		Namespace: "lb",
 		Resource:  "backend",
 		Verb:      "delete",
@@ -1137,7 +1253,7 @@ func lbBackendDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteBackendRequest)
@@ -1158,8 +1274,8 @@ func lbBackendDelete() *core.Command {
 
 func lbBackendAddServers() *core.Command {
 	return &core.Command{
-		Short:     `Add a set of servers in a given backend`,
-		Long:      `Add a set of servers in a given backend.`,
+		Short:     `Add a set of backend servers to a given backend`,
+		Long:      `For a given backend specified by its backend ID, add a set of backend servers (identified by their IP addresses) it should forward traffic to. These will be appended to any existing set of backend servers for this backend.`,
 		Namespace: "lb",
 		Resource:  "backend",
 		Verb:      "add-servers",
@@ -1175,12 +1291,12 @@ func lbBackendAddServers() *core.Command {
 			},
 			{
 				Name:       "server-ip.{index}",
-				Short:      `Set all IPs to add on your backend`,
+				Short:      `List of IP addresses to add to backend servers`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIAddBackendServersRequest)
@@ -1196,7 +1312,7 @@ func lbBackendAddServers() *core.Command {
 func lbBackendRemoveServers() *core.Command {
 	return &core.Command{
 		Short:     `Remove a set of servers for a given backend`,
-		Long:      `Remove a set of servers for a given backend.`,
+		Long:      `For a given backend specified by its backend ID, remove the specified backend servers (identified by their IP addresses) so that it no longer forwards traffic to them.`,
 		Namespace: "lb",
 		Resource:  "backend",
 		Verb:      "remove-servers",
@@ -1212,12 +1328,12 @@ func lbBackendRemoveServers() *core.Command {
 			},
 			{
 				Name:       "server-ip.{index}",
-				Short:      `Set all IPs to remove of your backend`,
+				Short:      `List of IP addresses to remove from backend servers`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIRemoveBackendServersRequest)
@@ -1232,8 +1348,8 @@ func lbBackendRemoveServers() *core.Command {
 
 func lbBackendSetServers() *core.Command {
 	return &core.Command{
-		Short:     `Define all servers in a given backend`,
-		Long:      `Define all servers in a given backend.`,
+		Short:     `Define all backend servers for a given backend`,
+		Long:      `For a given backend specified by its backend ID, define the set of backend servers (identified by their IP addresses) that it should forward traffic to. Any existing backend servers configured for this backend will be removed.`,
 		Namespace: "lb",
 		Resource:  "backend",
 		Verb:      "set-servers",
@@ -1249,12 +1365,12 @@ func lbBackendSetServers() *core.Command {
 			},
 			{
 				Name:       "server-ip.{index}",
-				Short:      `Set all IPs to add on your backend and remove all other`,
+				Short:      `List of IP addresses for backend servers. Any other existing backend servers will be removed`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPISetBackendServersRequest)
@@ -1269,8 +1385,8 @@ func lbBackendSetServers() *core.Command {
 
 func lbBackendUpdateHealthcheck() *core.Command {
 	return &core.Command{
-		Short:     `Update an healthcheck for a given backend`,
-		Long:      `Update an healthcheck for a given backend.`,
+		Short:     `Update a health check for a given backend`,
+		Long:      `Update the configuration of the health check performed by a given backend to verify the health of its backend servers, identified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.`,
 		Namespace: "lb",
 		Resource:  "backend",
 		Verb:      "update-healthcheck",
@@ -1279,14 +1395,14 @@ func lbBackendUpdateHealthcheck() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "port",
-				Short:      `Specify the port used to health check`,
+				Short:      `Port to use for the backend server health check`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "check-delay",
-				Short:      `Time between two consecutive health checks`,
+				Short:      `Time to wait between two consecutive health checks`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1300,7 +1416,7 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			},
 			{
 				Name:       "check-max-retries",
-				Short:      `Number of consecutive unsuccessful health checks, after which the server will be considered dead`,
+				Short:      `Number of consecutive unsuccessful health checks after which the server will be considered dead`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1313,88 +1429,98 @@ func lbBackendUpdateHealthcheck() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "check-send-proxy",
+				Short:      `Defines whether proxy protocol should be activated for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "mysql-config.user",
+				Short:      `MySQL user to use for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pgsql-config.user",
+				Short:      `PostgreSQL user to use for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "http-config.uri",
-				Short:      `HTTP uri used with the request`,
+				Short:      `HTTP URI used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "http-config.method",
-				Short:      `HTTP method used with the request`,
+				Short:      `HTTP method used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "http-config.code",
-				Short:      `HTTP response code so the Healthcheck is considered successfull`,
+				Short:      `HTTP response code expected for a successful health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "http-config.host-header",
-				Short:      `HTTP host header used with the request`,
+				Short:      `HTTP host header used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "https-config.uri",
-				Short:      `HTTP uri used with the request`,
+				Short:      `HTTP URI used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "https-config.method",
-				Short:      `HTTP method used with the request`,
+				Short:      `HTTP method used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "https-config.code",
-				Short:      `HTTP response code so the Healthcheck is considered successfull`,
+				Short:      `HTTP response code expected for a successful health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "https-config.host-header",
-				Short:      `HTTP host header used with the request`,
+				Short:      `HTTP host header used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "https-config.sni",
-				Short:      `Specifies the SNI to use to do health checks over SSL`,
+				Short:      `SNI used for SSL health checks`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "check-send-proxy",
-				Short:      `It defines whether the health check should be done considering the proxy protocol`,
+				Name:       "transient-check-delay",
+				Short:      `Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("0.5s"),
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateHealthCheckRequest)
@@ -1409,8 +1535,8 @@ func lbBackendUpdateHealthcheck() *core.Command {
 
 func lbFrontendList() *core.Command {
 	return &core.Command{
-		Short:     `List frontends in a given load balancer`,
-		Long:      `List frontends in a given load balancer.`,
+		Short:     `List frontends of a given Load Balancer`,
+		Long:      `List all the frontends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each frontend. The response is an array of frontend objects, containing full details of each one including the port they listen on and the backend they are attached to.`,
 		Namespace: "lb",
 		Resource:  "frontend",
 		Verb:      "list",
@@ -1419,27 +1545,27 @@ func lbFrontendList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Use this to search by name`,
+				Short:      `Name of the frontend to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `Response order`,
+				Short:      `Sort order of frontends in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListFrontendsRequest)
@@ -1463,8 +1589,8 @@ func lbFrontendList() *core.Command {
 
 func lbFrontendCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a frontend in a given load balancer`,
-		Long:      `Create a frontend in a given load balancer.`,
+		Short:     `Create a frontend in a given Load Balancer`,
+		Long:      `Create a new frontend for a given Load Balancer, specifying its configuration including the port it should listen on and the backend to attach it to.`,
 		Namespace: "lb",
 		Resource:  "frontend",
 		Verb:      "create",
@@ -1473,7 +1599,7 @@ func lbFrontendCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Resource name`,
+				Short:      `Name for the frontend`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1481,54 +1607,55 @@ func lbFrontendCreate() *core.Command {
 			},
 			{
 				Name:       "inbound-port",
-				Short:      `TCP port to listen on the front side`,
+				Short:      `Port the frontend should listen on`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID (ID of the Load Balancer to attach the frontend to)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "backend-id",
-				Short:      `Backend ID`,
+				Short:      `Backend ID (ID of the backend the frontend should pass traffic to)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "timeout-client",
-				Short:      `Set the maximum inactivity time on the client side`,
+				Short:      `Maximum allowed inactivity time on the client side`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "certificate-id",
-				Short:      `Certificate ID, deprecated in favor of certificate_ids array !`,
+				Short:      `Certificate ID, deprecated in favor of certificate_ids array`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "certificate-ids.{index}",
-				Short:      `List of certificate IDs to bind on the frontend`,
+				Short:      `List of SSL/TLS certificate IDs to bind to the frontend`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-http3",
-				Short:      `Activate HTTP 3 protocol (beta)`,
+				Short:      `Defines whether to enable HTTP/3 protocol on the frontend`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateFrontendRequest)
@@ -1544,7 +1671,7 @@ func lbFrontendCreate() *core.Command {
 func lbFrontendGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a frontend`,
-		Long:      `Get a frontend.`,
+		Long:      `Get the full details of a given frontend, specified by its frontend ID. The response contains the frontend's full configuration parameters including the backend it is attached to, the port it listens on, and any certificates it has.`,
 		Namespace: "lb",
 		Resource:  "frontend",
 		Verb:      "get",
@@ -1558,7 +1685,7 @@ func lbFrontendGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetFrontendRequest)
@@ -1574,7 +1701,7 @@ func lbFrontendGet() *core.Command {
 func lbFrontendUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a frontend`,
-		Long:      `Update a frontend.`,
+		Long:      `Update a given frontend, specified by its frontend ID. You can update configuration parameters including its name and the port it listens on. Note that the request type is PUT and not PATCH. You must set all parameters.`,
 		Namespace: "lb",
 		Resource:  "frontend",
 		Verb:      "update",
@@ -1590,54 +1717,55 @@ func lbFrontendUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Resource name`,
+				Short:      `Frontend name`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "inbound-port",
-				Short:      `TCP port to listen on the front side`,
+				Short:      `Port the frontend should listen on`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "backend-id",
-				Short:      `Backend ID`,
+				Short:      `Backend ID (ID of the backend the frontend should pass traffic to)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "timeout-client",
-				Short:      `Client session maximum inactivity time`,
+				Short:      `Maximum allowed inactivity time on the client side`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("5m"),
 			},
 			{
 				Name:       "certificate-id",
-				Short:      `Certificate ID, deprecated in favor of ` + "`" + `certificate_ids` + "`" + ` array!`,
+				Short:      `Certificate ID, deprecated in favor of certificate_ids array`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "certificate-ids.{index}",
-				Short:      `List of certificate IDs to bind on the frontend`,
+				Short:      `List of SSL/TLS certificate IDs to bind to the frontend`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "enable-http3",
-				Short:      `Activate HTTP 3 protocol (beta)`,
+				Short:      `Defines whether to enable HTTP/3 protocol on the frontend`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateFrontendRequest)
@@ -1653,7 +1781,7 @@ func lbFrontendUpdate() *core.Command {
 func lbFrontendDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a frontend`,
-		Long:      `Delete a frontend.`,
+		Long:      `Delete a given frontend, specified by its frontend ID. This action is irreversible and cannot be undone.`,
 		Namespace: "lb",
 		Resource:  "frontend",
 		Verb:      "delete",
@@ -1662,12 +1790,12 @@ func lbFrontendDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "frontend-id",
-				Short:      `Frontend ID to delete`,
+				Short:      `ID of the frontend to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteFrontendRequest)
@@ -1686,10 +1814,225 @@ func lbFrontendDelete() *core.Command {
 	}
 }
 
+func lbRouteList() *core.Command {
+	return &core.Command{
+		Short:     `List all routes`,
+		Long:      `List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIListRoutesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of routes in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "frontend-id",
+				Short:      `Frontend ID to filter for, only Routes from this Frontend will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIListRoutesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListRoutes(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Routes, nil
+
+		},
+	}
+}
+
+func lbRouteCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a route`,
+		Long:      `Create a new route on a given frontend. To configure a route, specify the backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPICreateRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "frontend-id",
+				Short:      `ID of the source frontend to create the route on`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backend-id",
+				Short:      `ID of the target backend for the route`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.sni",
+				Short:      `Server Name Indication (SNI) value to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.host-header",
+				Short:      `HTTP host header to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPICreateRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.CreateRoute(request)
+
+		},
+	}
+}
+
+func lbRouteGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a route`,
+		Long:      `Retrieve information about an existing route, specified by its route ID. Its full details, origin frontend, target backend and match condition, are returned in the response object.`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIGetRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIGetRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.GetRoute(request)
+
+		},
+	}
+}
+
+func lbRouteUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a route`,
+		Long:      `Update the configuration of an existing route, specified by its route ID.`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "backend-id",
+				Short:      `ID of the target backend for the route`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.sni",
+				Short:      `Server Name Indication (SNI) value to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.host-header",
+				Short:      `HTTP host header to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIUpdateRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.UpdateRoute(request)
+
+		},
+	}
+}
+
+func lbRouteDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a route`,
+		Long:      `Delete an existing route, specified by its route ID. Deleting a route is permanent, and cannot be undone.`,
+		Namespace: "lb",
+		Resource:  "route",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIDeleteRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			e = api.DeleteRoute(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "route",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
 func lbLBGetStats() *core.Command {
 	return &core.Command{
-		Short:     `Get usage statistics of a given load balancer`,
-		Long:      `Get usage statistics of a given load balancer.`,
+		Short:     `Get usage statistics of a given Load Balancer`,
+		Long:      `Get usage statistics of a given Load Balancer.`,
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "get-stats",
@@ -1698,12 +2041,19 @@ func lbLBGetStats() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			{
+				Name:       "backend-id",
+				Short:      `ID of the backend`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetLBStatsRequest)
@@ -1716,10 +2066,56 @@ func lbLBGetStats() *core.Command {
 	}
 }
 
+func lbBackendListStatistics() *core.Command {
+	return &core.Command{
+		Short:     `List backend server statistics`,
+		Long:      `List information about your backend servers, including their state and the result of their last health check.`,
+		Namespace: "lb",
+		Resource:  "backend",
+		Verb:      "list-statistics",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIListBackendStatsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "backend-id",
+				Short:      `ID of the backend`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIListBackendStatsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListBackendStats(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.BackendServersStats, nil
+
+		},
+	}
+}
+
 func lbACLList() *core.Command {
 	return &core.Command{
-		Short:     `List ACL for a given frontend`,
-		Long:      `List ACL for a given frontend.`,
+		Short:     `List ACLs for a given frontend`,
+		Long:      `List the ACLs for a given frontend, specified by its frontend ID. The response is an array of ACL objects, each one representing an ACL that denies or allows traffic based on certain conditions.`,
 		Namespace: "lb",
 		Resource:  "acl",
 		Verb:      "list",
@@ -1728,14 +2124,14 @@ func lbACLList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "frontend-id",
-				Short:      `ID of your frontend`,
+				Short:      `Frontend ID (ACLs attached to this frontend will be returned in the response)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `Response order`,
+				Short:      `Sort order of ACLs in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1743,12 +2139,12 @@ func lbACLList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Filter acl per name`,
+				Short:      `ACL name to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListACLsRequest)
@@ -1773,7 +2169,7 @@ func lbACLList() *core.Command {
 func lbACLCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create an ACL for a given frontend`,
-		Long:      `Create an ACL for a given frontend.`,
+		Long:      `Create a new ACL for a given frontend. Each ACL must have a name, an action to perform (allow or deny), and a match rule (the action is carried out when the incoming traffic matches the rule).`,
 		Namespace: "lb",
 		Resource:  "acl",
 		Verb:      "create",
@@ -1782,14 +2178,14 @@ func lbACLCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "frontend-id",
-				Short:      `ID of your frontend`,
+				Short:      `Frontend ID to attach the ACL to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Name of your ACL ressource`,
+				Short:      `ACL name`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1797,22 +2193,44 @@ func lbACLCreate() *core.Command {
 			},
 			{
 				Name:       "action.type",
-				Short:      `The action type`,
+				Short:      `Action to take when incoming traffic matches an ACL filter`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"allow", "deny"},
+				EnumValues: []string{"allow", "deny", "redirect"},
+			},
+			{
+				Name:       "action.redirect.type",
+				Short:      `Redirect type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"location", "scheme"},
+			},
+			{
+				Name:       "action.redirect.target",
+				Short:      `Redirect target. For a location redirect, you can use a URL e.g. ` + "`" + `https://scaleway.com` + "`" + `. Using a scheme name (e.g. ` + "`" + `https` + "`" + `, ` + "`" + `http` + "`" + `, ` + "`" + `ftp` + "`" + `, ` + "`" + `git` + "`" + `) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a ` + "`" + `location` + "`" + ` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "action.redirect.code",
+				Short:      `HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "match.ip-subnet.{index}",
-				Short:      `A list of IPs or CIDR v4/v6 addresses of the client of the session to match`,
+				Short:      `List of IPs or CIDR v4/v6 addresses to filter for from the client side`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "match.http-filter",
-				Short:      `The HTTP filter to match`,
+				Short:      `Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1820,33 +2238,40 @@ func lbACLCreate() *core.Command {
 			},
 			{
 				Name:       "match.http-filter-value.{index}",
-				Short:      `A list of possible values to match for the given HTTP filter`,
+				Short:      `List of values to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "match.http-filter-option",
-				Short:      `A exra parameter. You can use this field with http_header_match acl type to set the header name to filter`,
+				Short:      `Name of the HTTP header to filter on if ` + "`" + `http_header_match` + "`" + ` was selected in ` + "`" + `http_filter` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "match.invert",
-				Short:      `If set to ` + "`" + `true` + "`" + `, the ACL matching condition will be of type "UNLESS"`,
+				Short:      `Defines whether to invert the match condition. If set to ` + "`" + `true` + "`" + `, the ACL carries out its action when the condition DOES NOT match`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "index",
-				Short:      `Order between your Acls (ascending order, 0 is first acl executed)`,
+				Short:      `Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			{
+				Name:       "description",
+				Short:      `ACL description`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateACLRequest)
@@ -1862,7 +2287,7 @@ func lbACLCreate() *core.Command {
 func lbACLGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an ACL`,
-		Long:      `Get an ACL.`,
+		Long:      `Get information for a particular ACL, specified by its ACL ID. The response returns full details of the ACL, including its name, action, match rule and frontend.`,
 		Namespace: "lb",
 		Resource:  "acl",
 		Verb:      "get",
@@ -1871,12 +2296,12 @@ func lbACLGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
-				Short:      `ID of your ACL ressource`,
+				Short:      `ACL ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetACLRequest)
@@ -1892,7 +2317,7 @@ func lbACLGet() *core.Command {
 func lbACLUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an ACL`,
-		Long:      `Update an ACL.`,
+		Long:      `Update a particular ACL, specified by its ACL ID. You can update details including its name, action and match rule.`,
 		Namespace: "lb",
 		Resource:  "acl",
 		Verb:      "update",
@@ -1901,36 +2326,58 @@ func lbACLUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
-				Short:      `ID of your ACL ressource`,
+				Short:      `ACL ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `Name of your ACL ressource`,
+				Short:      `ACL name`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "action.type",
-				Short:      `The action type`,
+				Short:      `Action to take when incoming traffic matches an ACL filter`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"allow", "deny"},
+				EnumValues: []string{"allow", "deny", "redirect"},
+			},
+			{
+				Name:       "action.redirect.type",
+				Short:      `Redirect type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"location", "scheme"},
+			},
+			{
+				Name:       "action.redirect.target",
+				Short:      `Redirect target. For a location redirect, you can use a URL e.g. ` + "`" + `https://scaleway.com` + "`" + `. Using a scheme name (e.g. ` + "`" + `https` + "`" + `, ` + "`" + `http` + "`" + `, ` + "`" + `ftp` + "`" + `, ` + "`" + `git` + "`" + `) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a ` + "`" + `location` + "`" + ` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "action.redirect.code",
+				Short:      `HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "match.ip-subnet.{index}",
-				Short:      `A list of IPs or CIDR v4/v6 addresses of the client of the session to match`,
+				Short:      `List of IPs or CIDR v4/v6 addresses to filter for from the client side`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "match.http-filter",
-				Short:      `The HTTP filter to match`,
+				Short:      `Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1938,33 +2385,40 @@ func lbACLUpdate() *core.Command {
 			},
 			{
 				Name:       "match.http-filter-value.{index}",
-				Short:      `A list of possible values to match for the given HTTP filter`,
+				Short:      `List of values to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "match.http-filter-option",
-				Short:      `A exra parameter. You can use this field with http_header_match acl type to set the header name to filter`,
+				Short:      `Name of the HTTP header to filter on if ` + "`" + `http_header_match` + "`" + ` was selected in ` + "`" + `http_filter` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "match.invert",
-				Short:      `If set to ` + "`" + `true` + "`" + `, the ACL matching condition will be of type "UNLESS"`,
+				Short:      `Defines whether to invert the match condition. If set to ` + "`" + `true` + "`" + `, the ACL carries out its action when the condition DOES NOT match`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "index",
-				Short:      `Order between your Acls (ascending order, 0 is first acl executed)`,
+				Short:      `Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			{
+				Name:       "description",
+				Short:      `ACL description`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateACLRequest)
@@ -1980,7 +2434,7 @@ func lbACLUpdate() *core.Command {
 func lbACLDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an ACL`,
-		Long:      `Delete an ACL.`,
+		Long:      `Delete an ACL, specified by its ACL ID. Deleting an ACL is irreversible and cannot be undone.`,
 		Namespace: "lb",
 		Resource:  "acl",
 		Verb:      "delete",
@@ -1989,12 +2443,12 @@ func lbACLDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
-				Short:      `ID of your ACL ressource`,
+				Short:      `ACL ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteACLRequest)
@@ -2015,8 +2469,8 @@ func lbACLDelete() *core.Command {
 
 func lbACLSet() *core.Command {
 	return &core.Command{
-		Short:     `Set all ACLs for a given frontend`,
-		Long:      `Set all ACLs for a given frontend.`,
+		Short:     `Define all ACLs for a given frontend`,
+		Long:      `For a given frontend specified by its frontend ID, define and add the complete set of ACLS for that frontend. Any existing ACLs on this frontend will be removed.`,
 		Namespace: "lb",
 		Resource:  "acl",
 		Verb:      "set",
@@ -2025,29 +2479,51 @@ func lbACLSet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acls.{index}.name",
-				Short:      `Name of your ACL resource`,
+				Short:      `ACL name`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "acls.{index}.action.type",
-				Short:      `The action type`,
+				Short:      `Action to take when incoming traffic matches an ACL filter`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"allow", "deny"},
+				EnumValues: []string{"allow", "deny", "redirect"},
+			},
+			{
+				Name:       "acls.{index}.action.redirect.type",
+				Short:      `Redirect type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"location", "scheme"},
+			},
+			{
+				Name:       "acls.{index}.action.redirect.target",
+				Short:      `Redirect target. For a location redirect, you can use a URL e.g. ` + "`" + `https://scaleway.com` + "`" + `. Using a scheme name (e.g. ` + "`" + `https` + "`" + `, ` + "`" + `http` + "`" + `, ` + "`" + `ftp` + "`" + `, ` + "`" + `git` + "`" + `) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a ` + "`" + `location` + "`" + ` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.action.redirect.code",
+				Short:      `HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "acls.{index}.match.ip-subnet.{index}",
-				Short:      `A list of IPs or CIDR v4/v6 addresses of the client of the session to match`,
+				Short:      `List of IPs or CIDR v4/v6 addresses to filter for from the client side`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "acls.{index}.match.http-filter",
-				Short:      `The HTTP filter to match`,
+				Short:      `Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2055,40 +2531,47 @@ func lbACLSet() *core.Command {
 			},
 			{
 				Name:       "acls.{index}.match.http-filter-value.{index}",
-				Short:      `A list of possible values to match for the given HTTP filter`,
+				Short:      `List of values to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "acls.{index}.match.http-filter-option",
-				Short:      `A exra parameter. You can use this field with http_header_match acl type to set the header name to filter`,
+				Short:      `Name of the HTTP header to filter on if ` + "`" + `http_header_match` + "`" + ` was selected in ` + "`" + `http_filter` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "acls.{index}.match.invert",
-				Short:      `If set to ` + "`" + `true` + "`" + `, the ACL matching condition will be of type "UNLESS"`,
+				Short:      `Defines whether to invert the match condition. If set to ` + "`" + `true` + "`" + `, the ACL carries out its action when the condition DOES NOT match`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "acls.{index}.index",
-				Short:      `Order between your Acls (ascending order, 0 is first acl executed)`,
+				Short:      `Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
+				Name:       "acls.{index}.description",
+				Short:      `ACL description`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "frontend-id",
-				Short:      `The Frontend to change ACL to`,
+				Short:      `Frontend ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPISetACLsRequest)
@@ -2103,8 +2586,8 @@ func lbACLSet() *core.Command {
 
 func lbCertificateCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a TLS certificate`,
-		Long:      `Generate a new TLS certificate using Let's Encrypt or import your certificate.`,
+		Short:     `Create an SSL/TLS certificate`,
+		Long:      `Generate a new SSL/TLS certificate for a given Load Balancer. You can choose to create a Let's Encrypt certificate, or import a custom certificate.`,
 		Namespace: "lb",
 		Resource:  "certificate",
 		Verb:      "create",
@@ -2113,41 +2596,41 @@ func lbCertificateCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Certificate name`,
+				Short:      `Name for the certificate`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.RandomValueGenerator("certiticate"),
+				Default:    core.RandomValueGenerator("certificate"),
 			},
 			{
 				Name:       "letsencrypt.common-name",
-				Short:      `Main domain name of certificate (make sure this domain exists and resolves to your load balancer HA IP)`,
+				Short:      `Main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address)`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "letsencrypt.subject-alternative-name.{index}",
-				Short:      `Alternative domain names (make sure all domain names exists and resolves to your load balancer HA IP)`,
+				Short:      `Alternative domain names (all domain names must exist and resolve to your Load Balancer IP address)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "custom-certificate.certificate-chain",
-				Short:      `The full PEM-formatted include an entire certificate chain including public key, private key, and optionally certificate authorities.`,
+				Short:      `Full PEM-formatted certificate, consisting of the entire certificate chain including public key, private key, and (optionally) Certificate Authorities`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPICreateCertificateRequest)
@@ -2162,8 +2645,8 @@ func lbCertificateCreate() *core.Command {
 
 func lbCertificateList() *core.Command {
 	return &core.Command{
-		Short:     `List all TLS certificates on a given load balancer`,
-		Long:      `List all TLS certificates on a given load balancer.`,
+		Short:     `List all SSL/TLS certificates on a given Load Balancer`,
+		Long:      `List all the SSL/TLS certificates on a given Load Balancer. The response is an array of certificate objects, which are by default listed in ascending order of creation date.`,
 		Namespace: "lb",
 		Resource:  "certificate",
 		Verb:      "list",
@@ -2172,14 +2655,14 @@ func lbCertificateList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `Response order`,
+				Short:      `Sort order of certificates in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2187,12 +2670,12 @@ func lbCertificateList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Use this to search by name`,
+				Short:      `Certificate name to filter for, only certificates of this name will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListCertificatesRequest)
@@ -2254,8 +2737,8 @@ func lbCertificateList() *core.Command {
 
 func lbCertificateGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a TLS certificate`,
-		Long:      `Get a TLS certificate.`,
+		Short:     `Get an SSL/TLS certificate`,
+		Long:      `Get information for a particular SSL/TLS certificate, specified by its certificate ID. The response returns full details of the certificate, including its type, main domain name, and alternative domain names.`,
 		Namespace: "lb",
 		Resource:  "certificate",
 		Verb:      "get",
@@ -2269,7 +2752,7 @@ func lbCertificateGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIGetCertificateRequest)
@@ -2284,8 +2767,8 @@ func lbCertificateGet() *core.Command {
 
 func lbCertificateUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a TLS certificate`,
-		Long:      `Update a TLS certificate.`,
+		Short:     `Update an SSL/TLS certificate`,
+		Long:      `Update the name of a particular SSL/TLS certificate, specified by its certificate ID.`,
 		Namespace: "lb",
 		Resource:  "certificate",
 		Verb:      "update",
@@ -2306,7 +2789,7 @@ func lbCertificateUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIUpdateCertificateRequest)
@@ -2321,8 +2804,8 @@ func lbCertificateUpdate() *core.Command {
 
 func lbCertificateDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a TLS certificate`,
-		Long:      `Delete a TLS certificate.`,
+		Short:     `Delete an SSL/TLS certificate`,
+		Long:      `Delete an SSL/TLS certificate, specified by its certificate ID. Deleting a certificate is irreversible and cannot be undone.`,
 		Namespace: "lb",
 		Resource:  "certificate",
 		Verb:      "delete",
@@ -2336,7 +2819,7 @@ func lbCertificateDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDeleteCertificateRequest)
@@ -2357,15 +2840,15 @@ func lbCertificateDelete() *core.Command {
 
 func lbLBTypesList() *core.Command {
 	return &core.Command{
-		Short:     `List all load balancer offer type`,
-		Long:      `List all load balancer offer type.`,
+		Short:     `List all Load Balancer offer types`,
+		Long:      `List all the different commercial Load Balancer types. The response includes an array of offer types, each with a name, description, and information about its stock availability.`,
 		Namespace: "lb",
 		Resource:  "lb-types",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(lb.ZonedAPIListLBTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListLBTypesRequest)
@@ -2387,10 +2870,301 @@ func lbLBTypesList() *core.Command {
 	}
 }
 
+func lbSubscriberCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a subscriber`,
+		Long:      `Create a new subscriber, either with an email configuration or a webhook configuration, for a specified Scaleway Project.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPICreateSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Short:      `Subscriber name`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "email-config.email",
+				Short:      `Email address to send alerts to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "webhook-config.uri",
+				Short:      `URI to receive POST requests`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			core.OrganizationIDArgSpec(),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPICreateSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.CreateSubscriber(request)
+
+		},
+	}
+}
+
+func lbSubscriberGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a subscriber`,
+		Long:      `Retrieve information about an existing subscriber, specified by its subscriber ID. Its full details, including name and email/webhook configuration, are returned in the response object.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIGetSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "subscriber-id",
+				Short:      `Subscriber ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIGetSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.GetSubscriber(request)
+
+		},
+	}
+}
+
+func lbSubscriberList() *core.Command {
+	return &core.Command{
+		Short:     `List all subscribers`,
+		Long:      `List all subscribers to Load Balancer alerts. By default, returns all subscribers to Load Balancer alerts for the Organization associated with the authentication token used for the request.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIListSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of subscribers in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+			},
+			{
+				Name:       "name",
+				Short:      `Subscriber name to search for`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Filter subscribers by Project ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter subscribers by Organization ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIListSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListSubscriber(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Subscribers, nil
+
+		},
+	}
+}
+
+func lbSubscriberUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a subscriber`,
+		Long:      `Update the parameters of a given subscriber (e.g. name, webhook configuration, email configuration), specified by its subscriber ID.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "subscriber-id",
+				Short:      `Subscriber ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Subscriber name`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "email-config.email",
+				Short:      `Email address to send alerts to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "webhook-config.uri",
+				Short:      `URI to receive POST requests`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIUpdateSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.UpdateSubscriber(request)
+
+		},
+	}
+}
+
+func lbSubscriberDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a subscriber`,
+		Long:      `Delete an existing subscriber, specified by its subscriber ID. Deleting a subscriber is permanent, and cannot be undone.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteSubscriberRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "subscriber-id",
+				Short:      `Subscriber ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIDeleteSubscriberRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			e = api.DeleteSubscriber(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "subscriber",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func lbSubscriberSubscribe() *core.Command {
+	return &core.Command{
+		Short:     `Subscribe a subscriber to alerts for a given Load Balancer`,
+		Long:      `Subscribe an existing subscriber to alerts for a given Load Balancer.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "subscribe",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPISubscribeToLBRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "subscriber-id",
+				Short:      `Subscriber ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPISubscribeToLBRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.SubscribeToLB(request)
+
+		},
+	}
+}
+
+func lbSubscriberUnsubscribe() *core.Command {
+	return &core.Command{
+		Short:     `Unsubscribe a subscriber from alerts for a given Load Balancer`,
+		Long:      `Unsubscribe a subscriber from alerts for a given Load Balancer. The subscriber is not deleted, and can be resubscribed in the future if necessary.`,
+		Namespace: "lb",
+		Resource:  "subscriber",
+		Verb:      "unsubscribe",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(lb.ZonedAPIUnsubscribeFromLBRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*lb.ZonedAPIUnsubscribeFromLBRequest)
+
+			client := core.ExtractClient(ctx)
+			api := lb.NewZonedAPI(client)
+			return api.UnsubscribeFromLB(request)
+
+		},
+	}
+}
+
 func lbPrivateNetworkList() *core.Command {
 	return &core.Command{
-		Short:     `List attached private network of load balancer`,
-		Long:      `List attached private network of load balancer.`,
+		Short:     `List Private Networks attached to a Load Balancer`,
+		Long:      `List the Private Networks attached to a given Load Balancer, specified by its Load Balancer ID. The response is an array of Private Network objects, giving information including the status, configuration, name and creation date of each Private Network.`,
 		Namespace: "lb",
 		Resource:  "private-network",
 		Verb:      "list",
@@ -2399,7 +3173,7 @@ func lbPrivateNetworkList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `Response order`,
+				Short:      `Sort order of Private Network objects in the response`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2407,12 +3181,12 @@ func lbPrivateNetworkList() *core.Command {
 			},
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIListLBPrivateNetworksRequest)
@@ -2436,8 +3210,8 @@ func lbPrivateNetworkList() *core.Command {
 
 func lbPrivateNetworkAttach() *core.Command {
 	return &core.Command{
-		Short:     `Add load balancer on instance private network`,
-		Long:      `Add load balancer on instance private network.`,
+		Short:     `Attach a Load Balancer to a Private Network`,
+		Long:      `Attach a specified Load Balancer to a specified Private Network, defining a static or DHCP configuration for the Load Balancer on the network.`,
 		Namespace: "lb",
 		Resource:  "private-network",
 		Verb:      "attach",
@@ -2446,25 +3220,32 @@ func lbPrivateNetworkAttach() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
-				Short:      `Load balancer ID`,
+				Short:      `Load Balancer ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `Set your instance private network id`,
+				Short:      `Private Network ID`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "static-config.ip-address.{index}",
+				Short:      `Array of a local IP address for the Load Balancer on this Private Network`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			{
+				Name:       "dhcp-config.ip-id",
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIAttachPrivateNetworkRequest)
@@ -2479,8 +3260,8 @@ func lbPrivateNetworkAttach() *core.Command {
 
 func lbPrivateNetworkDetach() *core.Command {
 	return &core.Command{
-		Short:     `Remove load balancer of private network`,
-		Long:      `Remove load balancer of private network.`,
+		Short:     `Detach Load Balancer from Private Network`,
+		Long:      `Detach a specified Load Balancer from a specified Private Network.`,
 		Namespace: "lb",
 		Resource:  "private-network",
 		Verb:      "detach",
@@ -2501,7 +3282,7 @@ func lbPrivateNetworkDetach() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*lb.ZonedAPIDetachPrivateNetworkRequest)

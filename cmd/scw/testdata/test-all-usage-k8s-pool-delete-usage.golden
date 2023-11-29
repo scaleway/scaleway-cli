@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This method allows to delete a specific pool from a cluster, deleting all the nodes associated with it.
+Delete a specific pool from a cluster. Note that all the pool's nodes will also be deleted.
 
 USAGE:
   scw k8s pool delete <pool-id ...> [arg=value ...]
 
 EXAMPLES:
-  Delete a given pool
+  Delete a specific pool
     scw k8s pool delete 11111111-1111-1111-111111111111
 
 ARGS:
-  pool-id           The ID of the pool to delete
+  pool-id           ID of the pool to delete
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

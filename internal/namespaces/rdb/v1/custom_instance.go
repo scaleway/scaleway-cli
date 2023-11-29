@@ -15,12 +15,17 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
-	instanceActionTimeout = 20 * time.Minute
+	instanceActionTimeout               = 20 * time.Minute
+	errorMessagePublicEndpointNotFound  = "public endpoint not found"
+	errorMessagePrivateEndpointNotFound = "private endpoint not found"
+	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
 
 var (
@@ -42,6 +47,41 @@ var (
 type serverWaitRequest struct {
 	InstanceID string
 	Region     scw.Region
+	Timeout    time.Duration
+}
+
+type createInstanceResult struct {
+	*rdb.Instance
+	Password string `json:"password"`
+}
+
+func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	instanceResult := i.(createInstanceResult)
+
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "Endpoint",
+		},
+		{
+			FieldName: "Volume",
+		},
+		{
+			FieldName: "BackupSchedule",
+		},
+		{
+			FieldName: "Settings",
+		},
+	}
+
+	instanceStr, err := human.Marshal(instanceResult.Instance, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return strings.Join([]string{
+		instanceStr,
+		terminal.Style("Password: ", color.Bold) + "\n" + instanceResult.Password,
+	}, "\n\n"), nil
 }
 
 func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -123,23 +163,106 @@ func instanceCloneBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+// Caching ListNodeType response for shell completion
+var completeListNodeTypeCache *rdb.ListNodeTypesResponse
+
+func autoCompleteNodeType(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+
+	client := core.ExtractClient(ctx)
+	api := rdb.NewAPI(client)
+
+	if completeListNodeTypeCache == nil {
+		res, err := api.ListNodeTypes(&rdb.ListNodeTypesRequest{}, scw.WithAllPages())
+		if err != nil {
+			return nil
+		}
+		completeListNodeTypeCache = res
+	}
+
+	for _, nodeType := range completeListNodeTypeCache.NodeTypes {
+		if strings.HasPrefix(nodeType.Name, prefix) {
+			suggestions = append(suggestions, nodeType.Name)
+		}
+	}
+
+	return suggestions
+}
+
 func instanceCreateBuilder(c *core.Command) *core.Command {
+	type rdbCreateInstanceRequestCustom struct {
+		*rdb.CreateInstanceRequest
+		GeneratePassword bool
+	}
+
+	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
+		Name:       "generate-password",
+		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("true"),
+	})
+	c.ArgSpecs.GetByName("password").Required = false
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
-	c.ArgSpecs.GetByName("node-type").EnumValues = nodeTypes
+	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
+
+	c.ArgsType = reflect.TypeOf(rdbCreateInstanceRequestCustom{})
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
-		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdb.Instance).ID,
-			Region:        respI.(*rdb.Instance).Region,
+		instance, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
+			InstanceID:    respI.(createInstanceResult).Instance.ID,
+			Region:        respI.(createInstanceResult).Instance.Region,
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
+		if err != nil {
+			return nil, err
+		}
+
+		result := createInstanceResult{
+			Instance: instance,
+			Password: respI.(createInstanceResult).Password,
+		}
+
+		return result, nil
+	}
+
+	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		client := core.ExtractClient(ctx)
+		api := rdb.NewAPI(client)
+
+		customRequest := argsI.(*rdbCreateInstanceRequestCustom)
+		createInstanceRequest := customRequest.CreateInstanceRequest
+
+		var err error
+		createInstanceRequest.NodeType = strings.ToLower(createInstanceRequest.NodeType)
+		if customRequest.GeneratePassword && customRequest.Password == "" {
+			createInstanceRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			if err != nil {
+				return nil, err
+			}
+			fmt.Printf("Your generated password is %s \n", createInstanceRequest.Password)
+			fmt.Printf("\n")
+		}
+
+		instance, err := api.CreateInstance(createInstanceRequest)
+		if err != nil {
+			return nil, err
+		}
+
+		result := createInstanceResult{
+			Instance: instance,
+			Password: createInstanceRequest.Password,
+		}
+
+		return result, nil
 	}
 
 	// Waiting for API to accept uppercase node-type
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		args := argsI.(*rdb.CreateInstanceRequest)
+		args := argsI.(*rdbCreateInstanceRequestCustom)
 		args.NodeType = strings.ToLower(args.NodeType)
 		return runner(ctx, args)
 	}
@@ -147,8 +270,64 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func instanceGetBuilder(c *core.Command) *core.Command {
+	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+		instance := res.(*rdb.Instance)
+
+		args := argsI.(*rdb.GetInstanceRequest)
+
+		acls, err := rdb.NewAPI(core.ExtractClient(ctx)).ListInstanceACLRules(&rdb.ListInstanceACLRulesRequest{
+			Region:     args.Region,
+			InstanceID: args.InstanceID,
+		}, scw.WithAllPages())
+		if err != nil {
+			return res, nil
+		}
+
+		return struct {
+			*rdb.Instance
+			ACLs []*rdb.ACLRule `json:"acls"`
+		}{
+			instance,
+			acls.Rules,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName: "Endpoint",
+				Title:     "Endpoint",
+			},
+			{
+				FieldName: "Volume",
+				Title:     "Volume",
+			},
+			{
+				FieldName: "BackupSchedule",
+				Title:     "Backup schedule",
+			},
+			{
+				FieldName:   "Settings",
+				Title:       "Settings",
+				HideIfEmpty: true,
+			},
+			{
+				FieldName:   "ACLs",
+				Title:       "ACLs",
+				HideIfEmpty: true,
+			},
+		},
+	}
+	return c
+}
+
 func instanceUpgradeBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("node-type").EnumValues = nodeTypes
+	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
@@ -163,7 +342,7 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func instanceUpdateBuilder(c *core.Command) *core.Command {
+func instanceUpdateBuilder(_ *core.Command) *core.Command {
 	type rdbUpdateInstanceRequestCustom struct {
 		*rdb.UpdateInstanceRequest
 		Settings []*rdb.InstanceSetting
@@ -340,13 +519,14 @@ func instanceWaitCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForInstance(&rdb.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
-				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -358,6 +538,7 @@ func instanceWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.WaitTimeoutArgSpec(instanceActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
@@ -369,11 +550,12 @@ func instanceWaitCommand() *core.Command {
 }
 
 type instanceConnectArgs struct {
-	Region     scw.Region
-	InstanceID string
-	Username   string
-	Database   *string
-	CliDB      *string
+	Region         scw.Region
+	PrivateNetwork bool
+	InstanceID     string
+	Username       string
+	Database       *string
+	CliDB          *string
 }
 
 type engineFamily string
@@ -436,7 +618,27 @@ func detectEngineFamily(instance *rdb.Instance) (engineFamily, error) {
 	return Unknown, fmt.Errorf("unknown engine: %s", instance.Engine)
 }
 
-func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, args *instanceConnectArgs) ([]string, error) {
+func getPublicEndpoint(endpoints []*rdb.Endpoint) (*rdb.Endpoint, error) {
+	for _, e := range endpoints {
+		if e.LoadBalancer != nil {
+			return e, nil
+		}
+	}
+
+	return nil, fmt.Errorf(errorMessagePublicEndpointNotFound)
+}
+
+func getPrivateEndpoint(endpoints []*rdb.Endpoint) (*rdb.Endpoint, error) {
+	for _, e := range endpoints {
+		if e.PrivateNetwork != nil {
+			return e, nil
+		}
+	}
+
+	return nil, fmt.Errorf(errorMessagePrivateEndpointNotFound)
+}
+
+func createConnectCommandLineArgs(endpoint *rdb.Endpoint, family engineFamily, args *instanceConnectArgs) ([]string, error) {
 	database := "rdb"
 	if args.Database != nil {
 		database = *args.Database
@@ -452,8 +654,8 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 		// psql -h 51.159.25.206 --port 13917 -d rdb -U username
 		return []string{
 			clidb,
-			"--host", instance.Endpoints[0].IP.String(),
-			"--port", fmt.Sprintf("%d", instance.Endpoints[0].Port),
+			"--host", endpoint.IP.String(),
+			"--port", fmt.Sprintf("%d", endpoint.Port),
 			"--username", args.Username,
 			"--dbname", database,
 		}, nil
@@ -466,14 +668,14 @@ func createConnectCommandLineArgs(instance *rdb.Instance, family engineFamily, a
 		// mysql -h 195.154.69.163 --port 12210 -p -u username
 		return []string{
 			clidb,
-			"--host", instance.Endpoints[0].IP.String(),
-			"--port", fmt.Sprintf("%d", instance.Endpoints[0].Port),
+			"--host", endpoint.IP.String(),
+			"--port", fmt.Sprintf("%d", endpoint.Port),
 			"--database", database,
 			"--user", args.Username,
 		}, nil
 	}
 
-	return nil, fmt.Errorf("unrecognize database engine: %s", instance.Engine)
+	return nil, fmt.Errorf("unrecognize database engine: %s", family)
 }
 
 func instanceConnectCommand() *core.Command {
@@ -485,6 +687,12 @@ func instanceConnectCommand() *core.Command {
 		Long:      "Connect to an instance using locally installed CLI such as psql or mysql.",
 		ArgsType:  reflect.TypeOf(instanceConnectArgs{}),
 		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "private-network",
+				Short:    `Connect by the private network endpoint attached.`,
+				Required: false,
+				Default:  core.DefaultValueSetter("false"),
+			},
 			{
 				Name:       "instance-id",
 				Short:      `UUID of the instance`,
@@ -525,7 +733,25 @@ func instanceConnectCommand() *core.Command {
 				return nil, err
 			}
 
-			cmdArgs, err := createConnectCommandLineArgs(instance, engineFamily, args)
+			if len(instance.Endpoints) == 0 {
+				return nil, fmt.Errorf(errorMessageEndpointNotFound)
+			}
+
+			var endpoint *rdb.Endpoint
+			switch {
+			case args.PrivateNetwork:
+				endpoint, err = getPrivateEndpoint(instance.Endpoints)
+				if err != nil {
+					return nil, err
+				}
+			default:
+				endpoint, err = getPublicEndpoint(instance.Endpoints)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			cmdArgs, err := createConnectCommandLineArgs(endpoint, engineFamily, args)
 			if err != nil {
 				return nil, err
 			}

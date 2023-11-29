@@ -6,11 +6,12 @@ USAGE:
   scw rdb instance connect <instance-id ...> [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance
-  username          Name of the user to connect with to the database
-  [database=rdb]    Name of the database
-  [cli-db]          Command line tool to use, default to psql/mysql
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [private-network=false]   Connect by the private network endpoint attached.
+  instance-id               UUID of the instance
+  username                  Name of the user to connect with to the database
+  [database=rdb]            Name of the database
+  [cli-db]                  Command line tool to use, default to psql/mysql
+  [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for connect

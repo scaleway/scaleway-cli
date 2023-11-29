@@ -1,26 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new function.
+Create a new function in the specified region for a specified Organization or Project.
 
 USAGE:
   scw function function create [arg=value ...]
 
 ARGS:
-  [name=<generated>]                             
-  [namespace-id]                                 
-  [environment-variables.{key}]                  
-  [min-scale]                                    
-  [max-scale]                                    
-  [runtime]                                       (unknown_runtime | golang | python | python3 | node8 | node10 | node14 | node16 | node17 | python37 | python38 | python39 | python310 | go113 | go117 | go118 | node18 | rust165 | go119 | python311 | php82)
-  [memory-limit]                                 
-  [timeout.seconds]                              
-  [timeout.nanos]                                
-  [handler]                                      
-  [privacy]                                       (unknown_privacy | public | private)
-  [description]                                  
+  [name=<generated>]                             Name of the function to create
+  [namespace-id]                                 UUID of the namespace the function will be created in
+  [environment-variables.{key}]                  Environment variables of the function
+  [min-scale]                                    Minumum number of instances to scale the function to
+  [max-scale]                                    Maximum number of instances to scale the function to
+  [runtime]                                      Runtime to use with the function (unknown_runtime | golang | python | python3 | node8 | node10 | node14 | node16 | node17 | python37 | python38 | python39 | python310 | go113 | go117 | go118 | node18 | rust165 | go119 | python311 | php82 | node19 | go120 | node20 | go121)
+  [memory-limit]                                 Memory limit of the function in MB
+  [timeout]                                      Request processing time limit for the function
+  [handler]                                      Handler to use with the function
+  [privacy]                                      Privacy setting of the function (unknown_privacy | public | private)
+  [description]                                  Description of the function
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
-  [http-option]                                  Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
+  [http-option=enabled]                          Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

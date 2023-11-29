@@ -4,6 +4,7 @@ import (
 	"context"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -13,6 +14,7 @@ import (
 )
 
 var (
+	defaultLBTimeout     = 10 * time.Minute
 	lbStatusMarshalSpecs = human.EnumMarshalSpecs{
 		lb.LBStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
 		lb.LBStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
@@ -35,7 +37,7 @@ func lbMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		},
 		{
 			FieldName: "Instances",
-			Title:     "Backends",
+			Title:     "LB Instances",
 		},
 	}
 
@@ -65,6 +67,7 @@ func lbWaitCommand() *core.Command {
 		Namespace: "lb",
 		Resource:  "lb",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(lb.ZonedAPIWaitForLBRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := lb.NewZonedAPI(core.ExtractClient(ctx))
@@ -73,6 +76,7 @@ func lbWaitCommand() *core.Command {
 				LBID:          args.LBID,
 				Zone:          args.Zone,
 				RetryInterval: core.DefaultRetryInterval,
+				Timeout:       args.Timeout,
 			})
 		},
 		ArgSpecs: core.ArgSpecs{
@@ -83,6 +87,7 @@ func lbWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZonePlWaw1, scw.ZoneNlAms1),
+			core.WaitTimeoutArgSpec(defaultLBTimeout),
 		},
 		Examples: []*core.Example{
 			{

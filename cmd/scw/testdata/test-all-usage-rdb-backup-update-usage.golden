@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a database backup.
+Update the parameters of a backup, including name and expiration date.
 
 USAGE:
   scw rdb backup update <database-backup-id ...> [arg=value ...]
@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   database-backup-id   UUID of the database backup to update
   [name]               Name of the Database Backup
-  [expires-at]         Expiration date (Format ISO 8601)
+  [expires-at]         Expiration date (must follow the ISO 8601 format)
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

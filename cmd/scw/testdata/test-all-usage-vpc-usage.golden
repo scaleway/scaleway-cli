@@ -1,12 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-VPC API
+VPC API.
 
 USAGE:
   scw vpc <command>
 
 AVAILABLE COMMANDS:
   private-network Private network management command
+  subnet          Subnet management command
+  vpc             VPC management command
 
 FLAGS:
   -h, --help   help for vpc

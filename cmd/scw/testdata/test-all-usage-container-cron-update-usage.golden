@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update the cron associated with the specified ID.
+
+USAGE:
+  scw container cron update <cron-id ...> [arg=value ...]
+
+ARGS:
+  cron-id           UUID of the cron to update
+  [container-id]    UUID of the container invoked by the cron
+  [schedule]        UNIX cron schedule
+  [args]            Arguments to pass with the cron
+  [name]            Name of the cron
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

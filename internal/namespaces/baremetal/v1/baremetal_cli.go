@@ -25,25 +25,31 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalOs(),
 		baremetalBmc(),
 		baremetalOptions(),
+		baremetalSettings(),
 		baremetalPrivateNetwork(),
 		baremetalServerList(),
 		baremetalServerGet(),
 		baremetalServerCreate(),
 		baremetalServerUpdate(),
 		baremetalServerInstall(),
+		baremetalServerGetMetrics(),
 		baremetalServerDelete(),
 		baremetalServerReboot(),
 		baremetalServerStart(),
 		baremetalServerStop(),
+		baremetalServerListEvents(),
 		baremetalBmcStart(),
 		baremetalBmcGet(),
 		baremetalBmcStop(),
+		baremetalServerUpdateIP(),
 		baremetalOptionsAdd(),
 		baremetalOptionsDelete(),
 		baremetalOfferList(),
 		baremetalOfferGet(),
 		baremetalOptionsGet(),
 		baremetalOptionsList(),
+		baremetalSettingsList(),
+		baremetalSettingsUpdate(),
 		baremetalOsList(),
 		baremetalOsGet(),
 		baremetalPrivateNetworkAdd(),
@@ -54,8 +60,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func baremetalRoot() *core.Command {
 	return &core.Command{
-		Short:     `Elastic metal API`,
-		Long:      ``,
+		Short:     `Elastic Metal API`,
+		Long:      `Elastic Metal API.`,
 		Namespace: "baremetal",
 	}
 }
@@ -63,7 +69,7 @@ func baremetalRoot() *core.Command {
 func baremetalServer() *core.Command {
 	return &core.Command{
 		Short:     `Server management commands`,
-		Long:      `A server is a denomination of a type of instances provided by Scaleway`,
+		Long:      `A server is a denomination of a type of instances provided by Scaleway.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 	}
@@ -72,9 +78,8 @@ func baremetalServer() *core.Command {
 func baremetalOffer() *core.Command {
 	return &core.Command{
 		Short: `Server offer management commands`,
-		Long: `Server offers will answer with all different elastic metal server ranges available in a given zone.
-Each of them will contain all the features of the server (cpus, memories, disks) with their associated pricing.
-`,
+		Long: `Server offers will answer with all different Elastic Metal server ranges available in a  zone.
+Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.`,
 		Namespace: "baremetal",
 		Resource:  "offer",
 	}
@@ -83,7 +88,7 @@ Each of them will contain all the features of the server (cpus, memories, disks)
 func baremetalOs() *core.Command {
 	return &core.Command{
 		Short:     `Operating System (OS) management commands`,
-		Long:      `An Operating System (OS) is the underlying software installed on your server`,
+		Long:      `An Operating System (OS) is the underlying software installed on your server.`,
 		Namespace: "baremetal",
 		Resource:  "os",
 	}
@@ -92,12 +97,11 @@ func baremetalOs() *core.Command {
 func baremetalBmc() *core.Command {
 	return &core.Command{
 		Short: `Baseboard Management Controller (BMC) management commands`,
-		Long: `Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
+		Long: `A Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
 For instance, your KVM-IP management console could be accessed with it.
-You need first to create an option Remote Access. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then you can add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd. Do not forget to delete the Option.
+You need first to create an Remote Access option. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then you can add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd. Do not forget to delete the Option.
 Then you need to create Remote Access https://developers.scaleway.com/en/products/baremetal/api/#post-1af723.
-And finally Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.
-`,
+And finally Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.`,
 		Namespace: "baremetal",
 		Resource:  "bmc",
 	}
@@ -105,26 +109,33 @@ And finally Get Remote Access to get the login/password https://developers.scale
 
 func baremetalOptions() *core.Command {
 	return &core.Command{
-		Short: `Server options management commands`,
-		Long: `A Server has additional options that let you personalize it to better fit your needs.
-`,
+		Short:     `Server options management commands`,
+		Long:      `A Server has additional options that let you personalize it to better fit your needs.`,
 		Namespace: "baremetal",
 		Resource:  "options",
 	}
 }
 
+func baremetalSettings() *core.Command {
+	return &core.Command{
+		Short:     `Settings management commands`,
+		Long:      `Allows to configure the general settings for your Elastic Metal server.`,
+		Namespace: "baremetal",
+		Resource:  "settings",
+	}
+}
+
 func baremetalPrivateNetwork() *core.Command {
 	return &core.Command{
-		Short: `Private network management command`,
-		Long: `A private network allows interconnecting your resources
+		Short: `Private Network management command`,
+		Long: `A Private Network allows you to interconnect your resources
 (servers, instances, ...) in an isolated and private
 network. The network reachability is limited to the
-resources that are on the same private network.  A VLAN
+resources that are on the same Private Network .  A VLAN
 interface is available on the server and can be freely
 managed (adding IP addresses, shutdown interface...).
 
-Note that a resource can be a part of multiple private networks.
-`,
+Note that a resource can be a part of multiple Private Networks.`,
 		Namespace: "baremetal",
 		Resource:  "private-network",
 	}
@@ -132,8 +143,8 @@ Note that a resource can be a part of multiple private networks.
 
 func baremetalServerList() *core.Command {
 	return &core.Command{
-		Short:     `List elastic metal servers for organization`,
-		Long:      `List elastic metal servers for organization.`,
+		Short:     `List Elastic Metal servers for an Organization`,
+		Long:      `List Elastic Metal servers for a specific Organization.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "list",
@@ -150,47 +161,47 @@ func baremetalServerList() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Filter by tags`,
+				Short:      `Tags to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "status.{index}",
-				Short:      `Filter by status`,
+				Short:      `Status to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Filter by name`,
+				Short:      `Names to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
-				Short:      `Filter by project ID`,
+				Short:      `Project ID to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "option-id",
-				Short:      `Filter by option ID`,
+				Short:      `Option ID to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter by organization ID`,
+				Short:      `Organization ID to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListServersRequest)
@@ -211,7 +222,7 @@ func baremetalServerList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "List all servers on your default zone",
+				Short:    "List all servers in your default zone",
 				ArgsJSON: `null`,
 			},
 		},
@@ -220,8 +231,8 @@ func baremetalServerList() *core.Command {
 
 func baremetalServerGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a specific elastic metal server`,
-		Long:      `Get the server associated with the given ID.`,
+		Short:     `Get a specific Elastic Metal server`,
+		Long:      `Get full details of an existing Elastic Metal server associated with the ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "get",
@@ -235,7 +246,7 @@ func baremetalServerGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetServerRequest)
@@ -247,7 +258,7 @@ func baremetalServerGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get a given server",
+				Short:    "Get a specific server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -256,8 +267,8 @@ func baremetalServerGet() *core.Command {
 
 func baremetalServerCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create an elastic metal server`,
-		Long:      `Create a new elastic metal server. Once the server is created, you probably want to install an OS.`,
+		Short:     `Create an Elastic Metal server`,
+		Long:      `Create a new Elastic Metal server. Once the server is created, proceed with the [installation of an OS](#post-3e949e).`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "create",
@@ -281,7 +292,7 @@ func baremetalServerCreate() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      `Description associated to the server, max 255 characters`,
+				Short:      `Description associated with the server, max 255 characters`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -295,7 +306,7 @@ func baremetalServerCreate() *core.Command {
 			},
 			{
 				Name:       "install.os-id",
-				Short:      `ID of the OS to install on the server`,
+				Short:      `ID of the OS to installation on the server`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -316,21 +327,21 @@ func baremetalServerCreate() *core.Command {
 			},
 			{
 				Name:       "install.user",
-				Short:      `User used for the installation`,
+				Short:      `User for the installation`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "install.password",
-				Short:      `Password used for the installation`,
+				Short:      `Password for the installation`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "install.service-user",
-				Short:      `User used for the service to install`,
+				Short:      `Regular user that runs the service to be installed on the server`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -350,7 +361,7 @@ func baremetalServerCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.CreateServerRequest)
@@ -362,7 +373,7 @@ func baremetalServerCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Create instance a default elastic metal instance",
+				Short:    "Create a default Elastic Metal server",
 				ArgsJSON: `null`,
 			},
 		},
@@ -371,8 +382,8 @@ func baremetalServerCreate() *core.Command {
 
 func baremetalServerUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an elastic metal server`,
-		Long:      `Update the server associated with the given ID.`,
+		Short:     `Update an Elastic Metal server`,
+		Long:      `Update the server associated with the ID. You can update parameters such as the server's name, tags and description. Any parameters left null in the request body are not updated.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "update",
@@ -395,19 +406,19 @@ func baremetalServerUpdate() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      `Description associated to the server, max 255 characters, not updated if null`,
+				Short:      `Description associated with the server, max 255 characters, not updated if null`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags associated to the server, not updated if null`,
+				Short:      `Tags associated with the server, not updated if null`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.UpdateServerRequest)
@@ -422,8 +433,8 @@ func baremetalServerUpdate() *core.Command {
 
 func baremetalServerInstall() *core.Command {
 	return &core.Command{
-		Short:     `Install an elastic metal server`,
-		Long:      `Install an OS on the server associated with the given ID.`,
+		Short:     `Install an Elastic Metal server`,
+		Long:      `Install an Operating System (OS) on the Elastic Metal server with a specific ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "install",
@@ -439,7 +450,7 @@ func baremetalServerInstall() *core.Command {
 			},
 			{
 				Name:       "os-id",
-				Short:      `ID of the OS to install on the server`,
+				Short:      `ID of the OS to installation on the server`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -486,7 +497,7 @@ func baremetalServerInstall() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.InstallServerRequest)
@@ -498,13 +509,13 @@ func baremetalServerInstall() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Install an OS on a given server with a particular SSH key ID",
+				Short:    "Install an OS on a  server with a particular SSH key ID",
 				ArgsJSON: `{"os_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111","ssh_key_ids":["11111111-1111-1111-1111-111111111111"]}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
-				Command: "scw account ssh-key list",
+				Command: "scw iam ssh-key list",
 				Short:   "List all SSH keys",
 			},
 			{
@@ -513,16 +524,46 @@ func baremetalServerInstall() *core.Command {
 			},
 			{
 				Command: "scw baremetal server create",
-				Short:   "Create an elastic metal server",
+				Short:   "Create an Elastic Metal server",
 			},
+		},
+	}
+}
+
+func baremetalServerGetMetrics() *core.Command {
+	return &core.Command{
+		Short:     `Return server metrics`,
+		Long:      `Get the ping status of the server associated with the ID.`,
+		Namespace: "baremetal",
+		Resource:  "server",
+		Verb:      "get-metrics",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.GetServerMetricsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `Server ID to get the metrics`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.GetServerMetricsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.GetServerMetrics(request)
+
 		},
 	}
 }
 
 func baremetalServerDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an elastic metal server`,
-		Long:      `Delete the server associated with the given ID.`,
+		Short:     `Delete an Elastic Metal server`,
+		Long:      `Delete the server associated with the ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "delete",
@@ -536,7 +577,7 @@ func baremetalServerDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.DeleteServerRequest)
@@ -548,7 +589,7 @@ func baremetalServerDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete an elastic metal server",
+				Short:    "Delete an Elastic Metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -557,8 +598,8 @@ func baremetalServerDelete() *core.Command {
 
 func baremetalServerReboot() *core.Command {
 	return &core.Command{
-		Short:     `Reboot an elastic metal server`,
-		Long:      `Reboot the server associated with the given ID, use boot param to reboot in rescue.`,
+		Short:     `Reboot an Elastic Metal server`,
+		Long:      `Reboot the Elastic Metal server associated with the ID, use the ` + "`" + `boot_type` + "`" + ` ` + "`" + `rescue` + "`" + ` to reboot the server in rescue mode.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "reboot",
@@ -580,7 +621,7 @@ func baremetalServerReboot() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_boot_type", "normal", "rescue"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.RebootServerRequest)
@@ -605,8 +646,8 @@ func baremetalServerReboot() *core.Command {
 
 func baremetalServerStart() *core.Command {
 	return &core.Command{
-		Short:     `Start an elastic metal server`,
-		Long:      `Start the server associated with the given ID.`,
+		Short:     `Start an Elastic Metal server`,
+		Long:      `Start the server associated with the ID.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "start",
@@ -628,7 +669,7 @@ func baremetalServerStart() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_boot_type", "normal", "rescue"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StartServerRequest)
@@ -640,7 +681,7 @@ func baremetalServerStart() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Start an elastic metal server",
+				Short:    "Start an Elastic Metalx server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
@@ -653,8 +694,8 @@ func baremetalServerStart() *core.Command {
 
 func baremetalServerStop() *core.Command {
 	return &core.Command{
-		Short:     `Stop an elastic metal server`,
-		Long:      `Stop the server associated with the given ID.`,
+		Short:     `Stop an Elastic Metal server`,
+		Long:      `Stop the server associated with the ID. The server remains allocated to your account and all data remains on the local storage of the server.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "stop",
@@ -668,7 +709,7 @@ func baremetalServerStop() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StopServerRequest)
@@ -680,21 +721,67 @@ func baremetalServerStop() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Stop an elastic metal server",
+				Short:    "Stop an Elastic Metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
 }
 
+func baremetalServerListEvents() *core.Command {
+	return &core.Command{
+		Short:     `List server events`,
+		Long:      `List event (i.e. start/stop/reboot) associated to the server ID.`,
+		Namespace: "baremetal",
+		Resource:  "server",
+		Verb:      "list-events",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.ListServerEventsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server events searched`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Order of the server events`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.ListServerEventsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListServerEvents(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Events, nil
+
+		},
+	}
+}
+
 func baremetalBmcStart() *core.Command {
 	return &core.Command{
-		Short: `Start BMC (Baseboard Management Controller) access for a given elastic metal server`,
-		Long: `Start BMC (Baseboard Management Controller) access associated with the given ID.
+		Short: `Start BMC access`,
+		Long: `Start BMC (Baseboard Management Controller) access associated with the ID.
 The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
-You need first to create an option Remote Access. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then you can add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd. Do not forget to delete the Option.
- After start BMC, you need to Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.
-`,
+You need first to create an option Remote Access. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd.
+After adding the BMC option, you need to Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f. Do not forget to delete the Option after use.`,
 		Namespace: "baremetal",
 		Resource:  "bmc",
 		Verb:      "start",
@@ -710,12 +797,12 @@ You need first to create an option Remote Access. You will find the ID and the p
 			},
 			{
 				Name:       "ip",
-				Short:      `The IP authorized to connect to the given server`,
+				Short:      `The IP authorized to connect to the server`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StartBMCAccessRequest)
@@ -730,8 +817,8 @@ You need first to create an option Remote Access. You will find the ID and the p
 
 func baremetalBmcGet() *core.Command {
 	return &core.Command{
-		Short:     `Get BMC (Baseboard Management Controller) access for a given elastic metal server`,
-		Long:      `Get the BMC (Baseboard Management Controller) access associated with the given ID.`,
+		Short:     `Get BMC access`,
+		Long:      `Get the BMC (Baseboard Management Controller) access associated with the ID, including the URL and login information needed to connect.`,
 		Namespace: "baremetal",
 		Resource:  "bmc",
 		Verb:      "get",
@@ -745,7 +832,7 @@ func baremetalBmcGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetBMCAccessRequest)
@@ -760,8 +847,8 @@ func baremetalBmcGet() *core.Command {
 
 func baremetalBmcStop() *core.Command {
 	return &core.Command{
-		Short:     `Stop BMC (Baseboard Management Controller) access for a given elastic metal server`,
-		Long:      `Stop BMC (Baseboard Management Controller) access associated with the given ID.`,
+		Short:     `Stop BMC access`,
+		Long:      `Stop BMC (Baseboard Management Controller) access associated with the ID.`,
 		Namespace: "baremetal",
 		Resource:  "bmc",
 		Verb:      "stop",
@@ -775,7 +862,7 @@ func baremetalBmcStop() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StopBMCAccessRequest)
@@ -794,10 +881,54 @@ func baremetalBmcStop() *core.Command {
 	}
 }
 
+func baremetalServerUpdateIP() *core.Command {
+	return &core.Command{
+		Short:     `Update IP`,
+		Long:      `Configure the IP address associated with the server ID and IP ID. You can use this method to set a reverse DNS for an IP address.`,
+		Namespace: "baremetal",
+		Resource:  "server",
+		Verb:      "update-ip",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.UpdateIPRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ip-id",
+				Short:      `ID of the IP to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "reverse",
+				Short:      `New reverse IP to update, not updated if null`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.UpdateIPRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.UpdateIP(request)
+
+		},
+	}
+}
+
 func baremetalOptionsAdd() *core.Command {
 	return &core.Command{
 		Short:     `Add server option`,
-		Long:      `Add an option to a specific server.`,
+		Long:      `Add an option, such as Private Networks, to a specific server.`,
 		Namespace: "baremetal",
 		Resource:  "options",
 		Verb:      "add",
@@ -825,7 +956,7 @@ func baremetalOptionsAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.AddOptionServerRequest)
@@ -837,7 +968,7 @@ func baremetalOptionsAdd() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Add a given option to a server",
+				Short:    "Add an option, such as Private Networks, to a server",
 				ArgsJSON: `{"option_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -868,7 +999,7 @@ func baremetalOptionsDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.DeleteOptionServerRequest)
@@ -880,7 +1011,7 @@ func baremetalOptionsDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Delete a given option from a server",
+				Short:    "Delete an option from a server",
 				ArgsJSON: `{"option_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -890,7 +1021,7 @@ func baremetalOptionsDelete() *core.Command {
 func baremetalOfferList() *core.Command {
 	return &core.Command{
 		Short:     `List offers`,
-		Long:      `List all available server offers.`,
+		Long:      `List all available Elastic Metal server configurations.`,
 		Namespace: "baremetal",
 		Resource:  "offer",
 		Verb:      "list",
@@ -899,13 +1030,13 @@ func baremetalOfferList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "subscription-period",
-				Short:      `Period of subscription to filter offers`,
+				Short:      `Subscription period type to filter offers by`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_subscription_period", "hourly", "monthly"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListOffersRequest)
@@ -940,7 +1071,7 @@ func baremetalOfferList() *core.Command {
 func baremetalOfferGet() *core.Command {
 	return &core.Command{
 		Short:     `Get offer`,
-		Long:      `Return specific offer for the given ID.`,
+		Long:      `Get details of an offer identified by its offer ID.`,
 		Namespace: "baremetal",
 		Resource:  "offer",
 		Verb:      "get",
@@ -954,7 +1085,7 @@ func baremetalOfferGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetOfferRequest)
@@ -966,7 +1097,7 @@ func baremetalOfferGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get a server offer with the given ID",
+				Short:    "Get a server offer with the ID",
 				ArgsJSON: `{"offer_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
@@ -976,7 +1107,7 @@ func baremetalOfferGet() *core.Command {
 func baremetalOptionsGet() *core.Command {
 	return &core.Command{
 		Short:     `Get option`,
-		Long:      `Return specific option for the given ID.`,
+		Long:      `Return specific option for the ID.`,
 		Namespace: "baremetal",
 		Resource:  "options",
 		Verb:      "get",
@@ -990,7 +1121,7 @@ func baremetalOptionsGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetOptionRequest)
@@ -1002,7 +1133,7 @@ func baremetalOptionsGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Get a server option with the given ID",
+				Short:    "Get a server option with the ID",
 				ArgsJSON: `{"option_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
@@ -1021,19 +1152,19 @@ func baremetalOptionsList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
-				Short:      `Filter options by offer_id`,
+				Short:      `Offer ID to filter options for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Filter options by name`,
+				Short:      `Name to filter options for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListOptionsRequest)
@@ -1065,10 +1196,94 @@ func baremetalOptionsList() *core.Command {
 	}
 }
 
+func baremetalSettingsList() *core.Command {
+	return &core.Command{
+		Short:     `List all settings`,
+		Long:      `Return all settings for a Project ID.`,
+		Namespace: "baremetal",
+		Resource:  "settings",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.ListSettingsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order for items in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "project-id",
+				Short:      `ID of the Project`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.ListSettingsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListSettings(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Settings, nil
+
+		},
+	}
+}
+
+func baremetalSettingsUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update setting`,
+		Long:      `Update a setting for a Project ID (enable or disable).`,
+		Namespace: "baremetal",
+		Resource:  "settings",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.UpdateSettingRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "setting-id",
+				Short:      `ID of the setting`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enabled",
+				Short:      `Defines whether the setting is enabled`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*baremetal.UpdateSettingRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			return api.UpdateSetting(request)
+
+		},
+	}
+}
+
 func baremetalOsList() *core.Command {
 	return &core.Command{
-		Short:     `List all available OS that can be install on an elastic metal server`,
-		Long:      `List all available OS that can be install on an elastic metal server.`,
+		Short:     `List available OSes`,
+		Long:      `List all OSes that are available for installation on Elastic Metal servers.`,
 		Namespace: "baremetal",
 		Resource:  "os",
 		Verb:      "list",
@@ -1077,12 +1292,12 @@ func baremetalOsList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
-				Short:      `Filter OS by offer ID`,
+				Short:      `Offer IDs to filter OSes for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListOSRequest)
@@ -1106,8 +1321,8 @@ func baremetalOsList() *core.Command {
 
 func baremetalOsGet() *core.Command {
 	return &core.Command{
-		Short:     `Get an OS with a given ID`,
-		Long:      `Return specific OS for the given ID.`,
+		Short:     `Get OS with an ID`,
+		Long:      `Return the specific OS for the ID.`,
 		Namespace: "baremetal",
 		Resource:  "os",
 		Verb:      "get",
@@ -1121,7 +1336,7 @@ func baremetalOsGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetOSRequest)
@@ -1142,8 +1357,8 @@ func baremetalOsGet() *core.Command {
 
 func baremetalPrivateNetworkAdd() *core.Command {
 	return &core.Command{
-		Short:     `Add a server to a private network`,
-		Long:      `Add a server to a private network.`,
+		Short:     `Add a server to a Private Network`,
+		Long:      `Add a server to a Private Network.`,
 		Namespace: "baremetal",
 		Resource:  "private-network",
 		Verb:      "add",
@@ -1159,7 +1374,7 @@ func baremetalPrivateNetworkAdd() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `The ID of the private network`,
+				Short:      `The ID of the Private Network`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1179,8 +1394,8 @@ func baremetalPrivateNetworkAdd() *core.Command {
 
 func baremetalPrivateNetworkSet() *core.Command {
 	return &core.Command{
-		Short:     `Set multiple private networks on a server`,
-		Long:      `Set multiple private networks on a server.`,
+		Short:     `Set multiple Private Networks on a server`,
+		Long:      `Set multiple Private Networks on a server.`,
 		Namespace: "baremetal",
 		Resource:  "private-network",
 		Verb:      "set",
@@ -1196,7 +1411,7 @@ func baremetalPrivateNetworkSet() *core.Command {
 			},
 			{
 				Name:       "private-network-ids.{index}",
-				Short:      `The IDs of the private networks`,
+				Short:      `The IDs of the Private Networks`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1216,8 +1431,8 @@ func baremetalPrivateNetworkSet() *core.Command {
 
 func baremetalPrivateNetworkList() *core.Command {
 	return &core.Command{
-		Short:     `List the private networks of a server`,
-		Long:      `List the private networks of a server.`,
+		Short:     `List the Private Networks of a server`,
+		Long:      `List the Private Networks of a server.`,
 		Namespace: "baremetal",
 		Resource:  "private-network",
 		Verb:      "list",
@@ -1226,7 +1441,7 @@ func baremetalPrivateNetworkList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `The sort order for the returned private networks`,
+				Short:      `The sort order for the returned Private Networks`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1234,28 +1449,28 @@ func baremetalPrivateNetworkList() *core.Command {
 			},
 			{
 				Name:       "server-id",
-				Short:      `Filter private networks by server ID`,
+				Short:      `Filter Private Networks by server ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `Filter private networks by private network ID`,
+				Short:      `Filter Private Networks by Private Network ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
-				Short:      `Filter private networks by project ID`,
+				Short:      `Filter Private Networks by Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Filter private networks by organization ID`,
+				Short:      `Filter Private Networks by Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1284,8 +1499,8 @@ func baremetalPrivateNetworkList() *core.Command {
 
 func baremetalPrivateNetworkDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a private network`,
-		Long:      `Delete a private network.`,
+		Short:     `Delete a Private Network`,
+		Long:      `Delete a Private Network.`,
 		Namespace: "baremetal",
 		Resource:  "private-network",
 		Verb:      "delete",
@@ -1301,7 +1516,7 @@ func baremetalPrivateNetworkDelete() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `The ID of the private network`,
+				Short:      `The ID of the Private Network`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,

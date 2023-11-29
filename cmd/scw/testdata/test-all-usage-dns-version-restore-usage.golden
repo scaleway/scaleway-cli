@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Restore and activate a previous DNS zone version.
+Restore and activate a version of a specific DNS zone.
 
 USAGE:
   scw dns version restore <dns-zone-version-id ...> [arg=value ...]

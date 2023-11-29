@@ -1,0 +1,41 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+This namespace allows you to manage your aliases
+Aliases are store in cli config file, Default path for this configuration file is based on the following priority order:
+
+- $SCW_CLI_CONFIG_PATH
+- $XDG_CONFIG_HOME/scw/cli.yaml
+- $HOME/.config/scw/cli.yaml
+- $USERPROFILE/.config/scw/cli.yaml
+
+You can use multiple aliases in one command
+aliases in your commands are evaluated and you get completion
+  with: isl = instance server list
+    "scw isl <TAB>" will complete as "scw instance server list <TAB>"
+    "scw <TAB>" will complete "isl"
+
+USAGE:
+  scw alias <command>
+
+EXAMPLES:
+  Create a custom alias 'isl' for 'instance server list'
+    scw alias create isl command="instance server list"
+
+  Create an alias for a verb
+    scw alias create c command=create
+
+AVAILABLE COMMANDS:
+  create      Create a new alias for a command
+  delete      Delete an alias
+  list        List aliases and their commands
+
+FLAGS:
+  -h, --help   help for alias
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw alias [command] --help" for more information about a command.

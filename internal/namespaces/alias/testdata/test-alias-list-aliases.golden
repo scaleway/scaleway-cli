@@ -1,0 +1,11 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ALIAS    COMMAND
+myalias  iam
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "Alias": "myalias",
+    "Command": "iam"
+  }
+]

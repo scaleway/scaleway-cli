@@ -7,6 +7,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 )
 
@@ -33,6 +34,9 @@ type Command struct {
 
 	// DisableTelemetry disable telemetry for the command.
 	DisableTelemetry bool
+
+	// DisableAfterChecks disable checks that run after the command to avoid superfluous message
+	DisableAfterChecks bool
 
 	// Hidden hides the command form usage and auto-complete.
 	Hidden bool
@@ -71,8 +75,20 @@ type Command struct {
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
 
+	// WebURL will be used as url to open when the --web flag is passed
+	// Can contain template of values in request, ex: "url/{{ .Zone }}/{{ .ResourceID }}"
+	WebURL string
+
+	// WaitUsage override the usage for the -w (--wait) flag
+	WaitUsage string
+
+	// Aliases contains a list of aliases for a command
+	Aliases []string
 	// cache command path
 	path string
+
+	// Groups contains a list of groups IDs
+	Groups []string
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
@@ -161,6 +177,23 @@ func (c *Command) AddInterceptors(interceptors ...CommandInterceptor) {
 	c.Interceptor = combineCommandInterceptor(interceptors...)
 }
 
+// matchAlias returns true if the alias can be used for this command
+func (c *Command) matchAlias(alias alias.Alias) bool {
+	if len(c.ArgSpecs) == 0 {
+		// command should be either a namespace or a resource
+		// We need to check if child commands match this alias
+		return true
+	}
+
+	for _, aliasArg := range alias.Args() {
+		if c.ArgSpecs.GetByName(aliasArg) == nil {
+			return false
+		}
+	}
+
+	return true
+}
+
 // Commands represent a list of CLI commands, with a index to allow searching.
 type Commands struct {
 	commands     []*Command
@@ -205,6 +238,14 @@ func (c *Commands) MustFind(path ...string) *Command {
 	}
 
 	panic(fmt.Errorf("command %v not found", strings.Join(path, " ")))
+}
+
+func (c *Commands) Find(path ...string) *Command {
+	cmd, exist := c.find(path...)
+	if exist {
+		return cmd
+	}
+	return nil
 }
 
 func (c *Commands) Remove(namespace, verb string) {
@@ -282,4 +323,91 @@ func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
 // get a signature to sort commands
 func (c *Command) signature() string {
 	return c.Namespace + " " + c.Resource + " " + c.Verb + " " + c.Short
+}
+
+// aliasIsValidCommandChild returns true is alias is a valid child command of given command
+// Useful for this case:
+// isl => instance server list
+// valid child of "instance"
+// invalid child of "rdb instance"
+func (c *Commands) aliasIsValidCommandChild(command *Command, alias alias.Alias) bool {
+	// if alias is of size one, it means it cannot be a child
+	if len(alias.Command) == 1 {
+		return true
+	}
+
+	// if command is verb, it cannot have children
+	if command.Verb != "" {
+		return true
+	}
+
+	// if command is a resource, check command with alias' verb
+	if command.Resource != "" {
+		return c.Find(command.Namespace, command.Resource, alias.Command[1]) != nil
+	}
+
+	// if command is a namespace, check for alias' verb or resource
+	if command.Namespace != "" {
+		if len(alias.Command) > 2 {
+			return c.Find(command.Namespace, alias.Command[1], alias.Command[2]) != nil
+		}
+		return c.Find(command.Namespace, alias.Command[1]) != nil
+	}
+
+	return false
+}
+
+// addAliases add valid aliases to a command
+func (c *Commands) addAliases(command *Command, aliases []alias.Alias) {
+	names := make([]string, 0, len(aliases))
+	for i := range aliases {
+		if c.aliasIsValidCommandChild(command, aliases[i]) && command.matchAlias(aliases[i]) {
+			names = append(names, aliases[i].Name)
+		}
+	}
+	command.Aliases = append(command.Aliases, names...)
+}
+
+// applyAliases add resource aliases to each commands
+func (c *Commands) applyAliases(config *alias.Config) {
+	for _, command := range c.commands {
+		aliases := []alias.Alias(nil)
+		exists := false
+		if command.Verb != "" {
+			aliases, exists = config.ResolveAliasesByFirstWord(command.Verb)
+		} else if command.Resource != "" {
+			aliases, exists = config.ResolveAliasesByFirstWord(command.Resource)
+		} else if command.Namespace != "" {
+			aliases, exists = config.ResolveAliasesByFirstWord(command.Namespace)
+		}
+		if exists {
+			c.addAliases(command, aliases)
+		}
+	}
+}
+
+// Copy returns a copy of a command
+func (c *Command) Copy() *Command {
+	newCommand := *c
+	newCommand.Aliases = append([]string(nil), c.Aliases...)
+	newCommand.Examples = make([]*Example, len(c.Examples))
+	for i := range c.Examples {
+		e := *c.Examples[i]
+		newCommand.Examples[i] = &e
+	}
+	newCommand.SeeAlsos = make([]*SeeAlso, len(c.SeeAlsos))
+	for i := range c.SeeAlsos {
+		sa := *c.SeeAlsos[i]
+		newCommand.SeeAlsos[i] = &sa
+	}
+	return &newCommand
+}
+
+// Copy return a copy of all commands
+func (c *Commands) Copy() *Commands {
+	newCommands := make([]*Command, len(c.commands))
+	for i := range c.commands {
+		newCommands[i] = c.commands[i].Copy()
+	}
+	return NewCommands(newCommands...)
 }

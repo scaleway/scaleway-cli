@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"sort"
 	"strconv"
@@ -11,7 +12,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -32,7 +32,7 @@ var (
 	}
 )
 
-func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	type humanImage struct {
 		ID               string
 		Name             string
@@ -78,8 +78,8 @@ func imagesMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 			ServerName:       image.ServerName,
 			ServerID:         image.ServerID,
 			Arch:             image.Arch,
-			OrganizationID:   image.OrganizationID,
-			ProjectID:        image.ProjectID,
+			OrganizationID:   image.Organization,
+			ProjectID:        image.Project,
 			CreationDate:     image.CreationDate,
 			ModificationDate: image.ModificationDate,
 		})
@@ -104,22 +104,22 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 	}
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Short = "UUID of the snapshot to add"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-snapshots.{index}.id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Name = "additional-volumes.{index}.id"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Short = "Name of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-snapshots.{index}.name"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.name").Name = "additional-volumes.{index}.name"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Short = "Size of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-snapshots.{index}.size"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.size").Name = "additional-volumes.{index}.size"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Short = "Underlying volume type of the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-snapshots.{index}.volume-type"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.volume-type").Name = "additional-volumes.{index}.volume-type"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Short = "Organization ID that own the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-snapshots.{index}.organization-id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.organization").Name = "additional-volumes.{index}.organization-id"
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Short = "Project ID that own the additional snapshot"
-	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Name = "additional-snapshots.{index}.project-id"
+	c.ArgSpecs.GetByName("extra-volumes.{key}.project").Name = "additional-volumes.{index}.project-id"
 
 	c.ArgSpecs.GetByName("root-volume").Short = "UUID of the snapshot that will be used as root volume in the image"
 	c.ArgSpecs.GetByName("root-volume").Name = "snapshot-id"
@@ -153,23 +153,11 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 // customImage is based on instance.Image, with additional information about the server
 type imageListItem struct {
-	ID                string                      `json:"id"`
-	Name              string                      `json:"name"`
-	Arch              instance.Arch               `json:"arch"`
-	CreationDate      *time.Time                  `json:"creation_date"`
-	ModificationDate  *time.Time                  `json:"modification_date"`
-	DefaultBootscript *instance.Bootscript        `json:"default_bootscript"`
-	ExtraVolumes      map[string]*instance.Volume `json:"extra_volumes"`
-	OrganizationID    string                      `json:"organization"`
-	ProjectID         string                      `json:"project"`
-	Public            bool                        `json:"public"`
-	RootVolume        *instance.VolumeSummary     `json:"root_volume"`
-	State             instance.ImageState         `json:"state"`
+	*instance.Image
 
 	// Replace Image.FromServer
-	ServerID   string   `json:"server_id"`
-	ServerName string   `json:"server_name"`
-	Zone       scw.Zone `json:"zone"`
+	ServerID   string `json:"server_id"`
+	ServerName string `json:"server_name"`
 }
 
 // imageListBuilder list the images for a given organization/project.
@@ -210,19 +198,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 		customImages := []*imageListItem(nil)
 		for _, image := range images {
 			newCustomImage := &imageListItem{
-				ID:                image.ID,
-				Name:              image.Name,
-				Arch:              image.Arch,
-				CreationDate:      image.CreationDate,
-				ModificationDate:  image.ModificationDate,
-				DefaultBootscript: image.DefaultBootscript,
-				ExtraVolumes:      image.ExtraVolumes,
-				OrganizationID:    image.Organization,
-				ProjectID:         image.Project,
-				Public:            image.Public,
-				RootVolume:        image.RootVolume,
-				State:             image.State,
-				Zone:              image.Zone,
+				Image: image,
 			}
 			customImages = append(customImages, newCustomImage)
 
@@ -331,7 +307,7 @@ func imageUpdateCommand() *core.Command {
 			{
 				Name:       "image-id",
 				Required:   true,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -381,7 +357,7 @@ func imageUpdateCommand() *core.Command {
 				ImageID: request.ImageID,
 			})
 			if err != nil {
-				logger.Warningf("cannot get image %s: %s", request.Name, err)
+				return nil, fmt.Errorf("cannot get image %s: %w", request.ImageID, err)
 			}
 
 			if request.Name == nil {
@@ -441,13 +417,14 @@ func imageWaitCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "image",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(instance.WaitForImageRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForImage(&instance.WaitForImageRequest{
 				Zone:          argsI.(*instance.WaitForImageRequest).Zone,
 				ImageID:       argsI.(*instance.WaitForImageRequest).ImageID,
-				Timeout:       scw.TimeDurationPtr(imageActionTimeout),
+				Timeout:       argsI.(*instance.WaitForImageRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -459,6 +436,7 @@ func imageWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(),
+			core.WaitTimeoutArgSpec(imageActionTimeout),
 		},
 		Examples: []*core.Example{
 			{

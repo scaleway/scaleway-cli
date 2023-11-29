@@ -60,21 +60,21 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		type customServerType struct {
-			Name            string                           `json:"name"`
-			HourlyPrice     *scw.Money                       `json:"hourly_price"`
-			LocalVolumeSize scw.Size                         `json:"local_volume_size"`
-			CPU             uint32                           `json:"cpu"`
-			GPU             *uint64                          `json:"gpu"`
-			RAM             scw.Size                         `json:"ram"`
-			Arch            instance.Arch                    `json:"arch"`
-			Availability    instance.ServerTypesAvailability `json:"availability"`
+			Name               string                           `json:"name"`
+			HourlyPrice        *scw.Money                       `json:"hourly_price"`
+			LocalVolumeMaxSize scw.Size                         `json:"local_volume_max_size"`
+			CPU                uint32                           `json:"cpu"`
+			GPU                *uint64                          `json:"gpu"`
+			RAM                scw.Size                         `json:"ram"`
+			Arch               instance.Arch                    `json:"arch"`
+			Availability       instance.ServerTypesAvailability `json:"availability"`
 		}
 
 		api := instance.NewAPI(core.ExtractClient(ctx))
 
 		// Get server types.
 		request := argsI.(*instance.ListServersTypesRequest)
-		listServersTypesResponse, err := api.ListServersTypes(request)
+		listServersTypesResponse, err := api.ListServersTypes(request, scw.WithAllPages())
 		if err != nil {
 			return nil, err
 		}
@@ -83,7 +83,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		// Get server availabilities.
 		availabilitiesResponse, err := api.GetServerTypesAvailability(&instance.GetServerTypesAvailabilityRequest{
 			Zone: request.Zone,
-		})
+		}, scw.WithAllPages())
 		if err != nil {
 			return nil, err
 		}
@@ -95,14 +95,14 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			}
 
 			serverTypes = append(serverTypes, &customServerType{
-				Name:            name,
-				HourlyPrice:     scw.NewMoneyFromFloat(float64(serverType.HourlyPrice), "EUR", 3),
-				LocalVolumeSize: serverType.VolumesConstraint.MinSize,
-				CPU:             serverType.Ncpus,
-				GPU:             serverType.Gpu,
-				RAM:             scw.Size(serverType.RAM),
-				Arch:            serverType.Arch,
-				Availability:    availabilitiesResponse.Servers[name].Availability,
+				Name:               name,
+				HourlyPrice:        scw.NewMoneyFromFloat(float64(serverType.HourlyPrice), "EUR", 3),
+				LocalVolumeMaxSize: serverType.VolumesConstraint.MaxSize,
+				CPU:                serverType.Ncpus,
+				GPU:                serverType.Gpu,
+				RAM:                scw.Size(serverType.RAM),
+				Arch:               serverType.Arch,
+				Availability:       availabilitiesResponse.Servers[name].Availability,
 			})
 		}
 

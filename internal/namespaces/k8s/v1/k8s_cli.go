@@ -24,14 +24,18 @@ func GetGeneratedCommands() *core.Commands {
 		k8sPool(),
 		k8sNode(),
 		k8sVersion(),
+		k8sClusterType(),
 		k8sClusterList(),
 		k8sClusterCreate(),
 		k8sClusterGet(),
 		k8sClusterUpdate(),
 		k8sClusterDelete(),
 		k8sClusterUpgrade(),
+		k8sClusterSetType(),
 		k8sClusterListAvailableVersions(),
+		k8sClusterListAvailableTypes(),
 		k8sClusterResetAdminToken(),
+		k8sClusterMigrateToPrivateNetwork(),
 		k8sPoolList(),
 		k8sPoolCreate(),
 		k8sPoolGet(),
@@ -45,12 +49,13 @@ func GetGeneratedCommands() *core.Commands {
 		k8sNodeDelete(),
 		k8sVersionList(),
 		k8sVersionGet(),
+		k8sClusterTypeList(),
 	)
 }
 func k8sRoot() *core.Command {
 	return &core.Command{
-		Short:     `Kapsule API`,
-		Long:      ``,
+		Short:     `Kubernetes API`,
+		Long:      `Kubernetes API.`,
 		Namespace: "k8s",
 	}
 }
@@ -58,10 +63,8 @@ func k8sRoot() *core.Command {
 func k8sCluster() *core.Command {
 	return &core.Command{
 		Short: `Kapsule cluster management commands`,
-		Long: `A cluster is a fully managed Kubernetes cluster.
-
-It is composed of different pools, each pool containing the same kind of nodes.
-`,
+		Long: `A cluster is a fully managed Kubernetes cluster
+It is composed of different pools, each pool containing the same kind of nodes.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 	}
@@ -70,10 +73,8 @@ It is composed of different pools, each pool containing the same kind of nodes.
 func k8sPool() *core.Command {
 	return &core.Command{
 		Short: `Kapsule pool management commands`,
-		Long: `A pool is a set of identical Nodes. A pool has a name, a size (its current number of nodes), nodes number limits (min, max) and a Scaleway instance type.
-Changing those limits increases/decreases the size of a pool. Thus, when autoscaling is enabled, the pool will grow or shrink inside those limits, depending on its load.
-A "default pool" is automatically created with every cluster.
-`,
+		Long: `A pool is a set of identical nodes
+A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled. A "default pool" is automatically created with every cluster via the console.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 	}
@@ -82,10 +83,8 @@ A "default pool" is automatically created with every cluster.
 func k8sNode() *core.Command {
 	return &core.Command{
 		Short: `Kapsule node management commands`,
-		Long: `A node (short for worker node) is an abstraction for a Scaleway Instance.
-It is part of a pool and is instantiated by Scaleway, making Kubernetes software installed and configured automatically on it.
-Please note that Kubernetes nodes cannot be accessed with ssh.
-`,
+		Long: `A node (short for worker node) is an abstraction for a Scaleway Instance
+A node is always part of a pool. Each of them has the Kubernetes software automatically installed and configured by Scaleway.`,
 		Namespace: "k8s",
 		Resource:  "node",
 	}
@@ -93,22 +92,28 @@ Please note that Kubernetes nodes cannot be accessed with ssh.
 
 func k8sVersion() *core.Command {
 	return &core.Command{
-		Short: `Available Kubernetes version commands`,
-		Long: `A version is a vanilla Kubernetes version like ` + "`" + `x.y.z` + "`" + `.
-It is composed of a major version x, a minor version y and a patch version z.
-Scaleway's managed Kubernetes, Kapsule, will at least support the last patch version for the last three minor release.
-
-Also each version have a different set of container runtimes, CNIs, ingresses, feature gates and admission plugins available.
-`,
+		Short: `Available Kubernetes versions commands`,
+		Long: `A version is a vanilla Kubernetes version like ` + "`" + `x.y.z` + "`" + `
+It comprises a major version ` + "`" + `x` + "`" + `, a minor version ` + "`" + `y` + "`" + `, and a patch version ` + "`" + `z` + "`" + `. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/containers/kubernetes/reference-content/version-support-policy/).`,
 		Namespace: "k8s",
 		Resource:  "version",
 	}
 }
 
+func k8sClusterType() *core.Command {
+	return &core.Command{
+		Short: `Cluster type management commands`,
+		Long: `All cluster types available in a specified region
+A cluster type represents the different commercial types of clusters offered by Scaleway.`,
+		Namespace: "k8s",
+		Resource:  "cluster-type",
+	}
+}
+
 func k8sClusterList() *core.Command {
 	return &core.Command{
-		Short:     `List all the clusters`,
-		Long:      `This method allows to list all the existing Kubernetes clusters in an account.`,
+		Short:     `List Clusters`,
+		Long:      `List all existing Kubernetes clusters in a specific region.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "list",
@@ -117,14 +122,14 @@ func k8sClusterList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `The project ID on which to filter the returned clusters`,
+				Short:      `Project ID on which to filter the returned clusters`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `The sort order of the returned clusters`,
+				Short:      `Sort order of returned clusters`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -132,14 +137,14 @@ func k8sClusterList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `The name on which to filter the returned clusters`,
+				Short:      `Name to filter on, only clusters containing this substring in their name will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "status",
-				Short:      `The status on which to filter the returned clusters`,
+				Short:      `Status to filter on, only clusters with this status will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -147,14 +152,21 @@ func k8sClusterList() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `The type on which to filter the returned clusters`,
+				Short:      `Type to filter on, only clusters with this type will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `Private Network ID to filter on, only clusters within this Private Network will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `The organization ID on which to filter the returned clusters`,
+				Short:      `Organization ID on which to filter the returned clusters`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -180,16 +192,16 @@ func k8sClusterList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "List all the clusters on your default region",
-				ArgsJSON: `null`,
+				Short: "List all clusters on your default region",
+				Raw:   `scw k8s cluster list`,
 			},
 			{
-				Short:    "List the ready clusters on your default region",
-				ArgsJSON: `{"status":"ready"}`,
+				Short: "List the ready clusters on your default region",
+				Raw:   `scw k8s cluster list status=ready`,
 			},
 			{
-				Short:    "List the clusters that match the given name on fr-par ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
-				ArgsJSON: `{"name":"cluster1","region":"fr-par"}`,
+				Short: "List the clusters that match the given name on fr-par ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
+				Raw:   `scw k8s cluster list region=fr-par name=cluster1`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -238,8 +250,8 @@ func k8sClusterList() *core.Command {
 
 func k8sClusterCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a new cluster`,
-		Long:      `This method allows to create a new Kubernetes cluster on an account.`,
+		Short:     `Create a new Cluster`,
+		Long:      `Create a new Kubernetes cluster in a Scaleway region.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "create",
@@ -249,14 +261,14 @@ func k8sClusterCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "type",
-				Short:      `The type of the cluster`,
+				Short:      `Type of the cluster (possible values are kapsule, multicloud, kapsule-dedicated-8, kapsule-dedicated-16)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `The name of the cluster`,
+				Short:      `Cluster name`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -264,28 +276,28 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      `The description of the cluster`,
+				Short:      `Cluster description`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags associated with the cluster`,
+				Short:      `Tags associated with the cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "version",
-				Short:      `The Kubernetes version of the cluster`,
+				Short:      `Kubernetes version of the cluster`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "cni",
-				Short:      `The Container Network Interface (CNI) plugin that will run in the cluster`,
+				Short:      `Container Network Interface (CNI) plugin running in the cluster`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -293,14 +305,14 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "enable-dashboard",
-				Short:      `The enablement of the Kubernetes Dashboard in the cluster`,
+				Short:      `Defines whether the Kubernetes Dashboard is enabled in the cluster`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "ingress",
-				Short:      `The Ingress Controller that will run in the cluster`,
+				Short:      `Ingress Controller running in the cluster (deprecated feature)`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
@@ -308,56 +320,56 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.name",
-				Short:      `The name of the pool`,
-				Required:   true,
+				Short:      `Name of the pool`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.node-type",
-				Short:      `The node type is the type of Scaleway Instance wanted for the pool`,
-				Required:   true,
+				Short:      `Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.placement-group-id",
-				Short:      `The placement group ID in which all the nodes of the pool will be created`,
+				Short:      `Placement group ID in which all the nodes of the pool will be created`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.autoscaling",
-				Short:      `The enablement of the autoscaling feature for the pool`,
+				Short:      `Defines whether the autoscaling feature is enabled for the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.size",
-				Short:      `The size (number of nodes) of the pool`,
-				Required:   true,
+				Short:      `Size (number of nodes) of the pool`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.min-size",
-				Short:      `The minimum size of the pool`,
+				Short:      `Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.max-size",
-				Short:      `The maximum size of the pool`,
+				Short:      `Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.container-runtime",
-				Short:      `The container runtime for the nodes of the pool`,
+				Short:      `Customization of the container runtime is available for each pool. Note that ` + "`" + `docker` + "`" + ` has been deprecated since version 1.20 and will be removed by version 1.24`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -365,21 +377,21 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.autohealing",
-				Short:      `The enablement of the autohealing feature for the pool`,
+				Short:      `Defines whether the autohealing feature is enabled for the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.tags.{index}",
-				Short:      `The tags associated with the pool`,
+				Short:      `Tags associated with the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.kubelet-args.{key}",
-				Short:      `The Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental`,
+				Short:      `Kubelet arguments to be used by this pool. Note that this feature is experimental`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -400,14 +412,14 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.zone",
-				Short:      `The Zone in which the Pool's node will be spawn in`,
+				Short:      `Zone in which the pool's nodes will be spawned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.root-volume-type",
-				Short:      `The system volume disk type`,
+				Short:      `Defines the system volume disk type. Two different types of volume (` + "`" + `volume_type` + "`" + `) are provided: ` + "`" + `l_ssd` + "`" + ` is a local block storage which means your system is stored locally on your node's hypervisor. ` + "`" + `b_ssd` + "`" + ` is a remote block storage which means your system is stored on a centralized and resilient cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -415,7 +427,14 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.root-volume-size",
-				Short:      `The system volume disk size`,
+				Short:      `System volume disk size`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.public-ip-disabled",
+				Short:      `Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -466,21 +485,21 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "autoscaler-config.expendable-pods-priority-cutoff",
-				Short:      `Pods with priority below cutoff will be expendable`,
+				Short:      `Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.scale-down-unneeded-time",
-				Short:      `How long a node should be unneeded before it is eligible for scale down`,
+				Short:      `How long a node should be unneeded before it is eligible to be scaled down`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.scale-down-utilization-threshold",
-				Short:      `Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down`,
+				Short:      `Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -494,21 +513,21 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "auto-upgrade.enable",
-				Short:      `Whether or not auto upgrade is enabled for the cluster`,
+				Short:      `Defines whether auto upgrade is enabled for the cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "auto-upgrade.maintenance-window.start-hour",
-				Short:      `The start hour of the 2-hour maintenance window`,
+				Short:      `Start time of the two-hour maintenance window`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "auto-upgrade.maintenance-window.day",
-				Short:      `The day of the week for the maintenance window`,
+				Short:      `Day of the week for the maintenance window`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -530,28 +549,28 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "open-id-connect-config.issuer-url",
-				Short:      `URL of the provider which allows the API server to discover public signing keys`,
+				Short:      `URL of the provider which allows the API server to discover public signing keys. Only URLs using the ` + "`" + `https://` + "`" + ` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com"`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "open-id-connect-config.client-id",
-				Short:      `A client id that all tokens must be issued for`,
+				Short:      `A client ID that all tokens must be issued for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "open-id-connect-config.username-claim",
-				Short:      `JWT claim to use as the user name`,
+				Short:      `JWT claim to use as the user name. The default is ` + "`" + `sub` + "`" + `, which is expected to be the end user's unique identifier. Admins can choose other claims, such as ` + "`" + `email` + "`" + ` or ` + "`" + `name` + "`" + `, depending on their provider. However, claims other than ` + "`" + `email` + "`" + ` will be prefixed with the issuer URL to prevent name collision`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "open-id-connect-config.username-prefix",
-				Short:      `Prefix prepended to username`,
+				Short:      `Prefix prepended to username claims to prevent name collision (such as ` + "`" + `system:` + "`" + ` users). For example, the value ` + "`" + `oidc:` + "`" + ` will create usernames like ` + "`" + `oidc:jane.doe` + "`" + `. If this flag is not provided and ` + "`" + `username_claim` + "`" + ` is a value other than ` + "`" + `email` + "`" + `, the prefix defaults to ` + "`" + `( Issuer URL )#` + "`" + ` where ` + "`" + `( Issuer URL )` + "`" + ` is the value of ` + "`" + `issuer_url` + "`" + `. The value ` + "`" + `-` + "`" + ` can be used to disable all prefixing`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -565,14 +584,14 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "open-id-connect-config.groups-prefix",
-				Short:      `Prefix prepended to group claims`,
+				Short:      `Prefix prepended to group claims to prevent name collision (such as ` + "`" + `system:` + "`" + ` groups). For example, the value ` + "`" + `oidc:` + "`" + ` will create group names like ` + "`" + `oidc:engineering` + "`" + ` and ` + "`" + `oidc:infra` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "open-id-connect-config.required-claim.{index}",
-				Short:      `Multiple key=value pairs that describes a required claim in the ID Token`,
+				Short:      `Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -580,6 +599,13 @@ func k8sClusterCreate() *core.Command {
 			{
 				Name:       "apiserver-cert-sans.{index}",
 				Short:      `Additional Subject Alternative Names for the Kubernetes API server certificate`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `Private network ID for internal cluster communication (cannot be changed later)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -597,12 +623,12 @@ func k8sClusterCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Create a Kubernetes cluster named foo with cilium as CNI, in version 1.17.4 and with a pool named default composed of 3 DEV1-M",
-				Raw:   `scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default`,
+				Short: "Create a Kubernetes cluster named foo with cilium as CNI, in version 1.27.0 and with a pool named default composed of 3 DEV1-M",
+				Raw:   `scw k8s cluster create name=foo version=1.27.0 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default`,
 			},
 			{
-				Short: "Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.17.4 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)",
-				Raw:   `scw k8s cluster create name=bar version=1.17.4 tags.0=tag1 tags.1=tag2 cni=cilium pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default`,
+				Short: "Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.27.0 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)",
+				Raw:   `scw k8s cluster create name=bar version=1.27.0 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default`,
 			},
 		},
 	}
@@ -610,8 +636,8 @@ func k8sClusterCreate() *core.Command {
 
 func k8sClusterGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a cluster`,
-		Long:      `This method allows to get details about a specific Kubernetes cluster.`,
+		Short:     `Get a Cluster`,
+		Long:      `Retrieve information about a specific Kubernetes cluster.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "get",
@@ -620,7 +646,7 @@ func k8sClusterGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `The ID of the requested cluster`,
+				Short:      `ID of the requested cluster`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -637,7 +663,7 @@ func k8sClusterGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Get a given cluster",
+				Short: "Get a cluster information",
 				Raw:   `scw k8s cluster get 11111111-1111-1111-111111111111`,
 			},
 		},
@@ -646,8 +672,8 @@ func k8sClusterGet() *core.Command {
 
 func k8sClusterUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a cluster`,
-		Long:      `This method allows to update a specific Kubernetes cluster. Note that this method is not made to upgrade a Kubernetes cluster.`,
+		Short:     `Update a Cluster`,
+		Long:      `Update information on a specific Kubernetes cluster. You can update details such as its name, description, tags and configuration. To upgrade a cluster, you will need to use the dedicated endpoint.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "update",
@@ -656,28 +682,28 @@ func k8sClusterUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `The ID of the cluster to update`,
+				Short:      `ID of the cluster to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
-				Short:      `The new name of the cluster`,
+				Short:      `New external name for the cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `The new description of the cluster`,
+				Short:      `New description for the cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The new tags associated with the cluster`,
+				Short:      `New tags associated with the cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -728,21 +754,21 @@ func k8sClusterUpdate() *core.Command {
 			},
 			{
 				Name:       "autoscaler-config.expendable-pods-priority-cutoff",
-				Short:      `Pods with priority below cutoff will be expendable`,
+				Short:      `Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.scale-down-unneeded-time",
-				Short:      `How long a node should be unneeded before it is eligible for scale down`,
+				Short:      `How long a node should be unneeded before it is eligible to be scaled down`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.scale-down-utilization-threshold",
-				Short:      `Node utilization level, defined as sum of requested resources divided by capacity, below which a node can be considered for scale down`,
+				Short:      `Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -756,14 +782,14 @@ func k8sClusterUpdate() *core.Command {
 			},
 			{
 				Name:       "enable-dashboard",
-				Short:      `The new value of the Kubernetes Dashboard enablement`,
+				Short:      `New value for the Kubernetes Dashboard enablement`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "ingress",
-				Short:      `The new Ingress Controller for the cluster`,
+				Short:      `New Ingress Controller for the cluster (deprecated feature)`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
@@ -771,21 +797,21 @@ func k8sClusterUpdate() *core.Command {
 			},
 			{
 				Name:       "auto-upgrade.enable",
-				Short:      `Whether or not auto upgrade is enabled for the cluster`,
+				Short:      `Defines whether auto upgrade is enabled for the cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "auto-upgrade.maintenance-window.start-hour",
-				Short:      `The start hour of the 2-hour maintenance window`,
+				Short:      `Start time of the two-hour maintenance window`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "auto-upgrade.maintenance-window.day",
-				Short:      `The day of the week for the maintenance window`,
+				Short:      `Day of the week for the maintenance window`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -807,28 +833,28 @@ func k8sClusterUpdate() *core.Command {
 			},
 			{
 				Name:       "open-id-connect-config.issuer-url",
-				Short:      `URL of the provider which allows the API server to discover public signing keys`,
+				Short:      `URL of the provider which allows the API server to discover public signing keys. Only URLs using the ` + "`" + `https://` + "`" + ` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com"`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "open-id-connect-config.client-id",
-				Short:      `A client id that all tokens must be issued for`,
+				Short:      `A client ID that all tokens must be issued for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "open-id-connect-config.username-claim",
-				Short:      `JWT claim to use as the user name`,
+				Short:      `JWT claim to use as the user name. The default is ` + "`" + `sub` + "`" + `, which is expected to be the end user's unique identifier. Admins can choose other claims, such as ` + "`" + `email` + "`" + ` or ` + "`" + `name` + "`" + `, depending on their provider. However, claims other than ` + "`" + `email` + "`" + ` will be prefixed with the issuer URL to prevent name collision`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "open-id-connect-config.username-prefix",
-				Short:      `Prefix prepended to username`,
+				Short:      `Prefix prepended to username claims to prevent name collision (such as ` + "`" + `system:` + "`" + ` users). For example, the value ` + "`" + `oidc:` + "`" + ` will create usernames like ` + "`" + `oidc:jane.doe` + "`" + `. If this flag is not provided and ` + "`" + `username_claim` + "`" + ` is a value other than ` + "`" + `email` + "`" + `, the prefix defaults to ` + "`" + `( Issuer URL )#` + "`" + ` where ` + "`" + `( Issuer URL )` + "`" + ` is the value of ` + "`" + `issuer_url` + "`" + `. The value ` + "`" + `-` + "`" + ` can be used to disable all prefixing`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -842,14 +868,14 @@ func k8sClusterUpdate() *core.Command {
 			},
 			{
 				Name:       "open-id-connect-config.groups-prefix",
-				Short:      `Prefix prepended to group claims`,
+				Short:      `Prefix prepended to group claims to prevent name collision (such as ` + "`" + `system:` + "`" + ` groups). For example, the value ` + "`" + `oidc:` + "`" + ` will create group names like ` + "`" + `oidc:engineering` + "`" + ` and ` + "`" + `oidc:infra` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "open-id-connect-config.required-claim.{index}",
-				Short:      `Multiple key=value pairs that describes a required claim in the ID Token`,
+				Short:      `Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -873,11 +899,11 @@ func k8sClusterUpdate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Enable dashboard on a given cluster",
+				Short: "Enable dashboard on a cluster",
 				Raw:   `scw k8s cluster update 11111111-1111-1111-111111111111 enable-dashboard=true`,
 			},
 			{
-				Short: "Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a given cluster",
+				Short: "Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a cluster",
 				Raw:   `scw k8s cluster update 11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion`,
 			},
 		},
@@ -886,8 +912,8 @@ func k8sClusterUpdate() *core.Command {
 
 func k8sClusterDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a cluster`,
-		Long:      `This method allows to delete a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.`,
+		Short:     `Delete a Cluster`,
+		Long:      `Delete a specific Kubernetes cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancer or Block Volume that are associated with the cluster.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "delete",
@@ -896,14 +922,14 @@ func k8sClusterDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `The ID of the cluster to delete`,
+				Short:      `ID of the cluster to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "with-additional-resources",
-				Short:      `Set true if you want to delete all volumes (including retain volume type) and loadbalancers whose name start with cluster ID`,
+				Short:      `Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -920,8 +946,12 @@ func k8sClusterDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Delete a given cluster",
+				Short: "Delete a cluster",
 				Raw:   `scw k8s cluster delete 11111111-1111-1111-111111111111`,
+			},
+			{
+				Short: "Delete a cluster with its Block volumes and Load Balancers",
+				Raw:   `scw k8s cluster delete 11111111-1111-1111-111111111111 with-additional-resources=true`,
 			},
 		},
 	}
@@ -929,8 +959,8 @@ func k8sClusterDelete() *core.Command {
 
 func k8sClusterUpgrade() *core.Command {
 	return &core.Command{
-		Short:     `Upgrade a cluster`,
-		Long:      `This method allows to upgrade a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.`,
+		Short:     `Upgrade a Cluster`,
+		Long:      `Upgrade a specific Kubernetes cluster and possibly its associated pools to a specific and supported Kubernetes version.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "upgrade",
@@ -939,21 +969,21 @@ func k8sClusterUpgrade() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `The ID of the cluster to upgrade`,
+				Short:      `ID of the cluster to upgrade`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "version",
-				Short:      `The new Kubernetes version of the cluster`,
+				Short:      `New Kubernetes version of the cluster. Note that the version should either be a higher patch version of the same minor version or the direct minor version after the current one`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "upgrade-pools",
-				Short:      `The enablement of the pools upgrade`,
+				Short:      `Defines whether pools will also be upgraded once the control plane is upgraded`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -970,12 +1000,55 @@ func k8sClusterUpgrade() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Upgrade a given cluster to Kubernetes version 1.17.4 (without upgrading the pools)",
-				Raw:   `scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.17.4`,
+				Short: "Upgrade a cluster version 1.27.0 of Kubernetes (pools *are not* included)",
+				Raw:   `scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.27.0`,
 			},
 			{
-				Short: "Upgrade a given cluster to Kubernetes version 1.17.4 (and upgrade the pools)",
-				Raw:   `scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.17.4 upgrade-pools=true`,
+				Short: "Upgrade a cluster to version 1.27.0 of Kubernetes (pools *are* included)",
+				Raw:   `scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.27.0 upgrade-pools=true`,
+			},
+		},
+	}
+}
+
+func k8sClusterSetType() *core.Command {
+	return &core.Command{
+		Short:     `Change the Cluster type`,
+		Long:      `Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the ` + "`" + `type` + "`" + ` field, [list available cluster types](#path-clusters-list-available-cluster-types-for-a-cluster).`,
+		Namespace: "k8s",
+		Resource:  "cluster",
+		Verb:      "set-type",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.SetClusterTypeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `ID of the cluster to migrate from one type to another`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "type",
+				Short:      `Type of the cluster. Note that some migrations are not possible (please refer to product documentation)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.SetClusterTypeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.SetClusterType(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Convert a kapsule cluster to a kapsule-dedicated-16 cluster",
+				Raw:   `scw k8s cluster set-type 11111111-1111-1111-111111111111 type=kapsule-dedicated-16`,
 			},
 		},
 	}
@@ -983,8 +1056,8 @@ func k8sClusterUpgrade() *core.Command {
 
 func k8sClusterListAvailableVersions() *core.Command {
 	return &core.Command{
-		Short:     `List available versions for a cluster`,
-		Long:      `This method allows to list the versions that a specific Kubernetes cluster is allowed to upgrade to. Note that it will be every patch version greater than the actual one as well a one minor version ahead of the actual one. Upgrades skipping a minor version will not work.`,
+		Short:     `List available versions for a Cluster`,
+		Long:      `List the versions that a specific Kubernetes cluster is allowed to upgrade to. Results will include every patch version greater than the current patch, as well as one minor version ahead of the current version. Any upgrade skipping a minor version will not work.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "list-available-versions",
@@ -993,7 +1066,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `The ID of the cluster which the available Kuberentes versions will be listed from`,
+				Short:      `Cluster ID for which the available Kubernetes versions will be listed`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1010,7 +1083,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "List all available versions for a given cluster to upgrade to",
+				Short: "List all versions that a cluster can upgrade to",
 				Raw:   `scw k8s cluster list-available-versions 11111111-1111-1111-111111111111`,
 			},
 		},
@@ -1031,10 +1104,51 @@ func k8sClusterListAvailableVersions() *core.Command {
 	}
 }
 
+func k8sClusterListAvailableTypes() *core.Command {
+	return &core.Command{
+		Short:     `List available cluster types for a cluster`,
+		Long:      `List the cluster types that a specific Kubernetes cluster is allowed to switch to.`,
+		Namespace: "k8s",
+		Resource:  "cluster",
+		Verb:      "list-available-types",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.ListClusterAvailableTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `Cluster ID for which the available Kubernetes types will be listed`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ListClusterAvailableTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.ListClusterAvailableTypes(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short: "List all cluster types that a cluster can upgrade to",
+				Raw:   `scw k8s cluster list-available-types 11111111-1111-1111-111111111111`,
+			},
+		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "Name",
+			},
+		}},
+	}
+}
+
 func k8sClusterResetAdminToken() *core.Command {
 	return &core.Command{
-		Short:     `Reset the admin token of a cluster`,
-		Long:      `This method allows to reset the admin token for a specific Kubernetes cluster. This will invalidate the old admin token (which will not be usable after) and create a new one. Note that the redownload of the kubeconfig will be necessary to keep interacting with the cluster (if the old admin token was used).`,
+		Short:     `Reset the admin token of a Cluster`,
+		Long:      `Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download kubeconfig again to keep interacting with the cluster.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "reset-admin-token",
@@ -1043,7 +1157,7 @@ func k8sClusterResetAdminToken() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `The ID of the cluster of which the admin token will be renewed`,
+				Short:      `Cluster ID on which the admin token will be renewed`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1066,8 +1180,51 @@ func k8sClusterResetAdminToken() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Reset the admin token for a given cluster",
+				Short: "Reset the admin token for a cluster",
 				Raw:   `scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111`,
+			},
+		},
+	}
+}
+
+func k8sClusterMigrateToPrivateNetwork() *core.Command {
+	return &core.Command{
+		Short:     `Migrate an existing cluster to a Private Network cluster`,
+		Long:      `Migrate a cluster that was created before the release of Private Network clusters to a new one with a Private Network.`,
+		Namespace: "k8s",
+		Resource:  "cluster",
+		Verb:      "migrate-to-private-network",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.MigrateToPrivateNetworkClusterRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `ID of the cluster to migrate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `ID of the Private Network to link to the cluster`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.MigrateToPrivateNetworkClusterRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.MigrateToPrivateNetworkCluster(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Migrate a cluster to a Private Network cluster",
+				Raw:   `scw k8s cluster migrate-to-private-network 11111111-1111-1111-111111111111 private-network-id=11111111-1111-1111-111111111111`,
 			},
 		},
 	}
@@ -1075,8 +1232,8 @@ func k8sClusterResetAdminToken() *core.Command {
 
 func k8sPoolList() *core.Command {
 	return &core.Command{
-		Short:     `List all the pools in a cluster`,
-		Long:      `This method allows to list all the existing pools for a specific Kubernetes cluster.`,
+		Short:     `List Pools in a Cluster`,
+		Long:      `List all the existing pools for a specific Kubernetes cluster.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "list",
@@ -1085,14 +1242,14 @@ func k8sPoolList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `The ID of the cluster from which the pools will be listed from`,
+				Short:      `ID of the cluster whose pools will be listed`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `The sort order of the returned pools`,
+				Short:      `Sort order of returned pools`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1100,14 +1257,14 @@ func k8sPoolList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `The name on which to filter the returned pools`,
+				Short:      `Name to filter on, only pools containing this substring in their name will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "status",
-				Short:      `The status on which to filter the returned pools`,
+				Short:      `Status to filter on, only pools with this status will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1134,19 +1291,19 @@ func k8sPoolList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "List all pools for a given cluster",
+				Short: "List all pools for a cluster",
 				Raw:   `scw k8s pool list cluster-id=11111111-1111-1111-111111111111`,
 			},
 			{
-				Short: "List all scaling pools for a given cluster",
+				Short: "List all scaling pools for a cluster",
 				Raw:   `scw k8s pool list cluster-id=11111111-1111-1111-111111111111 status=scaling`,
 			},
 			{
-				Short: "List all pools for a given cluster that contain the word foo in the pool name",
+				Short: "List all pools for clusters containing 'foo' in their name",
 				Raw:   `scw k8s pool list cluster-id=11111111-1111-1111-111111111111 name=foo`,
 			},
 			{
-				Short: "List all pools for a given cluster and order them by ascending creation date",
+				Short: "List all pools for a cluster and order them by ascending creation date",
 				Raw:   `scw k8s pool list cluster-id=11111111-1111-1111-111111111111 order-by=created_at_asc`,
 			},
 		},
@@ -1214,8 +1371,8 @@ func k8sPoolList() *core.Command {
 
 func k8sPoolCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a new pool in a cluster`,
-		Long:      `This method allows to create a new pool in a specific Kubernetes cluster.`,
+		Short:     `Create a new Pool in a Cluster`,
+		Long:      `Create a new pool in a specific Kubernetes cluster.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "create",
@@ -1224,14 +1381,14 @@ func k8sPoolCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `The ID of the cluster in which the pool will be created`,
+				Short:      `Cluster ID to which the pool will be attached`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `The name of the pool`,
+				Short:      `Pool name`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1239,49 +1396,49 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "node-type",
-				Short:      `The node type is the type of Scaleway Instance wanted for the pool`,
+				Short:      `Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "placement-group-id",
-				Short:      `The placement group ID in which all the nodes of the pool will be created`,
+				Short:      `Placement group ID in which all the nodes of the pool will be created`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaling",
-				Short:      `The enablement of the autoscaling feature for the pool`,
+				Short:      `Defines whether the autoscaling feature is enabled for the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "size",
-				Short:      `The size (number of nodes) of the pool`,
+				Short:      `Size (number of nodes) of the pool`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "min-size",
-				Short:      `The minimum size of the pool`,
+				Short:      `Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "max-size",
-				Short:      `The maximum size of the pool`,
+				Short:      `Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "container-runtime",
-				Short:      `The container runtime for the nodes of the pool`,
+				Short:      `Customization of the container runtime is available for each pool. Note that ` + "`" + `docker` + "`" + ` has been deprecated since version 1.20 and will be removed by version 1.24`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1289,21 +1446,21 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "autohealing",
-				Short:      `The enablement of the autohealing feature for the pool`,
+				Short:      `Defines whether the autohealing feature is enabled for the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags associated with the pool`,
+				Short:      `Tags associated with the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "kubelet-args.{key}",
-				Short:      `The Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental`,
+				Short:      `Kubelet arguments to be used by this pool. Note that this feature is experimental`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1322,14 +1479,14 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "zone",
-				Short:      `The Zone in which the Pool's node will be spawn in`,
+				Short:      `Zone in which the pool's nodes will be spawned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "root-volume-type",
-				Short:      `The system volume disk type`,
+				Short:      `Defines the system volume disk type. Two different types of volume (` + "`" + `volume_type` + "`" + `) are provided: ` + "`" + `l_ssd` + "`" + ` is a local block storage which means your system is stored locally on your node's hypervisor. ` + "`" + `b_ssd` + "`" + ` is a remote block storage which means your system is stored on a centralized and resilient cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1337,7 +1494,14 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "root-volume-size",
-				Short:      `The system volume disk size`,
+				Short:      `System volume disk size`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-ip-disabled",
+				Short:      `Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1354,15 +1518,15 @@ func k8sPoolCreate() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Create a pool named bar with 2 DEV1-XL on a given cluster",
+				Short: "Create a pool named 'bar' with 2 DEV1-XL on a cluster",
 				Raw:   `scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2`,
 			},
 			{
-				Short: "Create a pool named fish with 5 GP1-L with autoscaling enabled within 0 and 10 nodes, autohealing enabled, and containerd as the container runtime on a given cluster",
+				Short: "Create a pool named 'fish' with 5 GP1-L, autoscaling within 0 and 10 nodes and autohealing enabled, and containerd as the cluster container runtime",
 				Raw:   `scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true container-runtime=containerd`,
 			},
 			{
-				Short: "Create a tagged pool named turtle with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a given cluster",
+				Short: "Create a tagged pool named 'turtle' with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a cluster",
 				Raw:   `scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=2222222222222-2222-222222222222 tags.0=turtle tags.1=placement-group`,
 			},
 		},
@@ -1371,8 +1535,8 @@ func k8sPoolCreate() *core.Command {
 
 func k8sPoolGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a pool in a cluster`,
-		Long:      `This method allows to get details about a specific pool.`,
+		Short:     `Get a Pool in a Cluster`,
+		Long:      `Retrieve details about a specific pool in a Kubernetes cluster.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "get",
@@ -1381,7 +1545,7 @@ func k8sPoolGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
-				Short:      `The ID of the requested pool`,
+				Short:      `ID of the requested pool`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1407,8 +1571,8 @@ func k8sPoolGet() *core.Command {
 
 func k8sPoolUpgrade() *core.Command {
 	return &core.Command{
-		Short:     `Upgrade a pool in a cluster`,
-		Long:      `This method allows to upgrade the Kubernetes version of a specific pool. Note that this will work when the targeted version is the same than the version of the cluster.`,
+		Short:     `Upgrade a Pool in a Cluster`,
+		Long:      `Upgrade the Kubernetes version of a specific pool. Note that it only works if the targeted version matches the cluster's version.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "upgrade",
@@ -1417,14 +1581,14 @@ func k8sPoolUpgrade() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
-				Short:      `The ID of the pool to upgrade`,
+				Short:      `ID of the pool to upgrade`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "version",
-				Short:      `The new Kubernetes version for the pool`,
+				Short:      `New Kubernetes version for the pool`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -1441,8 +1605,8 @@ func k8sPoolUpgrade() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Upgrade a given pool to the Kubernetes version 1.17.4",
-				Raw:   `scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.17.4`,
+				Short: "Upgrade a specific pool to the Kubernetes version 1.27.0",
+				Raw:   `scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.27.0`,
 			},
 		},
 	}
@@ -1450,8 +1614,8 @@ func k8sPoolUpgrade() *core.Command {
 
 func k8sPoolUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a pool in a cluster`,
-		Long:      `This method allows to update some attributes of a specific pool such as the size, the autoscaling enablement, the tags, ...`,
+		Short:     `Update a Pool in a Cluster`,
+		Long:      `Update the attributes of a specific pool, such as its desired size, autoscaling settings, and tags.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "update",
@@ -1460,56 +1624,56 @@ func k8sPoolUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
-				Short:      `The ID of the pool to update`,
+				Short:      `ID of the pool to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "autoscaling",
-				Short:      `The new value for the enablement of autoscaling for the pool`,
+				Short:      `New value for the pool autoscaling enablement`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "size",
-				Short:      `The new size for the pool`,
+				Short:      `New desired pool size`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "min-size",
-				Short:      `The new minimun size for the pool`,
+				Short:      `New minimum size for the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "max-size",
-				Short:      `The new maximum size for the pool`,
+				Short:      `New maximum size for the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autohealing",
-				Short:      `The new value for the enablement of autohealing for the pool`,
+				Short:      `New value for the pool autohealing enablement`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The new tags associated with the pool`,
+				Short:      `New tags associated with the pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "kubelet-args.{key}",
-				Short:      `The new Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental`,
+				Short:      `New Kubelet arguments to be used by this pool. Note that this feature is experimental`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1542,11 +1706,11 @@ func k8sPoolUpdate() *core.Command {
 				Raw:   `scw k8s pool update 11111111-1111-1111-111111111111 autoscaling=true`,
 			},
 			{
-				Short: "Reduce the size and max size of a given pool to 4",
+				Short: "Reduce the size and maximum size of a given pool to 4",
 				Raw:   `scw k8s pool update 11111111-1111-1111-111111111111 size=4 max-size=4`,
 			},
 			{
-				Short: "Change the tags of the given pool",
+				Short: "Modify the tags of a given pool",
 				Raw:   `scw k8s pool update 11111111-1111-1111-111111111111 tags.0=my tags.1=new tags.2=pool`,
 			},
 		},
@@ -1555,8 +1719,8 @@ func k8sPoolUpdate() *core.Command {
 
 func k8sPoolDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a pool in a cluster`,
-		Long:      `This method allows to delete a specific pool from a cluster, deleting all the nodes associated with it.`,
+		Short:     `Delete a Pool in a Cluster`,
+		Long:      `Delete a specific pool from a cluster. Note that all the pool's nodes will also be deleted.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "delete",
@@ -1565,7 +1729,7 @@ func k8sPoolDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
-				Short:      `The ID of the pool to delete`,
+				Short:      `ID of the pool to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1582,7 +1746,7 @@ func k8sPoolDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Delete a given pool",
+				Short: "Delete a specific pool",
 				Raw:   `scw k8s pool delete 11111111-1111-1111-111111111111`,
 			},
 		},
@@ -1591,8 +1755,8 @@ func k8sPoolDelete() *core.Command {
 
 func k8sNodeList() *core.Command {
 	return &core.Command{
-		Short:     `List all the nodes in a cluster`,
-		Long:      `This method allows to list all the existing nodes for a specific Kubernetes cluster.`,
+		Short:     `List Nodes in a Cluster`,
+		Long:      `List all the existing nodes for a specific Kubernetes cluster.`,
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "list",
@@ -1601,21 +1765,21 @@ func k8sNodeList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `The cluster ID from which the nodes will be listed from`,
+				Short:      `Cluster ID from which the nodes will be listed from`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pool-id",
-				Short:      `The pool ID on which to filter the returned nodes`,
+				Short:      `Pool ID on which to filter the returned nodes`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `The sort order of the returned nodes`,
+				Short:      `Sort order of the returned nodes`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1623,14 +1787,14 @@ func k8sNodeList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `The name on which to filter the returned nodes`,
+				Short:      `Name to filter on, only nodes containing this substring in their name will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "status",
-				Short:      `The status on which to filter the returned nodes`,
+				Short:      `Status to filter on, only nodes with this status will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1657,16 +1821,16 @@ func k8sNodeList() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "List all the nodes in the given cluster",
-				Raw:   `scw k8s node list 11111111-1111-1111-111111111111`,
+				Short: "List all the nodes in the cluster",
+				Raw:   `scw k8s node list cluster-id=11111111-1111-1111-111111111111`,
 			},
 			{
-				Short: "List all the nodes in the pool 2222222222222-2222-222222222222 in the given cluster",
-				Raw:   `scw k8s node list 11111111-1111-1111-111111111111 pool-id=2222222222222-2222-222222222222`,
+				Short: "List all the nodes in the cluster's 2222222222222-2222-222222222222 pool",
+				Raw:   `scw k8s node list cluster-id=11111111-1111-1111-111111111111 pool-id=2222222222222-2222-222222222222`,
 			},
 			{
-				Short: "List all ready nodes in the given cluster",
-				Raw:   `scw k8s node list 11111111-1111-1111-111111111111 status=ready`,
+				Short: "List all cluster nodes that are ready",
+				Raw:   `scw k8s node list cluster-id=11111111-1111-1111-111111111111 status=ready`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -1678,12 +1842,6 @@ func k8sNodeList() *core.Command {
 			},
 			{
 				FieldName: "Status",
-			},
-			{
-				FieldName: "PublicIPV4",
-			},
-			{
-				FieldName: "PublicIPV6",
 			},
 			{
 				FieldName: "PoolID",
@@ -1706,8 +1864,8 @@ func k8sNodeList() *core.Command {
 
 func k8sNodeGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a node in a cluster`,
-		Long:      `This method allows to get details about a specific Kubernetes node.`,
+		Short:     `Get a Node in a Cluster`,
+		Long:      `Retrieve details about a specific Kubernetes Node.`,
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "get",
@@ -1716,7 +1874,7 @@ func k8sNodeGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
-				Short:      `The ID of the requested node`,
+				Short:      `ID of the requested node`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1733,7 +1891,7 @@ func k8sNodeGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Get a given node",
+				Short: "Get a node",
 				Raw:   `scw k8s node get 11111111-1111-1111-111111111111`,
 			},
 		},
@@ -1742,8 +1900,8 @@ func k8sNodeGet() *core.Command {
 
 func k8sNodeReplace() *core.Command {
 	return &core.Command{
-		Short:     `Replace a node in a cluster`,
-		Long:      `This method allows to replace a specific node. The node will be set cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Then the node will be deleted, and a new one will be created after the deletion. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.`,
+		Short:     `Replace a Node in a Cluster`,
+		Long:      `Replace a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.`,
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "replace",
@@ -1752,7 +1910,7 @@ func k8sNodeReplace() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
-				Short:      `The ID of the node to replace`,
+				Short:      `ID of the node to replace`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1769,7 +1927,7 @@ func k8sNodeReplace() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Replace a given node",
+				Short: "Replace a node",
 				Raw:   `scw k8s node replace 11111111-1111-1111-111111111111`,
 			},
 		},
@@ -1778,8 +1936,8 @@ func k8sNodeReplace() *core.Command {
 
 func k8sNodeReboot() *core.Command {
 	return &core.Command{
-		Short:     `Reboot a node in a cluster`,
-		Long:      `This method allows to reboot a specific node. This node will frist be cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.`,
+		Short:     `Reboot a Node in a Cluster`,
+		Long:      `Reboot a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.`,
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "reboot",
@@ -1788,7 +1946,7 @@ func k8sNodeReboot() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
-				Short:      `The ID of the node to reboot`,
+				Short:      `ID of the node to reboot`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1805,7 +1963,7 @@ func k8sNodeReboot() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Reboot a given node",
+				Short: "Reboot a node",
 				Raw:   `scw k8s node reboot 11111111-1111-1111-111111111111`,
 			},
 		},
@@ -1814,8 +1972,8 @@ func k8sNodeReboot() *core.Command {
 
 func k8sNodeDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a node in a cluster`,
-		Long:      `This method allows to delete a specific node. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.`,
+		Short:     `Delete a Node in a Cluster`,
+		Long:      `Delete a specific Node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.`,
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "delete",
@@ -1824,7 +1982,7 @@ func k8sNodeDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
-				Short:      `The ID of the node to replace`,
+				Short:      `ID of the node to replace`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1855,15 +2013,15 @@ func k8sNodeDelete() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Delete a given node",
+				Short: "Delete a node",
 				Raw:   `scw k8s node delete 11111111-1111-1111-111111111111`,
 			},
 			{
-				Short: "Delete a given node without evicting workloads",
+				Short: "Delete a node without evicting workloads",
 				Raw:   `scw k8s node delete 11111111-1111-1111-111111111111 skip-drain=true`,
 			},
 			{
-				Short: "Replace a given node by a new one",
+				Short: "Replace a node by a new one",
 				Raw:   `scw k8s node delete 11111111-1111-1111-111111111111 replace=true`,
 			},
 		},
@@ -1872,8 +2030,8 @@ func k8sNodeDelete() *core.Command {
 
 func k8sVersionList() *core.Command {
 	return &core.Command{
-		Short:     `List all available versions`,
-		Long:      `This method allows to list all available versions for the creation of a new Kubernetes cluster.`,
+		Short:     `List all available Versions`,
+		Long:      `List all available versions for the creation of a new Kubernetes cluster.`,
 		Namespace: "k8s",
 		Resource:  "version",
 		Verb:      "list",
@@ -1924,8 +2082,8 @@ func k8sVersionList() *core.Command {
 
 func k8sVersionGet() *core.Command {
 	return &core.Command{
-		Short:     `Get details about a specific version`,
-		Long:      `This method allows to get a specific Kubernetes version and the details about the version.`,
+		Short:     `Get a Version`,
+		Long:      `Retrieve a specific Kubernetes version and its details.`,
 		Namespace: "k8s",
 		Resource:  "version",
 		Verb:      "get",
@@ -1934,7 +2092,7 @@ func k8sVersionGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version-name",
-				Short:      `The requested version name`,
+				Short:      `Requested version name`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1951,9 +2109,41 @@ func k8sVersionGet() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short: "Get the Kubernetes version 1.18.0",
-				Raw:   `scw k8s version get 1.18.0`,
+				Short: "Get the Kubernetes version 1.27.0",
+				Raw:   `scw k8s version get 1.27.0`,
 			},
+		},
+	}
+}
+
+func k8sClusterTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List cluster types`,
+		Long:      `List available cluster types and their technical details.`,
+		Namespace: "k8s",
+		Resource:  "cluster-type",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.ListClusterTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ListClusterTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListClusterTypes(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.ClusterTypes, nil
+
 		},
 	}
 }

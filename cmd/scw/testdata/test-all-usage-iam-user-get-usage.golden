@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve a user from its ID.
+Retrieve information about a user, specified by the `user_id` parameter. The user's full details, including `id`, `email`, `organization_id`, `status` and `mfa` are returned in the response.
 
 USAGE:
   scw iam user get <user-id ...> [arg=value ...]
 
 ARGS:
-  user-id   ID of user to find
+  user-id   ID of the user to find
 
 FLAGS:
   -h, --help   help for get

@@ -1,9 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List marketplace images.
+List all available images on the marketplace, their UUID, CPU architecture and description.
 
 USAGE:
-  scw marketplace image list
+  scw marketplace image list [arg=value ...]
+
+ARGS:
+  [order-by]      Ordering to use (name_asc | name_desc | created_at_asc | created_at_desc | updated_at_asc | updated_at_desc)
+  [arch]          Choose for which machine architecture to return images
+  [category]      Choose the category of images to get
+  [include-eol]   Choose to include end-of-life images
 
 FLAGS:
   -h, --help   help for list
@@ -16,4 +22,4 @@ GLOBAL FLAGS:
 
 SEE ALSO:
   # List all images available in an account
-  scw instance list images
+  scw instance image list

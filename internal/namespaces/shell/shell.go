@@ -16,6 +16,7 @@ func GetCommands() *core.Commands {
 
 func shellCommand() *core.Command {
 	return &core.Command{
+		Groups:               []string{"utility"},
 		Short:                "Start shell mode",
 		Namespace:            "shell",
 		AllowAnonymousClient: false,

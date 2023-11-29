@@ -1,22 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A cluster is a fully managed Kubernetes cluster.
-
+A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 USAGE:
   scw k8s cluster <command>
 
 AVAILABLE COMMANDS:
-  create                  Create a new cluster
-  delete                  Delete a cluster
-  get                     Get a cluster
-  list                    List all the clusters
-  list-available-versions List available versions for a cluster
-  reset-admin-token       Reset the admin token of a cluster
-  update                  Update a cluster
-  upgrade                 Upgrade a cluster
-  wait                    Wait for a cluster to reach a stable state
+  create                     Create a new Cluster
+  delete                     Delete a Cluster
+  get                        Get a Cluster
+  list                       List Clusters
+  list-available-types       List available cluster types for a cluster
+  list-available-versions    List available versions for a Cluster
+  migrate-to-private-network Migrate an existing cluster to a Private Network cluster
+  reset-admin-token          Reset the admin token of a Cluster
+  set-type                   Change the Cluster type
+  update                     Update a Cluster
+  upgrade                    Upgrade a Cluster
+
+WORKFLOW COMMANDS:
+  wait                       Wait for a cluster to reach a stable state
 
 FLAGS:
   -h, --help   help for cluster

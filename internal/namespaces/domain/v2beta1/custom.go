@@ -10,6 +10,8 @@ var (
 	domainTypes = []string{"A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR"}
 )
 
+const defaultTTL = "3600"
+
 // GetCommands returns dns commands.
 //
 // This function:
@@ -24,6 +26,8 @@ func GetCommands() *core.Commands {
 		dnsRecordSetCommand(),
 		dnsRecordDeleteCommand(),
 	))
+
+	cmds.MustFind("dns", "zone", "import").ArgSpecs.GetByName("bind-source.content").CanLoadFile = true
 
 	human.RegisterMarshalerFunc(domain.DNSZoneStatus(""), human.EnumMarshalFunc(zoneStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(domain.SSLCertificateStatus(""), human.EnumMarshalFunc(certificateStatusMarshalSpecs))

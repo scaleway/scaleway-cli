@@ -1,14 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update an existing application.
+Update the parameters of an application, including `name` and `description`.
 
 USAGE:
   scw iam application update <application-id ...> [arg=value ...]
 
 ARGS:
-  application-id   ID of application to update
-  [name]           New name of application (max length is 64 chars)
-  [description]    New description of application (max length is 200 chars)
+  application-id   ID of the application to update
+  [name]           New name for the application (max length is 64 chars)
+  [description]    New description for the application (max length is 200 chars)
+  [tags.{index}]   New tags for the application (maximum of 10 tags)
 
 FLAGS:
   -h, --help   help for update

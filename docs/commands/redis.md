@@ -3,44 +3,45 @@
 Managed Database for Redis™ API
   
 - [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
-  - [Add ACL rules for a given cluster](#add-acl-rules-for-a-given-cluster)
-  - [Delete an ACL rule for a given cluster](#delete-an-acl-rule-for-a-given-cluster)
+  - [Add ACL rules for a cluster](#add-acl-rules-for-a-cluster)
+  - [Delete an ACL rule for a cluster](#delete-an-acl-rule-for-a-cluster)
   - [Get an ACL rule](#get-an-acl-rule)
-  - [Set ACL rules for a given cluster](#set-acl-rules-for-a-given-cluster)
+  - [Set ACL rules for a cluster](#set-acl-rules-for-a-cluster)
 - [Cluster management commands](#cluster-management-commands)
-  - [Create a cluster](#create-a-cluster)
-  - [Delete a cluster](#delete-a-cluster)
-  - [Get a cluster](#get-a-cluster)
+  - [Create a Redis™ Database Instance](#create-a-redis™-database-instance)
+  - [Delete a Redis™ Database Instance](#delete-a-redis™-database-instance)
+  - [Get a Redis™ Database Instance](#get-a-redis™-database-instance)
   - [Get the TLS certificate of a cluster](#get-the-tls-certificate-of-a-cluster)
-  - [List clusters](#list-clusters)
-  - [Get metrics of a cluster](#get-metrics-of-a-cluster)
-  - [Migrate your cluster architecture](#migrate-your-cluster-architecture)
+  - [List Redis™ Database Instances](#list-redis™-database-instances)
+  - [Get metrics of a Redis™ Database Instance](#get-metrics-of-a-redis™-database-instance)
+  - [Scale up a Redis™ Database Instance](#scale-up-a-redis™-database-instance)
   - [Renew the TLS certificate of a cluster](#renew-the-tls-certificate-of-a-cluster)
-  - [Update a cluster](#update-a-cluster)
+  - [Update a Redis™ Database Instance](#update-a-redis™-database-instance)
+  - [Wait for a Redis cluster to reach a stable state](#wait-for-a-redis-cluster-to-reach-a-stable-state)
 - [Endpoints management commands](#endpoints-management-commands)
-  - [Add endpoints for a given cluster](#add-endpoints-for-a-given-cluster)
-  - [Delete an endpoint for a given cluster](#delete-an-endpoint-for-a-given-cluster)
+  - [Add endpoints for a cluster](#add-endpoints-for-a-cluster)
+  - [Delete an endpoint for a cluster](#delete-an-endpoint-for-a-cluster)
   - [Get an endpoint](#get-an-endpoint)
-  - [Set endpoints for a given cluster](#set-endpoints-for-a-given-cluster)
+  - [Set endpoints for a cluster](#set-endpoints-for-a-cluster)
+  - [Update an endpoint](#update-an-endpoint)
 - [Node Types management commands](#node-types-management-commands)
   - [List available node types](#list-available-node-types)
 - [Settings management commands](#settings-management-commands)
-  - [Add cluster settings](#add-cluster-settings)
-  - [Delete a cluster setting](#delete-a-cluster-setting)
-  - [Set cluster settings](#set-cluster-settings)
+  - [Add advanced settings](#add-advanced-settings)
+  - [Delete advanced setting](#delete-advanced-setting)
+  - [Set advanced settings](#set-advanced-settings)
 - [Redis™ version management commands](#redis™-version-management-commands)
   - [List available Redis™ versions](#list-available-redis™-versions)
 
   
 ## Access Control List (ACL) management commands
 
-Network Access Control List allows to control network inbound traffic allowed by setting up ACL rules. ACL rules could be created, edited, deleted.
+Network Access Control Lists (ACLs) allow you to manage network inbound traffic by setting up ACL rules.
 
 
+### Add ACL rules for a cluster
 
-### Add ACL rules for a given cluster
-
-Add ACL rules for a given cluster.
+Add an additional ACL rule to a Redis™ Database Instance (Redis™ cluster).
 
 **Usage:**
 
@@ -53,16 +54,16 @@ scw redis acl add [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | UUID of the cluster you want to add acl rules to |
+| cluster-id | Required | UUID of the Database Instance you want to add ACL rules to |
 | acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Delete an ACL rule for a given cluster
+### Delete an ACL rule for a cluster
 
-Delete an ACL rule for a given cluster.
+Delete an ACL rule of a Redis™ Database Instance (Redis™ cluster). You must specify the `acl_id` of the rule you want to delete in your request.
 
 **Usage:**
 
@@ -75,14 +76,14 @@ scw redis acl delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| acl-id | Required | UUID of the acl rule you want to delete |
+| acl-id | Required | UUID of the ACL rule you want to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ### Get an ACL rule
 
-Get an ACL rule.
+Retrieve information about an ACL rule of a Redis™ Database Instance (Redis™ cluster). You must specify the `acl_id` of the rule in your request.
 
 **Usage:**
 
@@ -95,14 +96,14 @@ scw redis acl get <acl-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| acl-id | Required | UUID of the acl rule you want to get |
+| acl-id | Required | UUID of the ACL rule you want to get |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Set ACL rules for a given cluster
+### Set ACL rules for a cluster
 
-Set ACL rules for a given cluster.
+Replace all the ACL rules of a Redis™ Database Instance (Redis™ cluster).
 
 **Usage:**
 
@@ -115,7 +116,7 @@ scw redis acl set [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | UUID of the cluster where the ACL rules has to be set |
+| cluster-id | Required | UUID of the Database Instance where the ACL rules have to be set |
 | acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
@@ -124,13 +125,12 @@ scw redis acl set [arg=value ...]
 
 ## Cluster management commands
 
-A Managed Database for Redis™ cluster is composed of one or more Nodes depending of the cluster_size setting.
+A Redis™ Database Instance, also known as a Redis™ cluster, consists of either one standalone node or a cluster composed of three to six nodes. The cluster uses partitioning to split the keyspace. Each partition is replicated and can be reassigned or elected as the primary when necessary. Standalone mode creates a standalone database provisioned on a single node.
 
 
+### Create a Redis™ Database Instance
 
-### Create a cluster
-
-Create a cluster.
+Create a new Redis™ Database Instance (Redis™ cluster). You must set the `zone`, `project_id`, `version`, `node_type`, `user_name` and `password` parameters. Optionally you can define `acl_rules`, `endpoints`, `tls_enabled` and `cluster_settings`.
 
 **Usage:**
 
@@ -144,27 +144,28 @@ scw redis cluster create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name of the cluster |
-| version | Required | Redis™ engine version of the cluster |
-| tags.{index} |  | Tags to apply to the cluster |
-| node-type | Required | Type of node to use for the cluster |
-| user-name | Required | Name of the user created when the cluster is created |
+| name | Default: `<generated>` | Name of the Database Instance |
+| version | Required | Redis™ engine version of the Database Instance |
+| tags.{index} |  | Tags to apply to the Database Instance |
+| node-type | Required | Type of node to use for the Database Instance |
+| user-name | Required | Name of the user created upon Database Instance creation |
 | password | Required | Password of the user |
-| cluster-size |  | Number of nodes for the cluster |
+| cluster-size |  | Number of nodes in the Redis™ cluster |
 | acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
-| endpoints.{index}.private-network.id |  | UUID of the private network to be connected to the cluster |
-| endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation. |
-| tls-enabled |  | Whether or not TLS is enabled |
+| endpoints.{index}.private-network.enable-ipam | Default: `false` | Will configure your Private Network endpoint with Scaleway IPAM service if true |
+| endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
+| endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
+| tls-enabled |  | Defines whether or not TLS is enabled |
 | cluster-settings.{index}.value |  | Value of the setting |
 | cluster-settings.{index}.name |  | Name of the setting |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Delete a cluster
+### Delete a Redis™ Database Instance
 
-Delete a cluster.
+Delete a Redis™ Database Instance (Redis™ cluster), specified by the `region` and `cluster_id` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.
 
 **Usage:**
 
@@ -177,14 +178,14 @@ scw redis cluster delete <cluster-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | UUID of the cluster to delete |
+| cluster-id | Required | UUID of the Database Instance to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Get a cluster
+### Get a Redis™ Database Instance
 
-Get a cluster.
+Retrieve information about a Redis™ Database Instance (Redis™ cluster). Specify the `cluster_id` and `region` in your request to get information such as `id`, `status`, `version`, `tls_enabled`, `cluster_settings`, `upgradable_versions` and `endpoints` about your cluster in the response.
 
 **Usage:**
 
@@ -204,7 +205,7 @@ scw redis cluster get <cluster-id ...> [arg=value ...]
 
 ### Get the TLS certificate of a cluster
 
-Get the TLS certificate of a cluster.
+Retrieve information about the TLS certificate of a Redis™ Database Instance (Redis™ cluster). Details like name and content are returned in the response.
 
 **Usage:**
 
@@ -222,9 +223,9 @@ scw redis cluster get-certificate <cluster-id ...> [arg=value ...]
 
 
 
-### List clusters
+### List Redis™ Database Instances
 
-List clusters.
+List all Redis™ Database Instances (Redis™ cluster) in the specified zone. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags`, `name`, `organization_id` and `version`.
 
 **Usage:**
 
@@ -237,19 +238,19 @@ scw redis cluster list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| tags.{index} |  | Tags of the clusters to filter upon |
-| name |  | Name of the clusters to filter upon |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering cluster listing |
-| project-id |  | Project ID to list the cluster of |
-| version |  | Version of the clusters to filter upon |
-| organization-id |  | Organization ID to list the cluster of |
+| tags.{index} |  | Filter by Database Instance tags |
+| name |  | Filter by Database Instance names |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering the list |
+| project-id |  | Filter by Project ID |
+| version |  | Filter by Redis™ engine version |
+| organization-id |  | Filter by Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Get metrics of a cluster
+### Get metrics of a Redis™ Database Instance
 
-Get metrics of a cluster.
+Retrieve the metrics of a Redis™ Database Instance (Redis™ cluster). You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`.
 
 **Usage:**
 
@@ -263,16 +264,16 @@ scw redis cluster metrics <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | UUID of the cluster |
-| start-at |  | Start date to gather metrics from |
-| end-at |  | End date to gather metrics from |
+| start-at |  | Start date |
+| end-at |  | End date |
 | metric-name |  | Name of the metric to gather |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Migrate your cluster architecture
+### Scale up a Redis™ Database Instance
 
-Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster won't renew its TLS certificate. In order to refresh the SSL certificate, you have to use the dedicated api route.
+Upgrade your standalone Redis™ Database Instance node, either by upgrading to a bigger node type (vertical scaling) or by adding more nodes to your Database Instance to increase your number of endpoints and distribute cache (horizontal scaling). Note that scaling horizontally your Redis™ Database Instance will not renew its TLS certificate. In order to refresh the TLS certificate, you must use the Renew TLS certificate endpoint.
 
 **Usage:**
 
@@ -285,17 +286,17 @@ scw redis cluster migrate <cluster-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| version |  | Redis™ engine version of the cluster |
-| node-type |  | Type of node to use for the cluster |
-| cluster-size |  | Number of nodes for the cluster |
-| cluster-id | Required | UUID of the cluster to update |
+| version |  | Redis™ engine version of the Database Instance |
+| node-type |  | Type of node to use for the Database Instance |
+| cluster-size |  | Number of nodes for the Database Instance |
+| cluster-id | Required | UUID of the Database Instance to update |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ### Renew the TLS certificate of a cluster
 
-Renew the TLS certificate of a cluster.
+Renew a TLS certificate for a Redis™ Database Instance (Redis™ cluster). Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.
 
 **Usage:**
 
@@ -313,9 +314,9 @@ scw redis cluster renew-certificate <cluster-id ...> [arg=value ...]
 
 
 
-### Update a cluster
+### Update a Redis™ Database Instance
 
-Update a cluster.
+Update the parameters of a Redis™ Database Instance (Redis™ cluster), including `name`, `tags`, `user_name` and `password`.
 
 **Usage:**
 
@@ -328,24 +329,54 @@ scw redis cluster update <cluster-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  | Name of the cluster |
-| tags.{index} |  | Tags of a given cluster |
-| user-name |  | Name of the cluster user |
-| password |  | Password of the cluster user |
-| cluster-id | Required | UUID of the cluster to update |
+| name |  | Name of the Database Instance |
+| tags.{index} |  | Database Instance tags |
+| user-name |  | Name of the Database Instance user |
+| password |  | Password of the Database Instance user |
+| cluster-id | Required | UUID of the Database Instance to update |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Wait for a Redis cluster to reach a stable state
+
+Wait for a Redis cluster to reach a stable state. This is similar to using --wait flag.
+
+**Usage:**
+
+```
+scw redis cluster wait <cluster-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | ID of the cluster you want to wait for |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| timeout | Default: `15m0s` | Timeout of the wait |
+
+
+**Examples:**
+
+
+Wait for a Redis cluster to reach a stable state
+```
+scw redis cluster wait
+```
+
 
 
 
 ## Endpoints management commands
 
-Manage endpoints to access to your cluster trough Public or Private networks
+Manage endpoint access to your Redis™ Database Instance through Public or Private Networks.
 
 
+### Add endpoints for a cluster
 
-### Add endpoints for a given cluster
-
-Add endpoints for a given cluster.
+Add a new endpoint for a Redis™ Database Instance (Redis™ cluster). You can add `private_network` or `public_network` specifications to the body of the request.
 
 **Usage:**
 
@@ -358,16 +389,16 @@ scw redis endpoint add [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | UUID of the cluster you want to add endpoints to |
-| endpoints.{index}.private-network.id |  | UUID of the private network to be connected to the cluster |
-| endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation. |
+| cluster-id | Required | UUID of the Database Instance you want to add endpoints to |
+| endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
+| endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Delete an endpoint for a given cluster
+### Delete an endpoint for a cluster
 
-Delete an endpoint for a given cluster.
+Delete the endpoint of a Redis™ Database Instance (Redis™ cluster). You must specify the `region` and `endpoint_id` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.
 
 **Usage:**
 
@@ -387,7 +418,7 @@ scw redis endpoint delete [arg=value ...]
 
 ### Get an endpoint
 
-Get an endpoint.
+Retrieve information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like `ips`, `port`, `private_network` and `public_network` specifications are returned in the response.
 
 **Usage:**
 
@@ -405,9 +436,9 @@ scw redis endpoint get <endpoint-id ...> [arg=value ...]
 
 
 
-### Set endpoints for a given cluster
+### Set endpoints for a cluster
 
-Set endpoints for a given cluster.
+Update an endpoint for a Redis™ Database Instance (Redis™ cluster). You must specify the `cluster_id` and the `endpoints` parameters in your request.
 
 **Usage:**
 
@@ -420,22 +451,43 @@ scw redis endpoint set [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | UUID of the cluster where the endpoints has to be set |
-| endpoints.{index}.private-network.id |  | UUID of the private network to be connected to the cluster |
-| endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation. |
+| cluster-id | Required | UUID of the Database Instance where the endpoints have to be set |
+| endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
+| endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Update an endpoint
+
+Update information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like `ips`, `port`, `private_network` and `public_network` specifications are returned in the response.
+
+**Usage:**
+
+```
+scw redis endpoint update <endpoint-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| endpoint-id | Required | UUID of the endpoint you want to get |
+| private-network.id |  | UUID of the Private Network to connect to the Database Instance |
+| private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## Node Types management commands
 
-Node types powering your cluster.
-
+Nodes are the compute units that make up your Redis™ Database Instance. Different node types are available with varying amounts of RAM and vCPU.
 
 
 ### List available node types
 
-List available node types.
+List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
 
 **Usage:**
 
@@ -448,20 +500,21 @@ scw redis node-type list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| include-disabled-types |  | Whether or not to include disabled types |
+| include-disabled-types |  | Defines whether or not to include disabled types |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## Settings management commands
 
-Available Redis™ settings. Available settings depend on the Redis™ version.
+Advanced settings allow you to tune the behavior of your Redis™ database engine to better fit your needs. Available settings depend on the version of the Redis™ engine. Note that some settings can only be defined upon the Redis™ engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available Redis™ versions](#path-redistm-engine-versions-list-available-redistm-versions) endpoint.
+
+Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
 
 
+### Add advanced settings
 
-### Add cluster settings
-
-Add cluster settings.
+Add an advanced setting to a Redis™ Database Instance (Redis™ cluster). You must set the `name` and the `value` of each setting.
 
 **Usage:**
 
@@ -474,16 +527,16 @@ scw redis setting add [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | UUID of the cluster you want to add settings to |
+| cluster-id | Required | UUID of the Database Instance you want to add settings to |
 | settings.{index}.value |  | Value of the setting |
 | settings.{index}.name |  | Name of the setting |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Delete a cluster setting
+### Delete advanced setting
 
-Delete a cluster setting.
+Delete an advanced setting in a Redis™ Database Instance (Redis™ cluster). You must specify the names of the settings you want to delete in the request body.
 
 **Usage:**
 
@@ -496,15 +549,15 @@ scw redis setting delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | UUID of the cluster where the settings has to be set |
+| cluster-id | Required | UUID of the Database Instance where the settings must be set |
 | setting-name | Required | Setting name to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Set cluster settings
+### Set advanced settings
 
-Set cluster settings.
+Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
 
 **Usage:**
 
@@ -517,7 +570,7 @@ scw redis setting set [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required | UUID of the cluster where the settings has to be set |
+| cluster-id | Required | UUID of the Database Instance where the settings must be set |
 | settings.{index}.value |  | Value of the setting |
 | settings.{index}.name |  | Name of the setting |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
@@ -526,12 +579,12 @@ scw redis setting set [arg=value ...]
 
 ## Redis™ version management commands
 
-Redis™ versions powering your cluster.
+The Redis™ database engine versions available at Scaleway for your clusters.
 
 
 ### List available Redis™ versions
 
-List available Redis™ versions.
+List the Redis™ database engine versions available. You can define additional parameters for your query, such as `include_disabled`, `include_beta`, `include_deprecated` and `version`.
 
 **Usage:**
 
@@ -544,9 +597,9 @@ scw redis version list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| include-disabled |  | Whether or not to include disabled Redis™ engine versions |
-| include-beta |  | Whether or not to include beta Redis™ engine versions |
-| include-deprecated |  | Whether or not to include deprecated Redis™ engine versions |
+| include-disabled |  | Defines whether or not to include disabled Redis™ engine versions |
+| include-beta |  | Defines whether or not to include beta Redis™ engine versions |
+| include-deprecated |  | Defines whether or not to include deprecated Redis™ engine versions |
 | version |  | List Redis™ engine versions that match a given name pattern |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 

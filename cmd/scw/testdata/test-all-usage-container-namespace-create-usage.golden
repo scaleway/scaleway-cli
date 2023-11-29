@@ -1,21 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new namespace.
+Create a new namespace in a specified region.
 
 USAGE:
   scw container namespace create [arg=value ...]
 
 ARGS:
-  [name=<generated>]                             
-  [environment-variables.{key}]                  
+  [name=<generated>]                             Name of the namespace to create
+  [environment-variables.{key}]                  Environment variables of the namespace to create
   [project-id]                                   Project ID to use. If none is passed the default project ID will be used
-  [description]                                  
+  [description]                                  Description of the namespace to create
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create
+  -w, --wait   wait until the namespace is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a read replica.
+Delete a Read Replica of a Database Instance. You must specify the `region` and `read_replica_id` parameters of the Read Replica you want to delete.
 
 USAGE:
   scw rdb read-replica delete <read-replica-id ...> [arg=value ...]
 
 ARGS:
-  read-replica-id   UUID of the read replica
+  read-replica-id   UUID of the Read Replica
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

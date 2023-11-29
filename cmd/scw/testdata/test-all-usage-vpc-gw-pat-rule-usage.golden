@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-PAT (Port Address Translation) rules are global to a gateway. They define the forwarding of a public port to a specific instance on a Private Network.
+PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
 
 USAGE:
   scw vpc-gw pat-rule <command>
@@ -10,7 +10,7 @@ AVAILABLE COMMANDS:
   delete      Delete a PAT rule
   get         Get a PAT rule
   list        List PAT rules
-  set         Set all PAT rules on a Gateway
+  set         Set all PAT rules
   update      Update a PAT rule
 
 FLAGS:

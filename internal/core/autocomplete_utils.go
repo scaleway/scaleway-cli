@@ -2,13 +2,61 @@ package core
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/cache"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
+
+var autoCompleteCache *cache.Cache
+
+// getGlobalFlags returns the list of flags that should be added to all commands
+func getGlobalFlags(ctx context.Context) []FlagSpec {
+	printerTypes := []string{
+		PrinterTypeHuman.String(),
+		PrinterTypeJSON.String(),
+		PrinterTypeYAML.String(),
+		PrinterTypeTemplate.String(),
+	}
+	profiles := []string(nil)
+	cfg := extractConfig(ctx)
+	if cfg != nil {
+		for profile := range cfg.Profiles {
+			profiles = append(profiles, profile)
+		}
+	}
+
+	return []FlagSpec{
+		{Name: "-c"},
+		{Name: "--config"},
+		{Name: "-D"},
+		{Name: "--debug"},
+		{Name: "-h"},
+		{Name: "--help"},
+		{
+			Name:       "-o",
+			EnumValues: printerTypes,
+		},
+		{
+			Name:       "--output",
+			EnumValues: printerTypes,
+		},
+		{
+			Name:             "-p",
+			HasVariableValue: true,
+			EnumValues:       profiles,
+		},
+		{
+			Name:             "--profile",
+			HasVariableValue: true,
+			EnumValues:       profiles,
+		},
+	}
+}
 
 func AutocompleteProfileName() AutoCompleteArgFunc {
 	return func(ctx context.Context, prefix string) AutocompleteSuggestions {
@@ -46,7 +94,8 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 	// ex with "scw instance private-nic list server-id=<tab>"
 	// we get server as resource instead of private-nic to find command "scw instance server list"
 	if !strings.HasPrefix(argName, cmd.Resource) {
-		dashIndex := strings.Index(argName, "-")
+		// Use last index as resource name might contain a dash (ex: security-group-id)
+		dashIndex := strings.LastIndex(argName, "-")
 		if dashIndex > 0 {
 			argResource = argName[:dashIndex]
 		}
@@ -80,6 +129,9 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 		}
 	}
 
+	// Apply default arguments
+	listRawArgs = ApplyDefaultValues(ctx, listCmd.ArgSpecs, listRawArgs)
+
 	// Unmarshal args.
 	// After that we are done working with rawArgs
 	// and will be working with cmdArgs.
@@ -93,9 +145,15 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 			return runner(ctx, argsI)
 		}
 	}
-	resp, err := listCmd.Interceptor(ctx, listCmdArgs, listCmd.Run)
-	if err != nil {
-		return nil
+
+	rawCommand := fmt.Sprintf("%s %s", listCmd.getPath(), strings.Join(listRawArgs, " "))
+	resp := autoCompleteCache.Get(rawCommand)
+	if resp == nil {
+		resp, err = listCmd.Interceptor(ctx, listCmdArgs, listCmd.Run)
+		if err != nil {
+			return nil
+		}
+		autoCompleteCache.Set(rawCommand, resp)
 	}
 
 	// As we run the "list" verb instead of using the sdk ListResource, response is already the slice

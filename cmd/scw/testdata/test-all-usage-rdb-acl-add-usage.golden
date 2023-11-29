@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Add an additional ACL rule to a database instance.
+Add an additional ACL rule to a Database Instance.
 
 USAGE:
   scw rdb acl add [arg=value ...]
 
 ARGS:
-  instance-id                   UUID of the instance you want to add acl rules to
+  instance-id                   UUID of the Database Instance you want to add ACL rules to
   [rules.{index}.ip]            
   [rules.{index}.description]   
   [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)

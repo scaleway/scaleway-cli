@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get an SSH key.
+Retrieve information about a given SSH key, specified by the `ssh_key_id` parameter. The SSH key's full details, including `id`, `name`, `public_key`, and `project_id` are returned in the response.
 
 USAGE:
   scw iam ssh-key get <ssh-key-id ...> [arg=value ...]
 
 ARGS:
-  ssh-key-id   The ID of the SSH key
+  ssh-key-id   ID of the SSH key
 
 FLAGS:
   -h, --help   help for get

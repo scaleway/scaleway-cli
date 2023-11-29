@@ -1,19 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List policies of an organization.
+List the policies of an Organization. By default, the policies listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters to filter your query, such as `user_ids`, `groups_ids`, `application_ids`, and `policy_name`.
 
 USAGE:
   scw iam policy list [arg=value ...]
 
 ARGS:
-  [order-by=created_at_asc]                 Criteria for sorting results (policy_name_asc | policy_name_desc | created_at_asc | created_at_desc)
-  [editable]                                Filter out editable policies or not
-  [user-ids.{index}]                        Filter out by a list of user ID
-  [group-ids.{index}]                       Filter out by a list of group ID
-  [application-ids.{index}]                 Filter out by a list of application ID
-  [no-principal]                            True when the policy do not belong to any principal
-  [policy-name]                             Name of policy to fetch
-  organization-id=<retrieved from config>   ID of organization to filter
+  [order-by=created_at_asc]                   Criteria for sorting results (policy_name_asc | policy_name_desc | created_at_asc | created_at_desc)
+  [editable]                                  Defines whether or not filter out editable policies
+  [user-ids.{index}]                          Defines whether or not to filter by list of user IDs
+  [group-ids.{index}]                         Defines whether or not to filter by list of group IDs
+  [application-ids.{index}]                   Filter by a list of application IDs
+  [no-principal]                              Defines whether or not the policy is attributed to a principal
+  [policy-name]                               Name of the policy to fetch
+  [tag]                                       Filter by tags containing a given string
+  [organization-id=<retrieved from config>]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
   -h, --help   help for list

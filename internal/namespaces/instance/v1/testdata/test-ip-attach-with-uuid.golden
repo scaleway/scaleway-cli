@@ -1,25 +1,31 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            21601ab1-8b75-4d2f-bbb0-2b8b71c4bc13
-IP.Address       51.15.252.241
-IP.Server.ID     af38e61c-3ddb-4015-969e-9b6c94ba836c
-IP.Server.Name   cli-srv-gifted-elion
+IP.ID            3a7a70c3-542a-4170-bc18-cbc9fd5c903b
+IP.Address       51.15.227.7
+IP.Server.ID     d57ea4ae-f4ad-445a-bad4-d551ce642a80
+IP.Server.Name   cli-srv-hungry-yalow
 IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+IP.Type          nat
+IP.State         attached
+IP.Prefix        -
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "21601ab1-8b75-4d2f-bbb0-2b8b71c4bc13",
-    "address": "51.15.252.241",
+    "id": "3a7a70c3-542a-4170-bc18-cbc9fd5c903b",
+    "address": "51.15.227.7",
     "reverse": null,
     "server": {
-      "id": "af38e61c-3ddb-4015-969e-9b6c94ba836c",
-      "name": "cli-srv-gifted-elion"
+      "id": "d57ea4ae-f4ad-445a-bad4-d551ce642a80",
+      "name": "cli-srv-hungry-yalow"
     },
     "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "tags": [],
     "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "type": "nat",
+    "state": "attached",
+    "prefix": "",
     "zone": "fr-par-1"
   }
 }

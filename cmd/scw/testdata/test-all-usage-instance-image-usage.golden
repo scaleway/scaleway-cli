@@ -1,19 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Images are backups of your instances.
-You can reuse that image to restore your data or create a series of instances with a predefined configuration.
-
-An image is a complete backup of your server including all volumes.
+Images are backups of your Instances.
+One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
+To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
 
 USAGE:
   scw instance image <command>
 
 AVAILABLE COMMANDS:
-  create      Create an instance image
-  delete      Delete an instance image
-  get         Get an instance image
-  list        List instance images
+  create      Create an Instance image
+  delete      Delete an Instance image
+  get         Get an Instance image
+  list        List Instance images
   update      Update an instance image
+
+WORKFLOW COMMANDS:
   wait        Wait for image to reach a stable state
 
 FLAGS:

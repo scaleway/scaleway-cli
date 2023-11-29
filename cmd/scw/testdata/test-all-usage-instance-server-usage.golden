@@ -1,58 +1,36 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Server types are denomination of the different instances we provide.
-Scaleway offers **Virtual Cloud** and **dedicated GPU** instances.
-
-**Virtual Cloud Instances**
-
-Virtual cloud instances are offering the best performance/price ratio for most workloads.
-Different instance ranges are proposed:
-
-* The **Development** instances range provides stable and consistent performance for
-  development and testing needs. Spin up a development or test environment within seconds.
-  Refer to the [Development Instance offer details](https://www.scaleway.com/en/virtual-instances/play2/)
-  for more information.
-
-* The **General Purpose** instances range is the solution for production workloads. Powerful
-  AMD EPYC CPUs back those instances and offer up to 48 Cores, 256GB of RAM and storage
-  options up to 600GB of replicated local NVMe SSD storage and/or up to 10TB of Block Storage.
-  Refer to the [General Purpose offer details](https://www.scaleway.com/en/virtual-instances/pro2/) for more information.
-
-* The **Enterprise** instances range is the solution for most demanding workloads and
-  mission-critical applications. Powerful AMD EPYC CPUs back those instances and
-  offer up to 96 Cores, 384GB of RAM and up to 10TB of Block Storage. Refer to the
-  [Enterprise offer details](https://www.scaleway.com/en/virtual-instances/enterprise/) for more information.
-
-**Dedicated GPU Instances**
-
-Scaleway GPU Instances are virtual compute instances equipped with dedicated high-end
-Nvidia graphical processing unit (GPUs). They are ideal for data processing, artificial
-intelligence, rendering and video encoding. The GPU is dedicated to each instance and
-directly exposed through PCI-e. For more information, refer to the
-[GPU Instances Developper Documentation](https://www.scaleway.com/en/docs/compute/gpu/quickstart/).
+Instances are computing units providing resources to run your applications on.
+Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
+**Note: Instances can be referenced as "servers" in API endpoints.**
 
 USAGE:
   scw instance server <command>
 
 AVAILABLE COMMANDS:
-  attach-ip     Attach an IP to a server
-  attach-volume Attach a volume to a server
-  backup        Backup server
-  console       Connect to the serial console of an instance
-  create        Create server
-  delete        Delete server
-  detach-ip     Detach an IP from a server
-  detach-volume Detach a volume from its server
-  get           Get a server
-  list          List all servers
-  reboot        Reboot server
-  ssh           SSH into a server
-  standby       Put server in standby mode
-  start         Power on server
-  stop          Power off server
-  terminate     Terminate server
-  update        Update a server
-  wait          Wait for server to reach a stable state
+  action           Perform a raw API action on a server
+  attach-ip        Attach an IP to a server
+  attach-volume    Attach a volume to a server
+  backup           Backup server
+  console          Connect to the serial console of an instance
+  create           Create server
+  delete           Delete server
+  detach-ip        Detach an IP from a server
+  detach-volume    Detach a volume from its server
+  enable-routed-ip Migrate server to IP mobility
+  get              Get an Instance
+  list             List all Instances
+  list-actions     List Instance actions
+  reboot           Reboot server
+  ssh              SSH into a server
+  standby          Put server in standby mode
+  start            Power on server
+  stop             Power off server
+  terminate        Terminate server
+  update           Update an Instance
+
+WORKFLOW COMMANDS:
+  wait             Wait for server to reach a stable state
 
 FLAGS:
   -h, --help   help for server

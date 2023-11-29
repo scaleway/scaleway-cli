@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This method allows to get a specific Kubernetes version and the details about the version.
+Retrieve a specific Kubernetes version and its details.
 
 USAGE:
   scw k8s version get <version-name ...> [arg=value ...]
 
 EXAMPLES:
-  Get the Kubernetes version 1.18.0
-    scw k8s version get 1.18.0
+  Get the Kubernetes version 1.27.0
+    scw k8s version get 1.27.0
 
 ARGS:
-  version-name      The requested version name
+  version-name      Requested version name
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

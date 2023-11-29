@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Manage users on your instance
+Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage. For example, users with an `admin` role can create new databases and users.
 
 USAGE:
   scw rdb user <command>
 
 AVAILABLE COMMANDS:
-  create      Create a user on a given instance
-  delete      Delete a user on a given instance
-  list        List users of a given instance
-  update      Update a user on a given instance
+  create      Create a user for a Database Instance
+  delete      Delete a user on a Database Instance
+  list        List users of a Database Instance
+  update      Update a user on a Database Instance
 
 FLAGS:
   -h, --help   help for user

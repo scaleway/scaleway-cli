@@ -1,16 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List applications of an organization.
+List the applications of an Organization. By default, the applications listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `application_ids`.
 
 USAGE:
   scw iam application list [arg=value ...]
 
 ARGS:
-  [order-by=created_at_asc]                 Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
-  [name]                                    Name of application to filter
-  [editable]                                Filter out editable applications or not
-  [application-ids.{index}]                 Filter out by a list of ID
-  organization-id=<retrieved from config>   ID of organization to filter
+  [order-by=created_at_asc]                   Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
+  [name]                                      Name of the application to filter
+  [editable]                                  Defines whether to filter out editable applications or not
+  [application-ids.{index}]                   Filter by list of IDs
+  [tag]                                       Filter by tags containing a given string
+  [organization-id=<retrieved from config>]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
   -h, --help   help for list

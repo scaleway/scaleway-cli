@@ -1,14 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Available Redis™ settings. Available settings depend on the Redis™ version.
+Advanced settings allow you to tune the behavior of your Redis™ database engine to better fit your needs. Available settings depend on the version of the Redis™ engine. Note that some settings can only be defined upon the Redis™ engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available Redis™ versions](#path-redistm-engine-versions-list-available-redistm-versions) endpoint.
+
+Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
 
 USAGE:
   scw redis setting <command>
 
 AVAILABLE COMMANDS:
-  add         Add cluster settings
-  delete      Delete a cluster setting
-  set         Set cluster settings
+  add         Add advanced settings
+  delete      Delete advanced setting
+  set         Set advanced settings
 
 FLAGS:
   -h, --help   help for setting

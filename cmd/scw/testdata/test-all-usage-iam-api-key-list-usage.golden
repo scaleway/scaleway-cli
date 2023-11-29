@@ -1,16 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List API keys.
+List API keys. By default, the API keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `editable`, `expired`, `access_key` and `bearer_id`.
 
 USAGE:
   scw iam api-key list [arg=value ...]
 
 ARGS:
   [order-by=created_at_asc]                 Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | expires_at_asc | expires_at_desc | access_key_asc | access_key_desc)
-  [application-id]                          ID of an application bearer
-  [user-id]                                 ID of a user bearer
-  [editable]                                Filter out editable API keys or not
-  organization-id=<retrieved from config>   ID of organization
+  [editable]                                Defines whether to filter out editable API keys or not
+  [expired]                                 Defines whether to filter out expired API keys or not
+  [access-key]                              Filter by access key
+  [description]                             Filter by description
+  [bearer-id]                               Filter by bearer ID
+  [bearer-type]                             Filter by type of bearer (unknown_bearer_type | user | application)
+  organization-id=<retrieved from config>   ID of Organization
+
+DEPRECATED ARGS:
+  [application-id]   ID of application that bears the API key
+  [user-id]          ID of user that bears the API key
 
 FLAGS:
   -h, --help   help for list

@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Clone an instance.
+Clone a given Database Instance, specified by the `region` and `instance_id` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one.
 
 USAGE:
   scw rdb instance clone <instance-id ...> [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance you want to clone
-  [name]            Name of the clone instance
+  instance-id       UUID of the Database Instance you want to clone
+  [name]            Name of the Database Instance clone
   [node-type]       Node type of the clone
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

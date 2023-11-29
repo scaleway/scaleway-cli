@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update an API key.
+Update the parameters of an API key, including `default_project_id` and `description`.
 
 USAGE:
   scw iam api-key update <access-key ...> [arg=value ...]
 
 ARGS:
   access-key             Access key to update
-  [default-project-id]   The new default project ID to set
-  [description]          The new description to update
+  [default-project-id]   New default Project ID to set
+  [description]          New description to update
 
 FLAGS:
   -h, --help   help for update

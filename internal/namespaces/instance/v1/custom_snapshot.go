@@ -114,13 +114,14 @@ func snapshotWaitCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(instance.WaitForSnapshotRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 				Zone:          argsI.(*instance.WaitForSnapshotRequest).Zone,
 				SnapshotID:    argsI.(*instance.WaitForSnapshotRequest).SnapshotID,
-				Timeout:       scw.TimeDurationPtr(snapshotActionTimeout),
+				Timeout:       argsI.(*instance.WaitForSnapshotRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -132,12 +133,54 @@ func snapshotWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(),
+			core.WaitTimeoutArgSpec(snapshotActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
 				Short:    "Wait for a snapshot to reach a stable state",
 				ArgsJSON: `{"snapshot_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
+		},
+	}
+}
+
+func snapshotUpdateCommand() *core.Command {
+	return &core.Command{
+		Short:     `Update a snapshot`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(instance.UpdateSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      "UUID of the snapshot.",
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:  "name",
+				Short: "Name of the snapshot.",
+			},
+			{
+				Name:  "tags.{index}",
+				Short: "Tags of the snapshot.",
+			},
+			core.ZoneArgSpec(),
+		},
+		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+			snapshot := respI.(*instance.UpdateSnapshotResponse).Snapshot
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
+				SnapshotID:    snapshot.ID,
+				Zone:          snapshot.Zone,
+				Timeout:       scw.TimeDurationPtr(snapshotActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			return api.UpdateSnapshot(argsI.(*instance.UpdateSnapshotRequest))
 		},
 	}
 }

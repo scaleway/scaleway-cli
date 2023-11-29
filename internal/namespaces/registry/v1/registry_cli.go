@@ -39,8 +39,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func registryRoot() *core.Command {
 	return &core.Command{
-		Short:     `Container registry API`,
-		Long:      ``,
+		Short:     `Container Registry API`,
+		Long:      `Container Registry API.`,
 		Namespace: "registry",
 	}
 }
@@ -48,17 +48,11 @@ func registryRoot() *core.Command {
 func registryNamespace() *core.Command {
 	return &core.Command{
 		Short: `Namespace management commands`,
-		Long: `A namespace is for images what a folder is for files
+		Long: `A namespace is a collection of container images, each bearing the unique identifier of that namespace. A namespace can be either public or private, by default.
 
-To use our services, the first step is to create a namespace.
+Each namespace must have a globally unique name within its region. This means no namespaces in the same region can bear the same name.
 
-A namespace is for images what a folder is for files. Every push or pull must mention the namespace :
-` + "`" + `` + "`" + `` + "`" + `docker pull rg.nl-ams.scw.cloud/<namespace_name>/<image_name>:<tag_name>` + "`" + `` + "`" + `` + "`" + `
-
-Note that a namespace name is unique on a region. Thus, if another client already has created "test", you can't have it as a namespace
-
-A namespace can be either public or private (default), which determines who can pull images.
-`,
+You can use namespace privacy policies to specify whether everyone has the right to pull an image from a namespace or not. When an image is in a public namespace, anyone is able to pull it. You can set your namespace to private if you want to restrict access.`,
 		Namespace: "registry",
 		Resource:  "namespace",
 	}
@@ -67,11 +61,9 @@ A namespace can be either public or private (default), which determines who can 
 func registryImage() *core.Command {
 	return &core.Command{
 		Short: `Image management commands`,
-		Long: `An image represents a container image.
+		Long: `An image represents a container image. A container image is a file that includes all the requirements and instructions of a complete and executable version of an application. When running, it becomes one or multiple instances of that application.
 
-The visibility of an image can be public (everyone can pull it), private (only your organization can pull it) or inherit from the namespace visibility (default)
-It can be changed with an update on the image via the registry API.
-`,
+The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](#path-images-update-an-image).`,
 		Namespace: "registry",
 		Resource:  "image",
 	}
@@ -79,9 +71,8 @@ It can be changed with an update on the image via the registry API.
 
 func registryTag() *core.Command {
 	return &core.Command{
-		Short: `Tag management commands`,
-		Long: `A tag represents a container tag of an image.
-`,
+		Short:     `Tag management commands`,
+		Long:      `Tags allow you to organize your container images. This gives you the possibility of sorting and filtering your images in any organizational pattern of your choice, which in turn helps you arrange, control and monitor your cloud resources. You can assign as many tags as you want to each image.`,
 		Namespace: "registry",
 		Resource:  "tag",
 	}
@@ -89,8 +80,8 @@ func registryTag() *core.Command {
 
 func registryNamespaceList() *core.Command {
 	return &core.Command{
-		Short:     `List all your namespaces`,
-		Long:      `List all your namespaces.`,
+		Short:     `List namespaces`,
+		Long:      `List all namespaces in a specified region. By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the ` + "`" + `instance_id` + "`" + ` and ` + "`" + `project_id` + "`" + ` parameters.`,
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "list",
@@ -99,7 +90,7 @@ func registryNamespaceList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `Field by which to order the display of Images`,
+				Short:      `Criteria to use when ordering namespace listings. Possible values are ` + "`" + `created_at_asc` + "`" + `, ` + "`" + `created_at_desc` + "`" + `, ` + "`" + `name_asc` + "`" + `, ` + "`" + `name_desc` + "`" + `, ` + "`" + `region` + "`" + `, ` + "`" + `status_asc` + "`" + ` and ` + "`" + `status_desc` + "`" + `. The default value is ` + "`" + `created_at_asc` + "`" + `.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -195,7 +186,7 @@ func registryNamespaceList() *core.Command {
 func registryNamespaceGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a namespace`,
-		Long:      `Get the namespace associated with the given id.`,
+		Long:      `Retrieve information about a given namespace, specified by its ` + "`" + `namespace_id` + "`" + ` and region. Full details about the namespace, such as ` + "`" + `description` + "`" + `, ` + "`" + `project_id` + "`" + `, ` + "`" + `status` + "`" + `, ` + "`" + `endpoint` + "`" + `, ` + "`" + `is_public` + "`" + `, ` + "`" + `size` + "`" + `, and ` + "`" + `image_count` + "`" + ` are returned in the response.`,
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "get",
@@ -204,7 +195,7 @@ func registryNamespaceGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
-				Short:      `The unique ID of the Namespace`,
+				Short:      `UUID of the namespace`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -224,8 +215,8 @@ func registryNamespaceGet() *core.Command {
 
 func registryNamespaceCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a new namespace`,
-		Long:      `Create a new namespace.`,
+		Short:     `Create a namespace`,
+		Long:      `Create a new Container Registry namespace. You must specify the namespace name and region in which you want it to be created. Optionally, you can specify the ` + "`" + `project_id` + "`" + ` and ` + "`" + `is_public` + "`" + ` in the request payload.`,
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "create",
@@ -234,7 +225,7 @@ func registryNamespaceCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Define a namespace name`,
+				Short:      `Name of the namespace`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -242,7 +233,7 @@ func registryNamespaceCreate() *core.Command {
 			},
 			{
 				Name:       "description",
-				Short:      `Define a description`,
+				Short:      `Description of the namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -250,7 +241,7 @@ func registryNamespaceCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "is-public",
-				Short:      `Define the default visibility policy`,
+				Short:      `Defines whether or not namespace is public`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -271,8 +262,8 @@ func registryNamespaceCreate() *core.Command {
 
 func registryNamespaceUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an existing namespace`,
-		Long:      `Update the namespace associated with the given id.`,
+		Short:     `Update a namespace`,
+		Long:      `Update the parameters of a given namespace, specified by its ` + "`" + `namespace_id` + "`" + ` and ` + "`" + `region` + "`" + `. You can update the ` + "`" + `description` + "`" + ` and ` + "`" + `is_public` + "`" + ` parameters.`,
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "update",
@@ -281,21 +272,21 @@ func registryNamespaceUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
-				Short:      `Namespace ID to update`,
+				Short:      `ID of the namespace to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "description",
-				Short:      `Define a description`,
+				Short:      `Namespace description`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "is-public",
-				Short:      `Define the default visibility policy`,
+				Short:      `Defines whether or not the namespace is public`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -315,8 +306,8 @@ func registryNamespaceUpdate() *core.Command {
 
 func registryNamespaceDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an existing namespace`,
-		Long:      `Delete the namespace associated with the given id.`,
+		Short:     `Delete a namespace`,
+		Long:      `Delete a given namespace. You must specify, in the endpoint, the ` + "`" + `region` + "`" + ` and ` + "`" + `namespace_id` + "`" + ` parameters of the namespace you want to delete.`,
 		Namespace: "registry",
 		Resource:  "namespace",
 		Verb:      "delete",
@@ -325,7 +316,7 @@ func registryNamespaceDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
-				Short:      `The unique ID of the Namespace`,
+				Short:      `UUID of the namespace`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -345,8 +336,8 @@ func registryNamespaceDelete() *core.Command {
 
 func registryImageList() *core.Command {
 	return &core.Command{
-		Short:     `List all your images`,
-		Long:      `List all your images.`,
+		Short:     `List images`,
+		Long:      `List all images in a specified region. By default, the images listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the ` + "`" + `namespace_id` + "`" + ` and ` + "`" + `project_id` + "`" + ` parameters.`,
 		Namespace: "registry",
 		Resource:  "image",
 		Verb:      "list",
@@ -355,7 +346,7 @@ func registryImageList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `Field by which to order the display of Images`,
+				Short:      `Criteria to use when ordering image listings. Possible values are ` + "`" + `created_at_asc` + "`" + `, ` + "`" + `created_at_desc` + "`" + `, ` + "`" + `name_asc` + "`" + `, ` + "`" + `name_desc` + "`" + `, ` + "`" + `region` + "`" + `, ` + "`" + `status_asc` + "`" + ` and ` + "`" + `status_desc` + "`" + `. The default value is ` + "`" + `created_at_asc` + "`" + `.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -363,14 +354,14 @@ func registryImageList() *core.Command {
 			},
 			{
 				Name:       "namespace-id",
-				Short:      `Filter by the Namespace ID`,
+				Short:      `Filter by the namespace ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Filter by the Image name (exact match)`,
+				Short:      `Filter by the image name (exact match)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -445,8 +436,8 @@ func registryImageList() *core.Command {
 
 func registryImageGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a image`,
-		Long:      `Get the image associated with the given id.`,
+		Short:     `Get an image`,
+		Long:      `Retrieve information about a given container image, specified by its ` + "`" + `image_id` + "`" + ` and region. Full details about the image, such as ` + "`" + `name` + "`" + `, ` + "`" + `namespace_id` + "`" + `, ` + "`" + `status` + "`" + `, ` + "`" + `visibility` + "`" + `, and ` + "`" + `size` + "`" + ` are returned in the response.`,
 		Namespace: "registry",
 		Resource:  "image",
 		Verb:      "get",
@@ -455,7 +446,7 @@ func registryImageGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
-				Short:      `The unique ID of the Image`,
+				Short:      `UUID of the image`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -475,8 +466,8 @@ func registryImageGet() *core.Command {
 
 func registryImageUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an existing image`,
-		Long:      `Update the image associated with the given id.`,
+		Short:     `Update an image`,
+		Long:      `Update the parameters of a given image, specified by its ` + "`" + `image_id` + "`" + ` and ` + "`" + `region` + "`" + `. You can update the ` + "`" + `visibility` + "`" + ` parameter.`,
 		Namespace: "registry",
 		Resource:  "image",
 		Verb:      "update",
@@ -485,14 +476,14 @@ func registryImageUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
-				Short:      `Image ID to update`,
+				Short:      `ID of the image to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "visibility",
-				Short:      `A ` + "`" + `public` + "`" + ` image is pullable from internet without authentication, opposed to a ` + "`" + `private` + "`" + ` image. ` + "`" + `inherit` + "`" + ` will use the namespace ` + "`" + `is_public` + "`" + ` parameter`,
+				Short:      `Set to ` + "`" + `public` + "`" + ` to allow the image to be pulled without authentication. Else, set to  ` + "`" + `private` + "`" + `. Set to ` + "`" + `inherit` + "`" + ` to keep the same visibility configuration as the namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -514,7 +505,7 @@ func registryImageUpdate() *core.Command {
 func registryImageDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete an image`,
-		Long:      `Delete the image associated with the given id.`,
+		Long:      `Delete a given image. You must specify, in the endpoint, the ` + "`" + `region` + "`" + ` and ` + "`" + `image_id` + "`" + ` parameters of the image you want to delete.`,
 		Namespace: "registry",
 		Resource:  "image",
 		Verb:      "delete",
@@ -523,7 +514,7 @@ func registryImageDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
-				Short:      `The unique ID of the Image`,
+				Short:      `UUID of the image`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -543,8 +534,8 @@ func registryImageDelete() *core.Command {
 
 func registryTagList() *core.Command {
 	return &core.Command{
-		Short:     `List all your tags`,
-		Long:      `List all your tags.`,
+		Short:     `List tags`,
+		Long:      `List all tags for a given image, specified by region. By default, the tags listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the ` + "`" + `name` + "`" + `.`,
 		Namespace: "registry",
 		Resource:  "tag",
 		Verb:      "list",
@@ -553,7 +544,7 @@ func registryTagList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `Field by which to order the display of Images`,
+				Short:      `Criteria to use when ordering tag listings. Possible values are ` + "`" + `created_at_asc` + "`" + `, ` + "`" + `created_at_desc` + "`" + `, ` + "`" + `name_asc` + "`" + `, ` + "`" + `name_desc` + "`" + `, ` + "`" + `region` + "`" + `, ` + "`" + `status_asc` + "`" + ` and ` + "`" + `status_desc` + "`" + `. The default value is ` + "`" + `created_at_asc` + "`" + `.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -561,7 +552,7 @@ func registryTagList() *core.Command {
 			},
 			{
 				Name:       "image-id",
-				Short:      `The unique ID of the image`,
+				Short:      `UUID of the image`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -598,7 +589,7 @@ func registryTagList() *core.Command {
 func registryTagGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a tag`,
-		Long:      `Get the tag associated with the given id.`,
+		Long:      `Retrieve information about a given image tag, specified by its ` + "`" + `tag_id` + "`" + ` and region. Full details about the tag, such as ` + "`" + `name` + "`" + `, ` + "`" + `image_id` + "`" + `, ` + "`" + `status` + "`" + `, and ` + "`" + `digest` + "`" + ` are returned in the response.`,
 		Namespace: "registry",
 		Resource:  "tag",
 		Verb:      "get",
@@ -607,7 +598,7 @@ func registryTagGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tag-id",
-				Short:      `The unique ID of the Tag`,
+				Short:      `UUID of the tag`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -628,7 +619,7 @@ func registryTagGet() *core.Command {
 func registryTagDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a tag`,
-		Long:      `Delete the tag associated with the given id.`,
+		Long:      `Delete a given image tag. You must specify, in the endpoint, the ` + "`" + `region` + "`" + ` and ` + "`" + `tag_id` + "`" + ` parameters of the tag you want to delete.`,
 		Namespace: "registry",
 		Resource:  "tag",
 		Verb:      "delete",
@@ -637,16 +628,16 @@ func registryTagDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tag-id",
-				Short:      `The unique ID of the tag`,
+				Short:      `UUID of the tag`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "force",
-				Short:      `If two tags share the same digest the deletion will fail unless this parameter is set to true`,
+				Short:      `If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated)`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),

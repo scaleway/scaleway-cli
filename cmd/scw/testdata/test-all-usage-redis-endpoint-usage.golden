@@ -1,15 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Manage endpoints to access to your cluster trough Public or Private networks
+Manage endpoint access to your Redis™ Database Instance through Public or Private Networks.
 
 USAGE:
   scw redis endpoint <command>
 
 AVAILABLE COMMANDS:
-  add         Add endpoints for a given cluster
-  delete      Delete an endpoint for a given cluster
+  add         Add endpoints for a cluster
+  delete      Delete an endpoint for a cluster
   get         Get an endpoint
-  set         Set endpoints for a given cluster
+  set         Set endpoints for a cluster
+  update      Update an endpoint
 
 FLAGS:
   -h, --help   help for endpoint

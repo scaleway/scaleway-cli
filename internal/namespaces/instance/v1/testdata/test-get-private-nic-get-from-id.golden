@@ -1,0 +1,18 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+PrivateNic.ID                97d78602-e7be-47db-93a8-492b95475854
+PrivateNic.ServerID          5f21cdf7-9a70-472e-9a04-0eebf1b39bd1
+PrivateNic.PrivateNetworkID  5eee2d39-412e-425b-ab50-868d260331a3
+PrivateNic.MacAddress        02:00:00:14:42:47
+PrivateNic.State             available
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "private_nic": {
+    "id": "97d78602-e7be-47db-93a8-492b95475854",
+    "server_id": "5f21cdf7-9a70-472e-9a04-0eebf1b39bd1",
+    "private_network_id": "5eee2d39-412e-425b-ab50-868d260331a3",
+    "mac_address": "02:00:00:14:42:47",
+    "state": "available",
+    "tags": []
+  }
+}

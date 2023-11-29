@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all your invoices, filtering by `start_date` and `invoice_type`. Each invoice has its own ID.
+
+USAGE:
+  scw billing invoice list [arg=value ...]
+
+ARGS:
+  [started-after]     Invoice's `start_date` is greater or equal to `started_after`
+  [started-before]    Invoice's `start_date` precedes `started_before`
+  [invoice-type]      Invoice type. It can either be `periodic` or `purchase` (unknown_type | periodic | purchase)
+  [order-by]          How invoices are ordered in the response (invoice_number_desc | invoice_number_asc | start_date_desc | start_date_asc | issued_date_desc | issued_date_asc | due_date_desc | due_date_asc | total_untaxed_desc | total_untaxed_asc | total_taxed_desc | total_taxed_asc | invoice_type_desc | invoice_type_asc)
+  [organization-id]   Organization ID to filter for, only invoices from this Organization will be returned
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

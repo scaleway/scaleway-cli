@@ -1,13 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new application.
+Create a new application. You must define the `name` parameter in the request.
 
 USAGE:
   scw iam application create [arg=value ...]
 
 ARGS:
-  name=<generated>    Name of application to create (max length is 64 chars)
-  [description]       Description of application (max length is 200 chars)
+  name=<generated>    Name of the application to create (max length is 64 characters)
+  [description]       Description of the application (max length is 200 characters)
+  [tags.{index}]      Tags associated with the application (maximum of 10 tags)
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:

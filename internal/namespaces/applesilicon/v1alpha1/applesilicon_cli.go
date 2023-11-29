@@ -38,19 +38,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func appleSiliconRoot() *core.Command {
 	return &core.Command{
-		Short: `Apple silicon API`,
-		Long: `Scaleway Apple silicon M1 as-a-Service is built using the latest generation of Apple Mac mini hardware (fifth generation).
-
-These dedicated Mac mini M1s are designed for developing, building, testing, and signing applications for Apple devices, including iPhones, iPads, Mac computers and much more.
-
-Get set to explore, learn and build on a dedicated Mac mini M1 with more performance and speed than you ever thought possible.
-
-**Apple silicon as a Service comes with a minimum allocation period of 24 hours**.
-
-Mac mini and macOS are trademarks of Apple Inc., registered in the U.S. and other countries and regions.
-IOS is a trademark or registered trademark of Cisco in the U.S. and other countries and is used by Apple under license.
-Scaleway is not affiliated with Apple Inc.
-`,
+		Short:     `Apple silicon API`,
+		Long:      `Apple silicon API.`,
 		Namespace: "apple-silicon",
 	}
 }
@@ -58,7 +47,7 @@ Scaleway is not affiliated with Apple Inc.
 func appleSiliconServer() *core.Command {
 	return &core.Command{
 		Short:     `Apple silicon management commands`,
-		Long:      `Apple silicon management commands`,
+		Long:      `Apple silicon management commands.`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 	}
@@ -67,7 +56,7 @@ func appleSiliconServer() *core.Command {
 func appleSiliconOs() *core.Command {
 	return &core.Command{
 		Short:     `OS management commands`,
-		Long:      `OS management commands`,
+		Long:      `OS management commands.`,
 		Namespace: "apple-silicon",
 		Resource:  "os",
 	}
@@ -76,7 +65,7 @@ func appleSiliconOs() *core.Command {
 func appleSiliconServerType() *core.Command {
 	return &core.Command{
 		Short:     `Server-Types management commands`,
-		Long:      `Server-Types management commands`,
+		Long:      `Server-Types management commands.`,
 		Namespace: "apple-silicon",
 		Resource:  "server-type",
 	}
@@ -85,7 +74,7 @@ func appleSiliconServerType() *core.Command {
 func appleSiliconServerTypeList() *core.Command {
 	return &core.Command{
 		Short:     `List server types`,
-		Long:      `List all server types technical details.`,
+		Long:      `List all technical details about Apple silicon server types available in the specified zone. Since there is only one Availability Zone for Apple silicon servers, the targeted value is ` + "`" + `fr-par-3` + "`" + `.`,
 		Namespace: "apple-silicon",
 		Resource:  "server-type",
 		Verb:      "list",
@@ -108,7 +97,7 @@ func appleSiliconServerTypeList() *core.Command {
 func appleSiliconServerTypeGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a server type`,
-		Long:      `Get a server technical details.`,
+		Long:      `Get technical details (CPU, disk size etc.) of a server type.`,
 		Namespace: "apple-silicon",
 		Resource:  "server-type",
 		Verb:      "get",
@@ -138,7 +127,7 @@ func appleSiliconServerTypeGet() *core.Command {
 func appleSiliconServerCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a server`,
-		Long:      `Create a server.`,
+		Long:      `Create a new server in the targeted zone, specifying its configuration including name and type.`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "create",
@@ -178,7 +167,7 @@ func appleSiliconServerCreate() *core.Command {
 func appleSiliconServerList() *core.Command {
 	return &core.Command{
 		Short:     `List all servers`,
-		Long:      `List all servers.`,
+		Long:      `List all servers in the specified zone. By default, returned servers in the list are ordered by creation date in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "list",
@@ -187,7 +176,7 @@ func appleSiliconServerList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
-				Short:      `The sort order of the returned servers`,
+				Short:      `Sort order of the returned servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -195,14 +184,14 @@ func appleSiliconServerList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `List only servers of this project ID`,
+				Short:      `Only list servers of this project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `List only servers of this organization ID`,
+				Short:      `Only list servers of this Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -231,8 +220,8 @@ func appleSiliconServerList() *core.Command {
 
 func appleSiliconOsList() *core.Command {
 	return &core.Command{
-		Short:     `List all Operating System (OS)`,
-		Long:      `List all Operating System (OS).`,
+		Short:     `List all Operating Systems (OS)`,
+		Long:      `List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.`,
 		Namespace: "apple-silicon",
 		Resource:  "os",
 		Verb:      "list",
@@ -241,14 +230,14 @@ func appleSiliconOsList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-type",
-				Short:      `List of compatible server type`,
+				Short:      `List of compatible server types`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12")`,
+				Short:      `Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12"))`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -278,7 +267,7 @@ func appleSiliconOsList() *core.Command {
 func appleSiliconOsGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an Operating System (OS)`,
-		Long:      `Get an Operating System (OS).`,
+		Long:      `Get an Operating System (OS).  The response will include the OS's unique ID as well as its name and label.`,
 		Namespace: "apple-silicon",
 		Resource:  "os",
 		Verb:      "get",
@@ -308,7 +297,7 @@ func appleSiliconOsGet() *core.Command {
 func appleSiliconServerGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a server`,
-		Long:      `Get a server.`,
+		Long:      `Retrieve information about an existing Apple silicon server, specified by its server ID. Its full details, including name, status and IP address, are returned in the response object.`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "get",
@@ -338,7 +327,7 @@ func appleSiliconServerGet() *core.Command {
 func appleSiliconServerUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a server`,
-		Long:      `Update a server.`,
+		Long:      `Update the parameters of an existing Apple silicon server, specified by its server ID.`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "update",
@@ -375,7 +364,7 @@ func appleSiliconServerUpdate() *core.Command {
 func appleSiliconServerDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a server`,
-		Long:      `Delete a server.`,
+		Long:      `Delete an existing Apple silicon server, specified by its server ID. Deleting a server is permanent, and cannot be undone. Note that the minimum allocation period for Apple silicon-as-a-service is 24 hours, meaning you cannot delete your server prior to that.`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "delete",
@@ -411,7 +400,7 @@ func appleSiliconServerDelete() *core.Command {
 func appleSiliconServerReboot() *core.Command {
 	return &core.Command{
 		Short:     `Reboot a server`,
-		Long:      `Reboot a server.`,
+		Long:      `Reboot an existing Apple silicon server, specified by its server ID.`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "reboot",
@@ -441,7 +430,7 @@ func appleSiliconServerReboot() *core.Command {
 func appleSiliconServerReinstall() *core.Command {
 	return &core.Command{
 		Short:     `Reinstall a server`,
-		Long:      `Reinstall a server.`,
+		Long:      `Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the defailt configuration values of the image (OS).`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "reinstall",

@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List projects.
+List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names, and IDs. Other information includes the creation and update date of the Project.
 
 USAGE:
   scw account project list [arg=value ...]
 
 ARGS:
-  [name]                  The name of the project
-  [order-by]              The sort order of the returned projects (created_at_asc | created_at_desc | name_asc | name_desc)
-  [project-ids.{index}]   Filter out by a list of project ID
+  [name]                  Name of the Project
+  [order-by]              Sort order of the returned Projects (created_at_asc | created_at_desc | name_asc | name_desc)
+  [project-ids.{index}]   Project IDs to filter for. The results will be limited to any Projects with an ID in this array
   [organization-id]       Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:

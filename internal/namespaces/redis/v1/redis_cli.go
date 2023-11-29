@@ -48,6 +48,7 @@ func GetGeneratedCommands() *core.Commands {
 		redisEndpointAdd(),
 		redisEndpointDelete(),
 		redisEndpointGet(),
+		redisEndpointUpdate(),
 	)
 }
 func redisRoot() *core.Command {
@@ -60,9 +61,8 @@ func redisRoot() *core.Command {
 
 func redisCluster() *core.Command {
 	return &core.Command{
-		Short: `Cluster management commands`,
-		Long: `A Managed Database for Redis™ cluster is composed of one or more Nodes depending of the cluster_size setting.
-`,
+		Short:     `Cluster management commands`,
+		Long:      `A Redis™ Database Instance, also known as a Redis™ cluster, consists of either one standalone node or a cluster composed of three to six nodes. The cluster uses partitioning to split the keyspace. Each partition is replicated and can be reassigned or elected as the primary when necessary. Standalone mode creates a standalone database provisioned on a single node.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 	}
@@ -70,9 +70,8 @@ func redisCluster() *core.Command {
 
 func redisNodeType() *core.Command {
 	return &core.Command{
-		Short: `Node Types management commands`,
-		Long: `Node types powering your cluster.
-`,
+		Short:     `Node Types management commands`,
+		Long:      `Nodes are the compute units that make up your Redis™ Database Instance. Different node types are available with varying amounts of RAM and vCPU.`,
 		Namespace: "redis",
 		Resource:  "node-type",
 	}
@@ -81,7 +80,7 @@ func redisNodeType() *core.Command {
 func redisVersion() *core.Command {
 	return &core.Command{
 		Short:     `Redis™ version management commands`,
-		Long:      `Redis™ versions powering your cluster.`,
+		Long:      `The Redis™ database engine versions available at Scaleway for your clusters.`,
 		Namespace: "redis",
 		Resource:  "version",
 	}
@@ -90,8 +89,9 @@ func redisVersion() *core.Command {
 func redisSetting() *core.Command {
 	return &core.Command{
 		Short: `Settings management commands`,
-		Long: `Available Redis™ settings. Available settings depend on the Redis™ version.
-`,
+		Long: `Advanced settings allow you to tune the behavior of your Redis™ database engine to better fit your needs. Available settings depend on the version of the Redis™ engine. Note that some settings can only be defined upon the Redis™ engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available Redis™ versions](#path-redistm-engine-versions-list-available-redistm-versions) endpoint.
+
+Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.`,
 		Namespace: "redis",
 		Resource:  "setting",
 	}
@@ -99,9 +99,8 @@ func redisSetting() *core.Command {
 
 func redisACL() *core.Command {
 	return &core.Command{
-		Short: `Access Control List (ACL) management commands`,
-		Long: `Network Access Control List allows to control network inbound traffic allowed by setting up ACL rules. ACL rules could be created, edited, deleted.
-`,
+		Short:     `Access Control List (ACL) management commands`,
+		Long:      `Network Access Control Lists (ACLs) allow you to manage network inbound traffic by setting up ACL rules.`,
 		Namespace: "redis",
 		Resource:  "acl",
 	}
@@ -109,9 +108,8 @@ func redisACL() *core.Command {
 
 func redisEndpoint() *core.Command {
 	return &core.Command{
-		Short: `Endpoints management commands`,
-		Long: `Manage endpoints to access to your cluster trough Public or Private networks
-`,
+		Short:     `Endpoints management commands`,
+		Long:      `Manage endpoint access to your Redis™ Database Instance through Public or Private Networks.`,
 		Namespace: "redis",
 		Resource:  "endpoint",
 	}
@@ -119,8 +117,8 @@ func redisEndpoint() *core.Command {
 
 func redisClusterCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a cluster`,
-		Long:      `Create a cluster.`,
+		Short:     `Create a Redis™ Database Instance`,
+		Long:      `Create a new Redis™ Database Instance (Redis™ cluster). You must set the ` + "`" + `zone` + "`" + `, ` + "`" + `project_id` + "`" + `, ` + "`" + `version` + "`" + `, ` + "`" + `node_type` + "`" + `, ` + "`" + `user_name` + "`" + ` and ` + "`" + `password` + "`" + ` parameters. Optionally you can define ` + "`" + `acl_rules` + "`" + `, ` + "`" + `endpoints` + "`" + `, ` + "`" + `tls_enabled` + "`" + ` and ` + "`" + `cluster_settings` + "`" + `.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "create",
@@ -130,7 +128,7 @@ func redisClusterCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
-				Short:      `Name of the cluster`,
+				Short:      `Name of the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -138,28 +136,28 @@ func redisClusterCreate() *core.Command {
 			},
 			{
 				Name:       "version",
-				Short:      `Redis™ engine version of the cluster`,
+				Short:      `Redis™ engine version of the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags to apply to the cluster`,
+				Short:      `Tags to apply to the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "node-type",
-				Short:      `Type of node to use for the cluster`,
+				Short:      `Type of node to use for the Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "user-name",
-				Short:      `Name of the user created when the cluster is created`,
+				Short:      `Name of the user created upon Database Instance creation`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -173,7 +171,7 @@ func redisClusterCreate() *core.Command {
 			},
 			{
 				Name:       "cluster-size",
-				Short:      `Number of nodes for the cluster`,
+				Short:      `Number of nodes in the Redis™ cluster`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -194,21 +192,21 @@ func redisClusterCreate() *core.Command {
 			},
 			{
 				Name:       "endpoints.{index}.private-network.id",
-				Short:      `UUID of the private network to be connected to the cluster`,
+				Short:      `UUID of the Private Network to connect to the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "endpoints.{index}.private-network.service-ips.{index}",
-				Short:      `Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation.`,
+				Short:      `Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tls-enabled",
-				Short:      `Whether or not TLS is enabled`,
+				Short:      `Defines whether or not TLS is enabled`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -242,8 +240,8 @@ func redisClusterCreate() *core.Command {
 
 func redisClusterUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a cluster`,
-		Long:      `Update a cluster.`,
+		Short:     `Update a Redis™ Database Instance`,
+		Long:      `Update the parameters of a Redis™ Database Instance (Redis™ cluster), including ` + "`" + `name` + "`" + `, ` + "`" + `tags` + "`" + `, ` + "`" + `user_name` + "`" + ` and ` + "`" + `password` + "`" + `.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "update",
@@ -252,35 +250,35 @@ func redisClusterUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of the cluster`,
+				Short:      `Name of the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags of a given cluster`,
+				Short:      `Database Instance tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "user-name",
-				Short:      `Name of the cluster user`,
+				Short:      `Name of the Database Instance user`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "password",
-				Short:      `Password of the cluster user`,
+				Short:      `Password of the Database Instance user`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster to update`,
+				Short:      `UUID of the Database Instance to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -300,8 +298,8 @@ func redisClusterUpdate() *core.Command {
 
 func redisClusterGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a cluster`,
-		Long:      `Get a cluster.`,
+		Short:     `Get a Redis™ Database Instance`,
+		Long:      `Retrieve information about a Redis™ Database Instance (Redis™ cluster). Specify the ` + "`" + `cluster_id` + "`" + ` and ` + "`" + `region` + "`" + ` in your request to get information such as ` + "`" + `id` + "`" + `, ` + "`" + `status` + "`" + `, ` + "`" + `version` + "`" + `, ` + "`" + `tls_enabled` + "`" + `, ` + "`" + `cluster_settings` + "`" + `, ` + "`" + `upgradable_versions` + "`" + ` and ` + "`" + `endpoints` + "`" + ` about your cluster in the response.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "get",
@@ -330,8 +328,8 @@ func redisClusterGet() *core.Command {
 
 func redisClusterList() *core.Command {
 	return &core.Command{
-		Short:     `List clusters`,
-		Long:      `List clusters.`,
+		Short:     `List Redis™ Database Instances`,
+		Long:      `List all Redis™ Database Instances (Redis™ cluster) in the specified zone. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as ` + "`" + `tags` + "`" + `, ` + "`" + `name` + "`" + `, ` + "`" + `organization_id` + "`" + ` and ` + "`" + `version` + "`" + `.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "list",
@@ -340,21 +338,21 @@ func redisClusterList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags of the clusters to filter upon`,
+				Short:      `Filter by Database Instance tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `Name of the clusters to filter upon`,
+				Short:      `Filter by Database Instance names`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `Criteria to use when ordering cluster listing`,
+				Short:      `Criteria to use when ordering the list`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -362,21 +360,21 @@ func redisClusterList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Project ID to list the cluster of`,
+				Short:      `Filter by Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "version",
-				Short:      `Version of the clusters to filter upon`,
+				Short:      `Filter by Redis™ engine version`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Organization ID to list the cluster of`,
+				Short:      `Filter by Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -405,8 +403,8 @@ func redisClusterList() *core.Command {
 
 func redisClusterMigrate() *core.Command {
 	return &core.Command{
-		Short:     `Migrate your cluster architecture`,
-		Long:      `Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster won't renew its TLS certificate. In order to refresh the SSL certificate, you have to use the dedicated api route.`,
+		Short:     `Scale up a Redis™ Database Instance`,
+		Long:      `Upgrade your standalone Redis™ Database Instance node, either by upgrading to a bigger node type (vertical scaling) or by adding more nodes to your Database Instance to increase your number of endpoints and distribute cache (horizontal scaling). Note that scaling horizontally your Redis™ Database Instance will not renew its TLS certificate. In order to refresh the TLS certificate, you must use the Renew TLS certificate endpoint.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "migrate",
@@ -415,28 +413,28 @@ func redisClusterMigrate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version",
-				Short:      `Redis™ engine version of the cluster`,
+				Short:      `Redis™ engine version of the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "node-type",
-				Short:      `Type of node to use for the cluster`,
+				Short:      `Type of node to use for the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "cluster-size",
-				Short:      `Number of nodes for the cluster`,
+				Short:      `Number of nodes for the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster to update`,
+				Short:      `UUID of the Database Instance to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -456,8 +454,8 @@ func redisClusterMigrate() *core.Command {
 
 func redisClusterDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a cluster`,
-		Long:      `Delete a cluster.`,
+		Short:     `Delete a Redis™ Database Instance`,
+		Long:      `Delete a Redis™ Database Instance (Redis™ cluster), specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `cluster_id` + "`" + ` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "delete",
@@ -466,7 +464,7 @@ func redisClusterDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster to delete`,
+				Short:      `UUID of the Database Instance to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -486,8 +484,8 @@ func redisClusterDelete() *core.Command {
 
 func redisClusterMetrics() *core.Command {
 	return &core.Command{
-		Short:     `Get metrics of a cluster`,
-		Long:      `Get metrics of a cluster.`,
+		Short:     `Get metrics of a Redis™ Database Instance`,
+		Long:      `Retrieve the metrics of a Redis™ Database Instance (Redis™ cluster). You can define the period from which to retrieve metrics by specifying the ` + "`" + `start_date` + "`" + ` and ` + "`" + `end_date` + "`" + `.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "metrics",
@@ -503,14 +501,14 @@ func redisClusterMetrics() *core.Command {
 			},
 			{
 				Name:       "start-at",
-				Short:      `Start date to gather metrics from`,
+				Short:      `Start date`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "end-at",
-				Short:      `End date to gather metrics from`,
+				Short:      `End date`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -538,7 +536,7 @@ func redisClusterMetrics() *core.Command {
 func redisNodeTypeList() *core.Command {
 	return &core.Command{
 		Short:     `List available node types`,
-		Long:      `List available node types.`,
+		Long:      `List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "redis",
 		Resource:  "node-type",
 		Verb:      "list",
@@ -547,7 +545,7 @@ func redisNodeTypeList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
-				Short:      `Whether or not to include disabled types`,
+				Short:      `Defines whether or not to include disabled types`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -577,7 +575,7 @@ func redisNodeTypeList() *core.Command {
 func redisVersionList() *core.Command {
 	return &core.Command{
 		Short:     `List available Redis™ versions`,
-		Long:      `List available Redis™ versions.`,
+		Long:      `List the Redis™ database engine versions available. You can define additional parameters for your query, such as ` + "`" + `include_disabled` + "`" + `, ` + "`" + `include_beta` + "`" + `, ` + "`" + `include_deprecated` + "`" + ` and ` + "`" + `version` + "`" + `.`,
 		Namespace: "redis",
 		Resource:  "version",
 		Verb:      "list",
@@ -586,21 +584,21 @@ func redisVersionList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled",
-				Short:      `Whether or not to include disabled Redis™ engine versions`,
+				Short:      `Defines whether or not to include disabled Redis™ engine versions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "include-beta",
-				Short:      `Whether or not to include beta Redis™ engine versions`,
+				Short:      `Defines whether or not to include beta Redis™ engine versions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "include-deprecated",
-				Short:      `Whether or not to include deprecated Redis™ engine versions`,
+				Short:      `Defines whether or not to include deprecated Redis™ engine versions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -637,7 +635,7 @@ func redisVersionList() *core.Command {
 func redisClusterGetCertificate() *core.Command {
 	return &core.Command{
 		Short:     `Get the TLS certificate of a cluster`,
-		Long:      `Get the TLS certificate of a cluster.`,
+		Long:      `Retrieve information about the TLS certificate of a Redis™ Database Instance (Redis™ cluster). Details like name and content are returned in the response.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "get-certificate",
@@ -667,7 +665,7 @@ func redisClusterGetCertificate() *core.Command {
 func redisClusterRenewCertificate() *core.Command {
 	return &core.Command{
 		Short:     `Renew the TLS certificate of a cluster`,
-		Long:      `Renew the TLS certificate of a cluster.`,
+		Long:      `Renew a TLS certificate for a Redis™ Database Instance (Redis™ cluster). Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.`,
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "renew-certificate",
@@ -696,8 +694,8 @@ func redisClusterRenewCertificate() *core.Command {
 
 func redisSettingAdd() *core.Command {
 	return &core.Command{
-		Short:     `Add cluster settings`,
-		Long:      `Add cluster settings.`,
+		Short:     `Add advanced settings`,
+		Long:      `Add an advanced setting to a Redis™ Database Instance (Redis™ cluster). You must set the ` + "`" + `name` + "`" + ` and the ` + "`" + `value` + "`" + ` of each setting.`,
 		Namespace: "redis",
 		Resource:  "setting",
 		Verb:      "add",
@@ -706,7 +704,7 @@ func redisSettingAdd() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster you want to add settings to`,
+				Short:      `UUID of the Database Instance you want to add settings to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -740,8 +738,8 @@ func redisSettingAdd() *core.Command {
 
 func redisSettingDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a cluster setting`,
-		Long:      `Delete a cluster setting.`,
+		Short:     `Delete advanced setting`,
+		Long:      `Delete an advanced setting in a Redis™ Database Instance (Redis™ cluster). You must specify the names of the settings you want to delete in the request body.`,
 		Namespace: "redis",
 		Resource:  "setting",
 		Verb:      "delete",
@@ -750,7 +748,7 @@ func redisSettingDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster where the settings has to be set`,
+				Short:      `UUID of the Database Instance where the settings must be set`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -777,8 +775,8 @@ func redisSettingDelete() *core.Command {
 
 func redisSettingSet() *core.Command {
 	return &core.Command{
-		Short:     `Set cluster settings`,
-		Long:      `Set cluster settings.`,
+		Short:     `Set advanced settings`,
+		Long:      `Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.`,
 		Namespace: "redis",
 		Resource:  "setting",
 		Verb:      "set",
@@ -787,7 +785,7 @@ func redisSettingSet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster where the settings has to be set`,
+				Short:      `UUID of the Database Instance where the settings must be set`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -821,8 +819,8 @@ func redisSettingSet() *core.Command {
 
 func redisACLSet() *core.Command {
 	return &core.Command{
-		Short:     `Set ACL rules for a given cluster`,
-		Long:      `Set ACL rules for a given cluster.`,
+		Short:     `Set ACL rules for a cluster`,
+		Long:      `Replace all the ACL rules of a Redis™ Database Instance (Redis™ cluster).`,
 		Namespace: "redis",
 		Resource:  "acl",
 		Verb:      "set",
@@ -831,7 +829,7 @@ func redisACLSet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster where the ACL rules has to be set`,
+				Short:      `UUID of the Database Instance where the ACL rules have to be set`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -865,8 +863,8 @@ func redisACLSet() *core.Command {
 
 func redisACLAdd() *core.Command {
 	return &core.Command{
-		Short:     `Add ACL rules for a given cluster`,
-		Long:      `Add ACL rules for a given cluster.`,
+		Short:     `Add ACL rules for a cluster`,
+		Long:      `Add an additional ACL rule to a Redis™ Database Instance (Redis™ cluster).`,
 		Namespace: "redis",
 		Resource:  "acl",
 		Verb:      "add",
@@ -875,7 +873,7 @@ func redisACLAdd() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster you want to add acl rules to`,
+				Short:      `UUID of the Database Instance you want to add ACL rules to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -909,8 +907,8 @@ func redisACLAdd() *core.Command {
 
 func redisACLDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an ACL rule for a given cluster`,
-		Long:      `Delete an ACL rule for a given cluster.`,
+		Short:     `Delete an ACL rule for a cluster`,
+		Long:      `Delete an ACL rule of a Redis™ Database Instance (Redis™ cluster). You must specify the ` + "`" + `acl_id` + "`" + ` of the rule you want to delete in your request.`,
 		Namespace: "redis",
 		Resource:  "acl",
 		Verb:      "delete",
@@ -919,7 +917,7 @@ func redisACLDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
-				Short:      `UUID of the acl rule you want to delete`,
+				Short:      `UUID of the ACL rule you want to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -940,7 +938,7 @@ func redisACLDelete() *core.Command {
 func redisACLGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an ACL rule`,
-		Long:      `Get an ACL rule.`,
+		Long:      `Retrieve information about an ACL rule of a Redis™ Database Instance (Redis™ cluster). You must specify the ` + "`" + `acl_id` + "`" + ` of the rule in your request.`,
 		Namespace: "redis",
 		Resource:  "acl",
 		Verb:      "get",
@@ -949,7 +947,7 @@ func redisACLGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
-				Short:      `UUID of the acl rule you want to get`,
+				Short:      `UUID of the ACL rule you want to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -969,8 +967,8 @@ func redisACLGet() *core.Command {
 
 func redisEndpointSet() *core.Command {
 	return &core.Command{
-		Short:     `Set endpoints for a given cluster`,
-		Long:      `Set endpoints for a given cluster.`,
+		Short:     `Set endpoints for a cluster`,
+		Long:      `Update an endpoint for a Redis™ Database Instance (Redis™ cluster). You must specify the ` + "`" + `cluster_id` + "`" + ` and the ` + "`" + `endpoints` + "`" + ` parameters in your request.`,
 		Namespace: "redis",
 		Resource:  "endpoint",
 		Verb:      "set",
@@ -979,21 +977,21 @@ func redisEndpointSet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster where the endpoints has to be set`,
+				Short:      `UUID of the Database Instance where the endpoints have to be set`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "endpoints.{index}.private-network.id",
-				Short:      `UUID of the private network to be connected to the cluster`,
+				Short:      `UUID of the Private Network to connect to the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "endpoints.{index}.private-network.service-ips.{index}",
-				Short:      `Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation.`,
+				Short:      `Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1013,8 +1011,8 @@ func redisEndpointSet() *core.Command {
 
 func redisEndpointAdd() *core.Command {
 	return &core.Command{
-		Short:     `Add endpoints for a given cluster`,
-		Long:      `Add endpoints for a given cluster.`,
+		Short:     `Add endpoints for a cluster`,
+		Long:      `Add a new endpoint for a Redis™ Database Instance (Redis™ cluster). You can add ` + "`" + `private_network` + "`" + ` or ` + "`" + `public_network` + "`" + ` specifications to the body of the request.`,
 		Namespace: "redis",
 		Resource:  "endpoint",
 		Verb:      "add",
@@ -1023,21 +1021,21 @@ func redisEndpointAdd() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
-				Short:      `UUID of the cluster you want to add endpoints to`,
+				Short:      `UUID of the Database Instance you want to add endpoints to`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "endpoints.{index}.private-network.id",
-				Short:      `UUID of the private network to be connected to the cluster`,
+				Short:      `UUID of the Private Network to connect to the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "endpoints.{index}.private-network.service-ips.{index}",
-				Short:      `Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation.`,
+				Short:      `Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1057,8 +1055,8 @@ func redisEndpointAdd() *core.Command {
 
 func redisEndpointDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an endpoint for a given cluster`,
-		Long:      `Delete an endpoint for a given cluster.`,
+		Short:     `Delete an endpoint for a cluster`,
+		Long:      `Delete the endpoint of a Redis™ Database Instance (Redis™ cluster). You must specify the ` + "`" + `region` + "`" + ` and ` + "`" + `endpoint_id` + "`" + ` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.`,
 		Namespace: "redis",
 		Resource:  "endpoint",
 		Verb:      "delete",
@@ -1088,7 +1086,7 @@ func redisEndpointDelete() *core.Command {
 func redisEndpointGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an endpoint`,
-		Long:      `Get an endpoint.`,
+		Long:      `Retrieve information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like ` + "`" + `ips` + "`" + `, ` + "`" + `port` + "`" + `, ` + "`" + `private_network` + "`" + ` and ` + "`" + `public_network` + "`" + ` specifications are returned in the response.`,
 		Namespace: "redis",
 		Resource:  "endpoint",
 		Verb:      "get",
@@ -1110,6 +1108,50 @@ func redisEndpointGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.GetEndpoint(request)
+
+		},
+	}
+}
+
+func redisEndpointUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update an endpoint`,
+		Long:      `Update information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like ` + "`" + `ips` + "`" + `, ` + "`" + `port` + "`" + `, ` + "`" + `private_network` + "`" + ` and ` + "`" + `public_network` + "`" + ` specifications are returned in the response.`,
+		Namespace: "redis",
+		Resource:  "endpoint",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(redis.UpdateEndpointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "endpoint-id",
+				Short:      `UUID of the endpoint you want to get`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "private-network.id",
+				Short:      `UUID of the Private Network to connect to the Database Instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network.service-ips.{index}",
+				Short:      `Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*redis.UpdateEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := redis.NewAPI(client)
+			return api.UpdateEndpoint(request)
 
 		},
 	}

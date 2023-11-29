@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage your load balancer service
+This API allows you to manage your Scaleway Load Balancer services.
 
 USAGE:
   scw lb <command>
@@ -14,6 +14,8 @@ AVAILABLE COMMANDS:
   lb              Load balancer management commands
   lb-types        Load balancer types management commands
   private-network Private networks management commands
+  route           Route rules management commands
+  subscriber      Subscriber management commands
 
 FLAGS:
   -h, --help   help for lb

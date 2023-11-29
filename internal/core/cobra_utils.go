@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/spf13/cobra"
 )
 
@@ -19,17 +20,15 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		meta := extractMeta(ctx)
 		meta.command = cmd
 
+		sentry.AddCommandContext(cmd.GetCommandLine("scw"))
+
 		// If command requires authentication and the client was not directly provided in the bootstrap config, we create a new client and overwrite the existing one
 		if !cmd.AllowAnonymousClient && !meta.isClientFromBootstrapConfig {
-			client, err := createClient(ctx, meta.httpClient, meta.BuildInfo, ExtractProfileName(ctx))
+			client, err := meta.Platform.CreateClient(meta.httpClient, ExtractConfigPath(ctx), ExtractProfileName(ctx))
 			if err != nil {
-				return err
+				return createClientError(err)
 			}
 			meta.Client = client
-			err = validateClient(meta.Client)
-			if err != nil {
-				return err
-			}
 		}
 
 		// If command has no Run method there is nothing to do.
@@ -104,6 +103,8 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 	// unmarshalled arguments will be store in this interface
 	cmdArgs := reflect.New(cmd.ArgsType).Interface()
 
+	sentry.AddArgumentsContext(args.SplitRaw(rawArgs))
+
 	// Unmarshal args.
 	// After that we are done working with rawArgs
 	// and will be working with cmdArgs.
@@ -137,6 +138,11 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 	err = validateFunc(ctx, cmd, cmdArgs, rawArgs)
 	if err != nil {
 		return nil, err
+	}
+
+	webFlag, err := cobraCmd.PersistentFlags().GetBool("web")
+	if err == nil && webFlag {
+		return runWeb(cmd, cmdArgs)
 	}
 
 	// execute the command
@@ -230,5 +236,25 @@ Relative time error: %s
 
 	default:
 		return &CliError{Err: unmarshalErr}
+	}
+}
+
+func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
+	return func(cobraCmd *cobra.Command, args []string) error {
+		webFlag, err := cobraCmd.PersistentFlags().GetBool("web")
+		if err == nil && webFlag {
+			out, err := runWeb(cmd, nil)
+			if err != nil {
+				return err
+			}
+			cobraCmd.Println(out)
+			return nil
+		}
+
+		err = cobraCmd.Help()
+		if err != nil {
+			return err
+		}
+		return &CliError{Empty: true, Code: 1}
 	}
 }

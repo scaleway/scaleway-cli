@@ -1,8 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a list of DNS zone versions.<br/>
-The maximum version count is 100.<br/>
-If the count reaches this limit, the oldest version will be deleted after each new modification.
+Retrieve a list of a DNS zone's versions.<br/>
+The maximum version count is 100. If the count reaches this limit, the oldest version will be deleted after each new modification.
 
 USAGE:
   scw dns version list <dns-zone ...> [arg=value ...]

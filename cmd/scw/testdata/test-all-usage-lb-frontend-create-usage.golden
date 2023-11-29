@@ -1,22 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a frontend in a given load balancer.
+Create a new frontend for a given Load Balancer, specifying its configuration including the port it should listen on and the backend to attach it to.
 
 USAGE:
   scw lb frontend create [arg=value ...]
 
 ARGS:
-  name=<generated>            Resource name
-  inbound-port                TCP port to listen on the front side
-  lb-id                       Load balancer ID
-  backend-id                  Backend ID
-  [timeout-client]            Set the maximum inactivity time on the client side
-  [certificate-ids.{index}]   List of certificate IDs to bind on the frontend
-  [enable-http3]              Activate HTTP 3 protocol (beta)
-  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
+  name=<generated>            Name for the frontend
+  inbound-port                Port the frontend should listen on
+  lb-id                       Load Balancer ID (ID of the Load Balancer to attach the frontend to)
+  backend-id                  Backend ID (ID of the backend the frontend should pass traffic to)
+  [timeout-client=5m]         Maximum allowed inactivity time on the client side
+  [certificate-ids.{index}]   List of SSL/TLS certificate IDs to bind to the frontend
+  [enable-http3]              Defines whether to enable HTTP/3 protocol on the frontend
+  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 DEPRECATED ARGS:
-  [certificate-id]   Certificate ID, deprecated in favor of certificate_ids array !
+  [certificate-id]   Certificate ID, deprecated in favor of certificate_ids array
 
 FLAGS:
   -h, --help   help for create

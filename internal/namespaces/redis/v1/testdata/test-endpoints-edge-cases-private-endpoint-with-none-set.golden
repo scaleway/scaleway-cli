@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Invalid arguments 'endpoints.private_network'
+
+Details:
+- 'endpoints.private_network' does not respect constraints
+
+Hint:
+You must specify an ipam_config or a service_ips
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "invalid arguments 'endpoints.private_network'",
+  "error": {
+    "details": [
+      {
+        "argument_name": "endpoints.private_network",
+        "reason": "constraint",
+        "help_message": "You must specify an ipam_config or a service_ips"
+      }
+    ]
+  },
+  "details": "- 'endpoints.private_network' does not respect constraints",
+  "hint": "You must specify an ipam_config or a service_ips"
+}

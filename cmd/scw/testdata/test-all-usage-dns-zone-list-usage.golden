@@ -1,17 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Returns a list of manageable DNS zones.
-You can filter the DNS zones by domain name.
+Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
 
 USAGE:
   scw dns zone list [arg=value ...]
 
 ARGS:
-  [project-id]        The project ID on which to filter the returned DNS zones
-  [order-by]          The sort order of the returned DNS zones (domain_asc | domain_desc | subdomain_asc | subdomain_desc)
-  [domain]            The domain on which to filter the returned DNS zones
-  [dns-zone]          The DNS zone on which to filter the returned DNS zones
-  [organization-id]   The organization ID on which to filter the returned DNS zones
+  [project-id]          Project ID on which to filter the returned DNS zones
+  [order-by]            Sort order of the returned DNS zones (domain_asc | domain_desc | subdomain_asc | subdomain_desc | created_at_asc | created_at_desc | updated_at_asc | updated_at_desc)
+  [domain]              Domain on which to filter the returned DNS zones
+  [dns-zones.{index}]   DNS zones on which to filter the returned DNS zones
+  [created-after]       Only list DNS zones created after this date
+  [created-before]      Only list DNS zones created before this date
+  [updated-after]       Only list DNS zones updated after this date
+  [updated-before]      Only list DNS zones updated before this date
+  [organization-id]     Organization ID on which to filter the returned DNS zones
+
+DEPRECATED ARGS:
+  [dns-zone]   DNS zone on which to filter the returned DNS zones
 
 FLAGS:
   -h, --help   help for list

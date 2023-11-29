@@ -14,6 +14,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -37,6 +38,7 @@ var (
 type backupWaitRequest struct {
 	BackupID string
 	Region   scw.Region
+	Timeout  time.Duration
 }
 
 func backupWaitCommand() *core.Command {
@@ -46,13 +48,14 @@ func backupWaitCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "wait",
+		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(backupWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: argsI.(*backupWaitRequest).BackupID,
 				Region:           argsI.(*backupWaitRequest).Region,
-				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
+				Timeout:          scw.TimeDurationPtr(argsI.(*backupWaitRequest).Timeout),
 				RetryInterval:    core.DefaultRetryInterval,
 			})
 		},
@@ -64,6 +67,7 @@ func backupWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.WaitTimeoutArgSpec(backupActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
@@ -252,7 +256,7 @@ type backupDownloadResult struct {
 	FileName string   `json:"file_name"`
 }
 
-func backupResultMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func backupResultMarshallerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	backupResult := i.(backupDownloadResult)
 	sizeStr, err := human.Marshal(backupResult.Size, nil)
 	if err != nil {
@@ -288,7 +292,12 @@ func backupDownloadCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			if backup.DownloadURL == nil {
+			needExport := backup.DownloadURL == nil
+			if needExport {
+				_, err = interactive.Print("Exporting backup... ")
+				if err != nil {
+					return nil, err
+				}
 				exportRequest := rdb.ExportDatabaseBackupRequest{
 					DatabaseBackupID: args.BackupID,
 					Region:           args.Region,
@@ -300,6 +309,12 @@ func backupDownloadCommand() *core.Command {
 			}
 
 			backup, err = api.WaitForDatabaseBackup(backupRequest)
+			if err != nil {
+				return nil, err
+			}
+			if needExport {
+				_, err = interactive.Println("OK")
+			}
 			if err != nil {
 				return nil, err
 			}

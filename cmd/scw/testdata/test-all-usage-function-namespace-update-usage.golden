@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the space associated with the given id.
+Update the namespace associated with the specified ID.
 
 USAGE:
   scw function namespace update <namespace-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id                                   
-  [environment-variables.{key}]                  
-  [description]                                  
+  namespace-id                                   UUID of the namespapce
+  [environment-variables.{key}]                  Environment variables of the namespace
+  [description]                                  Description of the namespace
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)

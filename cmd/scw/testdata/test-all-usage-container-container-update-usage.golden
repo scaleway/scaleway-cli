@@ -1,32 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the container associated with the given id.
+Update the container associated with the specified ID.
 
 USAGE:
   scw container container update <container-id ...> [arg=value ...]
 
 ARGS:
-  container-id                                   
-  [environment-variables.{key}]                  
-  [min-scale]                                    
-  [max-scale]                                    
-  [memory-limit]                                 
-  [timeout.seconds]                              
-  [timeout.nanos]                                
-  [redeploy]                                     
-  [privacy]                                       (unknown_privacy | public | private)
-  [description]                                  
-  [registry-image]                               
-  [max-concurrency]                              
+  container-id                                   UUID of the container to update
+  [environment-variables.{key}]                  Environment variables of the container
+  [min-scale]                                    Minimum number of instances to scale the container to
+  [max-scale]                                    Maximum number of instances to scale the container to
+  [memory-limit]                                 Memory limit of the container in MB
+  [cpu-limit]                                    CPU limit of the container in mvCPU
+  [timeout]                                      Processing time limit for the container
+  [redeploy]                                     Defines whether to redeploy failed containers
+  [privacy]                                      Privacy settings of the container (unknown_privacy | public | private)
+  [description]                                  Description of the container
+  [registry-image]                               Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+  [max-concurrency]                              Number of maximum concurrent executions of the container
   [protocol]                                      (unknown_protocol | http1 | h2c)
   [port]                                         
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
-  [http-option]                                  Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
+  [http-option=enabled]                          Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update
+  -w, --wait   wait until the container is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

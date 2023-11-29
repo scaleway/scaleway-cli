@@ -1,17 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A Private NIC is the network interface that connects a server to a
-Private Network. There can be at most one Private NIC connecting a
-server to a network.
+A Private NIC is the network interface that connects an Instance to a
+Private Network. An Instance can have multiple private NICs at the same
+time, but each NIC must belong to a different Private Network.
 
 USAGE:
   scw instance private-nic <command>
 
 AVAILABLE COMMANDS:
-  create      Create a private NIC connecting a server to a private network
+  create      Create a private NIC connecting an Instance to a Private Network
   delete      Delete a private NIC
   get         Get a private NIC
   list        List all private NICs
+  update      Update a private NIC
 
 FLAGS:
   -h, --help   help for private-nic

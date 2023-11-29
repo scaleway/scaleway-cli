@@ -1,3 +1,5 @@
+//go:build !wasm
+
 package interactive
 
 import (
@@ -15,6 +17,9 @@ type ValidateFunc func(string) error
 var (
 	// IsInteractive must be set to print anything with Printer functions (Print, Printf,...).
 	IsInteractive = isInteractive()
+
+	// TerminalOutput define if the
+	TerminalOutput = IsInteractive
 
 	// outputWriter is the writer used by Printer functions (Print, Printf,...).
 	outputWriter io.Writer

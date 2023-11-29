@@ -1,20 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Only available with default NS.<br/>
-Send a list of actions and records.
+Update records within a DNS zone that has default name servers and perform several actions on your records.
 
-Action can be:
- - add:
-  - Add new record
-  - Can be more specific and add a new IP to an existing A record for example
- - set:
-  - Edit a record
-  - Can be more specific and edit an IP from an existing A record for example
- - delete:
-  - Delete a record
-  - Can be more specific and delete an IP from an existing A record for example
- - clear:
-  - Delete all records from a DNS zone
+Actions include:
+ - add: allows you to add a new record or add a new IP to an existing A record, for example
+ - set: allows you to edit a record or edit an IP from an existing A record, for example
+ - delete: allows you to delete a record or delete an IP from an existing A record, for example
+ - clear: allows you to delete all records from a DNS zone
 
 All edits will be versioned.
 
@@ -22,7 +14,7 @@ USAGE:
   scw dns record bulk-update <dns-zone ...> [arg=value ...]
 
 ARGS:
-  dns-zone                                                                                 The DNS zone where the DNS zone records will be updated
+  dns-zone                                                                                 DNS zone in which to update the DNS zone records
   [changes.{index}.add.records.{index}.data]                                               
   [changes.{index}.add.records.{index}.name]                                               
   [changes.{index}.add.records.{index}.priority]                                           
@@ -73,9 +65,9 @@ ARGS:
   [changes.{index}.delete.id-fields.type]                                                   (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
   [changes.{index}.delete.id-fields.data]                                                  
   [changes.{index}.delete.id-fields.ttl]                                                   
-  [return-all-records]                                                                     Whether or not to return all the records
-  [disallow-new-zone-creation]                                                             Forbid the creation of the target zone if not existing (default action is yes)
-  [serial]                                                                                 Don't use the autoincremenent serial but the provided one (0 to keep the same)
+  [return-all-records]                                                                     Specifies whether or not to return all the records
+  [disallow-new-zone-creation]                                                             Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default
+  [serial]                                                                                 Use the provided serial (0) instead of the auto-increment serial
 
 FLAGS:
   -h, --help   help for bulk-update

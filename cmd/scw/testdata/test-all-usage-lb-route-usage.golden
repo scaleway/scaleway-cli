@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Route rules management commands.
+
+USAGE:
+  scw lb route <command>
+
+AVAILABLE COMMANDS:
+  create      Create a route
+  delete      Delete a route
+  get         Get a route
+  list        List all routes
+  update      Update a route
+
+FLAGS:
+  -h, --help   help for route
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw lb route [command] --help" for more information about a command.

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Elastic metal API
+Elastic Metal API.
 
 USAGE:
   scw baremetal <command>
@@ -10,8 +10,9 @@ AVAILABLE COMMANDS:
   offer           Server offer management commands
   options         Server options management commands
   os              Operating System (OS) management commands
-  private-network Private network management command
+  private-network Private Network management command
   server          Server management commands
+  settings        Settings management commands
 
 FLAGS:
   -h, --help   help for baremetal

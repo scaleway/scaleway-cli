@@ -10,6 +10,7 @@ import (
 	"github.com/mattn/go-colorable"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -29,17 +30,20 @@ var (
 	GoVersion = runtime.Version()
 	GoOS      = runtime.GOOS
 	GoArch    = runtime.GOARCH
-	BetaMode  = os.Getenv(scw.ScwEnableBeta) != ""
+	BetaMode  = os.Getenv(scw.ScwEnableBeta) == "true"
 )
 
+// cleanup does the recover
+// If name change, must be reported in internal/sentry
 func cleanup(buildInfo *core.BuildInfo) {
 	if err := recover(); err != nil {
 		fmt.Println(sentry.ErrorBanner)
+		fmt.Println(err)
 		fmt.Println("stacktrace from panic: \n" + string(debug.Stack()))
 
 		// This will send an anonymous report on Scaleway's sentry.
 		if buildInfo.IsRelease() {
-			sentry.RecoverPanicAndSendReport(buildInfo, err)
+			sentry.RecoverPanicAndSendReport(buildInfo.Tags(), buildInfo.Version.String(), err)
 		}
 	}
 }
@@ -69,12 +73,13 @@ func main() {
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  namespaces.GetCommands(BetaMode),
+		Commands:  namespaces.GetCommands(),
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),
 		Stdin:     os.Stdin,
 		BetaMode:  BetaMode,
+		Platform:  terminal.NewPlatform(buildInfo.GetUserAgent()),
 	})
 
 	os.Exit(exitCode)

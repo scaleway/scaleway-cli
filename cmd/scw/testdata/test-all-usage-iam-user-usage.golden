@@ -6,9 +6,10 @@ USAGE:
   scw iam user <command>
 
 AVAILABLE COMMANDS:
-  delete      Delete a guest user from an organization
-  get         Retrieve a user from its ID
-  list        List users of an organization
+  create      Create a new user
+  delete      Delete a guest user from an Organization
+  get         Get a given user
+  list        List users of an Organization
 
 FLAGS:
   -h, --help   help for user

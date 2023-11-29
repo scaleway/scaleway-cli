@@ -36,6 +36,14 @@ func Test_CreateInstance(t *testing.T) {
 		Check:     core.TestCheckGolden(),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
 	}))
+
+	t.Run("With password generator", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		Cmd:      fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s generate-password=true --wait", name, engine, user),
+		// do not check the golden as the password generated locally and on CI will necessarily be different
+		Check:     core.TestCheckExitCode(0),
+		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
+	}))
 }
 
 func Test_GetInstance(t *testing.T) {
@@ -93,8 +101,8 @@ func Test_UpdateInstance(t *testing.T) {
 		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=timezone settings.0.value=UTC --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				assert.Equal(t, "timezone", ctx.Result.(*rdb.Instance).Settings[6].Name)
-				assert.Equal(t, "UTC", ctx.Result.(*rdb.Instance).Settings[6].Value)
+				assert.Equal(t, "timezone", ctx.Result.(*rdb.Instance).Settings[5].Name)
+				assert.Equal(t, "UTC", ctx.Result.(*rdb.Instance).Settings[5].Value)
 			},
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -108,8 +116,8 @@ func Test_UpdateInstance(t *testing.T) {
 		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=8 --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				assert.Equal(t, "work_mem", ctx.Result.(*rdb.Instance).Settings[0].Name)
-				assert.Equal(t, "8", ctx.Result.(*rdb.Instance).Settings[0].Value)
+				assert.Equal(t, "work_mem", ctx.Result.(*rdb.Instance).Settings[5].Name)
+				assert.Equal(t, "8", ctx.Result.(*rdb.Instance).Settings[5].Value)
 			},
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -133,14 +141,14 @@ func Test_UpdateInstance(t *testing.T) {
 			" name=foo2 --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				assert.Equal(t, "work_mem", ctx.Result.(*rdb.Instance).Settings[0].Name)
-				assert.Equal(t, "16", ctx.Result.(*rdb.Instance).Settings[0].Value)
-				assert.Equal(t, "max_connections", ctx.Result.(*rdb.Instance).Settings[1].Name)
-				assert.Equal(t, "150", ctx.Result.(*rdb.Instance).Settings[1].Value)
-				assert.Equal(t, "effective_cache_size", ctx.Result.(*rdb.Instance).Settings[2].Name)
-				assert.Equal(t, "1200", ctx.Result.(*rdb.Instance).Settings[2].Value)
-				assert.Equal(t, "maintenance_work_mem", ctx.Result.(*rdb.Instance).Settings[3].Name)
-				assert.Equal(t, "200", ctx.Result.(*rdb.Instance).Settings[3].Value)
+				assert.Equal(t, "effective_cache_size", ctx.Result.(*rdb.Instance).Settings[0].Name)
+				assert.Equal(t, "1200", ctx.Result.(*rdb.Instance).Settings[0].Value)
+				assert.Equal(t, "maintenance_work_mem", ctx.Result.(*rdb.Instance).Settings[1].Name)
+				assert.Equal(t, "200", ctx.Result.(*rdb.Instance).Settings[1].Value)
+				assert.Equal(t, "max_connections", ctx.Result.(*rdb.Instance).Settings[2].Name)
+				assert.Equal(t, "150", ctx.Result.(*rdb.Instance).Settings[2].Value)
+				assert.Equal(t, "work_mem", ctx.Result.(*rdb.Instance).Settings[5].Name)
+				assert.Equal(t, "16", ctx.Result.(*rdb.Instance).Settings[5].Value)
 				assert.Equal(t, "foo2", ctx.Result.(*rdb.Instance).Name)
 			},
 			core.TestCheckGolden(),
@@ -171,6 +179,21 @@ func Test_Connect(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.BeforeFuncStoreInMeta("username", user),
 			createInstance("PostgreSQL-12"),
+		),
+		Cmd: "scw rdb instance connect {{ .Instance.ID }} username={{ .username }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		OverrideExec: core.OverrideExecSimple("psql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --username {{ .username }} --dbname rdb", 0),
+		AfterFunc:    deleteInstance(),
+	}))
+	t.Run("psql", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			core.BeforeFuncStoreInMeta("username", user),
+			createPN(),
+			createInstanceWithPrivateNetwork("PostgreSQL-14"),
 		),
 		Cmd: "scw rdb instance connect {{ .Instance.ID }} username={{ .username }}",
 		Check: core.TestCheckCombine(

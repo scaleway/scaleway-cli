@@ -1,0 +1,28 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a token associated with the specified Project ID.
+
+USAGE:
+  scw cockpit token create [arg=value ...]
+
+ARGS:
+  [project-id]                   Project ID to use. If none is passed the default project ID will be used
+  [name=<generated>]             Name of the token
+  [scopes.query-metrics]         Permission to fetch metrics
+  [scopes.write-metrics]         Permission to write metrics
+  [scopes.setup-metrics-rules]   Permission to setup metrics rules
+  [scopes.query-logs]            Permission to fetch logs
+  [scopes.write-logs]            Permission to write logs
+  [scopes.setup-logs-rules]      Permission to set up logs rules
+  [scopes.setup-alerts]          Permission to set up alerts
+  [scopes.query-traces]          Permission to fetch traces
+  [scopes.write-traces]          Permission to write traces
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

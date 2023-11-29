@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-OS management commands
+OS management commands.
 
 USAGE:
   scw apple-silicon os <command>
 
 AVAILABLE COMMANDS:
   get         Get an Operating System (OS)
-  list        List all Operating System (OS)
+  list        List all Operating Systems (OS)
 
 FLAGS:
   -h, --help   help for os

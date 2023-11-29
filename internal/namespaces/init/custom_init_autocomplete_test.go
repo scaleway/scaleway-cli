@@ -15,6 +15,8 @@ func baseBeforeFunc() core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		ctx.Meta["AccessKey"], _ = ctx.Client.GetAccessKey()
 		ctx.Meta["SecretKey"], _ = ctx.Client.GetSecretKey()
+		ctx.Meta["ProjectID"], _ = ctx.Client.GetDefaultProjectID()
+		ctx.Meta["OrganizationID"], _ = ctx.Client.GetDefaultOrganizationID()
 		return nil
 	}
 }
@@ -27,10 +29,12 @@ const (
 
 func Test_InitAutocomplete(t *testing.T) {
 	defaultSettings := map[string]string{
-		"access-key":     "{{ .AccessKey }}",
-		"secret-key":     "{{ .SecretKey }}",
-		"send-telemetry": "false",
-		"with-ssh-key":   "false",
+		"access-key":      "{{ .AccessKey }}",
+		"secret-key":      "{{ .SecretKey }}",
+		"send-telemetry":  "false",
+		"with-ssh-key":    "false",
+		"organization-id": "{{ .OrganizationID }}",
+		"project-id":      "{{ .ProjectID }}",
 	}
 
 	runAllShells := func(t *testing.T) {

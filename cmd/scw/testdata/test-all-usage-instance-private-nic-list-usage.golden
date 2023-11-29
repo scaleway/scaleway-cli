@@ -1,20 +1,21 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all private NICs of a given server.
+List all private NICs of a specified Instance.
 
 USAGE:
   scw instance private-nic list [arg=value ...]
 
 EXAMPLES:
-  List all private NICs on a specific server
+  List all private NICs on a specified server
     scw instance private-nic list
 
-  List private NICs of the server ID 'my_server_id'
+  List private NICs of the Instance ID 'my_server_id'
     scw instance private-nic list server-id=my_server_id
 
 ARGS:
-  server-id         The server the private NIC is attached to
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
+  server-id         Instance to which the private NIC is attached
+  [tags]            Private NIC tags
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | all)
 
 FLAGS:
   -h, --help   help for list

@@ -1,0 +1,82 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                   c281cc4c-6659-44ef-8918-90ffc8c4d8ea
+Name                 cli-pn-competent-lederberg
+OrganizationID       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Region               fr-par
+CreatedAt            few seconds ago
+UpdatedAt            few seconds ago
+Subnets.0.ID         a0ac2e30-28cd-4d9d-9d4a-ace0f0c79b54
+Subnets.0.CreatedAt  few seconds ago
+Subnets.0.UpdatedAt  few seconds ago
+Subnets.0.Subnet     172.16.20.0/22
+Subnets.1.ID         d3b34464-ec73-4871-9e3c-da462ac382b7
+Subnets.1.CreatedAt  few seconds ago
+Subnets.1.UpdatedAt  few seconds ago
+Subnets.1.Subnet     fd46:78ab:30b8:ced::/64
+VpcID                086a5171-f7ab-4667-a231-840a81203f19
+DHCPEnabled          true
+
+Instance Servers:
+ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
+7a475abc-9618-4405-9e69-336b56203373  cli-srv-thirsty-ptolemy  archived  9f1199ab-9712-41a6-a097-3aa8c12886c4  02:00:00:13:8d:1b
+
+Load-Balancers:
+ID                                    NAME      STATE
+31e52ffe-04cc-467d-9636-1e5ec8281a0e  cli-test  ready
+
+Rdb Instances:
+ID                                    NAME      STATE  ENDPOINT ID
+6072e72c-da2b-4ecc-af9c-b76164e87f2f  cli-test  ready  c3d10f5c-97c2-4d45-a176-4246d89d3979
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "c281cc4c-6659-44ef-8918-90ffc8c4d8ea",
+  "name": "cli-pn-competent-lederberg",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "region": "fr-par",
+  "tags": [],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "subnets": [
+    {
+      "id": "a0ac2e30-28cd-4d9d-9d4a-ace0f0c79b54",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "subnet": "172.16.20.0/22"
+    },
+    {
+      "id": "d3b34464-ec73-4871-9e3c-da462ac382b7",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "subnet": "fd46:78ab:30b8:ced::/64"
+    }
+  ],
+  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+  "dhcp_enabled": true,
+  "instance_servers": [
+    {
+      "id": "7a475abc-9618-4405-9e69-336b56203373",
+      "name": "cli-srv-thirsty-ptolemy",
+      "state": "stopped",
+      "nic_id": "9f1199ab-9712-41a6-a097-3aa8c12886c4",
+      "mac": "02:00:00:13:8d:1b"
+    }
+  ],
+  "lbs": [
+    {
+      "id": "31e52ffe-04cc-467d-9636-1e5ec8281a0e",
+      "name": "cli-test",
+      "state": "ready"
+    }
+  ],
+  "rdb_instances": [
+    {
+      "id": "6072e72c-da2b-4ecc-af9c-b76164e87f2f",
+      "name": "cli-test",
+      "state": "ready",
+      "endpoint_id": "c3d10f5c-97c2-4d45-a176-4246d89d3979"
+    }
+  ]
+}

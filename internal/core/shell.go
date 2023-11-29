@@ -1,5 +1,4 @@
-//go:build !freebsd
-// +build !freebsd
+//go:build !freebsd && !wasm
 
 // shell is disabled on freebsd as current version of github.com/pkg/term@v1.1.0 is not compiling
 package core
@@ -13,7 +12,9 @@ import (
 	"strings"
 
 	"github.com/c-bata/go-prompt"
+	"github.com/scaleway/scaleway-cli/v2/internal/cache"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/spf13/cobra"
 )
 
@@ -58,9 +59,31 @@ func trimLastArg(args []string) []string {
 	return []string(nil)
 }
 
+// trimLastArg returns all arguments but the first one
+// return a nil slice if there is no other arguments
+func trimFirstArg(args []string) []string {
+	l := len(args)
+	if l > 1 {
+		return args[1:]
+	}
+	return []string(nil)
+}
+
 // argIsOption returns if an argument is an option
 func argIsOption(arg string) bool {
 	return strings.Contains(arg, "=") || strings.Contains(arg, ".")
+}
+
+func argIsPositional(cmd *Command, arg string) bool {
+	if cmd.Verb != "" && cmd.Verb == arg {
+		return false
+	} else if cmd.Resource != "" && cmd.Resource == arg {
+		return false
+	} else if cmd.Namespace != "" && cmd.Resource == arg {
+		return false
+	}
+
+	return true
 }
 
 // removeOptions removes options from a list of argument
@@ -109,9 +132,14 @@ func getCommand(meta *meta, args []string, suggest string) *Command {
 		rawCommand = append(rawCommand, suggest)
 	}
 
-	command, foundCommand := meta.Commands.find(rawCommand...)
-	if foundCommand {
-		return command
+	rawCommand = meta.CliConfig.Alias.ResolveAliases(rawCommand)
+
+	// Find the closest command in case there is multiple positional arguments
+	for ; len(rawCommand) > 1; rawCommand = rawCommand[:len(rawCommand)-1] {
+		command, foundCommand := meta.Commands.find(rawCommand...)
+		if foundCommand {
+			return command
+		}
 	}
 	return nil
 }
@@ -120,23 +148,29 @@ func getCommand(meta *meta, args []string, suggest string) *Command {
 // it will return command description if it is a command
 // or option description if suggest is an option of a command
 func getSuggestDescription(meta *meta, args []string, suggest string) string {
-	isOption := argIsOption(suggest)
-
 	command := getCommand(meta, args, suggest)
 	if command == nil {
 		return "command not found"
 	}
 
-	if isOption {
+	if argIsOption(suggest) {
 		option := command.ArgSpecs.GetByName(optionToArgSpecName(suggest))
 		if option != nil {
 			return option.Short
 		}
-	} else {
-		return command.Short
+		return ""
 	}
 
-	return ""
+	if argIsPositional(command, suggest) {
+		option := command.ArgSpecs.GetPositionalArg()
+		if option != nil {
+			return option.Short
+		}
+		return ""
+	}
+
+	// Should be a command, just use command short
+	return command.Short
 }
 
 // sortOptions sorts options, putting required first then order alphabetically
@@ -156,7 +190,7 @@ func sortOptions(meta *meta, args []string, toSuggest string, suggestions []stri
 	}
 
 	sort.Slice(argSpecs, func(i, j int) bool {
-		if argSpecs[i].Arg.Required != argSpecs[j].Arg.Required {
+		if argSpecs[i].Arg != nil && argSpecs[j].Arg != nil && argSpecs[i].Arg.Required != argSpecs[j].Arg.Required {
 			return argSpecs[i].Arg.Required
 		}
 		return argSpecs[i].Text < argSpecs[j].Text
@@ -172,30 +206,40 @@ func sortOptions(meta *meta, args []string, toSuggest string, suggestions []stri
 
 // Complete returns the list of suggestion based on prompt content
 func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
-	argsBeforeCursor := strings.Split(d.TextBeforeCursor(), " ")
-	argsAfterCursor := strings.Split(d.TextAfterCursor(), " ")
-	currentArg := lastArg(argsBeforeCursor) + firstArg(argsAfterCursor)
-
-	// args contains all arguments before the one with the cursor
-	args := trimLastArg(argsBeforeCursor)
-
-	acr := AutoComplete(c.ctx, append([]string{"scw"}, args...), currentArg, argsAfterCursor)
-
-	suggestions := []prompt.Suggest(nil)
+	// shell lib can request duplicate Complete request with empty strings as text
+	// skipping to avoid cache reset
+	if d.Text == "" {
+		return nil
+	}
 
 	meta := extractMeta(c.ctx)
+
+	argsBeforeCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextBeforeCursor(), " "))
+	argsAfterCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextAfterCursor(), " "))
+	currentArg := lastArg(argsBeforeCursor) + firstArg(argsAfterCursor)
+
+	// leftArgs contains all arguments before the one with the cursor
+	leftArgs := trimLastArg(argsBeforeCursor)
+	// rightWords contains all words after the selected one
+	rightWords := trimFirstArg(argsAfterCursor)
+
+	leftWords := append([]string{"scw"}, leftArgs...)
+
+	acr := AutoComplete(c.ctx, leftWords, currentArg, rightWords)
+
+	suggestions := []prompt.Suggest(nil)
 	rawSuggestions := []string(acr.Suggestions)
 
 	// if first suggestion is an option, all suggestions should be options
 	// we sort them
 	if len(rawSuggestions) > 0 && argIsOption(rawSuggestions[0]) {
-		rawSuggestions = sortOptions(meta, args, rawSuggestions[0], rawSuggestions)
+		rawSuggestions = sortOptions(meta, leftArgs, rawSuggestions[0], rawSuggestions)
 	}
 
 	for _, suggest := range rawSuggestions {
 		suggestions = append(suggestions, prompt.Suggest{
 			Text:        suggest,
-			Description: getSuggestDescription(meta, args, suggest),
+			Description: getSuggestDescription(meta, leftArgs, suggest),
 		})
 	}
 
@@ -212,7 +256,10 @@ func NewShellCompleter(ctx context.Context) *Completer {
 func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *meta) func(s string) {
 	return func(s string) {
 		args := strings.Fields(s)
-		rootCmd.SetArgs(args)
+
+		sentry.AddCommandContext(strings.Join(removeOptions(args), " "))
+
+		rootCmd.SetArgs(meta.CliConfig.Alias.ResolveAliases(args))
 
 		err := rootCmd.Execute()
 		if err != nil {
@@ -227,6 +274,14 @@ func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *meta) func(s 
 
 			return
 		}
+
+		// command is nil if it does not have a Run function
+		// ex: instance -h
+		if meta.command == nil {
+			return
+		}
+
+		autoCompleteCache.Update(meta.command.Namespace)
 
 		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
 		if printErr != nil {
@@ -248,6 +303,7 @@ func getShellCommand(rootCmd *cobra.Command) *cobra.Command {
 
 // RunShell will run an interactive shell that runs cobra commands
 func RunShell(ctx context.Context, printer *Printer, meta *meta, rootCmd *cobra.Command, args []string) {
+	autoCompleteCache = cache.New()
 	completer := NewShellCompleter(ctx)
 
 	shellCobraCommand := getShellCommand(rootCmd)
@@ -266,7 +322,7 @@ func RunShell(ctx context.Context, printer *Printer, meta *meta, rootCmd *cobra.
 	p := prompt.New(
 		executor,
 		completer.Complete,
-		prompt.OptionPrefix(">>>"),
+		prompt.OptionPrefix(">>> "),
 		prompt.OptionSuggestionBGColor(prompt.Purple),
 		prompt.OptionSelectedSuggestionBGColor(prompt.Fuchsia),
 		prompt.OptionSelectedSuggestionTextColor(prompt.White),

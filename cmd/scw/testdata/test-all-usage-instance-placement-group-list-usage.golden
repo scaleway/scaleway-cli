@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all placement groups.
+List all placement groups in a specified Availability Zone.
 
 USAGE:
   scw instance placement-group list [arg=value ...]
@@ -9,15 +9,15 @@ EXAMPLES:
   List all placement groups in the default zone
     scw instance placement-group list
 
-  List placement groups that match a given name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
+  List placement groups that match a specified name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
     scw instance placement-group list name=cluster1
 
 ARGS:
-  [project-id]        List only placement groups of this project ID
-  [tags.{index}]      List placement groups with these exact tags (to filter with several tags, use commas to separate them)
+  [project-id]        List only placement groups of this Project ID
+  [tags]              List placement groups with these exact tags (to filter with several tags, use commas to separate them)
   [name]              Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo")
-  [organization-id]   List only placement groups of this organization ID
-  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2 | all)
+  [organization-id]   List only placement groups of this Organization ID
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | all)
 
 FLAGS:
   -h, --help   help for list

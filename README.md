@@ -26,7 +26,7 @@ brew install scw
 
 ### Arch Linux
 
-Install the latest stable release on Arch Linux from [official repositories](https://archlinux.org/packages/community/x86_64/scaleway-cli/).
+Install the latest stable release on Arch Linux from [official repositories](https://archlinux.org/packages/extra/x86_64/scaleway-cli/).
 For instance with `pacman`:
 
 ```sh
@@ -51,18 +51,7 @@ You just have to download the binary compatible with your platform to a director
 #### Linux
 
 ```bash
-# Check out the latest release available on github <https://github.com/scaleway/scaleway-cli/releases/latest>
-VERSION="2.5.4"
-
-# Download the release from github
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v${VERSION}/scaleway-cli_${VERSION}_linux_amd64"
-# Naming changed lately, the url prior to 2.5.4 was https://github.com/scaleway/scaleway-cli/releases/download/v${VERSION}/scw-${VERSION}-linux-x86_64
-
-# Allow executing file as program
-sudo chmod +x /usr/local/bin/scw
-
-# Init the CLI
-scw init
+curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
 ```
 
 #### Windows
@@ -114,24 +103,39 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 
 # Reference documentation
 
-| Namespace      | Description                             | Documentation                                                                                           |
-| -------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `account`      | Account API                             | [CLI](./docs/commands/account.md)                                                                       |
-| `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                  |
-| `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                        |
-| `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                      |
-| `info`         | Get info about current settings         | [CLI](./docs/commands/info.md)                                                                          |
-| `init`         | Initialize the config                   | [CLI](./docs/commands/init.md)                                                                          |
-| `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) / [API](https://developers.scaleway.com/en/products/baremetal/api/) |
-| `dns`          | DNS API                                 | [CLI](./docs/commands/dns.md) / [API](https://developers.scaleway.com/en/products/domain/dns/api/)      |
-| `instance`     | Instance API                            | [CLI](./docs/commands/instance.md) / [API](https://developers.scaleway.com/en/products/instance/api/)   |
-| `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) / [API](https://developers.scaleway.com/en/products/k8s/api/)             |
-| `lb`           | Load Balancer API                       | [CLI](./docs/commands/lb.md) / [API](https://developers.scaleway.com/en/products/lb/zoned_api/)         |
-| `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                   |
-| `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) / [API](https://www.scaleway.com/en/docs/object-storage-feature/)      |
-| `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) / [API](https://developers.scaleway.com/en/products/rdb/api/)             |
-| `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) / [API](https://developers.scaleway.com/en/products/registry/api/)   |
-| `vpc`          | VPC API                                 | [CLI](./docs/commands/vpc.md) / [API](https://developers.scaleway.com/en/products/vpc/api/)             |
+| Namespace      | Description                             | Documentation                                                                                                   |
+|----------------|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `account`      | User related data                       | [CLI](./docs/commands/account.md) / [API](https://developers.scaleway.com/en/products/account/api/v2/)          |
+| `applesilicon` | Apple silicon API                       | [CLI](./docs/commands/apple-silicon.md) / [API](https://developers.scaleway.com/en/products/apple-silicon/api/) |
+| `autocomplete` | Autocomplete related commands           | [CLI](./docs/commands/autocomplete.md)                                                                          |
+| `baremetal`    | Baremetal API                           | [CLI](./docs/commands/baremetal.md) / [API](https://developers.scaleway.com/en/products/baremetal/api/)         |
+| `billing`      | Billing API                             | [CLI](./docs/commands/billing.md) / [API](https://developers.scaleway.com/en/products/billing/api/)             |
+| `cockpit`      | Cockpit API                             | [CLI](./docs/commands/cockpit.md) / [API](https://developers.scaleway.com/en/products/cockpit/api/)             |
+| `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                                |
+| `container`    | Serverless Container API                | [CLI](./docs/commands/container.md) / [API](https://developers.scaleway.com/en/products/containers/api/)        |
+| `documentdb`   | DocumentDB API                          | [CLI](./docs/commands/document-db.md) / [API](https://www.scaleway.com/en/developers/api/document_db/)          |
+| `dns`          | DNS API                                 | [CLI](./docs/commands/dns.md) / [API](https://developers.scaleway.com/en/products/domain/dns/api/)              |
+| `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                              |
+| `flexibleip`   | Flexible IP API                         | [CLI](./docs/commands/fip.md)   / [API](https://developers.scaleway.com/en/products/flexible-ip/api/)           |
+| `function`     | Serverless Function API                 | [CLI](./docs/commands/function.md) / [API](https://developers.scaleway.com/en/products/functions/api/)          |
+| `iam`          | IAM API                                 | [CLI](./docs/commands/iam.md) / [API](https://developers.scaleway.com/en/products/iam/api/v1alpha1/)            |
+| `info`         | Get info about current settings         | [CLI](./docs/commands/info.md)                                                                                  |
+| `init`         | Initialize the config                   | [CLI](./docs/commands/init.md)                                                                                  |
+| `instance`     | Instance API                            | [CLI](./docs/commands/instance.md) / [API](https://developers.scaleway.com/en/products/instance/api/)           |
+| `iot`          | IoT API                                 | [CLI](./docs/commands/iot.md) / [API](https://developers.scaleway.com/en/products/iot/api/)                     |
+| `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) / [API](https://developers.scaleway.com/en/products/k8s/api/)                     |
+| `lb`           | Load Balancer API                       | [CLI](./docs/commands/lb.md) / [API](https://developers.scaleway.com/en/products/lb/zoned_api/)                 |
+| `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                           |
+| `mnq`          | Messaging and Queueing API              | [CLI](./docs/commands/mnq.md) / [API](https://www.scaleway.com/en/docs/serverless/messaging/concepts/)          |
+| `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) / [API](https://www.scaleway.com/en/docs/object-storage-feature/)              |
+| `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) / [API](https://developers.scaleway.com/en/products/rdb/api/)                     |
+| `redis`        | Redis API                               | [CLI](./docs/commands/redis.md) / [API](https://developers.scaleway.com/en/products/redis/api/v1/)              |
+| `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) / [API](https://developers.scaleway.com/en/products/registry/api/)           |
+| `secret`       | Secret manager API                      | [CLI](./docs/commands/secret.md)                                                                                |
+| `shell`        | Start Shell mode                        | [CLI](./docs/commands/shell.md)                                                                                 |
+| `tem`          | Transactional Email API                 | [CLI](./docs/commands/tem.md) / [API](https://developers.scaleway.com/en/products/transactional_email/api/)     |
+| `vpc-gw`       | VPC Gateway API                         | [CLI](./docs/commands/vpc-gw.md) / [API](https://developers.scaleway.com/en/products/vpc-gw/api/v1/)            |
+| `vpc`          | VPC API                                 | [CLI](./docs/commands/vpc.md) / [API](https://developers.scaleway.com/en/products/vpc/api/)                     |
 
 ## Build it yourself
 
@@ -144,7 +148,7 @@ Note that this development version could include bugs, use [tagged releases](htt
 go install github.com/scaleway/scaleway-cli/v2/cmd/scw@latest
 ```
 
-Dependencies: We only use go [Go Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
+Dependencies: We only use go [Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
 
 ### Build with Docker
 

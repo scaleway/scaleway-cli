@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
-	"github.com/karrick/tparse"
+	"github.com/karrick/tparse/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
@@ -69,6 +69,10 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 			return nil
 		}
 
+		if len(value) == 0 {
+			return fmt.Errorf("empty time given")
+		}
+
 		// Handle relative time
 		if value[0] != '+' && value[0] != '-' {
 			value = "+" + value
@@ -97,6 +101,26 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 			return fmt.Errorf("failed to parse duration: %w", err)
 		}
 		*(dest.(*time.Duration)) = duration
+		return nil
+	},
+	reflect.TypeOf((*scw.JSONObject)(nil)).Elem(): func(value string, dest interface{}) error {
+		jsonObject, err := scw.DecodeJSONObject(value, scw.NoEscape)
+		if err != nil {
+			return fmt.Errorf("failed to parse json object: %w", err)
+		}
+		*(dest.(*scw.JSONObject)) = jsonObject
+		return nil
+	},
+	reflect.TypeOf((*[]byte)(nil)).Elem(): func(value string, dest interface{}) error {
+		*(dest.(*[]byte)) = []byte(value)
+		return nil
+	},
+	reflect.TypeOf((*scw.Duration)(nil)).Elem(): func(value string, dest interface{}) error {
+		duration, err := time.ParseDuration(value)
+		if err != nil {
+			return fmt.Errorf("failed to parse duration: %w", err)
+		}
+		*(dest.(*scw.Duration)) = *scw.NewDurationFromTimeDuration(duration)
 		return nil
 	},
 }
@@ -232,8 +256,11 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// - dest is a pointer to a slice
 		// - there is no more argNameWords left
 		// - value == none
-		// we let the slice empty and return
+		// slice ptr was allocated
+		// we allocate the empty slice and return
 		if dest.Elem().Kind() == reflect.Slice && len(argNameWords) == 0 && value == emptySliceValue {
+			sliceDest := dest.Elem()
+			sliceDest.Set(reflect.MakeSlice(sliceDest.Type(), 0, 0))
 			return nil
 		}
 
@@ -249,7 +276,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		}
 
 		// We check if argNameWords[0] is a positive integer to handle cases like keys.0.value=12
-		index, err := strconv.ParseUint(argNameWords[0], 10, 64)
+		index, err := strconv.ParseUint(argNameWords[0], 10, 32) // a slice index is 32 bit
 		if err != nil {
 			return &InvalidIndexError{Index: argNameWords[0]}
 		}

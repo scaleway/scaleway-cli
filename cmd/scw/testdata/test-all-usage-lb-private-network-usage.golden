@@ -6,9 +6,9 @@ USAGE:
   scw lb private-network <command>
 
 AVAILABLE COMMANDS:
-  attach      Add load balancer on instance private network
-  detach      Remove load balancer of private network
-  list        List attached private network of load balancer
+  attach      Attach a Load Balancer to a Private Network
+  detach      Detach Load Balancer from Private Network
+  list        List Private Networks attached to a Load Balancer
 
 FLAGS:
   -h, --help   help for private-network

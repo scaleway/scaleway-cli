@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create an instance snapshot.
+Create a new snapshot of a Database Instance. You must define the `name` parameter in the request.
 
 USAGE:
   scw rdb snapshot create [arg=value ...]
 
 ARGS:
-  instance-id        UUID of the instance
+  instance-id        UUID of the Database Instance
   name=<generated>   Name of the snapshot
-  [expires-at]       Expiration date (Format ISO 8601)
+  [expires-at]       Expiration date (must follow the ISO 8601 format)
   [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

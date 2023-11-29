@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a database in a given instance.
+Delete a given database on a Database Instance. You must specify, in the endpoint, the `region`, `instance_id` and `name` parameters of the database you want to delete.
 
 USAGE:
   scw rdb database delete [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the instance where to delete the database
+  instance-id       UUID of the Database Instance where to delete the database
   name              Name of the database to delete
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

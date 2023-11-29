@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a security group.
+Delete a security group with the specified ID.
 
 USAGE:
   scw instance security-group delete <security-group-id ...> [arg=value ...]
 
 EXAMPLES:
-  Delete a security group with the given ID
+  Delete the security group with the specified ID
     scw instance security-group delete 69e17c83-9945-47ac-8b29-8c1ad050ee83
 
 ARGS:
   security-group-id   UUID of the security group you want to delete
-  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
+  [zone=fr-par-1]     Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for delete

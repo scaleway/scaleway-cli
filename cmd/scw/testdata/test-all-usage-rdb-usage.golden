@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Database RDB API
+Managed Database for PostgreSQL and MySQL API
 
 USAGE:
   scw rdb <command>
@@ -9,12 +9,14 @@ AVAILABLE COMMANDS:
   acl          Access Control List (ACL) management commands
   backup       Backup management commands
   database     Database management commands
+  endpoint     Endpoint management
   engine       Database engines commands
   instance     Instance management commands
   log          Instance logs management commands
   node-type    Node types management commands
   privilege    User privileges management commands
   read-replica Read replica management
+  setting      Setting management
   snapshot     Block snapshot management
   user         User management commands
 

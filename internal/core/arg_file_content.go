@@ -56,6 +56,14 @@ func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
 					}
 					v.SetString(string(content))
 				}
+			case []byte:
+				if strings.HasPrefix(string(i), "@") {
+					content, err := os.ReadFile(string(i)[1:])
+					if err != nil {
+						return fmt.Errorf("could not open requested file: %s", err)
+					}
+					v.SetBytes(content)
+				}
 			case nil:
 				continue
 			default:

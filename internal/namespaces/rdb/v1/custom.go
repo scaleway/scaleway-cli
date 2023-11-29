@@ -6,24 +6,13 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
 
-var nodeTypes = []string{
-	"DB-DEV-S",
-	"DB-DEV-M",
-	"DB-DEV-L",
-	"DB-DEV-XL",
-	"DB-GP-XS",
-	"DB-GP-S",
-	"DB-GP-M",
-	"DB-GP-L",
-	"DB-GP-XL",
-}
-
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
 	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 	human.RegisterMarshalerFunc(backupDownloadResult{}, backupResultMarshallerFunc)
+	human.RegisterMarshalerFunc(createInstanceResult{}, createInstanceResultMarshalerFunc)
 
 	human.RegisterMarshalerFunc(rdb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(""), human.EnumMarshalFunc(backupStatusMarshalSpecs))
@@ -49,10 +38,13 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "instance", "clone").Override(instanceCloneBuilder)
 	cmds.MustFind("rdb", "instance", "upgrade").Override(instanceUpgradeBuilder)
 	cmds.MustFind("rdb", "instance", "update").Override(instanceUpdateBuilder)
+	cmds.MustFind("rdb", "instance", "get").Override(instanceGetBuilder)
 
 	cmds.MustFind("rdb", "engine", "list").Override(engineListBuilder)
 
 	cmds.MustFind("rdb", "user", "list").Override(userListBuilder)
+	cmds.MustFind("rdb", "user", "create").Override(userCreateBuilder)
+	cmds.MustFind("rdb", "user", "update").Override(userUpdateBuilder)
 
 	cmds.MustFind("rdb", "backup", "list").Override(backupListBuilder)
 

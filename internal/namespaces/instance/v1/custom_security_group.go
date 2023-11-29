@@ -10,6 +10,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -39,6 +40,44 @@ var (
 		instance.SecurityGroupStateSyncingError: &human.EnumMarshalSpec{Attribute: color.FgRed},
 	}
 )
+
+func marshalSecurityGroupRules(i interface{}, _ *human.MarshalOpt) (out string, err error) {
+	rules := i.([]*instance.SecurityGroupRule)
+
+	type humanRule struct {
+		ID        string
+		Direction string
+		Protocol  instance.SecurityGroupRuleProtocol
+		Action    instance.SecurityGroupRuleAction
+		IPRange   string
+		Dest      string
+	}
+
+	toHumanRule := func(rule *instance.SecurityGroupRule) *humanRule {
+		dest := "ALL"
+		if rule.DestPortFrom != nil {
+			dest = strconv.Itoa(int(*rule.DestPortFrom))
+		}
+		if rule.DestPortTo != nil {
+			dest += "-" + strconv.Itoa(int(*rule.DestPortTo))
+		}
+		return &humanRule{
+			ID:        rule.ID,
+			Direction: string(rule.Direction),
+			Protocol:  rule.Protocol,
+			Action:    rule.Action,
+			IPRange:   rule.IPRange.String(),
+			Dest:      dest,
+		}
+	}
+	humanRules := make([]*humanRule, len(rules))
+
+	for i, rule := range rules {
+		humanRules[i] = toHumanRule(rule)
+	}
+
+	return human.Marshal(humanRules, nil)
+}
 
 // MarshalHuman marshals a customSecurityGroupResponse.
 func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
@@ -76,39 +115,14 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	}
 	securityGroupView = terminal.Style("Security Group:\n", color.Bold) + securityGroupView
 
-	type humanRule struct {
-		ID       string
-		Protocol instance.SecurityGroupRuleProtocol
-		Action   instance.SecurityGroupRuleAction
-		IPRange  string
-		Dest     string
-	}
-
-	toHumanRule := func(rule *instance.SecurityGroupRule) *humanRule {
-		dest := "ALL"
-		if rule.DestPortFrom != nil {
-			dest = strconv.Itoa(int(*rule.DestPortFrom))
-		}
-		if rule.DestPortTo != nil {
-			dest += "-" + strconv.Itoa(int(*rule.DestPortTo))
-		}
-		return &humanRule{
-			ID:       rule.ID,
-			Protocol: rule.Protocol,
-			Action:   rule.Action,
-			IPRange:  rule.IPRange.String(),
-			Dest:     dest,
-		}
-	}
-
-	inboundRules := []*humanRule(nil)
-	outboundRules := []*humanRule(nil)
+	inboundRules := []*instance.SecurityGroupRule(nil)
+	outboundRules := []*instance.SecurityGroupRule(nil)
 	for _, rule := range sg.Rules {
 		switch rule.Direction {
 		case instance.SecurityGroupRuleDirectionInbound:
-			inboundRules = append(inboundRules, toHumanRule(rule))
+			inboundRules = append(inboundRules, rule)
 		case instance.SecurityGroupRuleDirectionOutbound:
-			outboundRules = append(outboundRules, toHumanRule(rule))
+			outboundRules = append(outboundRules, rule)
 		default:
 			logger.Warningf("invalid security group rule direction: %v", rule.Direction)
 		}
@@ -473,6 +487,98 @@ func securityGroupUpdateCommand() *core.Command {
 				// Unknown error, use default behavior.
 				return nil, resErr
 			}
+		},
+	}
+}
+
+var instanceSecurityGroupEditYamlExample = `rules:
+- action: drop
+  dest_port_from: 1200
+  dest_port_to: 1300
+  direction: inbound
+  ip_range: 192.168.0.0/24
+  protocol: TCP
+- action: drop
+  direction: inbound
+  protocol: ICMP
+  ip_range: 0.0.0.0/0
+- action: accept
+  dest_port_from: 25565
+  direction: outbound
+  ip_range: 0.0.0.0/0
+  protocol: UDP
+`
+
+type instanceSecurityGroupEditArgs struct {
+	Zone            scw.Zone
+	SecurityGroupID string
+	Mode            editor.MarshalMode
+}
+
+func securityGroupEditCommand() *core.Command {
+	return &core.Command{
+		Short:     `Edit all rules of a security group`,
+		Long:      editor.LongDescription,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "edit",
+		ArgsType:  reflect.TypeOf(instanceSecurityGroupEditArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Short:      `ID of the security group to reset.`,
+				Required:   true,
+				Positional: true,
+			},
+			editor.MarshalModeArgSpec(),
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			args := argsI.(*instanceSecurityGroupEditArgs)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			rules, err := api.ListSecurityGroupRules(&instance.ListSecurityGroupRulesRequest{
+				Zone:            args.Zone,
+				SecurityGroupID: args.SecurityGroupID,
+			}, scw.WithAllPages(), scw.WithContext(ctx))
+			if err != nil {
+				return nil, fmt.Errorf("failed to list security-group rules: %w", err)
+			}
+
+			// Get only rules that can be edited
+			editableRules := []*instance.SecurityGroupRule(nil)
+			for _, rule := range rules.Rules {
+				if rule.Editable {
+					editableRules = append(editableRules, rule)
+				}
+			}
+			rules.Rules = editableRules
+
+			setRequest := &instance.SetSecurityGroupRulesRequest{
+				Zone:            args.Zone,
+				SecurityGroupID: args.SecurityGroupID,
+			}
+
+			editedSetRequest, err := editor.UpdateResourceEditor(rules, setRequest, &editor.Config{
+				PutRequest:   true,
+				MarshalMode:  args.Mode,
+				Template:     instanceSecurityGroupEditYamlExample,
+				IgnoreFields: []string{"editable"},
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			setRequest = editedSetRequest.(*instance.SetSecurityGroupRulesRequest)
+
+			resp, err := api.SetSecurityGroupRules(setRequest, scw.WithContext(ctx))
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Rules, nil
 		},
 	}
 }

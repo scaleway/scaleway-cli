@@ -51,20 +51,25 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		serverAttachVolumeCommand(),
 		serverBackupCommand(),
-		serverConsoleCommand(),
 		serverCreateCommand(),
 		serverDeleteCommand(),
 		serverTerminateCommand(),
 		serverDetachVolumeCommand(),
 		serverSSHCommand(),
+		serverActionCommand(),
 		serverStartCommand(),
 		serverStopCommand(),
 		serverStandbyCommand(),
 		serverRebootCommand(),
+		serverEnableRoutedIPCommand(),
 		serverWaitCommand(),
 		serverAttachIPCommand(),
 		serverDetachIPCommand(),
 	))
+
+	if cmdConsole := serverConsoleCommand(); cmdConsole != nil {
+		cmds.Add(cmdConsole)
+	}
 
 	//
 	// Server-Type
@@ -109,6 +114,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
 	cmds.Merge(core.NewCommands(
 		snapshotWaitCommand(),
+		snapshotUpdateCommand(),
 	))
 
 	//
@@ -142,6 +148,7 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		securityGroupClearCommand(),
 		securityGroupUpdateCommand(),
+		securityGroupEditCommand(),
 	))
 
 	//
@@ -149,6 +156,7 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.CreateSecurityGroupRuleResponse{}, marshallNestedField("Rule"))
 	human.RegisterMarshalerFunc(instance.SecurityGroupRuleAction(""), human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs))
+	human.RegisterMarshalerFunc([]*instance.SecurityGroupRule{}, marshalSecurityGroupRules)
 
 	//
 	// Placement Group
@@ -172,7 +180,19 @@ func GetCommands() *core.Commands {
 	//
 	human.RegisterMarshalerFunc(instance.PrivateNICState(""), human.EnumMarshalFunc(privateNICStateMarshalSpecs))
 
-	cmds.MustFind("instance", "private-nic", "list").Override(privateNicListBuilder)
+	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
+
+	// SSH Utilities
+
+	human.RegisterMarshalerFunc([]*SSHKeyFormat(nil), marshalSSHKeys)
+
+	cmds.Merge(core.NewCommands(
+		instanceSSH(),
+		sshAddKeyCommand(),
+		sshConfigInstallCommand(),
+		sshListKeysCommand(),
+		sshRemoveKeyCommand(),
+	))
 
 	return cmds
 }

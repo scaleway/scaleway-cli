@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create an SSH key.
+Add a new SSH key to a Scaleway Project. You must specify the `name`, `public_key` and `project_id`.
 
 USAGE:
   scw iam ssh-key create [arg=value ...]
@@ -10,8 +10,8 @@ EXAMPLES:
     scw iam ssh-key create name=foobar public-key="$(cat <path/to/your/public/key>)"
 
 ARGS:
-  name=<generated>   The name of the SSH key. Max length is 1000
-  public-key         SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000
+  name=<generated>   Name of the SSH key. Max length is 1000
+  public-key         SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000
   [project-id]       Project ID to use. If none is passed the default project ID will be used
 
 FLAGS:

@@ -1,6 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Node types powering your instance
+Two node type ranges are available:
+
+* **General Purpose:** production-grade nodes designed for scalable database infrastructures.
+* **Development:** sandbox environments and reliable performance for development and testing purposes.
 
 USAGE:
   scw rdb node-type <command>

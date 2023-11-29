@@ -14,10 +14,10 @@ The following environment variables are supported:
 
 |Environment Variable|Description|
 |--|--|
-|SCW_ACCESS_KEY|The access key of a token (create a token at https://console.scaleway.com/project/credentials)|
-|SCW_SECRET_KEY|The secret key of a token (create a token at https://console.scaleway.com/project/credentials)|
-|SCW_DEFAULT_ORGANIZATION_ID|The default organization ID (get your organization ID at https://console.scaleway.com/project/credentials)|
-|SCW_DEFAULT_PROJECT_ID|The default project ID (get your project ID at https://console.scaleway.com/project/credentials)|
+|SCW_ACCESS_KEY|The access key of a token (create a token at https://console.scaleway.com/iam/api-keys)|
+|SCW_SECRET_KEY|The secret key of a token (create a token at https://console.scaleway.com/iam/api-keys)|
+|SCW_DEFAULT_ORGANIZATION_ID|The default organization ID (get your organization ID at https://console.scaleway.com/iam/api-keys)|
+|SCW_DEFAULT_PROJECT_ID|The default project ID (get your project ID at https://console.scaleway.com/iam/api-keys)|
 |SCW_DEFAULT_REGION|The default region|
 |SCW_DEFAULT_ZONE|The default availability zone|
 |SCW_API_URL|URL of the API|
@@ -29,12 +29,15 @@ Read more about the config management engine at https://github.com/scaleway/scal
 - [Destroy the config file](#destroy-the-config-file)
 - [Dump the config file](#dump-the-config-file)
 - [Get a value from the config file](#get-a-value-from-the-config-file)
+- [Import configurations from another file](#import-configurations-from-another-file)
+- [Get config values from the config file for the current profile](#get-config-values-from-the-config-file-for-the-current-profile)
 - [Allows the deletion of a profile from the config file](#allows-the-deletion-of-a-profile-from-the-config-file)
   - [Mark a profile as active in the config file](#mark-a-profile-as-active-in-the-config-file)
   - [Delete a profile from the config file](#delete-a-profile-from-the-config-file)
 - [Reset the config](#reset-the-config)
 - [Set a line from the config file](#set-a-line-from-the-config-file)
 - [Unset a line from the config file](#unset-a-line-from-the-config-file)
+- [Validate the config](#validate-the-config)
 
   
 ## Destroy the config file
@@ -96,6 +99,56 @@ scw config get default_organization_id
 Get the default region of the profile 'prod'
 ```
 scw -p prod config get default_region
+```
+
+
+
+
+## Import configurations from another file
+
+
+
+
+
+**Usage:**
+
+```
+scw config import <file ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| file | Required | Path to the configuration file to import |
+
+
+
+## Get config values from the config file for the current profile
+
+
+
+
+
+**Usage:**
+
+```
+scw config info
+```
+
+
+**Examples:**
+
+
+Get the default config values
+```
+scw config info
+```
+
+Get the config values of the profile 'prod'
+```
+scw -p prod config info
 ```
 
 
@@ -184,7 +237,7 @@ scw config set [arg=value ...]
 | default-organization-id |  | A default Scaleway organization id |
 | default-project-id |  | A default Scaleway project id |
 | default-region | One of: `fr-par`, `nl-ams`, `pl-waw` | A default Scaleway region |
-| default-zone | One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | A default Scaleway zone |
+| default-zone | One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | A default Scaleway zone |
 | send-telemetry |  | Set to false to disable telemetry |
 
 
@@ -222,6 +275,36 @@ scw config unset <key ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the config config key name to unset |
+
+
+
+## Validate the config
+
+This command validates the configuration of your Scaleway CLI tool.
+
+It performs the following checks:
+
+	- YAML syntax correctness: It checks whether your config file is a valid YAML file.
+	- Field validity: It checks whether the fields present in the config file are valid and expected fields. This includes fields like AccessKey, SecretKey, DefaultOrganizationID, DefaultProjectID, DefaultRegion, DefaultZone, and APIURL.
+	- Field values: For each of the fields mentioned above, it checks whether the value assigned to it is valid. For example, it checks if the AccessKey and SecretKey are non-empty and meet the format expectations.
+
+The command goes through each profile present in the config file and validates it.
+
+This command validates the configuration of your Scaleway CLI tool.
+
+It performs the following checks:
+
+	- YAML syntax correctness: It checks whether your config file is a valid YAML file.
+	- Field validity: It checks whether the fields present in the config file are valid and expected fields. This includes fields like AccessKey, SecretKey, DefaultOrganizationID, DefaultProjectID, DefaultRegion, DefaultZone, and APIURL.
+	- Field values: For each of the fields mentioned above, it checks whether the value assigned to it is valid. For example, it checks if the AccessKey and SecretKey are non-empty and meet the format expectations.
+
+The command goes through each profile present in the config file and validates it.
+
+**Usage:**
+
+```
+scw config validate
+```
 
 
 

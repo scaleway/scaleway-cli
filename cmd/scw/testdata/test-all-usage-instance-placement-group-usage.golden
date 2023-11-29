@@ -1,21 +1,21 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Placement groups allow the user to express a preference regarding
-the physical position of a group of instances. It'll let the user
-choose to either group instances on the same physical hardware for
-best network throughput and low latency or to spread instances on
-far away hardware to reduce the risk of physical failure.
+the physical position of a group of Instances. The feature lets the user
+choose to either group Instances on the same physical hardware for
+best network throughput and low latency or to spread Instances across
+physically distanced hardware to reduce the risk of physical failure.
 
 The operating mode is selected by a `policy_type`. Two policy
 types are available:
-  - `low_latency` will group instances on the same hypervisors
-  - `max_availability` will spread instances on far away hypervisors
+  - `low_latency` will group Instances on the same hypervisors
+  - `max_availability` will spread Instances across physically distanced hypervisors
 
-The `policy_type` is set by default to `max_availability`.
+The `policy_type` is set to `max_availability` by default.
 
 For each policy types, one of the two `policy_mode` may be selected:
-  - `optional` will start your instances even if the constraint is not respected
-  - `enforced` guarantee that if the instance starts, the constraint is respected
+  - `optional` will start your Instances even if the constraint is not respected
+  - `enforced` guarantees that if the Instance starts, the constraint is respected
 
 The `policy_mode` is set by default to `optional`.
 
@@ -23,11 +23,15 @@ USAGE:
   scw instance placement-group <command>
 
 AVAILABLE COMMANDS:
-  create      Create a placement group
-  delete      Delete the given placement group
-  get         Get a placement group
-  list        List placement groups
-  update      Update a placement group
+  create         Create a placement group
+  delete         Delete the specified placement group
+  get            Get a placement group
+  get-servers    Get placement group servers
+  list           List placement groups
+  set            Set placement group
+  set-servers    Set placement group servers
+  update         Update a placement group
+  update-servers Update placement group servers
 
 FLAGS:
   -h, --help   help for placement-group

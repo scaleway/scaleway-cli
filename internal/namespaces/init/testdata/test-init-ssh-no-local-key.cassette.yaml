@@ -4,37 +4,66 @@ interactions:
 - request:
     body: ""
     form: {}
-    headers: {}
-    url: https://api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
     method: GET
   response:
-    body: '{"token": {"access_key": "SCWFEREJ5D3PW6WTVEH1", "user_id": "721f2fde-1a01-4854-822b-fcca5638d73e",
-      "iam_user_id": null, "iam_application_id": null, "expires": null, "creation_date":
-      "2021-04-16T12:46:06.403601+00:00", "deletion_date": null, "creation_ip": "195.154.229.35",
-      "category": "user_created", "inherits_user_perms": false, "role_id": "5737d70a-84fc-46ce-ae5c-5d31170f733a",
-      "description": "sieben-macbook", "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42", "use_role_key": true}}'
+    body: '{"details":[{"action":"read","resource":"api_key"}],"message":"insufficient
+      permissions","type":"permissions_denied"}'
     headers:
       Content-Length:
-      - "552"
+      - "117"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 17 May 2022 15:46:09 GMT
+      - Mon, 24 Apr 2023 14:38:55 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
       - max-age=63072000
-      Warning:
-      - 299 - "Deprecated API please use https://api.scaleway.com/account/v1"
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - bd1bb7a7-e168-401c-9217-ff427444e36c
-    status: 200 OK
-    code: 200
+      - eb6b01e6-73e2-4b96-ba09-788a340d207b
+    status: 403 Forbidden
+    code: 403
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) scaleway-cli/0.0.0+test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
+    method: GET
+  response:
+    body: '{"details":[{"action":"read","resource":"api_key"}],"message":"insufficient
+      permissions","type":"permissions_denied"}'
+    headers:
+      Content-Length:
+      - "117"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 24 Apr 2023 14:38:55 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ccf189cc-f6c9-4f85-8aab-181321fbf2ac
+    status: 403 Forbidden
+    code: 403
     duration: ""

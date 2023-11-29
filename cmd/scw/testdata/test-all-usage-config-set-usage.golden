@@ -21,7 +21,7 @@ ARGS:
   [default-organization-id]   A default Scaleway organization id
   [default-project-id]        A default Scaleway project id
   [default-region]            A default Scaleway region (fr-par | nl-ams | pl-waw)
-  [default-zone]              A default Scaleway zone (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
+  [default-zone]              A default Scaleway zone (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
   [send-telemetry]            Set to false to disable telemetry
 
 FLAGS:
@@ -35,4 +35,4 @@ GLOBAL FLAGS:
 
 SEE ALSO:
   # Config management help
-  scw config --help
+  scw config

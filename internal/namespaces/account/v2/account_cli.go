@@ -47,24 +47,26 @@ func accountProject() *core.Command {
 
 func accountProjectCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create project`,
-		Long:      `Create project.`,
+		Short: `Create a new Project for an Organization`,
+		Long: `Deprecated in favor of Account API v3.
+Generate a new Project for an Organization, specifying its configuration including name and description.`,
 		Namespace: "account",
 		Resource:  "project",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(account.CreateProjectRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `The name of the project`,
+				Short:      `Name of the Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("proj"),
 			},
 			{
 				Name:       "description",
-				Short:      `The description of the project`,
+				Short:      `Description of the Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -84,24 +86,25 @@ func accountProjectCreate() *core.Command {
 
 func accountProjectList() *core.Command {
 	return &core.Command{
-		Short:     `List projects`,
-		Long:      `List projects.`,
+		Short: `List all Projects of an Organization`,
+		Long: `Deprecated in favor of Account API v3.
+List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.`,
 		Namespace: "account",
 		Resource:  "project",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(account.ListProjectsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `The name of the project`,
+				Short:      `Name of the Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "order-by",
-				Short:      `The sort order of the returned projects`,
+				Short:      `Sort order of the returned Projects`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -109,7 +112,7 @@ func accountProjectList() *core.Command {
 			},
 			{
 				Name:       "project-ids.{index}",
-				Short:      `Filter out by a list of project ID`,
+				Short:      `Project IDs to filter for. The results will be limited to any Projects with an ID in this array`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -134,12 +137,13 @@ func accountProjectList() *core.Command {
 
 func accountProjectGet() *core.Command {
 	return &core.Command{
-		Short:     `Get project`,
-		Long:      `Get project.`,
+		Short: `Get an existing Project`,
+		Long: `Deprecated in favor of Account API v3.
+Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.`,
 		Namespace: "account",
 		Resource:  "project",
 		Verb:      "get",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(account.GetProjectRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -157,12 +161,13 @@ func accountProjectGet() *core.Command {
 
 func accountProjectDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete project`,
-		Long:      `Delete project.`,
+		Short: `Delete an existing Project`,
+		Long: `Deprecated in favor of Account API v3.
+Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.`,
 		Namespace: "account",
 		Resource:  "project",
 		Verb:      "delete",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(account.DeleteProjectRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -186,25 +191,26 @@ func accountProjectDelete() *core.Command {
 
 func accountProjectUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update project`,
-		Long:      `Update project.`,
+		Short: `Update Project`,
+		Long: `Deprecated in favor of Account API v3.
+Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.`,
 		Namespace: "account",
 		Resource:  "project",
 		Verb:      "update",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(account.UpdateProjectRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
-				Short:      `The name of the project`,
+				Short:      `Name of the Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `The description of the project`,
+				Short:      `Description of the Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

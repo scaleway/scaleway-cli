@@ -1,0 +1,85 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"ssh_keys":[{"id":"495d0e9f-a22b-4ff5-8324-0cb4746c57dc", "name":"rleone@scaleway.com",
+      "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6Lfs9IrfEUsw2oALOKucAqjeJo3vdADJAZS0BrJ4Vl
+      rleone@scaleway.com", "fingerprint":"256 MD5:0d:6d:20:43:4c:0f:38:a3:65:de:8f:72:77:70:26:55
+      rleone@scaleway.com (ssh-ed25519)", "created_at":"2022-03-29T07:50:11.839583Z",
+      "updated_at":"2022-03-29T07:50:17.762922Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e2e9d140-c387-43e8-af1b-5b133f8fe90d",
+      "name":"leila''s ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIG4S+vO03k8VY0qdhRThHbyiDFbIqvzH+94x24b4hbQ
+      lmarabese", "fingerprint":"256 MD5:69:c9:cf:52:7d:07:cc:ff:a4:58:e4:7e:96:77:18:63
+      lmarabese (ssh-ed25519)", "created_at":"2023-02-07T10:19:17.608707Z", "updated_at":"2023-02-07T10:19:17.608707Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}, {"id":"1f5abae8-78f7-41a2-a787-780166d3f736", "name":"foobar",
+      "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
+      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:52.688903Z",
+      "updated_at":"2023-07-17T14:47:52.688903Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"459e72de-56f0-4177-a3fd-f8bf47571915",
+      "name":"foobar", "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
+      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:55.834080Z",
+      "updated_at":"2023-07-17T14:47:55.834080Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e4572020-36e1-41fc-9bbc-2faa56c12e93",
+      "name":"key-elastic-allen", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x
+      foo@foobar.com", "fingerprint":"256 MD5:1e:f8:f7:cb:c4:b7:a8:6d:96:20:49:d0:d0:af:a0:9e
+      foo@foobar.com (ssh-ed25519)", "created_at":"2023-07-17T15:05:30.415306Z", "updated_at":"2023-07-17T15:05:30.415306Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}], "total_count":5}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.6; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"ssh_keys":[{"id":"495d0e9f-a22b-4ff5-8324-0cb4746c57dc", "name":"rleone@scaleway.com",
+      "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6Lfs9IrfEUsw2oALOKucAqjeJo3vdADJAZS0BrJ4Vl
+      rleone@scaleway.com", "fingerprint":"256 MD5:0d:6d:20:43:4c:0f:38:a3:65:de:8f:72:77:70:26:55
+      rleone@scaleway.com (ssh-ed25519)", "created_at":"2022-03-29T07:50:11.839583Z",
+      "updated_at":"2022-03-29T07:50:17.762922Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e2e9d140-c387-43e8-af1b-5b133f8fe90d",
+      "name":"leila''s ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIG4S+vO03k8VY0qdhRThHbyiDFbIqvzH+94x24b4hbQ
+      lmarabese", "fingerprint":"256 MD5:69:c9:cf:52:7d:07:cc:ff:a4:58:e4:7e:96:77:18:63
+      lmarabese (ssh-ed25519)", "created_at":"2023-02-07T10:19:17.608707Z", "updated_at":"2023-02-07T10:19:17.608707Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}, {"id":"1f5abae8-78f7-41a2-a787-780166d3f736", "name":"foobar",
+      "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
+      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:52.688903Z",
+      "updated_at":"2023-07-17T14:47:52.688903Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"459e72de-56f0-4177-a3fd-f8bf47571915",
+      "name":"foobar", "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
+      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:55.834080Z",
+      "updated_at":"2023-07-17T14:47:55.834080Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e4572020-36e1-41fc-9bbc-2faa56c12e93",
+      "name":"key-elastic-allen", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x
+      foo@foobar.com", "fingerprint":"256 MD5:1e:f8:f7:cb:c4:b7:a8:6d:96:20:49:d0:d0:af:a0:9e
+      foo@foobar.com (ssh-ed25519)", "created_at":"2023-07-17T15:05:30.415306Z", "updated_at":"2023-07-17T15:05:30.415306Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}], "total_count":5}'
+    headers:
+      Content-Length:
+      - "2710"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 17 Jul 2023 15:18:21 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c75be1c4-288c-486f-86af-5737738288b6
+    status: 200 OK
+    code: 200
+    duration: ""

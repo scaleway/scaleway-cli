@@ -1,14 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Network Access Control List allows to control network in and out traffic by setting up ACL rules.
+Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
 
 USAGE:
   scw rdb acl <command>
 
 AVAILABLE COMMANDS:
-  add         Add an ACL instance to a given instance
-  delete      Delete ACL rules of a given instance
-  list        List ACL rules of a given instance
+  add         Add an ACL rule to a Database Instance
+  delete      Delete ACL rules of a Database Instance
+  list        List ACL rules of a Database Instance
+  set         Set ACL rules for a Database Instance
 
 FLAGS:
   -h, --help   help for acl

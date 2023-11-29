@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This method allows to list all available versions for the creation of a new Kubernetes cluster.
+List all available versions for the creation of a new Kubernetes cluster.
 
 USAGE:
   scw k8s version list [arg=value ...]

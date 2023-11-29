@@ -1,3 +1,5 @@
+//go:build !wasm
+
 package gotty
 
 import (
@@ -14,13 +16,13 @@ import (
 
 const (
 	// GoTTY ingress message code
-	outputCode         = '0'
-	setWindowTitleCode = '2'
+	outputCode         = '1'
+	setWindowTitleCode = '3'
 
 	// GoTTY egress message code
-	inputCode          = '0'
-	pingCode           = '1'
-	resizeTerminalCode = '2'
+	inputCode          = '1'
+	pingCode           = '2'
+	resizeTerminalCode = '3'
 )
 
 type Client struct {
@@ -42,7 +44,7 @@ func (c *Client) Connect() error {
 	wsDialer := websocket.Dialer{}
 	conn, _, err := wsDialer.Dial(c.wsURL, nil)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to dial websocket: %w", err)
 	}
 	defer func() {
 		// Websocket protocol require the server to close the connection.
@@ -56,7 +58,7 @@ func (c *Client) Connect() error {
 		"Arguments": "?" + url.Values{"arg": []string{c.secretKey, c.serverID}}.Encode(),
 	})
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to send auth json: %w", err)
 	}
 
 	cns, err := console.ConsoleFromFile(os.Stdin)
@@ -92,7 +94,7 @@ func (c *Client) Connect() error {
 			message := fmt.Sprintf(`%c{"columns":%d,"rows":%d}`, resizeTerminalCode, size.Width, size.Height)
 			err = conn.WriteMessage(websocket.TextMessage, []byte(message))
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to write message on websocket: %w", err)
 			}
 
 		// We receive a message from the server
@@ -107,7 +109,7 @@ func (c *Client) Connect() error {
 			case outputCode:
 				buf, err := base64.StdEncoding.DecodeString(string(message[1:]))
 				if err != nil {
-					return err
+					return fmt.Errorf("failed to decode base64 output payload: %w", err)
 				}
 				os.Stdout.Write(buf)
 			// The message contain a new terminal title
@@ -126,21 +128,29 @@ func (c *Client) Connect() error {
 			}
 			err = conn.WriteMessage(websocket.TextMessage, append([]byte{inputCode}, message...))
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to write message on websocket: %w", err)
 			}
 
 		// We make sure to send a ping every 30s to keep the connection alive.
 		case <-time.After(30 * time.Second):
 			err = conn.WriteMessage(websocket.TextMessage, []byte{pingCode})
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to ping websocket: %w", err)
 			}
 
 		// If we receive an error from one of the 2 reader we return it
 		case err := <-wsErrChan:
-			return err
+			if err != nil {
+				return fmt.Errorf("websocket reader error: %w", err)
+			}
+
+			return nil
 		case err := <-cnsErrChan:
-			return err
+			if err != nil {
+				return fmt.Errorf("console reader error: %w", err)
+			}
+
+			return nil
 		}
 	}
 }
