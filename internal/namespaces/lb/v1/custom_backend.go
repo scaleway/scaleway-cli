@@ -797,9 +797,8 @@ func interceptBackend() core.CommandInterceptor {
 						}
 					}
 				}
-			} else {
-				return nil, err
 			}
+			return nil, err
 		}
 
 		switch res.(type) {
