@@ -283,6 +283,7 @@ scw webhosting offer list [arg=value ...]
 | without-options |  | Defines whether the response should consist of offers only, without options |
 | only-options |  | Defines whether the response should consist of options only, without offers |
 | hosting-id |  | ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan) |
+| control-panels.{index} |  | Name of the control panel to filter for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 

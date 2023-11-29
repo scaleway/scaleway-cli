@@ -471,6 +471,13 @@ func webhostingOfferList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "control-panels.{index}",
+				Short:      `Name of the control panel to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
