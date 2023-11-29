@@ -2,6 +2,7 @@ package lb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 	"strings"
@@ -12,6 +13,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
@@ -781,6 +783,21 @@ func interceptBackend() core.CommandInterceptor {
 
 		res, err := runner(ctx, argsI)
 		if err != nil {
+			var invalidArgErr *scw.InvalidArgumentsError
+			if errors.As(err, &invalidArgErr) {
+				for _, detail := range invalidArgErr.Details {
+					switch detail.ArgumentName {
+					case "Port":
+						return nil, &core.CliError{
+							Err: fmt.Errorf("missing or invalid 'health-check.port' argument"),
+						}
+					case "CheckMaxRetries":
+						return nil, &core.CliError{
+							Err: fmt.Errorf("missing or invalid 'health-check.check-max-retries' argument"),
+						}
+					}
+				}
+			}
 			return nil, err
 		}
 
