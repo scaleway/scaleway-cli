@@ -2,7 +2,7 @@ package lb
 
 import (
 	"context"
-	"encoding/json"
+	"errors"
 	"fmt"
 	"reflect"
 	"strings"
@@ -783,43 +783,22 @@ func interceptBackend() core.CommandInterceptor {
 
 		res, err := runner(ctx, argsI)
 		if err != nil {
-			type rawBodyResponse struct {
-				Details []struct {
-					Field   string `json:"field"`
-					Message string `json:"message"`
-					Reason  string `json:"reason"`
-				} `json:"details"`
-				Message string `json:"message"`
-				Type    string `json:"type"`
-			}
-
-			resErr, isResErr := err.(*scw.ResponseError)
-			if !isResErr {
+			var invalidArgErr *scw.InvalidArgumentsError
+			if errors.As(err, &invalidArgErr) {
+				for _, detail := range invalidArgErr.Details {
+					switch detail.ArgumentName {
+					case "Port":
+						return nil, &core.CliError{
+							Err: fmt.Errorf("missing or invalid 'health-check.port' argument"),
+						}
+					case "CheckMaxRetries":
+						return nil, &core.CliError{
+							Err: fmt.Errorf("missing or invalid 'health-check.check-max-retries' argument"),
+						}
+					}
+				}
+			} else {
 				return nil, err
-			}
-
-			var data rawBodyResponse
-
-			err = json.Unmarshal(resErr.RawBody, &data)
-			if err != nil {
-				return nil, err
-			}
-
-			switch data.Details[0].Field {
-			case "health_check":
-				return "", &core.CliError{
-					Err: fmt.Errorf("missing required 'health-check.port' and 'health-check.check-max-retries' arguments"),
-				}
-			case "Port":
-				return "", &core.CliError{
-					Err: fmt.Errorf("missing required 'health-check.port' argument"),
-				}
-			case "CheckMaxRetries":
-				return "", &core.CliError{
-					Err: fmt.Errorf("missing required 'health-check.check-max-retries' argument"),
-				}
-			default:
-				return nil, resErr
 			}
 		}
 
