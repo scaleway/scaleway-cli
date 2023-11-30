@@ -2,36 +2,36 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                         few seconds ago
 Region                            fr-par
-ID                                8bb48925-7a8d-48e4-a3df-0a9976eca2ee
+ID                                852c414d-1ba8-4b1d-93f0-b19be8d9621b
 Name                              cli-test
-OrganizationID                    fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID                         fa1e3217-dc80-42ac-85c3-3f034b78b552
+OrganizationID                    105bdce1-64c0-48ab-899d-868455867ecf
+ProjectID                         105bdce1-64c0-48ab-899d-868455867ecf
 Status                            ready
 Engine                            PostgreSQL-12
-UpgradableVersion.0.ID            2e670f5c-493b-443f-92bd-986f23da2750
+UpgradableVersion.0.ID            f4c1ec41-89e1-48de-b872-b63b779b0dba
 UpgradableVersion.0.Name          PostgreSQL-13
 UpgradableVersion.0.Version       13
-UpgradableVersion.0.MinorVersion  13.12
-UpgradableVersion.1.ID            2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9
+UpgradableVersion.0.MinorVersion  13.13
+UpgradableVersion.1.ID            8af4ebbb-fd08-4038-89f6-9d8c8f1232ca
 UpgradableVersion.1.Name          PostgreSQL-14
 UpgradableVersion.1.Version       14
-UpgradableVersion.1.MinorVersion  14.9
-UpgradableVersion.2.ID            d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d
+UpgradableVersion.1.MinorVersion  14.10
+UpgradableVersion.2.ID            764c6bb3-2f1c-4f1a-bfd5-82c540ac435c
 UpgradableVersion.2.Name          PostgreSQL-15
 UpgradableVersion.2.Version       15
-UpgradableVersion.2.MinorVersion  15.4
+UpgradableVersion.2.MinorVersion  15.5
 IsHaCluster                       false
 NodeType                          db-dev-s
-Endpoints.0.ID                    af2d405e-7b77-472d-b9c4-25db1654bef7
-Endpoints.0.IP                    51.159.204.209
-Endpoints.0.Port                  3705
+Endpoints.0.ID                    c307b4bf-bd3b-4877-8429-c98e1b57616a
+Endpoints.0.IP                    51.159.207.85
+Endpoints.0.Port                  9491
 LogsPolicy.MaxAgeRetention        30
 BackupSameRegion                  false
 
 Endpoint:
-ID    af2d405e-7b77-472d-b9c4-25db1654bef7
-IP    51.159.204.209
-Port  3705
+ID    c307b4bf-bd3b-4877-8429-c98e1b57616a
+IP    51.159.207.85
+Port  9491
 
 Volume:
 Type   lssd
@@ -64,36 +64,36 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "8bb48925-7a8d-48e4-a3df-0a9976eca2ee",
+  "id": "852c414d-1ba8-4b1d-93f0-b19be8d9621b",
   "name": "cli-test",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "organization_id": "105bdce1-64c0-48ab-899d-868455867ecf",
+  "project_id": "105bdce1-64c0-48ab-899d-868455867ecf",
   "status": "ready",
   "engine": "PostgreSQL-12",
   "upgradable_version": [
     {
-      "id": "2e670f5c-493b-443f-92bd-986f23da2750",
+      "id": "f4c1ec41-89e1-48de-b872-b63b779b0dba",
       "name": "PostgreSQL-13",
       "version": "13",
-      "minor_version": "13.12"
+      "minor_version": "13.13"
     },
     {
-      "id": "2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9",
+      "id": "8af4ebbb-fd08-4038-89f6-9d8c8f1232ca",
       "name": "PostgreSQL-14",
       "version": "14",
-      "minor_version": "14.9"
+      "minor_version": "14.10"
     },
     {
-      "id": "d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d",
+      "id": "764c6bb3-2f1c-4f1a-bfd5-82c540ac435c",
       "name": "PostgreSQL-15",
       "version": "15",
-      "minor_version": "15.4"
+      "minor_version": "15.5"
     }
   ],
   "endpoint": {
-    "id": "af2d405e-7b77-472d-b9c4-25db1654bef7",
-    "ip": "51.159.204.209",
-    "port": 3705,
+    "id": "c307b4bf-bd3b-4877-8429-c98e1b57616a",
+    "ip": "51.159.207.85",
+    "port": 9491,
     "name": null,
     "load_balancer": {}
   },
@@ -136,9 +136,9 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "af2d405e-7b77-472d-b9c4-25db1654bef7",
-      "ip": "51.159.204.209",
-      "port": 3705,
+      "id": "c307b4bf-bd3b-4877-8429-c98e1b57616a",
+      "ip": "51.159.207.85",
+      "port": 9491,
       "name": null,
       "load_balancer": {}
     }
