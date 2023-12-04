@@ -2,7 +2,9 @@ package rdb
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"os/exec"
 	"path"
@@ -190,11 +192,27 @@ func autoCompleteNodeType(ctx context.Context, prefix string) core.AutocompleteS
 }
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
+	type rdbEndpointSpecPrivateNetworkCustom struct {
+		*rdb.EndpointSpecPrivateNetwork
+		EnableIpam bool `json:"enable-ipam"`
+	}
+
+	type rdbEndpointSpecCustom struct {
+		PrivateNetwork *rdbEndpointSpecPrivateNetworkCustom `json:"private-network"`
+	}
+
 	type rdbCreateInstanceRequestCustom struct {
 		*rdb.CreateInstanceRequest
+		InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
 		GeneratePassword bool
 	}
 
+	c.ArgSpecs.AddBefore("init-endpoints.{index}.private-network.private-network-id", &core.ArgSpec{
+		Name:     "init-endpoints.{index}.private-network.enable-ipam",
+		Short:    "Will configure your Private Network endpoint with Scaleway IPAM service if true",
+		Required: false,
+		Default:  core.DefaultValueSetter("false"),
+	})
 	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
 		Name:       "generate-password",
 		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
@@ -245,6 +263,23 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 			}
 			fmt.Printf("Your generated password is %s \n", createInstanceRequest.Password)
 			fmt.Printf("\n")
+		}
+
+		for _, customEndpoint := range customRequest.InitEndpoints {
+			if customEndpoint.PrivateNetwork == nil {
+				continue
+			}
+			ipamConfig := &rdb.EndpointSpecPrivateNetworkIpamConfig{}
+			if !customEndpoint.PrivateNetwork.EnableIpam {
+				ipamConfig = nil
+			}
+			createInstanceRequest.InitEndpoints = append(createInstanceRequest.InitEndpoints, &rdb.EndpointSpec{
+				PrivateNetwork: &rdb.EndpointSpecPrivateNetwork{
+					PrivateNetworkID: customEndpoint.PrivateNetwork.PrivateNetworkID,
+					ServiceIP:        customEndpoint.PrivateNetwork.ServiceIP,
+					IpamConfig:       ipamConfig,
+				},
+			})
 		}
 
 		instance, err := api.CreateInstance(createInstanceRequest)
@@ -510,6 +545,29 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			},
 		},
 	}
+}
+
+func instanceDeleteBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		api := rdb.NewAPI(core.ExtractClient(ctx))
+		instance, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
+			InstanceID:    respI.(*rdb.Instance).ID,
+			Region:        respI.(*rdb.Instance).Region,
+			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+		if err != nil {
+			// if we get a 404 here, it means the resource was successfully deleted
+			notFoundError := &scw.ResourceNotFoundError{}
+			responseError := &scw.ResponseError{}
+			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
+				return instance, nil
+			}
+			return nil, err
+		}
+		return instance, nil
+	}
+	return c
 }
 
 func instanceWaitCommand() *core.Command {
