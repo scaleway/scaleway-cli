@@ -21,6 +21,7 @@ func Test_UpdateSnapshot(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					assert.NotNil(t, ctx.Result)
 					snapshot := ctx.Result.(*instance.Snapshot)
 					assert.Equal(t, snapshot.Name, "cli-test-snapshot-update-tags")
 					assert.Len(t, snapshot.Tags, 2)
@@ -44,6 +45,7 @@ func Test_UpdateSnapshot(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					assert.NotNil(t, ctx.Result)
 					snapshot := ctx.Result.(*instance.Snapshot)
 					assert.Equal(t, snapshot.Name, "cli-test-snapshot-update-name-updated")
 					assert.Len(t, snapshot.Tags, 2)
