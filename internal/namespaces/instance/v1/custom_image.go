@@ -2,7 +2,6 @@ package instance
 
 import (
 	"context"
-	"fmt"
 	"reflect"
 	"sort"
 	"strconv"
@@ -351,45 +350,6 @@ func imageUpdateCommand() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-
-			getImageResponse, err := api.GetImage(&instance.GetImageRequest{
-				Zone:    request.Zone,
-				ImageID: request.ImageID,
-			})
-			if err != nil {
-				return nil, fmt.Errorf("cannot get image %s: %w", request.ImageID, err)
-			}
-
-			if request.Name == nil {
-				request.Name = &getImageResponse.Image.Name
-			}
-			if request.Arch == "" {
-				request.Arch = getImageResponse.Image.Arch
-			}
-			if request.CreationDate == nil {
-				request.CreationDate = getImageResponse.Image.CreationDate
-			}
-			if request.ModificationDate == nil {
-				request.ModificationDate = getImageResponse.Image.ModificationDate
-			}
-			if request.ExtraVolumes == nil {
-				request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
-				for k, v := range getImageResponse.Image.ExtraVolumes {
-					volume := instance.VolumeTemplate{
-						ID:         v.ID,
-						Name:       v.Name,
-						Size:       v.Size,
-						VolumeType: v.VolumeType,
-					}
-					request.ExtraVolumes[k] = &volume
-				}
-			}
-			if request.RootVolume == nil {
-				request.RootVolume = getImageResponse.Image.RootVolume
-			}
-			if !request.Public && !getImageResponse.Image.Public {
-				request.Public = getImageResponse.Image.Public
-			}
 
 			return api.UpdateImage(request)
 		},

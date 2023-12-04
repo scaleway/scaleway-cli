@@ -72,7 +72,7 @@ func Test_ImageDelete(t *testing.T) {
 
 func createImage(metaKey string) core.BeforeFunc {
 	return core.BeforeFuncCombine(
-		createServerBionic("Server"),
+		createServer("Server"),
 		core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 		core.ExecStoreBeforeCmd(metaKey, `scw instance image create snapshot-id={{ .Snapshot.Snapshot.ID }} arch=x86_64`),
 	)
@@ -102,6 +102,7 @@ func Test_ImageUpdate(t *testing.T) {
 		Cmd:        "scw instance image update {{ .ImageName.Image.ID }} name=foo",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.NotNil(t, ctx.Result)
 				assert.Equal(t, "foo", ctx.Result.(*instance.UpdateImageResponse).Image.Name)
 			},
 			core.TestCheckGolden(),
@@ -118,11 +119,12 @@ func Test_ImageUpdate(t *testing.T) {
 		Commands:   GetCommands(),
 		Cmd:        "scw instance image update {{ .ImagePub.Image.ID }} public=true",
 		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				assert.Equal(t, true, ctx.Result.(*instance.UpdateImageResponse).Image.Public)
-			},
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.NotNil(t, ctx.Result)
+				assert.Equal(t, true, ctx.Result.(*instance.UpdateImageResponse).Image.Public)
+			},
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
@@ -140,6 +142,7 @@ func Test_ImageUpdate(t *testing.T) {
 		Cmd:      "scw instance image update {{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				assert.NotNil(t, ctx.Result)
 				assert.Equal(t, "snapVol", ctx.Result.(*instance.UpdateImageResponse).Image.ExtraVolumes["1"].Name)
 			},
 			core.TestCheckGolden(),
