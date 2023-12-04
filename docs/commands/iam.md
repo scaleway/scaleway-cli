@@ -28,6 +28,9 @@ IAM API.
   - [Delete a JWT](#delete-a-jwt)
   - [Get a JWT](#get-a-jwt)
   - [List JWTs](#list-jwts)
+- [Log management commands](#log-management-commands)
+  - [Get a log](#get-a-log)
+  - [List logs](#list-logs)
 - [Permission sets management commands](#permission-sets-management-commands)
   - [List permission sets](#list-permission-sets)
 - [Policies management commands](#policies-management-commands)
@@ -567,6 +570,55 @@ scw iam jwt list <audience-id ...> [arg=value ...]
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Criteria for sorting results |
 | audience-id | Required | ID of the user to search |
 | expired |  | Filter out expired JWTs or not |
+
+
+
+## Log management commands
+
+Log management commands.
+
+
+### Get a log
+
+Retrieve information about a log, specified by the `log_id` parameter. The log's full details, including `id`, `ip`, `user_agent`, `action`, `bearer_id`, `resource_type` and `resource_id` are returned in the response.
+
+**Usage:**
+
+```
+scw iam log get <log-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| log-id | Required | ID of the log |
+
+
+
+### List logs
+
+List logs available for given Organization. You must define the `organization_id` in the query path of your request.
+
+**Usage:**
+
+```
+scw iam log list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc` | Criteria for sorting results |
+| created-after |  | Defined whether or not to filter out logs created after this timestamp |
+| created-before |  | Defined whether or not to filter out logs created before this timestamp |
+| action | One of: `unknown_action`, `created`, `updated`, `deleted` | Defined whether or not to filter out by a specific action |
+| resource-type | One of: `unknown_resource_type`, `api_key`, `user`, `application`, `group`, `policy` | Defined whether or not to filter out by a specific type of resource |
+| search |  | Defined whether or not to filter out log by bearer ID or resource ID |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
