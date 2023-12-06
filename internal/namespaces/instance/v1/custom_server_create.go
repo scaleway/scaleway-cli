@@ -12,7 +12,7 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -213,16 +213,20 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	//
 	switch {
 	case !validation.IsUUID(args.Image):
+		// For retro-compatibility, we replace dashes with underscores
+		imageLabel := strings.Replace(args.Image, "-", "_", -1)
+
 		// Find the corresponding local image UUID.
-		imageID, err := apiMarketplace.GetLocalImageIDByLabel(&marketplace.GetLocalImageIDByLabelRequest{
+		localImage, err := apiMarketplace.GetLocalImageByLabel(&marketplace.GetLocalImageByLabelRequest{
+			ImageLabel:     imageLabel,
 			Zone:           args.Zone,
-			ImageLabel:     args.Image,
 			CommercialType: serverReq.CommercialType,
+			Type:           marketplace.LocalImageTypeInstanceLocal,
 		})
 		if err != nil {
 			return nil, err
 		}
-		serverReq.Image = imageID
+		serverReq.Image = localImage.ID
 	default:
 		serverReq.Image = args.Image
 	}
