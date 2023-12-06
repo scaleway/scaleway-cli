@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            3a7a70c3-542a-4170-bc18-cbc9fd5c903b
-IP.Address       51.15.227.7
-IP.Server.ID     d57ea4ae-f4ad-445a-bad4-d551ce642a80
-IP.Server.Name   cli-srv-hungry-yalow
+IP.ID            452ea82f-500e-42fd-9200-8e5e921dd007
+IP.Address       51.15.249.127
+IP.Server.ID     080c1155-b514-44d8-b579-c7e843d542f0
+IP.Server.Name   cli-srv-focused-mcclintock
 IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 IP.Type          nat
@@ -13,12 +13,12 @@ IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "3a7a70c3-542a-4170-bc18-cbc9fd5c903b",
-    "address": "51.15.227.7",
+    "id": "452ea82f-500e-42fd-9200-8e5e921dd007",
+    "address": "51.15.249.127",
     "reverse": null,
     "server": {
-      "id": "d57ea4ae-f4ad-445a-bad4-d551ce642a80",
-      "name": "cli-srv-hungry-yalow"
+      "id": "080c1155-b514-44d8-b579-c7e843d542f0",
+      "name": "cli-srv-focused-mcclintock"
     },
     "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "tags": [],

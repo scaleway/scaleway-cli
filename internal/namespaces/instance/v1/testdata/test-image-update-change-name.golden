@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Image.ID                07805aed-41a5-4fb8-bcff-d84bac085f13
+Image.ID                33b0e214-d9ac-4b97-ada7-fc0b62b245e0
 Image.Name              foo
 Image.Arch              x86_64
 Image.CreationDate      few seconds ago
@@ -9,14 +9,14 @@ Image.ExtraVolumes      0
 Image.FromServer        -
 Image.Organization      ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Image.Public            false
-Image.RootVolume        e9b0f708-7601-4b18-b255-72c3a85b760c
+Image.RootVolume        e25dc634-29c9-4fba-9bc8-b62ee1b8e53a
 Image.State             available
 Image.Project           ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Image.Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "07805aed-41a5-4fb8-bcff-d84bac085f13",
+    "id": "33b0e214-d9ac-4b97-ada7-fc0b62b245e0",
     "name": "foo",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -27,8 +27,8 @@ Image.Zone              fr-par-1
     "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "public": false,
     "root_volume": {
-      "id": "e9b0f708-7601-4b18-b255-72c3a85b760c",
-      "name": "cli-snp-confident-nightingale",
+      "id": "e25dc634-29c9-4fba-9bc8-b62ee1b8e53a",
+      "name": "cli-snp-awesome-leavitt",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
