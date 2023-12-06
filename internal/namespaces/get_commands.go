@@ -23,6 +23,7 @@ import (
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
 	ipfs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipfs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
@@ -88,6 +89,7 @@ func GetCommands() *core.Commands {
 		documentdb.GetCommands(),
 		mnq.GetCommands(),
 		block.GetCommands(),
+		ipam.GetCommands(),
 	)
 
 	//if beta {}
