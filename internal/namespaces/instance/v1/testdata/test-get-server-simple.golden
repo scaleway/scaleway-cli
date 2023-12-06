@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                         22f01258-6815-4fad-b37a-4ee66b1c9f05
-Name                       cli-srv-trusting-lederberg
+ID                         ffd09f07-7467-4687-95b1-a83c01f08348
+Name                       cli-srv-agitated-bartik
 Organization               ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Project                    ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 CommercialType             DEV1-S
@@ -9,16 +9,16 @@ CreationDate               few seconds ago
 DynamicIPRequired          true
 RoutedIPEnabled            false
 EnableIPv6                 false
-Hostname                   cli-srv-trusting-lederberg
+Hostname                   cli-srv-agitated-bartik
 Protected                  false
-PublicIP.ID                647be9ab-3627-4f02-b205-2ae3fe896c5d
-PublicIP.Address           51.15.214.148
+PublicIP.ID                3d507479-2133-4a90-8202-fe3f1f741d91
+PublicIP.Address           51.158.69.45
 PublicIP.Netmask           32
 PublicIP.Family            inet
 PublicIP.Dynamic           false
 PublicIP.ProvisioningMode  dhcp
-PublicIP.State             unknown_state
-MacAddress                 de:00:00:1e:87:b1
+PublicIP.State             attached
+MacAddress                 de:00:00:31:0c:27
 ModificationDate           few seconds ago
 State                      archived
 Bootscript                 x86_64 mainline 4.4.230 rev1
@@ -30,7 +30,7 @@ Arch                       x86_64
 Zone                       fr-par-1
 
 Server Image:
-ID                4cdb6366-9d0b-4daa-98c1-d171227fb92f
+ID                655aeea7-8a30-418a-bc2e-3c04e3fdc8aa
 Name              Ubuntu 18.04 Bionic Beaver
 Arch              x86_64
 CreationDate      few seconds ago
@@ -39,21 +39,21 @@ ExtraVolumes      0
 FromServer        -
 Organization      51b656e3-4865-41e8-adbc-0c45bdd780db
 Public            true
-RootVolume        20a8daaf-3c20-4699-a288-a004fa66d692
+RootVolume        27a6459c-efe6-4327-a062-b21a17f3143d
 State             available
 Project           51b656e3-4865-41e8-adbc-0c45bdd780db
 Zone              fr-par-1
 
 Allowed Actions:
-[poweron backup]
+[poweron backup enable_routed_ip]
 
 Volumes:
 ID                                    NAME                        EXPORT URI  ORGANIZATION                          SIZE   VOLUME TYPE  CREATION DATE    MODIFICATION DATE  STATE      PROJECT                               BOOT   ZONE
-24d7bed8-b88c-4059-87cc-8373145e35ff  Ubuntu 18.04 Bionic Beaver  -           ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  20 GB  l_ssd        few seconds ago  few seconds ago    available  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  false  fr-par-1
+7e150816-1661-4834-baf1-d308509d887e  Ubuntu 18.04 Bionic Beaver  -           ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  20 GB  l_ssd        few seconds ago  few seconds ago    available  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  false  fr-par-1
 
 Public IPs:
-ID                                    ADDRESS        GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  STATE
-647be9ab-3627-4f02-b205-2ae3fe896c5d  51.15.214.148  -        32       inet    false    dhcp               -     unknown_state
+ID                                    ADDRESS       GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  STATE
+3d507479-2133-4a90-8202-fe3f1f741d91  51.158.69.45  -        32       inet    false    dhcp               []    attached
 
 IPv6:
 -
@@ -62,13 +62,14 @@ Private NICs:
 ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "22f01258-6815-4fad-b37a-4ee66b1c9f05",
-  "name": "cli-srv-trusting-lederberg",
+  "id": "ffd09f07-7467-4687-95b1-a83c01f08348",
+  "name": "cli-srv-agitated-bartik",
   "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "allowed_actions": [
     "poweron",
-    "backup"
+    "backup",
+    "enable_routed_ip"
   ],
   "tags": [],
   "commercial_type": "DEV1-S",
@@ -76,9 +77,9 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "dynamic_ip_required": true,
   "routed_ip_enabled": false,
   "enable_ipv6": false,
-  "hostname": "cli-srv-trusting-lederberg",
+  "hostname": "cli-srv-agitated-bartik",
   "image": {
-    "id": "4cdb6366-9d0b-4daa-98c1-d171227fb92f",
+    "id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa",
     "name": "Ubuntu 18.04 Bionic Beaver",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -89,7 +90,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "20a8daaf-3c20-4699-a288-a004fa66d692",
+      "id": "27a6459c-efe6-4327-a062-b21a17f3143d",
       "name": "Ubuntu 18.04 Bionic Beaver",
       "size": 10000000000,
       "volume_type": "unified"
@@ -102,30 +103,30 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "protected": false,
   "private_ip": null,
   "public_ip": {
-    "id": "647be9ab-3627-4f02-b205-2ae3fe896c5d",
-    "address": "51.15.214.148",
+    "id": "3d507479-2133-4a90-8202-fe3f1f741d91",
+    "address": "51.158.69.45",
     "gateway": "",
     "netmask": "32",
     "family": "inet",
     "dynamic": false,
     "provisioning_mode": "dhcp",
-    "tags": null,
-    "state": "unknown_state"
+    "tags": [],
+    "state": "attached"
   },
   "public_ips": [
     {
-      "id": "647be9ab-3627-4f02-b205-2ae3fe896c5d",
-      "address": "51.15.214.148",
+      "id": "3d507479-2133-4a90-8202-fe3f1f741d91",
+      "address": "51.158.69.45",
       "gateway": "",
       "netmask": "32",
       "family": "inet",
       "dynamic": false,
       "provisioning_mode": "dhcp",
-      "tags": null,
-      "state": "unknown_state"
+      "tags": [],
+      "state": "attached"
     }
   ],
-  "mac_address": "de:00:00:1e:87:b1",
+  "mac_address": "de:00:00:31:0c:27",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -147,13 +148,13 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "24d7bed8-b88c-4059-87cc-8373145e35ff",
+      "id": "7e150816-1661-4834-baf1-d308509d887e",
       "name": "Ubuntu 18.04 Bionic Beaver",
       "export_uri": "",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
-        "id": "22f01258-6815-4fad-b37a-4ee66b1c9f05",
-        "name": "cli-srv-trusting-lederberg"
+        "id": "ffd09f07-7467-4687-95b1-a83c01f08348",
+        "name": "cli-srv-agitated-bartik"
       },
       "size": 20000000000,
       "volume_type": "l_ssd",
@@ -176,13 +177,13 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "zone": "fr-par-1",
   "Volumes": [
     {
-      "id": "24d7bed8-b88c-4059-87cc-8373145e35ff",
+      "id": "7e150816-1661-4834-baf1-d308509d887e",
       "name": "Ubuntu 18.04 Bionic Beaver",
       "export_uri": "",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
-        "id": "22f01258-6815-4fad-b37a-4ee66b1c9f05",
-        "name": "cli-srv-trusting-lederberg"
+        "id": "ffd09f07-7467-4687-95b1-a83c01f08348",
+        "name": "cli-srv-agitated-bartik"
       },
       "size": 20000000000,
       "volume_type": "l_ssd",

@@ -12,7 +12,7 @@ import (
 func Test_ImageCreate(t *testing.T) {
 	t.Run("Create simple image", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			createServerBionic("Server"),
+			createServer("Server"),
 			core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 		),
 		Commands: GetCommands(),

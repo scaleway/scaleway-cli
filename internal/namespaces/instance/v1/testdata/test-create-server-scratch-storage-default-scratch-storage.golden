@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                            d376e4b3-f42a-4517-81b0-9b3f093fea37
-Name                          cli-srv-suspicious-franklin
+ID                            ae8f3ae4-4251-4171-81d7-55c58441a4d9
+Name                          cli-srv-thirsty-germain
 Organization                  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Project                       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 AllowedActions.0              poweron
@@ -12,8 +12,8 @@ CreationDate                  few seconds ago
 DynamicIPRequired             true
 RoutedIPEnabled               false
 EnableIPv6                    false
-Hostname                      cli-srv-suspicious-franklin
-Image.ID                      a89f84d5-0120-4551-a66b-77a1b63426c0
+Hostname                      cli-srv-thirsty-germain
+Image.ID                      dd88ce8e-6184-44ed-aa9d-4d3d8158196e
 Image.Name                    Ubuntu Jammy GPU OS 12 passthrough
 Image.Arch                    x86_64
 Image.CreationDate            few seconds ago
@@ -22,36 +22,36 @@ Image.ExtraVolumes            0
 Image.FromServer              -
 Image.Organization            51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Public                  true
-Image.RootVolume              710c46ca-cdff-417a-9218-1435d3e345af
+Image.RootVolume              43a48fa3-2df2-4905-9e83-ee6e8814d161
 Image.State                   available
 Image.Project                 51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone                    fr-par-2
 Protected                     false
-PublicIP.ID                   0b94b3a0-db5f-4927-b1c9-98f0d13527f4
-PublicIP.Address              51.159.166.126
+PublicIP.ID                   c96e199c-f00f-4cf7-b4a2-dd40f2ce32b3
+PublicIP.Address              51.159.149.105
 PublicIP.Netmask              32
 PublicIP.Family               inet
 PublicIP.Dynamic              false
 PublicIP.ProvisioningMode     dhcp
-PublicIP.State                unknown_state
-PublicIPs.0.ID                0b94b3a0-db5f-4927-b1c9-98f0d13527f4
-PublicIPs.0.Address           51.159.166.126
+PublicIP.State                attached
+PublicIPs.0.ID                c96e199c-f00f-4cf7-b4a2-dd40f2ce32b3
+PublicIPs.0.Address           51.159.149.105
 PublicIPs.0.Netmask           32
 PublicIPs.0.Family            inet
 PublicIPs.0.Dynamic           false
 PublicIPs.0.ProvisioningMode  dhcp
-PublicIPs.0.State             unknown_state
-MacAddress                    de:00:00:1c:59:5b
+PublicIPs.0.State             attached
+MacAddress                    de:00:00:25:f7:41
 ModificationDate              few seconds ago
 State                         archived
 Bootscript                    x86_64 mainline 4.4.230 rev1
 BootType                      local
-Volumes.0.ID                  b247064d-7d21-4cc8-b5a7-4aa6d66faca9
+Volumes.0.ID                  121b00a6-8606-461c-9eb5-ccc363183e51
 Volumes.0.Name                Ubuntu Jammy GPU OS 12 passthrough
 Volumes.0.ExportURI           -
 Volumes.0.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Volumes.0.Server.ID           d376e4b3-f42a-4517-81b0-9b3f093fea37
-Volumes.0.Server.Name         cli-srv-suspicious-franklin
+Volumes.0.Server.ID           ae8f3ae4-4251-4171-81d7-55c58441a4d9
+Volumes.0.Server.Name         cli-srv-thirsty-germain
 Volumes.0.Size                20 GB
 Volumes.0.VolumeType          b_ssd
 Volumes.0.CreationDate        few seconds ago
@@ -60,13 +60,13 @@ Volumes.0.State               available
 Volumes.0.Project             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Volumes.0.Boot                false
 Volumes.0.Zone                fr-par-2
-Volumes.1.ID                  ee37c6d8-2768-4689-8541-eeb984491cab
+Volumes.1.ID                  621789ed-8742-4216-95ac-6affdb3660f1
 Volumes.1.Name                default-cli-scratch-volume
 Volumes.1.ExportURI           -
 Volumes.1.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Volumes.1.Server.ID           d376e4b3-f42a-4517-81b0-9b3f093fea37
-Volumes.1.Server.Name         cli-srv-suspicious-franklin
-Volumes.1.Size                1.9 TB
+Volumes.1.Server.ID           ae8f3ae4-4251-4171-81d7-55c58441a4d9
+Volumes.1.Server.Name         cli-srv-thirsty-germain
+Volumes.1.Size                3.0 TB
 Volumes.1.VolumeType          scratch
 Volumes.1.CreationDate        few seconds ago
 Volumes.1.ModificationDate    few seconds ago
@@ -81,8 +81,8 @@ Arch                          x86_64
 Zone                          fr-par-2
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d376e4b3-f42a-4517-81b0-9b3f093fea37",
-  "name": "cli-srv-suspicious-franklin",
+  "id": "ae8f3ae4-4251-4171-81d7-55c58441a4d9",
+  "name": "cli-srv-thirsty-germain",
   "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "allowed_actions": [
@@ -96,9 +96,9 @@ Zone                          fr-par-2
   "dynamic_ip_required": true,
   "routed_ip_enabled": false,
   "enable_ipv6": false,
-  "hostname": "cli-srv-suspicious-franklin",
+  "hostname": "cli-srv-thirsty-germain",
   "image": {
-    "id": "a89f84d5-0120-4551-a66b-77a1b63426c0",
+    "id": "dd88ce8e-6184-44ed-aa9d-4d3d8158196e",
     "name": "Ubuntu Jammy GPU OS 12 passthrough",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -109,7 +109,7 @@ Zone                          fr-par-2
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "710c46ca-cdff-417a-9218-1435d3e345af",
+      "id": "43a48fa3-2df2-4905-9e83-ee6e8814d161",
       "name": "Ubuntu Jammy GPU OS 12 passthrough",
       "size": 20000000000,
       "volume_type": "unified"
@@ -122,30 +122,30 @@ Zone                          fr-par-2
   "protected": false,
   "private_ip": null,
   "public_ip": {
-    "id": "0b94b3a0-db5f-4927-b1c9-98f0d13527f4",
-    "address": "51.159.166.126",
+    "id": "c96e199c-f00f-4cf7-b4a2-dd40f2ce32b3",
+    "address": "51.159.149.105",
     "gateway": "",
     "netmask": "32",
     "family": "inet",
     "dynamic": false,
     "provisioning_mode": "dhcp",
-    "tags": null,
-    "state": "unknown_state"
+    "tags": [],
+    "state": "attached"
   },
   "public_ips": [
     {
-      "id": "0b94b3a0-db5f-4927-b1c9-98f0d13527f4",
-      "address": "51.159.166.126",
+      "id": "c96e199c-f00f-4cf7-b4a2-dd40f2ce32b3",
+      "address": "51.159.149.105",
       "gateway": "",
       "netmask": "32",
       "family": "inet",
       "dynamic": false,
       "provisioning_mode": "dhcp",
-      "tags": null,
-      "state": "unknown_state"
+      "tags": [],
+      "state": "attached"
     }
   ],
-  "mac_address": "de:00:00:1c:59:5b",
+  "mac_address": "de:00:00:25:f7:41",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -167,13 +167,13 @@ Zone                          fr-par-2
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "b247064d-7d21-4cc8-b5a7-4aa6d66faca9",
+      "id": "121b00a6-8606-461c-9eb5-ccc363183e51",
       "name": "Ubuntu Jammy GPU OS 12 passthrough",
       "export_uri": "",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
-        "id": "d376e4b3-f42a-4517-81b0-9b3f093fea37",
-        "name": "cli-srv-suspicious-franklin"
+        "id": "ae8f3ae4-4251-4171-81d7-55c58441a4d9",
+        "name": "cli-srv-thirsty-germain"
       },
       "size": 20000000000,
       "volume_type": "b_ssd",
@@ -185,15 +185,15 @@ Zone                          fr-par-2
       "zone": "fr-par-2"
     },
     "1": {
-      "id": "ee37c6d8-2768-4689-8541-eeb984491cab",
+      "id": "621789ed-8742-4216-95ac-6affdb3660f1",
       "name": "default-cli-scratch-volume",
       "export_uri": "",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
-        "id": "d376e4b3-f42a-4517-81b0-9b3f093fea37",
-        "name": "cli-srv-suspicious-franklin"
+        "id": "ae8f3ae4-4251-4171-81d7-55c58441a4d9",
+        "name": "cli-srv-thirsty-germain"
       },
-      "size": 1920000000000,
+      "size": 3000000000000,
       "volume_type": "scratch",
       "creation_date": "1970-01-01T00:00:00.0Z",
       "modification_date": "1970-01-01T00:00:00.0Z",
