@@ -98,6 +98,7 @@ it-generate-hosts-for-instance-servers,-baremetal,-apple-silicon-and-bastions)
   - [Get a volume](#get-a-volume)
   - [List volumes](#list-volumes)
   - [Update a volume](#update-a-volume)
+  - [Wait for volume to reach a stable state](#wait-for-volume-to-reach-a-stable-state)
 - [Volume type management commands](#volume-type-management-commands)
   - [List volume types](#list-volume-types)
 
@@ -3086,6 +3087,37 @@ scw instance volume update 11111111-1111-1111-1111-111111111111 size=60GB
 Change the volume name and disk size
 ```
 scw instance volume update 11111111-1111-1111-1111-111111111111 name=a-new-name size=70GB
+```
+
+
+
+
+### Wait for volume to reach a stable state
+
+Wait for volume to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the volume.
+
+**Usage:**
+
+```
+scw instance volume wait <volume-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| timeout | Default: `10m0s` | Timeout of the wait |
+| volume-id | Required | ID of the volume affected by the action. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Wait for a volume to reach a stable state
+```
+scw instance volume wait 11111111-1111-1111-1111-111111111111
 ```
 
 
