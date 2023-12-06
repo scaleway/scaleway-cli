@@ -127,6 +127,9 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
 	cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
+	cmds.Merge(core.NewCommands(
+		volumeWaitCommand(),
+	))
 
 	//
 	// Volume-Type
