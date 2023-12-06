@@ -21,6 +21,7 @@ AVAILABLE COMMANDS:
   instance      Instance API
   iot           This API allows you to manage IoT hubs and devices
   ipam          This API allows you to manage IP addresses with Scaleway's IP Address Management tool
+  jobs          Serverless Jobs API
   k8s           Kubernetes API
   lb            This API allows you to manage your Scaleway Load Balancer services
   marketplace   Marketplace API
