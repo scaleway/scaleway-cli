@@ -11,6 +11,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for start
+  -w, --wait   Wait until the job reach a stable state, use job definition timeout
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

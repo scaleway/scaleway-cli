@@ -24,5 +24,11 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(jobs.JobRunState(""), human.EnumMarshalFunc(jobRunStateMarshalSpecs))
 
+	cmds.Merge(core.NewCommands(
+		jobsRunWait(),
+	))
+
+	definitionStartBuilder(cmds.MustFind("jobs", "definition", "start"))
+
 	return cmds
 }

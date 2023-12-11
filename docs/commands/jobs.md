@@ -13,6 +13,7 @@ Serverless Jobs API.
   - [Get jobs resources](#get-jobs-resources)
   - [List jobs resources](#list-jobs-resources)
   - [Stop jobs resources](#stop-jobs-resources)
+  - [Wait for a job run to reach a stable state](#wait-for-a-job-run-to-reach-a-stable-state)
 
   
 ## 
@@ -212,6 +213,26 @@ Stop jobs resources.
 
 ```
 scw jobs run stop <job-run-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| job-run-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Wait for a job run to reach a stable state
+
+Wait for a job run to reach a stable state. This is similar to using --wait flag.
+
+**Usage:**
+
+```
+scw jobs run wait <job-run-id ...> [arg=value ...]
 ```
 
 
