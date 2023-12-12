@@ -19,7 +19,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:19 GMT
+      - Tue, 12 Dec 2023 09:19:13 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -29,7 +29,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 15eb4e84-485b-46a6-88d6-5fcd246cad7c
+      - 122761f0-1e6f-43fe-b9ff-d1ff0b04d950
     status: 200 OK
     code: 200
     duration: ""
@@ -63,7 +63,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:19 GMT
+      - Tue, 12 Dec 2023 09:19:13 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -73,7 +73,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 122e26ff-481a-4f2a-9bef-5022722388ee
+      - b7f70e4f-6b23-48c9-a798-1bb58722ce43
     status: 200 OK
     code: 200
     duration: ""
@@ -1007,7 +1007,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:20 GMT
+      - Tue, 12 Dec 2023 09:19:13 GMT
       Link:
       - </products/servers?page=2&per_page=50&>; rel="next",</products/servers?page=2&per_page=50&>;
         rel="last"
@@ -1020,7 +1020,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 994bdebf-1efd-4519-bd6f-395d8faeb3bf
+      - 5a828a89-1a0e-420d-925c-fbc40e98c36d
       X-Total-Count:
       - "61"
     status: 200 OK
@@ -1260,7 +1260,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:20 GMT
+      - Tue, 12 Dec 2023 09:19:13 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="first",</products/servers?page=1&per_page=50&>;
         rel="previous",</products/servers?page=2&per_page=50&>; rel="last"
@@ -1273,14 +1273,14 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 1ca51643-83dc-4a35-a38b-acb2692982ae
+      - d9141849-4cd3-4e22-8aae-efc24ac34673
       X-Total-Count:
       - "61"
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"ip": {"id": "029ca698-706c-4c08-9cbe-f83f6a09a428", "address": "163.172.178.243",
+    body: '{"ip": {"id": "8b31ebc6-fdd9-48cc-9124-1a0f2b02bc26", "address": "163.172.158.104",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "zone": "fr-par-1", "type":
       "nat", "state": "attached", "tags": []}}'
@@ -1293,7 +1293,7 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips
     method: POST
   response:
-    body: '{"ip": {"id": "029ca698-706c-4c08-9cbe-f83f6a09a428", "address": "163.172.178.243",
+    body: '{"ip": {"id": "8b31ebc6-fdd9-48cc-9124-1a0f2b02bc26", "address": "163.172.158.104",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "zone": "fr-par-1", "type":
       "nat", "state": "attached", "tags": []}}'
@@ -1305,9 +1305,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:20 GMT
+      - Tue, 12 Dec 2023 09:19:13 GMT
       Location:
-      - https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/029ca698-706c-4c08-9cbe-f83f6a09a428
+      - https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/8b31ebc6-fdd9-48cc-9124-1a0f2b02bc26
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1317,37 +1317,37 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 9c51a3f0-55eb-4532-9d9a-4ebeda66ec4f
+      - 242ab0df-25ad-4f6b-96b6-4bae143ddcdf
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"server": {"id": "cd1ec43f-41de-478e-862a-0a7281d79548", "name": "cli-srv-wizardly-banzai",
+    body: '{"server": {"id": "67135c88-1d2d-45bc-957c-c68635b13d63", "name": "cli-srv-blissful-khayyam",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
       "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "hostname": "cli-srv-wizardly-banzai", "image": {"id": "bfcb8579-a98f-464c-a958-af80eeef020b",
+      "hostname": "cli-srv-blissful-khayyam", "image": {"id": "bfcb8579-a98f-464c-a958-af80eeef020b",
       "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "35e8fbe1-18ac-43d2-95b5-54bb672dd5ba",
       "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "unified", "size": 10000000000},
       "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2023-11-27T15:58:03.591208+00:00",
       "modification_date": "2023-11-27T15:58:03.591208+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
-      "volumes": {"0": {"boot": false, "id": "e6f83b92-a23a-4f3c-b570-5f4af5899845",
+      "volumes": {"0": {"boot": false, "id": "5ae8ad34-30b8-4e10-82a9-6be1b5ae9345",
       "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
       null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "server": {"id": "cd1ec43f-41de-478e-862a-0a7281d79548", "name": "cli-srv-wizardly-banzai"},
-      "size": 20000000000, "state": "available", "creation_date": "2023-12-06T10:35:20.686036+00:00",
-      "modification_date": "2023-12-06T10:35:20.686036+00:00", "tags": [], "zone":
+      "server": {"id": "67135c88-1d2d-45bc-957c-c68635b13d63", "name": "cli-srv-blissful-khayyam"},
+      "size": 20000000000, "state": "available", "creation_date": "2023-12-12T09:19:14.056113+00:00",
+      "modification_date": "2023-12-12T09:19:14.056113+00:00", "tags": [], "zone":
       "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
-      "", "public_ip": {"id": "029ca698-706c-4c08-9cbe-f83f6a09a428", "address": "163.172.178.243",
+      "", "public_ip": {"id": "8b31ebc6-fdd9-48cc-9124-1a0f2b02bc26", "address": "163.172.158.104",
       "dynamic": false, "gateway": null, "netmask": "32", "family": "inet", "provisioning_mode":
-      "dhcp", "tags": [], "state": "attached"}, "public_ips": [{"id": "029ca698-706c-4c08-9cbe-f83f6a09a428",
-      "address": "163.172.178.243", "dynamic": false, "gateway": null, "netmask":
+      "dhcp", "tags": [], "state": "attached"}, "public_ips": [{"id": "8b31ebc6-fdd9-48cc-9124-1a0f2b02bc26",
+      "address": "163.172.158.104", "dynamic": false, "gateway": null, "netmask":
       "32", "family": "inet", "provisioning_mode": "dhcp", "tags": [], "state": "attached"}],
-      "mac_address": "de:00:00:31:03:4f", "routed_ip_enabled": false, "ipv6": null,
+      "mac_address": "de:00:00:32:34:49", "routed_ip_enabled": false, "ipv6": null,
       "extra_networks": [], "dynamic_ip_required": true, "enable_ipv6": false, "private_ip":
-      null, "creation_date": "2023-12-06T10:35:20.686036+00:00", "modification_date":
-      "2023-12-06T10:35:20.686036+00:00", "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1",
+      null, "creation_date": "2023-12-12T09:19:14.056113+00:00", "modification_date":
+      "2023-12-12T09:19:14.056113+00:00", "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1",
       "public": true, "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64",
       "organization": "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
       "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
@@ -1366,32 +1366,32 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers
     method: POST
   response:
-    body: '{"server": {"id": "cd1ec43f-41de-478e-862a-0a7281d79548", "name": "cli-srv-wizardly-banzai",
+    body: '{"server": {"id": "67135c88-1d2d-45bc-957c-c68635b13d63", "name": "cli-srv-blissful-khayyam",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
       "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "hostname": "cli-srv-wizardly-banzai", "image": {"id": "bfcb8579-a98f-464c-a958-af80eeef020b",
+      "hostname": "cli-srv-blissful-khayyam", "image": {"id": "bfcb8579-a98f-464c-a958-af80eeef020b",
       "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
       "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "35e8fbe1-18ac-43d2-95b5-54bb672dd5ba",
       "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "unified", "size": 10000000000},
       "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2023-11-27T15:58:03.591208+00:00",
       "modification_date": "2023-11-27T15:58:03.591208+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
-      "volumes": {"0": {"boot": false, "id": "e6f83b92-a23a-4f3c-b570-5f4af5899845",
+      "volumes": {"0": {"boot": false, "id": "5ae8ad34-30b8-4e10-82a9-6be1b5ae9345",
       "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
       null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "server": {"id": "cd1ec43f-41de-478e-862a-0a7281d79548", "name": "cli-srv-wizardly-banzai"},
-      "size": 20000000000, "state": "available", "creation_date": "2023-12-06T10:35:20.686036+00:00",
-      "modification_date": "2023-12-06T10:35:20.686036+00:00", "tags": [], "zone":
+      "server": {"id": "67135c88-1d2d-45bc-957c-c68635b13d63", "name": "cli-srv-blissful-khayyam"},
+      "size": 20000000000, "state": "available", "creation_date": "2023-12-12T09:19:14.056113+00:00",
+      "modification_date": "2023-12-12T09:19:14.056113+00:00", "tags": [], "zone":
       "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
-      "", "public_ip": {"id": "029ca698-706c-4c08-9cbe-f83f6a09a428", "address": "163.172.178.243",
+      "", "public_ip": {"id": "8b31ebc6-fdd9-48cc-9124-1a0f2b02bc26", "address": "163.172.158.104",
       "dynamic": false, "gateway": null, "netmask": "32", "family": "inet", "provisioning_mode":
-      "dhcp", "tags": [], "state": "attached"}, "public_ips": [{"id": "029ca698-706c-4c08-9cbe-f83f6a09a428",
-      "address": "163.172.178.243", "dynamic": false, "gateway": null, "netmask":
+      "dhcp", "tags": [], "state": "attached"}, "public_ips": [{"id": "8b31ebc6-fdd9-48cc-9124-1a0f2b02bc26",
+      "address": "163.172.158.104", "dynamic": false, "gateway": null, "netmask":
       "32", "family": "inet", "provisioning_mode": "dhcp", "tags": [], "state": "attached"}],
-      "mac_address": "de:00:00:31:03:4f", "routed_ip_enabled": false, "ipv6": null,
+      "mac_address": "de:00:00:32:34:49", "routed_ip_enabled": false, "ipv6": null,
       "extra_networks": [], "dynamic_ip_required": true, "enable_ipv6": false, "private_ip":
-      null, "creation_date": "2023-12-06T10:35:20.686036+00:00", "modification_date":
-      "2023-12-06T10:35:20.686036+00:00", "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1",
+      null, "creation_date": "2023-12-12T09:19:14.056113+00:00", "modification_date":
+      "2023-12-12T09:19:14.056113+00:00", "bootscript": {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1",
       "public": true, "title": "x86_64 mainline 4.4.230 rev1", "architecture": "x86_64",
       "organization": "11111111-1111-4111-8111-111111111111", "project": "11111111-1111-4111-8111-111111111111",
       "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
@@ -1403,15 +1403,15 @@ interactions:
       [], "zone": "fr-par-1"}}'
     headers:
       Content-Length:
-      - "3074"
+      - "3077"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:20 GMT
+      - Tue, 12 Dec 2023 09:19:14 GMT
       Location:
-      - https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/cd1ec43f-41de-478e-862a-0a7281d79548
+      - https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/67135c88-1d2d-45bc-957c-c68635b13d63
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1421,41 +1421,41 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - d3fb1037-92b7-4b69-acc2-1edd03bb362f
+      - f39ff12c-0d8e-43c8-96e0-4e65e9e8e8a0
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"volume": {"id": "e6f83b92-a23a-4f3c-b570-5f4af5899845", "name": "Ubuntu
+    body: '{"volume": {"id": "5ae8ad34-30b8-4e10-82a9-6be1b5ae9345", "name": "Ubuntu
       22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri": null, "organization":
       "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "server": {"id": "cd1ec43f-41de-478e-862a-0a7281d79548", "name": "cli-srv-wizardly-banzai"},
-      "size": 20000000000, "state": "available", "creation_date": "2023-12-06T10:35:20.686036+00:00",
-      "modification_date": "2023-12-06T10:35:20.686036+00:00", "tags": [], "zone":
+      "server": {"id": "67135c88-1d2d-45bc-957c-c68635b13d63", "name": "cli-srv-blissful-khayyam"},
+      "size": 20000000000, "state": "available", "creation_date": "2023-12-12T09:19:14.056113+00:00",
+      "modification_date": "2023-12-12T09:19:14.056113+00:00", "tags": [], "zone":
       "fr-par-1"}}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/e6f83b92-a23a-4f3c-b570-5f4af5899845
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/5ae8ad34-30b8-4e10-82a9-6be1b5ae9345
     method: GET
   response:
-    body: '{"volume": {"id": "e6f83b92-a23a-4f3c-b570-5f4af5899845", "name": "Ubuntu
+    body: '{"volume": {"id": "5ae8ad34-30b8-4e10-82a9-6be1b5ae9345", "name": "Ubuntu
       22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri": null, "organization":
       "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "server": {"id": "cd1ec43f-41de-478e-862a-0a7281d79548", "name": "cli-srv-wizardly-banzai"},
-      "size": 20000000000, "state": "available", "creation_date": "2023-12-06T10:35:20.686036+00:00",
-      "modification_date": "2023-12-06T10:35:20.686036+00:00", "tags": [], "zone":
+      "server": {"id": "67135c88-1d2d-45bc-957c-c68635b13d63", "name": "cli-srv-blissful-khayyam"},
+      "size": 20000000000, "state": "available", "creation_date": "2023-12-12T09:19:14.056113+00:00",
+      "modification_date": "2023-12-12T09:19:14.056113+00:00", "tags": [], "zone":
       "fr-par-1"}}'
     headers:
       Content-Length:
-      - "527"
+      - "528"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:21 GMT
+      - Tue, 12 Dec 2023 09:19:14 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1465,21 +1465,21 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c03caf7f-a82f-4bc5-a66b-31105df27f75
+      - f216f64c-1385-48fe-b8e9-b71bf375fe83
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"snapshot": {"id": "b150a8e8-2191-45a4-94dc-7841e589fdd2", "name": "cli-snp-jolly-vaughan",
-      "volume_type": "l_ssd", "creation_date": "2023-12-06T10:35:21.238006+00:00",
-      "modification_date": "2023-12-06T10:35:21.238006+00:00", "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    body: '{"snapshot": {"id": "3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "name": "cli-snp-gifted-kapitsa",
+      "volume_type": "l_ssd", "creation_date": "2023-12-12T09:19:14.583540+00:00",
+      "modification_date": "2023-12-12T09:19:14.583540+00:00", "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "size": 20000000000, "state":
-      "available", "base_volume": {"id": "e6f83b92-a23a-4f3c-b570-5f4af5899845", "name":
+      "available", "base_volume": {"id": "5ae8ad34-30b8-4e10-82a9-6be1b5ae9345", "name":
       "Ubuntu 22.04 Jammy Jellyfish"}, "tags": [], "zone": "fr-par-1", "error_details":
-      null}, "task": {"id": "f497f9eb-fb20-4e78-9306-b36b4449bacd", "description":
-      "snapshot_b150a8e8-2191-45a4-94dc-7841e589fdd2", "status": "pending", "href_from":
-      "/snapshots", "href_result": "snapshots/b150a8e8-2191-45a4-94dc-7841e589fdd2",
-      "started_at": "2023-12-06T10:35:21.454885+00:00", "terminated_at": null}}'
+      null}, "task": {"id": "9bbc72af-c7ca-4e97-9871-d1a2574ef504", "description":
+      "snapshot_3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "status": "pending", "href_from":
+      "/snapshots", "href_result": "snapshots/3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c",
+      "started_at": "2023-12-12T09:19:14.742034+00:00", "terminated_at": null}}'
     form: {}
     headers:
       Content-Type:
@@ -1489,25 +1489,25 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/snapshots
     method: POST
   response:
-    body: '{"snapshot": {"id": "b150a8e8-2191-45a4-94dc-7841e589fdd2", "name": "cli-snp-jolly-vaughan",
-      "volume_type": "l_ssd", "creation_date": "2023-12-06T10:35:21.238006+00:00",
-      "modification_date": "2023-12-06T10:35:21.238006+00:00", "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    body: '{"snapshot": {"id": "3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "name": "cli-snp-gifted-kapitsa",
+      "volume_type": "l_ssd", "creation_date": "2023-12-12T09:19:14.583540+00:00",
+      "modification_date": "2023-12-12T09:19:14.583540+00:00", "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "size": 20000000000, "state":
-      "available", "base_volume": {"id": "e6f83b92-a23a-4f3c-b570-5f4af5899845", "name":
+      "available", "base_volume": {"id": "5ae8ad34-30b8-4e10-82a9-6be1b5ae9345", "name":
       "Ubuntu 22.04 Jammy Jellyfish"}, "tags": [], "zone": "fr-par-1", "error_details":
-      null}, "task": {"id": "f497f9eb-fb20-4e78-9306-b36b4449bacd", "description":
-      "snapshot_b150a8e8-2191-45a4-94dc-7841e589fdd2", "status": "pending", "href_from":
-      "/snapshots", "href_result": "snapshots/b150a8e8-2191-45a4-94dc-7841e589fdd2",
-      "started_at": "2023-12-06T10:35:21.454885+00:00", "terminated_at": null}}'
+      null}, "task": {"id": "9bbc72af-c7ca-4e97-9871-d1a2574ef504", "description":
+      "snapshot_3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "status": "pending", "href_from":
+      "/snapshots", "href_result": "snapshots/3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c",
+      "started_at": "2023-12-12T09:19:14.742034+00:00", "terminated_at": null}}'
     headers:
       Content-Length:
-      - "841"
+      - "842"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:21 GMT
+      - Tue, 12 Dec 2023 09:19:14 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1517,17 +1517,17 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 2ffe73f7-343f-4175-bac1-14bd2e548cf4
+      - d718c62e-3633-407e-80a7-d6a1523238ce
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"image": {"id": "400f794a-0d25-4b7c-a811-01442baa6df5", "name": "cli-img-hardcore-nash",
+    body: '{"image": {"id": "8e6bdba4-825c-4a38-b0d4-efba05ff822d", "name": "cli-img-competent-rosalind",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "root_volume": {"id": "b150a8e8-2191-45a4-94dc-7841e589fdd2", "name": "cli-snp-jolly-vaughan",
+      "root_volume": {"id": "3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "name": "cli-snp-gifted-kapitsa",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-12-06T10:35:21.830582+00:00",
-      "modification_date": "2023-12-06T10:35:21.830582+00:00", "default_bootscript":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T09:19:15.234699+00:00",
+      "modification_date": "2023-12-12T09:19:15.234699+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}}'
     form: {}
     headers:
@@ -1538,24 +1538,24 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images
     method: POST
   response:
-    body: '{"image": {"id": "400f794a-0d25-4b7c-a811-01442baa6df5", "name": "cli-img-hardcore-nash",
+    body: '{"image": {"id": "8e6bdba4-825c-4a38-b0d4-efba05ff822d", "name": "cli-img-competent-rosalind",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "root_volume": {"id": "b150a8e8-2191-45a4-94dc-7841e589fdd2", "name": "cli-snp-jolly-vaughan",
+      "root_volume": {"id": "3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "name": "cli-snp-gifted-kapitsa",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-12-06T10:35:21.830582+00:00",
-      "modification_date": "2023-12-06T10:35:21.830582+00:00", "default_bootscript":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T09:19:15.234699+00:00",
+      "modification_date": "2023-12-12T09:19:15.234699+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}}'
     headers:
       Content-Length:
-      - "607"
+      - "613"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:21 GMT
+      - Tue, 12 Dec 2023 09:19:15 GMT
       Location:
-      - https://api.scaleway.com/instance/v1/zones/fr-par-1/images/400f794a-0d25-4b7c-a811-01442baa6df5
+      - https://api.scaleway.com/instance/v1/zones/fr-par-1/images/8e6bdba4-825c-4a38-b0d4-efba05ff822d
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1565,54 +1565,67 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 5e2cb070-6128-475b-86b4-3872a6334c25
+      - a0ac45de-93b6-4530-9985-bfe742d6492a
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"images": [{"id": "400f794a-0d25-4b7c-a811-01442baa6df5", "name": "cli-img-hardcore-nash",
+    body: '{"images": [{"id": "8e6bdba4-825c-4a38-b0d4-efba05ff822d", "name": "cli-img-competent-rosalind",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "root_volume": {"id": "b150a8e8-2191-45a4-94dc-7841e589fdd2", "name": "cli-snp-jolly-vaughan",
+      "root_volume": {"id": "3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "name": "cli-snp-gifted-kapitsa",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-12-06T10:35:21.830582+00:00",
-      "modification_date": "2023-12-06T10:35:21.830582+00:00", "default_bootscript":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T09:19:15.234699+00:00",
+      "modification_date": "2023-12-12T09:19:15.234699+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
-      {"id": "350f012a-ae99-42d0-a0d2-13ff2ab05634", "name": "image-scw-server-test",
+      {"id": "f2a500e0-eef0-413e-8b4c-0b0be570cbc8", "name": "cli-img-brave-khayyam",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "root_volume": {"id": "49fc1332-4ecc-49e0-9c15-0b87a966fd54", "name": "image-scw-server-test_snap_0",
-      "volume_type": "b_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-11-02T10:26:21.141234+00:00",
-      "modification_date": "2023-11-02T10:26:21.141234+00:00", "default_bootscript":
-      {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64
-      mainline 4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
-      "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
-      "dtb": "", "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
-      true, "zone": "fr-par-1"}, "from_server": "05735140-cea6-48b1-a0a4-1865375cc8cc",
-      "state": "available", "tags": [], "zone": "fr-par-1"}, {"id": "8555696f-11de-4f78-9e39-1cef84d2c414",
-      "name": "temp-build-packer", "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "root_volume": {"id": "1dae83a0-5cc9-491a-9c1e-531e1c48b9d8",
-      "name": "temp-build-packer_snap_0", "volume_type": "unified", "size": 20000000000},
-      "extra_volumes": {"1": {"id": "bb4758a8-f0a0-411e-a0aa-4ff3f110327c", "name":
-      "temp-build-packer_snap_1", "volume_type": "unified", "size": 30000000000}},
-      "public": false, "arch": "x86_64", "creation_date": "2023-04-27T14:19:24.323430+00:00",
-      "modification_date": "2023-04-27T14:19:24.323430+00:00", "default_bootscript":
-      {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64
-      mainline 4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
-      "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
-      "dtb": "", "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
-      true, "zone": "fr-par-1"}, "from_server": "b57397ad-0039-4007-bb42-47cd1cd5dabd",
-      "state": "available", "tags": [], "zone": "fr-par-1"}, {"id": "0728fd44-f57f-48c5-9d4a-05cf5610bfd2",
-      "name": "my-test-image", "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "root_volume": {"id": "2857014a-db65-4e7e-aaf6-661c2db31a91",
-      "name": "my-test-image_snap_0", "volume_type": "b_ssd", "size": 20000000000},
-      "extra_volumes": {"1": {"id": "ce10f4c4-fca1-477a-8e82-cc36772b8dfd", "name":
-      "my-test-image_snap_1", "volume_type": "b_ssd", "size": 30000000000}}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-04-27T13:40:54.224678+00:00",
-      "modification_date": "2023-06-22T07:33:25.901522+00:00", "default_bootscript":
-      null, "from_server": "8bc2232d-f7ff-4ebd-9c7b-00e76b80001e", "state": "available",
-      "tags": ["tag1", "tag2"], "zone": "fr-par-1"}]}'
+      "root_volume": {"id": "37baf15b-7d52-4976-857c-e04c1c1f8053", "name": "cli-snp-fervent-khorana",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:59:47.783620+00:00",
+      "modification_date": "2023-12-12T08:59:47.783620+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "dbda7c70-1125-4060-9087-df1308dfb308", "name": "cli-img-relaxed-wilson",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "8d80bd3b-7fd2-4115-b550-14decbb14023", "name": "cli-snp-funny-yonath",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:56:02.378017+00:00",
+      "modification_date": "2023-12-12T08:56:02.378017+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "c16aa3de-9589-460d-b7cb-3f1765f0b034", "name": "cli-img-blissful-lederberg",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "e96d9263-e632-4209-9ff3-c1d88c289688", "name": "cli-snp-optimistic-euler",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:51.621393+00:00",
+      "modification_date": "2023-12-12T08:55:51.621393+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "226c3dfc-958b-4db5-8a88-c1180628fc7c", "name": "cli-img-bold-lewin",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "fcee8cd7-658a-4251-9059-028d3d59c498", "name": "cli-snp-nice-cannon",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:51.002419+00:00",
+      "modification_date": "2023-12-12T08:55:51.002419+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "6070c13d-4d9e-4645-b3fd-937275c38f75", "name": "cli-img-cool-lumiere",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "864d4045-6b27-4fb8-8e9c-6d64d6e5ef9f", "name": "cli-snp-distracted-gates",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:23.372564+00:00",
+      "modification_date": "2023-12-12T08:55:23.372564+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "abebd623-16c0-4238-a5c7-5319d3d7c982", "name": "cli-img-charming-mendeleev",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "86db8c54-c64b-4db0-90a8-4ba77b1210c8", "name": "cli-snp-hopeful-shtern",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:18.022925+00:00",
+      "modification_date": "2023-12-12T08:55:18.022925+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "0f793ebb-8a02-4499-b6bf-28bd4029bef5", "name": "cli-img-busy-lehmann",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "311b0b78-3525-4b7e-8ab7-a22f08d8bb0e", "name": "cli-snp-naughty-hermann",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:17.213695+00:00",
+      "modification_date": "2023-12-12T08:55:17.213695+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}]}'
     form: {}
     headers:
       User-Agent:
@@ -1620,58 +1633,71 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images?page=1&public=false
     method: GET
   response:
-    body: '{"images": [{"id": "400f794a-0d25-4b7c-a811-01442baa6df5", "name": "cli-img-hardcore-nash",
+    body: '{"images": [{"id": "8e6bdba4-825c-4a38-b0d4-efba05ff822d", "name": "cli-img-competent-rosalind",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "root_volume": {"id": "b150a8e8-2191-45a4-94dc-7841e589fdd2", "name": "cli-snp-jolly-vaughan",
+      "root_volume": {"id": "3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "name": "cli-snp-gifted-kapitsa",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-12-06T10:35:21.830582+00:00",
-      "modification_date": "2023-12-06T10:35:21.830582+00:00", "default_bootscript":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T09:19:15.234699+00:00",
+      "modification_date": "2023-12-12T09:19:15.234699+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
-      {"id": "350f012a-ae99-42d0-a0d2-13ff2ab05634", "name": "image-scw-server-test",
+      {"id": "f2a500e0-eef0-413e-8b4c-0b0be570cbc8", "name": "cli-img-brave-khayyam",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "root_volume": {"id": "49fc1332-4ecc-49e0-9c15-0b87a966fd54", "name": "image-scw-server-test_snap_0",
-      "volume_type": "b_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-11-02T10:26:21.141234+00:00",
-      "modification_date": "2023-11-02T10:26:21.141234+00:00", "default_bootscript":
-      {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64
-      mainline 4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
-      "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
-      "dtb": "", "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
-      true, "zone": "fr-par-1"}, "from_server": "05735140-cea6-48b1-a0a4-1865375cc8cc",
-      "state": "available", "tags": [], "zone": "fr-par-1"}, {"id": "8555696f-11de-4f78-9e39-1cef84d2c414",
-      "name": "temp-build-packer", "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "root_volume": {"id": "1dae83a0-5cc9-491a-9c1e-531e1c48b9d8",
-      "name": "temp-build-packer_snap_0", "volume_type": "unified", "size": 20000000000},
-      "extra_volumes": {"1": {"id": "bb4758a8-f0a0-411e-a0aa-4ff3f110327c", "name":
-      "temp-build-packer_snap_1", "volume_type": "unified", "size": 30000000000}},
-      "public": false, "arch": "x86_64", "creation_date": "2023-04-27T14:19:24.323430+00:00",
-      "modification_date": "2023-04-27T14:19:24.323430+00:00", "default_bootscript":
-      {"id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1", "public": true, "title": "x86_64
-      mainline 4.4.230 rev1", "architecture": "x86_64", "organization": "11111111-1111-4111-8111-111111111111",
-      "project": "11111111-1111-4111-8111-111111111111", "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
-      "dtb": "", "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16", "default":
-      true, "zone": "fr-par-1"}, "from_server": "b57397ad-0039-4007-bb42-47cd1cd5dabd",
-      "state": "available", "tags": [], "zone": "fr-par-1"}, {"id": "0728fd44-f57f-48c5-9d4a-05cf5610bfd2",
-      "name": "my-test-image", "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "root_volume": {"id": "2857014a-db65-4e7e-aaf6-661c2db31a91",
-      "name": "my-test-image_snap_0", "volume_type": "b_ssd", "size": 20000000000},
-      "extra_volumes": {"1": {"id": "ce10f4c4-fca1-477a-8e82-cc36772b8dfd", "name":
-      "my-test-image_snap_1", "volume_type": "b_ssd", "size": 30000000000}}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-04-27T13:40:54.224678+00:00",
-      "modification_date": "2023-06-22T07:33:25.901522+00:00", "default_bootscript":
-      null, "from_server": "8bc2232d-f7ff-4ebd-9c7b-00e76b80001e", "state": "available",
-      "tags": ["tag1", "tag2"], "zone": "fr-par-1"}]}'
+      "root_volume": {"id": "37baf15b-7d52-4976-857c-e04c1c1f8053", "name": "cli-snp-fervent-khorana",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:59:47.783620+00:00",
+      "modification_date": "2023-12-12T08:59:47.783620+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "dbda7c70-1125-4060-9087-df1308dfb308", "name": "cli-img-relaxed-wilson",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "8d80bd3b-7fd2-4115-b550-14decbb14023", "name": "cli-snp-funny-yonath",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:56:02.378017+00:00",
+      "modification_date": "2023-12-12T08:56:02.378017+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "c16aa3de-9589-460d-b7cb-3f1765f0b034", "name": "cli-img-blissful-lederberg",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "e96d9263-e632-4209-9ff3-c1d88c289688", "name": "cli-snp-optimistic-euler",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:51.621393+00:00",
+      "modification_date": "2023-12-12T08:55:51.621393+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "226c3dfc-958b-4db5-8a88-c1180628fc7c", "name": "cli-img-bold-lewin",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "fcee8cd7-658a-4251-9059-028d3d59c498", "name": "cli-snp-nice-cannon",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:51.002419+00:00",
+      "modification_date": "2023-12-12T08:55:51.002419+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "6070c13d-4d9e-4645-b3fd-937275c38f75", "name": "cli-img-cool-lumiere",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "864d4045-6b27-4fb8-8e9c-6d64d6e5ef9f", "name": "cli-snp-distracted-gates",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:23.372564+00:00",
+      "modification_date": "2023-12-12T08:55:23.372564+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "abebd623-16c0-4238-a5c7-5319d3d7c982", "name": "cli-img-charming-mendeleev",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "86db8c54-c64b-4db0-90a8-4ba77b1210c8", "name": "cli-snp-hopeful-shtern",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:18.022925+00:00",
+      "modification_date": "2023-12-12T08:55:18.022925+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"},
+      {"id": "0f793ebb-8a02-4499-b6bf-28bd4029bef5", "name": "cli-img-busy-lehmann",
+      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "root_volume": {"id": "311b0b78-3525-4b7e-8ab7-a22f08d8bb0e", "name": "cli-snp-naughty-hermann",
+      "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T08:55:17.213695+00:00",
+      "modification_date": "2023-12-12T08:55:17.213695+00:00", "default_bootscript":
+      null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}]}'
     headers:
       Content-Length:
-      - "3795"
+      - "4816"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:22 GMT
+      - Tue, 12 Dec 2023 09:19:15 GMT
       Link:
       - </images?page=1&per_page=50&public=false>; rel="last"
       Server:
@@ -1683,145 +1709,43 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 9e469538-0e5c-4146-bc8c-e1338019a2b8
+      - 40cbf4fa-7bc7-4388-b691-5619abede33e
       X-Total-Count:
-      - "4"
+      - "8"
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"type": "not_found", "message": "resource is not found", "resource": "instance_server",
-      "resource_id": "05735140-cea6-48b1-a0a4-1865375cc8cc"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/05735140-cea6-48b1-a0a4-1865375cc8cc
-    method: GET
-  response:
-    body: '{"type": "not_found", "message": "resource is not found", "resource": "instance_server",
-      "resource_id": "05735140-cea6-48b1-a0a4-1865375cc8cc"}'
-    headers:
-      Content-Length:
-      - "143"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 06 Dec 2023 10:35:22 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 7d969034-035c-4ac7-94bb-78481c495921
-    status: 404 Not Found
-    code: 404
-    duration: ""
-- request:
-    body: '{"type": "not_found", "message": "resource is not found", "resource": "instance_server",
-      "resource_id": "b57397ad-0039-4007-bb42-47cd1cd5dabd"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/b57397ad-0039-4007-bb42-47cd1cd5dabd
-    method: GET
-  response:
-    body: '{"type": "not_found", "message": "resource is not found", "resource": "instance_server",
-      "resource_id": "b57397ad-0039-4007-bb42-47cd1cd5dabd"}'
-    headers:
-      Content-Length:
-      - "143"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 06 Dec 2023 10:35:22 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - ba98cb51-7331-40bf-9755-372b9cc876c1
-    status: 404 Not Found
-    code: 404
-    duration: ""
-- request:
-    body: '{"type": "not_found", "message": "resource is not found", "resource": "instance_server",
-      "resource_id": "8bc2232d-f7ff-4ebd-9c7b-00e76b80001e"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/8bc2232d-f7ff-4ebd-9c7b-00e76b80001e
-    method: GET
-  response:
-    body: '{"type": "not_found", "message": "resource is not found", "resource": "instance_server",
-      "resource_id": "8bc2232d-f7ff-4ebd-9c7b-00e76b80001e"}'
-    headers:
-      Content-Length:
-      - "143"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 06 Dec 2023 10:35:22 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 30ec770e-2c18-48db-9649-4d95754c0ea1
-    status: 404 Not Found
-    code: 404
-    duration: ""
-- request:
-    body: '{"image": {"id": "400f794a-0d25-4b7c-a811-01442baa6df5", "name": "cli-img-hardcore-nash",
+    body: '{"image": {"id": "8e6bdba4-825c-4a38-b0d4-efba05ff822d", "name": "cli-img-competent-rosalind",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "root_volume": {"id": "b150a8e8-2191-45a4-94dc-7841e589fdd2", "name": "cli-snp-jolly-vaughan",
+      "root_volume": {"id": "3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "name": "cli-snp-gifted-kapitsa",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-12-06T10:35:21.830582+00:00",
-      "modification_date": "2023-12-06T10:35:21.830582+00:00", "default_bootscript":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T09:19:15.234699+00:00",
+      "modification_date": "2023-12-12T09:19:15.234699+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/400f794a-0d25-4b7c-a811-01442baa6df5
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/8e6bdba4-825c-4a38-b0d4-efba05ff822d
     method: GET
   response:
-    body: '{"image": {"id": "400f794a-0d25-4b7c-a811-01442baa6df5", "name": "cli-img-hardcore-nash",
+    body: '{"image": {"id": "8e6bdba4-825c-4a38-b0d4-efba05ff822d", "name": "cli-img-competent-rosalind",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "root_volume": {"id": "b150a8e8-2191-45a4-94dc-7841e589fdd2", "name": "cli-snp-jolly-vaughan",
+      "root_volume": {"id": "3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c", "name": "cli-snp-gifted-kapitsa",
       "volume_type": "l_ssd", "size": 20000000000}, "extra_volumes": {}, "public":
-      false, "arch": "x86_64", "creation_date": "2023-12-06T10:35:21.830582+00:00",
-      "modification_date": "2023-12-06T10:35:21.830582+00:00", "default_bootscript":
+      false, "arch": "x86_64", "creation_date": "2023-12-12T09:19:15.234699+00:00",
+      "modification_date": "2023-12-12T09:19:15.234699+00:00", "default_bootscript":
       null, "from_server": null, "state": "available", "tags": [], "zone": "fr-par-1"}}'
     headers:
       Content-Length:
-      - "607"
+      - "613"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 06 Dec 2023 10:35:22 GMT
+      - Tue, 12 Dec 2023 09:19:15 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1831,7 +1755,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 335c29f9-59f8-45db-9db7-586b8baacf8d
+      - dbdbb777-e43d-41b9-b0fc-91de2258f773
     status: 200 OK
     code: 200
     duration: ""
@@ -1841,7 +1765,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/400f794a-0d25-4b7c-a811-01442baa6df5
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/images/8e6bdba4-825c-4a38-b0d4-efba05ff822d
     method: DELETE
   response:
     body: ""
@@ -1849,7 +1773,7 @@ interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Date:
-      - Wed, 06 Dec 2023 10:35:22 GMT
+      - Tue, 12 Dec 2023 09:19:15 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1859,7 +1783,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 7a7e324d-b4c6-44d3-9b6d-20069ccb9757
+      - 6d7737fd-069e-4142-9d9a-b7e95d74bfdf
     status: 204 No Content
     code: 204
     duration: ""
@@ -1869,7 +1793,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/snapshots/b150a8e8-2191-45a4-94dc-7841e589fdd2
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/snapshots/3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c
     method: DELETE
   response:
     body: ""
@@ -1877,7 +1801,7 @@ interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Date:
-      - Wed, 06 Dec 2023 10:35:22 GMT
+      - Tue, 12 Dec 2023 09:19:15 GMT
       Server:
       - Scaleway API-Gateway
       Strict-Transport-Security:
@@ -1887,7 +1811,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b3fdfb08-77d9-4008-87b4-494970f0dd75
+      - 6d5f4755-6146-4900-a3ba-7607d594f307
     status: 204 No Content
     code: 204
     duration: ""

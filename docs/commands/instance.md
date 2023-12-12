@@ -276,7 +276,7 @@ scw instance image update <image-id ...> [arg=value ...]
 |------|---|-------------|
 | image-id | Required |  |
 | name |  |  |
-| arch | One of: `x86_64`, `arm` |  |
+| arch | One of: `unknown_arch`, `x86_64`, `arm` |  |
 | extra-volumes.{index}.id |  | Additional extra-volume ID |
 | from-server |  |  |
 | public |  |  |

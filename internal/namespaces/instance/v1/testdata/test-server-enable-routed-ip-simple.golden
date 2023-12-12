@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                            0d85604a-2d19-4625-8603-39fe1b749da6
-Name                          cli-srv-affectionate-pike
+ID                            fbc5f41a-4c3e-41fe-ba33-442a66631563
+Name                          cli-srv-epic-cannon
 Organization                  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Project                       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 AllowedActions.0              poweroff
@@ -14,7 +14,7 @@ CreationDate                  few seconds ago
 DynamicIPRequired             true
 RoutedIPEnabled               true
 EnableIPv6                    false
-Hostname                      cli-srv-affectionate-pike
+Hostname                      cli-srv-epic-cannon
 Image.ID                      79740822-61f3-4b68-99a2-6340de44fbdd
 Image.Name                    Ubuntu 22.04 Jammy Jellyfish
 Image.Arch                    x86_64
@@ -29,34 +29,34 @@ Image.State                   available
 Image.Project                 51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone                    fr-par-3
 Protected                     false
-PublicIP.ID                   7b523e1c-e504-44b6-a097-bfe5ce55f23a
-PublicIP.Address              51.159.82.65
+PublicIP.ID                   93904803-fdfc-4ee7-8f4e-a9b49cbc0dc7
+PublicIP.Address              51.159.82.39
 PublicIP.Gateway              62.210.0.1
 PublicIP.Netmask              32
 PublicIP.Family               inet
 PublicIP.Dynamic              false
 PublicIP.ProvisioningMode     dhcp
 PublicIP.State                attached
-PublicIPs.0.ID                7b523e1c-e504-44b6-a097-bfe5ce55f23a
-PublicIPs.0.Address           51.159.82.65
+PublicIPs.0.ID                93904803-fdfc-4ee7-8f4e-a9b49cbc0dc7
+PublicIPs.0.Address           51.159.82.39
 PublicIPs.0.Gateway           62.210.0.1
 PublicIPs.0.Netmask           32
 PublicIPs.0.Family            inet
 PublicIPs.0.Dynamic           false
 PublicIPs.0.ProvisioningMode  dhcp
 PublicIPs.0.State             attached
-MacAddress                    de:00:00:07:e5:39
+MacAddress                    de:00:00:08:0c:29
 ModificationDate              few seconds ago
 State                         running
 Location                      fr-par-3
 Bootscript                    x86_64 mainline 4.4.230 rev1
 BootType                      local
-Volumes.0.ID                  9e5cb3b4-29e9-4a4e-b439-765a9a038f08
+Volumes.0.ID                  ddaddafe-bb65-4d44-b070-a1b01411694c
 Volumes.0.Name                Ubuntu 22.04 Jammy Jellyfish
 Volumes.0.ExportURI           -
 Volumes.0.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Volumes.0.Server.ID           0d85604a-2d19-4625-8603-39fe1b749da6
-Volumes.0.Server.Name         cli-srv-affectionate-pike
+Volumes.0.Server.ID           fbc5f41a-4c3e-41fe-ba33-442a66631563
+Volumes.0.Server.Name         cli-srv-epic-cannon
 Volumes.0.Size                10 GB
 Volumes.0.VolumeType          b_ssd
 Volumes.0.CreationDate        few seconds ago
@@ -72,8 +72,8 @@ Arch                          x86_64
 Zone                          fr-par-3
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "0d85604a-2d19-4625-8603-39fe1b749da6",
-  "name": "cli-srv-affectionate-pike",
+  "id": "fbc5f41a-4c3e-41fe-ba33-442a66631563",
+  "name": "cli-srv-epic-cannon",
   "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "allowed_actions": [
@@ -89,7 +89,7 @@ Zone                          fr-par-3
   "dynamic_ip_required": true,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-affectionate-pike",
+  "hostname": "cli-srv-epic-cannon",
   "image": {
     "id": "79740822-61f3-4b68-99a2-6340de44fbdd",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
@@ -115,8 +115,8 @@ Zone                          fr-par-3
   "protected": false,
   "private_ip": null,
   "public_ip": {
-    "id": "7b523e1c-e504-44b6-a097-bfe5ce55f23a",
-    "address": "51.159.82.65",
+    "id": "93904803-fdfc-4ee7-8f4e-a9b49cbc0dc7",
+    "address": "51.159.82.39",
     "gateway": "62.210.0.1",
     "netmask": "32",
     "family": "inet",
@@ -127,8 +127,8 @@ Zone                          fr-par-3
   },
   "public_ips": [
     {
-      "id": "7b523e1c-e504-44b6-a097-bfe5ce55f23a",
-      "address": "51.159.82.65",
+      "id": "93904803-fdfc-4ee7-8f4e-a9b49cbc0dc7",
+      "address": "51.159.82.39",
       "gateway": "62.210.0.1",
       "netmask": "32",
       "family": "inet",
@@ -138,13 +138,13 @@ Zone                          fr-par-3
       "state": "attached"
     }
   ],
-  "mac_address": "de:00:00:07:e5:39",
+  "mac_address": "de:00:00:08:0c:29",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "running",
   "location": {
     "cluster_id": "6",
     "hypervisor_id": "101",
-    "node_id": "7",
+    "node_id": "5",
     "platform_id": "60",
     "zone_id": "fr-par-3"
   },
@@ -160,19 +160,19 @@ Zone                          fr-par-3
     "project": "11111111-1111-4111-8111-111111111111",
     "public": true,
     "title": "x86_64 mainline 4.4.230 rev1",
-    "arch": "x86_64",
+    "arch": "unknown_arch",
     "zone": "fr-par-3"
   },
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "9e5cb3b4-29e9-4a4e-b439-765a9a038f08",
+      "id": "ddaddafe-bb65-4d44-b070-a1b01411694c",
       "name": "Ubuntu 22.04 Jammy Jellyfish",
       "export_uri": "",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
-        "id": "0d85604a-2d19-4625-8603-39fe1b749da6",
-        "name": "cli-srv-affectionate-pike"
+        "id": "fbc5f41a-4c3e-41fe-ba33-442a66631563",
+        "name": "cli-srv-epic-cannon"
       },
       "size": 10000000000,
       "volume_type": "b_ssd",

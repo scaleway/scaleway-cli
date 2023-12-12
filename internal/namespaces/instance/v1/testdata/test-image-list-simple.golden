@@ -1,15 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME                   STATE      PUBLIC  ZONE      VOLUMES       SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
-400f794a-0d25-4b7c-a811-01442baa6df5  cli-img-hardcore-nash  available  false   fr-par-1  20 GB         -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
-350f012a-ae99-42d0-a0d2-13ff2ab05634  image-scw-server-test  available  false   fr-par-1  10 GB         -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
-8555696f-11de-4f78-9e39-1cef84d2c414  temp-build-packer      available  false   fr-par-1  20 GB, 30 GB  -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
-0728fd44-f57f-48c5-9d4a-05cf5610bfd2  my-test-image          available  false   fr-par-1  20 GB, 30 GB  -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
+ID                                    NAME                        STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
+8e6bdba4-825c-4a38-b0d4-efba05ff822d  cli-img-competent-rosalind  available  false   fr-par-1  20 GB    -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
+f2a500e0-eef0-413e-8b4c-0b0be570cbc8  cli-img-brave-khayyam       available  false   fr-par-1  20 GB    -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
+dbda7c70-1125-4060-9087-df1308dfb308  cli-img-relaxed-wilson      available  false   fr-par-1  20 GB    -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
+c16aa3de-9589-460d-b7cb-3f1765f0b034  cli-img-blissful-lederberg  available  false   fr-par-1  20 GB    -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
+226c3dfc-958b-4db5-8a88-c1180628fc7c  cli-img-bold-lewin          available  false   fr-par-1  20 GB    -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
+6070c13d-4d9e-4645-b3fd-937275c38f75  cli-img-cool-lumiere        available  false   fr-par-1  20 GB    -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
+abebd623-16c0-4238-a5c7-5319d3d7c982  cli-img-charming-mendeleev  available  false   fr-par-1  20 GB    -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
+0f793ebb-8a02-4499-b6bf-28bd4029bef5  cli-img-busy-lehmann        available  false   fr-par-1  20 GB    -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "400f794a-0d25-4b7c-a811-01442baa6df5",
-    "name": "cli-img-hardcore-nash",
+    "id": "8e6bdba4-825c-4a38-b0d4-efba05ff822d",
+    "name": "cli-img-competent-rosalind",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
@@ -19,8 +23,8 @@ ID                                    NAME                   STATE      PUBLIC  
     "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "public": false,
     "root_volume": {
-      "id": "b150a8e8-2191-45a4-94dc-7841e589fdd2",
-      "name": "cli-snp-jolly-vaughan",
+      "id": "3af45cb5-cd5c-4bad-9543-5c4fbe6fea9c",
+      "name": "cli-snp-gifted-kapitsa",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
@@ -32,136 +36,171 @@ ID                                    NAME                   STATE      PUBLIC  
     "server_name": ""
   },
   {
-    "id": "350f012a-ae99-42d0-a0d2-13ff2ab05634",
-    "name": "image-scw-server-test",
-    "arch": "x86_64",
-    "creation_date": "1970-01-01T00:00:00.0Z",
-    "modification_date": "1970-01-01T00:00:00.0Z",
-    "default_bootscript": {
-      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16",
-      "default": true,
-      "dtb": "",
-      "id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1",
-      "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-      "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
-      "organization": "11111111-1111-4111-8111-111111111111",
-      "project": "11111111-1111-4111-8111-111111111111",
-      "public": true,
-      "title": "x86_64 mainline 4.4.230 rev1",
-      "arch": "x86_64",
-      "zone": "fr-par-1"
-    },
-    "extra_volumes": {},
-    "from_server": "05735140-cea6-48b1-a0a4-1865375cc8cc",
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "public": false,
-    "root_volume": {
-      "id": "49fc1332-4ecc-49e0-9c15-0b87a966fd54",
-      "name": "image-scw-server-test_snap_0",
-      "size": 10000000000,
-      "volume_type": "b_ssd"
-    },
-    "state": "available",
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "tags": [],
-    "zone": "fr-par-1",
-    "server_id": "",
-    "server_name": "-"
-  },
-  {
-    "id": "8555696f-11de-4f78-9e39-1cef84d2c414",
-    "name": "temp-build-packer",
-    "arch": "x86_64",
-    "creation_date": "1970-01-01T00:00:00.0Z",
-    "modification_date": "1970-01-01T00:00:00.0Z",
-    "default_bootscript": {
-      "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16",
-      "default": true,
-      "dtb": "",
-      "id": "fdfe150f-a870-4ce4-b432-9f56b5b995c1",
-      "initrd": "http://10.194.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-      "kernel": "http://10.194.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
-      "organization": "11111111-1111-4111-8111-111111111111",
-      "project": "11111111-1111-4111-8111-111111111111",
-      "public": true,
-      "title": "x86_64 mainline 4.4.230 rev1",
-      "arch": "x86_64",
-      "zone": "fr-par-1"
-    },
-    "extra_volumes": {
-      "1": {
-        "id": "bb4758a8-f0a0-411e-a0aa-4ff3f110327c",
-        "name": "temp-build-packer_snap_1",
-        "export_uri": null,
-        "size": 30000000000,
-        "volume_type": "unified",
-        "creation_date": null,
-        "modification_date": null,
-        "organization": "",
-        "project": "",
-        "tags": null,
-        "server": null,
-        "state": "available",
-        "zone": ""
-      }
-    },
-    "from_server": "b57397ad-0039-4007-bb42-47cd1cd5dabd",
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "public": false,
-    "root_volume": {
-      "id": "1dae83a0-5cc9-491a-9c1e-531e1c48b9d8",
-      "name": "temp-build-packer_snap_0",
-      "size": 20000000000,
-      "volume_type": "unified"
-    },
-    "state": "available",
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "tags": [],
-    "zone": "fr-par-1",
-    "server_id": "",
-    "server_name": "-"
-  },
-  {
-    "id": "0728fd44-f57f-48c5-9d4a-05cf5610bfd2",
-    "name": "my-test-image",
+    "id": "f2a500e0-eef0-413e-8b4c-0b0be570cbc8",
+    "name": "cli-img-brave-khayyam",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
-    "extra_volumes": {
-      "1": {
-        "id": "ce10f4c4-fca1-477a-8e82-cc36772b8dfd",
-        "name": "my-test-image_snap_1",
-        "export_uri": null,
-        "size": 30000000000,
-        "volume_type": "b_ssd",
-        "creation_date": null,
-        "modification_date": null,
-        "organization": "",
-        "project": "",
-        "tags": null,
-        "server": null,
-        "state": "available",
-        "zone": ""
-      }
-    },
-    "from_server": "8bc2232d-f7ff-4ebd-9c7b-00e76b80001e",
+    "extra_volumes": {},
+    "from_server": "",
     "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "public": false,
     "root_volume": {
-      "id": "2857014a-db65-4e7e-aaf6-661c2db31a91",
-      "name": "my-test-image_snap_0",
+      "id": "37baf15b-7d52-4976-857c-e04c1c1f8053",
+      "name": "cli-snp-fervent-khorana",
       "size": 20000000000,
-      "volume_type": "b_ssd"
+      "volume_type": "l_ssd"
     },
     "state": "available",
     "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "tags": [
-      "tag1",
-      "tag2"
-    ],
+    "tags": [],
     "zone": "fr-par-1",
     "server_id": "",
-    "server_name": "-"
+    "server_name": ""
+  },
+  {
+    "id": "dbda7c70-1125-4060-9087-df1308dfb308",
+    "name": "cli-img-relaxed-wilson",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "public": false,
+    "root_volume": {
+      "id": "8d80bd3b-7fd2-4115-b550-14decbb14023",
+      "name": "cli-snp-funny-yonath",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "c16aa3de-9589-460d-b7cb-3f1765f0b034",
+    "name": "cli-img-blissful-lederberg",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "public": false,
+    "root_volume": {
+      "id": "e96d9263-e632-4209-9ff3-c1d88c289688",
+      "name": "cli-snp-optimistic-euler",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "226c3dfc-958b-4db5-8a88-c1180628fc7c",
+    "name": "cli-img-bold-lewin",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "public": false,
+    "root_volume": {
+      "id": "fcee8cd7-658a-4251-9059-028d3d59c498",
+      "name": "cli-snp-nice-cannon",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "6070c13d-4d9e-4645-b3fd-937275c38f75",
+    "name": "cli-img-cool-lumiere",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "public": false,
+    "root_volume": {
+      "id": "864d4045-6b27-4fb8-8e9c-6d64d6e5ef9f",
+      "name": "cli-snp-distracted-gates",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "abebd623-16c0-4238-a5c7-5319d3d7c982",
+    "name": "cli-img-charming-mendeleev",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "public": false,
+    "root_volume": {
+      "id": "86db8c54-c64b-4db0-90a8-4ba77b1210c8",
+      "name": "cli-snp-hopeful-shtern",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "0f793ebb-8a02-4499-b6bf-28bd4029bef5",
+    "name": "cli-img-busy-lehmann",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "public": false,
+    "root_volume": {
+      "id": "311b0b78-3525-4b7e-8ab7-a22f08d8bb0e",
+      "name": "cli-snp-naughty-hermann",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
   }
 ]
