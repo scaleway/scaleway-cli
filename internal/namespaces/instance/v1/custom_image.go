@@ -317,7 +317,7 @@ func imageUpdateCommand() *core.Command {
 				Name:       "arch",
 				Required:   false,
 				Positional: false,
-				EnumValues: []string{"x86_64", "arm"},
+				EnumValues: []string{"unknown_arch", "x86_64", "arm"},
 			},
 			{
 				Name:       "extra-volumes.{index}.id",
