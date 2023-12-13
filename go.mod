@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/assert v1.0.0
 	github.com/buildpacks/pack v0.32.1
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/charmbracelet/bubbletea v0.24.2
+	github.com/charmbracelet/bubbletea v0.25.0
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.4-0.20230313162750-1ae8d489ac81
 	github.com/dnaeon/go-vcr v1.2.0
@@ -128,7 +128,7 @@ require (
 	github.com/muesli/ansi v0.0.0-20211018074035-2e021307bc4b // indirect
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/reflow v0.3.0 // indirect
-	github.com/muesli/termenv v0.15.1 // indirect
+	github.com/muesli/termenv v0.15.2 // indirect
 	github.com/opencontainers/image-spec v1.1.0-rc5 // indirect
 	github.com/opencontainers/runc v1.1.7 // indirect
 	github.com/opencontainers/selinux v1.11.0 // indirect
