@@ -29,6 +29,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(lb.Frontend{}, lbFrontendMarshalerFunc)
 	human.RegisterMarshalerFunc(lb.Certificate{}, lbCertificateMarshalerFunc)
 	human.RegisterMarshalerFunc(lb.ACL{}, lbACLMarshalerFunc)
+	human.RegisterMarshalerFunc([]*lb.PrivateNetwork{}, lbPrivateNetworksMarshalerFunc)
 
 	cmds := GetGeneratedCommands()
 
