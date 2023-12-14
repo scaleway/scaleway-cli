@@ -22,7 +22,7 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingRoot(),
 		webhostingHosting(),
 		webhostingOffer(),
-		webhostingControlPanels(),
+		webhostingControlPanel(),
 		webhostingHostingCreate(),
 		webhostingHostingList(),
 		webhostingHostingGet(),
@@ -31,6 +31,7 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingHostingRestore(),
 		webhostingHostingGetDNSRecords(),
 		webhostingOfferList(),
+		webhostingControlPanelList(),
 	)
 }
 func webhostingRoot() *core.Command {
@@ -59,12 +60,12 @@ func webhostingOffer() *core.Command {
 	}
 }
 
-func webhostingControlPanels() *core.Command {
+func webhostingControlPanel() *core.Command {
 	return &core.Command{
 		Short:     `Control Panels`,
 		Long:      `Control panels represent the kind of administration panel to manage your Web Hosting plan, cPanel or plesk.`,
 		Namespace: "webhosting",
-		Resource:  "control-panels",
+		Resource:  "control-panel",
 	}
 }
 
@@ -501,6 +502,38 @@ func webhostingOfferList() *core.Command {
 				Short:    "List only options",
 				ArgsJSON: `{"only_options":true,"without_options":false}`,
 			},
+		},
+	}
+}
+
+func webhostingControlPanelList() *core.Command {
+	return &core.Command{
+		Short:     `List all control panels type`,
+		Long:      `List the control panels type: cpanel or plesk.`,
+		Namespace: "webhosting",
+		Resource:  "control-panel",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.ListControlPanelsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*webhosting.ListControlPanelsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListControlPanels(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.ControlPanels, nil
+
 		},
 	}
 }

@@ -23,9 +23,9 @@ EXAMPLES:
 
 ARGS:
   security-group-id    UUID of the security group
-  protocol              (TCP | UDP | ICMP | ANY)
-  direction             (inbound | outbound)
-  action                (accept | drop)
+  protocol              (unknown_protocol | TCP | UDP | ICMP | ANY)
+  direction             (unknown_direction | inbound | outbound)
+  action                (unknown_action | accept | drop)
   ip-range=0.0.0.0/0   
   [dest-port-from]     Beginning of the range of ports to apply this rule to (inclusive)
   [dest-port-to]       End of the range of ports to apply this rule to (inclusive)
