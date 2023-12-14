@@ -22,7 +22,8 @@ AVAILABLE COMMANDS:
   list-default-rules Get default rules
   list-rules         List rules
   set-rules          Update all the rules of a security group
-  update             Update security group
+  update             Update a security group
+  update-rule        Update security group rule
 
 FLAGS:
   -h, --help   help for security-group

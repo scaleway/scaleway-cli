@@ -7,7 +7,7 @@ Instance API.
   - [Delete an Instance image](#delete-an-instance-image)
   - [Get an Instance image](#get-an-instance-image)
   - [List Instance images](#list-instance-images)
-  - [Update an instance image](#update-an-instance-image)
+  - [Update image](#update-image)
   - [Wait for image to reach a stable state](#wait-for-image-to-reach-a-stable-state)
 - [IP management commands](#ip-management-commands)
   - [Attach an IP to a given server](#attach-an-ip-to-a-given-server)
@@ -46,7 +46,8 @@ Instance API.
   - [Get default rules](#get-default-rules)
   - [List rules](#list-rules)
   - [Update all the rules of a security group](#update-all-the-rules-of-a-security-group)
-  - [Update security group](#update-security-group)
+  - [Update a security group](#update-a-security-group)
+  - [Update security group rule](#update-security-group-rule)
 - [Instance management commands](#instance-management-commands)
   - [Perform a raw API action on a server](#perform-a-raw-api-action-on-a-server)
   - [Attach an IP to a server](#attach-an-ip-to-a-server)
@@ -106,7 +107,7 @@ it-generate-hosts-for-instance-servers,-baremetal,-apple-silicon-and-bastions)
 ## Image management commands
 
 Images are backups of your Instances.
-One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
+One image will contain all the volumes of your Instance and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
 To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
 
 
@@ -127,7 +128,7 @@ scw instance image create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` | Name of the image |
 | snapshot-id | Required | UUID of the snapshot that will be used as root volume in the image |
-| arch | Required<br />One of: `x86_64`, `arm`, `arm64` | Architecture of the image |
+| arch | Required<br />One of: `unknown_arch`, `x86_64`, `arm`, `arm64` | Architecture of the image |
 | ~~default-bootscript~~ | Deprecated | Default bootscript of the image |
 | additional-volumes.{index}.id |  | UUID of the snapshot to add |
 | additional-volumes.{index}.name |  | Name of the additional snapshot |
@@ -259,9 +260,9 @@ scw instance image list
 
 
 
-### Update an instance image
+### Update image
 
-Update properties of an instance image.
+Update the properties of an image.
 
 **Usage:**
 
@@ -274,36 +275,13 @@ scw instance image update <image-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| image-id | Required |  |
-| name |  |  |
-| arch | One of: `unknown_arch`, `x86_64`, `arm` |  |
-| extra-volumes.{index}.id |  | Additional extra-volume ID |
-| from-server |  |  |
-| public |  |  |
-| tags.{index} |  |  |
-| project |  | Project ID to use. If none is passed the default project ID will be used |
-| organization |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
-
-
-**Examples:**
-
-
-Update image name
-```
-scw instance image update image-id=11111111-1111-1111-1111-111111111111 name=foo
-```
-
-Update image public
-```
-scw instance image update image-id=11111111-1111-1111-1111-111111111111 public=true
-```
-
-Add extra volume
-```
-scw instance image update image-id=11111111-1111-1111-1111-111111111111 extra-volumes.1.id=11111111-1111-1111-1111-111111111111
-```
-
+| image-id | Required | UUID of the image |
+| name |  | Name of the image |
+| arch | One of: `unknown_arch`, `x86_64`, `arm`, `arm64` | Architecture of the image |
+| extra-volumes.{key}.id |  | UUID of the snapshot |
+| tags.{index} |  | Tags of the image |
+| public |  | True to set the image as public |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1146,8 +1124,8 @@ scw instance security-group create [arg=value ...]
 | ~~organization-default~~ | Deprecated<br />Default: `false` | Defines whether this security group becomes the default security group for new Instances |
 | project-default | Default: `false` | Whether this security group becomes the default security group for new Instances |
 | stateful | Default: `true` | Whether the security group is stateful or not |
-| inbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for inbound rules |
-| outbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for outbound rules |
+| inbound-default-policy | Default: `accept`<br />One of: `unknown_policy`, `accept`, `drop` | Default policy for inbound rules |
+| outbound-default-policy | Default: `accept`<br />One of: `unknown_policy`, `accept`, `drop` | Default policy for outbound rules |
 | enable-default-security |  | True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
@@ -1200,9 +1178,9 @@ scw instance security-group create-rule [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | security-group-id | Required | UUID of the security group |
-| protocol | Required<br />One of: `TCP`, `UDP`, `ICMP`, `ANY` |  |
-| direction | Required<br />One of: `inbound`, `outbound` |  |
-| action | Required<br />One of: `accept`, `drop` |  |
+| protocol | Required<br />One of: `unknown_protocol`, `TCP`, `UDP`, `ICMP`, `ANY` |  |
+| direction | Required<br />One of: `unknown_direction`, `inbound`, `outbound` |  |
+| action | Required<br />One of: `unknown_action`, `accept`, `drop` |  |
 | ip-range | Required<br />Default: `0.0.0.0/0` |  |
 | dest-port-from |  | Beginning of the range of ports to apply this rule to (inclusive) |
 | dest-port-to |  | End of the range of ports to apply this rule to (inclusive) |
@@ -1476,9 +1454,9 @@ scw instance security-group set-rules [arg=value ...]
 |------|---|-------------|
 | security-group-id | Required | UUID of the security group to update the rules on |
 | rules.{index}.id |  | UUID of the security rule to update. If no value is provided, a new rule will be created |
-| rules.{index}.action | One of: `accept`, `drop` | Action to apply when the rule matches a packet |
-| rules.{index}.protocol | One of: `TCP`, `UDP`, `ICMP`, `ANY` | Protocol family this rule applies to |
-| rules.{index}.direction | One of: `inbound`, `outbound` | Direction the rule applies to |
+| rules.{index}.action | One of: `unknown_action`, `accept`, `drop` | Action to apply when the rule matches a packet |
+| rules.{index}.protocol | One of: `unknown_protocol`, `TCP`, `UDP`, `ICMP`, `ANY` | Protocol family this rule applies to |
+| rules.{index}.direction | One of: `unknown_direction`, `inbound`, `outbound` | Direction the rule applies to |
 | rules.{index}.ip-range |  | Range of IP addresses these rules apply to |
 | rules.{index}.dest-port-from |  | Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY |
 | rules.{index}.dest-port-to |  | End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from |
@@ -1489,14 +1467,14 @@ scw instance security-group set-rules [arg=value ...]
 
 
 
-### Update security group
+### Update a security group
 
-Update security group.
+Update the properties of security group.
 
 **Usage:**
 
 ```
-scw instance security-group update [arg=value ...]
+scw instance security-group update <security-group-id ...> [arg=value ...]
 ```
 
 
@@ -1504,50 +1482,45 @@ scw instance security-group update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| security-group-id | Required | ID of the security group to update |
-| name |  |  |
-| description |  |  |
-| stateful |  |  |
-| inbound-default-policy | One of: `accept`, `drop` |  |
-| outbound-default-policy | One of: `accept`, `drop` |  |
-| organization-default |  |  |
-| project-default |  |  |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| security-group-id | Required | UUID of the security group |
+| name |  | Name of the security group |
+| description |  | Description of the security group |
+| enable-default-security |  | True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable |
+| inbound-default-policy | One of: `unknown_policy`, `accept`, `drop` | Default inbound policy |
+| tags.{index} |  | Tags of the security group |
+| ~~organization-default~~ | Deprecated | Please use project_default instead |
+| project-default |  | True use this security group for future Instances created in this project |
+| outbound-default-policy | One of: `unknown_policy`, `accept`, `drop` | Default outbound policy |
+| stateful |  | True to set the security group as stateful |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
-**Examples:**
+
+### Update security group rule
+
+Update the properties of a rule from a specified security group.
+
+**Usage:**
+
+```
+scw instance security-group update-rule [arg=value ...]
+```
 
 
-Set the default outbound policy as drop
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 outbound-default-policy=drop
-```
+**Args:**
 
-Set the given security group as the default for the project
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 project-default=true
-```
-
-Change the name of the given security group
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 name=foobar
-```
-
-Change the description of the given security group
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 description=foobar
-```
-
-Enable stateful security group
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 stateful=true
-```
-
-Set the default inbound policy as drop
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 inbound-default-policy=drop
-```
-
+| Name |   | Description |
+|------|---|-------------|
+| security-group-id | Required | UUID of the security group |
+| security-group-rule-id | Required | UUID of the rule |
+| protocol | One of: `unknown_protocol`, `TCP`, `UDP`, `ICMP`, `ANY` | Protocol family this rule applies to |
+| direction | One of: `unknown_direction`, `inbound`, `outbound` | Direction the rule applies to |
+| action | One of: `unknown_action`, `accept`, `drop` | Action to apply when the rule matches a packet |
+| ip-range |  | Range of IP addresses these rules apply to |
+| dest-port-from |  | Beginning of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter. |
+| dest-port-to |  | End of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter. |
+| position |  | Position of this rule in the security group rules list |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2610,7 +2583,7 @@ scw instance snapshot list zone=fr-par-1
 
 ### Update a snapshot
 
-
+Update the properties of a snapshot.
 
 **Usage:**
 
@@ -2623,10 +2596,10 @@ scw instance snapshot update <snapshot-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| snapshot-id | Required | UUID of the snapshot. |
-| name |  | Name of the snapshot. |
-| tags.{index} |  | Tags of the snapshot. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| snapshot-id | Required | UUID of the snapshot |
+| name |  | Name of the snapshot |
+| tags.{index} |  | Tags of the snapshot |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
