@@ -8,9 +8,9 @@ USAGE:
 ARGS:
   security-group-id                UUID of the security group to update the rules on
   [rules.{index}.id]               UUID of the security rule to update. If no value is provided, a new rule will be created
-  [rules.{index}.action]           Action to apply when the rule matches a packet (accept | drop)
-  [rules.{index}.protocol]         Protocol family this rule applies to (TCP | UDP | ICMP | ANY)
-  [rules.{index}.direction]        Direction the rule applies to (inbound | outbound)
+  [rules.{index}.action]           Action to apply when the rule matches a packet (unknown_action | accept | drop)
+  [rules.{index}.protocol]         Protocol family this rule applies to (unknown_protocol | TCP | UDP | ICMP | ANY)
+  [rules.{index}.direction]        Direction the rule applies to (unknown_direction | inbound | outbound)
   [rules.{index}.ip-range]         Range of IP addresses these rules apply to
   [rules.{index}.dest-port-from]   Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY
   [rules.{index}.dest-port-to]     End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from

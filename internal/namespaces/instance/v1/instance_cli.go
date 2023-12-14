@@ -45,10 +45,12 @@ func GetGeneratedCommands() *core.Commands {
 		instanceImageList(),
 		instanceImageGet(),
 		instanceImageCreate(),
+		instanceImageUpdate(),
 		instanceImageDelete(),
 		instanceSnapshotList(),
 		instanceSnapshotCreate(),
 		instanceSnapshotGet(),
+		instanceSnapshotUpdate(),
 		instanceSnapshotDelete(),
 		instanceSnapshotExport(),
 		instanceVolumeList(),
@@ -60,12 +62,14 @@ func GetGeneratedCommands() *core.Commands {
 		instanceSecurityGroupCreate(),
 		instanceSecurityGroupGet(),
 		instanceSecurityGroupDelete(),
+		instanceSecurityGroupUpdate(),
 		instanceSecurityGroupListDefaultRules(),
 		instanceSecurityGroupListRules(),
 		instanceSecurityGroupCreateRule(),
 		instanceSecurityGroupSetRules(),
 		instanceSecurityGroupDeleteRule(),
 		instanceSecurityGroupGetRule(),
+		instanceSecurityGroupUpdateRule(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
 		instancePlacementGroupGet(),
@@ -99,7 +103,7 @@ func instanceImage() *core.Command {
 	return &core.Command{
 		Short: `Image management commands`,
 		Long: `Images are backups of your Instances.
-One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
+One image will contain all the volumes of your Instance and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
 To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.`,
 		Namespace: "instance",
 		Resource:  "image",
@@ -1106,7 +1110,7 @@ func instanceImageCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"x86_64", "arm", "arm64"},
+				EnumValues: []string{"unknown_arch", "x86_64", "arm", "arm64"},
 			},
 			{
 				Name:       "default-bootscript",
@@ -1189,6 +1193,72 @@ func instanceImageCreate() *core.Command {
 				Short: "Create an image named 'foobar' for x86_64 Instances from the specified snapshot ID",
 				Raw:   `scw instance server image create name=foobar snapshot-id=11111111-1111-1111-1111-111111111111 arch=x86_64`,
 			},
+		},
+	}
+}
+
+func instanceImageUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update image`,
+		Long:      `Update the properties of an image.`,
+		Namespace: "instance",
+		Resource:  "image",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdateImageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "image-id",
+				Short:      `UUID of the image`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "arch",
+				Short:      `Architecture of the image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_arch", "x86_64", "arm", "arm64"},
+			},
+			{
+				Name:       "extra-volumes.{key}.id",
+				Short:      `UUID of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public",
+				Short:      `True to set the image as public`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateImageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateImage(request)
+
 		},
 	}
 }
@@ -1446,6 +1516,50 @@ func instanceSnapshotGet() *core.Command {
 				Short:    "Get a snapshot in fr-par-1 zone with the specified ID",
 				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
+		},
+	}
+}
+
+func instanceSnapshotUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a snapshot`,
+		Long:      `Update the properties of a snapshot.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdateSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `UUID of the snapshot`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateSnapshot(request)
+
 		},
 	}
 }
@@ -2026,7 +2140,7 @@ func instanceSecurityGroupCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("accept"),
-				EnumValues: []string{"accept", "drop"},
+				EnumValues: []string{"unknown_policy", "accept", "drop"},
 			},
 			{
 				Name:       "outbound-default-policy",
@@ -2035,7 +2149,7 @@ func instanceSecurityGroupCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("accept"),
-				EnumValues: []string{"accept", "drop"},
+				EnumValues: []string{"unknown_policy", "accept", "drop"},
 			},
 			{
 				Name:       "enable-default-security",
@@ -2158,6 +2272,101 @@ func instanceSecurityGroupDelete() *core.Command {
 	}
 }
 
+func instanceSecurityGroupUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a security group`,
+		Long:      `Update the properties of security group.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdateSecurityGroupRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Short:      `UUID of the security group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the security group`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Short:      `Description of the security group`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-default-security",
+				Short:      `True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "inbound-default-policy",
+				Short:      `Default inbound policy`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_policy", "accept", "drop"},
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the security group`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-default",
+				Short:      `Please use project_default instead`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "project-default",
+				Short:      `True use this security group for future Instances created in this project`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "outbound-default-policy",
+				Short:      `Default outbound policy`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_policy", "accept", "drop"},
+			},
+			{
+				Name:       "stateful",
+				Short:      `True to set the security group as stateful`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateSecurityGroupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateSecurityGroup(request)
+
+		},
+	}
+}
+
 func instanceSecurityGroupListDefaultRules() *core.Command {
 	return &core.Command{
 		Short:     `Get default rules`,
@@ -2242,21 +2451,21 @@ func instanceSecurityGroupCreateRule() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"TCP", "UDP", "ICMP", "ANY"},
+				EnumValues: []string{"unknown_protocol", "TCP", "UDP", "ICMP", "ANY"},
 			},
 			{
 				Name:       "direction",
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"inbound", "outbound"},
+				EnumValues: []string{"unknown_direction", "inbound", "outbound"},
 			},
 			{
 				Name:       "action",
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"accept", "drop"},
+				EnumValues: []string{"unknown_action", "accept", "drop"},
 			},
 			{
 				Name:       "ip-range",
@@ -2358,7 +2567,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"accept", "drop"},
+				EnumValues: []string{"unknown_action", "accept", "drop"},
 			},
 			{
 				Name:       "rules.{index}.protocol",
@@ -2366,7 +2575,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"TCP", "UDP", "ICMP", "ANY"},
+				EnumValues: []string{"unknown_protocol", "TCP", "UDP", "ICMP", "ANY"},
 			},
 			{
 				Name:       "rules.{index}.direction",
@@ -2374,7 +2583,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"inbound", "outbound"},
+				EnumValues: []string{"unknown_direction", "inbound", "outbound"},
 			},
 			{
 				Name:       "rules.{index}.ip-range",
@@ -2515,6 +2724,95 @@ func instanceSecurityGroupGetRule() *core.Command {
 				Short:    "Get details of a security group rule with the specified ID",
 				ArgsJSON: `{"security_group_id":"d900fa38-2f0d-4b09-b6d7-f3e46a13f34c","security_group_rule_id":"1f9a16a5-7229-4c03-9327-253e257cf38a"}`,
 			},
+		},
+	}
+}
+
+func instanceSecurityGroupUpdateRule() *core.Command {
+	return &core.Command{
+		Short:     `Update security group rule`,
+		Long:      `Update the properties of a rule from a specified security group.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "update-rule",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdateSecurityGroupRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Short:      `UUID of the security group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "security-group-rule-id",
+				Short:      `UUID of the rule`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "protocol",
+				Short:      `Protocol family this rule applies to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_protocol", "TCP", "UDP", "ICMP", "ANY"},
+			},
+			{
+				Name:       "direction",
+				Short:      `Direction the rule applies to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_direction", "inbound", "outbound"},
+			},
+			{
+				Name:       "action",
+				Short:      `Action to apply when the rule matches a packet`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_action", "accept", "drop"},
+			},
+			{
+				Name:       "ip-range",
+				Short:      `Range of IP addresses these rules apply to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dest-port-from",
+				Short:      `Beginning of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dest-port-to",
+				Short:      `End of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "position",
+				Short:      `Position of this rule in the security group rules list`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateSecurityGroupRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateSecurityGroupRule(request)
+
 		},
 	}
 }
