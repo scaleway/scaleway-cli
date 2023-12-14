@@ -458,24 +458,3 @@ func securityGroupEditCommand() *core.Command {
 		},
 	}
 }
-
-func getDefaultProjectSecurityGroup(ctx context.Context, zone scw.Zone) (*instance.SecurityGroup, error) {
-	api := instance.NewAPI(core.ExtractClient(ctx))
-
-	projectID := core.GetProjectIDFromContext(ctx)
-	sgList, err := api.ListSecurityGroups(&instance.ListSecurityGroupsRequest{
-		Zone:    zone,
-		Project: scw.StringPtr(projectID),
-	}, scw.WithAllPages())
-	if err != nil {
-		return nil, err
-	}
-
-	for _, sg := range sgList.SecurityGroups {
-		if sg.ProjectDefault {
-			return sg, nil
-		}
-	}
-
-	return nil, fmt.Errorf("%s project does not have a default security group", projectID)
-}
