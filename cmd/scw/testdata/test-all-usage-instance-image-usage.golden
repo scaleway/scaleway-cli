@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Images are backups of your Instances.
-One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
+One image will contain all the volumes of your Instance and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
 To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
 
 USAGE:
@@ -12,7 +12,7 @@ AVAILABLE COMMANDS:
   delete      Delete an Instance image
   get         Get an Instance image
   list        List Instance images
-  update      Update an instance image
+  update      Update image
 
 WORKFLOW COMMANDS:
   wait        Wait for image to reach a stable state

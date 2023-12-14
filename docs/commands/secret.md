@@ -7,11 +7,16 @@ This API allows you to conveniently store, access and share sensitive data.
   - [Delete a given folder specified by the `region` and `folder_id` parameters](#delete-a-given-folder-specified-by-the-`region`-and-`folder_id`-parameters)
   - [List folders](#list-folders)
 - [Secret management commands](#secret-management-commands)
+  - [Allow a product to use the secret](#allow-a-product-to-use-the-secret)
   - [Create a secret](#create-a-secret)
   - [Delete a secret](#delete-a-secret)
   - [Get metadata using the secret's ID](#get-metadata-using-the-secret's-id)
   - [List secrets](#list-secrets)
+  - [Protect a secret](#protect-a-secret)
+  - [Unprotect a secret](#unprotect-a-secret)
   - [Update metadata of a secret](#update-metadata-of-a-secret)
+- [Tag management commands](#tag-management-commands)
+  - [List tags](#list-tags)
 - [Secret Version management commands](#secret-version-management-commands)
   - [Access a secret's version using the secret's ID](#access-a-secret's-version-using-the-secret's-id)
   - [Create a version](#create-a-version)
@@ -96,6 +101,28 @@ scw secret folder list [arg=value ...]
 ## Secret management commands
 
 Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.
+
+
+### Allow a product to use the secret
+
+Allow a product to use the secret.
+
+**Usage:**
+
+```
+scw secret secret add-owner <secret-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| secret-id | Required | ID of the secret |
+| ~~product-name~~ | Deprecated | (Deprecated: use `product` field) Name of the product to add |
+| product | One of: `unknown`, `edge_services` | ID of the product to add |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
 
 
 ### Create a secret
@@ -212,6 +239,66 @@ scw secret secret list [arg=value ...]
 
 
 
+### Protect a secret
+
+Protect a given secret specified by the `secret_id` parameter. A protected secret can be read and modified but cannot be deleted.
+
+**Usage:**
+
+```
+scw secret secret protect <secret-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| secret-id | Required | ID of the secret to protect |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Protect a secret
+```
+scw secret secret protect 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
+### Unprotect a secret
+
+Unprotect a given secret specified by the `secret_id` parameter. An unprotected secret can be read, modified and deleted.
+
+**Usage:**
+
+```
+scw secret secret unprotect <secret-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| secret-id | Required | ID of the secret to unprotect |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Unprotect a secret
+```
+scw secret secret unprotect 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
 ### Update metadata of a secret
 
 Edit a secret's metadata such as name, tag(s) and description. The secret to update is specified by the `secret_id` and `region` parameters.
@@ -233,6 +320,31 @@ scw secret secret update [arg=value ...]
 | description |  | Description of the secret |
 | path |  | Path of the folder |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Tag management commands
+
+Tag management commands.
+
+
+### List tags
+
+List all tags associated with secrets within a given Project.
+
+**Usage:**
+
+```
+scw secret tag list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | ID of the Project to target |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
