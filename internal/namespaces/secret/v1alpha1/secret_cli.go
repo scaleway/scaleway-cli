@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		secretFolder(),
 		secretSecret(),
 		secretVersion(),
+		secretTag(),
 		secretSecretCreate(),
 		secretFolderCreate(),
 		secretSecretGet(),
@@ -31,6 +32,9 @@ func GetGeneratedCommands() *core.Commands {
 		secretFolderList(),
 		secretSecretDelete(),
 		secretFolderDelete(),
+		secretSecretProtect(),
+		secretSecretUnprotect(),
+		secretSecretAddOwner(),
 		secretVersionCreate(),
 		secretVersionGeneratePassword(),
 		secretVersionGet(),
@@ -40,6 +44,7 @@ func GetGeneratedCommands() *core.Commands {
 		secretVersionDisable(),
 		secretVersionAccess(),
 		secretVersionDelete(),
+		secretTagList(),
 	)
 }
 func secretRoot() *core.Command {
@@ -74,6 +79,15 @@ func secretVersion() *core.Command {
 		Long:      `Versions store the sensitive data contained in your secrets (API keys, passwords, or certificates).`,
 		Namespace: "secret",
 		Resource:  "version",
+	}
+}
+
+func secretTag() *core.Command {
+	return &core.Command{
+		Short:     `Tag management commands`,
+		Long:      `Tag management commands.`,
+		Namespace: "secret",
+		Resource:  "tag",
 	}
 }
 
@@ -498,6 +512,129 @@ func secretFolderDelete() *core.Command {
 			return &core.SuccessResult{
 				Resource: "folder",
 				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func secretSecretProtect() *core.Command {
+	return &core.Command{
+		Short:     `Protect a secret`,
+		Long:      `Protect a given secret specified by the ` + "`" + `secret_id` + "`" + ` parameter. A protected secret can be read and modified but cannot be deleted.`,
+		Namespace: "secret",
+		Resource:  "secret",
+		Verb:      "protect",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.ProtectSecretRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret to protect`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.ProtectSecretRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.ProtectSecret(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Protect a secret",
+				ArgsJSON: `{"secret_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func secretSecretUnprotect() *core.Command {
+	return &core.Command{
+		Short:     `Unprotect a secret`,
+		Long:      `Unprotect a given secret specified by the ` + "`" + `secret_id` + "`" + ` parameter. An unprotected secret can be read, modified and deleted.`,
+		Namespace: "secret",
+		Resource:  "secret",
+		Verb:      "unprotect",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.UnprotectSecretRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret to unprotect`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.UnprotectSecretRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.UnprotectSecret(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Unprotect a secret",
+				ArgsJSON: `{"secret_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func secretSecretAddOwner() *core.Command {
+	return &core.Command{
+		Short:     `Allow a product to use the secret`,
+		Long:      `Allow a product to use the secret.`,
+		Namespace: "secret",
+		Resource:  "secret",
+		Verb:      "add-owner",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.AddSecretOwnerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "product-name",
+				Short:      `(Deprecated: use ` + "`" + `product` + "`" + ` field) Name of the product to add`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "product",
+				Short:      `ID of the product to add`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "edge_services"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.AddSecretOwnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			e = api.AddSecretOwner(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "secret",
+				Verb:     "add-owner",
 			}, nil
 		},
 	}
@@ -953,6 +1090,45 @@ func secretVersionDelete() *core.Command {
 				Short:    "Delete a given Secret Version",
 				ArgsJSON: `{"revision":"1","secret_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
+		},
+	}
+}
+
+func secretTagList() *core.Command {
+	return &core.Command{
+		Short:     `List tags`,
+		Long:      `List all tags associated with secrets within a given Project.`,
+		Namespace: "secret",
+		Resource:  "tag",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.ListTagsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "project-id",
+				Short:      `ID of the Project to target`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.ListTagsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListTags(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Tags, nil
+
 		},
 	}
 }
