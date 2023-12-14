@@ -1989,7 +1989,7 @@ func k8sNodeDelete() *core.Command {
 			},
 			{
 				Name:       "skip-drain",
-				Short:      `Skip draining node from its workload`,
+				Short:      `Skip draining node from its workload (Note: this parameter is currently inactive)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
