@@ -12,7 +12,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -364,129 +363,6 @@ func securityGroupClearCommand() *core.Command {
 				Required: true,
 			},
 			core.ZoneArgSpec(),
-		},
-	}
-}
-
-// securityGroupUpdateCommand updates a security-group.
-// Because the API for SecurityGroup works with a PUT but not a PATCH,
-// the method UpdateSecurityGroup() is not generated.
-// Instead, setSecurityGroup() is generated, and a custom UpdateSecurityGroup() method is handwritten the SDK.
-// This is why 'scw instance security-group update' needs to be written by hand.
-func securityGroupUpdateCommand() *core.Command {
-	return &core.Command{
-		Short:     `Update security group`,
-		Long:      `Update security group.`,
-		Namespace: "instance",
-		Resource:  "security-group",
-		Verb:      "update",
-		ArgsType:  reflect.TypeOf(instance.UpdateSecurityGroupRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:     "security-group-id",
-				Short:    `ID of the security group to update`,
-				Required: true,
-			},
-			{
-				Name: "name",
-			},
-			{
-				Name: "description",
-			},
-			{
-				Name: "stateful",
-			},
-			{
-				Name:       "inbound-default-policy",
-				EnumValues: []string{"accept", "drop"},
-			},
-			{
-				Name:       "outbound-default-policy",
-				EnumValues: []string{"accept", "drop"},
-			},
-			{
-				Name: "organization-default",
-			},
-			{
-				Name: "project-default",
-			},
-			core.ZoneArgSpec(),
-		},
-		Examples: []*core.Example{
-			{
-				Short:    "Set the default outbound policy as drop",
-				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "outbound_default_policy": "drop"}`,
-			},
-			{
-				Short:    "Set the given security group as the default for the project",
-				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "project_default": true}`,
-			},
-			{
-				Short:    "Change the name of the given security group",
-				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "name": "foobar"}`,
-			},
-			{
-				Short:    "Change the description of the given security group",
-				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "description": "foobar"}`,
-			},
-			{
-				Short:    "Enable stateful security group",
-				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "stateful": true}`,
-			},
-			{
-				Short:    "Set the default inbound policy as drop",
-				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111", "inbound_default_policy": "drop"}`,
-			},
-		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			req := argsI.(*instance.UpdateSecurityGroupRequest)
-
-			api := instance.NewAPI(core.ExtractClient(ctx))
-			res, err := api.UpdateSecurityGroup(req)
-			if err == nil {
-				return res, nil
-			}
-
-			resErr, isResErr := err.(*scw.ResponseError)
-			if !isResErr {
-				return nil, err
-			}
-
-			// Try to find the error type and create a more user friendly one.
-			switch resErr.Message {
-			case "default security group can't be stateful":
-				return nil, &core.CliError{
-					Err: fmt.Errorf("your default security group cannot be stateful"),
-					Details: interactive.RemoveIndent(`
-						You have to make this security group stateless to use it as a project default.
-						More info: https://www.scaleway.com/en/docs/how-to-activate-a-stateful-cloud-firewall
-					`),
-					Hint: "scw instance security-group update " + req.SecurityGroupID + " project-default=true stateful=false",
-				}
-
-			case "cannot have more than one project default", "cannot have more than one project default group":
-				defaultSG, err := getDefaultProjectSecurityGroup(ctx, req.Zone)
-				if err != nil {
-					// Abort and return the original error.
-					return nil, resErr
-				}
-
-				return nil, &core.CliError{
-					Err: fmt.Errorf("you cannot have more than one project default"),
-					Details: interactive.RemoveIndent(`
-						You already have a project default security-group (` + defaultSG.ID + `).
-
-						First, you need to set your current project default security-group as non-default with:
-						scw instance security-group update ` + defaultSG.ID + ` project-default=false
-
-						Then, retry this command:
-						scw instance security-group update ` + req.SecurityGroupID + ` project-default=true stateful=false
-					`),
-				}
-			default:
-				// Unknown error, use default behavior.
-				return nil, resErr
-			}
 		},
 	}
 }
