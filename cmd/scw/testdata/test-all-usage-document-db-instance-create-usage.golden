@@ -17,7 +17,7 @@ ARGS:
   [tags.{index}]                                                Tags to apply to the Database Instance
   [init-settings.{index}.name]                                  
   [init-settings.{index}.value]                                 
-  [volume-type]                                                 Type of volume where data is stored (lssd, bssd, ...) (lssd | bssd)
+  [volume-type]                                                 Type of volume where data is stored (lssd, bssd, ...) (lssd | bssd | sbs_5k | sbs_15k)
   [volume-size]                                                 Volume size when volume_type is not lssd
   [init-endpoints.{index}.private-network.private-network-id]   UUID of the Private Network to be connected to the Database Instance
   [init-endpoints.{index}.private-network.service-ip]           Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.
