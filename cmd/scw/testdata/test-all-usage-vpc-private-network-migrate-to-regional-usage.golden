@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Transform multiple existing zoned Private Networks (scoped to a single Availability Zone) into regional Private Networks, scoped to an entire region. You can transform one or many Private Networks (specified by their Private Network IDs) within a single Scaleway Organization or Project, with the same call.
+
+USAGE:
+  scw vpc private-network migrate-to-regional <private-network-ids.{index} ...> [arg=value ...]
+
+ARGS:
+  [project-id]                  Project ID to use. If none is passed the default project ID will be used
+  private-network-ids.{index}   IDs of the Private Networks to migrate
+  [organization-id]             Organization ID to use. If none is passed the default organization ID will be used
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for migrate-to-regional
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

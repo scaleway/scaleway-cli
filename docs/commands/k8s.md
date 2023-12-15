@@ -672,7 +672,7 @@ scw k8s node delete <node-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | node-id | Required | ID of the node to replace |
-| skip-drain |  | Skip draining node from its workload |
+| skip-drain |  | Skip draining node from its workload (Note: this parameter is currently inactive) |
 | replace |  | Add a new node after the deletion of this node |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
