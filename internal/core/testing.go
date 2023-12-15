@@ -525,6 +525,15 @@ func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 	}
 }
 
+func AfterFuncWhenUpdatingCassette(afterFunc AfterFunc) AfterFunc {
+	return func(ctx *AfterFuncCtx) error {
+		if *UpdateCassettes {
+			return afterFunc(ctx)
+		}
+		return nil
+	}
+}
+
 // ExecStoreBeforeCmd executes the given before command and register the result
 // in the context Meta at metaKey.
 func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
