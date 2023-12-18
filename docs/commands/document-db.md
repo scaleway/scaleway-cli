@@ -402,7 +402,7 @@ scw document-db instance create [arg=value ...]
 | tags.{index} |  | Tags to apply to the Database Instance |
 | init-settings.{index}.name |  |  |
 | init-settings.{index}.value |  |  |
-| volume-type | One of: `lssd`, `bssd` | Type of volume where data is stored (lssd, bssd, ...) |
+| volume-type | One of: `lssd`, `bssd`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored (lssd, bssd, ...) |
 | volume-size |  | Volume size when volume_type is not lssd |
 | init-endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Database Instance |
 | init-endpoints.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
@@ -607,8 +607,10 @@ scw document-db instance upgrade <instance-id ...> [arg=value ...]
 | node-type |  | Node type of the Database Instance you want to upgrade to |
 | enable-ha |  | Defines whether or not High Availability should be enabled on the Database Instance |
 | volume-size |  | Increase your Block volume size |
-| volume-type | One of: `lssd`, `bssd` | Change your Database Instance storage type |
+| volume-type | One of: `lssd`, `bssd`, `sbs_5k`, `sbs_15k` | Change your Database Instance storage type |
 | upgradable-version-id |  | Update your database engine to a newer version |
+| major-upgrade-workflow.upgradable-version-id |  | Update your database engine to a newer version |
+| major-upgrade-workflow.with-endpoints |  | Include endpoint during the migration |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
