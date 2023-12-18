@@ -33,7 +33,8 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetworkGet(),
 		vpcPrivateNetworkUpdate(),
 		vpcPrivateNetworkDelete(),
-		vpcPrivateNetworkPost(),
+		vpcPrivateNetworkMigrateToRegional(),
+		vpcPrivateNetworkEnableDHCP(),
 	)
 }
 func vpcRoot() *core.Command {
@@ -552,13 +553,13 @@ func vpcPrivateNetworkDelete() *core.Command {
 	}
 }
 
-func vpcPrivateNetworkPost() *core.Command {
+func vpcPrivateNetworkMigrateToRegional() *core.Command {
 	return &core.Command{
 		Short:     `Migrate Private Networks from zoned to regional`,
 		Long:      `Transform multiple existing zoned Private Networks (scoped to a single Availability Zone) into regional Private Networks, scoped to an entire region. You can transform one or many Private Networks (specified by their Private Network IDs) within a single Scaleway Organization or Project, with the same call.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
-		Verb:      "post",
+		Verb:      "migrate-to-regional",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(vpc.MigrateZonalPrivateNetworksRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -566,9 +567,9 @@ func vpcPrivateNetworkPost() *core.Command {
 			{
 				Name:       "private-network-ids.{index}",
 				Short:      `IDs of the Private Networks to migrate`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
@@ -584,8 +585,38 @@ func vpcPrivateNetworkPost() *core.Command {
 			}
 			return &core.SuccessResult{
 				Resource: "private-network",
-				Verb:     "post",
+				Verb:     "migrate-to-regional",
 			}, nil
+		},
+	}
+}
+
+func vpcPrivateNetworkEnableDHCP() *core.Command {
+	return &core.Command{
+		Short:     `Enable DHCP on a Private Network`,
+		Long:      `Enable DHCP managed on an existing Private Network. Note that you will not be able to deactivate it afterwards.`,
+		Namespace: "vpc",
+		Resource:  "private-network",
+		Verb:      "enable-dhcp",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.EnableDHCPRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "private-network-id",
+				Short:      `Private Network ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.EnableDHCPRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			return api.EnableDHCP(request)
+
 		},
 	}
 }
