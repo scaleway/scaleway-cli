@@ -7,6 +7,7 @@ Kubernetes API.
   - [Delete a Cluster](#delete-a-cluster)
   - [Get a Cluster](#get-a-cluster)
   - [List Clusters](#list-clusters)
+  - [List available cluster types for a cluster](#list-available-cluster-types-for-a-cluster)
   - [List available versions for a Cluster](#list-available-versions-for-a-cluster)
   - [Migrate an existing cluster to a Private Network cluster](#migrate-an-existing-cluster-to-a-private-network-cluster)
   - [Reset the admin token of a Cluster](#reset-the-admin-token-of-a-cluster)
@@ -15,6 +16,7 @@ Kubernetes API.
   - [Upgrade a Cluster](#upgrade-a-cluster)
   - [Wait for a cluster to reach a stable state](#wait-for-a-cluster-to-reach-a-stable-state)
 - [Cluster type management commands](#cluster-type-management-commands)
+  - [List cluster types](#list-cluster-types)
 - [Manage your Kubernetes Kapsule cluster's kubeconfig files](#manage-your-kubernetes-kapsule-cluster's-kubeconfig-files)
   - [Retrieve a kubeconfig](#retrieve-a-kubeconfig)
   - [Install a kubeconfig](#install-a-kubeconfig)
@@ -45,7 +47,6 @@ A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 
-
 ### Create a new Cluster
 
 Create a new Kubernetes cluster in a Scaleway region.
@@ -70,11 +71,11 @@ scw k8s cluster create [arg=value ...]
 | cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo` | Container Network Interface (CNI) plugin running in the cluster |
 | ~~enable-dashboard~~ | Deprecated | Defines whether the Kubernetes Dashboard is enabled in the cluster |
 | ~~ingress~~ | Deprecated<br />One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | Ingress Controller running in the cluster (deprecated feature) |
-| pools.{index}.name | Required | Name of the pool |
-| pools.{index}.node-type | Required | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
+| pools.{index}.name |  | Name of the pool |
+| pools.{index}.node-type |  | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
 | pools.{index}.placement-group-id |  | Placement group ID in which all the nodes of the pool will be created |
 | pools.{index}.autoscaling |  | Defines whether the autoscaling feature is enabled for the pool |
-| pools.{index}.size | Required | Size (number of nodes) of the pool |
+| pools.{index}.size |  | Size (number of nodes) of the pool |
 | pools.{index}.min-size |  | Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
 | pools.{index}.max-size |  | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
 | pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24 |
@@ -86,6 +87,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.zone |  | Zone in which the pool's nodes will be spawned |
 | pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
 | pools.{index}.root-volume-size |  | System volume disk size |
+| pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up that scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
@@ -216,6 +218,7 @@ scw k8s cluster list [arg=value ...]
 | name |  | Name to filter on, only clusters containing this substring in their name will be returned |
 | status | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required` | Status to filter on, only clusters with this status will be returned |
 | type |  | Type to filter on, only clusters with this type will be returned |
+| private-network-id |  | Private Network ID to filter on, only clusters within this Private Network will be returned |
 | organization-id |  | Organization ID on which to filter the returned clusters |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
@@ -236,6 +239,36 @@ scw k8s cluster list status=ready
 List the clusters that match the given name on fr-par ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
 ```
 scw k8s cluster list region=fr-par name=cluster1
+```
+
+
+
+
+### List available cluster types for a cluster
+
+List the cluster types that a specific Kubernetes cluster is allowed to switch to.
+
+**Usage:**
+
+```
+scw k8s cluster list-available-types <cluster-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | Cluster ID for which the available Kubernetes types will be listed |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+List all cluster types that a cluster can upgrade to
+```
+scw k8s cluster list-available-types 11111111-1111-1111-111111111111
 ```
 
 
@@ -334,7 +367,7 @@ scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111
 
 ### Change the Cluster type
 
-Change the type of a specific Kubernetes cluster.
+Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#path-clusters-list-available-cluster-types-for-a-cluster).
 
 **Usage:**
 
@@ -501,15 +534,22 @@ All cluster types available in a specified region
 A cluster type represents the different commercial types of clusters offered by Scaleway.
 
 
-All cluster types available in a specified region
-A cluster type represents the different commercial types of clusters offered by Scaleway.
+### List cluster types
 
+List available cluster types and their technical details.
 
 **Usage:**
 
 ```
-scw k8s cluster-type
+scw k8s cluster-type list [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -616,7 +656,6 @@ A node (short for worker node) is an abstraction for a Scaleway Instance
 A node is always part of a pool. Each of them has the Kubernetes software automatically installed and configured by Scaleway.
 
 
-
 ### Delete a Node in a Cluster
 
 Delete a specific Node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
@@ -633,7 +672,7 @@ scw k8s node delete <node-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | node-id | Required | ID of the node to replace |
-| skip-drain |  | Skip draining node from its workload |
+| skip-drain |  | Skip draining node from its workload (Note: this parameter is currently inactive) |
 | replace |  | Add a new node after the deletion of this node |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -830,7 +869,6 @@ A pool is a set of identical nodes
 A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled. A "default pool" is automatically created with every cluster via the console.
 
 
-
 ### Create a new Pool in a Cluster
 
 Create a new pool in a specific Kubernetes cluster.
@@ -863,6 +901,7 @@ scw k8s pool create [arg=value ...]
 | zone |  | Zone in which the pool's nodes will be spawned |
 | root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
 | root-volume-size |  | System volume disk size |
+| public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -1110,7 +1149,6 @@ scw k8s pool wait 11111111-1111-1111-1111-111111111111
 
 A version is a vanilla Kubernetes version like `x.y.z`
 It comprises a major version `x`, a minor version `y`, and a patch version `z`. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/containers/kubernetes/reference-content/version-support-policy/).
-
 
 
 ### Get a Version

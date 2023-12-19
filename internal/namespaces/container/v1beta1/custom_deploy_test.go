@@ -52,7 +52,7 @@ func mkdirAllBeforeFunc(path string) func(ctx *core.BeforeFuncCtx) error {
 }
 
 func Test_Deploy(t *testing.T) {
-	appName := "cli-test-container-deploy"
+	appName := "cli-t-ctnr-deploy"
 	path := t.TempDir()
 
 	commands := GetCommands()
@@ -66,19 +66,19 @@ func Test_Deploy(t *testing.T) {
 			loadTestdataBeforeFunc(simplePath, "index.html", testdataDockerIndexHTML),
 			loadTestdataBeforeFunc(simplePath, "Dockerfile", testdataDockerDockerfile),
 		),
-		Cmd: fmt.Sprintf("scw container deploy name=%s-simple build-source=%s port=80", appName, simplePath),
+		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=80", appName+"-s", simplePath),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			testDeleteContainersNamespaceAfter(appName),
-			testDeleteRegistryAfter(appName),
+			testDeleteContainersNamespaceAfter(appName+"-s"),
+			testDeleteRegistryAfter(appName+"-s"),
 		),
 		DisableParallel: true,
 	}))
 
-	appNameFromPathPath := filepath.Join(path, "cli-test-deploy-poney")
+	appNameFromPathPath := filepath.Join(path, appName+"-fp")
 	t.Run("App name deduced from path", core.Test(&core.TestConfig{
 		Commands: commands,
 		BeforeFunc: core.BeforeFuncCombine(
@@ -92,8 +92,8 @@ func Test_Deploy(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			testDeleteContainersNamespaceAfter("app-cli-test-deploy-poney"),
-			testDeleteRegistryAfter("app-cli-test-deploy-poney"),
+			testDeleteContainersNamespaceAfter(appName+"-fp"),
+			testDeleteRegistryAfter(appName+"-fp"),
 		),
 		DisableParallel: true,
 	}))
@@ -106,14 +106,14 @@ func Test_Deploy(t *testing.T) {
 			loadTestdataBeforeFunc(buildArgsPath, "index.html", testdataDockerIndexHTML),
 			loadTestdataBeforeFunc(buildArgsPath, "Dockerfile", testdataDockerDockerfileBuildArgs),
 		),
-		Cmd: fmt.Sprintf("scw container deploy name=%s-ba build-source=%s port=80 build-args.TEST=thisisatest", appName, buildArgsPath),
+		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest", appName+"-ba", buildArgsPath),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			testDeleteContainersNamespaceAfter(appName),
-			testDeleteRegistryAfter(appName),
+			testDeleteContainersNamespaceAfter(appName+"-ba"),
+			testDeleteRegistryAfter(appName+"-ba"),
 		),
 		DisableParallel: true,
 	}))
@@ -127,14 +127,14 @@ func Test_Deploy(t *testing.T) {
 			loadTestdataBeforeFunc(buildpackPath, "package.json", testDataBuildpackNodePackageJSON),
 			loadTestdataBeforeFunc(buildpackPath, "package-lock.json", testDataBuildpackNodePackageLockJSON),
 		),
-		Cmd: fmt.Sprintf("scw container deploy name=%s-bp build-source=%s port=3000", appName, buildpackPath),
+		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=3000", appName+"-bp", buildpackPath),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			testDeleteContainersNamespaceAfter(appName),
-			testDeleteRegistryAfter(appName),
+			testDeleteContainersNamespaceAfter(appName+"-bp"),
+			testDeleteRegistryAfter(appName+"-bp"),
 		),
 		DisableParallel: true,
 	}))

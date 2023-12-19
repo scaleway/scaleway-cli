@@ -37,7 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 func marketplaceRoot() *core.Command {
 	return &core.Command{
 		Short:     `Marketplace API`,
-		Long:      `Marketplace API.`,
+		Long:      ``,
 		Namespace: "marketplace",
 	}
 }
@@ -307,6 +307,13 @@ func marketplaceLocalImageList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "instance_local", "instance_sbs"},
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*marketplace.ListLocalImagesRequest)
@@ -321,6 +328,23 @@ func marketplaceLocalImageList() *core.Command {
 			return resp.LocalImages, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Label",
+			},
+			{
+				FieldName: "Arch",
+			},
+			{
+				FieldName: "Zone",
+			},
+			{
+				FieldName: "CompatibleCommercialTypes",
+			},
+		}},
 	}
 }
 

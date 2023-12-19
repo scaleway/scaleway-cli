@@ -32,12 +32,13 @@ func GetGeneratedCommands() *core.Commands {
 		temDomainList(),
 		temDomainRevoke(),
 		temDomainCheck(),
+		temDomainGetLastStatus(),
 	)
 }
 func temRoot() *core.Command {
 	return &core.Command{
 		Short:     `Transactional Email API`,
-		Long:      `Transactional Email API.`,
+		Long:      ``,
 		Namespace: "tem",
 	}
 }
@@ -315,6 +316,14 @@ func temEmailList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_desc", "created_at_asc", "updated_at_desc", "updated_at_asc", "status_desc", "status_asc", "mail_from_desc", "mail_from_asc", "mail_rcpt_desc", "mail_rcpt_asc", "subject_desc", "subject_asc"},
 			},
+			{
+				Name:       "flags.{index}",
+				Short:      `(Optional) List emails containing only specific flags`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_flag", "soft_bounce", "hard_bounce", "spam", "mailbox_full", "mailbox_not_found", "greylisted", "send_before_expiration"},
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -466,7 +475,7 @@ func temDomainCreate() *core.Command {
 func temDomainGet() *core.Command {
 	return &core.Command{
 		Short:     `Get information about a domain`,
-		Long:      `Retrieve information about a specific domain using the ` + "`" + `region` + "`" + ` and ` + "`" + `domain_id` + "`" + ` parameters.`,
+		Long:      `Retrieve information about a specific domain using the ` + "`" + `region` + "`" + ` and ` + "`" + `domain_id` + "`" + ` parameters. Monitor your domain's reputation and improve **average** and **bad** reputation statuses, using your domain's **Email activity** tab on the [Scaleway console](https://console.scaleway.com/transactional-email/domains) to get a more detailed report. Check out our [dedicated documentation](https://www.scaleway.com/en/docs/managed-services/transactional-email/reference-content/understanding-tem-reputation-score/) to improve your domain's reputation.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "get",
@@ -496,7 +505,7 @@ func temDomainGet() *core.Command {
 func temDomainList() *core.Command {
 	return &core.Command{
 		Short:     `List domains`,
-		Long:      `Retrieve domains in a specific project or in a specific Organization using the ` + "`" + `region` + "`" + ` parameter.`,
+		Long:      `Retrieve domains in a specific Project or in a specific Organization using the ` + "`" + `region` + "`" + ` parameter.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "list",
@@ -605,6 +614,36 @@ func temDomainCheck() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.CheckDomain(request)
+
+		},
+	}
+}
+
+func temDomainGetLastStatus() *core.Command {
+	return &core.Command{
+		Short:     `Display SPF and DKIM records status and potential errors`,
+		Long:      `Display SPF and DKIM records status and potential errors, including the found records to make debugging easier.`,
+		Namespace: "tem",
+		Resource:  "domain",
+		Verb:      "get-last-status",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.GetDomainLastStatusRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-id",
+				Short:      `ID of the domain to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.GetDomainLastStatusRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			return api.GetDomainLastStatus(request)
 
 		},
 	}

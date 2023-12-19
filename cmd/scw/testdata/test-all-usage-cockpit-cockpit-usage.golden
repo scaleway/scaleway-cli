@@ -6,14 +6,12 @@ USAGE:
   scw cockpit cockpit <command>
 
 AVAILABLE COMMANDS:
-  activate      Activate a Cockpit
-  deactivate    Deactivate a Cockpit
-  get           Get a Cockpit
-  get-metrics   Get Cockpit metrics
-  reset-grafana Reset a Grafana
+  activate    Activate the Cockpit of the specified Project ID
+  deactivate  Deactivate the Cockpit of the specified Project ID
+  get         Retrieve the Cockpit of the specified Project ID
 
 WORKFLOW COMMANDS:
-  wait          Wait for a cockpit to reach a stable state (installation)
+  wait        Wait for a cockpit to reach a stable state (installation)
 
 FLAGS:
   -h, --help   help for cockpit

@@ -10,7 +10,7 @@ import (
 func Test_UserDataGet(t *testing.T) {
 	t.Run("Get an existing key", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			createServerBionic("Server"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{.Server.ID}} key=happy content=true"),
 		),
 		Commands:  GetCommands(),
@@ -23,7 +23,7 @@ func Test_UserDataGet(t *testing.T) {
 	}))
 
 	t.Run("Get an nonexistent key", core.Test(&core.TestConfig{
-		BeforeFunc: createServer("Server"),
+		BeforeFunc: createServerBionic("Server"),
 		Commands:   GetCommands(),
 		Cmd:        "scw instance user-data get server-id={{.Server.ID}} key=happy",
 		AfterFunc:  deleteServer("Server"),
@@ -37,7 +37,7 @@ func Test_UserDataGet(t *testing.T) {
 func Test_UserDataList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			createServerBionic("Server"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=foo content=bar"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=bar content=foo"),
 		),

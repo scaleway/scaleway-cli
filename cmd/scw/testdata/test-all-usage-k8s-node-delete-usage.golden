@@ -17,7 +17,7 @@ EXAMPLES:
 
 ARGS:
   node-id           ID of the node to replace
-  [skip-drain]      Skip draining node from its workload
+  [skip-drain]      Skip draining node from its workload (Note: this parameter is currently inactive)
   [replace]         Add a new node after the deletion of this node
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

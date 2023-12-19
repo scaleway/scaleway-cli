@@ -7,15 +7,28 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	logActionMarshalSpecs = human.EnumMarshalSpecs{
+		iam.LogActionUnknownAction: &human.EnumMarshalSpec{Attribute: color.Faint},
+		iam.LogActionCreated:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		iam.LogActionUpdated:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		iam.LogActionDeleted:       &human.EnumMarshalSpec{Attribute: color.FgRed},
+	}
+)
+
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
+
+	human.RegisterMarshalerFunc(iam.LogAction(""), human.EnumMarshalFunc(logActionMarshalSpecs))
 
 	cmds.Merge(core.NewCommands(
 		initWithSSHCommand(),

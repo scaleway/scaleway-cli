@@ -22,6 +22,7 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingRoot(),
 		webhostingHosting(),
 		webhostingOffer(),
+		webhostingControlPanel(),
 		webhostingHostingCreate(),
 		webhostingHostingList(),
 		webhostingHostingGet(),
@@ -30,6 +31,7 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingHostingRestore(),
 		webhostingHostingGetDNSRecords(),
 		webhostingOfferList(),
+		webhostingControlPanelList(),
 	)
 }
 func webhostingRoot() *core.Command {
@@ -55,6 +57,15 @@ func webhostingOffer() *core.Command {
 		Long:      `Web Hosting offers represent the different types of Web Hosting plan available to order at Scaleway.`,
 		Namespace: "webhosting",
 		Resource:  "offer",
+	}
+}
+
+func webhostingControlPanel() *core.Command {
+	return &core.Command{
+		Short:     `Control Panels`,
+		Long:      `Control panels represent the kind of administration panel to manage your Web Hosting plan, cPanel or plesk.`,
+		Namespace: "webhosting",
+		Resource:  "control-panel",
 	}
 }
 
@@ -104,7 +115,7 @@ func webhostingHostingCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.CreateHostingRequest)
@@ -165,13 +176,20 @@ func webhostingHostingList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "control-panels.{index}",
+				Short:      `Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for, only Web Hosting plans from this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.ListHostingsRequest)
@@ -216,7 +234,7 @@ func webhostingHostingGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.GetHostingRequest)
@@ -280,7 +298,7 @@ func webhostingHostingUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.UpdateHostingRequest)
@@ -324,7 +342,7 @@ func webhostingHostingDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.DeleteHostingRequest)
@@ -360,7 +378,7 @@ func webhostingHostingRestore() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.RestoreHostingRequest)
@@ -396,7 +414,7 @@ func webhostingHostingGetDNSRecords() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.GetDomainDNSRecordsRequest)
@@ -454,7 +472,14 @@ func webhostingOfferList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			{
+				Name:       "control-panels.{index}",
+				Short:      `Name of the control panel to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.ListOffersRequest)
@@ -477,6 +502,38 @@ func webhostingOfferList() *core.Command {
 				Short:    "List only options",
 				ArgsJSON: `{"only_options":true,"without_options":false}`,
 			},
+		},
+	}
+}
+
+func webhostingControlPanelList() *core.Command {
+	return &core.Command{
+		Short:     `List all control panels type`,
+		Long:      `List the control panels type: cpanel or plesk.`,
+		Namespace: "webhosting",
+		Resource:  "control-panel",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.ListControlPanelsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*webhosting.ListControlPanelsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListControlPanels(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.ControlPanels, nil
+
 		},
 	}
 }

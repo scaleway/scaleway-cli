@@ -12,7 +12,7 @@ ARGS:
   [tags.{index}]         List of tags for the Web Hosting plan
   [domain]               Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand
   [option-ids.{index}]   IDs of any selected additional options for the Web Hosting plan
-  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for create

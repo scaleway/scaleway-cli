@@ -56,10 +56,12 @@ func GetCommands() *core.Commands {
 		serverTerminateCommand(),
 		serverDetachVolumeCommand(),
 		serverSSHCommand(),
+		serverActionCommand(),
 		serverStartCommand(),
 		serverStopCommand(),
 		serverStandbyCommand(),
 		serverRebootCommand(),
+		serverEnableRoutedIPCommand(),
 		serverWaitCommand(),
 		serverAttachIPCommand(),
 		serverDetachIPCommand(),
@@ -100,7 +102,6 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "image", "delete").Override(imageDeleteBuilder)
 	cmds.Merge(core.NewCommands(
 		imageWaitCommand(),
-		imageUpdateCommand(),
 	))
 
 	//
@@ -110,9 +111,9 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
 	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
+	cmds.MustFind("instance", "snapshot", "update").Override(snapshotUpdateBuilder)
 	cmds.Merge(core.NewCommands(
 		snapshotWaitCommand(),
-		snapshotUpdateCommand(),
 	))
 
 	//
@@ -125,6 +126,9 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
 	cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
+	cmds.Merge(core.NewCommands(
+		volumeWaitCommand(),
+	))
 
 	//
 	// Volume-Type
@@ -145,7 +149,6 @@ func GetCommands() *core.Commands {
 
 	cmds.Merge(core.NewCommands(
 		securityGroupClearCommand(),
-		securityGroupUpdateCommand(),
 		securityGroupEditCommand(),
 	))
 

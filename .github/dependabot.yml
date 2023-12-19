@@ -9,3 +9,6 @@ updates:
       directory: "/"
       schedule:
           interval: daily
+      ignore:
+        # Ignore sentry-go updates, cannot be updated to be used with our sentry
+        - dependency-name: "sentry-go"

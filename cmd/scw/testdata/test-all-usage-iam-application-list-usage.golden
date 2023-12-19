@@ -6,11 +6,12 @@ USAGE:
   scw iam application list [arg=value ...]
 
 ARGS:
-  [order-by=created_at_asc]                 Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
-  [name]                                    Name of the application to filter
-  [editable]                                Defines whether to filter out editable applications or not
-  [application-ids.{index}]                 Filter by list of IDs
-  organization-id=<retrieved from config>   ID of the Organization to filter
+  [order-by=created_at_asc]                   Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
+  [name]                                      Name of the application to filter
+  [editable]                                  Defines whether to filter out editable applications or not
+  [application-ids.{index}]                   Filter by list of IDs
+  [tag]                                       Filter by tags containing a given string
+  [organization-id=<retrieved from config>]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
   -h, --help   help for list

@@ -1,18 +1,18 @@
 package namespaces
 
 import (
-	"os"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	accountv2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v2"
+	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	billing "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1beta1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	documentdb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/documentdb/v1beta1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
@@ -23,11 +23,13 @@ import (
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
 	ipfs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipfs/v1alpha1"
+	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
-	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1alpha1"
+	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
@@ -36,17 +38,13 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
-	vpcV1 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v1"
-	vpcV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var labs = os.Getenv("SCW_ENABLE_LABS") == "true"
-
 // Enable beta in the code when products are in beta
-var beta = os.Getenv(scw.ScwEnableBeta) == "true"
+//var beta = os.Getenv(scw.ScwEnableBeta) == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
@@ -63,7 +61,7 @@ func GetCommands() *core.Commands {
 		marketplace.GetCommands(),
 		initNamespace.GetCommands(),
 		configNamespace.GetCommands(),
-		accountv2.GetCommands(),
+		accountv3.GetCommands(),
 		autocompleteNamespace.GetCommands(),
 		object.GetCommands(),
 		versionNamespace.GetCommands(),
@@ -74,7 +72,7 @@ func GetCommands() *core.Commands {
 		lb.GetCommands(),
 		iot.GetCommands(),
 		help.GetCommands(),
-		vpcV1.GetCommands(),
+		vpc.GetCommands(),
 		domain.GetCommands(),
 		applesilicon.GetCommands(),
 		flexibleip.GetCommands(),
@@ -85,17 +83,18 @@ func GetCommands() *core.Commands {
 		secret.GetCommands(),
 		shell.GetCommands(),
 		tem.GetCommands(),
-		mnq.GetCommands(),
 		alias.GetCommands(),
 		webhosting.GetCommands(),
 		billing.GetCommands(),
+		ipfs.GetCommands(),
+		documentdb.GetCommands(),
+		mnq.GetCommands(),
+		block.GetCommands(),
+		ipam.GetCommands(),
+		jobs.GetCommands(),
 	)
-	if labs {
-		commands.Merge(ipfs.GetCommands())
-	}
-	if beta {
-		commands.Merge(vpcV2.GetCommands())
-	}
+
+	//if beta {}
 
 	return commands
 }

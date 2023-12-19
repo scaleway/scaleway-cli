@@ -11,6 +11,7 @@ ARGS:
   [order-by]       (created_at_asc | created_at_desc)
   [image-label]   
   [zone]          
+  [type]           (unknown_type | instance_local | instance_sbs)
 
 FLAGS:
   -h, --help   help for list

@@ -1,25 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            21601ab1-8b75-4d2f-bbb0-2b8b71c4bc13
-IP.Address       51.15.252.241
+IP.ID            cdfd3ca6-4bee-404d-b514-a4277e04aa10
+IP.Address       51.15.134.9
 IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-IP.Type          unknown_iptype
-IP.State         unknown_state
-IP.Prefix        <nil>
+IP.Type          nat
+IP.State         detached
+IP.Prefix        -
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "21601ab1-8b75-4d2f-bbb0-2b8b71c4bc13",
-    "address": "51.15.252.241",
+    "id": "cdfd3ca6-4bee-404d-b514-a4277e04aa10",
+    "address": "51.15.134.9",
     "reverse": null,
     "server": null,
     "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "tags": [],
     "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "type": "unknown_iptype",
-    "state": "unknown_state",
+    "type": "nat",
+    "state": "detached",
     "prefix": "",
     "zone": "fr-par-1"
   }

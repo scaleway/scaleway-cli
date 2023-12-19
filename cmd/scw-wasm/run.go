@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"syscall/js"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
 	"github.com/scaleway/scaleway-cli/v2/internal/wasm"
 )
@@ -25,7 +26,7 @@ func wasmRun(this js.Value, args []js.Value) (any, error) {
 		return nil, fmt.Errorf("invalid args given: %w", err)
 	}
 
-	resp, err := wasm.Run(runCfg, givenArgs)
+	resp, err := wasm.Run(&core.BuildInfo{}, runCfg, givenArgs)
 
 	return jshelpers.FromObject(resp), nil
 }

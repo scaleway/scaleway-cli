@@ -1,14 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    SERVER ID                             PRIVATE NETWORK ID                    MAC ADDRESS        STATE      TAGS
-f666551a-ae53-41ed-9794-91666ae1c5e3  7b06234c-147b-4277-be91-abc81405b8bd  586a7789-0b58-4bc5-b13a-cdeb38cef0ba  02:00:00:12:3d:f7  available  []
+5c561254-b6c2-4a70-888a-eca782a0d185  a3c80873-0c64-47af-a8e3-89a20ee8b5ce  2bd14d0e-65a0-4f4a-9f56-52833f8f0032  02:00:00:15:37:a0  available  []
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "f666551a-ae53-41ed-9794-91666ae1c5e3",
-    "server_id": "7b06234c-147b-4277-be91-abc81405b8bd",
-    "private_network_id": "586a7789-0b58-4bc5-b13a-cdeb38cef0ba",
-    "mac_address": "02:00:00:12:3d:f7",
-    "state": "available"
+    "id": "5c561254-b6c2-4a70-888a-eca782a0d185",
+    "server_id": "a3c80873-0c64-47af-a8e3-89a20ee8b5ce",
+    "private_network_id": "2bd14d0e-65a0-4f4a-9f56-52833f8f0032",
+    "mac_address": "02:00:00:15:37:a0",
+    "state": "available",
+    "tags": []
   }
 ]

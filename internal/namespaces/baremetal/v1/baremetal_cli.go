@@ -69,7 +69,7 @@ func baremetalRoot() *core.Command {
 func baremetalServer() *core.Command {
 	return &core.Command{
 		Short:     `Server management commands`,
-		Long:      `A server is a denomination of a type of instances provided by Scaleway`,
+		Long:      `A server is a denomination of a type of instances provided by Scaleway.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 	}
@@ -79,8 +79,7 @@ func baremetalOffer() *core.Command {
 	return &core.Command{
 		Short: `Server offer management commands`,
 		Long: `Server offers will answer with all different Elastic Metal server ranges available in a  zone.
-Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.
-`,
+Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.`,
 		Namespace: "baremetal",
 		Resource:  "offer",
 	}
@@ -89,7 +88,7 @@ Each of them will contain all the features of the server (CPUs, memory, disks) w
 func baremetalOs() *core.Command {
 	return &core.Command{
 		Short:     `Operating System (OS) management commands`,
-		Long:      `An Operating System (OS) is the underlying software installed on your server`,
+		Long:      `An Operating System (OS) is the underlying software installed on your server.`,
 		Namespace: "baremetal",
 		Resource:  "os",
 	}
@@ -102,8 +101,7 @@ func baremetalBmc() *core.Command {
 For instance, your KVM-IP management console could be accessed with it.
 You need first to create an Remote Access option. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then you can add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd. Do not forget to delete the Option.
 Then you need to create Remote Access https://developers.scaleway.com/en/products/baremetal/api/#post-1af723.
-And finally Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.
-`,
+And finally Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.`,
 		Namespace: "baremetal",
 		Resource:  "bmc",
 	}
@@ -111,9 +109,8 @@ And finally Get Remote Access to get the login/password https://developers.scale
 
 func baremetalOptions() *core.Command {
 	return &core.Command{
-		Short: `Server options management commands`,
-		Long: `A Server has additional options that let you personalize it to better fit your needs.
-`,
+		Short:     `Server options management commands`,
+		Long:      `A Server has additional options that let you personalize it to better fit your needs.`,
 		Namespace: "baremetal",
 		Resource:  "options",
 	}
@@ -121,9 +118,8 @@ func baremetalOptions() *core.Command {
 
 func baremetalSettings() *core.Command {
 	return &core.Command{
-		Short: `Settings management commands`,
-		Long: `Allows to configure the general settings for your Elastic Metal server.
-`,
+		Short:     `Settings management commands`,
+		Long:      `Allows to configure the general settings for your Elastic Metal server.`,
 		Namespace: "baremetal",
 		Resource:  "settings",
 	}
@@ -139,8 +135,7 @@ resources that are on the same Private Network .  A VLAN
 interface is available on the server and can be freely
 managed (adding IP addresses, shutdown interface...).
 
-Note that a resource can be a part of multiple Private Networks.
-`,
+Note that a resource can be a part of multiple Private Networks.`,
 		Namespace: "baremetal",
 		Resource:  "private-network",
 	}
@@ -206,7 +201,7 @@ func baremetalServerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListServersRequest)
@@ -251,7 +246,7 @@ func baremetalServerGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetServerRequest)
@@ -366,7 +361,7 @@ func baremetalServerCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.CreateServerRequest)
@@ -423,7 +418,7 @@ func baremetalServerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.UpdateServerRequest)
@@ -502,7 +497,7 @@ func baremetalServerInstall() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.InstallServerRequest)
@@ -552,7 +547,7 @@ func baremetalServerGetMetrics() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetServerMetricsRequest)
@@ -582,7 +577,7 @@ func baremetalServerDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.DeleteServerRequest)
@@ -626,7 +621,7 @@ func baremetalServerReboot() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_boot_type", "normal", "rescue"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.RebootServerRequest)
@@ -674,7 +669,7 @@ func baremetalServerStart() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_boot_type", "normal", "rescue"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StartServerRequest)
@@ -714,7 +709,7 @@ func baremetalServerStop() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StopServerRequest)
@@ -758,7 +753,7 @@ func baremetalServerListEvents() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListServerEventsRequest)
@@ -807,7 +802,7 @@ After adding the BMC option, you need to Get Remote Access to get the login/pass
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StartBMCAccessRequest)
@@ -837,7 +832,7 @@ func baremetalBmcGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetBMCAccessRequest)
@@ -867,7 +862,7 @@ func baremetalBmcStop() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.StopBMCAccessRequest)
@@ -917,7 +912,7 @@ func baremetalServerUpdateIP() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.UpdateIPRequest)
@@ -961,7 +956,7 @@ func baremetalOptionsAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.AddOptionServerRequest)
@@ -1004,7 +999,7 @@ func baremetalOptionsDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.DeleteOptionServerRequest)
@@ -1041,7 +1036,7 @@ func baremetalOfferList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_subscription_period", "hourly", "monthly"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListOffersRequest)
@@ -1090,7 +1085,7 @@ func baremetalOfferGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetOfferRequest)
@@ -1126,7 +1121,7 @@ func baremetalOptionsGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetOptionRequest)
@@ -1169,7 +1164,7 @@ func baremetalOptionsList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListOptionsRequest)
@@ -1226,7 +1221,7 @@ func baremetalSettingsList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListSettingsRequest)
@@ -1272,7 +1267,7 @@ func baremetalSettingsUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.UpdateSettingRequest)
@@ -1302,7 +1297,7 @@ func baremetalOsList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.ListOSRequest)
@@ -1341,7 +1336,7 @@ func baremetalOsGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.GetOSRequest)

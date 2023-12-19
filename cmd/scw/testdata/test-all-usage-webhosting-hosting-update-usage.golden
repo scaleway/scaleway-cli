@@ -21,7 +21,7 @@ ARGS:
   [tags.{index}]         New tags for the Web Hosting plan
   [option-ids.{index}]   IDs of the new options for the Web Hosting plan
   [offer-id]             ID of the new offer for the Web Hosting plan
-  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for update

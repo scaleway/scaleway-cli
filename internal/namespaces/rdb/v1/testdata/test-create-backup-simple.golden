@@ -1,16 +1,31 @@
-🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Transient state error for resource ''
-
-Details:
-Resource  with ID  is in a transient state ''
-🟥🟥🟥 JSON STDERR 🟥🟥🟥
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID            895f74c4-e352-4de5-b06f-495ec8d07722
+InstanceID    0c4a2cde-c9f4-4090-a1eb-815f29d1e3f7
+DatabaseName  rdb
+Name          foobar
+Status        ready
+Size          2.1 kB
+ExpiresAt     few seconds ago
+CreatedAt     few seconds ago
+UpdatedAt     few seconds ago
+InstanceName  cli-test
+Region        nl-ams
+SameRegion    false
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "message": "transient state error for resource ''",
-  "error": {
-    "resource": "",
-    "resource_id": "",
-    "current_state": ""
-  },
-  "details": "resource  with ID  is in a transient state ''"
+  "id": "895f74c4-e352-4de5-b06f-495ec8d07722",
+  "instance_id": "0c4a2cde-c9f4-4090-a1eb-815f29d1e3f7",
+  "database_name": "rdb",
+  "name": "foobar",
+  "status": "ready",
+  "size": 2107,
+  "expires_at": "2032-01-02T22:04:05Z",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "instance_name": "cli-test",
+  "download_url": null,
+  "download_url_expires_at": null,
+  "region": "nl-ams",
+  "same_region": false
 }

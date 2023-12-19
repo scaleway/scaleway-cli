@@ -1,13 +1,36 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Name            Engine Type  End of Life
+MySQL-8         MySQL        few seconds ago
+PostgreSQL-15   PostgreSQL   few seconds ago
+PostgreSQL-14   PostgreSQL   few seconds ago
+PostgreSQL-13   PostgreSQL   few seconds ago
 PostgreSQL-12   PostgreSQL   few seconds ago
 PostgreSQL-11   PostgreSQL   few seconds ago
 PostgreSQL-10   PostgreSQL   few seconds ago
 PostgreSQL-9.6  PostgreSQL   few seconds ago
-MySQL-8         MySQL        few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
+  {
+    "name": "MySQL-8",
+    "engine_type": "MySQL",
+    "end_of_life": "2026-04-01T00:00:00Z"
+  },
+  {
+    "name": "PostgreSQL-15",
+    "engine_type": "PostgreSQL",
+    "end_of_life": "2027-11-11T00:00:00Z"
+  },
+  {
+    "name": "PostgreSQL-14",
+    "engine_type": "PostgreSQL",
+    "end_of_life": "2026-11-12T00:00:00Z"
+  },
+  {
+    "name": "PostgreSQL-13",
+    "engine_type": "PostgreSQL",
+    "end_of_life": "2025-11-13T00:00:00Z"
+  },
   {
     "name": "PostgreSQL-12",
     "engine_type": "PostgreSQL",
@@ -27,10 +50,5 @@ MySQL-8         MySQL        few seconds ago
     "name": "PostgreSQL-9.6",
     "engine_type": "PostgreSQL",
     "end_of_life": "2021-11-11T00:00:00Z"
-  },
-  {
-    "name": "MySQL-8",
-    "engine_type": "MySQL",
-    "end_of_life": "2026-04-01T00:00:00Z"
   }
 ]

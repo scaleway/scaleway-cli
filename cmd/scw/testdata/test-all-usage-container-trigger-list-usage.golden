@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all triggers belonging to a specified Organization or Project.
+
+USAGE:
+  scw container trigger list [arg=value ...]
+
+ARGS:
+  [order-by]        Order in which to return results (created_at_asc | created_at_desc)
+  [container-id]    ID of the container the triggers belongs to
+  [namespace-id]    ID of the namespace the triggers belongs to
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

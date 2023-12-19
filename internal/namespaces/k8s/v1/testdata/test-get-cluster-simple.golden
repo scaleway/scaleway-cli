@@ -98,6 +98,7 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
   },
   "apiserver_cert_sans": [],
   "private_network_id": "861698b7-d572-4ce7-b4b3-1b9a51d9dc18",
+  "commitment_ends_at": null,
   "pools": [
     {
       "id": "094d8ce1-6bc6-40ad-8bdd-bc14c7febea6",

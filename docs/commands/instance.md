@@ -7,7 +7,7 @@ Instance API.
   - [Delete an Instance image](#delete-an-instance-image)
   - [Get an Instance image](#get-an-instance-image)
   - [List Instance images](#list-instance-images)
-  - [Update an instance image](#update-an-instance-image)
+  - [Update image](#update-image)
   - [Wait for image to reach a stable state](#wait-for-image-to-reach-a-stable-state)
 - [IP management commands](#ip-management-commands)
   - [Attach an IP to a given server](#attach-an-ip-to-a-given-server)
@@ -46,8 +46,10 @@ Instance API.
   - [Get default rules](#get-default-rules)
   - [List rules](#list-rules)
   - [Update all the rules of a security group](#update-all-the-rules-of-a-security-group)
-  - [Update security group](#update-security-group)
+  - [Update a security group](#update-a-security-group)
+  - [Update security group rule](#update-security-group-rule)
 - [Instance management commands](#instance-management-commands)
+  - [Perform a raw API action on a server](#perform-a-raw-api-action-on-a-server)
   - [Attach an IP to a server](#attach-an-ip-to-a-server)
   - [Attach a volume to a server](#attach-a-volume-to-a-server)
   - [Backup server](#backup-server)
@@ -56,6 +58,7 @@ Instance API.
   - [Delete server](#delete-server)
   - [Detach an IP from a server](#detach-an-ip-from-a-server)
   - [Detach a volume from its server](#detach-a-volume-from-its-server)
+  - [Migrate server to IP mobility](#migrate-server-to-ip-mobility)
   - [Get an Instance](#get-an-instance)
   - [List all Instances](#list-all-instances)
   - [List Instance actions](#list-instance-actions)
@@ -96,6 +99,7 @@ it-generate-hosts-for-instance-servers,-baremetal,-apple-silicon-and-bastions)
   - [Get a volume](#get-a-volume)
   - [List volumes](#list-volumes)
   - [Update a volume](#update-a-volume)
+  - [Wait for volume to reach a stable state](#wait-for-volume-to-reach-a-stable-state)
 - [Volume type management commands](#volume-type-management-commands)
   - [List volume types](#list-volume-types)
 
@@ -103,9 +107,8 @@ it-generate-hosts-for-instance-servers,-baremetal,-apple-silicon-and-bastions)
 ## Image management commands
 
 Images are backups of your Instances.
-One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration. 
+One image will contain all the volumes of your Instance and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
 To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
-
 
 
 ### Create an Instance image
@@ -125,19 +128,19 @@ scw instance image create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` | Name of the image |
 | snapshot-id | Required | UUID of the snapshot that will be used as root volume in the image |
-| arch | Required<br />One of: `x86_64`, `arm` | Architecture of the image |
+| arch | Required<br />One of: `unknown_arch`, `x86_64`, `arm`, `arm64` | Architecture of the image |
 | ~~default-bootscript~~ | Deprecated | Default bootscript of the image |
-| additional-snapshots.{index}.id |  | UUID of the snapshot to add |
-| additional-snapshots.{index}.name |  | Name of the additional snapshot |
-| additional-snapshots.{index}.size |  | Size of the additional snapshot |
-| additional-snapshots.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified` | Underlying volume type of the additional snapshot |
-| additional-snapshots.{index}.project-id |  | Project ID that own the additional snapshot |
-| ~~additional-snapshots.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
+| additional-volumes.{index}.id |  | UUID of the snapshot to add |
+| additional-volumes.{index}.name |  | Name of the additional snapshot |
+| additional-volumes.{index}.size |  | Size of the additional snapshot |
+| additional-volumes.{index}.volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Underlying volume type of the additional snapshot |
+| additional-volumes.{index}.project-id |  | Project ID that own the additional snapshot |
+| ~~additional-volumes.{index}.organization-id~~ | Deprecated | Organization ID that own the additional snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags of the image |
 | public |  | True to create a public image |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -168,7 +171,7 @@ scw instance image delete <image-id ...> [arg=value ...]
 |------|---|-------------|
 | image-id | Required | UUID of the image you want to delete |
 | with-snapshots |  | Delete the snapshots attached to this image |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -203,7 +206,7 @@ scw instance image get <image-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | image-id | Required | UUID of the image you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -243,7 +246,7 @@ scw instance image list [arg=value ...]
 | project-id |  |  |
 | tags |  |  |
 | organization-id |  |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -257,14 +260,14 @@ scw instance image list
 
 
 
-### Update an instance image
+### Update image
 
-Update properties of an instance image.
+Update the properties of an image.
 
 **Usage:**
 
 ```
-scw instance image update [arg=value ...]
+scw instance image update <image-id ...> [arg=value ...]
 ```
 
 
@@ -272,36 +275,13 @@ scw instance image update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| image-id | Required |  |
-| name |  |  |
-| arch | One of: `x86_64`, `arm` |  |
-| extra-volumes.{index}.id |  | Additional extra-volume ID |
-| from-server |  |  |
-| public |  |  |
-| tags.{index} |  |  |
-| project |  | Project ID to use. If none is passed the default project ID will be used |
-| organization |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1` | Zone to target. If none is passed will use default zone from the config |
-
-
-**Examples:**
-
-
-Update image name
-```
-scw instance image update image-id=11111111-1111-1111-1111-111111111111 name=foo
-```
-
-Update image public
-```
-scw instance image update image-id=11111111-1111-1111-1111-111111111111 public=true
-```
-
-Add extra volume
-```
-scw instance image update image-id=11111111-1111-1111-1111-111111111111 extra-volumes.1.id=11111111-1111-1111-1111-111111111111
-```
-
+| image-id | Required | UUID of the image |
+| name |  | Name of the image |
+| arch | One of: `unknown_arch`, `x86_64`, `arm`, `arm64` | Architecture of the image |
+| extra-volumes.{key}.id |  | UUID of the snapshot |
+| tags.{index} |  | Tags of the image |
+| public |  | True to set the image as public |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -342,7 +322,6 @@ A flexible IP address is an IP address which you hold independently of any Insta
 You can attach it to any of your Instances and do live migration of the IP address between your Instances.
 
 Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts any ongoing public connection to the Instance. This does not apply if you have migrated your server to the new Network stack and have at least one flexible IP attached to the Instance.
-
 
 
 ### Attach an IP to a given server
@@ -396,7 +375,7 @@ scw instance ip create [arg=value ...]
 | server |  | UUID of the Instance you want to attach the IP to |
 | type | One of: `unknown_iptype`, `nat`, `routed_ipv4`, `routed_ipv6` | IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6') |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -436,7 +415,7 @@ scw instance ip delete <ip ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip | Required | ID or address of the IP to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -511,7 +490,7 @@ scw instance ip get <ip ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip | Required | IP ID or address to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -551,10 +530,11 @@ scw instance ip list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID in which the IPs are reserved |
-| tags.{index} |  | Filter IPs with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | Filter IPs with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter on the IP address (Works as a LIKE operation on the IP address) |
+| type |  | Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6') |
 | organization-id |  | Organization ID in which the IPs are reserved |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -592,7 +572,7 @@ scw instance ip update <ip ...> [arg=value ...]
 | reverse |  | Reverse domain name |
 | type | One of: `unknown_iptype`, `nat`, `routed_ipv4`, `routed_ipv6` | Convert a 'nat' IP to a 'routed_ipv4' |
 | tags.{index} |  | An array of keywords you want to tag this IP with |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -638,7 +618,6 @@ For each policy types, one of the two `policy_mode` may be selected:
 The `policy_mode` is set by default to `optional`.
 
 
-
 ### Create a placement group
 
 Create a new placement group in a specified Availability Zone.
@@ -660,7 +639,7 @@ scw instance placement-group create [arg=value ...]
 | policy-mode | One of: `optional`, `enforced` | Operating mode of the placement group |
 | policy-type | One of: `max_availability`, `low_latency` | Policy type of the placement group |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -715,7 +694,7 @@ scw instance placement-group delete <placement-group-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | placement-group-id | Required | UUID of the placement group you want to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -750,7 +729,7 @@ scw instance placement-group get <placement-group-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | placement-group-id | Required | UUID of the placement group you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -780,7 +759,7 @@ scw instance placement-group get-servers <placement-group-id ...> [arg=value ...
 | Name |   | Description |
 |------|---|-------------|
 | placement-group-id | Required | UUID of the placement group you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -800,10 +779,10 @@ scw instance placement-group list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | List only placement groups of this Project ID |
-| tags.{index} |  | List placement groups with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | List placement groups with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo") |
 | organization-id |  | List only placement groups of this Organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -844,7 +823,7 @@ scw instance placement-group set [arg=value ...]
 | project |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  |  |
 | organization |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -865,7 +844,7 @@ scw instance placement-group set-servers [arg=value ...]
 |------|---|-------------|
 | placement-group-id | Required | UUID of the placement group you want to set |
 | servers.{index} | Required | An array of the Instances' UUIDs you want to configure |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -899,7 +878,7 @@ scw instance placement-group update <placement-group-id ...> [arg=value ...]
 | tags.{index} |  | Tags of the placement group |
 | policy-mode | One of: `optional`, `enforced` | Operating mode of the placement group |
 | policy-type | One of: `max_availability`, `low_latency` | Policy type of the placement group |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -940,7 +919,7 @@ scw instance placement-group update-servers [arg=value ...]
 |------|---|-------------|
 | placement-group-id | Required | UUID of the placement group you want to update |
 | servers.{index} | Required | An array of the Instances' UUIDs you want to configure |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -949,7 +928,6 @@ scw instance placement-group update-servers [arg=value ...]
 A Private NIC is the network interface that connects an Instance to a
 Private Network. An Instance can have multiple private NICs at the same
 time, but each NIC must belong to a different Private Network.
-
 
 
 ### Create a private NIC connecting an Instance to a Private Network
@@ -970,7 +948,8 @@ scw instance private-nic create [arg=value ...]
 | server-id | Required | UUID of the Instance the private NIC will be attached to |
 | private-network-id | Required | UUID of the private network where the private NIC will be attached |
 | tags.{index} |  | Private NIC tags |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| ip-ids.{index} |  | Ip_ids defined from IPAM |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -991,7 +970,7 @@ scw instance private-nic delete [arg=value ...]
 |------|---|-------------|
 | server-id | Required | Instance to which the private NIC is attached |
 | private-nic-id | Required | Private NIC unique ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1012,7 +991,7 @@ scw instance private-nic get [arg=value ...]
 |------|---|-------------|
 | server-id | Required | Instance to which the private NIC is attached |
 | private-nic-id | Required | The private NIC unique ID or MAC address |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1032,8 +1011,8 @@ scw instance private-nic list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | Instance to which the private NIC is attached |
-| tags.{index} |  | Private NIC tags |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| tags |  | Private NIC tags |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1070,7 +1049,7 @@ scw instance private-nic update [arg=value ...]
 | server-id | Required | UUID of the Instance the private NIC will be attached to |
 | private-nic-id | Required | Private NIC unique ID |
 | tags.{index} |  | Tags used to select private NIC/s |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1091,7 +1070,6 @@ Security groups enable you to create rules that either drop or allow incoming tr
 
 Security groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
 As a contrary, you have to switch in a stateless mode to define explicitly allowed.
-
 
 
 ### Remove all rules of a security group
@@ -1146,11 +1124,11 @@ scw instance security-group create [arg=value ...]
 | ~~organization-default~~ | Deprecated<br />Default: `false` | Defines whether this security group becomes the default security group for new Instances |
 | project-default | Default: `false` | Whether this security group becomes the default security group for new Instances |
 | stateful | Default: `true` | Whether the security group is stateful or not |
-| inbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for inbound rules |
-| outbound-default-policy | Default: `accept`<br />One of: `accept`, `drop` | Default policy for outbound rules |
+| inbound-default-policy | Default: `accept`<br />One of: `unknown_policy`, `accept`, `drop` | Default policy for inbound rules |
+| outbound-default-policy | Default: `accept`<br />One of: `unknown_policy`, `accept`, `drop` | Default policy for outbound rules |
 | enable-default-security |  | True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1200,15 +1178,15 @@ scw instance security-group create-rule [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | security-group-id | Required | UUID of the security group |
-| protocol | Required<br />One of: `TCP`, `UDP`, `ICMP`, `ANY` |  |
-| direction | Required<br />One of: `inbound`, `outbound` |  |
-| action | Required<br />One of: `accept`, `drop` |  |
+| protocol | Required<br />One of: `unknown_protocol`, `TCP`, `UDP`, `ICMP`, `ANY` |  |
+| direction | Required<br />One of: `unknown_direction`, `inbound`, `outbound` |  |
+| action | Required<br />One of: `unknown_action`, `accept`, `drop` |  |
 | ip-range | Required<br />Default: `0.0.0.0/0` |  |
 | dest-port-from |  | Beginning of the range of ports to apply this rule to (inclusive) |
 | dest-port-to |  | End of the range of ports to apply this rule to (inclusive) |
 | position |  | Position of this rule in the security group rules list |
 | editable |  | Indicates if this rule is editable (will be ignored) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1258,7 +1236,7 @@ scw instance security-group delete <security-group-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | security-group-id | Required | UUID of the security group you want to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1289,7 +1267,7 @@ scw instance security-group delete-rule [arg=value ...]
 |------|---|-------------|
 | security-group-id | Required |  |
 | security-group-rule-id | Required |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1341,7 +1319,7 @@ scw instance security-group get <security-group-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | security-group-id | Required | UUID of the security group you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1372,7 +1350,7 @@ scw instance security-group get-rule [arg=value ...]
 |------|---|-------------|
 | security-group-id | Required |  |
 | security-group-rule-id | Required |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1403,10 +1381,10 @@ scw instance security-group list [arg=value ...]
 |------|---|-------------|
 | name |  | Name of the security group |
 | project-id |  | Security group Project ID |
-| tags.{index} |  | List security groups with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | List security groups with these exact tags (to filter with several tags, use commas to separate them) |
 | project-default |  | Filter security groups with this value for project_default |
 | organization-id |  | Security group Organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1435,7 +1413,7 @@ scw instance security-group list-default-rules [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1455,7 +1433,7 @@ scw instance security-group list-rules [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | security-group-id | Required | UUID of the security group |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1476,27 +1454,27 @@ scw instance security-group set-rules [arg=value ...]
 |------|---|-------------|
 | security-group-id | Required | UUID of the security group to update the rules on |
 | rules.{index}.id |  | UUID of the security rule to update. If no value is provided, a new rule will be created |
-| rules.{index}.action | One of: `accept`, `drop` | Action to apply when the rule matches a packet |
-| rules.{index}.protocol | One of: `TCP`, `UDP`, `ICMP`, `ANY` | Protocol family this rule applies to |
-| rules.{index}.direction | One of: `inbound`, `outbound` | Direction the rule applies to |
+| rules.{index}.action | One of: `unknown_action`, `accept`, `drop` | Action to apply when the rule matches a packet |
+| rules.{index}.protocol | One of: `unknown_protocol`, `TCP`, `UDP`, `ICMP`, `ANY` | Protocol family this rule applies to |
+| rules.{index}.direction | One of: `unknown_direction`, `inbound`, `outbound` | Direction the rule applies to |
 | rules.{index}.ip-range |  | Range of IP addresses these rules apply to |
 | rules.{index}.dest-port-from |  | Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY |
 | rules.{index}.dest-port-to |  | End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from |
 | rules.{index}.position |  | Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined |
 | rules.{index}.editable |  | Indicates if this rule is editable. Rules with the value false will be ignored |
 | rules.{index}.zone |  | Zone of the rule. This field is ignored |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
-### Update security group
+### Update a security group
 
-Update security group.
+Update the properties of security group.
 
 **Usage:**
 
 ```
-scw instance security-group update [arg=value ...]
+scw instance security-group update <security-group-id ...> [arg=value ...]
 ```
 
 
@@ -1504,50 +1482,45 @@ scw instance security-group update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| security-group-id | Required | ID of the security group to update |
-| name |  |  |
-| description |  |  |
-| stateful |  |  |
-| inbound-default-policy | One of: `accept`, `drop` |  |
-| outbound-default-policy | One of: `accept`, `drop` |  |
-| organization-default |  |  |
-| project-default |  |  |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| security-group-id | Required | UUID of the security group |
+| name |  | Name of the security group |
+| description |  | Description of the security group |
+| enable-default-security |  | True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable |
+| inbound-default-policy | One of: `unknown_policy`, `accept`, `drop` | Default inbound policy |
+| tags.{index} |  | Tags of the security group |
+| ~~organization-default~~ | Deprecated | Please use project_default instead |
+| project-default |  | True use this security group for future Instances created in this project |
+| outbound-default-policy | One of: `unknown_policy`, `accept`, `drop` | Default outbound policy |
+| stateful |  | True to set the security group as stateful |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
-**Examples:**
+
+### Update security group rule
+
+Update the properties of a rule from a specified security group.
+
+**Usage:**
+
+```
+scw instance security-group update-rule [arg=value ...]
+```
 
 
-Set the default outbound policy as drop
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 outbound-default-policy=drop
-```
+**Args:**
 
-Set the given security group as the default for the project
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 project-default=true
-```
-
-Change the name of the given security group
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 name=foobar
-```
-
-Change the description of the given security group
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 description=foobar
-```
-
-Enable stateful security group
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 stateful=true
-```
-
-Set the default inbound policy as drop
-```
-scw instance security-group update security-group-id=11111111-1111-1111-1111-111111111111 inbound-default-policy=drop
-```
-
+| Name |   | Description |
+|------|---|-------------|
+| security-group-id | Required | UUID of the security group |
+| security-group-rule-id | Required | UUID of the rule |
+| protocol | One of: `unknown_protocol`, `TCP`, `UDP`, `ICMP`, `ANY` | Protocol family this rule applies to |
+| direction | One of: `unknown_direction`, `inbound`, `outbound` | Direction the rule applies to |
+| action | One of: `unknown_action`, `accept`, `drop` | Action to apply when the rule matches a packet |
+| ip-range |  | Range of IP addresses these rules apply to |
+| dest-port-from |  | Beginning of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter. |
+| dest-port-to |  | End of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter. |
+| position |  | Position of this rule in the security group rules list |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1556,6 +1529,36 @@ scw instance security-group update security-group-id=11111111-1111-1111-1111-111
 Instances are computing units providing resources to run your applications on.
 Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
 **Note: Instances can be referenced as "servers" in API endpoints.**
+
+
+### Perform a raw API action on a server
+
+
+
+**Usage:**
+
+```
+scw instance server action <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| action | Required | The raw API action to perform, as listed with 'scw instance server list-actions' |
+| server-id | Required | ID of the server affected by the action. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Start a server in the default zone with a given id
+```
+scw instance server action 11111111-1111-1111-1111-111111111111 action=poweron
+```
+
 
 
 
@@ -1714,6 +1717,7 @@ scw instance server create [arg=value ...]
 | bootscript-id |  | The bootscript ID to use, if empty the local boot will be used |
 | cloud-init |  | The cloud-init script to use |
 | boot-type | Default: `local`<br />One of: `local`, `bootscript`, `rescue` | The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set. |
+| routed-ip-enabled |  | Enable routed IP support |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
@@ -1854,6 +1858,39 @@ scw instance server detach-volume volume-id=22222222-1111-5555-2222-666666111111
 
 
 
+### Migrate server to IP mobility
+
+Enable routed IP for this server and migrate the nat public IP to routed
+Server will reboot !
+https://www.scaleway.com/en/docs/compute/instances/api-cli/using-ip-mobility/
+
+
+**Usage:**
+
+```
+scw instance server enable-routed-ip <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server affected by the action. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Migrate a server with legacy network to IP mobility
+```
+scw instance server enable-routed-ip 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
 ### Get an Instance
 
 Get the details of a specified Instance.
@@ -1870,7 +1907,7 @@ scw instance server get <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | UUID of the Instance you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1905,11 +1942,14 @@ scw instance server list [arg=value ...]
 | without-ip |  | List Instances that are not attached to a public IP |
 | commercial-type |  | List Instances of this commercial type |
 | state | One of: `running`, `stopped`, `stopped in place`, `starting`, `stopping`, `locked` | List Instances in this state |
-| tags.{index} |  | List Instances with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | List Instances with these exact tags (to filter with several tags, use commas to separate them) |
 | private-network |  | List Instances in this Private Network |
 | order | One of: `creation_date_desc`, `creation_date_asc`, `modification_date_desc`, `modification_date_asc` | Define the order of the returned servers |
+| private-networks |  | List Instances from the given Private Networks (use commas to separate them) |
+| private-nic-mac-address |  | List Instances associated with the given private NIC MAC address |
+| servers |  | List Instances from these server ids (use commas to separate them) |
 | organization-id |  | List only Instances of this Organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1954,7 +1994,7 @@ scw instance server list-actions [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2191,25 +2231,15 @@ scw instance server update <server-id ...> [arg=value ...]
 | ~~bootscript~~ | Deprecated |  |
 | dynamic-ip-required |  |  |
 | routed-ip-enabled |  | True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False) |
-| public-ips.{index}.id |  | Unique ID of the IP address |
-| public-ips.{index}.address |  | Instance's public IP-Address |
-| public-ips.{index}.gateway |  | Gateway's IP address |
-| public-ips.{index}.netmask |  | CIDR netmask |
-| public-ips.{index}.family | One of: `inet`, `inet6` | IP address family (inet or inet6) |
-| public-ips.{index}.dynamic |  | True if the IP address is dynamic |
-| public-ips.{index}.provisioning-mode | One of: `manual`, `dhcp`, `slaac` | Information about this address provisioning mode |
+| public-ips.{index} |  | A list of reserved IP IDs to attach to the Instance |
 | enable-ipv6 |  |  |
 | protected |  |  |
 | security-group-id |  |  |
 | volume-ids.{index} |  | Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes) |
 | placement-group-id |  | Placement group ID if Instance must be part of a placement group |
-| private-nics.{index}.id |  | Private NIC unique ID |
-| private-nics.{index}.server-id |  | Instance to which the private NIC is attached |
-| private-nics.{index}.private-network-id |  | Private Network the private NIC is attached to |
-| private-nics.{index}.mac-address |  | Private NIC MAC address |
-| private-nics.{index}.state | One of: `available`, `syncing`, `syncing_error` | Private NIC state |
-| private-nics.{index}.tags.{index} |  | Private NIC tags |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| private-nics.{index} |  | Instance private NICs |
+| commercial-type |  | Set the commercial_type for this Instance. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2285,7 +2315,6 @@ All Instance types available in a specified zone.
 Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
 
 
-
 ### Get availability
 
 Get availability for all Instance types.
@@ -2301,7 +2330,7 @@ scw instance server-type get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2320,7 +2349,7 @@ scw instance server-type list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2358,7 +2387,6 @@ and a new `b_ssd` volume from this snapshot. The newly created volume will hold 
 of the data of the original volume.
 
 
-
 ### Create a snapshot from a specified volume or from a QCOW2 file
 
 Create a snapshot from a specified volume or from a QCOW2 file in a specified Availability Zone.
@@ -2383,7 +2411,7 @@ scw instance snapshot create [arg=value ...]
 | key |  | Object key for snapshot imports |
 | size |  | Imported snapshot size, must be a multiple of 512 |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2428,7 +2456,7 @@ scw instance snapshot delete <snapshot-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | snapshot-id | Required | UUID of the snapshot you want to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2465,7 +2493,7 @@ scw instance snapshot export [arg=value ...]
 | bucket |  | S3 bucket name |
 | key |  | S3 object key |
 | snapshot-id | Required | Snapshot ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2495,7 +2523,7 @@ scw instance snapshot get <snapshot-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | snapshot-id | Required | UUID of the snapshot you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2529,11 +2557,12 @@ scw instance snapshot list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name |  |  |
-| project-id |  |  |
-| tags |  |  |
-| organization-id |  |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| project-id |  | List snapshots only for this Project ID |
+| name |  | List snapshots of the requested name |
+| tags |  | List snapshots that have the requested tag |
+| base-volume-id |  | List snapshots originating only from this volume |
+| organization-id |  | List snapshots only for this Organization ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2554,7 +2583,7 @@ scw instance snapshot list zone=fr-par-1
 
 ### Update a snapshot
 
-
+Update the properties of a snapshot.
 
 **Usage:**
 
@@ -2567,10 +2596,10 @@ scw instance snapshot update <snapshot-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| snapshot-id | Required | UUID of the snapshot. |
-| name |  | Name of the snapshot. |
-| tags.{index} |  | Tags of the snapshot. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| snapshot-id | Required | UUID of the snapshot |
+| name |  | Name of the snapshot |
+| tags.{index} |  | Tags of the snapshot |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2632,7 +2661,7 @@ scw instance ssh add-key [arg=value ...]
 |------|---|-------------|
 | server-id |  | Server to add your key to |
 | public-key |  | Public key you want to add to your server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2653,7 +2682,7 @@ scw instance ssh install-config [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2675,7 +2704,7 @@ scw instance ssh list-keys <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | Server to add your key to |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2699,7 +2728,7 @@ scw instance ssh remove-key [arg=value ...]
 | server-id | Required | Server to add your key to |
 | name |  | Name of the key you want to remove, has to be the key comment or the index |
 | public-key |  | Public key you want to remove |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2716,7 +2745,6 @@ There are two endpoints to access user data:
    To know if the query is issued by the root user, we only accept queries made from a local port below 1024 (by default, non-root users can not bind ports below 1024).
    To specify the local port with cURL, use `curl --local-port 1-1024 http://169.254.42.42/user_data`
  - **From the Instance API** at using methods described bellow.
-
 
 
 ### Delete user data
@@ -2736,7 +2764,7 @@ scw instance user-data delete [arg=value ...]
 |------|---|-------------|
 | server-id | Required | UUID of the Instance |
 | key | Required | Key of the user data to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2757,7 +2785,7 @@ scw instance user-data get [arg=value ...]
 |------|---|-------------|
 | server-id | Required | UUID of the Instance |
 | key | Required | Key of the user data to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2777,7 +2805,7 @@ scw instance user-data list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | UUID of the Instance |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2799,7 +2827,7 @@ scw instance user-data set [arg=value ...]
 | server-id | Required | UUID of the Instance |
 | key | Required | Key of the user data to set |
 | content | Required | Content of the user data |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2839,7 +2867,6 @@ subject to change depending on the volumes order. Block devices
 UUIDs can be found in `/dev/disk/by-id/`.
 
 
-
 ### Create a volume
 
 Create a volume of a specified type in an Availability Zone.
@@ -2858,12 +2885,11 @@ scw instance volume create [arg=value ...]
 | name | Default: `<generated>` | Volume name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Volume tags |
-| volume-type | One of: `l_ssd`, `b_ssd`, `unified` | Volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Volume type |
 | size |  | Volume disk size, must be a multiple of 512 |
-| base-volume |  | ID of the volume on which this volume will be based |
 | base-snapshot |  | ID of the snapshot on which this volume will be based |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2877,11 +2903,6 @@ scw instance volume create name=my-volume
 Create a volume with a size of 50GB
 ```
 scw instance volume create size=50GB
-```
-
-Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'
-```
-scw instance volume create volume-type=l_ssd base-volume=00112233-4455-6677-8899-aabbccddeeff
 ```
 
 
@@ -2903,7 +2924,7 @@ scw instance volume delete <volume-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id | Required | UUID of the volume you want to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2933,7 +2954,7 @@ scw instance volume get <volume-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id | Required | UUID of the volume you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2962,12 +2983,12 @@ scw instance volume list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-type | One of: `l_ssd`, `b_ssd`, `unified` | Filter by volume type |
+| volume-type | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot` | Filter by volume type |
 | project-id |  | Filter volume by Project ID |
-| tags.{index} |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
+| tags |  | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter volume by name (for eg. "vol" will return "myvolume" but not "data") |
 | organization-id |  | Filter volume by Organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -3020,7 +3041,7 @@ scw instance volume update <volume-id ...> [arg=value ...]
 | name |  | Volume name |
 | tags.{index} |  | Tags of the volume |
 | size |  | Volume disk size, must be a multiple of 512 |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -3044,11 +3065,41 @@ scw instance volume update 11111111-1111-1111-1111-111111111111 name=a-new-name 
 
 
 
+### Wait for volume to reach a stable state
+
+Wait for volume to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the volume.
+
+**Usage:**
+
+```
+scw instance volume wait <volume-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| timeout | Default: `10m0s` | Timeout of the wait |
+| volume-id | Required | ID of the volume affected by the action. |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Wait for a volume to reach a stable state
+```
+scw instance volume wait 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
 ## Volume type management commands
 
 All volume types available in a specified zone.
 Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
-
 
 
 ### List volume types
@@ -3066,7 +3117,7 @@ scw instance volume-type list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**

@@ -29,6 +29,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamRule(),
 		iamPermissionSet(),
 		iamJwt(),
+		iamLog(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -37,6 +38,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamUserList(),
 		iamUserGet(),
 		iamUserDelete(),
+		iamUserCreate(),
 		iamApplicationList(),
 		iamApplicationCreate(),
 		iamApplicationGet(),
@@ -48,6 +50,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamGroupUpdate(),
 		iamGroupSetMembers(),
 		iamGroupAddMember(),
+		iamGroupAddMembers(),
 		iamGroupRemoveMember(),
 		iamGroupDelete(),
 		iamPolicyList(),
@@ -67,6 +70,8 @@ func GetGeneratedCommands() *core.Commands {
 		iamJwtList(),
 		iamJwtGet(),
 		iamJwtDelete(),
+		iamLogList(),
+		iamLogGet(),
 	)
 }
 func iamRoot() *core.Command {
@@ -155,6 +160,15 @@ func iamJwt() *core.Command {
 		Long:      `JWTs management commands.`,
 		Namespace: "iam",
 		Resource:  "jwt",
+	}
+}
+
+func iamLog() *core.Command {
+	return &core.Command{
+		Short:     `Log management commands`,
+		Long:      `Log management commands.`,
+		Namespace: "iam",
+		Resource:  "log",
 	}
 }
 
@@ -451,6 +465,13 @@ func iamUserList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "tag",
+				Short:      `Filter by tags containing a given string`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `ID of the Organization to filter`,
 				Required:   true,
@@ -538,6 +559,43 @@ func iamUserDelete() *core.Command {
 	}
 }
 
+func iamUserCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new user`,
+		Long:      `Create a new user. You must define the ` + "`" + `organization_id` + "`" + ` and the ` + "`" + `email` + "`" + ` in your request.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.CreateUserRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "email",
+				Short:      `Email of the user`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.CreateUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.CreateUser(request)
+
+		},
+	}
+}
+
 func iamApplicationList() *core.Command {
 	return &core.Command{
 		Short:     `List applications of an Organization`,
@@ -579,12 +637,13 @@ func iamApplicationList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "organization-id",
-				Short:      `ID of the Organization to filter`,
-				Required:   true,
+				Name:       "tag",
+				Short:      `Filter by tags containing a given string`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
+			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.ListApplicationsRequest)
@@ -623,6 +682,13 @@ func iamApplicationCreate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `Description of the application (max length is 200 characters)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the application (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -696,6 +762,13 @@ func iamApplicationUpdate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `New description for the application (max length is 200 chars)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags for the application (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -795,12 +868,13 @@ func iamGroupList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "organization-id",
-				Short:      `Filter by Organization ID`,
+				Name:       "tag",
+				Short:      `Filter by tags containing a given string`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
+			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.ListGroupsRequest)
@@ -853,6 +927,13 @@ func iamGroupCreate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `Description of the group to create (max length is 200 chars)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the group (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -946,6 +1027,13 @@ func iamGroupUpdate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `New description for the group (max length is 200 chars)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags for the group (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1050,6 +1138,49 @@ func iamGroupAddMember() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.AddGroupMember(request)
+
+		},
+	}
+}
+
+func iamGroupAddMembers() *core.Command {
+	return &core.Command{
+		Short:     `Add multiple users and applications to a group`,
+		Long:      `Add multiple users and applications to a group in a single call. You can specify an array of ` + "`" + `user_id` + "`" + `s and ` + "`" + `application_id` + "`" + `s. Note that any existing users and applications in the group will remain. To add new users/applications and delete pre-existing ones, use the [Overwrite users and applications of a group](#path-groups-overwrite-users-and-applications-of-a-group) method.`,
+		Namespace: "iam",
+		Resource:  "group",
+		Verb:      "add-members",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.AddGroupMembersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "group-id",
+				Short:      `ID of the group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "user-ids.{index}",
+				Short:      `IDs of the users to add`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "application-ids.{index}",
+				Short:      `IDs of the applications to add`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.AddGroupMembersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.AddGroupMembers(request)
 
 		},
 	}
@@ -1221,12 +1352,13 @@ func iamPolicyList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "organization-id",
-				Short:      `ID of the Organization to filter`,
-				Required:   true,
+				Name:       "tag",
+				Short:      `Filter by tags containing a given string`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
+			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.ListPoliciesRequest)
@@ -1286,6 +1418,13 @@ func iamPolicyCreate() *core.Command {
 			{
 				Name:       "rules.{index}.organization-id",
 				Short:      `ID of Organization the rule is scoped to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the policy (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1393,6 +1532,13 @@ func iamPolicyUpdate() *core.Command {
 			{
 				Name:       "description",
 				Short:      `New description of policy (max length is 200 characters)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags for the policy (maximum of 10 tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2038,6 +2184,109 @@ func iamJwtDelete() *core.Command {
 				Resource: "jwt",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func iamLogList() *core.Command {
+	return &core.Command{
+		Short:     `List logs`,
+		Long:      `List logs available for given Organization. You must define the ` + "`" + `organization_id` + "`" + ` in the query path of your request.`,
+		Namespace: "iam",
+		Resource:  "log",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.ListLogsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Criteria for sorting results`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "created-after",
+				Short:      `Defined whether or not to filter out logs created after this timestamp`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "created-before",
+				Short:      `Defined whether or not to filter out logs created before this timestamp`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "action",
+				Short:      `Defined whether or not to filter out by a specific action`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_action", "created", "updated", "deleted"},
+			},
+			{
+				Name:       "resource-type",
+				Short:      `Defined whether or not to filter out by a specific type of resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_resource_type", "api_key", "user", "application", "group", "policy"},
+			},
+			{
+				Name:       "search",
+				Short:      `Defined whether or not to filter out log by bearer ID or resource ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.ListLogsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListLogs(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Logs, nil
+
+		},
+	}
+}
+
+func iamLogGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a log`,
+		Long:      `Retrieve information about a log, specified by the ` + "`" + `log_id` + "`" + ` parameter. The log's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `ip` + "`" + `, ` + "`" + `user_agent` + "`" + `, ` + "`" + `action` + "`" + `, ` + "`" + `bearer_id` + "`" + `, ` + "`" + `resource_type` + "`" + ` and ` + "`" + `resource_id` + "`" + ` are returned in the response.`,
+		Namespace: "iam",
+		Resource:  "log",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.GetLogRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "log-id",
+				Short:      `ID of the log`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.GetLogRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.GetLog(request)
+
 		},
 	}
 }

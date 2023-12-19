@@ -75,7 +75,7 @@ type WellKnownArgOrderError struct {
 }
 
 func (err WellKnownArgOrderError) Error() string {
-	return "well-known arg order must be respected '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
+	return "well-known arg order must be respected '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'" //nolint: goconst
 }
 
 type WellKnownArgAtTheEndError struct {

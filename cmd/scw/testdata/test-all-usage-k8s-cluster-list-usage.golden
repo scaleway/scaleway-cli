@@ -16,13 +16,14 @@ EXAMPLES:
     scw k8s cluster list region=fr-par name=cluster1
 
 ARGS:
-  [project-id]        Project ID on which to filter the returned clusters
-  [order-by]          Sort order of returned clusters (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc | status_asc | status_desc | version_asc | version_desc)
-  [name]              Name to filter on, only clusters containing this substring in their name will be returned
-  [status]            Status to filter on, only clusters with this status will be returned (unknown | creating | ready | deleting | deleted | updating | locked | pool_required)
-  [type]              Type to filter on, only clusters with this type will be returned
-  [organization-id]   Organization ID on which to filter the returned clusters
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [project-id]           Project ID on which to filter the returned clusters
+  [order-by]             Sort order of returned clusters (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc | status_asc | status_desc | version_asc | version_desc)
+  [name]                 Name to filter on, only clusters containing this substring in their name will be returned
+  [status]               Status to filter on, only clusters with this status will be returned (unknown | creating | ready | deleting | deleted | updating | locked | pool_required)
+  [type]                 Type to filter on, only clusters with this type will be returned
+  [private-network-id]   Private Network ID to filter on, only clusters within this Private Network will be returned
+  [organization-id]      Organization ID on which to filter the returned clusters
+  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

@@ -8,16 +8,16 @@ USAGE:
 ARGS:
   security-group-id                UUID of the security group to update the rules on
   [rules.{index}.id]               UUID of the security rule to update. If no value is provided, a new rule will be created
-  [rules.{index}.action]           Action to apply when the rule matches a packet (accept | drop)
-  [rules.{index}.protocol]         Protocol family this rule applies to (TCP | UDP | ICMP | ANY)
-  [rules.{index}.direction]        Direction the rule applies to (inbound | outbound)
+  [rules.{index}.action]           Action to apply when the rule matches a packet (unknown_action | accept | drop)
+  [rules.{index}.protocol]         Protocol family this rule applies to (unknown_protocol | TCP | UDP | ICMP | ANY)
+  [rules.{index}.direction]        Direction the rule applies to (unknown_direction | inbound | outbound)
   [rules.{index}.ip-range]         Range of IP addresses these rules apply to
   [rules.{index}.dest-port-from]   Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY
   [rules.{index}.dest-port-to]     End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from
   [rules.{index}.position]         Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined
   [rules.{index}.editable]         Indicates if this rule is editable. Rules with the value false will be ignored
   [rules.{index}.zone]             Zone of the rule. This field is ignored
-  [zone=fr-par-1]                  Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2)
+  [zone=fr-par-1]                  Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for set-rules

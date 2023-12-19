@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 KEY  VALUE
-bar  foo
-foo  bar
+bar  -
+foo  -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "key": "bar",
-    "value": "foo"
+    "value": ""
   },
   {
     "key": "foo",
-    "value": "bar"
+    "value": ""
   }
 ]

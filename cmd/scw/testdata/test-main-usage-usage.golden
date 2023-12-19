@@ -4,24 +4,28 @@ USAGE:
   scw <command>
 
 AVAILABLE COMMANDS:
-  account       User related data
+  account       This API allows you to manage projects
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic Metal API
   billing       This API allows you to query your consumption
+  block         This API allows you to use and manage your Block Storage volumes
   cockpit       Cockpit API
   container     Container as a Service API
   dns           Domains and DNS API
+  document-db   Managed Document Databases API
   fip           Elastic Metal - Flexible IP API
   function      Function as a Service API
   help          Get help about how the CLI works
   iam           IAM API
   instance      Instance API
   iot           This API allows you to manage IoT hubs and devices
+  ipam          This API allows you to manage IP addresses with Scaleway's IP Address Management tool
+  jobs          Serverless Jobs API
   k8s           Kubernetes API
   lb            This API allows you to manage your Scaleway Load Balancer services
   marketplace   Marketplace API
-  mnq           This API allows you to manage Scaleway Messaging and Queueing brokers
+  mnq           Messaging and Queuing APIs
   object        Object-storage utils
   rdb           Managed Database for PostgreSQL and MySQL API
   redis         Managed Database for Redis™ API
@@ -31,6 +35,10 @@ AVAILABLE COMMANDS:
   vpc           VPC API
   vpc-gw        Public Gateways API
   webhosting    Web Hosting API
+
+AVAILABLE LABS COMMANDS:
+  ipfs          IPFS Pinning service API
+  ipns          IPFS Naming service API
 
 CONFIGURATION COMMANDS:
   alias         Alias related commands

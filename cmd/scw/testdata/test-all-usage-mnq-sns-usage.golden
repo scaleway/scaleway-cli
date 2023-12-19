@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+MnQ SNS commands.
+
+USAGE:
+  scw mnq sns <command>
+
+AVAILABLE COMMANDS:
+  activate           Activate SNS
+  create-credentials Create SNS credentials
+  deactivate         Deactivate SNS
+  delete-credentials Delete SNS credentials
+  get-credentials    Get SNS credentials
+  get-info           Get SNS info
+  list-credentials   List SNS credentials
+  update-credentials Update SNS credentials
+
+FLAGS:
+  -h, --help   help for sns
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw mnq sns [command] --help" for more information about a command.

@@ -1,0 +1,26 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+To create a new volume from scratch, you must specify `from_empty` and the `size`.
+To create a volume from an existing snapshot, specify `from_snapshot` and the `snapshot_id` in the request payload instead, size is optional and can be specified if you need to extend the original size. The volume will take on the same volume class and underlying IOPS limitations as the original snapshot.
+
+USAGE:
+  scw block volume create [arg=value ...]
+
+ARGS:
+  name                          Name of the volume
+  perf-iops                     The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`)
+  [project-id]                  Project ID to use. If none is passed the default project ID will be used
+  [from-empty.size]             Volume size in bytes, with a granularity of 1 GB (10^9 bytes)
+  [from-snapshot.size]          Volume size in bytes, with a granularity of 1 GB (10^9 bytes)
+  [from-snapshot.snapshot-id]   Source snapshot from which volume will be created
+  [tags.{index}]                List of tags assigned to the volume
+  [zone=fr-par-1]               Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-3 | pl-waw-3)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

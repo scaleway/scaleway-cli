@@ -138,3 +138,26 @@ func retrieveLBID(metaKey string) core.BeforeFunc {
 		return nil
 	}
 }
+
+func createPN() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"PN",
+		"scw vpc private-network create",
+	)
+}
+
+func deletePN() core.AfterFunc {
+	return core.ExecAfterCmd("scw vpc private-network delete {{ .PN.ID }}")
+}
+
+func attachPN() core.BeforeFunc {
+	return core.ExecBeforeCmd(
+		"scw lb private-network attach {{ .LB.ID }} private-network-id={{ .PN.ID }}",
+	)
+}
+
+func detachPN() core.AfterFunc {
+	return core.ExecAfterCmd(
+		"scw lb private-network detach {{ .LB.ID }} private-network-id={{ .PN.ID }}",
+	)
+}
