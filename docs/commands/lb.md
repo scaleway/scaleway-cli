@@ -791,6 +791,7 @@ scw lb ip create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | reverse |  | Reverse DNS (domain name) for the IP address |
+| is-ipv6 |  | If true, creates a Flexible IP with an ipv6 address |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -875,6 +876,7 @@ scw lb ip update <ip-id ...> [arg=value ...]
 |------|---|-------------|
 | ip-id | Required | IP address ID |
 | reverse |  | Reverse DNS (domain name) for the IP address |
+| lb-id |  | ID of the server on which to attach the flexible IP |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -904,6 +906,8 @@ scw lb lb create [arg=value ...]
 | description |  | Description for the Load Balancer |
 | ~~ip-id~~ | Deprecated | ID of an existing flexible IP address to attach to the Load Balancer |
 | assign-flexible-ip |  | Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign). |
+| assign-flexible-ipv6 |  | Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign). |
+| ip-ids.{index} |  | List of IP IDs to attach to the Load Balancer |
 | tags.{index} |  | List of tags for the Load Balancer |
 | type | Default: `LB-S`<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L` | Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types |
 | ssl-compatibility-level | One of: `ssl_compatibility_level_unknown`, `ssl_compatibility_level_intermediate`, `ssl_compatibility_level_modern`, `ssl_compatibility_level_old` | Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort |
