@@ -19,6 +19,7 @@ ID                                    ADDRESS          PREFIX  TYPE  REVERSE  PR
     "type": "nat",
     "state": "attached",
     "prefix": "",
+    "ipam_id": "",
     "zone": "fr-par-1"
   },
   {
@@ -32,6 +33,7 @@ ID                                    ADDRESS          PREFIX  TYPE  REVERSE  PR
     "type": "nat",
     "state": "attached",
     "prefix": "",
+    "ipam_id": "",
     "zone": "fr-par-1"
   }
 ]
