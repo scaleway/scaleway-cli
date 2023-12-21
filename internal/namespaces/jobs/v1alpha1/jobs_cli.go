@@ -61,8 +61,8 @@ func jobsDefinition() *core.Command {
 
 func jobsDefinitionCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create jobs resources`,
-		Long:      `Create jobs resources.`,
+		Short:     `Create a new job definition in a specified Project`,
+		Long:      `Create a new job definition in a specified Project.`,
 		Namespace: "jobs",
 		Resource:  "definition",
 		Verb:      "create",
@@ -71,6 +71,7 @@ func jobsDefinitionCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
+				Short:      `Name of the job definition`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -78,24 +79,28 @@ func jobsDefinitionCreate() *core.Command {
 			},
 			{
 				Name:       "cpu-limit",
+				Short:      `CPU limit of the job`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "memory-limit",
+				Short:      `Memory limit of the job`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "image-uri",
+				Short:      `Image to use for the job`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "command",
+				Short:      `Startup command`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -103,18 +108,33 @@ func jobsDefinitionCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the job`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the job`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "job-timeout",
+				Short:      `Timeout of the job in seconds`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-schedule.schedule",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-schedule.timezone",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -134,8 +154,8 @@ func jobsDefinitionCreate() *core.Command {
 
 func jobsDefinitionGet() *core.Command {
 	return &core.Command{
-		Short:     `Get jobs resources`,
-		Long:      `Get jobs resources.`,
+		Short:     `Get a job definition by its unique identifier`,
+		Long:      `Get a job definition by its unique identifier.`,
 		Namespace: "jobs",
 		Resource:  "definition",
 		Verb:      "get",
@@ -144,6 +164,7 @@ func jobsDefinitionGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
+				Short:      `UUID of the job definition to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -163,8 +184,8 @@ func jobsDefinitionGet() *core.Command {
 
 func jobsDefinitionList() *core.Command {
 	return &core.Command{
-		Short:     `List jobs resources`,
-		Long:      `List jobs resources.`,
+		Short:     `List all your job definitions with filters`,
+		Long:      `List all your job definitions with filters.`,
 		Namespace: "jobs",
 		Resource:  "definition",
 		Verb:      "list",
@@ -208,8 +229,8 @@ func jobsDefinitionList() *core.Command {
 
 func jobsDefinitionUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update jobs resources`,
-		Long:      `Update jobs resources.`,
+		Short:     `Update an existing job definition associated with the specified unique identifier`,
+		Long:      `Update an existing job definition associated with the specified unique identifier.`,
 		Namespace: "jobs",
 		Resource:  "definition",
 		Verb:      "update",
@@ -218,54 +239,75 @@ func jobsDefinitionUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
+				Short:      `UUID of the job definition to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the job definition`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "cpu-limit",
+				Short:      `CPU limit of the job`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "memory-limit",
+				Short:      `Memory limit of the job`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "image-uri",
+				Short:      `Image to use for the job`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "command",
+				Short:      `Startup command`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "environment-variables.{key}",
+				Short:      `Environment variables of the job`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
+				Short:      `Description of the job`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "job-timeout",
+				Short:      `Timeout of the job in seconds`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-schedule.schedule",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-schedule.timezone",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -285,8 +327,8 @@ func jobsDefinitionUpdate() *core.Command {
 
 func jobsDefinitionDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete jobs resources`,
-		Long:      `Delete jobs resources.`,
+		Short:     `Delete an exsisting job definition by its unique identifier`,
+		Long:      `Delete an exsisting job definition by its unique identifier.`,
 		Namespace: "jobs",
 		Resource:  "definition",
 		Verb:      "delete",
@@ -295,6 +337,7 @@ func jobsDefinitionDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
+				Short:      `UUID of the job definition to delete`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -320,8 +363,8 @@ func jobsDefinitionDelete() *core.Command {
 
 func jobsDefinitionStart() *core.Command {
 	return &core.Command{
-		Short:     `Start jobs resources`,
-		Long:      `Start jobs resources.`,
+		Short:     `Run an existing job definition by its unique identifier. This will create a new job run`,
+		Long:      `Run an existing job definition by its unique identifier. This will create a new job run.`,
 		Namespace: "jobs",
 		Resource:  "definition",
 		Verb:      "start",
@@ -330,6 +373,7 @@ func jobsDefinitionStart() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
+				Short:      `UUID of the job definition to start`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -349,8 +393,8 @@ func jobsDefinitionStart() *core.Command {
 
 func jobsRunGet() *core.Command {
 	return &core.Command{
-		Short:     `Get jobs resources`,
-		Long:      `Get jobs resources.`,
+		Short:     `Get a job run by its unique identifier`,
+		Long:      `Get a job run by its unique identifier.`,
 		Namespace: "jobs",
 		Resource:  "run",
 		Verb:      "get",
@@ -359,6 +403,7 @@ func jobsRunGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-run-id",
+				Short:      `UUID of the job run to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -378,8 +423,8 @@ func jobsRunGet() *core.Command {
 
 func jobsRunStop() *core.Command {
 	return &core.Command{
-		Short:     `Stop jobs resources`,
-		Long:      `Stop jobs resources.`,
+		Short:     `Stop a job run by its unique identifier`,
+		Long:      `Stop a job run by its unique identifier.`,
 		Namespace: "jobs",
 		Resource:  "run",
 		Verb:      "stop",
@@ -388,6 +433,7 @@ func jobsRunStop() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-run-id",
+				Short:      `UUID of the job run to stop`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -407,8 +453,8 @@ func jobsRunStop() *core.Command {
 
 func jobsRunList() *core.Command {
 	return &core.Command{
-		Short:     `List jobs resources`,
-		Long:      `List jobs resources.`,
+		Short:     `List all job runs with filters`,
+		Long:      `List all job runs with filters.`,
 		Namespace: "jobs",
 		Resource:  "run",
 		Verb:      "list",

@@ -1,20 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create jobs resources.
+Create a new job definition in a specified Project.
 
 USAGE:
   scw jobs definition create [arg=value ...]
 
 ARGS:
-  name=<generated>                
-  cpu-limit                       
-  memory-limit                    
-  [image-uri]                     
-  [command]                       
+  name=<generated>                Name of the job definition
+  cpu-limit                       CPU limit of the job
+  memory-limit                    Memory limit of the job
+  [image-uri]                     Image to use for the job
+  [command]                       Startup command
   [project-id]                    Project ID to use. If none is passed the default project ID will be used
-  [environment-variables.{key}]   
-  [description]                   
-  [job-timeout]                   
+  [environment-variables.{key}]   Environment variables of the job
+  [description]                   Description of the job
+  [job-timeout]                   Timeout of the job in seconds
+  [cron-schedule.schedule]        
+  [cron-schedule.timezone]        
   [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

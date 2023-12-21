@@ -3,16 +3,16 @@
 Serverless Jobs API.
   
 - [](#)
-  - [Create jobs resources](#create-jobs-resources)
-  - [Delete jobs resources](#delete-jobs-resources)
-  - [Get jobs resources](#get-jobs-resources)
-  - [List jobs resources](#list-jobs-resources)
-  - [Start jobs resources](#start-jobs-resources)
-  - [Update jobs resources](#update-jobs-resources)
+  - [Create a new job definition in a specified Project](#create-a-new-job-definition-in-a-specified-project)
+  - [Delete an exsisting job definition by its unique identifier](#delete-an-exsisting-job-definition-by-its-unique-identifier)
+  - [Get a job definition by its unique identifier](#get-a-job-definition-by-its-unique-identifier)
+  - [List all your job definitions with filters](#list-all-your-job-definitions-with-filters)
+  - [Run an existing job definition by its unique identifier. This will create a new job run](#run-an-existing-job-definition-by-its-unique-identifier.-this-will-create-a-new-job-run)
+  - [Update an existing job definition associated with the specified unique identifier](#update-an-existing-job-definition-associated-with-the-specified-unique-identifier)
 - [](#)
-  - [Get jobs resources](#get-jobs-resources)
-  - [List jobs resources](#list-jobs-resources)
-  - [Stop jobs resources](#stop-jobs-resources)
+  - [Get a job run by its unique identifier](#get-a-job-run-by-its-unique-identifier)
+  - [List all job runs with filters](#list-all-job-runs-with-filters)
+  - [Stop a job run by its unique identifier](#stop-a-job-run-by-its-unique-identifier)
   - [Wait for a job run to reach a stable state](#wait-for-a-job-run-to-reach-a-stable-state)
 
   
@@ -21,9 +21,9 @@ Serverless Jobs API.
 
 
 
-### Create jobs resources
+### Create a new job definition in a specified Project
 
-Create jobs resources.
+Create a new job definition in a specified Project.
 
 **Usage:**
 
@@ -36,22 +36,24 @@ scw jobs definition create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required<br />Default: `<generated>` |  |
-| cpu-limit | Required |  |
-| memory-limit | Required |  |
-| image-uri |  |  |
-| command |  |  |
+| name | Required<br />Default: `<generated>` | Name of the job definition |
+| cpu-limit | Required | CPU limit of the job |
+| memory-limit | Required | Memory limit of the job |
+| image-uri |  | Image to use for the job |
+| command |  | Startup command |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| environment-variables.{key} |  |  |
-| description |  |  |
-| job-timeout |  |  |
+| environment-variables.{key} |  | Environment variables of the job |
+| description |  | Description of the job |
+| job-timeout |  | Timeout of the job in seconds |
+| cron-schedule.schedule |  |  |
+| cron-schedule.timezone |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Delete jobs resources
+### Delete an exsisting job definition by its unique identifier
 
-Delete jobs resources.
+Delete an exsisting job definition by its unique identifier.
 
 **Usage:**
 
@@ -64,14 +66,14 @@ scw jobs definition delete <job-definition-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| job-definition-id | Required |  |
+| job-definition-id | Required | UUID of the job definition to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Get jobs resources
+### Get a job definition by its unique identifier
 
-Get jobs resources.
+Get a job definition by its unique identifier.
 
 **Usage:**
 
@@ -84,14 +86,14 @@ scw jobs definition get <job-definition-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| job-definition-id | Required |  |
+| job-definition-id | Required | UUID of the job definition to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### List jobs resources
+### List all your job definitions with filters
 
-List jobs resources.
+List all your job definitions with filters.
 
 **Usage:**
 
@@ -110,9 +112,9 @@ scw jobs definition list [arg=value ...]
 
 
 
-### Start jobs resources
+### Run an existing job definition by its unique identifier. This will create a new job run
 
-Start jobs resources.
+Run an existing job definition by its unique identifier. This will create a new job run.
 
 **Usage:**
 
@@ -125,14 +127,14 @@ scw jobs definition start <job-definition-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| job-definition-id | Required |  |
+| job-definition-id | Required | UUID of the job definition to start |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Update jobs resources
+### Update an existing job definition associated with the specified unique identifier
 
-Update jobs resources.
+Update an existing job definition associated with the specified unique identifier.
 
 **Usage:**
 
@@ -145,15 +147,17 @@ scw jobs definition update <job-definition-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| job-definition-id | Required |  |
-| name |  |  |
-| cpu-limit |  |  |
-| memory-limit |  |  |
-| image-uri |  |  |
-| command |  |  |
-| environment-variables.{key} |  |  |
-| description |  |  |
-| job-timeout |  |  |
+| job-definition-id | Required | UUID of the job definition to update |
+| name |  | Name of the job definition |
+| cpu-limit |  | CPU limit of the job |
+| memory-limit |  | Memory limit of the job |
+| image-uri |  | Image to use for the job |
+| command |  | Startup command |
+| environment-variables.{key} |  | Environment variables of the job |
+| description |  | Description of the job |
+| job-timeout |  | Timeout of the job in seconds |
+| cron-schedule.schedule |  |  |
+| cron-schedule.timezone |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -163,9 +167,9 @@ scw jobs definition update <job-definition-id ...> [arg=value ...]
 
 
 
-### Get jobs resources
+### Get a job run by its unique identifier
 
-Get jobs resources.
+Get a job run by its unique identifier.
 
 **Usage:**
 
@@ -178,14 +182,14 @@ scw jobs run get <job-run-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| job-run-id | Required |  |
+| job-run-id | Required | UUID of the job run to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### List jobs resources
+### List all job runs with filters
 
-List jobs resources.
+List all job runs with filters.
 
 **Usage:**
 
@@ -205,9 +209,9 @@ scw jobs run list [arg=value ...]
 
 
 
-### Stop jobs resources
+### Stop a job run by its unique identifier
 
-Stop jobs resources.
+Stop a job run by its unique identifier.
 
 **Usage:**
 
@@ -220,7 +224,7 @@ scw jobs run stop <job-run-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| job-run-id | Required |  |
+| job-run-id | Required | UUID of the job run to stop |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
