@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update jobs resources.
+Update an existing job definition associated with the specified unique identifier.
 
 USAGE:
   scw jobs definition update <job-definition-id ...> [arg=value ...]
 
 ARGS:
-  job-definition-id               
-  [name]                          
-  [cpu-limit]                     
-  [memory-limit]                  
-  [image-uri]                     
-  [command]                       
-  [environment-variables.{key}]   
-  [description]                   
-  [job-timeout]                   
+  job-definition-id               UUID of the job definition to update
+  [name]                          Name of the job definition
+  [cpu-limit]                     CPU limit of the job
+  [memory-limit]                  Memory limit of the job
+  [image-uri]                     Image to use for the job
+  [command]                       Startup command
+  [environment-variables.{key}]   Environment variables of the job
+  [description]                   Description of the job
+  [job-timeout]                   Timeout of the job in seconds
   [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

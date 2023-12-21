@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Start jobs resources.
+Run an existing job definition by its unique identifier. This will create a new job run.
 
 USAGE:
   scw jobs definition start <job-definition-id ...> [arg=value ...]
 
 ARGS:
-  job-definition-id   
+  job-definition-id   UUID of the job definition to start
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

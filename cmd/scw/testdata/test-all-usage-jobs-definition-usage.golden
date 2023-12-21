@@ -4,12 +4,12 @@ USAGE:
   scw jobs definition <command>
 
 AVAILABLE COMMANDS:
-  create      Create jobs resources
-  delete      Delete jobs resources
-  get         Get jobs resources
-  list        List jobs resources
-  start       Start jobs resources
-  update      Update jobs resources
+  create      Create a new job definition in a specified Project
+  delete      Delete an exsisting job definition by its unique identifier
+  get         Get a job definition by its unique identifier
+  list        List all your job definitions with filters
+  start       Run an existing job definition by its unique identifier. This will create a new job run
+  update      Update an existing job definition associated with the specified unique identifier
 
 FLAGS:
   -h, --help   help for definition

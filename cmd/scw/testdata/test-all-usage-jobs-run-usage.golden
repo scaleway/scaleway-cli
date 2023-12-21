@@ -4,9 +4,9 @@ USAGE:
   scw jobs run <command>
 
 AVAILABLE COMMANDS:
-  get         Get jobs resources
-  list        List jobs resources
-  stop        Stop jobs resources
+  get         Get a job run by its unique identifier
+  list        List all job runs with filters
+  stop        Stop a job run by its unique identifier
   wait        Wait for a job run to reach a stable state
 
 FLAGS:
