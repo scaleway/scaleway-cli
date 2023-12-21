@@ -38,6 +38,7 @@ PublicIP.Family               inet
 PublicIP.Dynamic              false
 PublicIP.ProvisioningMode     dhcp
 PublicIP.State                attached
+PublicIP.IpamID               -
 PublicIPs.0.ID                093c4ee8-fa23-4982-9686-43e289838043
 PublicIPs.0.Address           51.15.198.235
 PublicIPs.0.Netmask           32
@@ -45,6 +46,7 @@ PublicIPs.0.Family            inet
 PublicIPs.0.Dynamic           false
 PublicIPs.0.ProvisioningMode  dhcp
 PublicIPs.0.State             attached
+PublicIPs.0.IpamID            -
 MacAddress                    de:00:00:32:32:3b
 ModificationDate              few seconds ago
 State                         running
@@ -124,7 +126,8 @@ Zone                          fr-par-1
     "dynamic": false,
     "provisioning_mode": "dhcp",
     "tags": [],
-    "state": "attached"
+    "state": "attached",
+    "ipam_id": ""
   },
   "public_ips": [
     {
@@ -136,7 +139,8 @@ Zone                          fr-par-1
       "dynamic": false,
       "provisioning_mode": "dhcp",
       "tags": [],
-      "state": "attached"
+      "state": "attached",
+      "ipam_id": ""
     }
   ],
   "mac_address": "de:00:00:32:32:3b",
