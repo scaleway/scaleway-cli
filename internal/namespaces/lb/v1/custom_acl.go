@@ -2,7 +2,6 @@ package lb
 
 import (
 	"context"
-	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -25,17 +24,6 @@ func lbACLMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		{
 			FieldName: "Frontend",
 		},
-	}
-
-	if len(acl.Frontend.LB.Tags) != 0 && acl.Frontend.LB.Tags[0] == kapsuleTag {
-		ACLResp, err := human.Marshal(acl, opt)
-		if err != nil {
-			return "", err
-		}
-		return strings.Join([]string{
-			ACLResp,
-			warningKapsuleTaggedMessageView(),
-		}, "\n\n"), nil
 	}
 
 	str, err := human.Marshal(acl, opt)
@@ -68,8 +56,21 @@ func ACLDeleteBuilder(c *core.Command) *core.Command {
 
 func interceptACL() core.CommandInterceptor {
 	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		var getACL *lb.ACL
+		var err error
+
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
+
+		if _, ok := argsI.(*lb.ZonedAPIDeleteCertificateRequest); ok {
+			getACL, err = api.GetACL(&lb.ZonedAPIGetACLRequest{
+				Zone:  argsI.(*lb.ZonedAPIDeleteACLRequest).Zone,
+				ACLID: argsI.(*lb.ZonedAPIDeleteACLRequest).ACLID,
+			})
+			if err != nil {
+				return nil, err
+			}
+		}
 
 		res, err := runner(ctx, argsI)
 		if err != nil {
@@ -77,13 +78,6 @@ func interceptACL() core.CommandInterceptor {
 		}
 
 		if _, ok := res.(*core.SuccessResult); ok {
-			getACL, err := api.GetACL(&lb.ZonedAPIGetACLRequest{
-				Zone:  argsI.(*lb.ZonedAPIDeleteACLRequest).Zone,
-				ACLID: argsI.(*lb.ZonedAPIDeleteACLRequest).ACLID,
-			})
-			if err != nil {
-				return nil, err
-			}
 			if len(getACL.Frontend.LB.Tags) != 0 && getACL.Frontend.LB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}
