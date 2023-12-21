@@ -286,6 +286,20 @@ func lbLBCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "assign-flexible-ipv6",
+				Short:      `Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is ` + "`" + `false` + "`" + ` (do not assign).`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ip-ids.{index}",
+				Short:      `List of IP IDs to attach to the Load Balancer`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "tags.{index}",
 				Short:      `List of tags for the Load Balancer`,
 				Required:   false,
@@ -561,6 +575,13 @@ func lbIPCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "is-ipv6",
+				Short:      `If true, creates a Flexible IP with an ipv6 address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
@@ -661,6 +682,13 @@ func lbIPUpdate() *core.Command {
 			{
 				Name:       "reverse",
 				Short:      `Reverse DNS (domain name) for the IP address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "lb-id",
+				Short:      `ID of the server on which to attach the flexible IP`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
