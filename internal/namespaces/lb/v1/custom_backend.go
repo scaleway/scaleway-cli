@@ -48,18 +48,6 @@ func lbBackendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 		},
 	}
 
-	if len(backend.LB.Tags) != 0 && backend.LB.Tags[0] == kapsuleTag {
-		backendResp, err := human.Marshal(backend, opt)
-		if err != nil {
-			return "", err
-		}
-
-		return strings.Join([]string{
-			backendResp,
-			warningKapsuleTaggedMessageView(),
-		}, "\n\n"), nil
-	}
-
 	str, err := human.Marshal(backend, opt)
 	if err != nil {
 		return "", err

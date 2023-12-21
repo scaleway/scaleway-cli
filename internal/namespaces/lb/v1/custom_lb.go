@@ -164,15 +164,20 @@ func lbGetStatsBuilder(c *core.Command) *core.Command {
 
 func interceptLB() core.CommandInterceptor {
 	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		var getLB *lb.LB
+		var err error
+
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
-		getLB, err := api.GetLB(&lb.ZonedAPIGetLBRequest{
-			Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
-			LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
-		})
-		if err != nil {
-			return nil, err
+		if _, ok := argsI.(*lb.ZonedAPIDeleteCertificateRequest); ok {
+			getLB, err = api.GetLB(&lb.ZonedAPIGetLBRequest{
+				Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
+				LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
+			})
+			if err != nil {
+				return nil, err
+			}
 		}
 
 		res, err := runner(ctx, argsI)

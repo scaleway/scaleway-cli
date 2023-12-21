@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"reflect"
-	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -29,17 +28,6 @@ func lbCertificateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, e
 		{
 			FieldName: "LB",
 		},
-	}
-
-	if len(certificate.LB.Tags) != 0 && certificate.LB.Tags[0] == kapsuleTag {
-		certificateResp, err := human.Marshal(certificate, opt)
-		if err != nil {
-			return "", err
-		}
-		return strings.Join([]string{
-			certificateResp,
-			warningKapsuleTaggedMessageView(),
-		}, "\n\n"), nil
 	}
 
 	str, err := human.Marshal(certificate, opt)
@@ -152,15 +140,20 @@ func certificateDeleteBuilder(c *core.Command) *core.Command {
 
 func interceptCertificate() core.CommandInterceptor {
 	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		var getCertificate *lb.Certificate
+		var err error
+
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
-		getCertificate, err := api.GetCertificate(&lb.ZonedAPIGetCertificateRequest{
-			Zone:          argsI.(*lb.ZonedAPIDeleteCertificateRequest).Zone,
-			CertificateID: argsI.(*lb.ZonedAPIDeleteCertificateRequest).CertificateID,
-		})
-		if err != nil {
-			return nil, err
+		if _, ok := argsI.(*lb.ZonedAPIDeleteCertificateRequest); ok {
+			getCertificate, err = api.GetCertificate(&lb.ZonedAPIGetCertificateRequest{
+				Zone:          argsI.(*lb.ZonedAPIDeleteCertificateRequest).Zone,
+				CertificateID: argsI.(*lb.ZonedAPIDeleteCertificateRequest).CertificateID,
+			})
+			if err != nil {
+				return nil, err
+			}
 		}
 
 		res, err := runner(ctx, argsI)
