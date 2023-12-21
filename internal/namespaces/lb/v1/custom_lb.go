@@ -170,7 +170,7 @@ func interceptLB() core.CommandInterceptor {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
-		if _, ok := argsI.(*lb.ZonedAPIDeleteCertificateRequest); ok {
+		if _, ok := argsI.(*lb.ZonedAPIDeleteLBRequest); ok {
 			getLB, err = api.GetLB(&lb.ZonedAPIGetLBRequest{
 				Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
 				LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
