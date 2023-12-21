@@ -2,7 +2,6 @@ package lb
 
 import (
 	"context"
-	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
@@ -20,17 +19,6 @@ func lbFrontendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 		{
 			FieldName: "Backend",
 		},
-	}
-
-	if len(frontend.LB.Tags) != 0 && frontend.LB.Tags[0] == kapsuleTag {
-		frontendResp, err := human.Marshal(frontend, opt)
-		if err != nil {
-			return "", err
-		}
-		return strings.Join([]string{
-			frontendResp,
-			warningKapsuleTaggedMessageView(),
-		}, "\n\n"), nil
 	}
 
 	str, err := human.Marshal(frontend, opt)
@@ -63,8 +51,21 @@ func frontendDeleteBuilder(c *core.Command) *core.Command {
 
 func interceptFrontend() core.CommandInterceptor {
 	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		var getFrontend *lb.Frontend
+		var err error
+
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
+
+		if _, ok := argsI.(*lb.ZonedAPIDeleteFrontendRequest); ok {
+			getFrontend, err = api.GetFrontend(&lb.ZonedAPIGetFrontendRequest{
+				Zone:       argsI.(*lb.ZonedAPIDeleteFrontendRequest).Zone,
+				FrontendID: argsI.(*lb.ZonedAPIDeleteFrontendRequest).FrontendID,
+			})
+			if err != nil {
+				return nil, err
+			}
+		}
 
 		res, err := runner(ctx, argsI)
 		if err != nil {
@@ -72,13 +73,6 @@ func interceptFrontend() core.CommandInterceptor {
 		}
 
 		if _, ok := res.(*core.SuccessResult); ok {
-			getFrontend, err := api.GetFrontend(&lb.ZonedAPIGetFrontendRequest{
-				Zone:       argsI.(*lb.ZonedAPIDeleteFrontendRequest).Zone,
-				FrontendID: argsI.(*lb.ZonedAPIDeleteFrontendRequest).FrontendID,
-			})
-			if err != nil {
-				return nil, err
-			}
 			if len(getFrontend.LB.Tags) != 0 && getFrontend.LB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}

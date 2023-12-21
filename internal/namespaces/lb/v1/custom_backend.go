@@ -48,18 +48,6 @@ func lbBackendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 		},
 	}
 
-	if len(backend.LB.Tags) != 0 && backend.LB.Tags[0] == kapsuleTag {
-		backendResp, err := human.Marshal(backend, opt)
-		if err != nil {
-			return "", err
-		}
-
-		return strings.Join([]string{
-			backendResp,
-			warningKapsuleTaggedMessageView(),
-		}, "\n\n"), nil
-	}
-
 	str, err := human.Marshal(backend, opt)
 	if err != nil {
 		return "", err
@@ -781,6 +769,11 @@ func interceptBackend() core.CommandInterceptor {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
+		backend, err := getBackendBeforeAction(api, argsI)
+		if err != nil {
+			return nil, err
+		}
+
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			var invalidArgErr *scw.InvalidArgumentsError
@@ -802,32 +795,29 @@ func interceptBackend() core.CommandInterceptor {
 		}
 
 		switch res.(type) {
-		case *core.SuccessResult:
-			getBackend, err := api.GetBackend(&lb.ZonedAPIGetBackendRequest{
-				Zone:      argsI.(*lb.ZonedAPIDeleteBackendRequest).Zone,
-				BackendID: argsI.(*lb.ZonedAPIDeleteBackendRequest).BackendID,
-			})
-			if err != nil {
-				return nil, err
-			}
-
-			if len(getBackend.LB.Tags) != 0 && getBackend.LB.Tags[0] == kapsuleTag {
-				return warningKapsuleTaggedMessageView(), nil
-			}
-		case *lb.HealthCheck:
-			getBackend, err := api.GetBackend(&lb.ZonedAPIGetBackendRequest{
-				Zone:      argsI.(*lb.ZonedAPIUpdateHealthCheckRequest).Zone,
-				BackendID: argsI.(*lb.ZonedAPIUpdateHealthCheckRequest).BackendID,
-			})
-			if err != nil {
-				return nil, err
-			}
-
-			if len(getBackend.LB.Tags) != 0 && getBackend.LB.Tags[0] == kapsuleTag {
+		case *core.SuccessResult, *lb.HealthCheck:
+			if len(backend.LB.Tags) != 0 && backend.LB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}
 		}
 
 		return res, nil
+	}
+}
+
+func getBackendBeforeAction(api *lb.ZonedAPI, argsI interface{}) (*lb.Backend, error) {
+	switch args := argsI.(type) {
+	case *lb.ZonedAPIDeleteBackendRequest:
+		return api.GetBackend(&lb.ZonedAPIGetBackendRequest{
+			Zone:      args.Zone,
+			BackendID: args.BackendID,
+		})
+	case *lb.ZonedAPIUpdateHealthCheckRequest:
+		return api.GetBackend(&lb.ZonedAPIGetBackendRequest{
+			Zone:      args.Zone,
+			BackendID: args.BackendID,
+		})
+	default:
+		return nil, nil
 	}
 }
