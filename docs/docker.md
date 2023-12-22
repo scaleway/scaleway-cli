@@ -6,13 +6,13 @@ The CLI can be used in Docker without any problem.
 
 In order to use it you must mount the scaleway configuration file:
 ```sh
-docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0
+docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.26.0
 ```
 
 If you want to use `scw` instead of `docker run` you can add the following in your `~/.bashrc`:
 ```bash
 scw() {
-    docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0 "$@"
+    docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.26.0 "$@"
 }
 export -f scw
 ```
@@ -20,8 +20,20 @@ export -f scw
 Or if you use ZSH, add the following in your `~/.zshrc`:
 ```zsh
 scw() {
-    docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0 $@
+    docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.26.0 $@
 }
+```
+
+## Use your ssh-key
+
+In order to use your ssh-key you must mount your .ssh folder
+```sh
+docker run -it --rm -v $HOME/.config/scw:/root/.config/scw -v $HOME/.ssh:/root/.ssh scaleway/cli:v2.26.0 $@
+```
+
+You can then ensure that your ssh key is present in your Scaleway account
+```sh
+scw iam ssh-key init
 ```
 
 ## Autocompletion
@@ -44,14 +56,14 @@ complete -F _scw scw
 And in your `~/.bashrc` you can add:
 ```bash
 scw() {
-    docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0 "$@"
+    docker run -it --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.26.0 "$@"
 }
 export -f scw
 
 _scw() {
 	_get_comp_words_by_ref -n = cword words
 
-	output=$(docker run -i --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.3.0 autocomplete complete bash -- "$COMP_LINE" "$cword" "${words[@]}")
+	output=$(docker run -i --rm -v $HOME/.config/scw:/root/.config/scw scaleway/cli:v2.26.0 autocomplete complete bash -- "$COMP_LINE" "$cword" "${words[@]}")
 	COMPREPLY=($output)
 	# apply compopt option and ignore failure for older bash versions
 	[[ $COMPREPLY == *= ]] && compopt -o nospace 2> /dev/null || true
@@ -66,5 +78,5 @@ The trick is to remove the `-t` when using docker inside the completion function
 If running with Podman and SELinux in enforcing mode, one must use the :Z option when mounting the configuration file.  
 For instance:  
 ```bash
-podman run -it --rm -v $HOME/.config/scw:/root/.config/scw:Z scaleway/cli:v2.3.0
+podman run -it --rm -v $HOME/.config/scw:/root/.config/scw:Z scaleway/cli:v2.26.0
 ```
