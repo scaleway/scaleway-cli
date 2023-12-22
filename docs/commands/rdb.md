@@ -692,6 +692,7 @@ scw rdb instance create [arg=value ...]
 | init-settings.{index}.value |  |  |
 | volume-type | One of: `lssd`, `bssd`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored (lssd, bssd, ...) |
 | volume-size |  | Volume size when volume_type is not lssd |
+| init-endpoints.{index}.load-balancer | Default: `false` | Will configure a load-balancer endpoint along with your private network endpoint if true |
 | init-endpoints.{index}.private-network.enable-ipam | Default: `false` | Will configure your Private Network endpoint with Scaleway IPAM service if true |
 | init-endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Database Instance |
 | init-endpoints.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |

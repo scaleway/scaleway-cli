@@ -2,6 +2,7 @@ package rdb
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -13,9 +14,13 @@ import (
 )
 
 const (
-	publicEndpoint        = "public"
-	privateEndpointIpam   = "private IPAM"
-	privateEndpointStatic = "private static"
+	baseCommand              = "scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait"
+	privateNetworkStaticSpec = " init-endpoints.0.private-network.private-network-id={{ .PN.ID }} init-endpoints.0.private-network.service-ip={{ .IPNet }}"
+	privateNetworkIpamSpec   = " init-endpoints.0.private-network.private-network-id={{ .PN.ID }} init-endpoints.0.private-network.enable-ipam=true"
+	loadBalancerSpec         = " init-endpoints.1.load-balancer=true"
+	publicEndpoint           = "public"
+	privateEndpointIpam      = "private IPAM"
+	privateEndpointStatic    = "private static"
 )
 
 func Test_ListInstance(t *testing.T) {
@@ -41,7 +46,7 @@ func Test_CloneInstance(t *testing.T) {
 func Test_CreateInstance(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
+		Cmd:      fmt.Sprintf(baseCommand, name, engine, user, password),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -53,7 +58,7 @@ func Test_CreateInstance(t *testing.T) {
 
 	t.Run("With password generator", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		Cmd:      fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s generate-password=true --wait", name, engine, user),
+		Cmd:      fmt.Sprintf(strings.Replace(baseCommand, "password=%s", "generate-password=true", 1), name, engine, user),
 		// do not check the golden as the password generated locally and on CI will necessarily be different
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -63,18 +68,32 @@ func Test_CreateInstance(t *testing.T) {
 		),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
 	}))
+}
 
+func Test_CreateInstanceInitEndpoints(t *testing.T) {
 	cmds := GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("With static private endpoint", core.Test(&core.TestConfig{
-		Commands: cmds,
-		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("PrivateNetwork", "scw vpc private-network create"),
+		Commands:   cmds,
+		BeforeFunc: createPN(),
+		Cmd:        fmt.Sprintf(baseCommand+privateNetworkStaticSpec, name, engine, user, password),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				checkEndpoints(ctx, t, []string{privateEndpointStatic})
+			},
 		),
-		Cmd: fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s "+
-			"user-name=%s password=%s init-endpoints.0.private-network.private-network-id={{ .PrivateNetwork.ID }} "+
-			"init-endpoints.0.private-network.service-ip=172.16.4.1/22 --wait", name, engine, user, password),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }} --wait"),
+			deletePrivateNetwork(),
+		),
+	}))
+
+	t.Run("With public and static private endpoint", core.Test(&core.TestConfig{
+		Commands:   cmds,
+		BeforeFunc: createPN(),
+		Cmd:        fmt.Sprintf(baseCommand+privateNetworkStaticSpec+loadBalancerSpec, name, engine, user, password),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -83,18 +102,30 @@ func Test_CreateInstance(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }} --wait"),
-			deletePrivateNetwork("PrivateNetwork"),
+			deletePrivateNetwork(),
 		),
 	}))
 
 	t.Run("With IPAM private endpoint", core.Test(&core.TestConfig{
-		Commands: cmds,
-		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("PrivateNetwork", "scw vpc private-network create"),
+		Commands:   cmds,
+		BeforeFunc: createPN(),
+		Cmd:        fmt.Sprintf(baseCommand+privateNetworkIpamSpec, name, engine, user, password),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				checkEndpoints(ctx, t, []string{privateEndpointIpam})
+			},
 		),
-		Cmd: fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s "+
-			"user-name=%s password=%s init-endpoints.0.private-network.private-network-id={{ .PrivateNetwork.ID }} "+
-			"init-endpoints.0.private-network.enable-ipam=true --wait", name, engine, user, password),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }} --wait"),
+			deletePrivateNetwork(),
+		),
+	}))
+
+	t.Run("With public and IPAM private endpoint", core.Test(&core.TestConfig{
+		Commands:   cmds,
+		BeforeFunc: createPN(),
+		Cmd:        fmt.Sprintf(baseCommand+privateNetworkIpamSpec+loadBalancerSpec, name, engine, user, password),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -103,7 +134,7 @@ func Test_CreateInstance(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }} --wait"),
-			deletePrivateNetwork("PrivateNetwork"),
+			deletePrivateNetwork(),
 		),
 	}))
 }
@@ -255,7 +286,7 @@ func Test_Connect(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.BeforeFuncStoreInMeta("username", user),
 			createPN(),
-			createInstanceWithPrivateNetwork("PostgreSQL-14"),
+			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-14"),
 		),
 		Cmd: "scw rdb instance connect {{ .Instance.ID }} username={{ .username }}",
 		Check: core.TestCheckCombine(
@@ -267,8 +298,8 @@ func Test_Connect(t *testing.T) {
 	}))
 }
 
-func deletePrivateNetwork(metaName string) core.AfterFunc {
-	return core.ExecAfterCmd(fmt.Sprintf("scw vpc private-network delete {{ .%s.ID }}", metaName))
+func deletePrivateNetwork() core.AfterFunc {
+	return core.ExecAfterCmd("scw vpc private-network delete {{ .PN.ID }}")
 }
 
 func checkEndpoints(ctx *core.CheckFuncCtx, t *testing.T, expected []string) {

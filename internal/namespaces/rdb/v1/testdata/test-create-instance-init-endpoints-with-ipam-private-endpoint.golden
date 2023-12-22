@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                                    few seconds ago
 Region                                       fr-par
-ID                                           27f1ef66-5b0b-486b-837b-ae6713c0f06e
+ID                                           c62861ba-3583-48a3-8f43-b04e0f72ec3a
 Name                                         cli-test
 OrganizationID                               fa1e3217-dc80-42ac-85c3-3f034b78b552
 ProjectID                                    fa1e3217-dc80-42ac-85c3-3f034b78b552
@@ -22,22 +22,17 @@ UpgradableVersion.2.Version                  15
 UpgradableVersion.2.MinorVersion             15.5
 IsHaCluster                                  false
 NodeType                                     db-dev-s
-Endpoints.0.ID                               0415633b-3cc5-494e-8a3f-3730d6fde6d1
-Endpoints.0.IP                               172.16.12.2
+Endpoints.0.ID                               1f5ff8de-14fc-4751-9213-31bb0c8ad7de
+Endpoints.0.IP                               172.16.8.2
 Endpoints.0.Port                             5432
-Endpoints.0.PrivateNetwork.PrivateNetworkID  26e61880-234b-4236-978c-c8e1964039aa
-Endpoints.0.PrivateNetwork.ServiceIP         172.16.12.2/22
+Endpoints.0.PrivateNetwork.PrivateNetworkID  9d5da363-d570-43ef-a959-8f915d9831ef
+Endpoints.0.PrivateNetwork.ServiceIP         172.16.8.2/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
-Endpoints.1.ID                               ed67eea6-a3d6-402b-99d6-b699ede7cf70
-Endpoints.1.IP                               51.159.112.67
-Endpoints.1.Port                             1485
 LogsPolicy.MaxAgeRetention                   30
 BackupSameRegion                             false
 
 Endpoint:
-ID    ed67eea6-a3d6-402b-99d6-b699ede7cf70
-IP    51.159.112.67
-Port  1485
+-
 
 Volume:
 Type   lssd
@@ -70,7 +65,7 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "27f1ef66-5b0b-486b-837b-ae6713c0f06e",
+  "id": "c62861ba-3583-48a3-8f43-b04e0f72ec3a",
   "name": "cli-test",
   "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
@@ -96,13 +91,6 @@ Password:
       "minor_version": "15.5"
     }
   ],
-  "endpoint": {
-    "id": "ed67eea6-a3d6-402b-99d6-b699ede7cf70",
-    "ip": "51.159.112.67",
-    "port": 1485,
-    "name": null,
-    "load_balancer": {}
-  },
   "tags": [],
   "settings": [
     {
@@ -142,22 +130,15 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "0415633b-3cc5-494e-8a3f-3730d6fde6d1",
-      "ip": "172.16.12.2",
+      "id": "1f5ff8de-14fc-4751-9213-31bb0c8ad7de",
+      "ip": "172.16.8.2",
       "port": 5432,
       "name": null,
       "private_network": {
-        "private_network_id": "26e61880-234b-4236-978c-c8e1964039aa",
-        "service_ip": "172.16.12.2/22",
+        "private_network_id": "9d5da363-d570-43ef-a959-8f915d9831ef",
+        "service_ip": "172.16.8.2/22",
         "zone": "fr-par-1"
       }
-    },
-    {
-      "id": "ed67eea6-a3d6-402b-99d6-b699ede7cf70",
-      "ip": "51.159.112.67",
-      "port": 1485,
-      "name": null,
-      "load_balancer": {}
     }
   ],
   "logs_policy": {
