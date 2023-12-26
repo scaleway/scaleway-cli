@@ -35,6 +35,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1alpha1"
+	serverless_sqldb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/serverless_sqldb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
@@ -92,6 +93,7 @@ func GetCommands() *core.Commands {
 		block.GetCommands(),
 		ipam.GetCommands(),
 		jobs.GetCommands(),
+		serverless_sqldb.GetCommands(),
 	)
 
 	//if beta {}
