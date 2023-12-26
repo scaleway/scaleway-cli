@@ -1,0 +1,19 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Export a database backup providing a download link once the export process is completed. You must provide the `backup_id` parameter.
+
+USAGE:
+  scw sdb-sql backup export <backup-id ...> [arg=value ...]
+
+ARGS:
+  backup-id         UUID of the Serverless SQL Database backup.
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for export
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

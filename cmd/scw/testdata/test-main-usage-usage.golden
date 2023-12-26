@@ -30,6 +30,7 @@ AVAILABLE COMMANDS:
   rdb           Managed Database for PostgreSQL and MySQL API
   redis         Managed Database for Redis™ API
   registry      Container Registry API
+  sdb-sql       This API allows you to manage your Serverless SQL DB databases
   secret        Secret Manager API
   tem           Transactional Email API
   vpc           VPC API
