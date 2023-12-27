@@ -64,3 +64,9 @@ issues:
     - path: internal/tabwriter/.*_test\.go
       linters:
         - goconst
+
+    - path: internal/namespaces
+      source: "^package .*_.*"
+      linters:
+        - revive
+        - stylecheck
