@@ -18,26 +18,30 @@ const (
 func createInstance(engine string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s password=%s --wait", name, engine, user, password),
+		fmt.Sprintf(baseCommand, name, engine, user, password),
 	)
 }
 
-func createInstanceWithPrivateNetwork(engine string) core.BeforeFunc {
+func createInstanceWithPrivateNetworkAndLoadBalancer(engine string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		fmt.Sprintf("scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s password=%s init-endpoints.0.private-network.private-network-id={{ .PN.ID }} init-endpoints.0.private-network.service-ip={{ .IPNet }} --wait", name, engine, user, password),
+		fmt.Sprintf(baseCommand+privateNetworkStaticSpec+loadBalancerSpec, name, engine, user, password),
 	)
 }
 
 func createPN() core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		var err error
 		api := vpc.NewAPI(ctx.Client)
-		pn, _ := api.CreatePrivateNetwork(&vpc.CreatePrivateNetworkRequest{})
-		ctx.Meta["PN"] = pn
-		ctx.Meta["IPNet"], err = getIPSubnet(pn.Subnets[0])
+		pn, err := api.CreatePrivateNetwork(&vpc.CreatePrivateNetworkRequest{})
 		if err != nil {
 			return err
+		}
+		ctx.Meta["PN"] = pn
+		if len(pn.Subnets) > 0 {
+			ctx.Meta["IPNet"], err = getIPSubnet(pn.Subnets[0])
+			if err != nil {
+				return err
+			}
 		}
 		return nil
 	}

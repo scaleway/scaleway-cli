@@ -199,6 +199,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 	type rdbEndpointSpecCustom struct {
 		PrivateNetwork *rdbEndpointSpecPrivateNetworkCustom `json:"private-network"`
+		LoadBalancer   bool                                 `json:"load-balancer"`
 	}
 
 	type rdbCreateInstanceRequestCustom struct {
@@ -207,6 +208,12 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		GeneratePassword bool
 	}
 
+	c.ArgSpecs.AddBefore("init-endpoints.{index}.private-network.private-network-id", &core.ArgSpec{
+		Name:     "init-endpoints.{index}.load-balancer",
+		Short:    "Will configure a load-balancer endpoint along with your private network endpoint if true",
+		Required: false,
+		Default:  core.DefaultValueSetter("false"),
+	})
 	c.ArgSpecs.AddBefore("init-endpoints.{index}.private-network.private-network-id", &core.ArgSpec{
 		Name:     "init-endpoints.{index}.private-network.enable-ipam",
 		Short:    "Will configure your Private Network endpoint with Scaleway IPAM service if true",
@@ -266,20 +273,23 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		for _, customEndpoint := range customRequest.InitEndpoints {
-			if customEndpoint.PrivateNetwork == nil {
-				continue
+			if customEndpoint.LoadBalancer {
+				createInstanceRequest.InitEndpoints = append(createInstanceRequest.InitEndpoints, &rdb.EndpointSpec{
+					LoadBalancer: &rdb.EndpointSpecLoadBalancer{},
+				})
+			} else if customEndpoint.PrivateNetwork != nil {
+				ipamConfig := &rdb.EndpointSpecPrivateNetworkIpamConfig{}
+				if !customEndpoint.PrivateNetwork.EnableIpam {
+					ipamConfig = nil
+				}
+				createInstanceRequest.InitEndpoints = append(createInstanceRequest.InitEndpoints, &rdb.EndpointSpec{
+					PrivateNetwork: &rdb.EndpointSpecPrivateNetwork{
+						PrivateNetworkID: customEndpoint.PrivateNetwork.PrivateNetworkID,
+						ServiceIP:        customEndpoint.PrivateNetwork.ServiceIP,
+						IpamConfig:       ipamConfig,
+					},
+				})
 			}
-			ipamConfig := &rdb.EndpointSpecPrivateNetworkIpamConfig{}
-			if !customEndpoint.PrivateNetwork.EnableIpam {
-				ipamConfig = nil
-			}
-			createInstanceRequest.InitEndpoints = append(createInstanceRequest.InitEndpoints, &rdb.EndpointSpec{
-				PrivateNetwork: &rdb.EndpointSpecPrivateNetwork{
-					PrivateNetworkID: customEndpoint.PrivateNetwork.PrivateNetworkID,
-					ServiceIP:        customEndpoint.PrivateNetwork.ServiceIP,
-					IpamConfig:       ipamConfig,
-				},
-			})
 		}
 
 		instance, err := api.CreateInstance(createInstanceRequest)
