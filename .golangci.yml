@@ -39,10 +39,6 @@ linters:
 linters-settings:
   goconst:
     min-len: 5
-  revive:
-    rules:
-      - name: var-naming
-        arguments: [[], [], [{skipPackageNameChecks=true}]]
 
 issues:
   exclude:
@@ -69,8 +65,8 @@ issues:
       linters:
         - goconst
 
-    # Temporary while waiting for skipPackageNameChecks argument to var-naming in revive
-    - source: "^package .*_.*"
+    - path: internal/namespaces
+      source: "^package .*_.*"
       linters:
         - revive
         - stylecheck
