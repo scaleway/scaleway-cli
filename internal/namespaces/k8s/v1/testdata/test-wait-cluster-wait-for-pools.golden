@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                b4d01188-08ab-43cc-b889-02f8979f4b11
+ID                37176254-0637-41bd-b519-091d431d29ed
 Type              kapsule
 Name              cli-test-wait-cluster
 Status            ready
@@ -10,14 +10,15 @@ OrganizationID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
 Cni               cilium
 Description       -
-ClusterURL        https://b4d01188-08ab-43cc-b889-02f8979f4b11.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.b4d01188-08ab-43cc-b889-02f8979f4b11.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://37176254-0637-41bd-b519-091d431d29ed.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.37176254-0637-41bd-b519-091d431d29ed.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 DashboardEnabled  false
 Ingress           none
-UpgradeAvailable  false
-PrivateNetworkID  d74ffd0f-d524-4941-93e9-e0d5885b21f4
+UpgradeAvailable  true
+PrivateNetworkID  65834a6d-2e7c-43f1-bd71-52fa7307ab07
+CommitmentEndsAt  few seconds ago
 
 Autoscaler configuration:
 ScaleDownDisabled              false
@@ -44,7 +45,7 @@ UsernamePrefix  -
 GroupsPrefix    -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "b4d01188-08ab-43cc-b889-02f8979f4b11",
+  "id": "37176254-0637-41bd-b519-091d431d29ed",
   "type": "kapsule",
   "name": "cli-test-wait-cluster",
   "status": "ready",
@@ -55,8 +56,8 @@ GroupsPrefix    -
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://b4d01188-08ab-43cc-b889-02f8979f4b11.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.b4d01188-08ab-43cc-b889-02f8979f4b11.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://37176254-0637-41bd-b519-091d431d29ed.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.37176254-0637-41bd-b519-091d431d29ed.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -80,7 +81,7 @@ GroupsPrefix    -
       "day": "any"
     }
   },
-  "upgrade_available": false,
+  "upgrade_available": true,
   "feature_gates": [],
   "admission_plugins": [],
   "open_id_connect_config": {
@@ -93,6 +94,6 @@ GroupsPrefix    -
     "required_claim": []
   },
   "apiserver_cert_sans": [],
-  "private_network_id": "d74ffd0f-d524-4941-93e9-e0d5885b21f4",
-  "commitment_ends_at": null
+  "private_network_id": "65834a6d-2e7c-43f1-bd71-52fa7307ab07",
+  "commitment_ends_at": "1970-01-01T00:00:00.0Z"
 }

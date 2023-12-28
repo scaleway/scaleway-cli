@@ -90,7 +90,11 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgSpecs.GetByName("cni").Default = core.DefaultValueSetter("cilium")
 	c.ArgSpecs.GetByName("version").Default = core.DefaultValueSetter("latest")
+
 	c.ArgSpecs.GetByName("private-network-id").Short += ". For Kapsule clusters, if none is provided, a private network will be created"
+
+	c.ArgSpecs.GetByName("version").AutoCompleteFunc = autocompleteK8SVersion
+	c.ArgSpecs.GetByName("type").AutoCompleteFunc = autocompleteClusterType
 
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		args := argsI.(*k8s.CreateClusterRequest)
@@ -117,6 +121,26 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		pnCreated := false
 		var pn *vpc.PrivateNetwork
 		var err error
+
+		types, err := k8sAPI.ListClusterTypes(&k8s.ListClusterTypesRequest{
+			Region: request.Region,
+		})
+		if err != nil {
+			return nil, err
+		}
+		if request.Type != "" {
+			validType := false
+			validTypes := []string(nil)
+			for _, clusterType := range types.ClusterTypes {
+				validTypes = append(validTypes, clusterType.Name)
+				if clusterType.Name == request.Type {
+					validType = true
+				}
+			}
+			if !validType {
+				return nil, fmt.Errorf("invalid cluster type %q, must be one of %v", request.Type, validTypes)
+			}
+		}
 
 		if request.Type == "" || strings.HasPrefix(request.Type, "kapsule") {
 			if request.PrivateNetworkID == nil {
@@ -392,4 +416,56 @@ func k8sClusterWaitCommand() *core.Command {
 			},
 		},
 	}
+}
+
+// Caching ListClusterTypes response for shell completion
+var completeListClusterTypesCache *k8s.ListClusterTypesResponse
+
+func autocompleteClusterType(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+
+	client := core.ExtractClient(ctx)
+	api := k8s.NewAPI(client)
+
+	if completeListClusterTypesCache == nil {
+		res, err := api.ListClusterTypes(&k8s.ListClusterTypesRequest{})
+		if err != nil {
+			return nil
+		}
+		completeListClusterTypesCache = res
+	}
+
+	for _, clusterType := range completeListClusterTypesCache.ClusterTypes {
+		if strings.HasPrefix(clusterType.Name, prefix) {
+			suggestions = append(suggestions, clusterType.Name)
+		}
+	}
+
+	return suggestions
+}
+
+// Caching ListK8SVersions response for shell completion
+var completeListK8SVersionsCache *k8s.ListVersionsResponse
+
+func autocompleteK8SVersion(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+
+	client := core.ExtractClient(ctx)
+	api := k8s.NewAPI(client)
+
+	if completeListK8SVersionsCache == nil {
+		res, err := api.ListVersions(&k8s.ListVersionsRequest{})
+		if err != nil {
+			return nil
+		}
+		completeListK8SVersionsCache = res
+	}
+
+	for _, version := range completeListK8SVersionsCache.Versions {
+		if strings.HasPrefix(version.Name, prefix) {
+			suggestions = append(suggestions, version.Name)
+		}
+	}
+
+	return suggestions
 }
