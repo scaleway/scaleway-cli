@@ -6,9 +6,11 @@ USAGE:
   scw ipam ip update <ip-id ...> [arg=value ...]
 
 ARGS:
-  ip-id             IP ID
-  [tags.{index}]    Tags for the IP
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  ip-id                         IP ID
+  [tags.{index}]                Tags for the IP
+  [reverses.{index}.hostname]   Reverse domain name
+  [reverses.{index}.address]    IP corresponding to the hostname
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update
