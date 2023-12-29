@@ -129,6 +129,8 @@ scw ipam ip update <ip-id ...> [arg=value ...]
 |------|---|-------------|
 | ip-id | Required | IP ID |
 | tags.{index} |  | Tags for the IP |
+| reverses.{index}.hostname |  | Reverse domain name |
+| reverses.{index}.address |  | IP corresponding to the hostname |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
