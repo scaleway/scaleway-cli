@@ -529,6 +529,14 @@ func lbIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "ip-type",
+				Short:      `IP type to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"all", "ipv4", "ipv6"},
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned`,
 				Required:   false,

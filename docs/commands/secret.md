@@ -146,9 +146,9 @@ scw secret secret create [arg=value ...]
 | description |  | Description of the secret |
 | type | One of: `unknown_secret_type`, `opaque`, `certificate`, `key_value` | Type of the secret |
 | path |  | Path of the secret |
-| ephemeral-policy-template.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
-| ephemeral-policy-template.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
-| ephemeral-policy-template.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
+| ephemeral-policy.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
+| ephemeral-policy.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
+| ephemeral-policy.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -320,9 +320,9 @@ scw secret secret update [arg=value ...]
 | tags.{index} |  | Secret's updated list of tags (optional) |
 | description |  | Description of the secret |
 | path |  | Path of the folder |
-| ephemeral-policy-template.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
-| ephemeral-policy-template.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
-| ephemeral-policy-template.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
+| ephemeral-policy.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
+| ephemeral-policy.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
+| ephemeral-policy.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -567,9 +567,9 @@ scw secret version update [arg=value ...]
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
 | description |  | Description of the version |
-| ephemeral-status.expires-at |  | The version's expiration date |
-| ephemeral-status.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
-| ephemeral-status.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
+| ephemeral-properties.expires-at |  | The version's expiration date |
+| ephemeral-properties.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
+| ephemeral-properties.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
