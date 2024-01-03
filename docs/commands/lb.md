@@ -854,6 +854,7 @@ scw lb ip list [arg=value ...]
 |------|---|-------------|
 | ip-address |  | IP address to filter for |
 | project-id |  | Project ID to filter for, only Load Balancer IP addresses from this Project will be returned |
+| ip-type | One of: `all`, `ipv4`, `ipv6` | IP type to filter for |
 | organization-id |  | Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
