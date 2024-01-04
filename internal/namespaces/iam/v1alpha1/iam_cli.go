@@ -37,6 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamSSHKeyDelete(),
 		iamUserList(),
 		iamUserGet(),
+		iamUserUpdate(),
 		iamUserDelete(),
 		iamUserCreate(),
 		iamApplicationList(),
@@ -519,6 +520,42 @@ func iamUserGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.GetUser(request)
+
+		},
+	}
+}
+
+func iamUserUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a user`,
+		Long:      `Update the parameters of a user, including ` + "`" + `tags` + "`" + `.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.UpdateUserRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags for the user (maximum of 10 tags)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.UpdateUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.UpdateUser(request)
 
 		},
 	}

@@ -55,6 +55,7 @@ IAM API.
   - [Delete a guest user from an Organization](#delete-a-guest-user-from-an-organization)
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
+  - [Update a user](#update-a-user)
 
   
 ## API keys management commands
@@ -1071,6 +1072,26 @@ scw iam user list [arg=value ...]
 | mfa |  | Filter by MFA status |
 | tag |  | Filter by tags containing a given string |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
+
+
+
+### Update a user
+
+Update the parameters of a user, including `tags`.
+
+**Usage:**
+
+```
+scw iam user update <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to update |
+| tags.{index} |  | New tags for the user (maximum of 10 tags) |
 
 
 
