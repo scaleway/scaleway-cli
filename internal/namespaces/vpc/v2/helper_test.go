@@ -65,7 +65,7 @@ func createRdbInstance() core.BeforeFunc {
 
 func detachRdbInstance() core.AfterFunc {
 	return core.ExecAfterCmd(
-		"scw rdb endpoint delete endpoint-id={{ (index .RDB.Endpoints 0).ID  }}",
+		"scw rdb endpoint delete {{ (index .RDB.Endpoints 0).ID  }} instance-id={{ .RDB.ID }}",
 	)
 }
 

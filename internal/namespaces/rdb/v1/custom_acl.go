@@ -44,31 +44,6 @@ func rdbACLCustomResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (stri
 	return messageStr + "\n" + aclStr, nil
 }
 
-func rdbACLCustomMultiResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	results := i.(core.MultiResults)
-	switch results[0].(type) {
-	case *rdbACLCustomResult:
-		finalMessage := ""
-		for _, result := range results {
-			aclResult := result.(*rdbACLCustomResult)
-			messageStr, err := aclResult.Success.MarshalHuman()
-			if err != nil {
-				return "", err
-			}
-			finalMessage += messageStr + "\n"
-		}
-
-		aclStr, err := human.Marshal(results[len(results)-1].(*rdbACLCustomResult).Rules, opt)
-		if err != nil {
-			return "", err
-		}
-		return finalMessage + aclStr, nil
-
-	default:
-		return "", nil
-	}
-}
-
 func aclAddBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(rdbACLCustomArgs{})
 	c.ArgSpecs = core.ArgSpecs{

@@ -3,7 +3,7 @@
 Retrieve information about a Database Instance endpoint. Full details about the endpoint, like `ip`, `port`, `private_network` and `load_balancer` specifications are returned in the response.
 
 USAGE:
-  scw rdb endpoint get [arg=value ...]
+  scw rdb endpoint get <endpoint-id ...> [arg=value ...]
 
 ARGS:
   endpoint-id       UUID of the endpoint you want to get

@@ -27,6 +27,7 @@ Managed Database for PostgreSQL and MySQL API
   - [Create a new Database Instance endpoint](#create-a-new-database-instance-endpoint)
   - [Delete a Database Instance endpoint](#delete-a-database-instance-endpoint)
   - [Get a Database Instance endpoint](#get-a-database-instance-endpoint)
+  - [Lists a Database Instance's endpoints](#lists-a-database-instance's-endpoints)
   - [Migrate an existing instance endpoint to another instance](#migrate-an-existing-instance-endpoint-to-another-instance)
 - [Database engines commands](#database-engines-commands)
   - [List available database engines](#list-available-database-engines)
@@ -520,7 +521,7 @@ Create a new endpoint for a Database Instance. You can add `load_balancer` and `
 **Usage:**
 
 ```
-scw rdb endpoint create [arg=value ...]
+scw rdb endpoint create <instance-id ...> [arg=value ...]
 ```
 
 
@@ -528,9 +529,11 @@ scw rdb endpoint create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you to which you want to add an endpoint |
-| endpoint-spec.private-network.private-network-id |  | UUID of the Private Network to be connected to the Database Instance |
-| endpoint-spec.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
+| instance-id | Required | UUID of the Database Instance to which you want to add an endpoint |
+| private-network.private-network-id |  | UUID of the Private Network to be connected to the Database Instance |
+| private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
+| private-network.enable-ipam | Default: `true` | Will configure your Private Network endpoint with Scaleway IPAM service if true |
+| load-balancer | Default: `true` | Will configure a public Load-Balancer endpoint |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -542,7 +545,7 @@ Delete the endpoint of a Database Instance. You must specify the `region` and `e
 **Usage:**
 
 ```
-scw rdb endpoint delete [arg=value ...]
+scw rdb endpoint delete <endpoint-id ...> [arg=value ...]
 ```
 
 
@@ -550,6 +553,7 @@ scw rdb endpoint delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| instance-id | Required | UUID of the Database Instance from which you want to delete an endpoint |
 | endpoint-id | Required | UUID of the endpoint you want to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -562,7 +566,7 @@ Retrieve information about a Database Instance endpoint. Full details about the 
 **Usage:**
 
 ```
-scw rdb endpoint get [arg=value ...]
+scw rdb endpoint get <endpoint-id ...> [arg=value ...]
 ```
 
 
@@ -572,6 +576,25 @@ scw rdb endpoint get [arg=value ...]
 |------|---|-------------|
 | endpoint-id | Required | UUID of the endpoint you want to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Lists a Database Instance's endpoints
+
+Lists all public and private endpoints of a Database Instance
+
+**Usage:**
+
+```
+scw rdb endpoint list <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | ID of the Database Instance |
 
 
 
