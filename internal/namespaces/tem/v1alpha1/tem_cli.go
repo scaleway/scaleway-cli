@@ -177,6 +177,20 @@ func temEmailCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "additional-headers.{index}.key",
+				Short:      `Email header key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "additional-headers.{index}.value",
+				Short:      `Email header value`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
