@@ -6,23 +6,25 @@ USAGE:
   scw tem email create [arg=value ...]
 
 ARGS:
-  [from.email]                    Email address
-  [from.name]                     (Optional) Name displayed
-  [to.{index}.email]              Email address
-  [to.{index}.name]               (Optional) Name displayed
-  [cc.{index}.email]              Email address
-  [cc.{index}.name]               (Optional) Name displayed
-  [bcc.{index}.email]             Email address
-  [bcc.{index}.name]              (Optional) Name displayed
-  [subject]                       Subject of the email
-  [text]                          Text content
-  [html]                          HTML content
-  [project-id]                    Project ID to use. If none is passed the default project ID will be used
-  [attachments.{index}.name]      Filename of the attachment
-  [attachments.{index}.type]      MIME type of the attachment
-  [attachments.{index}.content]   Content of the attachment encoded in base64
-  [send-before]                   Maximum date to deliver the email
-  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par)
+  [from.email]                         Email address
+  [from.name]                          (Optional) Name displayed
+  [to.{index}.email]                   Email address
+  [to.{index}.name]                    (Optional) Name displayed
+  [cc.{index}.email]                   Email address
+  [cc.{index}.name]                    (Optional) Name displayed
+  [bcc.{index}.email]                  Email address
+  [bcc.{index}.name]                   (Optional) Name displayed
+  [subject]                            Subject of the email
+  [text]                               Text content
+  [html]                               HTML content
+  [project-id]                         Project ID to use. If none is passed the default project ID will be used
+  [attachments.{index}.name]           Filename of the attachment
+  [attachments.{index}.type]           MIME type of the attachment
+  [attachments.{index}.content]        Content of the attachment encoded in base64
+  [send-before]                        Maximum date to deliver the email
+  [additional-headers.{index}.key]     Email header key
+  [additional-headers.{index}.value]   Email header value
+  [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for create

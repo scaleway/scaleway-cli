@@ -203,6 +203,8 @@ scw tem email create [arg=value ...]
 | attachments.{index}.type |  | MIME type of the attachment |
 | attachments.{index}.content |  | Content of the attachment encoded in base64 |
 | send-before |  | Maximum date to deliver the email |
+| additional-headers.{index}.key |  | Email header key |
+| additional-headers.{index}.value |  | Email header value |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
