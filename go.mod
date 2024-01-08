@@ -74,7 +74,7 @@ require (
 	github.com/buildpacks/imgutil v0.0.0-20231102131059-84d632186b59 // indirect
 	github.com/buildpacks/lifecycle v0.17.2 // indirect
 	github.com/chrismellard/docker-credential-acr-env v0.0.0-20230304212654-82a0ddb27589 // indirect
-	github.com/cloudflare/circl v1.3.3 // indirect
+	github.com/cloudflare/circl v1.3.7 // indirect
 	github.com/containerd/containerd v1.7.11 // indirect
 	github.com/containerd/continuity v0.4.2 // indirect
 	github.com/containerd/log v0.1.0 // indirect
