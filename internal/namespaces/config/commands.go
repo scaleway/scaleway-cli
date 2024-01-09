@@ -394,7 +394,7 @@ func configDumpCommand() *core.Command {
 func configProfileCommand() *core.Command {
 	return &core.Command{
 		Groups:               []string{"config"},
-		Short:                `Allows the deletion of a profile from the config file`,
+		Short:                `Allows the activation and deletion of a profile from the config file`,
 		Namespace:            "config",
 		Resource:             "profile",
 		AllowAnonymousClient: true,

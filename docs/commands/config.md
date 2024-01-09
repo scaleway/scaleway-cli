@@ -31,7 +31,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 - [Get a value from the config file](#get-a-value-from-the-config-file)
 - [Import configurations from another file](#import-configurations-from-another-file)
 - [Get config values from the config file for the current profile](#get-config-values-from-the-config-file-for-the-current-profile)
-- [Allows the deletion of a profile from the config file](#allows-the-deletion-of-a-profile-from-the-config-file)
+- [Allows the activation and deletion of a profile from the config file](#allows-the-activation-and-deletion-of-a-profile-from-the-config-file)
   - [Mark a profile as active in the config file](#mark-a-profile-as-active-in-the-config-file)
   - [Delete a profile from the config file](#delete-a-profile-from-the-config-file)
 - [Reset the config](#reset-the-config)
@@ -154,7 +154,7 @@ scw -p prod config info
 
 
 
-## Allows the deletion of a profile from the config file
+## Allows the activation and deletion of a profile from the config file
 
 
 
