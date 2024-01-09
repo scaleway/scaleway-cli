@@ -1,0 +1,34 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                cli-test-bucket-get-1646206274005181703
+Region            fr-par
+APIEndpoint       https://s3.fr-par.scw.cloud
+BucketEndpoint    https://cli-test-bucket-get-1646206274005181703.s3.fr-par.scw.cloud
+EnableVersioning  false
+Owner             fa1e3217-dc80-42ac-85c3-3f034b78b552
+Size              0 B
+NbObjects         0
+NbParts           0
+
+Acl:
+GRANTEE                               PERMISSION
+fa1e3217-dc80-42ac-85c3-3f034b78b552  FULL_CONTROL
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "ID": "cli-test-bucket-get-1646206274005181703",
+  "Region": "fr-par",
+  "APIEndpoint": "https://s3.fr-par.scw.cloud",
+  "BucketEndpoint": "https://cli-test-bucket-get-1646206274005181703.s3.fr-par.scw.cloud",
+  "EnableVersioning": false,
+  "Tags": null,
+  "ACL": [
+    {
+      "Grantee": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "Permission": "FULL_CONTROL"
+    }
+  ],
+  "Owner": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "Size": 0,
+  "NbObjects": 0,
+  "NbParts": 0
+}
