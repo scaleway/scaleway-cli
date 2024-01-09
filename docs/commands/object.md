@@ -2,11 +2,128 @@
 # Documentation for `scw object`
 Object-storage utils
   
+- [Manage S3 buckets](#manage-s3-buckets)
+  - [Create an S3 bucket](#create-an-s3-bucket)
+  - [Delete an S3 bucket](#delete-an-s3-bucket)
+  - [Get information about an S3 bucket](#get-information-about-an-s3-bucket)
+  - [List S3 buckets](#list-s3-buckets)
+  - [Update an S3 bucket](#update-an-s3-bucket)
 - [Manage configuration files for popular S3 tools](#manage-configuration-files-for-popular-s3-tools)
   - [Generate a S3 tool configuration file](#generate-a-s3-tool-configuration-file)
   - [Install a S3 tool configuration file to its default location](#install-a-s3-tool-configuration-file-to-its-default-location)
 
   
+## Manage S3 buckets
+
+Manage S3 buckets creation, deletion and updates to properties like tags, ACL and versioning.
+
+
+### Create an S3 bucket
+
+Create an Object Storage Bucket with the S3 protocol. The namespace is shared between all S3 users, so its name must be unique.
+
+**Usage:**
+
+```
+scw object bucket create <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required | The unique name of the bucket |
+| tags |  | The new tags to set on the bucket |
+| enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
+| acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete an S3 bucket
+
+Delete an S3 bucket with all its content.
+
+**Usage:**
+
+```
+scw object bucket delete <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required | The unique name of the bucket |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get information about an S3 bucket
+
+Get the properties of an S3 bucket like tags, endpoint, access control, versioning, size, etc.
+
+**Usage:**
+
+```
+scw object bucket get <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required | The unique name of the bucket |
+| with-size | Default: `false` | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List S3 buckets
+
+List all existing S3 buckets in the specified region
+
+**Usage:**
+
+```
+scw object bucket list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update an S3 bucket
+
+Update an S3 bucket's properties like tags, access control and versioning.
+
+**Usage:**
+
+```
+scw object bucket update <name ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required | The unique name of the bucket |
+| tags |  | The new tags to set on the bucket |
+| enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
+| acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
 ## Manage configuration files for popular S3 tools
 
 Configuration generation for S3 tools.

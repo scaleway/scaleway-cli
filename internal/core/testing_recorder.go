@@ -5,7 +5,9 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -60,7 +62,49 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 		r.Body = io.NopCloser(bytes.NewBuffer(reqBody))
 	}
 
+	// Specific handling of s3 URLs
+	// Url format is https://test-acc-scaleway-object-bucket-lifecycle-8445817190507446251.s3.fr-par.scw.cloud/?lifecycle=
+	if strings.HasSuffix(r.URL.Host, "scw.cloud") {
+		return customS3Matcher(r, i)
+	}
+
 	return cassette.DefaultMatcher(r, i)
+}
+
+func customS3Matcher(r *http.Request, i cassette.Request) bool {
+	expectedURL, _ := url.Parse(i.URL)
+	actualURL := r.URL
+	if !strings.HasSuffix(expectedURL.Host, "scw.cloud") {
+		return false
+	}
+
+	actualS3Host := strings.Split(actualURL.Host, ".")
+	expectedS3Host := strings.Split(expectedURL.Host, ".")
+	if len(actualS3Host) < 1 || len(expectedS3Host) < 1 {
+		return false
+	}
+	actualBucket := actualS3Host[0]
+	expectedBucket := expectedS3Host[0]
+
+	// Compare bucket names without the random number at the end
+	if strings.Contains(actualBucket, "-") {
+		actualBucket = actualBucket[:strings.LastIndex(actualBucket, "-")]
+	}
+	if strings.Contains(expectedBucket, "-") {
+		expectedBucket = expectedBucket[:strings.LastIndex(expectedBucket, "-")]
+	}
+	if actualBucket != expectedBucket {
+		return false
+	}
+
+	// Compare queries
+	expectedURLValues := expectedURL.Query()
+	actualURLValues := actualURL.Query()
+	expectedURL.RawQuery = expectedURLValues.Encode()
+	actualURL.RawQuery = actualURLValues.Encode()
+
+	return r.Method == i.Method && r.URL.Path == expectedURL.Path &&
+		actualURL.RawQuery == expectedURL.RawQuery
 }
 
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
