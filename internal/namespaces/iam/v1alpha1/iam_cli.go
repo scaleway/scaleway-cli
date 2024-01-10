@@ -1395,6 +1395,13 @@ func iamPolicyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "policy-ids.{index}",
+				Short:      `Filter by a list of IDs`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1853,9 +1860,9 @@ func iamAPIKeyList() *core.Command {
 			},
 			{
 				Name:       "access-key",
-				Short:      `Filter by access key`,
+				Short:      `Filter by access key (deprecated in favor of ` + "`" + `access_keys` + "`" + `)`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -1879,6 +1886,13 @@ func iamAPIKeyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_bearer_type", "user", "application"},
+			},
+			{
+				Name:       "access-keys.{index}",
+				Short:      `Filter by a list of access keys`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "organization-id",
