@@ -154,11 +154,10 @@ scw iam api-key list [arg=value ...]
 | ~~user-id~~ | Deprecated | ID of user that bears the API key |
 | editable |  | Defines whether to filter out editable API keys or not |
 | expired |  | Defines whether to filter out expired API keys or not |
-| ~~access-key~~ | Deprecated | Filter by access key (deprecated in favor of `access_keys`) |
+| access-key |  | Filter by access key |
 | description |  | Filter by description |
 | bearer-id |  | Filter by bearer ID |
 | bearer-type | One of: `unknown_bearer_type`, `user`, `application` | Filter by type of bearer |
-| access-keys.{index} |  | Filter by a list of access keys |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of Organization |
 
 
@@ -773,7 +772,6 @@ scw iam policy list [arg=value ...]
 | no-principal |  | Defines whether or not the policy is attributed to a principal |
 | policy-name |  | Name of the policy to fetch |
 | tag |  | Filter by tags containing a given string |
-| policy-ids.{index} |  | Filter by a list of IDs |
 | organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 

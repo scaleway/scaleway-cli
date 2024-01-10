@@ -6,10 +6,11 @@ USAGE:
   scw sdb-sql database list [arg=value ...]
 
 ARGS:
-  [project-id]      Project ID to use. If none is passed the default project ID will be used
-  [name]            Filter by the name of the database
-  [order-by]        Sorting criteria. One of `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` (created_at_asc | created_at_desc | name_asc | name_desc)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | all)
+  [project-id]        Project ID to use. If none is passed the default project ID will be used
+  [name]              Filter by the name of the database
+  [order-by]          Sorting criteria. One of `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` (created_at_asc | created_at_desc | name_asc | name_desc)
+  [organization-id]   Filter by the UUID of the Scaleway organization
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
   -h, --help   help for list
