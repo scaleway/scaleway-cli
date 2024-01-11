@@ -6,8 +6,11 @@ USAGE:
   scw jobs definition start <job-definition-id ...> [arg=value ...]
 
 ARGS:
-  job-definition-id   UUID of the job definition to start
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  job-definition-id               UUID of the job definition to start
+  [command]                       Contextual startup command for this specific job run
+  [environment-variables.{key}]   Contextual environment variables for this specific job run
+  [replicas]                      Number of jobs to run
+  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for start
