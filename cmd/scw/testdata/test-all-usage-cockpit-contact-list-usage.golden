@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
+Get a list of contact points for the Cockpit associated with the specified Project ID.
 
 USAGE:
   scw cockpit contact list [arg=value ...]

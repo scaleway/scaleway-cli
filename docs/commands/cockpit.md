@@ -3,33 +3,33 @@
 Cockpit API.
   
 - [Managed alerts management commands](#managed-alerts-management-commands)
-  - [Disable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to](#disable-the-sending-of-managed-alerts-for-a-given-cockpit,-specified-by-the-id-of-the-project-the-cockpit-belongs-to)
-  - [Enable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to](#enable-the-sending-of-managed-alerts-for-a-given-cockpit,-specified-by-the-id-of-the-project-the-cockpit-belongs-to)
-  - [Send a test alert to make sure your contact points get notified when an actual alert is triggered](#send-a-test-alert-to-make-sure-your-contact-points-get-notified-when-an-actual-alert-is-triggered)
+  - [Disable the sending of managed alerts for the specified Project's Cockpit](#disable-the-sending-of-managed-alerts-for-the-specified-project's-cockpit)
+  - [Enable the sending of managed alerts for the specified Project's Cockpit](#enable-the-sending-of-managed-alerts-for-the-specified-project's-cockpit)
+  - [Trigger a test alert to all of the Cockpit's receivers](#trigger-a-test-alert-to-all-of-the-cockpit's-receivers)
 - [Cockpit management commands](#cockpit-management-commands)
-  - [Activate the Cockpit of a given Project specified by the Project ID](#activate-the-cockpit-of-a-given-project-specified-by-the-project-id)
-  - [Deactivate the Cockpit of a given Project specified by the Project ID](#deactivate-the-cockpit-of-a-given-project-specified-by-the-project-id)
-  - [Retrieve the Cockpit of a given Project specified by the Project ID](#retrieve-the-cockpit-of-a-given-project-specified-by-the-project-id)
+  - [Activate the Cockpit of the specified Project ID](#activate-the-cockpit-of-the-specified-project-id)
+  - [Deactivate the Cockpit of the specified Project ID](#deactivate-the-cockpit-of-the-specified-project-id)
+  - [Retrieve the Cockpit of the specified Project ID](#retrieve-the-cockpit-of-the-specified-project-id)
   - [Wait for a cockpit to reach a stable state (installation)](#wait-for-a-cockpit-to-reach-a-stable-state-(installation))
 - [Contacts management commands](#contacts-management-commands)
-  - [Create a contact point associated with the default receiver, to receive alerts](#create-a-contact-point-associated-with-the-default-receiver,-to-receive-alerts)
-  - [Delete a contact point associated with the default receiver](#delete-a-contact-point-associated-with-the-default-receiver)
-  - [Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to](#get-a-list-of-contact-points-created-for-a-given-cockpit,-specified-by-the-id-of-the-project-the-cockpit-belongs-to)
+  - [Create a contact point to receive alerts for the default receiver](#create-a-contact-point-to-receive-alerts-for-the-default-receiver)
+  - [Delete a contact point for the default receiver](#delete-a-contact-point-for-the-default-receiver)
+  - [Get a list of contact points for the Cockpit associated with the specified Project ID](#get-a-list-of-contact-points-for-the-cockpit-associated-with-the-specified-project-id)
 - [Datasource management commands](#datasource-management-commands)
 - [Grafana user management commands](#grafana-user-management-commands)
-  - [Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID](#create-a-grafana-user-for-your-cockpit's-grafana.-make-sure-you-save-the-automatically-generated-password-and-the-grafana-user-id)
-  - [Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user](#delete-a-grafana-user-from-your-cockpit's-grafana,-specified-by-the-id-of-the-project-the-cockpit-belongs-to,-and-the-id-of-the-grafana-user)
-  - [Get a list of all Grafana users created in your Cockpit's Grafana](#get-a-list-of-all-grafana-users-created-in-your-cockpit's-grafana)
-  - [Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user](#reset-the-password-of-a-grafana-user,-specified-by-the-id-of-the-project-the-cockpit-belongs-to,-and-the-id-of-the-grafana-user)
+  - [Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID](#create-a-grafana-user-for-your-cockpit's-grafana-instance.-make-sure-you-save-the-automatically-generated-password-and-the-grafana-user-id)
+  - [Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID](#delete-a-grafana-user-from-a-grafana-instance,-specified-by-the-cockpit's-project-id-and-the-grafana-user-id)
+  - [Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance](#get-a-list-of-grafana-users-who-are-able-to-connect-to-the-cockpit's-grafana-instance)
+  - [Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID](#reset-a-grafana-user's-password-specified-by-the-cockpit's-project-id-and-the-grafana-user-id)
 - [Pricing plans management commands](#pricing-plans-management-commands)
   - [Get a list of all pricing plans available](#get-a-list-of-all-pricing-plans-available)
   - [Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request](#select-your-chosen-pricing-plan-for-your-cockpit,-specifying-the-cockpit's-project-id-and-the-pricing-plan's-id-in-the-request)
 - [Product dashboards management commands](#product-dashboards-management-commands)
 - [Token management commands](#token-management-commands)
-  - [Create a token in a given Project specified by the Project ID](#create-a-token-in-a-given-project-specified-by-the-project-id)
-  - [Delete a given token specified by the token ID](#delete-a-given-token-specified-by-the-token-id)
-  - [Retrieve a given token specified by the token ID](#retrieve-a-given-token-specified-by-the-token-id)
-  - [Get a list of tokens in a given Project specified by the Project ID](#get-a-list-of-tokens-in-a-given-project-specified-by-the-project-id)
+  - [Create a token associated with the specified Project ID](#create-a-token-associated-with-the-specified-project-id)
+  - [Delete the token associated with the specified token ID](#delete-the-token-associated-with-the-specified-token-id)
+  - [Retrieve the token associated with the specified token ID](#retrieve-the-token-associated-with-the-specified-token-id)
+  - [Get a list of tokens associated with the specified Project ID](#get-a-list-of-tokens-associated-with-the-specified-project-id)
 
   
 ## Managed alerts management commands
@@ -37,9 +37,9 @@ Cockpit API.
 Managed alerts management commands.
 
 
-### Disable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to
+### Disable the sending of managed alerts for the specified Project's Cockpit
 
-Disable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
+Disable the sending of managed alerts for the specified Project's Cockpit.
 
 **Usage:**
 
@@ -56,9 +56,9 @@ scw cockpit alert disable [arg=value ...]
 
 
 
-### Enable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to
+### Enable the sending of managed alerts for the specified Project's Cockpit
 
-Enable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
+Enable the sending of managed alerts for the specified Project's Cockpit.
 
 **Usage:**
 
@@ -75,9 +75,9 @@ scw cockpit alert enable [arg=value ...]
 
 
 
-### Send a test alert to make sure your contact points get notified when an actual alert is triggered
+### Trigger a test alert to all of the Cockpit's receivers
 
-Send a test alert to make sure your contact points get notified when an actual alert is triggered.
+Trigger a test alert to all of the Cockpit's receivers.
 
 **Usage:**
 
@@ -99,9 +99,9 @@ scw cockpit alert test [arg=value ...]
 Cockpit management commands.
 
 
-### Activate the Cockpit of a given Project specified by the Project ID
+### Activate the Cockpit of the specified Project ID
 
-Activate the Cockpit of a given Project specified by the Project ID.
+Activate the Cockpit of the specified Project ID.
 
 **Usage:**
 
@@ -118,9 +118,9 @@ scw cockpit cockpit activate [arg=value ...]
 
 
 
-### Deactivate the Cockpit of a given Project specified by the Project ID
+### Deactivate the Cockpit of the specified Project ID
 
-Deactivate the Cockpit of a given Project specified by the Project ID.
+Deactivate the Cockpit of the specified Project ID.
 
 **Usage:**
 
@@ -137,9 +137,9 @@ scw cockpit cockpit deactivate [arg=value ...]
 
 
 
-### Retrieve the Cockpit of a given Project specified by the Project ID
+### Retrieve the Cockpit of the specified Project ID
 
-Retrieve the Cockpit of a given Project specified by the Project ID.
+Retrieve the Cockpit of the specified Project ID.
 
 **Usage:**
 
@@ -191,9 +191,9 @@ scw cockpit cockpit wait 11111111-1111-1111-1111-111111111111
 Contacts management commands.
 
 
-### Create a contact point associated with the default receiver, to receive alerts
+### Create a contact point to receive alerts for the default receiver
 
-Create a contact point associated with the default receiver, to receive alerts.
+Create a contact point to receive alerts for the default receiver.
 
 **Usage:**
 
@@ -211,9 +211,9 @@ scw cockpit contact create [arg=value ...]
 
 
 
-### Delete a contact point associated with the default receiver
+### Delete a contact point for the default receiver
 
-Delete a contact point associated with the default receiver.
+Delete a contact point for the default receiver.
 
 **Usage:**
 
@@ -231,9 +231,9 @@ scw cockpit contact delete [arg=value ...]
 
 
 
-### Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to
+### Get a list of contact points for the Cockpit associated with the specified Project ID
 
-Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
+Get a list of contact points for the Cockpit associated with the specified Project ID.
 
 **Usage:**
 
@@ -269,9 +269,9 @@ scw cockpit datasource
 Grafana user management commands.
 
 
-### Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID
+### Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID
 
-Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID.
+Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID.
 
 **Usage:**
 
@@ -290,9 +290,9 @@ scw cockpit grafana-user create [arg=value ...]
 
 
 
-### Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user
+### Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID
 
-Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
+Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.
 
 **Usage:**
 
@@ -310,9 +310,9 @@ scw cockpit grafana-user delete [arg=value ...]
 
 
 
-### Get a list of all Grafana users created in your Cockpit's Grafana
+### Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance
 
-Get a list of all Grafana users created in your Cockpit's Grafana.
+Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance.
 
 **Usage:**
 
@@ -330,9 +330,9 @@ scw cockpit grafana-user list [arg=value ...]
 
 
 
-### Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user
+### Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID
 
-Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
+Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.
 
 **Usage:**
 
@@ -413,9 +413,9 @@ scw cockpit product-dashboards
 Token management commands.
 
 
-### Create a token in a given Project specified by the Project ID
+### Create a token associated with the specified Project ID
 
-Create a token in a given Project specified by the Project ID.
+Create a token associated with the specified Project ID.
 
 **Usage:**
 
@@ -442,9 +442,9 @@ scw cockpit token create [arg=value ...]
 
 
 
-### Delete a given token specified by the token ID
+### Delete the token associated with the specified token ID
 
-Delete a given token specified by the token ID.
+Delete the token associated with the specified token ID.
 
 **Usage:**
 
@@ -461,9 +461,9 @@ scw cockpit token delete [arg=value ...]
 
 
 
-### Retrieve a given token specified by the token ID
+### Retrieve the token associated with the specified token ID
 
-Retrieve a given token specified by the token ID.
+Retrieve the token associated with the specified token ID.
 
 **Usage:**
 
@@ -480,9 +480,9 @@ scw cockpit token get <token-id ...> [arg=value ...]
 
 
 
-### Get a list of tokens in a given Project specified by the Project ID
+### Get a list of tokens associated with the specified Project ID
 
-Get a list of tokens in a given Project specified by the Project ID.
+Get a list of tokens associated with the specified Project ID.
 
 **Usage:**
 

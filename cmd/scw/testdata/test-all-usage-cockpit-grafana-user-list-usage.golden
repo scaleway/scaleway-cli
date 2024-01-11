@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a list of all Grafana users created in your Cockpit's Grafana.
+Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance.
 
 USAGE:
   scw cockpit grafana-user list [arg=value ...]
