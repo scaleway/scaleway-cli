@@ -131,8 +131,8 @@ func cockpitProductDashboards() *core.Command {
 
 func cockpitCockpitActivate() *core.Command {
 	return &core.Command{
-		Short:     `Activate the Cockpit of the specified Project ID`,
-		Long:      `Activate the Cockpit of the specified Project ID.`,
+		Short:     `Activate the Cockpit of a given Project specified by the Project ID`,
+		Long:      `Activate the Cockpit of a given Project specified by the Project ID.`,
 		Namespace: "cockpit",
 		Resource:  "cockpit",
 		Verb:      "activate",
@@ -154,8 +154,8 @@ func cockpitCockpitActivate() *core.Command {
 
 func cockpitCockpitGet() *core.Command {
 	return &core.Command{
-		Short:     `Retrieve the Cockpit of the specified Project ID`,
-		Long:      `Retrieve the Cockpit of the specified Project ID.`,
+		Short:     `Retrieve the Cockpit of a given Project specified by the Project ID`,
+		Long:      `Retrieve the Cockpit of a given Project specified by the Project ID.`,
 		Namespace: "cockpit",
 		Resource:  "cockpit",
 		Verb:      "get",
@@ -177,8 +177,8 @@ func cockpitCockpitGet() *core.Command {
 
 func cockpitCockpitDeactivate() *core.Command {
 	return &core.Command{
-		Short:     `Deactivate the Cockpit of the specified Project ID`,
-		Long:      `Deactivate the Cockpit of the specified Project ID.`,
+		Short:     `Deactivate the Cockpit of a given Project specified by the Project ID`,
+		Long:      `Deactivate the Cockpit of a given Project specified by the Project ID.`,
 		Namespace: "cockpit",
 		Resource:  "cockpit",
 		Verb:      "deactivate",
@@ -200,8 +200,8 @@ func cockpitCockpitDeactivate() *core.Command {
 
 func cockpitTokenCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a token associated with the specified Project ID`,
-		Long:      `Create a token associated with the specified Project ID.`,
+		Short:     `Create a token in a given Project specified by the Project ID`,
+		Long:      `Create a token in a given Project specified by the Project ID.`,
 		Namespace: "cockpit",
 		Resource:  "token",
 		Verb:      "create",
@@ -294,8 +294,8 @@ func cockpitTokenCreate() *core.Command {
 
 func cockpitTokenList() *core.Command {
 	return &core.Command{
-		Short:     `Get a list of tokens associated with the specified Project ID`,
-		Long:      `Get a list of tokens associated with the specified Project ID.`,
+		Short:     `Get a list of tokens in a given Project specified by the Project ID`,
+		Long:      `Get a list of tokens in a given Project specified by the Project ID.`,
 		Namespace: "cockpit",
 		Resource:  "token",
 		Verb:      "list",
@@ -330,8 +330,8 @@ func cockpitTokenList() *core.Command {
 
 func cockpitTokenGet() *core.Command {
 	return &core.Command{
-		Short:     `Retrieve the token associated with the specified token ID`,
-		Long:      `Retrieve the token associated with the specified token ID.`,
+		Short:     `Retrieve a given token specified by the token ID`,
+		Long:      `Retrieve a given token specified by the token ID.`,
 		Namespace: "cockpit",
 		Resource:  "token",
 		Verb:      "get",
@@ -359,8 +359,8 @@ func cockpitTokenGet() *core.Command {
 
 func cockpitTokenDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete the token associated with the specified token ID`,
-		Long:      `Delete the token associated with the specified token ID.`,
+		Short:     `Delete a given token specified by the token ID`,
+		Long:      `Delete a given token specified by the token ID.`,
 		Namespace: "cockpit",
 		Resource:  "token",
 		Verb:      "delete",
@@ -394,8 +394,8 @@ func cockpitTokenDelete() *core.Command {
 
 func cockpitContactCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a contact point to receive alerts for the default receiver`,
-		Long:      `Create a contact point to receive alerts for the default receiver.`,
+		Short:     `Create a contact point associated with the default receiver, to receive alerts`,
+		Long:      `Create a contact point associated with the default receiver, to receive alerts.`,
 		Namespace: "cockpit",
 		Resource:  "contact",
 		Verb:      "create",
@@ -423,8 +423,8 @@ func cockpitContactCreate() *core.Command {
 
 func cockpitContactList() *core.Command {
 	return &core.Command{
-		Short:     `Get a list of contact points for the Cockpit associated with the specified Project ID`,
-		Long:      `Get a list of contact points for the Cockpit associated with the specified Project ID.`,
+		Short:     `Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to`,
+		Long:      `Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.`,
 		Namespace: "cockpit",
 		Resource:  "contact",
 		Verb:      "list",
@@ -451,8 +451,8 @@ func cockpitContactList() *core.Command {
 
 func cockpitContactDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a contact point for the default receiver`,
-		Long:      `Delete a contact point for the default receiver.`,
+		Short:     `Delete a contact point associated with the default receiver`,
+		Long:      `Delete a contact point associated with the default receiver.`,
 		Namespace: "cockpit",
 		Resource:  "contact",
 		Verb:      "delete",
@@ -486,8 +486,8 @@ func cockpitContactDelete() *core.Command {
 
 func cockpitAlertEnable() *core.Command {
 	return &core.Command{
-		Short:     `Enable the sending of managed alerts for the specified Project's Cockpit`,
-		Long:      `Enable the sending of managed alerts for the specified Project's Cockpit.`,
+		Short:     `Enable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to`,
+		Long:      `Enable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.`,
 		Namespace: "cockpit",
 		Resource:  "alert",
 		Verb:      "enable",
@@ -515,8 +515,8 @@ func cockpitAlertEnable() *core.Command {
 
 func cockpitAlertDisable() *core.Command {
 	return &core.Command{
-		Short:     `Disable the sending of managed alerts for the specified Project's Cockpit`,
-		Long:      `Disable the sending of managed alerts for the specified Project's Cockpit.`,
+		Short:     `Disable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to`,
+		Long:      `Disable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.`,
 		Namespace: "cockpit",
 		Resource:  "alert",
 		Verb:      "disable",
@@ -544,8 +544,8 @@ func cockpitAlertDisable() *core.Command {
 
 func cockpitAlertTest() *core.Command {
 	return &core.Command{
-		Short:     `Trigger a test alert to all of the Cockpit's receivers`,
-		Long:      `Trigger a test alert to all of the Cockpit's receivers.`,
+		Short:     `Send a test alert to make sure your contact points get notified when an actual alert is triggered`,
+		Long:      `Send a test alert to make sure your contact points get notified when an actual alert is triggered.`,
 		Namespace: "cockpit",
 		Resource:  "alert",
 		Verb:      "test",
@@ -573,8 +573,8 @@ func cockpitAlertTest() *core.Command {
 
 func cockpitGrafanaUserCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID`,
-		Long:      `Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID.`,
+		Short:     `Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID`,
+		Long:      `Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "create",
@@ -611,8 +611,8 @@ func cockpitGrafanaUserCreate() *core.Command {
 
 func cockpitGrafanaUserList() *core.Command {
 	return &core.Command{
-		Short:     `Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance`,
-		Long:      `Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance.`,
+		Short:     `Get a list of all Grafana users created in your Cockpit's Grafana`,
+		Long:      `Get a list of all Grafana users created in your Cockpit's Grafana.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "list",
@@ -646,8 +646,8 @@ func cockpitGrafanaUserList() *core.Command {
 
 func cockpitGrafanaUserDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID`,
-		Long:      `Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.`,
+		Short:     `Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user`,
+		Long:      `Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "delete",
@@ -682,8 +682,8 @@ func cockpitGrafanaUserDelete() *core.Command {
 
 func cockpitGrafanaUserResetPassword() *core.Command {
 	return &core.Command{
-		Short:     `Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID`,
-		Long:      `Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.`,
+		Short:     `Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user`,
+		Long:      `Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "reset-password",

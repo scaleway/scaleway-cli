@@ -6,10 +6,10 @@ USAGE:
   scw cockpit token <command>
 
 AVAILABLE COMMANDS:
-  create      Create a token associated with the specified Project ID
-  delete      Delete the token associated with the specified token ID
-  get         Retrieve the token associated with the specified token ID
-  list        Get a list of tokens associated with the specified Project ID
+  create      Create a token in a given Project specified by the Project ID
+  delete      Delete a given token specified by the token ID
+  get         Retrieve a given token specified by the token ID
+  list        Get a list of tokens in a given Project specified by the Project ID
 
 FLAGS:
   -h, --help   help for token
