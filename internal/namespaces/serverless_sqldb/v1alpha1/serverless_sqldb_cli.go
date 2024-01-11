@@ -197,6 +197,13 @@ func sdbSQLDatabaseList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter by the UUID of the Scaleway organization`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -341,6 +348,13 @@ func sdbSQLBackupList() *core.Command {
 		ArgsType: reflect.TypeOf(serverless_sqldb.ListDatabaseBackupsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
+				Name:       "project-id",
+				Short:      `Filter by the UUID of the Scaleway project.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "database-id",
 				Short:      `Filter by the UUID of the Serverless SQL Database.`,
 				Required:   true,
@@ -354,6 +368,13 @@ func sdbSQLBackupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter by the UUID of the Scaleway organization.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},

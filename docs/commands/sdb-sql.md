@@ -75,8 +75,10 @@ scw sdb-sql backup list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| project-id |  | Filter by the UUID of the Scaleway project. |
 | database-id | Required | Filter by the UUID of the Serverless SQL Database. |
 | order-by | One of: `created_at_asc`, `created_at_desc` | Sorting criteria. One of `created_at_asc`, `created_at_desc`. |
+| organization-id |  | Filter by the UUID of the Scaleway organization. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -168,6 +170,7 @@ scw sdb-sql database list [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | Filter by the name of the database |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sorting criteria. One of `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |
+| organization-id |  | Filter by the UUID of the Scaleway organization |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 

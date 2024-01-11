@@ -6,9 +6,11 @@ USAGE:
   scw sdb-sql backup list [arg=value ...]
 
 ARGS:
-  database-id       Filter by the UUID of the Serverless SQL Database.
-  [order-by]        Sorting criteria. One of `created_at_asc`, `created_at_desc`. (created_at_asc | created_at_desc)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | all)
+  [project-id]        Filter by the UUID of the Scaleway project.
+  database-id         Filter by the UUID of the Serverless SQL Database.
+  [order-by]          Sorting criteria. One of `created_at_asc`, `created_at_desc`. (created_at_asc | created_at_desc)
+  [organization-id]   Filter by the UUID of the Scaleway organization.
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
   -h, --help   help for list
