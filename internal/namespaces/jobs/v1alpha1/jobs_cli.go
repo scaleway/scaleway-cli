@@ -378,6 +378,27 @@ func jobsDefinitionStart() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			{
+				Name:       "command",
+				Short:      `Contextual startup command for this specific job run`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "environment-variables.{key}",
+				Short:      `Contextual environment variables for this specific job run`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "replicas",
+				Short:      `Number of jobs to run`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
