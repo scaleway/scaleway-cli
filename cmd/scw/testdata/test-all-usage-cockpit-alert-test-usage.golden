@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Trigger a test alert to all of the Cockpit's receivers.
+Send a test alert to make sure your contact points get notified when an actual alert is triggered.
 
 USAGE:
   scw cockpit alert test [arg=value ...]
