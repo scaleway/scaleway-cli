@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve the token associated with the specified token ID.
+Retrieve a given token specified by the token ID.
 
 USAGE:
   scw cockpit token get <token-id ...> [arg=value ...]
