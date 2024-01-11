@@ -88,7 +88,6 @@ func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
 		return nil, fmt.Errorf("expected 1 user with the name %q, got %d", args.User, users.TotalCount)
 	}
 	u.User = url.User(users.Users[0].Name)
-	//u = u.JoinPath(users.Users[0].Name)
 
 	// Then we have to determine the endpoint
 	var privateEndpoint *rdb.Endpoint
