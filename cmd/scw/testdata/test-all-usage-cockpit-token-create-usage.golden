@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a token associated with the specified Project ID.
+Create a token in a given Project specified by the Project ID.
 
 USAGE:
   scw cockpit token create [arg=value ...]

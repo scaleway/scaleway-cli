@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve the Cockpit of the specified Project ID.
+Retrieve the Cockpit of a given Project specified by the Project ID.
 
 USAGE:
   scw cockpit cockpit get [arg=value ...]

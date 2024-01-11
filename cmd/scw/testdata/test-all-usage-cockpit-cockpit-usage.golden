@@ -6,9 +6,9 @@ USAGE:
   scw cockpit cockpit <command>
 
 AVAILABLE COMMANDS:
-  activate    Activate the Cockpit of the specified Project ID
-  deactivate  Deactivate the Cockpit of the specified Project ID
-  get         Retrieve the Cockpit of the specified Project ID
+  activate    Activate the Cockpit of a given Project specified by the Project ID
+  deactivate  Deactivate the Cockpit of a given Project specified by the Project ID
+  get         Retrieve the Cockpit of a given Project specified by the Project ID
 
 WORKFLOW COMMANDS:
   wait        Wait for a cockpit to reach a stable state (installation)

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Activate the Cockpit of the specified Project ID.
+Activate the Cockpit of a given Project specified by the Project ID.
 
 USAGE:
   scw cockpit cockpit activate [arg=value ...]
