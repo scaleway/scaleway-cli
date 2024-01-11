@@ -21,6 +21,7 @@ Managed Database for PostgreSQL and MySQL API
 - [Database management commands](#database-management-commands)
   - [Create a database in a Database Instance](#create-a-database-in-a-database-instance)
   - [Delete a database in a Database Instance](#delete-a-database-in-a-database-instance)
+  - [Gets the URL to connect to the Database](#gets-the-url-to-connect-to-the-database)
   - [List databases in a Database Instance](#list-databases-in-a-database-instance)
 - [Endpoint management](#endpoint-management)
   - [Create a new Database Instance endpoint](#create-a-new-database-instance-endpoint)
@@ -75,6 +76,7 @@ Managed Database for PostgreSQL and MySQL API
 - [User management commands](#user-management-commands)
   - [Create a user for a Database Instance](#create-a-user-for-a-database-instance)
   - [Delete a user on a Database Instance](#delete-a-user-on-a-database-instance)
+  - [Gets the URL to connect to the Database](#gets-the-url-to-connect-to-the-database)
   - [List users of a Database Instance](#list-users-of-a-database-instance)
   - [Update a user on a Database Instance](#update-a-user-on-a-database-instance)
 
@@ -453,6 +455,27 @@ scw rdb database delete [arg=value ...]
 | instance-id | Required | UUID of the Database Instance where to delete the database |
 | name | Required | Name of the database to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Gets the URL to connect to the Database
+
+Provides the URL to connect to a Database on an Instance as the given user
+
+**Usage:**
+
+```
+scw rdb database get-url <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | ID of the Database Instance |
+| user |  | User of the Database |
+| db |  | Name of the Database to connect to |
 
 
 
@@ -1555,6 +1578,27 @@ scw rdb user delete [arg=value ...]
 | instance-id | Required | UUID of the Database Instance to delete the user from |
 | name | Required | Name of the user |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Gets the URL to connect to the Database
+
+Provides the URL to connect to a Database on an Instance as the given user
+
+**Usage:**
+
+```
+scw rdb user get-url <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | ID of the Database Instance |
+| user |  | User of the Database |
+| db |  | Name of the Database to connect to |
 
 
 
