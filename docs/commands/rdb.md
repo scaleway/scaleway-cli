@@ -187,10 +187,9 @@ scw rdb acl set [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| instance-id | Required | UUID of the Database Instance where the ACL rules must be set |
-| rules.{index}.ip |  |  |
-| rules.{index}.description |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| acl-rule-ips.{index} |  | IP addresses defined in the ACL rules of the Database Instance |
+| instance-id | Required | ID of the Database Instance |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 

@@ -113,7 +113,7 @@ func Test_SetACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
-		Cmd:        "scw rdb acl set rules.0.ip=1.2.3.4 instance-id={{ .Instance.ID }} --wait",
+		Cmd:        "scw rdb acl set acl-rule-ips.0=1.2.3.4 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -129,7 +129,7 @@ func Test_SetACL(t *testing.T) {
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd("scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
 		),
-		Cmd: "scw rdb acl set rules.0.ip=1.2.3.4 rules.1.ip=192.168.1.0/31 rules.2.ip=11.11.11.11 instance-id={{ .Instance.ID }} --wait",
+		Cmd: "scw rdb acl set acl-rule-ips.0=1.2.3.4 acl-rule-ips.1=192.168.1.0/31 acl-rule-ips.2=11.11.11.11 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
