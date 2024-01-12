@@ -18,7 +18,7 @@ We recommend this installation mode for more simplicity and reliability:
 
 ### Homebrew
 
-Install the latest stable release on macOS using [Homebrew](http://brew.sh):
+Install the [latest stable release](https://formulae.brew.sh/formula/scw) on macOS/Linux using [Homebrew](http://brew.sh):
 
 ```sh
 brew install scw
