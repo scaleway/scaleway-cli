@@ -3,9 +3,9 @@ package rdb_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
-
+	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 )
 
 func Test_AddACL(t *testing.T) {
@@ -113,11 +113,13 @@ func Test_SetACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
-		Cmd:        "scw rdb acl set rules.0.ip=1.2.3.4 instance-id={{ .Instance.ID }} --wait",
+		Cmd:        "scw rdb acl set 1.2.3.4 instance-id={{ .Instance.ID }} descriptions.0=something --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				verifyACL(ctx, t, []string{"1.2.3.4/32"})
+				acls := ctx.Result.(*rdb.CustomACLResult).Rules
+				assert.Equal(t, "something", acls[0].Description)
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -129,11 +131,22 @@ func Test_SetACL(t *testing.T) {
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd("scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
 		),
-		Cmd: "scw rdb acl set rules.0.ip=1.2.3.4 rules.1.ip=192.168.1.0/31 rules.2.ip=11.11.11.11 instance-id={{ .Instance.ID }} --wait",
+		Cmd: "scw rdb acl set 1.2.3.4 192.168.1.0/31 11.11.11.11 instance-id={{ .Instance.ID }} descriptions.0=first descriptions.1=second descriptions.2=third --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				verifyACL(ctx, t, []string{"1.2.3.4/32", "192.168.1.0/31", "11.11.11.11/32"})
+				acls := ctx.Result.(*rdb.CustomACLResult).Rules
+				for _, acl := range acls {
+					switch acl.IP.String() {
+					case "1.2.3.4/32":
+						assert.Equal(t, "first", acl.Description)
+					case "192.168.1.0/31":
+						assert.Equal(t, "second", acl.Description)
+					case "11.11.11.11/32":
+						assert.Equal(t, "third", acl.Description)
+					}
+				}
 			},
 		),
 		AfterFunc: deleteInstance(),
