@@ -93,7 +93,7 @@ Add an additional ACL rule to a Database Instance.
 **Usage:**
 
 ```
-scw rdb acl add [arg=value ...]
+scw rdb acl add <acl-rule-ips ...> [arg=value ...]
 ```
 
 
@@ -101,10 +101,9 @@ scw rdb acl add [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to add ACL rules to |
-| rules.{index}.ip |  |  |
-| rules.{index}.description |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| acl-rule-ips | Required | IP addresses defined in the ACL rules of the Database Instance |
+| instance-id | Required | ID of the Database Instance |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -115,7 +114,7 @@ Delete one or more ACL rules of a Database Instance.
 **Usage:**
 
 ```
-scw rdb acl delete [arg=value ...]
+scw rdb acl delete <acl-rule-ips ...> [arg=value ...]
 ```
 
 
@@ -123,9 +122,9 @@ scw rdb acl delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to delete an ACL rule from |
-| rules.{index}.ip | Required | IP addresses defined in the ACL rules of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| acl-rule-ips | Required | IP addresses defined in the ACL rules of the Database Instance |
+| instance-id | Required | ID of the Database Instance |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -145,7 +144,7 @@ scw rdb acl edit <instance-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| instance-id | Required | ID of the database instance  |
+| instance-id | Required | ID of the Database Instance |
 | mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
