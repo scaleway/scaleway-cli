@@ -144,3 +144,15 @@ func clusterWaitCommand() *core.Command {
 		},
 	}
 }
+
+func ACLAddListBuilder(c *core.Command) *core.Command {
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		originalResp, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+		ACLAddResponse := originalResp.(*redis.AddACLRulesResponse)
+		return ACLAddResponse.ACLRules, nil
+	})
+	return c
+}
