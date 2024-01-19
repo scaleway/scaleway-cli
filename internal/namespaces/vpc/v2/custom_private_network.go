@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
@@ -14,6 +15,28 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
+
+func privateNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp vpc.PrivateNetwork
+	pn := tmp(i.(vpc.PrivateNetwork))
+
+	// Sections
+	opt.Sections = []*human.MarshalSection{
+
+		{
+			FieldName:   "Subnets",
+			Title:       "Subnets",
+			HideIfEmpty: true,
+		},
+	}
+
+	str, err := human.Marshal(pn, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
 
 func privateNetworkGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
