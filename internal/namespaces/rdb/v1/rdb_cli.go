@@ -606,6 +606,7 @@ func rdbBackupRestore() *core.Command {
 }
 
 func rdbBackupExport() *core.Command {
+
 	return &core.Command{
 		Short:     `Export a database backup`,
 		Long:      `Export a backup, specified by the ` + "`" + `database_backup_id` + "`" + ` and the ` + "`" + `region` + "`" + ` parameters. The download URL is returned in the response.`,

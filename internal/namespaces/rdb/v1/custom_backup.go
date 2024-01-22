@@ -233,6 +233,110 @@ func backupListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func backupExportDisplayBuilder(c *core.Command) *core.Command {
+	type customBackup struct {
+		ID           string                   `json:"ID"`
+		InstanceID   string                   `json:"instance_ID"`
+		DatabaseName string                   `json:"database_name"`
+		Name         string                   `json:"name"`
+		Status       rdb.DatabaseBackupStatus `json:"status"`
+		Size         *scw.Size                `json:"size"`
+		ExpiresAt    *time.Time               `json:"expires_at"`
+		CreatedAt    *time.Time               `json:"created_at"`
+		UpdatedAt    *time.Time               `json:"updated_at"`
+		InstanceName string                   `json:"instance_name"`
+		IsExported   bool                     `json:"is_exported"`
+		//DownloadURL  string                   `json:"download_url"`
+		//URLExpired   bool                     `json:"url_expired"`
+		Region     scw.Region `json:"region"`
+		SameRegion bool       `json:"same_region"`
+	}
+
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{
+				Label:     "ID",
+				FieldName: "ID",
+			},
+			{
+				Label:     "Name",
+				FieldName: "Name",
+			},
+			{
+				Label:     "Database Name",
+				FieldName: "DatabaseName",
+			},
+			{
+				Label:     "Size",
+				FieldName: "Size",
+			},
+			{
+				Label:     "Status",
+				FieldName: "Status",
+			},
+			{
+				Label:     "Instance ID",
+				FieldName: "InstanceID",
+			},
+			{
+				Label:     "Is Exported",
+				FieldName: "IsExported",
+			},
+			{
+				Label:     "Created At",
+				FieldName: "CreatedAt",
+			},
+			{
+				Label:     "Updated At",
+				FieldName: "UpdatedAt",
+			},
+			{
+				Label:     "Region",
+				FieldName: "Region",
+			},
+			{
+				Label:     "Same Region",
+				FieldName: "SameRegion",
+			},
+		},
+	}
+
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		listBackupResp, err := runner(ctx, argsI)
+		if err != nil {
+			return listBackupResp, err
+		}
+		backup := listBackupResp.(*rdb.DatabaseBackup)
+		var res []customBackup
+
+		is_exported := false
+		if backup.DownloadURL != nil {
+			is_exported = true
+
+		}
+		res = append(res, customBackup{
+			ID:           backup.ID,
+			InstanceID:   backup.InstanceID,
+			DatabaseName: backup.DatabaseName,
+			Name:         backup.Name,
+			Status:       backup.Status,
+			Size:         backup.Size,
+			ExpiresAt:    backup.ExpiresAt,
+			CreatedAt:    backup.CreatedAt,
+			UpdatedAt:    backup.UpdatedAt,
+			InstanceName: backup.InstanceName,
+			//DownloadURL:  downloadURL,
+			//URLExpired:   urlExpired(backup.DownloadURLExpiresAt),
+			IsExported: is_exported,
+			Region:     backup.Region,
+			SameRegion: backup.SameRegion,
+		})
+		return res, nil
+	})
+
+	return c
+}
+
 // urlExpired: indicates if the backup url is still valid after the indicated date.
 func urlExpired(expirationDate *time.Time) bool {
 	if expirationDate == nil {
