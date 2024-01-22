@@ -168,6 +168,8 @@ func instanceCloneBuilder(c *core.Command) *core.Command {
 // Caching ListNodeType response for shell completion
 var completeListNodeTypeCache *rdb.ListNodeTypesResponse
 
+var completeListEngineCache *rdb.ListDatabaseEnginesResponse
+
 func autoCompleteNodeType(ctx context.Context, prefix string) core.AutocompleteSuggestions {
 	suggestions := core.AutocompleteSuggestions(nil)
 
@@ -189,6 +191,28 @@ func autoCompleteNodeType(ctx context.Context, prefix string) core.AutocompleteS
 	}
 
 	return suggestions
+}
+
+func autoCompleteDatabaseEngines(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+	suggestion := core.AutocompleteSuggestions(nil)
+	client := core.ExtractClient(ctx)
+	api := rdb.NewAPI(client)
+
+	if completeListEngineCache == nil {
+		res, err := api.ListDatabaseEngines(&rdb.ListDatabaseEnginesRequest{}, scw.WithAllPages())
+		if err != nil {
+			return nil
+		}
+		completeListEngineCache = res
+	}
+
+	for _, engine := range completeListEngineCache.Engines {
+		if strings.HasPrefix(engine.Name, prefix) {
+			suggestion = append(suggestion, engine.Name)
+		}
+	}
+
+	return suggestion
 }
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
@@ -231,6 +255,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("password").Required = false
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
+	c.ArgSpecs.GetByName("engine").AutoCompleteFunc = autoCompleteDatabaseEngines
 
 	c.ArgsType = reflect.TypeOf(rdbCreateInstanceRequestCustom{})
 
