@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.
+
+USAGE:
+  scw ipam ip create [arg=value ...]
+
+ARGS:
+  [project-id]                  Project ID to use. If none is passed the default project ID will be used
+  [source.zonal]                Zone the IP lives in if the IP is a public zoned IP.
+  [source.private-network-id]   Private Network the IP lives in if the IP is a private IP.
+  [source.subnet-id]            Private Network subnet the IP lives in if the IP is a private IP in a Private Network.
+  [is-ipv6]                     Request an IPv6 instead of an IPv4
+  [address]                     Request a specific IP in the requested source pool
+  [tags.{index}]                Tags for the IP
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

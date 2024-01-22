@@ -20,13 +20,21 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		secretRoot(),
+		secretFolder(),
 		secretSecret(),
 		secretVersion(),
+		secretTag(),
 		secretSecretCreate(),
+		secretFolderCreate(),
 		secretSecretGet(),
 		secretSecretUpdate(),
 		secretSecretList(),
+		secretFolderList(),
 		secretSecretDelete(),
+		secretFolderDelete(),
+		secretSecretProtect(),
+		secretSecretUnprotect(),
+		secretSecretAddOwner(),
 		secretVersionCreate(),
 		secretVersionGeneratePassword(),
 		secretVersionGet(),
@@ -36,6 +44,7 @@ func GetGeneratedCommands() *core.Commands {
 		secretVersionDisable(),
 		secretVersionAccess(),
 		secretVersionDelete(),
+		secretTagList(),
 	)
 }
 func secretRoot() *core.Command {
@@ -43,6 +52,15 @@ func secretRoot() *core.Command {
 		Short:     `Secret Manager API`,
 		Long:      `This API allows you to conveniently store, access and share sensitive data.`,
 		Namespace: "secret",
+	}
+}
+
+func secretFolder() *core.Command {
+	return &core.Command{
+		Short:     `Folder management commands`,
+		Long:      `Location of the secret in the directory structure.`,
+		Namespace: "secret",
+		Resource:  "folder",
 	}
 }
 
@@ -64,10 +82,19 @@ func secretVersion() *core.Command {
 	}
 }
 
+func secretTag() *core.Command {
+	return &core.Command{
+		Short:     `Tag management commands`,
+		Long:      `Tag management commands.`,
+		Namespace: "secret",
+		Resource:  "tag",
+	}
+}
+
 func secretSecretCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a secret`,
-		Long:      `You must sepcify the ` + "`" + `region` + "`" + ` to create a secret.`,
+		Long:      `You must specify the ` + "`" + `region` + "`" + ` to create a secret.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "create",
@@ -102,9 +129,45 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_secret_type", "opaque", "network_edge_certificate"},
+				EnumValues: []string{"unknown_secret_type", "opaque", "certificate", "key_value"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			{
+				Name:       "path",
+				Short:      `Path of the secret`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ephemeral-policy.time-to-live",
+				Short:      `Time frame, from one second and up to one year, during which the secret's versions are valid.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ephemeral-policy.expires-once-accessed",
+				Short:      `Returns ` + "`" + `true` + "`" + ` if the version expires after a single user access.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ephemeral-policy.action",
+				Short:      `Action to perform when the version of a secret expires`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_action", "delete", "disable"},
+			},
+			{
+				Name:       "is-protected",
+				Short:      `Returns ` + "`" + `true` + "`" + ` if secret protection is enabled on a given secret`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.CreateSecretRequest)
@@ -119,6 +182,44 @@ func secretSecretCreate() *core.Command {
 				Short: "Add a given secret",
 				Raw:   `scw secret secret create name=foobar description="$(cat <path/to/your/secret>)"`,
 			},
+		},
+	}
+}
+
+func secretFolderCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create folder`,
+		Long:      `Create folder.`,
+		Namespace: "secret",
+		Resource:  "folder",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.CreateFolderRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "name",
+				Short:      `Name of the folder`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "path",
+				Short:      `Path of the folder`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.CreateFolderRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.CreateFolder(request)
+
 		},
 	}
 }
@@ -140,7 +241,7 @@ func secretSecretGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.GetSecretRequest)
@@ -156,7 +257,7 @@ func secretSecretGet() *core.Command {
 func secretSecretUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update metadata of a secret`,
-		Long:      `Edit a secret's metadata such as name, tag(s) and description. The secret to update is specified by the ` + "`" + `secret_id` + "`" + ` and ` + "`" + `region` + "`" + ` parameters.`,
+		Long:      `Edit a secret's metadata such as name, tag(s), description and ephemeral policy. The secret to update is specified by the ` + "`" + `secret_id` + "`" + ` and ` + "`" + `region` + "`" + ` parameters.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "update",
@@ -191,7 +292,36 @@ func secretSecretUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			{
+				Name:       "path",
+				Short:      `Path of the folder`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ephemeral-policy.time-to-live",
+				Short:      `Time frame, from one second and up to one year, during which the secret's versions are valid.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ephemeral-policy.expires-once-accessed",
+				Short:      `Returns ` + "`" + `true` + "`" + ` if the version expires after a single user access.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ephemeral-policy.action",
+				Short:      `Action to perform when the version of a secret expires`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_action", "delete", "disable"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.UpdateSecretRequest)
@@ -250,13 +380,27 @@ func secretSecretList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "path",
+				Short:      `Filter by path (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-ephemeral",
+				Short:      `Filter by ephemeral / not ephemeral (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Filter by Organization ID (optional)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.ListSecretsRequest)
@@ -273,6 +417,59 @@ func secretSecretList() *core.Command {
 				return nil, err
 			}
 			return resp.Secrets, nil
+
+		},
+	}
+}
+
+func secretFolderList() *core.Command {
+	return &core.Command{
+		Short:     `List folders`,
+		Long:      `Retrieve the list of folders created within a Project.`,
+		Namespace: "secret",
+		Resource:  "folder",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.ListFoldersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "project-id",
+				Short:      `Filter by Project ID (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "path",
+				Short:      `Filter by path (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.ListFoldersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListFolders(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Folders, nil
 
 		},
 	}
@@ -295,7 +492,7 @@ func secretSecretDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.DeleteSecretRequest)
@@ -316,6 +513,165 @@ func secretSecretDelete() *core.Command {
 				Short:    "Delete a given secret",
 				ArgsJSON: `{"secret_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
+		},
+	}
+}
+
+func secretFolderDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a given folder specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `folder_id` + "`" + ` parameters`,
+		Long:      `Delete a given folder specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `folder_id` + "`" + ` parameters.`,
+		Namespace: "secret",
+		Resource:  "folder",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.DeleteFolderRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "folder-id",
+				Short:      `ID of the folder`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.DeleteFolderRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			e = api.DeleteFolder(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "folder",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func secretSecretProtect() *core.Command {
+	return &core.Command{
+		Short:     `Protect a secret`,
+		Long:      `Protect a given secret specified by the ` + "`" + `secret_id` + "`" + ` parameter. A protected secret can be read and modified but cannot be deleted.`,
+		Namespace: "secret",
+		Resource:  "secret",
+		Verb:      "protect",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.ProtectSecretRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret to protect`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.ProtectSecretRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.ProtectSecret(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Protect a secret",
+				ArgsJSON: `{"secret_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func secretSecretUnprotect() *core.Command {
+	return &core.Command{
+		Short:     `Unprotect a secret`,
+		Long:      `Unprotect a given secret specified by the ` + "`" + `secret_id` + "`" + ` parameter. An unprotected secret can be read, modified and deleted.`,
+		Namespace: "secret",
+		Resource:  "secret",
+		Verb:      "unprotect",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.UnprotectSecretRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret to unprotect`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.UnprotectSecretRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.UnprotectSecret(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Unprotect a secret",
+				ArgsJSON: `{"secret_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func secretSecretAddOwner() *core.Command {
+	return &core.Command{
+		Short:     `Allow a product to use the secret`,
+		Long:      `Allow a product to use the secret.`,
+		Namespace: "secret",
+		Resource:  "secret",
+		Verb:      "add-owner",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.AddSecretOwnerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-id",
+				Short:      `ID of the secret`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "product-name",
+				Short:      `(Deprecated: use ` + "`" + `product` + "`" + ` field) Name of the product to add`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "product",
+				Short:      `ID of the product to add`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown", "edge_services"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.AddSecretOwnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			e = api.AddSecretOwner(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "secret",
+				Verb:     "add-owner",
+			}, nil
 		},
 	}
 }
@@ -400,7 +756,7 @@ func secretVersionCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.CreateSecretVersionRequest)
@@ -479,7 +835,7 @@ func secretVersionGeneratePassword() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.GeneratePasswordRequest)
@@ -516,7 +872,7 @@ func secretVersionGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.GetSecretVersionRequest)
@@ -560,7 +916,29 @@ func secretVersionUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			{
+				Name:       "ephemeral-properties.expires-at",
+				Short:      `The version's expiration date`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ephemeral-properties.expires-once-accessed",
+				Short:      `Returns ` + "`" + `true` + "`" + ` if the version expires after a single user access.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ephemeral-properties.action",
+				Short:      `Action to perform when the version of a secret expires`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_action", "delete", "disable"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.UpdateSecretVersionRequest)
@@ -598,7 +976,7 @@ func secretVersionList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "enabled", "disabled", "destroyed"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.ListSecretVersionsRequest)
@@ -644,7 +1022,7 @@ func secretVersionEnable() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.EnableSecretVersionRequest)
@@ -681,7 +1059,7 @@ func secretVersionDisable() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.DisableSecretVersionRequest)
@@ -718,7 +1096,7 @@ func secretVersionAccess() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.AccessSecretVersionRequest)
@@ -755,7 +1133,7 @@ func secretVersionDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.DestroySecretVersionRequest)
@@ -770,6 +1148,45 @@ func secretVersionDelete() *core.Command {
 				Short:    "Delete a given Secret Version",
 				ArgsJSON: `{"revision":"1","secret_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
+		},
+	}
+}
+
+func secretTagList() *core.Command {
+	return &core.Command{
+		Short:     `List tags`,
+		Long:      `List all tags associated with secrets within a given Project.`,
+		Namespace: "secret",
+		Resource:  "tag",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.ListTagsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "project-id",
+				Short:      `ID of the Project to target`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.ListTagsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListTags(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Tags, nil
+
 		},
 	}
 }

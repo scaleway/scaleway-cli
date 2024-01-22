@@ -29,7 +29,6 @@ An image represents a container image. A container image is a file that includes
 The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](#path-images-update-an-image).
 
 
-
 ### Delete an image
 
 Delete a given image. You must specify, in the endpoint, the `region` and `image_id` parameters of the image you want to delete.
@@ -203,7 +202,6 @@ Each namespace must have a globally unique name within its region. This means no
 You can use namespace privacy policies to specify whether everyone has the right to pull an image from a namespace or not. When an image is in a public namespace, anyone is able to pull it. You can set your namespace to private if you want to restrict access.
 
 
-
 ### Create a namespace
 
 Create a new Container Registry namespace. You must specify the namespace name and region in which you want it to be created. Optionally, you can specify the `project_id` and `is_public` in the request payload.
@@ -316,7 +314,6 @@ scw registry namespace update <namespace-id ...> [arg=value ...]
 ## Tag management commands
 
 Tags allow you to organize your container images. This gives you the possibility of sorting and filtering your images in any organizational pattern of your choice, which in turn helps you arrange, control and monitor your cloud resources. You can assign as many tags as you want to each image.
-
 
 
 ### Delete a tag

@@ -44,10 +44,10 @@ func configRoot() *core.Command {
 	for _, envVar := range [][5]string{
 		{"|", "Environment Variable", "|", "Description", "|"},
 		{"|", "--", "|", "--", "|"},
-		{"|", scw.ScwAccessKeyEnv, "|", "The access key of a token (create a token at https://console.scaleway.com/project/credentials)", "|"},
-		{"|", scw.ScwSecretKeyEnv, "|", "The secret key of a token (create a token at https://console.scaleway.com/project/credentials)", "|"},
-		{"|", scw.ScwDefaultOrganizationIDEnv, "|", "The default organization ID (get your organization ID at https://console.scaleway.com/project/credentials)", "|"},
-		{"|", scw.ScwDefaultProjectIDEnv, "|", "The default project ID (get your project ID at https://console.scaleway.com/project/credentials)", "|"},
+		{"|", scw.ScwAccessKeyEnv, "|", "The access key of a token (create a token at https://console.scaleway.com/iam/api-keys)", "|"},
+		{"|", scw.ScwSecretKeyEnv, "|", "The secret key of a token (create a token at https://console.scaleway.com/iam/api-keys)", "|"},
+		{"|", scw.ScwDefaultOrganizationIDEnv, "|", "The default organization ID (get your organization ID at https://console.scaleway.com/iam/api-keys)", "|"},
+		{"|", scw.ScwDefaultProjectIDEnv, "|", "The default project ID (get your project ID at https://console.scaleway.com/iam/api-keys)", "|"},
 		{"|", scw.ScwDefaultRegionEnv, "|", "The default region", "|"},
 		{"|", scw.ScwDefaultZoneEnv, "|", "The default availability zone", "|"},
 		{"|", scw.ScwAPIURLEnv, "|", "URL of the API", "|"},
@@ -394,7 +394,7 @@ func configDumpCommand() *core.Command {
 func configProfileCommand() *core.Command {
 	return &core.Command{
 		Groups:               []string{"config"},
-		Short:                `Allows the deletion of a profile from the config file`,
+		Short:                `Allows the activation and deletion of a profile from the config file`,
 		Namespace:            "config",
 		Resource:             "profile",
 		AllowAnonymousClient: true,

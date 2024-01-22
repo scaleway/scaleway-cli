@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Wait for a Redis cluster to reach a stable state. This is similar to using --wait flag.
+
+USAGE:
+  scw redis cluster wait <cluster-id ...> [arg=value ...]
+
+EXAMPLES:
+  Wait for a Redis cluster to reach a stable state
+    scw redis cluster wait
+
+ARGS:
+  cluster-id        ID of the cluster you want to wait for
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
+  [timeout=15m0s]   Timeout of the wait
+
+FLAGS:
+  -h, --help   help for wait
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

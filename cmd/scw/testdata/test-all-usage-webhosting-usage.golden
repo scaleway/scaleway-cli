@@ -6,8 +6,9 @@ USAGE:
   scw webhosting <command>
 
 AVAILABLE COMMANDS:
-  hosting     Hosting management commands
-  offer       Offer management commands
+  control-panel Control Panels
+  hosting       Hosting management commands
+  offer         Offer management commands
 
 FLAGS:
   -h, --help   help for webhosting

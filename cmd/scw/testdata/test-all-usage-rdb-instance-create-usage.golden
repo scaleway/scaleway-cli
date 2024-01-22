@@ -18,8 +18,10 @@ ARGS:
   [tags.{index}]                                                Tags to apply to the Database Instance
   [init-settings.{index}.name]                                  
   [init-settings.{index}.value]                                 
-  [volume-type]                                                 Type of volume where data is stored (lssd, bssd, ...) (lssd | bssd)
+  [volume-type]                                                 Type of volume where data is stored (lssd, bssd, ...) (lssd | bssd | sbs_5k | sbs_15k)
   [volume-size]                                                 Volume size when volume_type is not lssd
+  [init-endpoints.{index}.load-balancer=false]                  Will configure a load-balancer endpoint along with your private network endpoint if true
+  [init-endpoints.{index}.private-network.enable-ipam=false]    Will configure your Private Network endpoint with Scaleway IPAM service if true
   [init-endpoints.{index}.private-network.private-network-id]   UUID of the Private Network to be connected to the Database Instance
   [init-endpoints.{index}.private-network.service-ip]           Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.
   [backup-same-region]                                          Defines whether to or not to store logical backups in the same region as the Database Instance

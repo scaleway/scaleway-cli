@@ -2,12 +2,21 @@
 # Documentation for `scw secret`
 This API allows you to conveniently store, access and share sensitive data.
   
+- [Folder management commands](#folder-management-commands)
+  - [Create folder](#create-folder)
+  - [Delete a given folder specified by the `region` and `folder_id` parameters](#delete-a-given-folder-specified-by-the-`region`-and-`folder_id`-parameters)
+  - [List folders](#list-folders)
 - [Secret management commands](#secret-management-commands)
+  - [Allow a product to use the secret](#allow-a-product-to-use-the-secret)
   - [Create a secret](#create-a-secret)
   - [Delete a secret](#delete-a-secret)
   - [Get metadata using the secret's ID](#get-metadata-using-the-secret's-id)
   - [List secrets](#list-secrets)
+  - [Protect a secret](#protect-a-secret)
+  - [Unprotect a secret](#unprotect-a-secret)
   - [Update metadata of a secret](#update-metadata-of-a-secret)
+- [Tag management commands](#tag-management-commands)
+  - [List tags](#list-tags)
 - [Secret Version management commands](#secret-version-management-commands)
   - [Access a secret's version using the secret's ID](#access-a-secret's-version-using-the-secret's-id)
   - [Create a version](#create-a-version)
@@ -20,14 +29,105 @@ This API allows you to conveniently store, access and share sensitive data.
   - [Update metadata of a version](#update-metadata-of-a-version)
 
   
+## Folder management commands
+
+Location of the secret in the directory structure.
+
+
+### Create folder
+
+Create folder.
+
+**Usage:**
+
+```
+scw secret folder create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| name |  | Name of the folder |
+| path |  | Path of the folder |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a given folder specified by the `region` and `folder_id` parameters
+
+Delete a given folder specified by the `region` and `folder_id` parameters.
+
+**Usage:**
+
+```
+scw secret folder delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| folder-id | Required | ID of the folder |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List folders
+
+Retrieve the list of folders created within a Project.
+
+**Usage:**
+
+```
+scw secret folder list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Filter by Project ID (optional) |
+| path |  | Filter by path (optional) |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
 ## Secret management commands
 
 Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.
 
 
+### Allow a product to use the secret
+
+Allow a product to use the secret.
+
+**Usage:**
+
+```
+scw secret secret add-owner <secret-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| secret-id | Required | ID of the secret |
+| ~~product-name~~ | Deprecated | (Deprecated: use `product` field) Name of the product to add |
+| product | One of: `unknown`, `edge_services` | ID of the product to add |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Create a secret
 
-You must sepcify the `region` to create a secret.
+You must specify the `region` to create a secret.
 
 **Usage:**
 
@@ -44,8 +144,13 @@ scw secret secret create [arg=value ...]
 | name |  | Name of the secret |
 | tags.{index} |  | List of the secret's tags |
 | description |  | Description of the secret |
-| type | One of: `unknown_secret_type`, `opaque`, `network_edge_certificate` | Type of the secret |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| type | One of: `unknown_secret_type`, `opaque`, `certificate`, `key_value` | Type of the secret |
+| path |  | Path of the secret |
+| ephemeral-policy.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
+| ephemeral-policy.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
+| ephemeral-policy.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
+| is-protected |  | Returns `true` if secret protection is enabled on a given secret |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -75,7 +180,7 @@ scw secret secret delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -105,7 +210,7 @@ scw secret secret get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -129,14 +234,76 @@ scw secret secret list [arg=value ...]
 | tags.{index} |  | List of tags to filter on (optional) |
 | name |  | Filter by secret name (optional) |
 | is-managed |  | Filter by managed / not managed (optional) |
+| path |  | Filter by path (optional) |
+| is-ephemeral |  | Filter by ephemeral / not ephemeral (optional) |
 | organization-id |  | Filter by Organization ID (optional) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Protect a secret
+
+Protect a given secret specified by the `secret_id` parameter. A protected secret can be read and modified but cannot be deleted.
+
+**Usage:**
+
+```
+scw secret secret protect <secret-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| secret-id | Required | ID of the secret to protect |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Protect a secret
+```
+scw secret secret protect 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
+### Unprotect a secret
+
+Unprotect a given secret specified by the `secret_id` parameter. An unprotected secret can be read, modified and deleted.
+
+**Usage:**
+
+```
+scw secret secret unprotect <secret-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| secret-id | Required | ID of the secret to unprotect |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Unprotect a secret
+```
+scw secret secret unprotect 11111111-1111-1111-1111-111111111111
+```
+
 
 
 
 ### Update metadata of a secret
 
-Edit a secret's metadata such as name, tag(s) and description. The secret to update is specified by the `secret_id` and `region` parameters.
+Edit a secret's metadata such as name, tag(s), description and ephemeral policy. The secret to update is specified by the `secret_id` and `region` parameters.
 
 **Usage:**
 
@@ -153,7 +320,36 @@ scw secret secret update [arg=value ...]
 | name |  | Secret's updated name (optional) |
 | tags.{index} |  | Secret's updated list of tags (optional) |
 | description |  | Description of the secret |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| path |  | Path of the folder |
+| ephemeral-policy.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
+| ephemeral-policy.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
+| ephemeral-policy.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Tag management commands
+
+Tag management commands.
+
+
+### List tags
+
+List all tags associated with secrets within a given Project.
+
+**Usage:**
+
+```
+scw secret tag list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | ID of the Project to target |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -179,7 +375,7 @@ scw secret version access [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -208,7 +404,7 @@ scw secret version create [arg=value ...]
 | password-generation.no-digits |  | Do not include digits by default in the alphabet |
 | password-generation.additional-chars |  | Additional ascii characters to be included in the alphabet |
 | data-crc32 |  | (Optional.) The CRC32 checksum of the data as a base-10 integer |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -229,7 +425,7 @@ scw secret version delete [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -260,7 +456,7 @@ scw secret version disable [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -281,7 +477,7 @@ scw secret version enable [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -308,7 +504,7 @@ scw secret version generate-password [arg=value ...]
 | no-uppercase-letters |  | (Optional.) Exclude upper case letters by default in the password character set |
 | no-digits |  | (Optional.) Exclude digits by default in the password character set |
 | additional-chars |  | (Optional.) Additional ASCII characters to be included in the password character set |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -329,7 +525,7 @@ scw secret version get [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -350,7 +546,7 @@ scw secret version list [arg=value ...]
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
 | status.{index} | One of: `unknown`, `enabled`, `disabled`, `destroyed` | Filter results by status |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -372,7 +568,10 @@ scw secret version update [arg=value ...]
 | secret-id | Required | ID of the secret |
 | revision | Required | Version number |
 | description |  | Description of the version |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| ephemeral-properties.expires-at |  | The version's expiration date |
+| ephemeral-properties.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
+| ephemeral-properties.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

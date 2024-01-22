@@ -11,7 +11,8 @@ import (
 type jsFunction func(js.Value, []js.Value) any
 
 var tests = map[string]jsFunction{
-	"FromSlice": wasmTestFromSlice,
+	"FromSlice":        wasmTestFromSlice,
+	"MarshalBuildInfo": wasmTestMarshalBuildInfo,
 }
 
 func main() {

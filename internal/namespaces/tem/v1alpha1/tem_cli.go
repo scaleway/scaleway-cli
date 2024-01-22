@@ -38,7 +38,7 @@ func GetGeneratedCommands() *core.Commands {
 func temRoot() *core.Command {
 	return &core.Command{
 		Short:     `Transactional Email API`,
-		Long:      `Transactional Email API.`,
+		Long:      ``,
 		Namespace: "tem",
 	}
 }
@@ -173,6 +173,20 @@ func temEmailCreate() *core.Command {
 			{
 				Name:       "send-before",
 				Short:      `Maximum date to deliver the email`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "additional-headers.{index}.key",
+				Short:      `Email header key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "additional-headers.{index}.value",
+				Short:      `Email header value`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -315,6 +329,14 @@ func temEmailList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"created_at_desc", "created_at_asc", "updated_at_desc", "updated_at_asc", "status_desc", "status_asc", "mail_from_desc", "mail_from_asc", "mail_rcpt_desc", "mail_rcpt_asc", "subject_desc", "subject_asc"},
+			},
+			{
+				Name:       "flags.{index}",
+				Short:      `(Optional) List emails containing only specific flags`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_flag", "soft_bounce", "hard_bounce", "spam", "mailbox_full", "mailbox_not_found", "greylisted", "send_before_expiration"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
@@ -467,7 +489,7 @@ func temDomainCreate() *core.Command {
 func temDomainGet() *core.Command {
 	return &core.Command{
 		Short:     `Get information about a domain`,
-		Long:      `Retrieve information about a specific domain using the ` + "`" + `region` + "`" + ` and ` + "`" + `domain_id` + "`" + ` parameters.`,
+		Long:      `Retrieve information about a specific domain using the ` + "`" + `region` + "`" + ` and ` + "`" + `domain_id` + "`" + ` parameters. Monitor your domain's reputation and improve **average** and **bad** reputation statuses, using your domain's **Email activity** tab on the [Scaleway console](https://console.scaleway.com/transactional-email/domains) to get a more detailed report. Check out our [dedicated documentation](https://www.scaleway.com/en/docs/managed-services/transactional-email/reference-content/understanding-tem-reputation-score/) to improve your domain's reputation.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "get",
@@ -497,7 +519,7 @@ func temDomainGet() *core.Command {
 func temDomainList() *core.Command {
 	return &core.Command{
 		Short:     `List domains`,
-		Long:      `Retrieve domains in a specific project or in a specific Organization using the ` + "`" + `region` + "`" + ` parameter.`,
+		Long:      `Retrieve domains in a specific Project or in a specific Organization using the ` + "`" + `region` + "`" + ` parameter.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "list",

@@ -80,7 +80,12 @@ func init() {
 	})
 	marshalerFuncs.Store(reflect.TypeOf(scw.IPNet{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		v := i.(scw.IPNet)
-		return v.String(), nil
+		str := v.String()
+		if str == "<nil>" {
+			return "-", nil
+		}
+
+		return str, nil
 	})
 	marshalerFuncs.Store(reflect.TypeOf(version.Version{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		v := i.(version.Version)

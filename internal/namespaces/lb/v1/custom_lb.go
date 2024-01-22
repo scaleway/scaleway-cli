@@ -37,7 +37,7 @@ func lbMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		},
 		{
 			FieldName: "Instances",
-			Title:     "Backends",
+			Title:     "LB Instances",
 		},
 	}
 
@@ -164,8 +164,21 @@ func lbGetStatsBuilder(c *core.Command) *core.Command {
 
 func interceptLB() core.CommandInterceptor {
 	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		var getLB *lb.LB
+		var err error
+
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
+
+		if _, ok := argsI.(*lb.ZonedAPIDeleteLBRequest); ok {
+			getLB, err = api.GetLB(&lb.ZonedAPIGetLBRequest{
+				Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
+				LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
+			})
+			if err != nil {
+				return nil, err
+			}
+		}
 
 		res, err := runner(ctx, argsI)
 		if err != nil {
@@ -173,13 +186,6 @@ func interceptLB() core.CommandInterceptor {
 		}
 
 		if _, ok := res.(*core.SuccessResult); ok {
-			getLB, err := api.GetLB(&lb.ZonedAPIGetLBRequest{
-				Zone: argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
-				LBID: argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
-			})
-			if err != nil {
-				return nil, err
-			}
 			if len(getLB.Tags) != 0 && getLB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}

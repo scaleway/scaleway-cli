@@ -37,7 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 func marketplaceRoot() *core.Command {
 	return &core.Command{
 		Short:     `Marketplace API`,
-		Long:      `Marketplace API.`,
+		Long:      ``,
 		Namespace: "marketplace",
 	}
 }
@@ -328,6 +328,23 @@ func marketplaceLocalImageList() *core.Command {
 			return resp.LocalImages, nil
 
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "ID",
+			},
+			{
+				FieldName: "Label",
+			},
+			{
+				FieldName: "Arch",
+			},
+			{
+				FieldName: "Zone",
+			},
+			{
+				FieldName: "CompatibleCommercialTypes",
+			},
+		}},
 	}
 }
 

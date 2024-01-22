@@ -51,7 +51,6 @@ Public Gateways API.
 These objects define a DHCP configuration, i.e. how IP addresses should be assigned to devices on a Private Network attached to a Public Gateway. Definable parameters include the subnet for the DHCP server, the validity  period for DHCP entries, whether to use dynamic pooling, and more. A DHCP configuration object has a DHCP ID, which can then be used as part of a  call to create or update a Gateway Network. This lets you attach an existing DHCP configuration to a Public Gateway attached to a Private Network. Similarly, you can use a DHCP ID as a query parameter to list Gateway Networks which use this DHCP configuration object.
 
 
-
 ### Create a DHCP configuration
 
 Create a new DHCP configuration object, containing settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. The response object includes the ID of the DHCP configuration object. You can use this ID as part of a call to `Create a Public Gateway connection to a Private Network` or `Update a Public Gateway connection to a Private Network` to directly apply this DHCP configuration.
@@ -73,18 +72,15 @@ scw vpc-gw dhcp create [arg=value ...]
 | pool-low |  | Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet |
 | pool-high |  | High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet |
 | enable-dynamic |  | Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true |
-| valid-lifetime.seconds |  |  |
-| valid-lifetime.nanos |  |  |
-| renew-timer.seconds |  |  |
-| renew-timer.nanos |  |  |
-| rebind-timer.seconds |  |  |
-| rebind-timer.nanos |  |  |
+| valid-lifetime |  | How long DHCP entries will be valid for. Defaults to 1h (3600s) |
+| renew-timer |  | After how long a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s) |
+| rebind-timer |  | After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s) |
 | push-default-route |  | Defines whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true |
 | push-dns-server |  | Defines whether the gateway should push custom DNS servers to clients. This allows for Instance hostname -> IP resolution. Defaults to true |
 | dns-servers-override.{index} |  | Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself |
 | dns-search.{index} |  | Array of search paths in addition to the pushed DNS configuration |
 | dns-local-name |  | TLD given to hostnames in the Private Network. Allowed characters are `a-z0-9-.`. Defaults to the slugified Private Network name if created along a GatewayNetwork, or else to `priv` |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -104,7 +100,7 @@ scw vpc-gw dhcp delete <dhcp-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | dhcp-id | Required | DHCP configuration ID to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -124,7 +120,7 @@ scw vpc-gw dhcp get <dhcp-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | dhcp-id | Required | ID of the DHCP configuration to fetch |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -148,7 +144,7 @@ scw vpc-gw dhcp list [arg=value ...]
 | address |  | Filter for DHCP configuration objects with this DHCP server IP address (the gateway's address in the Private Network) |
 | has-address |  | Filter for DHCP configuration objects with subnets containing this IP address |
 | organization-id |  | Include only DHCP configuration objects in this Organization |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -173,25 +169,21 @@ scw vpc-gw dhcp update <dhcp-id ...> [arg=value ...]
 | pool-low |  | Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet |
 | pool-high |  | High IP (inclusive) of the dynamic address pool. Must be in the config's subnet |
 | enable-dynamic |  | Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true |
-| valid-lifetime.seconds |  |  |
-| valid-lifetime.nanos |  |  |
-| renew-timer.seconds |  |  |
-| renew-timer.nanos |  |  |
-| rebind-timer.seconds |  |  |
-| rebind-timer.nanos |  |  |
+| valid-lifetime |  | How long DHCP entries will be valid for |
+| renew-timer |  | After how long a renew will be attempted. Must be 30s lower than `rebind_timer` |
+| rebind-timer |  | After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime` |
 | push-default-route |  | Defines whether the gateway should push a default route to DHCP clients, or only hand out IPs |
 | push-dns-server |  | Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution |
 | dns-servers-override.{index} |  | Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself |
 | dns-search.{index} |  | Array of search paths in addition to the pushed DNS configuration |
 | dns-local-name |  | TLD given to hostnames in the Private Networks. If an instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve. Allowed characters are `a-z0-9-.` |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## DHCP entries management
 
 DHCP entries belong to a specified Gateway Network (Public Gateway / Private Network connection). A DHCP entry can hold either a dynamic DHCP lease (an IP address dynamically assigned by the Public Gateway to a device) or a static, user-created DHCP reservation.
-
 
 
 ### Create a DHCP entry
@@ -212,7 +204,7 @@ scw vpc-gw dhcp-entry create [arg=value ...]
 | gateway-network-id |  | GatewayNetwork on which to create a DHCP reservation |
 | mac-address |  | MAC address to give a static entry to |
 | ip-address |  | IP address to give to the device |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -232,7 +224,7 @@ scw vpc-gw dhcp-entry delete <dhcp-entry-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | dhcp-entry-id | Required | ID of the DHCP entry to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -252,7 +244,7 @@ scw vpc-gw dhcp-entry get <dhcp-entry-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | dhcp-entry-id | Required | ID of the DHCP entry to fetch |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -277,7 +269,7 @@ scw vpc-gw dhcp-entry list [arg=value ...]
 | ip-address |  | Filter for entries with this IP address |
 | hostname |  | Filter for entries with this hostname substring |
 | type | One of: `unknown`, `reservation`, `lease` | Filter for entries of this type |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -299,7 +291,7 @@ scw vpc-gw dhcp-entry set [arg=value ...]
 | gateway-network-id |  | ID of the Gateway Network on which to set DHCP reservation list |
 | dhcp-entries.{index}.mac-address |  | MAC address to give a static entry to |
 | dhcp-entries.{index}.ip-address |  | IP address to give to the device |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -320,14 +312,13 @@ scw vpc-gw dhcp-entry update <dhcp-entry-id ...> [arg=value ...]
 |------|---|-------------|
 | dhcp-entry-id | Required | ID of the DHCP entry to update |
 | ip-address |  | New IP address to give to the device |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## Public Gateway management
 
 Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.
-
 
 
 ### Create a Public Gateway
@@ -354,7 +345,7 @@ scw vpc-gw gateway create [arg=value ...]
 | enable-smtp |  | Defines whether SMTP traffic should be allowed pass through the gateway |
 | enable-bastion |  | Defines whether SSH bastion should be enabled the gateway |
 | bastion-port |  | Port of the SSH bastion |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -375,7 +366,7 @@ scw vpc-gw gateway delete <gateway-id ...> [arg=value ...]
 |------|---|-------------|
 | gateway-id | Required | ID of the gateway to delete |
 | cleanup-dhcp |  | Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -395,7 +386,7 @@ scw vpc-gw gateway get <gateway-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | gateway-id | Required | ID of the gateway to fetch |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -422,7 +413,7 @@ scw vpc-gw gateway list [arg=value ...]
 | status | One of: `unknown`, `stopped`, `allocating`, `configuring`, `running`, `stopping`, `failed`, `deleting`, `deleted`, `locked` | Filter for gateways with this current status. Use `unknown` to include all statuses |
 | private-network-id |  | Filter for gateways attached to this Private nNetwork |
 | organization-id |  | Include only gateways in this Organization |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -442,7 +433,7 @@ scw vpc-gw gateway refresh-ssh-keys <gateway-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | gateway-id | Required | ID of the gateway to refresh SSH keys on |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -468,7 +459,7 @@ scw vpc-gw gateway update <gateway-id ...> [arg=value ...]
 | enable-bastion |  | Defines whether SSH bastion should be enabled the gateway |
 | bastion-port |  | Port of the SSH bastion |
 | enable-smtp |  | Defines whether SMTP traffic should be allowed to pass through the gateway |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -488,14 +479,13 @@ scw vpc-gw gateway upgrade <gateway-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | gateway-id | Required | ID of the gateway to upgrade |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## Gateway Networks management
 
 A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.
-
 
 
 ### Attach a Public Gateway to a Private Network
@@ -515,11 +505,13 @@ scw vpc-gw gateway-network create [arg=value ...]
 |------|---|-------------|
 | gateway-id |  | Public Gateway to connect |
 | private-network-id |  | Private Network to connect |
-| enable-masquerade |  | Defines whether to enable masquerade (dynamic NAT) on this network |
+| enable-masquerade |  | Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork. |
+| enable-dhcp |  | Defines whether to enable DHCP on this Private Network. |
 | dhcp-id |  | ID of an existing DHCP configuration object to use for this GatewayNetwork |
 | address |  | Static IP address in CIDR format to to use without DHCP |
-| enable-dhcp |  | Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| ipam-config.push-default-route |  | Enabling the default route also enables masquerading |
+| ipam-config.ipam-ip-id |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -540,7 +532,7 @@ scw vpc-gw gateway-network delete <gateway-network-id ...> [arg=value ...]
 |------|---|-------------|
 | gateway-network-id | Required | ID of the GatewayNetwork to delete |
 | cleanup-dhcp |  | Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -560,7 +552,7 @@ scw vpc-gw gateway-network get <gateway-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | gateway-network-id | Required | ID of the GatewayNetwork to fetch |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -585,7 +577,7 @@ scw vpc-gw gateway-network list [arg=value ...]
 | enable-masquerade |  | Filter for GatewayNetworks with this `enable_masquerade` setting |
 | dhcp-id |  | Filter for GatewayNetworks using this DHCP configuration |
 | status | One of: `unknown`, `created`, `attaching`, `configuring`, `ready`, `detaching`, `deleted` | Filter for GatewayNetworks with this current status this status. Use `unknown` to include all statuses |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -605,18 +597,19 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | gateway-network-id | Required | ID of the GatewayNetwork to update |
-| enable-masquerade |  | Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork |
+| enable-masquerade |  | Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork. |
+| enable-dhcp |  | Defines whether to enable DHCP on this Private Network. |
 | dhcp-id |  | ID of the new DHCP configuration object to use with this GatewayNetwork |
-| enable-dhcp |  | Defines whether to enable DHCP on the connected Private Network |
 | address |  | New static IP address |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| ipam-config.push-default-route |  | Enabling the default route also enables masquerading |
+| ipam-config.ipam-ip-id |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## Gateway types information
 
 Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
-
 
 
 ### List Public Gateway types
@@ -634,14 +627,13 @@ scw vpc-gw gateway-type list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## IP address management
 
 Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.
-
 
 
 ### Reserve an IP
@@ -661,7 +653,7 @@ scw vpc-gw ip create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags to give to the IP address |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -681,7 +673,7 @@ scw vpc-gw ip delete <ip-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip-id | Required | ID of the IP address to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -701,7 +693,7 @@ scw vpc-gw ip get <ip-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip-id | Required | ID of the IP address to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -726,7 +718,7 @@ scw vpc-gw ip list [arg=value ...]
 | reverse |  | Filter for IP addresses that have a reverse containing this string |
 | is-free |  | Filter based on whether the IP is attached to a gateway or not |
 | organization-id |  | Filter for IP addresses in this Organization |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -749,14 +741,13 @@ scw vpc-gw ip update <ip-id ...> [arg=value ...]
 | tags.{index} |  | Tags to give to the IP address |
 | reverse |  | Reverse to set on the address. Empty string to unset |
 | gateway-id |  | Gateway to attach the IP address to. Empty string to detach |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ## PAT rules management
 
 PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
-
 
 
 ### Create a PAT rule
@@ -779,7 +770,7 @@ scw vpc-gw pat-rule create [arg=value ...]
 | private-ip |  | Private IP to forward data to |
 | private-port |  | Private port to translate to |
 | protocol | One of: `unknown`, `both`, `tcp`, `udp` | Protocol the rule should apply to |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -799,7 +790,7 @@ scw vpc-gw pat-rule delete <pat-rule-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | pat-rule-id | Required | ID of the PAT rule to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -819,7 +810,7 @@ scw vpc-gw pat-rule get <pat-rule-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | pat-rule-id | Required | ID of the PAT rule to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -842,7 +833,7 @@ scw vpc-gw pat-rule list [arg=value ...]
 | gateway-id |  | Filter for PAT rules on this Gateway |
 | private-ip |  | Filter for PAT rules targeting this private ip |
 | protocol | One of: `unknown`, `both`, `tcp`, `udp` | Filter for PAT rules with this protocol |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -866,7 +857,7 @@ scw vpc-gw pat-rule set [arg=value ...]
 | pat-rules.{index}.private-ip |  | Private IP to forward data to |
 | pat-rules.{index}.private-port |  | Private port to translate to |
 | pat-rules.{index}.protocol | One of: `unknown`, `both`, `tcp`, `udp` | Protocol the rule should apply to |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -890,7 +881,7 @@ scw vpc-gw pat-rule update <pat-rule-id ...> [arg=value ...]
 | private-ip |  | Private IP to forward data to |
 | private-port |  | Private port to translate to |
 | protocol | One of: `unknown`, `both`, `tcp`, `udp` | Protocol the rule should apply to |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 

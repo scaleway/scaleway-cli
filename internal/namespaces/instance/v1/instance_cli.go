@@ -45,10 +45,12 @@ func GetGeneratedCommands() *core.Commands {
 		instanceImageList(),
 		instanceImageGet(),
 		instanceImageCreate(),
+		instanceImageUpdate(),
 		instanceImageDelete(),
 		instanceSnapshotList(),
 		instanceSnapshotCreate(),
 		instanceSnapshotGet(),
+		instanceSnapshotUpdate(),
 		instanceSnapshotDelete(),
 		instanceSnapshotExport(),
 		instanceVolumeList(),
@@ -60,12 +62,14 @@ func GetGeneratedCommands() *core.Commands {
 		instanceSecurityGroupCreate(),
 		instanceSecurityGroupGet(),
 		instanceSecurityGroupDelete(),
+		instanceSecurityGroupUpdate(),
 		instanceSecurityGroupListDefaultRules(),
 		instanceSecurityGroupListRules(),
 		instanceSecurityGroupCreateRule(),
 		instanceSecurityGroupSetRules(),
 		instanceSecurityGroupDeleteRule(),
 		instanceSecurityGroupGetRule(),
+		instanceSecurityGroupUpdateRule(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
 		instancePlacementGroupGet(),
@@ -99,9 +103,8 @@ func instanceImage() *core.Command {
 	return &core.Command{
 		Short: `Image management commands`,
 		Long: `Images are backups of your Instances.
-One image will contain all of the volumes of your Instance, and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration. 
-To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
-`,
+One image will contain all the volumes of your Instance and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
+To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.`,
 		Namespace: "instance",
 		Resource:  "image",
 	}
@@ -113,8 +116,7 @@ func instanceIP() *core.Command {
 		Long: `A flexible IP address is an IP address which you hold independently of any Instance.
 You can attach it to any of your Instances and do live migration of the IP address between your Instances.
 
-Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts any ongoing public connection to the Instance. This does not apply if you have migrated your server to the new Network stack and have at least one flexible IP attached to the Instance.
-`,
+Note that attaching a flexible IP address to an Instance removes its previous public IP and interrupts any ongoing public connection to the Instance. This does not apply if you have migrated your server to the new Network stack and have at least one flexible IP attached to the Instance.`,
 		Namespace: "instance",
 		Resource:  "ip",
 	}
@@ -140,8 +142,7 @@ For each policy types, one of the two ` + "`" + `policy_mode` + "`" + ` may be s
   - ` + "`" + `optional` + "`" + ` will start your Instances even if the constraint is not respected
   - ` + "`" + `enforced` + "`" + ` guarantees that if the Instance starts, the constraint is respected
 
-The ` + "`" + `policy_mode` + "`" + ` is set by default to ` + "`" + `optional` + "`" + `.
-`,
+The ` + "`" + `policy_mode` + "`" + ` is set by default to ` + "`" + `optional` + "`" + `.`,
 		Namespace: "instance",
 		Resource:  "placement-group",
 	}
@@ -154,8 +155,7 @@ func instanceSecurityGroup() *core.Command {
 Security groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.
 
 Security groups are stateful by default which means return traffic is automatically allowed, regardless of any rules.
-As a contrary, you have to switch in a stateless mode to define explicitly allowed.
-`,
+As a contrary, you have to switch in a stateless mode to define explicitly allowed.`,
 		Namespace: "instance",
 		Resource:  "security-group",
 	}
@@ -166,8 +166,7 @@ func instanceServer() *core.Command {
 		Short: `Instance management commands`,
 		Long: `Instances are computing units providing resources to run your applications on.
 Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
-**Note: Instances can be referenced as "servers" in API endpoints.**
-`,
+**Note: Instances can be referenced as "servers" in API endpoints.**`,
 		Namespace: "instance",
 		Resource:  "server",
 	}
@@ -177,8 +176,7 @@ func instanceServerType() *core.Command {
 	return &core.Command{
 		Short: `Instance type management commands`,
 		Long: `All Instance types available in a specified zone.
-Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
-`,
+Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.`,
 		Namespace: "instance",
 		Resource:  "server-type",
 	}
@@ -188,8 +186,7 @@ func instanceVolumeType() *core.Command {
 	return &core.Command{
 		Short: `Volume type management commands`,
 		Long: `All volume types available in a specified zone.
-Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
-`,
+Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).`,
 		Namespace: "instance",
 		Resource:  "volume-type",
 	}
@@ -212,8 +209,7 @@ A snapshot's volume type can be either its original volume's type
 of their own type or ` + "`" + `unified` + "`" + `. Therefore, to migrate data from a ` + "`" + `l_ssd` + "`" + ` volume
 to a ` + "`" + `b_ssd` + "`" + ` volume, one can create a ` + "`" + `unified` + "`" + ` snapshot from the original volume
 and a new ` + "`" + `b_ssd` + "`" + ` volume from this snapshot. The newly created volume will hold a copy
-of the data of the original volume.
-`,
+of the data of the original volume.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 	}
@@ -232,8 +228,7 @@ There are two endpoints to access user data:
    To enhance security, we only allow user data viewing and editing as root.
    To know if the query is issued by the root user, we only accept queries made from a local port below 1024 (by default, non-root users can not bind ports below 1024).
    To specify the local port with cURL, use ` + "`" + `curl --local-port 1-1024 http://169.254.42.42/user_data` + "`" + `
- - **From the Instance API** at using methods described bellow.
-`,
+ - **From the Instance API** at using methods described bellow.`,
 		Namespace: "instance",
 		Resource:  "user-data",
 	}
@@ -273,8 +268,7 @@ issue the ` + "`" + `terminate` + "`" + ` call.
 When using multiple block devices, it's advised to mount them by
 using their UUID instead of their device name. A device name is
 subject to change depending on the volumes order. Block devices
-UUIDs can be found in ` + "`" + `/dev/disk/by-id/` + "`" + `.
-`,
+UUIDs can be found in ` + "`" + `/dev/disk/by-id/` + "`" + `.`,
 		Namespace: "instance",
 		Resource:  "volume",
 	}
@@ -285,8 +279,7 @@ func instancePrivateNic() *core.Command {
 		Short: `Private NIC management commands`,
 		Long: `A Private NIC is the network interface that connects an Instance to a
 Private Network. An Instance can have multiple private NICs at the same
-time, but each NIC must belong to a different Private Network.
-`,
+time, but each NIC must belong to a different Private Network.`,
 		Namespace: "instance",
 		Resource:  "private-nic",
 	}
@@ -302,7 +295,7 @@ func instanceServerTypeGet() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(instance.GetServerTypesAvailabilityRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetServerTypesAvailabilityRequest)
@@ -325,7 +318,7 @@ func instanceServerTypeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(instance.ListServersTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListServersTypesRequest)
@@ -358,7 +351,7 @@ func instanceVolumeTypeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(instance.ListVolumesTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListVolumesTypesRequest)
@@ -435,7 +428,7 @@ func instanceServerList() *core.Command {
 				EnumValues: []string{"running", "stopped", "stopped in place", "starting", "stopping", "locked"},
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `List Instances with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -457,13 +450,34 @@ func instanceServerList() *core.Command {
 				EnumValues: []string{"creation_date_desc", "creation_date_asc", "modification_date_desc", "modification_date_asc"},
 			},
 			{
+				Name:       "private-networks",
+				Short:      `List Instances from the given Private Networks (use commas to separate them)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-nic-mac-address",
+				Short:      `List Instances associated with the given private NIC MAC address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "servers",
+				Short:      `List Instances from these server ids (use commas to separate them)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `List only Instances of this Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListServersRequest)
@@ -520,7 +534,7 @@ func instanceServerGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetServerRequest)
@@ -612,7 +626,7 @@ func instanceServerUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume", "sbs_snapshot"},
 			},
 			{
 				Name:       "volumes.{key}.base-snapshot",
@@ -655,55 +669,11 @@ func instanceServerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "public-ips.{index}.id",
-				Short:      `Unique ID of the IP address`,
+				Name:       "public-ips.{index}",
+				Short:      `A list of reserved IP IDs to attach to the Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-			},
-			{
-				Name:       "public-ips.{index}.address",
-				Short:      `Instance's public IP-Address`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "public-ips.{index}.gateway",
-				Short:      `Gateway's IP address`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "public-ips.{index}.netmask",
-				Short:      `CIDR netmask`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "public-ips.{index}.family",
-				Short:      `IP address family (inet or inet6)`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"inet", "inet6"},
-			},
-			{
-				Name:       "public-ips.{index}.dynamic",
-				Short:      `True if the IP address is dynamic`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "public-ips.{index}.provisioning-mode",
-				Short:      `Information about this address provisioning mode`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"manual", "dhcp", "slaac"},
 			},
 			{
 				Name:       "enable-ipv6",
@@ -737,49 +707,20 @@ func instanceServerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "private-nics.{index}.id",
-				Short:      `Private NIC unique ID`,
+				Name:       "private-nics.{index}",
+				Short:      `Instance private NICs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "private-nics.{index}.server-id",
-				Short:      `Instance to which the private NIC is attached`,
+				Name:       "commercial-type",
+				Short:      `Set the commercial_type for this Instance.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "private-nics.{index}.private-network-id",
-				Short:      `Private Network the private NIC is attached to`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "private-nics.{index}.mac-address",
-				Short:      `Private NIC MAC address`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "private-nics.{index}.state",
-				Short:      `Private NIC state`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"available", "syncing", "syncing_error"},
-			},
-			{
-				Name:       "private-nics.{index}.tags.{index}",
-				Short:      `Private NIC tags`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.UpdateServerRequest)
@@ -834,7 +775,7 @@ func instanceServerListActions() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListServerActionsRequest)
@@ -864,7 +805,7 @@ func instanceUserDataList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListServerUserDataRequest)
@@ -901,7 +842,7 @@ func instanceUserDataDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteServerUserDataRequest)
@@ -962,7 +903,7 @@ func instanceUserDataSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.SetServerUserDataRequest)
@@ -1005,7 +946,7 @@ func instanceUserDataGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetServerUserDataRequest)
@@ -1064,7 +1005,7 @@ func instanceImageList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListImagesRequest)
@@ -1115,7 +1056,7 @@ func instanceImageGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetImageRequest)
@@ -1169,7 +1110,7 @@ func instanceImageCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"x86_64", "arm"},
+				EnumValues: []string{"unknown_arch", "x86_64", "arm", "arm64"},
 			},
 			{
 				Name:       "default-bootscript",
@@ -1205,7 +1146,7 @@ func instanceImageCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume", "sbs_snapshot"},
 			},
 			{
 				Name:       "extra-volumes.{key}.project",
@@ -1237,7 +1178,7 @@ func instanceImageCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateImageRequest)
@@ -1252,6 +1193,72 @@ func instanceImageCreate() *core.Command {
 				Short: "Create an image named 'foobar' for x86_64 Instances from the specified snapshot ID",
 				Raw:   `scw instance server image create name=foobar snapshot-id=11111111-1111-1111-1111-111111111111 arch=x86_64`,
 			},
+		},
+	}
+}
+
+func instanceImageUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update image`,
+		Long:      `Update the properties of an image.`,
+		Namespace: "instance",
+		Resource:  "image",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdateImageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "image-id",
+				Short:      `UUID of the image`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "arch",
+				Short:      `Architecture of the image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_arch", "x86_64", "arm", "arm64"},
+			},
+			{
+				Name:       "extra-volumes.{key}.id",
+				Short:      `UUID of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public",
+				Short:      `True to set the image as public`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateImageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateImage(request)
+
 		},
 	}
 }
@@ -1273,7 +1280,7 @@ func instanceImageDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteImageRequest)
@@ -1313,30 +1320,41 @@ func instanceSnapshotList() *core.Command {
 		ArgsType: reflect.TypeOf(instance.ListSnapshotsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "name",
+				Name:       "project",
+				Short:      `List snapshots only for this Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "project",
+				Name:       "name",
+				Short:      `List snapshots of the requested name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags",
+				Short:      `List snapshots that have the requested tag`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "base-volume-id",
+				Short:      `List snapshots originating only from this volume`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization",
+				Short:      `List snapshots only for this Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListSnapshotsRequest)
@@ -1431,7 +1449,7 @@ func instanceSnapshotCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateSnapshotRequest)
@@ -1479,7 +1497,7 @@ func instanceSnapshotGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetSnapshotRequest)
@@ -1502,6 +1520,50 @@ func instanceSnapshotGet() *core.Command {
 	}
 }
 
+func instanceSnapshotUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a snapshot`,
+		Long:      `Update the properties of a snapshot.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdateSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `UUID of the snapshot`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateSnapshot(request)
+
+		},
+	}
+}
+
 func instanceSnapshotDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a snapshot`,
@@ -1519,7 +1581,7 @@ func instanceSnapshotDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteSnapshotRequest)
@@ -1579,7 +1641,7 @@ func instanceSnapshotExport() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ExportSnapshotRequest)
@@ -1614,7 +1676,7 @@ func instanceVolumeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume", "sbs_snapshot"},
 			},
 			{
 				Name:       "project",
@@ -1624,7 +1686,7 @@ func instanceVolumeList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `Filter volumes with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -1644,7 +1706,7 @@ func instanceVolumeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListVolumesRequest)
@@ -1758,18 +1820,11 @@ func instanceVolumeCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"l_ssd", "b_ssd", "unified"},
+				EnumValues: []string{"l_ssd", "b_ssd", "unified", "scratch", "sbs_volume", "sbs_snapshot"},
 			},
 			{
 				Name:       "size",
 				Short:      `Volume disk size, must be a multiple of 512`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "base-volume",
-				Short:      `ID of the volume on which this volume will be based`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1782,7 +1837,7 @@ func instanceVolumeCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateVolumeRequest)
@@ -1800,10 +1855,6 @@ func instanceVolumeCreate() *core.Command {
 			{
 				Short:    "Create a volume with a size of 50GB",
 				ArgsJSON: `{"size":50000000000}`,
-			},
-			{
-				Short:    "Create a volume of type 'l_ssd', based on volume '00112233-4455-6677-8899-aabbccddeeff'",
-				ArgsJSON: `{"base_volume":"00112233-4455-6677-8899-aabbccddeeff","volume_type":"l_ssd"}`,
 			},
 		},
 	}
@@ -1826,7 +1877,7 @@ func instanceVolumeGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetVolumeRequest)
@@ -1883,7 +1934,7 @@ func instanceVolumeUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.UpdateVolumeRequest)
@@ -1927,7 +1978,7 @@ func instanceVolumeDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteVolumeRequest)
@@ -1977,7 +2028,7 @@ func instanceSecurityGroupList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `List security groups with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -1997,7 +2048,7 @@ func instanceSecurityGroupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListSecurityGroupsRequest)
@@ -2089,7 +2140,7 @@ func instanceSecurityGroupCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("accept"),
-				EnumValues: []string{"accept", "drop"},
+				EnumValues: []string{"unknown_policy", "accept", "drop"},
 			},
 			{
 				Name:       "outbound-default-policy",
@@ -2098,7 +2149,7 @@ func instanceSecurityGroupCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("accept"),
-				EnumValues: []string{"accept", "drop"},
+				EnumValues: []string{"unknown_policy", "accept", "drop"},
 			},
 			{
 				Name:       "enable-default-security",
@@ -2108,7 +2159,7 @@ func instanceSecurityGroupCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateSecurityGroupRequest)
@@ -2160,7 +2211,7 @@ func instanceSecurityGroupGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetSecurityGroupRequest)
@@ -2196,7 +2247,7 @@ func instanceSecurityGroupDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteSecurityGroupRequest)
@@ -2221,6 +2272,101 @@ func instanceSecurityGroupDelete() *core.Command {
 	}
 }
 
+func instanceSecurityGroupUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a security group`,
+		Long:      `Update the properties of security group.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdateSecurityGroupRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Short:      `UUID of the security group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the security group`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Short:      `Description of the security group`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-default-security",
+				Short:      `True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "inbound-default-policy",
+				Short:      `Default inbound policy`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_policy", "accept", "drop"},
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the security group`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-default",
+				Short:      `Please use project_default instead`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "project-default",
+				Short:      `True use this security group for future Instances created in this project`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "outbound-default-policy",
+				Short:      `Default outbound policy`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_policy", "accept", "drop"},
+			},
+			{
+				Name:       "stateful",
+				Short:      `True to set the security group as stateful`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateSecurityGroupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateSecurityGroup(request)
+
+		},
+	}
+}
+
 func instanceSecurityGroupListDefaultRules() *core.Command {
 	return &core.Command{
 		Short:     `Get default rules`,
@@ -2231,7 +2377,7 @@ func instanceSecurityGroupListDefaultRules() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(instance.ListDefaultSecurityGroupRulesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListDefaultSecurityGroupRulesRequest)
@@ -2261,7 +2407,7 @@ func instanceSecurityGroupListRules() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListSecurityGroupRulesRequest)
@@ -2305,21 +2451,21 @@ func instanceSecurityGroupCreateRule() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"TCP", "UDP", "ICMP", "ANY"},
+				EnumValues: []string{"unknown_protocol", "TCP", "UDP", "ICMP", "ANY"},
 			},
 			{
 				Name:       "direction",
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"inbound", "outbound"},
+				EnumValues: []string{"unknown_direction", "inbound", "outbound"},
 			},
 			{
 				Name:       "action",
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"accept", "drop"},
+				EnumValues: []string{"unknown_action", "accept", "drop"},
 			},
 			{
 				Name:       "ip-range",
@@ -2356,7 +2502,7 @@ func instanceSecurityGroupCreateRule() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateSecurityGroupRuleRequest)
@@ -2421,7 +2567,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"accept", "drop"},
+				EnumValues: []string{"unknown_action", "accept", "drop"},
 			},
 			{
 				Name:       "rules.{index}.protocol",
@@ -2429,7 +2575,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"TCP", "UDP", "ICMP", "ANY"},
+				EnumValues: []string{"unknown_protocol", "TCP", "UDP", "ICMP", "ANY"},
 			},
 			{
 				Name:       "rules.{index}.direction",
@@ -2437,7 +2583,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"inbound", "outbound"},
+				EnumValues: []string{"unknown_direction", "inbound", "outbound"},
 			},
 			{
 				Name:       "rules.{index}.ip-range",
@@ -2481,7 +2627,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.SetSecurityGroupRulesRequest)
@@ -2516,7 +2662,7 @@ func instanceSecurityGroupDeleteRule() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteSecurityGroupRuleRequest)
@@ -2563,7 +2709,7 @@ func instanceSecurityGroupGetRule() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetSecurityGroupRuleRequest)
@@ -2578,6 +2724,95 @@ func instanceSecurityGroupGetRule() *core.Command {
 				Short:    "Get details of a security group rule with the specified ID",
 				ArgsJSON: `{"security_group_id":"d900fa38-2f0d-4b09-b6d7-f3e46a13f34c","security_group_rule_id":"1f9a16a5-7229-4c03-9327-253e257cf38a"}`,
 			},
+		},
+	}
+}
+
+func instanceSecurityGroupUpdateRule() *core.Command {
+	return &core.Command{
+		Short:     `Update security group rule`,
+		Long:      `Update the properties of a rule from a specified security group.`,
+		Namespace: "instance",
+		Resource:  "security-group",
+		Verb:      "update-rule",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.UpdateSecurityGroupRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "security-group-id",
+				Short:      `UUID of the security group`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "security-group-rule-id",
+				Short:      `UUID of the rule`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "protocol",
+				Short:      `Protocol family this rule applies to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_protocol", "TCP", "UDP", "ICMP", "ANY"},
+			},
+			{
+				Name:       "direction",
+				Short:      `Direction the rule applies to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_direction", "inbound", "outbound"},
+			},
+			{
+				Name:       "action",
+				Short:      `Action to apply when the rule matches a packet`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_action", "accept", "drop"},
+			},
+			{
+				Name:       "ip-range",
+				Short:      `Range of IP addresses these rules apply to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dest-port-from",
+				Short:      `Beginning of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dest-port-to",
+				Short:      `End of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "position",
+				Short:      `Position of this rule in the security group rules list`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.UpdateSecurityGroupRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.UpdateSecurityGroupRule(request)
+
 		},
 	}
 }
@@ -2600,7 +2835,7 @@ func instancePlacementGroupList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `List placement groups with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -2620,7 +2855,7 @@ func instancePlacementGroupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListPlacementGroupsRequest)
@@ -2695,7 +2930,7 @@ func instancePlacementGroupCreate() *core.Command {
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
 			core.OrganizationArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreatePlacementGroupRequest)
@@ -2751,7 +2986,7 @@ func instancePlacementGroupGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetPlacementGroupRequest)
@@ -2814,7 +3049,7 @@ func instancePlacementGroupSet() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.SetPlacementGroupRequest)
@@ -2874,7 +3109,7 @@ func instancePlacementGroupUpdate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"max_availability", "low_latency"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.UpdatePlacementGroupRequest)
@@ -2918,7 +3153,7 @@ func instancePlacementGroupDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeletePlacementGroupRequest)
@@ -2964,7 +3199,7 @@ func instancePlacementGroupGetServers() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetPlacementGroupServersRequest)
@@ -3001,7 +3236,7 @@ func instancePlacementGroupSetServers() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.SetPlacementGroupServersRequest)
@@ -3044,7 +3279,7 @@ func instancePlacementGroupUpdateServers() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.UpdatePlacementGroupServersRequest)
@@ -3075,7 +3310,7 @@ func instanceIPList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `Filter IPs with these exact tags (to filter with several tags, use commas to separate them)`,
 				Required:   false,
 				Deprecated: false,
@@ -3089,13 +3324,20 @@ func instanceIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "type",
+				Short:      `Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6')`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `Organization ID in which the IPs are reserved`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListIPsRequest)
@@ -3130,6 +3372,12 @@ func instanceIPList() *core.Command {
 			},
 			{
 				FieldName: "Address",
+			},
+			{
+				FieldName: "Prefix",
+			},
+			{
+				FieldName: "Type",
 			},
 			{
 				FieldName: "Reverse",
@@ -3190,7 +3438,7 @@ func instanceIPCreate() *core.Command {
 				EnumValues: []string{"unknown_iptype", "nat", "routed_ipv4", "routed_ipv6"},
 			},
 			core.OrganizationArgSpec(),
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreateIPRequest)
@@ -3234,7 +3482,7 @@ func instanceIPGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetIPRequest)
@@ -3300,7 +3548,7 @@ func instanceIPUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.UpdateIPRequest)
@@ -3344,7 +3592,7 @@ func instanceIPDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeleteIPRequest)
@@ -3395,13 +3643,13 @@ func instancePrivateNicList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "tags.{index}",
+				Name:       "tags",
 				Short:      `Private NIC tags`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.ListPrivateNICsRequest)
@@ -3471,7 +3719,7 @@ func instancePrivateNicCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.CreatePrivateNICRequest)
@@ -3508,7 +3756,7 @@ func instancePrivateNicGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.GetPrivateNICRequest)
@@ -3552,7 +3800,7 @@ func instancePrivateNicUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.UpdatePrivateNICRequest)
@@ -3595,7 +3843,7 @@ func instancePrivateNicDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*instance.DeletePrivateNICRequest)

@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get function resources.
+Get a trigger with a specified ID.
 
 USAGE:
-  scw function trigger get [arg=value ...]
+  scw function trigger get <trigger-id ...> [arg=value ...]
 
 ARGS:
-  trigger-id        
+  trigger-id        ID of the trigger to get
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

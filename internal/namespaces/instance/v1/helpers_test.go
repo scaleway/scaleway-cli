@@ -12,18 +12,24 @@ import (
 // Server
 //
 
-// createServer creates a stopped ubuntu-bionic server and
+// createServerBionic creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 //
 //nolint:unparam
-func createServer(metaKey string) core.BeforeFunc {
+func createServerBionic(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-bionic")
+}
+
+//nolint:unparam
+func createServer(metaKey string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server create stopped=true image=ubuntu-jammy")
 }
 
 // createServer creates a stopped ubuntu-bionic server and
 // register it in the context Meta at metaKey.
 func startServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+".ID }}")
+	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+
+		".ID }}") //nolint: goconst
 }
 
 // deleteServer deletes a server and its attached IP and volumes

@@ -7,6 +7,8 @@ USAGE:
 
 AVAILABLE COMMANDS:
   private-network Private network management command
+  subnet          Subnet management command
+  vpc             VPC management command
 
 FLAGS:
   -h, --help   help for vpc

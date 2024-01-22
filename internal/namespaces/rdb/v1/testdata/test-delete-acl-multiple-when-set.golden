@@ -1,0 +1,82 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ ACL rule 1.2.3.4/32 successfully deleted.
+✅ ACL rule 192.168.1.0/32 successfully deleted.
+✅ ACL rule 10.10.10.10/32 successfully deleted.
+IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0  20564  tcp       inbound    allow   Allow All
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "Rules": [
+      {
+        "ip": "0.0.0.0/0",
+        "port": 20564,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "Allow All"
+      },
+      {
+        "ip": "10.10.10.10/32",
+        "port": 20564,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "Allow 10.10.10.10/32"
+      },
+      {
+        "ip": "192.168.1.0/32",
+        "port": 20564,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "Allow 192.168.1.0/32"
+      }
+    ],
+    "Success": {
+      "message": "ACL rule 1.2.3.4/32 successfully deleted",
+      "details": ""
+    }
+  },
+  {
+    "Rules": [
+      {
+        "ip": "0.0.0.0/0",
+        "port": 20564,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "Allow All"
+      },
+      {
+        "ip": "10.10.10.10/32",
+        "port": 20564,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "Allow 10.10.10.10/32"
+      }
+    ],
+    "Success": {
+      "message": "ACL rule 192.168.1.0/32 successfully deleted",
+      "details": ""
+    }
+  },
+  {
+    "Rules": [
+      {
+        "ip": "0.0.0.0/0",
+        "port": 20564,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "Allow All"
+      }
+    ],
+    "Success": {
+      "message": "ACL rule 10.10.10.10/32 successfully deleted",
+      "details": ""
+    }
+  }
+]

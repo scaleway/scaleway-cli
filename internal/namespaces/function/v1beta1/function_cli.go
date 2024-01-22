@@ -65,7 +65,7 @@ func GetGeneratedCommands() *core.Commands {
 func functionRoot() *core.Command {
 	return &core.Command{
 		Short:     `Function as a Service API`,
-		Long:      `Serverless Functions API.`,
+		Long:      `Function as a Service API.`,
 		Namespace: "function",
 	}
 }
@@ -552,7 +552,7 @@ func functionFunctionCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20"},
+				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121"},
 			},
 			{
 				Name:       "memory-limit",
@@ -562,13 +562,8 @@ func functionFunctionCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "timeout.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "timeout.nanos",
+				Name:       "timeout",
+				Short:      `Request processing time limit for the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -673,7 +668,7 @@ func functionFunctionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20"},
+				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121"},
 			},
 			{
 				Name:       "memory-limit",
@@ -683,13 +678,8 @@ func functionFunctionUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "timeout.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "timeout.nanos",
+				Name:       "timeout",
+				Short:      `Processing time limit for the function`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -859,7 +849,8 @@ func functionFunctionGetUploadURL() *core.Command {
 			},
 			{
 				Name:       "content-length",
-				Required:   false,
+				Short:      `Size of the archive to upload in bytes`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -1480,8 +1471,8 @@ func functionTokenDelete() *core.Command {
 
 func functionTriggerCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create function resources`,
-		Long:      `Create function resources.`,
+		Short:     `Create a trigger`,
+		Long:      `Create a new trigger for a specified function.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "create",
@@ -1490,18 +1481,21 @@ func functionTriggerCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "description",
-				Required:   false,
+				Short:      `Name of the trigger`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "function-id",
+				Short:      `ID of the function to trigger`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Short:      `Description of the trigger`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1509,47 +1503,26 @@ func functionTriggerCreate() *core.Command {
 			{
 				Name:       "scw-sqs-config.mnq-namespace-id",
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "scw-sqs-config.queue",
+				Short:      `Name of the SQS queue the trigger should listen to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-sqs-config.mnq-project-id",
+				Short:      `ID of the Messaging and Queuing project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-sqs-config.mnq-region",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.endpoint",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.queue-url",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.access-key",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.secret-key",
+				Short:      `Region in which the Messaging and Queuing project is activated.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1557,23 +1530,33 @@ func functionTriggerCreate() *core.Command {
 			{
 				Name:       "scw-nats-config.mnq-namespace-id",
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "scw-nats-config.subject",
+				Short:      `Name of the NATS subject the trigger should listen to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scw-nats-config.mnq-nats-account-id",
+				Short:      `ID of the Messaging and Queuing NATS account`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-nats-config.mnq-project-id",
+				Short:      `ID of the Messaging and Queuing project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "scw-nats-config.mnq-region",
+				Short:      `Region in which the Messaging and Queuing project is activated.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1593,8 +1576,8 @@ func functionTriggerCreate() *core.Command {
 
 func functionTriggerGet() *core.Command {
 	return &core.Command{
-		Short:     `Get function resources`,
-		Long:      `Get function resources.`,
+		Short:     `Get a trigger`,
+		Long:      `Get a trigger with a specified ID.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "get",
@@ -1603,9 +1586,10 @@ func functionTriggerGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
+				Short:      `ID of the trigger to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -1622,8 +1606,8 @@ func functionTriggerGet() *core.Command {
 
 func functionTriggerList() *core.Command {
 	return &core.Command{
-		Short:     `List function resources`,
-		Long:      `List function resources.`,
+		Short:     `List all triggers`,
+		Long:      `List all triggers belonging to a specified Organization or Project.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "list",
@@ -1632,6 +1616,7 @@ func functionTriggerList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
+				Short:      `Order in which to return results`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1639,12 +1624,14 @@ func functionTriggerList() *core.Command {
 			},
 			{
 				Name:       "function-id",
+				Short:      `ID of the function the triggers belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "namespace-id",
+				Short:      `ID of the namespace the triggers belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1674,8 +1661,8 @@ func functionTriggerList() *core.Command {
 
 func functionTriggerUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update function resources`,
-		Long:      `Update function resources.`,
+		Short:     `Update a trigger`,
+		Long:      `Update a trigger with a specified ID.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "update",
@@ -1684,30 +1671,21 @@ func functionTriggerUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
+				Short:      `ID of the trigger to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
+				Short:      `Name of the trigger`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.access-key",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "sqs-config.secret-key",
+				Short:      `Description of the trigger`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1727,8 +1705,8 @@ func functionTriggerUpdate() *core.Command {
 
 func functionTriggerDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete function resources`,
-		Long:      `Delete function resources.`,
+		Short:     `Delete a trigger`,
+		Long:      `Delete a trigger with a specified ID.`,
 		Namespace: "function",
 		Resource:  "trigger",
 		Verb:      "delete",
@@ -1737,9 +1715,10 @@ func functionTriggerDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
+				Short:      `ID of the trigger to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},

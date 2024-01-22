@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+USAGE:
+  scw jobs run <command>
+
+AVAILABLE COMMANDS:
+  get         Get a job run by its unique identifier
+  list        List all job runs with filters
+  stop        Stop a job run by its unique identifier
+  wait        Wait for a job run to reach a stable state
+
+FLAGS:
+  -h, --help   help for run
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw jobs run [command] --help" for more information about a command.

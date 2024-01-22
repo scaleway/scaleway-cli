@@ -15,6 +15,7 @@ ARGS:
   [rules.{index}.permission-set-names.{index}]   Names of permission sets bound to the rule
   [rules.{index}.project-ids.{index}]            List of Project IDs the rule is scoped to
   [rules.{index}.organization-id]                ID of Organization the rule is scoped to
+  [tags.{index}]                                 Tags associated with the policy (maximum of 10 tags)
   [user-id]                                      ID of user attributed to the policy
   [group-id]                                     ID of group attributed to the policy
   [application-id]                               ID of application attributed to the policy

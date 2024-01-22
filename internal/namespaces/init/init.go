@@ -136,7 +136,7 @@ Default path for configuration file is based on the following priority order:
 			// Show logo banner, or simple welcome message
 			printScalewayBanner()
 
-			config, err := loadConfigOrEmpty(configPath)
+			config, err := loadConfigOrEmpty(configPath, profileName)
 			if err != nil {
 				return nil, err
 			}
@@ -280,12 +280,16 @@ func printScalewayBanner() {
 
 // loadConfigOrEmpty checks if a config exists
 // Creates a new one if it does not
-func loadConfigOrEmpty(configPath string) (*scw.Config, error) {
+// defaultProfile will be the activated one if different that default
+func loadConfigOrEmpty(configPath string, activeProfile string) (*scw.Config, error) {
 	config, err := scw.LoadConfigFromPath(configPath)
 	if err != nil {
 		_, ok := err.(*scw.ConfigFileNotFoundError)
 		if ok {
 			config = &scw.Config{}
+			if activeProfile != scw.DefaultProfileName {
+				config.ActiveProfile = &activeProfile
+			}
 			interactive.Printf("Creating new config\n")
 		} else {
 			return nil, err

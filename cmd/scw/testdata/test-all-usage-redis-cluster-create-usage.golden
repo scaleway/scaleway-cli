@@ -16,6 +16,7 @@ ARGS:
   [cluster-size]                                            Number of nodes in the Redis™ cluster
   [acl-rules.{index}.ip-cidr]                               IPv4 network address of the rule
   [acl-rules.{index}.description]                           Description of the rule
+  [endpoints.{index}.private-network.enable-ipam=false]     Will configure your Private Network endpoint with Scaleway IPAM service if true
   [endpoints.{index}.private-network.id]                    UUID of the Private Network to connect to the Database Instance
   [endpoints.{index}.private-network.service-ips.{index}]   Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.
   [tls-enabled]                                             Defines whether or not TLS is enabled
@@ -25,6 +26,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for create
+  -w, --wait   wait until the cluster is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

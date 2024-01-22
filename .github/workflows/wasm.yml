@@ -32,3 +32,7 @@ jobs:
         run: ./scripts/run-tests-wasm.sh
         env:
           TESTER: true
+      - name: Run prettier
+        uses: actionsx/prettier@v2
+        with:
+          args: --config wasm/.prettierrc --ignore-path wasm/.prettierignore --check wasm

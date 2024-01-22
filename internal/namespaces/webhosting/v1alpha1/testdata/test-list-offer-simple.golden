@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Offers:
-ID                                    BILLING OPERATION PATH           PRICE    AVAILABLE  QUOTA WARNINGS
-e500237a-a9e9-11ec-b909-0242ac120002  /webhosting/backup/fr-par        € 2.99   true       []
-f5c2ae8f-7625-4bca-b711-b44bb3d08694  /webhosting/lite/fr-par          € 5.99   true       []
-d86c61a0-a9e9-11ec-b909-0242ac120002  /webhosting/personal/fr-par      € 9.99   true       []
-de2426b4-a9e9-11ec-b909-0242ac120002  /webhosting/professional/fr-par  € 18.99  true       []
-e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99  true       []
+ID                                    BILLING OPERATION PATH           PRICE    AVAILABLE  QUOTA WARNINGS  END OF LIFE  CONTROL PANEL NAME
+e500237a-a9e9-11ec-b909-0242ac120002  /webhosting/backup/fr-par        € 2.99   true       []              false        -
+f5c2ae8f-7625-4bca-b711-b44bb3d08694  /webhosting/lite/fr-par          € 5.99   true       []              false        -
+d86c61a0-a9e9-11ec-b909-0242ac120002  /webhosting/personal/fr-par      € 9.99   true       []              false        -
+de2426b4-a9e9-11ec-b909-0242ac120002  /webhosting/professional/fr-par  € 18.99  true       []              false        -
+e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99  true       []              false        -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "offers": [
@@ -22,7 +22,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 0,
         "support_included": false,
         "v_cpu": 0,
-        "ram": 0
+        "ram": 0,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
@@ -30,7 +31,9 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "nanos": 990000000
       },
       "available": true,
-      "quota_warnings": []
+      "quota_warnings": [],
+      "end_of_life": false,
+      "control_panel_name": ""
     },
     {
       "id": "f5c2ae8f-7625-4bca-b711-b44bb3d08694",
@@ -44,7 +47,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 10,
         "support_included": true,
         "v_cpu": 1,
-        "ram": 1
+        "ram": 1,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
@@ -52,7 +56,9 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "nanos": 990000000
       },
       "available": true,
-      "quota_warnings": []
+      "quota_warnings": [],
+      "end_of_life": false,
+      "control_panel_name": ""
     },
     {
       "id": "d86c61a0-a9e9-11ec-b909-0242ac120002",
@@ -66,7 +72,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 50,
         "support_included": true,
         "v_cpu": 2,
-        "ram": 1
+        "ram": 1,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
@@ -74,7 +81,9 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "nanos": 990000000
       },
       "available": true,
-      "quota_warnings": []
+      "quota_warnings": [],
+      "end_of_life": false,
+      "control_panel_name": ""
     },
     {
       "id": "de2426b4-a9e9-11ec-b909-0242ac120002",
@@ -88,7 +97,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 100,
         "support_included": true,
         "v_cpu": 4,
-        "ram": 2
+        "ram": 2,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
@@ -96,7 +106,9 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "nanos": 990000000
       },
       "available": true,
-      "quota_warnings": []
+      "quota_warnings": [],
+      "end_of_life": false,
+      "control_panel_name": ""
     },
     {
       "id": "e1c1e6c6-a9e9-11ec-b909-0242ac120002",
@@ -110,7 +122,8 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "hosting_storage_quota": 250,
         "support_included": true,
         "v_cpu": 8,
-        "ram": 8
+        "ram": 8,
+        "max_addon_domains": 0
       },
       "price": {
         "currency_code": "EUR",
@@ -118,7 +131,9 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  /webhosting/ecommerce/fr-par     € 29.99
         "nanos": 990000000
       },
       "available": true,
-      "quota_warnings": []
+      "quota_warnings": [],
+      "end_of_life": false,
+      "control_panel_name": ""
     }
   ]
 }

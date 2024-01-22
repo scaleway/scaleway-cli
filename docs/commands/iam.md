@@ -28,6 +28,9 @@ IAM API.
   - [Delete a JWT](#delete-a-jwt)
   - [Get a JWT](#get-a-jwt)
   - [List JWTs](#list-jwts)
+- [Log management commands](#log-management-commands)
+  - [Get a log](#get-a-log)
+  - [List logs](#list-logs)
 - [Permission sets management commands](#permission-sets-management-commands)
   - [List permission sets](#list-permission-sets)
 - [Policies management commands](#policies-management-commands)
@@ -48,9 +51,11 @@ IAM API.
   - [List SSH keys](#list-ssh-keys)
   - [Update an SSH key](#update-an-ssh-key)
 - [Users management commands](#users-management-commands)
+  - [Create a new user](#create-a-new-user)
   - [Delete a guest user from an Organization](#delete-a-guest-user-from-an-organization)
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
+  - [Update a user](#update-a-user)
 
   
 ## API keys management commands
@@ -149,10 +154,11 @@ scw iam api-key list [arg=value ...]
 | ~~user-id~~ | Deprecated | ID of user that bears the API key |
 | editable |  | Defines whether to filter out editable API keys or not |
 | expired |  | Defines whether to filter out expired API keys or not |
-| access-key |  | Filter by access key |
+| ~~access-key~~ | Deprecated | Filter by access key (deprecated in favor of `access_keys`) |
 | description |  | Filter by description |
 | bearer-id |  | Filter by bearer ID |
 | bearer-type | One of: `unknown_bearer_type`, `user`, `application` | Filter by type of bearer |
+| access-keys.{index} |  | Filter by a list of access keys |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of Organization |
 
 
@@ -200,6 +206,7 @@ scw iam application create [arg=value ...]
 |------|---|-------------|
 | name | Required<br />Default: `<generated>` | Name of the application to create (max length is 64 characters) |
 | description |  | Description of the application (max length is 200 characters) |
+| tags.{index} |  | Tags associated with the application (maximum of 10 tags) |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -261,7 +268,8 @@ scw iam application list [arg=value ...]
 | name |  | Name of the application to filter |
 | editable |  | Defines whether to filter out editable applications or not |
 | application-ids.{index} |  | Filter by list of IDs |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
+| tag |  | Filter by tags containing a given string |
+| organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -283,6 +291,7 @@ scw iam application update <application-id ...> [arg=value ...]
 | application-id | Required | ID of the application to update |
 | name |  | New name for the application (max length is 64 chars) |
 | description |  | New description for the application (max length is 200 chars) |
+| tags.{index} |  | New tags for the application (maximum of 10 tags) |
 
 
 
@@ -350,6 +359,7 @@ scw iam group create [arg=value ...]
 |------|---|-------------|
 | name | Required<br />Default: `<generated>` | Name of the group to create (max length is 64 chars). MUST be unique inside an Organization |
 | description |  | Description of the group to create (max length is 200 chars) |
+| tags.{index} |  | Tags associated with the group (maximum of 10 tags) |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -432,7 +442,8 @@ scw iam group list [arg=value ...]
 | application-ids.{index} |  | Filter by a list of application IDs |
 | user-ids.{index} |  | Filter by a list of user IDs |
 | group-ids.{index} |  | Filter by a list of group IDs |
-| organization-id | Default: `<retrieved from config>` | Filter by Organization ID |
+| tag |  | Filter by tags containing a given string |
+| organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -496,6 +507,7 @@ scw iam group update <group-id ...> [arg=value ...]
 | group-id | Required | ID of the group to update |
 | name |  | New name for the group (max length is 64 chars). MUST be unique inside an Organization |
 | description |  | New description for the group (max length is 200 chars) |
+| tags.{index} |  | New tags for the group (maximum of 10 tags) |
 
 
 
@@ -560,6 +572,55 @@ scw iam jwt list <audience-id ...> [arg=value ...]
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Criteria for sorting results |
 | audience-id | Required | ID of the user to search |
 | expired |  | Filter out expired JWTs or not |
+
+
+
+## Log management commands
+
+Log management commands.
+
+
+### Get a log
+
+Retrieve information about a log, specified by the `log_id` parameter. The log's full details, including `id`, `ip`, `user_agent`, `action`, `bearer_id`, `resource_type` and `resource_id` are returned in the response.
+
+**Usage:**
+
+```
+scw iam log get <log-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| log-id | Required | ID of the log |
+
+
+
+### List logs
+
+List logs available for given Organization. You must define the `organization_id` in the query path of your request.
+
+**Usage:**
+
+```
+scw iam log list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc` | Criteria for sorting results |
+| created-after |  | Defined whether or not to filter out logs created after this timestamp |
+| created-before |  | Defined whether or not to filter out logs created before this timestamp |
+| action | One of: `unknown_action`, `created`, `updated`, `deleted` | Defined whether or not to filter out by a specific action |
+| resource-type | One of: `unknown_resource_type`, `api_key`, `user`, `application`, `group`, `policy` | Defined whether or not to filter out by a specific type of resource |
+| search |  | Defined whether or not to filter out log by bearer ID or resource ID |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -632,6 +693,7 @@ scw iam policy create [arg=value ...]
 | rules.{index}.permission-set-names.{index} |  | Names of permission sets bound to the rule |
 | rules.{index}.project-ids.{index} |  | List of Project IDs the rule is scoped to |
 | rules.{index}.organization-id |  | ID of Organization the rule is scoped to |
+| tags.{index} |  | Tags associated with the policy (maximum of 10 tags) |
 | user-id |  | ID of user attributed to the policy |
 | group-id |  | ID of group attributed to the policy |
 | application-id |  | ID of application attributed to the policy |
@@ -710,7 +772,9 @@ scw iam policy list [arg=value ...]
 | application-ids.{index} |  | Filter by a list of application IDs |
 | no-principal |  | Defines whether or not the policy is attributed to a principal |
 | policy-name |  | Name of the policy to fetch |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
+| tag |  | Filter by tags containing a given string |
+| policy-ids.{index} |  | Filter by a list of IDs |
+| organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -732,6 +796,7 @@ scw iam policy update <policy-id ...> [arg=value ...]
 | policy-id | Required | Id of policy to update |
 | name |  | New name for the policy (max length is 64 characters) |
 | description |  | New description of policy (max length is 200 characters) |
+| tags.{index} |  | New tags for the policy (maximum of 10 tags) |
 | user-id |  | New ID of user attributed to the policy |
 | group-id |  | New ID of group attributed to the policy |
 | application-id |  | New ID of application attributed to the policy |
@@ -930,6 +995,27 @@ scw iam ssh-key update <ssh-key-id ...> [arg=value ...]
 Users management commands.
 
 
+### Create a new user
+
+Create a new user. You must define the `organization_id` and the `email` in your request.
+
+**Usage:**
+
+```
+scw iam user create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| email | Required | Email of the user |
+| tags.{index} |  | Tags associated with the user |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
 ### Delete a guest user from an Organization
 
 Remove a user from an Organization in which they are a guest. You must define the `user_id` in your request. Note that removing a user from an Organization automatically deletes their API keys, and any policies directly attached to them become orphaned.
@@ -986,7 +1072,28 @@ scw iam user list [arg=value ...]
 | order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc` | Criteria for sorting results |
 | user-ids.{index} |  | Filter by list of IDs |
 | mfa |  | Filter by MFA status |
+| tag |  | Filter by tags containing a given string |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
+
+
+
+### Update a user
+
+Update the parameters of a user, including `tags`.
+
+**Usage:**
+
+```
+scw iam user update <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to update |
+| tags.{index} |  | New tags for the user (maximum of 10 tags) |
 
 
 

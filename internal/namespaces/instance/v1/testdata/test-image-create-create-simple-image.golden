@@ -1,39 +1,39 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                34ad3a60-0672-48cb-bd24-e524e5f57ac0
-Name              cli-img-nice-cohen
+ID                94b191ea-2ed9-4ba4-8785-3fb9a7171df5
+Name              cli-img-determined-mcclintock
 Arch              x86_64
 CreationDate      few seconds ago
 ModificationDate  few seconds ago
 ExtraVolumes      0
 FromServer        -
-Organization      951df375-e094-4d26-97c1-ba548eeb9c42
+Organization      ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Public            false
-RootVolume        3bc8ea2b-198d-4ca1-a96b-e6a65105097e
+RootVolume        66369d15-d436-48dc-b753-30c2e135f95f
 State             available
-Project           951df375-e094-4d26-97c1-ba548eeb9c42
+Project           ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "34ad3a60-0672-48cb-bd24-e524e5f57ac0",
-    "name": "cli-img-nice-cohen",
+    "id": "94b191ea-2ed9-4ba4-8785-3fb9a7171df5",
+    "name": "cli-img-determined-mcclintock",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
     "extra_volumes": {},
     "from_server": "",
-    "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "public": false,
     "root_volume": {
-      "id": "3bc8ea2b-198d-4ca1-a96b-e6a65105097e",
-      "name": "cli-snp-objective-sinoussi",
+      "id": "66369d15-d436-48dc-b753-30c2e135f95f",
+      "name": "cli-snp-brave-perlman",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
     "state": "available",
-    "project": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "tags": [],
     "zone": "fr-par-1"
   }

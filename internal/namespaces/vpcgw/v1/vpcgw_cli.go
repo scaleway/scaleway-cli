@@ -74,9 +74,8 @@ func vpcGwRoot() *core.Command {
 
 func vpcGwGateway() *core.Command {
 	return &core.Command{
-		Short: `Public Gateway management`,
-		Long: `Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.
-`,
+		Short:     `Public Gateway management`,
+		Long:      `Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 	}
@@ -84,9 +83,8 @@ func vpcGwGateway() *core.Command {
 
 func vpcGwGatewayNetwork() *core.Command {
 	return &core.Command{
-		Short: `Gateway Networks management`,
-		Long: `A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.
-`,
+		Short:     `Gateway Networks management`,
+		Long:      `A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 	}
@@ -94,9 +92,8 @@ func vpcGwGatewayNetwork() *core.Command {
 
 func vpcGwDHCP() *core.Command {
 	return &core.Command{
-		Short: `DHCP configuration management`,
-		Long: `These objects define a DHCP configuration, i.e. how IP addresses should be assigned to devices on a Private Network attached to a Public Gateway. Definable parameters include the subnet for the DHCP server, the validity  period for DHCP entries, whether to use dynamic pooling, and more. A DHCP configuration object has a DHCP ID, which can then be used as part of a  call to create or update a Gateway Network. This lets you attach an existing DHCP configuration to a Public Gateway attached to a Private Network. Similarly, you can use a DHCP ID as a query parameter to list Gateway Networks which use this DHCP configuration object.
-`,
+		Short:     `DHCP configuration management`,
+		Long:      `These objects define a DHCP configuration, i.e. how IP addresses should be assigned to devices on a Private Network attached to a Public Gateway. Definable parameters include the subnet for the DHCP server, the validity  period for DHCP entries, whether to use dynamic pooling, and more. A DHCP configuration object has a DHCP ID, which can then be used as part of a  call to create or update a Gateway Network. This lets you attach an existing DHCP configuration to a Public Gateway attached to a Private Network. Similarly, you can use a DHCP ID as a query parameter to list Gateway Networks which use this DHCP configuration object.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 	}
@@ -104,9 +101,8 @@ func vpcGwDHCP() *core.Command {
 
 func vpcGwDHCPEntry() *core.Command {
 	return &core.Command{
-		Short: `DHCP entries management`,
-		Long: `DHCP entries belong to a specified Gateway Network (Public Gateway / Private Network connection). A DHCP entry can hold either a dynamic DHCP lease (an IP address dynamically assigned by the Public Gateway to a device) or a static, user-created DHCP reservation.
-`,
+		Short:     `DHCP entries management`,
+		Long:      `DHCP entries belong to a specified Gateway Network (Public Gateway / Private Network connection). A DHCP entry can hold either a dynamic DHCP lease (an IP address dynamically assigned by the Public Gateway to a device) or a static, user-created DHCP reservation.`,
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 	}
@@ -114,9 +110,8 @@ func vpcGwDHCPEntry() *core.Command {
 
 func vpcGwPatRule() *core.Command {
 	return &core.Command{
-		Short: `PAT rules management`,
-		Long: `PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
-`,
+		Short:     `PAT rules management`,
+		Long:      `PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 	}
@@ -124,9 +119,8 @@ func vpcGwPatRule() *core.Command {
 
 func vpcGwIP() *core.Command {
 	return &core.Command{
-		Short: `IP address management`,
-		Long: `Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.
-`,
+		Short:     `IP address management`,
+		Long:      `Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.`,
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 	}
@@ -134,9 +128,8 @@ func vpcGwIP() *core.Command {
 
 func vpcGwGatewayType() *core.Command {
 	return &core.Command{
-		Short: `Gateway types information`,
-		Long: `Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
-`,
+		Short:     `Gateway types information`,
+		Long:      `Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-type",
 	}
@@ -210,7 +203,7 @@ func vpcGwGatewayList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListGatewaysRequest)
@@ -284,7 +277,7 @@ func vpcGwGatewayGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetGatewayRequest)
@@ -366,7 +359,7 @@ func vpcGwGatewayCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreateGatewayRequest)
@@ -438,7 +431,7 @@ func vpcGwGatewayUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdateGatewayRequest)
@@ -475,7 +468,7 @@ func vpcGwGatewayDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeleteGatewayRequest)
@@ -511,7 +504,7 @@ func vpcGwGatewayUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpgradeGatewayRequest)
@@ -578,7 +571,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "created", "attaching", "configuring", "ready", "detaching", "deleted"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListGatewayNetworksRequest)
@@ -652,7 +645,7 @@ func vpcGwGatewayNetworkGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetGatewayNetworkRequest)
@@ -691,7 +684,14 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			},
 			{
 				Name:       "enable-masquerade",
-				Short:      `Defines whether to enable masquerade (dynamic NAT) on this network`,
+				Short:      `Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-dhcp",
+				Short:      `Defines whether to enable DHCP on this Private Network.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -711,13 +711,20 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "enable-dhcp",
-				Short:      `Defines whether to enable DHCP on this Private Network. Defaults to ` + "`" + `true` + "`" + ` if either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` are present. If set to ` + "`" + `true` + "`" + `, either ` + "`" + `dhcp_id` + "`" + ` or ` + "`" + `dhcp` + "`" + ` must be present`,
+				Name:       "ipam-config.push-default-route",
+				Short:      `Enabling the default route also enables masquerading`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			{
+				Name:       "ipam-config.ipam-ip-id",
+				Short:      `Use this IPAM-booked IP ID as the Gateway's IP in this Private Network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreateGatewayNetworkRequest)
@@ -749,7 +756,14 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 			},
 			{
 				Name:       "enable-masquerade",
-				Short:      `Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork`,
+				Short:      `Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-dhcp",
+				Short:      `Defines whether to enable DHCP on this Private Network.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -762,20 +776,27 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "enable-dhcp",
-				Short:      `Defines whether to enable DHCP on the connected Private Network`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "address",
 				Short:      `New static IP address`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			{
+				Name:       "ipam-config.push-default-route",
+				Short:      `Enabling the default route also enables masquerading`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-config.ipam-ip-id",
+				Short:      `Use this IPAM-booked IP ID as the Gateway's IP in this Private Network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdateGatewayNetworkRequest)
@@ -812,7 +833,7 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeleteGatewayNetworkRequest)
@@ -877,7 +898,7 @@ func vpcGwDHCPList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListDHCPsRequest)
@@ -975,7 +996,7 @@ func vpcGwDHCPGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetDHCPRequest)
@@ -1035,37 +1056,22 @@ func vpcGwDHCPCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "valid-lifetime.seconds",
+				Name:       "valid-lifetime",
+				Short:      `How long DHCP entries will be valid for. Defaults to 1h (3600s)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "valid-lifetime.nanos",
+				Name:       "renew-timer",
+				Short:      `After how long a renew will be attempted. Must be 30s lower than ` + "`" + `rebind_timer` + "`" + `. Defaults to 50m (3000s)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "renew-timer.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "renew-timer.nanos",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "rebind-timer.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "rebind-timer.nanos",
+				Name:       "rebind-timer",
+				Short:      `After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than ` + "`" + `valid_lifetime` + "`" + `. Defaults to 51m (3060s)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1105,7 +1111,7 @@ func vpcGwDHCPCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreateDHCPRequest)
@@ -1171,37 +1177,22 @@ func vpcGwDHCPUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "valid-lifetime.seconds",
+				Name:       "valid-lifetime",
+				Short:      `How long DHCP entries will be valid for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "valid-lifetime.nanos",
+				Name:       "renew-timer",
+				Short:      `After how long a renew will be attempted. Must be 30s lower than ` + "`" + `rebind_timer` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "renew-timer.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "renew-timer.nanos",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "rebind-timer.seconds",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "rebind-timer.nanos",
+				Name:       "rebind-timer",
+				Short:      `After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than ` + "`" + `valid_lifetime` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1241,7 +1232,7 @@ func vpcGwDHCPUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdateDHCPRequest)
@@ -1271,7 +1262,7 @@ func vpcGwDHCPDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeleteDHCPRequest)
@@ -1344,7 +1335,7 @@ func vpcGwDHCPEntryList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "reservation", "lease"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListDHCPEntriesRequest)
@@ -1412,7 +1403,7 @@ func vpcGwDHCPEntryGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetDHCPEntryRequest)
@@ -1456,7 +1447,7 @@ func vpcGwDHCPEntryCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreateDHCPEntryRequest)
@@ -1493,7 +1484,7 @@ func vpcGwDHCPEntryUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdateDHCPEntryRequest)
@@ -1537,7 +1528,7 @@ func vpcGwDHCPEntrySet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.SetDHCPEntriesRequest)
@@ -1567,7 +1558,7 @@ func vpcGwDHCPEntryDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeleteDHCPEntryRequest)
@@ -1626,7 +1617,7 @@ func vpcGwPatRuleList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "both", "tcp", "udp"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListPATRulesRequest)
@@ -1694,7 +1685,7 @@ func vpcGwPatRuleGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetPATRuleRequest)
@@ -1753,7 +1744,7 @@ func vpcGwPatRuleCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "both", "tcp", "udp"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreatePATRuleRequest)
@@ -1812,7 +1803,7 @@ func vpcGwPatRuleUpdate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "both", "tcp", "udp"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdatePATRuleRequest)
@@ -1871,7 +1862,7 @@ func vpcGwPatRuleSet() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown", "both", "tcp", "udp"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.SetPATRulesRequest)
@@ -1901,7 +1892,7 @@ func vpcGwPatRuleDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeletePATRuleRequest)
@@ -1930,7 +1921,7 @@ func vpcGwGatewayTypeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(vpcgw.ListGatewayTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListGatewayTypesRequest)
@@ -1996,7 +1987,7 @@ func vpcGwIPList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListIPsRequest)
@@ -2064,7 +2055,7 @@ func vpcGwIPGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetIPRequest)
@@ -2095,7 +2086,7 @@ func vpcGwIPCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreateIPRequest)
@@ -2146,7 +2137,7 @@ func vpcGwIPUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdateIPRequest)
@@ -2176,7 +2167,7 @@ func vpcGwIPDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeleteIPRequest)
@@ -2212,7 +2203,7 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.RefreshSSHKeysRequest)

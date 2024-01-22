@@ -33,6 +33,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterUpgrade(),
 		k8sClusterSetType(),
 		k8sClusterListAvailableVersions(),
+		k8sClusterListAvailableTypes(),
 		k8sClusterResetAdminToken(),
 		k8sClusterMigrateToPrivateNetwork(),
 		k8sPoolList(),
@@ -63,8 +64,7 @@ func k8sCluster() *core.Command {
 	return &core.Command{
 		Short: `Kapsule cluster management commands`,
 		Long: `A cluster is a fully managed Kubernetes cluster
-It is composed of different pools, each pool containing the same kind of nodes.
-`,
+It is composed of different pools, each pool containing the same kind of nodes.`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 	}
@@ -74,8 +74,7 @@ func k8sPool() *core.Command {
 	return &core.Command{
 		Short: `Kapsule pool management commands`,
 		Long: `A pool is a set of identical nodes
-A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled. A "default pool" is automatically created with every cluster via the console.
-`,
+A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled. A "default pool" is automatically created with every cluster via the console.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 	}
@@ -85,8 +84,7 @@ func k8sNode() *core.Command {
 	return &core.Command{
 		Short: `Kapsule node management commands`,
 		Long: `A node (short for worker node) is an abstraction for a Scaleway Instance
-A node is always part of a pool. Each of them has the Kubernetes software automatically installed and configured by Scaleway.
-`,
+A node is always part of a pool. Each of them has the Kubernetes software automatically installed and configured by Scaleway.`,
 		Namespace: "k8s",
 		Resource:  "node",
 	}
@@ -96,8 +94,7 @@ func k8sVersion() *core.Command {
 	return &core.Command{
 		Short: `Available Kubernetes versions commands`,
 		Long: `A version is a vanilla Kubernetes version like ` + "`" + `x.y.z` + "`" + `
-It comprises a major version ` + "`" + `x` + "`" + `, a minor version ` + "`" + `y` + "`" + `, and a patch version ` + "`" + `z` + "`" + `. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/containers/kubernetes/reference-content/version-support-policy/).
-`,
+It comprises a major version ` + "`" + `x` + "`" + `, a minor version ` + "`" + `y` + "`" + `, and a patch version ` + "`" + `z` + "`" + `. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/containers/kubernetes/reference-content/version-support-policy/).`,
 		Namespace: "k8s",
 		Resource:  "version",
 	}
@@ -107,8 +104,7 @@ func k8sClusterType() *core.Command {
 	return &core.Command{
 		Short: `Cluster type management commands`,
 		Long: `All cluster types available in a specified region
-A cluster type represents the different commercial types of clusters offered by Scaleway.
-`,
+A cluster type represents the different commercial types of clusters offered by Scaleway.`,
 		Namespace: "k8s",
 		Resource:  "cluster-type",
 	}
@@ -157,6 +153,13 @@ func k8sClusterList() *core.Command {
 			{
 				Name:       "type",
 				Short:      `Type to filter on, only clusters with this type will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `Private Network ID to filter on, only clusters within this Private Network will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -318,14 +321,14 @@ func k8sClusterCreate() *core.Command {
 			{
 				Name:       "pools.{index}.name",
 				Short:      `Name of the pool`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.node-type",
 				Short:      `Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -346,7 +349,7 @@ func k8sClusterCreate() *core.Command {
 			{
 				Name:       "pools.{index}.size",
 				Short:      `Size (number of nodes) of the pool`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -425,6 +428,13 @@ func k8sClusterCreate() *core.Command {
 			{
 				Name:       "pools.{index}.root-volume-size",
 				Short:      `System volume disk size`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.public-ip-disabled",
+				Short:      `Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1004,7 +1014,7 @@ func k8sClusterUpgrade() *core.Command {
 func k8sClusterSetType() *core.Command {
 	return &core.Command{
 		Short:     `Change the Cluster type`,
-		Long:      `Change the type of a specific Kubernetes cluster.`,
+		Long:      `Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the ` + "`" + `type` + "`" + ` field, [list available cluster types](#path-clusters-list-available-cluster-types-for-a-cluster).`,
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "set-type",
@@ -1089,6 +1099,47 @@ func k8sClusterListAvailableVersions() *core.Command {
 			},
 			{
 				FieldName: "AvailableContainerRuntimes",
+			},
+		}},
+	}
+}
+
+func k8sClusterListAvailableTypes() *core.Command {
+	return &core.Command{
+		Short:     `List available cluster types for a cluster`,
+		Long:      `List the cluster types that a specific Kubernetes cluster is allowed to switch to.`,
+		Namespace: "k8s",
+		Resource:  "cluster",
+		Verb:      "list-available-types",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.ListClusterAvailableTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `Cluster ID for which the available Kubernetes types will be listed`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ListClusterAvailableTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.ListClusterAvailableTypes(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short: "List all cluster types that a cluster can upgrade to",
+				Raw:   `scw k8s cluster list-available-types 11111111-1111-1111-111111111111`,
+			},
+		},
+		View: &core.View{Fields: []*core.ViewField{
+			{
+				FieldName: "Name",
 			},
 		}},
 	}
@@ -1448,6 +1499,13 @@ func k8sPoolCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "public-ip-disabled",
+				Short:      `Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1786,12 +1844,6 @@ func k8sNodeList() *core.Command {
 				FieldName: "Status",
 			},
 			{
-				FieldName: "PublicIPV4",
-			},
-			{
-				FieldName: "PublicIPV6",
-			},
-			{
 				FieldName: "PoolID",
 			},
 			{
@@ -1937,7 +1989,7 @@ func k8sNodeDelete() *core.Command {
 			},
 			{
 				Name:       "skip-drain",
-				Short:      `Skip draining node from its workload`,
+				Short:      `Skip draining node from its workload (Note: this parameter is currently inactive)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

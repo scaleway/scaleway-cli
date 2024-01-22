@@ -2,8 +2,10 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
@@ -15,6 +17,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
+
+const configFileGeneratedMessage = "Config file was generated to"
 
 type sshConfigServer struct {
 	Name              string
@@ -33,12 +37,15 @@ func (s sshConfigServer) InPrivateNetwork(id string) bool {
 	return false
 }
 
-type sshConfigRequest struct {
+type sshConfigInstallRequest struct {
 	Zone      scw.Zone
 	ProjectID *string
 }
 
 func sshConfigInstallCommand() *core.Command {
+	availableZones := ((*instance.API)(nil)).Zones()
+	availableZones = append(availableZones, scw.Zone(core.AllLocalities))
+
 	return &core.Command{
 		Namespace: "instance",
 		Resource:  "ssh",
@@ -46,32 +53,32 @@ func sshConfigInstallCommand() *core.Command {
 		Short: `Install a ssh config with all your servers as host
 It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 		Long:     "Path of the config will be $HOME/.ssh/scaleway.config",
-		ArgsType: reflect.TypeOf(sshConfigRequest{}),
+		ArgsType: reflect.TypeOf(sshConfigInstallRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
-			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
+			core.ZoneArgSpec(availableZones...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
-			args := argsI.(*sshConfigRequest)
+			args := argsI.(*sshConfigInstallRequest)
 			homeDir := core.ExtractUserHomeDir(ctx)
 
 			// Start server list with instances
 			servers, err := sshConfigListServers(ctx, args)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("failed to list instance servers: %w", err)
 			}
 
 			// Add baremetal servers
 			baremetalServers, err := sshConfigListBaremetalServers(ctx, args)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("failed to list baremetal servers: %w", err)
 			}
 			servers = append(servers, baremetalServers...)
 
 			// Add Apple-Silicon servers
 			siliconServers, err := sshConfigListAppleSiliconServers(ctx, args)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("failed to list apple-silicon servers: %w", err)
 			}
 			servers = append(servers, siliconServers...)
 
@@ -106,12 +113,12 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			// Generated config needs an include statement in default config
 			included, err := sshconfig.ConfigIsIncluded(homeDir)
 			if err != nil {
-				if err == sshconfig.ErrFileNotFound {
+				if errors.Is(err, sshconfig.ErrFileNotFound) {
 					includePrompt += "\nFile was not found, it will be created"
 				} else {
 					logger.Warningf("Failed to check default config file, skipping include prompt\n")
 					return &core.SuccessResult{
-						Message: "Config file was generated to " + configFilePath,
+						Message: configFileGeneratedMessage + " " + configFilePath,
 					}, nil
 				}
 			}
@@ -119,7 +126,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			// Generated config is already included
 			if included {
 				return &core.SuccessResult{
-					Message: "Config file was generated to " + configFilePath,
+					Message: configFileGeneratedMessage + " " + configFilePath,
 				}, nil
 			}
 
@@ -131,7 +138,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			if err != nil {
 				logger.Warningf("Failed to prompt, skipping include\n")
 				return &core.SuccessResult{
-					Message: "Config file was generated to " + configFilePath,
+					Message: configFileGeneratedMessage + " " + configFilePath,
 				}, nil
 			}
 
@@ -143,19 +150,20 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			}
 
 			return &core.SuccessResult{
-				Message: "Config file was generated to " + configFilePath,
+				Message: configFileGeneratedMessage + " " + configFilePath,
 			}, nil
 		},
 		Groups: []string{"workflow"},
 	}
 }
 
-func sshConfigListServers(ctx context.Context, args *sshConfigRequest) ([]sshConfigServer, error) {
+func sshConfigListServers(ctx context.Context, args *sshConfigInstallRequest) ([]sshConfigServer, error) {
 	instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
 
 	reqOpts := []scw.RequestOption{scw.WithAllPages()}
 	if args.Zone == scw.Zone(core.AllLocalities) {
 		reqOpts = append(reqOpts, scw.WithZones(instanceAPI.Zones()...))
+		args.Zone = ""
 	}
 
 	listServers, err := instanceAPI.ListServers(&instance.ListServersRequest{
@@ -189,13 +197,14 @@ func sshConfigListServers(ctx context.Context, args *sshConfigRequest) ([]sshCon
 	return servers, nil
 }
 
-func sshConfigListBaremetalServers(ctx context.Context, args *sshConfigRequest) ([]sshConfigServer, error) {
+func sshConfigListBaremetalServers(ctx context.Context, args *sshConfigInstallRequest) ([]sshConfigServer, error) {
 	baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
 	baremetalPNAPI := baremetal.NewPrivateNetworkAPI(core.ExtractClient(ctx))
 
 	reqOpts := []scw.RequestOption{scw.WithAllPages()}
 	if args.Zone == scw.Zone(core.AllLocalities) {
 		reqOpts = append(reqOpts, scw.WithZones(baremetalAPI.Zones()...))
+		args.Zone = ""
 	}
 
 	listServers, err := baremetalAPI.ListServers(&baremetal.ListServersRequest{
@@ -203,6 +212,9 @@ func sshConfigListBaremetalServers(ctx context.Context, args *sshConfigRequest) 
 		ProjectID: args.ProjectID,
 	}, reqOpts...)
 	if err != nil {
+		if strings.Contains(err.Error(), "unknown service") {
+			return nil, nil
+		}
 		// TODO: check permissions and print warning
 		return nil, err
 	}
@@ -239,12 +251,13 @@ func sshConfigListBaremetalServers(ctx context.Context, args *sshConfigRequest) 
 	return servers, nil
 }
 
-func sshConfigListAppleSiliconServers(ctx context.Context, args *sshConfigRequest) ([]sshConfigServer, error) {
+func sshConfigListAppleSiliconServers(ctx context.Context, args *sshConfigInstallRequest) ([]sshConfigServer, error) {
 	siliconAPI := applesilicon.NewAPI(core.ExtractClient(ctx))
 
 	reqOpts := []scw.RequestOption{scw.WithAllPages()}
 	if args.Zone == scw.Zone(core.AllLocalities) {
 		reqOpts = append(reqOpts, scw.WithZones(siliconAPI.Zones()...))
+		args.Zone = ""
 	}
 
 	listServers, err := siliconAPI.ListServers(&applesilicon.ListServersRequest{
@@ -252,6 +265,9 @@ func sshConfigListAppleSiliconServers(ctx context.Context, args *sshConfigReques
 		ProjectID: args.ProjectID,
 	}, reqOpts...)
 	if err != nil {
+		if strings.Contains(err.Error(), "unknown service") {
+			return nil, nil
+		}
 		return nil, err
 	}
 
@@ -267,7 +283,7 @@ func sshConfigListAppleSiliconServers(ctx context.Context, args *sshConfigReques
 	return servers, nil
 }
 
-func sshConfigBastionHosts(ctx context.Context, args *sshConfigRequest, servers []sshConfigServer) ([]sshconfig.Host, error) {
+func sshConfigBastionHosts(ctx context.Context, args *sshConfigInstallRequest, servers []sshConfigServer) ([]sshconfig.Host, error) {
 	gwAPI := vpcgw.NewAPI(core.ExtractClient(ctx))
 
 	reqOpts := []scw.RequestOption{scw.WithAllPages()}
@@ -279,6 +295,9 @@ func sshConfigBastionHosts(ctx context.Context, args *sshConfigRequest, servers 
 		Zone: args.Zone,
 	}, reqOpts...)
 	if err != nil {
+		if strings.Contains(err.Error(), "unknown service") {
+			return nil, nil
+		}
 		// TODO: check permissions and print warning
 		return nil, err
 	}

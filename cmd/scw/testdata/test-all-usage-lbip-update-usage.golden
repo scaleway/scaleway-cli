@@ -8,7 +8,8 @@ USAGE:
 ARGS:
   ip-id             IP address ID
   [reverse]         Reverse DNS (domain name) for the IP address
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2)
+  [lb-id]           ID of the server on which to attach the flexible IP
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for update

@@ -1,63 +1,97 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt                   few seconds ago
-Region                      fr-par
-ID                          eeb523d0-9808-4e3f-94ba-e5f6458f1aa7
-Name                        cli-test
-OrganizationID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID                   564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-Status                      ready
-Engine                      PostgreSQL-12
-Tags.0                      a
-IsHaCluster                 false
-NodeType                    db-dev-s
-Endpoints.0.ID              6fb9996f-3e7d-4077-855d-0bf7e4ca866e
-Endpoints.0.IP              51.158.57.216
-Endpoints.0.Port            39176
-LogsPolicy.MaxAgeRetention  30
-BackupSameRegion            false
+CreatedAt                         few seconds ago
+Region                            fr-par
+ID                                d5ecdbab-312b-4043-a9cf-1ed18bd7ffb8
+Name                              cli-test
+OrganizationID                    fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                         fa1e3217-dc80-42ac-85c3-3f034b78b552
+Status                            ready
+Engine                            PostgreSQL-12
+UpgradableVersion.0.ID            2e670f5c-493b-443f-92bd-986f23da2750
+UpgradableVersion.0.Name          PostgreSQL-13
+UpgradableVersion.0.Version       13
+UpgradableVersion.0.MinorVersion  13.12
+UpgradableVersion.1.ID            2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9
+UpgradableVersion.1.Name          PostgreSQL-14
+UpgradableVersion.1.Version       14
+UpgradableVersion.1.MinorVersion  14.9
+UpgradableVersion.2.ID            d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d
+UpgradableVersion.2.Name          PostgreSQL-15
+UpgradableVersion.2.Version       15
+UpgradableVersion.2.MinorVersion  15.4
+Tags.0                            a
+IsHaCluster                       false
+NodeType                          db-dev-s
+Endpoints.0.ID                    fb8a0a8d-766f-4fdf-86cb-522abc58eca5
+Endpoints.0.IP                    51.159.204.209
+Endpoints.0.Port                  24053
+LogsPolicy.MaxAgeRetention        30
+BackupSameRegion                  false
 
 Endpoint:
-ID    6fb9996f-3e7d-4077-855d-0bf7e4ca866e
-IP    51.158.57.216
-Port  39176
+ID    fb8a0a8d-766f-4fdf-86cb-522abc58eca5
+IP    51.159.204.209
+Port  24053
 
 Volume:
-Type  lssd
-Size  5.0 GB
+Type   lssd
+Size   5.0 GB
+Class  lssd
 
 Backup Schedule:
 Disabled   false
+NextRunAt  few seconds ago
 Frequency  1 days
 Retention  7 days
 
 Settings:
 NAME                             VALUE
-work_mem                         4
-max_connections                  100
 effective_cache_size             1300
 maintenance_work_mem             150
+max_connections                  100
 max_parallel_workers             0
 max_parallel_workers_per_gather  0
+work_mem                         4
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "created_at": "1970-01-01T00:00:00.0Z",
   "volume": {
     "type": "lssd",
-    "size": 5000000000
+    "size": 5000000000,
+    "class": "lssd"
   },
   "region": "fr-par",
-  "id": "eeb523d0-9808-4e3f-94ba-e5f6458f1aa7",
+  "id": "d5ecdbab-312b-4043-a9cf-1ed18bd7ffb8",
   "name": "cli-test",
-  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
   "engine": "PostgreSQL-12",
-  "upgradable_version": null,
+  "upgradable_version": [
+    {
+      "id": "2e670f5c-493b-443f-92bd-986f23da2750",
+      "name": "PostgreSQL-13",
+      "version": "13",
+      "minor_version": "13.12"
+    },
+    {
+      "id": "2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9",
+      "name": "PostgreSQL-14",
+      "version": "14",
+      "minor_version": "14.9"
+    },
+    {
+      "id": "d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d",
+      "name": "PostgreSQL-15",
+      "version": "15",
+      "minor_version": "15.4"
+    }
+  ],
   "endpoint": {
-    "id": "6fb9996f-3e7d-4077-855d-0bf7e4ca866e",
-    "ip": "51.158.57.216",
-    "port": 39176,
+    "id": "fb8a0a8d-766f-4fdf-86cb-522abc58eca5",
+    "ip": "51.159.204.209",
+    "port": 24053,
     "name": null,
     "load_balancer": {}
   },
@@ -65,14 +99,6 @@ max_parallel_workers_per_gather  0
     "a"
   ],
   "settings": [
-    {
-      "name": "work_mem",
-      "value": "4"
-    },
-    {
-      "name": "max_connections",
-      "value": "100"
-    },
     {
       "name": "effective_cache_size",
       "value": "1300"
@@ -82,19 +108,27 @@ max_parallel_workers_per_gather  0
       "value": "150"
     },
     {
+      "name": "max_connections",
+      "value": "100"
+    },
+    {
       "name": "max_parallel_workers",
       "value": "0"
     },
     {
       "name": "max_parallel_workers_per_gather",
       "value": "0"
+    },
+    {
+      "name": "work_mem",
+      "value": "4"
     }
   ],
   "backup_schedule": {
     "frequency": 24,
     "retention": 7,
     "disabled": false,
-    "next_run_at": null
+    "next_run_at": "1970-01-01T00:00:00.0Z"
   },
   "is_ha_cluster": false,
   "read_replicas": [],
@@ -102,9 +136,9 @@ max_parallel_workers_per_gather  0
   "init_settings": [],
   "endpoints": [
     {
-      "id": "6fb9996f-3e7d-4077-855d-0bf7e4ca866e",
-      "ip": "51.158.57.216",
-      "port": 39176,
+      "id": "fb8a0a8d-766f-4fdf-86cb-522abc58eca5",
+      "ip": "51.159.204.209",
+      "port": 24053,
       "name": null,
       "load_balancer": {}
     }

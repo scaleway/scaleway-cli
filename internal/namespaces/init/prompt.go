@@ -8,7 +8,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
-	"github.com/scaleway/scaleway-sdk-go/api/account/v2"
+	"github.com/scaleway/scaleway-sdk-go/api/account/v3"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -54,9 +54,9 @@ func promptProjectID(ctx context.Context, accessKey string, secretKey string, or
 	}
 
 	client := core.ExtractClient(ctx)
-	api := account.NewAPI(client)
+	api := account.NewProjectAPI(client)
 
-	res, err := api.ListProjects(&account.ListProjectsRequest{
+	res, err := api.ListProjects(&account.ProjectAPIListProjectsRequest{
 		OrganizationID: organizationID,
 	}, scw.WithAllPages(), scw.WithContext(ctx), scw.WithAuthRequest(accessKey, secretKey))
 	if err != nil {

@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 type AutoCompleteConfig struct {
@@ -15,7 +17,7 @@ type AutoCompleteConfig struct {
 	RightWords   []string `js:"rightWords"`
 }
 
-func Autocomplete(cfg *AutoCompleteConfig) ([]string, error) {
+func Autocomplete(buildInfo *core.BuildInfo, cfg *AutoCompleteConfig) ([]string, error) {
 	indexToComplete := int64(len(cfg.LeftWords) + 2)
 
 	words := append(cfg.LeftWords, cfg.SelectedWord)
@@ -25,7 +27,7 @@ func Autocomplete(cfg *AutoCompleteConfig) ([]string, error) {
 
 	completeCommand = append(completeCommand, words...)
 
-	resp, err := Run(&RunConfig{
+	resp, err := Run(buildInfo, &RunConfig{
 		JWT: cfg.JWT,
 	}, completeCommand)
 	if err != nil {
@@ -39,4 +41,10 @@ func Autocomplete(cfg *AutoCompleteConfig) ([]string, error) {
 	suggestions := strings.Fields(resp.Stdout)
 
 	return suggestions, nil
+}
+
+func AutocompleteWithBuildInfo(buildInfo *core.BuildInfo) func(cfg *AutoCompleteConfig) ([]string, error) {
+	return func(cfg *AutoCompleteConfig) ([]string, error) {
+		return Autocomplete(buildInfo, cfg)
+	}
 }

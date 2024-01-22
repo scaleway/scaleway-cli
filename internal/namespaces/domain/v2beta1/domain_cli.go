@@ -126,7 +126,7 @@ func dnsZoneList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"domain_asc", "domain_desc", "subdomain_asc", "subdomain_desc"},
+				EnumValues: []string{"domain_asc", "domain_desc", "subdomain_asc", "subdomain_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
 			},
 			{
 				Name:       "domain",
@@ -138,6 +138,41 @@ func dnsZoneList() *core.Command {
 			{
 				Name:       "dns-zone",
 				Short:      `DNS zone on which to filter the returned DNS zones`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "dns-zones.{index}",
+				Short:      `DNS zones on which to filter the returned DNS zones`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "created-after",
+				Short:      `Only list DNS zones created after this date`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "created-before",
+				Short:      `Only list DNS zones created before this date`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "updated-after",
+				Short:      `Only list DNS zones updated after this date`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "updated-before",
+				Short:      `Only list DNS zones updated before this date`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -190,6 +225,9 @@ func dnsZoneList() *core.Command {
 			},
 			{
 				FieldName: "NsMaster",
+			},
+			{
+				FieldName: "LinkedProducts",
 			},
 		}},
 	}

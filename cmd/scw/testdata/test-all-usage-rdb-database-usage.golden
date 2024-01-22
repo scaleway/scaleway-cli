@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   create      Create a database in a Database Instance
   delete      Delete a database in a Database Instance
+  get-url     Gets the URL to connect to the Database
   list        List databases in a Database Instance
 
 FLAGS:

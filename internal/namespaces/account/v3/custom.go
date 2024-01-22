@@ -1,0 +1,11 @@
+package account
+
+import (
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+)
+
+func GetCommands() *core.Commands {
+	commands := GetGeneratedCommands()
+
+	return commands
+}

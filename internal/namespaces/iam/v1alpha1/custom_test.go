@@ -11,11 +11,11 @@ import (
 
 func Test_initWithSSHKeyCommand(t *testing.T) {
 	tmpDir := os.TempDir()
-	key := `ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar`
+	key := `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x foo@foobar.com`
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			pathToPublicKey := path.Join(tmpDir, ".ssh", "id_rsa.pub")
+			pathToPublicKey := path.Join(tmpDir, ".ssh", "id_ed25519.pub")
 			_, err := os.Stat(pathToPublicKey)
 			if err != nil {
 				err := os.MkdirAll(path.Join(tmpDir, ".ssh"), 0755)

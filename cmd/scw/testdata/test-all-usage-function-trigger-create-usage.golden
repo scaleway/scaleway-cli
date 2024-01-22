@@ -1,27 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create function resources.
+Create a new trigger for a specified function.
 
 USAGE:
   scw function trigger create [arg=value ...]
 
 ARGS:
-  [name]                               
-  [description]                        
-  [function-id]                        
+  name                                    Name of the trigger
+  function-id                             ID of the function to trigger
+  [description]                           Description of the trigger
+  [scw-sqs-config.queue]                  Name of the SQS queue the trigger should listen to
+  [scw-sqs-config.mnq-project-id]         ID of the Messaging and Queuing project
+  [scw-sqs-config.mnq-region]             Region in which the Messaging and Queuing project is activated.
+  [scw-nats-config.subject]               Name of the NATS subject the trigger should listen to
+  [scw-nats-config.mnq-nats-account-id]   ID of the Messaging and Queuing NATS account
+  [scw-nats-config.mnq-project-id]        ID of the Messaging and Queuing project
+  [scw-nats-config.mnq-region]            Region in which the Messaging and Queuing project is activated.
+  [region=fr-par]                         Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
   [scw-sqs-config.mnq-namespace-id]    
-  [scw-sqs-config.queue]               
-  [scw-sqs-config.mnq-project-id]      
-  [scw-sqs-config.mnq-region]          
-  [sqs-config.endpoint]                
-  [sqs-config.queue-url]               
-  [sqs-config.access-key]              
-  [sqs-config.secret-key]              
   [scw-nats-config.mnq-namespace-id]   
-  [scw-nats-config.subject]            
-  [scw-nats-config.mnq-project-id]     
-  [scw-nats-config.mnq-region]         
-  [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create

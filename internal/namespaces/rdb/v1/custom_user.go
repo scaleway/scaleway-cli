@@ -50,7 +50,10 @@ func userListBuilder(c *core.Command) *core.Command {
 
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		listPrivileges, err := api.ListPrivileges(
-			&rdb.ListPrivilegesRequest{InstanceID: listUserRequest.InstanceID},
+			&rdb.ListPrivilegesRequest{
+				InstanceID: listUserRequest.InstanceID,
+				Region:     listUserRequest.Region,
+			},
 			scw.WithAllPages(),
 		)
 		if err != nil {
@@ -192,4 +195,36 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func userGetURLCommand() *core.Command {
+	return &core.Command{
+		Namespace: "rdb",
+		Resource:  "user",
+		Verb:      "get-url",
+		Short:     "Gets the URL to connect to the Database",
+		Long:      "Provides the URL to connect to a Database on an Instance as the given user",
+		ArgsType:  reflect.TypeOf(rdbGetURLArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `ID of the Database Instance`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:       "user",
+				Short:      `User of the Database`,
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "db",
+				Short:      `Name of the Database to connect to`,
+				Required:   false,
+				Positional: false,
+			},
+		},
+		Run: generateURL,
+	}
 }

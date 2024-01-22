@@ -18,7 +18,7 @@ We recommend this installation mode for more simplicity and reliability:
 
 ### Homebrew
 
-Install the latest stable release on macOS using [Homebrew](http://brew.sh):
+Install the [latest stable release](https://formulae.brew.sh/formula/scw) on macOS/Linux using [Homebrew](http://brew.sh):
 
 ```sh
 brew install scw
@@ -26,7 +26,7 @@ brew install scw
 
 ### Arch Linux
 
-Install the latest stable release on Arch Linux from [official repositories](https://archlinux.org/packages/community/x86_64/scaleway-cli/).
+Install the latest stable release on Arch Linux from [official repositories](https://archlinux.org/packages/extra/x86_64/scaleway-cli/).
 For instance with `pacman`:
 
 ```sh
@@ -51,18 +51,7 @@ You just have to download the binary compatible with your platform to a director
 #### Linux
 
 ```bash
-# Check out the latest release available on github <https://github.com/scaleway/scaleway-cli/releases/latest>
-VERSION="2.5.4"
-
-# Download the release from github
-sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v${VERSION}/scaleway-cli_${VERSION}_linux_amd64"
-# Naming changed lately, the url prior to 2.5.4 was https://github.com/scaleway/scaleway-cli/releases/download/v${VERSION}/scw-${VERSION}-linux-x86_64
-
-# Allow executing file as program
-sudo chmod +x /usr/local/bin/scw
-
-# Init the CLI
-scw init
+curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
 ```
 
 #### Windows
@@ -124,6 +113,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `cockpit`      | Cockpit API                             | [CLI](./docs/commands/cockpit.md) / [API](https://developers.scaleway.com/en/products/cockpit/api/)             |
 | `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                                |
 | `container`    | Serverless Container API                | [CLI](./docs/commands/container.md) / [API](https://developers.scaleway.com/en/products/containers/api/)        |
+| `documentdb`   | DocumentDB API                          | [CLI](./docs/commands/document-db.md) / [API](https://www.scaleway.com/en/developers/api/document_db/)          |
 | `dns`          | DNS API                                 | [CLI](./docs/commands/dns.md) / [API](https://developers.scaleway.com/en/products/domain/dns/api/)              |
 | `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                              |
 | `flexibleip`   | Flexible IP API                         | [CLI](./docs/commands/fip.md)   / [API](https://developers.scaleway.com/en/products/flexible-ip/api/)           |

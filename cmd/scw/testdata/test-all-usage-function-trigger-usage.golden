@@ -6,11 +6,11 @@ USAGE:
   scw function trigger <command>
 
 AVAILABLE COMMANDS:
-  create      Create function resources
-  delete      Delete function resources
-  get         Get function resources
-  list        List function resources
-  update      Update function resources
+  create      Create a trigger
+  delete      Delete a trigger
+  get         Get a trigger
+  list        List all triggers
+  update      Update a trigger
 
 FLAGS:
   -h, --help   help for trigger

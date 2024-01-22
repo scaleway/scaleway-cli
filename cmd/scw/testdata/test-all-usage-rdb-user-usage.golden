@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   create      Create a user for a Database Instance
   delete      Delete a user on a Database Instance
+  get-url     Gets the URL to connect to the Database
   list        List users of a Database Instance
   update      Update a user on a Database Instance
 

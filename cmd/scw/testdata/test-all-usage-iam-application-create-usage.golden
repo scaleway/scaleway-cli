@@ -8,6 +8,7 @@ USAGE:
 ARGS:
   name=<generated>    Name of the application to create (max length is 64 characters)
   [description]       Description of the application (max length is 200 characters)
+  [tags.{index}]      Tags associated with the application (maximum of 10 tags)
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:

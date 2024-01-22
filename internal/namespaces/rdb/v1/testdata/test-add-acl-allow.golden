@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0   21271  tcp       inbound    allow   Allow All
+1.2.3.4/32  21271  tcp       inbound    allow   Allow 1.2.3.4/32
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "ip": "0.0.0.0/0",
+    "port": 21271,
+    "protocol": "tcp",
+    "direction": "inbound",
+    "action": "allow",
+    "description": "Allow All"
+  },
+  {
+    "ip": "1.2.3.4/32",
+    "port": 21271,
+    "protocol": "tcp",
+    "direction": "inbound",
+    "action": "allow",
+    "description": "Allow 1.2.3.4/32"
+  }
+]

@@ -12,18 +12,15 @@ ARGS:
   [pool-low]                       Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet
   [pool-high]                      High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet
   [enable-dynamic]                 Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true
-  [valid-lifetime.seconds]         
-  [valid-lifetime.nanos]           
-  [renew-timer.seconds]            
-  [renew-timer.nanos]              
-  [rebind-timer.seconds]           
-  [rebind-timer.nanos]             
+  [valid-lifetime]                 How long DHCP entries will be valid for. Defaults to 1h (3600s)
+  [renew-timer]                    After how long a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s)
+  [rebind-timer]                   After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s)
   [push-default-route]             Defines whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true
   [push-dns-server]                Defines whether the gateway should push custom DNS servers to clients. This allows for Instance hostname -> IP resolution. Defaults to true
   [dns-servers-override.{index}]   Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself
   [dns-search.{index}]             Array of search paths in addition to the pushed DNS configuration
   [dns-local-name]                 TLD given to hostnames in the Private Network. Allowed characters are `a-z0-9-.`. Defaults to the slugified Private Network name if created along a GatewayNetwork, or else to `priv`
-  [zone=fr-par-1]                  Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2)
+  [zone=fr-par-1]                  Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for create

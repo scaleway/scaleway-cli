@@ -8,5 +8,7 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("ipns").Groups = []string{"labs"}
+	cmds.MustFind("ipfs").Groups = []string{"labs"}
 	return cmds
 }

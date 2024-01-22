@@ -76,7 +76,7 @@ scw account project get [arg=value ...]
 
 ### List all Projects of an Organization
 
-List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
+List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names, and IDs. Other information includes the creation and update date of the Project.
 
 **Usage:**
 

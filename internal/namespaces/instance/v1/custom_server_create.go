@@ -12,7 +12,7 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -32,6 +32,10 @@ type instanceCreateServerRequest struct {
 	Stopped           bool
 	SecurityGroupID   string
 	PlacementGroupID  string
+
+	// IP Mobility
+	RoutedIPEnabled *bool
+
 	// Deprecated
 	BootscriptID string
 	CloudInit    string
@@ -121,6 +125,10 @@ func serverCreateCommand() *core.Command {
 				Default:    core.DefaultValueSetter(instance.BootTypeLocal.String()),
 				EnumValues: []string{instance.BootTypeLocal.String(), instance.BootTypeBootscript.String(), instance.BootTypeRescue.String()},
 			},
+			{
+				Name:  "routed-ip-enabled",
+				Short: "Enable routed IP support",
+			},
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(),
 			core.OrganizationIDArgSpec(),
@@ -182,13 +190,14 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	needIPCreation := false
 
 	serverReq := &instance.CreateServerRequest{
-		Zone:           args.Zone,
-		Organization:   args.OrganizationID,
-		Project:        args.ProjectID,
-		Name:           args.Name,
-		CommercialType: args.Type,
-		EnableIPv6:     args.IPv6,
-		Tags:           args.Tags,
+		Zone:            args.Zone,
+		Organization:    args.OrganizationID,
+		Project:         args.ProjectID,
+		Name:            args.Name,
+		CommercialType:  args.Type,
+		EnableIPv6:      args.IPv6,
+		Tags:            args.Tags,
+		RoutedIPEnabled: args.RoutedIPEnabled,
 	}
 
 	client := core.ExtractClient(ctx)
@@ -204,16 +213,20 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	//
 	switch {
 	case !validation.IsUUID(args.Image):
+		// For retro-compatibility, we replace dashes with underscores
+		imageLabel := strings.Replace(args.Image, "-", "_", -1)
+
 		// Find the corresponding local image UUID.
-		imageID, err := apiMarketplace.GetLocalImageIDByLabel(&marketplace.GetLocalImageIDByLabelRequest{
+		localImage, err := apiMarketplace.GetLocalImageByLabel(&marketplace.GetLocalImageByLabelRequest{
+			ImageLabel:     imageLabel,
 			Zone:           args.Zone,
-			ImageLabel:     args.Image,
 			CommercialType: serverReq.CommercialType,
+			Type:           marketplace.LocalImageTypeInstanceLocal,
 		})
 		if err != nil {
 			return nil, err
 		}
-		serverReq.Image = imageID
+		serverReq.Image = localImage.ID
 	default:
 		serverReq.Image = args.Image
 	}
@@ -304,6 +317,11 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		serverReq.Volumes = sanitizeVolumeMap(serverReq.Name, volumes)
 	}
 
+	// Add default volumes to server, ex: scratch storage for GPU servers
+	if serverType != nil {
+		serverReq.Volumes = addDefaultVolumes(serverType, serverReq.Volumes)
+	}
+
 	//
 	// BootType.
 	//
@@ -356,15 +374,11 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	if needIPCreation {
 		logger.Debugf("creating IP")
 
-		res, err := apiInstance.CreateIP(&instance.CreateIPRequest{
-			Zone:         args.Zone,
-			Project:      args.ProjectID,
-			Organization: args.OrganizationID,
-		})
+		ip, err := instanceServerCreateIPCreate(args, apiInstance)
 		if err != nil {
 			return nil, fmt.Errorf("error while creating your public IP: %s", err)
 		}
-		serverReq.PublicIP = scw.StringPtr(res.IP.ID)
+		serverReq.PublicIP = scw.StringPtr(ip.ID)
 		logger.Debugf("IP created: %s", serverReq.PublicIP)
 	}
 
@@ -428,6 +442,46 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	return server, nil
 }
 
+func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
+	needScratch := false
+	hasScratch := false
+	defaultVolumes := []*instance.VolumeServerTemplate(nil)
+	if serverType.ScratchStorageMaxSize != nil && *serverType.ScratchStorageMaxSize > 0 {
+		needScratch = true
+	}
+	for _, volume := range volumes {
+		if volume.VolumeType == instance.VolumeVolumeTypeScratch {
+			hasScratch = true
+		}
+	}
+
+	if needScratch && !hasScratch {
+		defaultVolumes = append(defaultVolumes, &instance.VolumeServerTemplate{
+			Name:       scw.StringPtr("default-cli-scratch-volume"),
+			Size:       serverType.ScratchStorageMaxSize,
+			VolumeType: instance.VolumeVolumeTypeScratch,
+		})
+	}
+
+	if defaultVolumes != nil {
+		if volumes == nil {
+			volumes = make(map[string]*instance.VolumeServerTemplate)
+		}
+		maxKey := 1
+		for k := range volumes {
+			key, err := strconv.Atoi(k)
+			if err == nil && key > maxKey {
+				maxKey = key
+			}
+		}
+		for i, vol := range defaultVolumes {
+			volumes[strconv.Itoa(maxKey+i)] = vol
+		}
+	}
+
+	return volumes
+}
+
 // buildVolumes creates the initial volume map.
 // It is not the definitive one, it will be mutated all along the process.
 func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeServerTemplate, error) {
@@ -468,7 +522,7 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 // Volumes definition must be through multiple arguments (eg: volumes.0="l:20GB" volumes.1="b:100GB")
 //
 // A valid volume format is either
-// - a "creation" format: ^((local|l|block|b):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
+// - a "creation" format: ^((local|l|block|b|scratch|s):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
 // - a "creation" format with a snapshot id: l:<uuid> b:<uuid>
 // - a UUID format
 func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeServerTemplate, error) {
@@ -483,6 +537,8 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*insta
 			vt.VolumeType = instance.VolumeVolumeTypeLSSD
 		case "b", "block":
 			vt.VolumeType = instance.VolumeVolumeTypeBSSD
+		case "s", "scratch":
+			vt.VolumeType = instance.VolumeVolumeTypeScratch
 		default:
 			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
 		}
@@ -574,7 +630,7 @@ func validateImageServerTypeCompatibility(image *instance.Image, serverType *ins
 	if serverType.VolumesConstraint.MaxSize == 0 {
 		return nil
 	}
-	if image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
+	if image.RootVolume.VolumeType == instance.VolumeVolumeTypeLSSD && image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
 		return fmt.Errorf("image %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
 			image.ID,
 			humanize.Bytes(uint64(image.RootVolume.Size)),
@@ -713,4 +769,23 @@ func getServerType(apiInstance *instance.API, zone scw.Zone, commercialType stri
 	}
 
 	return serverType
+}
+
+func instanceServerCreateIPCreate(args *instanceCreateServerRequest, api *instance.API) (*instance.IP, error) {
+	req := &instance.CreateIPRequest{
+		Zone:         args.Zone,
+		Project:      args.ProjectID,
+		Organization: args.OrganizationID,
+	}
+
+	if args.RoutedIPEnabled != nil && *args.RoutedIPEnabled {
+		req.Type = instance.IPTypeRoutedIPv4
+	}
+
+	res, err := api.CreateIP(req)
+	if err != nil {
+		return nil, err
+	}
+
+	return res.IP, nil
 }

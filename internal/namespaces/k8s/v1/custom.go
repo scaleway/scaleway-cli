@@ -29,6 +29,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(k8s.ClusterStatus(""), human.EnumMarshalFunc(clusterStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(k8s.PoolStatus(""), human.EnumMarshalFunc(poolStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(k8s.NodeStatus(""), human.EnumMarshalFunc(nodeStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(k8s.ListClusterAvailableTypesResponse{}, clusterAvailableTypesListMarshalerFunc)
 
 	cmds.MustFind("k8s", "cluster", "list-available-versions").Override(clusterAvailableVersionsListBuilder)
 	cmds.MustFind("k8s", "cluster", "create").Override(clusterCreateBuilder)
@@ -37,7 +38,6 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("k8s", "cluster", "upgrade").Override(clusterUpgradeBuilder)
 	cmds.MustFind("k8s", "cluster", "delete").Override(clusterDeleteBuilder)
 	cmds.MustFind("k8s", "cluster", "migrate-to-private-network").Override(clusterMigrateToPrivateNetworkBuilder)
-
 	cmds.MustFind("k8s", "pool", "create").Override(poolCreateBuilder)
 	cmds.MustFind("k8s", "pool", "update").Override(poolUpdateBuilder)
 	cmds.MustFind("k8s", "pool", "upgrade").Override(poolUpgradeBuilder)

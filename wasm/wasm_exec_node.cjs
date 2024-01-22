@@ -2,16 +2,16 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-"use strict";
+'use strict'
 
-globalThis.require = require;
-globalThis.fs = require("fs");
-globalThis.TextEncoder = require("util").TextEncoder;
-globalThis.TextDecoder = require("util").TextDecoder;
+globalThis.require = require
+globalThis.fs = require('fs')
+globalThis.TextEncoder = require('util').TextEncoder
+globalThis.TextDecoder = require('util').TextDecoder
 
-const crypto = require("crypto");
+const crypto = require('crypto')
 globalThis.crypto = {
-	getRandomValues(b) {
-		crypto.randomFillSync(b);
-	},
-};
+  getRandomValues(b) {
+    crypto.randomFillSync(b)
+  },
+}

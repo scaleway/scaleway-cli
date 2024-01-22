@@ -14,10 +14,10 @@ The following environment variables are supported:
 
 |Environment Variable|Description|
 |--|--|
-|SCW_ACCESS_KEY|The access key of a token (create a token at https://console.scaleway.com/project/credentials)|
-|SCW_SECRET_KEY|The secret key of a token (create a token at https://console.scaleway.com/project/credentials)|
-|SCW_DEFAULT_ORGANIZATION_ID|The default organization ID (get your organization ID at https://console.scaleway.com/project/credentials)|
-|SCW_DEFAULT_PROJECT_ID|The default project ID (get your project ID at https://console.scaleway.com/project/credentials)|
+|SCW_ACCESS_KEY|The access key of a token (create a token at https://console.scaleway.com/iam/api-keys)|
+|SCW_SECRET_KEY|The secret key of a token (create a token at https://console.scaleway.com/iam/api-keys)|
+|SCW_DEFAULT_ORGANIZATION_ID|The default organization ID (get your organization ID at https://console.scaleway.com/iam/api-keys)|
+|SCW_DEFAULT_PROJECT_ID|The default project ID (get your project ID at https://console.scaleway.com/iam/api-keys)|
 |SCW_DEFAULT_REGION|The default region|
 |SCW_DEFAULT_ZONE|The default availability zone|
 |SCW_API_URL|URL of the API|
@@ -31,7 +31,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 - [Get a value from the config file](#get-a-value-from-the-config-file)
 - [Import configurations from another file](#import-configurations-from-another-file)
 - [Get config values from the config file for the current profile](#get-config-values-from-the-config-file-for-the-current-profile)
-- [Allows the deletion of a profile from the config file](#allows-the-deletion-of-a-profile-from-the-config-file)
+- [Allows the activation and deletion of a profile from the config file](#allows-the-activation-and-deletion-of-a-profile-from-the-config-file)
   - [Mark a profile as active in the config file](#mark-a-profile-as-active-in-the-config-file)
   - [Delete a profile from the config file](#delete-a-profile-from-the-config-file)
 - [Reset the config](#reset-the-config)
@@ -154,7 +154,7 @@ scw -p prod config info
 
 
 
-## Allows the deletion of a profile from the config file
+## Allows the activation and deletion of a profile from the config file
 
 
 
@@ -237,7 +237,7 @@ scw config set [arg=value ...]
 | default-organization-id |  | A default Scaleway organization id |
 | default-project-id |  | A default Scaleway project id |
 | default-region | One of: `fr-par`, `nl-ams`, `pl-waw` | A default Scaleway region |
-| default-zone | One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2` | A default Scaleway zone |
+| default-zone | One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | A default Scaleway zone |
 | send-telemetry |  | Set to false to disable telemetry |
 
 
