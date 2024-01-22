@@ -13,6 +13,7 @@ import (
 
 	pack "github.com/buildpacks/pack/pkg/client"
 	dockertypes "github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/container"
 	docker "github.com/docker/docker/client"
 )
 
@@ -40,7 +41,7 @@ func NewCustomDockerClient(httpClient *http.Client) (*CustomDockerClient, error)
 	}, nil
 }
 
-func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string, options dockertypes.ContainerAttachOptions) (dockertypes.HijackedResponse, error) {
+func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string, options container.AttachOptions) (dockertypes.HijackedResponse, error) {
 	query := url.Values{}
 	if options.Stream {
 		query.Set("stream", "1")
