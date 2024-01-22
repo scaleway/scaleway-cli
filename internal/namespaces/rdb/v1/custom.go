@@ -15,7 +15,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(createInstanceResult{}, createInstanceResultMarshalerFunc)
 	human.RegisterMarshalerFunc(rdbACLCustomResult{}, rdbACLCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(core.MultiResults{}, rdbACLCustomMultiResultMarshalerFunc)
-	//human.RegisterMarshalerFunc(rdb.DatabaseBackup{}, databaseBackupMarshallerFunc)
+	human.RegisterMarshalerFunc(rdb.DatabaseBackup{}, backupExportDisplayBuilder)
 
 	human.RegisterMarshalerFunc(rdb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(""), human.EnumMarshalFunc(backupStatusMarshalSpecs))
@@ -55,7 +55,6 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "user", "update").Override(userUpdateBuilder)
 
 	cmds.MustFind("rdb", "backup", "list").Override(backupListBuilder)
-	cmds.MustFind("rdb", "backup", "export").Override(backupExportDisplayBuilder)
 
 	return cmds
 }
