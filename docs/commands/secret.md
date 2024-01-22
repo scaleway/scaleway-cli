@@ -149,6 +149,7 @@ scw secret secret create [arg=value ...]
 | ephemeral-policy.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
 | ephemeral-policy.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
 | ephemeral-policy.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
+| is-protected |  | Returns `true` if secret protection is enabled on a given secret |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

@@ -160,6 +160,13 @@ func secretSecretCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_action", "delete", "disable"},
 			},
+			{
+				Name:       "is-protected",
+				Short:      `Returns ` + "`" + `true` + "`" + ` if secret protection is enabled on a given secret`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

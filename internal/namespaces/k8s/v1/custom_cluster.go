@@ -44,8 +44,8 @@ const (
 )
 
 func clusterMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	type tmp k8s.Cluster
-	cluster := tmp(i.(k8s.Cluster))
+	type humanCluster k8s.Cluster
+	cluster := humanCluster(i.(k8s.Cluster))
 
 	// Sections
 	opt.Sections = []*human.MarshalSection{
@@ -64,6 +64,26 @@ func clusterMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	}
 
 	str, err := human.Marshal(cluster, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
+
+func clusterAvailableTypesListMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type humanResponse k8s.ListClusterAvailableTypesResponse
+	types := humanResponse(i.(k8s.ListClusterAvailableTypesResponse))
+
+	// Sections
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "ClusterTypes",
+			Title:     "Cluster Types",
+		},
+	}
+
+	str, err := human.Marshal(types, opt)
 	if err != nil {
 		return "", err
 	}
