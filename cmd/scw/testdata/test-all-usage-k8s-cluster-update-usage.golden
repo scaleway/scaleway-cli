@@ -6,9 +6,6 @@ USAGE:
   scw k8s cluster update <cluster-id ...> [arg=value ...]
 
 EXAMPLES:
-  Enable dashboard on a cluster
-    scw k8s cluster update 11111111-1111-1111-111111111111 enable-dashboard=true
-
   Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a cluster
     scw k8s cluster update 11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion
 
@@ -41,10 +38,6 @@ ARGS:
   [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value
   [apiserver-cert-sans.{index}]                          Additional Subject Alternative Names for the Kubernetes API server certificate
   [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
-
-DEPRECATED ARGS:
-  [enable-dashboard]   New value for the Kubernetes Dashboard enablement
-  [ingress]            New Ingress Controller for the cluster (deprecated feature) (unknown_ingress | none | nginx | traefik | traefik2)
 
 FLAGS:
   -h, --help   help for update
