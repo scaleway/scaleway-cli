@@ -69,8 +69,6 @@ scw k8s cluster create [arg=value ...]
 | tags.{index} |  | Tags associated with the cluster |
 | version | Required<br />Default: `latest` | Kubernetes version of the cluster |
 | cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo` | Container Network Interface (CNI) plugin running in the cluster |
-| ~~enable-dashboard~~ | Deprecated | Defines whether the Kubernetes Dashboard is enabled in the cluster |
-| ~~ingress~~ | Deprecated<br />One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | Ingress Controller running in the cluster (deprecated feature) |
 | pools.{index}.name |  | Name of the pool |
 | pools.{index}.node-type |  | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
 | pools.{index}.placement-group-id |  | Placement group ID in which all the nodes of the pool will be created |
@@ -425,8 +423,6 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible to be scaled down |
 | autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down |
 | autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
-| ~~enable-dashboard~~ | Deprecated | New value for the Kubernetes Dashboard enablement |
-| ~~ingress~~ | Deprecated<br />One of: `unknown_ingress`, `none`, `nginx`, `traefik`, `traefik2` | New Ingress Controller for the cluster (deprecated feature) |
 | auto-upgrade.enable |  | Defines whether auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
@@ -445,11 +441,6 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 
 **Examples:**
 
-
-Enable dashboard on a cluster
-```
-scw k8s cluster update 11111111-1111-1111-111111111111 enable-dashboard=true
-```
 
 Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a cluster
 ```
