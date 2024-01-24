@@ -64,10 +64,6 @@ ARGS:
   [organization-id]                                      Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
-DEPRECATED ARGS:
-  [enable-dashboard]   Defines whether the Kubernetes Dashboard is enabled in the cluster
-  [ingress]            Ingress Controller running in the cluster (deprecated feature) (unknown_ingress | none | nginx | traefik | traefik2)
-
 FLAGS:
   -h, --help   help for create
   -w, --wait   wait until the cluster is ready
