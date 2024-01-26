@@ -18,9 +18,6 @@ NAME     AVAILABLE CNIS                      AVAILABLE CONTAINER RUNTIMES  AVAIL
       "calico",
       "kilo"
     ],
-    "available_ingresses": [
-      "none"
-    ],
     "available_container_runtimes": [
       "containerd"
     ],
@@ -55,9 +52,6 @@ NAME     AVAILABLE CNIS                      AVAILABLE CONTAINER RUNTIMES  AVAIL
       "calico",
       "kilo"
     ],
-    "available_ingresses": [
-      "none"
-    ],
     "available_container_runtimes": [
       "containerd"
     ],
@@ -91,9 +85,6 @@ NAME     AVAILABLE CNIS                      AVAILABLE CONTAINER RUNTIMES  AVAIL
       "cilium",
       "calico",
       "kilo"
-    ],
-    "available_ingresses": [
-      "none"
     ],
     "available_container_runtimes": [
       "containerd"
@@ -131,9 +122,6 @@ NAME     AVAILABLE CNIS                      AVAILABLE CONTAINER RUNTIMES  AVAIL
       "weave",
       "flannel",
       "kilo"
-    ],
-    "available_ingresses": [
-      "none"
     ],
     "available_container_runtimes": [
       "containerd",
@@ -175,11 +163,6 @@ NAME     AVAILABLE CNIS                      AVAILABLE CONTAINER RUNTIMES  AVAIL
       "flannel",
       "kilo"
     ],
-    "available_ingresses": [
-      "none",
-      "nginx",
-      "traefik2"
-    ],
     "available_container_runtimes": [
       "containerd",
       "crio",
@@ -219,11 +202,6 @@ NAME     AVAILABLE CNIS                      AVAILABLE CONTAINER RUNTIMES  AVAIL
       "weave",
       "flannel",
       "kilo"
-    ],
-    "available_ingresses": [
-      "none",
-      "nginx",
-      "traefik2"
     ],
     "available_container_runtimes": [
       "containerd",
