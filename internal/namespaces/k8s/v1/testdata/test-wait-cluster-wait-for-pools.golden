@@ -14,8 +14,6 @@ ClusterURL        https://37176254-0637-41bd-b519-091d431d29ed.api.k8s.fr-par.sc
 DNSWildcard       *.37176254-0637-41bd-b519-091d431d29ed.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
-DashboardEnabled  false
-Ingress           none
 UpgradeAvailable  true
 PrivateNetworkID  65834a6d-2e7c-43f1-bd71-52fa7307ab07
 CommitmentEndsAt  few seconds ago
@@ -72,8 +70,6 @@ GroupsPrefix    -
     "scale_down_utilization_threshold": 0.5,
     "max_graceful_termination_sec": 600
   },
-  "dashboard_enabled": false,
-  "ingress": "none",
   "auto_upgrade": {
     "enabled": false,
     "maintenance_window": {
