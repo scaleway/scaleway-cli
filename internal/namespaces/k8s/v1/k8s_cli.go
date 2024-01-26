@@ -304,21 +304,6 @@ func k8sClusterCreate() *core.Command {
 				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel", "kilo"},
 			},
 			{
-				Name:       "enable-dashboard",
-				Short:      `Defines whether the Kubernetes Dashboard is enabled in the cluster`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
-				Name:       "ingress",
-				Short:      `Ingress Controller running in the cluster (deprecated feature)`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-				EnumValues: []string{"unknown_ingress", "none", "nginx", "traefik", "traefik2"},
-			},
-			{
 				Name:       "pools.{index}.name",
 				Short:      `Name of the pool`,
 				Required:   false,
@@ -781,21 +766,6 @@ func k8sClusterUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "enable-dashboard",
-				Short:      `New value for the Kubernetes Dashboard enablement`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
-				Name:       "ingress",
-				Short:      `New Ingress Controller for the cluster (deprecated feature)`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-				EnumValues: []string{"unknown_ingress", "none", "nginx", "traefik", "traefik2"},
-			},
-			{
 				Name:       "auto-upgrade.enable",
 				Short:      `Defines whether auto upgrade is enabled for the cluster`,
 				Required:   false,
@@ -898,10 +868,6 @@ func k8sClusterUpdate() *core.Command {
 
 		},
 		Examples: []*core.Example{
-			{
-				Short: "Enable dashboard on a cluster",
-				Raw:   `scw k8s cluster update 11111111-1111-1111-111111111111 enable-dashboard=true`,
-			},
 			{
 				Short: "Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a cluster",
 				Raw:   `scw k8s cluster update 11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion`,
@@ -1093,9 +1059,6 @@ func k8sClusterListAvailableVersions() *core.Command {
 			},
 			{
 				FieldName: "Label",
-			},
-			{
-				FieldName: "AvailableIngresses",
 			},
 			{
 				FieldName: "AvailableContainerRuntimes",
@@ -2060,9 +2023,6 @@ func k8sVersionList() *core.Command {
 			},
 			{
 				FieldName: "AvailableCnis",
-			},
-			{
-				FieldName: "AvailableIngresses",
 			},
 			{
 				FieldName: "AvailableContainerRuntimes",

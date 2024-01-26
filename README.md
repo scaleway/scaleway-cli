@@ -158,7 +158,7 @@ You can build the `scw` CLI with Docker. If you have Docker installed, you can r
 docker build -t scaleway/cli .
 ```
 
-Once build, you can then use the CLI as you would run any image:
+Once built, you can then use the CLI as you would run any image:
 
 ```sh
 docker run -i --rm scaleway/cli

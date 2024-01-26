@@ -104,11 +104,11 @@ func serverCreateCommand() *core.Command {
 			},
 			{
 				Name:  "security-group-id",
-				Short: "The security group ID it use for this server",
+				Short: "The security group ID used for this server",
 			},
 			{
 				Name:  "placement-group-id",
-				Short: "The placement group ID in witch the server has to be created",
+				Short: "The placement group ID in which the server has to be created",
 			},
 			{
 				Name:  "bootscript-id",

@@ -1712,8 +1712,8 @@ scw instance server create [arg=value ...]
 | tags.{index} |  | Server tags |
 | ipv6 |  | Enable IPv6 |
 | stopped |  | Do not start server after its creation |
-| security-group-id |  | The security group ID it use for this server |
-| placement-group-id |  | The placement group ID in witch the server has to be created |
+| security-group-id |  | The security group ID used for this server |
+| placement-group-id |  | The placement group ID in which the server has to be created |
 | bootscript-id |  | The bootscript ID to use, if empty the local boot will be used |
 | cloud-init |  | The cloud-init script to use |
 | boot-type | Default: `local`<br />One of: `local`, `bootscript`, `rescue` | The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set. |
