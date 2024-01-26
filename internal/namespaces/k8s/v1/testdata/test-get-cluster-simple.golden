@@ -14,8 +14,6 @@ ClusterURL        https://e96a93a2-c36f-42bb-b7e1-bebf52db7956.api.k8s.fr-par.sc
 DNSWildcard       *.e96a93a2-c36f-42bb-b7e1-bebf52db7956.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
-DashboardEnabled  false
-Ingress           none
 UpgradeAvailable  true
 PrivateNetworkID  ac61c2ff-059a-4ce9-ab43-c8c70c85aef6
 CommitmentEndsAt  few seconds ago
@@ -76,8 +74,6 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
     "scale_down_utilization_threshold": 0.5,
     "max_graceful_termination_sec": 600
   },
-  "dashboard_enabled": false,
-  "ingress": "none",
   "auto_upgrade": {
     "enabled": false,
     "maintenance_window": {
