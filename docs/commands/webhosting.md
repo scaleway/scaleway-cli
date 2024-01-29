@@ -66,6 +66,7 @@ scw webhosting hosting create [arg=value ...]
 | tags.{index} |  | List of tags for the Web Hosting plan |
 | domain |  | Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand |
 | option-ids.{index} |  | IDs of any selected additional options for the Web Hosting plan |
+| language | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` | Default language for the control panel interface |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
