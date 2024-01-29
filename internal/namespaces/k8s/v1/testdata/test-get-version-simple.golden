@@ -10,9 +10,6 @@ map[containerLogMaxFiles:uint16 containerLogMaxSize:quantity cpuCFSQuota:bool cp
 Available CNIs:
 [cilium calico kilo]
 
-Available Ingresses:
-[none]
-
 Available Container Runtimes:
 [containerd]
 
@@ -30,9 +27,6 @@ Available Admission Plugins:
     "cilium",
     "calico",
     "kilo"
-  ],
-  "available_ingresses": [
-    "none"
   ],
   "available_container_runtimes": [
     "containerd"
