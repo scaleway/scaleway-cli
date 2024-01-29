@@ -1,6 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-field AvailableIngresses does not exist in $
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Name    1.27.1
+Label   Kubernetes 1.27.1
+Region  fr-par
+
+Available Kubelet Arguments:
+map[containerLogMaxFiles:uint16 containerLogMaxSize:quantity cpuCFSQuota:bool cpuCFSQuotaPeriod:duration cpuManagerPolicy:enum:none|static enableDebuggingHandlers:bool imageGCHighThresholdPercent:uint32 imageGCLowThresholdPercent:uint32 maxPods:uint16]
+
+Available CNIs:
+[cilium calico kilo]
+
+Available Container Runtimes:
+[containerd]
+
+Available Feature Gates:
+[HPAScaleToZero GRPCContainerProbe ReadWriteOncePod]
+
+Available Admission Plugins:
+[PodNodeSelector AlwaysPullImages PodTolerationRestriction]
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "name": "1.27.1",
