@@ -109,7 +109,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		return nil, fmt.Errorf("failed to write helper script: %s", err)
 	}
 
-	var registries []string
+	registries := make([]string, 0, len(scw.AllRegions))
 	for _, region := range scw.AllRegions {
 		registries = append(registries, getRegistryEndpoint(region))
 	}
