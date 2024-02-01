@@ -15,7 +15,7 @@ var (
 )
 
 func (p programs) StringArray() []string {
-	var res []string
+	res := make([]string, 0, len(p))
 	for _, prog := range p {
 		res = append(res, string(prog))
 	}

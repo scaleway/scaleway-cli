@@ -65,9 +65,9 @@ func RemoveIndent(str string) string {
 	return strings.Trim(regexp.MustCompile("\n[ \t]*").ReplaceAllString(str, "\n"), "\n")
 }
 
-func makeStr(char string, len int) string {
+func makeStr(char string, length int) string {
 	str := ""
-	for i := 0; i < len; i++ {
+	for i := 0; i < length; i++ {
 		str += char
 	}
 	return str

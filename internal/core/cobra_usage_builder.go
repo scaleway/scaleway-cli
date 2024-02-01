@@ -101,7 +101,7 @@ func _buildArgShort(as *ArgSpec) string {
 // This string will be used by cobra usage template.
 func buildExamples(binaryName string, cmd *Command) string {
 	// Build the examples array.
-	var examples []string
+	examples := make([]string, 0, len(cmd.Examples))
 
 	for _, cmdExample := range cmd.Examples {
 		// Build title.

@@ -74,8 +74,8 @@ func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (st
 	return string(inRune), nil
 }
 
-func randInt(len int) (int, error) {
-	i, err := crypto.Int(crypto.Reader, big.NewInt(int64(len)))
+func randInt(length int) (int, error) {
+	i, err := crypto.Int(crypto.Reader, big.NewInt(int64(length)))
 	if err != nil {
 		return 0, err
 	}

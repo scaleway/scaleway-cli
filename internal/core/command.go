@@ -154,7 +154,7 @@ func (c *Command) GetUsage(binaryName string, commands *Commands) string {
 
 // seeAlsosAsStr returns all See Alsos as a single string
 func (c *Command) seeAlsosAsStr() string {
-	var seeAlsos []string
+	seeAlsos := make([]string, 0, len(c.SeeAlsos))
 
 	for _, cmdSeeAlso := range c.SeeAlsos {
 		short := fmt.Sprintf("  # %s", cmdSeeAlso.Short)

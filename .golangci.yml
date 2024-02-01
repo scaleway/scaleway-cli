@@ -13,7 +13,10 @@ linters:
   # Run golangci-lint linters to see the list of all linters
   # Please keep them sorted alphabetically
   enable:
+    - asasalint
+    - bidichk
     - bodyclose
+    - decorder
     - dogsled
     - errcheck
     - goconst
@@ -26,10 +29,13 @@ linters:
     - misspell
     - nakedret
     - nolintlint
+    - prealloc
+    - predeclared
     - revive
     - rowserrcheck
     - staticcheck
     - stylecheck
+    - tenv
     - typecheck
     - unconvert
     - unparam
