@@ -78,6 +78,9 @@ func init() {
 	marshalerFuncs.Store(reflect.TypeOf(net.IP{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		return fmt.Sprintf("%v", i.(net.IP)), nil
 	})
+	marshalerFuncs.Store(reflect.TypeOf([]net.IP{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+		return fmt.Sprintf("%v", i), nil
+	})
 	marshalerFuncs.Store(reflect.TypeOf(scw.IPNet{}), func(i interface{}, opt *MarshalOpt) (string, error) {
 		v := i.(scw.IPNet)
 		str := v.String()

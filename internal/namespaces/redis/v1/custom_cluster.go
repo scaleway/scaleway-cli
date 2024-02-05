@@ -3,11 +3,13 @@ package redis
 import (
 	"context"
 	"errors"
+	"log"
 	"net/http"
 	"reflect"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -155,4 +157,50 @@ func ACLAddListBuilder(c *core.Command) *core.Command {
 		return ACLAddResponse.ACLRules, nil
 	})
 	return c
+}
+
+func redisEndpointsClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp []*redis.Endpoint
+	redisEndpointsClusterResponse := tmp(i.([]*redis.Endpoint))
+	opt.Fields = []*human.MarshalFieldOpt{
+		{
+			FieldName: "ID",
+			Label:     "ID",
+		},
+		{
+			FieldName: "Port",
+			Label:     "Port",
+		},
+		{
+			FieldName: "IPs",
+			Label:     "IPs",
+		},
+	}
+	str, err := human.Marshal(redisEndpointsClusterResponse, opt)
+	if err != nil {
+		return "", err
+	}
+	return str, nil
+}
+
+func redisClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp redis.Cluster
+	redisClusterResponse := tmp(i.(redis.Cluster))
+	log.Println("redis ", i.(redis.Cluster).Endpoints[0])
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "Endpoints",
+			Title:     "Endpoints",
+		},
+		{
+			FieldName: "ACLRules",
+			Title:     "ACLRules",
+		},
+	}
+	str, err := human.Marshal(redisClusterResponse, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
 }
