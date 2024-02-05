@@ -12,9 +12,11 @@ import (
 	"strings"
 
 	"github.com/c-bata/go-prompt"
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/cache"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/spf13/cobra"
 )
 
@@ -319,6 +321,8 @@ func RunShell(ctx context.Context, printer *Printer, meta *meta, rootCmd *cobra.
 	meta.Commands.Remove("shell", "")
 
 	executor := shellExecutor(rootCmd, printer, meta)
+	quitMessage := terminal.Style("- Type Ctrl+d to quit.", color.Bold, color.FgCyan)
+	fmt.Println(quitMessage)
 	p := prompt.New(
 		executor,
 		completer.Complete,
