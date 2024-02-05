@@ -234,7 +234,7 @@ func backupListBuilder(c *core.Command) *core.Command {
 }
 
 func backupExportDisplayBuilder(i interface{}, opt *human.MarshalOpt) (string, error) {
-	version := i.(rdb.DatabaseBackup)
+	databaseBackup := i.(rdb.DatabaseBackup)
 
 	type customDisplayBackup struct {
 		ID           string                   `json:"ID"`
@@ -300,24 +300,24 @@ func backupExportDisplayBuilder(i interface{}, opt *human.MarshalOpt) (string, e
 	}
 
 	isExported := false
-	if version.DownloadURL != nil {
+	if databaseBackup.DownloadURL != nil {
 		isExported = true
 	}
 
 	arg := customDisplayBackup{
-		ID:           version.ID,
-		InstanceID:   version.InstanceID,
-		DatabaseName: version.DatabaseName,
-		Name:         version.Name,
-		Status:       version.Status,
-		Size:         version.Size,
-		ExpiresAt:    version.ExpiresAt,
-		CreatedAt:    version.CreatedAt,
-		UpdatedAt:    version.UpdatedAt,
-		InstanceName: version.InstanceName,
+		ID:           databaseBackup.ID,
+		InstanceID:   databaseBackup.InstanceID,
+		DatabaseName: databaseBackup.DatabaseName,
+		Name:         databaseBackup.Name,
+		Status:       databaseBackup.Status,
+		Size:         databaseBackup.Size,
+		ExpiresAt:    databaseBackup.ExpiresAt,
+		CreatedAt:    databaseBackup.CreatedAt,
+		UpdatedAt:    databaseBackup.UpdatedAt,
+		InstanceName: databaseBackup.InstanceName,
 		IsExported:   isExported,
-		Region:       version.Region,
-		SameRegion:   version.SameRegion,
+		Region:       databaseBackup.Region,
+		SameRegion:   databaseBackup.SameRegion,
 	}
 	str, err := human.Marshal(arg, opt)
 	if err != nil {
