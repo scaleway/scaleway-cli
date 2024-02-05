@@ -102,7 +102,7 @@ scw ipam ip list [arg=value ...]
 | private-network-id |  | Private Network to filter for |
 | attached |  | Defines whether to filter only for IPs which are attached to a resource |
 | resource-id |  | Resource ID to filter for. Only IPs attached to this resource will be returned |
-| resource-type | One of: `unknown_type`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic` | Resource type to filter for. Only IPs attached to this type of resource will be returned |
+| resource-type | One of: `unknown_type`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment` | Resource type to filter for. Only IPs attached to this type of resource will be returned |
 | mac-address |  | MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned |
 | tags.{index} |  | Tags to filter for, only IPs with one or more matching tags will be returned |
 | is-ipv6 |  | Defines whether to filter only for IPv4s or IPv6s |
