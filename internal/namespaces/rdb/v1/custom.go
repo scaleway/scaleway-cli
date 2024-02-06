@@ -40,6 +40,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "backup", "create").Override(backupCreateBuilder)
 	cmds.MustFind("rdb", "backup", "export").Override(backupExportBuilder)
 	cmds.MustFind("rdb", "backup", "restore").Override(backupRestoreBuilder)
+	cmds.MustFind("rdb", "backup", "list").Override(backupListBuilder)
 
 	cmds.MustFind("rdb", "instance", "create").Override(instanceCreateBuilder)
 	cmds.MustFind("rdb", "instance", "clone").Override(instanceCloneBuilder)
@@ -54,7 +55,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "user", "create").Override(userCreateBuilder)
 	cmds.MustFind("rdb", "user", "update").Override(userUpdateBuilder)
 
-	cmds.MustFind("rdb", "backup", "list").Override(backupListBuilder)
+	cmds.MustFind("rdb", "log", "prepare").Override(logPrepareBuilder)
 
 	return cmds
 }
