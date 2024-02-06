@@ -8,7 +8,7 @@ require (
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v0.25.0
 	github.com/chzyer/readline v1.5.1
-	github.com/containerd/console v1.0.4-0.20230313162750-1ae8d489ac81
+	github.com/containerd/console v1.0.4
 	github.com/dnaeon/go-vcr v1.2.0
 	github.com/docker/docker v25.0.2+incompatible
 	github.com/dustin/go-humanize v1.0.1
