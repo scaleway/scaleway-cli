@@ -357,7 +357,7 @@ func listCustomRedisClusters(client *scw.Client, pn *vpc.PrivateNetwork) ([]cust
 		}
 		for _, cluster := range listRedisClusters.Clusters {
 			for _, endpoint := range cluster.Endpoints {
-				if endpoint.PrivateNetwork.ID == pn.ID {
+				if endpoint.PrivateNetwork != nil && endpoint.PrivateNetwork.ID == pn.ID {
 					customClusters = append(customClusters, customRedis{
 						ID:         cluster.ID,
 						Name:       cluster.Name,
