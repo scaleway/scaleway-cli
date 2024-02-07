@@ -1,22 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   c48ea3b6-175a-4abf-9d30-9228973e425e
-Name                 cli-pn-laughing-banzai
-OrganizationID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-ProjectID            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Region               fr-par
-CreatedAt            few seconds ago
-UpdatedAt            few seconds ago
-Subnets.0.ID         8d377ac0-4649-44c5-b117-8b18dd171728
-Subnets.0.CreatedAt  few seconds ago
-Subnets.0.UpdatedAt  few seconds ago
-Subnets.0.Subnet     172.16.72.0/22
-Subnets.1.ID         2be627ab-cf3e-40c7-bd70-06e6fbc4fd17
-Subnets.1.CreatedAt  few seconds ago
-Subnets.1.UpdatedAt  few seconds ago
-Subnets.1.Subnet     fd4a:c18e:554d:c78a::/64
-VpcID                53e50f63-f6c0-44f7-8576-d6edcb965d9c
-DHCPEnabled          true
+ID              c48ea3b6-175a-4abf-9d30-9228973e425e
+Name            cli-pn-laughing-banzai
+OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Region          fr-par
+CreatedAt       few seconds ago
+UpdatedAt       few seconds ago
+VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
+DHCPEnabled     true
 
 Instance Servers:
 ID                                    NAME                  STATE     NIC ID                                MAC ADDRESS
@@ -29,6 +21,11 @@ adea6c04-7694-4517-bdd4-a56fe6f21aba  cli-test  ready
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
 5a96db09-7370-4a56-97c2-43219aa510f4  cli-test  ready  ee102f58-a383-4823-83f0-945a1d3cfd12
+
+Subnets:
+ID                                    CREATED AT       UPDATED AT       SUBNET
+8d377ac0-4649-44c5-b117-8b18dd171728  few seconds ago  few seconds ago  172.16.72.0/22
+2be627ab-cf3e-40c7-bd70-06e6fbc4fd17  few seconds ago  few seconds ago  fd4a:c18e:554d:c78a::/64
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "c48ea3b6-175a-4abf-9d30-9228973e425e",

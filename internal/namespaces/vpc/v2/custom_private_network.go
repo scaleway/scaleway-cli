@@ -125,6 +125,11 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 				Title:       "Public Gateways",
 				HideIfEmpty: true,
 			},
+			{
+				FieldName:   "Subnets",
+				Title:       "Subnets",
+				HideIfEmpty: true,
+			},
 		},
 	}
 
