@@ -1,9 +1,18 @@
 package vpcgw
 
 import (
+	"context"
+	"time"
+
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
+)
+
+const (
+	gatewayActionTimeout = 60 * time.Minute
 )
 
 var (
@@ -19,3 +28,17 @@ var (
 		vpcgw.GatewayStatusUnknown:     &human.EnumMarshalSpec{Attribute: color.Faint},
 	}
 )
+
+func gatewayCreateBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		getResp := respI.(*vpcgw.Gateway)
+		api := vpcgw.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForGateway(&vpcgw.WaitForGatewayRequest{
+			GatewayID:     getResp.ID,
+			Zone:          getResp.Zone,
+			Timeout:       scw.TimeDurationPtr(gatewayActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		})
+	}
+	return c
+}
