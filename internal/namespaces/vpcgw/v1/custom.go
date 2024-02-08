@@ -14,6 +14,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("vpc-gw", "gateway-type", "list").Override(vpcgwGatewayTypeListBuilder)
 	cmds.MustFind("vpc-gw", "gateway", "create").Override(gatewayCreateBuilder)
+	cmds.MustFind("vpc-gw", "gateway-network", "create").Override(gatewayNetworkCreateBuilder)
 
 	return cmds
 }
