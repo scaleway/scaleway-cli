@@ -29,7 +29,7 @@ func testAutocompleteGetCommands() *Commands {
 				},
 				{
 					Name: "size",
-					AutoCompleteFunc: func(ctx context.Context, prefix string) AutocompleteSuggestions {
+					AutoCompleteFunc: func(_ context.Context, prefix string) AutocompleteSuggestions {
 						return []string{regexp.MustCompile("[a-z]").ReplaceAllString(prefix, "")}
 					},
 					EnumValues: []string{"S", "M", "L", "XL", "XXL"},
@@ -43,7 +43,7 @@ func testAutocompleteGetCommands() *Commands {
 					EnumValues: []string{"S", "M", "L", "XL", "XXL"},
 				},
 			},
-			WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+			WaitFunc: func(_ context.Context, _, _ interface{}) (interface{}, error) {
 				return nil, nil
 			},
 		},
@@ -211,7 +211,7 @@ func TestAutocompleteArgs(t *testing.T) {
 		ArgsType: reflect.TypeOf(struct {
 		}{}),
 		ArgSpecs: ArgSpecs{},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
 			return []*struct {
 				Name string
 			}{
@@ -231,7 +231,7 @@ func TestAutocompleteArgs(t *testing.T) {
 		ArgsType: reflect.TypeOf(struct {
 		}{}),
 		ArgSpecs: ArgSpecs{},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
 			return []*struct {
 				Name string
 			}{

@@ -84,7 +84,7 @@ func cockpitWaitCommand() *core.Command {
 }
 
 func cockpitCockpitActivateBuilder(command *core.Command) *core.Command {
-	command.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	command.WaitFunc = func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
 		req := argsI.(*cockpit.ActivateCockpitRequest)
 
 		client := core.ExtractClient(ctx)
@@ -99,7 +99,7 @@ func cockpitCockpitActivateBuilder(command *core.Command) *core.Command {
 }
 
 func cockpitCockpitDeactivateBuilder(command *core.Command) *core.Command {
-	command.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	command.WaitFunc = func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
 		req := argsI.(*cockpit.DeactivateCockpitRequest)
 
 		client := core.ExtractClient(ctx)

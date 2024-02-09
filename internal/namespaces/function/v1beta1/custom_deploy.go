@@ -107,7 +107,7 @@ func validateRuntime(api *function.API, region scw.Region, runtime function.Func
 }
 
 func DeployStepCreateNamespace(api *function.API, region scw.Region, functionName string) tasks.TaskFunc[any, *function.Namespace] {
-	return func(t *tasks.Task, args any) (nextArgs *function.Namespace, err error) {
+	return func(t *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
 		namespaceName := functionName
 
 		namespaces, err := api.ListNamespaces(&function.ListNamespacesRequest{
@@ -131,7 +131,7 @@ func DeployStepCreateNamespace(api *function.API, region scw.Region, functionNam
 			return nil, fmt.Errorf("could not create namespace: %w", err)
 		}
 
-		t.AddToCleanUp(func(ctx context.Context) error {
+		t.AddToCleanUp(func(_ context.Context) error {
 			_, err := api.DeleteNamespace(&function.DeleteNamespaceRequest{
 				Region:      namespace.Region,
 				NamespaceID: namespace.ID,
@@ -152,7 +152,7 @@ func DeployStepCreateNamespace(api *function.API, region scw.Region, functionNam
 }
 
 func DeployStepFetchNamespace(api *function.API, region scw.Region, namespaceID string) tasks.TaskFunc[any, *function.Namespace] {
-	return func(t *tasks.Task, args any) (nextArgs *function.Namespace, err error) {
+	return func(_ *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
 		namespace, err := api.WaitForNamespace(&function.WaitForNamespaceRequest{
 			NamespaceID: namespaceID,
 			Region:      region,
@@ -191,7 +191,7 @@ func DeployStepCreateFunction(api *function.API, functionName string, runtime fu
 			return nil, fmt.Errorf("could not create function: %w", err)
 		}
 
-		t.AddToCleanUp(func(ctx context.Context) error {
+		t.AddToCleanUp(func(_ context.Context) error {
 			_, err := api.DeleteFunction(&function.DeleteFunctionRequest{
 				FunctionID: fc.ID,
 				Region:     fc.Region,
@@ -251,7 +251,7 @@ func DeployStepFunctionUpload(httpClient *http.Client, scwClient *scw.Client, ap
 }
 
 func DeployStepFunctionDeploy(api *function.API, runtime function.FunctionRuntime) tasks.TaskFunc[*function.Function, *function.Function] {
-	return func(t *tasks.Task, fc *function.Function) (*function.Function, error) {
+	return func(_ *tasks.Task, fc *function.Function) (*function.Function, error) {
 		fc, err := api.UpdateFunction(&function.UpdateFunctionRequest{
 			Region:     fc.Region,
 			FunctionID: fc.ID,

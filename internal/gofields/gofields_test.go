@@ -256,7 +256,7 @@ func TestListFieldsWithFilter(t *testing.T) {
 	t.Run("Simple", run(&TestCase{
 		Data:     reflect.TypeOf(&User{}),
 		Expected: []string{"Address.Zip"},
-		Filter: func(r reflect.Type, s string) bool {
+		Filter: func(_ reflect.Type, s string) bool {
 			return strings.Contains(s, "Zip")
 		},
 	}))

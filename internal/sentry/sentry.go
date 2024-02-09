@@ -54,7 +54,7 @@ func newSentryClient(version string) (*sentry.Client, error) {
 	client, err := sentry.NewClient(sentry.ClientOptions{
 		Dsn:              dsn,
 		AttachStacktrace: true,
-		BeforeSend: func(event *sentry.Event, hint *sentry.EventHint) *sentry.Event {
+		BeforeSend: func(event *sentry.Event, _ *sentry.EventHint) *sentry.Event {
 			filterStackFrames(event)
 			return event
 		},

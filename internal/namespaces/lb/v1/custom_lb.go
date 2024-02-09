@@ -101,12 +101,12 @@ func lbWaitCommand() *core.Command {
 func lbCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("type").EnumValues = typesList
 	c.ArgSpecs.GetByName("type").Default = core.DefaultValueSetter("LB-S")
-	c.ArgSpecs.GetByName("type").ValidateFunc = func(argSpec *core.ArgSpec, value interface{}) error {
+	c.ArgSpecs.GetByName("type").ValidateFunc = func(_ *core.ArgSpec, _ interface{}) error {
 		// Allow all lb types
 		return nil
 	}
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := lb.NewZonedAPI(core.ExtractClient(ctx))
 		return api.WaitForLb(&lb.ZonedAPIWaitForLBRequest{
 			LBID:          respI.(*lb.LB).ID,
@@ -125,7 +125,7 @@ var typesList = []string{
 
 func lbMigrateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("type").EnumValues = typesList
-	c.ArgSpecs.GetByName("type").ValidateFunc = func(argSpec *core.ArgSpec, value interface{}) error {
+	c.ArgSpecs.GetByName("type").ValidateFunc = func(_ *core.ArgSpec, _ interface{}) error {
 		// Allow all lb types
 		return nil
 	}

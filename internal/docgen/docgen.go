@@ -99,10 +99,10 @@ func renderNamespace(data *tplNamespace) (string, error) {
 func newTemplate() *template.Template {
 	tpl := template.New("index")
 	tpl = tpl.Funcs(map[string]interface{}{
-		"bq": func(count ...int) string {
+		"bq": func(_ ...int) string {
 			return "`"
 		},
-		"bbq": func(count ...int) string {
+		"bbq": func(_ ...int) string {
 			return "```"
 		},
 		"map": func(args ...interface{}) map[string]interface{} {

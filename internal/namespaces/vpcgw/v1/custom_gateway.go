@@ -30,7 +30,7 @@ var (
 )
 
 func gatewayCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		getResp := respI.(*vpcgw.Gateway)
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForGateway(&vpcgw.WaitForGatewayRequest{

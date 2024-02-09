@@ -21,7 +21,7 @@ func shellCommand() *core.Command {
 		Namespace:            "shell",
 		AllowAnonymousClient: false,
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
 			return nil, nil
 		},
 	}

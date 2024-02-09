@@ -75,7 +75,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Cmd:        "scw k8s kubeconfig uninstall {{ .EmptyCluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
+			func(t *testing.T, _ *core.CheckFuncCtx) {
 				_, err := os.Stat(path.Join(os.TempDir(), "emptyfile"))
 				assert.True(t, os.IsNotExist(err))
 			},

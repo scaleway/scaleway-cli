@@ -10,7 +10,7 @@ var socketTransport = &http.Transport{}
 
 func init() {
 	socketTransport.DisableCompression = true
-	socketTransport.DialContext = func(_ context.Context, _, address string) (net.Conn, error) {
+	socketTransport.DialContext = func(_ context.Context, _, _ string) (net.Conn, error) {
 		return net.DialTimeout("unix", "/var/run/docker.sock", 32000000000)
 	}
 }

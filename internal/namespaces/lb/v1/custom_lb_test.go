@@ -65,7 +65,7 @@ func Test_GetStats(t *testing.T) {
 			createFrontend(8888),
 			// We let enough time for the health checks to come through
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(10 * time.Second)
 					return nil
 				},

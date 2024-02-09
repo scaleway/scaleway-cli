@@ -58,7 +58,7 @@ func userDataListBuilder(c *core.Command) *core.Command {
 		Key   string `json:"key"`
 		Value string `json:"value"`
 	}
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.AddInterceptors(func(ctx context.Context, argsI interface{}, _ core.CommandRunner) (interface{}, error) {
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
 		args := argsI.(*instance.ListServerUserDataRequest)

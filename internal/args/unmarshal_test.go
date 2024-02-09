@@ -338,7 +338,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		data: &map[string]string{},
 	}))
 
-	t.Run("IP", func(t *testing.T) {
+	t.Run("IP", func(_ *testing.T) {
 		ip := net.IPv4(1, 2, 3, 4)
 		run(TestCase{
 			args: []string{
