@@ -20,7 +20,7 @@ Function as a Service API.
   - [Deploy a function](#deploy-a-function)
   - [Get a function](#get-a-function)
   - [Get a download URL of a function](#get-a-download-url-of-a-function)
-  - [List application logs](#list-application-logs)
+  - [Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs](#deprecated-(replaced-by-[cockpit](https:www.scaleway.comendevelopersapicockpit)).-list-application-logs)
   - [Get an upload URL of a function](#get-an-upload-url-of-a-function)
   - [List all your functions](#list-all-your-functions)
   - [Update an existing function](#update-an-existing-function)
@@ -388,9 +388,9 @@ scw function function get-download-url <function-id ...> [arg=value ...]
 
 
 
-### List application logs
+### Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs
 
-List the application logs of the function with the specified ID.
+Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the application logs of the function with the specified ID.
 
 **Usage:**
 
