@@ -51,7 +51,7 @@ func containerNamespaceUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func containerNamespaceDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
 		req := argsI.(*container.DeleteNamespaceRequest)
 
 		client := core.ExtractClient(ctx)

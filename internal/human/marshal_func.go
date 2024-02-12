@@ -28,24 +28,24 @@ func init() {
 	marshalerFuncs.Store(reflect.TypeOf(uint32(0)), defaultMarshalerFunc)
 	marshalerFuncs.Store(reflect.TypeOf(uint64(0)), defaultMarshalerFunc)
 	marshalerFuncs.Store(reflect.TypeOf(string("")), defaultMarshalerFunc)
-	marshalerFuncs.Store(reflect.TypeOf(bool(false)), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(bool(false)), func(i interface{}, _ *MarshalOpt) (string, error) {
 		v := i.(bool)
 		if v {
 			return terminal.Style("true", color.FgGreen), nil
 		}
 		return terminal.Style("false", color.FgRed), nil
 	})
-	marshalerFuncs.Store(reflect.TypeOf(time.Time{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(time.Time{}), func(i interface{}, _ *MarshalOpt) (string, error) {
 		return humanize.Time(i.(time.Time)), nil
 	})
-	marshalerFuncs.Store(reflect.TypeOf(&time.Time{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(&time.Time{}), func(i interface{}, _ *MarshalOpt) (string, error) {
 		t := i.(*time.Time)
 		if t == nil {
 			return Marshal(nil, nil)
 		}
 		return Marshal(*t, nil)
 	})
-	marshalerFuncs.Store(reflect.TypeOf(scw.Size(0)), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(scw.Size(0)), func(i interface{}, _ *MarshalOpt) (string, error) {
 		size := uint64(i.(scw.Size))
 
 		if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
@@ -54,7 +54,7 @@ func init() {
 
 		return humanize.Bytes(size), nil
 	})
-	marshalerFuncs.Store(reflect.TypeOf(scw.SizePtr(0)), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(scw.SizePtr(0)), func(i interface{}, _ *MarshalOpt) (string, error) {
 		size := uint64(*i.(*scw.Size))
 
 		if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
@@ -63,7 +63,7 @@ func init() {
 
 		return humanize.Bytes(size), nil
 	})
-	marshalerFuncs.Store(reflect.TypeOf([]scw.Size{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf([]scw.Size{}), func(i interface{}, _ *MarshalOpt) (string, error) {
 		sizes := i.([]scw.Size)
 		strs := []string(nil)
 		for _, size := range sizes {
@@ -75,13 +75,13 @@ func init() {
 		}
 		return strings.Join(strs, ", "), nil
 	})
-	marshalerFuncs.Store(reflect.TypeOf(net.IP{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(net.IP{}), func(i interface{}, _ *MarshalOpt) (string, error) {
 		return fmt.Sprintf("%v", i.(net.IP)), nil
 	})
-	marshalerFuncs.Store(reflect.TypeOf([]net.IP{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf([]net.IP{}), func(i interface{}, _ *MarshalOpt) (string, error) {
 		return fmt.Sprintf("%v", i), nil
 	})
-	marshalerFuncs.Store(reflect.TypeOf(scw.IPNet{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(scw.IPNet{}), func(i interface{}, _ *MarshalOpt) (string, error) {
 		v := i.(scw.IPNet)
 		str := v.String()
 		if str == "<nil>" {
@@ -90,11 +90,11 @@ func init() {
 
 		return str, nil
 	})
-	marshalerFuncs.Store(reflect.TypeOf(version.Version{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(version.Version{}), func(i interface{}, _ *MarshalOpt) (string, error) {
 		v := i.(version.Version)
 		return v.String(), nil
 	})
-	marshalerFuncs.Store(reflect.TypeOf(scw.Duration{}), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(scw.Duration{}), func(i interface{}, _ *MarshalOpt) (string, error) {
 		v := i.(scw.Duration)
 		const (
 			minutes = int64(60)
@@ -126,14 +126,14 @@ func init() {
 		}
 		return strings.Join(res, " "), nil
 	})
-	registerMarshaler(func(i scw.JSONObject, opt *MarshalOpt) (string, error) {
+	registerMarshaler(func(i scw.JSONObject, _ *MarshalOpt) (string, error) {
 		data, err := json.Marshal(i)
 		if err != nil {
 			return "", err
 		}
 		return string(data), nil
 	})
-	registerMarshaler(func(i []byte, opt *MarshalOpt) (string, error) {
+	registerMarshaler(func(i []byte, _ *MarshalOpt) (string, error) {
 		data, err := json.Marshal(i)
 		if err != nil {
 			return "", err

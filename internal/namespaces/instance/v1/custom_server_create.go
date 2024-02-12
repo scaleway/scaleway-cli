@@ -66,7 +66,7 @@ func serverCreateCommand() *core.Command {
 				Short:    "Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/)",
 				Default:  core.DefaultValueSetter("DEV1-S"),
 				Required: true,
-				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
 					// Allow all commercial types
 					return nil
 				},

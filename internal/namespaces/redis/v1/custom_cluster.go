@@ -40,7 +40,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(redisCreateClusterRequestCustom{})
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
 			ClusterID:     respI.(*redis.Cluster).ID,
@@ -89,7 +89,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 }
 
 func clusterDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
 			ClusterID:     respI.(*redis.Cluster).ID,

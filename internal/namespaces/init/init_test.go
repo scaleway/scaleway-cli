@@ -125,7 +125,7 @@ func TestInit(t *testing.T) {
 			Cmd: appendArgs("scw init", defaultArgs),
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
-				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
 					assert.Equal(t, dummyConfig.String(), config.String())
 				}),
 			),
@@ -166,7 +166,7 @@ func TestInit(t *testing.T) {
 			Cmd: appendArgs("scw -p test2 init", defaultArgs),
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
-				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
 					assert.NotNil(t, config.Profiles["test2"], "new profile should have been created")
 				}),
 			),
@@ -186,7 +186,7 @@ func TestInit(t *testing.T) {
 			Cmd: appendArgs("scw -p test init", defaultArgs),
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
-				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
 					assert.NotNil(t, config.Profiles["test"].DefaultZone)
 					assert.Equal(t, *config.Profiles["test"].DefaultZone, "fr-test")
 				}),
@@ -205,7 +205,7 @@ func TestInit(t *testing.T) {
 			Cmd:        appendArgs("scw -p newprofile init", defaultArgs),
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
-				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
 					assert.NotNil(t, config.ActiveProfile)
 					assert.Equal(t, "newprofile", *config.ActiveProfile)
 				}),
