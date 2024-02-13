@@ -1115,12 +1115,12 @@ func functionCronDelete() *core.Command {
 
 func functionFunctionGetLogs() *core.Command {
 	return &core.Command{
-		Short:     `List application logs`,
-		Long:      `List the application logs of the function with the specified ID.`,
+		Short:     `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs`,
+		Long:      `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the application logs of the function with the specified ID.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "get-logs",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(function.ListLogsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{

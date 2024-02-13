@@ -10,7 +10,7 @@ AVAILABLE COMMANDS:
   delete      Delete a container
   deploy      Deploy a container
   get         Get a container
-  get-logs    List your container logs
+  get-logs    Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List your container logs
   list        List all your containers
   update      Update an existing container
 
