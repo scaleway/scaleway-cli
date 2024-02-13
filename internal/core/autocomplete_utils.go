@@ -80,6 +80,10 @@ func AutocompleteProfileName() AutoCompleteArgFunc {
 	}
 }
 
+var autocompleteResourceToNamespace = map[string]string{
+	"private-network": "vpc",
+}
+
 // AutocompleteGetArg tries to complete an argument by using the list verb if it exists for the same resource
 // It will search for the same field in the response of the list
 // Field name will be stripped of the resource name (ex: cluster-id -> id)
@@ -113,8 +117,15 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 	argName = strings.TrimLeft(argName, "-")
 
 	listCmd, hasList := commands.find(cmd.Namespace, argResource, "list")
+
 	if !hasList {
-		return nil
+		namespace, ok := autocompleteResourceToNamespace[argResource]
+		if ok {
+			listCmd, hasList = commands.find(namespace, argResource, "list")
+		}
+		if !hasList {
+			return nil
+		}
 	}
 
 	// Build empty arguments and run command
@@ -122,12 +133,7 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 	listCmdArgs := reflect.New(listCmd.ArgsType).Interface()
 
 	// Keep zone and region arguments
-	listRawArgs := []string(nil)
-	for arg, value := range completedArgs {
-		if strings.HasPrefix(arg, "zone") || strings.HasPrefix(arg, "region") {
-			listRawArgs = append(listRawArgs, arg+value)
-		}
-	}
+	listRawArgs := listRawArgsLocalities(completedArgs, listCmd)
 
 	// Apply default arguments
 	listRawArgs = ApplyDefaultValues(ctx, listCmd.ArgSpecs, listRawArgs)
@@ -176,4 +182,25 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 	}
 
 	return values
+}
+
+func listRawArgsLocalities(completedArgs map[string]string, cmd *Command) []string {
+	listRawArgs := []string(nil)
+	specs := cmd.ArgSpecs
+	for arg, value := range completedArgs {
+		if strings.HasPrefix(arg, "zone") {
+			if specs.GetByName("region") != nil {
+				zone, _ := scw.ParseZone(value)
+				region, _ := zone.Region()
+				listRawArgs = append(listRawArgs, "region="+region.String())
+			}
+			if specs.GetByName("zone") != nil {
+				listRawArgs = append(listRawArgs, arg+value)
+			}
+		}
+		if strings.HasPrefix(arg, "region") && specs.GetByName("region") != nil {
+			listRawArgs = append(listRawArgs, arg+value)
+		}
+	}
+	return listRawArgs
 }
