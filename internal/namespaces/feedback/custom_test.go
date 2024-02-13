@@ -13,7 +13,7 @@ func Test_FeedbackBug(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw feedback bug",
-		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
+		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
 			var observed string
 			switch runtime.GOOS {
 			case windows:
@@ -39,7 +39,7 @@ func Test_FeedbackFeature(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      "scw feedback feature",
-		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
+		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
 			var observed string
 			switch runtime.GOOS {
 			case windows:

@@ -27,7 +27,7 @@ func Test_Endpoints(t *testing.T) {
 	t.Run("Single public endpoint", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncWhenUpdatingCassette(
-			func(ctx *core.BeforeFuncCtx) error {
+			func(_ *core.BeforeFuncCtx) error {
 				time.Sleep(1 * time.Minute)
 				return nil
 			},
@@ -48,7 +48,7 @@ func Test_Endpoints(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(metaNamePNA, "scw vpc private-network create"),
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				}),
@@ -75,7 +75,7 @@ func Test_Endpoints(t *testing.T) {
 			core.ExecStoreBeforeCmd(metaNamePNA, "scw vpc private-network create"),
 			core.ExecStoreBeforeCmd(metaNamePNB, "scw vpc private-network create"),
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				},
@@ -109,7 +109,7 @@ func Test_IpamConfig(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(metaNamePNA, "scw vpc private-network create"),
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				},
@@ -137,7 +137,7 @@ func Test_IpamConfig(t *testing.T) {
 			core.ExecStoreBeforeCmd(metaNamePNA, "scw vpc private-network create"),
 			core.ExecStoreBeforeCmd(metaNamePNB, "scw vpc private-network create"),
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				},
@@ -167,7 +167,7 @@ func Test_IpamConfig(t *testing.T) {
 			core.ExecStoreBeforeCmd(metaNamePNA, "scw vpc private-network create"),
 			core.ExecStoreBeforeCmd(metaNamePNB, "scw vpc private-network create"),
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				},
@@ -202,7 +202,7 @@ func Test_EndpointsEdgeCases(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(metaNamePNA, "scw vpc private-network create"),
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				},
@@ -229,7 +229,7 @@ func Test_EndpointsEdgeCases(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(metaNamePNA, "scw vpc private-network create"),
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				},

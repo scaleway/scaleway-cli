@@ -152,7 +152,7 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 }
 
 func instanceCloneBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdb.Instance).ID,
@@ -259,7 +259,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(rdbCreateInstanceRequestCustom{})
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    respI.(createInstanceResult).Instance.ID,
@@ -399,7 +399,7 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdb.Instance).ID,
@@ -556,7 +556,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 
 			return updateInstanceResponse, nil
 		},
-		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForInstance(&rdb.WaitForInstanceRequest{
 				InstanceID:    respI.(*rdb.Instance).ID,
@@ -583,7 +583,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 }
 
 func instanceDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdb.Instance).ID,

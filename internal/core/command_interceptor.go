@@ -26,7 +26,7 @@ func combineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterc
 
 		previousInterceptor := combinedInterceptors
 		combinedInterceptors = func(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
-			return previousInterceptor(ctx, args, func(ctx context.Context, arg interface{}) (interface{}, error) {
+			return previousInterceptor(ctx, args, func(ctx context.Context, _ interface{}) (interface{}, error) {
 				return localInterceptor(ctx, args, runner)
 			})
 		}

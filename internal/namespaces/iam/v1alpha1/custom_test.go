@@ -14,7 +14,7 @@ func Test_initWithSSHKeyCommand(t *testing.T) {
 	key := `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x foo@foobar.com`
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
-		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+		BeforeFunc: func(_ *core.BeforeFuncCtx) error {
 			pathToPublicKey := path.Join(tmpDir, ".ssh", "id_ed25519.pub")
 			_, err := os.Stat(pathToPublicKey)
 			if err != nil {

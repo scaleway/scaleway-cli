@@ -49,7 +49,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 			ArgSpecs: ArgSpecs{
 				{
 					Name: "name",
-					ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -68,7 +68,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "elements-map.{key}.name",
-					ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -96,7 +96,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "elements-slice.{index}.name",
-					ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -124,7 +124,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "elements-slice.{index}.elements-slice.{index}.name",
-					ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -154,7 +154,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "short",
-					ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -173,7 +173,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "name",
-					ValidateFunc: func(argSpec *ArgSpec, value interface{}) error {
+					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -352,7 +352,7 @@ func Test_ValidateDeprecated(t *testing.T) {
 			Namespace:            "plop",
 			ArgsType:             reflect.TypeOf(args.RawArgs{}),
 			AllowAnonymousClient: true,
-			Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+			Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
 				return &SuccessResult{}, nil
 			},
 			ArgSpecs: ArgSpecs{

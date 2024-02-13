@@ -18,10 +18,10 @@ func TestGeneric(t *testing.T) {
 	ts := tasks.Begin()
 	ts.SetLoggerMode(tasks.PrinterModeQuiet)
 
-	tasks.Add(ts, "convert int to string", func(t *tasks.Task, args int) (nextArgs string, err error) {
+	tasks.Add(ts, "convert int to string", func(_ *tasks.Task, args int) (nextArgs string, err error) {
 		return fmt.Sprintf("%d", args), nil
 	})
-	tasks.Add(ts, "convert string to int and divide by 4", func(t *tasks.Task, args string) (nextArgs int, err error) {
+	tasks.Add(ts, "convert string to int and divide by 4", func(_ *tasks.Task, args string) (nextArgs int, err error) {
 		i, err := strconv.ParseInt(args, 10, 32)
 		if err != nil {
 			return 0, err
@@ -44,10 +44,10 @@ func TestInvalidGeneric(t *testing.T) {
 	ts := tasks.Begin()
 	ts.SetLoggerMode(tasks.PrinterModeQuiet)
 
-	tasks.Add(ts, "convert int to string", func(t *tasks.Task, args int) (nextArgs string, err error) {
+	tasks.Add(ts, "convert int to string", func(_ *tasks.Task, args int) (nextArgs string, err error) {
 		return fmt.Sprintf("%d", args), nil
 	})
-	tasks.Add(ts, "divide by 4", func(t *tasks.Task, args int) (nextArgs int, err error) {
+	tasks.Add(ts, "divide by 4", func(_ *tasks.Task, args int) (nextArgs int, err error) {
 		return args / 4, nil
 	})
 }
@@ -57,22 +57,22 @@ func TestCleanup(t *testing.T) {
 
 	clean := 0
 
-	tasks.Add(ts, "TaskFunc 1", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
-		task.AddToCleanUp(func(ctx context.Context) error {
+	tasks.Add(ts, "TaskFunc 1", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
 			return nil
 		})
 		return nil, nil
 	})
-	tasks.Add(ts, "TaskFunc 2", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
-		task.AddToCleanUp(func(ctx context.Context) error {
+	tasks.Add(ts, "TaskFunc 2", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
 			return nil
 		})
 		return nil, nil
 	})
-	tasks.Add(ts, "TaskFunc 3", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
-		task.AddToCleanUp(func(ctx context.Context) error {
+	tasks.Add(ts, "TaskFunc 3", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
 			return nil
 		})
@@ -93,22 +93,22 @@ func TestCleanupOnContext(t *testing.T) {
 	clean := 0
 	ctx := context.Background()
 
-	tasks.Add(ts, "TaskFunc 1", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
-		task.AddToCleanUp(func(ctx context.Context) error {
+	tasks.Add(ts, "TaskFunc 1", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
 			return nil
 		})
 		return nil, nil
 	})
-	tasks.Add(ts, "TaskFunc 2", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
-		task.AddToCleanUp(func(ctx context.Context) error {
+	tasks.Add(ts, "TaskFunc 2", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
 			return nil
 		})
 		return nil, nil
 	})
-	tasks.Add(ts, "TaskFunc 3", func(task *tasks.Task, args interface{}) (nextArgs interface{}, err error) {
-		task.AddToCleanUp(func(ctx context.Context) error {
+	tasks.Add(ts, "TaskFunc 3", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
 			return nil
 		})
