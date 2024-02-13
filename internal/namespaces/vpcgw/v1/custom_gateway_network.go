@@ -23,7 +23,7 @@ var (
 )
 
 func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		getResp := respI.(*vpcgw.GatewayNetwork)
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForGatewayNetwork(&vpcgw.WaitForGatewayNetworkRequest{

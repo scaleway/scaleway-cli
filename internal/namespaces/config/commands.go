@@ -182,7 +182,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:  "access-key",
 				Short: "A Scaleway access key",
-				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
 					if !reflect.ValueOf(value).IsNil() && !validation.IsAccessKey(*value.(*string)) {
 						return core.InvalidAccessKeyError(*value.(*string))
 					}
@@ -192,7 +192,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:  "secret-key",
 				Short: "A Scaleway secret key",
-				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
 					if !reflect.ValueOf(value).IsNil() && !validation.IsSecretKey(*value.(*string)) {
 						return core.InvalidSecretKeyError(*value.(*string))
 					}
@@ -202,7 +202,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:  "api-url",
 				Short: "Scaleway API URL",
-				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
 					if !reflect.ValueOf(value).IsNil() && !validation.IsURL(*value.(*string)) {
 						return fmt.Errorf("%s is not a valid URL", *value.(*string))
 					}
@@ -216,7 +216,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:  "default-organization-id",
 				Short: "A default Scaleway organization id",
-				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
 					if !reflect.ValueOf(value).IsNil() && !validation.IsOrganizationID(*value.(*string)) {
 						return core.InvalidOrganizationIDError(*value.(*string))
 					}
@@ -225,7 +225,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			}, {
 				Name:  "default-project-id",
 				Short: "A default Scaleway project id",
-				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
 					if !reflect.ValueOf(value).IsNil() && !validation.IsProjectID(*value.(*string)) {
 						return core.InvalidProjectIDError(*value.(*string))
 					}
@@ -380,7 +380,7 @@ func configDumpCommand() *core.Command {
 				Command: "scw config",
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
@@ -508,7 +508,7 @@ func configResetCommand() *core.Command {
 		Resource:             "reset",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(configResetArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
 			_, err := scw.LoadConfig()
 			if err != nil {
 				return nil, err
@@ -536,7 +536,7 @@ func configDestroyCommand() *core.Command {
 		Resource:             "destroy",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(configDestroyArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 			err := os.Remove(configPath)
 			if err != nil {
@@ -577,7 +577,7 @@ func configInfoCommand() *core.Command {
 				Command: "scw config",
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
 			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 			if err != nil {
 				return nil, err
@@ -715,7 +715,7 @@ The command goes through each profile present in the config file and validates i
 		Resource:             "validate",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(configValidateArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {

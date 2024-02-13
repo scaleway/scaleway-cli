@@ -510,7 +510,7 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 		Cmd:      "scw instance server create type=H100-1-80G image=ubuntu_jammy_gpu_os_12 zone=fr-par-2",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
+			func(_ *testing.T, ctx *core.CheckFuncCtx) {
 				fmt.Println(ctx.LogBuffer)
 			},
 			core.TestCheckExitCode(0),

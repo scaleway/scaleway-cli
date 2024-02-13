@@ -145,7 +145,7 @@ func snapshotWaitCommand() *core.Command {
 }
 
 func snapshotUpdateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		snapshot := respI.(*instance.UpdateSnapshotResponse).Snapshot
 		api := instance.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{

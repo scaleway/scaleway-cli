@@ -194,7 +194,7 @@ Once your image is ready you will be able to create a new server based on this i
 			}
 			return api.GetImage(&instance.GetImageRequest{Zone: args.Zone, ImageID: tmp[2]})
 		},
-		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (i interface{}, err error) {
+		WaitFunc: func(ctx context.Context, _, respI interface{}) (i interface{}, err error) {
 			resp := respI.(*instance.GetImageResponse)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			return api.WaitForImage(&instance.WaitForImageRequest{

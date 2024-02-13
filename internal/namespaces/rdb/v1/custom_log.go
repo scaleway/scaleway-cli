@@ -20,7 +20,7 @@ var (
 )
 
 func logPrepareBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		getResp := respI.(*rdb.PrepareInstanceLogsResponse)
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 		readyLogs := make([]*rdb.InstanceLog, len(getResp.InstanceLogs))

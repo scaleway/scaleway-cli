@@ -240,7 +240,7 @@ Relative time error: %s
 }
 
 func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
-	return func(cobraCmd *cobra.Command, args []string) error {
+	return func(cobraCmd *cobra.Command, _ []string) error {
 		webFlag, err := cobraCmd.PersistentFlags().GetBool("web")
 		if err == nil && webFlag {
 			out, err := runWeb(cmd, nil)

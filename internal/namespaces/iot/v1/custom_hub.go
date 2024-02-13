@@ -26,7 +26,7 @@ var (
 )
 
 func hubCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := iot.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForHub(&iot.WaitForHubRequest{
 			HubID:         respI.(*iot.Hub).ID,

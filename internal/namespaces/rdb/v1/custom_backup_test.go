@@ -16,7 +16,7 @@ func Test_CreateBackup(t *testing.T) {
 			createInstance(engine),
 			// We opened an internal issue about the fact that the instance is considered ready even if rdb is not yet available.
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				},
@@ -36,7 +36,7 @@ func Test_RestoreBackup(t *testing.T) {
 			createInstance(engine),
 			// We opened an internal issue about the fact that the instance is considered ready even if rdb is not yet available.
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				},
@@ -62,7 +62,7 @@ func Test_ExportBackup(t *testing.T) {
 			createInstance(engine),
 			// We opened an internal issue about the fact that the instance is considered ready even if rdb is not yet available.
 			core.BeforeFuncWhenUpdatingCassette(
-				func(ctx *core.BeforeFuncCtx) error {
+				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
 					return nil
 				},
@@ -102,7 +102,7 @@ func Test_DownloadBackup(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteInstance(),
-			func(ctx *core.AfterFuncCtx) error {
+			func(_ *core.AfterFuncCtx) error {
 				err := os.Remove("simple_dump")
 				return err
 			},
@@ -127,7 +127,7 @@ func Test_DownloadBackup(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteInstance(),
-			func(ctx *core.AfterFuncCtx) error {
+			func(_ *core.AfterFuncCtx) error {
 				err := os.Remove("no_previous_export_dump")
 				return err
 			},

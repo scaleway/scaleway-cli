@@ -25,7 +25,7 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 			detachPN(),
 			deleteLB(),
 			core.AfterFuncWhenUpdatingCassette(
-				func(ctx *core.AfterFuncCtx) error {
+				func(_ *core.AfterFuncCtx) error {
 					time.Sleep(10 * time.Second)
 					return nil
 				},

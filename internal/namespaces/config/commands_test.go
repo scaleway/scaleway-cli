@@ -229,7 +229,7 @@ func Test_ConfigDestroyCommand(t *testing.T) {
 	t.Run("Check Config File", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
+			func(_ *core.BeforeFuncCtx) error {
 				err := os.MkdirAll(path, os.ModePerm)
 				if err != nil {
 					t.Fatalf("MkdirAll %q: %s", path, err)
@@ -250,7 +250,7 @@ func Test_ConfigDestroyCommand(t *testing.T) {
 		OverrideEnv: map[string]string{
 			"HOME": path,
 		},
-		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+		AfterFunc: func(_ *core.AfterFuncCtx) error {
 			_ = os.RemoveAll(path)
 			return nil
 		},
