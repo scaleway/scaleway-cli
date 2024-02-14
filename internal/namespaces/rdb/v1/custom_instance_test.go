@@ -8,9 +8,7 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
-	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -50,7 +48,8 @@ func Test_CreateInstance(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				checkEndpoints(ctx, t, []string{publicEndpoint})
+				instance := ctx.Result.(createInstanceResult).Instance
+				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint})
 			},
 		),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
@@ -63,7 +62,8 @@ func Test_CreateInstance(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				checkEndpoints(ctx, t, []string{publicEndpoint})
+				instance := ctx.Result.(createInstanceResult).Instance
+				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint})
 			},
 		),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
@@ -81,7 +81,8 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				checkEndpoints(ctx, t, []string{privateEndpointStatic})
+				instance := ctx.Result.(createInstanceResult).Instance
+				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic})
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -97,7 +98,8 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				checkEndpoints(ctx, t, []string{publicEndpoint, privateEndpointStatic})
+				instance := ctx.Result.(createInstanceResult).Instance
+				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointStatic})
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -113,7 +115,8 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				checkEndpoints(ctx, t, []string{privateEndpointIpam})
+				instance := ctx.Result.(createInstanceResult).Instance
+				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointIpam})
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -129,7 +132,8 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				checkEndpoints(ctx, t, []string{publicEndpoint, privateEndpointIpam})
+				instance := ctx.Result.(createInstanceResult).Instance
+				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointIpam})
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -300,50 +304,4 @@ func Test_Connect(t *testing.T) {
 
 func deletePrivateNetwork() core.AfterFunc {
 	return core.ExecAfterCmd("scw vpc private-network delete {{ .PN.ID }}")
-}
-
-func checkEndpoints(ctx *core.CheckFuncCtx, t *testing.T, expected []string) {
-	instance := ctx.Result.(createInstanceResult).Instance
-	ipamAPI := ipam.NewAPI(ctx.Client)
-	var foundEndpoints = map[string]bool{}
-
-	for _, endpoint := range instance.Endpoints {
-		if endpoint.LoadBalancer != nil {
-			foundEndpoints[publicEndpoint] = true
-		}
-		if endpoint.PrivateNetwork != nil {
-			ips, err := ipamAPI.ListIPs(&ipam.ListIPsRequest{
-				Region:       instance.Region,
-				ResourceID:   &instance.ID,
-				ResourceType: "rdb_instance",
-				IsIPv6:       scw.BoolPtr(false),
-			}, scw.WithAllPages())
-			if err != nil {
-				t.Errorf("could not list IPs: %v", err)
-			}
-			switch ips.TotalCount {
-			case 1:
-				foundEndpoints[privateEndpointIpam] = true
-			case 0:
-				foundEndpoints[privateEndpointStatic] = true
-			default:
-				t.Errorf("expected no more than 1 IP for instance, got %d", ips.TotalCount)
-			}
-		}
-	}
-
-	// Check that every expected endpoint got found
-	for _, e := range expected {
-		_, ok := foundEndpoints[e]
-		if !ok {
-			t.Errorf("expected a %s endpoint but got none", e)
-		}
-		delete(foundEndpoints, e)
-	}
-	// Check that no unexpected endpoint was found
-	if len(foundEndpoints) > 0 {
-		for e := range foundEndpoints {
-			t.Errorf("found a %s endpoint when none was expected", e)
-		}
-	}
 }

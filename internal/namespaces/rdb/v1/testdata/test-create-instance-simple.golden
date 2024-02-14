@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                         few seconds ago
 Region                            fr-par
-ID                                9548545e-e51f-4783-b3e1-4c471bba1f0d
+ID                                7b807f4b-9737-4b4b-bf37-fed3d35e9fe9
 Name                              cli-test
 OrganizationID                    fa1e3217-dc80-42ac-85c3-3f034b78b552
 ProjectID                         fa1e3217-dc80-42ac-85c3-3f034b78b552
@@ -22,16 +22,16 @@ UpgradableVersion.2.Version       15
 UpgradableVersion.2.MinorVersion  15.5
 IsHaCluster                       false
 NodeType                          db-dev-s
-Endpoints.0.ID                    fe86ea6b-3837-45f6-a303-7beab5f614a1
-Endpoints.0.IP                    51.159.9.176
-Endpoints.0.Port                  19205
+Endpoints.0.ID                    a5e709a7-9942-4e90-a0ed-3bc20b100282
+Endpoints.0.IP                    51.159.206.160
+Endpoints.0.Port                  25617
 LogsPolicy.MaxAgeRetention        30
 BackupSameRegion                  false
 
 Endpoint:
-ID    fe86ea6b-3837-45f6-a303-7beab5f614a1
-IP    51.159.9.176
-Port  19205
+ID    a5e709a7-9942-4e90-a0ed-3bc20b100282
+IP    51.159.206.160
+Port  25617
 
 Volume:
 Type   lssd
@@ -64,7 +64,7 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "9548545e-e51f-4783-b3e1-4c471bba1f0d",
+  "id": "7b807f4b-9737-4b4b-bf37-fed3d35e9fe9",
   "name": "cli-test",
   "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
@@ -91,9 +91,9 @@ Password:
     }
   ],
   "endpoint": {
-    "id": "fe86ea6b-3837-45f6-a303-7beab5f614a1",
-    "ip": "51.159.9.176",
-    "port": 19205,
+    "id": "a5e709a7-9942-4e90-a0ed-3bc20b100282",
+    "ip": "51.159.206.160",
+    "port": 25617,
     "name": null,
     "load_balancer": {}
   },
@@ -136,9 +136,9 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "fe86ea6b-3837-45f6-a303-7beab5f614a1",
-      "ip": "51.159.9.176",
-      "port": 19205,
+      "id": "a5e709a7-9942-4e90-a0ed-3bc20b100282",
+      "ip": "51.159.206.160",
+      "port": 25617,
       "name": null,
       "load_balancer": {}
     }

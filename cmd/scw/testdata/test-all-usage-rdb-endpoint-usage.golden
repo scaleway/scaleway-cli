@@ -15,6 +15,7 @@ AVAILABLE COMMANDS:
   create      Create a new Database Instance endpoint
   delete      Delete a Database Instance endpoint
   get         Get a Database Instance endpoint
+  list        Lists a Database Instance's endpoints
   migrate     Migrate an existing instance endpoint to another instance
 
 FLAGS:

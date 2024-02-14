@@ -216,16 +216,6 @@ func autoCompleteDatabaseEngines(ctx context.Context, prefix string) core.Autoco
 }
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
-	type rdbEndpointSpecPrivateNetworkCustom struct {
-		*rdb.EndpointSpecPrivateNetwork
-		EnableIpam bool `json:"enable-ipam"`
-	}
-
-	type rdbEndpointSpecCustom struct {
-		PrivateNetwork *rdbEndpointSpecPrivateNetworkCustom `json:"private-network"`
-		LoadBalancer   bool                                 `json:"load-balancer"`
-	}
-
 	type rdbCreateInstanceRequestCustom struct {
 		*rdb.CreateInstanceRequest
 		InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
@@ -297,24 +287,9 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 			fmt.Printf("\n")
 		}
 
-		for _, customEndpoint := range customRequest.InitEndpoints {
-			if customEndpoint.LoadBalancer {
-				createInstanceRequest.InitEndpoints = append(createInstanceRequest.InitEndpoints, &rdb.EndpointSpec{
-					LoadBalancer: &rdb.EndpointSpecLoadBalancer{},
-				})
-			} else if customEndpoint.PrivateNetwork != nil {
-				ipamConfig := &rdb.EndpointSpecPrivateNetworkIpamConfig{}
-				if !customEndpoint.PrivateNetwork.EnableIpam {
-					ipamConfig = nil
-				}
-				createInstanceRequest.InitEndpoints = append(createInstanceRequest.InitEndpoints, &rdb.EndpointSpec{
-					PrivateNetwork: &rdb.EndpointSpecPrivateNetwork{
-						PrivateNetworkID: customEndpoint.PrivateNetwork.PrivateNetworkID,
-						ServiceIP:        customEndpoint.PrivateNetwork.ServiceIP,
-						IpamConfig:       ipamConfig,
-					},
-				})
-			}
+		createInstanceRequest.InitEndpoints, err = endpointRequestFromCustom(customRequest.InitEndpoints)
+		if err != nil {
+			return nil, err
 		}
 
 		instance, err := api.CreateInstance(createInstanceRequest)

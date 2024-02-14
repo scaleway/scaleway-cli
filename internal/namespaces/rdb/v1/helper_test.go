@@ -22,6 +22,13 @@ func createInstance(engine string) core.BeforeFunc {
 	)
 }
 
+func createInstanceWithPrivateNetwork(engine string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"Instance",
+		fmt.Sprintf(baseCommand+privateNetworkStaticSpec, name, engine, user, password),
+	)
+}
+
 func createInstanceWithPrivateNetworkAndLoadBalancer(engine string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
@@ -60,6 +67,24 @@ func getIPSubnet(ipNet scw.IPNet) (*string, error) {
 	return &ipNetStr, nil
 }
 
+func listEndpointsInMeta() core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+		for _, endpoint := range instance.Endpoints {
+			if endpoint.PrivateNetwork != nil {
+				ctx.Meta["PrivateEndpoint"] = endpoint
+			} else if endpoint.LoadBalancer != nil || endpoint.DirectAccess != nil {
+				ctx.Meta["PublicEndpoint"] = endpoint
+			}
+		}
+		return nil
+	}
+}
+
 func deleteInstance() core.AfterFunc {
 	return core.ExecAfterCmd("scw rdb instance delete {{ .Instance.ID }}")
+}
+
+func deleteInstanceAndWait() core.AfterFunc {
+	return core.ExecAfterCmd("scw rdb instance delete {{ .Instance.ID }} --wait")
 }
