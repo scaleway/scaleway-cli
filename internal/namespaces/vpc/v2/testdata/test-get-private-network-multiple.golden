@@ -1,38 +1,35 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   286a466f-fb3f-4ffc-a18e-126a093dcbe6
-Name                 cli-pn-cocky-greider
-OrganizationID       fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID            fa1e3217-dc80-42ac-85c3-3f034b78b552
-Region               fr-par
-CreatedAt            few seconds ago
-UpdatedAt            few seconds ago
-Subnets.0.ID         620cd573-3c0e-47cc-849e-5fb12f3fe8a1
-Subnets.0.CreatedAt  few seconds ago
-Subnets.0.UpdatedAt  few seconds ago
-Subnets.0.Subnet     172.16.12.0/22
-Subnets.1.ID         97a65d2a-c4b9-47f7-bbb6-c29737b9a8e5
-Subnets.1.CreatedAt  few seconds ago
-Subnets.1.UpdatedAt  few seconds ago
-Subnets.1.Subnet     fd63:256c:45f7:9765::/64
-VpcID                1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
-DHCPEnabled          true
+ID              97e7496d-27ab-42e3-befa-f0f17148d34b
+Name            cli-pn-romantic-khorana
+OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
+Region          fr-par
+CreatedAt       few seconds ago
+UpdatedAt       few seconds ago
+VpcID           1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
+DHCPEnabled     true
 
 Instance Servers:
-ID                                    NAME                 STATE     NIC ID                                MAC ADDRESS
-e2e8ba9c-44d7-498b-ad55-23da48198ff7  cli-srv-busy-newton  archived  f62427e2-cd8f-4cee-af90-4ee20da56b94  02:00:00:17:08:74
+ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
+b2038da1-b1a4-470f-925d-ade221f6bc75  cli-srv-pedantic-gates  archived  fde85b33-3841-479c-a288-df20b54daaf3  02:00:00:18:64:20
 
 Load-Balancers:
 ID                                    NAME      STATE
-6a13455a-3e67-40ba-940f-1e9daa3c6ee5  cli-test  ready
+c10c8015-28de-4c2c-a271-58b1f20fb2a5  cli-test  ready
 
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
-9efa12c2-4441-407d-acb1-88da47664bd0  cli-test  ready  11b204fb-4dee-48c7-ada7-23bf068b981a
+44c31418-0395-41c7-a934-c073ec151c95  cli-test  ready  82532a42-39de-4cbf-a45c-d1e848af814d
+
+Subnets:
+ID                                    CREATED AT       UPDATED AT       SUBNET
+329839cf-f397-4bf7-b0cd-10d8f9329627  few seconds ago  few seconds ago  172.16.64.0/22
+e537d54f-0c1f-4682-9a14-b9e7fd86b05d  few seconds ago  few seconds ago  fd63:256c:45f7:bcfc::/64
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "286a466f-fb3f-4ffc-a18e-126a093dcbe6",
-  "name": "cli-pn-cocky-greider",
+  "id": "97e7496d-27ab-42e3-befa-f0f17148d34b",
+  "name": "cli-pn-romantic-khorana",
   "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "region": "fr-par",
@@ -41,42 +38,42 @@ ID                                    NAME      STATE  ENDPOINT ID
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "620cd573-3c0e-47cc-849e-5fb12f3fe8a1",
+      "id": "329839cf-f397-4bf7-b0cd-10d8f9329627",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.12.0/22"
+      "subnet": "172.16.64.0/22"
     },
     {
-      "id": "97a65d2a-c4b9-47f7-bbb6-c29737b9a8e5",
+      "id": "e537d54f-0c1f-4682-9a14-b9e7fd86b05d",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd63:256c:45f7:9765::/64"
+      "subnet": "fd63:256c:45f7:bcfc::/64"
     }
   ],
   "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c",
   "dhcp_enabled": true,
   "instance_servers": [
     {
-      "id": "e2e8ba9c-44d7-498b-ad55-23da48198ff7",
-      "name": "cli-srv-busy-newton",
+      "id": "b2038da1-b1a4-470f-925d-ade221f6bc75",
+      "name": "cli-srv-pedantic-gates",
       "state": "stopped",
-      "nic_id": "f62427e2-cd8f-4cee-af90-4ee20da56b94",
-      "mac": "02:00:00:17:08:74"
+      "nic_id": "fde85b33-3841-479c-a288-df20b54daaf3",
+      "mac": "02:00:00:18:64:20"
     }
   ],
   "lbs": [
     {
-      "id": "6a13455a-3e67-40ba-940f-1e9daa3c6ee5",
+      "id": "c10c8015-28de-4c2c-a271-58b1f20fb2a5",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "9efa12c2-4441-407d-acb1-88da47664bd0",
+      "id": "44c31418-0395-41c7-a934-c073ec151c95",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "11b204fb-4dee-48c7-ada7-23bf068b981a"
+      "endpoint_id": "82532a42-39de-4cbf-a45c-d1e848af814d"
     }
   ]
 }
