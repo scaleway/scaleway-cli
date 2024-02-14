@@ -38,7 +38,8 @@ scw jobs definition create [arg=value ...]
 |------|---|-------------|
 | name | Required<br />Default: `<generated>` | Name of the job definition |
 | cpu-limit | Required | CPU limit of the job |
-| memory-limit | Required | Memory limit of the job |
+| memory-limit | Required | Memory limit of the job (in MiB) |
+| local-storage-capacity |  | Local storage capacity of the job (in MiB) |
 | image-uri |  | Image to use for the job |
 | command |  | Startup command |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
@@ -153,7 +154,8 @@ scw jobs definition update <job-definition-id ...> [arg=value ...]
 | job-definition-id | Required | UUID of the job definition to update |
 | name |  | Name of the job definition |
 | cpu-limit |  | CPU limit of the job |
-| memory-limit |  | Memory limit of the job |
+| memory-limit |  | Memory limit of the job (in MiB) |
+| local-storage-capacity |  | Local storage capacity of the job (in MiB) |
 | image-uri |  | Image to use for the job |
 | command |  | Startup command |
 | environment-variables.{key} |  | Environment variables of the job |
