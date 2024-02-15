@@ -35,3 +35,23 @@ func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {
 	}
 	return c
 }
+
+func gatewayNetworkMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp vpcgw.Gateway
+	vpcgtwNetwork := tmp(i.(vpcgw.Gateway))
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "IP",
+			Title:     "IP",
+		},
+		{
+			FieldName: "GatewayNetworks",
+			Title:     "GatewayNetworks",
+		},
+	}
+	str, err := human.Marshal(vpcgtwNetwork, opt)
+	if err != nil {
+		return "", err
+	}
+	return str, nil
+}
