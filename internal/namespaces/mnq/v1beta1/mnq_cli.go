@@ -104,7 +104,7 @@ func mnqNatsCreateAccount() *core.Command {
 				Default:    core.RandomValueGenerator("mnq"),
 			},
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.NatsAPICreateNatsAccountRequest)
@@ -134,7 +134,7 @@ func mnqNatsDeleteAccount() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.NatsAPIDeleteNatsAccountRequest)
@@ -177,7 +177,7 @@ func mnqNatsUpdateAccount() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.NatsAPIUpdateNatsAccountRequest)
@@ -207,7 +207,7 @@ func mnqNatsGetAccount() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.NatsAPIGetNatsAccountRequest)
@@ -245,7 +245,7 @@ func mnqNatsListAccounts() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.NatsAPIListNatsAccountsRequest)
@@ -292,7 +292,7 @@ func mnqNatsCreateCredentials() *core.Command {
 				Positional: false,
 				Default:    core.RandomValueGenerator("mnq"),
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.NatsAPICreateNatsCredentialsRequest)
@@ -322,7 +322,7 @@ func mnqNatsDeleteCredentials() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.NatsAPIDeleteNatsCredentialsRequest)
@@ -358,7 +358,7 @@ func mnqNatsGetCredentials() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.NatsAPIGetNatsCredentialsRequest)
@@ -396,7 +396,7 @@ func mnqNatsListCredentials() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.NatsAPIListNatsCredentialsRequest)
@@ -429,7 +429,7 @@ func mnqSnsActivate() *core.Command {
 		ArgsType: reflect.TypeOf(mnq.SnsAPIActivateSnsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SnsAPIActivateSnsRequest)
@@ -453,7 +453,7 @@ func mnqSnsGetInfo() *core.Command {
 		ArgsType: reflect.TypeOf(mnq.SnsAPIGetSnsInfoRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SnsAPIGetSnsInfoRequest)
@@ -477,7 +477,7 @@ func mnqSnsDeactivate() *core.Command {
 		ArgsType: reflect.TypeOf(mnq.SnsAPIDeactivateSnsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SnsAPIDeactivateSnsRequest)
@@ -530,7 +530,7 @@ func mnqSnsCreateCredentials() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SnsAPICreateSnsCredentialsRequest)
@@ -560,7 +560,7 @@ func mnqSnsDeleteCredentials() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SnsAPIDeleteSnsCredentialsRequest)
@@ -624,7 +624,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SnsAPIUpdateSnsCredentialsRequest)
@@ -654,7 +654,7 @@ func mnqSnsGetCredentials() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SnsAPIGetSnsCredentialsRequest)
@@ -692,7 +692,7 @@ func mnqSnsListCredentials() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SnsAPIListSnsCredentialsRequest)
@@ -725,7 +725,7 @@ func mnqSqsActivate() *core.Command {
 		ArgsType: reflect.TypeOf(mnq.SqsAPIActivateSqsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SqsAPIActivateSqsRequest)
@@ -749,7 +749,7 @@ func mnqSqsGetInfo() *core.Command {
 		ArgsType: reflect.TypeOf(mnq.SqsAPIGetSqsInfoRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SqsAPIGetSqsInfoRequest)
@@ -773,7 +773,7 @@ func mnqSqsDeactivate() *core.Command {
 		ArgsType: reflect.TypeOf(mnq.SqsAPIDeactivateSqsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SqsAPIDeactivateSqsRequest)
@@ -826,7 +826,7 @@ func mnqSqsCreateCredentials() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SqsAPICreateSqsCredentialsRequest)
@@ -856,7 +856,7 @@ func mnqSqsDeleteCredentials() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SqsAPIDeleteSqsCredentialsRequest)
@@ -920,7 +920,7 @@ func mnqSqsUpdateCredentials() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SqsAPIUpdateSqsCredentialsRequest)
@@ -950,7 +950,7 @@ func mnqSqsGetCredentials() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SqsAPIGetSqsCredentialsRequest)
@@ -988,7 +988,7 @@ func mnqSqsListCredentials() *core.Command {
 				Positional: false,
 				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mnq.SqsAPIListSqsCredentialsRequest)
