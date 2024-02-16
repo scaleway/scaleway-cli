@@ -86,8 +86,15 @@ func jobsDefinitionCreate() *core.Command {
 			},
 			{
 				Name:       "memory-limit",
-				Short:      `Memory limit of the job`,
+				Short:      `Memory limit of the job (in MiB)`,
 				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "local-storage-capacity",
+				Short:      `Local storage capacity of the job (in MiB)`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -260,7 +267,14 @@ func jobsDefinitionUpdate() *core.Command {
 			},
 			{
 				Name:       "memory-limit",
-				Short:      `Memory limit of the job`,
+				Short:      `Memory limit of the job (in MiB)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "local-storage-capacity",
+				Short:      `Local storage capacity of the job (in MiB)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

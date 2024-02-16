@@ -12,6 +12,7 @@ ARGS:
   [tags.{index}]         List of tags for the Web Hosting plan
   [domain]               Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand
   [option-ids.{index}]   IDs of any selected additional options for the Web Hosting plan
+  [language]             Default language for the control panel interface (unknown_language_code | en_US | fr_FR | de_DE)
   [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:

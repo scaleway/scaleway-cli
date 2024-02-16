@@ -294,7 +294,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
 		// Here we return a constant string. We may need to find a better place to put this.
-		human.RegisterMarshalerFunc(time.Time{}, func(i interface{}, opt *human.MarshalOpt) (string, error) {
+		human.RegisterMarshalerFunc(time.Time{}, func(_ interface{}, _ *human.MarshalOpt) (string, error) {
 			return "few seconds ago", nil
 		})
 

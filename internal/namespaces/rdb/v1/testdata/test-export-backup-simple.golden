@@ -1,19 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                    f3e15b2d-ac65-413d-a027-8c63cf1bf674
-InstanceID            0e434676-e0c1-476e-963f-cda4bae23b33
-DatabaseName          rdb
-Name                  foobar
-Status                ready
-Size                  2.1 kB
-ExpiresAt             few seconds ago
-CreatedAt             few seconds ago
-UpdatedAt             few seconds ago
-InstanceName          cli-test
-DownloadURL           https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/0e434676-e0c1-476e-963f-cda4bae23b33/f3e15b2d-ac65-413d-a027-8c63cf1bf674.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=SCW2HJV1WMKPE0CKDAW5%2F20231109%2Fnl-ams%2Fs3%2Faws4_request&X-Amz-Date=20231109T191717Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=44ba03c3e09d75780222bd3b15feebc62c50f5d890196aa1d3e0e3c84f9aa385
-DownloadURLExpiresAt  few seconds ago
-Region                fr-par
-SameRegion            false
+ID            f3e15b2d-ac65-413d-a027-8c63cf1bf674
+InstanceID    0e434676-e0c1-476e-963f-cda4bae23b33
+DatabaseName  rdb
+Name          foobar
+Status        ready
+Size          2.1 kB
+ExpiresAt     few seconds ago
+CreatedAt     few seconds ago
+UpdatedAt     few seconds ago
+InstanceName  cli-test
+IsExported    true
+Region        fr-par
+SameRegion    false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "f3e15b2d-ac65-413d-a027-8c63cf1bf674",

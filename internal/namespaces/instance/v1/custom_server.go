@@ -125,7 +125,8 @@ func orderVolumes(v map[string]*instance.VolumeServer) []*instance.VolumeServer 
 		indexes = append(indexes, index)
 	}
 	sort.Strings(indexes)
-	var orderedVolumes []*instance.VolumeServer
+
+	orderedVolumes := make([]*instance.VolumeServer, 0, len(indexes))
 	for _, index := range indexes {
 		orderedVolumes = append(orderedVolumes, v[index])
 	}

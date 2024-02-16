@@ -21,7 +21,7 @@ func (c s3tool) String() string {
 type supportedTool []s3tool
 
 func (s supportedTool) ToStringArray() []string {
-	var res []string
+	res := make([]string, 0, len(s))
 	for _, x := range s {
 		res = append(res, x.String())
 	}

@@ -3,11 +3,13 @@ package redis
 import (
 	"context"
 	"errors"
+	"log"
 	"net/http"
 	"reflect"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -38,7 +40,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(redisCreateClusterRequestCustom{})
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
 			ClusterID:     respI.(*redis.Cluster).ID,
@@ -87,7 +89,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 }
 
 func clusterDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
 			ClusterID:     respI.(*redis.Cluster).ID,
@@ -155,4 +157,50 @@ func ACLAddListBuilder(c *core.Command) *core.Command {
 		return ACLAddResponse.ACLRules, nil
 	})
 	return c
+}
+
+func redisEndpointsClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp []*redis.Endpoint
+	redisEndpointsClusterResponse := tmp(i.([]*redis.Endpoint))
+	opt.Fields = []*human.MarshalFieldOpt{
+		{
+			FieldName: "ID",
+			Label:     "ID",
+		},
+		{
+			FieldName: "Port",
+			Label:     "Port",
+		},
+		{
+			FieldName: "IPs",
+			Label:     "IPs",
+		},
+	}
+	str, err := human.Marshal(redisEndpointsClusterResponse, opt)
+	if err != nil {
+		return "", err
+	}
+	return str, nil
+}
+
+func redisClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp redis.Cluster
+	redisClusterResponse := tmp(i.(redis.Cluster))
+	log.Println("redis ", i.(redis.Cluster).Endpoints[0])
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "Endpoints",
+			Title:     "Endpoints",
+		},
+		{
+			FieldName: "ACLRules",
+			Title:     "ACLRules",
+		},
+	}
+	str, err := human.Marshal(redisClusterResponse, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
 }

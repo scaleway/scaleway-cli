@@ -44,7 +44,7 @@ It avoid running docker login commands.
 				Name:    "path",
 				Short:   "Directory in which the Docker helper will be installed. This directory should be in your $PATH",
 				Default: core.DefaultValueSetter("/usr/local/bin"),
-				ValidateFunc: func(argSpec *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
 					stat, err := os.Stat(value.(string))
 					if err != nil || !stat.IsDir() {
 						return fmt.Errorf("%s is not a directory", value)
@@ -109,7 +109,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		return nil, fmt.Errorf("failed to write helper script: %s", err)
 	}
 
-	var registries []string
+	registries := make([]string, 0, len(scw.AllRegions))
 	for _, region := range scw.AllRegions {
 		registries = append(registries, getRegistryEndpoint(region))
 	}
@@ -205,7 +205,7 @@ func registryDockerHelperStoreCommand() *core.Command {
 		Resource:  "docker-helper",
 		Verb:      "store",
 		ArgsType:  reflect.TypeOf(emptyRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
 			return nil, nil
 		},
 	}
@@ -221,7 +221,7 @@ func registryDockerHelperEraseCommand() *core.Command {
 		ArgSpecs: []*core.ArgSpec{
 			{},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
 			return nil, nil
 		},
 	}
@@ -234,7 +234,7 @@ func registryDockerHelperListCommand() *core.Command {
 		Resource:  "docker-helper",
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(emptyRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
 			registryEndpoints := make(map[string]string)
 			for _, region := range scw.AllRegions {
 				registryEndpoints[getRegistryEndpoint(region)] = "scaleway"

@@ -1017,12 +1017,12 @@ func containerCronDelete() *core.Command {
 
 func containerContainerGetLogs() *core.Command {
 	return &core.Command{
-		Short:     `List your container logs`,
-		Long:      `List the logs of the container with the specified ID.`,
+		Short:     `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List your container logs`,
+		Long:      `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the logs of the container with the specified ID.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "get-logs",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(container.ListLogsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{

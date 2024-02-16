@@ -133,7 +133,7 @@ func Readline(config *ReadlineConfig) (string, error) {
 			ctx:           config.Ctx,
 			defaultReader: os.Stdin,
 		},
-		Listener: readline.FuncListener(func(line []rune, pos int, key rune) (newLine []rune, newPos int, ok bool) {
+		Listener: readline.FuncListener(func(line []rune, _ int, _ rune) (newLine []rune, newPos int, ok bool) {
 			value := string(line)
 			promptHandler.SetPrompt(promptFunc(value))
 			promptHandler.rl.Refresh()

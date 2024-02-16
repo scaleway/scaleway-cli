@@ -1,26 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   59428310-4d60-491c-98d2-9328e85d3cb1
-Name                 cli-pn-stupefied-vaughan
-OrganizationID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-ProjectID            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Region               fr-par
-CreatedAt            few seconds ago
-UpdatedAt            few seconds ago
-Subnets.0.ID         b70e5a1e-a32a-44c9-8e81-9c9a500c2940
-Subnets.0.CreatedAt  few seconds ago
-Subnets.0.UpdatedAt  few seconds ago
-Subnets.0.Subnet     172.16.96.0/22
-Subnets.1.ID         ab858a88-6d19-41f2-ac12-cc2e3176dffa
-Subnets.1.CreatedAt  few seconds ago
-Subnets.1.UpdatedAt  few seconds ago
-Subnets.1.Subnet     fd4a:c18e:554d:544a::/64
-VpcID                53e50f63-f6c0-44f7-8576-d6edcb965d9c
-DHCPEnabled          true
+ID              59428310-4d60-491c-98d2-9328e85d3cb1
+Name            cli-pn-stupefied-vaughan
+OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Region          fr-par
+CreatedAt       few seconds ago
+UpdatedAt       few seconds ago
+VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
+DHCPEnabled     true
 
 Instance Servers:
 ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
 6f38747e-ad14-4eaf-8001-fc46273d829d  cli-srv-festive-easley  archived  49ec0211-2e16-4d5b-a9c0-8ec1e44c31e2  02:00:00:15:3a:07
+
+Subnets:
+ID                                    CREATED AT       UPDATED AT       SUBNET
+b70e5a1e-a32a-44c9-8e81-9c9a500c2940  few seconds ago  few seconds ago  172.16.96.0/22
+ab858a88-6d19-41f2-ac12-cc2e3176dffa  few seconds ago  few seconds ago  fd4a:c18e:554d:544a::/64
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "59428310-4d60-491c-98d2-9328e85d3cb1",

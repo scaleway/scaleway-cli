@@ -3,14 +3,16 @@
 Delete the endpoint of a Database Instance. You must specify the `region` and `endpoint_id` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.
 
 USAGE:
-  scw rdb endpoint delete [arg=value ...]
+  scw rdb endpoint delete <endpoint-id ...> [arg=value ...]
 
 ARGS:
+  instance-id       UUID of the Database Instance from which you want to delete an endpoint
   endpoint-id       UUID of the endpoint you want to delete
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for delete
+  -w, --wait   wait until the endpoint is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

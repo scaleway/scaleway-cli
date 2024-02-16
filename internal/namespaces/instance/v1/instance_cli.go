@@ -218,17 +218,17 @@ of the data of the original volume.`,
 func instanceUserData() *core.Command {
 	return &core.Command{
 		Short: `User data management commands`,
-		Long: `User data is a key value store API you can use to provide data to your Instance without authentication.
+		Long: `User data is a key/value store you can use to provide your instance with introspective data.
 
-As an example of use, Scaleway images contain the script ` + "`" + `scw-generate-ssh-keys` + "`" + ` which generates SSH server’s host keys then stores their fingerprints as user data under the key “ssh-host-fingerprints”.
-This way, we ensure they are really connecting to their Scaleway Instance and they are not victim of a man-in-the-middle attack.
+As an example of use, Scaleway images contain the ` + "`" + `scw-generate-ssh-keys` + "`" + ` script, which generates the SSH server’s host keys, then stores their fingerprints as user data under the ` + "`" + `ssh-host-fingerprints` + "`" + ` key.
+This way, before connecting to the instance using SSH, one can query the fingerprints to ensure that the remote host is the expected one, thus avoiding any man-in-the-middle attack.
 
-There are two endpoints to access user data:
- - **From a running Instance**, by using the metadata API at http://169.254.42.42/user_data.
-   To enhance security, we only allow user data viewing and editing as root.
-   To know if the query is issued by the root user, we only accept queries made from a local port below 1024 (by default, non-root users can not bind ports below 1024).
-   To specify the local port with cURL, use ` + "`" + `curl --local-port 1-1024 http://169.254.42.42/user_data` + "`" + `
- - **From the Instance API** at using methods described bellow.`,
+There are two ways of accessing user data:
+ - **From within a running Instance**, by requesting the Metadata API at http://169.254.42.42/user_data (or http://[fd00:42::42]/user_data using IPv6).
+   The ` + "`" + `scaleway-ecosystem` + "`" + ` package, installed by default on all OS images provided by Scaleway, ships with the ` + "`" + `scw-userdata` + "`" + ` helper command that allows you to easily query the user data from the instance.
+   For security reasons, viewing and editing user data is only allowed to queries originating from a port below 1024 (by default, only the super-user can bind to ports below 1024).
+   To specify the source port with cURL, use the ` + "`" + `--local-port` + "`" + ` option (e.g. ` + "`" + `curl --local-port 1-1024 http://169.254.42.42/user_data` + "`" + `).
+ - **From the Instance API** by using the methods described below.`,
 		Namespace: "instance",
 		Resource:  "user-data",
 	}

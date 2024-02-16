@@ -11,8 +11,11 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(vpcgw.GatewayNetworkStatus(""), human.EnumMarshalFunc(gatewayNetworkStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(vpcgw.GatewayStatus(""), human.EnumMarshalFunc(gatewayStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(vpcgw.Gateway{}, gatewayNetworkMarshallerFunc)
 
 	cmds.MustFind("vpc-gw", "gateway-type", "list").Override(vpcgwGatewayTypeListBuilder)
+	cmds.MustFind("vpc-gw", "gateway", "create").Override(gatewayCreateBuilder)
+	cmds.MustFind("vpc-gw", "gateway-network", "create").Override(gatewayNetworkCreateBuilder)
 
 	return cmds
 }

@@ -55,7 +55,7 @@ func CustomTestAnonymousFields() *core.Command {
 				Short: `Field A`,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
 			return "", nil
 		},
 	}

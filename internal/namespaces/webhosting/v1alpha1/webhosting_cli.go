@@ -115,6 +115,14 @@ func webhostingHostingCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "language",
+				Short:      `Default language for the control panel interface`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_language_code", "en_US", "fr_FR", "de_DE"},
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

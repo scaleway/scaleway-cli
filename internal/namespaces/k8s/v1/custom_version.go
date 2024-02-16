@@ -40,10 +40,6 @@ func versionMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 			Title:     "Available CNIs",
 		},
 		{
-			FieldName: "AvailableIngresses",
-			Title:     "Available Ingresses",
-		},
-		{
 			FieldName: "AvailableContainerRuntimes",
 			Title:     "Available Container Runtimes",
 		},

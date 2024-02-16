@@ -18,7 +18,7 @@ var fakeCommand = &Command{
 	Namespace:            "plop",
 	ArgsType:             reflect.TypeOf(args.RawArgs{}),
 	AllowAnonymousClient: true,
-	Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
 		return &SuccessResult{}, nil
 	},
 }
