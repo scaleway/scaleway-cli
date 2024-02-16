@@ -1,21 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              3fcef37a-506b-45a5-bde6-dec3f989c6be
-OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
-ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
-CreatedAt       few seconds ago
-UpdatedAt       few seconds ago
-Type.Name       VPC-GW-S
-Type.Bandwidth  100000000
-Type.Zone       fr-par-1
-Status          running
-Name            cli-gw-stupefied-swirles
-Version         0.6.1
-BastionEnabled  false
-BastionPort     61000
-SMTPEnabled     false
-IsLegacy        false
-Zone            fr-par-1
+ID                 3fcef37a-506b-45a5-bde6-dec3f989c6be
+OrganizationID     d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ProjectID          d3520a52-2c75-4ba0-bda8-82dd087f07f2
+CreatedAt          few seconds ago
+UpdatedAt          few seconds ago
+Type.Name          VPC-GW-S
+Type.Bandwidth     100000000
+Type.Zone          fr-par-1
+Status             running
+Name               cli-gw-stupefied-swirles
+Version            0.6.1
+BastionEnabled     false
+BastionPort        61000
+SMTPEnabled        false
+IsLegacy           false
+IPMobilityEnabled  false
+Zone               fr-par-1
 
 IP:
 ID              527342d1-f9bb-4fe7-88ef-c8306d6bd728
@@ -85,5 +86,6 @@ ID                                    CREATED AT       UPDATED AT       GATEWAY 
   "bastion_port": 61000,
   "smtp_enabled": false,
   "is_legacy": false,
+  "ip_mobility_enabled": false,
   "zone": "fr-par-1"
 }
