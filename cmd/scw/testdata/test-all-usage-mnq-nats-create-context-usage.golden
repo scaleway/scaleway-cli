@@ -15,7 +15,7 @@ ARGS:
   [nats-account-id]    ID of the NATS account
   [name]               Name of the saved context, defaults to account name
   [credentials-name]   Name of the created credentials
-  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for create-context

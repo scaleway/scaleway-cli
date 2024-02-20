@@ -127,7 +127,7 @@ Get details of an offer identified by its offer ID.
 **Usage:**
 
 ```
-scw baremetal offer get [arg=value ...]
+scw baremetal offer get <offer-id ...> [arg=value ...]
 ```
 
 
@@ -144,7 +144,7 @@ scw baremetal offer get [arg=value ...]
 
 Get a server offer with the ID
 ```
-scw baremetal offer get zone=fr-par-1 offer-id=11111111-1111-1111-1111-111111111111
+scw baremetal offer get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
 
 
