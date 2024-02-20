@@ -6,3 +6,6 @@ node_modules
 # Local release artifacts
 dist/
 scw-cli-v2-version
+
+# To avoid having differences in case you use a different shell than bash while recording the goldens
+docs/commands/autocomplete.md
