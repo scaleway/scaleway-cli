@@ -1,0 +1,35 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"total_count":0, "nats_accounts":[]}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts?order_by=created_at_asc
+    method: GET
+  response:
+    body: '{"total_count":0, "nats_accounts":[]}'
+    headers:
+      Content-Length:
+      - "37"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 12 Feb 2024 10:52:18 GMT
+      Server:
+      - Scaleway API-Gateway
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 972cbf89-623c-4f02-b8f7-273bd0d75dfa
+    status: 200 OK
+    code: 200
+    duration: ""

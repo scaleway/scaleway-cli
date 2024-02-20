@@ -4,6 +4,7 @@ Messaging and Queuing APIs.
   
 - [MnQ NATS commands](#mnq-nats-commands)
   - [Create a NATS account](#create-a-nats-account)
+  - [Create a new context for natscli](#create-a-new-context-for-natscli)
   - [Create NATS credentials](#create-nats-credentials)
   - [Delete a NATS account](#delete-a-nats-account)
   - [Delete NATS credentials](#delete-nats-credentials)
@@ -55,6 +56,40 @@ scw mnq nats create-account [arg=value ...]
 | name | Default: `<generated>` | NATS account name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Create a new context for natscli
+
+This command help you configure your nats cli
+Contexts should are stored in $HOME/.config/nats/context
+Credentials and context file are saved in your nats context folder with 0600 permissions
+
+**Usage:**
+
+```
+scw mnq nats create-context [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| nats-account-id |  | ID of the NATS account |
+| name |  | Name of the saved context, defaults to account name |
+| credentials-name |  | Name of the created credentials |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Create a context in your nats server
+```
+scw mnq nats create-context <nats-account-id> credentials-name=<credential-name> region=fr-par
+```
+
 
 
 

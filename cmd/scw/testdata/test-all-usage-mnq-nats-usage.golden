@@ -16,6 +16,9 @@ AVAILABLE COMMANDS:
   list-credentials   List NATS credentials
   update-account     Update the name of a NATS account
 
+WORKFLOW COMMANDS:
+  create-context     Create a new context for natscli
+
 FLAGS:
   -h, --help   help for nats
 

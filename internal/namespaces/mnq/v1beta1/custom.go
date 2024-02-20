@@ -11,5 +11,9 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(mnq.SnsInfoStatus(""), human.EnumMarshalFunc(mnqSqsInfoStatusMarshalSpecs))
 
+	cmds.Merge(core.NewCommands(
+		createContextCommand(),
+	))
+
 	return cmds
 }
