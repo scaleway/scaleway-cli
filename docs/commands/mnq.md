@@ -79,7 +79,7 @@ scw mnq nats create-context [arg=value ...]
 | nats-account-id |  | ID of the NATS account |
 | name |  | Name of the saved context, defaults to account name |
 | credentials-name |  | Name of the created credentials |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
