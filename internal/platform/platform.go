@@ -15,7 +15,7 @@ type Platform interface {
 
 	// ScwConfig returns a scaleway config if available, can be nil
 	// TODO: remove if possible, currently used in profile completion
-	ScwConfig() *scw.Config
+	ScwConfig(path string) (*scw.Config, error)
 	// SetScwConfig set the stored config, useful for testing purpose
 	SetScwConfig(cfg *scw.Config)
 }

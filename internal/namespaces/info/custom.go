@@ -70,7 +70,7 @@ func infosRoot() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			req := argsI.(*infoArgs)
-			config, _ := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
+			config, _ := core.ExtractPlatform(ctx).ScwConfig(core.ExtractConfigPath(ctx))
 			profileName := core.ExtractProfileName(ctx)
 			return &infoResult{
 				BuildInfo: core.ExtractBuildInfo(ctx),
