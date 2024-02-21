@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   nats-account-id   ID of the NATS account to update
   [name]            NATS account name
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for update-account

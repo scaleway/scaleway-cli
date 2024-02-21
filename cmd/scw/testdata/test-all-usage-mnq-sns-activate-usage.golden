@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [project-id]      Project ID to use. If none is passed the default project ID will be used
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for activate

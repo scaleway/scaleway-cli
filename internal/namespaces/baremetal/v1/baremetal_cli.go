@@ -1083,7 +1083,7 @@ func baremetalOfferGet() *core.Command {
 				Short:      `ID of the researched Offer`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},

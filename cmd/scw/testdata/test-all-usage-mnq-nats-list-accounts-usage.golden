@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   [project-id]      Include only NATS accounts in this Project
   [order-by]        Order in which to return results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | name_asc | name_desc)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | all)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | all)
 
 FLAGS:
   -h, --help   help for list-accounts
