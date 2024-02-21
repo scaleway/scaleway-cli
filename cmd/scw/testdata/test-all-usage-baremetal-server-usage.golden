@@ -6,21 +6,22 @@ USAGE:
   scw baremetal server <command>
 
 AVAILABLE COMMANDS:
-  create      Create an Elastic Metal server
-  delete      Delete an Elastic Metal server
-  get         Get a specific Elastic Metal server
-  get-metrics Return server metrics
-  install     Install an Elastic Metal server
-  list        List Elastic Metal servers for an Organization
-  list-events List server events
-  reboot      Reboot an Elastic Metal server
-  start       Start an Elastic Metal server
-  stop        Stop an Elastic Metal server
-  update      Update an Elastic Metal server
-  update-ip   Update IP
+  add-flexible-ip Attach a new flexible IP to a server
+  create          Create an Elastic Metal server
+  delete          Delete an Elastic Metal server
+  get             Get a specific Elastic Metal server
+  get-metrics     Return server metrics
+  install         Install an Elastic Metal server
+  list            List Elastic Metal servers for an Organization
+  list-events     List server events
+  reboot          Reboot an Elastic Metal server
+  start           Start an Elastic Metal server
+  stop            Stop an Elastic Metal server
+  update          Update an Elastic Metal server
+  update-ip       Update IP
 
 WORKFLOW COMMANDS:
-  wait        Wait for a server to reach a stable state (delivery and installation)
+  wait            Wait for a server to reach a stable state (delivery and installation)
 
 FLAGS:
   -h, --help   help for server

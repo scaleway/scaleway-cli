@@ -23,6 +23,7 @@ Elastic Metal API.
   - [List the Private Networks of a server](#list-the-private-networks-of-a-server)
   - [Set multiple Private Networks on a server](#set-multiple-private-networks-on-a-server)
 - [Server management commands](#server-management-commands)
+  - [Attach a new flexible IP to a server](#attach-a-new-flexible-ip-to-a-server)
   - [Create an Elastic Metal server](#create-an-elastic-metal-server)
   - [Delete an Elastic Metal server](#delete-an-elastic-metal-server)
   - [Get a specific Elastic Metal server](#get-a-specific-elastic-metal-server)
@@ -476,6 +477,29 @@ scw baremetal private-network set [arg=value ...]
 ## Server management commands
 
 A server is a denomination of a type of instances provided by Scaleway.
+
+
+### Attach a new flexible IP to a server
+
+Create and attach a new flexible IP to a server
+
+**Usage:**
+
+```
+scw baremetal server add-flexible-ip <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server to which the newly created flexible IP will be attached. |
+| description |  | Flexible IP description (max. of 255 characters) |
+| ip-type |  | Define whether the flexible IP is an IPv4 or IPv6 |
+| tags.{index} |  | Tags to associate to the flexible IP |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
 
 
 ### Create an Elastic Metal server
