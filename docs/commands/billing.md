@@ -2,21 +2,75 @@
 # Documentation for `scw billing`
 This API allows you to query your consumption.
   
-- [Discounts management commands](#discounts-management-commands)
-  - [List all user's discounts](#list-all-user's-discounts)
-- [Invoices management commands](#invoices-management-commands)
+- [Consumption management commands](#consumption-management-commands)
+  - [Get monthly consumption](#get-monthly-consumption)
+  - [Get monthly consumption taxes](#get-monthly-consumption-taxes)
+- [Discount management commands](#discount-management-commands)
+  - [List discounts](#list-discounts)
+- [Invoice management commands](#invoice-management-commands)
   - [Download an invoice](#download-an-invoice)
+  - [Export invoices](#export-invoices)
+  - [Get an invoice](#get-an-invoice)
   - [List invoices](#list-invoices)
 
   
-## Discounts management commands
+## Consumption management commands
 
-Discounts management commands.
+Consumption management commands.
 
 
-### List all user's discounts
+### Get monthly consumption
 
-List all discounts for an organization and usable categories/products/offers/references/regions/zones where the discount can be applied.
+Consumption allows you to retrieve your past or current consumption cost, by project or category.
+
+**Usage:**
+
+```
+scw billing consumption list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `updated_at_desc`, `updated_at_asc`, `category_name_desc`, `category_name_asc` | Order consumptions list in the response by their update date |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| category-name |  | Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability) |
+| billing-period |  | Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
+### Get monthly consumption taxes
+
+Consumption Tax allows you to retrieve your past or current tax charges, by project or category.
+
+**Usage:**
+
+```
+scw billing consumption list-taxes [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `updated_at_desc`, `updated_at_asc`, `category_name_desc`, `category_name_asc` | Order consumed taxes list in the response by their update date |
+| billing-period |  | Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
+## Discount management commands
+
+Discount management commands.
+
+
+### List discounts
+
+List all discounts for your organization and usable categories, products, offers, references, regions and zones where the discount can be applied.
 
 **Usage:**
 
@@ -34,9 +88,9 @@ scw billing discount list [arg=value ...]
 
 
 
-## Invoices management commands
+## Invoice management commands
 
-Invoices management commands.
+Invoice management commands.
 
 
 ### Download an invoice
@@ -46,7 +100,7 @@ Download a specific invoice, specified by its ID.
 **Usage:**
 
 ```
-scw billing invoice download [arg=value ...]
+scw billing invoice download <invoice-id ...> [arg=value ...]
 ```
 
 
@@ -55,9 +109,52 @@ scw billing invoice download [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | invoice-id | Required | Invoice ID |
-| file-path | Default: `./` | Wanted file path |
-| file-type | Default: `pdf` | Wanted file extension |
-| force-replace | Default: `false` | Force file replacement |
+| file-type | One of: `pdf` | File type. PDF by default |
+
+
+
+### Export invoices
+
+Export invoices in a CSV file.
+
+**Usage:**
+
+```
+scw billing invoice export [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| billing-period-start-after |  | Return only invoice with start date greater than billing_period_start |
+| billing-period-start-before |  | Return only invoice with start date less than billing_period_start |
+| invoice-type | One of: `unknown_type`, `periodic`, `purchase` | Invoice type. It can either be `periodic` or `purchase` |
+| page |  | Page number |
+| page-size | Default: `20` | Positive integer lower or equal to 100 to select the number of items to return |
+| order-by | One of: `invoice_number_desc`, `invoice_number_asc`, `start_date_desc`, `start_date_asc`, `issued_date_desc`, `issued_date_asc`, `due_date_desc`, `due_date_asc`, `total_untaxed_desc`, `total_untaxed_asc`, `total_taxed_desc`, `total_taxed_asc`, `invoice_type_desc`, `invoice_type_asc` | How invoices are ordered in the response |
+| file-type | Default: `CSV`<br />One of: `csv` | File format for exporting the invoice list |
+| organization-id |  | Organization ID. If specified, only invoices from this Organization will be returned |
+
+
+
+### Get an invoice
+
+Get a specific invoice, specified by its ID.
+
+**Usage:**
+
+```
+scw billing invoice get <invoice-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| invoice-id | Required | Invoice ID |
 
 
 
@@ -76,11 +173,11 @@ scw billing invoice list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| started-after |  | Invoice's `start_date` is greater or equal to `started_after` |
-| started-before |  | Invoice's `start_date` precedes `started_before` |
+| billing-period-start-after |  | Return only invoice with start date greater than billing_period_start |
+| billing-period-start-before |  | Return only invoice with start date less than billing_period_start |
 | invoice-type | One of: `unknown_type`, `periodic`, `purchase` | Invoice type. It can either be `periodic` or `purchase` |
 | order-by | One of: `invoice_number_desc`, `invoice_number_asc`, `start_date_desc`, `start_date_asc`, `issued_date_desc`, `issued_date_asc`, `due_date_desc`, `due_date_asc`, `total_untaxed_desc`, `total_untaxed_asc`, `total_taxed_desc`, `total_taxed_asc`, `invoice_type_desc`, `invoice_type_asc` | How invoices are ordered in the response |
-| organization-id |  | Organization ID to filter for, only invoices from this Organization will be returned |
+| organization-id |  | Organization ID. If specified, only invoices from this Organization will be returned |
 
 
 

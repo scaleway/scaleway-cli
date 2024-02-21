@@ -7,7 +7,7 @@ import (
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
-	billing "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2alpha1"
+	billing "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1beta1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"

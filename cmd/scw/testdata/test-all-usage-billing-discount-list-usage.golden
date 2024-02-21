@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all discounts for an organization and usable categories/products/offers/references/regions/zones where the discount can be applied.
+List all discounts for your organization and usable categories, products, offers, references, regions and zones where the discount can be applied.
 
 USAGE:
   scw billing discount list [arg=value ...]
