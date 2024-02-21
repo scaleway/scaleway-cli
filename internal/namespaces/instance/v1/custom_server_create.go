@@ -780,6 +780,8 @@ func instanceServerCreateIPCreate(args *instanceCreateServerRequest, api *instan
 
 	if args.RoutedIPEnabled != nil && *args.RoutedIPEnabled {
 		req.Type = instance.IPTypeRoutedIPv4
+	} else {
+		req.Type = instance.IPTypeNat
 	}
 
 	res, err := api.CreateIP(req)
