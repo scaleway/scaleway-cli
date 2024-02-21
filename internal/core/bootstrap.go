@@ -87,7 +87,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
 	flags.StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
 	flags.StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
-	flags.StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human")
+	flags.StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json, yaml, terraform, human, wide or template")
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
@@ -150,7 +150,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		isClientFromBootstrapConfig = false
 		client, err = createAnonymousClient(httpClient, config.BuildInfo)
 		if err != nil {
-			printErr := printer.Print(err, nil)
+			printErr := printer.Print(client, err, nil)
 			if printErr != nil {
 				_, _ = fmt.Fprintln(config.Stderr, printErr)
 			}
@@ -201,7 +201,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// Load CLI config
 	cliCfg, err := cliConfig.LoadConfig(ExtractCliConfigPath(ctx))
 	if err != nil {
-		printErr := printer.Print(err, nil)
+		printErr := printer.Print(meta.Client, err, nil)
 		if printErr != nil {
 			_, _ = fmt.Fprintln(config.Stderr, printErr)
 		}
@@ -270,7 +270,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		if cliErr, ok := err.(*CliError); ok && cliErr.Code != 0 {
 			errorCode = cliErr.Code
 		}
-		printErr := printer.Print(err, nil)
+		printErr := printer.Print(meta.Client, err, nil)
 		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 		}
@@ -278,7 +278,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	}
 
 	if meta.command != nil {
-		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
+		printErr := printer.Print(meta.Client, meta.result, meta.command.getHumanMarshalerOpt())
 		if printErr != nil {
 			_, _ = fmt.Fprintln(config.Stderr, printErr)
 		}
