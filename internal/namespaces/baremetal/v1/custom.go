@@ -11,6 +11,7 @@ func GetCommands() *core.Commands {
 
 	cmds.Merge(core.NewCommands(
 		serverWaitCommand(),
+		serverAddFlexibleIP(),
 	))
 
 	human.RegisterMarshalerFunc(baremetal.ServerPingStatus(""), human.EnumMarshalFunc(serverPingStatusMarshalSpecs))
