@@ -18,6 +18,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("baremetal", "server", "create").Override(serverCreateBuilder)
 	cmds.MustFind("baremetal", "server", "install").Override(serverInstallBuilder)
+	cmds.MustFind("baremetal", "server", "delete").Override(serverDeleteBuilder)
 	cmds.MustFind("baremetal", "server", "list").Override(serverListBuilder)
 
 	// Action commands
