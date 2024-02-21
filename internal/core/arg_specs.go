@@ -105,6 +105,8 @@ type ArgSpec struct {
 
 	// CanLoadFile allow to use @ prefix to load a file as content
 	CanLoadFile bool
+
+	ResolveFunc ResolveArgFunc
 }
 
 func (a *ArgSpec) Prefix() string {
