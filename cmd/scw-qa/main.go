@@ -32,4 +32,5 @@ func main() {
 		_, _ = fmt.Fprintf(w, "%s\t%d\n", strings.TrimPrefix(key, "*qa."), count)
 	}
 	_ = w.Flush()
+	os.Exit(len(errorCounts))
 }

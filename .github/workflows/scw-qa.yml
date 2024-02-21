@@ -1,0 +1,11 @@
+name: scw-qa
+on:
+  pull_request:
+jobs:
+  scw-qa:
+    name: scw-qa
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: scw-qa
+        run: go run ./cmd/scw-qa/main.go
