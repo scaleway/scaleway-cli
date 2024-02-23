@@ -3,11 +3,13 @@
 Download a specific invoice, specified by its ID.
 
 USAGE:
-  scw billing invoice download <invoice-id ...> [arg=value ...]
+  scw billing invoice download [arg=value ...]
 
 ARGS:
-  invoice-id    Invoice ID
-  [file-type]   File type. PDF by default (pdf)
+  invoice-id              Invoice ID
+  [file-path=./]          Wanted file path
+  [file-type=pdf]         Wanted file extension
+  [force-replace=false]   Force file replacement
 
 FLAGS:
   -h, --help   help for download

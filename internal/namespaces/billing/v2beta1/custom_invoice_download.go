@@ -14,11 +14,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
-	billing "github.com/scaleway/scaleway-sdk-go/api/billing/v2alpha1"
-)
-
-const (
-	invoiceDefaultPrefix = "scaleway-invoice"
+	billing "github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
 )
 
 type billingDownloadRequest struct {
@@ -28,11 +24,7 @@ type billingDownloadRequest struct {
 	ForceReplace bool
 }
 
-func fileNameWithoutExtTrimSuffix(fileName string) string {
-	return strings.TrimSuffix(fileName, filepath.Ext(fileName))
-}
-
-func buildDownloadCommand(command *core.Command) *core.Command {
+func invoiceDownloadBuilder(command *core.Command) *core.Command {
 	command.ArgsType = reflect.TypeOf(billingDownloadRequest{})
 	command.ArgSpecs = core.ArgSpecs{
 		{
@@ -90,7 +82,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 		dir, file := getDirFile(args.FilePath)
 		if len(file) > 0 {
 			fileExtension := filepath.Ext(file)
-			if extensionOnFile := checkInvoiceExt(fileExtension); !extensionOnFile {
+			if extensionOnFile := checkDownloadInvoiceExt(fileExtension); !extensionOnFile {
 				return fmt.Errorf("file has not supported extension")
 			}
 		}
@@ -144,21 +136,7 @@ func buildDownloadCommand(command *core.Command) *core.Command {
 	return command
 }
 
-func getDirFile(filePath string) (string, string) {
-	dir := "."
-	dirTmp, file := filepath.Split(filePath)
-	if len(dirTmp) > 0 {
-		dir = dirTmp
-	}
-
-	if file == "." {
-		file = ""
-	}
-
-	return dir, file
-}
-
-func addExt(fileName, contentType string) string {
+func addDownloadExt(fileName, contentType string) string {
 	switch contentType {
 	case "application/pdf":
 		fileName = fmt.Sprintf("%s.pdf", fileName)
@@ -167,7 +145,7 @@ func addExt(fileName, contentType string) string {
 	return fileName
 }
 
-func checkInvoiceExt(ext string) bool {
+func checkDownloadInvoiceExt(ext string) bool {
 	switch ext {
 	case ".pdf":
 		return true
@@ -211,7 +189,7 @@ func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, er
 		}
 	}
 	// add supported extension
-	fileName = addExt(fileName, resp.ContentType)
+	fileName = addDownloadExt(fileName, resp.ContentType)
 
 	fileOutput, err := os.Create(fileName)
 	if err != nil {
