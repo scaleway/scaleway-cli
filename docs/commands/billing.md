@@ -130,7 +130,7 @@ scw billing invoice export [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| organization-id |  | Organization ID |
+| organization-id |  | Organization ID. If specified, only invoices from this Organization will be returned |
 | billing-period-start-after |  | Return only invoice with start date greater than billing_period_start |
 | billing-period-start-before |  | Return only invoice with start date less than billing_period_start |
 | invoice-type |  | Invoice type. It can either be `periodic` or `purchase` |
