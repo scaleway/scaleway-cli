@@ -33,19 +33,19 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 		},
 		{
 			Name:       "billing-period-start-after",
-			Short:      `Billing period start date (after)`,
+			Short:      `Return only invoice with start date greater than billing_period_start`,
 			Required:   false,
 			Positional: false,
 		},
 		{
 			Name:       "billing-period-start-before",
-			Short:      `Billing period start date (before)`,
+			Short:      `Return only invoice with start date less than billing_period_start`,
 			Required:   false,
 			Positional: false,
 		},
 		{
 			Name:       "invoice-type",
-			Short:      `Invoice type (periodic or purchase)`,
+			Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + ` or ` + "`" + `purchase` + "`" + ``,
 			Required:   false,
 			Positional: false,
 		},
