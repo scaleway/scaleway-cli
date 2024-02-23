@@ -131,9 +131,9 @@ scw billing invoice export [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | organization-id |  | Organization ID |
-| billing-period-start-after |  | Billing period start date (after) |
-| billing-period-start-before |  | Billing period start date (before) |
-| invoice-type |  | Invoice type (periodic or purchase) |
+| billing-period-start-after |  | Return only invoice with start date greater than billing_period_start |
+| billing-period-start-before |  | Return only invoice with start date less than billing_period_start |
+| invoice-type |  | Invoice type. It can either be `periodic` or `purchase` |
 | file-path | Default: `./` | Wanted file path |
 | file-type | Default: `csv` | Wanted file extension |
 | force-replace | Default: `false` | Force file replacement |
