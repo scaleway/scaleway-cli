@@ -27,7 +27,7 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 	command.ArgSpecs = core.ArgSpecs{
 		{
 			Name:       "organization-id",
-			Short:      `Organization ID`,
+			Short:      `Organization ID. If specified, only invoices from this Organization will be returned`,
 			Required:   false,
 			Positional: false,
 		},
