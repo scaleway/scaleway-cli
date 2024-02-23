@@ -2,6 +2,8 @@ package vpcgw
 
 import (
 	"context"
+	"errors"
+	"net/http"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -32,6 +34,32 @@ func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {
 			Timeout:          scw.TimeDurationPtr(gatewayActionTimeout),
 			RetryInterval:    core.DefaultRetryInterval,
 		})
+	}
+	return c
+}
+
+func gatewayNetworkDeleteBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+		getResp := argsI.(*vpcgw.DeleteGatewayNetworkRequest)
+		api := vpcgw.NewAPI(core.ExtractClient(ctx))
+		gwNetwork, err := api.WaitForGatewayNetwork(&vpcgw.WaitForGatewayNetworkRequest{
+			GatewayNetworkID: getResp.GatewayNetworkID,
+			Zone:             getResp.Zone,
+			Timeout:          scw.TimeDurationPtr(gatewayActionTimeout),
+			RetryInterval:    core.DefaultRetryInterval,
+		})
+		if err != nil {
+			notFoundError := &scw.ResourceNotFoundError{}
+			responseError := &scw.ResponseError{}
+			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
+				return &core.SuccessResult{
+					Resource: "gateway-network",
+					Verb:     "delete",
+				}, nil
+			}
+			return nil, err
+		}
+		return gwNetwork, nil
 	}
 	return c
 }
