@@ -141,6 +141,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 			}
 			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", secretKey), color.Bold)
 		},
+		Password: true,
 		ValidateFunc: func(s string) error {
 			if validation.IsSecretKey(s) {
 				return nil
