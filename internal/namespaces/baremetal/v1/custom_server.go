@@ -218,3 +218,29 @@ func serverListBuilder(c *core.Command) *core.Command {
 
 	return c
 }
+
+func serverMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp baremetal.Server
+	baremetalServer := tmp(i.(baremetal.Server))
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "IPs",
+			Title:     "IPs",
+		},
+		{
+			FieldName:   "Options",
+			Title:       "Options",
+			HideIfEmpty: true,
+		},
+		{
+			FieldName:   "Install",
+			Title:       "Install",
+			HideIfEmpty: true,
+		},
+	}
+	str, err := human.Marshal(baremetalServer, opt)
+	if err != nil {
+		return "", err
+	}
+	return str, nil
+}
