@@ -34,7 +34,17 @@ func listOfferMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 			FieldName: "Options",
 			Title:     "Options",
 		},
+		{
+			FieldName: "Bandwidth",
+			Title:     "Bandwidth(Mbit/s)",
+		},
+		{
+			FieldName: "PrivateBandwidth",
+			Title:     "PrivateBandwidth(Mbit/s)",
+		},
 	}
+	baremetalOffer.PrivateBandwidth = baremetalOffer.PrivateBandwidth / 1000000
+	baremetalOffer.Bandwidth = baremetalOffer.Bandwidth / 1000000
 	str, err := human.Marshal(baremetalOffer, opt)
 	if err != nil {
 		return "", err

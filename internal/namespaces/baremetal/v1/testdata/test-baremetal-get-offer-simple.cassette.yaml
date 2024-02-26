@@ -73,9 +73,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 22 Feb 2024 12:43:11 GMT
+      - Mon, 26 Feb 2024 14:40:02 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge01)
+      - Scaleway API Gateway (fr-par-1;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -83,7 +83,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 6ca1bfd7-e8b1-4014-9b38-87b24b584d0c
+      - 47c191fd-956f-4f2a-b123-dc543ef4dc07
     status: 200 OK
     code: 200
     duration: ""

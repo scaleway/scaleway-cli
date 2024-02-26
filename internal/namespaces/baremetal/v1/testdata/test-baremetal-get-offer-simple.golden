@@ -3,7 +3,6 @@
 ID                  c5853302-63e4-40c7-a711-4a91629565c8
 Name                EM-L105X-SATA
 Stock               available
-Bandwidth           1000000000
 CommercialRange     lithium
 PricePerHour        € 0.213
 Enable              true
@@ -11,7 +10,6 @@ QuotaName           EM_L105X_SATA
 SubscriptionPeriod  hourly
 OperationPath       -
 Fee                 € 0.00
-PrivateBandwidth    1000000000
 SharedBandwidth     true
 
 Disks:
@@ -37,6 +35,12 @@ cd4158d7-2d65-49be-8803-c4b8ab6f760c  Private Network          false    hourly  
 f42a040b-6c91-4b11-beb0-b0b21e641fda  Windows 2019 standard    false    monthly              € 22.00   false       7c70ff80-dbfa-4e07-be73-1de0e60fe175
 f74a6322-070e-41dd-a13f-8165ea63aca8  Windows 2019 datacenter  false    monthly              € 143.00  false       e04414b9-16d4-4ffb-8ba1-6b80704c7d2a
 83a8fb91-47b4-4c20-82f9-84c31d79bfd8  Windows 2022 standard    false    monthly              € 22.00   false       bf705b90-1548-4368-98ca-d17dbd8dd860
+
+Bandwidth(Mbit/s):
+1000
+
+PrivateBandwidth(Mbit/s):
+1000
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "c5853302-63e4-40c7-a711-4a91629565c8",
