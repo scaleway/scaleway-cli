@@ -10,7 +10,17 @@ func Test_AddACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
-		Cmd:        "scw rdb acl add 1.2.3.4 instance-id={{ .Instance.ID }} --wait",
+		Cmd:        "scw rdb acl add instance-id={{ .Instance.ID }} rules.0.ip=4.2.3.4 rules.0.description=\"my custom description\" --wait",
+		Check:      core.TestCheckGolden(),
+		AfterFunc:  deleteInstance(),
+	}))
+}
+
+func Test_AddMultiACL(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands:   GetCommands(),
+		BeforeFunc: createInstance("PostgreSQL-12"),
+		Cmd:        "scw rdb acl add-multi 1.2.3.4 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -23,7 +33,7 @@ func Test_AddACL(t *testing.T) {
 	t.Run("Multiple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
-		Cmd:        "scw rdb acl add 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} --wait",
+		Cmd:        "scw rdb acl add-multi 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -36,9 +46,22 @@ func Test_AddACL(t *testing.T) {
 
 func Test_DeleteACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createInstance("PostgreSQL-12"),
+			core.ExecBeforeCmd("scw rdb acl add instance-id={{ .Instance.ID }} rules.0.ip=1.2.3.4 --wait"),
+		),
+		Cmd:       "scw rdb acl delete instance-id={{ .Instance.ID }} rules.0.ip=1.2.3.4 --wait",
+		Check:     core.TestCheckGolden(),
+		AfterFunc: deleteInstance(),
+	}))
+}
+
+func Test_DeleteMultiACL(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
-		Cmd:        "scw rdb acl delete 0.0.0.0/0 instance-id={{ .Instance.ID }} --wait",
+		Cmd:        "scw rdb acl delete-multi 0.0.0.0/0 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -52,9 +75,9 @@ func Test_DeleteACL(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
-			core.ExecBeforeCmd("scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
+			core.ExecBeforeCmd("scw rdb acl add-multi 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
 		),
-		Cmd: "scw rdb acl delete 1.2.3.4/32 192.168.1.0/32 10.10.10.10/32 instance-id={{ .Instance.ID }} --wait",
+		Cmd: "scw rdb acl delete-multi 1.2.3.4/32 192.168.1.0/32 10.10.10.10/32 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -68,9 +91,9 @@ func Test_DeleteACL(t *testing.T) {
 		Commands: GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
-			core.ExecBeforeCmd("scw rdb acl add 192.168.1.0/32 instance-id={{ .Instance.ID }} --wait"),
+			core.ExecBeforeCmd("scw rdb acl add-multi 192.168.1.0/32 instance-id={{ .Instance.ID }} --wait"),
 		),
-		Cmd: "scw rdb acl delete 1.2.3.4/32 192.168.1.0/32 10.10.10.10/32 instance-id={{ .Instance.ID }} --wait",
+		Cmd: "scw rdb acl delete-multi 1.2.3.4/32 192.168.1.0/32 10.10.10.10/32 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
