@@ -60,6 +60,21 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 		args.Key = strings.Replace(args.Key, "~", core.ExtractUserHomeDir(ctx), 1)
 	}
 
+	rawKey, err := os.ReadFile(args.Key)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read private key file: %w", err)
+	}
+
+	privateKey, err := parsePrivateKey(ctx, rawKey)
+	if err != nil {
+		return nil, err
+	}
+
+	rsaKey, isRSA := privateKey.(*rsa.PrivateKey)
+	if !isRSA {
+		return nil, fmt.Errorf("expected rsa private key, got %s", reflect.TypeOf(privateKey).String())
+	}
+
 	client := core.ExtractClient(ctx)
 	apiInstance := instance.NewAPI(client)
 	resp, err := apiInstance.GetEncryptedRdpPassword(&instance.GetEncryptedRdpPasswordRequest{
@@ -76,22 +91,6 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 	encryptedRdpPassword, err := base64.RawStdEncoding.DecodeString(*resp.Value)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode base64 encoded rdp password: %w", err)
-	}
-
-	// TODO: should we read local file before sending request ?
-	rawKey, err := os.ReadFile(args.Key)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read private key file: %w", err)
-	}
-
-	privateKey, err := parsePrivateKey(ctx, rawKey)
-	if err != nil {
-		return nil, err
-	}
-
-	rsaKey, isRSA := privateKey.(*rsa.PrivateKey)
-	if !isRSA {
-		return nil, fmt.Errorf("expected rsa private key, got ", reflect.TypeOf(privateKey).String())
 	}
 
 	password, err := rsa.DecryptPKCS1v15(nil, rsaKey, encryptedRdpPassword)
