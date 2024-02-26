@@ -1,12 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-✅ ACL rule 0.0.0.0/0 successfully deleted.
-IP   PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+✅ ACL rule(s) 1.2.3.4/32 successfully deleted.
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "Rules": null,
-  "Success": {
-    "message": "ACL rule 0.0.0.0/0 successfully deleted",
-    "details": ""
-  }
+  "message": "ACL rule(s) 1.2.3.4/32 successfully deleted",
+  "details": ""
 }

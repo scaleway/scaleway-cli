@@ -3,12 +3,13 @@
 Add an additional ACL rule to a Database Instance.
 
 USAGE:
-  scw rdb acl add <acl-rule-ips ...> [arg=value ...]
+  scw rdb acl add [arg=value ...]
 
 ARGS:
-  acl-rule-ips      IP addresses defined in the ACL rules of the Database Instance
-  instance-id       ID of the Database Instance
-  [region=fr-par]   Region to target. If none is passed will use default region from the config
+  instance-id                   UUID of the Database Instance you want to add ACL rules to
+  [rules.{index}.ip]            
+  [rules.{index}.description]   
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for add
