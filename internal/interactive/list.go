@@ -3,6 +3,7 @@
 package interactive
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"os"
@@ -78,6 +79,7 @@ func (m *ListPrompt) Execute(ctx context.Context) (int, error) {
 			ctx:           ctx,
 			defaultReader: os.Stdin,
 		}))
+		opts = append(opts, tea.WithOutput(bytes.NewBuffer([]byte{})))
 	}
 
 	p := tea.NewProgram(m, opts...)
