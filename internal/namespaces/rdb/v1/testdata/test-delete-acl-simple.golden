@@ -1,8 +1,0 @@
-🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-✅ ACL rule(s) 1.2.3.4/32 successfully deleted.
-🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-{
-  "message": "ACL rule(s) 1.2.3.4/32 successfully deleted",
-  "details": ""
-}
