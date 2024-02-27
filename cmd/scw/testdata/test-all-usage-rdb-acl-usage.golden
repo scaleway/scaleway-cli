@@ -6,13 +6,11 @@ USAGE:
   scw rdb acl <command>
 
 AVAILABLE COMMANDS:
-  add          Add an ACL rule to a Database Instance
-  add-multi    Add multiple ACL rules in one command
-  delete       Delete ACL rules of a Database Instance
-  delete-multi Delete multiple ACL rules in one command
-  edit         Edit a database instance's ACL
-  list         List ACL rules of a Database Instance
-  set          Set ACL rules for a Database Instance
+  add         Add an ACL rule to a Database Instance
+  delete      Delete ACL rules of a Database Instance
+  edit        Edit a database instance's ACL
+  list        List ACL rules of a Database Instance
+  set         Set ACL rules for a Database Instance
 
 FLAGS:
   -h, --help   help for acl

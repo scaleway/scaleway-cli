@@ -104,6 +104,7 @@ scw rdb acl add <acl-rule-ips ...> [arg=value ...]
 |------|---|-------------|
 | acl-rule-ips | Required | IP addresses defined in the ACL rules of the Database Instance |
 | instance-id | Required | ID of the Database Instance |
+| description |  | Description of the ACL rule |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
