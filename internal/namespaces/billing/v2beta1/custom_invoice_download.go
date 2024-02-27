@@ -32,7 +32,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 			Short:      `Invoice ID`,
 			Required:   true,
 			Deprecated: false,
-			Positional: false,
+			Positional: true,
 		},
 		{
 			Name:       "file-path",

@@ -100,7 +100,7 @@ Download a specific invoice, specified by its ID.
 **Usage:**
 
 ```
-scw billing invoice download [arg=value ...]
+scw billing invoice download <invoice-id ...> [arg=value ...]
 ```
 
 
