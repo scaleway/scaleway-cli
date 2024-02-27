@@ -62,7 +62,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		},
 		{
 			Name:       "description",
-			Short:      "Description of the ACL rule",
+			Short:      "Description of the ACL rule. Indexes are not yet supported so the description will be applied to all the rules of the command.",
 			Required:   false,
 			Positional: false,
 		},
