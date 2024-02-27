@@ -4,9 +4,7 @@ Managed Database for PostgreSQL and MySQL API
   
 - [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
   - [Add an ACL rule to a Database Instance](#add-an-acl-rule-to-a-database-instance)
-  - [Add multiple ACL rules in one command](#add-multiple-acl-rules-in-one-command)
   - [Delete ACL rules of a Database Instance](#delete-acl-rules-of-a-database-instance)
-  - [Delete multiple ACL rules in one command](#delete-multiple-acl-rules-in-one-command)
   - [Edit a database instance's ACL](#edit-a-database-instance's-acl)
   - [List ACL rules of a Database Instance](#list-acl-rules-of-a-database-instance)
   - [Set ACL rules for a Database Instance](#set-acl-rules-for-a-database-instance)
@@ -96,29 +94,7 @@ Add an additional ACL rule to a Database Instance.
 **Usage:**
 
 ```
-scw rdb acl add [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to add ACL rules to |
-| rules.{index}.ip |  |  |
-| rules.{index}.description |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Add multiple ACL rules in one command
-
-Add all given IPs to the Database Instance's ACL rules
-
-**Usage:**
-
-```
-scw rdb acl add-multi <acl-rule-ips ...> [arg=value ...]
+scw rdb acl add <acl-rule-ips ...> [arg=value ...]
 ```
 
 
@@ -139,28 +115,7 @@ Delete one or more ACL rules of a Database Instance.
 **Usage:**
 
 ```
-scw rdb acl delete [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to delete an ACL rule from |
-| rules.{index}.ip | Required | IP addresses defined in the ACL rules of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Delete multiple ACL rules in one command
-
-Delete all given IPs from the Database Instance's ACL rules
-
-**Usage:**
-
-```
-scw rdb acl delete-multi <acl-rule-ips ...> [arg=value ...]
+scw rdb acl delete <acl-rule-ips ...> [arg=value ...]
 ```
 
 

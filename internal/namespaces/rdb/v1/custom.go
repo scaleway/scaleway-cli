@@ -24,9 +24,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(rdb.ACLRuleAction(""), human.EnumMarshalFunc(aclRuleActionMarshalSpecs))
 
 	cmds.Merge(core.NewCommands(
-		aclAddMultiCommand(),
 		aclEditCommand(),
-		aclDeleteMultiCommand(),
 		backupDownloadCommand(),
 		backupWaitCommand(),
 		databaseGetURLCommand(),
