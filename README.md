@@ -123,6 +123,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `init`         | Initialize the config                   | [CLI](./docs/commands/init.md)                                                                                  |
 | `instance`     | Instance API                            | [CLI](./docs/commands/instance.md) / [API](https://developers.scaleway.com/en/products/instance/api/)           |
 | `iot`          | IoT API                                 | [CLI](./docs/commands/iot.md) / [API](https://developers.scaleway.com/en/products/iot/api/)                     |
+| `ipam`         | IPAM API                                | [CLI](./docs/commands/ipam.md) / [API](https://www.scaleway.com/en/developers/api/ipam/)                        |
 | `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) / [API](https://developers.scaleway.com/en/products/k8s/api/)                     |
 | `lb`           | Load Balancer API                       | [CLI](./docs/commands/lb.md) / [API](https://developers.scaleway.com/en/products/lb/zoned_api/)                 |
 | `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                           |

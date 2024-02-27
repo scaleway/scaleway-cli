@@ -1,38 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                          eaea9b3b-a780-4701-9d9c-8cd7da25fd48
-OrganizationID              951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID                   951df375-e094-4d26-97c1-ba548eeb9c42
-Name                        cli-bm-youthful-lichterman
-Description                 -
-UpdatedAt                   few seconds ago
-CreatedAt                   few seconds ago
-Status                      ready
-OfferID                     c27dd792-2538-4c54-8989-f460b1aeb5fd
-OfferName                   -
-IPs.0.ID                    bae39857-7fbe-4ae6-afb4-330acd46714d
-IPs.0.Address               2001:bc8:1600:6:224:ecff:fef2:c008
-IPs.0.Reverse               eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud
-IPs.0.Version               IPv6
-IPs.0.ReverseStatus         pending
-IPs.0.ReverseStatusMessage  -
-IPs.1.ID                    bf7cf0c8-3eb4-420f-aa7d-2d41afbfdc73
-IPs.1.Address               51.158.156.45
-IPs.1.Reverse               eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud
-IPs.1.Version               IPv4
-IPs.1.ReverseStatus         active
-IPs.1.ReverseStatusMessage  -
-Domain                      eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud
-BootType                    normal
-Zone                        nl-ams-1
-Install.OsID                03b7f4ba-a6a1-4305-984e-b54fafbf1681
-Install.Hostname            test-install-server
-Install.SSHKeyIDs.0         02aeb573-5220-4e1d-8983-fbd12fc38b5f
-Install.Status              completed
-Install.User                -
-Install.ServiceUser         -
-Install.ServiceURL          -
-PingStatus                  down
+ID              eaea9b3b-a780-4701-9d9c-8cd7da25fd48
+OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID       951df375-e094-4d26-97c1-ba548eeb9c42
+Name            cli-bm-youthful-lichterman
+Description     -
+UpdatedAt       few seconds ago
+CreatedAt       few seconds ago
+Status          ready
+OfferID         c27dd792-2538-4c54-8989-f460b1aeb5fd
+OfferName       -
+Domain          eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud
+BootType        normal
+Zone            nl-ams-1
+PingStatus      down
+
+IPs:
+ID                                    ADDRESS                             REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
+bae39857-7fbe-4ae6-afb4-330acd46714d  2001:bc8:1600:6:224:ecff:fef2:c008  eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud  IPv6     pending         -
+bf7cf0c8-3eb4-420f-aa7d-2d41afbfdc73  51.158.156.45                       eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud  IPv4     active          -
+
+Install:
+OsID         03b7f4ba-a6a1-4305-984e-b54fafbf1681
+Hostname     test-install-server
+SSHKeyIDs.0  02aeb573-5220-4e1d-8983-fbd12fc38b5f
+Status       completed
+User         -
+ServiceUser  -
+ServiceURL   -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "eaea9b3b-a780-4701-9d9c-8cd7da25fd48",
