@@ -1,0 +1,116 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ ACL rule 1.2.3.4/32 successfully added.
+IP          PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0   1302  tcp       inbound    allow   Allow All
+1.2.3.4/32  1302  tcp       inbound    allow   some-unique-description
+✅ ACL rule 192.168.1.0/30 successfully added.
+IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0       1302  tcp       inbound    allow   Allow All
+1.2.3.4/32      1302  tcp       inbound    allow   some-unique-description
+192.168.1.0/30  1302  tcp       inbound    allow   some-unique-description
+✅ ACL rule 10.10.10.10/32 successfully added.
+IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0       1302  tcp       inbound    allow   Allow All
+1.2.3.4/32      1302  tcp       inbound    allow   some-unique-description
+10.10.10.10/32  1302  tcp       inbound    allow   some-unique-description
+192.168.1.0/30  1302  tcp       inbound    allow   some-unique-description
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "Rules": [
+      {
+        "ip": "0.0.0.0/0",
+        "port": 1302,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "Allow All"
+      },
+      {
+        "ip": "1.2.3.4/32",
+        "port": 1302,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "some-unique-description"
+      }
+    ],
+    "Success": {
+      "message": "ACL rule 1.2.3.4/32 successfully added",
+      "details": ""
+    }
+  },
+  {
+    "Rules": [
+      {
+        "ip": "0.0.0.0/0",
+        "port": 1302,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "Allow All"
+      },
+      {
+        "ip": "1.2.3.4/32",
+        "port": 1302,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "some-unique-description"
+      },
+      {
+        "ip": "192.168.1.0/30",
+        "port": 1302,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "some-unique-description"
+      }
+    ],
+    "Success": {
+      "message": "ACL rule 192.168.1.0/30 successfully added",
+      "details": ""
+    }
+  },
+  {
+    "Rules": [
+      {
+        "ip": "0.0.0.0/0",
+        "port": 1302,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "Allow All"
+      },
+      {
+        "ip": "1.2.3.4/32",
+        "port": 1302,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "some-unique-description"
+      },
+      {
+        "ip": "10.10.10.10/32",
+        "port": 1302,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "some-unique-description"
+      },
+      {
+        "ip": "192.168.1.0/30",
+        "port": 1302,
+        "protocol": "tcp",
+        "direction": "inbound",
+        "action": "allow",
+        "description": "some-unique-description"
+      }
+    ],
+    "Success": {
+      "message": "ACL rule 10.10.10.10/32 successfully added",
+      "details": ""
+    }
+  }
+]
