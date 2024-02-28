@@ -8,7 +8,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 )
 
-func Test_vpcGwGatewayNetworkGet(t *testing.T) {
+func Test_vpcGwGatewayGet(t *testing.T) {
 	cmds := GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
@@ -17,15 +17,13 @@ func Test_vpcGwGatewayNetworkGet(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			testhelpers.CreatePN(),
 			testhelpers.CreateGateway("GW"),
-			testhelpers.CreateDHCP(),
-			testhelpers.CreateGatewayNetworkDHCP("GW"),
+			testhelpers.CreateGatewayNetwork("GW"),
 		),
-		Cmd:   "scw vpc-gw gateway-network get {{ .GWNT.ID }}",
+		Cmd:   "scw vpc-gw gateway get {{ .GW.ID }}",
 		Check: core.TestCheckGolden(),
 		AfterFunc: core.AfterFuncCombine(
 			testhelpers.DeleteGatewayNetwork(),
 			testhelpers.DeletePN(),
-			testhelpers.DeleteDHCP(),
 			testhelpers.DeleteGateway("GW"),
 			testhelpers.DeleteIPVpcGw("GW"),
 		),
