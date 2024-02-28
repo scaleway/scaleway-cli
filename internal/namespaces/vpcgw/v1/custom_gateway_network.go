@@ -64,20 +64,16 @@ func gatewayNetworkDeleteBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func gatewayNetworkMarshallerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	type tmp vpcgw.Gateway
-	vpcgtwNetwork := tmp(i.(vpcgw.Gateway))
+func gatewayNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp vpcgw.GatewayNetwork
+	vpcgwNetwork := tmp(i.(vpcgw.GatewayNetwork))
 	opt.Sections = []*human.MarshalSection{
 		{
-			FieldName: "IP",
-			Title:     "IP",
-		},
-		{
-			FieldName: "GatewayNetworks",
-			Title:     "GatewayNetworks",
+			FieldName: "DHCP",
+			Title:     "DHCP",
 		},
 	}
-	str, err := human.Marshal(vpcgtwNetwork, opt)
+	str, err := human.Marshal(vpcgwNetwork, opt)
 	if err != nil {
 		return "", err
 	}
