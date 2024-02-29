@@ -3,7 +3,6 @@ package redis
 import (
 	"context"
 	"errors"
-	"log"
 	"net/http"
 	"reflect"
 	"strings"
@@ -197,7 +196,6 @@ func redisEndpointsClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt)
 func redisClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp redis.Cluster
 	redisClusterResponse := tmp(i.(redis.Cluster))
-	log.Println("redis ", i.(redis.Cluster).Endpoints[0])
 	opt.Sections = []*human.MarshalSection{
 		{
 			FieldName: "Endpoints",
