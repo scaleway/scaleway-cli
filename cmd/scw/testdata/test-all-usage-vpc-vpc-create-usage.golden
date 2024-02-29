@@ -9,6 +9,7 @@ ARGS:
   name=<generated>   Name for the VPC
   [project-id]       Project ID to use. If none is passed the default project ID will be used
   [tags.{index}]     Tags for the VPC
+  [enable-routing]   Enable routing between Private Networks in the VPC
   [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

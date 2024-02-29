@@ -11,6 +11,7 @@ ARGS:
   [tags.{index}]      Tags to filter for. Only VPCs with one more more matching tags will be returned
   [project-id]        Project ID to filter for. Only VPCs belonging to this Project will be returned
   [is-default]        Defines whether to filter only for VPCs which are the default one for their Project
+  [routing-enabled]   Defines whether to filter only for VPCs which route traffic between their Private Networks
   [organization-id]   Organization ID to filter for. Only VPCs belonging to this Organization will be returned
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
