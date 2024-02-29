@@ -6,7 +6,6 @@ USAGE:
   scw baremetal server <command>
 
 AVAILABLE COMMANDS:
-  add-flexible-ip Attach a new flexible IP to a server
   create          Create an Elastic Metal server
   delete          Delete an Elastic Metal server
   get             Get a specific Elastic Metal server
@@ -19,6 +18,9 @@ AVAILABLE COMMANDS:
   stop            Stop an Elastic Metal server
   update          Update an Elastic Metal server
   update-ip       Update IP
+
+UTILITY COMMANDS:
+  add-flexible-ip Attach a new flexible IP to a server
 
 WORKFLOW COMMANDS:
   wait            Wait for a server to reach a stable state (delivery and installation)

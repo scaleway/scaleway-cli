@@ -3,7 +3,6 @@ package baremetal
 import (
 	"context"
 	"fmt"
-	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -27,42 +26,7 @@ func promptIPFlexibleServer(ctx context.Context, req *serverAddFlexibleIPRequest
 	if err != nil {
 		return nil, err
 	}
-	req.Description, err = promptAddDescriptionFip(ctx)
-	if err != nil {
-		return nil, err
-	}
-	req.Tags, err = promptAddTags(ctx)
-	if err != nil {
-		return nil, err
-	}
 	return req, nil
-}
-
-func promptAddTags(ctx context.Context) ([]string, error) {
-	_, _ = interactive.Println()
-	promptConfig := interactive.PromptStringConfig{
-		Ctx:    ctx,
-		Prompt: "Enter all the tags you want to associate to your flexible IP separate by a space",
-	}
-	res, err := interactive.PromptStringWithConfig(&promptConfig)
-	_, _ = interactive.Println()
-	if err != nil {
-		return nil, err
-	}
-	return strings.Split(res, " "), nil
-}
-
-func promptAddDescriptionFip(ctx context.Context) (string, error) {
-	_, _ = interactive.Println()
-	promptConfig := interactive.PromptStringConfig{
-		Ctx:    ctx,
-		Prompt: "Enter a description for you flexible ip (max 255 words)",
-	}
-	res, err := interactive.PromptStringWithConfig(&promptConfig)
-	if err != nil {
-		return "", err
-	}
-	return res, nil
 }
 
 func promptChooseIPType(ctx context.Context) (string, error) {

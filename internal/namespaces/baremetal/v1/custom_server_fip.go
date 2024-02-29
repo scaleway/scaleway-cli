@@ -6,6 +6,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	fip "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -26,6 +27,7 @@ func serverAddFlexibleIP() *core.Command {
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "add-flexible-ip",
+		Groups:    []string{"utility"},
 		ArgsType:  reflect.TypeOf(serverAddFlexibleIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -48,6 +50,7 @@ func serverAddFlexibleIP() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				EnumValues: ipTypeOption,
 				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
 					if value == "IPv4" || value == "IPv6" || value == "" {
 						return nil
@@ -87,13 +90,22 @@ func serverAddFlexibleIP() *core.Command {
 			}
 			apiFip := fip.NewAPI(client)
 			IsIPv6 := args.IPType == "IPv6"
-			return apiFip.CreateFlexibleIP(&fip.CreateFlexibleIPRequest{
+			flexibleIP, err := apiFip.CreateFlexibleIP(&fip.CreateFlexibleIPRequest{
 				ServerID:    &server.ID,
 				Zone:        server.Zone,
 				ProjectID:   server.ProjectID,
 				Description: args.Description,
 				Tags:        args.Tags,
 				IsIPv6:      IsIPv6,
+			})
+			if err != nil {
+				return nil, err
+			}
+			return apiFip.WaitForFlexibleIP(&fip.WaitForFlexibleIPRequest{
+				FipID:         flexibleIP.ID,
+				Zone:          flexibleIP.Zone,
+				Timeout:       scw.TimeDurationPtr(flexibleip.FlexibleIPTimeout),
+				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
 	}
