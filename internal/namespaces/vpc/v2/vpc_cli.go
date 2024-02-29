@@ -124,6 +124,13 @@ func vpcVpcList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "routing-enabled",
+				Short:      `Defines whether to filter only for VPCs which route traffic between their Private Networks`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for. Only VPCs belonging to this Organization will be returned`,
 				Required:   false,
@@ -174,6 +181,13 @@ func vpcVpcCreate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags for the VPC`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-routing",
+				Short:      `Enable routing between Private Networks in the VPC`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
