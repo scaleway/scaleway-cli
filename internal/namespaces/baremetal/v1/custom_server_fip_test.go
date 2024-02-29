@@ -5,17 +5,18 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 )
 
 func Test_CreateFlexibleIPInteractive(t *testing.T) {
 	promptResponse := []string{
 		`" "`,
-		"description of flexibleIP",
-		"tags flexible IP",
 	}
 	interactive.IsInteractive = true
+	cmds := GetCommands()
+	cmds.Merge(flexibleip.GetCommands())
 	t.Run("Simple Interactive", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createServerAndWaitDefault("Server"),
 		),
@@ -25,6 +26,7 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServerDefault("Server"),
+			core.ExecAfterCmd("scw fip ip delete {{ .CmdResult.ID }}"),
 		),
 		PromptResponseMocks: promptResponse,
 	}))
@@ -32,8 +34,10 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 
 func Test_CreateFlexibleIP(t *testing.T) {
 	interactive.IsInteractive = false
+	cmds := GetCommands()
+	cmds.Merge(flexibleip.GetCommands())
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createServerAndWaitDefault("Server"),
 		),
@@ -43,6 +47,7 @@ func Test_CreateFlexibleIP(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServerDefault("Server"),
+			core.ExecAfterCmd("scw fip ip delete {{ .CmdResult.ID }}"),
 		),
 	}))
 }

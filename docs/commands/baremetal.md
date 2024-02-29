@@ -496,7 +496,7 @@ scw baremetal server add-flexible-ip <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server to which the newly created flexible IP will be attached. |
 | description |  | Flexible IP description (max. of 255 characters) |
-| ip-type |  | Define whether the flexible IP is an IPv4 or IPv6 |
+| ip-type | One of: `IPv4`, `IPv6` | Define whether the flexible IP is an IPv4 or IPv6 |
 | tags.{index} |  | Tags to associate to the flexible IP |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
