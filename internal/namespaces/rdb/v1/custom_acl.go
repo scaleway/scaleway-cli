@@ -21,9 +21,10 @@ var (
 )
 
 type rdbACLCustomArgs struct {
-	Region     scw.Region
-	InstanceID string
-	ACLRuleIPs scw.IPNet
+	Region      scw.Region
+	InstanceID  string
+	ACLRuleIPs  scw.IPNet
+	Description string
 }
 
 type rdbACLCustomResult struct {
@@ -59,6 +60,12 @@ func aclAddBuilder(c *core.Command) *core.Command {
 			Required:   true,
 			Positional: false,
 		},
+		{
+			Name:       "description",
+			Short:      "Description of the ACL rule. Indexes are not yet supported so the description will be applied to all the rules of the command.",
+			Required:   false,
+			Positional: false,
+		},
 		core.RegionArgSpec(),
 	}
 
@@ -75,13 +82,18 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 
+		description := args.Description
+		if description == "" {
+			description = fmt.Sprintf("Allow %s", args.ACLRuleIPs.String())
+		}
+
 		rule, err := api.AddInstanceACLRules(&rdb.AddInstanceACLRulesRequest{
 			Region:     args.Region,
 			InstanceID: args.InstanceID,
 			Rules: []*rdb.ACLRuleRequest{
 				{
 					IP:          args.ACLRuleIPs,
-					Description: fmt.Sprintf("Allow %s", args.ACLRuleIPs.String()),
+					Description: description,
 				},
 			},
 		}, scw.WithContext(ctx))
