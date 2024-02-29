@@ -17,6 +17,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(baremetal.OfferStock(""), human.EnumMarshalFunc(offerAvailabilityMarshalSpecs))
 	human.RegisterMarshalerFunc(baremetal.Server{}, serverMarshalerFunc)
 
+	human.RegisterMarshalerFunc(baremetal.Offer{}, listOfferMarshalerFunc)
+
 	cmds.MustFind("baremetal", "server", "create").Override(serverCreateBuilder)
 	cmds.MustFind("baremetal", "server", "install").Override(serverInstallBuilder)
 	cmds.MustFind("baremetal", "server", "delete").Override(serverDeleteBuilder)

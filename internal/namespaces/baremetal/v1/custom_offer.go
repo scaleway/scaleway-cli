@@ -13,3 +13,41 @@ var (
 		baremetal.OfferStockAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "available"},
 	}
 )
+
+func listOfferMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp baremetal.Offer
+	baremetalOffer := tmp(i.(baremetal.Offer))
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "Disks",
+			Title:     "Disks",
+		},
+		{
+			FieldName: "CPUs",
+			Title:     "CPUs",
+		},
+		{
+			FieldName: "Memories",
+			Title:     "Memories",
+		},
+		{
+			FieldName: "Options",
+			Title:     "Options",
+		},
+		{
+			FieldName: "Bandwidth",
+			Title:     "Bandwidth(Mbit/s)",
+		},
+		{
+			FieldName: "PrivateBandwidth",
+			Title:     "PrivateBandwidth(Mbit/s)",
+		},
+	}
+	baremetalOffer.PrivateBandwidth = baremetalOffer.PrivateBandwidth / 1000000
+	baremetalOffer.Bandwidth = baremetalOffer.Bandwidth / 1000000
+	str, err := human.Marshal(baremetalOffer, opt)
+	if err != nil {
+		return "", err
+	}
+	return str, nil
+}
