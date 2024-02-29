@@ -109,7 +109,9 @@ scw billing invoice download <invoice-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | invoice-id | Required | Invoice ID |
-| file-type | One of: `pdf` | File type. PDF by default |
+| file-path | Default: `./` | Wanted file path |
+| file-type | Default: `pdf` | Wanted file extension |
+| force-replace | Default: `false` | Force file replacement |
 
 
 
@@ -128,14 +130,13 @@ scw billing invoice export [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| organization-id |  | Organization ID. If specified, only invoices from this Organization will be returned |
 | billing-period-start-after |  | Return only invoice with start date greater than billing_period_start |
 | billing-period-start-before |  | Return only invoice with start date less than billing_period_start |
-| invoice-type | One of: `unknown_type`, `periodic`, `purchase` | Invoice type. It can either be `periodic` or `purchase` |
-| page |  | Page number |
-| page-size | Default: `20` | Positive integer lower or equal to 100 to select the number of items to return |
-| order-by | One of: `invoice_number_desc`, `invoice_number_asc`, `start_date_desc`, `start_date_asc`, `issued_date_desc`, `issued_date_asc`, `due_date_desc`, `due_date_asc`, `total_untaxed_desc`, `total_untaxed_asc`, `total_taxed_desc`, `total_taxed_asc`, `invoice_type_desc`, `invoice_type_asc` | How invoices are ordered in the response |
-| file-type | Default: `CSV`<br />One of: `csv` | File format for exporting the invoice list |
-| organization-id |  | Organization ID. If specified, only invoices from this Organization will be returned |
+| invoice-type |  | Invoice type. It can either be `periodic` or `purchase` |
+| file-path | Default: `./` | Wanted file path |
+| file-type | Default: `csv` | Wanted file extension |
+| force-replace | Default: `false` | Force file replacement |
 
 
 
