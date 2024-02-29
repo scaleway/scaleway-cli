@@ -221,6 +221,7 @@ scw vpc vpc create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name for the VPC |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags for the VPC |
+| enable-routing |  | Enable routing between Private Networks in the VPC |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -285,6 +286,7 @@ scw vpc vpc list [arg=value ...]
 | tags.{index} |  | Tags to filter for. Only VPCs with one more more matching tags will be returned |
 | project-id |  | Project ID to filter for. Only VPCs belonging to this Project will be returned |
 | is-default |  | Defines whether to filter only for VPCs which are the default one for their Project |
+| routing-enabled |  | Defines whether to filter only for VPCs which route traffic between their Private Networks |
 | organization-id |  | Organization ID to filter for. Only VPCs belonging to this Organization will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
