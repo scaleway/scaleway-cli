@@ -741,11 +741,9 @@ scw function trigger create [arg=value ...]
 | name | Required | Name of the trigger |
 | function-id | Required | ID of the function to trigger |
 | description |  | Description of the trigger |
-| ~~scw-sqs-config.mnq-namespace-id~~ | Deprecated |  |
 | scw-sqs-config.queue |  | Name of the SQS queue the trigger should listen to |
 | scw-sqs-config.mnq-project-id |  | ID of the Messaging and Queuing project |
 | scw-sqs-config.mnq-region |  | Region in which the Messaging and Queuing project is activated. |
-| ~~scw-nats-config.mnq-namespace-id~~ | Deprecated |  |
 | scw-nats-config.subject |  | Name of the NATS subject the trigger should listen to |
 | scw-nats-config.mnq-nats-account-id |  | ID of the Messaging and Queuing NATS account |
 | scw-nats-config.mnq-project-id |  | ID of the Messaging and Queuing project |
