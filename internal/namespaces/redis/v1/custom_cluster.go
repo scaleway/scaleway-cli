@@ -3,7 +3,6 @@ package redis
 import (
 	"context"
 	"errors"
-	"log"
 	"net/http"
 	"reflect"
 	"strings"
@@ -171,8 +170,11 @@ func redisSettingAddBuilder(c *core.Command) *core.Command {
 }
 
 func redisEndpointsClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	type tmp redis.Endpoint
-	endpoint := tmp(i.(redis.Endpoint))
+	if opt == nil {
+		return "", nil
+	}
+	type tmp []*redis.Endpoint
+	endpoint := tmp(i.([]*redis.Endpoint))
 	opt.Fields = []*human.MarshalFieldOpt{
 		{
 			FieldName: "ID",
@@ -187,7 +189,7 @@ func redisEndpointsClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt)
 			Label:     "IPs",
 		},
 	}
-	str, err := human.Marshal(redisEndpointsClusterResponse, opt)
+	str, err := human.Marshal(endpoint, opt)
 	if err != nil {
 		return "", err
 	}

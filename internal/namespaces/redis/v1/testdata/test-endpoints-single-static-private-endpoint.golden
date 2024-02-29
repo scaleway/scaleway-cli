@@ -14,8 +14,8 @@ Zone         fr-par-1
 UserName     admin
 
 Endpoints:
-PORT  IPS           ID
-6379  [172.16.4.1]  a56f3126-4e97-46cf-89c6-f179359f96e9
+ID                                    Port  IPs
+a56f3126-4e97-46cf-89c6-f179359f96e9  6379  [172.16.4.1]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
