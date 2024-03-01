@@ -15,6 +15,8 @@ import (
 // - InvalidField: this error is deprecated
 // - PermissionsDenied: this error cannot be triggered using the SDK
 func TestSdkStandardErrors(t *testing.T) {
+	t.Skip("Test API not available")
+
 	t.Run("invalid-arguments", core.Test(&core.TestConfig{
 		Commands:        test.GetCommands(),
 		UseE2EClient:    true,

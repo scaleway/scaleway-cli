@@ -8,6 +8,8 @@ import (
 )
 
 func TestStandardErrors(t *testing.T) {
+	t.Skip("Test API not available")
+
 	t.Run("unknown-command", core.Test(&core.TestConfig{
 		Commands:        test.GetCommands(),
 		UseE2EClient:    true,
