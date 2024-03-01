@@ -727,7 +727,7 @@ func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeSer
 // Caching listImage response for shell completion
 var completeListImagesCache *marketplace.ListImagesResponse
 
-func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix string, _ any) core.AutocompleteSuggestions {
 	suggestions := core.AutocompleteSuggestions(nil)
 
 	client := core.ExtractClient(ctx)
