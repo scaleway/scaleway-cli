@@ -18,10 +18,6 @@ ARGS:
   [scw-nats-config.mnq-region]            Region in which the Messaging and Queuing project is activated.
   [region=fr-par]                         Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
-DEPRECATED ARGS:
-  [scw-sqs-config.mnq-namespace-id]    
-  [scw-nats-config.mnq-namespace-id]   
-
 FLAGS:
   -h, --help   help for create
 
