@@ -123,6 +123,30 @@ func webhostingHostingCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_language_code", "en_US", "fr_FR", "de_DE"},
 			},
+			{
+				Name:       "domain-configuration.update-nameservers",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "domain-configuration.update-web-record",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "domain-configuration.update-mail-record",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "domain-configuration.update-all-records",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

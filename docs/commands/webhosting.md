@@ -67,6 +67,10 @@ scw webhosting hosting create [arg=value ...]
 | domain |  | Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand |
 | option-ids.{index} |  | IDs of any selected additional options for the Web Hosting plan |
 | language | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` | Default language for the control panel interface |
+| domain-configuration.update-nameservers |  |  |
+| domain-configuration.update-web-record |  |  |
+| domain-configuration.update-mail-record |  |  |
+| domain-configuration.update-all-records |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
