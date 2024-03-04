@@ -24,17 +24,17 @@ var (
 )
 
 const (
-	flexibleIpTimeout = 60 * time.Minute
+	flexibleIPTimeout = 60 * time.Second
 )
 
 func createIPBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		getResp := respI.(*flexibleip.FlexibleIP)
 		api := flexibleip.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForFlexibleIP(&flexibleip.WaitForFlexibleIPRequest{
 			FipID:         getResp.ID,
 			Zone:          getResp.Zone,
-			Timeout:       scw.TimeDurationPtr(flexibleIpTimeout),
+			Timeout:       scw.TimeDurationPtr(flexibleIPTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
