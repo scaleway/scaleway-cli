@@ -1,10 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
-ID                cli-test-bucket-update-7017500089464827560
+ID                cli-test-bucket-update-8018661078721928208
 Region            fr-par
 APIEndpoint       https://s3.fr-par.scw.cloud
-BucketEndpoint    https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud
+BucketEndpoint    https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud
 EnableVersioning  false
 Owner             fa1e3217-dc80-42ac-85c3-3f034b78b552
 
@@ -22,10 +22,10 @@ fa1e3217-dc80-42ac-85c3-3f034b78b552  FULL_CONTROL
     "details": ""
   },
   "BucketInfo": {
-    "ID": "cli-test-bucket-update-7017500089464827560",
+    "ID": "cli-test-bucket-update-8018661078721928208",
     "Region": "fr-par",
     "APIEndpoint": "https://s3.fr-par.scw.cloud",
-    "BucketEndpoint": "https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud",
+    "BucketEndpoint": "https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud",
     "EnableVersioning": false,
     "Tags": [
       {

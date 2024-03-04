@@ -8,13 +8,13 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 56355c98-419b-49e1-a6be-fdbe52c99b67
+      - 4c9b797d-347f-4ff8-9cd0-ed40f38b0fe9
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;content-length;content-type;host;x-amz-acl;x-amz-bucket-object-lock-enabled;x-amz-content-sha256;x-amz-date,
-        Signature=a54fa7436c68191ee4ebc4ad76c8788d04fa47fb92f957757770e8356701b9af
+        Signature=87e4b58a608b1e7150ab8e7945011ff0aadba9f2cb1a5bcf455a204b0475aa49
       Content-Type:
       - application/xml
       User-Agent:
@@ -27,8 +27,8 @@ interactions:
       X-Amz-Content-Sha256:
       - 2cb57fad7b7168921a4c94426cfcb9ee2953f126430595df844e22d50f029060
       X-Amz-Date:
-      - 20240229T183244Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/
+      - 20240304T140425Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/
     method: PUT
   response:
     body: ""
@@ -36,13 +36,13 @@ interactions:
       Content-Length:
       - "0"
       Date:
-      - Thu, 29 Feb 2024 18:32:44 GMT
+      - Mon, 04 Mar 2024 14:04:25 GMT
       Location:
-      - /cli-test-bucket-update-7017500089464827560
+      - /cli-test-bucket-update-8018661078721928208
       X-Amz-Id-2:
-      - txg8661980d3c0040968fe9-0065e0cdcc
+      - txg474976b84fe045e79e0c-0065e5d4e9
       X-Amz-Request-Id:
-      - txg8661980d3c0040968fe9-0065e0cdcc
+      - txg474976b84fe045e79e0c-0065e5d4e9
     status: 200 OK
     code: 200
     duration: ""
@@ -53,13 +53,13 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 66d18178-09b2-4252-b715-d07e0fc5637e
+      - dc2e5646-bc7a-4ffe-af11-b9fea20d572e
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;content-length;content-md5;content-type;host;x-amz-content-sha256;x-amz-date,
-        Signature=e83194760030ec04548631da93df3bae071a7efbdaef9584f7da057a904442e7
+        Signature=4a74bf1e580d2be6b387ac1816a06b2fb23864d1fceb092e2e40dca2cd304f62
       Content-Md5:
       - orZUUp7E9srl53Od8p1glA==
       Content-Type:
@@ -70,8 +70,8 @@ interactions:
       X-Amz-Content-Sha256:
       - d7f1d7ed35d188f6a89d394cc2055f5910c14a3abccf41e808e7f7327d21e129
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?versioning=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?versioning=
     method: PUT
   response:
     body: ""
@@ -79,11 +79,11 @@ interactions:
       Content-Length:
       - "0"
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txg007cfeeeebc04043bb6d-0065e0cdcd
+      - txg516c3387f8164b7f970c-0065e5d4ea
       X-Amz-Request-Id:
-      - txg007cfeeeebc04043bb6d-0065e0cdcd
+      - txg516c3387f8164b7f970c-0065e5d4ea
     status: 200 OK
     code: 200
     duration: ""
@@ -96,21 +96,21 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - f201fdc8-0793-4d74-990d-73240c580a31
+      - 65ee0e9b-79ab-4ba2-882c-0fd1cf403c62
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=1683eb9520322e1e64dfc6937e8ced0208e9ae28dd86d98aabca29895669b4b3
+        Signature=5b6ff8dc13adca452177af19ac7e8acd285a2d3b131bd83b01af5d8e7b99bb09
       User-Agent:
       - aws-sdk-go-v2/1.24.1 os/linux lang/go#1.22.0 md/GOOS#linux md/GOARCH#amd64
         api/s3#1.48.0
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?versioning=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?versioning=
     method: GET
   response:
     body: |-
@@ -122,50 +122,50 @@ interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txg45e3c3d1ec284b3c8fdb-0065e0cdcd
+      - txgfe319e4308ad4b0fbd47-0065e5d4ea
       X-Amz-Request-Id:
-      - txg45e3c3d1ec284b3c8fdb-0065e0cdcd
+      - txgfe319e4308ad4b0fbd47-0065e5d4ea
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><Resource>/cli-test-bucket-update-7017500089464827560</Resource><RequestId>txgbf6fb45d41554012a7fb-0065e0cdcd</RequestId></Error>
+    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><Resource>/cli-test-bucket-update-8018661078721928208</Resource><RequestId>txg31d5d5b7241d48eea754-0065e5d4ea</RequestId></Error>
     form: {}
     headers:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 5ccb0aa7-646d-48de-8f87-36f30ad3b749
+      - ef33e5c7-39db-40d7-96d6-9cd0f4c6001d
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=d27b61180926f4497d2f0d059ef6c7f7ed3dc8e9475c20477a134b248f1066fa
+        Signature=0445e63249a1fdafc269046c61a614737ea907ca30f1044f559760631f65de48
       User-Agent:
       - aws-sdk-go-v2/1.24.1 os/linux lang/go#1.22.0 md/GOOS#linux md/GOARCH#amd64
         api/s3#1.48.0
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?tagging=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?tagging=
     method: GET
   response:
-    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><Resource>/cli-test-bucket-update-7017500089464827560</Resource><RequestId>txgbf6fb45d41554012a7fb-0065e0cdcd</RequestId></Error>
+    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><Resource>/cli-test-bucket-update-8018661078721928208</Resource><RequestId>txg31d5d5b7241d48eea754-0065e5d4ea</RequestId></Error>
     headers:
       Content-Length:
       - "205"
       Content-Type:
       - application/xml
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txgbf6fb45d41554012a7fb-0065e0cdcd
+      - txg31d5d5b7241d48eea754-0065e5d4ea
       X-Amz-Request-Id:
-      - txgbf6fb45d41554012a7fb-0065e0cdcd
+      - txg31d5d5b7241d48eea754-0065e5d4ea
     status: 404 Not Found
     code: 404
     duration: ""
@@ -178,21 +178,21 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 44fca9f6-a3c2-4785-9efd-b22ce42b0b6b
+      - 95771187-31fa-4d00-b49d-295153c371fc
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=0bf45ce3f5dd7e54c35f506a9741ae1ab004055ff4c79621cae4cc968f513eb9
+        Signature=85d04a9763334d86f9e8395df0aeea06c34ef9286b889097ef56e0395cb9b5e0
       User-Agent:
       - aws-sdk-go-v2/1.24.1 os/linux lang/go#1.22.0 md/GOOS#linux md/GOARCH#amd64
         api/s3#1.48.0
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?acl=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?acl=
     method: GET
   response:
     body: |-
@@ -204,11 +204,11 @@ interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txgbc27250bc1d34ca1b676-0065e0cdcd
+      - txga2b1de3d8c9e46ac893c-0065e5d4ea
       X-Amz-Request-Id:
-      - txgbc27250bc1d34ca1b676-0065e0cdcd
+      - txga2b1de3d8c9e46ac893c-0065e5d4ea
     status: 200 OK
     code: 200
     duration: ""
@@ -219,13 +219,13 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 27d2ce5d-178e-4390-b0c2-3fe3063e1abb
+      - 9e994661-5763-4d86-b073-f5b3625c670e
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;content-length;content-md5;content-type;host;x-amz-content-sha256;x-amz-date,
-        Signature=d27b68fcc314872e194adffe508fb8bb173c9defb38f0b5fbb6b104cd34885a3
+        Signature=7c8f8f14bc8d185a67ea72a460e384932e50903c56f99c49185ae33e3c91a946
       Content-Md5:
       - orZUUp7E9srl53Od8p1glA==
       Content-Type:
@@ -236,8 +236,8 @@ interactions:
       X-Amz-Content-Sha256:
       - d7f1d7ed35d188f6a89d394cc2055f5910c14a3abccf41e808e7f7327d21e129
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?versioning=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?versioning=
     method: PUT
   response:
     body: ""
@@ -245,11 +245,11 @@ interactions:
       Content-Length:
       - "0"
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txg4de8208291154379ad96-0065e0cdcd
+      - txgeeb4c09ca66947fab3c2-0065e5d4ea
       X-Amz-Request-Id:
-      - txg4de8208291154379ad96-0065e0cdcd
+      - txgeeb4c09ca66947fab3c2-0065e5d4ea
     status: 200 OK
     code: 200
     duration: ""
@@ -260,13 +260,13 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - c87ea6b4-f33b-4857-94a3-e1f58f8723ec
+      - 5612458c-c1a8-4d05-bfd8-70d7107bc102
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;content-length;content-md5;content-type;host;x-amz-content-sha256;x-amz-date,
-        Signature=dbdbbc0bda9d81ec9a09a62bd42a8fb1cf73701bd37e7c3f761971d9647cf80f
+        Signature=a8247790161310d2011be9146700b2e567ee645f4e8c7b4b6db889ae0cf0794d
       Content-Md5:
       - XrFt7rU9MYQMEoP/pcZq9g==
       Content-Type:
@@ -277,8 +277,8 @@ interactions:
       X-Amz-Content-Sha256:
       - de7621f943d2ddabce929aeedf792763d8387269a283a2ded33f33256726a311
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?tagging=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?tagging=
     method: PUT
   response:
     body: ""
@@ -286,11 +286,11 @@ interactions:
       Content-Length:
       - "0"
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txg26ec94443e51400a9f27-0065e0cdcd
+      - txga2ba389a874e4ce780f4-0065e5d4ea
       X-Amz-Request-Id:
-      - txg26ec94443e51400a9f27-0065e0cdcd
+      - txga2ba389a874e4ce780f4-0065e5d4ea
     status: 200 OK
     code: 200
     duration: ""
@@ -301,13 +301,13 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - e6bc9ec7-4717-4140-b235-06c8d738aa47
+      - 1ad91f96-4439-4e43-aa16-a1f3ae6d4d6a
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-acl;x-amz-content-sha256;x-amz-date,
-        Signature=5aaf2cb258d18e2b32a374f3a14f0f9dbbd4b19c492b3a6c24ac9e969d77ea38
+        Signature=55b2783a97727370bf34655065b99daadf6f057778d9913d7987643e3ba3a2ee
       User-Agent:
       - aws-sdk-go-v2/1.24.1 os/linux lang/go#1.22.0 md/GOOS#linux md/GOARCH#amd64
         api/s3#1.48.0
@@ -316,8 +316,8 @@ interactions:
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?acl=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?acl=
     method: PUT
   response:
     body: ""
@@ -325,11 +325,11 @@ interactions:
       Content-Length:
       - "0"
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txg306a806bd67c41d8a529-0065e0cdcd
+      - txg0c5775e69da54dc58f44-0065e5d4ea
       X-Amz-Request-Id:
-      - txg306a806bd67c41d8a529-0065e0cdcd
+      - txg0c5775e69da54dc58f44-0065e5d4ea
     status: 200 OK
     code: 200
     duration: ""
@@ -342,21 +342,21 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 28566a39-0ea2-45d2-97d4-68922f1e5083
+      - 2beaeb25-8558-4f80-8bb2-fc3507bf2de2
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=e0f7253bd0ff07e6dcada6b1e076863cec4d0c3f4e3a459d7159648753a61b00
+        Signature=4478e1233303a33f8dd0b4b85c6241bee6b806939dc54cb3f1e8390ebd9d1ec7
       User-Agent:
       - aws-sdk-go-v2/1.24.1 os/linux lang/go#1.22.0 md/GOOS#linux md/GOARCH#amd64
         api/s3#1.48.0
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?versioning=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?versioning=
     method: GET
   response:
     body: |-
@@ -368,11 +368,11 @@ interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txg166f1cf93a3c48d78269-0065e0cdcd
+      - txge1cf72c4f49d47e78cd5-0065e5d4ea
       X-Amz-Request-Id:
-      - txg166f1cf93a3c48d78269-0065e0cdcd
+      - txge1cf72c4f49d47e78cd5-0065e5d4ea
     status: 200 OK
     code: 200
     duration: ""
@@ -385,21 +385,21 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - c08dd675-d07b-4b7a-8ffa-80b16cf0103b
+      - 6822ff6e-d6c2-4b55-83f3-69684a3b9cec
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=b3676f0f67af063690e3390c2d27ce0aeddfb34574b3cdbb9c5ebeb91718dcbd
+        Signature=e837dbb89837e99b52fc7db1a15cae1d437091e0d17f556b69d369ac8d41c665
       User-Agent:
       - aws-sdk-go-v2/1.24.1 os/linux lang/go#1.22.0 md/GOOS#linux md/GOARCH#amd64
         api/s3#1.48.0
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?tagging=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?tagging=
     method: GET
   response:
     body: |-
@@ -411,11 +411,11 @@ interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txg5726865eddfc4a2ba4e1-0065e0cdcd
+      - txg8d5da9c199b34a7fa5d4-0065e5d4ea
       X-Amz-Request-Id:
-      - txg5726865eddfc4a2ba4e1-0065e0cdcd
+      - txg8d5da9c199b34a7fa5d4-0065e5d4ea
     status: 200 OK
     code: 200
     duration: ""
@@ -428,21 +428,21 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 3e281389-184a-4257-86b5-9a4e2d29be25
+      - 9b230105-4d46-4f51-8d26-c5ffc1336704
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=94d936f1d39c5c186177437af981457482467f81bc2c6fea944f3a2c6ae34619
+        Signature=12bad30e7b12cbc21dd8fde8f61398385b68a1af24ebc14594cabb339c921bb2
       User-Agent:
       - aws-sdk-go-v2/1.24.1 os/linux lang/go#1.22.0 md/GOOS#linux md/GOARCH#amd64
         api/s3#1.48.0
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/?acl=
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/?acl=
     method: GET
   response:
     body: |-
@@ -454,11 +454,11 @@ interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txg8634bc886b314c71ac86-0065e0cdcd
+      - txg6e81ff86201d49519ba1-0065e5d4ea
       X-Amz-Request-Id:
-      - txg8634bc886b314c71ac86-0065e0cdcd
+      - txg6e81ff86201d49519ba1-0065e5d4ea
     status: 200 OK
     code: 200
     duration: ""
@@ -469,31 +469,31 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 0abe4192-3cb3-433c-bab5-d8e3744b4a3c
+      - 51c88731-7fdc-4cc5-9b5c-8f119eb659d1
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240229/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWHJNSK2028RFV4SE6K/20240304/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=3953a2e2aa9e0961e49ba3e990c3f1e8481b0023811ef84b8ef6e1a45a0d2b64
+        Signature=ffa72cc21f7900ffeabcaa86f87c2c8964338716024eb6e2000e23e04b4189f4
       User-Agent:
       - aws-sdk-go-v2/1.24.1 os/linux lang/go#1.22.0 md/GOOS#linux md/GOARCH#amd64
         api/s3#1.48.0
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20240229T183245Z
-    url: https://cli-test-bucket-update-7017500089464827560.s3.fr-par.scw.cloud/
+      - 20240304T140426Z
+    url: https://cli-test-bucket-update-8018661078721928208.s3.fr-par.scw.cloud/
     method: DELETE
   response:
     body: ""
     headers:
       Date:
-      - Thu, 29 Feb 2024 18:32:45 GMT
+      - Mon, 04 Mar 2024 14:04:26 GMT
       X-Amz-Id-2:
-      - txg591bba009180461cb662-0065e0cdcd
+      - txg606cc6cdd6a9457390fb-0065e5d4ea
       X-Amz-Request-Id:
-      - txg591bba009180461cb662-0065e0cdcd
+      - txg606cc6cdd6a9457390fb-0065e5d4ea
     status: 204 No Content
     code: 204
     duration: ""

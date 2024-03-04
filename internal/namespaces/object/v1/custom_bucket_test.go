@@ -10,8 +10,13 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+const testBucketNameActionCreate = "-create"
+const testBucketNameActionDelete = "-delete"
+const testBucketNameActionGet = "-get"
+const testBucketNameActionUpdate = "-update"
+
 func Test_BucketCreate(t *testing.T) {
-	bucketName1 := randomNameWithPrefix("cli-test-bucket-create")
+	bucketName1 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionCreate)
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
@@ -24,19 +29,19 @@ func Test_BucketCreate(t *testing.T) {
 				assert.Equal(t, []types.Tag(nil), bucket.Tags)
 				checkACL(t, bucket.ACL, "private", bucket.Owner)
 			},
-			core.TestCheckGolden(),
+			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteBucket(bucketName1),
 	}))
 
-	bucketName2 := randomNameWithPrefix("cli-test-bucket-create")
+	bucketName2 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionCreate)
 
 	t.Run("With tags", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      fmt.Sprintf("scw object bucket create %s tags.0=\"key1=value1\" tags.1=\"key2=value2\"", bucketName2),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				bucket := ctx.Result.(*objectBucketResponse).BucketInfo
@@ -58,13 +63,13 @@ func Test_BucketCreate(t *testing.T) {
 		AfterFunc: deleteBucket(bucketName2),
 	}))
 
-	bucketName3 := randomNameWithPrefix("cli-test-bucket-create")
+	bucketName3 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionCreate)
 
 	t.Run("With versioning", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      fmt.Sprintf("scw object bucket create %s enable-versioning=true", bucketName3),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				bucket := ctx.Result.(*objectBucketResponse).BucketInfo
@@ -77,13 +82,13 @@ func Test_BucketCreate(t *testing.T) {
 		AfterFunc: deleteBucket(bucketName3),
 	}))
 
-	bucketName4 := randomNameWithPrefix("cli-test-bucket-create")
+	bucketName4 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionCreate)
 
 	t.Run("With ACL", core.Test(&core.TestConfig{
 		Commands: GetCommands(),
 		Cmd:      fmt.Sprintf("scw object bucket create %s acl=authenticated-read", bucketName4),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				bucket := ctx.Result.(*objectBucketResponse).BucketInfo
@@ -98,48 +103,48 @@ func Test_BucketCreate(t *testing.T) {
 }
 
 func Test_BucketDelete(t *testing.T) {
-	bucketName := randomNameWithPrefix("cli-test-bucket-delete")
+	bucketName := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionDelete)
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createBucket(bucketName),
 		Cmd:        fmt.Sprintf("scw object bucket delete %s", bucketName),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 		),
 	}))
 }
 
 func Test_BucketGet(t *testing.T) {
-	bucketName := randomNameWithPrefix("cli-test-bucket-get")
+	bucketName1 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionGet)
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
-		BeforeFunc: createBucket(bucketName),
-		Cmd:        fmt.Sprintf("scw object bucket get %s", bucketName),
+		BeforeFunc: createBucket(bucketName1),
+		Cmd:        fmt.Sprintf("scw object bucket get %s", bucketName1),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				bucket := ctx.Result.(objectBucketGetResult)
-				assert.Equal(t, bucketName, bucket.ID)
+				assert.Equal(t, bucketName1, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag(nil), bucket.Tags)
 				checkACL(t, bucket.ACL, "private", bucket.Owner)
 			},
 		),
-		AfterFunc: deleteBucket(bucketName),
+		AfterFunc: deleteBucket(bucketName1),
 	}))
 
-	bucketName2 := randomNameWithPrefix("cli-test-bucket-get")
+	bucketName2 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionGet)
 
 	t.Run("With size", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createBucket(bucketName2),
 		Cmd:        fmt.Sprintf("scw object bucket get %s with-size=true", bucketName2),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				bucket := ctx.Result.(objectBucketGetResult)
@@ -157,14 +162,14 @@ func Test_BucketGet(t *testing.T) {
 }
 
 func Test_BucketUpdate(t *testing.T) {
-	bucketName1 := randomNameWithPrefix("cli-test-bucket-update")
+	bucketName1 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionUpdate)
 
 	t.Run("Tags", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createBucket(bucketName1),
 		Cmd:        fmt.Sprintf("scw object bucket update %s tags.0=\"key1=value1\"", bucketName1),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				bucket := ctx.Result.(*objectBucketResponse).BucketInfo
@@ -182,14 +187,14 @@ func Test_BucketUpdate(t *testing.T) {
 		AfterFunc: deleteBucket(bucketName1),
 	}))
 
-	bucketName2 := randomNameWithPrefix("cli-test-bucket-update")
+	bucketName2 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionUpdate)
 
 	t.Run("All options", core.Test(&core.TestConfig{
 		Commands:   GetCommands(),
 		BeforeFunc: createBucket(bucketName2),
 		Cmd:        fmt.Sprintf("scw object bucket update %s enable-versioning=true acl=public-read-write tags.0=\"key1=value1\" tags.1=\"key2=value2\"", bucketName2),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				bucket := ctx.Result.(*objectBucketResponse).BucketInfo
