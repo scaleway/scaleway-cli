@@ -1501,12 +1501,6 @@ func functionTriggerCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "scw-sqs-config.mnq-namespace-id",
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
 				Name:       "scw-sqs-config.queue",
 				Short:      `Name of the SQS queue the trigger should listen to`,
 				Required:   false,
@@ -1525,12 +1519,6 @@ func functionTriggerCreate() *core.Command {
 				Short:      `Region in which the Messaging and Queuing project is activated.`,
 				Required:   false,
 				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "scw-nats-config.mnq-namespace-id",
-				Required:   false,
-				Deprecated: true,
 				Positional: false,
 			},
 			{

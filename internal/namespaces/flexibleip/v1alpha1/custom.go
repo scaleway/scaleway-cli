@@ -12,5 +12,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(flexibleip.FlexibleIPStatus(""), human.EnumMarshalFunc(ipStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(flexibleip.MACAddressStatus(""), human.EnumMarshalFunc(macAddressStatusMarshalSpecs))
 
+	cmds.MustFind("fip", "ip", "create").Override(createIPBuilder)
+
 	return cmds
 }
