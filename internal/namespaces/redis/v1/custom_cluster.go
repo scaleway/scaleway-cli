@@ -170,11 +170,8 @@ func redisSettingAddBuilder(c *core.Command) *core.Command {
 }
 
 func redisEndpointsClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	if opt == nil {
-		return "", nil
-	}
-	type tmp []*redis.Endpoint
-	endpoint := tmp(i.([]*redis.Endpoint))
+	type tmp redis.Cluster
+	endpoint := tmp(i.(redis.Cluster)).Endpoints
 	opt.Fields = []*human.MarshalFieldOpt{
 		{
 			FieldName: "ID",

@@ -1,24 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           caac7795-b1c1-407f-8635-7da21563691e
-Name         1-ipam-priv-endpoint
-ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
-Status       ready
-Version      7.0.5
-NodeType     RED1-micro
-CreatedAt    few seconds ago
-UpdatedAt    few seconds ago
-TLSEnabled   false
-ClusterSize  1
-Zone         fr-par-1
-UserName     admin
-
-Endpoints:
 ID                                    Port  IPs
 2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04  6379  [172.16.232.2]
-
-ACLRules:
-ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "caac7795-b1c1-407f-8635-7da21563691e",
