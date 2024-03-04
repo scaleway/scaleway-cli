@@ -10,7 +10,6 @@ ExpiresAt     few seconds ago
 CreatedAt     few seconds ago
 UpdatedAt     few seconds ago
 InstanceName  cli-test
-IsExported    false
 Region        fr-par
 SameRegion    false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
