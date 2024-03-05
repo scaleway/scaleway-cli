@@ -204,12 +204,8 @@ have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
 snapshot strategies on both volumes.
 
-A snapshot's volume type can be either its original volume's type
-(` + "`" + `l_ssd` + "`" + ` or ` + "`" + `b_ssd` + "`" + `) or ` + "`" + `unified` + "`" + `. Similarly, volumes can be created as well from snapshots
-of their own type or ` + "`" + `unified` + "`" + `. Therefore, to migrate data from a ` + "`" + `l_ssd` + "`" + ` volume
-to a ` + "`" + `b_ssd` + "`" + ` volume, one can create a ` + "`" + `unified` + "`" + ` snapshot from the original volume
-and a new ` + "`" + `b_ssd` + "`" + ` volume from this snapshot. The newly created volume will hold a copy
-of the data of the original volume.`,
+A snapshot's volume type is its original volume's type (` + "`" + `l_ssd` + "`" + ` or ` + "`" + `b_ssd` + "`" + `). 
+Volumes can be created from snapshots of their own type.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 	}
@@ -248,9 +244,6 @@ Two different types of volume (` + "`" + `volume_type` + "`" + `) are available:
   - ` + "`" + `b_ssd` + "`" + ` is a remote block storage: your data is stored on a
     centralized cluster. You can plug and unplug a volume while
     your Instance is running.
-
-Note: The ` + "`" + `unified` + "`" + ` volume type is not available for volumes. This
-type can only be used on snapshots.
 
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone ` + "`" + `/products/volumes` + "`" + ` API endpoint. _I.e_ for:
@@ -1474,7 +1467,7 @@ func instanceSnapshotCreate() *core.Command {
 			},
 			{
 				Short:    "Import a QCOW file as an Instance snapshot",
-				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","name":"my-imported-snapshot","volume_type":"unified","zone":"fr-par-1"}`,
+				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","name":"my-imported-snapshot","volume_type":"b_ssd","zone":"fr-par-1"}`,
 			},
 		},
 	}
