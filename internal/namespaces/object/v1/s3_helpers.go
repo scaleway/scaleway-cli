@@ -53,7 +53,7 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 // Caching BucketCannedACL values for shell completion
 var completeObjectBucketACLCache []types.BucketCannedACL
 
-func autocompleteObjectBucketACL(_ context.Context, prefix string) core.AutocompleteSuggestions {
+func autocompleteObjectBucketACL(_ context.Context, prefix string, _ any) core.AutocompleteSuggestions {
 	suggestions := core.AutocompleteSuggestions(nil)
 
 	if len(completeObjectBucketACLCache) == 0 {
