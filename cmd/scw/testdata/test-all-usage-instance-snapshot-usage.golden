@@ -9,12 +9,8 @@ have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
 snapshot strategies on both volumes.
 
-A snapshot's volume type can be either its original volume's type
-(`l_ssd` or `b_ssd`) or `unified`. Similarly, volumes can be created as well from snapshots
-of their own type or `unified`. Therefore, to migrate data from a `l_ssd` volume
-to a `b_ssd` volume, one can create a `unified` snapshot from the original volume
-and a new `b_ssd` volume from this snapshot. The newly created volume will hold a copy
-of the data of the original volume.
+A snapshot's volume type is its original volume's type (`l_ssd` or `b_ssd`). 
+Volumes can be created from snapshots of their own type.
 
 USAGE:
   scw instance snapshot <command>
