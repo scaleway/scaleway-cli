@@ -48,7 +48,7 @@ func GetCommands() *core.Commands {
 
 	// Autocomplete permission set names using IAM API.
 	cmds.MustFind("iam", "policy", "create").Override(func(c *core.Command) *core.Command {
-		c.ArgSpecs.GetByName("rules.{index}.permission-set-names.{index}").AutoCompleteFunc = func(ctx context.Context, _ string) core.AutocompleteSuggestions {
+		c.ArgSpecs.GetByName("rules.{index}.permission-set-names.{index}").AutoCompleteFunc = func(ctx context.Context, _ string, _ any) core.AutocompleteSuggestions {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			// TODO: store result in a CLI cache

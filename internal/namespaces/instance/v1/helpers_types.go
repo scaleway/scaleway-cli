@@ -68,7 +68,7 @@ var serverTypes = []string{
 	"H100-2-80G",
 }
 
-func completeServerType(_ context.Context, prefix string) core.AutocompleteSuggestions {
+func completeServerType(_ context.Context, prefix string, _ any) core.AutocompleteSuggestions {
 	suggestions := []string(nil)
 
 	for _, serverType := range serverTypes {

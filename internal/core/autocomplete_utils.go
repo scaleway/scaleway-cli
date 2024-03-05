@@ -59,7 +59,7 @@ func getGlobalFlags(ctx context.Context) []FlagSpec {
 }
 
 func AutocompleteProfileName() AutoCompleteArgFunc {
-	return func(ctx context.Context, prefix string) AutocompleteSuggestions {
+	return func(ctx context.Context, prefix string, _ any) AutocompleteSuggestions {
 		res := AutocompleteSuggestions(nil)
 		configPath := ExtractConfigPath(ctx)
 		config, err := scw.LoadConfigFromPath(configPath)
@@ -203,4 +203,20 @@ func listRawArgsLocalities(completedArgs map[string]string, cmd *Command) []stri
 		}
 	}
 	return listRawArgs
+}
+
+func flattenCompleteArgs(completedArgs map[string]string) []string {
+	rawArgs := make([]string, 0, len(completedArgs))
+	for arg, value := range completedArgs {
+		rawArgs = append(rawArgs, arg+value) // "region=" + "nl-ams"
+	}
+
+	return rawArgs
+}
+
+func requestFromCompletedArgs(cmd *Command, completedArgs map[string]string) any {
+	request := reflect.New(cmd.ArgsType).Interface()
+	_ = args.UnmarshalStruct(flattenCompleteArgs(completedArgs), request)
+
+	return request
 }

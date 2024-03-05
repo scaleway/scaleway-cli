@@ -29,7 +29,7 @@ func testAutocompleteGetCommands() *Commands {
 				},
 				{
 					Name: "size",
-					AutoCompleteFunc: func(_ context.Context, prefix string) AutocompleteSuggestions {
+					AutoCompleteFunc: func(_ context.Context, prefix string, _ any) AutocompleteSuggestions {
 						return []string{regexp.MustCompile("[a-z]").ReplaceAllString(prefix, "")}
 					},
 					EnumValues: []string{"S", "M", "L", "XL", "XXL"},

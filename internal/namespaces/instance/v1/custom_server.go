@@ -323,9 +323,12 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 func serverGetBuilder(c *core.Command) *core.Command {
 	// This method is here as a proof of concept before we find the correct way to implement it at larger scale
-	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+		req := request.(*instance.GetServerRequest)
 		api := instance.NewAPI(core.ExtractClient(ctx))
-		resp, err := api.ListServers(&instance.ListServersRequest{}, scw.WithAllPages())
+		resp, err := api.ListServers(&instance.ListServersRequest{
+			Zone: req.Zone,
+		}, scw.WithAllPages())
 		if err != nil {
 			return nil
 		}

@@ -170,14 +170,24 @@ var completeListNodeTypeCache *rdb.ListNodeTypesResponse
 
 var completeListEngineCache *rdb.ListDatabaseEnginesResponse
 
-func autoCompleteNodeType(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	region := scw.Region("")
+	switch req := request.(type) {
+	case *rdb.CreateInstanceRequest:
+		region = req.Region
+	case *rdb.UpgradeInstanceRequest:
+		region = req.Region
+	}
+
 	suggestions := core.AutocompleteSuggestions(nil)
 
 	client := core.ExtractClient(ctx)
 	api := rdb.NewAPI(client)
 
 	if completeListNodeTypeCache == nil {
-		res, err := api.ListNodeTypes(&rdb.ListNodeTypesRequest{}, scw.WithAllPages())
+		res, err := api.ListNodeTypes(&rdb.ListNodeTypesRequest{
+			Region: region,
+		}, scw.WithAllPages())
 		if err != nil {
 			return nil
 		}
@@ -193,13 +203,16 @@ func autoCompleteNodeType(ctx context.Context, prefix string) core.AutocompleteS
 	return suggestions
 }
 
-func autoCompleteDatabaseEngines(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+func autoCompleteDatabaseEngines(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	req := request.(*rdb.CreateInstanceRequest)
 	suggestion := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
 	api := rdb.NewAPI(client)
 
 	if completeListEngineCache == nil {
-		res, err := api.ListDatabaseEngines(&rdb.ListDatabaseEnginesRequest{}, scw.WithAllPages())
+		res, err := api.ListDatabaseEngines(&rdb.ListDatabaseEnginesRequest{
+			Region: req.Region,
+		}, scw.WithAllPages())
 		if err != nil {
 			return nil
 		}
