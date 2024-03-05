@@ -11,11 +11,11 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"golang.org/x/crypto/ssh"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -88,7 +88,7 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 		return nil, fmt.Errorf("rdp password is nil")
 	}
 
-	encryptedRdpPassword, err := base64.RawStdEncoding.DecodeString(*resp.Value)
+	encryptedRdpPassword, err := base64.StdEncoding.DecodeString(*resp.Value)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode base64 encoded rdp password: %w", err)
 	}
