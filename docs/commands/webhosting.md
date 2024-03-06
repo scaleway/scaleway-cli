@@ -251,6 +251,7 @@ scw webhosting hosting update [arg=value ...]
 | tags.{index} |  | New tags for the Web Hosting plan |
 | option-ids.{index} |  | IDs of the new options for the Web Hosting plan |
 | offer-id |  | ID of the new offer for the Web Hosting plan |
+| protected |  | Whether the hosting is protected or not |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 

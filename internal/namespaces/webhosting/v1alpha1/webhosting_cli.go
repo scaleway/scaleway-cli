@@ -330,6 +330,13 @@ func webhostingHostingUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "protected",
+				Short:      `Whether the hosting is protected or not`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
