@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	mnq "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
@@ -90,4 +91,48 @@ Credentials and context file are saved in your nats context folder with 0600 per
 			}, nil
 		},
 	}
+}
+
+func mnqNatsGetAccountBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("nats-account-id").AutoCompleteFunc = autocompleteNatsAccountID
+	return c
+}
+
+func mnqNatsListCredentialsBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("nats-account-id").AutoCompleteFunc = autocompleteNatsAccountID
+	return c
+}
+
+var completeListNatsAccountIDCache *mnq.ListNatsAccountsResponse
+
+func autocompleteNatsAccountID(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	region := scw.Region("")
+	switch req := request.(type) {
+	case *mnq.NatsAPIGetNatsAccountRequest:
+		region = req.Region
+	case *mnq.NatsAPIListNatsCredentialsRequest:
+		region = req.Region
+	}
+
+	suggestions := core.AutocompleteSuggestions(nil)
+
+	client := core.ExtractClient(ctx)
+	api := mnq.NewNatsAPI(client)
+
+	if completeListNatsAccountIDCache == nil {
+		res, err := api.ListNatsAccounts(&mnq.NatsAPIListNatsAccountsRequest{
+			Region: region,
+		})
+		if err != nil {
+			return nil
+		}
+		completeListNatsAccountIDCache = res
+	}
+
+	for _, natsAccountID := range completeListNatsAccountIDCache.NatsAccounts {
+		if strings.HasPrefix(natsAccountID.ID, prefix) {
+			suggestions = append(suggestions, natsAccountID.ID)
+		}
+	}
+	return suggestions
 }
