@@ -421,7 +421,7 @@ func redisClusterMigrate() *core.Command {
 			{
 				Name:       "node-type",
 				Short:      `Type of node to use for the Database Instance`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
