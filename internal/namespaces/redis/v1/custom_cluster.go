@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -15,6 +16,11 @@ import (
 )
 
 const redisActionTimeout = 15 * time.Minute
+
+func redisClusterMigrateBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
+	return c
+}
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
 	type redisEndpointSpecPrivateNetworkSpecCustom struct {
@@ -203,4 +209,30 @@ func redisClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string,
 	}
 
 	return str, nil
+}
+
+var completeRedisNoteTypeCache *redis.ListNodeTypesResponse
+
+func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+	req := request.(*redis.MigrateClusterRequest)
+	client := core.ExtractClient(ctx)
+	api := redis.NewAPI(client)
+	if req.Zone != "" {
+		if completeRedisNoteTypeCache == nil {
+			res, err := api.ListNodeTypes(&redis.ListNodeTypesRequest{
+				Zone: req.Zone,
+			})
+			if err != nil {
+				return nil
+			}
+			completeRedisNoteTypeCache = res
+		}
+		for _, nodeType := range completeRedisNoteTypeCache.NodeTypes {
+			if strings.HasPrefix(nodeType.Name, prefix) {
+				suggestions = append(suggestions, nodeType.Name)
+			}
+		}
+	}
+	return suggestions
 }
