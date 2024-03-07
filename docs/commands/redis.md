@@ -287,7 +287,7 @@ scw redis cluster migrate <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | version |  | Redis™ engine version of the Database Instance |
-| node-type | Required | Type of node to use for the Database Instance |
+| node-type |  | Type of node to use for the Database Instance |
 | cluster-size |  | Number of nodes for the Database Instance |
 | cluster-id | Required | UUID of the Database Instance to update |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
