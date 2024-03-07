@@ -165,6 +165,11 @@ func ACLAddListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func redisSettingAddBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("settings.{index}.name").AutoCompleteFunc = autoCompleteSettingsName
+	return c
+}
+
 func redisEndpointsClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp []*redis.Endpoint
 	redisEndpointsClusterResponse := tmp(i.([]*redis.Endpoint))
@@ -209,6 +214,47 @@ func redisClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string,
 	}
 
 	return str, nil
+}
+
+var completeClusterCache *redis.Cluster
+
+var completeClusterVersionCache *redis.ListClusterVersionsResponse
+
+func autoCompleteSettingsName(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+	req := request.(*redis.AddClusterSettingsRequest)
+	client := core.ExtractClient(ctx)
+	api := redis.NewAPI(client)
+	if req.ClusterID != "" {
+		if completeClusterCache == nil {
+			res, err := api.GetCluster(&redis.GetClusterRequest{
+				ClusterID: req.ClusterID,
+			})
+			if err != nil {
+				return nil
+			}
+			completeClusterCache = res
+		}
+		if completeClusterVersionCache == nil {
+			res, err := api.ListClusterVersions(&redis.ListClusterVersionsRequest{
+				Zone:    completeClusterCache.Zone,
+				Version: &completeClusterCache.Version,
+			})
+			if err != nil {
+				return nil
+			}
+			completeClusterVersionCache = res
+		}
+
+		for _, version := range completeClusterVersionCache.Versions {
+			for _, settingName := range version.AvailableSettings {
+				if strings.HasPrefix(settingName.Name, prefix) {
+					suggestions = append(suggestions, settingName.Name)
+				}
+			}
+		}
+	}
+	return suggestions
 }
 
 var completeRedisNoteTypeCache *redis.ListNodeTypesResponse
