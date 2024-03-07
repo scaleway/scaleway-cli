@@ -114,7 +114,7 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "opaque", "certificate", "key_value"},
+				EnumValues: []string{"unknown_type", "opaque", "certificate", "key_value", "basic_credentials", "database_credentials", "ssh_key"},
 			},
 			{
 				Name:       "path",
@@ -374,6 +374,14 @@ func secretSecretList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "type",
+				Short:      `Filter by secret type (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "opaque", "certificate", "key_value", "basic_credentials", "database_credentials", "ssh_key"},
 			},
 			{
 				Name:       "organization-id",
