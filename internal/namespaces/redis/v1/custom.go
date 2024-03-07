@@ -16,6 +16,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("redis", "cluster", "create").Override(clusterCreateBuilder)
 	cmds.MustFind("redis", "cluster", "delete").Override(clusterDeleteBuilder)
 	cmds.MustFind("redis", "acl", "add").Override(ACLAddListBuilder)
+	cmds.MustFind("redis", "cluster", "migrate").Override(redisClusterMigrateBuilder)
 
 	return cmds
 }
