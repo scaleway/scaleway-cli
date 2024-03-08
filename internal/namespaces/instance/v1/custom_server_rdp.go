@@ -98,12 +98,19 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 		return nil, fmt.Errorf("failed to decrypt rdp password: %w", err)
 	}
 
+	sshKeyDescription := ""
+	if resp.SSHKeyDescription != nil {
+		sshKeyDescription = *resp.SSHKeyDescription
+	}
+
 	return struct {
-		Username string
-		Password string
+		Username          string
+		Password          string
+		SSHKeyDescription string
 	}{
-		Username: "Administrator",
-		Password: string(password),
+		Username:          "Administrator",
+		Password:          string(password),
+		SSHKeyDescription: sshKeyDescription,
 	}, err
 }
 
