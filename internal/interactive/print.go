@@ -11,28 +11,28 @@ import (
 
 func Print(a ...interface{}) (int, error) {
 	if IsInteractive {
-		return fmt.Fprint(outputWriter, a...)
+		return fmt.Fprint(OutputWriter, a...)
 	}
 	return 0, nil
 }
 
 func Println(a ...interface{}) (int, error) {
 	if IsInteractive {
-		return fmt.Fprintln(outputWriter, a...)
+		return fmt.Fprintln(OutputWriter, a...)
 	}
 	return 0, nil
 }
 
 func PrintlnWithoutIndent(a string) (int, error) {
 	if IsInteractive {
-		return fmt.Fprintln(outputWriter, RemoveIndent(a))
+		return fmt.Fprintln(OutputWriter, RemoveIndent(a))
 	}
 	return 0, nil
 }
 
 func Printf(format string, a ...interface{}) (int, error) {
 	if IsInteractive {
-		return fmt.Fprintf(outputWriter, format, a...)
+		return fmt.Fprintf(OutputWriter, format, a...)
 	}
 	return 0, nil
 }

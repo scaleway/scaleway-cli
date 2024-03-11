@@ -1,12 +1,14 @@
-package container
+package container_test
 
 import (
 	"fmt"
 	"testing"
 
+	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	containerSDK "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 )
 
 func createNamespace(metaKey string) core.BeforeFunc {
@@ -20,7 +22,7 @@ func deleteNamespace(metaKey string) core.AfterFunc {
 }
 
 func Test_Create(t *testing.T) {
-	commands := GetCommands()
+	commands := container.GetCommands()
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: commands,
@@ -30,8 +32,8 @@ func Test_Create(t *testing.T) {
 		Cmd: fmt.Sprintf("scw container container create namespace-id={{ .Namespace.ID }} name=%s deploy=true", core.GetRandomName("test")),
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				c := ctx.Result.(*container.Container)
-				assert.Equal(t, container.ContainerStatusPending, c.Status)
+				c := ctx.Result.(*containerSDK.Container)
+				assert.Equal(t, containerSDK.ContainerStatusPending, c.Status)
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),

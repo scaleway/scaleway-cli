@@ -1,4 +1,4 @@
-package core
+package core_test
 
 import (
 	"context"
@@ -8,6 +8,7 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 type Element struct {
@@ -32,24 +33,24 @@ type elementCustom struct {
 
 func Test_DefaultCommandValidateFunc(t *testing.T) {
 	type TestCase struct {
-		command         *Command
+		command         *core.Command
 		parsedArguments interface{}
 		rawArgs         args.RawArgs
 	}
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, fmt.Errorf("arg validation called"), err)
 		}
 	}
 
 	t.Run("simple", run(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name: "name",
-					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -61,14 +62,14 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 	}))
 
 	t.Run("map", run(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name: "elements-map.{key}.id",
 				},
 				{
 					Name: "elements-map.{key}.name",
-					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -89,14 +90,14 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 	}))
 
 	t.Run("slice", run(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name: "elements-slice.{index}.id",
 				},
 				{
 					Name: "elements-slice.{index}.name",
-					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -117,14 +118,14 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 	}))
 
 	t.Run("slice-of-slice", run(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name: "elements-slice.{index}.id",
 				},
 				{
 					Name: "elements-slice.{index}.elements-slice.{index}.name",
-					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -147,14 +148,14 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 	}))
 
 	t.Run("new-field", run(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name: "name",
 				},
 				{
 					Name: "short",
-					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -166,14 +167,14 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 	}))
 
 	t.Run("anonymous-field", run(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name: "short",
 				},
 				{
 					Name: "name",
-					ValidateFunc: func(_ *ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
 						return fmt.Errorf("arg validation called")
 					},
 				},
@@ -189,28 +190,28 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 
 func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	type TestCase struct {
-		command         *Command
+		command         *core.Command
 		parsedArguments interface{}
 		rawArgs         args.RawArgs
 	}
 
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, nil, err)
 		}
 	}
 
 	runErr := func(testCase TestCase, argName string) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
-			assert.Equal(t, MissingRequiredArgumentError(argName), err)
+			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			assert.Equal(t, core.MissingRequiredArgumentError(argName), err)
 		}
 	}
 
 	t.Run("required-struct", runOK(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name:     "first-nested-element.second-nested-element",
 					Required: true,
@@ -229,8 +230,8 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	}))
 
 	t.Run("fail-required-struct", runErr(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name:     "first-nested-element.second-nested-element",
 					Required: true,
@@ -246,8 +247,8 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	}, "first-nested-element.second-nested-element"))
 
 	t.Run("required-index", runOK(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name:     "elements-slice.{index}.id",
 					Required: true,
@@ -266,8 +267,8 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	}))
 
 	t.Run("fail-required-index", runErr(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name:     "elements-slice.{index}.id",
 					Required: true,
@@ -292,7 +293,7 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 
 func Test_ValidateNoConflict(t *testing.T) {
 	type TestCase struct {
-		command *Command
+		command *core.Command
 		rawArgs args.RawArgs
 		arg1    string
 		arg2    string
@@ -300,21 +301,21 @@ func Test_ValidateNoConflict(t *testing.T) {
 
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := validateNoConflict(testCase.command, testCase.rawArgs)
+			err := core.ValidateNoConflict(testCase.command, testCase.rawArgs)
 			assert.Equal(t, nil, err)
 		}
 	}
 
 	runErr := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			err := validateNoConflict(testCase.command, testCase.rawArgs)
-			assert.Equal(t, ArgumentConflictError(testCase.arg1, testCase.arg2), err)
+			err := core.ValidateNoConflict(testCase.command, testCase.rawArgs)
+			assert.Equal(t, core.ArgumentConflictError(testCase.arg1, testCase.arg2), err)
 		}
 	}
 
 	t.Run("No conflict", runOK(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name:       "a",
 					OneOfGroup: "a",
@@ -328,8 +329,8 @@ func Test_ValidateNoConflict(t *testing.T) {
 	}))
 
 	t.Run("SSH example", runErr(TestCase{
-		command: &Command{
-			ArgSpecs: ArgSpecs{
+		command: &core.Command{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name:       "ssh-key.{index}",
 					OneOfGroup: "ssh",
@@ -347,15 +348,15 @@ func Test_ValidateNoConflict(t *testing.T) {
 }
 
 func Test_ValidateDeprecated(t *testing.T) {
-	t.Run("Deprecated", Test(&TestConfig{
-		Commands: NewCommands(&Command{
+	t.Run("Deprecated", core.Test(&core.TestConfig{
+		Commands: core.NewCommands(&core.Command{
 			Namespace:            "plop",
 			ArgsType:             reflect.TypeOf(args.RawArgs{}),
 			AllowAnonymousClient: true,
 			Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
-				return &SuccessResult{}, nil
+				return &core.SuccessResult{}, nil
 			},
-			ArgSpecs: ArgSpecs{
+			ArgSpecs: core.ArgSpecs{
 				{
 					Name:       "a",
 					Deprecated: true,
@@ -363,8 +364,8 @@ func Test_ValidateDeprecated(t *testing.T) {
 			},
 		}),
 		Cmd: "scw plop a=yo",
-		Check: TestCheckCombine(
-			func(t *testing.T, ctx *CheckFuncCtx) {
+		Check: core.TestCheckCombine(
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.Equal(t, "The argument 'a' is deprecated, more info with: scw plop --help\n", ctx.LogBuffer)
 			},
 		),

@@ -94,28 +94,28 @@ type valueMapperConfig struct {
 	includeFields []string
 	excludeFields []string
 }
-type valueMapperOpt func(cfg *valueMapperConfig)
+type ValueMapperOpt func(cfg *valueMapperConfig)
 
-// mapWithTag will map only fields that have one of these tags as json tag
-func mapWithTag(includeFields ...string) valueMapperOpt {
+// MapWithTag will map only fields that have one of these tags as json tag
+func MapWithTag(includeFields ...string) ValueMapperOpt {
 	return func(cfg *valueMapperConfig) {
 		cfg.includeFields = append(cfg.includeFields, includeFields...)
 	}
 }
 
-// mapWithTag will map only fields that don't have one of these tags as json tag
+// MapWithTag will map only fields that don't have one of these tags as json tag
 //
 //nolint:deadcode,unused
-func mapWithoutTag(excludeFields ...string) valueMapperOpt {
+func mapWithoutTag(excludeFields ...string) ValueMapperOpt {
 	return func(cfg *valueMapperConfig) {
 		cfg.excludeFields = append(cfg.excludeFields, excludeFields...)
 	}
 }
 
-// valueMapper get all fields present both in src and dest and set them in dest
+// ValueMapper get all fields present both in src and dest and set them in dest
 // if argument is not zero-value in dest, it is not set
 // fields is a list of jsonTags, if not nil, only fields with a tag in this list will be mapped
-func valueMapper(dest reflect.Value, src reflect.Value, opts ...valueMapperOpt) {
+func ValueMapper(dest reflect.Value, src reflect.Value, opts ...ValueMapperOpt) {
 	cfg := valueMapperConfig{}
 	for _, opt := range opts {
 		opt(&cfg)
@@ -129,11 +129,11 @@ func deleteRecursiveMap(m map[string]interface{}, keys ...string) {
 	}
 
 	for _, val := range m {
-		deleteRecursive(val, keys...)
+		DeleteRecursive(val, keys...)
 	}
 }
 
-func deleteRecursive(elem interface{}, keys ...string) {
+func DeleteRecursive(elem interface{}, keys ...string) {
 	value := reflect.ValueOf(elem)
 
 	switch value.Kind() {
@@ -141,7 +141,7 @@ func deleteRecursive(elem interface{}, keys ...string) {
 		deleteRecursiveMap(elem.(map[string]interface{}), keys...)
 	case reflect.Slice:
 		for i := 0; i < value.Len(); i++ {
-			deleteRecursive(value.Index(i).Interface(), keys...)
+			DeleteRecursive(value.Index(i).Interface(), keys...)
 		}
 	}
 }

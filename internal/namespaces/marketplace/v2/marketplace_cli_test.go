@@ -1,14 +1,16 @@
-package marketplace
+package marketplace_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_marketplaceImageList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: marketplace.GetCommands(),
 		Cmd:      "scw marketplace image list",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

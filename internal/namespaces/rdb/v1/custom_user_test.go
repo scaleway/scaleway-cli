@@ -1,15 +1,17 @@
-package rdb
+package rdb_test
 
 import (
 	"fmt"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_ListUser(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb user list instance-id={{ .Instance.ID }}",
 		Check:      core.TestCheckGolden(),
@@ -19,7 +21,7 @@ func Test_ListUser(t *testing.T) {
 
 func Test_CreateUser(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        fmt.Sprintf("scw rdb user create instance-id={{ $.Instance.Instance.ID }} name=%s password=%s", name, password),
 		Check:      core.TestCheckGolden(),
@@ -27,7 +29,7 @@ func Test_CreateUser(t *testing.T) {
 	}))
 
 	t.Run("With password generator", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        fmt.Sprintf("scw rdb user create instance-id={{ $.Instance.Instance.ID }} name=%s generate-password=true", name),
 		// do not check the golden as the password generated locally and on CI will necessarily be different
@@ -38,7 +40,7 @@ func Test_CreateUser(t *testing.T) {
 
 func Test_UpdateUser(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd(fmt.Sprintf("scw rdb user create instance-id={{ $.Instance.Instance.ID }} name=%s password=%s", name, password)),
@@ -49,7 +51,7 @@ func Test_UpdateUser(t *testing.T) {
 	}))
 
 	t.Run("With password generator", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd(fmt.Sprintf("scw rdb user create instance-id={{ $.Instance.Instance.ID }} name=%s password=%s", name, password)),

@@ -1,16 +1,18 @@
-package registry
+package registry_test
 
 import (
 	"fmt"
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
+	registrySDK "github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 )
 
 func Test_ImageList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: registry.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("PublicNamespace", "scw registry namespace create name=cli-public-namespace is-public=true"),
 			core.ExecStoreBeforeCmd("PrivateNamespace", "scw registry namespace create name=cli-private-namespace is-public=false"),
@@ -23,44 +25,44 @@ func Test_ImageList(t *testing.T) {
 					setupImage(
 						"busybox:1.31",
 						"rg.fr-par.scw.cloud/cli-public-namespace",
-						fmt.Sprintf("visibility_%s", registry.ImageVisibilityPublic),
-						registry.ImageVisibilityPublic,
+						fmt.Sprintf("visibility_%s", registrySDK.ImageVisibilityPublic),
+						registrySDK.ImageVisibilityPublic,
 					),
 
 					setupImage(
 						"busybox:1.30",
 						"rg.fr-par.scw.cloud/cli-public-namespace",
-						fmt.Sprintf("visibility_%s", registry.ImageVisibilityPrivate),
-						registry.ImageVisibilityPrivate,
+						fmt.Sprintf("visibility_%s", registrySDK.ImageVisibilityPrivate),
+						registrySDK.ImageVisibilityPrivate,
 					),
 
 					setupImage(
 						"busybox:1.29",
 						"rg.fr-par.scw.cloud/cli-public-namespace",
-						fmt.Sprintf("visibility_%s", registry.ImageVisibilityInherit),
-						registry.ImageVisibilityInherit,
+						fmt.Sprintf("visibility_%s", registrySDK.ImageVisibilityInherit),
+						registrySDK.ImageVisibilityInherit,
 					),
 
 					setupImage(
 						"busybox:1.28",
 						"rg.fr-par.scw.cloud/cli-private-namespace",
-						fmt.Sprintf("visibility_%s", registry.ImageVisibilityPublic),
-						registry.ImageVisibilityPublic,
+						fmt.Sprintf("visibility_%s", registrySDK.ImageVisibilityPublic),
+						registrySDK.ImageVisibilityPublic,
 					),
 
 					setupImage(
 						"busybox:1.27",
 						"rg.fr-par.scw.cloud/cli-private-namespace",
-						fmt.Sprintf("visibility_%s", registry.ImageVisibilityPrivate),
-						registry.ImageVisibilityPrivate,
+						fmt.Sprintf("visibility_%s", registrySDK.ImageVisibilityPrivate),
+						registrySDK.ImageVisibilityPrivate,
 					),
 
 					// namespace_policy: private, image_policy:inherit
 					setupImage(
 						"busybox:1.26",
 						"rg.fr-par.scw.cloud/cli-private-namespace",
-						fmt.Sprintf("visibility_%s", registry.ImageVisibilityInherit),
-						registry.ImageVisibilityInherit,
+						fmt.Sprintf("visibility_%s", registrySDK.ImageVisibilityInherit),
+						registrySDK.ImageVisibilityInherit,
 					),
 				),
 			),
@@ -77,7 +79,7 @@ func Test_ImageList(t *testing.T) {
 	}))
 }
 
-func setupImage(dockerImage string, namespaceEndpoint string, imageName string, visibility registry.ImageVisibility) core.BeforeFunc {
+func setupImage(dockerImage string, namespaceEndpoint string, imageName string, visibility registrySDK.ImageVisibility) core.BeforeFunc {
 	remote := fmt.Sprintf("%s/%s:latest", namespaceEndpoint, imageName)
 	return core.BeforeFuncCombine(
 		core.BeforeFuncOsExec("docker", "pull", dockerImage),

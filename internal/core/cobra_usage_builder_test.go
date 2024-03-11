@@ -1,9 +1,11 @@
-package core
+package core_test
 
 import (
 	"context"
 	"reflect"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 
 	"github.com/alecthomas/assert"
 )
@@ -40,9 +42,9 @@ func Test_buildUsageArgs(t *testing.T) {
   [root-volume.name]                  Root volume name
   [additional-volumes.{index}.name]   Additional volume name`
 
-	got := buildUsageArgs(context.Background(), &Command{
+	got := core.BuildUsageArgs(context.Background(), &core.Command{
 		ArgsType: reflect.TypeOf(instanceListServerArgs{}),
-		ArgSpecs: ArgSpecs{
+		ArgSpecs: core.ArgSpecs{
 			{
 				Name:  "name",
 				Short: "Filter all servers who contains this name",
@@ -55,12 +57,12 @@ func Test_buildUsageArgs(t *testing.T) {
 			{
 				Name:    "age",
 				Short:   "Filter by age",
-				Default: DefaultValueSetter("1"),
+				Default: core.DefaultValueSetter("1"),
 			},
 			{
 				Name:       "color",
 				Short:      "Filter by color",
-				Default:    DefaultValueSetter(ServerColorRed),
+				Default:    core.DefaultValueSetter(ServerColorRed),
 				EnumValues: []string{ServerColorBlue, ServerColorRed, ServerColorPink, ServerColorGreen},
 			},
 			{

@@ -1,8 +1,10 @@
-package core
+package core_test
 
 import (
 	"context"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 
 	"github.com/alecthomas/assert"
 )
@@ -12,35 +14,35 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 		return []string{"runner"}, nil
 	}
 
-	newInterceptor := func(name string) CommandInterceptor {
-		return func(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
+	newInterceptor := func(name string) core.CommandInterceptor {
+		return func(ctx context.Context, args interface{}, runner core.CommandRunner) (interface{}, error) {
 			res, _ := runner(ctx, args)
 			return append([]string{name}, res.([]string)...), nil
 		}
 	}
 
 	type TestCase struct {
-		Interceptors []CommandInterceptor
+		Interceptors []core.CommandInterceptor
 		Expected     []string
 	}
 
 	run := func(tc *TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			interceptor := combineCommandInterceptor(tc.Interceptors...)
+			interceptor := core.CombineCommandInterceptor(tc.Interceptors...)
 			res, _ := interceptor(nil, nil, runner)
 			assert.Equal(t, tc.Expected, res)
 		}
 	}
 
 	t.Run("simple", run(&TestCase{
-		Interceptors: []CommandInterceptor{
+		Interceptors: []core.CommandInterceptor{
 			newInterceptor("A"),
 		},
 		Expected: []string{"A", "runner"},
 	}))
 
 	t.Run("with two interceptor", run(&TestCase{
-		Interceptors: []CommandInterceptor{
+		Interceptors: []core.CommandInterceptor{
 			newInterceptor("A"),
 			newInterceptor("B"),
 		},
@@ -48,7 +50,7 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 	}))
 
 	t.Run("with nil", run(&TestCase{
-		Interceptors: []CommandInterceptor{
+		Interceptors: []core.CommandInterceptor{
 			newInterceptor("A"),
 			nil,
 			newInterceptor("B"),
@@ -57,7 +59,7 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 	}))
 
 	t.Run("with three interceptor", run(&TestCase{
-		Interceptors: []CommandInterceptor{
+		Interceptors: []core.CommandInterceptor{
 			newInterceptor("A"),
 			newInterceptor("B"),
 			newInterceptor("C"),

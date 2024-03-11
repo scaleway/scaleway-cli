@@ -1,9 +1,11 @@
-package gofields
+package gofields_test
 
 import (
 	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 
 	"github.com/alecthomas/assert"
 )
@@ -44,7 +46,7 @@ func TestGetValue(t *testing.T) {
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
-			actual, err := GetValue(tc.Data, tc.Path)
+			actual, err := gofields.GetValue(tc.Data, tc.Path)
 			if err != nil {
 				assert.Equal(t, tc.Expected, err.Error())
 			} else {
@@ -153,7 +155,7 @@ func TestGetType(t *testing.T) {
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
-			actual, err := GetType(tc.Data, tc.Path)
+			actual, err := gofields.GetType(tc.Data, tc.Path)
 			if err != nil {
 				assert.Equal(t, tc.Expected, err.Error())
 			} else {
@@ -228,7 +230,7 @@ func TestListFields(t *testing.T) {
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
-			actual := ListFields(tc.Data)
+			actual := gofields.ListFields(tc.Data)
 			assert.Equal(t, tc.Expected, actual)
 		}
 	}
@@ -243,12 +245,12 @@ func TestListFieldsWithFilter(t *testing.T) {
 	type TestCase struct {
 		Data     reflect.Type
 		Expected []string
-		Filter   ListFieldFilter
+		Filter   gofields.ListFieldFilter
 	}
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
-			actual := ListFieldsWithFilter(tc.Data, tc.Filter)
+			actual := gofields.ListFieldsWithFilter(tc.Data, tc.Filter)
 			assert.Equal(t, tc.Expected, actual)
 		}
 	}

@@ -1,8 +1,10 @@
-package passwordgenerator
+package passwordgenerator_test
 
 import (
 	"strings"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 )
 
 const (
@@ -10,7 +12,7 @@ const (
 )
 
 func TestPassword(t *testing.T) {
-	password, err := GeneratePassword(21, 1, 1, 1, 1)
+	password, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
 	if err != nil {
 		t.Fatalf("Error generating password: %v", err)
 	}
@@ -20,7 +22,7 @@ func TestPassword(t *testing.T) {
 
 	// Test different lengths
 	for i := minLength; i < 30; i++ {
-		password, err = GeneratePassword(i, 1, 1, 1, 1)
+		password, err = passwordgenerator.GeneratePassword(i, 1, 1, 1, 1)
 		if err != nil {
 			t.Fatalf("Error generating password: %v", err)
 		}
@@ -30,7 +32,7 @@ func TestPassword(t *testing.T) {
 	}
 
 	// Test different minimum character types
-	password, err = GeneratePassword(21, 5, 5, 5, 5)
+	password, err = passwordgenerator.GeneratePassword(21, 5, 5, 5, 5)
 	if err != nil {
 		t.Fatalf("Error generating password: %v", err)
 	}
@@ -51,7 +53,7 @@ func isPassword(s string) bool {
 			hasUpperCase = true
 		case value >= 'a' && value <= 'z':
 			hasLowercase = true
-		case strings.Contains(specialSymbols, string(value)):
+		case strings.Contains(passwordgenerator.SpecialSymbols, string(value)):
 			hasSymbol = true
 		}
 	}

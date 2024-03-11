@@ -79,7 +79,7 @@ type CheckFuncCtx struct {
 // testMetadata contains arbitrary data that can be passed along a test lifecycle.
 type testMetadata map[string]interface{}
 
-// render renders a go template using where content of meta can be used
+// render renders a go template using where content of Meta can be used
 func (meta testMetadata) render(strTpl string) string {
 	t := meta["t"].(*testing.T)
 	buf := &bytes.Buffer{}
@@ -614,8 +614,8 @@ type GoldenReplacement struct {
 	OptionalMatch bool
 }
 
-// goldenReplacePatterns replace the list of patterns with their given replacement
-func goldenReplacePatterns(golden string, replacements ...GoldenReplacement) (string, error) {
+// GoldenReplacePatterns replace the list of patterns with their given replacement
+func GoldenReplacePatterns(golden string, replacements ...GoldenReplacement) (string, error) {
 	var matchFailed []string
 	var changedGolden = golden
 
@@ -640,7 +640,7 @@ func goldenReplacePatterns(golden string, replacements ...GoldenReplacement) (st
 func TestCheckGoldenAndReplacePatterns(replacements ...GoldenReplacement) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
 		actual := marshalGolden(t, ctx)
-		actual, actualReplaceErr := goldenReplacePatterns(actual, replacements...)
+		actual, actualReplaceErr := GoldenReplacePatterns(actual, replacements...)
 
 		goldenPath := getTestFilePath(t, ".golden")
 		// In order to avoid diff in goldens we set all timestamp to the same date

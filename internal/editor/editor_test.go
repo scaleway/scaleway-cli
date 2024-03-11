@@ -1,13 +1,15 @@
-package editor
+package editor_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 
 	"github.com/alecthomas/assert"
 )
 
 func Test_updateResourceEditor(t *testing.T) {
-	SkipEditor = true
+	editor.SkipEditor = true
 
 	resource := &struct {
 		ID   string
@@ -24,12 +26,12 @@ func Test_updateResourceEditor(t *testing.T) {
 		"",
 	}
 
-	_, err := updateResourceEditor(resource, updateRequest, &Config{})
+	_, err := editor.UpdateResourceEditor(resource, updateRequest, &editor.Config{})
 	assert.Nil(t, err)
 }
 
 func Test_updateResourceEditor_pointers(t *testing.T) {
-	SkipEditor = true
+	editor.SkipEditor = true
 
 	type UpdateRequest struct {
 		ID   string
@@ -48,7 +50,7 @@ func Test_updateResourceEditor_pointers(t *testing.T) {
 		nil,
 	}
 
-	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest, &Config{})
+	editedUpdateRequestI, err := editor.UpdateResourceEditor(resource, updateRequest, &editor.Config{})
 	assert.Nil(t, err)
 	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
 
@@ -57,7 +59,7 @@ func Test_updateResourceEditor_pointers(t *testing.T) {
 }
 
 func Test_updateResourceEditor_map(t *testing.T) {
-	SkipEditor = true
+	editor.SkipEditor = true
 
 	type UpdateRequest struct {
 		ID  string             `json:"id"`
@@ -78,8 +80,8 @@ func Test_updateResourceEditor_map(t *testing.T) {
 		nil,
 	}
 
-	editedUpdateRequestI, err := updateResourceEditor(resource, updateRequest, &Config{
-		editedResource: `
+	editedUpdateRequestI, err := editor.UpdateResourceEditor(resource, updateRequest, &editor.Config{
+		EditedResource: `
 id: uuid
 env: {}
 `,

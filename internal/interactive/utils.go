@@ -21,8 +21,8 @@ var (
 	// TerminalOutput define if the
 	TerminalOutput = IsInteractive
 
-	// outputWriter is the writer used by Printer functions (Print, Printf,...).
-	outputWriter io.Writer
+	// OutputWriter is the writer used by Printer functions (Print, Printf,...).
+	OutputWriter io.Writer
 
 	// defaultValidateFunc is used by readline to validate user input.
 	defaultValidateFunc ValidateFunc = func(string) error { return nil }
@@ -31,7 +31,7 @@ var (
 // SetOutputWriter set the output writer that will be used by both Printer functions (Print, Printf,...) and
 // readline prompter. This should be called once from the bootstrap function.
 func SetOutputWriter(w io.Writer) {
-	outputWriter = w
+	OutputWriter = w
 	readline.Stdout = newWriteCloser(w)
 }
 

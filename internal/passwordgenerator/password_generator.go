@@ -11,8 +11,8 @@ const (
 	numbers        = "0123456789"
 	lowerLetters   = "abcdedfghijklmnopqrstuvwxyz"
 	upperLetters   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	specialSymbols = "!$%^&*()_+{}:@[];'#<>?,./|\\\\-=?"
-	allSet         = lowerLetters + upperLetters + specialSymbols + numbers
+	SpecialSymbols = "!$%^&*()_+{}:@[];'#<>?,./|\\\\-=?"
+	allSet         = lowerLetters + upperLetters + SpecialSymbols + numbers
 )
 
 func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (string, error) {
@@ -47,11 +47,11 @@ func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (st
 	}
 
 	for i := 0; i < minSymbol; i++ {
-		random, err := randInt(len(specialSymbols))
+		random, err := randInt(len(SpecialSymbols))
 		if err != nil {
 			return "", err
 		}
-		password.WriteString(string(specialSymbols[random]))
+		password.WriteString(string(SpecialSymbols[random]))
 	}
 
 	remainingLength := length - minNumbers - minLower - minUpper - minSymbol

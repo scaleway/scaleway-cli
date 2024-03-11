@@ -13,8 +13,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-// meta store globally available variables like sdk client or global Flags.
-type meta struct {
+// Meta store globally available variables like sdk client or global Flags.
+type Meta struct {
 	BinaryName string
 
 	ProfileFlag    string
@@ -36,7 +36,7 @@ type meta struct {
 	result                      interface{}
 	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
-	betaMode                    bool
+	BetaMode                    bool
 }
 
 type contextKey int
@@ -45,18 +45,18 @@ const (
 	metaContextKey contextKey = iota
 )
 
-// injectMeta creates a new ctx based on the given one with injected meta and returns it.
-func injectMeta(ctx context.Context, meta *meta) context.Context {
+// InjectMeta creates a new ctx based on the given one with injected meta and returns it.
+func InjectMeta(ctx context.Context, meta *Meta) context.Context {
 	return context.WithValue(ctx, metaContextKey, meta)
 }
 
-// extractMeta extracts meta from a given context.
-func extractMeta(ctx context.Context) *meta {
-	return ctx.Value(metaContextKey).(*meta)
+// extractMeta extracts Meta from a given context.
+func extractMeta(ctx context.Context) *Meta {
+	return ctx.Value(metaContextKey).(*Meta)
 }
 
-// injectSDKConfig add config to a meta context
-func injectConfig(ctx context.Context, config *scw.Config) {
+// injectSDKConfig add config to a Meta context
+func InjectConfig(ctx context.Context, config *scw.Config) {
 	extractMeta(ctx).Platform.SetScwConfig(config)
 }
 
@@ -109,7 +109,7 @@ func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 }
 
 func ExtractBetaMode(ctx context.Context) bool {
-	return extractMeta(ctx).betaMode
+	return extractMeta(ctx).BetaMode
 }
 
 func ExtractEnv(ctx context.Context, envKey string) string {
@@ -216,7 +216,7 @@ func GetDocGenContext() context.Context {
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithDefaultRegion(scw.RegionFrPar),
 	)
-	return injectMeta(ctx, &meta{
+	return InjectMeta(ctx, &Meta{
 		Client: client,
 	})
 }

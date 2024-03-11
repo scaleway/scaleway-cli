@@ -1,4 +1,4 @@
-package mnq
+package mnq_test
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"

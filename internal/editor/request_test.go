@@ -1,8 +1,10 @@
-package editor
+package editor_test
 
 import (
 	"reflect"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 
 	"github.com/alecthomas/assert"
 )
@@ -17,6 +19,6 @@ func Test_createGetResourceRequest(t *testing.T) {
 	}{"uuid", ""}
 	expectedRequest := &GetRequest{"uuid"}
 
-	actualRequest := createGetRequest(updateRequest, reflect.TypeOf(GetRequest{}))
+	actualRequest := editor.CreateGetRequest(updateRequest, reflect.TypeOf(GetRequest{}))
 	assert.Equal(t, expectedRequest, actualRequest)
 }

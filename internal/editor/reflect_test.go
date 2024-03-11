@@ -1,4 +1,4 @@
-package editor
+package editor_test
 
 import (
 	"net"
@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -20,7 +21,7 @@ func Test_valueMapper(t *testing.T) {
 		Arg2 int
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.Equal(t, src.Arg1, dest.Arg1)
 	assert.Equal(t, src.Arg2, dest.Arg2)
 }
@@ -35,7 +36,7 @@ func Test_valueMapperInvalidType(t *testing.T) {
 		Arg2 bool
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.Equal(t, src.Arg1, dest.Arg1)
 	assert.Zero(t, dest.Arg2)
 }
@@ -50,7 +51,7 @@ func Test_valueMapperDifferentFields(t *testing.T) {
 		Arg4 bool
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.Zero(t, dest.Arg3)
 	assert.Zero(t, dest.Arg4)
 }
@@ -65,7 +66,7 @@ func Test_valueMapperPointers(t *testing.T) {
 		Arg2 *int
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Arg1)
 	assert.EqualValues(t, src.Arg1, *dest.Arg1)
 	assert.NotNil(t, dest.Arg2)
@@ -82,7 +83,7 @@ func Test_valueMapperPointersWithPointers(t *testing.T) {
 		Arg2 *int32
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Arg1)
 	assert.EqualValues(t, src.Arg1, dest.Arg1)
 	assert.NotNil(t, dest.Arg2)
@@ -102,7 +103,7 @@ func Test_valueMapperSlice(t *testing.T) {
 		Arg2 []int
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Arg1)
 	assert.EqualValues(t, src.Arg1, dest.Arg1)
 	assert.NotNil(t, dest.Arg2)
@@ -122,7 +123,7 @@ func Test_valueMapperSliceOfPointers(t *testing.T) {
 		Arg2 []*int
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Arg1)
 	assert.Equal(t, len(src.Arg1), len(dest.Arg1))
 	for i := range src.Arg1 {
@@ -165,7 +166,7 @@ func Test_valueMapperSliceStructPointer(t *testing.T) {
 		Rules: nil,
 	}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
+	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Rules)
 	assert.Equal(t, 1, len(dest.Rules))
 	expectedRule := src.Rules[0]
@@ -197,7 +198,7 @@ func Test_valueMapperTags(t *testing.T) {
 		Arg2 int    `json:"nomap"`
 	}{}
 
-	valueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), mapWithTag("map"))
+	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src), editor.MapWithTag("map"))
 	assert.Equal(t, src.Arg1, dest.Arg1)
 	assert.NotEqual(t, src.Arg2, dest.Arg2)
 }
@@ -208,7 +209,7 @@ func Test_deleteRecursive(t *testing.T) {
 		"nodelete": 1,
 	}
 
-	deleteRecursive(m, "delete")
+	editor.DeleteRecursive(m, "delete")
 
 	_, deleteExists := m["delete"]
 	_, nodeleteExists := m["nodelete"]
@@ -227,7 +228,7 @@ func Test_deleteRecursiveSlice(t *testing.T) {
 		},
 	}
 
-	deleteRecursive(m, "delete")
+	editor.DeleteRecursive(m, "delete")
 
 	slice := m["slice"].([]map[string]interface{})
 	_, deleteExists := slice[0]["delete"]

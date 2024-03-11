@@ -104,7 +104,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 				return nil, fmt.Errorf("failed to fetch server: %w", err)
 			}
 
-			formattedKey := formatSSHKeyToTag(args.PublicKey)
+			formattedKey := FormatSSHKeyToTag(args.PublicKey)
 
 			for i, tag := range server.Server.Tags {
 				if tag == formattedKey {
@@ -237,7 +237,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 					continue
 				}
 				key := expandSSHKeyTag(tag)
-				if key.Name == args.Name || tag == formatSSHKeyToTag(args.PublicKey) {
+				if key.Name == args.Name || tag == FormatSSHKeyToTag(args.PublicKey) {
 					removedKeys = append(removedKeys, expandSSHKeyTag(tag))
 				} else {
 					newTags = append(newTags, tag)
@@ -272,7 +272,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 	}
 }
 
-func formatSSHKeyToTag(publicKey string) string {
+func FormatSSHKeyToTag(publicKey string) string {
 	return "AUTHORIZED_KEY=" + strings.ReplaceAll(publicKey, " ", "_")
 }
 

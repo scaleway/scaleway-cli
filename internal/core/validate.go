@@ -31,7 +31,7 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 		if err != nil {
 			return err
 		}
-		err = validateNoConflict(cmd, rawArgs)
+		err = ValidateNoConflict(cmd, rawArgs)
 		if err != nil {
 			return err
 		}
@@ -98,7 +98,7 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 	return nil
 }
 
-func validateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
+func ValidateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
 	for _, arg1 := range cmd.ArgSpecs {
 		for _, arg2 := range cmd.ArgSpecs {
 			if !arg1.ConflictWith(arg2) || arg1 == arg2 {

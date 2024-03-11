@@ -1,16 +1,17 @@
-package baremetal
+package baremetal_test
 
 import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 // Server
 func Test_ListServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: baremetal.GetCommands(),
 		Cmd:      "scw baremetal server list",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -20,7 +21,7 @@ func Test_ListServer(t *testing.T) {
 	}))
 
 	t.Run("List with tags", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: baremetal.GetCommands(),
 		Cmd:      "scw baremetal server list tags.0=a",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
