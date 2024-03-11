@@ -1,3 +1,5 @@
+//go:build !wasm
+
 package interactive_test
 
 import (
@@ -11,7 +13,7 @@ import (
 
 func TestPrint(t *testing.T) {
 	buffer := &bytes.Buffer{}
-	interactive.OutputWriter = buffer
+	interactive.SetOutputWriter(buffer)
 	interactive.IsInteractive = true
 
 	n, err := interactive.Print("Test", 42)
@@ -28,7 +30,7 @@ func TestPrint(t *testing.T) {
 
 func TestPrintln(t *testing.T) {
 	buffer := &bytes.Buffer{}
-	interactive.OutputWriter = buffer
+	interactive.SetOutputWriter(buffer)
 	interactive.IsInteractive = true
 
 	n, err := interactive.Println("Test", 42)
@@ -45,7 +47,7 @@ func TestPrintln(t *testing.T) {
 
 func TestPrintf(t *testing.T) {
 	buffer := &bytes.Buffer{}
-	interactive.OutputWriter = buffer
+	interactive.SetOutputWriter(buffer)
 	interactive.IsInteractive = true
 
 	n, err := interactive.Printf("%s %d", "Test", 42)
