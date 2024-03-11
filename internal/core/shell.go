@@ -71,8 +71,8 @@ func trimFirstArg(args []string) []string {
 	return []string(nil)
 }
 
-// argIsOption returns if an argument is an option
-func argIsOption(arg string) bool {
+// ArgIsOption returns if an argument is an option
+func ArgIsOption(arg string) bool {
 	return strings.Contains(arg, "=") || strings.Contains(arg, ".")
 }
 
@@ -94,17 +94,17 @@ func argIsPositional(cmd *Command, arg string) bool {
 func removeOptions(args []string) []string {
 	filteredArgs := []string(nil)
 	for _, arg := range args {
-		if !argIsOption(arg) {
+		if !ArgIsOption(arg) {
 			filteredArgs = append(filteredArgs, arg)
 		}
 	}
 	return filteredArgs
 }
 
-// optionToArgSpecName convert option to arg spec name
+// OptionToArgSpecName convert option to arg spec name
 // from additional-volumes.0=hello to additional-volumes.{index}
 // also with multiple indexes pools.0.kubelet-args. to pools.{index}.kubelet-args.{key}
-func optionToArgSpecName(option string) string {
+func OptionToArgSpecName(option string) string {
 	optionName := strings.Split(option, "=")[0]
 
 	if strings.Contains(optionName, ".") {
@@ -126,9 +126,9 @@ func optionToArgSpecName(option string) string {
 }
 
 // getCommand return command object from args and suggest
-func getCommand(meta *meta, args []string, suggest string) *Command {
+func getCommand(meta *Meta, args []string, suggest string) *Command {
 	rawCommand := removeOptions(args)
-	suggestIsOption := argIsOption(suggest)
+	suggestIsOption := ArgIsOption(suggest)
 
 	if !suggestIsOption {
 		rawCommand = append(rawCommand, suggest)
@@ -149,14 +149,14 @@ func getCommand(meta *meta, args []string, suggest string) *Command {
 // getSuggestDescription will return suggest description
 // it will return command description if it is a command
 // or option description if suggest is an option of a command
-func getSuggestDescription(meta *meta, args []string, suggest string) string {
+func getSuggestDescription(meta *Meta, args []string, suggest string) string {
 	command := getCommand(meta, args, suggest)
 	if command == nil {
 		return "command not found"
 	}
 
-	if argIsOption(suggest) {
-		option := command.ArgSpecs.GetByName(optionToArgSpecName(suggest))
+	if ArgIsOption(suggest) {
+		option := command.ArgSpecs.GetByName(OptionToArgSpecName(suggest))
 		if option != nil {
 			return option.Short
 		}
@@ -176,7 +176,7 @@ func getSuggestDescription(meta *meta, args []string, suggest string) string {
 }
 
 // sortOptions sorts options, putting required first then order alphabetically
-func sortOptions(meta *meta, args []string, toSuggest string, suggestions []string) []string {
+func sortOptions(meta *Meta, args []string, toSuggest string, suggestions []string) []string {
 	command := getCommand(meta, args, toSuggest)
 	if command == nil {
 		return suggestions
@@ -184,7 +184,7 @@ func sortOptions(meta *meta, args []string, toSuggest string, suggestions []stri
 
 	argSpecs := []ShellSuggestion(nil)
 	for _, suggest := range suggestions {
-		argSpec := command.ArgSpecs.GetByName(optionToArgSpecName(suggest))
+		argSpec := command.ArgSpecs.GetByName(OptionToArgSpecName(suggest))
 		argSpecs = append(argSpecs, ShellSuggestion{
 			Text: suggest,
 			Arg:  argSpec,
@@ -234,7 +234,7 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 
 	// if first suggestion is an option, all suggestions should be options
 	// we sort them
-	if len(rawSuggestions) > 0 && argIsOption(rawSuggestions[0]) {
+	if len(rawSuggestions) > 0 && ArgIsOption(rawSuggestions[0]) {
 		rawSuggestions = sortOptions(meta, leftArgs, rawSuggestions[0], rawSuggestions)
 	}
 
@@ -255,7 +255,7 @@ func NewShellCompleter(ctx context.Context) *Completer {
 }
 
 // shellExecutor returns the function that will execute command entered in shell
-func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *meta) func(s string) {
+func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *Meta) func(s string) {
 	return func(s string) {
 		args := strings.Fields(s)
 
@@ -304,7 +304,7 @@ func getShellCommand(rootCmd *cobra.Command) *cobra.Command {
 }
 
 // RunShell will run an interactive shell that runs cobra commands
-func RunShell(ctx context.Context, printer *Printer, meta *meta, rootCmd *cobra.Command, args []string) {
+func RunShell(ctx context.Context, printer *Printer, meta *Meta, rootCmd *cobra.Command, args []string) {
 	autoCompleteCache = cache.New()
 	completer := NewShellCompleter(ctx)
 

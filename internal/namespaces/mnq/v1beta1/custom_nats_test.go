@@ -1,16 +1,18 @@
-package mnq
+package mnq_test
 
 import (
 	"os"
 	"regexp"
 	"testing"
 
+	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_CreateContext(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   mnq.GetCommands(),
 		BeforeFunc: createNATSAccount("NATS"),
 		Cmd:        "scw mnq nats create-context nats-account-id={{ .NATS.ID }}",
 		Check: core.TestCheckCombine(
@@ -28,7 +30,7 @@ func Test_CreateContext(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				result := ctx.Result.(*core.SuccessResult)
 				expectedContextFile := result.Resource
-				if !fileExists(expectedContextFile) {
+				if !mnq.FileExists(expectedContextFile) {
 					t.Errorf("Expected credentials file not found expected [%s] ", expectedContextFile)
 				} else {
 					ctx.Meta["deleteFiles"] = []string{expectedContextFile}
@@ -54,7 +56,7 @@ func Test_CreateContext(t *testing.T) {
 
 func Test_CreateContextWithWrongId(t *testing.T) {
 	t.Run("Wrong Account ID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: mnq.GetCommands(),
 		Cmd:      "scw mnq nats create-context nats-account-id=Wrong-id",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -65,7 +67,7 @@ func Test_CreateContextWithWrongId(t *testing.T) {
 
 func Test_CreateContextWithNoAccount(t *testing.T) {
 	t.Run("With No Nats Account", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: mnq.GetCommands(),
 		Cmd:      "scw mnq nats create-context",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -76,7 +78,7 @@ func Test_CreateContextWithNoAccount(t *testing.T) {
 
 func Test_CreateContextNoInteractiveTermAndMultiAccount(t *testing.T) {
 	t.Run("Multi Nats Account and no ID", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   mnq.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(createNATSAccount("NATS"), createNATSAccount("NATS2")),
 		Cmd:        "scw mnq nats create-context",
 		Check: core.TestCheckCombine(

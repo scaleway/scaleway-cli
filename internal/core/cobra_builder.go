@@ -20,7 +20,7 @@ func init() {
 // use an index to attache leaf command to their parent.
 type cobraBuilder struct {
 	commands *Commands
-	meta     *meta
+	meta     *Meta
 	ctx      context.Context
 }
 
@@ -122,11 +122,11 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, group
 		}
 
 		if cmd.ArgsType != nil {
-			cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd, false)
+			cobraCmd.Annotations["UsageArgs"] = BuildUsageArgs(b.ctx, cmd, false)
 		}
 
 		if cmd.ArgSpecs != nil {
-			cobraCmd.Annotations["UsageDeprecatedArgs"] = buildUsageArgs(b.ctx, cmd, true)
+			cobraCmd.Annotations["UsageDeprecatedArgs"] = BuildUsageArgs(b.ctx, cmd, true)
 		}
 
 		if cmd.Examples != nil {

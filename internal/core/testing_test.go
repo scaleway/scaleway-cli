@@ -1,8 +1,10 @@
-package core
+package core_test
 
 import (
 	"regexp"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 
 	"github.com/alecthomas/assert"
 )
@@ -16,7 +18,7 @@ Line4`
 	expected := `
 Line1
 Line4`
-	actual, err := goldenReplacePatterns(original, GoldenReplacement{
+	actual, err := core.GoldenReplacePatterns(original, core.GoldenReplacement{
 		Pattern:     regexp.MustCompile("Line2\nLine3\n"),
 		Replacement: "",
 	})
@@ -28,8 +30,8 @@ Line4
 Line3
 Line2
 Line1`
-	actual2, err := goldenReplacePatterns(original,
-		GoldenReplacement{
+	actual2, err := core.GoldenReplacePatterns(original,
+		core.GoldenReplacement{
 			Pattern:     regexp.MustCompile("(?s)(Line1).*(Line2).*(Line3).*(Line4)"),
 			Replacement: "$4\n$3\n$2\n$1",
 		})

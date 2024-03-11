@@ -19,7 +19,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
-	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
+	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -32,17 +32,17 @@ const (
 
 var (
 	instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
-		rdb.InstanceStatusUnknown:      &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-		rdb.InstanceStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-		rdb.InstanceStatusProvisioning: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "provisioning"},
-		rdb.InstanceStatusConfiguring:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "configuring"},
-		rdb.InstanceStatusDeleting:     &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
-		rdb.InstanceStatusError:        &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		rdb.InstanceStatusAutohealing:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "auto-healing"},
-		rdb.InstanceStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-		rdb.InstanceStatusInitializing: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "initialized"},
-		rdb.InstanceStatusDiskFull:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "disk_full"},
-		rdb.InstanceStatusBackuping:    &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "backuping"},
+		rdbSDK.InstanceStatusUnknown:      &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+		rdbSDK.InstanceStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+		rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "provisioning"},
+		rdbSDK.InstanceStatusConfiguring:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "configuring"},
+		rdbSDK.InstanceStatusDeleting:     &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
+		rdbSDK.InstanceStatusError:        &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+		rdbSDK.InstanceStatusAutohealing:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "auto-healing"},
+		rdbSDK.InstanceStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
+		rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "initialized"},
+		rdbSDK.InstanceStatusDiskFull:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "disk_full"},
+		rdbSDK.InstanceStatusBackuping:    &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "backuping"},
 	}
 )
 
@@ -52,13 +52,13 @@ type serverWaitRequest struct {
 	Timeout    time.Duration
 }
 
-type createInstanceResult struct {
-	*rdb.Instance
+type CreateInstanceResult struct {
+	*rdbSDK.Instance
 	Password string `json:"password"`
 }
 
 func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	instanceResult := i.(createInstanceResult)
+	instanceResult := i.(CreateInstanceResult)
 
 	opt.Sections = []*human.MarshalSection{
 		{
@@ -88,8 +88,8 @@ func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (st
 
 func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	// To avoid recursion of human.Marshal we create a dummy type
-	type tmp rdb.Instance
-	instance := tmp(i.(rdb.Instance))
+	type tmp rdbSDK.Instance
+	instance := tmp(i.(rdbSDK.Instance))
 
 	// Sections
 	opt.Sections = []*human.MarshalSection{
@@ -116,7 +116,7 @@ func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error)
 }
 
 func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	backupSchedule := i.(rdb.BackupSchedule)
+	backupSchedule := i.(rdbSDK.BackupSchedule)
 
 	if opt.TableCell {
 		if backupSchedule.Disabled {
@@ -126,7 +126,7 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 	}
 
 	// To avoid recursion of human.Marshal we create a dummy type
-	type LocalBackupSchedule rdb.BackupSchedule
+	type LocalBackupSchedule rdbSDK.BackupSchedule
 	type tmp struct {
 		LocalBackupSchedule
 		Frequency *scw.Duration `json:"frequency"`
@@ -153,10 +153,10 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 
 func instanceCloneBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
-		api := rdb.NewAPI(core.ExtractClient(ctx))
-		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdb.Instance).ID,
-			Region:        respI.(*rdb.Instance).Region,
+		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
+			InstanceID:    respI.(*rdbSDK.Instance).ID,
+			Region:        respI.(*rdbSDK.Instance).Region,
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -166,26 +166,26 @@ func instanceCloneBuilder(c *core.Command) *core.Command {
 }
 
 // Caching ListNodeType response for shell completion
-var completeListNodeTypeCache *rdb.ListNodeTypesResponse
+var completeListNodeTypeCache *rdbSDK.ListNodeTypesResponse
 
-var completeListEngineCache *rdb.ListDatabaseEnginesResponse
+var completeListEngineCache *rdbSDK.ListDatabaseEnginesResponse
 
 func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
 	region := scw.Region("")
 	switch req := request.(type) {
-	case *rdb.CreateInstanceRequest:
+	case *rdbSDK.CreateInstanceRequest:
 		region = req.Region
-	case *rdb.UpgradeInstanceRequest:
+	case *rdbSDK.UpgradeInstanceRequest:
 		region = req.Region
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
 
 	client := core.ExtractClient(ctx)
-	api := rdb.NewAPI(client)
+	api := rdbSDK.NewAPI(client)
 
 	if completeListNodeTypeCache == nil {
-		res, err := api.ListNodeTypes(&rdb.ListNodeTypesRequest{
+		res, err := api.ListNodeTypes(&rdbSDK.ListNodeTypesRequest{
 			Region: region,
 		}, scw.WithAllPages())
 		if err != nil {
@@ -204,13 +204,13 @@ func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.
 }
 
 func autoCompleteDatabaseEngines(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
-	req := request.(*rdb.CreateInstanceRequest)
+	req := request.(*rdbSDK.CreateInstanceRequest)
 	suggestion := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
-	api := rdb.NewAPI(client)
+	api := rdbSDK.NewAPI(client)
 
 	if completeListEngineCache == nil {
-		res, err := api.ListDatabaseEngines(&rdb.ListDatabaseEnginesRequest{
+		res, err := api.ListDatabaseEngines(&rdbSDK.ListDatabaseEnginesRequest{
 			Region: req.Region,
 		}, scw.WithAllPages())
 		if err != nil {
@@ -230,7 +230,7 @@ func autoCompleteDatabaseEngines(ctx context.Context, prefix string, request any
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
 	type rdbCreateInstanceRequestCustom struct {
-		*rdb.CreateInstanceRequest
+		*rdbSDK.CreateInstanceRequest
 		InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
 		GeneratePassword bool
 	}
@@ -263,10 +263,10 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(rdbCreateInstanceRequestCustom{})
 
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
-		api := rdb.NewAPI(core.ExtractClient(ctx))
-		instance, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    respI.(createInstanceResult).Instance.ID,
-			Region:        respI.(createInstanceResult).Instance.Region,
+		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
+			InstanceID:    respI.(CreateInstanceResult).Instance.ID,
+			Region:        respI.(CreateInstanceResult).Instance.Region,
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -274,9 +274,9 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		result := createInstanceResult{
+		result := CreateInstanceResult{
 			Instance: instance,
-			Password: respI.(createInstanceResult).Password,
+			Password: respI.(CreateInstanceResult).Password,
 		}
 
 		return result, nil
@@ -284,7 +284,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		client := core.ExtractClient(ctx)
-		api := rdb.NewAPI(client)
+		api := rdbSDK.NewAPI(client)
 
 		customRequest := argsI.(*rdbCreateInstanceRequestCustom)
 		createInstanceRequest := customRequest.CreateInstanceRequest
@@ -310,7 +310,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		result := createInstanceResult{
+		result := CreateInstanceResult{
 			Instance: instance,
 			Password: createInstanceRequest.Password,
 		}
@@ -334,11 +334,11 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return nil, err
 		}
-		instance := res.(*rdb.Instance)
+		instance := res.(*rdbSDK.Instance)
 
-		args := argsI.(*rdb.GetInstanceRequest)
+		args := argsI.(*rdbSDK.GetInstanceRequest)
 
-		acls, err := rdb.NewAPI(core.ExtractClient(ctx)).ListInstanceACLRules(&rdb.ListInstanceACLRulesRequest{
+		acls, err := rdbSDK.NewAPI(core.ExtractClient(ctx)).ListInstanceACLRules(&rdbSDK.ListInstanceACLRulesRequest{
 			Region:     args.Region,
 			InstanceID: args.InstanceID,
 		}, scw.WithAllPages())
@@ -347,8 +347,8 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 		}
 
 		return struct {
-			*rdb.Instance
-			ACLs []*rdb.ACLRule `json:"acls"`
+			*rdbSDK.Instance
+			ACLs []*rdbSDK.ACLRule `json:"acls"`
 		}{
 			instance,
 			acls.Rules,
@@ -388,10 +388,10 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
-		api := rdb.NewAPI(core.ExtractClient(ctx))
-		return api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdb.Instance).ID,
-			Region:        respI.(*rdb.Instance).Region,
+		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
+			InstanceID:    respI.(*rdbSDK.Instance).ID,
+			Region:        respI.(*rdbSDK.Instance).Region,
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -402,8 +402,8 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 
 func instanceUpdateBuilder(_ *core.Command) *core.Command {
 	type rdbUpdateInstanceRequestCustom struct {
-		*rdb.UpdateInstanceRequest
-		Settings []*rdb.InstanceSetting
+		*rdbSDK.UpdateInstanceRequest
+		Settings []*rdbSDK.InstanceSetting
 	}
 
 	return &core.Command{
@@ -499,9 +499,9 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			updateInstanceRequest := customRequest.UpdateInstanceRequest
 
 			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
+			api := rdbSDK.NewAPI(client)
 
-			getResp, err := api.GetInstance(&rdb.GetInstanceRequest{
+			getResp, err := api.GetInstance(&rdbSDK.GetInstanceRequest{
 				Region:     customRequest.Region,
 				InstanceID: customRequest.InstanceID,
 			})
@@ -527,7 +527,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 					}
 				}
 
-				_, err = api.SetInstanceSettings(&rdb.SetInstanceSettingsRequest{
+				_, err = api.SetInstanceSettings(&rdbSDK.SetInstanceSettingsRequest{
 					Region:     updateInstanceRequest.Region,
 					InstanceID: updateInstanceRequest.InstanceID,
 					Settings:   settings,
@@ -545,10 +545,10 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			return updateInstanceResponse, nil
 		},
 		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
-			api := rdb.NewAPI(core.ExtractClient(ctx))
-			return api.WaitForInstance(&rdb.WaitForInstanceRequest{
-				InstanceID:    respI.(*rdb.Instance).ID,
-				Region:        respI.(*rdb.Instance).Region,
+			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
+				InstanceID:    respI.(*rdbSDK.Instance).ID,
+				Region:        respI.(*rdbSDK.Instance).Region,
 				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
@@ -572,10 +572,10 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 
 func instanceDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
-		api := rdb.NewAPI(core.ExtractClient(ctx))
-		instance, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdb.Instance).ID,
-			Region:        respI.(*rdb.Instance).Region,
+		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
+			InstanceID:    respI.(*rdbSDK.Instance).ID,
+			Region:        respI.(*rdbSDK.Instance).Region,
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -603,8 +603,8 @@ func instanceWaitCommand() *core.Command {
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-			api := rdb.NewAPI(core.ExtractClient(ctx))
-			return api.WaitForInstance(&rdb.WaitForInstanceRequest{
+			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
 				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
@@ -686,7 +686,7 @@ func passwordFileHint(family engineFamily) string {
 	}
 }
 
-func detectEngineFamily(instance *rdb.Instance) (engineFamily, error) {
+func detectEngineFamily(instance *rdbSDK.Instance) (engineFamily, error) {
 	if instance == nil {
 		return Unknown, fmt.Errorf("instance engine is nil")
 	}
@@ -699,7 +699,7 @@ func detectEngineFamily(instance *rdb.Instance) (engineFamily, error) {
 	return Unknown, fmt.Errorf("unknown engine: %s", instance.Engine)
 }
 
-func getPublicEndpoint(endpoints []*rdb.Endpoint) (*rdb.Endpoint, error) {
+func getPublicEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) {
 	for _, e := range endpoints {
 		if e.LoadBalancer != nil {
 			return e, nil
@@ -709,7 +709,7 @@ func getPublicEndpoint(endpoints []*rdb.Endpoint) (*rdb.Endpoint, error) {
 	return nil, fmt.Errorf(errorMessagePublicEndpointNotFound)
 }
 
-func getPrivateEndpoint(endpoints []*rdb.Endpoint) (*rdb.Endpoint, error) {
+func getPrivateEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) {
 	for _, e := range endpoints {
 		if e.PrivateNetwork != nil {
 			return e, nil
@@ -719,7 +719,7 @@ func getPrivateEndpoint(endpoints []*rdb.Endpoint) (*rdb.Endpoint, error) {
 	return nil, fmt.Errorf(errorMessagePrivateEndpointNotFound)
 }
 
-func createConnectCommandLineArgs(endpoint *rdb.Endpoint, family engineFamily, args *instanceConnectArgs) ([]string, error) {
+func createConnectCommandLineArgs(endpoint *rdbSDK.Endpoint, family engineFamily, args *instanceConnectArgs) ([]string, error) {
 	database := "rdb"
 	if args.Database != nil {
 		database = *args.Database
@@ -800,8 +800,8 @@ func instanceConnectCommand() *core.Command {
 			args := argsI.(*instanceConnectArgs)
 
 			client := core.ExtractClient(ctx)
-			api := rdb.NewAPI(client)
-			instance, err := api.GetInstance(&rdb.GetInstanceRequest{
+			api := rdbSDK.NewAPI(client)
+			instance, err := api.GetInstance(&rdbSDK.GetInstanceRequest{
 				Region:     args.Region,
 				InstanceID: args.InstanceID,
 			})
@@ -818,7 +818,7 @@ func instanceConnectCommand() *core.Command {
 				return nil, fmt.Errorf(errorMessageEndpointNotFound)
 			}
 
-			var endpoint *rdb.Endpoint
+			var endpoint *rdbSDK.Endpoint
 			switch {
 			case args.PrivateNetwork:
 				endpoint, err = getPrivateEndpoint(instance.Endpoints)

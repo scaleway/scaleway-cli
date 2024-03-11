@@ -1,4 +1,4 @@
-package args
+package args_test
 
 import (
 	"net"
@@ -6,12 +6,14 @@ import (
 	"testing"
 	"time"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
+
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 )
 
 func init() {
-	TestForceNow = scw.TimePtr(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
+	args.TestForceNow = scw.TimePtr(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
 }
 
 func TestUnmarshalStruct(t *testing.T) {
@@ -30,7 +32,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			if testCase.data == nil {
 				testCase.data = reflect.New(reflect.TypeOf(testCase.expected).Elem()).Interface()
 			}
-			err := UnmarshalStruct(testCase.args, testCase.data)
+			err := args.UnmarshalStruct(testCase.args, testCase.data)
 
 			if testCase.error == "" {
 				assert.NoError(t, err)
@@ -41,7 +43,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		}
 	}
 
-	RegisterUnmarshalFunc((*height)(nil), unmarshalHeight)
+	args.RegisterUnmarshalFunc((*height)(nil), unmarshalHeight)
 
 	t.Run("basic", run(TestCase{
 		args: []string{
@@ -362,7 +364,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"pro.access_key",
 			"access_key",
 		},
-		expected: &RawArgs{
+		expected: &args.RawArgs{
 			"pro.access_key",
 			"access_key",
 		},
@@ -537,12 +539,12 @@ func TestIsUmarshalableValue(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			value := IsUmarshalableValue(testCase.data)
+			value := args.IsUmarshalableValue(testCase.data)
 			assert.Equal(t, testCase.expected, value)
 		}
 	}
 
-	RegisterUnmarshalFunc((*height)(nil), unmarshalHeight)
+	args.RegisterUnmarshalFunc((*height)(nil), unmarshalHeight)
 
 	strPtr := "This is a pointer"
 	heightPtr := height(42)

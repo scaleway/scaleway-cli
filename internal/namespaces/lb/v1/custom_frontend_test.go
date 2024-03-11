@@ -1,14 +1,16 @@
-package lb
+package lb_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 )
 
 func Test_GetFrontend(t *testing.T) {
-	cmds := GetCommands()
+	cmds := lb.GetCommands()
 	cmds.Merge(instance.GetCommands())
 
 	t.Run("Simple", core.Test(&core.TestConfig{

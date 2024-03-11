@@ -1,14 +1,16 @@
-package applesilicon
+package applesilicon_test
 
 import (
 	"testing"
+
+	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_ServerTypeList(t *testing.T) {
 	t.Run("base", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: applesilicon.GetCommands(),
 		Cmd:      "scw apple-silicon server-type list",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

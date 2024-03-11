@@ -1,14 +1,16 @@
-package info
+package info_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_Info(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: info.GetCommands(),
 		Cmd:      "scw info",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -26,7 +28,7 @@ func Test_Info(t *testing.T) {
 	}))
 
 	t.Run("Show Secret", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: info.GetCommands(),
 		Cmd:      "scw info show-secret=true",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

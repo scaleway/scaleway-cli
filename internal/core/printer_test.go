@@ -1,9 +1,11 @@
-package core
+package core_test
 
 import (
 	"context"
 	"reflect"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_CorePrinter(t *testing.T) {
@@ -12,8 +14,8 @@ func Test_CorePrinter(t *testing.T) {
 		Name string `json:"name"`
 	}
 
-	commands := NewCommands(
-		&Command{
+	commands := core.NewCommands(
+		&core.Command{
 			Namespace: "get",
 			ArgsType:  reflect.TypeOf(struct{}{}),
 			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
@@ -23,7 +25,7 @@ func Test_CorePrinter(t *testing.T) {
 				}, nil
 			},
 		},
-		&Command{
+		&core.Command{
 			Namespace: "list",
 			ArgsType:  reflect.TypeOf(struct{}{}),
 			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
@@ -35,34 +37,34 @@ func Test_CorePrinter(t *testing.T) {
 		},
 	)
 
-	t.Run("human-simple-without-option", Test(&TestConfig{
+	t.Run("human-simple-without-option", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw get -o human",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("human-simple-with-options", Test(&TestConfig{
+	t.Run("human-simple-with-options", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw get -o human=ID,Name",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("human-list-without-option", Test(&TestConfig{
+	t.Run("human-list-without-option", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw list -o human",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("human-list-with-options", Test(&TestConfig{
+	t.Run("human-list-with-options", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw list -o human=Name,ID",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("human-list-with-options-unknown-column", Test(&TestConfig{
+	t.Run("human-list-with-options-unknown-column", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw -D list -o human=Name,ID,Unknown",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 }
 
@@ -72,8 +74,8 @@ func Test_YamlPrinter(t *testing.T) {
 		Name string `json:"name"`
 	}
 
-	commands := NewCommands(
-		&Command{
+	commands := core.NewCommands(
+		&core.Command{
 			Namespace: "get",
 			ArgsType:  reflect.TypeOf(struct{}{}),
 			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
@@ -83,7 +85,7 @@ func Test_YamlPrinter(t *testing.T) {
 				}, nil
 			},
 		},
-		&Command{
+		&core.Command{
 			Namespace: "list",
 			ArgsType:  reflect.TypeOf(struct{}{}),
 			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
@@ -93,7 +95,7 @@ func Test_YamlPrinter(t *testing.T) {
 				}, nil
 			},
 		},
-		&Command{
+		&core.Command{
 			Namespace: "NilSlice",
 			ArgsType:  reflect.TypeOf(struct{}{}),
 			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
@@ -102,40 +104,40 @@ func Test_YamlPrinter(t *testing.T) {
 		},
 	)
 
-	t.Run("human-simple-without-option", Test(&TestConfig{
+	t.Run("human-simple-without-option", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw get -o yaml",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("human-simple-with-options", Test(&TestConfig{
+	t.Run("human-simple-with-options", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw get -o yaml=ID,Name",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("human-list-without-option", Test(&TestConfig{
+	t.Run("human-list-without-option", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw list -o yaml",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("human-list-with-options", Test(&TestConfig{
+	t.Run("human-list-with-options", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw list -o yaml=Name,ID",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("human-list-with-options-unknown-column", Test(&TestConfig{
+	t.Run("human-list-with-options-unknown-column", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw -D list -o yaml=Name,ID,Unknown",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 
-	t.Run("nil-slice", Test(&TestConfig{
+	t.Run("nil-slice", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd:      "scw NilSlice -o yaml",
-		Check:    TestCheckGolden(),
+		Check:    core.TestCheckGolden(),
 	}))
 }
 
@@ -145,8 +147,8 @@ func Test_TemplatePrinter(t *testing.T) {
 		Name string `json:"name"`
 	}
 
-	commands := NewCommands(
-		&Command{
+	commands := core.NewCommands(
+		&core.Command{
 			Namespace: "get",
 			ArgsType:  reflect.TypeOf(struct{}{}),
 			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
@@ -156,7 +158,7 @@ func Test_TemplatePrinter(t *testing.T) {
 				}, nil
 			},
 		},
-		&Command{
+		&core.Command{
 			Namespace: "list",
 			ArgsType:  reflect.TypeOf(struct{}{}),
 			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
@@ -166,7 +168,7 @@ func Test_TemplatePrinter(t *testing.T) {
 				}, nil
 			},
 		},
-		&Command{
+		&core.Command{
 			Namespace: "NilSlice",
 			ArgsType:  reflect.TypeOf(struct{}{}),
 			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
@@ -175,54 +177,54 @@ func Test_TemplatePrinter(t *testing.T) {
 		},
 	)
 
-	t.Run("template-simple-without-option", Test(&TestConfig{
+	t.Run("template-simple-without-option", core.Test(&core.TestConfig{
 		Commands: commands,
 		Args: []string{
 			"scw", "get", "-o", "template",
 		},
-		Check: TestCheckGolden(),
+		Check: core.TestCheckGolden(),
 	}))
 
-	t.Run("template-simple-with-options", Test(&TestConfig{
+	t.Run("template-simple-with-options", core.Test(&core.TestConfig{
 		Commands: commands,
 		Args: []string{
 			// We escape this sequence because there is already golang template rendering on commands in core.Test
 			"scw", "get", "-o", "{{`template={{ .ID }}`}}",
 		},
-		Check: TestCheckGolden(),
+		Check: core.TestCheckGolden(),
 	}))
 
-	t.Run("template-list-without-option", Test(&TestConfig{
+	t.Run("template-list-without-option", core.Test(&core.TestConfig{
 		Commands: commands,
 		Args: []string{
 			"scw", "list", "-o", "template",
 		},
-		Check: TestCheckGolden(),
+		Check: core.TestCheckGolden(),
 	}))
 
-	t.Run("template-list-with-options", Test(&TestConfig{
+	t.Run("template-list-with-options", core.Test(&core.TestConfig{
 		Commands: commands,
 		Args: []string{
 			// We escape this sequence because there is already golang template rendering on commands in core.Test
 			"scw", "list", "-o", "{{`template={{ .Name }} <-> {{ .ID }}`}}",
 		},
-		Check: TestCheckGolden(),
+		Check: core.TestCheckGolden(),
 	}))
 
-	t.Run("template-list-with-options-unknown-column", Test(&TestConfig{
+	t.Run("template-list-with-options-unknown-column", core.Test(&core.TestConfig{
 		Commands: commands,
 		Args: []string{
 			// We escape this sequence because there is already golang template rendering on commands in core.Test
 			"scw", "list", "-o", "{{`template={{ .Unknown }}`}}",
 		},
-		Check: TestCheckGolden(),
+		Check: core.TestCheckGolden(),
 	}))
 
-	t.Run("nil-slice", Test(&TestConfig{
+	t.Run("nil-slice", core.Test(&core.TestConfig{
 		Commands: commands,
 		Args: []string{
 			"scw", "NilSlice", "-o", "template={{ .ID }}",
 		},
-		Check: TestCheckGolden(),
+		Check: core.TestCheckGolden(),
 	}))
 }

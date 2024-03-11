@@ -1,14 +1,16 @@
-package applesilicon
+package applesilicon_test
 
 import (
 	"testing"
+
+	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_ServerSSH(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: applesilicon.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create --wait"),
 		),
@@ -28,7 +30,7 @@ func Test_ServerSSH(t *testing.T) {
 	}))
 
 	t.Run("With-Exit-Code", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: applesilicon.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create --wait"),
 		),

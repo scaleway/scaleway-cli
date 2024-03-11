@@ -39,10 +39,10 @@ func buildUsageAliases(ctx context.Context, cmd *Command) string {
 	return aliasesStr
 }
 
-// buildUsageArgs builds usage args string.
+// BuildUsageArgs builds usage args string.
 // If deprecated is true, true only deprecated argSpecs will be considered.
 // This string will be used by cobra usage template.
-func buildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
+func BuildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
 	var argsBuffer bytes.Buffer
 	tw := tabwriter.NewWriter(&argsBuffer, 0, 0, 3, ' ', 0)
 

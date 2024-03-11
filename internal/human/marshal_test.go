@@ -1,10 +1,12 @@
-package human
+package human_test
 
 import (
 	"reflect"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 
 	"github.com/alecthomas/assert"
 	"github.com/dustin/go-humanize"
@@ -69,13 +71,13 @@ func (s Stringer) String() string {
 func TestMarshal(t *testing.T) {
 	type testCase struct {
 		data   interface{}
-		opt    *MarshalOpt
+		opt    *human.MarshalOpt
 		result string
 	}
 
 	run := func(tc *testCase) func(*testing.T) {
 		return func(t *testing.T) {
-			result, err := Marshal(tc.data, tc.opt)
+			result, err := human.Marshal(tc.data, tc.opt)
 
 			// Format expected to allow indentation when writing test
 			expected := tc.result
@@ -152,9 +154,9 @@ func TestMarshal(t *testing.T) {
 				{Name: "Mrs. Hudson", Link: "Landlady"},
 			},
 		},
-		opt: &MarshalOpt{
+		opt: &human.MarshalOpt{
 			Title: "Personal Information",
-			Sections: []*MarshalSection{
+			Sections: []*human.MarshalSection{
 				{FieldName: "Address"},
 				{Title: "Relationship", FieldName: "Acquaintances"},
 			},
@@ -185,9 +187,9 @@ func TestMarshal(t *testing.T) {
 				{Name: "Mrs. Hudson", Link: "Landlady"},
 			},
 		},
-		opt: &MarshalOpt{
+		opt: &human.MarshalOpt{
 			Title: "Personal Information",
-			Sections: []*MarshalSection{
+			Sections: []*human.MarshalSection{
 				{FieldName: "Address", HideIfEmpty: true},
 				{Title: "Relationship", FieldName: "Acquaintances"},
 			},
@@ -214,9 +216,9 @@ func TestMarshal(t *testing.T) {
 				{Name: "Mrs. Hudson", Link: "Landlady"},
 			},
 		},
-		opt: &MarshalOpt{
+		opt: &human.MarshalOpt{
 			Title: "Personal Information",
-			Sections: []*MarshalSection{
+			Sections: []*human.MarshalSection{
 				{FieldName: "Address.Street", HideIfEmpty: true},
 				{Title: "Relationship", FieldName: "Acquaintances"},
 			},
@@ -243,9 +245,9 @@ func TestMarshal(t *testing.T) {
 				{Name: "Mrs. Hudson", Link: "Landlady"},
 			},
 		},
-		opt: &MarshalOpt{
+		opt: &human.MarshalOpt{
 			Title: "Personal Information",
-			Sections: []*MarshalSection{
+			Sections: []*human.MarshalSection{
 				{FieldName: "Name", HideIfEmpty: true},
 				{FieldName: "Address"},
 				{Title: "Relationship", FieldName: "Acquaintances"},
@@ -341,7 +343,7 @@ func Test_getStructFieldsIndex(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := getStructFieldsIndex(tt.args.v); !reflect.DeepEqual(got, tt.want) {
+			if got := human.GetStructFieldsIndex(tt.args.v); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("getStructFieldsIndex() = %v, want %v", got, tt.want)
 			}
 		})

@@ -1,23 +1,27 @@
-package interactive
+//go:build !wasm
+
+package interactive_test
 
 import (
 	"bytes"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 
 	"github.com/alecthomas/assert"
 )
 
 func TestPrint(t *testing.T) {
 	buffer := &bytes.Buffer{}
-	outputWriter = buffer
-	IsInteractive = true
+	interactive.SetOutputWriter(buffer)
+	interactive.IsInteractive = true
 
-	n, err := Print("Test", 42)
+	n, err := interactive.Print("Test", 42)
 	assert.NoError(t, err)
 	assert.Equal(t, 6, n)
 
-	IsInteractive = false
-	n, err = Print("Test", 42)
+	interactive.IsInteractive = false
+	n, err = interactive.Print("Test", 42)
 	assert.NoError(t, err)
 	assert.Equal(t, 0, n)
 
@@ -26,15 +30,15 @@ func TestPrint(t *testing.T) {
 
 func TestPrintln(t *testing.T) {
 	buffer := &bytes.Buffer{}
-	outputWriter = buffer
-	IsInteractive = true
+	interactive.SetOutputWriter(buffer)
+	interactive.IsInteractive = true
 
-	n, err := Println("Test", 42)
+	n, err := interactive.Println("Test", 42)
 	assert.NoError(t, err)
 	assert.Equal(t, 8, n)
 
-	IsInteractive = false
-	n, err = Println("Test", 42)
+	interactive.IsInteractive = false
+	n, err = interactive.Println("Test", 42)
 	assert.NoError(t, err)
 	assert.Equal(t, 0, n)
 
@@ -43,15 +47,15 @@ func TestPrintln(t *testing.T) {
 
 func TestPrintf(t *testing.T) {
 	buffer := &bytes.Buffer{}
-	outputWriter = buffer
-	IsInteractive = true
+	interactive.SetOutputWriter(buffer)
+	interactive.IsInteractive = true
 
-	n, err := Printf("%s %d", "Test", 42)
+	n, err := interactive.Printf("%s %d", "Test", 42)
 	assert.NoError(t, err)
 	assert.Equal(t, 7, n)
 
-	IsInteractive = false
-	n, err = Printf("%s %d", "Test", 42)
+	interactive.IsInteractive = false
+	n, err = interactive.Printf("%s %d", "Test", 42)
 	assert.NoError(t, err)
 	assert.Equal(t, 0, n)
 

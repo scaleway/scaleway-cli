@@ -1,4 +1,4 @@
-package iam
+package iam_test
 
 import "github.com/scaleway/scaleway-cli/v2/internal/core"
 

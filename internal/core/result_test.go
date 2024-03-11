@@ -1,13 +1,15 @@
-package core
+package core_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestResult(t *testing.T) {
-	result := &SuccessResult{
+	result := &core.SuccessResult{
 		Empty:    true,
 		Details:  "dummy",
 		Message:  "dummy",

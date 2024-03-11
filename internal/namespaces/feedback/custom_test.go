@@ -1,9 +1,11 @@
-package feedback
+package feedback_test
 
 import (
 	"os/exec"
 	"runtime"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -11,12 +13,12 @@ import (
 
 func Test_FeedbackBug(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: feedback.GetCommands(),
 		Cmd:      "scw feedback bug",
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
 			var observed string
 			switch runtime.GOOS {
-			case windows:
+			case feedback.Windows:
 				// 0: "rundll32", 1: "url.dll,FileProtocolHandler" 2: url
 				observed = cmd.Args[2]
 			default:
@@ -37,12 +39,12 @@ func Test_FeedbackBug(t *testing.T) {
 
 func Test_FeedbackFeature(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: feedback.GetCommands(),
 		Cmd:      "scw feedback feature",
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
 			var observed string
 			switch runtime.GOOS {
-			case windows:
+			case feedback.Windows:
 				// 0: "rundll32", 1: "url.dll,FileProtocolHandler" 2: url
 				observed = cmd.Args[2]
 			default:

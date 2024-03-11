@@ -12,7 +12,7 @@ var (
 	// IsInteractive must be set to print anything with Printer functions (Print, Printf,...).
 	IsInteractive = false
 
-	// outputWriter is the writer used by Printer functions (Print, Printf,...).
+	// OutputWriter is the writer used by Printer functions (Print, Printf,...).
 	outputWriter io.Writer
 )
 
