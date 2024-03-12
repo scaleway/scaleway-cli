@@ -4,12 +4,11 @@
 
 'use strict'
 
-globalThis.require = require;
-globalThis.fs = require("fs");
-globalThis.TextEncoder = require("util").TextEncoder;
-globalThis.TextDecoder = require("util").TextDecoder;
+globalThis.require = require
+globalThis.fs = require('fs')
+globalThis.TextEncoder = require('util').TextEncoder
+globalThis.TextDecoder = require('util').TextDecoder
 
-globalThis.performance ??= require("performance");
+globalThis.performance ??= require('performance')
 
-globalThis.crypto ??= require("crypto");
-
+globalThis.crypto ??= require('crypto')
