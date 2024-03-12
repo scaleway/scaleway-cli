@@ -4,14 +4,12 @@
 
 'use strict'
 
-globalThis.require = require
-globalThis.fs = require('fs')
-globalThis.TextEncoder = require('util').TextEncoder
-globalThis.TextDecoder = require('util').TextDecoder
+globalThis.require = require;
+globalThis.fs = require("fs");
+globalThis.TextEncoder = require("util").TextEncoder;
+globalThis.TextDecoder = require("util").TextDecoder;
 
-const crypto = require('crypto')
-globalThis.crypto = {
-  getRandomValues(b) {
-    crypto.randomFillSync(b)
-  },
-}
+globalThis.performance ??= require("performance");
+
+globalThis.crypto ??= require("crypto");
+
