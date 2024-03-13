@@ -1,7 +1,9 @@
-package baremetal
+package baremetal_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
@@ -13,7 +15,7 @@ func Test_InstallServer(t *testing.T) {
 		// baremetal api requires that the key must be at least 1024 bits long. Regardless of the algorithm
 		sshKey := `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw== foobar@foobar`
 		osID := `03b7f4ba-a6a1-4305-984e-b54fafbf1681` // Ubuntu 20.04 LTS (Focal)
-		cmds := GetCommands()
+		cmds := baremetal.GetCommands()
 		cmds.Merge(iam.GetCommands())
 
 		t.Run("With ID", core.Test(&core.TestConfig{

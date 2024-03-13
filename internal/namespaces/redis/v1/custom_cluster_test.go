@@ -1,4 +1,4 @@
-package redis
+package redis_test
 
 import (
 	"fmt"
@@ -6,10 +6,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
+
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
-	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
+	redisSDK "github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 )
 
 const (
@@ -21,11 +23,11 @@ const (
 )
 
 func Test_Endpoints(t *testing.T) {
-	cmds := GetCommands()
+	cmds := redis.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Single public endpoint", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: redis.GetCommands(),
 		BeforeFunc: core.BeforeFuncWhenUpdatingCassette(
 			func(_ *core.BeforeFuncCtx) error {
 				time.Sleep(1 * time.Minute)
@@ -36,7 +38,7 @@ func Test_Endpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				endpoints := ctx.Result.(*redis.Cluster).Endpoints
+				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 1, 0, 0)
 			},
 		),
@@ -59,7 +61,7 @@ func Test_Endpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				endpoints := ctx.Result.(*redis.Cluster).Endpoints
+				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 1, 0)
 			},
 		),
@@ -88,7 +90,7 @@ func Test_Endpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				endpoints := ctx.Result.(*redis.Cluster).Endpoints
+				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 2, 0)
 			},
 		),
@@ -101,7 +103,7 @@ func Test_Endpoints(t *testing.T) {
 }
 
 func Test_IpamConfig(t *testing.T) {
-	cmds := GetCommands()
+	cmds := redis.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Single IPAM private endpoint", core.Test(&core.TestConfig{
@@ -121,7 +123,7 @@ func Test_IpamConfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				endpoints := ctx.Result.(*redis.Cluster).Endpoints
+				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 0, 1)
 			},
 		),
@@ -150,7 +152,7 @@ func Test_IpamConfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				endpoints := ctx.Result.(*redis.Cluster).Endpoints
+				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 0, 2)
 			},
 		),
@@ -180,7 +182,7 @@ func Test_IpamConfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				endpoints := ctx.Result.(*redis.Cluster).Endpoints
+				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 1, 1)
 			},
 		),
@@ -193,7 +195,7 @@ func Test_IpamConfig(t *testing.T) {
 }
 
 func Test_EndpointsEdgeCases(t *testing.T) {
-	cmds := GetCommands()
+	cmds := redis.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 	expectedError := "You must specify an ipam_config or a service_ips"
 
@@ -258,7 +260,7 @@ func deletePrivateNetwork(metaName string) core.AfterFunc {
 	return core.ExecAfterCmd(fmt.Sprintf("scw vpc private-network delete {{ .%s.ID }}", metaName))
 }
 
-func checkEndpoints(t *testing.T, endpoints []*redis.Endpoint, nbExpectedPub, nbExpectedPrivStatic, nbExpectedPrivIpam int) {
+func checkEndpoints(t *testing.T, endpoints []*redisSDK.Endpoint, nbExpectedPub, nbExpectedPrivStatic, nbExpectedPrivIpam int) {
 	expectedEndpoints := map[string]int{
 		"public":         nbExpectedPub,
 		"private-static": nbExpectedPrivStatic,
@@ -267,9 +269,9 @@ func checkEndpoints(t *testing.T, endpoints []*redis.Endpoint, nbExpectedPub, nb
 	for _, endpoint := range endpoints {
 		if endpoint.PrivateNetwork == nil {
 			expectedEndpoints["public"]--
-		} else if endpoint.PrivateNetwork.ProvisioningMode == redis.PrivateNetworkProvisioningModeStatic {
+		} else if endpoint.PrivateNetwork.ProvisioningMode == redisSDK.PrivateNetworkProvisioningModeStatic {
 			expectedEndpoints["private-static"]--
-		} else if endpoint.PrivateNetwork.ProvisioningMode == redis.PrivateNetworkProvisioningModeIpam {
+		} else if endpoint.PrivateNetwork.ProvisioningMode == redisSDK.PrivateNetworkProvisioningModeIpam {
 			expectedEndpoints["private-ipam"]--
 		} else {
 			t.Error("unknown endpoint type")

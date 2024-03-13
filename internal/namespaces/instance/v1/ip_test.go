@@ -1,14 +1,16 @@
-package instance
+package instance_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_IpCreate(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance ip create",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -21,7 +23,7 @@ func Test_IpCreate(t *testing.T) {
 func Test_IpDelete(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		Cmd:        "scw instance ip delete {{ .Ip.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -33,7 +35,7 @@ func Test_IpDelete(t *testing.T) {
 func Test_IpGet(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		Cmd:        "scw instance ip get {{ .Ip.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -46,7 +48,7 @@ func Test_IpGet(t *testing.T) {
 func Test_IpList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		Cmd:        "scw instance ip list",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -59,7 +61,7 @@ func Test_IpList(t *testing.T) {
 func Test_IpUpdate(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createIP("Ip"),
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		Cmd:        "scw instance ip update {{ .Ip.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

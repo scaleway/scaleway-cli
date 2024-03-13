@@ -404,12 +404,12 @@ func autocompleteScriptCommand() *core.Command {
 			if !exists {
 				return nil, unsupportedShellError(shell)
 			}
-			return trimText(script.CompleteFunc), nil
+			return TrimText(script.CompleteFunc), nil
 		},
 	}
 }
 
-func trimText(str string) string {
+func TrimText(str string) string {
 	foundFirstNonEmptyLine := false
 	strToRemove := ""
 	lines := strings.Split(str, "\n")

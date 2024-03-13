@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -15,6 +16,11 @@ import (
 )
 
 const redisActionTimeout = 15 * time.Minute
+
+func redisClusterMigrateBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
+	return c
+}
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
 	type redisEndpointSpecPrivateNetworkSpecCustom struct {
@@ -159,6 +165,11 @@ func ACLAddListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func redisSettingAddBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("settings.{index}.name").AutoCompleteFunc = autoCompleteSettingsName
+	return c
+}
+
 func redisEndpointsClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp []*redis.Endpoint
 	redisEndpointsClusterResponse := tmp(i.([]*redis.Endpoint))
@@ -203,4 +214,71 @@ func redisClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string,
 	}
 
 	return str, nil
+}
+
+var completeClusterCache *redis.Cluster
+
+var completeClusterVersionCache *redis.ListClusterVersionsResponse
+
+func autoCompleteSettingsName(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+	req := request.(*redis.AddClusterSettingsRequest)
+	client := core.ExtractClient(ctx)
+	api := redis.NewAPI(client)
+	if req.ClusterID != "" {
+		if completeClusterCache == nil {
+			res, err := api.GetCluster(&redis.GetClusterRequest{
+				ClusterID: req.ClusterID,
+			})
+			if err != nil {
+				return nil
+			}
+			completeClusterCache = res
+		}
+		if completeClusterVersionCache == nil {
+			res, err := api.ListClusterVersions(&redis.ListClusterVersionsRequest{
+				Zone:    completeClusterCache.Zone,
+				Version: &completeClusterCache.Version,
+			})
+			if err != nil {
+				return nil
+			}
+			completeClusterVersionCache = res
+		}
+
+		for _, version := range completeClusterVersionCache.Versions {
+			for _, settingName := range version.AvailableSettings {
+				if strings.HasPrefix(settingName.Name, prefix) {
+					suggestions = append(suggestions, settingName.Name)
+				}
+			}
+		}
+	}
+	return suggestions
+}
+
+var completeRedisNoteTypeCache *redis.ListNodeTypesResponse
+
+func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+	req := request.(*redis.MigrateClusterRequest)
+	client := core.ExtractClient(ctx)
+	api := redis.NewAPI(client)
+	if req.Zone != "" {
+		if completeRedisNoteTypeCache == nil {
+			res, err := api.ListNodeTypes(&redis.ListNodeTypesRequest{
+				Zone: req.Zone,
+			})
+			if err != nil {
+				return nil
+			}
+			completeRedisNoteTypeCache = res
+		}
+		for _, nodeType := range completeRedisNoteTypeCache.NodeTypes {
+			if strings.HasPrefix(nodeType.Name, prefix) {
+				suggestions = append(suggestions, nodeType.Name)
+			}
+		}
+	}
+	return suggestions
 }

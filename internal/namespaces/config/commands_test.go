@@ -1,4 +1,4 @@
-package config
+package config_test
 
 import (
 	"fmt"
@@ -6,6 +6,8 @@ import (
 	"path"
 	"regexp"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -15,7 +17,7 @@ import (
 
 func Test_ConfigGetCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config get access-key",
 		Check: core.TestCheckCombine(
@@ -26,7 +28,7 @@ func Test_ConfigGetCommand(t *testing.T) {
 	}))
 
 	t.Run("Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw -p p1 config get access-key",
 		Check: core.TestCheckCombine(
@@ -37,7 +39,7 @@ func Test_ConfigGetCommand(t *testing.T) {
 	}))
 
 	t.Run("Telemetry", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config get send-telemetry",
 		Check: core.TestCheckCombine(
@@ -48,7 +50,7 @@ func Test_ConfigGetCommand(t *testing.T) {
 	}))
 
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw -p test config get access-key",
 		Check: core.TestCheckCombine(
@@ -61,7 +63,7 @@ func Test_ConfigGetCommand(t *testing.T) {
 
 func Test_ConfigSetCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config set access-key=SCWNEWXXXXXXXXXXXXXX",
 		Check: core.TestCheckCombine(
@@ -75,7 +77,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 	}))
 
 	t.Run("Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw -p p1 config set access-key=SCWNEWXXXXXXXXXXXXXX",
 		Check: core.TestCheckCombine(
@@ -89,7 +91,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 	}))
 
 	t.Run("Telemetry", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config set send-telemetry=true",
 		Check: core.TestCheckCombine(
@@ -103,7 +105,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 	}))
 
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw -p test config set access-key=SCWNEWXXXXXXXXXXXXXX",
 		Check: core.TestCheckCombine(
@@ -119,7 +121,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 
 func Test_ConfigUnsetCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config unset access-key",
 		Check: core.TestCheckCombine(
@@ -133,7 +135,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 	}))
 
 	t.Run("Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw -p p1 config unset access-key",
 		Check: core.TestCheckCombine(
@@ -147,7 +149,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 	}))
 
 	t.Run("Telemetry", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config unset send-telemetry",
 		Check: core.TestCheckCombine(
@@ -161,7 +163,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 	}))
 
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw -p test config unset access-key",
 		Check: core.TestCheckCombine(
@@ -174,7 +176,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 
 func Test_ConfigDeleteProfileCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config profile delete p2",
 		Check: core.TestCheckCombine(
@@ -188,7 +190,7 @@ func Test_ConfigDeleteProfileCommand(t *testing.T) {
 	}))
 
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config profile delete test",
 		Check: core.TestCheckCombine(
@@ -201,7 +203,7 @@ func Test_ConfigDeleteProfileCommand(t *testing.T) {
 
 func Test_ConfigDumpCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config dump",
 		Check: core.TestCheckCombine(
@@ -216,7 +218,7 @@ func Test_ConfigDestroyCommand(t *testing.T) {
 	path := "/tmp/test_config_destroy/"
 
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config destroy",
 		Check: core.TestCheckCombine(
@@ -227,7 +229,7 @@ func Test_ConfigDestroyCommand(t *testing.T) {
 	}))
 
 	t.Run("Check Config File", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: config.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			func(_ *core.BeforeFuncCtx) error {
 				err := os.MkdirAll(path, os.ModePerm)
@@ -271,7 +273,7 @@ func Test_ConfigInfoCommand(t *testing.T) {
 	}
 
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config info",
 		Check: core.TestCheckCombine(
@@ -282,7 +284,7 @@ func Test_ConfigInfoCommand(t *testing.T) {
 	}))
 
 	t.Run("Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw -p p1 config info",
 		Check: core.TestCheckCombine(
@@ -293,7 +295,7 @@ func Test_ConfigInfoCommand(t *testing.T) {
 	}))
 
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw -p test config info",
 		Check: core.TestCheckCombine(
@@ -313,7 +315,7 @@ func Test_ConfigImportCommand(t *testing.T) {
 		defer os.Remove(tmpFile.Name())
 
 		core.Test(&core.TestConfig{
-			Commands:   GetCommands(),
+			Commands:   config.GetCommands(),
 			BeforeFunc: beforeFuncCreateFullConfig(),
 			Cmd:        fmt.Sprintf("scw config import %s", tmpFile.Name()),
 			Check: core.TestCheckCombine(
@@ -338,7 +340,7 @@ func Test_ConfigImportCommand(t *testing.T) {
 
 func Test_ConfigValidateCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw config validate",
 		Check: core.TestCheckCombine(
@@ -348,7 +350,7 @@ func Test_ConfigValidateCommand(t *testing.T) {
 		TmpHomeDir: true,
 	}))
 	t.Run("Invalid default access key", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateInvalidConfig(),
 		Cmd:        "scw config validate",
 		Check: core.TestCheckCombine(
@@ -358,7 +360,7 @@ func Test_ConfigValidateCommand(t *testing.T) {
 		TmpHomeDir: true,
 	}))
 	t.Run("Invalid profile p1 secret key", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: config.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			beforeFuncCreateInvalidConfig(),
 			core.ExecBeforeCmd("scw config set access-key=SCWNEWXXXXXXXXXXXXXX"),

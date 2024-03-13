@@ -1,7 +1,9 @@
-package autocomplete
+package autocomplete_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -14,7 +16,7 @@ func TestTrimText(t *testing.T) {
 
 	run := func(tc *testCase) func(*testing.T) {
 		return func(t *testing.T) {
-			result := trimText(tc.Script)
+			result := autocomplete.TrimText(tc.Script)
 			assert.Equal(t, tc.TrimedScript, result)
 		}
 	}

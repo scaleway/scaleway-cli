@@ -1,7 +1,9 @@
-package core
+package core_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 
 	"github.com/alecthomas/assert"
 )
@@ -21,7 +23,7 @@ func TestShell_OptionToArgSpecName(t *testing.T) {
 		},
 	}
 	for _, test := range tt {
-		assert.Equal(t, optionToArgSpecName(test.Option), test.ArgSpecName)
+		assert.Equal(t, core.OptionToArgSpecName(test.Option), test.ArgSpecName)
 	}
 }
 
@@ -44,6 +46,6 @@ func TestShell_isOption(t *testing.T) {
 		},
 	}
 	for _, test := range tt {
-		assert.Equal(t, argIsOption(test.Arg), test.IsOption, "%s option value is wrong", test.Arg)
+		assert.Equal(t, core.ArgIsOption(test.Arg), test.IsOption, "%s option value is wrong", test.Arg)
 	}
 }

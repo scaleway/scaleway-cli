@@ -1,4 +1,4 @@
-package init
+package init_test
 
 import (
 	"os"
@@ -8,6 +8,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	iamcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	initCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init" // alias required to not collide with go init func
 	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -75,7 +76,7 @@ func Test_InitSSH(t *testing.T) {
 		"organization-id":      "{{ .OrganizationID }}",
 		"project-id":           "{{ .ProjectID }}",
 	}
-	cmds := GetCommands()
+	cmds := initCLI.GetCommands()
 	cmds.Merge(iamcommands.GetCommands())
 
 	// We create a key in each tests to be able to run those tests in parallel

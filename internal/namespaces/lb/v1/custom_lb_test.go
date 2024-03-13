@@ -1,8 +1,10 @@
-package lb
+package lb_test
 
 import (
 	"testing"
 	"time"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
@@ -11,7 +13,7 @@ import (
 
 func Test_ListLB(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   lb.GetCommands(),
 		BeforeFunc: createLB(),
 		Cmd:        "scw lb lb list",
 		Check:      core.TestCheckGolden(),
@@ -21,7 +23,7 @@ func Test_ListLB(t *testing.T) {
 
 func Test_CreateLB(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:  GetCommands(),
+		Commands:  lb.GetCommands(),
 		Cmd:       "scw lb lb create name=foobar description=foobar --wait",
 		Check:     core.TestCheckGolden(),
 		AfterFunc: core.ExecAfterCmd("scw lb lb delete {{ .CmdResult.ID }}"),
@@ -30,7 +32,7 @@ func Test_CreateLB(t *testing.T) {
 
 func Test_GetLB(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   lb.GetCommands(),
 		BeforeFunc: createLB(),
 		Cmd:        "scw lb lb get {{ .LB.ID }}",
 		Check:      core.TestCheckGolden(),
@@ -40,7 +42,7 @@ func Test_GetLB(t *testing.T) {
 
 func Test_WaitLB(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: lb.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd(
 			"LB",
 			"scw lb lb create name=cli-test description=cli-test",
@@ -52,7 +54,7 @@ func Test_WaitLB(t *testing.T) {
 }
 
 func Test_GetStats(t *testing.T) {
-	commands := GetCommands()
+	commands := lb.GetCommands()
 	commands.Merge(instance.GetCommands())
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: commands,
@@ -83,7 +85,7 @@ func Test_GetStats(t *testing.T) {
 func Test_GetK8sTaggedLB(t *testing.T) {
 	t.Skip("Skipping test as this uses kubectl commands")
 
-	cmds := GetCommands()
+	cmds := lb.GetCommands()
 	cmds.Merge(k8s.GetCommands())
 
 	t.Run("Simple", core.Test(&core.TestConfig{

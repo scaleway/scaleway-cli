@@ -1,4 +1,4 @@
-package args
+package args_test
 
 import (
 	"fmt"
@@ -6,6 +6,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -144,12 +146,12 @@ type SamePrefixArgName struct {
 
 func TestRawArgs_GetAll(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
-		a := RawArgs{"ssh-keys.0=foo", "ssh-keys.1=bar"}
+		a := args.RawArgs{"ssh-keys.0=foo", "ssh-keys.1=bar"}
 		assert.Equal(t, a.GetAll("ssh-keys.{index}"), []string{"foo", "bar"})
 	})
 
 	t.Run("Insane", func(t *testing.T) {
-		a := RawArgs{
+		a := args.RawArgs{
 			"countries.FR.cities.paris.street.vaugirard=pouet",
 			"countries.FR.cities.paris.street.besbar=tati",
 			"countries.FR.cities.nice.street.promenade=anglais",
@@ -169,7 +171,7 @@ func TestGetArgType(t *testing.T) {
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
-			res, err := GetArgType(tc.ArgType, tc.Name)
+			res, err := args.GetArgType(tc.ArgType, tc.Name)
 			if tc.expectedError == "" {
 				require.NoError(t, err)
 				assert.Equal(t, tc.ExpectedKind, res.Kind())

@@ -1,6 +1,6 @@
 {
-  "name": "@scaleway-internal/scaleway-cli-wasm",
-  "version": "0.0.14",
+  "name": "@scaleway/scaleway-cli-wasm",
+  "version": "0.0.16",
   "description": "",
   "type": "module",
   "main": "index.js",

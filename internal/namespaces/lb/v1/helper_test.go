@@ -1,4 +1,4 @@
-package lb
+package lb_test
 
 import (
 	"fmt"

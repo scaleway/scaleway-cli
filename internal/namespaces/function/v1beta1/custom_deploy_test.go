@@ -1,12 +1,14 @@
-package function
+package function_test
 
 import (
 	"fmt"
 	"os"
 	"testing"
 
+	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	function "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1"
+	functionSDK "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -19,7 +21,7 @@ func Test_Deploy(t *testing.T) {
 		t.Fatal("test zip not found", err)
 	}
 
-	commands := GetCommands()
+	commands := function.GetCommands()
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: commands,
@@ -36,9 +38,9 @@ func Test_Deploy(t *testing.T) {
 
 func testDeleteFunctionNamespaceAfter(functionName string) func(*core.AfterFuncCtx) error {
 	return func(ctx *core.AfterFuncCtx) error {
-		api := function.NewAPI(ctx.Client)
+		api := functionSDK.NewAPI(ctx.Client)
 
-		namespaces, err := api.ListNamespaces(&function.ListNamespacesRequest{
+		namespaces, err := api.ListNamespaces(&functionSDK.ListNamespacesRequest{
 			Name: &functionName,
 		}, scw.WithAllPages())
 		if err != nil {

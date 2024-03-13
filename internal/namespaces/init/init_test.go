@@ -1,4 +1,4 @@
-package init
+package init_test
 
 import (
 	"fmt"
@@ -8,6 +8,7 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	initCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init" // alias required to not collide with go init func
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
@@ -48,7 +49,7 @@ func TestInit(t *testing.T) {
 	}
 
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   initCLI.GetCommands(),
 		BeforeFunc: baseBeforeFunc(),
 		TmpHomeDir: true,
 		Cmd:        appendArgs("scw init", defaultArgs),
@@ -64,7 +65,7 @@ func TestInit(t *testing.T) {
 	}))
 
 	t.Run("Configuration Path", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: initCLI.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			baseBeforeFunc(),
 			func(ctx *core.BeforeFuncCtx) error {
@@ -86,7 +87,7 @@ func TestInit(t *testing.T) {
 	}))
 
 	t.Run("Profile", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   initCLI.GetCommands(),
 		BeforeFunc: baseBeforeFunc(),
 		Cmd:        appendArgs("scw -p foobar init", defaultArgs),
 		Check: core.TestCheckCombine(
@@ -117,7 +118,7 @@ func TestInit(t *testing.T) {
 		}
 
 		t.Run("NoOverwrite", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: initCLI.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
 				beforeFuncSaveConfig(dummyConfig),
@@ -137,7 +138,7 @@ func TestInit(t *testing.T) {
 		}))
 
 		t.Run("Overwrite", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: initCLI.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
 				beforeFuncSaveConfig(dummyConfig),
@@ -158,7 +159,7 @@ func TestInit(t *testing.T) {
 		}))
 
 		t.Run("No Prompt Overwrite for new profile", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: initCLI.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
 				beforeFuncSaveConfig(dummyConfig),
@@ -178,7 +179,7 @@ func TestInit(t *testing.T) {
 		}))
 
 		t.Run("Prompt Overwrite for existing profile", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: initCLI.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				baseBeforeFunc(),
 				beforeFuncSaveConfig(dummyConfig),
@@ -199,7 +200,7 @@ func TestInit(t *testing.T) {
 		}))
 
 		t.Run("Default profile activated", core.Test(&core.TestConfig{
-			Commands:   GetCommands(),
+			Commands:   initCLI.GetCommands(),
 			BeforeFunc: baseBeforeFunc(),
 			TmpHomeDir: true,
 			Cmd:        appendArgs("scw -p newprofile init", defaultArgs),
@@ -223,7 +224,7 @@ func TestInit_Prompt(t *testing.T) {
 	}
 
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: initCLI.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			baseBeforeFunc(),
 			func(ctx *core.BeforeFuncCtx) error {

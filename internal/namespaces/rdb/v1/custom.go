@@ -12,8 +12,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 	human.RegisterMarshalerFunc(backupDownloadResult{}, backupResultMarshallerFunc)
-	human.RegisterMarshalerFunc(createInstanceResult{}, createInstanceResultMarshalerFunc)
-	human.RegisterMarshalerFunc(rdbACLCustomResult{}, rdbACLCustomResultMarshalerFunc)
+	human.RegisterMarshalerFunc(CreateInstanceResult{}, createInstanceResultMarshalerFunc)
+	human.RegisterMarshalerFunc(CustomACLResult{}, rdbACLCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(rdbEndpointCustomResult{}, rdbEndpointCustomResultMarshalerFunc)
 
 	human.RegisterMarshalerFunc(rdb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))

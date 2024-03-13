@@ -1,10 +1,12 @@
-package registry
+package registry_test
 
 import (
 	"io"
 	"os/exec"
 	"strings"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -13,7 +15,7 @@ import (
 
 func Test_Login(t *testing.T) {
 	t.Run("docker", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: registry.GetCommands(),
 		Cmd:      "scw registry login program=docker",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -29,7 +31,7 @@ func Test_Login(t *testing.T) {
 		},
 	}))
 	t.Run("podman", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: registry.GetCommands(),
 		Cmd:      "scw registry login program=podman",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

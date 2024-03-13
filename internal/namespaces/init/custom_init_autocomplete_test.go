@@ -1,4 +1,4 @@
-package init
+package init_test
 
 import (
 	"os"
@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	initCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init" // alias required to not collide with go init func
 	"github.com/stretchr/testify/require"
 )
 
@@ -39,7 +40,7 @@ func Test_InitAutocomplete(t *testing.T) {
 
 	runAllShells := func(t *testing.T) {
 		t.Run("Without", core.Test(&core.TestConfig{
-			Commands:   GetCommands(),
+			Commands:   initCLI.GetCommands(),
 			BeforeFunc: baseBeforeFunc(),
 			Cmd:        appendArgs("scw init install-autocomplete=false", defaultSettings),
 			Check:      core.TestCheckGolden(),
@@ -52,7 +53,7 @@ func Test_InitAutocomplete(t *testing.T) {
 eval "$(scw autocomplete script shell=zsh)"
 `
 			core.Test(&core.TestConfig{
-				Commands:   GetCommands(),
+				Commands:   initCLI.GetCommands(),
 				BeforeFunc: baseBeforeFunc(),
 				Cmd:        appendArgs("scw init install-autocomplete=true", defaultSettings),
 				Check: core.TestCheckCombine(
@@ -88,7 +89,7 @@ eval "$(scw autocomplete script shell=zsh)"
 eval (scw autocomplete script shell=fish)
 `
 			core.Test(&core.TestConfig{
-				Commands: GetCommands(),
+				Commands: initCLI.GetCommands(),
 				BeforeFunc: core.BeforeFuncCombine(
 					func(ctx *core.BeforeFuncCtx) error {
 						homeDir := ctx.OverrideEnv["HOME"]
@@ -137,7 +138,7 @@ eval (scw autocomplete script shell=fish)
 eval "$(scw autocomplete script shell=bash)"
 `
 			core.Test(&core.TestConfig{
-				Commands:   GetCommands(),
+				Commands:   initCLI.GetCommands(),
 				BeforeFunc: baseBeforeFunc(),
 				Cmd:        appendArgs("scw init install-autocomplete=true", defaultSettings),
 				Check: core.TestCheckCombine(

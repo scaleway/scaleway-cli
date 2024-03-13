@@ -1,7 +1,9 @@
-package k8s
+package k8s_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 
 	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
@@ -14,7 +16,7 @@ func Test_GetKubeconfig(t *testing.T) {
 	// Simple use cases
 	////
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   k8s.GetCommands(),
 		BeforeFunc: createClusterAndWaitAndKubeconfig("get-kubeconfig", "Cluster", "Kubeconfig", kapsuleVersion),
 		Cmd:        "scw k8s kubeconfig get {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(

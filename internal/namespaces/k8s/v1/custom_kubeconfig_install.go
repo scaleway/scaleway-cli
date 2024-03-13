@@ -16,8 +16,8 @@ import (
 
 const (
 	kubeLocationDir      = ".kube"
-	kubeconfigAPIVersion = "v1"
-	kubeconfigKind       = "Config"
+	KubeconfigAPIVersion = "v1"
+	KubeconfigKind       = "Config"
 )
 
 type k8sKubeconfigInstallRequest struct {
@@ -174,10 +174,10 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 
 	// if it's a new file, set the correct config in the file
 	if existingKubeconfig.APIVersion == "" {
-		existingKubeconfig.APIVersion = kubeconfigAPIVersion
+		existingKubeconfig.APIVersion = KubeconfigAPIVersion
 	}
 	if existingKubeconfig.Kind == "" {
-		existingKubeconfig.Kind = kubeconfigKind
+		existingKubeconfig.Kind = KubeconfigKind
 	}
 
 	err = marshalAndWriteKubeconfig(existingKubeconfig, kubeconfigPath)

@@ -1,8 +1,10 @@
-package core
+package core_test
 
 import (
 	"context"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
@@ -10,61 +12,61 @@ import (
 
 func Test_ApplyDefaultValues(t *testing.T) {
 	type testCase struct {
-		argSpecs ArgSpecs
+		argSpecs core.ArgSpecs
 		rawArgs  args.RawArgs
 		expected args.RawArgs
 	}
 
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			result := ApplyDefaultValues(context.Background(), tc.argSpecs, tc.rawArgs)
+			result := core.ApplyDefaultValues(context.Background(), tc.argSpecs, tc.rawArgs)
 			assert.Equal(t, tc.expected, result)
 		}
 	}
 
 	t.Run("Simple", run(&testCase{
-		argSpecs: ArgSpecs{
-			{Name: "firstname", Default: DefaultValueSetter("john")},
-			{Name: "lastname", Default: DefaultValueSetter("doe")},
-			{Name: "age", Default: DefaultValueSetter("42")},
+		argSpecs: core.ArgSpecs{
+			{Name: "firstname", Default: core.DefaultValueSetter("john")},
+			{Name: "lastname", Default: core.DefaultValueSetter("doe")},
+			{Name: "age", Default: core.DefaultValueSetter("42")},
 		},
 		rawArgs:  args.RawArgs{"age=21"},
 		expected: args.RawArgs{"age=21", "firstname=john", "lastname=doe"},
 	}))
 
 	t.Run("Nested", run(&testCase{
-		argSpecs: ArgSpecs{
-			{Name: "name", Default: DefaultValueSetter("john")},
-			{Name: "address.zip", Default: DefaultValueSetter("75008")},
+		argSpecs: core.ArgSpecs{
+			{Name: "name", Default: core.DefaultValueSetter("john")},
+			{Name: "address.zip", Default: core.DefaultValueSetter("75008")},
 		},
 		rawArgs:  args.RawArgs{"name=paul"},
 		expected: args.RawArgs{"name=paul", "address.zip=75008"},
 	}))
 
 	t.Run("Slice", run(&testCase{
-		argSpecs: ArgSpecs{
-			{Name: "name", Default: DefaultValueSetter("john")},
-			{Name: "friends.{index}.name", Default: DefaultValueSetter("bob")},
-			{Name: "friends.{index}.age", Default: DefaultValueSetter("42")},
+		argSpecs: core.ArgSpecs{
+			{Name: "name", Default: core.DefaultValueSetter("john")},
+			{Name: "friends.{index}.name", Default: core.DefaultValueSetter("bob")},
+			{Name: "friends.{index}.age", Default: core.DefaultValueSetter("42")},
 		},
 		rawArgs:  args.RawArgs{"name=paul", "friends.0.name=bob", "friends.1.name=alice"},
 		expected: args.RawArgs{"name=paul", "friends.0.name=bob", "friends.1.name=alice", "friends.0.age=42", "friends.1.age=42"},
 	}))
 
 	t.Run("Map", run(&testCase{
-		argSpecs: ArgSpecs{
-			{Name: "name", Default: DefaultValueSetter("john")},
-			{Name: "friends.{key}.age", Default: DefaultValueSetter("42")},
-			{Name: "friends.{key}.weight", Default: DefaultValueSetter("80")},
+		argSpecs: core.ArgSpecs{
+			{Name: "name", Default: core.DefaultValueSetter("john")},
+			{Name: "friends.{key}.age", Default: core.DefaultValueSetter("42")},
+			{Name: "friends.{key}.weight", Default: core.DefaultValueSetter("80")},
 		},
 		rawArgs:  args.RawArgs{"name=paul", "friends.bob.weight=75", "friends.alice.age=21"},
 		expected: args.RawArgs{"name=paul", "friends.bob.weight=75", "friends.alice.age=21", "friends.bob.age=42", "friends.alice.weight=80"},
 	}))
 
 	t.Run("Map of slice", run(&testCase{
-		argSpecs: ArgSpecs{
-			{Name: "map.{key}.{index}.age", Default: DefaultValueSetter("42")},
-			{Name: "map.{key}.{index}.weight", Default: DefaultValueSetter("80")},
+		argSpecs: core.ArgSpecs{
+			{Name: "map.{key}.{index}.age", Default: core.DefaultValueSetter("42")},
+			{Name: "map.{key}.{index}.weight", Default: core.DefaultValueSetter("80")},
 		},
 		rawArgs: args.RawArgs{
 			"map.paul.0.weight=75",

@@ -1,8 +1,10 @@
-package args
+package args_test
 
 import (
 	"testing"
 	"time"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
@@ -20,7 +22,7 @@ func TestMarshal(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			args, err := MarshalStruct(testCase.data)
+			args, err := args.MarshalStruct(testCase.data)
 
 			if testCase.error == "" {
 				assert.NoError(t, err)
@@ -31,7 +33,7 @@ func TestMarshal(t *testing.T) {
 		}
 	}
 
-	RegisterMarshalFunc((*height)(nil), marshalHeight)
+	args.RegisterMarshalFunc((*height)(nil), marshalHeight)
 
 	t.Run("basic", run(TestCase{
 		data: &Basic{
@@ -198,7 +200,7 @@ func TestMarshal(t *testing.T) {
 	}))
 
 	t.Run("data-is-raw-args", run(TestCase{
-		data: &RawArgs{
+		data: &args.RawArgs{
 			"pro.access_key",
 			"access_key",
 		},
@@ -233,7 +235,7 @@ func TestMarshalValue(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
-			value, err := MarshalValue(testCase.data)
+			value, err := args.MarshalValue(testCase.data)
 
 			if testCase.error == "" {
 				assert.NoError(t, err)
@@ -244,7 +246,7 @@ func TestMarshalValue(t *testing.T) {
 		}
 	}
 
-	RegisterMarshalFunc((*height)(nil), marshalHeight)
+	args.RegisterMarshalFunc((*height)(nil), marshalHeight)
 
 	t.Run("string", run(TestCase{
 		data:     "a simple string",

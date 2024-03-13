@@ -1,26 +1,28 @@
-package core
+package core_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 )
 
 func TestCommandMatchAlias(t *testing.T) {
-	commandWithArg := &Command{
+	commandWithArg := &core.Command{
 		Namespace: "first",
 		Resource:  "command",
-		ArgSpecs: ArgSpecs{
+		ArgSpecs: core.ArgSpecs{
 			{
 				Name: "arg",
 			},
 		},
 	}
-	commandWithoutArg := &Command{
+	commandWithoutArg := &core.Command{
 		Namespace: "second",
 		Resource:  "command",
-		ArgSpecs: ArgSpecs{
+		ArgSpecs: core.ArgSpecs{
 			{
 				Name: "other-arg",
 			},
@@ -32,28 +34,28 @@ func TestCommandMatchAlias(t *testing.T) {
 		Command: []string{"command"},
 	}
 
-	assert.True(t, commandWithArg.matchAlias(testAlias))
-	assert.True(t, commandWithoutArg.matchAlias(testAlias))
+	assert.True(t, commandWithArg.MatchAlias(testAlias))
+	assert.True(t, commandWithoutArg.MatchAlias(testAlias))
 
 	testAliasWithArg := alias.Alias{
 		Name:    "alias",
 		Command: []string{"command", "arg=value"},
 	}
 
-	assert.True(t, commandWithArg.matchAlias(testAliasWithArg))
-	assert.False(t, commandWithoutArg.matchAlias(testAliasWithArg))
+	assert.True(t, commandWithArg.MatchAlias(testAliasWithArg))
+	assert.False(t, commandWithoutArg.MatchAlias(testAliasWithArg))
 }
 
 func TestAliasChildCommand(t *testing.T) {
-	namespace := &Command{
+	namespace := &core.Command{
 		Namespace: "namespace",
 	}
-	resource := &Command{
+	resource := &core.Command{
 		Namespace: "namespace",
 		Resource:  "first",
 	}
 
-	commands := NewCommands(
+	commands := core.NewCommands(
 		namespace,
 		resource,
 	)
@@ -63,12 +65,12 @@ func TestAliasChildCommand(t *testing.T) {
 		Command: []string{"namespace", "first"},
 	}
 
-	assert.True(t, commands.aliasIsValidCommandChild(namespace, validAlias))
+	assert.True(t, commands.AliasIsValidCommandChild(namespace, validAlias))
 
 	invalidAlias := alias.Alias{
 		Name:    "alias",
 		Command: []string{"namespace", "random"},
 	}
 
-	assert.False(t, commands.aliasIsValidCommandChild(namespace, invalidAlias))
+	assert.False(t, commands.AliasIsValidCommandChild(namespace, invalidAlias))
 }

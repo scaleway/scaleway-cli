@@ -23,7 +23,7 @@ const (
 	feature = issueTemplate("feature")
 	linux   = "linux"
 	darwin  = "darwin"
-	windows = "windows"
+	Windows = "windows"
 )
 
 type issue struct {
@@ -93,7 +93,7 @@ func (i issue) openInBrowser(ctx context.Context) error {
 	switch runtime.GOOS {
 	case linux:
 		openCmd = exec.Command("xdg-open", i.getURL()) //nolint:gosec
-	case windows:
+	case Windows:
 		openCmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", i.getURL()) //nolint:gosec
 	case darwin:
 		openCmd = exec.Command("open", i.getURL()) //nolint:gosec

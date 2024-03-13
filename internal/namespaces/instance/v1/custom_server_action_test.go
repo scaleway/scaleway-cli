@@ -1,12 +1,14 @@
-package instance
+package instance_test
 
 import (
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
@@ -17,16 +19,16 @@ func Test_ServerTerminate(t *testing.T) {
 	interactive.IsInteractive = true
 
 	t.Run("without IP", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-jammy -w"),
 		Cmd:        `scw instance server terminate {{ .Server.ID }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				api := instance.NewAPI(ctx.Client)
-				server := ctx.Meta["Server"].(*instance.Server)
-				_, err := api.GetIP(&instance.GetIPRequest{
+				api := instanceSDK.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				_, err := api.GetIP(&instanceSDK.GetIPRequest{
 					IP: server.PublicIP.ID,
 				})
 				assert.NoError(t, err)
@@ -37,16 +39,16 @@ func Test_ServerTerminate(t *testing.T) {
 	}))
 
 	t.Run("with IP", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-jammy -w"),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				api := instance.NewAPI(ctx.Client)
-				server := ctx.Meta["Server"].(*instance.Server)
-				_, err := api.GetIP(&instance.GetIPRequest{
+				api := instanceSDK.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				_, err := api.GetIP(&instanceSDK.GetIPRequest{
 					IP: server.PublicIP.ID,
 				})
 				require.IsType(t, &scw.ResponseError{}, err)
@@ -57,7 +59,7 @@ func Test_ServerTerminate(t *testing.T) {
 	}))
 
 	t.Run("without block", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-jammy additional-volumes.0=block:10G -w"),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=false`,
 		Check: core.TestCheckCombine(
@@ -72,16 +74,16 @@ func Test_ServerTerminate(t *testing.T) {
 	}))
 
 	t.Run("with block", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-jammy additional-volumes.0=block:10G -w"),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true -w`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				api := instance.NewAPI(ctx.Client)
-				server := ctx.Meta["Server"].(*instance.Server)
-				_, err := api.GetVolume(&instance.GetVolumeRequest{
+				api := instanceSDK.NewAPI(ctx.Client)
+				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				_, err := api.GetVolume(&instanceSDK.GetVolumeRequest{
 					VolumeID: server.Volumes["0"].ID,
 					Zone:     server.Zone,
 				})
@@ -98,7 +100,7 @@ func Test_ServerTerminate(t *testing.T) {
 // since they are using the interactive print
 func Test_ServerBackup(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-jammy"),
 		Cmd:        `scw instance server backup {{ .Server.ID }} name=backup`,
 		Check: core.TestCheckCombine(
@@ -114,20 +116,20 @@ func Test_ServerBackup(t *testing.T) {
 
 func Test_ServerAction(t *testing.T) {
 	t.Run("manual poweron", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu_jammy"),
 		Cmd:        `scw instance server action {{ .Server.ID }} action=poweron --wait`,
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				storedServer := ctx.Meta["Server"].(*instance.Server)
-				api := instance.NewAPI(ctx.Client)
-				resp, err := api.GetServer(&instance.GetServerRequest{
+				storedServer := ctx.Meta["Server"].(*instanceSDK.Server)
+				api := instanceSDK.NewAPI(ctx.Client)
+				resp, err := api.GetServer(&instanceSDK.GetServerRequest{
 					Zone:     storedServer.Zone,
 					ServerID: storedServer.ID,
 				})
 				assert.Nil(t, err)
-				assert.Equal(t, instance.ServerStateRunning, resp.Server.State)
+				assert.Equal(t, instanceSDK.ServerStateRunning, resp.Server.State)
 			},
 			core.TestCheckGolden(),
 		),
@@ -139,25 +141,25 @@ func Test_ServerAction(t *testing.T) {
 
 func Test_ServerEnableRoutedIP(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create zone=fr-par-3 type=PRO2-XXS image=ubuntu_jammy ip=new --wait"),
 		Cmd:        `scw instance server enable-routed-ip zone=fr-par-3 {{ .Server.ID }} --wait`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				storedServer := ctx.Meta["Server"].(*instance.Server)
-				api := instance.NewAPI(ctx.Client)
-				server, err := api.GetServer(&instance.GetServerRequest{
+				storedServer := ctx.Meta["Server"].(*instanceSDK.Server)
+				api := instanceSDK.NewAPI(ctx.Client)
+				server, err := api.GetServer(&instanceSDK.GetServerRequest{
 					Zone:     storedServer.Zone,
 					ServerID: storedServer.ID,
 				})
 				assert.Nil(t, err)
 				assert.Equal(t, true, server.Server.RoutedIPEnabled)
-				ip, err := api.GetIP(&instance.GetIPRequest{
+				ip, err := api.GetIP(&instanceSDK.GetIPRequest{
 					Zone: storedServer.Zone,
 					IP:   storedServer.PublicIP.ID,
 				})
 				assert.Nil(t, err)
-				assert.Equal(t, instance.IPTypeRoutedIPv4, ip.IP.Type)
+				assert.Equal(t, instanceSDK.IPTypeRoutedIPv4, ip.IP.Type)
 			},
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

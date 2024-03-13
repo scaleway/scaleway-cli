@@ -1,7 +1,9 @@
-package rdb
+package rdb_test
 
 import (
 	"fmt"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
@@ -69,7 +71,7 @@ func getIPSubnet(ipNet scw.IPNet) (*string, error) {
 
 func listEndpointsInMeta() core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+		instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 		for _, endpoint := range instance.Endpoints {
 			if endpoint.PrivateNetwork != nil {
 				ctx.Meta["PrivateEndpoint"] = endpoint

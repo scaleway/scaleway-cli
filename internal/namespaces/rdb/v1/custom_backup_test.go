@@ -1,9 +1,11 @@
-package rdb
+package rdb_test
 
 import (
 	"os"
 	"testing"
 	"time"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -11,7 +13,7 @@ import (
 
 func Test_CreateBackup(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
 			// We opened an internal issue about the fact that the instance is considered ready even if rdb is not yet available.
@@ -31,7 +33,7 @@ func Test_CreateBackup(t *testing.T) {
 
 func Test_RestoreBackup(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
 			// We opened an internal issue about the fact that the instance is considered ready even if rdb is not yet available.
@@ -57,7 +59,7 @@ func Test_RestoreBackup(t *testing.T) {
 
 func Test_ExportBackup(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
 			// We opened an internal issue about the fact that the instance is considered ready even if rdb is not yet available.
@@ -83,7 +85,7 @@ func Test_ExportBackup(t *testing.T) {
 
 func Test_DownloadBackup(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
 			core.ExecStoreBeforeCmd(
@@ -112,7 +114,7 @@ func Test_DownloadBackup(t *testing.T) {
 	}))
 
 	t.Run("With no previous export backup", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
 			core.ExecStoreBeforeCmd(
@@ -142,7 +144,7 @@ func Test_DownloadBackup(t *testing.T) {
 // E.g. from "2022-09-05T13:14:54.437192Z" to "2032-09-05T13:14:54.437192Z"
 func Test_ListBackup(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance(engine),
 			core.ExecStoreBeforeCmd(

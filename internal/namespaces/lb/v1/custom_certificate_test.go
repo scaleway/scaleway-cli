@@ -1,7 +1,9 @@
-package lb
+package lb_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
@@ -99,7 +101,7 @@ FKQ9WcK8j+KuYrWQJihn/omlWXSQ+zs12N7yKVLVRuY8aw4XuWZwvuu4EkRLYcUD
 -----END CERTIFICATE-----
 `
 	t.Run("Import", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: lb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createLB(),
 		),

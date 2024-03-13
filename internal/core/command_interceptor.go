@@ -9,9 +9,9 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-// combineCommandInterceptor will combine one or more CommandInterceptor.
+// CombineCommandInterceptor will combine one or more CommandInterceptor.
 // Resulting CommandInterceptor can be viewed as a chain composed by all interceptors passed as parameter.
-func combineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
+func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterceptor {
 	var combinedInterceptors CommandInterceptor
 	for _, interceptor := range interceptors {
 		// Avoid context leaking on the anonymous function below using a variable loop-scoped

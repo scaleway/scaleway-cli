@@ -2,13 +2,15 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package tabwriter
+package tabwriter_test
 
 import (
 	"bytes"
 	"fmt"
 	"io"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 )
 
 type buffer struct {
@@ -35,7 +37,7 @@ func (b *buffer) Write(buf []byte) (written int, err error) {
 
 func (b *buffer) String() string { return string(b.a) }
 
-func write(t *testing.T, testname string, w *Writer, src string) {
+func write(t *testing.T, testname string, w *tabwriter.Writer, src string) {
 	written, err := io.WriteString(w, src)
 	if err != nil {
 		t.Errorf("--- test: %s\n--- src:\n%q\n--- write error: %v\n", testname, src, err)
@@ -45,7 +47,7 @@ func write(t *testing.T, testname string, w *Writer, src string) {
 	}
 }
 
-func verify(t *testing.T, testname string, w *Writer, b *buffer, src, expected string) {
+func verify(t *testing.T, testname string, w *tabwriter.Writer, b *buffer, src, expected string) {
 	err := w.Flush()
 	if err != nil {
 		t.Errorf("--- test: %s\n--- src:\n%q\n--- flush error: %v\n", testname, src, err)
@@ -61,7 +63,7 @@ func check(t *testing.T, testname string, minwidth, tabwidth, padding int, padch
 	var b buffer
 	b.init(1000)
 
-	var w Writer
+	var w tabwriter.Writer
 	w.Init(&b, minwidth, tabwidth, padding, padchar, flags)
 
 	// write all at once
@@ -107,14 +109,14 @@ var tests = []struct {
 
 	{
 		"1a debug",
-		8, 0, 1, '.', Debug,
+		8, 0, 1, '.', tabwriter.Debug,
 		"",
 		"",
 	},
 
 	{
 		"1b esc stripped",
-		8, 0, 1, '.', StripEscape,
+		8, 0, 1, '.', tabwriter.StripEscape,
 		"\xff\xff",
 		"",
 	},
@@ -128,7 +130,7 @@ var tests = []struct {
 
 	{
 		"1c esc stripped",
-		8, 0, 1, '.', StripEscape,
+		8, 0, 1, '.', tabwriter.StripEscape,
 		"\xff\t\xff",
 		"\t",
 	},
@@ -142,7 +144,7 @@ var tests = []struct {
 
 	{
 		"1d esc stripped",
-		8, 0, 1, '.', StripEscape,
+		8, 0, 1, '.', tabwriter.StripEscape,
 		"\xff\"foo\t\n\tbar\"\xff",
 		"\"foo\t\n\tbar\"",
 	},
@@ -156,7 +158,7 @@ var tests = []struct {
 
 	{
 		"1e esc stripped",
-		8, 0, 1, '.', StripEscape,
+		8, 0, 1, '.', tabwriter.StripEscape,
 		"abc\xff\tdef", // unterminated escape
 		"abc\tdef",
 	},
@@ -191,7 +193,7 @@ var tests = []struct {
 
 	{
 		"4b",
-		8, 0, 1, '.', AlignRight,
+		8, 0, 1, '.', tabwriter.AlignRight,
 		"\t", // '\t' terminates an empty cell on last line - nothing to print
 		"",
 	},
@@ -219,14 +221,14 @@ var tests = []struct {
 
 	{
 		"5c debug",
-		8, 0, 1, '.', Debug,
+		8, 0, 1, '.', tabwriter.Debug,
 		"*\t*\t",
 		"*.......|*",
 	},
 
 	{
 		"5d",
-		8, 0, 1, '.', AlignRight,
+		8, 0, 1, '.', tabwriter.AlignRight,
 		"*\t*\t",
 		".......**",
 	},
@@ -275,21 +277,21 @@ var tests = []struct {
 
 	{
 		"7f",
-		8, 0, 1, '.', FilterHTML,
+		8, 0, 1, '.', tabwriter.FilterHTML,
 		"f) f&lt;o\t<b>bar</b>\t\n",
 		"f) f&lt;o..<b>bar</b>.....\n",
 	},
 
 	{
 		"7g",
-		8, 0, 1, '.', FilterHTML,
+		8, 0, 1, '.', tabwriter.FilterHTML,
 		"g) f&lt;o\t<b>bar</b>\t non-terminated entity &amp",
 		"g) f&lt;o..<b>bar</b>..... non-terminated entity &amp",
 	},
 
 	{
 		"7g debug",
-		8, 0, 1, '.', FilterHTML | Debug,
+		8, 0, 1, '.', tabwriter.FilterHTML | tabwriter.Debug,
 		"g) f&lt;o\t<b>bar</b>\t non-terminated entity &amp",
 		"g) f&lt;o..|<b>bar</b>.....| non-terminated entity &amp",
 	},
@@ -313,7 +315,7 @@ var tests = []struct {
 
 	{
 		"9b",
-		1, 0, 0, '.', FilterHTML,
+		1, 0, 0, '.', tabwriter.FilterHTML,
 		"1\t2<!---\f--->\t3\t4\n" + // \f inside HTML is ignored
 			"11\t222\t3333\t44444\n",
 
@@ -333,7 +335,7 @@ var tests = []struct {
 
 	{
 		"9c debug",
-		1, 0, 0, '.', Debug,
+		1, 0, 0, '.', tabwriter.Debug,
 		"1\t2\t3\t4\f" + // \f causes a newline and flush
 			"11\t222\t3333\t44444\n",
 
@@ -370,7 +372,7 @@ var tests = []struct {
 
 	{
 		"12a",
-		8, 0, 1, ' ', AlignRight,
+		8, 0, 1, ' ', tabwriter.AlignRight,
 		"a\tè\tc\t\n" +
 			"aa\tèèè\tcccc\tddddd\t\n" +
 			"aaa\tèèèè\t\n",
@@ -446,7 +448,7 @@ var tests = []struct {
 
 	{
 		"13c",
-		8, 8, 1, '\t', FilterHTML,
+		8, 8, 1, '\t', tabwriter.FilterHTML,
 		"4444\t333\t22\t1\t333\n" +
 			"999999999\t22\n" +
 			"7\t22\n" +
@@ -466,7 +468,7 @@ var tests = []struct {
 
 	{
 		"14",
-		1, 0, 2, ' ', AlignRight,
+		1, 0, 2, ' ', tabwriter.AlignRight,
 		".0\t.3\t2.4\t-5.1\t\n" +
 			"23.0\t12345678.9\t2.4\t-989.4\t\n" +
 			"5.1\t12.0\t2.4\t-7.0\t\n" +
@@ -484,7 +486,7 @@ var tests = []struct {
 
 	{
 		"14 debug",
-		1, 0, 2, ' ', AlignRight | Debug,
+		1, 0, 2, ' ', tabwriter.AlignRight | tabwriter.Debug,
 		".0\t.3\t2.4\t-5.1\t\n" +
 			"23.0\t12345678.9\t2.4\t-989.4\t\n" +
 			"5.1\t12.0\t2.4\t-7.0\t\n" +
@@ -509,21 +511,21 @@ var tests = []struct {
 
 	{
 		"15b",
-		4, 0, 0, '.', DiscardEmptyColumns,
+		4, 0, 0, '.', tabwriter.DiscardEmptyColumns,
 		"a\t\tb", // htabs - do not discard column
 		"a.......b",
 	},
 
 	{
 		"15c",
-		4, 0, 0, '.', DiscardEmptyColumns,
+		4, 0, 0, '.', tabwriter.DiscardEmptyColumns,
 		"a\v\vb",
 		"a...b",
 	},
 
 	{
 		"15d",
-		4, 0, 0, '.', AlignRight | DiscardEmptyColumns,
+		4, 0, 0, '.', tabwriter.AlignRight | tabwriter.DiscardEmptyColumns,
 		"a\v\vb",
 		"...ab",
 	},
@@ -546,7 +548,7 @@ var tests = []struct {
 
 	{
 		"16b",
-		100, 100, 0, '\t', DiscardEmptyColumns,
+		100, 100, 0, '\t', tabwriter.DiscardEmptyColumns,
 		"a\vb\v\vd\n" +
 			"a\vb\v\vd\ve\n" +
 			"a\n" +
@@ -562,7 +564,7 @@ var tests = []struct {
 
 	{
 		"16b debug",
-		100, 100, 0, '\t', DiscardEmptyColumns | Debug,
+		100, 100, 0, '\t', tabwriter.DiscardEmptyColumns | tabwriter.Debug,
 		"a\vb\v\vd\n" +
 			"a\vb\v\vd\ve\n" +
 			"a\n" +
@@ -578,7 +580,7 @@ var tests = []struct {
 
 	{
 		"16c",
-		100, 100, 0, '\t', DiscardEmptyColumns,
+		100, 100, 0, '\t', tabwriter.DiscardEmptyColumns,
 		"a\tb\t\td\n" + // hard tabs - do not discard column
 			"a\tb\t\td\te\n" +
 			"a\n" +
@@ -594,7 +596,7 @@ var tests = []struct {
 
 	{
 		"16c debug",
-		100, 100, 0, '\t', DiscardEmptyColumns | Debug,
+		100, 100, 0, '\t', tabwriter.DiscardEmptyColumns | tabwriter.Debug,
 		"a\tb\t\td\n" + // hard tabs - do not discard column
 			"a\tb\t\td\te\n" +
 			"a\n" +
@@ -610,7 +612,7 @@ var tests = []struct {
 
 	{
 		"17a one line color",
-		2, 0, 0, ' ', ANSIGraphicsRendition,
+		2, 0, 0, ' ', tabwriter.ANSIGraphicsRendition,
 		"\x1b[38;5;140mfoo\x1b[0m bar",
 
 		"\x1b[38;5;140mfoo\x1b[0m bar",
@@ -618,7 +620,7 @@ var tests = []struct {
 
 	{
 		"17b multi line colored",
-		2, 0, 0, ' ', ANSIGraphicsRendition,
+		2, 0, 0, ' ', tabwriter.ANSIGraphicsRendition,
 		"a\tb\tc\n" +
 			"\x1b[38;5;140maa\x1b[0m\tbbb\tcccc\n" +
 			"aaa\tbbbb\n",
@@ -630,7 +632,7 @@ var tests = []struct {
 
 	{
 		"17c multi-colored line",
-		2, 0, 0, ' ', ANSIGraphicsRendition,
+		2, 0, 0, ' ', tabwriter.ANSIGraphicsRendition,
 		"a\tb\tc\n" +
 			"aa\tbbb\tcccc\n" +
 			"a\x1b[38;5;140ma\x1b[0ma\tb\x1b[38;5;140mb\x1b[0mb\x1b[38;5;140mb\x1b[0m\n",
@@ -668,7 +670,7 @@ func wantPanicString(t *testing.T, want string) {
 func TestPanicDuringFlush(t *testing.T) {
 	defer wantPanicString(t, "tabwriter: panic during Flush")
 	var p panicWriter
-	w := new(Writer)
+	w := new(tabwriter.Writer)
 	w.Init(p, 0, 0, 5, ' ', 0)
 	io.WriteString(w, "a")
 	w.Flush()
@@ -678,7 +680,7 @@ func TestPanicDuringFlush(t *testing.T) {
 func TestPanicDuringWrite(t *testing.T) {
 	defer wantPanicString(t, "tabwriter: panic during Write")
 	var p panicWriter
-	w := new(Writer)
+	w := new(tabwriter.Writer)
 	w.Init(p, 0, 0, 5, ' ', 0)
 	io.WriteString(w, "a\n\n") // the second \n triggers a call to w.Write and thus a panic
 	t.Errorf("failed to panic during Write")
@@ -694,7 +696,7 @@ func BenchmarkTable(b *testing.B) {
 				b.Run("new", func(b *testing.B) {
 					b.ReportAllocs()
 					for i := 0; i < b.N; i++ {
-						w := NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+						w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 						// Write the line h times.
 						for j := 0; j < h; j++ {
 							w.Write(line)
@@ -705,7 +707,7 @@ func BenchmarkTable(b *testing.B) {
 
 				b.Run("reuse", func(b *testing.B) {
 					b.ReportAllocs()
-					w := NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+					w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 					for i := 0; i < b.N; i++ {
 						// Write the line h times.
 						for j := 0; j < h; j++ {
@@ -726,7 +728,7 @@ func BenchmarkPyramid(b *testing.B) {
 		b.Run(fmt.Sprintf("%d", x), func(b *testing.B) {
 			b.ReportAllocs()
 			for i := 0; i < b.N; i++ {
-				w := NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+				w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 				// Write increasing prefixes of that line.
 				for j := 0; j < x; j++ {
 					w.Write(line[:j*2])
@@ -748,7 +750,7 @@ func BenchmarkRagged(b *testing.B) {
 		b.Run(fmt.Sprintf("%d", h), func(b *testing.B) {
 			b.ReportAllocs()
 			for i := 0; i < b.N; i++ {
-				w := NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+				w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 				// Write the lines in turn h times.
 				for j := 0; j < h; j++ {
 					w.Write(lines[j%len(lines)])
@@ -776,7 +778,7 @@ lines
 func BenchmarkCode(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		w := NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+		w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 		// The code is small, so it's reasonable for the tabwriter user
 		// to write it all at once, or buffer the writes.
 		w.Write([]byte(codeSnippet))

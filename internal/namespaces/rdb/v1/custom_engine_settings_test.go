@@ -1,14 +1,16 @@
-package rdb
+package rdb_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_ListEngineSettings(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		Cmd:      "scw rdb engine settings name=MySQL version=8",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -17,7 +19,7 @@ func Test_ListEngineSettings(t *testing.T) {
 	}))
 
 	t.Run("Lowercase", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		Cmd:      "scw rdb engine settings name=mysql version=8",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

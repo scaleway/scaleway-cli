@@ -29,12 +29,12 @@ func wasFileModifiedLast24h(path string) bool {
 	return lastUpdate.After(yesterday)
 }
 
-func getLatestVersionUpdateFilePath(cacheDir string) string {
+func GetLatestVersionUpdateFilePath(cacheDir string) string {
 	return filepath.Join(cacheDir, lastChecksFileLocalName)
 }
 
-// createAndCloseFile creates a file and closes it. It returns true on succeed, false on failure.
-func createAndCloseFile(path string) error {
+// CreateAndCloseFile creates a file and closes it. It returns true on succeed, false on failure.
+func CreateAndCloseFile(path string) error {
 	err := os.MkdirAll(filepath.Dir(path), 0700)
 	if err != nil {
 		return fmt.Errorf("failed creating path %s: %s", path, err)
@@ -57,7 +57,7 @@ func runAfterCommandChecks(ctx context.Context, checkFuncs ...AfterCommandCheckF
 		return
 	}
 
-	lastChecksFilePath := getLatestVersionUpdateFilePath(ExtractCacheDir(ctx))
+	lastChecksFilePath := GetLatestVersionUpdateFilePath(ExtractCacheDir(ctx))
 
 	// do nothing if last refresh at during the last 24h
 	if wasFileModifiedLast24h(lastChecksFilePath) {
@@ -66,7 +66,7 @@ func runAfterCommandChecks(ctx context.Context, checkFuncs ...AfterCommandCheckF
 	}
 
 	// do nothing if we cannot create the file
-	err := createAndCloseFile(lastChecksFilePath)
+	err := CreateAndCloseFile(lastChecksFilePath)
 	if err != nil {
 		ExtractLogger(ctx).Debug(err.Error())
 		return

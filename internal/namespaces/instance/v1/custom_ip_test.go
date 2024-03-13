@@ -1,14 +1,16 @@
-package instance
+package instance_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_IPAttach(t *testing.T) {
 	t.Run("With UUID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
 			createIP("Ip"),
@@ -25,7 +27,7 @@ func Test_IPAttach(t *testing.T) {
 	}))
 
 	t.Run("With IP", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
 			createIP("Ip"),
@@ -44,7 +46,7 @@ func Test_IPAttach(t *testing.T) {
 
 func Test_IPDetach(t *testing.T) {
 	t.Run("With UUID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
 			createIP("Ip"),
@@ -63,7 +65,7 @@ func Test_IPDetach(t *testing.T) {
 	}))
 
 	t.Run("With IP", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true ip=none"),
 			createIP("Ip"),

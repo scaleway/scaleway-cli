@@ -1,14 +1,16 @@
-package instance
+package instance_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_ServerSSH(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createServerBionic("Server"),
 			startServer("Server"),
@@ -27,7 +29,7 @@ func Test_ServerSSH(t *testing.T) {
 	}))
 
 	t.Run("With-Exit-Code", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createServerBionic("Server"),
 			startServer("Server"),
@@ -46,7 +48,7 @@ func Test_ServerSSH(t *testing.T) {
 	}))
 
 	t.Run("Stopped server", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		BeforeFunc: createServerBionic("Server"),
 		Cmd:        "scw instance server ssh {{ .Server.ID }}",
 		Check: core.TestCheckCombine(

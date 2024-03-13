@@ -1,8 +1,10 @@
-package instance
+package instance_test
 
 import (
 	"os"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
@@ -13,7 +15,7 @@ func Test_UserDataGet(t *testing.T) {
 			createServerBionic("Server"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{.Server.ID}} key=happy content=true"),
 		),
-		Commands:  GetCommands(),
+		Commands:  instance.GetCommands(),
 		Cmd:       "scw instance user-data get server-id={{.Server.ID}} key=happy",
 		AfterFunc: deleteServer("Server"),
 		Check: core.TestCheckCombine(
@@ -24,7 +26,7 @@ func Test_UserDataGet(t *testing.T) {
 
 	t.Run("Get an nonexistent key", core.Test(&core.TestConfig{
 		BeforeFunc: createServerBionic("Server"),
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		Cmd:        "scw instance user-data get server-id={{.Server.ID}} key=happy",
 		AfterFunc:  deleteServer("Server"),
 		Check: core.TestCheckCombine(
@@ -41,7 +43,7 @@ func Test_UserDataList(t *testing.T) {
 			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=foo content=bar"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=bar content=foo"),
 		),
-		Commands:  GetCommands(),
+		Commands:  instance.GetCommands(),
 		Cmd:       "scw instance user-data list server-id={{ .Server.ID }}",
 		AfterFunc: deleteServer("Server"),
 		Check: core.TestCheckCombine(
@@ -55,7 +57,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 	content := "cloud-init file content"
 
 	t.Run("on-cloud-init", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
 			func(ctx *core.BeforeFuncCtx) error {
@@ -78,7 +80,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 	}))
 
 	t.Run("on-random-key", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
 			func(ctx *core.BeforeFuncCtx) error {

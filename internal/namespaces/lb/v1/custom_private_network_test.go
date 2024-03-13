@@ -1,15 +1,17 @@
-package lb
+package lb_test
 
 import (
 	"testing"
 	"time"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 )
 
 func Test_ListLBPrivateNetwork(t *testing.T) {
-	cmds := GetCommands()
+	cmds := lb.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Simple", core.Test(&core.TestConfig{

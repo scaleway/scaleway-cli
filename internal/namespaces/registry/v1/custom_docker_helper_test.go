@@ -1,4 +1,4 @@
-package registry
+package registry_test
 
 import (
 	"bytes"
@@ -6,6 +6,8 @@ import (
 	"path"
 	"runtime"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -19,7 +21,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: nil,
-		Commands:   GetCommands(),
+		Commands:   registry.GetCommands(),
 		Cmd:        "scw registry install-docker-helper path={{ .HOME }}",
 		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 			scriptPath := path.Join(ctx.Meta["HOME"].(string), "docker-credential-scw")
@@ -45,7 +47,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 
 	t.Run("With profile", core.Test(&core.TestConfig{
 		BeforeFunc: nil,
-		Commands:   GetCommands(),
+		Commands:   registry.GetCommands(),
 		Cmd:        "scw -p profile01 registry install-docker-helper path={{ .HOME }}",
 		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 			scriptPath := path.Join(ctx.Meta["HOME"].(string), "docker-credential-scw")
@@ -64,7 +66,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 
 func TestRegistryDockerHelperGetCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: registry.GetCommands(),
 		Cmd:      "scw registry docker-helper get",
 		Stdin:    bytes.NewBufferString("rg.fr-par.scw.cloud\n"),
 		Check: core.TestCheckCombine(
@@ -77,7 +79,7 @@ func TestRegistryDockerHelperGetCommand(t *testing.T) {
 
 func TestRegistryDockerHelperListCommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: registry.GetCommands(),
 		Cmd:      "scw registry docker-helper list",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

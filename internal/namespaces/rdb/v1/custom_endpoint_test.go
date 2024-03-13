@@ -1,17 +1,19 @@
-package rdb
+package rdb_test
 
 import (
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
+	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func Test_EndpointCreate(t *testing.T) {
-	cmds := GetCommands()
+	cmds := rdb.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Public", core.Test(&core.TestConfig{
@@ -24,7 +26,7 @@ func Test_EndpointCreate(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic, publicEndpoint})
 			},
 		),
@@ -41,7 +43,7 @@ func Test_EndpointCreate(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic, publicEndpoint})
 			},
 		),
@@ -61,7 +63,7 @@ func Test_EndpointCreate(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointIpam, publicEndpoint})
 			},
 		),
@@ -73,7 +75,7 @@ func Test_EndpointCreate(t *testing.T) {
 }
 
 func Test_EndpointDelete(t *testing.T) {
-	cmds := GetCommands()
+	cmds := rdb.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Public", core.Test(&core.TestConfig{
@@ -87,7 +89,7 @@ func Test_EndpointDelete(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic})
 			},
 		),
@@ -108,7 +110,7 @@ func Test_EndpointDelete(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint})
 			},
 		),
@@ -128,7 +130,7 @@ func Test_EndpointDelete(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{})
 			},
 		),
@@ -139,7 +141,7 @@ func Test_EndpointDelete(t *testing.T) {
 }
 
 func Test_EndpointGet(t *testing.T) {
-	cmds := GetCommands()
+	cmds := rdb.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Public", core.Test(&core.TestConfig{
@@ -153,7 +155,7 @@ func Test_EndpointGet(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointStatic})
 			},
 		),
@@ -174,7 +176,7 @@ func Test_EndpointGet(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				instance := ctx.Meta["Instance"].(createInstanceResult).Instance
+				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointStatic})
 			},
 		),
@@ -186,7 +188,7 @@ func Test_EndpointGet(t *testing.T) {
 }
 
 func Test_EndpointList(t *testing.T) {
-	cmds := GetCommands()
+	cmds := rdb.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Multiple endpoints", core.Test(&core.TestConfig{
@@ -204,13 +206,13 @@ func Test_EndpointList(t *testing.T) {
 	}))
 }
 
-func checkEndpoints(t *testing.T, client *scw.Client, instance *rdb.Instance, expected []string) {
-	rdbAPI := rdb.NewAPI(client)
+func checkEndpoints(t *testing.T, client *scw.Client, instance *rdbSDK.Instance, expected []string) {
+	rdbAPI := rdbSDK.NewAPI(client)
 	ipamAPI := ipam.NewAPI(client)
 	var foundEndpoints = map[string]bool{}
 
 	// First we need to update the instance as the information comes from the test's meta and may be outdated
-	instanceUpdated, err := rdbAPI.GetInstance(&rdb.GetInstanceRequest{
+	instanceUpdated, err := rdbAPI.GetInstance(&rdbSDK.GetInstanceRequest{
 		Region:     instance.Region,
 		InstanceID: instance.ID,
 	})

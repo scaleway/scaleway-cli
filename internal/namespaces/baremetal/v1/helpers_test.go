@@ -1,4 +1,4 @@
-package baremetal
+package baremetal_test
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"

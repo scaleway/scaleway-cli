@@ -27,13 +27,13 @@ type rdbACLCustomArgs struct {
 	Description string
 }
 
-type rdbACLCustomResult struct {
+type CustomACLResult struct {
 	Rules   []*rdb.ACLRule
 	Success core.SuccessResult
 }
 
 func rdbACLCustomResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	result := i.(rdbACLCustomResult)
+	result := i.(CustomACLResult)
 	messageStr, err := result.Success.MarshalHuman()
 	if err != nil {
 		return "", err
@@ -74,7 +74,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return nil, err
 		}
-		return respI.(*rdbACLCustomResult), nil
+		return respI.(*CustomACLResult), nil
 	}
 
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
@@ -101,7 +101,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 			return nil, fmt.Errorf("failed to add ACL rule: %w", err)
 		}
 
-		return &rdbACLCustomResult{
+		return &CustomACLResult{
 			Rules: rule.Rules,
 			Success: core.SuccessResult{
 				Message: fmt.Sprintf("ACL rule %s successfully added", args.ACLRuleIPs.String()),
@@ -123,7 +123,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return respI.(*rdbACLCustomResult), nil
+		return respI.(*CustomACLResult), nil
 	}
 
 	return c
@@ -162,7 +162,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 			return nil, fmt.Errorf("failed to list ACL rules: %w", err)
 		}
 
-		resp := respI.(*rdbACLCustomResult)
+		resp := respI.(*CustomACLResult)
 		resp.Rules = rules.Rules
 
 		return resp, nil
@@ -205,7 +205,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 			message = fmt.Sprintf("ACL rule %s was not set", args.ACLRuleIPs.String())
 		}
 
-		return &rdbACLCustomResult{
+		return &CustomACLResult{
 			Success: core.SuccessResult{
 				Message: message,
 			},
@@ -226,7 +226,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return respI.(*rdbACLCustomResult), nil
+		return respI.(*CustomACLResult), nil
 	}
 
 	return c
@@ -243,7 +243,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 			return nil, fmt.Errorf("failed to set ACL rule: %w", err)
 		}
 
-		return &rdbACLCustomResult{
+		return &CustomACLResult{
 			Rules: rule.Rules,
 			Success: core.SuccessResult{
 				Message: "ACL rules successfully set",
@@ -265,7 +265,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return respI.(*rdbACLCustomResult), nil
+		return respI.(*CustomACLResult), nil
 	}
 
 	return c

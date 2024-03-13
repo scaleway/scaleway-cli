@@ -34,7 +34,7 @@ func wrapError(err error, message, name, path string) error {
 	}
 }
 
-func fileExists(filePath string) bool {
+func FileExists(filePath string) bool {
 	_, err := os.Stat(filePath)
 	return !os.IsNotExist(err)
 }
@@ -54,7 +54,7 @@ func writeFile(ctx context.Context, dir string, entity *NatsEntity, extension st
 	if err := makeDirectoryIfNotExists(dir); err != nil {
 		return "", wrapError(err, "Failed to create directory", entity.Name, path)
 	}
-	if fileExists(path) {
+	if FileExists(path) {
 		overWrite, err := promptOverWriteFile(ctx, path)
 		if err != nil {
 			return "", wrapError(err, "Failed to prompt for overwrite", entity.Name, path)

@@ -1,7 +1,9 @@
-package vpcgw
+package vpcgw_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
@@ -9,7 +11,7 @@ import (
 )
 
 func Test_vpcGwGatewayNetworkGet(t *testing.T) {
-	cmds := GetCommands()
+	cmds := vpcgw.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Simple", core.Test(&core.TestConfig{

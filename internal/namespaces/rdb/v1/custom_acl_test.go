@@ -1,14 +1,16 @@
-package rdb
+package rdb_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_AddACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb acl add 1.2.3.4 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
@@ -21,7 +23,7 @@ func Test_AddACL(t *testing.T) {
 	}))
 
 	t.Run("Simple with description", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb acl add 1.2.3.4 instance-id={{ .Instance.ID }} description=some-unique-description --wait",
 		Check: core.TestCheckCombine(
@@ -34,7 +36,7 @@ func Test_AddACL(t *testing.T) {
 	}))
 
 	t.Run("Multiple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb acl add 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
@@ -47,7 +49,7 @@ func Test_AddACL(t *testing.T) {
 	}))
 
 	t.Run("Multiple with description", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb acl add 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} description=some-unique-description --wait",
 		Check: core.TestCheckCombine(
@@ -62,7 +64,7 @@ func Test_AddACL(t *testing.T) {
 
 func Test_DeleteACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb acl delete 0.0.0.0/0 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
@@ -75,7 +77,7 @@ func Test_DeleteACL(t *testing.T) {
 	}))
 
 	t.Run("Multiple when set", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd("scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
@@ -91,7 +93,7 @@ func Test_DeleteACL(t *testing.T) {
 	}))
 
 	t.Run("Multiple when not set", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd("scw rdb acl add 192.168.1.0/32 instance-id={{ .Instance.ID }} --wait"),
@@ -109,7 +111,7 @@ func Test_DeleteACL(t *testing.T) {
 
 func Test_SetACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb acl set rules.0.ip=1.2.3.4 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
@@ -122,7 +124,7 @@ func Test_SetACL(t *testing.T) {
 	}))
 
 	t.Run("Multiple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd("scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
@@ -138,7 +140,7 @@ func Test_SetACL(t *testing.T) {
 	}))
 }
 
-func verifyACLCustomResponse(res *rdbACLCustomResult, t *testing.T, expectedRules []string) {
+func verifyACLCustomResponse(res *rdb.CustomACLResult, t *testing.T, expectedRules []string) {
 	actualRules := res.Rules
 
 	var rulesFound = map[string]bool{}
@@ -164,10 +166,10 @@ func verifyACLCustomResponse(res *rdbACLCustomResult, t *testing.T, expectedRule
 
 func verifyACL(ctx *core.CheckFuncCtx, t *testing.T, expectedRules []string) {
 	switch res := ctx.Result.(type) {
-	case *rdbACLCustomResult:
+	case *rdb.CustomACLResult:
 		verifyACLCustomResponse(res, t, expectedRules)
 	case core.MultiResults:
-		verifyACLCustomResponse(res[len(res)-1].(*rdbACLCustomResult), t, expectedRules)
+		verifyACLCustomResponse(res[len(res)-1].(*rdb.CustomACLResult), t, expectedRules)
 	default:
 		t.Errorf("action is undefined for this type")
 	}

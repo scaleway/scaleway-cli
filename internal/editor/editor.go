@@ -30,7 +30,7 @@ type Config struct {
 
 	// If not empty, this will replace edited text as if it was edited in the terminal
 	// Should be paired with global SkipEditor as true, useful for tests
-	editedResource string
+	EditedResource string
 }
 
 func editorPathAndArgs(fileName string) (string, []string) {
@@ -112,8 +112,8 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, cfg *
 
 	// If editedResource is present, override edited resource
 	// This is useful for testing purpose
-	if cfg.editedResource != "" {
-		updateRequestMarshaled = []byte(cfg.editedResource)
+	if cfg.EditedResource != "" {
+		updateRequestMarshaled = []byte(cfg.EditedResource)
 	}
 
 	// Create a new updateRequest as destination for edited yaml/json

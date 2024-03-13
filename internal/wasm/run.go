@@ -5,6 +5,7 @@ package wasm
 import (
 	"bytes"
 	"io"
+	"net/http"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
@@ -46,6 +47,9 @@ func runCommand(buildInfo *core.BuildInfo, cfg *RunConfig, args []string, stdout
 			DefaultProjectID:      cfg.DefaultProjectID,
 			DefaultOrganizationID: cfg.DefaultOrganizationID,
 			APIUrl:                cfg.APIUrl,
+		},
+		HTTPClient: &http.Client{
+			Transport: &Transport{},
 		},
 	})
 

@@ -1,7 +1,9 @@
-package instance
+package instance_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
@@ -12,7 +14,7 @@ func Test_GetPlacementGroup(t *testing.T) {
 			core.ExecStoreBeforeCmd("PlacementGroup", "scw instance placement-group create"),
 			core.ExecStoreBeforeCmd("ServerA", "scw instance server create image=ubuntu_jammy stopped=true placement-group-id={{ .PlacementGroup.PlacementGroup.ID }}"),
 		),
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance placement-group get {{ .PlacementGroup.PlacementGroup.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
