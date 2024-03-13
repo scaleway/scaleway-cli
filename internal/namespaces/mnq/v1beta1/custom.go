@@ -11,6 +11,16 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(mnq.SnsInfoStatus(""), human.EnumMarshalFunc(mnqSqsInfoStatusMarshalSpecs))
 
+	cmds.MustFind("mnq", "nats", "get-account").Override(mnqNatsGetAccountBuilder)
+	cmds.MustFind("mnq", "nats", "list-credentials").Override(mnqNatsListCredentialsBuilder)
+
+	cmds.MustFind("mnq", "sqs", "list-credentials").Override(mnqSqsListCredentialsBuilder)
+	cmds.MustFind("mnq", "sqs", "get-credentials").Override(mnqSqsGetCredentialsBuilder)
+
+	cmds.MustFind("mnq", "sns", "list-credentials").Override(mnqSnsListCredentialsBuilder)
+
+	cmds.MustFind("mnq", "sns", "get-credentials").Override(mnqSnsGetCredentialsBuilder)
+
 	cmds.Merge(core.NewCommands(
 		createContextCommand(),
 	))
