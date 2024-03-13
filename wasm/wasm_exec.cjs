@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 'use strict'
-
 ;(() => {
   const enosys = () => {
     const err = new Error('not implemented')
