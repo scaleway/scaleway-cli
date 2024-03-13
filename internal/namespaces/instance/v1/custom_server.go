@@ -3,6 +3,7 @@ package instance
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"reflect"
@@ -746,6 +747,28 @@ func serverDeleteCommand() *core.Command {
 				Short:   "Stop a running server",
 			},
 		},
+		WaitUsage: "wait until the server and its resources are deleted",
+		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+			server := respI.(*core.SuccessResult).TargetResource.(*instance.Server)
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			notFoundErr := &scw.ResourceNotFoundError{}
+
+			_, err := api.WaitForServer(&instance.WaitForServerRequest{
+				Zone:          server.Zone,
+				ServerID:      server.ID,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+			if err != nil {
+				err = errors.Unwrap(err)
+				if !errors.As(err, &notFoundErr) {
+					return nil, err
+				}
+			}
+			return respI, nil
+		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			deleteServerArgs := argsI.(*customDeleteServerRequest)
 
@@ -854,7 +877,9 @@ func serverDeleteCommand() *core.Command {
 				_, _ = interactive.Println(message[1])
 			}
 
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				TargetResource: server.Server,
+			}, nil
 		},
 	}
 }
