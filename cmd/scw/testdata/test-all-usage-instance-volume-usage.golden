@@ -45,6 +45,7 @@ WORKFLOW COMMANDS:
 
 FLAGS:
   -h, --help   help for volume
+      --web    open console page for the current ressource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
