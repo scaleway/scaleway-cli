@@ -1,7 +1,24 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID           62e071a3-e206-471b-afdb-1bc013b7c426
+Name         1-static-priv-endpoint
+ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
+Status       ready
+Version      7.0.5
+NodeType     RED1-micro
+CreatedAt    few seconds ago
+UpdatedAt    few seconds ago
+TLSEnabled   false
+ClusterSize  1
+Zone         fr-par-1
+UserName     admin
+
+Endpoints:
 ID                                    Port  IPs
 a56f3126-4e97-46cf-89c6-f179359f96e9  6379  [172.16.4.1]
+
+ACLRules:
+ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "62e071a3-e206-471b-afdb-1bc013b7c426",
