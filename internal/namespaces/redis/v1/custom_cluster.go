@@ -169,30 +169,6 @@ func redisSettingAddBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func redisEndpointsClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
-	type tmp redis.Cluster
-	endpoint := tmp(i.(redis.Cluster)).Endpoints
-	opt.Fields = []*human.MarshalFieldOpt{
-		{
-			FieldName: "ID",
-			Label:     "ID",
-		},
-		{
-			FieldName: "Port",
-			Label:     "Port",
-		},
-		{
-			FieldName: "IPs",
-			Label:     "IPs",
-		},
-	}
-	str, err := human.Marshal(endpoint, opt)
-	if err != nil {
-		return "", err
-	}
-	return str, nil
-}
-
 func redisClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp redis.Cluster
 	redisClusterResponse := tmp(i.(redis.Cluster))
@@ -204,6 +180,24 @@ func redisClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string,
 		{
 			FieldName: "ACLRules",
 			Title:     "ACLRules",
+		},
+	}
+	opt.SubOptions = map[string]*human.MarshalOpt{
+		"Endpoints": {
+			Fields: []*human.MarshalFieldOpt{
+				{
+					FieldName: "ID",
+					Label:     "ID",
+				},
+				{
+					FieldName: "Port",
+					Label:     "Port",
+				},
+				{
+					FieldName: "IPs",
+					Label:     "IPs",
+				},
+			},
 		},
 	}
 	str, err := human.Marshal(redisClusterResponse, opt)
