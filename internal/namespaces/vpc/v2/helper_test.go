@@ -12,7 +12,7 @@ func createInstance() core.BeforeFunc {
 }
 
 func deleteInstance() core.AfterFunc {
-	return core.ExecAfterCmd("scw instance server delete {{ .Instance.ID }}")
+	return core.ExecAfterCmd("scw instance server delete {{ .Instance.ID }} --wait")
 }
 
 func createPN() core.BeforeFunc {
