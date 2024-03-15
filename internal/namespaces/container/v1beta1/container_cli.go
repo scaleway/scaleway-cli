@@ -42,7 +42,6 @@ func GetGeneratedCommands() *core.Commands {
 		containerCronCreate(),
 		containerCronUpdate(),
 		containerCronDelete(),
-		containerContainerGetLogs(),
 		containerDomainList(),
 		containerDomainGet(),
 		containerDomainCreate(),
@@ -1010,53 +1009,6 @@ func containerCronDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteCron(request)
-
-		},
-	}
-}
-
-func containerContainerGetLogs() *core.Command {
-	return &core.Command{
-		Short:     `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List your container logs`,
-		Long:      `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the logs of the container with the specified ID.`,
-		Namespace: "container",
-		Resource:  "container",
-		Verb:      "get-logs",
-		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.ListLogsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "container-id",
-				Short:      `UUID of the container`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
-				Name:       "order-by",
-				Short:      `Order of the logs`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"timestamp_desc", "timestamp_asc"},
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*container.ListLogsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
-			if request.Region == scw.Region(core.AllLocalities) {
-				opts = append(opts, scw.WithRegions(api.Regions()...))
-				request.Region = ""
-			}
-			resp, err := api.ListLogs(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-			return resp.Logs, nil
 
 		},
 	}
