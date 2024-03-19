@@ -1,12 +1,40 @@
-🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Unknown argument 'acl-rule-ips.0'
-
-Hint:
-Valid arguments are: acl-rule-ips.{index}, instance-id, region
-🟥🟥🟥 JSON STDERR 🟥🟥🟥
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ ACL rules successfully set.
+IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+1.2.3.4/32      6724  tcp       inbound    allow   Allow 1.2.3.4/32
+11.11.11.11/32  6724  tcp       inbound    allow   Allow 11.11.11.11/32
+192.168.1.0/31  6724  tcp       inbound    allow   Allow 192.168.1.0/31
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "message": "unknown argument 'acl-rule-ips.0'",
-  "error": {},
-  "hint": "Valid arguments are: acl-rule-ips.{index}, instance-id, region"
+  "Rules": [
+    {
+      "ip": "1.2.3.4/32",
+      "port": 6724,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow 1.2.3.4/32"
+    },
+    {
+      "ip": "11.11.11.11/32",
+      "port": 6724,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow 11.11.11.11/32"
+    },
+    {
+      "ip": "192.168.1.0/31",
+      "port": 6724,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow 192.168.1.0/31"
+    }
+  ],
+  "Success": {
+    "message": "ACL rules successfully set",
+    "details": ""
+  }
 }
