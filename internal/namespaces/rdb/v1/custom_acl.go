@@ -233,19 +233,19 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 }
 
 type rdbACLSetCustomArgs struct {
-	Region      scw.Region
-	InstanceID  string
-	ACLRulesIPs []scw.IPNet
+	Region     scw.Region
+	InstanceID string
+	ACLRuleIPs []scw.IPNet
 }
 
 func aclSetBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(rdbACLSetCustomArgs{})
 	c.ArgSpecs = core.ArgSpecs{
 		{
-			Name:       "acl-rule-ips.{index}",
+			Name:       "acl-rule-ips",
 			Short:      "IP addresses defined in the ACL rules of the Database Instance",
 			Required:   false,
-			Positional: false,
+			Positional: true,
 		},
 		{
 			Name:       "instance-id",
@@ -262,7 +262,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 		api := rdb.NewAPI(client)
 
 		aclRules := []*rdb.ACLRuleRequest(nil)
-		for _, ip := range args.ACLRulesIPs {
+		for _, ip := range args.ACLRuleIPs {
 			aclRules = append(aclRules, &rdb.ACLRuleRequest{
 				IP:          ip,
 				Description: fmt.Sprintf("Allow %s", ip.String()),
