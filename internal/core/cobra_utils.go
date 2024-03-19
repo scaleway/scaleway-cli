@@ -82,6 +82,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 				argNameWithIndex = fmt.Sprintf("%s.%d", positionalArgSpec.Name, i)
 				rawArgsWithPositional = rawArgsWithPositional.Add(argNameWithIndex, positionalArgs[i])
 			}
+
 			result, err := run(ctx, cobraCmd, cmd, rawArgsWithPositional)
 			if err != nil {
 				return err
