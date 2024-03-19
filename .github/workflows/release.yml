@@ -49,7 +49,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v3
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version: '1.21'
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -63,6 +63,9 @@ jobs:
       - name: Configure package version
         working-directory: wasm
         run: pnpm version ${{ github.ref_name }}
+      - run: pnpm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Publish package
         working-directory: wasm
         run: pnpm publish --no-git-checks
