@@ -99,7 +99,6 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 				results = append(results, result)
 			}
-
 		}
 		// If only one positional parameter was provided we return the result directly instead of
 		// an array of results

@@ -179,7 +179,7 @@ Replace all the ACL rules of a Database Instance.
 **Usage:**
 
 ```
-scw rdb acl set [arg=value ...]
+scw rdb acl set <acl-rule-ips ...> [arg=value ...]
 ```
 
 
@@ -187,7 +187,7 @@ scw rdb acl set [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| acl-rule-ips.{index} |  | IP addresses defined in the ACL rules of the Database Instance |
+| acl-rule-ips |  | IP addresses defined in the ACL rules of the Database Instance |
 | instance-id | Required | ID of the Database Instance |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
