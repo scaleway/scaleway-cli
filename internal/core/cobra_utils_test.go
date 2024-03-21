@@ -246,4 +246,31 @@ func Test_PositionalArg(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 	}))
+
+	t.Run("set verb with one positional", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional set pos1 tag=tag1",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run("set verb with multi positional", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional set pos1 pos2 pos3 tag=tag1",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run("set verb with no positional", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional set tag=tag1",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
 }
