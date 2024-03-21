@@ -21,6 +21,11 @@ type testDate struct {
 	Date *time.Time
 }
 
+type testSetType struct {
+	NameIDs []string
+	Tag     string
+}
+
 func testGetCommands() *core.Commands {
 	return core.NewCommands(
 		&core.Command{
@@ -50,6 +55,25 @@ func testGetCommands() *core.Commands {
 			},
 			AllowAnonymousClient: true,
 			ArgsType:             reflect.TypeOf(testType{}),
+			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
+				return argsI, nil
+			},
+		},
+		&core.Command{
+			Namespace: "test",
+			Resource:  "positional",
+			Verb:      "set",
+			ArgSpecs: core.ArgSpecs{
+				{
+					Name:       "name-ids",
+					Positional: true,
+				},
+				{
+					Name: "tag",
+				},
+			},
+			AllowAnonymousClient: true,
+			ArgsType:             reflect.TypeOf(testSetType{}),
 			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
 				return argsI, nil
 			},
@@ -243,6 +267,33 @@ func Test_PositionalArg(t *testing.T) {
 		Cmd:      "scw test positional -o json tag=tag01 test1 test2",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run("set verb with one positional", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional set pos1 tag=tag1",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run("set verb with multi positional", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional set pos1 pos2 pos3 tag=tag1",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+
+	t.Run("set verb with no positional", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional set tag=tag1",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
 			core.TestCheckGolden(),
 		),
 	}))

@@ -1,11 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 USAGE:
-  scw test positional <name-id ...> [arg=value ...]
+  scw test positional <command> <name-id ...> [arg=value ...]
 
 ARGS:
   name-id   
   [tag]     
+
+AVAILABLE COMMANDS:
+  set         
 
 FLAGS:
   -h, --help   help for positional
@@ -15,3 +18,5 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+
+Use "scw test positional [command] --help" for more information about a command.
