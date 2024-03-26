@@ -65,9 +65,28 @@ func BuildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
 // _buildUsageArgs builds the arg usage list.
 // This should not be called directly.
 func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error {
+	inOneOfGroup := false
+	lastOneOfGroup := ""
+
 	for _, argSpec := range argSpecs {
+
 		argSpecUsageLeftPart := argSpec.Name
 		argSpecUsageRightPart := _buildArgShort(argSpec)
+
+		if argSpec.OneOfGroup != "" {
+			if argSpec.OneOfGroup != lastOneOfGroup {
+				inOneOfGroup = true
+				lastOneOfGroup = argSpec.OneOfGroup
+				_, err := fmt.Fprintf(w, "  %s (one of):\n", argSpec.OneOfGroup)
+				if err != nil {
+					return err
+				}
+			}
+		} else {
+			inOneOfGroup = false
+			lastOneOfGroup = ""
+		}
+
 		if argSpec.Default != nil {
 			_, doc := argSpec.Default(ctx)
 			argSpecUsageLeftPart = fmt.Sprintf("%s=%s", argSpecUsageLeftPart, doc)
@@ -77,6 +96,9 @@ func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error 
 		}
 		if argSpec.CanLoadFile {
 			argSpecUsageRightPart += " (Support file loading with @/path/to/file)"
+		}
+		if inOneOfGroup {
+			argSpecUsageLeftPart = "  " + argSpecUsageLeftPart
 		}
 
 		_, err := fmt.Fprintf(w, "  %s\t%s\n", argSpecUsageLeftPart, argSpecUsageRightPart)
