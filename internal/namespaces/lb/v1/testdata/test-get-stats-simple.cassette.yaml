@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"01e281c5-4cec-422d-ae68-4e9876246284", "name":"cli-test", "description":"cli-test",
@@ -52,7 +52,6 @@ interactions:
       - f692974c-9975-455f-9129-9a598ac2c016
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"01e281c5-4cec-422d-ae68-4e9876246284", "name":"cli-test", "description":"cli-test",
       "status":"to_create", "instances":[], "organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -102,7 +101,6 @@ interactions:
       - 1c641455-c80e-42da-969d-6da9ac9efb45
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"01e281c5-4cec-422d-ae68-4e9876246284", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"ceacb034-3789-4985-b4da-4306b7d5c989",
@@ -156,7 +154,6 @@ interactions:
       - 5b359e2f-49ae-414e-9f41-a748b81c5a98
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"01e281c5-4cec-422d-ae68-4e9876246284", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"ceacb034-3789-4985-b4da-4306b7d5c989",
@@ -210,7 +207,6 @@ interactions:
       - 879c3de1-9939-4152-8534-b363b1d0ded3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"01e281c5-4cec-422d-ae68-4e9876246284", "name":"cli-test", "description":"cli-test",
       "status":"ready", "instances":[{"id":"ceacb034-3789-4985-b4da-4306b7d5c989",
@@ -264,7 +260,6 @@ interactions:
       - 1fe77bde-0a97-465e-a578-fbc3b77badc2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"local_images":[{"id":"bc2f0ae3-bfca-4055-89c9-e84c54e568b1", "arch":"x86_64",
       "zone":"fr-par-1", "compatible_commercial_types":["DEV1-L", "DEV1-M", "DEV1-S",
@@ -324,7 +319,6 @@ interactions:
       - 02a982a8-4969-4c0b-bb50-c195e6e05606
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "bc2f0ae3-bfca-4055-89c9-e84c54e568b1", "name": "Ubuntu
       20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -368,7 +362,6 @@ interactions:
       - 08c8a5e3-523b-4c21-ba42-97c4a6ca8c3c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1317,7 +1310,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1570,7 +1562,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "84c5c7c2-d66b-4139-a2a0-cb01a75d0c4f", "address": "51.158.107.57",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1612,7 +1603,6 @@ interactions:
       - d2ff9220-4ca8-4cc7-9282-470e04385068
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "20457fa6-1556-4060-b39c-302a3a07a8ef", "name": "cli-srv-dazzling-diffie",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1716,7 +1706,6 @@ interactions:
       - 9642a039-574a-4d94-98c0-2bef68b6e97b
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"id":"be06ca32-a9e6-4f4c-a9aa-4b5b0b4ad92c", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":80, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -1792,7 +1781,6 @@ interactions:
       - 75c4bd9a-dda5-4a3d-8faf-ab0a70eda6f9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1d72bc1f-cb3b-49d4-b2e6-b58d18b1743f", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":81, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -1868,7 +1856,6 @@ interactions:
       - 9d5b04a5-7a72-48b9-a6a6-b60b4e4e9b3b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1d72bc1f-cb3b-49d4-b2e6-b58d18b1743f", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":81, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -1944,7 +1931,6 @@ interactions:
       - 46b63e25-317f-4948-a985-26e370c703e4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"18363b63-a74a-49b7-8798-0698b007ac8a", "name":"cli-test", "inbound_port":8888,
       "backend":{"id":"1d72bc1f-cb3b-49d4-b2e6-b58d18b1743f", "name":"cli-test", "forward_protocol":"tcp",
@@ -2044,7 +2030,6 @@ interactions:
       - f44ed010-13f2-4323-8281-18919295ca17
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"backend_servers_stats":[{"instance_id":"73b08a48-f479-4746-8ef5-9fe3980d40df",
       "backend_id":"1d72bc1f-cb3b-49d4-b2e6-b58d18b1743f", "ip":"51.158.107.57", "server_state":"stopped",
@@ -2080,7 +2065,6 @@ interactions:
       - 9086f2a5-4d6f-4200-afbe-84a255222c43
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2110,7 +2094,6 @@ interactions:
       - 3d2eb5e0-cc0f-4e61-a9fe-123b27396949
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"01e281c5-4cec-422d-ae68-4e9876246284", "name":"cli-test", "description":"cli-test",
       "status":"to_delete", "instances":[{"id":"ceacb034-3789-4985-b4da-4306b7d5c989",
@@ -2164,7 +2147,6 @@ interactions:
       - c890a5e0-bf2d-45ab-84dd-28926c2b47dd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "20457fa6-1556-4060-b39c-302a3a07a8ef", "name": "cli-srv-dazzling-diffie",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2264,7 +2246,6 @@ interactions:
       - dd78b880-4a79-4597-8296-beb12ad7d807
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2292,7 +2273,6 @@ interactions:
       - f6445795-a8c7-4f30-90dc-c9947727baaf
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2320,4 +2300,3 @@ interactions:
       - bb9fd321-a5af-4b43-8870-372851ecbc2a
     status: 204 No Content
     code: 204
-    duration: ""

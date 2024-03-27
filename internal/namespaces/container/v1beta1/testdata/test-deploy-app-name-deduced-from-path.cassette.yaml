@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"namespaces":[],"total_count":0}'
@@ -32,7 +32,6 @@ interactions:
       - f9ff34ea-bb33-4547-8905-5a29699c5316
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"866e9fab-23af-4928-a1aa-053e3e01da1e","name":"app-cli-t-ctnr-deploy-fp","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"pending","registry_namespace_id":"","error_message":null,"registry_endpoint":"","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -66,7 +65,6 @@ interactions:
       - 0ef5357a-d3ac-4350-8f5d-56f859d77890
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"866e9fab-23af-4928-a1aa-053e3e01da1e","name":"app-cli-t-ctnr-deploy-fp","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"pending","registry_namespace_id":"","error_message":null,"registry_endpoint":"","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -98,7 +96,6 @@ interactions:
       - 89d08b7a-92d4-4c07-9d42-3b40f3ef2f4c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"866e9fab-23af-4928-a1aa-053e3e01da1e","name":"app-cli-t-ctnr-deploy-fp","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"ready","registry_namespace_id":"2563f2dd-3158-444d-b3c3-c9c629621b0f","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -130,7 +127,6 @@ interactions:
       - 9162bc44-3444-4d81-a0cb-d04fc161cbfd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -162,7 +158,6 @@ interactions:
       - inactive
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: "{\"stream\":\"Step 1/4 : FROM nginx:alpine\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
       ---\\u003e 414132ff3b07\\n\"}\r\n{\"stream\":\"Step 2/4 : RUN apk add --no-cache
@@ -206,7 +201,6 @@ interactions:
       - Docker/24.0.2 (linux)
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: "{\"status\":\"The push refers to repository [rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp]\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"11a0432d0d05\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"24266030f98d\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"abaf9665d5d7\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"6ec20fc79771\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"6f2a9eaf22e9\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"b938c7b9f1b5\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"de91f65bcbc4\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"ba960ae476af\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"604cbedf1215\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"36b50b131297\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"de91f65bcbc4\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba960ae476af\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"b938c7b9f1b5\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"604cbedf1215\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"36b50b131297\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":144},\"progress\":\"[==================================================\\u003e]
       \    512B\",\"id\":\"11a0432d0d05\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4096,\"total\":144},\"progress\":\"[==================================================\\u003e]
@@ -268,7 +262,6 @@ interactions:
       - Docker/24.0.2 (linux)
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"containers":[],"total_count":0}'
     form: {}
@@ -300,7 +293,6 @@ interactions:
       - c46c6cb1-8ceb-4643-a822-aa189516bf4e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"created","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":8080,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -334,7 +326,6 @@ interactions:
       - 59fc93a2-8b04-477e-9cd1-8e31059dd458
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"created","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -368,7 +359,6 @@ interactions:
       - 232b5b72-3087-4a03-9568-9bc6d0ab0717
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"created","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -400,7 +390,6 @@ interactions:
       - 6cbed40b-c1eb-470f-b7ce-306d0b309000
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -434,7 +423,6 @@ interactions:
       - a9d19c73-3bb6-460d-82ae-2cb084a2e504
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -466,7 +454,6 @@ interactions:
       - 1edea9da-7ad6-4412-995e-ce9fb829d33c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -498,7 +485,6 @@ interactions:
       - 3a8abf5b-b628-4897-aadb-e0128777558a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -530,7 +516,6 @@ interactions:
       - 5eb1f26f-3aa5-4416-84b1-1409e63cbff1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -562,7 +547,6 @@ interactions:
       - 84addbfa-7d02-42c4-aad9-59db4ba12275
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -594,7 +578,6 @@ interactions:
       - 8c1d661f-5dbf-4ba2-bfaf-094d9e32f844
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -626,7 +609,6 @@ interactions:
       - a1d3e17c-8120-4c17-9073-87e5a41bd08a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -658,7 +640,6 @@ interactions:
       - bd7998ca-e695-404d-9e7b-0c323d90d3df
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -690,7 +671,6 @@ interactions:
       - 807ca50f-4a57-4be3-9368-58bc27fa6012
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -722,7 +702,6 @@ interactions:
       - dd39287d-ec1a-4c15-9a82-5cdc2431fffe
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -754,7 +733,6 @@ interactions:
       - c93826df-6be3-4d42-81e0-1f3df057d43a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -786,7 +764,6 @@ interactions:
       - a701e395-f8ec-4fce-bf98-d1ecf3bdf60d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -818,7 +795,6 @@ interactions:
       - e42571c8-d5dc-48f5-992d-ea8548132b99
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -850,7 +826,6 @@ interactions:
       - dd23c988-c748-4b96-9d75-50e3422ad37e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -882,7 +857,6 @@ interactions:
       - 6214f627-61ed-4471-a553-4230ac93dcb1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -914,7 +888,6 @@ interactions:
       - 820bb046-95ca-49e9-8030-d49ada9122d4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -946,7 +919,6 @@ interactions:
       - 83f368b0-db4f-4110-bb76-c646df9acbfb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -978,7 +950,6 @@ interactions:
       - 95ab2bab-f704-422b-b67c-b7857a08f6e1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1010,7 +981,6 @@ interactions:
       - 97517f97-d616-459e-ba47-378b9f5baa48
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1042,7 +1012,6 @@ interactions:
       - 7c272aca-7080-4ae4-be48-b4fd679d7930
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1074,7 +1043,6 @@ interactions:
       - 100bc246-95cb-48c8-806f-fb1d1e6e81d1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1106,7 +1074,6 @@ interactions:
       - 99a4d1aa-c24f-4d54-ab07-e03d2300c5d9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1138,7 +1105,6 @@ interactions:
       - 24fce98d-275a-4d61-9e16-27299dd9aea7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1170,7 +1136,6 @@ interactions:
       - 6f157990-88e4-4480-9dcf-c47e162637f5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1202,7 +1167,6 @@ interactions:
       - 4de7b69b-ca98-4f54-9e66-f258c3cf7ba1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1234,7 +1198,6 @@ interactions:
       - 4c918ed2-ada3-4d17-91b0-bf501b858fa3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1266,7 +1229,6 @@ interactions:
       - 50628c2f-0914-4836-89b3-f439cd17d9cc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1298,7 +1260,6 @@ interactions:
       - 30b829e3-9480-4534-bc0f-01bc502b9ea6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1330,7 +1291,6 @@ interactions:
       - 25839d72-814e-4837-b25d-faab80e6ef17
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1362,7 +1322,6 @@ interactions:
       - 178b90c0-abf7-4af2-ba49-93b337670773
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1394,7 +1353,6 @@ interactions:
       - deeb2b96-019b-4a3d-83a0-fbdb347eb816
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1426,7 +1384,6 @@ interactions:
       - b8257da4-d9f3-4b0e-a28c-78e4960b74ee
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1458,7 +1415,6 @@ interactions:
       - e9644f85-fb2e-46c5-8fba-80e5bec09739
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1490,7 +1446,6 @@ interactions:
       - 58a41e43-da78-4081-a62c-706de4540d2f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1522,7 +1477,6 @@ interactions:
       - 6f947875-8625-4f75-8709-d62db35237b7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1554,7 +1508,6 @@ interactions:
       - b111a42a-4df0-4060-9c4c-e509422ad331
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1586,7 +1539,6 @@ interactions:
       - cd3caeda-dde8-4e09-94ab-51fb79a2970e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1618,7 +1570,6 @@ interactions:
       - 7a7994ca-815e-49d4-b8e0-edbb6dabe3c2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1650,7 +1601,6 @@ interactions:
       - b2ffeaa2-7976-4243-b515-9093225766b3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1682,7 +1632,6 @@ interactions:
       - 06e1e039-0dac-41b2-8d22-98b4321f91d5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1714,7 +1663,6 @@ interactions:
       - e5460596-8384-40f1-9c3c-4fda9d8435e3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1746,7 +1694,6 @@ interactions:
       - 44eae444-61ef-42e4-a816-01bd15e10504
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1778,7 +1725,6 @@ interactions:
       - 0d7fac8d-1914-4e91-9020-a3172fcd42f1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1810,7 +1756,6 @@ interactions:
       - 927e8f45-d46a-4d06-b165-7696e2b264b7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1842,7 +1787,6 @@ interactions:
       - af005456-6312-44af-8cc0-f2d62add7d05
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1874,7 +1818,6 @@ interactions:
       - f3038d9e-3bfe-437d-8c9e-2e59094aecbc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1906,7 +1849,6 @@ interactions:
       - 0c59320c-37c1-4680-b71a-6913660de837
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1938,7 +1880,6 @@ interactions:
       - c3c25c3b-d344-4b88-b6ee-cdfac108e442
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -1970,7 +1911,6 @@ interactions:
       - 6e0f2b63-8843-44d3-bc3b-3012928e87d5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2002,7 +1942,6 @@ interactions:
       - daab8f46-b88a-4b79-88d9-561528656c87
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2034,7 +1973,6 @@ interactions:
       - 79bbd1f9-52ad-4cb6-a5b3-e32cb778bad2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2066,7 +2004,6 @@ interactions:
       - ed88e4eb-632a-4290-8f49-25ff116c19a6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2098,7 +2035,6 @@ interactions:
       - e0c03305-44a8-4f33-af6f-eb33e2ce5ee7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2130,7 +2066,6 @@ interactions:
       - 6ee6bf1d-cf26-4c37-af24-dc7feb11f5d6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2162,7 +2097,6 @@ interactions:
       - 6b1608d2-a2aa-4f7f-933c-2718ed604fff
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2194,7 +2128,6 @@ interactions:
       - 91af2a3b-9965-495c-a8fc-95a434ca83e6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2226,7 +2159,6 @@ interactions:
       - 48cd401b-2fc6-484a-a4e0-432138da2526
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2258,7 +2190,6 @@ interactions:
       - 6207c93b-e346-4192-a6d1-a71cc0a5fd80
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2290,7 +2221,6 @@ interactions:
       - ef78cf8c-6009-4438-832b-d721ebb8813a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2322,7 +2252,6 @@ interactions:
       - 2cf7cd2e-ca25-4efb-913c-1e3bc200d0cf
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2354,7 +2283,6 @@ interactions:
       - 2607abae-1c67-4dc7-959a-d8c524727ffe
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2386,7 +2314,6 @@ interactions:
       - 1f07ccad-b5a9-4af0-b472-d77efe14eb7b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2418,7 +2345,6 @@ interactions:
       - 649ae3cf-1e30-425e-8aea-298c17aa959d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2450,7 +2376,6 @@ interactions:
       - ce493cc7-b54f-4b93-93ec-bbe1bf3747c0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2482,7 +2407,6 @@ interactions:
       - 747a12bc-ff8c-4540-ab3b-8cddf82309b0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2514,7 +2438,6 @@ interactions:
       - 0dbe47e1-9599-43cb-bca1-1364ff048ab4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2546,7 +2469,6 @@ interactions:
       - cf4199eb-c574-46b9-b332-3e81c2a0c7db
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2578,7 +2500,6 @@ interactions:
       - 59676e18-e865-4b28-9888-004e877cc667
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2610,7 +2531,6 @@ interactions:
       - 77ba1490-d11f-401a-bcfc-aef492779ad1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2642,7 +2562,6 @@ interactions:
       - a8f55f33-0910-4e24-8dac-1577a5c18b9e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2674,7 +2593,6 @@ interactions:
       - 315f9d65-d221-4ae3-96ba-93ac7fb2130d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2706,7 +2624,6 @@ interactions:
       - f15d7f4c-a3b5-4daf-ad13-14b4d7e4ab95
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"8fbf3e96-33c0-4a17-bb9f-2dd51e68afec","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"866e9fab-23af-4928-a1aa-053e3e01da1e","status":"ready","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp:latest","max_concurrency":50,"domain_name":"appclitctnrdeployfpvgptoyk4-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -2738,7 +2655,6 @@ interactions:
       - e44ef502-4537-44fd-a794-de5da3032b69
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"namespaces":[],"total_count":0}'
     form: {}
@@ -2770,7 +2686,6 @@ interactions:
       - f024aa06-2a27-44d6-bb56-e95f8410e8fa
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"namespaces":[],"total_count":0}'
     form: {}
@@ -2802,4 +2717,3 @@ interactions:
       - dfef3bac-281d-4ee5-9300-19f5d45ee597
     status: 200 OK
     code: 200
-    duration: ""

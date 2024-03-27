@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"name":"test-cli-KeyRegistered","public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE
@@ -37,7 +37,6 @@ interactions:
       - 4361b642-bb1b-49c7-a060-131b5702463a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -70,7 +69,6 @@ interactions:
       - d994345d-d6f7-4956-bf5b-4c41849f63bc
     status: 403 Forbidden
     code: 403
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -103,7 +101,6 @@ interactions:
       - be33b059-b6db-4836-b11b-8dca73af2298
     status: 403 Forbidden
     code: 403
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -140,7 +137,6 @@ interactions:
       - 91a6686c-3a37-479c-9d0a-30dfa68dfc6c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -177,7 +173,6 @@ interactions:
       - 1a58e906-bc2d-4566-b38a-a9ff4dec5794
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -207,4 +202,3 @@ interactions:
       - bcaf3dee-46dd-4dfe-923e-648a05ef16f7
     status: 204 No Content
     code: 204
-    duration: ""

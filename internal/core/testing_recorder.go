@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/dnaeon/go-vcr/cassette"
-	"github.com/dnaeon/go-vcr/recorder"
+	"gopkg.in/dnaeon/go-vcr.v3/cassette"
+	"gopkg.in/dnaeon/go-vcr.v3/recorder"
 )
 
 func cassetteRequestFilter(i *cassette.Interaction) error {
@@ -70,22 +70,26 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 // It is important to call add a `defer cleanup()` so the given cassette files are correctly
 // closed and saved after the requests.
 func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
-	recorderMode := recorder.ModeReplaying
+	recorderMode := recorder.ModeReplayOnly
 	if update {
-		recorderMode = recorder.ModeRecording
+		recorderMode = recorder.ModeRecordOnly
 	}
 
 	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(getTestFilePath(t, ".cassette"), recorderMode, &SocketPassthroughTransport{})
+	r, err := recorder.NewWithOptions(&recorder.Options{
+		CassetteName:       getTestFilePath(t, ".cassette"),
+		Mode:               recorderMode,
+		SkipRequestLatency: true,
+	})
 	if err != nil {
 		return nil, nil, err
 	}
 
 	// Add a filter which removes Authorization headers from all requests:
-	r.AddFilter(cassetteRequestFilter)
+	r.AddHook(cassetteRequestFilter, recorder.BeforeSaveHook)
 
 	// Remove secrets from response
-	r.AddSaveFilter(cassetteResponseFilter)
+	r.AddHook(cassetteResponseFilter, recorder.BeforeSaveHook)
 
 	r.SetMatcher(cassetteMatcher)
 

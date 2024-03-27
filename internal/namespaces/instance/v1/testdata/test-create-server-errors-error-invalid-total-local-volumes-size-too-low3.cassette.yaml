@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"volume": {"id": "c32f60ef-8f6d-45e2-ae87-2f70c8f724c6", "name": "cli-test",
@@ -44,7 +44,6 @@ interactions:
       - c102acea-95cc-4a64-afeb-ee93a1fad627
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"local_images":[{"id":"cdd37013-d25b-49a5-a8c5-b3e7c1eaf4c8", "arch":"arm64",
       "zone":"fr-par-1", "compatible_commercial_types":["AMP2-C1", "AMP2-C2", "AMP2-C4",
@@ -106,7 +105,6 @@ interactions:
       - c7bb3a91-7947-4dda-bbb1-d295daf41b3f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "bfcb8579-a98f-464c-a958-af80eeef020b", "name": "Ubuntu
       22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -150,7 +148,6 @@ interactions:
       - 16b68ab9-d00d-4283-acf1-59cf6a3bd2ae
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1099,7 +1096,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1352,7 +1348,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"volume": {"id": "c32f60ef-8f6d-45e2-ae87-2f70c8f724c6", "name": "cli-test",
       "volume_type": "l_ssd", "export_uri": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1392,4 +1387,3 @@ interactions:
       - 2dfcee4a-323a-45a1-bb27-97f83d02458b
     status: 200 OK
     code: 200
-    duration: ""

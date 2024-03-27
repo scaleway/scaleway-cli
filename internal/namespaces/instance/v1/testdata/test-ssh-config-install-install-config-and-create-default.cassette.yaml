@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 8064f50e-3243-40ba-bc79-f9dd8b1b9368
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - b5254d5b-1473-4255-9602-7262d0cc9cd0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "f90e8f53-9936-443c-87e4-fb50819ba794", "address": "51.158.112.105",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - 3ee0427c-0433-464c-9201-abe17ab49080
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "feafdfe0-2747-4b1a-a473-bd616c4c93fd", "name": "cli-srv-upbeat-leavitt",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - ed0bdad2-e4c4-4d0a-9f7a-b8a75f4a7eb9
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"access_key":"SCWQN1ZYHWPFGJD28Q70", "secret_key":null, "description":"iam",
       "created_at":"2022-08-22T09:13:42.922733Z", "updated_at":"2022-10-20T08:29:52.752429Z",
@@ -1480,7 +1474,6 @@ interactions:
       - a6d48fcd-7d47-4e1a-90cf-51a835961ef4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": [{"id": "feafdfe0-2747-4b1a-a473-bd616c4c93fd", "name": "cli-srv-upbeat-leavitt",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1810,7 +1803,6 @@ interactions:
       - "4"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"total_count":0, "servers":[]}'
     form: {}
@@ -1842,7 +1834,6 @@ interactions:
       - ac9f9d35-e036-4032-9e81-470c868a2e08
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server_private_networks":[], "total_count":0}'
     form: {}
@@ -1874,7 +1865,6 @@ interactions:
       - 08c6217d-f78a-4054-ba8b-e05e3352f29e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"total_count":0, "servers":[]}'
     form: {}
@@ -1906,7 +1896,6 @@ interactions:
       - 4cb1b77a-1c38-4db2-9873-f1a1b92797ac
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"gateways":[], "total_count":0}'
     form: {}
@@ -1938,7 +1927,6 @@ interactions:
       - b8d5228d-babc-4189-b579-4066229e242a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "feafdfe0-2747-4b1a-a473-bd616c4c93fd", "name": "cli-srv-upbeat-leavitt",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2038,7 +2026,6 @@ interactions:
       - fa270b75-e77b-48f6-9434-5c7681e45c33
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2066,7 +2053,6 @@ interactions:
       - 9260d2a4-6807-4f55-8a16-2ab60bafc354
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2094,7 +2080,6 @@ interactions:
       - 9a3a7671-a7e0-4117-a6e7-0f2b58fbca9c
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2122,4 +2107,3 @@ interactions:
       - d6d8652d-b2d4-4a4e-9122-24a431f8029e
     status: 204 No Content
     code: 204
-    duration: ""

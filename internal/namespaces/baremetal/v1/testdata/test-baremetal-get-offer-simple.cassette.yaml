@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"c5853302-63e4-40c7-a711-4a91629565c8", "name":"EM-L105X-SATA", "stock":"available",
@@ -86,4 +86,3 @@ interactions:
       - 47c191fd-956f-4f2a-b123-dc543ef4dc07
     status: 200 OK
     code: 200
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"volume": {"id": "eb1a9658-31f8-454a-851f-4e3569203d4b", "name": "cli-test",
@@ -44,7 +44,6 @@ interactions:
       - 0ac53f09-7a96-4e37-a659-2c754f6db05d
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"volume": {"id": "eb1a9658-31f8-454a-851f-4e3569203d4b", "name": "cli-test",
       "volume_type": "b_ssd", "export_uri": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -84,7 +83,6 @@ interactions:
       - 2b07e2ac-c3bf-42d8-8773-908f0f2b2d1e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "f8cf3efd-885d-46bd-b390-f3ce21df07eb", "name": "cli-test-snapshot-update-tags",
       "volume_type": "b_ssd", "creation_date": "2023-12-14T14:00:01.157397+00:00",
@@ -136,7 +134,6 @@ interactions:
       - a2ae1de6-bb36-4a2d-8c6e-64fccaf05a43
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "f8cf3efd-885d-46bd-b390-f3ce21df07eb", "name": "cli-test-snapshot-update-tags",
       "volume_type": "b_ssd", "creation_date": "2023-12-14T14:00:01.157397+00:00",
@@ -182,7 +179,6 @@ interactions:
       - 5c712745-de1f-4bb3-95b2-1877dbe7fd75
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "f8cf3efd-885d-46bd-b390-f3ce21df07eb", "name": "cli-test-snapshot-update-tags",
       "volume_type": "b_ssd", "creation_date": "2023-12-14T14:00:01.157397+00:00",
@@ -226,7 +222,6 @@ interactions:
       - b7a65851-df88-4a03-8297-93b8b1345483
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "f8cf3efd-885d-46bd-b390-f3ce21df07eb", "name": "cli-test-snapshot-update-tags",
       "volume_type": "b_ssd", "creation_date": "2023-12-14T14:00:01.157397+00:00",
@@ -270,7 +265,6 @@ interactions:
       - bd6f272b-ad89-45bf-9b9b-c7e05dcd0571
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "f8cf3efd-885d-46bd-b390-f3ce21df07eb", "name": "cli-test-snapshot-update-tags",
       "volume_type": "b_ssd", "creation_date": "2023-12-14T14:00:01.157397+00:00",
@@ -314,7 +308,6 @@ interactions:
       - 3f7d59ca-c411-45c8-8333-31f2a604233e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "f8cf3efd-885d-46bd-b390-f3ce21df07eb", "name": "cli-test-snapshot-update-tags",
       "volume_type": "b_ssd", "creation_date": "2023-12-14T14:00:01.157397+00:00",
@@ -356,7 +349,6 @@ interactions:
       - 92942318-407d-4a93-830b-96ea98b4e52c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -384,7 +376,6 @@ interactions:
       - b4691d6e-debb-4627-b556-02da80858f35
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -412,4 +403,3 @@ interactions:
       - 9d16aaa7-4403-4f1b-ae64-67da61c342dc
     status: 204 No Content
     code: 204
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 390b8c65-a32c-4786-851a-315b9fbbcc53
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - 3b25ea0f-ab1b-4d5c-af90-bd8aa35631da
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1390,7 +1386,6 @@ interactions:
       - 7edaf41d-5dac-460d-b628-f69845867ec9
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"task": {"id": "f455fc1a-1caf-4289-8fd0-3c2f968097cc", "description":
       "server_batch_poweron", "status": "pending", "href_from": "/servers/1143cc15-12fe-47a9-9ecf-e1008fa0d057/action",
@@ -1432,7 +1427,6 @@ interactions:
       - 5f61b392-c189-4705-b399-617848f264e7
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1522,7 +1516,6 @@ interactions:
       - f90739e9-bc46-4a5a-8e9a-6796b2fa91e5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1624,7 +1617,6 @@ interactions:
       - d7b39bfd-4137-4cf4-bad6-c40029025305
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1726,7 +1718,6 @@ interactions:
       - e8bbbcf9-1754-4e7b-ba1f-adccb9cf197b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1828,7 +1819,6 @@ interactions:
       - ff52da72-02b1-4918-ac0e-31f4d16e7536
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1930,7 +1920,6 @@ interactions:
       - 49a3316e-a5a5-4212-bf9a-012976126a53
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2034,7 +2023,6 @@ interactions:
       - 938fed94-6d43-46ff-ba55-752d95e07142
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2138,7 +2126,6 @@ interactions:
       - c3ba81a4-5d96-4043-ad48-3389c8a1aa33
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2242,7 +2229,6 @@ interactions:
       - f58ea242-4079-4a15-8de5-64b0241f2bfe
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "d6f3ff06-676f-4adc-b1d5-433d6db15387", "description":
       "server_poweroff", "status": "pending", "href_from": "/servers/1143cc15-12fe-47a9-9ecf-e1008fa0d057/action",
@@ -2284,7 +2270,6 @@ interactions:
       - 7080d74f-da5b-48f4-a926-69f71cb5ddbb
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2376,7 +2361,6 @@ interactions:
       - 50afacb7-d527-4f2b-8bf6-77ea85dc2f0a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2468,7 +2452,6 @@ interactions:
       - 4a66b645-935a-4364-bbee-5f760b4f4459
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2560,7 +2543,6 @@ interactions:
       - 9b4f61e0-e25d-435a-a376-183fc7be2a08
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2652,7 +2634,6 @@ interactions:
       - 5ef9644b-920c-40bd-a918-b55fc4e42279
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2744,7 +2725,6 @@ interactions:
       - fb7d8c5e-e9fd-4a53-b6f5-610064203bb0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2836,7 +2816,6 @@ interactions:
       - a5daaabc-587f-4a92-8ee1-902600b7c157
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2928,7 +2907,6 @@ interactions:
       - de1af486-e797-4bfb-8d5a-9581c7058867
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3020,7 +2998,6 @@ interactions:
       - 1c008cf0-6cfd-42e8-b976-3f96374752ba
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3112,7 +3089,6 @@ interactions:
       - 588bfc7b-f666-4314-aa65-fd6a3c0ae25c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3204,7 +3180,6 @@ interactions:
       - eb6e46cc-77d9-40b4-a841-a270cf9e7fc1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1143cc15-12fe-47a9-9ecf-e1008fa0d057", "name": "cli-srv-wonderful-fermi",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3294,7 +3269,6 @@ interactions:
       - 00e5f261-3372-4695-b6b3-dadd0e0344b0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3322,7 +3296,6 @@ interactions:
       - 295c52ab-11c9-49f9-84ff-e77c68737464
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3350,4 +3323,3 @@ interactions:
       - 93cdd0a0-d84e-4aa4-8ec8-8b64c4c5f780
     status: 204 No Content
     code: 204
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"ip": {"id": "f90e8f53-9936-443c-87e4-fb50819ba794", "address": "51.158.112.105",
@@ -42,7 +42,6 @@ interactions:
       - fab5385c-c8fe-49c2-b4d9-936f19966780
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"ip": {"id": "f90e8f53-9936-443c-87e4-fb50819ba794", "address": "51.158.112.105",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -80,7 +79,6 @@ interactions:
       - df94be44-f437-42fa-b5ee-5002568bd301
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -108,4 +106,3 @@ interactions:
       - 08855d6d-b4cb-45a3-9823-e61acd050070
     status: 204 No Content
     code: 204
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"9b219bf2-8175-4873-b130-447fad04084a", "name":"cli-pn-mystifying-knuth",
@@ -40,7 +40,6 @@ interactions:
       - 861dd8fe-b988-4279-ae05-c7b14cdbbf78
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"images": [{"id": "0d3a22da-c634-45d6-a7dd-aff402f88b0c", "name": "AlmaLinux
       8", "label": "almalinux_8", "logo": "https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png",
@@ -3050,7 +3049,6 @@ interactions:
       - "23"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "68cf470e-6c35-4741-bbff-4ce788616461", "name": "Ubuntu
       20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -3094,7 +3092,6 @@ interactions:
       - 6882e41a-ae41-4598-ab33-84d2f4f6903a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"DEV1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 4,
       "ram": 8589934592, "gpu": 0, "volumes_constraint": {"min_size": 0, "max_size":
@@ -3804,7 +3801,6 @@ interactions:
       - "38"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "607f9310-4c85-4152-a2a6-f0c6272b012d", "address": "163.172.168.201",
       "reverse": null, "server": null, "organization": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
@@ -3846,7 +3842,6 @@ interactions:
       - 0cf75e0c-85ae-4ba5-9668-5d36b1f5ec56
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "acd622a2-ad90-4f37-9ddb-e2e5d54b9077", "name": "cli-srv-determined-wright",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3940,7 +3935,6 @@ interactions:
       - 78eb605e-f62b-4e02-8d15-ba5b4289b5b4
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"private_nic": {"id": "4ed1543a-35ba-46e9-8da1-1534885e8a40", "private_network_id":
       "9b219bf2-8175-4873-b130-447fad04084a", "server_id": "acd622a2-ad90-4f37-9ddb-e2e5d54b9077",
@@ -3982,7 +3976,6 @@ interactions:
       - 5d61a226-a801-4ab7-b59e-5e5f9e5b8cf8
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"id":"9b219bf2-8175-4873-b130-447fad04084a", "name":"cli-pn-mystifying-knuth",
       "tags":[], "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "created_at":"2023-05-16T09:21:28.438501Z",
@@ -4020,7 +4013,6 @@ interactions:
       - e27563a8-b5d0-4c3a-8744-d9fa276693a5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": [{"id": "acd622a2-ad90-4f37-9ddb-e2e5d54b9077", "name": "cli-srv-determined-wright",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4121,7 +4113,6 @@ interactions:
       - "1"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server_private_networks":[], "total_count":0}'
     form: {}
@@ -4153,7 +4144,6 @@ interactions:
       - aa039ffc-710a-4290-b198-7e7f452853e3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"lbs":[{"id":"a38cccee-a702-400f-ba30-f1b2517a0047", "name":"test_lb",
       "description":"", "status":"ready", "instances":[{"id":"f6ee0815-016b-43d0-a414-962e222755a3",
@@ -4209,7 +4199,6 @@ interactions:
       - f308b148-a577-4f21-8128-717e596073e1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"private_network":[{"lb":{"id":"a38cccee-a702-400f-ba30-f1b2517a0047",
       "name":"test_lb", "description":"", "status":"ready", "instances":[], "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
@@ -4307,7 +4296,6 @@ interactions:
       - 7cae688e-3846-4963-9d82-baa6fd8fb1e3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"instances":[{"id":"df3ce9de-0ef1-4b83-b481-b326645e1c33", "name":"rdb-gifted-volhard",
       "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
@@ -4365,7 +4353,6 @@ interactions:
       - a3722ba3-51f9-49da-8c00-aedc45c70f66
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"clusters":[], "total_count":0}'
     form: {}
@@ -4397,7 +4384,6 @@ interactions:
       - 11c4a6b7-8eb6-4dc0-97ea-c260e9944657
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"gateways":[], "total_count":0}'
     form: {}
@@ -4429,7 +4415,6 @@ interactions:
       - 4186c54e-59bd-4261-a5d9-21c6216edbd3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "acd622a2-ad90-4f37-9ddb-e2e5d54b9077", "name": "cli-srv-determined-wright",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4525,7 +4510,6 @@ interactions:
       - bd2200c5-765d-41a1-8ecd-f8236e074df8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -4553,7 +4537,6 @@ interactions:
       - 1dc72abc-a2fd-400e-8ecf-58ce0106065f
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -4581,7 +4564,6 @@ interactions:
       - 9e87d94e-22e3-498b-b0d9-ee320096fa55
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -4611,4 +4593,3 @@ interactions:
       - ea886f15-b4d8-4e57-9e82-26b6e2ed108f
     status: 204 No Content
     code: 204
-    duration: ""

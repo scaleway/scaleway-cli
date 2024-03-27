@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"cluster_types":[{"name":"kapsule", "availability":"available", "max_nodes":150,
@@ -64,7 +64,6 @@ interactions:
       - bf22a0c0-de5e-4c4a-8e68-c9b9f5bccf4c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"65834a6d-2e7c-43f1-bd71-52fa7307ab07", "name":"pn-youthful-almeida",
       "tags":["created-along-with-k8s-cluster", "created-by-cli"], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
@@ -112,7 +111,6 @@ interactions:
       - e52c3d96-e677-4ab3-896f-e876d0020a99
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089490Z",
@@ -176,7 +174,6 @@ interactions:
       - 0fc7343a-f2d6-4e5d-bcbf-0101ab7c2f5c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -238,7 +235,6 @@ interactions:
       - 4c8d79e7-b555-4c36-8345-c1536a3f7de7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -300,7 +296,6 @@ interactions:
       - 9f5b1b87-bb14-4051-93b5-6d161c155aab
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -362,7 +357,6 @@ interactions:
       - fdc3c25e-f80c-4531-b059-b91f2df8b457
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -424,7 +418,6 @@ interactions:
       - 9fdca7d5-f543-4d72-bbd3-20cefaf706e7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -486,7 +479,6 @@ interactions:
       - c57e1702-1365-4530-94bb-2ef7dfccae87
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -548,7 +540,6 @@ interactions:
       - 0cf330b2-ab22-49b6-9259-2b7e734cce62
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -610,7 +601,6 @@ interactions:
       - bae1e7f3-ac8a-4e8c-8afd-d42a993c400e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -672,7 +662,6 @@ interactions:
       - 76d602f9-12e2-49f5-a50c-f244e678a385
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -734,7 +723,6 @@ interactions:
       - fc836c29-5dbd-4c43-8f93-f7dc87b306bc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -796,7 +784,6 @@ interactions:
       - ff4d6ee1-2d2f-4fc5-b774-3058a3170276
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -858,7 +845,6 @@ interactions:
       - 77ab9f7f-cf21-4b2d-abcd-90176f2f8bc2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -920,7 +906,6 @@ interactions:
       - 728f7496-e02f-42c0-8733-5b3b32b4f974
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -982,7 +967,6 @@ interactions:
       - f7bc992b-3147-4151-b55e-73cc3c46f250
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1044,7 +1028,6 @@ interactions:
       - 53acf2ba-009f-4aba-9c0c-80215560d676
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1106,7 +1089,6 @@ interactions:
       - 4b22a0f4-187c-4474-a286-52bb2717a099
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1168,7 +1150,6 @@ interactions:
       - dc22eaa2-bd0e-4a0c-9761-1529a66f1375
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1230,7 +1211,6 @@ interactions:
       - 85598a4d-66d9-4698-82ce-dc81a63f77fb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1292,7 +1272,6 @@ interactions:
       - bcac9351-7e62-4e72-a0b5-02ecf803badc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1354,7 +1333,6 @@ interactions:
       - fd1a000a-cd9b-4e3f-91f8-323daf9abfcd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1416,7 +1394,6 @@ interactions:
       - 45ba6b02-5f2c-4379-938d-1e47532805e1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1478,7 +1455,6 @@ interactions:
       - a5b6aa99-a73b-4dc7-8493-bf878db2d1a0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1540,7 +1516,6 @@ interactions:
       - b7b64b4c-89e3-44ee-868a-d8bc612bf7d6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1602,7 +1577,6 @@ interactions:
       - 7a2ea458-effe-484a-a897-db49a2c4e48d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1664,7 +1638,6 @@ interactions:
       - 07401483-02f0-4bcf-8150-f2b33a9b4a5e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1726,7 +1699,6 @@ interactions:
       - e71daaf1-80d1-44ac-be0e-12f6e09b1081
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1788,7 +1760,6 @@ interactions:
       - 918a54d4-485d-4c32-99dc-2cbdd88ddb2d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1850,7 +1821,6 @@ interactions:
       - 287cebdd-21dd-45be-80f3-45ef3f18f311
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1912,7 +1882,6 @@ interactions:
       - 604ecba3-6935-42c6-ac78-20b1715ea811
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -1974,7 +1943,6 @@ interactions:
       - ef142159-2d28-46fb-8565-e0a4dcd4f767
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2036,7 +2004,6 @@ interactions:
       - a03ec69e-dc24-48c0-bcee-1769e8801d7a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2098,7 +2065,6 @@ interactions:
       - ee9b084f-ac4a-46b8-8e32-cd25bf3d352f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2160,7 +2126,6 @@ interactions:
       - e4d18f85-e0d9-461d-8ddb-641997610d16
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2222,7 +2187,6 @@ interactions:
       - a8264178-0e0c-44fd-99fb-c7b52146bf59
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2284,7 +2248,6 @@ interactions:
       - abc4a95d-ad30-45ca-8162-5af607c8d8cb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2346,7 +2309,6 @@ interactions:
       - 8161877d-574d-41c2-813b-5d52e7fb8eaf
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2408,7 +2370,6 @@ interactions:
       - 73868ec8-74bb-4736-809a-52c2aace165d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2470,7 +2431,6 @@ interactions:
       - cfeb6b35-6931-4c17-ba35-493f963c2ac8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2532,7 +2492,6 @@ interactions:
       - c2b7b051-4895-4694-9c66-71c096e39745
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2594,7 +2553,6 @@ interactions:
       - a034f2fa-9925-4b28-a28f-8862e66a10b3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2656,7 +2614,6 @@ interactions:
       - 03a7da36-c669-4593-a537-b06a69707630
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2718,7 +2675,6 @@ interactions:
       - 0a9a77ad-ec56-44ac-b5d3-0ad778530434
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2780,7 +2736,6 @@ interactions:
       - 986f991a-5692-4691-9013-1a751f0ebb53
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2842,7 +2797,6 @@ interactions:
       - d5edf1f5-5bb4-4b96-b4cb-6bda250c3a03
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2904,7 +2858,6 @@ interactions:
       - a190afa7-85f6-4c8a-a5e7-9ae496b700f3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -2966,7 +2919,6 @@ interactions:
       - 0312df33-a8cb-4f17-8b4c-a1a3afadc4a8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"total_count":1, "pools":[{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a",
       "cluster_id":"37176254-0637-41bd-b519-091d431d29ed", "created_at":"2023-12-28T14:43:40.366788Z",
@@ -3012,7 +2964,6 @@ interactions:
       - 7a1c4152-1b26-4ce3-b15f-266485803b6d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3056,7 +3007,6 @@ interactions:
       - a265c2df-e895-4670-81f6-7507a98d4d6c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3100,7 +3050,6 @@ interactions:
       - ca7b887e-509c-475e-8f58-008858de8e3e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3144,7 +3093,6 @@ interactions:
       - c8197389-b421-4391-a01e-b1e2a116ba04
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3188,7 +3136,6 @@ interactions:
       - 9d3c27fa-3f5d-44e9-aa6d-4c7f86fc564f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3232,7 +3179,6 @@ interactions:
       - b72279e5-7a5e-4077-a33c-a1fa074170ad
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3276,7 +3222,6 @@ interactions:
       - 5193e1c3-611e-41b0-9770-ebfb34514b62
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3320,7 +3265,6 @@ interactions:
       - 82309c4b-dd6f-4b2b-b07c-7d66462f1f63
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3364,7 +3308,6 @@ interactions:
       - a9c766e3-0138-4c18-b0d4-bba95e8cd42e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3408,7 +3351,6 @@ interactions:
       - 063f0054-34c3-4ad3-9453-81ae47897241
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3452,7 +3394,6 @@ interactions:
       - 644fece6-4f5f-4727-9a92-80aa4013caa3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3496,7 +3437,6 @@ interactions:
       - 556a5f00-b956-47cb-b96e-8345f0bb7ff2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3540,7 +3480,6 @@ interactions:
       - f9b0d006-790d-47d3-a97d-2d6abd9e04e1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3584,7 +3523,6 @@ interactions:
       - d4bae3d8-7a01-401c-8c59-58aca33c6a29
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3628,7 +3566,6 @@ interactions:
       - cb111054-e31c-4036-96f7-38ff606cb8fd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3672,7 +3609,6 @@ interactions:
       - d41d3fd0-cd47-46f1-8a30-70c66f616a89
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3716,7 +3652,6 @@ interactions:
       - b231fa54-96ec-4134-af05-961d8ece00c8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3760,7 +3695,6 @@ interactions:
       - abfab345-dbb9-4e7a-bd9b-cb39b3ef9314
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3804,7 +3738,6 @@ interactions:
       - 23a90085-123b-403b-b6b4-eea6302234dc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3848,7 +3781,6 @@ interactions:
       - 2d083f31-e072-4f5e-a415-63e5cd7fb214
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3892,7 +3824,6 @@ interactions:
       - fc563f5d-8b36-4b5b-9b72-0e7a2e8336ea
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3936,7 +3867,6 @@ interactions:
       - 7f49afe8-f87e-4c06-8d6e-4486eaddd38e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -3980,7 +3910,6 @@ interactions:
       - a51e167f-5700-41d8-9c65-1a4a53a60bd9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4024,7 +3953,6 @@ interactions:
       - 6775c1a2-b723-445c-996c-aaa0837c626c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4068,7 +3996,6 @@ interactions:
       - 8d112aec-21f6-44ba-ad39-89265b7d3084
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4112,7 +4039,6 @@ interactions:
       - 7db46cd8-d51f-48e0-99cc-f43c0973434f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4156,7 +4082,6 @@ interactions:
       - 61b18d6d-ec82-46c2-899a-2dc8d212f65d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4200,7 +4125,6 @@ interactions:
       - bdbf110e-8c30-4d9e-a8e0-4755b27a0a4d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4244,7 +4168,6 @@ interactions:
       - 3d65b80a-a548-4854-b2cb-d79d182d9416
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4288,7 +4211,6 @@ interactions:
       - edb63aad-449d-49ce-89b1-e3f5365d44e9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4332,7 +4254,6 @@ interactions:
       - 7de658fe-0d4b-4d45-8b1b-618d4e703acb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4376,7 +4297,6 @@ interactions:
       - 8248e6ca-14d4-4b94-95ed-39ff49508cd4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4420,7 +4340,6 @@ interactions:
       - db53e9b3-506f-4bf1-8409-3a6e0b5696a1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4464,7 +4383,6 @@ interactions:
       - 97f24249-8075-4a9e-9b4c-54a5e77982e8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4508,7 +4426,6 @@ interactions:
       - 7b062acb-d69e-40ab-aaac-01931bc20478
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4552,7 +4469,6 @@ interactions:
       - ad4ca791-46e8-4076-a3fe-ce809bb76ef2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4596,7 +4512,6 @@ interactions:
       - 977228f3-d489-4982-b3e9-0bd411c2cfba
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4640,7 +4555,6 @@ interactions:
       - 7da4b30e-e9d4-4499-bb18-bd5890b1629e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4684,7 +4598,6 @@ interactions:
       - e2fcc2cc-729e-4e71-9e4d-96be10be2496
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4728,7 +4641,6 @@ interactions:
       - 39281a9c-82aa-43aa-90a7-5e48393003ed
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4772,7 +4684,6 @@ interactions:
       - 6dbb3eb2-fcc1-40d4-9d0e-5f25f8d2e00d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4816,7 +4727,6 @@ interactions:
       - 110093b4-9ef3-4bd6-8f85-ee52f6073673
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4860,7 +4770,6 @@ interactions:
       - 02af3520-67ed-415d-9f9a-3ae7ab97527d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4904,7 +4813,6 @@ interactions:
       - 85735683-ee22-4ca0-8939-784371614f26
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4948,7 +4856,6 @@ interactions:
       - d373568c-73bd-4409-a98e-442290b7c10e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -4992,7 +4899,6 @@ interactions:
       - 95064f63-aa73-487f-b6c5-1778c7553842
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5036,7 +4942,6 @@ interactions:
       - fee7df37-ef1f-4fc2-8db0-b05b192552a0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5080,7 +4985,6 @@ interactions:
       - cff1f310-0e6b-4f1b-8d61-42abcc508f75
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5124,7 +5028,6 @@ interactions:
       - 70f32aa3-3e91-4df7-9a3c-441d0d3c95ca
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5168,7 +5071,6 @@ interactions:
       - 272bcd85-b9be-4fd2-8ee2-f3a618faa292
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5212,7 +5114,6 @@ interactions:
       - 9de496db-8dc0-4c7d-97f5-7895ab7cc882
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5256,7 +5157,6 @@ interactions:
       - 21d58684-a729-46fe-abd1-4418eb357e11
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5300,7 +5200,6 @@ interactions:
       - 93f36a70-f95d-4fe0-b3ef-3cb20e5c0597
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5344,7 +5243,6 @@ interactions:
       - ec778d91-715f-4598-99bc-b1e045e9d169
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5388,7 +5286,6 @@ interactions:
       - c23573fa-be77-4ac1-a697-c934c35ab6df
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5432,7 +5329,6 @@ interactions:
       - fb47d20e-382e-48b7-8ae0-223664c98032
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5476,7 +5372,6 @@ interactions:
       - 6687d8d6-3136-4325-8da5-1684306257fc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5520,7 +5415,6 @@ interactions:
       - faf02dd5-02b7-4524-bfe3-d083b3c41de3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5564,7 +5458,6 @@ interactions:
       - e04532b3-9312-4a1f-90b0-de4e45a8a38e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5608,7 +5501,6 @@ interactions:
       - 8c59bc69-01f2-4ce5-bc46-19396ed0eb96
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5652,7 +5544,6 @@ interactions:
       - 14e766e7-b573-400d-86e4-c8e55302bd6e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5696,7 +5587,6 @@ interactions:
       - 278b69e9-747e-47f9-9440-369d3273d30a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5740,7 +5630,6 @@ interactions:
       - 461a5172-4612-4ba1-9d69-bfa013c22ca4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5784,7 +5673,6 @@ interactions:
       - cc3d780b-71a2-4973-8e97-1099136c8333
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5828,7 +5716,6 @@ interactions:
       - 565d7c3f-b621-4d8b-a050-f528ec3399ba
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5872,7 +5759,6 @@ interactions:
       - 9a82b67e-260a-4414-b0c1-4192bf0c5685
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5916,7 +5802,6 @@ interactions:
       - 7aaf8963-b6a4-491d-bbbb-2e433e83177c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -5960,7 +5845,6 @@ interactions:
       - 8f6690e5-359a-4a12-97c4-0b147bb7076a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -6004,7 +5888,6 @@ interactions:
       - 3e52e630-509f-4dd0-a0b1-8a7a586ba88f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -6048,7 +5931,6 @@ interactions:
       - 17c0505d-1850-44d5-92ca-b5be40ee102a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -6092,7 +5974,6 @@ interactions:
       - 1541ccc3-2272-4dba-8f16-a487d0d45c2b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -6136,7 +6017,6 @@ interactions:
       - 9c5ed4eb-6427-47cc-9b00-fd14d8be0279
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -6180,7 +6060,6 @@ interactions:
       - c397a928-a6ba-424e-b86a-166567174b3d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:43:40.375245Z",
@@ -6224,7 +6103,6 @@ interactions:
       - 345eb6e5-05e1-48dc-ad0a-ce5411b80c57
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"abfe19fb-e171-4116-8df9-becdd8953f7a", "cluster_id":"37176254-0637-41bd-b519-091d431d29ed",
       "created_at":"2023-12-28T14:43:40.366788Z", "updated_at":"2023-12-28T14:53:31.714439Z",
@@ -6268,7 +6146,6 @@ interactions:
       - 47493a71-b9a4-454f-bad0-36869caf0a02
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -6330,7 +6207,6 @@ interactions:
       - 27d65152-e977-4a96-9bf7-88317d1951e9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -6392,7 +6268,6 @@ interactions:
       - 052fc807-9b55-436f-bb3d-1eb8e18f459c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -6454,7 +6329,6 @@ interactions:
       - 6358c990-c029-4d9b-a910-f55b07949e38
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"37176254-0637-41bd-b519-091d431d29ed", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:40.349089Z",
@@ -6516,7 +6390,6 @@ interactions:
       - b87ff5b9-d21b-4ba9-92ce-b5bc039800d7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"message":"resource is not found","resource":"cluster","resource_id":"37176254-0637-41bd-b519-091d431d29ed","type":"not_found"}'
     form: {}
@@ -6548,4 +6421,3 @@ interactions:
       - 7b647668-e4d1-4b1d-9b32-ac10e95c2bd6
     status: 404 Not Found
     code: 404
-    duration: ""

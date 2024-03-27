@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"region":"fr-par","name":"1.27.1","label":"Kubernetes 1.27.1","available_cnis":["cilium","calico","kilo"],"available_ingresses":["none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","GRPCContainerProbe","ReadWriteOncePod"],"available_admission_plugins":["PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}}'
@@ -32,4 +32,3 @@ interactions:
       - a5715698-c910-4555-b2a8-ecf864532f6f
     status: 200 OK
     code: 200
-    duration: ""

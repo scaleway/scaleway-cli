@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
@@ -40,7 +40,6 @@ interactions:
       - 734a7fd5-8fd1-4f87-934b-56c068e25ca0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
       "created_at":"2024-02-19T15:12:40.139064899Z", "updated_at":"2024-02-19T15:12:40.139064899Z",
@@ -80,7 +79,6 @@ interactions:
       - 755e7808-2737-487c-a87a-654f8613fdbf
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"total_count":6, "nats_accounts":[{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
       "region":"fr-par", "created_at":"2024-02-19T09:48:46.687350Z", "updated_at":"2024-02-19T09:48:46.687350Z",
@@ -148,7 +146,6 @@ interactions:
       - 4e074529-8975-4246-8bc2-05ba6846fbc8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -178,7 +175,6 @@ interactions:
       - 906c4f88-d167-488f-9bd4-e3113b4cb8f4
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -208,4 +204,3 @@ interactions:
       - 502e796b-dbee-4fd5-9550-073c63cfb1d7
     status: 204 No Content
     code: 204
-    duration: ""

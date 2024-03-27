@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"ssh_keys":[{"id":"495d0e9f-a22b-4ff5-8324-0cb4746c57dc", "name":"rleone@scaleway.com",
@@ -82,4 +82,3 @@ interactions:
       - c75be1c4-288c-486f-86af-5737738288b6
     status: 200 OK
     code: 200
-    duration: ""

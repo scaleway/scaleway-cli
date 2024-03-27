@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -32,4 +32,3 @@ interactions:
       - edbe64c1-9d5f-42e6-8705-6b6c91df28f5
     status: 200 OK
     code: 200
-    duration: ""

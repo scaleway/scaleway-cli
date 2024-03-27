@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
@@ -52,7 +52,6 @@ interactions:
       - 5d802f99-bd60-459a-8757-b56aaa48c600
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"to_create", "instances":[], "organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -102,7 +101,6 @@ interactions:
       - 8825f6a3-c367-44e2-86ab-16d6b7bc9a19
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -156,7 +154,6 @@ interactions:
       - 64b8486a-8c4b-41ee-b096-7dd92e0b592f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -210,7 +207,6 @@ interactions:
       - 099c1046-148a-4f3f-afa1-f02350c35667
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -264,7 +260,6 @@ interactions:
       - 11ee91de-0388-4c15-89b8-69020bf74fc8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -318,7 +313,6 @@ interactions:
       - 10bbb557-2987-4e8c-bf49-234bb37053e7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -372,7 +366,6 @@ interactions:
       - be7c8a16-bd9e-48d2-9b4e-4e95c1ae8a99
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -426,7 +419,6 @@ interactions:
       - 628b6bc9-1395-4f19-8af2-850b12e9ad49
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -480,7 +472,6 @@ interactions:
       - 0ea7fde5-1235-496e-ae5f-3f9dbed58f67
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -534,7 +525,6 @@ interactions:
       - 190954a3-c3ce-46d0-bf6d-1190cc5ae0da
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -588,7 +578,6 @@ interactions:
       - c921b419-22d8-436f-8992-4cab9c89b8a7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -642,7 +631,6 @@ interactions:
       - 759301fc-0250-4b8a-a295-bd0a37f50ede
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -696,7 +684,6 @@ interactions:
       - 88e214fd-1b59-4553-bc12-98b30e1278f2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"ready", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -750,7 +737,6 @@ interactions:
       - d191d593-350b-4350-ab19-511a691ecca2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
       "zone":"fr-par-1", "compatible_commercial_types":["DEV1-L", "DEV1-M", "DEV1-S",
@@ -800,7 +786,6 @@ interactions:
       - 02110a4e-8f25-4ce4-8d24-b1aa5726aea7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -844,7 +829,6 @@ interactions:
       - 4df634be-f261-43b1-8e6f-f84d2eb0af86
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1793,7 +1777,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -2046,7 +2029,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "0cd4bdd5-512c-4794-a64a-480c4192c621", "address": "212.47.247.106",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -2088,7 +2070,6 @@ interactions:
       - 6571ae5b-ca5b-4eb2-8bc3-3fbe70fb46f6
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2192,7 +2173,6 @@ interactions:
       - ae2c91c8-0816-4207-9635-db4cee16a3db
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"task": {"id": "bc8ecaa4-63aa-46e2-992d-30c0948b143e", "description":
       "server_batch_poweron", "status": "pending", "href_from": "/servers/b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97/action",
@@ -2234,7 +2214,6 @@ interactions:
       - 15ba4018-ff87-486e-a179-9c2232c2af31
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2334,7 +2313,6 @@ interactions:
       - 287420ab-07a7-4d8d-96fd-511d468630b8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2436,7 +2414,6 @@ interactions:
       - 7295b34b-ab6d-4cac-b77e-92a7048510f9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2538,7 +2515,6 @@ interactions:
       - c8cff234-7d35-4399-8516-cd77291e0b79
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2642,7 +2618,6 @@ interactions:
       - 4808ab88-24a8-467e-bef1-86cc4e9214b5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2746,7 +2721,6 @@ interactions:
       - 3df899a1-7fdc-46ad-ba64-c6607b3d85f8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"f61c81cf-1a4d-4bcd-baff-3eadba27714f", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":80, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -2822,7 +2796,6 @@ interactions:
       - 737a51d5-07d8-44ad-910c-ffcb6da1e32f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2852,7 +2825,6 @@ interactions:
       - e5cbda61-fe5b-4766-ab79-09646487a93d
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"f3acf7a9-9649-44a6-85cc-b849a003a42f", "name":"cli-test", "description":"cli-test",
       "status":"to_delete", "instances":[{"id":"2c321127-4c6a-4ae3-808b-d2192ff410b2",
@@ -2906,7 +2878,6 @@ interactions:
       - 992177bb-f7ba-4130-8035-053d96e11bfe
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3010,7 +2981,6 @@ interactions:
       - 875c2806-d3ae-47d8-9dab-bfadd679f9fa
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3114,7 +3084,6 @@ interactions:
       - 87441b7c-bcf3-4506-b210-af0d29c931a0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "c833e169-3e1b-4902-bc53-ee2dc75718c7", "description":
       "server_poweroff", "status": "pending", "href_from": "/servers/b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97/action",
@@ -3156,7 +3125,6 @@ interactions:
       - 7ea1977c-1a57-4375-b20a-7e6d9f4b3502
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3258,7 +3226,6 @@ interactions:
       - ab6ab05e-dab6-4b92-8fe5-aefefcd0a882
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3360,7 +3327,6 @@ interactions:
       - 598ccdbc-4feb-4ec0-b75c-1b5d8c156702
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3462,7 +3428,6 @@ interactions:
       - b33ced9b-da15-46ab-b38e-ed695973e5a4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3564,7 +3529,6 @@ interactions:
       - bdc018b5-fb7f-41db-b52a-aa08b9bd9931
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3666,7 +3630,6 @@ interactions:
       - 659edfdc-0a88-41a7-9600-dbcbe9ac4167
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3768,7 +3731,6 @@ interactions:
       - 51d36dcf-21cb-473e-8037-7bf22cb12272
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3870,7 +3832,6 @@ interactions:
       - 67261d7a-1924-46e3-9843-52f4e01a0811
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3972,7 +3933,6 @@ interactions:
       - 5c539725-0cf5-4a57-a515-9dcdd978879d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4074,7 +4034,6 @@ interactions:
       - ef037644-9c26-4cc6-ad1a-67d1be2181f3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4176,7 +4135,6 @@ interactions:
       - 5b1f188e-3e15-4c86-b953-039eed2bbf15
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b9f63a7d-6204-4ab5-9c4c-5d15ed3fbd97", "name": "cli-srv-relaxed-kirch",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4276,7 +4234,6 @@ interactions:
       - ef07afea-cea7-4d8a-ab40-9a92ebb4239c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -4304,7 +4261,6 @@ interactions:
       - 9260d3e9-da2c-44db-84b0-4da37cdef485
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -4332,4 +4288,3 @@ interactions:
       - 69b7adfe-53a3-466a-98c1-e305d65a4f10
     status: 204 No Content
     code: 204
-    duration: ""

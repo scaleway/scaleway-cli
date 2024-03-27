@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -38,7 +38,6 @@ interactions:
       - 8c54d663-9e88-4a25-a7c0-e7547c814e33
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"test-create-server-with-name","description":"","tags":null,"install":null}'
     form: {}
@@ -72,7 +71,6 @@ interactions:
       - 3dcac0c4-535f-4419-a603-0e06441eb79c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -104,7 +102,6 @@ interactions:
       - 5816e1d6-c54e-49cc-a875-691da555c907
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -136,7 +133,6 @@ interactions:
       - f8ff6ce1-9e40-438b-9fb6-913471f9b80a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -168,7 +164,6 @@ interactions:
       - cfab4b3e-cbb2-4f05-8fb3-be02ea1f33b2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -200,7 +195,6 @@ interactions:
       - 015c7004-ce22-4861-81bc-d010e94cc621
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -232,7 +226,6 @@ interactions:
       - f3474a3b-f53f-4619-b591-6df7a496d410
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -264,7 +257,6 @@ interactions:
       - ad1b4e6b-5994-4d99-b8dd-04797f214085
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -296,7 +288,6 @@ interactions:
       - f7cbe385-776c-4406-8002-a6d546e41881
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -328,7 +319,6 @@ interactions:
       - a8c36070-daf7-4beb-a179-e2381d7cb5b2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -360,7 +350,6 @@ interactions:
       - ebea1cc6-4527-45b0-94f5-abdb56e1de63
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -392,7 +381,6 @@ interactions:
       - a09d1ef2-4cee-4535-b787-bc808caddea7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -424,7 +412,6 @@ interactions:
       - 49cb81e8-2490-4c89-a9e3-f09ad90e9506
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -456,7 +443,6 @@ interactions:
       - 7c7bcf13-27d8-440a-8714-dfdc80119155
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -488,4 +474,3 @@ interactions:
       - 873e3aea-8ec7-40a1-9efa-2af005c3535c
     status: 200 OK
     code: 200
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"e92fc64c-0a33-4293-8a5d-d53b949b38d1", "name":"cli-pn-recursing-keller",
@@ -48,7 +48,6 @@ interactions:
       - d152b521-269b-4b4f-9c6d-20164850cedd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"842f7e39-cfed-41a3-bb7f-d4e77d069129", "organization_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2",
       "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "created_at":"2024-02-23T14:57:36.125943Z",
@@ -102,7 +101,6 @@ interactions:
       - 634c8b0a-a15f-4deb-af00-89e3fa43da30
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"842f7e39-cfed-41a3-bb7f-d4e77d069129", "organization_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2",
       "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "created_at":"2024-02-23T14:57:36.125943Z",
@@ -154,7 +152,6 @@ interactions:
       - f50211b4-17ca-4c48-a6e8-c87a98c8bba5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"842f7e39-cfed-41a3-bb7f-d4e77d069129", "organization_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2",
       "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "created_at":"2024-02-23T14:57:36.125943Z",
@@ -206,7 +203,6 @@ interactions:
       - 5df70175-4a81-45e0-aec1-903d18cb5488
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"94a3b5f9-8a80-40f8-9560-5079747e0679", "created_at":"2024-02-23T14:57:51.402979Z",
       "updated_at":"2024-02-23T14:57:51.402979Z", "gateway_id":"842f7e39-cfed-41a3-bb7f-d4e77d069129",
@@ -250,7 +246,6 @@ interactions:
       - ce5e105a-e0f2-4b4d-a85f-5efbd9954fe3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"94a3b5f9-8a80-40f8-9560-5079747e0679", "created_at":"2024-02-23T14:57:51.402979Z",
       "updated_at":"2024-02-23T14:57:51.402979Z", "gateway_id":"842f7e39-cfed-41a3-bb7f-d4e77d069129",
@@ -292,7 +287,6 @@ interactions:
       - 022ef597-55f9-48bf-8d49-1c5045a5c0dd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"94a3b5f9-8a80-40f8-9560-5079747e0679", "created_at":"2024-02-23T14:57:51.402979Z",
       "updated_at":"2024-02-23T14:58:03.955522Z", "gateway_id":"842f7e39-cfed-41a3-bb7f-d4e77d069129",
@@ -334,7 +328,6 @@ interactions:
       - 423f30ed-009b-485d-b51e-ec430ef344ab
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"842f7e39-cfed-41a3-bb7f-d4e77d069129", "organization_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2",
       "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "created_at":"2024-02-23T14:57:36.125943Z",
@@ -396,7 +389,6 @@ interactions:
       - 0e0e89e7-d42e-4c32-803c-a163d233355e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -426,7 +418,6 @@ interactions:
       - e3275fab-4157-4f5a-b3ae-99463ca26680
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"94a3b5f9-8a80-40f8-9560-5079747e0679", "created_at":"2024-02-23T14:57:51.402979Z",
       "updated_at":"2024-02-23T14:58:07.807763Z", "gateway_id":"842f7e39-cfed-41a3-bb7f-d4e77d069129",
@@ -468,7 +459,6 @@ interactions:
       - 3a8d96bf-e980-4193-a696-0eb9390a6bd5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"message":"resource is not found","resource":"gateway_network","resource_id":"94a3b5f9-8a80-40f8-9560-5079747e0679","type":"not_found"}'
     form: {}
@@ -500,7 +490,6 @@ interactions:
       - cd33f578-d043-4161-a5b1-2a0b171e8b63
     status: 404 Not Found
     code: 404
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -530,7 +519,6 @@ interactions:
       - c8b00bc2-e9ea-4018-b6f4-02c382849a7d
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -560,7 +548,6 @@ interactions:
       - 22e2150a-45fb-470e-9646-fa6c88d8ca61
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -590,4 +577,3 @@ interactions:
       - 2c670153-6b42-4c47-a234-95564a980b56
     status: 204 No Content
     code: 204
-    duration: ""

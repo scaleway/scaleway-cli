@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -38,7 +38,6 @@ interactions:
       - cbfd4916-c5fd-44b8-a566-4e4c09068926
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-peaceful-pasteur","description":"","tags":null,"install":null}'
     form: {}
@@ -72,7 +71,6 @@ interactions:
       - 978832e3-460f-4abe-9fce-29844c6a1f18
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"boot_type":"unknown_boot_type"}'
     form: {}
@@ -106,7 +104,6 @@ interactions:
       - 33f64865-4a47-4309-9341-7402d2b5e6c3
     status: 400 Bad Request
     code: 400
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -138,7 +135,6 @@ interactions:
       - d4856d89-d1d0-4959-888e-e970e212c325
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -170,7 +166,6 @@ interactions:
       - ca241b58-b897-494c-b8df-96546671437a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -202,7 +197,6 @@ interactions:
       - c370ff59-bcb6-4917-b3b8-2eb7104ab39e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -234,7 +228,6 @@ interactions:
       - 87540966-948f-4e2b-92e1-944e8290e231
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -266,7 +259,6 @@ interactions:
       - fa8799f7-8633-4362-a981-4991395512e0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -298,7 +290,6 @@ interactions:
       - bf2ac0e1-f105-46e4-920c-5d34298a6eb6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -330,7 +321,6 @@ interactions:
       - 52cfb620-ce04-4b57-8707-ef06a71cda8b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -362,7 +352,6 @@ interactions:
       - 5cb06ff8-a87a-49e3-b407-5010da504c07
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -394,7 +383,6 @@ interactions:
       - cdeb48f2-767c-4018-904a-94df902160ac
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -426,7 +414,6 @@ interactions:
       - c3b9e0fd-5dfd-44b7-9884-f0212b52cc7e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -458,7 +445,6 @@ interactions:
       - fb1ee466-979a-408a-8141-6179e048081f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -490,7 +476,6 @@ interactions:
       - ea7ac49d-3c9c-43c0-9417-4c5444cba789
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -522,7 +507,6 @@ interactions:
       - c4bc4b78-96e5-4db0-a065-2ded153f2498
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -554,7 +538,6 @@ interactions:
       - c6cb8215-0185-44d4-a92b-8eaaf06291ea
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -586,4 +569,3 @@ interactions:
       - 9a72c3e1-1b45-4821-9290-3606b23d23b2
     status: 200 OK
     code: 200
-    duration: ""

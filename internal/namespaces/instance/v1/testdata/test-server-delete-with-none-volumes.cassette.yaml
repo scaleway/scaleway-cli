@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 2fe7bd63-948f-4327-bbd4-393214dfa1fa
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - d39d8875-6ba7-45ba-af7c-36f5b0e258be
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "11c94d03-70f4-41d7-bf3b-2e5dbec93608", "address": "163.172.146.151",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - e11fc174-b98f-47ec-8fa5-f8166966b1f9
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "1278de9f-eaea-4505-940c-55620d40baf0", "name": "cli-srv-dreamy-carson",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1454,7 +1449,6 @@ interactions:
       - 20240ccd-0b58-4947-928a-c01bf2305a62
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "1278de9f-eaea-4505-940c-55620d40baf0", "name": "cli-srv-dreamy-carson",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1566,7 +1560,6 @@ interactions:
       - d411b782-c6bc-44f0-8aa5-77339a7d3560
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1594,7 +1587,6 @@ interactions:
       - a81a92a0-4290-4321-a705-d91c616a1f1a
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1622,7 +1614,6 @@ interactions:
       - 3f0eef96-046c-4ab7-b0de-8cde99bb377e
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"volume": {"id": "fbd0d364-84ef-441d-b64a-16f7d8338aad", "name": "Ubuntu
       18.04 Bionic Beaver", "volume_type": "l_ssd", "export_uri": null, "organization":
@@ -1664,7 +1655,6 @@ interactions:
       - b7c50357-80eb-4f5c-bfe5-0b98038c957f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1692,4 +1682,3 @@ interactions:
       - 0627f3bb-d8bc-454e-9228-49b7f3bdd183
     status: 204 No Content
     code: 204
-    duration: ""

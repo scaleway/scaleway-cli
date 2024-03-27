@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"name":"cli-hub-goofy-faraday","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","product_plan":"plan_shared","disable_events":null,"events_topic_prefix":null}'
@@ -34,7 +34,6 @@ interactions:
       - 736705b2-5184-4d05-83af-4053b19bc954
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -66,7 +65,6 @@ interactions:
       - 7fc9705c-5aea-4fe8-84f2-37403be7692c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -98,7 +96,6 @@ interactions:
       - 75aa2532-db88-4024-8af2-ce553be1d1f6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -130,7 +127,6 @@ interactions:
       - 1901021e-ff77-40c8-a25f-8096bdbdb640
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"name":"foo","hub_id":"2658f811-fbb5-4c50-b52a-3947fbbdfa34","allow_insecure":false,"allow_multiple_connections":false,"message_filters":null,"description":null}'
     form: {}
@@ -167,7 +163,6 @@ interactions:
       - f5854fea-a79a-4365-882b-750a1ba4427a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -197,7 +192,6 @@ interactions:
       - 9b6f8134-d4e8-4cfc-bd82-a1040fe2defe
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -227,4 +221,3 @@ interactions:
       - 31154b0f-6f73-490b-adc1-a4baa367b8dc
     status: 204 No Content
     code: 204
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"access_key":"SCWQN1ZYHWPFGJD28Q70", "secret_key":null, "description":"iam",
@@ -38,4 +38,3 @@ interactions:
       - 3107e65a-7df2-4aa8-8e1e-883cc691e9af
     status: 200 OK
     code: 200
-    duration: ""

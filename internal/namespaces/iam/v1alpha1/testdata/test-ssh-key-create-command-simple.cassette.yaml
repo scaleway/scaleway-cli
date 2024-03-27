@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"name":"foobar","public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
@@ -38,7 +38,6 @@ interactions:
       - f566e970-36fe-4745-8175-ba96eedf010c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -68,4 +67,3 @@ interactions:
       - 21d0257a-838b-4c1c-9ab7-c7e3efb23bea
     status: 204 No Content
     code: 204
-    duration: ""

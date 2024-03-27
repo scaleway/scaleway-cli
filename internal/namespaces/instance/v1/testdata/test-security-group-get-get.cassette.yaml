@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"name":"cli-sg-hungry-borg","project":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","organization_default":false,"project_default":false,"stateful":true,"inbound_default_policy":"accept","outbound_default_policy":"accept"}'
@@ -42,7 +42,6 @@ interactions:
       - 1bbf4677-dc3a-495d-a5de-d63c8e7fc3c5
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -80,7 +79,6 @@ interactions:
       - ecf25c55-618a-4b8c-82b8-db578182090f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -129,7 +127,6 @@ interactions:
       - 9491aa05-a952-441a-9896-b06a815b009a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -157,4 +154,3 @@ interactions:
       - 5cf21a3b-8b21-4675-9f22-af5c25289605
     status: 204 No Content
     code: 204
-    duration: ""

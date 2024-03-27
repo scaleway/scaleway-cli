@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"57c0ad68-037a-4e52-bbaf-d422d4d943fd", "name":"foobar", "description":"foobar",
@@ -52,7 +52,6 @@ interactions:
       - f5280231-174b-43bf-8f8f-cb65fbb0fe29
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"57c0ad68-037a-4e52-bbaf-d422d4d943fd", "name":"foobar", "description":"foobar",
       "status":"creating", "instances":[{"id":"2b506a8b-657f-486e-9bc6-21b93e595200",
@@ -106,7 +105,6 @@ interactions:
       - 8ba5d958-b800-4291-a8cd-675201f45054
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"57c0ad68-037a-4e52-bbaf-d422d4d943fd", "name":"foobar", "description":"foobar",
       "status":"ready", "instances":[{"id":"2b506a8b-657f-486e-9bc6-21b93e595200",
@@ -160,7 +158,6 @@ interactions:
       - b9e80002-f4af-4d9f-9def-6fedad5b3de2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -190,7 +187,6 @@ interactions:
       - 35397b0e-e423-4c2a-936b-82c2fdf50202
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"57c0ad68-037a-4e52-bbaf-d422d4d943fd", "name":"foobar", "description":"foobar",
       "status":"to_delete", "instances":[{"id":"2b506a8b-657f-486e-9bc6-21b93e595200",
@@ -244,4 +240,3 @@ interactions:
       - fdc94a49-cd1b-401e-b31d-f0d8b8fcc374
     status: 200 OK
     code: 200
-    duration: ""

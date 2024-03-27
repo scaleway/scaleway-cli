@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"abbd0516-349d-4e27-a4ed-f96ba6259f7d", "name":"cli-test", "description":"cli-test",
@@ -52,7 +52,6 @@ interactions:
       - 0c6b0608-e357-4d74-8f9a-8598e2a7a381
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"abbd0516-349d-4e27-a4ed-f96ba6259f7d", "name":"cli-test", "description":"cli-test",
       "status":"to_create", "instances":[], "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
@@ -102,7 +101,6 @@ interactions:
       - f8977ba9-406d-45eb-8b6e-2069cd2f3112
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"abbd0516-349d-4e27-a4ed-f96ba6259f7d", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"f0db7c8b-be87-489e-8c1d-200aac84639e",
@@ -156,7 +154,6 @@ interactions:
       - 0f21ce8c-7c76-4755-97ce-2250dcdd7065
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"abbd0516-349d-4e27-a4ed-f96ba6259f7d", "name":"cli-test", "description":"cli-test",
       "status":"ready", "instances":[{"id":"f0db7c8b-be87-489e-8c1d-200aac84639e",
@@ -210,7 +207,6 @@ interactions:
       - 6cbfc982-3d12-4707-b531-39942663dc46
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"access_key":"SCWBDFF054RNNE8204AJ", "secret_key":null, "description":"my-key",
       "created_at":"2022-06-10T08:39:27.845066Z", "updated_at":"2022-07-05T15:12:12.987880Z",
@@ -248,7 +244,6 @@ interactions:
       - bd919a7c-d70a-48b4-b97a-107b5b8cc904
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"09cc2fcc-89d0-455e-9e2a-ca9fb528d7ab", "type":"custom", "status":"ready",
       "common_name":"example.com", "subject_alternative_name":["www.example.com"],
@@ -314,7 +309,6 @@ interactions:
       - ab5eea16-3798-4a9f-845e-b108772124c5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -344,7 +338,6 @@ interactions:
       - 7a351341-410c-4320-a1dd-4a5c2e3f48c7
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"abbd0516-349d-4e27-a4ed-f96ba6259f7d", "name":"cli-test", "description":"cli-test",
       "status":"to_delete", "instances":[{"id":"f0db7c8b-be87-489e-8c1d-200aac84639e",
@@ -398,4 +391,3 @@ interactions:
       - 9b0495f7-07e4-485c-a1fb-2c5035ad3553
     status: 200 OK
     code: 200
-    duration: ""

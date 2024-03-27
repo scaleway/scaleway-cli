@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -38,7 +38,6 @@ interactions:
       - 76301a55-14d3-4e26-9c26-2841dcaff394
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-amazing-leakey","description":"","tags":null,"install":null}'
     form: {}
@@ -72,7 +71,6 @@ interactions:
       - 71a3c7da-fba5-45ea-8a3e-08a29cc913b4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -104,7 +102,6 @@ interactions:
       - 2bd90507-be7d-4e12-ab1e-274442ce2f07
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -136,7 +133,6 @@ interactions:
       - afcfdf68-8460-4430-9a50-a280b68abbfe
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -168,7 +164,6 @@ interactions:
       - 39a5e034-710d-4ce2-b6ef-b0914cad2c9a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -200,7 +195,6 @@ interactions:
       - 1248f707-4723-4e6e-b221-9abae7b7da71
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -232,7 +226,6 @@ interactions:
       - 8d3483e4-5f30-4fb7-8c79-e51e64b07180
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -264,7 +257,6 @@ interactions:
       - 4484f9ff-d8cb-451d-963e-acdef5324d98
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -296,7 +288,6 @@ interactions:
       - 51fe5b7f-b22e-4dd3-a859-f7482242e0fc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -328,7 +319,6 @@ interactions:
       - c6a0afa2-e50a-4d08-aca7-d88daa9c9c81
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -360,7 +350,6 @@ interactions:
       - 38c419f7-f5d0-4108-ad83-c189e8721de7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -392,7 +381,6 @@ interactions:
       - 12295ddc-35a1-42de-8d91-c3b61ca97978
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -424,7 +412,6 @@ interactions:
       - 3a73e587-503e-43f2-bd5f-fc0f628b5930
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -456,7 +443,6 @@ interactions:
       - a19ac9ed-07f9-4285-81c9-6122c6c9743c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -488,7 +474,6 @@ interactions:
       - f444ea37-41a2-4d77-9778-9659331d3ea3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -520,7 +505,6 @@ interactions:
       - ddaf3c00-3f46-41ef-b27c-f2ec49dcc327
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -552,7 +536,6 @@ interactions:
       - 4b451a89-d88a-4378-a710-6e776cda7140
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -584,7 +567,6 @@ interactions:
       - 1418885d-adbe-49d6-b68b-78b5f1f2ca26
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -616,7 +598,6 @@ interactions:
       - 760557d3-38dd-4bce-ac3f-1e8779191905
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -648,7 +629,6 @@ interactions:
       - 1bfb62a6-f945-44e3-b628-dc5294ad6162
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -680,7 +660,6 @@ interactions:
       - a48493ea-a7d8-4dc7-a331-e71df2d820bc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -712,4 +691,3 @@ interactions:
       - 95653ec9-b4f6-455c-964b-7ffd6a97409a
     status: 200 OK
     code: 200
-    duration: ""

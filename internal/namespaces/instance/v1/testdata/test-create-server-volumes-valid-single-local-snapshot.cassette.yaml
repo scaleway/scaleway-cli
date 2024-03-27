@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 23b7e2d3-927b-4449-8f02-ce19446ff5f2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - 5c643c15-1ee2-4e15-99b9-9f3377495f2b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "4a27e92e-31e7-438f-9067-574d01ad5d0a", "address": "51.158.120.98",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - fa315fe2-13bc-4656-9df6-3ea4f63381da
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "1a971f55-7874-408e-a2b8-c474ed054a70", "name": "cli-srv-great-khorana",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - 859b56f0-3333-4be8-bf36-ad9c93129b34
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"volume": {"id": "3d42c24a-a642-4327-a213-00ee43ace1ee", "name": "Ubuntu
       18.04 Bionic Beaver", "volume_type": "l_ssd", "export_uri": null, "organization":
@@ -1486,7 +1480,6 @@ interactions:
       - 3fae72f1-8565-41d6-a7c1-7cebd0892a22
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "010ed4df-2b67-422b-994e-db92d1ae82c8", "name": "cli-snp-hungry-swartz",
       "volume_type": "l_ssd", "creation_date": "2023-12-06T14:00:37.042842+00:00",
@@ -1538,7 +1531,6 @@ interactions:
       - e6c32fc8-1353-49e3-9538-102d50b58ff6
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
       "zone":"fr-par-1", "compatible_commercial_types":["DEV1-L", "DEV1-M", "DEV1-S",
@@ -1588,7 +1580,6 @@ interactions:
       - a6067c2f-8a95-47d3-bf1f-4f11585cfc29
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -1632,7 +1623,6 @@ interactions:
       - f7380ea4-448b-4813-a004-80acaac87c46
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -2581,7 +2571,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -2834,7 +2823,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "010ed4df-2b67-422b-994e-db92d1ae82c8", "name": "cli-snp-hungry-swartz",
       "volume_type": "l_ssd", "creation_date": "2023-12-06T14:00:37.042842+00:00",
@@ -2878,7 +2866,6 @@ interactions:
       - b24f5046-0cdf-4f39-aa11-c635bd941206
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "271998e5-5673-41a6-b4a8-4da0da4872fd", "address": "51.158.97.6",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -2920,7 +2907,6 @@ interactions:
       - 2f7284c7-2c05-463a-8f9e-171e35e44a75
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "578b1a1b-03c6-4651-849d-ca3ad0f95dc4", "name": "cli-srv-nifty-jackson",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3024,7 +3010,6 @@ interactions:
       - 2baa03e4-7505-4074-93f5-6889b475a289
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "1a971f55-7874-408e-a2b8-c474ed054a70", "name": "cli-srv-great-khorana",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3124,7 +3109,6 @@ interactions:
       - bb70534b-e3b5-4ab0-9db5-faad5b555098
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3152,7 +3136,6 @@ interactions:
       - ce8a98e1-b09d-44dc-8cb2-aa78ca8cf9a9
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3180,7 +3163,6 @@ interactions:
       - c6a02126-0562-4a9f-b999-d79d4786cde8
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3208,7 +3190,6 @@ interactions:
       - ded0eb25-9d1e-4b28-8e25-2ff2624c9f45
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"server": {"id": "578b1a1b-03c6-4651-849d-ca3ad0f95dc4", "name": "cli-srv-nifty-jackson",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3308,7 +3289,6 @@ interactions:
       - 887c6541-3d58-4236-9591-8c466f80d2c3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "578b1a1b-03c6-4651-849d-ca3ad0f95dc4", "name": "cli-srv-nifty-jackson",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3408,7 +3388,6 @@ interactions:
       - aac3ff81-7276-4ae1-8476-95f948fb88c6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3436,7 +3415,6 @@ interactions:
       - d75c4109-024d-4517-9304-9838dac77178
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3464,7 +3442,6 @@ interactions:
       - c26c9d33-834e-485b-82fb-ad52db59bced
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3492,7 +3469,6 @@ interactions:
       - cbc8f78a-8801-40bb-9bab-9bfa5ea56b0b
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3520,4 +3496,3 @@ interactions:
       - 741d18e9-2db5-4773-864f-756ca9a8c68d
     status: 204 No Content
     code: 204
-    duration: ""

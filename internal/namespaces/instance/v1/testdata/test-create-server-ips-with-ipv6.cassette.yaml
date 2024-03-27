@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 3b832265-feac-4fff-a20f-a3e2670f757d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - ac10bd43-38b2-45b1-8636-81b10eb3897c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "0cd4bdd5-512c-4794-a64a-480c4192c621", "address": "212.47.247.106",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - 3ffa0d59-4c77-4681-a01e-60f5e81697db
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - 08500ea1-0072-4902-824a-c17ac3b4160e
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"task": {"id": "37adc11f-d690-4b60-93ea-b8b4fd1d69d0", "description":
       "server_batch_poweron", "status": "pending", "href_from": "/servers/8c092754-a91c-4308-b2bc-6dc6c4a5793e/action",
@@ -1484,7 +1478,6 @@ interactions:
       - 390ae8f7-4c3b-44aa-b489-d77d81adb2a1
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1584,7 +1577,6 @@ interactions:
       - 8aff8081-4e30-4a11-9ab8-5ad49816f01f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1688,7 +1680,6 @@ interactions:
       - 3e85055f-c44d-491d-83f2-83cab7b6d6ea
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1792,7 +1783,6 @@ interactions:
       - 30094e57-6f82-409a-a776-4dc05d1616aa
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1896,7 +1886,6 @@ interactions:
       - deeb0ad5-6408-4bad-8fd9-7b641453cba9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2002,7 +1991,6 @@ interactions:
       - 1b471f82-8a3c-4410-b275-8bc7d8ca2963
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2108,7 +2096,6 @@ interactions:
       - 827792f0-de52-4a1e-92b5-9e4f32bad244
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2214,7 +2201,6 @@ interactions:
       - 2b68adf6-e3d0-460f-ba9e-05c897b0c6d1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "d220ac2e-8cf3-403d-a1d5-f3fc66103d42", "description":
       "server_poweroff", "status": "pending", "href_from": "/servers/8c092754-a91c-4308-b2bc-6dc6c4a5793e/action",
@@ -2256,7 +2242,6 @@ interactions:
       - ce4c663b-cd96-43ee-92b5-9caf4ee8c793
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2360,7 +2345,6 @@ interactions:
       - 7a56894b-172f-40f2-9e5d-5bc65aa03422
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2464,7 +2448,6 @@ interactions:
       - f98de1f0-06f3-40b4-8059-25dea90239d3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2568,7 +2551,6 @@ interactions:
       - 4c8f93e1-a9cc-47b8-ae6f-65c2350d26d6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2672,7 +2654,6 @@ interactions:
       - dadba41b-d463-4a3c-af55-15bd3918f76b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2776,7 +2757,6 @@ interactions:
       - a4f812be-e52f-459a-8052-a835f1a27715
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2880,7 +2860,6 @@ interactions:
       - 25b245fb-b4b3-4146-bbd3-e772c2bf4c91
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2984,7 +2963,6 @@ interactions:
       - 31d144e3-a305-497c-97b5-66dc87bf99a6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3088,7 +3066,6 @@ interactions:
       - b99ba22e-df37-4948-8bb5-f1f658762e09
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3192,7 +3169,6 @@ interactions:
       - 5487a215-7f2f-48d1-8ba9-4ef88c4ca7a2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3296,7 +3272,6 @@ interactions:
       - 88eb1e91-3ed6-433c-a6ab-84a4aad36858
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "8c092754-a91c-4308-b2bc-6dc6c4a5793e", "name": "cli-srv-pedantic-wu",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3396,7 +3371,6 @@ interactions:
       - 6010f525-e48c-47eb-aad1-41f3634dd96b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3424,7 +3398,6 @@ interactions:
       - 05727e54-0bcc-4ddc-81ca-c0ee4c5f22e3
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3452,7 +3425,6 @@ interactions:
       - 03fc2bee-a720-4aca-b57d-c674adfacdd7
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3480,4 +3452,3 @@ interactions:
       - 0762102f-4144-40aa-97da-7a0c183fb02e
     status: 204 No Content
     code: 204
-    duration: ""

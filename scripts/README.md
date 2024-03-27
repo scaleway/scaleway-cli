@@ -54,7 +54,7 @@ A given test would define a scenario that would be described as a YAML file that
 For instance:
 
 ```yaml
-version: 1
+version: 2
 interactions:
 - request:
     body: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -322,7 +322,6 @@ interactions:
       - "32"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -974,7 +973,6 @@ interactions:
       - "30"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1017,7 +1015,6 @@ interactions:
       - DENY
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
     form: {}
@@ -1055,7 +1052,6 @@ interactions:
       - DENY
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"name":"cli-srv-wonderful-ptolemy","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"31baae98-96dc-4006-9a39-95629073c447","boot_type":"local","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
     form: {}
@@ -1124,7 +1120,6 @@ interactions:
       - DENY
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1189,7 +1184,6 @@ interactions:
       - DENY
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{}'
     form: {}
@@ -1256,7 +1250,6 @@ interactions:
       - DENY
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1321,7 +1314,6 @@ interactions:
       - DENY
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1351,7 +1343,6 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1381,7 +1372,6 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1411,4 +1401,3 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""

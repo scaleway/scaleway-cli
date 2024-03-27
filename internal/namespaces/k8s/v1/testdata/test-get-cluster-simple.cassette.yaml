@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"cluster_types":[{"name":"kapsule", "availability":"available", "max_nodes":150,
@@ -64,7 +64,6 @@ interactions:
       - 147399e9-2b22-46a9-b907-561da13d5e82
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ac61c2ff-059a-4ce9-ab43-c8c70c85aef6", "name":"pn-sharp-almeida",
       "tags":["created-along-with-k8s-cluster", "created-by-cli"], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
@@ -112,7 +111,6 @@ interactions:
       - fff9e8e1-b9d8-4df1-84d4-977f1a60cd08
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"e96a93a2-c36f-42bb-b7e1-bebf52db7956", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:37.834502605Z",
@@ -176,7 +174,6 @@ interactions:
       - 68d73c57-3512-4f57-9747-fdd6d994c7f1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"e96a93a2-c36f-42bb-b7e1-bebf52db7956", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:37.834503Z",
@@ -238,7 +235,6 @@ interactions:
       - 4389bf70-a4f6-448c-b089-b5e2d024f2cd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"total_count":1, "pools":[{"region":"fr-par", "id":"1da2aa9e-463c-422a-b523-11274412dd5d",
       "cluster_id":"e96a93a2-c36f-42bb-b7e1-bebf52db7956", "created_at":"2023-12-28T14:43:37.854831Z",
@@ -284,7 +280,6 @@ interactions:
       - a1c21be4-5ef4-41d4-9df2-6f09bdd01e9a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"e96a93a2-c36f-42bb-b7e1-bebf52db7956", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:37.834503Z",
@@ -346,7 +341,6 @@ interactions:
       - b4254639-e927-4ea3-ac6d-b74f7da31564
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"region":"fr-par", "id":"e96a93a2-c36f-42bb-b7e1-bebf52db7956", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2023-12-28T14:43:37.834503Z",
@@ -408,7 +402,6 @@ interactions:
       - f399cfa9-21bb-4145-827a-f43a1b5f6416
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"message":"resource is not found","resource":"cluster","resource_id":"e96a93a2-c36f-42bb-b7e1-bebf52db7956","type":"not_found"}'
     form: {}
@@ -440,4 +433,3 @@ interactions:
       - 2398c881-2276-4a36-9666-41d46eba85c4
     status: 404 Not Found
     code: 404
-    duration: ""

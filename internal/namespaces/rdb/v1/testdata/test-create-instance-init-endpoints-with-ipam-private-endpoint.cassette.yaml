@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"9d5da363-d570-43ef-a959-8f915d9831ef", "name":"pn-condescending-lichterman",
@@ -40,7 +40,6 @@ interactions:
       - 23c1caa7-290a-45fc-a549-e5c3767d2bde
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -100,7 +99,6 @@ interactions:
       - 66459716-15ed-4587-aaf2-adc6a923535f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -158,7 +156,6 @@ interactions:
       - 3166d0fb-592d-4db9-a2e5-031f849b16d0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -216,7 +213,6 @@ interactions:
       - 52e81aea-7b4a-405a-bfc2-33e8990e5838
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -274,7 +270,6 @@ interactions:
       - bd30b0d9-e35e-46d3-b49d-b50ae88c241f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -332,7 +327,6 @@ interactions:
       - 7e6392ce-20b7-405a-9e05-56310981561b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -390,7 +384,6 @@ interactions:
       - 2adcb4ac-f636-4b8f-9ed3-186191e473dd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -448,7 +441,6 @@ interactions:
       - 46dac759-cfd8-4bda-92ae-fe757b72bcf6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -506,7 +498,6 @@ interactions:
       - b70d5455-3842-4fdd-9fe4-02a2b184fc92
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -564,7 +555,6 @@ interactions:
       - 59989704-0734-459e-b76b-3d36d84751c7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -622,7 +612,6 @@ interactions:
       - baa48429-8775-45df-9840-57ba8ccc0b5a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -680,7 +669,6 @@ interactions:
       - 516fefe6-545e-43d2-98ca-7f10d1ab6364
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-12",
@@ -744,7 +732,6 @@ interactions:
       - 930abb21-41a7-44bc-b080-41683cd57bfe
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"total_count":1, "ips":[{"id":"fe127178-b4d6-4800-b6cb-5cd8b8431503",
       "address":"172.16.8.2/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
@@ -786,7 +773,6 @@ interactions:
       - e3fb25d2-eed6-403a-bd7f-79c4190794ff
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "engine":"PostgreSQL-12",
@@ -850,7 +836,6 @@ interactions:
       - 5dffdc21-43ea-47a6-a01c-11e4809302fb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "engine":"PostgreSQL-12",
@@ -914,7 +899,6 @@ interactions:
       - 5ea71406-8d99-4e72-aeb3-cebb8ddd8d22
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"message":"resource is not found","resource":"instance","resource_id":"c62861ba-3583-48a3-8f43-b04e0f72ec3a","type":"not_found"}'
     form: {}
@@ -946,7 +930,6 @@ interactions:
       - 8adde90e-e908-4f90-9a91-d9f15435fcf4
     status: 404 Not Found
     code: 404
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -976,4 +959,3 @@ interactions:
       - 8468aa85-441e-4eee-8a6b-98db76164f42
     status: 204 No Content
     code: 204
-    duration: ""

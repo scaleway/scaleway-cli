@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"cdd37013-d25b-49a5-a8c5-b3e7c1eaf4c8", "arch":"arm64",
@@ -62,7 +62,6 @@ interactions:
       - 2375be3c-b633-478f-8689-72f4b64668e7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "bfcb8579-a98f-464c-a958-af80eeef020b", "name": "Ubuntu
       22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -106,7 +105,6 @@ interactions:
       - 86a5a243-9759-4b28-b5ac-456fda3453d0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1055,7 +1053,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1308,7 +1305,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "f90e8f53-9936-443c-87e4-fb50819ba794", "address": "51.158.112.105",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1350,7 +1346,6 @@ interactions:
       - d6613a97-fa48-4725-af0b-65211125de9b
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "3cd517dc-314a-4202-8cbe-ee5a529e9d88", "name": "cli-srv-sharp-margulis",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1466,7 +1461,6 @@ interactions:
       - 267f9019-6f42-428e-8efc-7fb1702e2bcf
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"task": {"id": "efddd015-cb76-4b4a-82b4-59cd04e2df13", "description":
       "server_batch_poweron", "status": "pending", "href_from": "/servers/3cd517dc-314a-4202-8cbe-ee5a529e9d88/action",
@@ -1508,7 +1502,6 @@ interactions:
       - 23d1f47e-d438-4dd9-9dd3-9ce67fd6e0bb
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "3cd517dc-314a-4202-8cbe-ee5a529e9d88", "name": "cli-srv-sharp-margulis",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1620,7 +1613,6 @@ interactions:
       - 639b6453-64ae-4529-9233-eeb400c82e11
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "3cd517dc-314a-4202-8cbe-ee5a529e9d88", "name": "cli-srv-sharp-margulis",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1732,7 +1724,6 @@ interactions:
       - 5b6a8e66-efe6-41fe-a436-ecca1b45b49c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "3cd517dc-314a-4202-8cbe-ee5a529e9d88", "name": "cli-srv-sharp-margulis",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1846,7 +1837,6 @@ interactions:
       - 76482725-89b5-487d-bfb5-f68745aa95f7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "3cd517dc-314a-4202-8cbe-ee5a529e9d88", "name": "cli-srv-sharp-margulis",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1960,7 +1950,6 @@ interactions:
       - a6c35bd2-d0f3-4477-a110-f183eb2f064e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "3cd517dc-314a-4202-8cbe-ee5a529e9d88", "name": "cli-srv-sharp-margulis",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2076,7 +2065,6 @@ interactions:
       - 6f6f42e7-7f48-4a9c-97f0-f677a426d351
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "3cd517dc-314a-4202-8cbe-ee5a529e9d88", "name": "cli-srv-sharp-margulis",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2192,7 +2180,6 @@ interactions:
       - 6eb36cb1-6889-4fb2-84f2-3c143b9a55bc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"volume": {"id": "16b216f9-f0d4-4e42-a88d-27edb1851a6e", "name": "cli-srv-sharp-margulis-1",
       "volume_type": "b_ssd", "export_uri": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -2234,7 +2221,6 @@ interactions:
       - 0b38ba62-87df-4684-87ff-3668a7210440
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "3cd517dc-314a-4202-8cbe-ee5a529e9d88", "name": "cli-srv-sharp-margulis",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2350,7 +2336,6 @@ interactions:
       - d8f9131b-c0ec-4049-9cbc-3dc1b35c4ac4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "3cd517dc-314a-4202-8cbe-ee5a529e9d88", "name": "cli-srv-sharp-margulis",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2456,7 +2441,6 @@ interactions:
       - c1ae0a8c-6350-4eab-8f79-99de34cda391
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "5ea44941-2bde-4607-a2b3-80cda8cef68a", "description":
       "server_terminate", "status": "pending", "href_from": "/servers/3cd517dc-314a-4202-8cbe-ee5a529e9d88/action",
@@ -2498,7 +2482,6 @@ interactions:
       - 3a9a7e67-f162-440e-8aba-fe9849f5711f
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2526,7 +2509,6 @@ interactions:
       - 4c686be8-dc50-408e-9a0b-e42fd6be9754
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"volume": {"id": "16b216f9-f0d4-4e42-a88d-27edb1851a6e", "name": "cli-srv-sharp-margulis-1",
       "volume_type": "b_ssd", "export_uri": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -2568,7 +2550,6 @@ interactions:
       - b136d1ff-dcf6-48b5-83e9-e68dcce6d474
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"volume": {"id": "16b216f9-f0d4-4e42-a88d-27edb1851a6e", "name": "cli-srv-sharp-margulis-1",
       "volume_type": "b_ssd", "export_uri": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -2610,7 +2591,6 @@ interactions:
       - 9bb816b1-01c1-4ba2-9ab5-729d216c0f90
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"volume": {"id": "16b216f9-f0d4-4e42-a88d-27edb1851a6e", "name": "cli-srv-sharp-margulis-1",
       "volume_type": "b_ssd", "export_uri": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -2650,7 +2630,6 @@ interactions:
       - 6eff2c85-8ad7-4878-b1c6-3c1c0bdd9319
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2678,4 +2657,3 @@ interactions:
       - 1a91fc36-35a8-47ad-bb6b-99d1bd402496
     status: 204 No Content
     code: 204
-    duration: ""

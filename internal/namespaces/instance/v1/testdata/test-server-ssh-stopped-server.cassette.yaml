@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 55d86cae-2a50-4098-8736-6b40ce18b1b4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - ef4028f3-7185-4f2a-a5e5-d084a63571cd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "3d507479-2133-4a90-8202-fe3f1f741d91", "address": "51.158.69.45",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - dd038f81-cc55-480a-bba7-37f042b28a36
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "c857252a-f857-4323-97f2-e42d0966aedb", "name": "cli-srv-naughty-pare",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - 570bf66f-d7c9-455e-a96e-731c26c15582
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "c857252a-f857-4323-97f2-e42d0966aedb", "name": "cli-srv-naughty-pare",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1542,7 +1536,6 @@ interactions:
       - 5eb13fd9-aa02-4b7c-9f3c-4c625295ced4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "c857252a-f857-4323-97f2-e42d0966aedb", "name": "cli-srv-naughty-pare",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1642,7 +1635,6 @@ interactions:
       - 58047c8b-3d93-4d28-a52f-b1afe67ef728
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1670,7 +1662,6 @@ interactions:
       - 35b11486-c6c7-4a31-a671-9ccf914d72b5
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1698,7 +1689,6 @@ interactions:
       - 0d833321-3fd5-45c9-a919-680fe7973705
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1726,4 +1716,3 @@ interactions:
       - 82078fe4-7392-4c8a-a82d-e1955c45efad
     status: 204 No Content
     code: 204
-    duration: ""

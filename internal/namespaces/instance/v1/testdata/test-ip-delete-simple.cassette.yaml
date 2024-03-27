@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"organization":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
@@ -38,7 +38,6 @@ interactions:
       - DENY
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -68,4 +67,3 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""

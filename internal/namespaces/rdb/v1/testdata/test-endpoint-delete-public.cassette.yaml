@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"7742bde2-2e1e-4818-b877-3c482d67d624", "name":"pn-relaxed-mayer",
@@ -40,7 +40,6 @@ interactions:
       - 8b8ca33d-4d42-490b-b6fc-11de1c15e37b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -94,7 +93,6 @@ interactions:
       - a04fceb9-80aa-48b6-a620-04ad142e43b7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -146,7 +144,6 @@ interactions:
       - 91ba1d65-b16c-4eb0-a680-9594f2c14bb4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -198,7 +195,6 @@ interactions:
       - 772d00a1-158e-4865-93a8-00e1e9351a6b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -250,7 +246,6 @@ interactions:
       - c187e450-62a8-477a-a11e-73acedb84f14
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -302,7 +297,6 @@ interactions:
       - b0d4a169-abfd-4c78-9c67-e0cfa370fa9b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -354,7 +348,6 @@ interactions:
       - a4c02ed3-2099-4fa9-8563-6f63b636f45a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -406,7 +399,6 @@ interactions:
       - 7ede3afa-40cc-4b5a-b540-b6093b311eb3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -458,7 +450,6 @@ interactions:
       - 5a5803d7-1952-4fa1-8ff9-72cbf2f25f9e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -510,7 +501,6 @@ interactions:
       - ccf3afe4-a242-431d-9732-9a2a182c76a0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -562,7 +552,6 @@ interactions:
       - cfef4201-7032-4849-b1d5-2b77a402d5a6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -614,7 +603,6 @@ interactions:
       - 4a8f6cf7-cf2d-4cab-986c-99be530916c4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -666,7 +654,6 @@ interactions:
       - 73a37d4c-62e3-4e9e-b483-99be3055be1e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -724,7 +711,6 @@ interactions:
       - c6f8828c-b2ed-4991-a4e1-2733014965c4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -782,7 +768,6 @@ interactions:
       - 530d791e-f3d4-4c81-b7e3-34b80334e637
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-15",
@@ -844,7 +829,6 @@ interactions:
       - fe6cb9f9-f1a1-47e9-af0e-a480b52db3e8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -874,7 +858,6 @@ interactions:
       - 1e0968b6-0056-49d2-8587-e8b94f192225
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"configuring",
@@ -936,7 +919,6 @@ interactions:
       - 3368f8a9-35c2-48ad-b730-08c74d6ac6e3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-15",
@@ -992,7 +974,6 @@ interactions:
       - fa3d1f78-1d8d-477a-a864-65d7d1605280
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-15",
@@ -1048,7 +1029,6 @@ interactions:
       - 70b525cc-6404-410e-ac72-de4f0df71b23
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"total_count":0, "ips":[]}'
     form: {}
@@ -1080,7 +1060,6 @@ interactions:
       - 357ff237-60b5-4b87-8a27-ebe76342391f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "engine":"PostgreSQL-15",
@@ -1136,7 +1115,6 @@ interactions:
       - cf8b18dc-93f3-4bfe-989c-5c5910cb6d20
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "engine":"PostgreSQL-15",
@@ -1192,7 +1170,6 @@ interactions:
       - f2670b9d-4853-4455-b9ef-64af21edab4d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"message":"resource is not found","resource":"instance","resource_id":"2a653988-0dec-4c9d-8dc9-82697ffc45ad","type":"not_found"}'
     form: {}
@@ -1224,7 +1201,6 @@ interactions:
       - 49d28bcd-45ac-4514-9b39-2e319b3083da
     status: 404 Not Found
     code: 404
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1254,4 +1230,3 @@ interactions:
       - 40cdba7e-01ba-4fdb-99e5-120a8d6a2619
     status: 204 No Content
     code: 204
-    duration: ""

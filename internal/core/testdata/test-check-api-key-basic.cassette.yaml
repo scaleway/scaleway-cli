@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -32,7 +32,6 @@ interactions:
       - 634498cb-4310-4fde-bb42-5837a80a83e0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"user_id":"38d8ec28-dbee-4dbe-a4e8-56adcc285e8b","expires_at":"2023-04-21T11:49:57.648653377+02:00","default_project_id":null,"description":"test-cli-TestCheckAPIKey"}'
     form: {}
@@ -66,7 +65,6 @@ interactions:
       - f05522cd-b4c9-4abf-9b7a-f044d242210e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -98,7 +96,6 @@ interactions:
       - 9820373b-2b5d-4282-a0ed-00b2c4b95961
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -128,4 +125,3 @@ interactions:
       - 56eb4536-35a7-46de-8bba-a05f3bc0aaf7
     status: 204 No Content
     code: 204
-    duration: ""

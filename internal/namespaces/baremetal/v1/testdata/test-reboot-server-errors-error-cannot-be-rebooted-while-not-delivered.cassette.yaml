@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -38,7 +38,6 @@ interactions:
       - 823b76b5-ce8b-441c-a707-c556baeb8dd4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-optimistic-proskuriakova","description":"","tags":null,"install":null}'
     form: {}
@@ -72,7 +71,6 @@ interactions:
       - b19ef1cf-a378-4908-8dc1-eacd0cf60633
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"boot_type":"normal"}'
     form: {}
@@ -106,7 +104,6 @@ interactions:
       - 81b711d2-fa27-4810-b36d-92110c3090b4
     status: 404 Not Found
     code: 404
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -138,7 +135,6 @@ interactions:
       - 4ce1050e-bc39-4465-af60-646c5edaa0a9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -170,7 +166,6 @@ interactions:
       - 4edf8331-e4d1-4cc6-8533-52ca014d02c5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -202,7 +197,6 @@ interactions:
       - 9263e950-056c-43c4-819c-1e1eded1fff7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -234,7 +228,6 @@ interactions:
       - cbcf45eb-7bb7-45e6-b0df-6b75c9b0f020
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -266,7 +259,6 @@ interactions:
       - 74aed342-65d4-41bd-856e-d19b54ba764c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -298,7 +290,6 @@ interactions:
       - 35229527-300b-4e73-98ed-f15f4f4510c8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -330,7 +321,6 @@ interactions:
       - 87066d66-6d83-4b95-b648-722e5b483eb5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -362,7 +352,6 @@ interactions:
       - 85fe47e4-123f-42e5-bd4b-6a98a110e4dd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -394,7 +383,6 @@ interactions:
       - 619296d9-3d71-4411-bb98-4601f6b634fa
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -426,7 +414,6 @@ interactions:
       - f11b7e5c-0f9c-4d20-bc88-34b6d3acda61
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -458,7 +445,6 @@ interactions:
       - 4d068a9e-9c13-4293-b69a-fe54f586d824
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -490,7 +476,6 @@ interactions:
       - e42ba74f-6598-4691-980c-b67d3fa123a6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -522,4 +507,3 @@ interactions:
       - 4fb444de-ed11-4329-b256-6505bedcd2b2
     status: 200 OK
     code: 200
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"types":[{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"},
@@ -34,4 +34,3 @@ interactions:
       - cbfce925-94a9-46d6-9b31-27672a1fd1e9
     status: 200 OK
     code: 200
-    duration: ""

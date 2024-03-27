@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"message":"authentication is denied","method":"api_key","reason":"not_found","type":"denied_authentication"}'
@@ -32,4 +32,3 @@ interactions:
       - 535893cd-5245-4c83-876d-ee1f4f9ff93b
     status: 401 Unauthorized
     code: 401
-    duration: ""
