@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 0bc65fcf-8456-4189-9a34-398d393de998
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - ec81de31-b8bf-4ff7-8efd-7f12d10763bd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "f90e8f53-9936-443c-87e4-fb50819ba794", "address": "51.158.112.105",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - dbafe79b-53ce-4615-accd-d4aeb9d3bcdd
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "ade5b157-4087-4207-a241-d998c0dde470", "name": "cli-srv-awesome-proskuriakova",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - 5b0da459-1781-45fe-b434-2c76356f03f4
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"volume": {"id": "e6cf23ce-7075-4943-a5ef-1511ada44c96", "name": "cli-test",
       "volume_type": "l_ssd", "export_uri": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1486,7 +1480,6 @@ interactions:
       - 5e6d3dd3-2f14-4640-bad5-b39715c2f105
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"volume": {"id": "e6cf23ce-7075-4943-a5ef-1511ada44c96", "name": "cli-test",
       "volume_type": "l_ssd", "export_uri": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1526,7 +1519,6 @@ interactions:
       - 3ac79404-836a-4dab-b3cc-350a1160f676
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "ade5b157-4087-4207-a241-d998c0dde470", "name": "cli-srv-awesome-proskuriakova",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1626,7 +1618,6 @@ interactions:
       - 58b59b37-d0c8-4269-9e7d-9858a3859162
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "ade5b157-4087-4207-a241-d998c0dde470", "name": "cli-srv-awesome-proskuriakova",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1740,7 +1731,6 @@ interactions:
       - 7f1a083a-671f-489b-b7aa-5cf88de3ce4b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "ade5b157-4087-4207-a241-d998c0dde470", "name": "cli-srv-awesome-proskuriakova",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1852,7 +1842,6 @@ interactions:
       - 716ab9dd-84db-460f-a29d-d21bfba5aeca
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1880,7 +1869,6 @@ interactions:
       - 81b7395a-49e1-4cee-9f9d-c6f1d07d9bb8
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1908,7 +1896,6 @@ interactions:
       - 45f908d1-0773-4292-9669-736e4f4054e0
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1936,7 +1923,6 @@ interactions:
       - 640f64a1-2e58-4886-948a-96e0e67e15fb
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1964,4 +1950,3 @@ interactions:
       - 926c761b-0fb9-4a91-97b9-9107010d8437
     status: 204 No Content
     code: 204
-    duration: ""

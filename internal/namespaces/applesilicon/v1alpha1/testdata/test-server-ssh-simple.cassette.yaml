@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"name":"cli-as-romantic-boyd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","type":"M1-M"}'
@@ -34,7 +34,6 @@ interactions:
       - 24143fec-0a7a-4d15-9c07-021078483de2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -66,7 +65,6 @@ interactions:
       - 14b6c904-1da2-46a2-9fa0-ccaa815f70e4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -98,7 +96,6 @@ interactions:
       - f04792db-1dd0-47fc-b9a7-675798f68124
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -130,7 +127,6 @@ interactions:
       - 3474754d-8a51-4ec0-8a27-ad9ebd09023d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -162,7 +158,6 @@ interactions:
       - 691f98bf-7efe-4f30-9945-f98ce8c14b7b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -192,4 +187,3 @@ interactions:
       - 37816da5-37d1-4e68-8d25-1cf0863d28c1
     status: 204 No Content
     code: 204
-    duration: ""

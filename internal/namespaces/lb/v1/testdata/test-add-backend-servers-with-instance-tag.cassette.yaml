@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
@@ -52,7 +52,6 @@ interactions:
       - f2da831b-6ccf-4cfc-adcf-1f53283d0f9e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -106,7 +105,6 @@ interactions:
       - dad35331-7c25-4f70-8451-5aad7243dd49
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -160,7 +158,6 @@ interactions:
       - 363aa883-0c21-49d0-9880-6e14f1a79b07
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -214,7 +211,6 @@ interactions:
       - 4b9413db-751c-48f3-9545-11267d514672
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -268,7 +264,6 @@ interactions:
       - f7ed75d3-ce97-4d9e-ae93-3231327d6b14
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -322,7 +317,6 @@ interactions:
       - cc0f80f7-3976-4bad-90d0-908f549b3ced
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -376,7 +370,6 @@ interactions:
       - cbb825a8-7968-4c24-bf0b-1854b8e318be
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -430,7 +423,6 @@ interactions:
       - ee5b1d8a-4367-4e07-95c3-0c4161688b9b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -484,7 +476,6 @@ interactions:
       - 5ea55b99-3ec0-4b02-9b28-d0f504d4eb3f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -538,7 +529,6 @@ interactions:
       - 04b2a944-3603-4623-a0ed-9a118176e5fa
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -592,7 +582,6 @@ interactions:
       - d1109e4f-19b8-4fa1-9432-64b41be1b752
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -646,7 +635,6 @@ interactions:
       - 9471e249-6ff0-47d1-8f7a-0461518ee6aa
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -700,7 +688,6 @@ interactions:
       - 8a0dc6a3-68b4-4ffc-810d-2bc925197fd9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -754,7 +741,6 @@ interactions:
       - ccff265b-9afa-43eb-8966-84b5a0aefcf8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -808,7 +794,6 @@ interactions:
       - 187a68ab-07de-41b3-906e-42b029f3f42f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -862,7 +847,6 @@ interactions:
       - c0b1154a-e881-43c0-bc45-f530e4bab849
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -916,7 +900,6 @@ interactions:
       - 5bbd0b9a-cf44-4298-a1c1-e6063b5219ce
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -970,7 +953,6 @@ interactions:
       - fea85f2c-c003-4def-b941-4a5ef83f9818
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -1024,7 +1006,6 @@ interactions:
       - 80d4b466-038a-430b-8037-6f2ce604cb88
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -1078,7 +1059,6 @@ interactions:
       - f5cb87d0-ef30-4c31-a71b-1c8a4961f3cc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -1132,7 +1112,6 @@ interactions:
       - 658dc3ae-0e66-41de-8ca4-2e175d2c64e0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"ready", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -1186,7 +1165,6 @@ interactions:
       - 339fd6a9-d5b4-46c0-9ed1-305c02c5d6e7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
       "zone":"fr-par-1", "compatible_commercial_types":["DEV1-L", "DEV1-M", "DEV1-S",
@@ -1236,7 +1214,6 @@ interactions:
       - 4f391c18-8bfb-4324-9a59-4e7aa178b6f1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -1280,7 +1257,6 @@ interactions:
       - bd18faaa-66b5-4994-977f-bb61a478f090
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -2229,7 +2205,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -2482,7 +2457,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "6bc1ce31-e50b-43ac-88a0-2a679c14492b", "address": "51.158.118.38",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -2524,7 +2498,6 @@ interactions:
       - a814cdf2-a762-4d8b-97d6-69ed5993cae5
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2628,7 +2601,6 @@ interactions:
       - 491f28e0-c9b7-42ee-97ba-ca5a2ea3f9b2
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"task": {"id": "bbd6fe78-7159-452f-a509-f314be7ce160", "description":
       "server_batch_poweron", "status": "pending", "href_from": "/servers/b75d7132-9985-43a9-951c-d1b95ead4ea0/action",
@@ -2670,7 +2642,6 @@ interactions:
       - 9b06112c-dc07-46ca-9d9f-949ba3283a2f
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2770,7 +2741,6 @@ interactions:
       - 1a53d570-a5e1-45d5-8db9-1e7eb19a301b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2872,7 +2842,6 @@ interactions:
       - b8d50377-0630-4824-adcd-661e48a31cd6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2974,7 +2943,6 @@ interactions:
       - d3171f02-d84a-4e43-adca-411bb2dd4221
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3076,7 +3044,6 @@ interactions:
       - 892af55e-b524-44db-883d-85a5dd0c23a5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3180,7 +3147,6 @@ interactions:
       - c0bba278-cf89-430e-b588-e81c780e4bc9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ea376438-6601-47f6-8f82-6dc4e7690a24", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":80, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -3256,7 +3222,6 @@ interactions:
       - 32471754-63f1-488e-b6e5-3aaa6338ebe4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": [{"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3436,7 +3401,6 @@ interactions:
       - "2"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ea376438-6601-47f6-8f82-6dc4e7690a24", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":80, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -3512,7 +3476,6 @@ interactions:
       - 7c9e3b5f-6988-426d-995a-b6cd887440c8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3542,7 +3505,6 @@ interactions:
       - 91b3ae71-87e5-49f7-9db2-bd3a98f99813
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"094db171-b4a5-47e8-936c-4995e2a170dc", "name":"cli-test", "description":"cli-test",
       "status":"to_delete", "instances":[{"id":"440d645b-f0b6-4d85-bb5e-632a0bf93530",
@@ -3596,7 +3558,6 @@ interactions:
       - dd3a8135-1955-476a-af35-e0013a2aff49
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3700,7 +3661,6 @@ interactions:
       - fcda136b-f641-4e3b-bffd-8b23c459777b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3804,7 +3764,6 @@ interactions:
       - fdf09729-8a50-4b38-aea7-c8f0bb4bda53
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "aea0e907-22d4-4dce-9573-26c540a90b05", "description":
       "server_poweroff", "status": "pending", "href_from": "/servers/b75d7132-9985-43a9-951c-d1b95ead4ea0/action",
@@ -3846,7 +3805,6 @@ interactions:
       - db74041f-2217-44dd-b80f-be8ac9828083
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3948,7 +3906,6 @@ interactions:
       - 390916ab-d961-45af-b29f-313b6ea67ba8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4050,7 +4007,6 @@ interactions:
       - 98698d14-6b0a-41b7-a4de-3e48f24a41d7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4152,7 +4108,6 @@ interactions:
       - 6203b090-e20d-473d-8f3c-cb45d6c27519
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4254,7 +4209,6 @@ interactions:
       - 2831686f-84a0-4242-9e24-1777e283ae5a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4356,7 +4310,6 @@ interactions:
       - 854de613-31c6-4887-b89f-99ea54a86cd4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4458,7 +4411,6 @@ interactions:
       - 2cc6ae73-d9fa-4e66-803f-8ab62d2c3ed1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4560,7 +4512,6 @@ interactions:
       - a170b53a-1844-478a-9e67-6a7b08f4268c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4662,7 +4613,6 @@ interactions:
       - 612b61a5-243e-4fc8-a544-7ddb0b06e0fc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4764,7 +4714,6 @@ interactions:
       - 185e8beb-0927-4043-82ba-2cdafa4a89bd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4866,7 +4815,6 @@ interactions:
       - 5507f878-c978-42c6-9056-e846e07433b8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b75d7132-9985-43a9-951c-d1b95ead4ea0", "name": "cli-srv-crazy-grothendieck",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4966,7 +4914,6 @@ interactions:
       - 29a91e35-c704-41b1-bc60-457de3dc54fd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -4994,7 +4941,6 @@ interactions:
       - a9bf9efb-9beb-41a8-8e40-6e2cad50b606
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -5022,4 +4968,3 @@ interactions:
       - 56fd68ae-c0e1-44b7-8c97-ae553ab74d84
     status: 204 No Content
     code: 204
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"name":"test","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd","volume_type":"l_ssd","size":20000000000}'
@@ -39,7 +39,6 @@ interactions:
       - DENY
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -69,4 +68,3 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""

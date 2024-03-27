@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -646,7 +646,6 @@ interactions:
       - "30"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -690,7 +689,6 @@ interactions:
       - DENY
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1009,7 +1007,6 @@ interactions:
       - "32"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
     form: {}
@@ -1047,7 +1044,6 @@ interactions:
       - DENY
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"name":"cli-srv-inspiring-niel","commercial_type":"DEV1-S","image":"f974feac-abae-4365-b988-8ec7d1cec10d","public_ip":"f64679f7-9c33-4246-bbbf-eba3f0017649","boot_type":"local","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
     form: {}
@@ -1117,7 +1113,6 @@ interactions:
       - DENY
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"name":"cli-snp-eager-keldysh","volume_id":"85b6dd98-1a64-4a05-b002-5a5e7ac29fbf","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
     form: {}
@@ -1156,7 +1151,6 @@ interactions:
       - DENY
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"name":"cli-img-stupefied-moser","root_volume":"26a882cd-62d5-47d6-b52f-c3e677c806b5","arch":"x86_64","organization":"aba2d0d0-b01d-4d88-b322-935edc96d0fd"}'
     form: {}
@@ -1198,7 +1192,6 @@ interactions:
       - DENY
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1228,7 +1221,6 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1258,7 +1250,6 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1324,7 +1315,6 @@ interactions:
       - DENY
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1354,7 +1344,6 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1384,7 +1373,6 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1414,4 +1402,3 @@ interactions:
       - DENY
     status: 204 No Content
     code: 204
-    duration: ""

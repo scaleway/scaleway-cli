@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 9deba840-a17c-4378-9f86-ee4078ae9cd9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - 61dd0280-c810-468e-9043-8baaeb0bdd8a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "0b4e8f56-83a7-49c3-9920-d4e1766949cc", "address": "51.158.70.135",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - c8d30b5b-d508-4d37-87ac-70e185f65f61
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "dddebbff-56c0-46b9-81e5-6e47b204e945", "name": "cli-srv-stupefied-ishizaka",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - d050011d-b4c9-471b-aab8-57be052a94f9
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1472,4 +1466,3 @@ interactions:
       - c49e630f-5c4c-4ecf-a581-7447e285b3cd
     status: 204 No Content
     code: 204
-    duration: ""

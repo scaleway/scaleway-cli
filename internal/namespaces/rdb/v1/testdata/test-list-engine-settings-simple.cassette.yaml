@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"engines":[{"name":"MySQL", "logo_url":"https://s3.nl-ams.scw.cloud/scw-rdb-logos/mysql.svg",
@@ -274,4 +274,3 @@ interactions:
       - f90e42af-232c-4312-a8f1-9c048d4684b0
     status: 200 OK
     code: 200
-    duration: ""

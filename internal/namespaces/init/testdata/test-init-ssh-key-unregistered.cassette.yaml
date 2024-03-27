@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -33,7 +33,6 @@ interactions:
       - 3034897b-1e26-4b9d-83c1-594fd0682cfb
     status: 403 Forbidden
     code: 403
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -68,7 +67,6 @@ interactions:
       - 1f4134df-4a0d-4cc3-9d07-376594d11807
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"name":"key-amazing-mcnulty","public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg
       foobar@foobar","project_id":""}'
@@ -104,7 +102,6 @@ interactions:
       - d7e2a561-f0e6-4f1c-b177-110604249253
     status: 400 Bad Request
     code: 400
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -137,7 +134,6 @@ interactions:
       - d65e731f-1d8a-4a73-a2b6-d710072fb6e9
     status: 403 Forbidden
     code: 403
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -174,4 +170,3 @@ interactions:
       - 6fdab4bc-9b1c-468d-8fd1-2d7bb3fa097d
     status: 200 OK
     code: 200
-    duration: ""

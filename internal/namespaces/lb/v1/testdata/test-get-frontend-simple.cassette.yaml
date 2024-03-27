@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"17ddd2f8-61b9-4015-a96f-a4573a8f06b0", "name":"cli-test", "description":"cli-test",
@@ -52,7 +52,6 @@ interactions:
       - da2d68b0-0f2e-447d-8774-b3832471e9bb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"17ddd2f8-61b9-4015-a96f-a4573a8f06b0", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"9750308c-0fd9-4345-8ac3-1b0a2687d6f2",
@@ -106,7 +105,6 @@ interactions:
       - 13860efb-4791-4ca3-b2cf-766c16d4c7f8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"17ddd2f8-61b9-4015-a96f-a4573a8f06b0", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"9750308c-0fd9-4345-8ac3-1b0a2687d6f2",
@@ -160,7 +158,6 @@ interactions:
       - 591541de-61db-4a36-b37e-409d28e54d85
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"17ddd2f8-61b9-4015-a96f-a4573a8f06b0", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"9750308c-0fd9-4345-8ac3-1b0a2687d6f2",
@@ -214,7 +211,6 @@ interactions:
       - 1a1c122a-1015-48c0-b1f7-38ba428fcddc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"17ddd2f8-61b9-4015-a96f-a4573a8f06b0", "name":"cli-test", "description":"cli-test",
       "status":"ready", "instances":[{"id":"9750308c-0fd9-4345-8ac3-1b0a2687d6f2",
@@ -268,7 +264,6 @@ interactions:
       - 4aaf7d28-e894-41c8-9981-d174ac673b28
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"local_images":[{"id":"bc2f0ae3-bfca-4055-89c9-e84c54e568b1", "arch":"x86_64",
       "zone":"fr-par-1", "compatible_commercial_types":["DEV1-L", "DEV1-M", "DEV1-S",
@@ -328,7 +323,6 @@ interactions:
       - b8ab3485-89cc-46a6-85cd-671dd15b8c4c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "bc2f0ae3-bfca-4055-89c9-e84c54e568b1", "name": "Ubuntu
       20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -372,7 +366,6 @@ interactions:
       - b6090e9c-b971-4ec4-b94b-e324ee128d22
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1321,7 +1314,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1574,7 +1566,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "72424d5e-00d8-4d92-a343-e753c4867296", "address": "51.158.98.210",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1616,7 +1607,6 @@ interactions:
       - 449256e6-cce6-4ac0-9019-670bc480370c
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "f93a86c5-30af-401a-8e49-e4479c42ad7e", "name": "cli-srv-tender-bell",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1720,7 +1710,6 @@ interactions:
       - 131fc37f-9cd8-4499-9809-54b7d522da46
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"id":"f29d9d27-50c0-49fa-9f11-a15510510650", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":80, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -1796,7 +1785,6 @@ interactions:
       - 6da1ad65-9b0a-4d4e-8ba2-4a192921acaf
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"b75e19f3-ee1e-45d2-a26c-5d767fc84d0d", "name":"cli-test", "inbound_port":8888,
       "backend":{"id":"f29d9d27-50c0-49fa-9f11-a15510510650", "name":"cli-test", "forward_protocol":"tcp",
@@ -1896,7 +1884,6 @@ interactions:
       - 96f87a21-98a5-4aee-a13e-8708d7c8bb16
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"b75e19f3-ee1e-45d2-a26c-5d767fc84d0d", "name":"cli-test", "inbound_port":8888,
       "backend":{"id":"f29d9d27-50c0-49fa-9f11-a15510510650", "name":"cli-test", "forward_protocol":"tcp",
@@ -1990,7 +1977,6 @@ interactions:
       - a1ac4ae5-5d37-42e3-86d6-7b2f8de379b0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2020,7 +2006,6 @@ interactions:
       - 88f866e2-3d38-426c-ad2e-2c3df3db47c5
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"17ddd2f8-61b9-4015-a96f-a4573a8f06b0", "name":"cli-test", "description":"cli-test",
       "status":"to_delete", "instances":[{"id":"9750308c-0fd9-4345-8ac3-1b0a2687d6f2",
@@ -2074,7 +2059,6 @@ interactions:
       - b0ca1b18-36d0-49dc-9773-88bf795115b6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "f93a86c5-30af-401a-8e49-e4479c42ad7e", "name": "cli-srv-tender-bell",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2174,7 +2158,6 @@ interactions:
       - e7eab69a-3b5c-4595-8892-779919672fbd
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2202,7 +2185,6 @@ interactions:
       - 70575133-671c-4da4-b9d2-0afe501439d5
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2230,4 +2212,3 @@ interactions:
       - acd3b9bb-16fc-4356-b784-86de9c7d7e18
     status: 204 No Content
     code: 204
-    duration: ""

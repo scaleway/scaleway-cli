@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"e35470a7-86c9-49f4-a5b8-df15d27bbce5", "name":"cli-test", "description":"cli-test",
@@ -52,7 +52,6 @@ interactions:
       - 62fc42ea-e051-4b4e-95f7-9c8fec1febb3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"e35470a7-86c9-49f4-a5b8-df15d27bbce5", "name":"cli-test", "description":"cli-test",
       "status":"to_create", "instances":[], "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
@@ -102,7 +101,6 @@ interactions:
       - cced3115-7a75-4392-af26-06fda022d3a3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"e35470a7-86c9-49f4-a5b8-df15d27bbce5", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"084c01a5-e8b3-413a-851c-2335de23c116",
@@ -156,7 +154,6 @@ interactions:
       - 138fead0-61ce-4751-9db3-0e0caf849bd2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"e35470a7-86c9-49f4-a5b8-df15d27bbce5", "name":"cli-test", "description":"cli-test",
       "status":"ready", "instances":[{"id":"084c01a5-e8b3-413a-851c-2335de23c116",
@@ -210,7 +207,6 @@ interactions:
       - 6f72b6c3-7a49-44a7-b443-d25c0aae6dcf
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"e35470a7-86c9-49f4-a5b8-df15d27bbce5", "name":"cli-test", "description":"cli-test",
       "status":"ready", "instances":[{"id":"084c01a5-e8b3-413a-851c-2335de23c116",
@@ -264,7 +260,6 @@ interactions:
       - c24439f3-533a-4dae-a43e-4d0b7cad895c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -294,7 +289,6 @@ interactions:
       - d8ca715a-8d46-4af9-ab66-f2c3a818de8c
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"e35470a7-86c9-49f4-a5b8-df15d27bbce5", "name":"cli-test", "description":"cli-test",
       "status":"to_delete", "instances":[{"id":"084c01a5-e8b3-413a-851c-2335de23c116",
@@ -348,4 +342,3 @@ interactions:
       - 122d5980-8f23-4807-8add-45658c46d921
     status: 200 OK
     code: 200
-    duration: ""

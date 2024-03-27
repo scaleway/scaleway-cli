@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
@@ -52,7 +52,6 @@ interactions:
       - 6041bd07-f282-4990-8375-d5cbd92094af
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"to_create", "instances":[], "organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -102,7 +101,6 @@ interactions:
       - 4170352e-97d4-49d1-bac5-07c9bd6539c4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -156,7 +154,6 @@ interactions:
       - 585b4ff1-1c82-457e-bcee-2a1db80087ff
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -210,7 +207,6 @@ interactions:
       - c3e1c509-5734-42b5-bc6c-ac5c40bdb690
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -264,7 +260,6 @@ interactions:
       - 32cbbd82-0e7d-4a6a-8dc6-0e979d6dd97b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -318,7 +313,6 @@ interactions:
       - cb6fc21d-449b-4f13-8215-16691bc63d9c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -372,7 +366,6 @@ interactions:
       - 58d4e4d7-63d9-4fd3-ae8b-616aacf4b1a9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -426,7 +419,6 @@ interactions:
       - 982a2d47-b241-47b9-95a4-f73c81f95d16
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -480,7 +472,6 @@ interactions:
       - b5d12eb8-8b49-4860-8ce1-7f65665d7de1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -534,7 +525,6 @@ interactions:
       - 77320aea-e52e-4301-a383-260f1f29fed4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -588,7 +578,6 @@ interactions:
       - a528aa74-1048-4ffe-b09b-6cd8ce4600fb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -642,7 +631,6 @@ interactions:
       - 1c37542d-6e67-46b9-a5ad-cbe50258b238
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -696,7 +684,6 @@ interactions:
       - 0e1feda1-5d77-42f5-bdaf-517a2fcdfa85
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -750,7 +737,6 @@ interactions:
       - 9705d21b-f387-4f0d-bed3-6d9e98baa8d2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"ready", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -804,7 +790,6 @@ interactions:
       - 2c5f48fa-8174-48ca-8dd0-ade8877e4683
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
       "zone":"fr-par-1", "compatible_commercial_types":["DEV1-L", "DEV1-M", "DEV1-S",
@@ -854,7 +839,6 @@ interactions:
       - 207e474a-728f-4a6b-9b99-35a3f493b889
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -898,7 +882,6 @@ interactions:
       - 4e7a5c8d-ca96-4c6d-932c-9455a41415db
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1847,7 +1830,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -2100,7 +2082,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "e5e8ea10-0601-49b9-8f45-20fd5e14644e", "address": "51.15.225.129",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -2142,7 +2123,6 @@ interactions:
       - 20c4cadd-f0e3-4901-a861-7db745b835cf
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2246,7 +2226,6 @@ interactions:
       - c796c36f-27d0-47b8-b325-1dcb90ab312a
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"task": {"id": "aa843296-eb09-4ca6-bf24-fe2922d9c18f", "description":
       "server_batch_poweron", "status": "pending", "href_from": "/servers/1aa4bd25-2e5a-495a-bbc5-6848de17a1b7/action",
@@ -2288,7 +2267,6 @@ interactions:
       - 8895d43a-743e-4707-8de6-8195ad49d69a
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2388,7 +2366,6 @@ interactions:
       - 2e6a3858-d9c6-44b4-9592-b00a72092c21
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2490,7 +2467,6 @@ interactions:
       - 6e8126ef-a6e2-4da0-91d7-9db534908f12
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2592,7 +2568,6 @@ interactions:
       - 5ef5a691-87c6-4420-85ff-7fe1621f0d8c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2694,7 +2669,6 @@ interactions:
       - a956be88-db70-4a9c-8eae-9911d8f9324e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2796,7 +2770,6 @@ interactions:
       - 02520718-82c4-49c7-9b42-41a3c3471bb0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2900,7 +2873,6 @@ interactions:
       - 89799667-971b-43ba-9e30-0b8f7b9d9dad
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": [{"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3080,7 +3052,6 @@ interactions:
       - "2"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"6268f44e-109c-4e56-a2d8-a82e5a0a473e", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":80, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -3156,7 +3127,6 @@ interactions:
       - d9917d07-e21b-4a71-a95a-63d43485dda1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3186,7 +3156,6 @@ interactions:
       - 012e8483-320e-4fdc-b524-f208ddb3653e
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"5c504b90-bb22-4ae2-8273-3a1d52258344", "name":"cli-test", "description":"cli-test",
       "status":"to_delete", "instances":[{"id":"bd722f0f-5686-4d27-a05c-bd84394314f9",
@@ -3240,7 +3209,6 @@ interactions:
       - 4f5eb0fb-7666-4407-bfe4-1aa580556ebf
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3344,7 +3312,6 @@ interactions:
       - 872c8313-7e6f-4900-9d2e-5e021bb4e5be
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3448,7 +3415,6 @@ interactions:
       - ed664cd4-390f-4a4a-b220-ac4102c2a531
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "e40ebba7-7077-4b7a-af45-cf19d2b33df6", "description":
       "server_poweroff", "status": "pending", "href_from": "/servers/1aa4bd25-2e5a-495a-bbc5-6848de17a1b7/action",
@@ -3490,7 +3456,6 @@ interactions:
       - 09ea704c-1e47-4d2f-ad2c-2dc61a287ea9
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3592,7 +3557,6 @@ interactions:
       - 6a637fed-6e88-4c40-abbe-5f2bf1cb02a8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3694,7 +3658,6 @@ interactions:
       - 87fc16fb-b73f-4207-8798-6d5d10de47b7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3796,7 +3759,6 @@ interactions:
       - 03f39f91-6700-4895-b179-4e497dc7ba46
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3898,7 +3860,6 @@ interactions:
       - e5b6e6bb-ac8d-493c-8240-f3c8df26692c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4000,7 +3961,6 @@ interactions:
       - 8d8ea4e2-b6c1-41b2-b369-f1fde925524c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4102,7 +4062,6 @@ interactions:
       - edb4e170-bd06-4ba3-bab6-750ea3e0836f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4204,7 +4163,6 @@ interactions:
       - 79493320-1197-4f88-b4c0-eb66cd9232c4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4306,7 +4264,6 @@ interactions:
       - 1b0473d5-9446-47cf-8dc3-661384571367
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4408,7 +4365,6 @@ interactions:
       - 18bd0e1d-f062-48f9-9869-1577b496910f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4510,7 +4466,6 @@ interactions:
       - 71ec4ac5-d2eb-4998-8c86-ac82b434de98
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "1aa4bd25-2e5a-495a-bbc5-6848de17a1b7", "name": "cli-srv-objective-jang",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -4610,7 +4565,6 @@ interactions:
       - 8feb556b-89c5-4819-b378-fd8af55b0f37
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -4638,7 +4592,6 @@ interactions:
       - 2f452794-3679-43dc-bf62-24d93eef942d
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -4666,4 +4619,3 @@ interactions:
       - 01695fda-afa8-40e1-a099-08b07cfe8024
     status: 204 No Content
     code: 204
-    duration: ""

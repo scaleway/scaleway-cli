@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -33,4 +33,3 @@ interactions:
       - 7c76b870-1cea-40a7-91c4-e96ed5183da4
     status: 403 Forbidden
     code: 403
-    duration: ""

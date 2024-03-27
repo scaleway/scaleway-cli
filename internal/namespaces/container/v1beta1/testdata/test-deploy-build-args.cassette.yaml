@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"namespaces":[],"total_count":0}'
@@ -32,7 +32,6 @@ interactions:
       - c93f34ca-6246-4b66-8701-cba1f91d7e0a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"pending","registry_namespace_id":"","error_message":null,"registry_endpoint":"","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -66,7 +65,6 @@ interactions:
       - 646f7fac-c7f7-43a0-9462-b13c42863d3d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"pending","registry_namespace_id":"","error_message":null,"registry_endpoint":"","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -98,7 +96,6 @@ interactions:
       - a5987453-c135-428c-95ea-6bcc3e37c828
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"pending","registry_namespace_id":"","error_message":null,"registry_endpoint":"","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -130,7 +127,6 @@ interactions:
       - b10dc23a-77ef-4474-a43b-9fff8ad59a67
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"ready","registry_namespace_id":"377d9c12-5824-4859-98e2-72cd632dcad0","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -162,7 +158,6 @@ interactions:
       - 0e7a6f26-c906-42cc-9b9c-435eed87be6a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -194,7 +189,6 @@ interactions:
       - inactive
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: "{\"stream\":\"Step 1/6 : FROM nginx:alpine\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
       ---\\u003e 414132ff3b07\\n\"}\r\n{\"stream\":\"Step 2/6 : RUN apk add --no-cache
@@ -246,7 +240,6 @@ interactions:
       - Docker/24.0.2 (linux)
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: "{\"status\":\"The push refers to repository [rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba]\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"11a0432d0d05\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"24266030f98d\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"abaf9665d5d7\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"6ec20fc79771\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"6f2a9eaf22e9\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"b938c7b9f1b5\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"de91f65bcbc4\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"ba960ae476af\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"604cbedf1215\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"36b50b131297\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"de91f65bcbc4\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba960ae476af\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"604cbedf1215\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"b938c7b9f1b5\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"36b50b131297\"}\r\n{\"status\":\"Mounted
       from funcscwappclitctnrdeployfpvgptoyk4/app-cli-t-ctnr-deploy-fp\",\"progressDetail\":{},\"id\":\"6f2a9eaf22e9\"}\r\n{\"status\":\"Mounted
@@ -298,7 +291,6 @@ interactions:
       - Docker/24.0.2 (linux)
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"containers":[],"total_count":0}'
     form: {}
@@ -330,7 +322,6 @@ interactions:
       - 48296c2e-80f5-41ba-9faf-139d396a2538
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"created","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":8080,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -364,7 +355,6 @@ interactions:
       - 55c60200-b472-4ec9-8394-923cdf7c99d2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"created","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -398,7 +388,6 @@ interactions:
       - ce013b62-e852-4998-81df-05f3ce8c9b2c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"created","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -430,7 +419,6 @@ interactions:
       - 408f3786-fe4b-4dd5-b791-ef4b9e3abd6e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -464,7 +452,6 @@ interactions:
       - a76a2c32-291d-4b6e-bbeb-efb9c9aaced5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -496,7 +483,6 @@ interactions:
       - be1d0807-54fd-420c-bafc-458b10175928
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -528,7 +514,6 @@ interactions:
       - 345abb18-8ca9-4c4d-b82d-0174247aa35b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -560,7 +545,6 @@ interactions:
       - 4832fb7d-535b-4a0e-aea3-3522f5211777
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -592,7 +576,6 @@ interactions:
       - c804d0b4-c2bd-4c9a-9f59-ee80b513d7cf
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -624,7 +607,6 @@ interactions:
       - a14740a5-d42a-4ebd-9fbd-2dcd20053a55
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"1f969852-ebf1-4abf-9963-069e218e32a6","name":"cli-t-ctnr-deploy-ba","namespace_id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","status":"ready","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs/cli-t-ctnr-deploy-ba:latest","max_concurrency":50,"domain_name":"clitctnrdeploybaen3cu4hs-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":80,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
     form: {}
@@ -656,7 +638,6 @@ interactions:
       - 9e956e37-1ca4-4b0b-b3b3-95b2b98d7b5c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"namespaces":[{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"ready","registry_namespace_id":"377d9c12-5824-4859-98e2-72cd632dcad0","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs","description":"","secret_environment_variables":[],"region":"fr-par"}],"total_count":1}'
     form: {}
@@ -688,7 +669,6 @@ interactions:
       - ebc4b254-3d11-4e7c-b237-5316b318a899
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"deleting","registry_namespace_id":"377d9c12-5824-4859-98e2-72cd632dcad0","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -720,7 +700,6 @@ interactions:
       - fd2070fd-0a3c-46f3-b852-4b98e82efab8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"deleting","registry_namespace_id":"377d9c12-5824-4859-98e2-72cd632dcad0","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -752,7 +731,6 @@ interactions:
       - 9b06b79e-82dd-49b0-b0d5-2a5fc28ab4ba
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"deleting","registry_namespace_id":"377d9c12-5824-4859-98e2-72cd632dcad0","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -784,7 +762,6 @@ interactions:
       - cee2cbda-d568-4e75-9a8d-92b644db0e38
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"deleting","registry_namespace_id":"377d9c12-5824-4859-98e2-72cd632dcad0","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -816,7 +793,6 @@ interactions:
       - 63ef84e8-c648-4182-8d43-09413d7ced7c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"deleting","registry_namespace_id":"377d9c12-5824-4859-98e2-72cd632dcad0","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -848,7 +824,6 @@ interactions:
       - 139dffcf-dd76-471e-98fd-d6303f0a48a4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"deleting","registry_namespace_id":"377d9c12-5824-4859-98e2-72cd632dcad0","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -880,7 +855,6 @@ interactions:
       - 889ab628-6cd7-43cb-924b-dec43c10daa0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"ed3355d8-73c0-4b00-916e-a442587bd7cc","name":"cli-t-ctnr-deploy-ba","environment_variables":{},"organization_id":"105bdce1-64c0-48ab-899d-868455867ecf","project_id":"105bdce1-64c0-48ab-899d-868455867ecf","status":"deleting","registry_namespace_id":"377d9c12-5824-4859-98e2-72cd632dcad0","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclitctnrdeploybaen3cu4hs","description":"","secret_environment_variables":[],"region":"fr-par"}'
     form: {}
@@ -912,7 +886,6 @@ interactions:
       - 86d5fbf7-597a-4261-bceb-ae8083a41101
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"message":"Namespace was not found"}'
     form: {}
@@ -944,7 +917,6 @@ interactions:
       - f9c59327-421e-44a1-8a9e-3aa4c4ea9d7f
     status: 404 Not Found
     code: 404
-    duration: ""
 - request:
     body: '{"namespaces":[],"total_count":0}'
     form: {}
@@ -976,4 +948,3 @@ interactions:
       - e2f74321-f754-4d1b-bf34-8326f19df493
     status: 200 OK
     code: 200
-    duration: ""

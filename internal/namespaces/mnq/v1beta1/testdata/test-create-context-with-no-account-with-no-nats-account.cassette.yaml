@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"total_count":4, "nats_accounts":[{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
@@ -56,4 +56,3 @@ interactions:
       - dfdaeee9-0098-451d-a44f-f07f5d65456e
     status: 200 OK
     code: 200
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - e774ea19-508a-4b7e-8f43-69ec4fe0491e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - 5e6f90ed-f7d6-4010-b216-15484aead626
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "271998e5-5673-41a6-b4a8-4da0da4872fd", "address": "51.158.97.6",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - 29c1329a-c664-49a3-aede-ede303468bc6
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "0dea52a5-dbf4-410c-a94a-601f391a21be", "name": "cli-srv-compassionate-robinson",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - b2bccb82-114f-40f5-8b49-911d84998368
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"type": "not_found", "message": "resource is not found", "resource": "instance_volume",
       "resource_id": "11111111-1111-1111-1111-111111111111"}'
@@ -1476,7 +1470,6 @@ interactions:
       - 5964a6a0-91d5-4d1b-b1e4-7c3e61daeb62
     status: 404 Not Found
     code: 404
-    duration: ""
 - request:
     body: '{"message":"resource is not found","resource":"volume","resource_id":"11111111-1111-1111-1111-111111111111","type":"not_found"}'
     form: {}
@@ -1508,7 +1501,6 @@ interactions:
       - 43d0872d-7971-4207-ae68-631bce98bbad
     status: 404 Not Found
     code: 404
-    duration: ""
 - request:
     body: '{"server": {"id": "0dea52a5-dbf4-410c-a94a-601f391a21be", "name": "cli-srv-compassionate-robinson",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1608,7 +1600,6 @@ interactions:
       - 930b0fdb-3a3b-4d98-a3df-0996fb16afca
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1636,7 +1627,6 @@ interactions:
       - bfcf0975-fe39-4f61-9c8b-6a7f3a203e2f
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1664,7 +1654,6 @@ interactions:
       - 12de9ce8-da3c-4df9-b302-f5a150af07fd
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1692,4 +1681,3 @@ interactions:
       - ba22cf48-312d-4fa5-af4c-64a56b23f02f
     status: 204 No Content
     code: 204
-    duration: ""

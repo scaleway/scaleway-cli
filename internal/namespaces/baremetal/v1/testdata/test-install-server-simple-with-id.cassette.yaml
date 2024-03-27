@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"name":"cli-key-cocky-tesla","public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==
@@ -35,7 +35,6 @@ interactions:
         - 7acae565-23c5-489a-b5ef-544f9cd41091
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -73,7 +72,6 @@ interactions:
       - cc07b3f9-5417-4b02-9412-62ed8e0b4e7b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-focused-vaughan","description":"","tags":null,"install":null}'
     form: {}
@@ -107,7 +105,6 @@ interactions:
       - 68aeae05-2928-45b3-875a-19016f056308
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -139,7 +136,6 @@ interactions:
       - 95b3bafa-0fab-410e-bb3e-f91e924069ac
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -171,7 +167,6 @@ interactions:
       - 4dc0ae9f-4c35-4274-8454-70d35cbabcad
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -203,7 +198,6 @@ interactions:
       - 2595aa87-b45b-465c-a7d9-1da9437f4078
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -235,7 +229,6 @@ interactions:
       - e6cf35fd-d0c1-40e6-bd99-2ab2b114f7eb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -267,7 +260,6 @@ interactions:
       - c191f94f-7e25-4820-a962-6a9e6a3865cb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -299,7 +291,6 @@ interactions:
       - 77c3979f-0f7c-4412-8863-558d0c2fa756
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -331,7 +322,6 @@ interactions:
       - 84220ed9-29ba-42d4-bf44-b1e8814b0c91
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -363,7 +353,6 @@ interactions:
       - 0668a43b-1000-4fa6-add0-6d350a1fe76f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -395,7 +384,6 @@ interactions:
       - 5b58b74c-1d31-42be-936d-c9a258b710a8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -427,7 +415,6 @@ interactions:
       - 9f687d66-408e-4643-94f6-e47d7f275c09
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -459,7 +446,6 @@ interactions:
       - a961ec59-5cbf-4ab6-b54c-272b1ce4e551
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -491,7 +477,6 @@ interactions:
       - 04419e42-652c-4b90-84ec-a218295c435c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -523,7 +508,6 @@ interactions:
       - 5302bdde-1007-4b92-af07-fa6bd814c77d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -555,7 +539,6 @@ interactions:
       - 6db024ea-67db-4cd0-9263-bed4277a90a8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"os_id":"03b7f4ba-a6a1-4305-984e-b54fafbf1681","hostname":"test-install-server","ssh_key_ids":["02aeb573-5220-4e1d-8983-fbd12fc38b5f"]}'
     form: {}
@@ -589,7 +572,6 @@ interactions:
       - 6bdf9bee-5d03-492e-a7a2-406c93d5dc79
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -621,7 +603,6 @@ interactions:
       - dd830ff1-3b37-4b85-8982-84e880152e73
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -653,7 +634,6 @@ interactions:
       - bd92c7ce-2e6a-4e1a-bd41-65d68c771c00
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -685,7 +665,6 @@ interactions:
       - af99204c-14d3-41db-a645-0522e232817f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -717,7 +696,6 @@ interactions:
       - 3ec28dcf-989d-4dfc-a8dd-a362593d971b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -749,7 +727,6 @@ interactions:
       - ce7e6532-fd82-4e37-bc1d-af6f1b7ea819
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -781,7 +758,6 @@ interactions:
       - 58483444-4a75-4c9e-8aca-2ed2de3d5e74
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -813,7 +789,6 @@ interactions:
       - 46f27fe3-ee37-4dfc-8532-a2752c72ace9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -845,7 +820,6 @@ interactions:
       - 1b8d7d03-f731-4f1e-92ce-55a328677518
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -877,7 +851,6 @@ interactions:
       - 32154125-1197-4c16-a48e-325ce9404613
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -909,7 +882,6 @@ interactions:
       - 69456870-3a05-4963-a779-a8aa5b192b1a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -941,7 +913,6 @@ interactions:
       - 257455bb-4bea-4601-82d0-ce49df661d39
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -973,7 +944,6 @@ interactions:
       - 680d29d7-1d7a-4ebc-9cf4-fcd2ce20ce88
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1005,7 +975,6 @@ interactions:
       - ba4f2e32-8181-4b90-bbce-a4a4447516e5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1037,7 +1006,6 @@ interactions:
       - d0855233-4745-4183-a8c9-47fe69265b79
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1069,7 +1037,6 @@ interactions:
       - 4ea0a015-c60a-4de7-9146-7e56c0f30d48
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1101,7 +1068,6 @@ interactions:
       - 999ceb5b-04e2-4c7c-9b83-9a0334d9db59
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1133,7 +1099,6 @@ interactions:
       - 6badff11-a92d-4db2-90ef-d955396d2ec8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1165,7 +1130,6 @@ interactions:
       - a344458d-7163-4bc9-9924-aa725118a1d9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1197,7 +1161,6 @@ interactions:
       - 5cb8ed18-82c8-47aa-86e9-dbfcb78a52c2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1229,7 +1192,6 @@ interactions:
       - b274dd90-ca24-4920-85b0-9433dc96012a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1261,7 +1223,6 @@ interactions:
       - cd4c196d-f26c-4c24-a9b8-416fbe81d76f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1293,7 +1254,6 @@ interactions:
       - f8b56afe-2208-49c4-a235-fd767741a117
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1325,7 +1285,6 @@ interactions:
       - 8b29c692-5763-4bd2-8743-8b461a8411f7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1357,7 +1316,6 @@ interactions:
       - 7278c745-1aab-4a68-9969-956173018613
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1389,7 +1347,6 @@ interactions:
       - 562c3c7f-d76f-4dc9-b04c-72071c6bc3a9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1421,7 +1378,6 @@ interactions:
       - e287ea2b-e7ab-4a06-ba56-ee54ee60f096
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1453,7 +1409,6 @@ interactions:
       - c3e9c2d4-faca-4abe-88fa-fbd0e1088fc6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1485,7 +1440,6 @@ interactions:
       - 9efb5df5-9f98-4fc3-a1af-afa679d002ad
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1517,7 +1471,6 @@ interactions:
       - 9deabbca-23e2-4ea3-a2ef-aeda57da24c1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1549,7 +1502,6 @@ interactions:
       - 483dd0c8-7206-4a25-ace1-6aab6bde1eee
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1581,7 +1533,6 @@ interactions:
       - 869967c5-694b-4afc-bb52-d48417a51ebe
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1613,7 +1564,6 @@ interactions:
       - b99fc67d-bcc4-497a-a811-0346681fd1d8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1645,7 +1595,6 @@ interactions:
       - 6a640ad8-408a-4b89-851b-3ab8d67f7e59
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1677,7 +1626,6 @@ interactions:
       - c1cfcfe7-f8f8-483a-8534-3e06e67193c5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1709,7 +1657,6 @@ interactions:
       - 7ecf222e-09e3-474f-9817-9e0a2d43cf43
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1741,7 +1688,6 @@ interactions:
       - 83fd76be-5c64-4e23-8f85-636d42264387
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1773,7 +1719,6 @@ interactions:
       - 69839eca-0f3d-4a3e-8fb7-e4af952e68a7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1805,7 +1750,6 @@ interactions:
       - 2c966854-977f-4f65-bc66-548f2b80187e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1837,7 +1781,6 @@ interactions:
       - ed72410a-d3f3-4778-b1f4-a81e2aee8ff1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1867,7 +1810,6 @@ interactions:
         - a217464a-11a3-4417-8d01-be81f7c90558
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1899,4 +1841,3 @@ interactions:
       - c428a77a-143b-442c-bc95-334a8944a1ee
     status: 200 OK
     code: 200
-    duration: ""

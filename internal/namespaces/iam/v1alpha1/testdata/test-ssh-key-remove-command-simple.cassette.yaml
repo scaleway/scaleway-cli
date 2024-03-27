@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"name":"cli-key-friendly-stonebraker","public_key":"ecdsa-sha2-nistp256
@@ -41,7 +41,6 @@ interactions:
       - 95d47c94-4622-4cf2-9cac-01769a55fc5d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -71,4 +70,3 @@ interactions:
       - a4d77bdd-36b2-49f9-bdb5-3314b6c3a072
     status: 204 No Content
     code: 204
-    duration: ""

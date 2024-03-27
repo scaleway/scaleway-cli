@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 329ea4fd-9fdd-4b2a-9614-629bdbe0b92f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - 14dc62e6-50ed-460d-9973-976a8bf636e3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "36174dd8-1fd5-44c3-8677-75bfa44d1f78", "address": "212.47.247.62",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - 9696e26b-df63-459b-a30b-b3c5bc2d96ec
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "89899931-efdf-4ea9-a96e-d9845465d9d7", "name": "cli-srv-vigorous-chebyshev",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1478,7 +1473,6 @@ interactions:
       - 8f934599-bc68-4611-b72b-317a96628a80
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "89899931-efdf-4ea9-a96e-d9845465d9d7", "name": "cli-srv-vigorous-chebyshev",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1614,7 +1608,6 @@ interactions:
       - a3440315-721a-45ef-8809-55c0aa6212a0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "89899931-efdf-4ea9-a96e-d9845465d9d7", "name": "cli-srv-vigorous-chebyshev",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1750,7 +1743,6 @@ interactions:
       - 558eff62-c6d5-4ddb-a237-09d91a58f9de
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1778,7 +1770,6 @@ interactions:
       - 22057393-e3d8-47b1-94bc-630bd8a124ba
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1806,7 +1797,6 @@ interactions:
       - 955caf42-be22-4d6d-be1a-edab2d74c5c7
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1834,7 +1824,6 @@ interactions:
       - 45b4cdf2-6a70-4733-98ef-d40f43deb431
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1862,7 +1851,6 @@ interactions:
       - b27f43c6-0137-4033-a5fd-be4f6afeb1ae
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1890,7 +1878,6 @@ interactions:
       - 970d2fe2-5a01-4527-af09-101fb36fcc2f
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1918,4 +1905,3 @@ interactions:
       - 9fe4af15-b9e9-4135-9e3b-3c53770f90ba
     status: 204 No Content
     code: 204
-    duration: ""

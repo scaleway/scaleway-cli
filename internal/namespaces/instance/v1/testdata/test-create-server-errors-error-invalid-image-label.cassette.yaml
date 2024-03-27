@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"message":"Not found","resource":"MarketplaceImage","resource_id":"macos","type":"not_found"}'
@@ -32,4 +32,3 @@ interactions:
       - 0151c8d0-538d-40b8-89e0-ec3419cb85b0
     status: 404 Not Found
     code: 404
-    duration: ""

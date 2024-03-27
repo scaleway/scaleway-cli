@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"b4ce7a6b-d72f-4d80-8d7e-871f5443b5ba","arch":"arm64","zone":"fr-par-3","compatible_commercial_types":["AMP2-C1","AMP2-C2","AMP2-C4","AMP2-C8","AMP2-C12","AMP2-C24","AMP2-C48","AMP2-C60","COPARM1-2C-8G","COPARM1-4C-16G","COPARM1-8C-32G","COPARM1-16C-64G","COPARM1-32C-128G"],"label":"ubuntu_jammy","type":"instance_local"},{"id":"79740822-61f3-4b68-99a2-6340de44fbdd","arch":"x86_64","zone":"fr-par-3","compatible_commercial_types":["GP1-L","GP1-M","GP1-S","GP1-XL","GP1-XS","START1-L","START1-M","START1-S","START1-XS","VC1L","VC1M","VC1S","X64-120GB","X64-15GB","X64-30GB","X64-60GB","ENT1-XXS","ENT1-XS","ENT1-S","ENT1-M","ENT1-L","ENT1-XL","ENT1-2XL","PRO2-XXS","PRO2-XS","PRO2-S","PRO2-M","PRO2-L","PLAY2-MICRO","PLAY2-NANO","PLAY2-PICO","POP2-2C-8G","POP2-4C-16G","POP2-8C-32G","POP2-16C-64G","POP2-32C-128G","POP2-64C-256G","POP2-HM-2C-16G","POP2-HM-4C-32G","POP2-HM-8C-64G","POP2-HM-16C-128G","POP2-HM-32C-256G","POP2-HM-64C-512G","POP2-HC-2C-4G","POP2-HC-4C-8G","POP2-HC-8C-16G","POP2-HC-16C-32G","POP2-HC-32C-64G","POP2-HC-64C-128G"],"label":"ubuntu_jammy","type":"instance_local"}],"total_count":2}'
@@ -32,7 +32,6 @@ interactions:
       - 655786f7-4aa3-44b1-a13f-b8d4cb8967ee
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "79740822-61f3-4b68-99a2-6340de44fbdd", "name": "Ubuntu
       22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -76,7 +75,6 @@ interactions:
       - 1a2ea7b4-a259-42d3-a974-b2fa920da0f0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"ENT1-2XL": {"alt_names": [], "arch": "x86_64", "ncpus": 96,
       "ram": 412316860416, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -708,7 +706,6 @@ interactions:
       - "33"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "93904803-fdfc-4ee7-8f4e-a9b49cbc0dc7", "address": "51.159.82.39",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -750,7 +747,6 @@ interactions:
       - e73d4956-194d-4755-8c78-ac476db45e8b
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -854,7 +850,6 @@ interactions:
       - c1e55251-d2c8-4cc6-a742-5ede1b7164f6
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"task": {"id": "067782ae-d833-4428-9fa8-99bbb85aee40", "description":
       "server_batch_poweron", "status": "pending", "href_from": "/servers/fbc5f41a-4c3e-41fe-ba33-442a66631563/action",
@@ -896,7 +891,6 @@ interactions:
       - 0ceced84-1980-4d7a-aa67-755d78d7b457
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -998,7 +992,6 @@ interactions:
       - 8dbbedda-bd47-4f3f-8e4c-1c2c96759e0a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -1102,7 +1095,6 @@ interactions:
       - 3f25b0cb-6266-48b6-943f-c352563abaf5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "7918d7ad-52f2-4543-8448-ef62ce16e521", "description":
       "server_enable_routed_ip", "status": "pending", "href_from": "/servers/fbc5f41a-4c3e-41fe-ba33-442a66631563/action",
@@ -1144,7 +1136,6 @@ interactions:
       - 7fe884a2-d5a3-48db-97c7-4d7f32a62b60
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -1246,7 +1237,6 @@ interactions:
       - 30e04779-8f4f-46f3-ba2c-4d31dcd54c8c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -1350,7 +1340,6 @@ interactions:
       - a0ab5eb4-1fc5-4ba9-94e0-7d696f4a9cbe
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -1454,7 +1443,6 @@ interactions:
       - 0a83e99f-4a13-4dd9-a07b-c393fdc68d60
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -1558,7 +1546,6 @@ interactions:
       - e0581834-f348-4235-a0e0-8f717196c0ed
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -1662,7 +1649,6 @@ interactions:
       - 2aa40b2b-7be6-4950-bba7-6cd384145e31
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -1766,7 +1752,6 @@ interactions:
       - 96fd8861-3db5-48b8-ba2f-339eea7e7832
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -1870,7 +1855,6 @@ interactions:
       - d59839e6-20cb-4ad4-838b-5ea81d64c832
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -1974,7 +1958,6 @@ interactions:
       - 4875be3d-b937-4b32-9c58-6b8bcb8ecd74
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -2078,7 +2061,6 @@ interactions:
       - 7617e550-7196-45fe-9d7a-a69c737a26e4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "93904803-fdfc-4ee7-8f4e-a9b49cbc0dc7", "address": "51.159.82.39",
       "prefix": null, "reverse": null, "server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563",
@@ -2118,7 +2100,6 @@ interactions:
       - 090c73b0-71b4-4eef-ae3c-b3626656f192
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -2222,7 +2203,6 @@ interactions:
       - a09efdd5-c96a-4a20-a8b4-d0c53725c095
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -2326,7 +2306,6 @@ interactions:
       - 8bcc4ce6-bdec-4fe2-835b-b061c40400ed
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "877f7895-cf0e-4578-9287-23fe21247562", "description":
       "server_poweroff", "status": "pending", "href_from": "/servers/fbc5f41a-4c3e-41fe-ba33-442a66631563/action",
@@ -2368,7 +2347,6 @@ interactions:
       - 7e1f5bae-3792-467f-9415-41cf249aa79e
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -2472,7 +2450,6 @@ interactions:
       - 1c24f69f-1094-47bd-87bd-ea2a88a20bad
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -2576,7 +2553,6 @@ interactions:
       - 17c0632f-9da5-4d2b-aa91-b534812e250f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -2680,7 +2656,6 @@ interactions:
       - 05551f40-9c05-4bf0-92c5-43293921eb36
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -2784,7 +2759,6 @@ interactions:
       - da9c7707-9cd6-4f8b-9d50-535243c4a2c8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -2888,7 +2862,6 @@ interactions:
       - aebf9fff-62e2-48c9-855d-2d635adbb25d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -2992,7 +2965,6 @@ interactions:
       - d6e06d2d-6ae9-4264-b373-4b4391696679
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "fbc5f41a-4c3e-41fe-ba33-442a66631563", "name": "cli-srv-epic-cannon",
       "arch": "x86_64", "commercial_type": "PRO2-XXS", "boot_type": "local", "organization":
@@ -3092,7 +3064,6 @@ interactions:
       - e3b15e9a-7562-44a3-bfa9-3baa573dcbfc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3120,7 +3091,6 @@ interactions:
       - f1bad9b4-f9bc-4894-8815-122187d60cd3
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3148,4 +3118,3 @@ interactions:
       - c7d1319d-1479-4bab-9bac-c958d19467ef
     status: 204 No Content
     code: 204
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"cdd37013-d25b-49a5-a8c5-b3e7c1eaf4c8","arch":"arm64","zone":"fr-par-1","compatible_commercial_types":["AMP2-C1","AMP2-C2","AMP2-C4","AMP2-C8","AMP2-C12","AMP2-C24","AMP2-C48","AMP2-C60","COPARM1-2C-8G","COPARM1-4C-16G","COPARM1-8C-32G","COPARM1-16C-64G","COPARM1-32C-128G"],"label":"ubuntu_jammy","type":"instance_local"},{"id":"bfcb8579-a98f-464c-a958-af80eeef020b","arch":"x86_64","zone":"fr-par-1","compatible_commercial_types":["DEV1-L","DEV1-M","DEV1-S","DEV1-XL","GP1-L","GP1-M","GP1-S","GP1-XL","GP1-XS","START1-L","START1-M","START1-S","START1-XS","VC1L","VC1M","VC1S","X64-120GB","X64-15GB","X64-30GB","X64-60GB","ENT1-XXS","ENT1-XS","ENT1-S","ENT1-M","ENT1-L","ENT1-XL","ENT1-2XL","PRO2-XXS","PRO2-XS","PRO2-S","PRO2-M","PRO2-L","STARDUST1-S","PLAY2-MICRO","PLAY2-NANO","PLAY2-PICO","POP2-2C-8G","POP2-4C-16G","POP2-8C-32G","POP2-16C-64G","POP2-32C-128G","POP2-64C-256G","POP2-HM-2C-16G","POP2-HM-4C-32G","POP2-HM-8C-64G","POP2-HM-16C-128G","POP2-HM-32C-256G","POP2-HM-64C-512G","POP2-HC-2C-4G","POP2-HC-4C-8G","POP2-HC-8C-16G","POP2-HC-16C-32G","POP2-HC-32C-64G","POP2-HC-64C-128G"],"label":"ubuntu_jammy","type":"instance_local"}],"total_count":2}'
@@ -32,7 +32,6 @@ interactions:
       - 2f536905-35d8-4fcf-a590-8a2c20fb4b88
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "bfcb8579-a98f-464c-a958-af80eeef020b", "name": "Ubuntu
       22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -76,7 +75,6 @@ interactions:
       - 3b0347c7-8ce6-4ebc-80e9-af286c57232d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1025,7 +1023,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1278,7 +1275,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b63de3f1-e233-4036-9554-605a80fb11bb", "name": "cli-srv-silly-poincare",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1372,7 +1368,6 @@ interactions:
       - 987c486b-ac04-4f50-9a1f-36c31ce72646
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"ip": {"id": "0d7b58f7-867b-4253-8189-20f26a930b96", "address": "163.172.159.121",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1414,7 +1409,6 @@ interactions:
       - 10c147f3-a17c-4585-9aa0-ab68fb16c903
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"ip": {"id": "0d7b58f7-867b-4253-8189-20f26a930b96", "address": "163.172.159.121",
       "prefix": null, "reverse": null, "server": {"id": "b63de3f1-e233-4036-9554-605a80fb11bb",
@@ -1456,7 +1450,6 @@ interactions:
       - 801934fe-168a-4d5e-b488-91590f35aab9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "b63de3f1-e233-4036-9554-605a80fb11bb", "name": "cli-srv-silly-poincare",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1556,7 +1549,6 @@ interactions:
       - 17c94443-2446-4692-b577-99f0754d9291
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1584,7 +1576,6 @@ interactions:
       - 552bcfc3-0ac2-4159-86c4-163edcb3539c
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1612,7 +1603,6 @@ interactions:
       - af381647-e8ff-4b00-96cc-ba6809bbd6b4
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1640,4 +1630,3 @@ interactions:
       - 664bcd77-161e-4384-9d8e-701968b67909
     status: 204 No Content
     code: 204
-    duration: ""

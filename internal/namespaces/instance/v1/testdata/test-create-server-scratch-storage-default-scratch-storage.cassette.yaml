@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"dd88ce8e-6184-44ed-aa9d-4d3d8158196e","arch":"x86_64","zone":"fr-par-2","compatible_commercial_types":["L4-1-24G","RENDER-S","GPU-3070-S","H100-1-80G","H100-2-80G"],"label":"ubuntu_jammy_gpu_os_12","type":"instance_local"}],"total_count":1}'
@@ -32,7 +32,6 @@ interactions:
       - 838614a7-8478-4d71-b904-9d2219bd9bad
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "dd88ce8e-6184-44ed-aa9d-4d3d8158196e", "name": "Ubuntu
       Jammy GPU OS 12 passthrough", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -78,7 +77,6 @@ interactions:
       - d7cbfaea-d059-465e-84bd-27b7243ad5a8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"AMP2-C1": {"alt_names": [], "arch": "arm64", "ncpus": 1,
       "ram": 1879048192, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1023,7 +1021,6 @@ interactions:
       - "59"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"POP2-HM-4C-32G": {"alt_names": [], "arch": "x86_64", "ncpus":
       4, "ram": 34359738368, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1222,7 +1219,6 @@ interactions:
       - "59"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "17558af2-1e32-4bf6-993a-b946b6e38e09", "address": "51.159.151.190",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1264,7 +1260,6 @@ interactions:
       - ee2f28bb-941f-4f5a-bbca-e1678e3ceeb7
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -1380,7 +1375,6 @@ interactions:
       - 17ae8406-1c81-472d-956c-c4996a04259e
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"task": {"id": "8adca4cf-8ba0-40ed-9103-07304cea427e", "description":
       "server_batch_poweron", "status": "pending", "href_from": "/servers/db1682be-ddd4-4364-92e6-ac8353d31bd1/action",
@@ -1422,7 +1416,6 @@ interactions:
       - 4461e6c2-a6d2-43b7-a4e8-fad87222eb41
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -1534,7 +1527,6 @@ interactions:
       - 4a9e7275-822f-4331-8cf4-9b3830be9d19
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -1648,7 +1640,6 @@ interactions:
       - 4ad882ee-8459-4d1c-99f7-cc3334374a29
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -1762,7 +1753,6 @@ interactions:
       - 48964522-4493-41ba-85b9-0a81b1abe2c6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -1876,7 +1866,6 @@ interactions:
       - 93835aee-cd4a-4a66-9b39-39cb75120747
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -1990,7 +1979,6 @@ interactions:
       - 64b4b5fb-82eb-48dc-8596-9fee80f882c9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -2106,7 +2094,6 @@ interactions:
       - 6a40ac29-64fc-4182-87f3-afc357fed697
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "e83eb059-ad50-4780-b6e3-080382f3bfa8", "description":
       "server_poweroff", "status": "pending", "href_from": "/servers/db1682be-ddd4-4364-92e6-ac8353d31bd1/action",
@@ -2148,7 +2135,6 @@ interactions:
       - 3a73a5aa-cb4d-49d1-8a6f-470763aa5ff4
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -2262,7 +2248,6 @@ interactions:
       - e12038b9-32da-4a60-9915-cd18bab01922
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -2376,7 +2361,6 @@ interactions:
       - 673c9a14-670b-45c6-956c-12d22ce0b2cc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -2490,7 +2474,6 @@ interactions:
       - f35026b4-c69f-488e-9d34-18015fcad778
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -2604,7 +2587,6 @@ interactions:
       - 3312ca1c-9f2c-4bca-8240-94e08a2b5cfa
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -2718,7 +2700,6 @@ interactions:
       - 1f1cebc3-ede3-49c6-bb42-305a36db3c1e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -2832,7 +2813,6 @@ interactions:
       - 4665d16a-079b-449b-98d9-07df61282f77
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -2946,7 +2926,6 @@ interactions:
       - 4b730d24-6aab-4536-b12c-64140186b0aa
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -3060,7 +3039,6 @@ interactions:
       - fba03f80-7f7c-49b9-bd4a-3e2f0aa8428f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -3174,7 +3152,6 @@ interactions:
       - 8d862cc5-aa31-4cd4-bc6e-14815190b1b5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "db1682be-ddd4-4364-92e6-ac8353d31bd1", "name": "cli-srv-exciting-brahmagupta",
       "arch": "x86_64", "commercial_type": "H100-1-80G", "boot_type": "local", "organization":
@@ -3286,7 +3263,6 @@ interactions:
       - b97dd26f-9a12-4361-b787-1131862f07ed
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3314,7 +3290,6 @@ interactions:
       - b0e0a972-88b1-4aab-820d-98c38c63b199
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3342,7 +3317,6 @@ interactions:
       - a09aa280-7781-4ae8-8635-38bcdf450ac5
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3370,4 +3344,3 @@ interactions:
       - 210525e2-a3b2-4028-a12b-cce03591fc9c
     status: 204 No Content
     code: 204
-    duration: ""

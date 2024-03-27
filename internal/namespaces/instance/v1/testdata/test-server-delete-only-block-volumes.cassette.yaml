@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 4dd2f916-6118-4917-9d48-f1fee80ea4e0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - 66fce4f1-8602-4182-b210-ee77b1e17a72
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "271998e5-5673-41a6-b4a8-4da0da4872fd", "address": "51.158.97.6",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - e7f2af9c-e5af-4626-9874-5a2b3838e2f8
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "55e8266e-9089-4a67-8b74-731fb238e79e", "name": "cli-srv-sleepy-lalande",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1454,7 +1449,6 @@ interactions:
       - 740a7626-06de-4ab0-a6b2-59c4c73cf24c
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "55e8266e-9089-4a67-8b74-731fb238e79e", "name": "cli-srv-sleepy-lalande",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1566,7 +1560,6 @@ interactions:
       - 198a9fc6-6d86-4c1c-815c-be824292ad3d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1594,7 +1587,6 @@ interactions:
       - 8adc1fa8-6571-4cc8-bf7e-bcb1fb4c0905
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1622,7 +1614,6 @@ interactions:
       - 73f4767e-f10e-45f2-a957-ee1d0f1c4bd6
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1650,7 +1641,6 @@ interactions:
       - c8e5835b-765c-43c7-b9ce-2c5623aa4abe
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1678,4 +1668,3 @@ interactions:
       - 6509a531-9cee-48ed-aa3c-43c84e045361
     status: 204 No Content
     code: 204
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"details":[{"argument_name":"nats_account_id","help_message":"value length
@@ -34,4 +34,3 @@ interactions:
       - 5073ccf9-bb40-4a8e-9094-50fcb493144f
     status: 400 Bad Request
     code: 400
-    duration: ""

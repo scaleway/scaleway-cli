@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
@@ -56,7 +56,6 @@ interactions:
       - e013756d-eba1-489b-814a-9bdffb3ccf17
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -110,7 +109,6 @@ interactions:
       - 45c30521-9d09-4c8e-9f17-d7d17c78e23b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning",
@@ -164,7 +162,6 @@ interactions:
       - fa9eb03f-71ad-4f69-b0f7-a4bf7f29efda
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -218,7 +215,6 @@ interactions:
       - 843db0f9-ccea-4ac7-a4c9-ef22f7036968
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -272,7 +268,6 @@ interactions:
       - 30bc00d2-141d-46ce-bb76-0aab5f57e0f0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -326,7 +321,6 @@ interactions:
       - 76abc380-687d-4627-81f2-27109bea46db
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -380,7 +374,6 @@ interactions:
       - f19e61dd-94a2-45be-9611-e578b411746a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -434,7 +427,6 @@ interactions:
       - 6a99b4cf-70d4-4d71-aa7f-7b1e17cc60c8
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -488,7 +480,6 @@ interactions:
       - 6cb8e3fe-a327-40c0-bb84-eda2e6bbc17c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -542,7 +533,6 @@ interactions:
       - f161985e-5d3a-4358-8bf7-2da8bc23d113
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -596,7 +586,6 @@ interactions:
       - 99355469-8304-48d8-92b9-906224c2ccbb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -656,7 +645,6 @@ interactions:
       - eb8d91f5-4828-4b38-8127-c3345d2b3600
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing",
@@ -716,7 +704,6 @@ interactions:
       - 92119c53-074f-46b0-bb75-2fdbf4718635
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-12",
@@ -780,7 +767,6 @@ interactions:
       - 35acf224-8032-49ae-8f3d-a7a2dd32a832
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"rules":[{"ip":"0.0.0.0/0", "port":15938, "protocol":"tcp", "direction":"inbound",
       "action":"allow", "description":"Allow All"}, {"ip":"1.2.3.4/32", "port":15938,
@@ -820,7 +806,6 @@ interactions:
       - 20b58b20-1517-4539-aa24-665adfa08e83
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"configuring",
@@ -884,7 +869,6 @@ interactions:
       - e6cf0ebb-2729-4f14-b66d-070d2f6528e5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-12",
@@ -948,7 +932,6 @@ interactions:
       - b55719e9-de58-426d-8c35-e7c13697cb85
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"rules":[{"ip":"0.0.0.0/0", "port":15938, "protocol":"tcp", "direction":"inbound",
       "action":"allow", "description":"Allow All"}, {"ip":"1.2.3.4/32", "port":15938,
@@ -990,7 +973,6 @@ interactions:
       - 34d53b82-af52-4645-a27b-3be6730f8711
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"configuring",
@@ -1054,7 +1036,6 @@ interactions:
       - 95acd128-501c-4eab-a29b-1b6b815efede
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-12",
@@ -1118,7 +1099,6 @@ interactions:
       - 08793c43-6cb0-425b-abe6-c6f84599c3e1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"rules":[{"ip":"0.0.0.0/0", "port":15938, "protocol":"tcp", "direction":"inbound",
       "action":"allow", "description":"Allow All"}, {"ip":"1.2.3.4/32", "port":15938,
@@ -1164,7 +1144,6 @@ interactions:
       - 64e3dc63-2c62-408f-b175-f8bf9f65f8ae
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"configuring",
@@ -1228,7 +1207,6 @@ interactions:
       - 36e9cc32-277e-410f-89f9-452df6996e2f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-12",
@@ -1292,7 +1270,6 @@ interactions:
       - e8c49e64-3765-42f6-b643-0a0af6f08e01
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"96f0c274-4710-4557-a794-a59da25af315", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "engine":"PostgreSQL-12",
@@ -1356,4 +1333,3 @@ interactions:
       - 3f5b3a6a-9568-4446-8397-c910eb84e956
     status: 200 OK
     code: 200
-    duration: ""

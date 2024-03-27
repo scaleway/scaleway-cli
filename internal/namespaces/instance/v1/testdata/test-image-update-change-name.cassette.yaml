@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"cdd37013-d25b-49a5-a8c5-b3e7c1eaf4c8","arch":"arm64","zone":"fr-par-1","compatible_commercial_types":["AMP2-C1","AMP2-C2","AMP2-C4","AMP2-C8","AMP2-C12","AMP2-C24","AMP2-C48","AMP2-C60","COPARM1-2C-8G","COPARM1-4C-16G","COPARM1-8C-32G","COPARM1-16C-64G","COPARM1-32C-128G"],"label":"ubuntu_jammy","type":"instance_local"},{"id":"bfcb8579-a98f-464c-a958-af80eeef020b","arch":"x86_64","zone":"fr-par-1","compatible_commercial_types":["DEV1-L","DEV1-M","DEV1-S","DEV1-XL","GP1-L","GP1-M","GP1-S","GP1-XL","GP1-XS","START1-L","START1-M","START1-S","START1-XS","VC1L","VC1M","VC1S","X64-120GB","X64-15GB","X64-30GB","X64-60GB","ENT1-XXS","ENT1-XS","ENT1-S","ENT1-M","ENT1-L","ENT1-XL","ENT1-2XL","PRO2-XXS","PRO2-XS","PRO2-S","PRO2-M","PRO2-L","STARDUST1-S","PLAY2-MICRO","PLAY2-NANO","PLAY2-PICO","POP2-2C-8G","POP2-4C-16G","POP2-8C-32G","POP2-16C-64G","POP2-32C-128G","POP2-64C-256G","POP2-HM-2C-16G","POP2-HM-4C-32G","POP2-HM-8C-64G","POP2-HM-16C-128G","POP2-HM-32C-256G","POP2-HM-64C-512G","POP2-HC-2C-4G","POP2-HC-4C-8G","POP2-HC-8C-16G","POP2-HC-16C-32G","POP2-HC-32C-64G","POP2-HC-64C-128G"],"label":"ubuntu_jammy","type":"instance_local"}],"total_count":2}'
@@ -32,7 +32,6 @@ interactions:
       - 67dabb6c-37d1-489c-babf-b3427e514ef0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "bfcb8579-a98f-464c-a958-af80eeef020b", "name": "Ubuntu
       22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -76,7 +75,6 @@ interactions:
       - 7f0205f4-b007-41ee-8b7d-3deff8248938
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1025,7 +1023,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1278,7 +1275,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "e6b4161c-85e3-4d3b-bdcc-f881afdf7c46", "address": "163.172.133.158",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1320,7 +1316,6 @@ interactions:
       - 8e423853-d879-4e74-8c28-d808c57add75
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "bbfd9319-a60d-45d3-8d3e-dde79cfc99e6", "name": "cli-srv-modest-galileo",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1424,7 +1419,6 @@ interactions:
       - c721128d-6f24-4a78-9d8a-1141515b564e
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"volume": {"id": "eef37e82-cdcf-4d2f-968a-1b4defcb1449", "name": "Ubuntu
       22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri": null, "organization":
@@ -1468,7 +1462,6 @@ interactions:
       - 5bc89bec-7977-4e4e-b76e-e3c88095b888
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "a722f074-244d-4965-9c53-9ce82874dfbc", "name": "cli-snp-peaceful-johnson",
       "volume_type": "l_ssd", "creation_date": "2023-12-12T09:15:28.436588+00:00",
@@ -1520,7 +1513,6 @@ interactions:
       - 46f0a2ee-0d73-4508-9a0b-7852bc04db90
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"image": {"id": "3f489ade-662d-4772-a9e6-71ff7a821c6f", "name": "cli-img-thirsty-shaw",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1568,7 +1560,6 @@ interactions:
       - b92ac8ca-f87b-4d0b-88a3-25051106c193
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"image": {"id": "3f489ade-662d-4772-a9e6-71ff7a821c6f", "name": "foo",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1614,7 +1605,6 @@ interactions:
       - d513a85f-4bc7-46ce-9bcc-d4108cdf203a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "bbfd9319-a60d-45d3-8d3e-dde79cfc99e6", "name": "cli-srv-modest-galileo",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1714,7 +1704,6 @@ interactions:
       - 722a0675-064e-498d-8ca3-7d3d6b297233
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1742,7 +1731,6 @@ interactions:
       - 15214261-a0be-44bf-8b2b-0fc5153963a2
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1770,7 +1758,6 @@ interactions:
       - a8b2c621-5c4a-4e25-9d25-c099dd42a0fe
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1798,7 +1785,6 @@ interactions:
       - 9734531a-1fe0-480e-882c-d72175bd238e
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"image": {"id": "3f489ade-662d-4772-a9e6-71ff7a821c6f", "name": "foo",
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b", "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1842,7 +1828,6 @@ interactions:
       - f4cde4b6-a220-4f55-b348-3dbbd892529f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1870,7 +1855,6 @@ interactions:
       - 2736ee96-a9e5-47a4-9406-c27219e2e021
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1898,4 +1882,3 @@ interactions:
       - 2b30c826-7f2e-430c-95e3-d9bb04b48e04
     status: 204 No Content
     code: 204
-    duration: ""

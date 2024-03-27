@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 8212d5c5-9a41-4564-8570-41dd32d23318
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - 055aeba4-5204-4d1b-8730-a3c7d096256f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "3d507479-2133-4a90-8202-fe3f1f741d91", "address": "51.158.69.45",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - ca8fa9bd-80ee-4a33-8dee-bed36370e7af
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - 142992a2-885f-45c5-b04d-d06b068d4139
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"task": {"id": "9583a097-b4fd-44dc-b0b0-b1940f3d8289", "description":
       "server_batch_poweron", "status": "pending", "href_from": "/servers/25571a52-f519-4a4a-b912-32f7cd7067b2/action",
@@ -1484,7 +1478,6 @@ interactions:
       - 6f37ca1e-1d58-458a-b2fb-e38549304b35
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1584,7 +1577,6 @@ interactions:
       - 61d29e86-13f9-4497-b3ef-bc6b2b784cdf
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1686,7 +1678,6 @@ interactions:
       - f4668ba3-8fb3-4f43-8757-636341b3f252
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1788,7 +1779,6 @@ interactions:
       - 2b550f29-6f29-4511-8132-70ef82fbadde
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1892,7 +1882,6 @@ interactions:
       - 615ef6a9-c295-4202-a10d-a08e33a483f4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1996,7 +1985,6 @@ interactions:
       - 853a143c-8b28-458a-a2a8-4434cc98f6cf
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"task": {"id": "a8484da3-5900-4a78-8830-91e22b1db226", "description":
       "server_poweroff", "status": "pending", "href_from": "/servers/25571a52-f519-4a4a-b912-32f7cd7067b2/action",
@@ -2038,7 +2026,6 @@ interactions:
       - 2b0fc272-23d9-4c89-aed7-b902579de3cc
     status: 202 Accepted
     code: 202
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2140,7 +2127,6 @@ interactions:
       - 789b73f2-b83d-4f4f-81a0-e7f35c7667d7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2242,7 +2228,6 @@ interactions:
       - cf0a3b13-f564-4e7b-ab59-d690a88b027c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2344,7 +2329,6 @@ interactions:
       - 41ad8512-804f-4c35-93c6-41c96c2911ca
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2446,7 +2430,6 @@ interactions:
       - 12e443b9-4588-4c9d-b3c3-dd3544d8e9a4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2548,7 +2531,6 @@ interactions:
       - 22a6775b-d3ae-4a98-8c0a-d1a5f6176bf2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2650,7 +2632,6 @@ interactions:
       - e1464c5f-2e1f-46e3-ad88-de3b869ad4a0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2752,7 +2733,6 @@ interactions:
       - 2830bd32-e387-42ec-a077-66eb0d6e2118
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2854,7 +2834,6 @@ interactions:
       - d321aa35-aefd-4cc3-8053-97c6d88c809f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2956,7 +2935,6 @@ interactions:
       - 9f322c41-b999-4833-9b85-939a48fd5346
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3058,7 +3036,6 @@ interactions:
       - eb8944e7-b419-45cf-b1e7-b737e354d028
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3160,7 +3137,6 @@ interactions:
       - 7d876340-c627-4a55-9944-310abe7d7771
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3260,7 +3236,6 @@ interactions:
       - 842583c5-e3a6-47e1-8e73-f3f274e574f1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "25571a52-f519-4a4a-b912-32f7cd7067b2", "name": "cli-srv-musing-chaplygin",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -3360,7 +3335,6 @@ interactions:
       - 37995967-f68e-4437-8b58-c28cdc10e991
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3388,7 +3362,6 @@ interactions:
       - d84c770c-45f4-45d5-b1f6-816c43e51d99
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3416,7 +3389,6 @@ interactions:
       - 35f70ebb-627f-4530-801a-60fdae2514ed
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -3444,4 +3416,3 @@ interactions:
       - 6777b95a-0cd5-4004-9d14-37ff6589c7a9
     status: 204 No Content
     code: 204
-    duration: ""

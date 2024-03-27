@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -32,7 +32,6 @@ interactions:
       - 1bb49744-e55b-490f-977f-40a5c1c5c607
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -96,4 +95,3 @@ interactions:
       - bde1011c-49f1-4f13-af49-835f3131ffcc
     status: 200 OK
     code: 200
-    duration: ""

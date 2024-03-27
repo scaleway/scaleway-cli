@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"servers": []}'
@@ -36,4 +36,3 @@ interactions:
       - "0"
     status: 200 OK
     code: 200
-    duration: ""

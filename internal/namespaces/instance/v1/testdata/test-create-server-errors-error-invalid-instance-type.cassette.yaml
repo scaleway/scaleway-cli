@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"cdd37013-d25b-49a5-a8c5-b3e7c1eaf4c8", "arch":"arm64",
@@ -62,4 +62,3 @@ interactions:
       - 3ad3349f-4222-4904-b846-fa15aaa11c30
     status: 200 OK
     code: 200
-    duration: ""

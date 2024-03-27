@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"servers": {"DEV1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 4,
@@ -931,7 +931,6 @@ interactions:
       - "56"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"VC1M": {"alt_names": ["X64-4GB"], "arch": "x86_64", "ncpus":
       4, "ram": 4294967296, "gpu": 0, "volumes_constraint": {"min_size": 100000000000,
@@ -1072,7 +1071,6 @@ interactions:
       - "56"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"DEV1-L": {"availability": "available"}, "DEV1-M": {"availability":
       "available"}, "DEV1-S": {"availability": "available"}, "DEV1-XL": {"availability":
@@ -1161,7 +1159,6 @@ interactions:
       - "56"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"VC1M": {"availability": "available"}, "VC1S": {"availability":
       "available"}, "X64-120GB": {"availability": "available"}, "X64-15GB": {"availability":
@@ -1204,4 +1201,3 @@ interactions:
       - "56"
     status: 200 OK
     code: 200
-    duration: ""

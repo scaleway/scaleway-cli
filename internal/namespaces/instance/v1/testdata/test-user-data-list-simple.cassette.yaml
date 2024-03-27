@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - d77584b0-55a1-4559-9f51-d9194f82ef13
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - 7e8fd4df-0600-44c1-99ba-107b44781522
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "f3c98616-ea6a-4820-84c0-dae9d6bfcc20", "address": "163.172.181.10",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - 7acac743-1a01-40a8-9ad6-c4f2862b4652
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "150d360e-6ac5-4626-a2bc-982aee656053", "name": "cli-srv-sharp-murdock",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - e2d81267-3c87-4ceb-82f4-4f0f488c3bc7
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1472,7 +1466,6 @@ interactions:
       - 78f497c2-ebb1-4152-bfcd-d50d48b5f2c6
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1502,7 +1495,6 @@ interactions:
       - 3e8896e0-fd4b-4c4e-bf7a-c258d9f0fe78
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"user_data": ["bar", "foo"]}'
     form: {}
@@ -1534,7 +1526,6 @@ interactions:
       - 6f5955db-bfd8-46dc-b5aa-f48d05390745
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1566,7 +1557,6 @@ interactions:
       - 3ff87a6a-b94d-44d0-b8c9-0cd12f79515e
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1598,7 +1588,6 @@ interactions:
       - 64d60cb6-7a0b-49ed-a2a2-9b6940c86def
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "150d360e-6ac5-4626-a2bc-982aee656053", "name": "cli-srv-sharp-murdock",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1698,7 +1687,6 @@ interactions:
       - 7becff3a-05f9-4430-b37e-c0a0a9f437ca
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1726,7 +1714,6 @@ interactions:
       - 68ef9803-4003-4bc5-b422-4d68b49651ca
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1754,7 +1741,6 @@ interactions:
       - 83f01994-2cfb-4360-8ffd-e540786bdbf8
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1782,4 +1768,3 @@ interactions:
       - a14eccd8-35ac-4859-9ab4-e22015a1ae58
     status: 204 No Content
     code: 204
-    duration: ""

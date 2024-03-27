@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"access_key":"SCWHJNSK2028RFV4SE6K","secret_key":null,"description":"lmarabese
@@ -34,4 +34,3 @@ interactions:
       - ef5df827-b60d-42a6-a815-dd89bf6df4b6
     status: 200 OK
     code: 200
-    duration: ""

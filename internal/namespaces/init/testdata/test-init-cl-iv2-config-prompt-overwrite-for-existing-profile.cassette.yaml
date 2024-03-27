@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -32,4 +32,3 @@ interactions:
       - 314626bd-48a4-4e66-91bc-7a31b3f17210
     status: 401 Unauthorized
     code: 401
-    duration: ""

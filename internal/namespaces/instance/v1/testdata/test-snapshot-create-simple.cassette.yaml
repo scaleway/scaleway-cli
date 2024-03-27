@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - b9439fb1-a68d-447b-88dd-6220b8fd072b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - e270217f-d52d-4c60-9d89-8d21f11157de
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "8b31ebc6-fdd9-48cc-9124-1a0f2b02bc26", "address": "163.172.158.104",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - e5d1803e-30dd-4462-a865-e8860c1d15f4
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "de3a1977-3691-4bea-af6b-a9878b74f06a", "name": "cli-srv-peaceful-jepsen",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - 53c6358f-72c5-4f5e-8df3-82273bcf2373
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"volume": {"id": "43508876-ae4d-4fc6-83a8-ab4b8131fdc4", "name": "Ubuntu
       18.04 Bionic Beaver", "volume_type": "l_ssd", "export_uri": null, "organization":
@@ -1486,7 +1480,6 @@ interactions:
       - 9da5ef56-fadf-45b6-a3ab-35e515144606
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"snapshot": {"id": "3dd09563-dd81-414e-9b61-753ca13828fe", "name": "cli-snp-sad-lederberg",
       "volume_type": "l_ssd", "creation_date": "2023-12-06T13:52:12.256947+00:00",
@@ -1538,7 +1531,6 @@ interactions:
       - c94b2acc-c9dc-4f6c-b06d-63f2310054cc
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1566,7 +1558,6 @@ interactions:
       - 64735412-5f6f-47f8-98e4-fcc29c64444a
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"server": {"id": "de3a1977-3691-4bea-af6b-a9878b74f06a", "name": "cli-srv-peaceful-jepsen",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1666,7 +1657,6 @@ interactions:
       - 60f27386-dcea-47a9-ac19-30c42732c373
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1694,7 +1684,6 @@ interactions:
       - 9777de16-f145-44b6-9c27-2bd2278b6dd1
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1722,7 +1711,6 @@ interactions:
       - ac3304aa-367e-4462-bffa-de8575fe1e11
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1750,4 +1738,3 @@ interactions:
       - ed557297-42a3-4438-a8f9-795b474b4bdf
     status: 204 No Content
     code: 204
-    duration: ""

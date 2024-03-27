@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"image": {"id": "f974feac-abae-4365-b988-8ec7d1cec10d", "name": "Ubuntu
@@ -58,7 +58,6 @@ interactions:
       - 5e27c452-5e73-4034-8365-317e6db69411
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1007,7 +1006,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1260,7 +1258,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "df89185b-76d9-4e08-8611-fecb302d8e05", "address": "51.15.249.203",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1302,7 +1299,6 @@ interactions:
       - 3a9d28c2-eb66-464a-9f5b-de3f792333de
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "633b5adc-388e-49e0-9e12-048a49241522", "name": "cli-srv-vigorous-tesla",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1418,7 +1414,6 @@ interactions:
       - 9519b7ee-00dd-4744-a9c2-b18416255937
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "633b5adc-388e-49e0-9e12-048a49241522", "name": "cli-srv-vigorous-tesla",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1530,7 +1525,6 @@ interactions:
       - a9d94a77-fe3e-4446-aa48-e10570e852ad
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "633b5adc-388e-49e0-9e12-048a49241522", "name": "cli-srv-vigorous-tesla",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1642,7 +1636,6 @@ interactions:
       - e56f7e43-2b35-4e57-90bc-1b641f3a3e3b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1670,7 +1663,6 @@ interactions:
       - ac797ad0-f392-459f-b74d-22188ca1afd9
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1698,7 +1690,6 @@ interactions:
       - a049a1c0-e551-4ebd-81e6-042e8b4be98e
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1726,4 +1717,3 @@ interactions:
       - 1ff7b30b-15b5-4fd9-acdb-fc557a13154e
     status: 204 No Content
     code: 204
-    duration: ""

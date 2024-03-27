@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -38,7 +38,6 @@ interactions:
       - 6d261487-677d-4cd8-9bf6-1add65336c27
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-gallant-lamport","description":"","tags":["prod","blue"],"install":null}'
     form: {}
@@ -72,7 +71,6 @@ interactions:
       - f38fa871-2a19-401b-98db-ff709ced3eca
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -104,7 +102,6 @@ interactions:
       - cf10a5b0-3c60-413c-aa29-ecd1787c6a41
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -136,7 +133,6 @@ interactions:
       - ea58c558-7e54-4b94-807b-ce22fd5cd688
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -168,7 +164,6 @@ interactions:
       - ae0bab02-1caf-4a4b-8f9f-d65bc0dc63d6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -200,7 +195,6 @@ interactions:
       - c27a0753-cc37-4488-8dc4-6e3c557775a2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -232,7 +226,6 @@ interactions:
       - 6d4360e7-3d2f-48d5-ab5f-7fd6f066fd92
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -264,7 +257,6 @@ interactions:
       - a6214b56-4fd5-4d19-baed-7e1be9eb3ef1
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -296,4 +288,3 @@ interactions:
       - 0e436418-372e-48cc-a07a-3aee56d85499
     status: 200 OK
     code: 200
-    duration: ""

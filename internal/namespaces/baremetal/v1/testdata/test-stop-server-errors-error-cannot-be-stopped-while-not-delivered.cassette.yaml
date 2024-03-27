@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: ""
@@ -38,7 +38,6 @@ interactions:
       - 8055eac2-64bd-4fba-986a-db5dde497955
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"offer_id":"c27dd792-2538-4c54-8989-f460b1aeb5fd","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"cli-bm-flamboyant-beaver","description":"","tags":null,"install":null}'
     form: {}
@@ -72,7 +71,6 @@ interactions:
       - 77506b45-5470-4827-8e24-683b733c9d93
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{}'
     form: {}
@@ -106,7 +104,6 @@ interactions:
       - b3f75064-387a-49d3-b96a-3f713288d1a1
     status: 400 Bad Request
     code: 400
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -138,7 +135,6 @@ interactions:
       - 5df2c305-a76b-45cb-9716-0a4f77f1988f
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -170,7 +166,6 @@ interactions:
       - 8e9dc639-1871-4639-a609-c2eeabafc648
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -202,7 +197,6 @@ interactions:
       - 2b69741f-1921-477e-8ea9-1351651bfacc
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -234,7 +228,6 @@ interactions:
       - 0377ca85-c88e-4880-9c72-e0879ce712c3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -266,7 +259,6 @@ interactions:
       - 8c462d4f-346d-40d7-b559-8292758ac6f6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -298,7 +290,6 @@ interactions:
       - 88681872-bace-4cbd-a88d-42b5e46698f9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -330,7 +321,6 @@ interactions:
       - d2357088-b577-4f28-b5ca-4d9a31d70ff9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -362,7 +352,6 @@ interactions:
       - 3b1bd974-dc24-43fe-b178-3e8de78ffb51
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -394,7 +383,6 @@ interactions:
       - 2fcebe57-b778-4104-92c4-7f2cb79a68e9
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -426,7 +414,6 @@ interactions:
       - 7ca9d683-7da5-4723-a1ab-2333cc8c4143
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -458,7 +445,6 @@ interactions:
       - 69e1d1fc-625e-4ca1-8833-3baa1d5a71ec
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -490,7 +476,6 @@ interactions:
       - e953ee7e-9bd8-4f2a-8e30-7fb2b54f7bd2
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -522,7 +507,6 @@ interactions:
       - 22e959af-2dfb-4619-bacb-1fb9f4e9166b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -554,7 +538,6 @@ interactions:
       - 0372ccef-c558-4886-ae61-914862e3ab1d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -586,4 +569,3 @@ interactions:
       - c0dec5ba-4437-418e-b44a-42a926de70eb
     status: 200 OK
     code: 200
-    duration: ""

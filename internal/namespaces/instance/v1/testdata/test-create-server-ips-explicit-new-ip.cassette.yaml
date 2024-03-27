@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 21e15672-521d-4110-83d2-dc790b1f80c7
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - b9dc1ac4-4b7f-4f23-b4af-c12bd0b83c6a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "72ea178e-09b9-4d62-bc35-c49e0324cc01", "address": "51.158.119.175",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - b7e5c30e-e256-4e0f-9bf5-3eb5bd06e31a
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "d9f24f07-c12d-4924-b98f-d7b1069f1db4", "name": "cli-srv-eloquent-brattain",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - 60c52a6f-236e-4fd4-a655-4019f87060c4
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "d9f24f07-c12d-4924-b98f-d7b1069f1db4", "name": "cli-srv-eloquent-brattain",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1542,7 +1536,6 @@ interactions:
       - 9ac7e5ea-e32c-4609-aa39-20f8ca43f0fb
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "d9f24f07-c12d-4924-b98f-d7b1069f1db4", "name": "cli-srv-eloquent-brattain",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1642,7 +1635,6 @@ interactions:
       - 3f4a6be1-d873-4d4e-b6e6-d7802919e24d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1670,7 +1662,6 @@ interactions:
       - fd530c25-8314-45e4-afa8-0a651b33e82e
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1698,7 +1689,6 @@ interactions:
       - 8d640be4-d083-43ef-950e-c39028ba541a
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1726,4 +1716,3 @@ interactions:
       - 330a48f7-8446-489f-a082-54ea4bb696d1
     status: 204 No Content
     code: 204
-    duration: ""

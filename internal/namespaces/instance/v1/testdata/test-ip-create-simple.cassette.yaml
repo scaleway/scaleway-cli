@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"ip": {"id": "f90e8f53-9936-443c-87e4-fb50819ba794", "address": "51.158.112.105",
@@ -42,7 +42,6 @@ interactions:
       - f2acbd91-5b10-4527-aa2e-25eb3b98bba8
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -70,4 +69,3 @@ interactions:
       - a6860946-14a1-4983-b4d8-912ec4aac62c
     status: 204 No Content
     code: 204
-    duration: ""

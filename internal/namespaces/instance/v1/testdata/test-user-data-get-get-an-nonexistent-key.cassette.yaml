@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 3b1047de-c9f1-46ae-90ff-ac9e0654d0b0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - a225dea0-b396-424c-9d32-903c57eea223
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "9442b402-88e0-4b69-b4f1-140cb1e45453", "address": "51.15.129.135",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - fdf5129f-51d1-4d14-8350-d3d527ee5cfd
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "2dc27da0-44d0-49a3-9526-fba72f93ad20", "name": "cli-srv-determined-merkle",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - 1875aeb6-bb11-4b5f-9b4a-705dba74b425
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1474,7 +1468,6 @@ interactions:
       - 26fd754f-adcc-4005-a4b2-0e77f52ed937
     status: 404 Not Found
     code: 404
-    duration: ""
 - request:
     body: '{"server": {"id": "2dc27da0-44d0-49a3-9526-fba72f93ad20", "name": "cli-srv-determined-merkle",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1574,7 +1567,6 @@ interactions:
       - c4104598-fefc-403e-a86f-425ceaa39687
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1602,7 +1594,6 @@ interactions:
       - fbce5aba-1680-442a-8bf4-6fb803a0f32e
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1630,7 +1621,6 @@ interactions:
       - ffe4a49f-b16d-4d6f-8d50-89dd51954658
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1658,4 +1648,3 @@ interactions:
       - c2f44f63-1099-4408-bf5a-cf9bdbf1630f
     status: 204 No Content
     code: 204
-    duration: ""

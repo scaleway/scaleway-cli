@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
@@ -50,7 +50,6 @@ interactions:
       - 53902a62-b8db-4688-8766-95b5272d77c3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -94,7 +93,6 @@ interactions:
       - 06172db9-f25c-49c5-a037-e5c7d3182325
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1043,7 +1041,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1296,7 +1293,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "f6ea21ef-09e2-4571-b0a9-7327a5d37abc", "address": "163.172.135.67",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1338,7 +1334,6 @@ interactions:
       - 00a59ae4-41b7-4b4e-9d93-5f88d84710e0
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "e80e6a9b-244e-4910-b5c8-7428a314ed5b", "name": "cli-srv-laughing-shirley",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1442,7 +1437,6 @@ interactions:
       - 87501826-ffc4-4d86-baee-fc44c37fcd25
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "e80e6a9b-244e-4910-b5c8-7428a314ed5b", "name": "cli-srv-laughing-shirley",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1542,7 +1536,6 @@ interactions:
       - d7eb49bd-4e4f-49d4-ba41-a1648c843a00
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"type": "invalid_request_error", "message": "Validation Error", "fields":
       {"placement_group": ["not a valid value"]}}'
@@ -1578,7 +1571,6 @@ interactions:
       - a02fa52f-e75f-40e6-b400-944882488ae2
     status: 400 Bad Request
     code: 400
-    duration: ""
 - request:
     body: '{"server": {"id": "e80e6a9b-244e-4910-b5c8-7428a314ed5b", "name": "cli-srv-laughing-shirley",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1678,7 +1670,6 @@ interactions:
       - 58f31358-ec1f-4cb7-96f8-6ab72ea90fe0
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1706,7 +1697,6 @@ interactions:
       - 5e066b26-5194-4059-a96c-e6dc0bec035d
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1734,7 +1724,6 @@ interactions:
       - d4d8aa9c-7ae7-4667-a894-b8a916f3239d
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1762,4 +1751,3 @@ interactions:
       - ba9f3c01-e20a-48b7-9c77-03790246be13
     status: 204 No Content
     code: 204
-    duration: ""

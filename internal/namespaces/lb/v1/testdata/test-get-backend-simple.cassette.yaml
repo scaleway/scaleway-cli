@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"id":"e0fc06b9-76cd-408c-a089-765bef963f48", "name":"cli-test", "description":"cli-test",
@@ -52,7 +52,6 @@ interactions:
       - 65f4f058-902b-4c58-a648-f2068c522de3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"e0fc06b9-76cd-408c-a089-765bef963f48", "name":"cli-test", "description":"cli-test",
       "status":"to_create", "instances":[], "organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -102,7 +101,6 @@ interactions:
       - dc1941ad-11c3-48d0-9b2a-a300b0881d91
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"e0fc06b9-76cd-408c-a089-765bef963f48", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"dabec983-4c52-4d72-a0ef-7bcca53bac13",
@@ -156,7 +154,6 @@ interactions:
       - a51df6f2-ef8f-4694-ac88-26cdb8f6af48
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"e0fc06b9-76cd-408c-a089-765bef963f48", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"dabec983-4c52-4d72-a0ef-7bcca53bac13",
@@ -210,7 +207,6 @@ interactions:
       - 2ca3ce36-8b9c-43b4-85be-1978f048d9d4
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"e0fc06b9-76cd-408c-a089-765bef963f48", "name":"cli-test", "description":"cli-test",
       "status":"creating", "instances":[{"id":"dabec983-4c52-4d72-a0ef-7bcca53bac13",
@@ -264,7 +260,6 @@ interactions:
       - e5438aaf-634c-4b59-aa2d-f14e6c4a6558
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"e0fc06b9-76cd-408c-a089-765bef963f48", "name":"cli-test", "description":"cli-test",
       "status":"ready", "instances":[{"id":"dabec983-4c52-4d72-a0ef-7bcca53bac13",
@@ -318,7 +313,6 @@ interactions:
       - c652735b-f56d-41ad-9450-4de9303a7e0c
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"local_images":[{"id":"bc2f0ae3-bfca-4055-89c9-e84c54e568b1", "arch":"x86_64",
       "zone":"fr-par-1", "compatible_commercial_types":["DEV1-L", "DEV1-M", "DEV1-S",
@@ -378,7 +372,6 @@ interactions:
       - 5f2e69a7-4509-4666-90fe-bb18bed50c8a
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "bc2f0ae3-bfca-4055-89c9-e84c54e568b1", "name": "Ubuntu
       20.04 Focal Fossa", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -422,7 +415,6 @@ interactions:
       - 43fe70ba-d9ba-4d96-91d9-fe6dfdd05d3d
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1371,7 +1363,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1624,7 +1615,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "c92a59ae-d9e7-4cf6-9cd6-3e8eafc78893", "address": "51.15.205.36",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1666,7 +1656,6 @@ interactions:
       - f5dc6705-8a6a-4687-acd0-7c1ed5dee2ae
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "c7dddb8c-7077-4cbc-a0fe-bfcefb14da3c", "name": "cli-srv-sweet-thompson",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1770,7 +1759,6 @@ interactions:
       - a1dd5052-d521-4917-84c1-5dee16f66a95
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"id":"fb4bc77a-0ea3-44ae-80ef-bf803f596c12", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":80, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -1846,7 +1834,6 @@ interactions:
       - c04afea5-6794-4840-8b7a-ce76fb54c242
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"fb4bc77a-0ea3-44ae-80ef-bf803f596c12", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":80, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -1922,7 +1909,6 @@ interactions:
       - 6316dbb5-4041-42d2-8fca-8e07cfaa60d5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"id":"fb4bc77a-0ea3-44ae-80ef-bf803f596c12", "name":"cli-test", "forward_protocol":"tcp",
       "forward_port":80, "forward_port_algorithm":"roundrobin", "sticky_sessions":"none",
@@ -1996,7 +1982,6 @@ interactions:
       - 6fc21e52-7bfc-47d5-9e3f-7b1f4921c2e5
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2026,7 +2011,6 @@ interactions:
       - e76e1b1e-8368-471e-aacd-7b713d013554
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: '{"id":"e0fc06b9-76cd-408c-a089-765bef963f48", "name":"cli-test", "description":"cli-test",
       "status":"to_delete", "instances":[{"id":"dabec983-4c52-4d72-a0ef-7bcca53bac13",
@@ -2080,7 +2064,6 @@ interactions:
       - 93bb7b10-ab61-422e-8b0c-7155a2dfc718
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "c7dddb8c-7077-4cbc-a0fe-bfcefb14da3c", "name": "cli-srv-sweet-thompson",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -2180,7 +2163,6 @@ interactions:
       - 87663fd3-1462-4d2c-a759-98e506ea7cf3
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2208,7 +2190,6 @@ interactions:
       - 6d6424b1-8c09-4cdb-a44d-5cc7358d6270
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -2236,4 +2217,3 @@ interactions:
       - acaca89f-1067-4307-a8bf-698e95acdb8c
     status: 204 No Content
     code: 204
-    duration: ""

@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 interactions:
 - request:
     body: '{"ip": {"id": "47eae4a2-528f-423e-b867-e1a4ac52268f", "address": "51.158.98.140",
@@ -42,7 +42,6 @@ interactions:
       - 6fcb3304-ba55-4e20-a06e-0792d1039cf1
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"local_images":[{"id":"655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "arch":"x86_64",
       "zone":"fr-par-1", "compatible_commercial_types":["DEV1-L", "DEV1-M", "DEV1-S",
@@ -92,7 +91,6 @@ interactions:
       - dbaf268f-fcc0-45fa-961b-686907ef4705
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"image": {"id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa", "name": "Ubuntu
       18.04 Bionic Beaver", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -136,7 +134,6 @@ interactions:
       - 7025fa2b-5d4a-4c04-ab27-b138667784d6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"COPARM1-16C-64G": {"alt_names": [], "arch": "arm64", "ncpus":
       16, "ram": 68719476736, "gpu": 0, "mig_profile": null, "volumes_constraint":
@@ -1085,7 +1082,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"servers": {"START1-L": {"alt_names": [], "arch": "x86_64", "ncpus": 8,
       "ram": 8589934592, "gpu": 0, "mig_profile": null, "volumes_constraint": {"min_size":
@@ -1338,7 +1334,6 @@ interactions:
       - "61"
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"ip": {"id": "47eae4a2-528f-423e-b867-e1a4ac52268f", "address": "51.158.98.140",
       "prefix": null, "reverse": null, "server": null, "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
@@ -1376,7 +1371,6 @@ interactions:
       - 5caf0781-d14a-407f-9afd-2b41c2d491b6
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "2c43a560-925b-4098-a634-00055c1c94d1", "name": "cli-srv-brave-goldberg",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1480,7 +1474,6 @@ interactions:
       - 4d801ef0-f77b-4a9a-813a-8ca9fa066c7b
     status: 201 Created
     code: 201
-    duration: ""
 - request:
     body: '{"server": {"id": "2c43a560-925b-4098-a634-00055c1c94d1", "name": "cli-srv-brave-goldberg",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1580,7 +1573,6 @@ interactions:
       - 5b0bd2de-314e-4db9-89e5-e8d57768f2df
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: '{"server": {"id": "2c43a560-925b-4098-a634-00055c1c94d1", "name": "cli-srv-brave-goldberg",
       "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
@@ -1680,7 +1672,6 @@ interactions:
       - b0f730b5-ed03-4a67-9de2-aa005d68fc0b
     status: 200 OK
     code: 200
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1708,7 +1699,6 @@ interactions:
       - 853ef73b-ce78-4c81-b03e-306f3b3f6ad1
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1736,7 +1726,6 @@ interactions:
       - c1b2e176-1051-4935-8ef4-bb0601f71542
     status: 204 No Content
     code: 204
-    duration: ""
 - request:
     body: ""
     form: {}
@@ -1764,4 +1753,3 @@ interactions:
       - f130e2a0-6348-4ef8-9b9b-3c0481ca5686
     status: 204 No Content
     code: 204
-    duration: ""
