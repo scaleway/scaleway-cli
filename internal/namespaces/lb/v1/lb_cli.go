@@ -217,6 +217,13 @@ func lbLBList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "tags.{index}",
+				Short:      `Filter by tag, only Load Balancers with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for, only Load Balancers from this Organization will be returned`,
 				Required:   false,
