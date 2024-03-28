@@ -21,8 +21,8 @@ type CommandValidateFunc func(ctx context.Context, cmd *Command, cmdArgs interfa
 type ArgSpecValidateFunc func(argSpec *ArgSpec, value interface{}) error
 
 type OneOfGroupManager struct {
-	Groups         map[string][]string // Contient les noms des arguments pour chaque groupe
-	RequiredGroups map[string]bool     // Indique si un groupe est requis
+	Groups         map[string][]string
+	RequiredGroups map[string]bool
 }
 
 // DefaultCommandValidateFunc is the default validation function for commands.
@@ -74,9 +74,6 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 // Returns nil otherwise.
 // TODO refactor this method which uses a mix of reflect and string arrays
 func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
-
-	oneOfManager := NewOneOfGroupManager(cmd)
-
 	for _, arg := range cmd.ArgSpecs {
 		if !arg.Required || arg.OneOfGroup != "" {
 			continue
@@ -103,11 +100,21 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 			}
 		}
 	}
-
-	if err := oneOfManager.ValidateOneOfGroups(rawArgs); err != nil {
+	if err := validateOneOfRequiredArgs(cmd, rawArgs); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+func validateOneOfRequiredArgs(cmd *Command, rawArgs args.RawArgs) error {
+	oneOfManager := NewOneOfGroupManager(cmd)
+	if err := oneOfManager.ValidateUniqueOneOfGroups(rawArgs); err != nil {
+		return err
+	}
+	if err := oneOfManager.ValidateRequiredOneOfGroups(rawArgs); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -281,7 +288,22 @@ func NewOneOfGroupManager(cmd *Command) *OneOfGroupManager {
 	return manager
 }
 
-func (m *OneOfGroupManager) ValidateOneOfGroups(rawArgs args.RawArgs) error {
+func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs) error {
+	for _, groupArgs := range m.Groups {
+		existingArg := ""
+		for _, argName := range groupArgs {
+			if rawArgs.ExistsArgByName(argName) {
+				if existingArg != "" {
+					return fmt.Errorf("arguments '%s' and '%s' are mutually exclusive", existingArg, argName)
+				}
+				existingArg = argName
+			}
+		}
+	}
+	return nil
+}
+
+func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(rawArgs args.RawArgs) error {
 	for group, required := range m.RequiredGroups {
 		if required {
 			found := false
