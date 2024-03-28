@@ -371,3 +371,164 @@ func Test_ValidateDeprecated(t *testing.T) {
 		),
 	}))
 }
+
+func TestNewOneOfGroupManager(t *testing.T) {
+	type TestCase struct {
+		command                *core.Command
+		expectedGroups         map[string][]string
+		expectedRequiredGroups map[string]bool
+	}
+
+	tests := []struct {
+		name     string
+		testCase TestCase
+		testFunc func(*testing.T, TestCase)
+	}{
+		{
+			name: "Basic OneOf Groups",
+			testCase: TestCase{
+				command: &core.Command{
+					ArgSpecs: core.ArgSpecs{
+						{Name: "a", OneOfGroup: "group1"},
+						{Name: "b", OneOfGroup: "group1"},
+					},
+				},
+				expectedGroups:         map[string][]string{"group1": {"a", "b"}},
+				expectedRequiredGroups: map[string]bool{},
+			},
+			testFunc: func(t *testing.T, tc TestCase) {
+				manager := core.NewOneOfGroupManager(tc.command)
+				assert.Equal(t, tc.expectedGroups, manager.Groups)
+				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
+			},
+		},
+		{
+			name: "With Required Group",
+			testCase: TestCase{
+				command: &core.Command{
+					ArgSpecs: core.ArgSpecs{
+						{Name: "a", OneOfGroup: "group1", Required: true},
+						{Name: "b", OneOfGroup: "group1", Required: true},
+					},
+				},
+				expectedGroups:         map[string][]string{"group1": {"a", "b"}},
+				expectedRequiredGroups: map[string]bool{"group1": true},
+			},
+			testFunc: func(t *testing.T, tc TestCase) {
+				manager := core.NewOneOfGroupManager(tc.command)
+				assert.Equal(t, tc.expectedGroups, manager.Groups)
+				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
+			},
+		},
+		{
+			name: "With two Group no required",
+			testCase: TestCase{
+				command: &core.Command{
+					ArgSpecs: core.ArgSpecs{
+						{Name: "a", OneOfGroup: "group1"},
+						{Name: "b", OneOfGroup: "group1"},
+						{Name: "c", OneOfGroup: "group2"},
+						{Name: "d", OneOfGroup: "group2"},
+					},
+				},
+				expectedGroups: map[string][]string{
+					"group1": {"a", "b"},
+					"group2": {"c", "d"},
+				},
+				expectedRequiredGroups: map[string]bool{},
+			},
+			testFunc: func(t *testing.T, tc TestCase) {
+				manager := core.NewOneOfGroupManager(tc.command)
+				assert.Equal(t, tc.expectedGroups, manager.Groups)
+				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
+			},
+		},
+		{
+			name: "With two Group with one required",
+			testCase: TestCase{
+				command: &core.Command{
+					ArgSpecs: core.ArgSpecs{
+						{Name: "a", OneOfGroup: "group1", Required: true},
+						{Name: "b", OneOfGroup: "group1", Required: true},
+						{Name: "c", OneOfGroup: "group2"},
+						{Name: "d", OneOfGroup: "group2"},
+					},
+				},
+				expectedGroups: map[string][]string{
+					"group1": {"a", "b"},
+					"group2": {"c", "d"},
+				},
+				expectedRequiredGroups: map[string]bool{
+					"group1": true,
+				},
+			},
+			testFunc: func(t *testing.T, tc TestCase) {
+				manager := core.NewOneOfGroupManager(tc.command)
+				assert.Equal(t, tc.expectedGroups, manager.Groups)
+				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.testFunc(t, tt.testCase)
+		})
+	}
+}
+
+func TestValidateOneOfGroups(t *testing.T) {
+	tests := []struct {
+		name          string
+		setupManager  func() *core.OneOfGroupManager
+		rawArgs       args.RawArgs
+		expectedError string
+	}{
+		{
+			name: "Required group satisfied with first argument",
+			setupManager: func() *core.OneOfGroupManager {
+				return &core.OneOfGroupManager{
+					Groups:         map[string][]string{"group1": {"a", "b"}},
+					RequiredGroups: map[string]bool{"group1": true},
+				}
+			},
+			rawArgs:       []string{"a=true"},
+			expectedError: "",
+		},
+		{
+			name: "Required group satisfied with second argument",
+			setupManager: func() *core.OneOfGroupManager {
+				return &core.OneOfGroupManager{
+					Groups:         map[string][]string{"group1": {"a", "b"}},
+					RequiredGroups: map[string]bool{"group1": true},
+				}
+			},
+			rawArgs:       []string{"b=true"},
+			expectedError: "",
+		},
+		{
+			name: "Required group not satisfied",
+			setupManager: func() *core.OneOfGroupManager {
+				return &core.OneOfGroupManager{
+					Groups:         map[string][]string{"group1": {"a", "b"}},
+					RequiredGroups: map[string]bool{"group1": true},
+				}
+			},
+			rawArgs:       []string{"c=true"},
+			expectedError: "at least one argument from the 'group1' group is required",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			manager := tt.setupManager()
+			err := manager.ValidateOneOfGroups(tt.rawArgs)
+
+			if tt.expectedError == "" {
+				assert.NoError(t, err, "Expected no error, got %v", err)
+			} else {
+				assert.EqualError(t, err, tt.expectedError, fmt.Sprintf("Expected error message '%s', got '%v'", tt.expectedError, err))
+			}
+		})
+	}
+}

@@ -20,6 +20,11 @@ type CommandValidateFunc func(ctx context.Context, cmd *Command, cmdArgs interfa
 // ArgSpecValidateFunc validates one argument of a command.
 type ArgSpecValidateFunc func(argSpec *ArgSpec, value interface{}) error
 
+type OneOfGroupManager struct {
+	Groups         map[string][]string // Contient les noms des arguments pour chaque groupe
+	RequiredGroups map[string]bool     // Indique si un groupe est requis
+}
+
 // DefaultCommandValidateFunc is the default validation function for commands.
 func DefaultCommandValidateFunc() CommandValidateFunc {
 	return func(ctx context.Context, cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
@@ -69,8 +74,11 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 // Returns nil otherwise.
 // TODO refactor this method which uses a mix of reflect and string arrays
 func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
+
+	oneOfManager := NewOneOfGroupManager(cmd)
+
 	for _, arg := range cmd.ArgSpecs {
-		if !arg.Required {
+		if !arg.Required || arg.OneOfGroup != "" {
 			continue
 		}
 
@@ -95,6 +103,11 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 			}
 		}
 	}
+
+	if err := oneOfManager.ValidateOneOfGroups(rawArgs); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -248,4 +261,40 @@ func ValidateProjectID() ArgSpecValidateFunc {
 		}
 		return nil
 	}
+}
+
+func NewOneOfGroupManager(cmd *Command) *OneOfGroupManager {
+	manager := &OneOfGroupManager{
+		Groups:         make(map[string][]string),
+		RequiredGroups: make(map[string]bool),
+	}
+
+	for _, arg := range cmd.ArgSpecs {
+		if arg.OneOfGroup != "" {
+			manager.Groups[arg.OneOfGroup] = append(manager.Groups[arg.OneOfGroup], arg.Name)
+			if arg.Required {
+				manager.RequiredGroups[arg.OneOfGroup] = true
+			}
+		}
+	}
+
+	return manager
+}
+
+func (m *OneOfGroupManager) ValidateOneOfGroups(rawArgs args.RawArgs) error {
+	for group, required := range m.RequiredGroups {
+		if required {
+			found := false
+			for _, argName := range m.Groups[group] {
+				if rawArgs.ExistsArgByName(argName) {
+					found = true
+					break
+				}
+			}
+			if !found {
+				return fmt.Errorf("at least one argument from the '%s' group is required", group)
+			}
+		}
+	}
+	return nil
 }
