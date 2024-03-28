@@ -1,0 +1,17 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NameID  set
+Tag     tag1
+NameID  pos1
+Tag     tag1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "NameID": "set",
+    "Tag": "tag1"
+  },
+  {
+    "NameID": "pos1",
+    "Tag": "tag1"
+  }
+]
