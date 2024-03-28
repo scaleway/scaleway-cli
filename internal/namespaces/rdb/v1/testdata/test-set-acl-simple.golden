@@ -1,18 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rules successfully set.
-IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-1.2.3.4/32  19222  tcp       inbound    allow   IP allowed
+IP          PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+1.2.3.4/32  2131  tcp       inbound    allow   Allow 1.2.3.4/32
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
     {
       "ip": "1.2.3.4/32",
-      "port": 19222,
+      "port": 2131,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "IP allowed"
+      "description": "Allow 1.2.3.4/32"
     }
   ],
   "Success": {
