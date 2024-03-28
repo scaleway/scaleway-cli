@@ -18,6 +18,7 @@ Public Gateways API.
 - [Public Gateway management](#public-gateway-management)
   - [Create a Public Gateway](#create-a-public-gateway)
   - [Delete a Public Gateway](#delete-a-public-gateway)
+  - [Upgrade a Public Gateway to IP mobility](#upgrade-a-public-gateway-to-ip-mobility)
   - [Get a Public Gateway](#get-a-public-gateway)
   - [List Public Gateways](#list-public-gateways)
   - [Refresh a Public Gateway's SSH keys](#refresh-a-public-gateway's-ssh-keys)
@@ -366,6 +367,26 @@ scw vpc-gw gateway delete <gateway-id ...> [arg=value ...]
 |------|---|-------------|
 | gateway-id | Required | ID of the gateway to delete |
 | cleanup-dhcp |  | Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network) |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Upgrade a Public Gateway to IP mobility
+
+Upgrade a Public Gateway to IP mobility (move from NAT IP to routed IP). This is idempotent: repeated calls after the first will return no error but have no effect.
+
+**Usage:**
+
+```
+scw vpc-gw gateway enable-ip-mobility <gateway-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| gateway-id | Required | ID of the gateway to upgrade to IP mobility |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 

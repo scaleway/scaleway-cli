@@ -997,6 +997,7 @@ scw lb lb list [arg=value ...]
 | name |  | Load Balancer name to filter for |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of Load Balancers in the response |
 | project-id |  | Project ID to filter for, only Load Balancers from this Project will be returned |
+| tags.{index} |  | Filter by tag, only Load Balancers with one or more matching tags will be returned |
 | organization-id |  | Organization ID to filter for, only Load Balancers from this Organization will be returned |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
