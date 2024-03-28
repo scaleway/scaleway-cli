@@ -301,7 +301,7 @@ func k8sClusterCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel", "kilo"},
+				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel", "kilo", "none"},
 			},
 			{
 				Name:       "pools.{index}.name",
