@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+scaleway-sdk-go: waiting for deployment failed: scaleway-sdk-go: error executing request: Get "https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/e76eea80-d2ec-4ffa-bdec-6db68c987f9f": read tcp 10.32.40.254:53302->10.40.130.175:443: read: can't assign requested address
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "scaleway-sdk-go: waiting for deployment failed: scaleway-sdk-go: error executing request: Get \"https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/e76eea80-d2ec-4ffa-bdec-6db68c987f9f\": read tcp 10.32.40.254:53302-\u003e10.40.130.175:443: read: can't assign requested address"
+}
