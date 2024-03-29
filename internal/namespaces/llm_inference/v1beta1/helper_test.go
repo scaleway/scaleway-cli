@@ -5,14 +5,14 @@ import "github.com/scaleway/scaleway-cli/v2/internal/core"
 func CreateDeploymentPublicEndpoint() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"DEPLOYMENT",
-		"scw llm-inference deployment create model-name=meta/llama-2-7b-chat:fp16 node-type=L4 accept-eula=true -w",
+		"scw llm-inference deployment create node-type=H100 accept-eula=true model-name=meta/llama-2-70b-chat:fp8 -w",
 	)
 }
 
 func CreateDeploymentPrivateEndpoint() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"DEPLOYMENT",
-		"scw llm-inference deployment create model-name=meta/llama-2-7b-chat:fp16 node-type=L4 accept-eula=true endpoints.0.private-network.private-network-id={{ .PN.ID }} -w",
+		"scw llm-inference deployment create node-type=H100 accept-eula=true model-name=meta/llama-2-70b-chat:fp8 endpoints.0.private-network.private-network-id={{ .PN.ID }} -w",
 	)
 }
 

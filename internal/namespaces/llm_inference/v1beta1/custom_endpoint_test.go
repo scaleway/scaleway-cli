@@ -9,10 +9,9 @@ import (
 )
 
 func Test_createEndpoint(t *testing.T) {
+	t.Skip("No stock to run test")
 	cmds := llm_inference.GetCommands()
 	cmds.Merge(vpc.GetCommands())
-
-	t.Skip("No stock to run test")
 
 	t.Run("Create Private Endpoint", core.Test(&core.TestConfig{
 		Commands: cmds,
