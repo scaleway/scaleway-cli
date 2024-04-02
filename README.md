@@ -127,7 +127,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) / [API](https://www.scaleway.com/en/developers/api/kubernetes/)                     |
 | `lb`           | Load Balancer API                       | [CLI](./docs/commands/lb.md) / [API](https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/)         |
 | `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                             |
-| `mnq`          | Messaging and Queueing API              | [CLI](./docs/commands/mnq.md) / [API](https://www.scaleway.com/en/docs/serverless/messaging/concepts/)            |
+| `mnq`          | Messaging and Queueing API              | [CLI](./docs/commands/mnq.md) / [API](https://www.scaleway.com/en/developers/api/messaging-and-queuing/sqs-api/)  |
 | `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) / [API](https://www.scaleway.com/en/docs/object-storage-feature/)                |
 | `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-postgre-mysql/) |
 | `redis`        | Redis API                               | [CLI](./docs/commands/redis.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-redis// )     |
