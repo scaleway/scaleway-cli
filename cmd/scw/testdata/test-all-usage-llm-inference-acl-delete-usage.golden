@@ -3,7 +3,7 @@
 Delete an exising ACL.
 
 USAGE:
-  scw llm-inference acl delete [arg=value ...]
+  scw llm-inference acl delete <acl-id ...> [arg=value ...]
 
 ARGS:
   acl-id            ID of the ACL rule to delete
