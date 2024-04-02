@@ -28,6 +28,7 @@ import (
 	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
+	llm_inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/llm_inference/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
@@ -94,6 +95,7 @@ func GetCommands() *core.Commands {
 		ipam.GetCommands(),
 		jobs.GetCommands(),
 		serverless_sqldb.GetCommands(),
+		llm_inference.GetCommands(),
 	)
 
 	//if beta {}
