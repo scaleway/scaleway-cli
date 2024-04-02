@@ -12,3 +12,8 @@ updates:
       ignore:
         # Ignore sentry-go updates, cannot be updated to be used with our sentry
         - dependency-name: "sentry-go"
+
+    - package-ecosystem: "github-actions"
+      directory: "/"
+      schedule:
+        interval: monthly
