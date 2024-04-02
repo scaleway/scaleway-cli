@@ -3,7 +3,7 @@
 Add new ACL rules for a specific deployment.
 
 USAGE:
-  scw llm-inference acl add [arg=value ...]
+  scw llm-inference acl add <deployment-id ...> [arg=value ...]
 
 ARGS:
   deployment-id                ID of the deployment to add ACL rules to

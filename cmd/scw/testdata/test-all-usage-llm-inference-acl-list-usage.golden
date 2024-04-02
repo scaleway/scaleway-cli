@@ -3,7 +3,7 @@
 List ACLs for a specific deployment.
 
 USAGE:
-  scw llm-inference acl list [arg=value ...]
+  scw llm-inference acl list <deployment-id ...> [arg=value ...]
 
 ARGS:
   deployment-id     ID of the deployment to list ACL rules for

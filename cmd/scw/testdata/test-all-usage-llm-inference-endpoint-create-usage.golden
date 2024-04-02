@@ -3,7 +3,7 @@
 Create a new Endpoint related to a specific deployment.
 
 USAGE:
-  scw llm-inference endpoint create [arg=value ...]
+  scw llm-inference endpoint create <deployment-id ...> [arg=value ...]
 
 ARGS:
   deployment-id                                   ID of the deployment to create the endpoint for
