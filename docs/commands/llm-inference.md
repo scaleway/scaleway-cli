@@ -37,7 +37,7 @@ Add new ACL rules for a specific deployment.
 **Usage:**
 
 ```
-scw llm-inference acl add [arg=value ...]
+scw llm-inference acl add <deployment-id ...> [arg=value ...]
 ```
 
 
@@ -59,7 +59,7 @@ Delete an exising ACL.
 **Usage:**
 
 ```
-scw llm-inference acl delete [arg=value ...]
+scw llm-inference acl delete <acl-id ...> [arg=value ...]
 ```
 
 
@@ -79,7 +79,7 @@ List ACLs for a specific deployment.
 **Usage:**
 
 ```
-scw llm-inference acl list [arg=value ...]
+scw llm-inference acl list <deployment-id ...> [arg=value ...]
 ```
 
 
@@ -99,7 +99,7 @@ Set new ACL rules for a specific deployment.
 **Usage:**
 
 ```
-scw llm-inference acl set [arg=value ...]
+scw llm-inference acl set <deployment-id ...> [arg=value ...]
 ```
 
 
@@ -270,7 +270,7 @@ Create a new Endpoint related to a specific deployment.
 **Usage:**
 
 ```
-scw llm-inference endpoint create [arg=value ...]
+scw llm-inference endpoint create <deployment-id ...> [arg=value ...]
 ```
 
 
