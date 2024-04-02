@@ -1,0 +1,93 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"1aa20c4e-e33d-42a4-b147-3d75348ce16b", "name":"cli-llm-nostalgic-knuth",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type":"H100", "endpoints":[{"id":"049a4ee4-8f12-46be-a827-7109fbb5c1ca",
+      "url":"https://1aa20c4e-e33d-42a4-b147-3d75348ce16b.ifr.fr-par.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"wizardlm/wizardlm-70b-v1.0:fp8", "created_at":"2024-03-29T12:33:20.996621Z",
+      "updated_at":null, "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/llm-inference/v1beta1/regions/fr-par/deployments
+    method: POST
+  response:
+    body: '{"id":"1aa20c4e-e33d-42a4-b147-3d75348ce16b", "name":"cli-llm-nostalgic-knuth",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type":"H100", "endpoints":[{"id":"049a4ee4-8f12-46be-a827-7109fbb5c1ca",
+      "url":"https://1aa20c4e-e33d-42a4-b147-3d75348ce16b.ifr.fr-par.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"wizardlm/wizardlm-70b-v1.0:fp8", "created_at":"2024-03-29T12:33:20.996621Z",
+      "updated_at":null, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "551"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 29 Mar 2024 12:33:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d2e7917b-2c3c-47ea-9558-d543ff466d68
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1aa20c4e-e33d-42a4-b147-3d75348ce16b", "name":"cli-llm-nostalgic-knuth",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deleting", "tags":[],
+      "node_type":"H100", "endpoints":[{"id":"049a4ee4-8f12-46be-a827-7109fbb5c1ca",
+      "url":"https://1aa20c4e-e33d-42a4-b147-3d75348ce16b.ifr.fr-par.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"wizardlm/wizardlm-70b-v1.0:fp8", "created_at":"2024-03-29T12:33:20.996621Z",
+      "updated_at":"2024-03-29T12:33:21.437145Z", "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/llm-inference/v1beta1/regions/fr-par/deployments/1aa20c4e-e33d-42a4-b147-3d75348ce16b
+    method: DELETE
+  response:
+    body: '{"id":"1aa20c4e-e33d-42a4-b147-3d75348ce16b", "name":"cli-llm-nostalgic-knuth",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deleting", "tags":[],
+      "node_type":"H100", "endpoints":[{"id":"049a4ee4-8f12-46be-a827-7109fbb5c1ca",
+      "url":"https://1aa20c4e-e33d-42a4-b147-3d75348ce16b.ifr.fr-par.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"wizardlm/wizardlm-70b-v1.0:fp8", "created_at":"2024-03-29T12:33:20.996621Z",
+      "updated_at":"2024-03-29T12:33:21.437145Z", "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "576"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 29 Mar 2024 12:33:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 56af4cac-64e7-4ea7-9ff9-2abbfef85894
+    status: 200 OK
+    code: 200
+    duration: ""

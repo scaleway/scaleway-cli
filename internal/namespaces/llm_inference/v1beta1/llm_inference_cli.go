@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/llm_inference/v1beta1"
+	llm_inference "github.com/scaleway/scaleway-sdk-go/api/llm_inference/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 

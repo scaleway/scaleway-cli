@@ -1,0 +1,42 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID         1aa20c4e-e33d-42a4-b147-3d75348ce16b
+Name       cli-llm-nostalgic-knuth
+ProjectID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Status     creating
+NodeType   H100
+Size       0
+MinSize    1
+MaxSize    1
+ModelName  wizardlm/wizardlm-70b-v1.0:fp8
+CreatedAt  few seconds ago
+Region     fr-par
+
+Endpoints:
+ID                                    URL                                                                DISABLE AUTH
+049a4ee4-8f12-46be-a827-7109fbb5c1ca  https://1aa20c4e-e33d-42a4-b147-3d75348ce16b.ifr.fr-par.scw.cloud  false
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "1aa20c4e-e33d-42a4-b147-3d75348ce16b",
+  "name": "cli-llm-nostalgic-knuth",
+  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "status": "creating",
+  "tags": [],
+  "node_type": "H100",
+  "endpoints": [
+    {
+      "id": "049a4ee4-8f12-46be-a827-7109fbb5c1ca",
+      "url": "https://1aa20c4e-e33d-42a4-b147-3d75348ce16b.ifr.fr-par.scw.cloud",
+      "public_access": {},
+      "disable_auth": false
+    }
+  ],
+  "size": 0,
+  "min_size": 1,
+  "max_size": 1,
+  "error_message": null,
+  "model_name": "wizardlm/wizardlm-70b-v1.0:fp8",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": null,
+  "region": "fr-par"
+}

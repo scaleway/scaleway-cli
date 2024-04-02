@@ -1,0 +1,51 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"node_types":[{"name":"H100", "stock_status":"out_of_stock", "description":"A
+      dedicated instance with a single NVIDIA H100 GPU to run your inference workloads.",
+      "vcpus":24, "memory":257698037760, "vram":85899345920, "disabled":false, "beta":false,
+      "created_at":"2024-03-07T18:27:32.146146Z", "updated_at":"2024-03-28T19:12:23.054795Z",
+      "gpus":1, "region":"fr-par"}, {"name":"H100-2", "stock_status":"out_of_stock",
+      "description":"A dedicated instance with two NVIDIA H100 GPUs to run your inference
+      workloads.", "vcpus":24, "memory":515396075520, "vram":171798691840, "disabled":false,
+      "beta":false, "created_at":"2024-03-07T18:27:32.245284Z", "updated_at":"2024-03-28T19:12:23.063268Z",
+      "gpus":2, "region":"fr-par"}], "total_count":2}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.7; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/llm-inference/v1beta1/regions/fr-par/node-types?include_disabled_types=false&page=1
+    method: GET
+  response:
+    body: '{"node_types":[{"name":"H100", "stock_status":"out_of_stock", "description":"A
+      dedicated instance with a single NVIDIA H100 GPU to run your inference workloads.",
+      "vcpus":24, "memory":257698037760, "vram":85899345920, "disabled":false, "beta":false,
+      "created_at":"2024-03-07T18:27:32.146146Z", "updated_at":"2024-03-28T19:12:23.054795Z",
+      "gpus":1, "region":"fr-par"}, {"name":"H100-2", "stock_status":"out_of_stock",
+      "description":"A dedicated instance with two NVIDIA H100 GPUs to run your inference
+      workloads.", "vcpus":24, "memory":515396075520, "vram":171798691840, "disabled":false,
+      "beta":false, "created_at":"2024-03-07T18:27:32.245284Z", "updated_at":"2024-03-28T19:12:23.063268Z",
+      "gpus":2, "region":"fr-par"}], "total_count":2}'
+    headers:
+      Content-Length:
+      - "737"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 29 Mar 2024 12:25:33 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 01c125f6-f90c-446c-a46e-a8c2670d1863
+    status: 200 OK
+    code: 200
+    duration: ""

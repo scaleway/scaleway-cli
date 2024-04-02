@@ -24,6 +24,7 @@ AVAILABLE COMMANDS:
   jobs          Serverless Jobs API
   k8s           Kubernetes API
   lb            This API allows you to manage your Scaleway Load Balancer services
+  llm-inference LLM Inference API
   marketplace   Marketplace API
   mnq           Messaging and Queuing APIs
   object        Object-storage utils
