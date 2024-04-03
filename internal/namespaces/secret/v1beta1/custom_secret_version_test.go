@@ -1,14 +1,15 @@
-package secret
+package secret_test
 
 import (
 	"testing"
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
 )
 
 func Test_AccessSecret(t *testing.T) {
-	cmds := GetCommands()
+	cmds := secret.GetCommands()
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: cmds,

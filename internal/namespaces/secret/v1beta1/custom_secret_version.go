@@ -11,7 +11,6 @@ import (
 )
 
 func secretVersionCreateBuilder(c *core.Command) *core.Command {
-
 	*c.ArgSpecs.GetByName("data") = core.ArgSpec{
 		Name:        "data",
 		Short:       "Content of the secret version.",
