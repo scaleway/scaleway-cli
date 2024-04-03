@@ -7,7 +7,7 @@ jobs:
     name: Ensure docs are generated
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Generate code
         run: go run ./cmd/scw-doc-gen
         env:
@@ -18,7 +18,7 @@ jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: gaurav-nelson/github-action-markdown-link-check@1.0.15
         with:
           use-quiet-mode: 'yes'
