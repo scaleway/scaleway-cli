@@ -20,7 +20,6 @@ Function as a Service API.
   - [Deploy a function](#deploy-a-function)
   - [Get a function](#get-a-function)
   - [Get a download URL of a function](#get-a-download-url-of-a-function)
-  - [Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs](#deprecated-(replaced-by-[cockpit](https:www.scaleway.comendevelopersapicockpit)).-list-application-logs)
   - [Get an upload URL of a function](#get-an-upload-url-of-a-function)
   - [List all your functions](#list-all-your-functions)
   - [Update an existing function](#update-an-existing-function)
@@ -385,27 +384,6 @@ scw function function get-download-url <function-id ...> [arg=value ...]
 |------|---|-------------|
 | function-id | Required | UUID of the function to get the the download URL for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs
-
-Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the application logs of the function with the specified ID.
-
-**Usage:**
-
-```
-scw function function get-logs <function-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| function-id | Required | UUID of the function to get the logs for |
-| order-by | One of: `timestamp_desc`, `timestamp_asc` | Order of the logs |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

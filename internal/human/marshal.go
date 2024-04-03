@@ -98,7 +98,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 	sectionsStrs := []string(nil)
 	sectionFieldNames := map[string]bool{}
 	for _, section := range opt.Sections {
-		sectionStr, err := marshalSection(section, value, subOpts)
+		sectionStr, err := marshalSection(section, value, opt.subOption(section.FieldName))
 		if err != nil {
 			return "", err
 		}

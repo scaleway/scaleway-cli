@@ -7,7 +7,6 @@ Container as a Service API.
   - [Delete a container](#delete-a-container)
   - [Deploy a container](#deploy-a-container)
   - [Get a container](#get-a-container)
-  - [Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List your container logs](#deprecated-(replaced-by-[cockpit](https:www.scaleway.comendevelopersapicockpit)).-list-your-container-logs)
   - [List all your containers](#list-all-your-containers)
   - [Update an existing container](#update-an-existing-container)
 - [Cron management commands](#cron-management-commands)
@@ -140,27 +139,6 @@ scw container container get <container-id ...> [arg=value ...]
 |------|---|-------------|
 | container-id | Required | UUID of the container to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List your container logs
-
-Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the logs of the container with the specified ID.
-
-**Usage:**
-
-```
-scw container container get-logs <container-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| container-id | Required | UUID of the container |
-| order-by | One of: `timestamp_desc`, `timestamp_asc` | Order of the logs |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

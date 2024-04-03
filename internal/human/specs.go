@@ -8,15 +8,25 @@ import (
 
 // MarshalOpt is hydrated by core.View
 type MarshalOpt struct {
-	Title    string
-	Fields   []*MarshalFieldOpt
-	Sections []*MarshalSection
+	Title      string
+	Fields     []*MarshalFieldOpt
+	Sections   []*MarshalSection
+	SubOptions map[string]*MarshalOpt
 
 	// Is set to true if we are marshaling a table cell
 	TableCell bool
 
 	// DisableShrinking will disable columns shrinking based on terminal size
 	DisableShrinking bool
+}
+
+func (m *MarshalOpt) subOption(section string) *MarshalOpt {
+	subOpt, exists := m.SubOptions[section]
+	if exists {
+		return subOpt
+	}
+
+	return &MarshalOpt{}
 }
 
 type MarshalFieldOpt struct {

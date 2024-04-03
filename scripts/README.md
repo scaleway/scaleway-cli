@@ -65,7 +65,7 @@ interactions:
     url: https://api.scaleway.com/
     method: GET
   response:
-    body: '{"Name":"Scaleway Api","Description":"Welcome to the Scaleway public API!","Version":"v0.0.140","ProtobufVersion":"a0be3c28","DocumentationUrl":"https://developers.scaleway.com"}
+    body: '{"Name":"Scaleway Api","Description":"Welcome to the Scaleway public API!","Version":"v0.0.140","ProtobufVersion":"a0be3c28","DocumentationUrl":"https://www.scaleway.com/en/developers/"}
 ```
 
 ### Golden

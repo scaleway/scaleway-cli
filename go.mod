@@ -1,6 +1,6 @@
 module github.com/scaleway/scaleway-cli/v2
 
-go 1.20
+go 1.21
 
 require (
 	github.com/alecthomas/assert v1.0.0
@@ -24,7 +24,7 @@ require (
 	github.com/moby/buildkit v0.11.6
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.25.0.20240306151930-770cc3aba07c
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.25.0.20240329152759-b47741a7bf2a
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/pflag v1.0.5
@@ -168,7 +168,7 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20230711160842-782d3b101e98 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230711160842-782d3b101e98 // indirect
 	google.golang.org/grpc v1.58.3 // indirect
-	google.golang.org/protobuf v1.31.0 // indirect
+	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
