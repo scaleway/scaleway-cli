@@ -69,7 +69,6 @@ func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error 
 	lastOneOfGroup := ""
 
 	for _, argSpec := range argSpecs {
-
 		argSpecUsageLeftPart := argSpec.Name
 		argSpecUsageRightPart := _buildArgShort(argSpec)
 
