@@ -120,7 +120,7 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, group
 		if len(cmd.Aliases) > 0 {
 			cobraCmd.Annotations["Aliases"] = buildUsageAliases(b.ctx, cmd)
 		}
-		
+
 		if cmd.ArgsType != nil {
 			cobraCmd.Annotations["UsageArgs"] = BuildUsageArgs(b.ctx, cmd, false)
 		}
