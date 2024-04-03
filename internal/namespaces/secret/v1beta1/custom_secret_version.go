@@ -7,7 +7,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
+	secret "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
 )
 
 func secretVersionCreateBuilder(c *core.Command) *core.Command {
