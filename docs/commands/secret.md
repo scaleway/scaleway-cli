@@ -11,7 +11,6 @@ This API allows you to conveniently store, access and share sensitive data such 
   - [Enable secret protection](#enable-secret-protection)
   - [Disable secret protection](#disable-secret-protection)
   - [Update metadata of a secret](#update-metadata-of-a-secret)
-- [Tag management commands](#tag-management-commands)
 - [Secret Version management commands](#secret-version-management-commands)
   - [Access a secret's version using the secret's ID](#access-a-secret's-version-using-the-secret's-id)
   - [Create a version](#create-a-version)
@@ -51,7 +50,7 @@ scw secret secret add-owner <secret-id ...> [arg=value ...]
 
 ### Create a secret
 
-You must specify the `region` to create a secret.
+Create a secret in a given region specified by the `region` parameter.
 
 **Usage:**
 
@@ -249,20 +248,6 @@ scw secret secret update <secret-id ...> [arg=value ...]
 | ephemeral-policy.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
 | ephemeral-policy.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-## Tag management commands
-
-Tag management commands.
-
-Tag management commands.
-
-**Usage:**
-
-```
-scw secret tag
-```
 
 
 
