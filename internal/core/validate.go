@@ -100,16 +100,16 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 			}
 		}
 	}
-	if err := validateOneOfRequiredArgs(cmd, rawArgs); err != nil {
+	if err := validateOneOfRequiredArgs(cmd, rawArgs, cmdArgs); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func validateOneOfRequiredArgs(cmd *Command, rawArgs args.RawArgs) error {
+func validateOneOfRequiredArgs(cmd *Command, rawArgs args.RawArgs, cmdArgs interface{}) error {
 	oneOfManager := NewOneOfGroupManager(cmd)
-	if err := oneOfManager.ValidateUniqueOneOfGroups(rawArgs); err != nil {
+	if err := oneOfManager.ValidateUniqueOneOfGroups(rawArgs, cmdArgs); err != nil {
 		return err
 	}
 	if err := oneOfManager.ValidateRequiredOneOfGroups(rawArgs); err != nil {
@@ -288,15 +288,27 @@ func NewOneOfGroupManager(cmd *Command) *OneOfGroupManager {
 	return manager
 }
 
-func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs) error {
-	for _, groupArgs := range m.Groups {
+func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdArgs interface{}) error {
+	for groupName, groupArgs := range m.Groups {
 		existingArg := ""
 		for _, argName := range groupArgs {
-			if rawArgs.ExistsArgByName(argName) {
-				if existingArg != "" {
-					return fmt.Errorf("arguments '%s' and '%s' are mutually exclusive", existingArg, argName)
+			fieldName := strcase.ToPublicGoName(argName)
+			fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+			if err != nil {
+				validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", argName, fieldName, err.Error())
+				if m.RequiredGroups[groupName] {
+					logger.Infof(validationErr.Error())
+					continue
 				}
-				existingArg = argName
+				panic(validationErr)
+			}
+			for i := range fieldValues {
+				if rawArgs.ExistsArgByName(strings.Replace(argName, "{index}", strconv.Itoa(i), 1)) {
+					if existingArg != "" {
+						return fmt.Errorf("arguments '%s' and '%s' are mutually exclusive", existingArg, argName)
+					}
+					existingArg = argName
+				}
 			}
 		}
 	}

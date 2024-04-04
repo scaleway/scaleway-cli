@@ -629,7 +629,8 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			manager := tt.setupManager()
-			err := manager.ValidateUniqueOneOfGroups(tt.rawArgs)
+			//WARNING REPLACE NI
+			err := manager.ValidateUniqueOneOfGroups(tt.rawArgs, nil)
 			if tt.expectedError == "" {
 				assert.NoError(t, err, "Expected no error, got %v", err)
 			} else {
@@ -751,35 +752,99 @@ func Test_ValidateOneOf(t *testing.T) {
 		})(t)
 	})
 
-	t.Run("Arguments are mutually exclusive with 3 arguments", func(t *testing.T) {
+	t.Run("Arguments test with {index}", func(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: core.NewCommands(&core.Command{
-				Namespace:            "oneof",
-				ArgsType:             reflect.TypeOf(args.RawArgs{}),
+				Namespace: "oneof",
+				ArgsType: reflect.TypeOf(struct {
+					SSHKey     []string
+					AllSSHKeys bool
+				}{}),
 				AllowAnonymousClient: true,
 				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{
 					{
-						Name:       "a",
-						OneOfGroup: "group1",
+						Name:       "ssh-key.{index}",
+						OneOfGroup: "ssh",
+						Required:   true,
 					},
 					{
-						Name:       "b",
-						OneOfGroup: "group1",
-					},
-					{
-						Name:       "c",
-						OneOfGroup: "group1",
+						Name:       "all-ssh-keys",
+						OneOfGroup: "ssh",
+						Required:   true,
 					},
 				},
 			}),
-			Cmd: "scw oneof a=yo c=no",
+			Cmd: "scw oneof all-ssh-keys=true ssh-key.0=11111111-1111-1111-1111-111111111111",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(fmt.Errorf("arguments 'a' and 'c' are mutually exclusive")),
+				core.TestCheckError(fmt.Errorf("arguments 'ssh-key.{index}' and 'all-ssh-keys' are mutually exclusive")),
 			),
 		})(t)
 	})
+
+	t.Run("valid test with {index}", func(t *testing.T) {
+		core.Test(&core.TestConfig{
+			Commands: core.NewCommands(&core.Command{
+				Namespace: "oneof",
+				ArgsType: reflect.TypeOf(struct {
+					SSHKey     []string
+					AllSSHKeys bool
+				}{}),
+				AllowAnonymousClient: true,
+				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+					return &core.SuccessResult{}, nil
+				},
+				ArgSpecs: core.ArgSpecs{
+					{
+						Name:       "ssh-key.{index}",
+						OneOfGroup: "ssh",
+					},
+					{
+						Name:       "all-ssh-keys",
+						OneOfGroup: "ssh",
+					},
+				},
+			}),
+			Cmd: "scw oneof ssh-key.0=11111111-1111-1111-1111-111111111111",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+			),
+		})(t)
+	})
+
+	t.Run("Required arguments test with {index}", func(t *testing.T) {
+		core.Test(&core.TestConfig{
+			Commands: core.NewCommands(&core.Command{
+				Namespace: "oneof",
+				ArgsType: reflect.TypeOf(struct {
+					SSHKey     []string
+					AllSSHKeys bool
+				}{}),
+				AllowAnonymousClient: true,
+				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+					return &core.SuccessResult{}, nil
+				},
+				ArgSpecs: core.ArgSpecs{
+					{
+						Name:       "ssh-key.{index}",
+						OneOfGroup: "ssh",
+						Required:   true,
+					},
+					{
+						Name:       "all-ssh-keys",
+						OneOfGroup: "ssh",
+						Required:   true,
+					},
+				},
+			}),
+			Cmd: "scw oneof ssh-key.0=11111111-1111-1111-1111-111111111111",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+			),
+		})(t)
+	})
+
 }
