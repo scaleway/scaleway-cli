@@ -483,6 +483,7 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 		setupManager  func() *core.OneOfGroupManager
 		rawArgs       args.RawArgs
 		expectedError string
+		ArgsType      interface{}
 	}{
 		{
 			name: "Required group satisfied with first argument",
@@ -492,7 +493,11 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 					RequiredGroups: map[string]bool{"group1": true},
 				}
 			},
-			rawArgs:       []string{"a=true"},
+			rawArgs: []string{"a=true"},
+			ArgsType: struct {
+				A bool
+				B bool
+			}{},
 			expectedError: "",
 		},
 		{
@@ -503,7 +508,11 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 					RequiredGroups: map[string]bool{"group1": true},
 				}
 			},
-			rawArgs:       []string{"b=true"},
+			rawArgs: []string{"b=true"},
+			ArgsType: struct {
+				A bool
+				B bool
+			}{},
 			expectedError: "",
 		},
 		{
@@ -514,7 +523,12 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 					RequiredGroups: map[string]bool{"group1": true},
 				}
 			},
-			rawArgs:       []string{"c=true"},
+			rawArgs: []string{"c=true"},
+			ArgsType: struct {
+				A bool
+				B bool
+				C bool
+			}{},
 			expectedError: "at least one argument from the 'group1' group is required",
 		},
 	}
@@ -522,7 +536,7 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			manager := tt.setupManager()
-			err := manager.ValidateRequiredOneOfGroups(tt.rawArgs)
+			err := manager.ValidateRequiredOneOfGroups(tt.rawArgs, tt.ArgsType)
 
 			if tt.expectedError == "" {
 				assert.NoError(t, err, "Expected no error, got %v", err)
@@ -539,6 +553,7 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 		setupManager  func() *core.OneOfGroupManager
 		rawArgs       args.RawArgs
 		expectedError string
+		ArgsType      interface{}
 	}{
 		{
 			name: "Required group satisfied with first argument",
@@ -547,7 +562,11 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 					Groups: map[string][]string{"group1": {"a", "b"}},
 				}
 			},
-			rawArgs:       []string{"a=true"},
+			rawArgs: []string{"A=true"},
+			ArgsType: struct {
+				A bool
+				B bool
+			}{},
 			expectedError: "",
 		},
 		{
@@ -557,7 +576,11 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 					Groups: map[string][]string{"group1": {"a", "b"}},
 				}
 			},
-			rawArgs:       []string{},
+			rawArgs: []string{},
+			ArgsType: struct {
+				A bool
+				B bool
+			}{},
 			expectedError: "",
 		},
 		{
@@ -570,7 +593,13 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 					},
 				}
 			},
-			rawArgs:       []string{"a=true", "c=true"},
+			rawArgs: []string{"a=true", "c=true"},
+			ArgsType: struct {
+				A string
+				B string
+				C string
+				D string
+			}{},
 			expectedError: "",
 		},
 		{
@@ -583,7 +612,13 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 					},
 				}
 			},
-			rawArgs:       []string{"a=true"},
+			rawArgs: []string{"a=true"},
+			ArgsType: struct {
+				A string
+				B string
+				C string
+				D string
+			}{},
 			expectedError: "",
 		},
 		{
@@ -596,7 +631,13 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 					},
 				}
 			},
-			rawArgs:       []string{"a=true", "c=true", "d=true"},
+			rawArgs: []string{"a=true", "c=true", "d=true"},
+			ArgsType: struct {
+				A string
+				B string
+				C string
+				D string
+			}{},
 			expectedError: "arguments 'c' and 'd' are mutually exclusive",
 		},
 		{
@@ -609,7 +650,13 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 					},
 				}
 			},
-			rawArgs:       []string{"a=true", "b=true", "c=true"},
+			rawArgs: []string{"a=true", "b=true", "c=true"},
+			ArgsType: struct {
+				A string
+				B string
+				C string
+				D string
+			}{},
 			expectedError: "arguments 'a' and 'b' are mutually exclusive",
 		},
 		{
@@ -621,7 +668,13 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 					},
 				}
 			},
-			rawArgs:       []string{"a=true", "d=true"},
+			rawArgs: []string{"a=true", "d=true"},
+			ArgsType: struct {
+				A string
+				B string
+				C string
+				D string
+			}{},
 			expectedError: "arguments 'a' and 'd' are mutually exclusive",
 		},
 	}
@@ -629,8 +682,7 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			manager := tt.setupManager()
-			//WARNING REPLACE NI
-			err := manager.ValidateUniqueOneOfGroups(tt.rawArgs, nil)
+			err := manager.ValidateUniqueOneOfGroups(tt.rawArgs, tt.ArgsType)
 			if tt.expectedError == "" {
 				assert.NoError(t, err, "Expected no error, got %v", err)
 			} else {
@@ -641,7 +693,7 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 }
 
 func Test_ValidateOneOf(t *testing.T) {
-	t.Run("Validate OneOf", core.Test(&core.TestConfig{
+	t.Run("Simple one-of validation check", core.Test(&core.TestConfig{
 		Commands: core.NewCommands(&core.Command{
 			Namespace:            "oneof",
 			ArgsType:             reflect.TypeOf(args.RawArgs{}),
@@ -665,7 +717,7 @@ func Test_ValidateOneOf(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 	}))
-	t.Run("Required group satisfied", func(t *testing.T) {
+	t.Run("Required argument group check passes", func(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: core.NewCommands(&core.Command{
 				Namespace:            "oneof",
@@ -694,7 +746,7 @@ func Test_ValidateOneOf(t *testing.T) {
 		})(t)
 	})
 
-	t.Run("Required group not satisfied", func(t *testing.T) {
+	t.Run("Fail when required group is missing", func(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: core.NewCommands(&core.Command{
 				Namespace:            "oneof",
@@ -724,12 +776,14 @@ func Test_ValidateOneOf(t *testing.T) {
 		})(t)
 	})
 
-	t.Run("Arguments are mutually exclusive", func(t *testing.T) {
+	t.Run("Check for mutual exclusivity in arguments", func(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: core.NewCommands(&core.Command{
-				Namespace:            "oneof",
-				ArgsType:             reflect.TypeOf(args.RawArgs{}),
-				AllowAnonymousClient: true,
+				Namespace: "oneof",
+				ArgsType: reflect.TypeOf(struct {
+					A string
+					B string
+				}{}), AllowAnonymousClient: true,
 				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
 					return &core.SuccessResult{}, nil
 				},
@@ -752,7 +806,42 @@ func Test_ValidateOneOf(t *testing.T) {
 		})(t)
 	})
 
-	t.Run("Arguments test with {index}", func(t *testing.T) {
+	t.Run("Three arguments' mutual exclusivity test", func(t *testing.T) {
+		core.Test(&core.TestConfig{
+			Commands: core.NewCommands(&core.Command{
+				Namespace: "oneof",
+				ArgsType: reflect.TypeOf(struct {
+					A string
+					B string
+					C string
+				}{}), AllowAnonymousClient: true,
+				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+					return &core.SuccessResult{}, nil
+				},
+				ArgSpecs: core.ArgSpecs{
+					{
+						Name:       "a",
+						OneOfGroup: "group1",
+					},
+					{
+						Name:       "b",
+						OneOfGroup: "group1",
+					},
+					{
+						Name:       "c",
+						OneOfGroup: "group1",
+					},
+				},
+			}),
+			Cmd: "scw oneof a=yo c=no",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(1),
+				core.TestCheckError(fmt.Errorf("arguments 'a' and 'c' are mutually exclusive")),
+			),
+		})(t)
+	})
+
+	t.Run("Indexed arguments' exclusivity check", func(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: core.NewCommands(&core.Command{
 				Namespace: "oneof",
@@ -785,7 +874,7 @@ func Test_ValidateOneOf(t *testing.T) {
 		})(t)
 	})
 
-	t.Run("valid test with {index}", func(t *testing.T) {
+	t.Run("Passing an indexed argument test", func(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: core.NewCommands(&core.Command{
 				Namespace: "oneof",
@@ -815,7 +904,7 @@ func Test_ValidateOneOf(t *testing.T) {
 		})(t)
 	})
 
-	t.Run("Required arguments test with {index}", func(t *testing.T) {
+	t.Run("Required indexed argument satisfies condition", func(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: core.NewCommands(&core.Command{
 				Namespace: "oneof",
@@ -843,6 +932,75 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof ssh-key.0=11111111-1111-1111-1111-111111111111",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
+			),
+		})(t)
+	})
+
+	t.Run("Exclusive all SSH keys and indexed key test", func(t *testing.T) {
+		core.Test(&core.TestConfig{
+			Commands: core.NewCommands(&core.Command{
+				Namespace: "oneof",
+				ArgsType: reflect.TypeOf(struct {
+					SSHKey     []string
+					AllSSHKeys bool
+				}{}),
+				AllowAnonymousClient: true,
+				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+					return &core.SuccessResult{}, nil
+				},
+				ArgSpecs: core.ArgSpecs{
+					{
+						Name:       "ssh-key.{index}",
+						OneOfGroup: "ssh",
+						Required:   true,
+					},
+					{
+						Name:       "all-ssh-keys",
+						OneOfGroup: "ssh",
+						Required:   true,
+					},
+				},
+			}),
+			Cmd: "scw oneof all-ssh-keys=true",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+			),
+		})(t)
+	})
+
+	t.Run("Ungrouped argument with unsatisfied group fails", func(t *testing.T) {
+		core.Test(&core.TestConfig{
+			Commands: core.NewCommands(&core.Command{
+				Namespace: "oneof",
+				ArgsType: reflect.TypeOf(struct {
+					SSHKey     []string
+					AllSSHKeys bool
+					Arg        bool
+				}{}),
+				AllowAnonymousClient: true,
+				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+					return &core.SuccessResult{}, nil
+				},
+				ArgSpecs: core.ArgSpecs{
+					{
+						Name:       "ssh-key.{index}",
+						OneOfGroup: "ssh",
+						Required:   true,
+					},
+					{
+						Name:       "all-ssh-keys",
+						OneOfGroup: "ssh",
+						Required:   true,
+					},
+					{
+						Name: "arg",
+					},
+				},
+			}),
+			Cmd: "scw oneof arg=true",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(1),
+				core.TestCheckError(fmt.Errorf("at least one argument from the 'ssh' group is required")),
 			),
 		})(t)
 	})

@@ -112,7 +112,7 @@ func validateOneOfRequiredArgs(cmd *Command, rawArgs args.RawArgs, cmdArgs inter
 	if err := oneOfManager.ValidateUniqueOneOfGroups(rawArgs, cmdArgs); err != nil {
 		return err
 	}
-	if err := oneOfManager.ValidateRequiredOneOfGroups(rawArgs); err != nil {
+	if err := oneOfManager.ValidateRequiredOneOfGroups(rawArgs, cmdArgs); err != nil {
 		return err
 	}
 	return nil
@@ -315,13 +315,24 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdA
 	return nil
 }
 
-func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(rawArgs args.RawArgs) error {
+func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(rawArgs args.RawArgs, cmdArgs interface{}) error {
 	for group, required := range m.RequiredGroups {
 		if required {
 			found := false
 			for _, argName := range m.Groups[group] {
-				if rawArgs.ExistsArgByName(argName) {
-					found = true
+				fieldName := strcase.ToPublicGoName(argName)
+				fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+				if err != nil {
+					validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", argName, fieldName, err.Error())
+					panic(validationErr)
+				}
+				for i := range fieldValues {
+					if rawArgs.ExistsArgByName(strings.Replace(argName, "{index}", strconv.Itoa(i), 1)) {
+						found = true
+						break
+					}
+				}
+				if found {
 					break
 				}
 			}
