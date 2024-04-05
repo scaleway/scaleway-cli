@@ -13,8 +13,9 @@ EXAMPLES:
     scw alias create c command=create
 
 ARGS:
-  alias       Alias name
-  [command]   Command to create an alias for
+  alias   Alias name
+  command (one of):
+    [command]   Command to create an alias for
 
 FLAGS:
   -h, --help   help for create
