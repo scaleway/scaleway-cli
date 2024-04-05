@@ -107,7 +107,7 @@ func jobsDefinitionCreate() *core.Command {
 			},
 			{
 				Name:       "command",
-				Short:      `Startup command`,
+				Short:      `Startup command. If empty or not defined, the image's default command is used.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
