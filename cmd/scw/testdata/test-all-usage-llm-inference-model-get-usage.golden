@@ -1,22 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Location of the secret in the directory structure.
+Get the model for the given ID.
 
 USAGE:
-  scw secret folder <command>
+  scw llm-inference model get <model-id ...> [arg=value ...]
 
-AVAILABLE COMMANDS:
-  create      Create folder
-  delete      Delete a given folder specified by the `region` and `folder_id` parameters
-  list        List folders
+ARGS:
+  model-id          ID of the model to get
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for folder
+  -h, --help   help for get
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
-
-Use "scw secret folder [command] --help" for more information about a command.

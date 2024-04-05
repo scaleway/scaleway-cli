@@ -29,7 +29,7 @@ func createServer(metaKey string) core.BeforeFunc {
 // register it in the context Meta at metaKey.
 func startServer(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+
-		".ID }}") //nolint: goconst
+		".ID }}")
 }
 
 // deleteServer deletes a server and its attached IP and volumes

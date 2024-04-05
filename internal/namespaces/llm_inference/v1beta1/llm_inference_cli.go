@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/llm_inference/v1beta1"
+	llm_inference "github.com/scaleway/scaleway-sdk-go/api/llm_inference/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -416,7 +416,7 @@ func llmInferenceEndpointCreate() *core.Command {
 				Short:      `ID of the deployment to create the endpoint for`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "endpoint.private-network.private-network-id",
@@ -534,7 +534,7 @@ func llmInferenceACLList() *core.Command {
 				Short:      `ID of the deployment to list ACL rules for`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
@@ -573,7 +573,7 @@ func llmInferenceACLAdd() *core.Command {
 				Short:      `ID of the deployment to add ACL rules to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "acls.{index}.ip",
@@ -617,7 +617,7 @@ func llmInferenceACLSet() *core.Command {
 				Short:      `ID of the deployment to set ACL rules for`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "acls.{index}.ip",
@@ -661,7 +661,7 @@ func llmInferenceACLDelete() *core.Command {
 				Short:      `ID of the ACL rule to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
