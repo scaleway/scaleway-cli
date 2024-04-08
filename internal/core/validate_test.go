@@ -1004,5 +1004,4 @@ func Test_ValidateOneOf(t *testing.T) {
 			),
 		})(t)
 	})
-
 }

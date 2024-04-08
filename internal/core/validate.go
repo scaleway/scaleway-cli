@@ -303,11 +303,12 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdA
 				panic(validationErr)
 			}
 			for i := range fieldValues {
-				if rawArgs.ExistsArgByName(strings.Replace(argName, "{index}", strconv.Itoa(i), 1)) {
+				argNameWithIndex := strings.Replace(argName, "{index}", strconv.Itoa(i), 1)
+				if rawArgs.ExistsArgByName(argNameWithIndex) {
 					if existingArg != "" {
-						return fmt.Errorf("arguments '%s' and '%s' are mutually exclusive", existingArg, argName)
+						return fmt.Errorf("arguments '%s' and '%s' are mutually exclusive", existingArg, argNameWithIndex)
 					}
-					existingArg = argName
+					existingArg = argNameWithIndex
 				}
 			}
 		}
