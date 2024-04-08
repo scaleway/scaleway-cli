@@ -3,10 +3,10 @@
 A positional argument is required for this command
 
 Hint:
-Try running: scw test positional set <name-ids> tag=tag1
+Try running: scw test multi-positional <name-ids> tag=tag1
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "message": "a positional argument is required for this command",
   "error": {},
-  "hint": "Try running: scw test positional set \u003cname-ids\u003e tag=tag1"
+  "hint": "Try running: scw test multi-positional \u003cname-ids\u003e tag=tag1"
 }

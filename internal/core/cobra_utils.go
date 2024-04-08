@@ -75,7 +75,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		results := MultiResults(nil)
 		rawArgs = rawArgs.RemoveAllPositional()
 
-		if cmd.Verb == "set" {
+		if cmd.AcceptMultiplePositionalArgs {
 			argNameWithIndex := fmt.Sprintf("%s.%d", positionalArgSpec.Name, 0)
 			rawArgsWithPositional := rawArgs.Add(argNameWithIndex, positionalArgs[0])
 			for i := 1; i < len(positionalArgs); i++ {

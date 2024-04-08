@@ -47,6 +47,9 @@ type Command struct {
 	// ArgSpecs defines specifications for arguments.
 	ArgSpecs ArgSpecs
 
+	// AcceptMultiplePositionalArgs defines whether the command can accept multiple positional arguments.
+	AcceptMultiplePositionalArgs bool
+
 	// View defines the View for this command.
 	// It is used to create the different options for the different Marshalers.
 	View *View
