@@ -34,21 +34,21 @@ func newObjectWithForcedJSONTags(t reflect.Type) interface{} {
 	return reflect.New(reflect.StructOf(structFieldsCopy)).Interface()
 }
 
-// getValuesForFieldByName recursively search for fields in a cmdArgs' value and returns its values if they exist.
+// GetValuesForFieldByName recursively search for fields in a cmdArgs' value and returns its values if they exist.
 // The search is based on the name of the field.
-func getValuesForFieldByName(value reflect.Value, parts []string) (values []reflect.Value, err error) {
+func GetValuesForFieldByName(value reflect.Value, parts []string) (values []reflect.Value, err error) {
 	if len(parts) == 0 {
 		return []reflect.Value{value}, nil
 	}
 
 	switch value.Kind() {
 	case reflect.Ptr:
-		return getValuesForFieldByName(value.Elem(), parts)
+		return GetValuesForFieldByName(value.Elem(), parts)
 
 	case reflect.Slice:
 		values := []reflect.Value(nil)
 		for i := 0; i < value.Len(); i++ {
-			newValues, err := getValuesForFieldByName(value.Index(i), parts[1:])
+			newValues, err := GetValuesForFieldByName(value.Index(i), parts[1:])
 			if err != nil {
 				return nil, err
 			}
@@ -70,7 +70,7 @@ func getValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 
 		for _, mapKey := range mapKeys {
 			mapValue := value.MapIndex(mapKey)
-			newValues, err := getValuesForFieldByName(mapValue, parts[1:])
+			newValues, err := GetValuesForFieldByName(mapValue, parts[1:])
 			if err != nil {
 				return nil, err
 			}
@@ -93,12 +93,12 @@ func getValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 
 		fieldName := strcase.ToPublicGoName(parts[0])
 		if fieldIndex, exist := fieldIndexByName[fieldName]; exist {
-			return getValuesForFieldByName(value.Field(fieldIndex), parts[1:])
+			return GetValuesForFieldByName(value.Field(fieldIndex), parts[1:])
 		}
 
 		// If it does not exist we try to find it in nested anonymous field
 		for _, fieldIndex := range anonymousFieldIndexes {
-			newValues, err := getValuesForFieldByName(value.Field(fieldIndex), parts)
+			newValues, err := GetValuesForFieldByName(value.Field(fieldIndex), parts)
 			if err == nil {
 				return newValues, nil
 			}
