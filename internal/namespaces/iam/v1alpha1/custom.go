@@ -47,25 +47,8 @@ func GetCommands() *core.Commands {
 	}
 
 	// Autocomplete permission set names using IAM API.
-	cmds.MustFind("iam", "policy", "create").Override(func(c *core.Command) *core.Command {
-		c.ArgSpecs.GetByName("rules.{index}.permission-set-names.{index}").AutoCompleteFunc = func(ctx context.Context, _ string, _ any) core.AutocompleteSuggestions {
-			client := core.ExtractClient(ctx)
-			api := iam.NewAPI(client)
-			// TODO: store result in a CLI cache
-			resp, err := api.ListPermissionSets(&iam.ListPermissionSetsRequest{
-				PageSize: scw.Uint32Ptr(100),
-			}, scw.WithAllPages())
-			if err != nil {
-				return nil
-			}
-			suggestions := core.AutocompleteSuggestions{}
-			for _, ps := range resp.PermissionSets {
-				suggestions = append(suggestions, ps.Name)
-			}
-			return suggestions
-		}
-		return c
-	})
+	cmds.MustFind("iam", "policy", "create").Override(iamPolicyCreateBuilder)
+	cmds.MustFind("iam", "policy", "get").Override(iamPolicyGetBuilder)
 
 	return cmds
 }
