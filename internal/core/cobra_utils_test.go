@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 )
@@ -273,30 +274,47 @@ func Test_PositionalArg(t *testing.T) {
 }
 
 func Test_MultiPositionalArg(t *testing.T) {
-	t.Run("set verb with one positional", core.Test(&core.TestConfig{
+	t.Run("multi-positional with one positional", core.Test(&core.TestConfig{
 		Commands: testGetCommands(),
 		Cmd:      "scw test multi-positional pos1 tag=tag1",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				res := ctx.Result.(*testAcceptMultiPositionalArgsType)
+				assert.Equal(t, 1, len(res.NameIDs))
+				assert.Equal(t, "pos1", res.NameIDs[0])
+				assert.Equal(t, "tag1", res.Tag)
+			},
 		),
 	}))
 
-	t.Run("set verb with multi positional", core.Test(&core.TestConfig{
+	t.Run("multi-positional with multi positional", core.Test(&core.TestConfig{
 		Commands: testGetCommands(),
 		Cmd:      "scw test multi-positional pos1 pos2 pos3 tag=tag1",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				res := ctx.Result.(*testAcceptMultiPositionalArgsType)
+				assert.Equal(t, 3, len(res.NameIDs))
+				assert.Equal(t, "pos1", res.NameIDs[0])
+				assert.Equal(t, "pos2", res.NameIDs[1])
+				assert.Equal(t, "pos3", res.NameIDs[2])
+				assert.Equal(t, "tag1", res.Tag)
+			},
 		),
 	}))
 
-	t.Run("set verb with no positional", core.Test(&core.TestConfig{
+	t.Run("multi-positional with no positional", core.Test(&core.TestConfig{
 		Commands: testGetCommands(),
 		Cmd:      "scw test multi-positional tag=tag1",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
-			core.TestCheckGolden(),
+			core.TestCheckError(&core.CliError{
+				Err:  fmt.Errorf("a positional argument is required for this command"),
+				Hint: "Try running: scw test multi-positional <name-ids> tag=tag1",
+			}),
 		),
 	}))
 }
