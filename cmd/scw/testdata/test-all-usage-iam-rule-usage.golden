@@ -9,6 +9,10 @@ AVAILABLE COMMANDS:
   list        List rules of a given policy
   update      Set rules of a given policy
 
+UTILITY COMMANDS:
+  create      Create a rule for a specific IAM policy
+  delete      Delete a rule for a specific IAM policy
+
 FLAGS:
   -h, --help   help for rule
 
