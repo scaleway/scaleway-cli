@@ -1,0 +1,29 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Policy:
+ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
+d90e1b2f-e58d-4b7d-9fd0-ffd376287a6a  [IPAMReadOnly]        projects                    [99675e6f-cb5c-43c6-9343-93b6b1a5777b]  -                -
+25f1082b-bade-4751-ba53-84275d01d2ca  [VPCReadOnly]         projects                    [99675e6f-cb5c-43c6-9343-93b6b1a5777b]  -                -
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "d90e1b2f-e58d-4b7d-9fd0-ffd376287a6a",
+    "permission_set_names": [
+      "IPAMReadOnly"
+    ],
+    "permission_sets_scope_type": "projects",
+    "project_ids": [
+      "99675e6f-cb5c-43c6-9343-93b6b1a5777b"
+    ]
+  },
+  {
+    "id": "25f1082b-bade-4751-ba53-84275d01d2ca",
+    "permission_set_names": [
+      "VPCReadOnly"
+    ],
+    "permission_sets_scope_type": "projects",
+    "project_ids": [
+      "99675e6f-cb5c-43c6-9343-93b6b1a5777b"
+    ]
+  }
+]

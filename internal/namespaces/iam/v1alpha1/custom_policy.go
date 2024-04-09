@@ -29,11 +29,12 @@ func iamPolicyCreateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+type IAMPolicyGetInterceptorResponse struct {
+	*iam.Policy
+	Rules []*iam.Rule
+}
+
 func iamPolicyGetBuilder(c *core.Command) *core.Command {
-	type customIamPolicyGetResponse struct {
-		*iam.Policy
-		Rules []*iam.Rule
-	}
 	c.View = &core.View{
 		Title: "Policy",
 		Sections: []*core.ViewSection{
@@ -51,7 +52,7 @@ func iamPolicyGetBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return respI, err
 		}
-		resp := &customIamPolicyGetResponse{
+		resp := &IAMPolicyGetInterceptorResponse{
 			Policy: respI.(*iam.Policy),
 		}
 

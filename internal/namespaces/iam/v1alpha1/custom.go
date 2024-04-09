@@ -32,6 +32,8 @@ func GetCommands() *core.Commands {
 
 	cmds.Merge(core.NewCommands(
 		initWithSSHCommand(),
+		iamRuleCreateCommand(),
+		iamRuleDeleteCommand(),
 	))
 
 	// These commands have an "optional" organization-id that is required for now.
