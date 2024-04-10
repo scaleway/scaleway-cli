@@ -212,6 +212,12 @@ func jobsDefinitionList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "organization-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -511,6 +517,12 @@ func jobsRunList() *core.Command {
 			},
 			{
 				Name:       "project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
