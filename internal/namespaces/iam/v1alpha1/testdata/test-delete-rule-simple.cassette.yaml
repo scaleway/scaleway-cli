@@ -1,0 +1,261 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"952694bf-3221-43fc-b2dd-44701b746762","name":"test-cli-iam-delete-rule","organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","created_at":"2024-04-09T12:54:07.841090Z","updated_at":"2024-04-09T12:54:07.841090Z","description":""}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v3/projects
+    method: POST
+  response:
+    body: '{"id":"952694bf-3221-43fc-b2dd-44701b746762","name":"test-cli-iam-delete-rule","organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","created_at":"2024-04-09T12:54:07.841090Z","updated_at":"2024-04-09T12:54:07.841090Z","description":""}'
+    headers:
+      Content-Length:
+      - "239"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 09 Apr 2024 12:54:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c2f878d6-2e13-4a5a-9b41-b2dc70cbef37
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"26306b32-4286-43ab-ba81-d111539ed822","name":"test-cli-iam-delete-rule","description":"","organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","created_at":"2024-04-09T12:54:08.041690Z","updated_at":"2024-04-09T12:54:08.041690Z","editable":true,"nb_rules":0,"nb_scopes":0,"nb_permission_sets":0,"tags":[],"no_principal":true}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/policies
+    method: POST
+  response:
+    body: '{"id":"26306b32-4286-43ab-ba81-d111539ed822","name":"test-cli-iam-delete-rule","description":"","organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","created_at":"2024-04-09T12:54:08.041690Z","updated_at":"2024-04-09T12:54:08.041690Z","editable":true,"nb_rules":0,"nb_scopes":0,"nb_permission_sets":0,"tags":[],"no_principal":true}'
+    headers:
+      Content-Length:
+      - "335"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 09 Apr 2024 12:54:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0fbcb6f9-4e95-4d0d-a548-6e800aa60951
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"26306b32-4286-43ab-ba81-d111539ed822","name":"test-cli-iam-delete-rule","description":"","organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","created_at":"2024-04-09T12:54:08.041690Z","updated_at":"2024-04-09T12:54:08.041690Z","editable":true,"nb_rules":2,"nb_scopes":1,"nb_permission_sets":2,"tags":[],"no_principal":true}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/policies/26306b32-4286-43ab-ba81-d111539ed822
+    method: GET
+  response:
+    body: '{"id":"26306b32-4286-43ab-ba81-d111539ed822","name":"test-cli-iam-delete-rule","description":"","organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","created_at":"2024-04-09T12:54:08.041690Z","updated_at":"2024-04-09T12:54:08.041690Z","editable":true,"nb_rules":2,"nb_scopes":1,"nb_permission_sets":2,"tags":[],"no_principal":true}'
+    headers:
+      Content-Length:
+      - "335"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 09 Apr 2024 12:54:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8f573868-30fe-4198-9c8d-a4ba4feceab1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"rules":[{"id":"ab2878b1-b3a9-4fae-b10a-065de194a874","permission_set_names":["IPAMReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]},{"id":"f46fc847-ef03-4531-b368-dd07db388b0b","permission_set_names":["VPCReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]}],"total_count":2}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/rules?page=1&policy_id=26306b32-4286-43ab-ba81-d111539ed822
+    method: GET
+  response:
+    body: '{"rules":[{"id":"ab2878b1-b3a9-4fae-b10a-065de194a874","permission_set_names":["IPAMReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]},{"id":"f46fc847-ef03-4531-b368-dd07db388b0b","permission_set_names":["VPCReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]}],"total_count":2}'
+    headers:
+      Content-Length:
+      - "388"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 09 Apr 2024 12:54:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d691f2ae-3c50-45b3-a69d-894169036a09
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"rules":[{"id":"ab2878b1-b3a9-4fae-b10a-065de194a874","permission_set_names":["IPAMReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]},{"id":"f46fc847-ef03-4531-b368-dd07db388b0b","permission_set_names":["VPCReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]}],"total_count":2}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/rules?page=1&policy_id=26306b32-4286-43ab-ba81-d111539ed822
+    method: GET
+  response:
+    body: '{"rules":[{"id":"ab2878b1-b3a9-4fae-b10a-065de194a874","permission_set_names":["IPAMReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]},{"id":"f46fc847-ef03-4531-b368-dd07db388b0b","permission_set_names":["VPCReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]}],"total_count":2}'
+    headers:
+      Content-Length:
+      - "388"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 09 Apr 2024 12:54:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - da58b41c-3709-4e55-afd0-334b175762c9
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"rules":[{"id":"fc7a8836-b5dd-4380-a9c7-6be096134a69","permission_set_names":["VPCReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]}]}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/rules
+    method: PUT
+  response:
+    body: '{"rules":[{"id":"fc7a8836-b5dd-4380-a9c7-6be096134a69","permission_set_names":["VPCReadOnly"],"permission_sets_scope_type":"projects","project_ids":["952694bf-3221-43fc-b2dd-44701b746762"]}]}'
+    headers:
+      Content-Length:
+      - "191"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 09 Apr 2024 12:54:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 79506bcf-0950-4de4-8418-cb18778663c5
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/policies/26306b32-4286-43ab-ba81-d111539ed822
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 09 Apr 2024 12:54:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c70f857b-1bef-41a8-ad36-aa29e271466d
+    status: 204 No Content
+    code: 204
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/account/v3/projects/952694bf-3221-43fc-b2dd-44701b746762
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 09 Apr 2024 12:54:09 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1a339dba-7f6b-4457-a40c-1a8f3c6707da
+    status: 204 No Content
+    code: 204
+    duration: ""
