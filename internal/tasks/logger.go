@@ -4,6 +4,7 @@ package tasks
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"os"
 	"time"
@@ -12,7 +13,6 @@ import (
 	buildkit "github.com/moby/buildkit/client"
 	"github.com/moby/buildkit/util/progress/progressui"
 	"github.com/opencontainers/go-digest"
-	"github.com/pkg/errors"
 )
 
 type Logger struct {
@@ -45,7 +45,7 @@ func NewTasksLogger(ctx context.Context, mode LoggerMode) (*Logger, error) {
 
 		if err != nil {
 			if mode == PrinterModeTty {
-				return nil, errors.Wrap(err, "failed to get console")
+				return nil, fmt.Errorf("failed to get console: %w", err)
 			}
 		}
 	}
