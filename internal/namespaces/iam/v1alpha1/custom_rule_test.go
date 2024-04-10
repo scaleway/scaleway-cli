@@ -48,7 +48,7 @@ func Test_deleteRule(t *testing.T) {
 			core.ExecStoreBeforeCmd("Policy", "scw iam policy get {{ .Policy.ID }}"),
 			func(ctx *core.BeforeFuncCtx) error {
 				// Get first Rule ID
-				policy := ctx.Meta["Policy"].(*iam.IAMPolicyGetInterceptorResponse)
+				policy := ctx.Meta["Policy"].(*iam.PolicyGetInterceptorResponse)
 				if len(policy.Rules) != 2 {
 					return fmt.Errorf("expected two rules in policy")
 				}
