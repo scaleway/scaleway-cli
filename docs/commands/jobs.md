@@ -109,6 +109,7 @@ scw jobs definition list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | project-id |  |  |
+| organization-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -210,6 +211,7 @@ scw jobs run list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | job-definition-id |  |  |
 | project-id |  |  |
+| organization-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 

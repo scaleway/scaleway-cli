@@ -10,6 +10,8 @@ VPC API.
   - [List Private Networks](#list-private-networks)
   - [Migrate Private Networks from zoned to regional](#migrate-private-networks-from-zoned-to-regional)
   - [Update Private Network](#update-private-network)
+- [Routes management command](#routes-management-command)
+  - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
 - [Subnet management command](#subnet-management-command)
 - [VPC management command](#vpc-management-command)
   - [Create a VPC](#create-a-vpc)
@@ -179,6 +181,38 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 | name |  | Name for the Private Network |
 | tags.{index} |  | Tags for the Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Routes management command
+
+Routes management command.
+
+
+### Return routes with associated next hop data
+
+Return routes with associated next hop data.
+
+**Usage:**
+
+```
+scw vpc routes list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `destination_asc`, `destination_desc`, `prefix_len_asc`, `prefix_len_desc` | Sort order of the returned routes |
+| vpc-id |  | VPC to filter for. Only routes within this VPC will be returned |
+| nexthop-resource-id |  | Next hop resource ID to filter for. Only routes with a matching next hop resource ID will be returned |
+| nexthop-private-network-id |  | Next hop private network ID to filter for. Only routes with a matching next hop private network ID will be returned |
+| nexthop-resource-type | One of: `unknown_type`, `vpc_gateway_network`, `instance_private_nic`, `baremetal_private_nic` | Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned |
+| contains |  | Only routes whose destination is contained in this subnet will be returned |
+| tags.{index} |  | Tags to filter for, only routes with one or more matching tags will be returned |
+| is-ipv6 |  | Only routes with an IPv6 destination will be returned |
+| region | Default: `fr-par`<br />One of: `all` | Region to target. If none is passed will use default region from the config |
 
 
 

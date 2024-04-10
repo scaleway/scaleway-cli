@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   private-network Private network management command
+  routes          Routes management command
   subnet          Subnet management command
   vpc             VPC management command
 
