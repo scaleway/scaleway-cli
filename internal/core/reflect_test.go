@@ -29,12 +29,21 @@ type ExtendedRequest struct {
 }
 
 type ArrowRequest struct {
-	ServiceIP *scw.IPNet
+	*PrivateNetwork
 }
 
 type SpecialRequest struct {
 	*RequestEmbedding
 	TabRequest []*ArrowRequest
+}
+
+type EndpointSpecPrivateNetwork struct {
+	PrivateNetworkId string
+	ServiceIP        *scw.IPNet
+}
+
+type PrivateNetwork struct {
+	*EndpointSpecPrivateNetwork
 }
 
 func Test_getValuesForFieldByName(t *testing.T) {
@@ -43,6 +52,13 @@ func Test_getValuesForFieldByName(t *testing.T) {
 		fieldName      string
 		expectedError  string
 		expectedValues []reflect.Value
+	}
+
+	expectedServiceIP := &scw.IPNet{
+		IPNet: net.IPNet{
+			IP:   net.ParseIP("192.0.2.1"),
+			Mask: net.CIDRMask(24, 32), // Exemple pour un masque de sous-réseau /24
+		},
 	}
 
 	tests := []struct {
@@ -112,6 +128,7 @@ func Test_getValuesForFieldByName(t *testing.T) {
 			},
 		},
 		{
+
 			name: "Special test",
 			testCase: TestCase{
 				cmdArgs: &SpecialRequest{
@@ -121,26 +138,34 @@ func Test_getValuesForFieldByName(t *testing.T) {
 					},
 					TabRequest: []*ArrowRequest{
 						{
-							ServiceIP: &scw.IPNet{
-								IPNet: net.IPNet{
-									IP:   net.ParseIP("192.0.2.1"),
-									Mask: net.CIDRMask(24, 32), // Exemple pour un masque de sous-réseau /24
+							PrivateNetwork: &PrivateNetwork{
+								EndpointSpecPrivateNetwork: &EndpointSpecPrivateNetwork{
+									ServiceIP: &scw.IPNet{
+										IPNet: net.IPNet{
+											IP:   net.ParseIP("192.0.2.1"),
+											Mask: net.CIDRMask(24, 32), // Exemple pour un masque de sous-réseau /24
+										},
+									},
 								},
 							},
 						},
 						{
-							ServiceIP: &scw.IPNet{
-								IPNet: net.IPNet{
-									IP:   net.ParseIP("198.51.100.1"),
-									Mask: net.CIDRMask(24, 32), // Un autre exemple avec un masque de sous-réseau /24
+							PrivateNetwork: &PrivateNetwork{
+								EndpointSpecPrivateNetwork: &EndpointSpecPrivateNetwork{
+									ServiceIP: &scw.IPNet{
+										IPNet: net.IPNet{
+											IP:   net.ParseIP("198.51.100.1"),
+											Mask: net.CIDRMask(24, 32), // Un autre exemple avec un masque de sous-réseau /24
+										},
+									},
 								},
 							},
 						},
 					},
 				},
-				fieldName:      "tabRequest.{index}.serviceIP",
+				fieldName:      "tabRequest.{index}.PrivateNetwork.EndpointSpecPrivateNetwork.ServiceIP",
 				expectedError:  "",
-				expectedValues: []reflect.Value{reflect.ValueOf(nil)},
+				expectedValues: []reflect.Value{reflect.ValueOf(expectedServiceIP)},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
 				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
