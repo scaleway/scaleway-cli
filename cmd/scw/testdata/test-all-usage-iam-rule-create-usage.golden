@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create folder.
+Create a rule for a specific IAM policy
 
 USAGE:
-  scw secret folder create [arg=value ...]
+  scw iam rule create <policy-id ...> [arg=value ...]
 
 ARGS:
-  [project-id]      Project ID to use. If none is passed the default project ID will be used
-  [name]            Name of the folder
-  [path]            Path of the folder
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  policy-id                        Id of policy to update
+  [permission-set-names.{index}]   Names of permission sets bound to the rule
+  [project-ids.{index}]            List of Project IDs the rule is scoped to
+  [organization-id]                ID of Organization the rule is scoped to
 
 FLAGS:
   -h, --help   help for create

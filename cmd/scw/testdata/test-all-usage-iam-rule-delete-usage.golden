@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a given folder specified by the `region` and `folder_id` parameters.
+Delete a rule for a specific IAM policy
 
 USAGE:
-  scw secret folder delete [arg=value ...]
+  scw iam rule delete <policy-id ...> [arg=value ...]
 
 ARGS:
-  folder-id         ID of the folder
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  policy-id   Id of policy to update
+  [rule-id]   Id of rule to delete
 
 FLAGS:
   -h, --help   help for delete

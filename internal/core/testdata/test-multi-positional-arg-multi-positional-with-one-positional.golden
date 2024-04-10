@@ -1,0 +1,11 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NameIDs.0  pos1
+Tag        tag1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "NameIDs": [
+    "pos1"
+  ],
+  "Tag": "tag1"
+}

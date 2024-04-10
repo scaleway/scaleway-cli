@@ -596,7 +596,7 @@ func TestCheckCombine(checks ...TestCheck) TestCheck {
 // TestCheckExitCode assert exitCode
 func TestCheckExitCode(expectedCode int) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
-		assert.Equal(t, expectedCode, ctx.ExitCode, "Invalid exit code")
+		assert.Equal(t, expectedCode, ctx.ExitCode, "Invalid exit code\n%s", string(ctx.Stderr))
 	}
 }
 

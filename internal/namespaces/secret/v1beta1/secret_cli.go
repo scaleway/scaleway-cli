@@ -22,7 +22,6 @@ func GetGeneratedCommands() *core.Commands {
 		secretRoot(),
 		secretSecret(),
 		secretVersion(),
-		secretTag(),
 		secretSecretCreate(),
 		secretSecretGet(),
 		secretSecretUpdate(),
@@ -67,19 +66,10 @@ func secretVersion() *core.Command {
 	}
 }
 
-func secretTag() *core.Command {
-	return &core.Command{
-		Short:     `Tag management commands`,
-		Long:      `Tag management commands.`,
-		Namespace: "secret",
-		Resource:  "tag",
-	}
-}
-
 func secretSecretCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a secret`,
-		Long:      `You must specify the ` + "`" + `region` + "`" + ` to create a secret.`,
+		Long:      `Create a secret in a given region specified by the ` + "`" + `region` + "`" + ` parameter.`,
 		Namespace: "secret",
 		Resource:  "secret",
 		Verb:      "create",
