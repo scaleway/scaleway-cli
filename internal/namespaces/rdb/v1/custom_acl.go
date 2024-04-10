@@ -232,13 +232,60 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+type rdbACLSetCustomArgs struct {
+	Region       scw.Region
+	InstanceID   string
+	ACLRuleIPs   []scw.IPNet
+	Descriptions []string
+}
+
 func aclSetBuilder(c *core.Command) *core.Command {
+	c.ArgsType = reflect.TypeOf(rdbACLSetCustomArgs{})
+	c.ArgSpecs = core.ArgSpecs{
+		{
+			Name:       "acl-rule-ips",
+			Short:      "IP addresses defined in the ACL rules of the Database Instance",
+			Required:   false,
+			Positional: true,
+		},
+		{
+			Name:       "instance-id",
+			Short:      "ID of the Database Instance",
+			Required:   true,
+			Positional: false,
+		},
+		{
+			Name:       "descriptions",
+			Short:      "Descriptions of the ACL rules",
+			Required:   false,
+			Positional: false,
+		},
+		core.RegionArgSpec(),
+	}
+	c.AcceptMultiplePositionalArgs = true
+
 	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-		args := argsI.(*rdb.SetInstanceACLRulesRequest)
+		args := argsI.(*rdbACLSetCustomArgs)
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 
-		rule, err := api.SetInstanceACLRules(args, scw.WithContext(ctx))
+		aclRules := []*rdb.ACLRuleRequest(nil)
+		for _, ip := range args.ACLRuleIPs {
+			aclRules = append(aclRules, &rdb.ACLRuleRequest{
+				IP:          ip,
+				Description: fmt.Sprintf("Allow %s", ip.String()),
+			})
+		}
+
+		for i, desc := range args.Descriptions {
+			aclRules[i].Description = desc
+		}
+
+		rule, err := api.SetInstanceACLRules(&rdb.SetInstanceACLRulesRequest{
+			Region:     args.Region,
+			InstanceID: args.InstanceID,
+			Rules:      aclRules,
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return nil, fmt.Errorf("failed to set ACL rule: %w", err)
 		}
@@ -252,7 +299,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 	}
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		args := argsI.(*rdb.SetInstanceACLRulesRequest)
+		args := argsI.(*rdbACLSetCustomArgs)
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
