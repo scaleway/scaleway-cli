@@ -40,7 +40,6 @@ func GetValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 	if len(parts) == 0 {
 		return []reflect.Value{value}, nil
 	}
-
 	switch value.Kind() {
 	case reflect.Ptr:
 		return GetValuesForFieldByName(value.Elem(), parts)
@@ -106,6 +105,5 @@ func GetValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 
 		return nil, fmt.Errorf("field %v does not exist for %v", fieldName, value.Type().Name())
 	}
-
 	return nil, fmt.Errorf("case is not handled")
 }
