@@ -45,7 +45,7 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 	for _, argSpec := range cmd.ArgSpecs {
 		fieldName := strcase.ToPublicGoName(argSpec.Name)
-		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 		if err != nil {
 			logger.Infof("could not validate arg value for '%v': invalid fieldName: %v: %v", argSpec.Name, fieldName, err.Error())
 			continue
@@ -75,7 +75,7 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 		}
 
 		fieldName := strcase.ToPublicGoName(arg.Name)
-		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 		if err != nil {
 			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
 			if !arg.Required {
@@ -117,7 +117,7 @@ func validateDeprecated(ctx context.Context, cmd *Command, cmdArgs interface{}, 
 	deprecatedArgs := cmd.ArgSpecs.GetDeprecated(true)
 	for _, arg := range deprecatedArgs {
 		fieldName := strcase.ToPublicGoName(arg.Name)
-		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 		if err != nil {
 			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
 			if !arg.Required {
