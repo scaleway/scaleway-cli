@@ -1042,6 +1042,8 @@ scw lb lb update <lb-id ...> [arg=value ...]
 | lb-id | Required | Load Balancer ID |
 | name | Required | Load Balancer name |
 | description | Required | Load Balancer description |
+| assign-flexible-ipv6 |  | Automatically assign a flexible public IPv6 to the Load Balancer |
+| ip-id |  | The IP ID to attach to the Load Balancer |
 | tags.{index} |  | List of tags for the Load Balancer |
 | ssl-compatibility-level | One of: `ssl_compatibility_level_unknown`, `ssl_compatibility_level_intermediate`, `ssl_compatibility_level_modern`, `ssl_compatibility_level_old` | Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
