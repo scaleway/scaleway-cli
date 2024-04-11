@@ -40,6 +40,33 @@ func Test_GetLB(t *testing.T) {
 	}))
 }
 
+func Test_UpdateLBIPv6(t *testing.T) {
+	t.Run("Assigned", core.Test(&core.TestConfig{
+		Commands:   lb.GetCommands(),
+		BeforeFunc: createLB(),
+		Cmd:        "scw lb lb update {{ .LB.ID }} name=cli-test-update assign-flexible-ipv6=true description=assigned",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		AfterFunc: deleteLB(),
+	}))
+
+	t.Run("IPID", core.Test(&core.TestConfig{
+		Commands: lb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createIP(),
+			createLB(),
+		),
+		Cmd: "scw lb lb update {{ .LB.ID }} name=cli-test-update ip-id={{ .IP.ID }} description=ip-id",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		AfterFunc: deleteLB(),
+	}))
+}
+
 func Test_WaitLB(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: lb.GetCommands(),

@@ -139,6 +139,85 @@ func lbGetBuilder(c *core.Command) *core.Command {
 }
 
 func lbUpdateBuilder(c *core.Command) *core.Command {
+	type lbUpdateRequestCustom struct {
+		*lb.ZonedAPIUpdateLBRequest
+		AssignFlexibleIPv6 bool   `json:"assign_flexible_ipv6"`
+		IPID               string `json:"ip_id"`
+	}
+
+	c.ArgsType = reflect.TypeOf(lbUpdateRequestCustom{})
+
+	c.ArgSpecs.AddBefore("tags.{index}", &core.ArgSpec{
+		Name:       "assign-flexible-ipv6",
+		Short:      "Automatically assign a flexible public IPv6 to the Load Balancer",
+		OneOfGroup: "ip",
+	})
+	c.ArgSpecs.AddBefore("tags.{index}", &core.ArgSpec{
+		Name:       "ip-id",
+		Short:      "The IP ID to attach to the Load Balancer",
+		OneOfGroup: "ip",
+	})
+
+	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		request := argsI.(*lbUpdateRequestCustom)
+		client := core.ExtractClient(ctx)
+		lbAPI := lb.NewZonedAPI(client)
+
+		waitRequest := &lb.ZonedAPIWaitForLBRequest{
+			LBID:          request.LBID,
+			Zone:          request.Zone,
+			Timeout:       scw.TimeDurationPtr(defaultLBTimeout),
+			RetryInterval: core.DefaultRetryInterval,
+		}
+		res, err := lbAPI.WaitForLb(waitRequest, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if request.IPID != "" {
+			_, err = lbAPI.UpdateIP(&lb.ZonedAPIUpdateIPRequest{
+				Zone: request.Zone,
+				IPID: request.IPID,
+				LBID: &request.LBID,
+			}, scw.WithContext(ctx))
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		if request.AssignFlexibleIPv6 {
+			ip, err := lbAPI.CreateIP(&lb.ZonedAPICreateIPRequest{
+				Zone:      res.Zone,
+				ProjectID: &res.ProjectID,
+				IsIPv6:    true,
+			}, scw.WithContext(ctx))
+			if err != nil {
+				return nil, err
+			}
+
+			_, err = lbAPI.UpdateIP(&lb.ZonedAPIUpdateIPRequest{
+				Zone: ip.Zone,
+				IPID: ip.ID,
+				LBID: &res.ID,
+			}, scw.WithContext(ctx))
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		_, err = lbAPI.WaitForLb(waitRequest, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		result, err := lbAPI.UpdateLB(request.ZonedAPIUpdateLBRequest)
+		if err != nil {
+			return nil, err
+		}
+
+		return result, err
+	}
+
 	c.Interceptor = interceptLB()
 	return c
 }
