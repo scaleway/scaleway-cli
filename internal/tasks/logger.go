@@ -4,15 +4,14 @@ package tasks
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"os"
 	"time"
 
-	"github.com/containerd/console"
 	buildkit "github.com/moby/buildkit/client"
 	"github.com/moby/buildkit/util/progress/progressui"
 	"github.com/opencontainers/go-digest"
-	"github.com/pkg/errors"
 )
 
 type Logger struct {
@@ -35,19 +34,8 @@ func NewTasksLogger(ctx context.Context, mode LoggerMode) (*Logger, error) {
 	out := os.Stdout
 	var writer io.Writer = out
 
-	var cons console.Console
-	switch mode {
-	case PrinterModeQuiet:
+	if mode == PrinterModeQuiet {
 		writer = io.Discard
-	case PrinterModeAuto, PrinterModeTty:
-		var err error
-		cons, err = console.ConsoleFromFile(out)
-
-		if err != nil {
-			if mode == PrinterModeTty {
-				return nil, errors.Wrap(err, "failed to get console")
-			}
-		}
 	}
 
 	doneChan := make(chan struct{})
@@ -55,10 +43,14 @@ func NewTasksLogger(ctx context.Context, mode LoggerMode) (*Logger, error) {
 		status: make(chan *buildkit.SolveStatus),
 		done:   doneChan,
 	}
+	display, err := progressui.NewDisplay(writer, progressui.DefaultMode, progressui.WithDesc("Running workflow", ""))
+	if err != nil {
+		return nil, fmt.Errorf("failed to create display: %w", err)
+	}
 
 	go func() {
 		// resumeLogs := logutil.Pause(logrus.StandardLogger())
-		logger.warnings, logger.err = progressui.DisplaySolveStatus(ctx, "Running workflow", cons, writer, logger.status)
+		logger.warnings, logger.err = display.UpdateFrom(ctx, logger.status)
 		// resumeLogs()
 		close(doneChan)
 	}()
