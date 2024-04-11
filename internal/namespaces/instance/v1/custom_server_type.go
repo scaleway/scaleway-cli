@@ -94,6 +94,12 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 				continue
 			}
 
+			serverTypeAvailability := instance.ServerTypesAvailability("unknown")
+
+			if availability, exists := availabilitiesResponse.Servers[name]; exists {
+				serverTypeAvailability = availability.Availability
+			}
+
 			serverTypes = append(serverTypes, &customServerType{
 				Name:               name,
 				HourlyPrice:        scw.NewMoneyFromFloat(float64(serverType.HourlyPrice), "EUR", 3),
@@ -102,7 +108,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 				GPU:                serverType.Gpu,
 				RAM:                scw.Size(serverType.RAM),
 				Arch:               serverType.Arch,
-				Availability:       availabilitiesResponse.Servers[name].Availability,
+				Availability:       serverTypeAvailability,
 			})
 		}
 
