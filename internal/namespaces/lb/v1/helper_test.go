@@ -161,3 +161,10 @@ func detachPN() core.AfterFunc {
 		"scw lb private-network detach {{ .LB.ID }} private-network-id={{ .PN.ID }}",
 	)
 }
+
+func createIP() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"IP",
+		"scw lb ip create is-ipv6=true",
+	)
+}
