@@ -38,7 +38,7 @@ type SpecialRequest struct {
 }
 
 type EndpointSpecPrivateNetwork struct {
-	PrivateNetworkId string
+	PrivateNetworkID string
 	ServiceIP        *scw.IPNet
 }
 
@@ -58,7 +58,7 @@ func Test_getValuesForFieldByName(t *testing.T) {
 	expectedServiceIP := &scw.IPNet{
 		IPNet: net.IPNet{
 			IP:   net.ParseIP("192.0.2.1"),
-			Mask: net.CIDRMask(24, 32), // Exemple pour un masque de sous-réseau /24
+			Mask: net.CIDRMask(24, 32),
 		},
 	}
 
@@ -125,7 +125,6 @@ func Test_getValuesForFieldByName(t *testing.T) {
 						t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
 					}
 				}
-
 			},
 		},
 		{
@@ -170,7 +169,6 @@ func Test_getValuesForFieldByName(t *testing.T) {
 						t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
 					}
 				}
-
 			},
 		},
 	}
