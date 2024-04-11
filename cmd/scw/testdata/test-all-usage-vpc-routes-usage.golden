@@ -1,18 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-VPC API.
+Routes management command.
 
 USAGE:
-  scw vpc <command>
+  scw vpc routes <command>
 
 AVAILABLE COMMANDS:
-  private-network Private network management command
-  routes          Routes management command
-  subnet          Subnet management command
-  vpc             VPC management command
+  list        Return routes with associated next hop data
 
 FLAGS:
-  -h, --help   help for vpc
+  -h, --help   help for routes
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
@@ -20,4 +17,4 @@ GLOBAL FLAGS:
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
 
-Use "scw vpc [command] --help" for more information about a command.
+Use "scw vpc routes [command] --help" for more information about a command.
