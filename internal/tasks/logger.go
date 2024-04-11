@@ -4,6 +4,7 @@ package tasks
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"os"
 	"time"
@@ -11,7 +12,6 @@ import (
 	buildkit "github.com/moby/buildkit/client"
 	"github.com/moby/buildkit/util/progress/progressui"
 	"github.com/opencontainers/go-digest"
-	"github.com/pkg/errors"
 )
 
 type Logger struct {
@@ -45,11 +45,13 @@ func NewTasksLogger(ctx context.Context, mode LoggerMode) (*Logger, error) {
 	}
 	display, err := progressui.NewDisplay(writer, progressui.DefaultMode, progressui.WithDesc("Running workflow", ""))
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create display")
+		return nil, fmt.Errorf("failed to create display: %w", err)
 	}
 
 	go func() {
+		// resumeLogs := logutil.Pause(logrus.StandardLogger())
 		logger.warnings, logger.err = display.UpdateFrom(ctx, logger.status)
+		// resumeLogs()
 		close(doneChan)
 	}()
 	return logger, nil
