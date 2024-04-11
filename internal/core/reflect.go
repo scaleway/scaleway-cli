@@ -1,6 +1,7 @@
 package core
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 	"sort"
@@ -46,13 +47,21 @@ func GetValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 
 	case reflect.Slice:
 		values := []reflect.Value(nil)
+		errs := []error(nil)
+
 		for i := 0; i < value.Len(); i++ {
 			newValues, err := GetValuesForFieldByName(value.Index(i), parts[1:])
 			if err != nil {
-				return nil, err
+				errs = append(errs, err)
+			} else {
+				values = append(values, newValues...)
 			}
-			values = append(values, newValues...)
 		}
+
+		if len(values) == 0 && len(errs) != 0 {
+			return nil, errors.Join(errs...)
+		}
+
 		return values, nil
 
 	case reflect.Map:

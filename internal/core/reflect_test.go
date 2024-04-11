@@ -29,7 +29,7 @@ type ExtendedRequest struct {
 }
 
 type ArrowRequest struct {
-	*PrivateNetwork
+	PrivateNetwork *PrivateNetwork
 }
 
 type SpecialRequest struct {
@@ -44,6 +44,7 @@ type EndpointSpecPrivateNetwork struct {
 
 type PrivateNetwork struct {
 	*EndpointSpecPrivateNetwork
+	OtherValue string
 }
 
 func Test_getValuesForFieldByName(t *testing.T) {
@@ -151,19 +152,12 @@ func Test_getValuesForFieldByName(t *testing.T) {
 						},
 						{
 							PrivateNetwork: &PrivateNetwork{
-								EndpointSpecPrivateNetwork: &EndpointSpecPrivateNetwork{
-									ServiceIP: &scw.IPNet{
-										IPNet: net.IPNet{
-											IP:   net.ParseIP("198.51.100.1"),
-											Mask: net.CIDRMask(24, 32), // Un autre exemple avec un masque de sous-réseau /24
-										},
-									},
-								},
+								OtherValue: "hello",
 							},
 						},
 					},
 				},
-				fieldName:      "tabRequest.{index}.PrivateNetwork.EndpointSpecPrivateNetwork.ServiceIP",
+				fieldName:      "tabRequest.{index}.privateNetwork.serviceIP",
 				expectedError:  "",
 				expectedValues: []reflect.Value{reflect.ValueOf(expectedServiceIP)},
 			},
