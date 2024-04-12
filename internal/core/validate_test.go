@@ -869,7 +869,7 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof all-ssh-keys=true ssh-key.0=11111111-1111-1111-1111-111111111111",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(fmt.Errorf("arguments 'ssh-key.{index}' and 'all-ssh-keys' are mutually exclusive")),
+				core.TestCheckError(fmt.Errorf("arguments 'ssh-key.0' and 'all-ssh-keys' are mutually exclusive")),
 			),
 		})(t)
 	})
