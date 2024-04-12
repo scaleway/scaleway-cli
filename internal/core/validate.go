@@ -293,7 +293,7 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdA
 		existingArg := ""
 		for _, argName := range groupArgs {
 			fieldName := strcase.ToPublicGoName(argName)
-			fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+			fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 			if err != nil {
 				validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", argName, fieldName, err.Error())
 				if m.RequiredGroups[groupName] {
@@ -322,7 +322,7 @@ func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(rawArgs args.RawArgs, cm
 			found := false
 			for _, argName := range m.Groups[group] {
 				fieldName := strcase.ToPublicGoName(argName)
-				fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+				fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 				if err != nil {
 					validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", argName, fieldName, err.Error())
 					panic(validationErr)
