@@ -1121,8 +1121,8 @@ scw instance security-group create [arg=value ...]
 | description |  | Description of the security group |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags of the security group |
-| ~~organization-default~~ | Deprecated<br />Default: `false` | Defines whether this security group becomes the default security group for new Instances |
-| project-default | Default: `false` | Whether this security group becomes the default security group for new Instances |
+| ~~organization-default~~ | Deprecated | Defines whether this security group becomes the default security group for new Instances |
+| project-default |  | Whether this security group becomes the default security group for new Instances |
 | stateful | Default: `true` | Whether the security group is stateful or not |
 | inbound-default-policy | Default: `accept`<br />One of: `unknown_policy`, `accept`, `drop` | Default policy for inbound rules |
 | outbound-default-policy | Default: `accept`<br />One of: `unknown_policy`, `accept`, `drop` | Default policy for outbound rules |
