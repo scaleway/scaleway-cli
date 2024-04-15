@@ -395,12 +395,19 @@ func instanceServerList() *core.Command {
 				Name:       "private-ip",
 				Short:      `List Instances by private_ip`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "without-ip",
 				Short:      `List Instances that are not attached to a public IP`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "with-ip",
+				Short:      `List Instances by IP (both private_ip and public_ip are supported)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -671,7 +678,7 @@ func instanceServerUpdate() *core.Command {
 			{
 				Name:       "enable-ipv6",
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -735,10 +742,6 @@ func instanceServerUpdate() *core.Command {
 			{
 				Short:    "Overwrite tags of a specified Instance",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111","tags":["foo","bar"]}`,
-			},
-			{
-				Short:    "Enable IPv6 on a specified Instance. Assigns an IPv6 block to the specified Instance and configures the first IP of the block.",
-				ArgsJSON: `{"enable_ipv6":true,"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short: "Apply the specified security group to a specified server",
@@ -2108,7 +2111,6 @@ func instanceSecurityGroupCreate() *core.Command {
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
-				Default:    core.DefaultValueSetter("false"),
 			},
 			{
 				Name:       "project-default",
@@ -2116,7 +2118,6 @@ func instanceSecurityGroupCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.DefaultValueSetter("false"),
 			},
 			{
 				Name:       "stateful",

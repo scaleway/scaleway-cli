@@ -13,6 +13,7 @@ This API allows you to conveniently store, access and share sensitive data such 
   - [Update metadata of a secret](#update-metadata-of-a-secret)
 - [Secret Version management commands](#secret-version-management-commands)
   - [Access a secret's version using the secret's ID](#access-a-secret's-version-using-the-secret's-id)
+  - [Access a secret's version using the secret's name and path](#access-a-secret's-version-using-the-secret's-name-and-path)
   - [Create a version](#create-a-version)
   - [Delete a version](#delete-a-version)
   - [Disable a version](#disable-a-version)
@@ -275,6 +276,29 @@ scw secret version access <secret-id ...> [arg=value ...]
 | revision | Required | Version number |
 | field |  | Return only the JSON field of the given name |
 | raw |  | Return only the raw payload |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Access a secret's version using the secret's name and path
+
+Access sensitive data in a secret's version specified by the `region`, `secret_name`, `secret_path` and `revision` parameters.
+
+**Usage:**
+
+```
+scw secret version access-by-path [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| secret-path |  | Secret's path |
+| secret-name |  | Secret's name |
+| revision | Required | Version number |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
