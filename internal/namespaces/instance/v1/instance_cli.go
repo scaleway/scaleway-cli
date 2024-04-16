@@ -2108,7 +2108,6 @@ func instanceSecurityGroupCreate() *core.Command {
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
-				Default:    core.DefaultValueSetter("false"),
 			},
 			{
 				Name:       "project-default",
@@ -2116,7 +2115,6 @@ func instanceSecurityGroupCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.DefaultValueSetter("false"),
 			},
 			{
 				Name:       "stateful",
