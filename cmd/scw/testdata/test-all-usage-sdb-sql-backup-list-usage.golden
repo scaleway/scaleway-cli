@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in descending order, though this can be modified via the order_by field.
 
 USAGE:
   scw sdb-sql backup list [arg=value ...]
@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   [project-id]        Filter by the UUID of the Scaleway project.
   database-id         Filter by the UUID of the Serverless SQL Database.
-  [order-by]          Sorting criteria. One of `created_at_asc`, `created_at_desc`. (created_at_asc | created_at_desc)
+  [order-by]          Sorting criteria. One of `created_at_asc`, `created_at_desc`. (created_at_desc | created_at_asc)
   [organization-id]   Filter by the UUID of the Scaleway organization.
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
 
