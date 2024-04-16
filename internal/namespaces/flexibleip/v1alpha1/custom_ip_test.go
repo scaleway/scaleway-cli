@@ -1,4 +1,4 @@
-package flexibleip
+package flexibleip_test
 
 import (
 	"testing"
