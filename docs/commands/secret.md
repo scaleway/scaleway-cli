@@ -279,6 +279,16 @@ scw secret version access <secret-id ...> [arg=value ...]
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
+**Examples:**
+
+
+Get a raw json value from a secret version
+```
+scw secret version access 11111111-1111-1111-111111111111 revision=1 field=key raw=true
+```
+
+
+
 
 ### Access a secret's version using the secret's name and path
 
@@ -319,11 +329,21 @@ scw secret version create <secret-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| data | Required | Content of the secret version. Base64 is handled by the SDK |
+| data | Required | Content of the secret version. |
 | description |  | Description of the version |
 | disable-previous |  | Disable the previous secret version |
 | data-crc32 |  | (Optional.) The CRC32 checksum of the data as a base-10 integer |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Create a json secret version
+```
+scw secret version create 11111111-1111-1111-111111111111 data={"key":"value"}
+```
+
 
 
 
