@@ -1,10 +1,11 @@
-package baremetal
+package baremetal_test
 
 import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 )
 
@@ -13,7 +14,7 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 		`" "`,
 	}
 	interactive.IsInteractive = true
-	cmds := GetCommands()
+	cmds := baremetal.GetCommands()
 	cmds.Merge(flexibleip.GetCommands())
 	t.Run("Simple Interactive", core.Test(&core.TestConfig{
 		Commands: cmds,
@@ -34,7 +35,7 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 
 func Test_CreateFlexibleIP(t *testing.T) {
 	interactive.IsInteractive = false
-	cmds := GetCommands()
+	cmds := baremetal.GetCommands()
 	cmds.Merge(flexibleip.GetCommands())
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: cmds,
