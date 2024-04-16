@@ -1938,8 +1938,9 @@ scw instance server list [arg=value ...]
 |------|---|-------------|
 | project-id |  | List only Instances of this Project ID |
 | name |  | Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo") |
-| private-ip |  | List Instances by private_ip |
+| ~~private-ip~~ | Deprecated | List Instances by private_ip |
 | without-ip |  | List Instances that are not attached to a public IP |
+| with-ip |  | List Instances by IP (both private_ip and public_ip are supported) |
 | commercial-type |  | List Instances of this commercial type |
 | state | One of: `running`, `stopped`, `stopped in place`, `starting`, `stopping`, `locked` | List Instances in this state |
 | tags |  | List Instances with these exact tags (to filter with several tags, use commas to separate them) |
@@ -2232,7 +2233,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | dynamic-ip-required |  |  |
 | routed-ip-enabled |  | True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False) |
 | public-ips.{index} |  | A list of reserved IP IDs to attach to the Instance |
-| enable-ipv6 |  |  |
+| ~~enable-ipv6~~ | Deprecated |  |
 | protected |  |  |
 | security-group-id |  |  |
 | volume-ids.{index} |  | Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes) |
@@ -2258,11 +2259,6 @@ scw instance server update 11111111-1111-1111-1111-111111111111 boot-type=rescue
 Overwrite tags of a specified Instance
 ```
 scw instance server update 11111111-1111-1111-1111-111111111111 tags.0=foo tags.1=bar
-```
-
-Enable IPv6 on a specified Instance. Assigns an IPv6 block to the specified Instance and configures the first IP of the block.
-```
-scw instance server update 11111111-1111-1111-1111-111111111111 enable-ipv6=true
 ```
 
 Apply the specified security group to a specified server
