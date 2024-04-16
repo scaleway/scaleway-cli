@@ -25,11 +25,11 @@ func createServer(metaKey string) core.BeforeFunc {
 //
 //nolint:unparam
 func deleteServer(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd(fmt.Sprintf("scw baremetal server delete zone=nl-ams-1 {{ ." + metaKey + ".ID"))
+	return core.ExecAfterCmd(fmt.Sprintf("scw baremetal server delete zone=nl-ams-1 {{ ." + metaKey + ".ID }}"))
 }
 
 func deleteServerDefault(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd(fmt.Sprintf("scw baremetal server delete {{ ." + metaKey + ".ID"))
+	return core.ExecAfterCmd(fmt.Sprintf("scw baremetal server delete {{ ." + metaKey + ".ID }}"))
 }
 
 // add an ssh key with a given meta key
@@ -44,5 +44,5 @@ func addSSH(metaKey string, key string) core.BeforeFunc {
 
 // delete an ssh key with a given meta key
 func deleteSSH(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd(fmt.Sprintf("scw iam ssh-key delete {{ ." + metaKey + ".ID"))
+	return core.ExecAfterCmd(fmt.Sprintf("scw iam ssh-key delete {{ ." + metaKey + ".ID }}"))
 }
