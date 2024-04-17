@@ -195,7 +195,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		Project:         args.ProjectID,
 		Name:            args.Name,
 		CommercialType:  args.Type,
-		EnableIPv6:      args.IPv6,
+		EnableIPv6:      scw.BoolPtr(args.IPv6),
 		Tags:            args.Tags,
 		RoutedIPEnabled: args.RoutedIPEnabled,
 	}
