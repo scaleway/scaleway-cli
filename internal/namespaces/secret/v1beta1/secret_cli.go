@@ -36,6 +36,7 @@ func GetGeneratedCommands() *core.Commands {
 		secretVersionDelete(),
 		secretVersionList(),
 		secretVersionAccess(),
+		secretVersionAccessByPath(),
 		secretVersionEnable(),
 		secretVersionDisable(),
 	)
@@ -807,6 +808,51 @@ func secretVersionAccess() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.AccessSecretVersion(request)
+
+		},
+	}
+}
+
+func secretVersionAccessByPath() *core.Command {
+	return &core.Command{
+		Short:     `Access a secret's version using the secret's name and path`,
+		Long:      `Access sensitive data in a secret's version specified by the ` + "`" + `region` + "`" + `, ` + "`" + `secret_name` + "`" + `, ` + "`" + `secret_path` + "`" + ` and ` + "`" + `revision` + "`" + ` parameters.`,
+		Namespace: "secret",
+		Resource:  "version",
+		Verb:      "access-by-path",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(secret.AccessSecretVersionByPathRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "secret-path",
+				Short:      `Secret's path`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-name",
+				Short:      `Secret's name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "revision",
+				Short:      `Version number`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*secret.AccessSecretVersionByPathRequest)
+
+			client := core.ExtractClient(ctx)
+			api := secret.NewAPI(client)
+			return api.AccessSecretVersionByPath(request)
 
 		},
 	}
