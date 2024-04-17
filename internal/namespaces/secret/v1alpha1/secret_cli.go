@@ -129,6 +129,7 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("opaque"),
 				EnumValues: []string{"unknown_secret_type", "opaque", "certificate", "key_value"},
 			},
 			{
