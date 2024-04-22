@@ -242,10 +242,10 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		Default:  core.DefaultValueSetter("false"),
 	})
 	c.ArgSpecs.AddBefore("init-endpoints.{index}.private-network.private-network-id", &core.ArgSpec{
-		Name:     "init-endpoints.{index}.private-network.enable-ipam",
-		Short:    "Will configure your Private Network endpoint with Scaleway IPAM service if true",
-		Required: false,
-		Default:  core.DefaultValueSetter("false"),
+		Name:       "init-endpoints.{index}.private-network.enable-ipam",
+		Short:      "Will configure your Private Network endpoint with Scaleway IPAM service if true",
+		Required:   false,
+		OneOfGroup: "config",
 	})
 	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
 		Name:       "generate-password",
