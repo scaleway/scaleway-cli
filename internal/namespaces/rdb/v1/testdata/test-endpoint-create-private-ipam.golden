@@ -22,7 +22,8 @@ ID                                    IP             PORT  NAME  HOSTNAME
       "private_network": {
         "private_network_id": "fa55fcaf-1695-4ba6-85f3-a9e23ff409d1",
         "service_ip": "172.16.20.2/22",
-        "zone": "fr-par-1"
+        "zone": "fr-par-1",
+        "provisioning_mode": "static"
       }
     }
   ],
