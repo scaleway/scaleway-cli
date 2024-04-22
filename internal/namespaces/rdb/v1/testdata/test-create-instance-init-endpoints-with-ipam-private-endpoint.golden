@@ -28,6 +28,7 @@ Endpoints.0.Port                             5432
 Endpoints.0.PrivateNetwork.PrivateNetworkID  9d5da363-d570-43ef-a959-8f915d9831ef
 Endpoints.0.PrivateNetwork.ServiceIP         172.16.8.2/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
+Endpoints.0.PrivateNetwork.ProvisioningMode  static
 LogsPolicy.MaxAgeRetention                   30
 BackupSameRegion                             false
 
@@ -137,7 +138,8 @@ Password:
       "private_network": {
         "private_network_id": "9d5da363-d570-43ef-a959-8f915d9831ef",
         "service_ip": "172.16.8.2/22",
-        "zone": "fr-par-1"
+        "zone": "fr-par-1",
+        "provisioning_mode": "static"
       }
     }
   ],
