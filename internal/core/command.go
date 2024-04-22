@@ -93,6 +93,8 @@ type Command struct {
 
 	// Groups contains a list of groups IDs
 	Groups []string
+	//
+	Deprecated bool
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
