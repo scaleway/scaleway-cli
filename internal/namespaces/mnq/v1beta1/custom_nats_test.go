@@ -2,9 +2,11 @@ package mnq_test
 
 import (
 	"os"
+	"reflect"
 	"regexp"
 	"testing"
 
+	"github.com/alecthomas/assert"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -15,7 +17,9 @@ func Test_CreateContext(t *testing.T) {
 		Commands:   mnq.GetCommands(),
 		BeforeFunc: createNATSAccount("NATS"),
 		Cmd:        "scw mnq nats create-context nats-account-id={{ .NATS.ID }}",
+		TmpHomeDir: true,
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			core.TestCheckGoldenAndReplacePatterns(
 				core.GoldenReplacement{
 					Pattern:     regexp.MustCompile(`cli[\w-]*creds[\w-]*`),
@@ -26,9 +30,10 @@ func Test_CreateContext(t *testing.T) {
 					Replacement: "Select context using `nats context select context-placeholder`",
 				},
 			),
-			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				result := ctx.Result.(*core.SuccessResult)
+				result, isSuccessResult := ctx.Result.(*core.SuccessResult)
+				assert.True(t, isSuccessResult, "Expected result to be of type *core.SuccessResult, got %s", reflect.TypeOf(result).String())
+				assert.NotNil(t, result)
 				expectedContextFile := result.Resource
 				if !mnq.FileExists(expectedContextFile) {
 					t.Errorf("Expected credentials file not found expected [%s] ", expectedContextFile)
