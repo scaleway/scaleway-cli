@@ -1095,7 +1095,8 @@ f9d08c90-d2ec-4f48-9e03-cb88824aa767  cli-test  db-dev-s   initialized  PostgreS
         "private_network": {
           "private_network_id": "20a8842e-1e39-4250-8bd3-d61686c6f59a",
           "service_ip": "172.16.0.3/22",
-          "zone": "fr-par-1"
+          "zone": "fr-par-1",
+          "provisioning_mode": "static"
         }
       },
       {
