@@ -169,6 +169,10 @@ func serverCreateCommand() *core.Command {
 				ArgsJSON: `{"image":"ubuntu_focal","root_volume":"local:<snapshot_id>","additional_volumes":["block:<snapshot_id>"]}`,
 			},
 			{
+				Short:    "Create and start an instance from a snapshot",
+				ArgsJSON: `{"image":"none","root_volume":"local:<snapshot_id>"}`,
+			},
+			{
 				Short: "Use an existing IP",
 				Raw: `ip=$(scw instance ip create | grep id | awk '{ print $2 }')
 scw instance server create image=ubuntu_focal ip=$ip`,
@@ -231,6 +235,8 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	// - An image label
 	//
 	switch {
+	case args.Image == "none":
+		break
 	case !validation.IsUUID(args.Image):
 		// For retro-compatibility, we replace dashes with underscores
 		imageLabel := strings.Replace(args.Image, "-", "_", -1)
@@ -250,22 +256,32 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		serverReq.Image = args.Image
 	}
 
-	getImageResponse, err := apiInstance.GetImage(&instance.GetImageRequest{
-		Zone:    args.Zone,
-		ImageID: serverReq.Image,
-	})
-	if err != nil {
-		logger.Warningf("cannot get image %s: %s", serverReq.Image, err)
-	}
+	var (
+		getImageResponse *instance.GetImageResponse
+		serverType       *instance.ServerType
+	)
+	if args.Image != "none" {
+		var err error
+		getImageResponse, err = apiInstance.GetImage(&instance.GetImageRequest{
+			Zone:    args.Zone,
+			ImageID: serverReq.Image,
+		})
+		if err != nil {
+			logger.Warningf("cannot get image %s: %s", serverReq.Image, err)
+		}
 
-	serverType := getServerType(apiInstance, serverReq.Zone, serverReq.CommercialType)
+		serverType = getServerType(apiInstance, serverReq.Zone, serverReq.CommercialType)
 
-	if serverType != nil && getImageResponse != nil {
-		if err := validateImageServerTypeCompatibility(getImageResponse.Image, serverType, serverReq.CommercialType); err != nil {
-			return nil, err
+		if serverType != nil && getImageResponse != nil {
+			if err := validateImageServerTypeCompatibility(getImageResponse.Image, serverType, serverReq.CommercialType); err != nil {
+				return nil, err
+			}
+		} else {
+			logger.Warningf("skipping image server-type compatibility validation")
 		}
 	} else {
-		logger.Warningf("skipping image server-type compatibility validation")
+		getImageResponse = nil
+		serverType = nil
 	}
 
 	//
@@ -315,7 +331,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// Validate root volume type and size.
-		if getImageResponse != nil {
+		if args.Image != "none" && getImageResponse != nil {
 			if err := validateRootVolume(getImageResponse.Image.RootVolume.Size, volumes["0"]); err != nil {
 				return nil, err
 			}
@@ -324,7 +340,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 
 		// Validate total local volume sizes.
-		if serverType != nil && getImageResponse != nil {
+		if args.Image != "none" && serverType != nil && getImageResponse != nil {
 			if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType, getImageResponse.Image.RootVolume.Size); err != nil {
 				return nil, err
 			}
