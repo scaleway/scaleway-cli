@@ -6,7 +6,7 @@ USAGE:
   scw webhosting control-panel <command>
 
 AVAILABLE COMMANDS:
-  list        List all control panels type
+  list        "List the control panels type: cpanel or plesk."
 
 FLAGS:
   -h, --help   help for control-panel

@@ -3,7 +3,7 @@
 Web Hosting API.
   
 - [Control Panels](#control-panels)
-  - [List all control panels type](#list-all-control-panels-type)
+  - ["List the control panels type: cpanel or plesk."](#"list-the-control-panels-type:-cpanel-or-plesk.")
 - [Hosting management commands](#hosting-management-commands)
   - [Order a Web Hosting plan](#order-a-web-hosting-plan)
   - [Delete a Web Hosting plan](#delete-a-web-hosting-plan)
@@ -21,9 +21,9 @@ Web Hosting API.
 Control panels represent the kind of administration panel to manage your Web Hosting plan, cPanel or plesk.
 
 
-### List all control panels type
+### "List the control panels type: cpanel or plesk."
 
-List the control panels type: cpanel or plesk.
+"List the control panels type: cpanel or plesk.".
 
 **Usage:**
 
