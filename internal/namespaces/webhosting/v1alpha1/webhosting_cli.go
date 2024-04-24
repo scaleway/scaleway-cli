@@ -547,8 +547,8 @@ func webhostingOfferList() *core.Command {
 
 func webhostingControlPanelList() *core.Command {
 	return &core.Command{
-		Short:     `List all control panels type`,
-		Long:      `List the control panels type: cpanel or plesk.`,
+		Short:     `"List the control panels type: cpanel or plesk."`,
+		Long:      `"List the control panels type: cpanel or plesk.".`,
 		Namespace: "webhosting",
 		Resource:  "control-panel",
 		Verb:      "list",
