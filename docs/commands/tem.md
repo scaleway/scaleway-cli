@@ -119,10 +119,10 @@ scw tem domain list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| project-id |  |  |
-| status.{index} | One of: `unknown`, `checked`, `unchecked`, `invalid`, `locked`, `revoked`, `pending` |  |
-| name |  |  |
-| organization-id |  |  |
+| project-id |  | (Optional) ID of the Project in which to list the domains |
+| status.{index} | One of: `unknown`, `checked`, `unchecked`, `invalid`, `locked`, `revoked`, `pending` | (Optional) List domains under specific statuses |
+| name |  | (Optional) Names of the domains to list |
+| organization-id |  | (Optional) ID of the Organization in which to list the domains |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 

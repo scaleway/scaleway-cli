@@ -528,12 +528,14 @@ func temDomainList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
+				Short:      `(Optional) ID of the Project in which to list the domains`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "status.{index}",
+				Short:      `(Optional) List domains under specific statuses`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -541,12 +543,14 @@ func temDomainList() *core.Command {
 			},
 			{
 				Name:       "name",
+				Short:      `(Optional) Names of the domains to list`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
+				Short:      `(Optional) ID of the Organization in which to list the domains`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
