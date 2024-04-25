@@ -19,6 +19,7 @@ M1-M  Apple M1 (8 cores)  8.0 GB  256 GB  low stock  1 days
       "type": "LPDDR4"
     },
     "stock": "low_stock",
-    "minimum_lease_duration": "86400.000000000s"
+    "minimum_lease_duration": "86400.000000000s",
+    "default_os": null
   }
 ]
