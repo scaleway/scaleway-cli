@@ -88,7 +88,7 @@ scw apple-silicon server create [arg=value ...]
 |------|---|-------------|
 | name | Default: `<generated>` | Create a server with this given name |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| type | Default: `M1-M` | Create a server of the given type |
+| type |  | Create a server of the given type |
 | os-id |  | Create a server with the given os_id |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
