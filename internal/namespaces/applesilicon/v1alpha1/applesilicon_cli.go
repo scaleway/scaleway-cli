@@ -149,7 +149,6 @@ func appleSiliconServerCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.DefaultValueSetter("M1-M"),
 			},
 			{
 				Name:       "os-id",
