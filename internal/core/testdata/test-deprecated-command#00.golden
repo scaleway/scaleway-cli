@@ -4,11 +4,10 @@ USAGE:
   scw instance <command>
 
 AVAILABLE COMMANDS:
-          a           short server
-          server      short server
-          b           Deprecated: short server
-          engine      Deprecated: short engine 
-
+  a           short server
+  server      short server
+  b          short server (Deprecated)
+  engine     short engine (Deprecated) 
 
 FLAGS:
   -h, --help   help for instance
