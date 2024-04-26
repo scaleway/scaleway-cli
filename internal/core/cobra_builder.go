@@ -219,7 +219,10 @@ DEPRECATED ARGS:
 {{- end }}
 {{- end }}
 {{- end }}
-{{- end }} 
+{{- end }}
+{{- end }}
+
+{{- if .HasAvailableLocalFlags }}
 
 FLAGS:
 {{ .LocalFlags.FlagUsages | trimTrailingWhitespaces }}
