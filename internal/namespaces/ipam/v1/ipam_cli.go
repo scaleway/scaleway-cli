@@ -86,7 +86,7 @@ func ipamIPCreate() *core.Command {
 			},
 			{
 				Name:       "address",
-				Short:      `Request a specific IP in the requested source pool`,
+				Short:      `Request this specific IP address in the specified source pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
