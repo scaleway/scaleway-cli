@@ -792,6 +792,7 @@ scw lb ip create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | reverse |  | Reverse DNS (domain name) for the IP address |
 | is-ipv6 |  | If true, creates a Flexible IP with an ipv6 address |
+| tags.{index} |  | List of tags for the IP |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -855,6 +856,7 @@ scw lb ip list [arg=value ...]
 | ip-address |  | IP address to filter for |
 | project-id |  | Project ID to filter for, only Load Balancer IP addresses from this Project will be returned |
 | ip-type | One of: `all`, `ipv4`, `ipv6` | IP type to filter for |
+| tags.{index} |  | Tag to filter for, only IPs with one or more matching tags will be returned |
 | organization-id |  | Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
@@ -878,6 +880,7 @@ scw lb ip update <ip-id ...> [arg=value ...]
 | ip-id | Required | IP address ID |
 | reverse |  | Reverse DNS (domain name) for the IP address |
 | lb-id |  | ID of the server on which to attach the flexible IP |
+| tags.{index} |  | List of tags for the IP |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
