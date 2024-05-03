@@ -35,7 +35,7 @@ scw ipam ip create [arg=value ...]
 | source.private-network-id |  | Private Network the IP lives in if the IP is a private IP. |
 | source.subnet-id |  | Private Network subnet the IP lives in if the IP is a private IP in a Private Network. |
 | is-ipv6 |  | Request an IPv6 instead of an IPv4 |
-| address |  | Request a specific IP in the requested source pool |
+| address |  | Request this specific IP address in the specified source pool |
 | tags.{index} |  | Tags for the IP |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
