@@ -8,7 +8,7 @@ require (
 	github.com/alecthomas/assert v1.0.0
 	github.com/buildpacks/pack v0.33.2
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/charmbracelet/bubbletea v0.26.1
+	github.com/charmbracelet/bubbletea v0.26.2
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.4
 	github.com/dnaeon/go-vcr v1.2.0
