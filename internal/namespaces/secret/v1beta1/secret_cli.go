@@ -44,7 +44,7 @@ func GetGeneratedCommands() *core.Commands {
 func secretRoot() *core.Command {
 	return &core.Command{
 		Short:     `Secret Manager API`,
-		Long:      `This API allows you to conveniently store, access and share sensitive data such as passwords, API keys and certificates.`,
+		Long:      `This API allows you to manage your Secret Manager services, for storing, accessing and sharing sensitive data such as passwords, API keys and certificates.`,
 		Namespace: "secret",
 	}
 }

@@ -93,8 +93,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func rdbRoot() *core.Command {
 	return &core.Command{
-		Short:     `Managed Database for PostgreSQL and MySQL API`,
-		Long:      ``,
+		Short:     `This API allows you to manage your Managed Databases for PostgreSQL and MySQL`,
+		Long:      `This API allows you to manage your Managed Databases for PostgreSQL and MySQL.`,
 		Namespace: "rdb",
 	}
 }

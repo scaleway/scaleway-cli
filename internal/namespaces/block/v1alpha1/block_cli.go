@@ -38,8 +38,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func blockRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to use and manage your Block Storage volumes`,
-		Long:      `This API allows you to use and manage your Block Storage volumes.`,
+		Short:     `This API allows you to manage your Block Storage volumes`,
+		Long:      `This API allows you to manage your Block Storage volumes.`,
 		Namespace: "block",
 	}
 }

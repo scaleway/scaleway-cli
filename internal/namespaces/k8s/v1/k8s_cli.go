@@ -54,8 +54,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func k8sRoot() *core.Command {
 	return &core.Command{
-		Short:     `Kubernetes API`,
-		Long:      `Kubernetes API.`,
+		Short:     `This API allows you to manage Kubernetes Kapsule and Kosmos clusters`,
+		Long:      `This API allows you to manage Kubernetes Kapsule and Kosmos clusters.`,
 		Namespace: "k8s",
 	}
 }

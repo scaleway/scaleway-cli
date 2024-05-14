@@ -30,8 +30,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func ipamRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage IP addresses with Scaleway's IP Address Management tool`,
-		Long:      `This API allows you to manage IP addresses with Scaleway's IP Address Management tool.`,
+		Short:     `This API allows you to manage your Scaleway IP addresses with our IP Address Management tool`,
+		Long:      `This API allows you to manage your Scaleway IP addresses with our IP Address Management tool.`,
 		Namespace: "ipam",
 	}
 }

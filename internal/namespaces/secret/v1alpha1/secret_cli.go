@@ -49,8 +49,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func secretRoot() *core.Command {
 	return &core.Command{
-		Short:     `Secret Manager API`,
-		Long:      `This API allows you to conveniently store, access and share sensitive data.`,
+		Short:     `This API allows you to manage your Secret Manager services, for storing, accessing and sharing sensitive data such as passwords, API keys and certificates`,
+		Long:      `This API allows you to manage your Secret Manager services, for storing, accessing and sharing sensitive data such as passwords, API keys and certificates.`,
 		Namespace: "secret",
 	}
 }
@@ -129,6 +129,7 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("opaque"),
 				EnumValues: []string{"unknown_secret_type", "opaque", "certificate", "key_value"},
 			},
 			{
