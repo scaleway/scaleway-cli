@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Public Gateways API.
+This API allows you to manage your Public Gateways.
 
 USAGE:
   scw vpc-gw <command>

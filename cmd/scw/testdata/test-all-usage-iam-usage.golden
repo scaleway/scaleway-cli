@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-IAM API.
+This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources.
 
 USAGE:
   scw iam <command>

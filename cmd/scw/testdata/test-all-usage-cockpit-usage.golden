@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cockpit API.
+This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs.
 
 USAGE:
   scw cockpit <command>
