@@ -24,7 +24,7 @@ AVAILABLE COMMANDS:
   jobs          This API allows you to manage your Serverless Jobs
   k8s           This API allows you to manage Kubernetes Kapsule and Kosmos clusters
   lb            This API allows you to manage your Scaleway Load Balancer services
-  llm-inference This API allows you to manage your LLM Inference services
+  llm-inference This API allows you to manage your Inference services
   marketplace   This API allows you to find available images for use when launching a Scaleway Instance
   mnq           These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services
   object        Object-storage utils
