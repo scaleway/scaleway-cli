@@ -4,39 +4,39 @@ USAGE:
   scw <command>
 
 AVAILABLE COMMANDS:
-  account       This API allows you to manage projects
+  account       This API allows you to manage your Scaleway Projects
   apple-silicon Apple silicon API
   autocomplete  Autocomplete related commands
   baremetal     Elastic Metal API
-  billing       This API allows you to query your consumption
-  block         This API allows you to use and manage your Block Storage volumes
-  cockpit       Cockpit API
-  container     Container as a Service API
-  dns           Domains and DNS API
-  document-db   Managed Document Databases API
-  fip           Elastic Metal - Flexible IP API
+  billing       This API allows you to manage and query your Scaleway billing and consumption
+  block         This API allows you to manage your Block Storage volumes
+  cockpit       This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs
+  container     This API allows you to manage your Serverless Containers
+  dns           This API allows you to manage your domains, DNS zones and records
+  document-db   This API allows you to manage your Document Databases
+  fip           This API allows you to manage your Elastic Metal servers' flexible public IP addresses
   function      Function as a Service API
   help          Get help about how the CLI works
-  iam           IAM API
-  instance      Instance API
-  iot           This API allows you to manage IoT hubs and devices
-  ipam          This API allows you to manage IP addresses with Scaleway's IP Address Management tool
-  jobs          Serverless Jobs API
-  k8s           Kubernetes API
+  iam           This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources
+  instance      This API allows you to manage your Instances
+  iot           This API allows you to manage your IoT hubs and devices
+  ipam          This API allows you to manage your Scaleway IP addresses with our IP Address Management tool
+  jobs          This API allows you to manage your Serverless Jobs
+  k8s           This API allows you to manage Kubernetes Kapsule and Kosmos clusters
   lb            This API allows you to manage your Scaleway Load Balancer services
-  llm-inference LLM Inference API
-  marketplace   Marketplace API
-  mnq           Messaging and Queuing APIs
+  llm-inference This API allows you to manage your Inference services
+  marketplace   This API allows you to find available images for use when launching a Scaleway Instance
+  mnq           These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services
   object        Object-storage utils
-  rdb           Managed Database for PostgreSQL and MySQL API
-  redis         Managed Database for Redis™ API
-  registry      Container Registry API
-  sdb-sql       This API allows you to manage your Serverless SQL DB databases
+  rdb           This API allows you to manage your Managed Databases for PostgreSQL and MySQL
+  redis         This API allows you to manage your Managed Databases for Redis™
+  registry      This API allows you to manage your Container Registry resources
+  sdb-sql       This API allows you to manage your Serverless SQL Databases
   secret        Secret Manager API
-  tem           Transactional Email API
-  vpc           VPC API
-  vpc-gw        Public Gateways API
-  webhosting    Web Hosting API
+  tem           This API allows you to manage your Transactional Email services
+  vpc           This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks
+  vpc-gw        This API allows you to manage your Public Gateways
+  webhosting    This API allows you to manage your Web Hosting services
 
 AVAILABLE LABS COMMANDS:
   ipfs          IPFS Pinning service API

@@ -1,12 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage IP addresses with Scaleway's IP Address Management tool.
+This API allows you to manage your Scaleway IP addresses with our IP Address Management tool.
 
 USAGE:
   scw ipam <command>
 
 AVAILABLE COMMANDS:
   ip          IP management command
+  ip-set      
 
 FLAGS:
   -h, --help   help for ipam

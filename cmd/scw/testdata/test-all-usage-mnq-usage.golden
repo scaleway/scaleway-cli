@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Messaging and Queuing APIs.
+These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services.
 
 USAGE:
   scw mnq <command>
