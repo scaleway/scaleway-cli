@@ -150,5 +150,6 @@ work_mem                         4
     "total_disk_retention": null
   },
   "backup_same_region": false,
-  "maintenances": []
+  "maintenances": [],
+  "encryption": null
 }
