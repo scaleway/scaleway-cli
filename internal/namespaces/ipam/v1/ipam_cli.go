@@ -262,7 +262,21 @@ func ipamIPList() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `Private Network to filter for`,
+				Short:      `Private Network to filter for.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "subnet-id",
+				Short:      `Subnet ID to filter for.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `VPC ID to filter for.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

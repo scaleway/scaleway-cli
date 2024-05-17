@@ -99,7 +99,9 @@ scw ipam ip list [arg=value ...]
 | order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `attached_at_desc`, `attached_at_asc` | Sort order of the returned IPs |
 | project-id |  | Project ID to filter for. Only IPs belonging to this Project will be returned |
 | zonal |  | Zone to filter for. Only IPs that are zonal, and in this zone, will be returned |
-| private-network-id |  | Private Network to filter for |
+| private-network-id |  | Private Network to filter for. |
+| subnet-id |  | Subnet ID to filter for. |
+| vpc-id |  | VPC ID to filter for. |
 | attached |  | Defines whether to filter only for IPs which are attached to a resource |
 | resource-id |  | Resource ID to filter for. Only IPs attached to this resource will be returned |
 | resource-type | One of: `unknown_type`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment` | Resource type to filter for. Only IPs attached to this type of resource will be returned |
