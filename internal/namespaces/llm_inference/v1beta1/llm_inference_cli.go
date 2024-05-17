@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	llm_inference "github.com/scaleway/scaleway-sdk-go/api/llm_inference/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/llm_inference/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -45,8 +45,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func llmInferenceRoot() *core.Command {
 	return &core.Command{
-		Short:     `LLM Inference API`,
-		Long:      `LLM Inference API.`,
+		Short:     `This API allows you to manage your Inference services`,
+		Long:      `This API allows you to manage your Inference services.`,
 		Namespace: "llm-inference",
 	}
 }
@@ -685,7 +685,7 @@ func llmInferenceACLDelete() *core.Command {
 func llmInferenceModelList() *core.Command {
 	return &core.Command{
 		Short:     `List models`,
-		Long:      `List all available LLM models.`,
+		Long:      `List all available models.`,
 		Namespace: "llm-inference",
 		Resource:  "model",
 		Verb:      "list",

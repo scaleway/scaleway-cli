@@ -21,6 +21,7 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		ipamRoot(),
 		ipamIP(),
+		ipamIPSet(),
 		ipamIPCreate(),
 		ipamIPDelete(),
 		ipamIPGet(),
@@ -30,8 +31,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func ipamRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage IP addresses with Scaleway's IP Address Management tool`,
-		Long:      `This API allows you to manage IP addresses with Scaleway's IP Address Management tool.`,
+		Short:     `This API allows you to manage your Scaleway IP addresses with our IP Address Management tool`,
+		Long:      `This API allows you to manage your Scaleway IP addresses with our IP Address Management tool.`,
 		Namespace: "ipam",
 	}
 }
@@ -42,6 +43,15 @@ func ipamIP() *core.Command {
 		Long:      `*ips_long.`,
 		Namespace: "ipam",
 		Resource:  "ip",
+	}
+}
+
+func ipamIPSet() *core.Command {
+	return &core.Command{
+		Short:     ``,
+		Long:      ``,
+		Namespace: "ipam",
+		Resource:  "ip-set",
 	}
 }
 
@@ -262,7 +272,21 @@ func ipamIPList() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `Private Network to filter for`,
+				Short:      `Private Network to filter for.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "subnet-id",
+				Short:      `Subnet ID to filter for.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `VPC ID to filter for.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

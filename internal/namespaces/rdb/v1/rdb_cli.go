@@ -93,8 +93,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func rdbRoot() *core.Command {
 	return &core.Command{
-		Short:     `Managed Database for PostgreSQL and MySQL API`,
-		Long:      ``,
+		Short:     `This API allows you to manage your Managed Databases for PostgreSQL and MySQL`,
+		Long:      `This API allows you to manage your Managed Databases for PostgreSQL and MySQL.`,
 		Namespace: "rdb",
 	}
 }
@@ -957,6 +957,12 @@ func rdbInstanceCreate() *core.Command {
 			{
 				Name:       "backup-same-region",
 				Short:      `Defines whether to or not to store logical backups in the same region as the Database Instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "encryption.enabled",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

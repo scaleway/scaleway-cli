@@ -35,8 +35,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func sdbSQLRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your Serverless SQL DB databases`,
-		Long:      `This API allows you to manage your Serverless SQL DB databases.`,
+		Short:     `This API allows you to manage your Serverless SQL Databases`,
+		Long:      `This API allows you to manage your Serverless SQL Databases.`,
 		Namespace: "sdb-sql",
 	}
 }
