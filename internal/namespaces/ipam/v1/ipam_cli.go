@@ -24,6 +24,7 @@ func GetGeneratedCommands() *core.Commands {
 		ipamIPSet(),
 		ipamIPCreate(),
 		ipamIPDelete(),
+		ipamIPSetRelease(),
 		ipamIPGet(),
 		ipamIPUpdate(),
 		ipamIPList(),
@@ -48,8 +49,8 @@ func ipamIP() *core.Command {
 
 func ipamIPSet() *core.Command {
 	return &core.Command{
-		Short:     ``,
-		Long:      ``,
+		Short:     `Management command for sets of IPs`,
+		Long:      `*ips_long.`,
 		Namespace: "ipam",
 		Resource:  "ip-set",
 	}
@@ -152,6 +153,41 @@ func ipamIPDelete() *core.Command {
 			return &core.SuccessResult{
 				Resource: "ip",
 				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func ipamIPSetRelease() *core.Command {
+	return &core.Command{
+		Short:     `Release ipam resources`,
+		Long:      `Release ipam resources.`,
+		Namespace: "ipam",
+		Resource:  "ip-set",
+		Verb:      "release",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipam.ReleaseIPSetRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "ip-ids.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipam.ReleaseIPSetRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipam.NewAPI(client)
+			e = api.ReleaseIPSet(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "ip-set",
+				Verb:     "release",
 			}, nil
 		},
 	}
