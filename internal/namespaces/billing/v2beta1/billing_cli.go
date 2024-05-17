@@ -34,8 +34,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func billingRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to query your consumption`,
-		Long:      `This API allows you to query your consumption.`,
+		Short:     `This API allows you to manage and query your Scaleway billing and consumption`,
+		Long:      `This API allows you to manage and query your Scaleway billing and consumption.`,
 		Namespace: "billing",
 	}
 }

@@ -57,8 +57,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func iotRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage IoT hubs and devices`,
-		Long:      `This API allows you to manage IoT hubs and devices.`,
+		Short:     `This API allows you to manage your IoT hubs and devices`,
+		Long:      `This API allows you to manage your IoT hubs and devices.`,
 		Namespace: "iot",
 	}
 }

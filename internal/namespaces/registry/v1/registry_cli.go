@@ -39,8 +39,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func registryRoot() *core.Command {
 	return &core.Command{
-		Short:     `Container Registry API`,
-		Long:      `Container Registry API.`,
+		Short:     `This API allows you to manage your Container Registry resources`,
+		Long:      `This API allows you to manage your Container Registry resources.`,
 		Namespace: "registry",
 	}
 }

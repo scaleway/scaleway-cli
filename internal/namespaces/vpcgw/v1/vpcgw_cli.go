@@ -67,8 +67,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func vpcGwRoot() *core.Command {
 	return &core.Command{
-		Short:     `Public Gateways API`,
-		Long:      `Public Gateways API.`,
+		Short:     `This API allows you to manage your Public Gateways`,
+		Long:      `This API allows you to manage your Public Gateways.`,
 		Namespace: "vpc-gw",
 	}
 }

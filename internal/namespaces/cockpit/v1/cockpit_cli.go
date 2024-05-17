@@ -64,8 +64,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func cockpitRoot() *core.Command {
 	return &core.Command{
-		Short:     `Cockpit API`,
-		Long:      `Cockpit API.`,
+		Short:     `This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs`,
+		Long:      `This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs.`,
 		Namespace: "cockpit",
 	}
 }
