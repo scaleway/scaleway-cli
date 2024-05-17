@@ -766,6 +766,7 @@ scw rdb instance create [arg=value ...]
 | init-endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Database Instance |
 | init-endpoints.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
 | backup-same-region |  | Defines whether to or not to store logical backups in the same region as the Database Instance |
+| encryption.enabled |  |  |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 

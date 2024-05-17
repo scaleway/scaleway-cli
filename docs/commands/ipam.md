@@ -8,6 +8,7 @@ This API allows you to manage your Scaleway IP addresses with our IP Address Man
   - [Get an IP](#get-an-ip)
   - [List existing IPs](#list-existing-ips)
   - [Update an IP](#update-an-ip)
+- [](#)
 
   
 ## IP management command
@@ -134,6 +135,20 @@ scw ipam ip update <ip-id ...> [arg=value ...]
 | reverses.{index}.hostname |  | Reverse domain name |
 | reverses.{index}.address |  | IP corresponding to the hostname |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## 
+
+
+
+
+
+**Usage:**
+
+```
+scw ipam ip-set
+```
 
 
 

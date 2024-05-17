@@ -21,6 +21,7 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		ipamRoot(),
 		ipamIP(),
+		ipamIPSet(),
 		ipamIPCreate(),
 		ipamIPDelete(),
 		ipamIPGet(),
@@ -42,6 +43,15 @@ func ipamIP() *core.Command {
 		Long:      `*ips_long.`,
 		Namespace: "ipam",
 		Resource:  "ip",
+	}
+}
+
+func ipamIPSet() *core.Command {
+	return &core.Command{
+		Short:     ``,
+		Long:      ``,
+		Namespace: "ipam",
+		Resource:  "ip-set",
 	}
 }
 
