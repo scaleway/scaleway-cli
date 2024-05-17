@@ -37,8 +37,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func temRoot() *core.Command {
 	return &core.Command{
-		Short:     `Transactional Email API`,
-		Long:      ``,
+		Short:     `This API allows you to manage your Transactional Email services`,
+		Long:      `This API allows you to manage your Transactional Email services.`,
 		Namespace: "tem",
 	}
 }

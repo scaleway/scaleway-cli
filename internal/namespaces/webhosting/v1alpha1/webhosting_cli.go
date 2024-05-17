@@ -36,8 +36,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func webhostingRoot() *core.Command {
 	return &core.Command{
-		Short:     `Web Hosting API`,
-		Long:      `Web Hosting API.`,
+		Short:     `This API allows you to manage your Web Hosting services`,
+		Long:      `This API allows you to manage your Web Hosting services.`,
 		Namespace: "webhosting",
 	}
 }

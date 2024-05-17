@@ -52,8 +52,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func mnqRoot() *core.Command {
 	return &core.Command{
-		Short:     `Messaging and Queuing APIs`,
-		Long:      `Messaging and Queuing APIs.`,
+		Short:     `These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services`,
+		Long:      `These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services.`,
 		Namespace: "mnq",
 	}
 }

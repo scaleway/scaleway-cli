@@ -93,8 +93,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func instanceRoot() *core.Command {
 	return &core.Command{
-		Short:     `Instance API`,
-		Long:      `Instance API.`,
+		Short:     `This API allows you to manage your Instances`,
+		Long:      `This API allows you to manage your Instances.`,
 		Namespace: "instance",
 	}
 }

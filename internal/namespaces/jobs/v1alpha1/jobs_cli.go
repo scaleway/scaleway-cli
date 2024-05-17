@@ -35,8 +35,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func jobsRoot() *core.Command {
 	return &core.Command{
-		Short:     `Serverless Jobs API`,
-		Long:      `Serverless Jobs API.`,
+		Short:     `This API allows you to manage your Serverless Jobs`,
+		Long:      `This API allows you to manage your Serverless Jobs.`,
 		Namespace: "jobs",
 	}
 }

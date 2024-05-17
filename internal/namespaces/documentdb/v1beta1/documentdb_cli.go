@@ -84,8 +84,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func documentDbRoot() *core.Command {
 	return &core.Command{
-		Short:     `Managed Document Databases API`,
-		Long:      ``,
+		Short:     `This API allows you to manage your Document Databases`,
+		Long:      `This API allows you to manage your Document Databases.`,
 		Namespace: "document-db",
 	}
 }
