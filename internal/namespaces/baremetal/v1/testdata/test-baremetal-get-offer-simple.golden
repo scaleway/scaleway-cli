@@ -3,6 +3,7 @@
 ID                  c5853302-63e4-40c7-a711-4a91629565c8
 Name                EM-L105X-SATA
 Stock               available
+MaxBandwidth        0
 CommercialRange     lithium
 PricePerHour        € 0.213
 Enable              true
@@ -47,6 +48,7 @@ PrivateBandwidth(Mbit/s):
   "name": "EM-L105X-SATA",
   "stock": "available",
   "bandwidth": 1000000000,
+  "max_bandwidth": 0,
   "commercial_range": "lithium",
   "price_per_hour": {
     "currency_code": "EUR",
