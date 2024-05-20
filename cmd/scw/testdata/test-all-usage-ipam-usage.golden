@@ -7,7 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   ip          IP management command
-  ip-set      
+  ip-set      Management command for sets of IPs
 
 FLAGS:
   -h, --help   help for ipam
