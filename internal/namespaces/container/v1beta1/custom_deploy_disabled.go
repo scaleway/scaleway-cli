@@ -1,4 +1,4 @@
-//go:build wasm || freebsd
+//go:build !(darwin || linux || windows)
 
 package container
 
