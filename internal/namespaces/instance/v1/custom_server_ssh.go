@@ -48,7 +48,7 @@ func serverSSHCommand() *core.Command {
 				Name:  "command",
 				Short: "Command to execute on the remote server",
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: instanceServerSSHRun,
 	}

@@ -441,7 +441,7 @@ func serverAttachVolumeCommand() *core.Command {
 				Short:    `ID of the volume to attach`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			request := argsI.(*instance.AttachVolumeRequest)

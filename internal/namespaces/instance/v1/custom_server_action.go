@@ -220,7 +220,7 @@ Once your image is ready you will be able to create a new server based on this i
 				Name:  "unified",
 				Short: "Whether or not the type of the snapshot is unified.",
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{

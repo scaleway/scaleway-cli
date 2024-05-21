@@ -130,7 +130,7 @@ func serverCreateCommand() *core.Command {
 				Short: "Enable routed IP support",
 			},
 			core.ProjectIDArgSpec(),
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 			core.OrganizationIDArgSpec(),
 		},
 		Run:      instanceServerCreateRun,

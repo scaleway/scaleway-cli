@@ -362,7 +362,7 @@ func securityGroupClearCommand() *core.Command {
 				Short:    `ID of the security group to reset.`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 	}
 }
