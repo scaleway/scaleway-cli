@@ -19,7 +19,7 @@ ARGS:
   server-id            ID of the server to backup.
   [name=<generated>]   Name of your backup.
   [unified]            Whether or not the type of the snapshot is unified.
-  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config
+  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for backup

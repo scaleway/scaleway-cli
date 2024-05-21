@@ -301,7 +301,7 @@ scw instance image wait <image-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | image-id | Required | ID of the image. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 | timeout | Default: `1h0m0s` | Timeout of the wait |
 
 
@@ -341,7 +341,7 @@ scw instance ip attach <ip ...> [arg=value ...]
 |------|---|-------------|
 | ip | Required | IP or UUID of the IP. |
 | server-id | Required | UUID of the server to attach the IP to |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1088,7 +1088,7 @@ scw instance security-group clear [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | security-group-id | Required | ID of the security group to reset. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1615,7 +1615,7 @@ scw instance server attach-volume [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server |
 | volume-id | Required | ID of the volume to attach |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1654,7 +1654,7 @@ scw instance server backup <server-id ...> [arg=value ...]
 | server-id | Required | ID of the server to backup. |
 | name | Default: `<generated>` | Name of your backup. |
 | unified |  | Whether or not the type of the snapshot is unified. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1684,7 +1684,7 @@ scw instance server console <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | Server ID to connect to |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1719,7 +1719,7 @@ scw instance server create [arg=value ...]
 | boot-type | Default: `local`<br />One of: `local`, `bootscript`, `rescue` | The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set. |
 | routed-ip-enabled |  | Enable routed IP support |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -2053,7 +2053,7 @@ scw instance server ssh <server-id ...> [arg=value ...]
 | username | Default: `root` | Username used for the SSH connection |
 | port | Default: `22` | Port used for the SSH connection |
 | command |  | Command to execute on the remote server |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2611,7 +2611,7 @@ scw instance snapshot wait <snapshot-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | snapshot-id | Required | ID of the snapshot. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 | timeout | Default: `1h0m0s` | Timeout of the wait |
 
 
@@ -3071,7 +3071,7 @@ scw instance volume wait <volume-id ...> [arg=value ...]
 |------|---|-------------|
 | timeout | Default: `10m0s` | Timeout of the wait |
 | volume-id | Required | ID of the volume affected by the action. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
