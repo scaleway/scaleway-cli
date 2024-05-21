@@ -17,7 +17,7 @@ ARGS:
   [with-volumes=all]   Delete the volumes attached to the server (none | local | block | root | all)
   [with-ip]            Delete the IP attached to the server
   [force-shutdown]     Force shutdown of the instance server before deleting it
-  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config
+  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for delete

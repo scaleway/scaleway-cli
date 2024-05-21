@@ -274,7 +274,7 @@ func serverTerminateCommand() *core.Command {
 					string(withBlockFalse),
 				},
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{
@@ -442,7 +442,7 @@ var serverActionArgSpecs = core.ArgSpecs{
 		Required:   true,
 		Positional: true,
 	},
-	core.ZoneArgSpec(),
+	core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 }
 
 func getRunServerAction(action instance.ServerAction) core.CommandRunner {

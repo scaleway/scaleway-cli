@@ -455,7 +455,7 @@ scw instance ip detach <ip ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip | Required | IP or UUID of the IP. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1299,7 +1299,7 @@ scw instance security-group edit <security-group-id ...> [arg=value ...]
 |------|---|-------------|
 | security-group-id | Required | ID of the security group to reset. |
 | mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1548,7 +1548,7 @@ scw instance server action <server-id ...> [arg=value ...]
 |------|---|-------------|
 | action | Required | The raw API action to perform, as listed with 'scw instance server list-actions' |
 | server-id | Required | ID of the server affected by the action. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1579,7 +1579,7 @@ scw instance server attach-ip <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server |
 | ip | Required | UUID of the IP to attach or its UUID |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1779,7 +1779,7 @@ scw instance server delete <server-id ...> [arg=value ...]
 | with-volumes | Default: `all`<br />One of: `none`, `local`, `block`, `root`, `all` | Delete the volumes attached to the server |
 | with-ip |  | Delete the IP attached to the server |
 | force-shutdown |  | Force shutdown of the instance server before deleting it |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1814,7 +1814,7 @@ scw instance server detach-ip <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | UUID of the server. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1844,7 +1844,7 @@ scw instance server detach-volume [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id | Required | ID of the volume to detach |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -1877,7 +1877,7 @@ scw instance server enable-routed-ip <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server affected by the action. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2015,7 +2015,7 @@ scw instance server reboot <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server affected by the action. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2073,7 +2073,7 @@ scw instance server standby <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server affected by the action. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2108,7 +2108,7 @@ scw instance server start <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server affected by the action. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2143,7 +2143,7 @@ scw instance server stop <server-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | ID of the server affected by the action. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2180,7 +2180,7 @@ scw instance server terminate <server-id ...> [arg=value ...]
 | server-id | Required |  |
 | with-ip |  | Delete the IP attached to the server |
 | with-block | Default: `prompt`<br />One of: `prompt`, `true`, `false` | Delete the Block Storage volumes attached to the server |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -2291,7 +2291,7 @@ scw instance server wait <server-id ...> [arg=value ...]
 |------|---|-------------|
 | timeout | Default: `10m0s` | Timeout of the wait |
 | server-id | Required | ID of the server affected by the action. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**

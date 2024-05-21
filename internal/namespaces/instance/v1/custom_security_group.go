@@ -407,7 +407,7 @@ func securityGroupEditCommand() *core.Command {
 				Positional: true,
 			},
 			editor.MarshalModeArgSpec(),
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			args := argsI.(*instanceSecurityGroupEditArgs)
