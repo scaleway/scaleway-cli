@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Domain management commands.
+This section lists your domains, shows you to manage them, and gives you information about them.
 
 USAGE:
   scw tem domain <command>
