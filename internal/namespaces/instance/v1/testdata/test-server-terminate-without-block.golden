@@ -2,8 +2,8 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-successfully detached volume cli-srv-sharp-margulis-1
-successfully deleted ip 51.158.112.105
+successfully detached volume cli-srv-unruffled-proskuriakova-1
+successfully deleted ip 163.172.136.10
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",
