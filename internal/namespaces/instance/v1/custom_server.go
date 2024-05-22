@@ -441,7 +441,7 @@ func serverAttachVolumeCommand() *core.Command {
 				Short:    `ID of the volume to attach`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			request := argsI.(*instance.AttachVolumeRequest)
@@ -472,7 +472,7 @@ func serverDetachVolumeCommand() *core.Command {
 				Short:    `ID of the volume to detach`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			request := argsI.(*instance.DetachVolumeRequest)
@@ -518,7 +518,7 @@ func serverAttachIPCommand() *core.Command {
 				Short:    `UUID of the IP to attach or its UUID`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
@@ -589,7 +589,7 @@ func serverDetachIPCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*customIPDetachRequest)
@@ -662,7 +662,7 @@ func serverWaitCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{
@@ -725,7 +725,7 @@ func serverDeleteCommand() *core.Command {
 				Name:  "force-shutdown",
 				Short: "Force shutdown of the instance server before deleting it",
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{
