@@ -56,6 +56,7 @@ This API allows you to manage your Instances.
   - [Connect to the serial console of an instance](#connect-to-the-serial-console-of-an-instance)
   - [Create server](#create-server)
   - [Delete server](#delete-server)
+  - [Delete the encrypted RDP password](#delete-the-encrypted-rdp-password)
   - [Detach an IP from a server](#detach-an-ip-from-a-server)
   - [Detach a volume from its server](#detach-a-volume-from-its-server)
   - [Migrate server to IP mobility](#migrate-server-to-ip-mobility)
@@ -1795,6 +1796,26 @@ Delete a server in fr-par-1 zone with a given id
 scw instance server delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
 
+
+
+
+### Delete the encrypted RDP password
+
+Delete the initial administrator password for Windows RDP.
+
+**Usage:**
+
+```
+scw instance server delete-rdp-password [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | UUID of the Instance |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
