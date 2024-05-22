@@ -15,11 +15,12 @@ This API allows you to manage your Transactional Email services.
   - [Get an email](#get-an-email)
   - [Email statuses](#email-statuses)
   - [List emails](#list-emails)
+- [Webhook management commands](#webhook-management-commands)
 
   
 ## Domain management commands
 
-Domain management commands.
+This section lists your domains, shows you to manage them, and gives you information about them.
 
 
 ### Domain DNS check
@@ -149,7 +150,7 @@ scw tem domain revoke <domain-id ...> [arg=value ...]
 
 ## Email management commands
 
-Email management commands.
+This section lists your emails and shows you how to manage them.
 
 
 ### Cancel an email
@@ -282,6 +283,20 @@ scw tem email list [arg=value ...]
 | order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `status_desc`, `status_asc`, `mail_from_desc`, `mail_from_asc`, `mail_rcpt_desc`, `mail_rcpt_asc`, `subject_desc`, `subject_asc` | (Optional) List emails corresponding to specific criteria |
 | flags.{index} | One of: `unknown_flag`, `soft_bounce`, `hard_bounce`, `spam`, `mailbox_full`, `mailbox_not_found`, `greylisted`, `send_before_expiration` | (Optional) List emails containing only specific flags |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Webhook management commands
+
+A Webhook can trigger a specific event based on the email or domain resource status.
+
+A Webhook can trigger a specific event based on the email or domain resource status.
+
+**Usage:**
+
+```
+scw tem webhook
+```
 
 
 

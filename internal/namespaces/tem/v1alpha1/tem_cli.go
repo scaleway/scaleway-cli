@@ -22,6 +22,7 @@ func GetGeneratedCommands() *core.Commands {
 		temRoot(),
 		temEmail(),
 		temDomain(),
+		temWebhook(),
 		temEmailCreate(),
 		temEmailGet(),
 		temEmailList(),
@@ -46,7 +47,7 @@ func temRoot() *core.Command {
 func temEmail() *core.Command {
 	return &core.Command{
 		Short:     `Email management commands`,
-		Long:      `Email management commands.`,
+		Long:      `This section lists your emails and shows you how to manage them.`,
 		Namespace: "tem",
 		Resource:  "email",
 	}
@@ -55,9 +56,18 @@ func temEmail() *core.Command {
 func temDomain() *core.Command {
 	return &core.Command{
 		Short:     `Domain management commands`,
-		Long:      `Domain management commands.`,
+		Long:      `This section lists your domains, shows you to manage them, and gives you information about them.`,
 		Namespace: "tem",
 		Resource:  "domain",
+	}
+}
+
+func temWebhook() *core.Command {
+	return &core.Command{
+		Short:     `Webhook management commands`,
+		Long:      `A Webhook can trigger a specific event based on the email or domain resource status.`,
+		Namespace: "tem",
+		Resource:  "webhook",
 	}
 }
 
