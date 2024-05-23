@@ -51,8 +51,8 @@ type autocompleteScript struct {
 
 // autocompleteScripts regroups the autocomplete scripts for the different shells
 // The key is the path of the shell.
-func autocompleteScripts(ctx context.Context) map[string]autocompleteScript {
-	binaryName := core.ExtractBinaryName(ctx)
+func autocompleteScripts(ctx context.Context, basename string) map[string]autocompleteScript {
+	binaryName := basename
 	homePath := core.ExtractUserHomeDir(ctx)
 	return map[string]autocompleteScript{
 		"bash": {
@@ -135,7 +135,8 @@ func autocompleteScripts(ctx context.Context) map[string]autocompleteScript {
 }
 
 type InstallArgs struct {
-	Shell string
+	Shell    string
+	Basename string
 }
 
 func autocompleteInstallCommand() *core.Command {
@@ -148,6 +149,13 @@ func autocompleteInstallCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name: "shell",
+			},
+			{
+				Name: "basename",
+				Default: func(ctx context.Context) (value string, doc string) {
+					resp := core.ExtractBinaryName(ctx)
+					return resp, resp
+				},
 			},
 		},
 		ArgsType: reflect.TypeOf(InstallArgs{}),
@@ -181,8 +189,8 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 
 	shellName := filepath.Base(shellArg)
-
-	script, exists := autocompleteScripts(ctx)[shellName]
+	basename := argsI.(*InstallArgs).Basename
+	script, exists := autocompleteScripts(ctx, basename)[shellName]
 	if !exists {
 		return nil, unsupportedShellError(shellName)
 	}
@@ -380,7 +388,8 @@ func autocompleteCompleteZshCommand() *core.Command {
 }
 
 type autocompleteShowArgs struct {
-	Shell string
+	Shell    string
+	Basename string
 }
 
 func autocompleteScriptCommand() *core.Command {
@@ -396,11 +405,19 @@ func autocompleteScriptCommand() *core.Command {
 				Name:    "shell",
 				Default: core.DefaultValueSetter(os.Getenv("SHELL")),
 			},
+			{
+				Name: "basename",
+				Default: func(ctx context.Context) (value string, doc string) {
+					resp := core.ExtractBinaryName(ctx)
+					return resp, resp
+				},
+			},
 		},
 		ArgsType: reflect.TypeOf(autocompleteShowArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			shell := filepath.Base(argsI.(*autocompleteShowArgs).Shell)
-			script, exists := autocompleteScripts(ctx)[shell]
+			basename := argsI.(*autocompleteShowArgs).Basename
+			script, exists := autocompleteScripts(ctx, basename)[shell]
 			if !exists {
 				return nil, unsupportedShellError(shell)
 			}
