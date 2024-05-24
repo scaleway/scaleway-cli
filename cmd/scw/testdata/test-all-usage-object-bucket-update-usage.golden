@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   name                        The unique name of the bucket
-  [tags]                      The new tags to set on the bucket
+  [tags.{index}]              List of new tags to set on the bucket
   [enable-versioning=false]   Whether or not objects in the bucket should have multiple versions
   [acl=private]               The permissions given to users (grantees) to read or write objects
   [region=fr-par]             Region to target. If none is passed will use default region from the config

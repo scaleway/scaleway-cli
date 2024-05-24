@@ -50,7 +50,7 @@ func bucketInfoMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 
 type BucketResponse struct {
 	SuccessResult *core.SuccessResult
-	BucketInfo    bucketInfo
+	BucketInfo    *bucketInfo
 }
 
 func bucketResponseMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -60,7 +60,7 @@ func bucketResponseMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 	if err != nil {
 		return "", err
 	}
-	bucketStr, err := bucketInfoMarshalerFunc(resp.BucketInfo, opt)
+	bucketStr, err := bucketInfoMarshalerFunc(*resp.BucketInfo, opt)
 	if err != nil {
 		return "", err
 	}
@@ -89,16 +89,17 @@ func bucketCreateCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(bucketConfigArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "name",
-				Positional: true,
-				Required:   true,
-				Short:      "The unique name of the bucket",
+				Name:             "name",
+				Positional:       true,
+				Required:         true,
+				Short:            "The unique name of the bucket",
+				AutoCompleteFunc: autocompleteBucketName,
 			},
 			{
-				Name:       "tags",
+				Name:       "tags.{index}",
 				Positional: false,
 				Required:   false,
-				Short:      "The new tags to set on the bucket",
+				Short:      "List of tags to set on the bucket",
 			},
 			{
 				Name:       "enable-versioning",
@@ -152,7 +153,7 @@ func bucketCreateCommand() *core.Command {
 			}
 
 			return &BucketResponse{
-				BucketInfo: *bucket,
+				BucketInfo: bucket,
 				SuccessResult: &core.SuccessResult{
 					Resource: "bucket",
 					Verb:     "create",
@@ -177,10 +178,11 @@ func bucketDeleteCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(bucketDeleteArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "name",
-				Positional: true,
-				Required:   true,
-				Short:      "The unique name of the bucket",
+				Name:             "name",
+				Positional:       true,
+				Required:         true,
+				Short:            "The unique name of the bucket",
+				AutoCompleteFunc: autocompleteBucketName,
 			},
 			core.RegionArgSpec(),
 		},
@@ -246,10 +248,11 @@ func bucketGetCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(bucketGetArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "name",
-				Positional: true,
-				Required:   true,
-				Short:      "The unique name of the bucket",
+				Name:             "name",
+				Positional:       true,
+				Required:         true,
+				Short:            "The unique name of the bucket",
+				AutoCompleteFunc: autocompleteBucketName,
 			},
 			{
 				Name:       "with-size",
@@ -264,14 +267,14 @@ func bucketGetCommand() *core.Command {
 			args := argsI.(*bucketGetArgs)
 			client := newS3Client(ctx, args.Region)
 
-			bucketInfo, err := getBucketInfo(ctx, args.Region, args.Name)
+			bucket, err := getBucketInfo(ctx, args.Region, args.Name)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
 
 			if !args.WithSize {
 				return BucketGetResult{
-					bucketInfo,
+					bucket,
 					nil,
 					nil,
 					nil,
@@ -284,7 +287,7 @@ func bucketGetCommand() *core.Command {
 			}
 
 			return BucketGetResult{
-				bucketInfo,
+				bucket,
 				&totalSize,
 				&nbObjects,
 				&nbParts,
@@ -331,16 +334,17 @@ func bucketUpdateCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(bucketConfigArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "name",
-				Positional: true,
-				Required:   true,
-				Short:      "The unique name of the bucket",
+				Name:             "name",
+				Positional:       true,
+				Required:         true,
+				Short:            "The unique name of the bucket",
+				AutoCompleteFunc: autocompleteBucketName,
 			},
 			{
-				Name:       "tags",
+				Name:       "tags.{index}",
 				Positional: false,
 				Required:   false,
-				Short:      "The new tags to set on the bucket",
+				Short:      "List of new tags to set on the bucket",
 			},
 			{
 				Name:       "enable-versioning",
@@ -384,7 +388,7 @@ func bucketUpdateCommand() *core.Command {
 			}
 
 			return &BucketResponse{
-				BucketInfo: *bucketResponse,
+				BucketInfo: bucketResponse,
 				SuccessResult: &core.SuccessResult{
 					Resource: "bucket",
 					Verb:     "update",
@@ -556,4 +560,38 @@ func putBucketACL(ctx context.Context, client *s3.Client, name string, acl strin
 		return err
 	}
 	return nil
+}
+
+// Caching ListBuckets response for shell completion
+var completeListBucketsCache []types.Bucket
+
+func autocompleteBucketName(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	var region scw.Region
+	switch t := request.(type) {
+	case bucketConfigArgs:
+		region = t.Region
+	case bucketDeleteArgs:
+		region = t.Region
+	case bucketGetArgs:
+		region = t.Region
+	}
+
+	suggestions := core.AutocompleteSuggestions(nil)
+	client := newS3Client(ctx, region)
+
+	if completeListBucketsCache == nil {
+		buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
+		if err != nil {
+			return nil
+		}
+		completeListBucketsCache = buckets.Buckets
+	}
+
+	for _, bucket := range completeListBucketsCache {
+		if strings.HasPrefix(*bucket.Name, prefix) {
+			suggestions = append(suggestions, *bucket.Name)
+		}
+	}
+
+	return suggestions
 }

@@ -34,7 +34,7 @@ scw object bucket create <name ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required | The unique name of the bucket |
-| tags |  | The new tags to set on the bucket |
+| tags.{index} |  | List of tags to set on the bucket |
 | enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
 | acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
@@ -117,7 +117,7 @@ scw object bucket update <name ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required | The unique name of the bucket |
-| tags |  | The new tags to set on the bucket |
+| tags.{index} |  | List of new tags to set on the bucket |
 | enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
 | acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
