@@ -6,7 +6,8 @@ USAGE:
   scw autocomplete install [arg=value ...]
 
 ARGS:
-  [shell]   
+  [shell]          
+  [basename=scw]   
 
 FLAGS:
   -h, --help   help for install
