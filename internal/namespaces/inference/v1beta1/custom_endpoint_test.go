@@ -1,10 +1,11 @@
 package inference_test
 
 import (
+	"testing"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
-	"testing"
 )
 
 func Test_createEndpoint(t *testing.T) {

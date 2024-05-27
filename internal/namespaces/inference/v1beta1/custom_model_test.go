@@ -1,9 +1,10 @@
 package inference_test
 
 import (
+	"testing"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1beta1"
-	"testing"
 )
 
 func Test_ListModel(t *testing.T) {
