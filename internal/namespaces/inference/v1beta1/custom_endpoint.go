@@ -2,9 +2,10 @@ package inference
 
 import (
 	"context"
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
-	"reflect"
 )
 
 func endpointCreateBuilder(c *core.Command) *core.Command {
