@@ -52,7 +52,6 @@ type autocompleteScript struct {
 // autocompleteScripts regroups the autocomplete scripts for the different shells
 // The key is the path of the shell.
 func autocompleteScripts(ctx context.Context, basename string) map[string]autocompleteScript {
-	binaryName := basename
 	homePath := core.ExtractUserHomeDir(ctx)
 	return map[string]autocompleteScript{
 		"bash": {
@@ -78,8 +77,8 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 				return
 			}
 			complete -F _%[1]s %[1]s
-		`, binaryName),
-			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, binaryName),
+		`, basename),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, basename),
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".bash_profile"),
 				"linux":  path.Join(homePath, ".bashrc"),
@@ -102,8 +101,8 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 			complete --erase --command %[1]s;
 			complete --command %[1]s --no-files;
 			complete --command %[1]s --arguments '(%[1]s autocomplete complete fish -- (commandline) (commandline --cursor) (commandline --current-token) (commandline --current-process --tokenize --cut-at-cursor))';
-		`, binaryName),
-			CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, binaryName),
+		`, basename),
+			CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, basename),
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".config/fish/config.fish"),
 				"linux":  path.Join(homePath, ".config/fish/config.fish"),
@@ -124,8 +123,8 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 				compadd "${opts[@]}" -- "${output[@]}"
 			}
 			compdef _%[1]s %[1]s
-		`, binaryName),
-			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, binaryName),
+		`, basename),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, basename),
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".zshrc"),
 				"linux":  path.Join(homePath, ".zshrc"),
