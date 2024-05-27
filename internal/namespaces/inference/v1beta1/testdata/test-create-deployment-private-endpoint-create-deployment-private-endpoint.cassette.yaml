@@ -1,0 +1,91 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"acf331c7-40e2-4f28-a389-f20a683f38d0", "name":"cli-pn-blissful-napier",
+      "tags":[], "organization_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "created_at":"2024-05-27T14:38:55.088026Z",
+      "updated_at":"2024-05-27T14:38:55.088026Z", "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5",
+      "subnets":[{"id":"601bb3f7-887a-4d7f-9ee3-d6858bbe6458", "created_at":"2024-05-27T14:38:55.088026Z",
+      "updated_at":"2024-05-27T14:38:55.088026Z", "subnet":"172.16.12.0/22", "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5",
+      "private_network_id":"acf331c7-40e2-4f28-a389-f20a683f38d0", "vpc_id":"1048ca56-8e4f-4c52-b606-5093cf213258"},
+      {"id":"a77cb1a5-7c4a-49d1-9b65-2d76de3588e1", "created_at":"2024-05-27T14:38:55.088026Z",
+      "updated_at":"2024-05-27T14:38:55.088026Z", "subnet":"fd69:e34:af09:31bc::/64",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "private_network_id":"acf331c7-40e2-4f28-a389-f20a683f38d0",
+      "vpc_id":"1048ca56-8e4f-4c52-b606-5093cf213258"}], "vpc_id":"1048ca56-8e4f-4c52-b606-5093cf213258",
+      "dhcp_enabled":true, "region":"fr-srr"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/vpc/v2/regions/fr-srr/private-networks
+    method: POST
+  response:
+    body: '{"id":"acf331c7-40e2-4f28-a389-f20a683f38d0", "name":"cli-pn-blissful-napier",
+      "tags":[], "organization_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "created_at":"2024-05-27T14:38:55.088026Z",
+      "updated_at":"2024-05-27T14:38:55.088026Z", "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5",
+      "subnets":[{"id":"601bb3f7-887a-4d7f-9ee3-d6858bbe6458", "created_at":"2024-05-27T14:38:55.088026Z",
+      "updated_at":"2024-05-27T14:38:55.088026Z", "subnet":"172.16.12.0/22", "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5",
+      "private_network_id":"acf331c7-40e2-4f28-a389-f20a683f38d0", "vpc_id":"1048ca56-8e4f-4c52-b606-5093cf213258"},
+      {"id":"a77cb1a5-7c4a-49d1-9b65-2d76de3588e1", "created_at":"2024-05-27T14:38:55.088026Z",
+      "updated_at":"2024-05-27T14:38:55.088026Z", "subnet":"fd69:e34:af09:31bc::/64",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "private_network_id":"acf331c7-40e2-4f28-a389-f20a683f38d0",
+      "vpc_id":"1048ca56-8e4f-4c52-b606-5093cf213258"}], "vpc_id":"1048ca56-8e4f-4c52-b606-5093cf213258",
+      "dhcp_enabled":true, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "1048"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 27 May 2024 14:38:55 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 285d0d98-0c9a-4e70-9344-a4c11a8ebb14
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"message":"resource is out of stock","resource":"L4","type":"out_of_stock"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments
+    method: POST
+  response:
+    body: '{"message":"resource is out of stock","resource":"L4","type":"out_of_stock"}'
+    headers:
+      Content-Length:
+      - "76"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 27 May 2024 14:38:55 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 10dcd20a-dee3-44f0-ac7a-de93683b03f8
+    status: 503 Service Unavailable
+    code: 503
+    duration: ""
