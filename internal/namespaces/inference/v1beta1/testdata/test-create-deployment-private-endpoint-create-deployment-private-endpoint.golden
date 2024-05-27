@@ -1,0 +1,14 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Resource out of stock 'L4'
+
+Hint:
+Try again later :-)
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "resource out of stock 'L4'",
+  "error": {
+    "resource": "L4"
+  },
+  "hint": "Try again later :-)"
+}
