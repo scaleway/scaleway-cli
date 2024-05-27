@@ -19,6 +19,7 @@ import (
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/help"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
@@ -28,7 +29,6 @@ import (
 	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
-	llm_inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/llm_inference/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
@@ -95,7 +95,7 @@ func GetCommands() *core.Commands {
 		ipam.GetCommands(),
 		jobs.GetCommands(),
 		serverless_sqldb.GetCommands(),
-		llm_inference.GetCommands(),
+		inference.GetCommands(),
 	)
 
 	//if beta {}
