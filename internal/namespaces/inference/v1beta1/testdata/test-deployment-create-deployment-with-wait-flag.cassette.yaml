@@ -1,0 +1,2865 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments
+    method: POST
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:49:47 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cae51990-d8d9-4b5e-9499-156320d9037a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:49:47 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f6878e43-f3b8-45a9-a7b8-75d02bf03dac
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:50:03 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - dd9de1e9-52b8-4be8-aa04-c7ae7cc4e56e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:50:18 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 603f7e07-55d7-4489-9783-2ff5a775726d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:50:33 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 400d0b41-05de-45a4-a665-7adac5f500c9
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:50:48 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ec30e7af-c4ef-48e5-89d0-e92ad45cc48b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:51:03 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f6431d49-e29e-4aaf-bc4c-62d3ceee1f91
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:51:18 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0c2d792e-7059-4b0a-9ed1-233c26cd91f6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:51:33 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f95dd587-cd4c-46ce-8b30-a0b1594b83ba
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:51:48 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 52506f03-90c6-4caa-908f-7bbf7d0bac8d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:52:03 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 909b4bbe-8936-41a6-81f0-38baf469d1e1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:52:18 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7c001c41-33ba-4e55-8e5b-bcd160f3cce4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:52:33 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ff82fceb-a7b1-4d9e-8bd4-17984fa04f4a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:52:49 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ee7db326-e089-4522-9668-1ec516750eda
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:53:04 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7da4222b-c7fe-4140-bc35-a2d8710b0c04
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:53:19 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 31766fea-69bb-49cc-bfe1-c8f59c136c80
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:53:34 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2c331cdc-6713-480c-bc86-5e81a1747bfb
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:53:49 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ec27372a-dc6f-4c85-badf-29ed38494f85
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:54:04 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1a54a6ff-00a9-4cd7-b5ea-3f336668bb53
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:54:19 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4059daff-cfaa-479d-a999-bec6b7bde7bf
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:54:34 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ce07b340-9843-4a53-af70-435333ea88c2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:54:49 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b37414d5-b526-462c-a423-7fe97ec61b5f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:55:04 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c7cd57a3-01cd-43c2-a84d-c90c15064c85
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:55:20 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 59b8e7db-ec80-4093-9036-319cfe37333a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:55:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 328eceb5-42f5-4cd5-91b6-639012644245
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:55:50 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 40296782-64b1-4f47-bbef-ebc7a4967c24
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:56:05 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 02a642e5-8736-42e4-b4ef-5732c820777d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:56:20 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d2b3e1a9-41ac-4ea4-bc5b-33c5ab24ad33
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:56:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8940c596-43da-454d-a2cc-45749a5ca32c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:56:50 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8da84e47-5422-466e-9384-7064ce96d1b8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:57:05 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c538c083-dd62-42dd-a900-abb716cdb170
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:57:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 39bb535c-b7c9-47fc-a524-657c08a4d321
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:57:36 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - daa9f635-4068-4941-8f8b-63443e0bdfe4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:57:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 381b2a71-29cd-49f5-b579-3871df5c76d7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"creating", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":null, "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "545"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:58:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e4ad28fe-bdad-4f74-bdfa-509067fc7e50
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:58:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6019bfc4-6890-418f-9930-f1b60e09bb0c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:58:36 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3e454e43-f9e5-4b02-9cdb-52ba0e30ef73
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:58:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 51cf747f-aeac-477c-a93b-4565bb421dd6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:59:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 15e80a28-d67c-4a1f-883d-2c479fe15c7a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:59:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c01a6826-df44-4e9d-8ce7-ba3fb93c3e98
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:59:36 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 80962730-59d1-47b8-869c-0c2df985e349
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 11:59:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 78933a02-bacd-4809-a586-247f40107fdd
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:00:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 52bd61f1-9e5f-440d-afd4-ad05a304b7be
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:00:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 76ab5d56-ab49-454b-875a-bdb757267d90
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:00:36 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - badada8f-4c24-4e9a-898b-f8cf1a33a903
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:00:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - be4bb1a8-b887-4402-83f5-fe5cf51e63a8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:01:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b1a12d4c-746c-4778-995f-fbf29664ade0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:01:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 282bac1d-1ff5-4ed3-be98-f6c2fd048f70
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:01:37 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - fd2ee2e2-e185-4770-b8da-34e8b5d879ca
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:01:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 83abb703-e1f1-44f9-ba0a-5926715e4ab8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:02:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 84d93902-aff5-4ddd-95a1-02766659acfe
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:02:23 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 79a676a9-55a7-4138-8c6f-05e86988518f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:02:38 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cced27cb-65af-4f6d-b3a9-86ab6b8fa31a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:02:53 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 92556130-2397-4d6e-8d18-bec47be2a178
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:03:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 17355ae4-8d21-4867-ac32-33b0d7987343
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:03:23 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b3d05c52-430b-4ff6-82a8-1b9bf83cc436
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:03:38 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0d85e671-954d-4f80-9952-e4621d7199ec
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:03:53 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 53fb6d8f-8bcf-41a5-ade2-ab4981cf14b5
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:04:09 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5ca235c6-50d2-40f2-b1d0-07e57c261575
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:04:24 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8d491416-6f92-44b4-b7bd-d6fa5152f99b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:04:39 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 062f6e61-fc51-4270-b0ae-d311633f41b2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:04:54 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 46cc5c1d-a50f-4e92-b727-078c6a4e889d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deploying", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T11:58:10.870603Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "571"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:05:09 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 80137b83-7df6-49a4-8fbc-1864b5939ce6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"ready", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":1, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T12:05:22.803542Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: GET
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"ready", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":1, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T12:05:22.803542Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "567"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:05:24 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b62bfabd-c11f-4f7e-843d-ae33c7cc172c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deleting", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":1, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T12:05:24.547141Z", "region":"fr-srr"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/deployments/8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2
+    method: DELETE
+  response:
+    body: '{"id":"8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2", "name":"cli-llm-laughing-wescoff",
+      "project_id":"894cc948-1194-4357-9320-57cefcb7b0e5", "status":"deleting", "tags":[],
+      "node_type":"L4", "endpoints":[{"id":"49609c7e-e93e-4fc4-b800-0b7a2204f7ac",
+      "url":"https://8625d6ae-7e86-4ffc-99b8-f3cedd2a53a2.ifr.fr-srr.scw.cloud", "public_access":{},
+      "disable_auth":false}], "size":1, "min_size":1, "max_size":1, "error_message":null,
+      "model_name":"meta/llama-2-7b-chat:fp16", "created_at":"2024-05-28T11:49:47.317248Z",
+      "updated_at":"2024-05-28T12:05:24.547141Z", "region":"fr-srr"}'
+    headers:
+      Content-Length:
+      - "570"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:05:24 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b5517fe8-5f65-43e1-8907-e0c63028cdcf
+    status: 200 OK
+    code: 200
+    duration: ""

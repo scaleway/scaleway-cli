@@ -1,0 +1,143 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"models":[{"id":"9fb33bef-b54a-41a9-aae5-6413d868206e", "name":"meta/llama-3-8b-instruct:bf16",
+      "project_id":"", "tags":["instruct", "chat"], "description":"Efficient 8B-param
+      model by Meta, fine-tuned for instruction and automation.", "is_public":true,
+      "created_at":"2024-03-14T00:00:00Z", "updated_at":"2024-05-28T09:53:11.025447Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["L4"], "quantization_level":"bf16",
+      "region":"fr-srr"}, {"id":"161e9d67-179a-494e-a2c7-3eb64765386a", "name":"mistral/mixtral-8x7b-instruct-v0.1:fp16",
+      "project_id":"", "tags":["instruct"], "description":"A high-quality Mixture
+      of Experts (MoE) model with open weights by Mistral AI, licensed under Apache
+      2.0.", "is_public":true, "created_at":"2024-03-15T00:00:00Z", "updated_at":"2024-05-28T09:53:10.973841Z",
+      "has_eula":false, "provider":"mistral", "compatible_node_types":["H100-2"],
+      "quantization_level":"fp16", "region":"fr-srr"}, {"id":"075f2d69-0dd3-494c-8c5d-5fe92fae2861",
+      "name":"mistral/mixtral-8x7b-instruct-v0.1:int8", "project_id":"", "tags":["instruct"],
+      "description":"A high-quality Mixture of Experts (MoE) model with open weights
+      by Mistral AI, licensed under Apache 2.0.", "is_public":true, "created_at":"2024-03-15T00:00:00Z",
+      "updated_at":"2024-05-28T09:53:10.989170Z", "has_eula":false, "provider":"mistral",
+      "compatible_node_types":["H100"], "quantization_level":"int8", "region":"fr-srr"},
+      {"id":"10d14b72-5d15-4248-9459-7cf7ac11cc74", "name":"meta/llama-2-70b-chat:fp16",
+      "project_id":"", "tags":["chat"], "description":"70B-param model by Meta, a
+      powerhouse for creative text generation and complex reasoning.", "is_public":true,
+      "created_at":"2024-03-15T10:00:00Z", "updated_at":"2024-05-28T09:53:10.950588Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["H100-2"], "quantization_level":"fp16",
+      "region":"fr-srr"}, {"id":"75d9b7f2-50c8-455f-8fbb-17c43722d74c", "name":"meta/llama-2-7b-chat:fp16",
+      "project_id":"", "tags":["chat"], "description":"Efficient 7B-param model by
+      Meta, fine-tuned for swift and dynamic chat engagement.", "is_public":true,
+      "created_at":"2024-03-15T10:00:00Z", "updated_at":"2024-05-28T09:53:10.909140Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["H100", "L4"],
+      "quantization_level":"fp16", "region":"fr-srr"}, {"id":"414dbb8d-8c94-4962-b2c3-ead0c1b24328",
+      "name":"meta/llama-2-7b-chat:fp8", "project_id":"", "tags":["chat"], "description":"Efficient
+      7B-param model by Meta, fine-tuned for swift and dynamic chat engagement.",
+      "is_public":true, "created_at":"2024-03-15T10:00:00Z", "updated_at":"2024-05-28T09:53:10.887230Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["H100", "L4"],
+      "quantization_level":"fp8", "region":"fr-srr"}, {"id":"adcd1c5a-947e-4bc3-a3da-0b060810e141",
+      "name":"meta/llama-2-70b-chat:fp8", "project_id":"", "tags":["chat"], "description":"70B-param
+      model by Meta, a powerhouse for creative text generation and complex reasoning.",
+      "is_public":true, "created_at":"2024-03-15T10:00:00Z", "updated_at":"2024-05-28T09:53:10.931637Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["H100"], "quantization_level":"fp8",
+      "region":"fr-srr"}, {"id":"31289412-3ac4-4685-bd31-2190e1410bbb", "name":"wizardlm/wizardlm-70b-v1.0:fp8",
+      "project_id":"", "tags":["instruct"], "description":"General use 70B-param model
+      based on Llama 2.", "is_public":true, "created_at":"2024-03-15T12:00:00Z", "updated_at":null,
+      "has_eula":true, "provider":"wizardlm", "compatible_node_types":["H100"], "quantization_level":"fp8",
+      "region":"fr-srr"}, {"id":"6fee166f-78b7-4ea4-992f-2748b8160517", "name":"wizardlm/wizardlm-70b-v1.0:fp16",
+      "project_id":"", "tags":["instruct"], "description":"General use 70B-param model
+      based on Llama 2.", "is_public":true, "created_at":"2024-03-15T12:00:00Z", "updated_at":"2024-05-28T09:53:11.010997Z",
+      "has_eula":true, "provider":"wizardlm", "compatible_node_types":["H100-2"],
+      "quantization_level":"fp16", "region":"fr-srr"}, {"id":"b2fbe0c8-8502-4b67-a712-2c6b9e73dd6c",
+      "name":"sentence-transformers/sentence-t5-xxl:fp32", "project_id":"", "tags":["embedding"],
+      "description":"Model from pre-trained Text-to-Text sentence encode.", "is_public":true,
+      "created_at":"2024-05-16T13:28:53.500902Z", "updated_at":"2024-05-28T09:53:11.063805Z",
+      "has_eula":false, "provider":"sentence-transformers", "compatible_node_types":["L4"],
+      "quantization_level":"fp32", "region":"fr-srr"}, {"id":"ec59ff4a-5971-4373-958c-c0ed3d6fb179",
+      "name":"meta/llama-3-70b-instruct:int8", "project_id":"", "tags":["instruct",
+      "chat"], "description":"Latest 70B-param model from Meta, fine-tuned for instruction
+      and automation.", "is_public":true, "created_at":"2024-05-23T10:01:37.835735Z",
+      "updated_at":"2024-05-28T09:53:11.047029Z", "has_eula":true, "provider":"meta",
+      "compatible_node_types":["H100"], "quantization_level":"int8", "region":"fr-srr"}],
+      "total_count":11}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.22.2; darwin; amd64) cli-e2e-test
+    url: https://agw.stg.fr-par-2.internal.scaleway.com/llm-inference/v1beta1/regions/fr-srr/models?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"models":[{"id":"9fb33bef-b54a-41a9-aae5-6413d868206e", "name":"meta/llama-3-8b-instruct:bf16",
+      "project_id":"", "tags":["instruct", "chat"], "description":"Efficient 8B-param
+      model by Meta, fine-tuned for instruction and automation.", "is_public":true,
+      "created_at":"2024-03-14T00:00:00Z", "updated_at":"2024-05-28T09:53:11.025447Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["L4"], "quantization_level":"bf16",
+      "region":"fr-srr"}, {"id":"161e9d67-179a-494e-a2c7-3eb64765386a", "name":"mistral/mixtral-8x7b-instruct-v0.1:fp16",
+      "project_id":"", "tags":["instruct"], "description":"A high-quality Mixture
+      of Experts (MoE) model with open weights by Mistral AI, licensed under Apache
+      2.0.", "is_public":true, "created_at":"2024-03-15T00:00:00Z", "updated_at":"2024-05-28T09:53:10.973841Z",
+      "has_eula":false, "provider":"mistral", "compatible_node_types":["H100-2"],
+      "quantization_level":"fp16", "region":"fr-srr"}, {"id":"075f2d69-0dd3-494c-8c5d-5fe92fae2861",
+      "name":"mistral/mixtral-8x7b-instruct-v0.1:int8", "project_id":"", "tags":["instruct"],
+      "description":"A high-quality Mixture of Experts (MoE) model with open weights
+      by Mistral AI, licensed under Apache 2.0.", "is_public":true, "created_at":"2024-03-15T00:00:00Z",
+      "updated_at":"2024-05-28T09:53:10.989170Z", "has_eula":false, "provider":"mistral",
+      "compatible_node_types":["H100"], "quantization_level":"int8", "region":"fr-srr"},
+      {"id":"10d14b72-5d15-4248-9459-7cf7ac11cc74", "name":"meta/llama-2-70b-chat:fp16",
+      "project_id":"", "tags":["chat"], "description":"70B-param model by Meta, a
+      powerhouse for creative text generation and complex reasoning.", "is_public":true,
+      "created_at":"2024-03-15T10:00:00Z", "updated_at":"2024-05-28T09:53:10.950588Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["H100-2"], "quantization_level":"fp16",
+      "region":"fr-srr"}, {"id":"75d9b7f2-50c8-455f-8fbb-17c43722d74c", "name":"meta/llama-2-7b-chat:fp16",
+      "project_id":"", "tags":["chat"], "description":"Efficient 7B-param model by
+      Meta, fine-tuned for swift and dynamic chat engagement.", "is_public":true,
+      "created_at":"2024-03-15T10:00:00Z", "updated_at":"2024-05-28T09:53:10.909140Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["H100", "L4"],
+      "quantization_level":"fp16", "region":"fr-srr"}, {"id":"414dbb8d-8c94-4962-b2c3-ead0c1b24328",
+      "name":"meta/llama-2-7b-chat:fp8", "project_id":"", "tags":["chat"], "description":"Efficient
+      7B-param model by Meta, fine-tuned for swift and dynamic chat engagement.",
+      "is_public":true, "created_at":"2024-03-15T10:00:00Z", "updated_at":"2024-05-28T09:53:10.887230Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["H100", "L4"],
+      "quantization_level":"fp8", "region":"fr-srr"}, {"id":"adcd1c5a-947e-4bc3-a3da-0b060810e141",
+      "name":"meta/llama-2-70b-chat:fp8", "project_id":"", "tags":["chat"], "description":"70B-param
+      model by Meta, a powerhouse for creative text generation and complex reasoning.",
+      "is_public":true, "created_at":"2024-03-15T10:00:00Z", "updated_at":"2024-05-28T09:53:10.931637Z",
+      "has_eula":true, "provider":"meta", "compatible_node_types":["H100"], "quantization_level":"fp8",
+      "region":"fr-srr"}, {"id":"31289412-3ac4-4685-bd31-2190e1410bbb", "name":"wizardlm/wizardlm-70b-v1.0:fp8",
+      "project_id":"", "tags":["instruct"], "description":"General use 70B-param model
+      based on Llama 2.", "is_public":true, "created_at":"2024-03-15T12:00:00Z", "updated_at":null,
+      "has_eula":true, "provider":"wizardlm", "compatible_node_types":["H100"], "quantization_level":"fp8",
+      "region":"fr-srr"}, {"id":"6fee166f-78b7-4ea4-992f-2748b8160517", "name":"wizardlm/wizardlm-70b-v1.0:fp16",
+      "project_id":"", "tags":["instruct"], "description":"General use 70B-param model
+      based on Llama 2.", "is_public":true, "created_at":"2024-03-15T12:00:00Z", "updated_at":"2024-05-28T09:53:11.010997Z",
+      "has_eula":true, "provider":"wizardlm", "compatible_node_types":["H100-2"],
+      "quantization_level":"fp16", "region":"fr-srr"}, {"id":"b2fbe0c8-8502-4b67-a712-2c6b9e73dd6c",
+      "name":"sentence-transformers/sentence-t5-xxl:fp32", "project_id":"", "tags":["embedding"],
+      "description":"Model from pre-trained Text-to-Text sentence encode.", "is_public":true,
+      "created_at":"2024-05-16T13:28:53.500902Z", "updated_at":"2024-05-28T09:53:11.063805Z",
+      "has_eula":false, "provider":"sentence-transformers", "compatible_node_types":["L4"],
+      "quantization_level":"fp32", "region":"fr-srr"}, {"id":"ec59ff4a-5971-4373-958c-c0ed3d6fb179",
+      "name":"meta/llama-3-70b-instruct:int8", "project_id":"", "tags":["instruct",
+      "chat"], "description":"Latest 70B-param model from Meta, fine-tuned for instruction
+      and automation.", "is_public":true, "created_at":"2024-05-23T10:01:37.835735Z",
+      "updated_at":"2024-05-28T09:53:11.047029Z", "has_eula":true, "provider":"meta",
+      "compatible_node_types":["H100"], "quantization_level":"int8", "region":"fr-srr"}],
+      "total_count":11}'
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 May 2024 12:05:24 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cd31f622-9719-4707-aa1a-c6a399745f15
+    status: 200 OK
+    code: 200
+    duration: ""
