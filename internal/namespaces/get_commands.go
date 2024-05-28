@@ -19,6 +19,7 @@ import (
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/help"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
@@ -96,6 +97,7 @@ func GetCommands() *core.Commands {
 		jobs.GetCommands(),
 		serverless_sqldb.GetCommands(),
 		llm_inference.GetCommands(),
+		inference.GetCommands(),
 	)
 
 	//if beta {}
