@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID         9880f7f0-ed6a-495c-99fa-d4ff4b80e648
-Name       cli-llm-gifted-liskov
-ProjectID  894cc948-1194-4357-9320-57cefcb7b0e5
+ID         d76467d6-ab64-4a28-be5e-5e4c7c72c826
+Name       cli-llm-gallant-euler
+ProjectID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
 Status     creating
 NodeType   L4
 Size       0
@@ -10,23 +10,23 @@ MinSize    1
 MaxSize    1
 ModelName  meta/llama-3-8b-instruct:bf16
 CreatedAt  few seconds ago
-Region     fr-srr
+Region     fr-par
 
 Endpoints:
 ID                                    URL                                                                DISABLE AUTH
-eefe321d-9a57-4388-bc37-5ecc3b94fb0e  https://9880f7f0-ed6a-495c-99fa-d4ff4b80e648.ifr.fr-srr.scw.cloud  false
+c1e652a2-349e-4be0-86c1-2835f2a8f4bc  https://d76467d6-ab64-4a28-be5e-5e4c7c72c826.ifr.fr-par.scw.cloud  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "9880f7f0-ed6a-495c-99fa-d4ff4b80e648",
-  "name": "cli-llm-gifted-liskov",
-  "project_id": "894cc948-1194-4357-9320-57cefcb7b0e5",
+  "id": "d76467d6-ab64-4a28-be5e-5e4c7c72c826",
+  "name": "cli-llm-gallant-euler",
+  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "status": "creating",
   "tags": [],
   "node_type": "L4",
   "endpoints": [
     {
-      "id": "eefe321d-9a57-4388-bc37-5ecc3b94fb0e",
-      "url": "https://9880f7f0-ed6a-495c-99fa-d4ff4b80e648.ifr.fr-srr.scw.cloud",
+      "id": "c1e652a2-349e-4be0-86c1-2835f2a8f4bc",
+      "url": "https://d76467d6-ab64-4a28-be5e-5e4c7c72c826.ifr.fr-par.scw.cloud",
       "public_access": {},
       "disable_auth": false
     }
@@ -38,5 +38,5 @@ eefe321d-9a57-4388-bc37-5ecc3b94fb0e  https://9880f7f0-ed6a-495c-99fa-d4ff4b80e6
   "model_name": "meta/llama-3-8b-instruct:bf16",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": null,
-  "region": "fr-srr"
+  "region": "fr-par"
 }

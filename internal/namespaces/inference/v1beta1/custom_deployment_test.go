@@ -12,7 +12,7 @@ func Test_DeploymentCreate(t *testing.T) {
 	//t.Skip("Out of stock")
 	cmds := inference.GetCommands()
 
-	t.Run("Single public endpoint", core.Test(&core.TestConfig{
+	t.Run("Simple deployment", core.Test(&core.TestConfig{
 		Commands:  cmds,
 		Cmd:       "scw inference deployment create node-type=L4 model-name=meta/llama-3-8b-instruct:bf16 accept-eula=true",
 		Check:     core.TestCheckGolden(),
@@ -21,7 +21,7 @@ func Test_DeploymentCreate(t *testing.T) {
 
 	t.Run("Deployment with wait flag", core.Test(&core.TestConfig{
 		Commands:  cmds,
-		Cmd:       "scw inference deployment create model-name=meta/llama-2-7b-chat:fp16 node-type=L4 accept-eula=true -w",
+		Cmd:       "scw inference deployment create node-type=L4 model-name=meta/llama-3-8b-instruct:bf16 accept-eula=true --wait",
 		Check:     core.TestCheckGolden(),
 		AfterFunc: core.ExecAfterCmd("scw inference deployment delete {{ .CmdResult.ID }}"),
 	}))
