@@ -167,6 +167,7 @@ scw baremetal offer list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | subscription-period | One of: `unknown_subscription_period`, `hourly`, `monthly` | Subscription period type to filter offers by |
+| name |  | Offer name to filter offers by |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
