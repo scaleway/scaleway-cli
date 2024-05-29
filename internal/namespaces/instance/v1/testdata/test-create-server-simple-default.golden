@@ -184,5 +184,7 @@ Zone                          fr-par-1
   "arch": "x86_64",
   "placement_group": null,
   "private_nics": [],
-  "zone": "fr-par-1"
+  "zone": "fr-par-1",
+  "admin_password_encryption_ssh_key_id": null,
+  "admin_password_encrypted_value": null
 }
