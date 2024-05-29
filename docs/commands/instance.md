@@ -2240,6 +2240,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | placement-group-id |  | Placement group ID if Instance must be part of a placement group |
 | private-nics.{index} |  | Instance private NICs |
 | commercial-type |  | Set the commercial_type for this Instance. |
+| admin-password-encryption-ssh-key-id |  | UUID of the SSH RSA key that will be used to encrypt the initial admin password for OS requiring it. Mandatory for Windows OS. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
