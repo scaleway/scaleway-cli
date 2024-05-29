@@ -304,7 +304,7 @@ scw k8s cluster list-available-versions 11111111-1111-1111-111111111111
 
 ### Migrate an existing cluster to a Private Network cluster
 
-Migrate a cluster that was created before the release of Private Network clusters to a new one with a Private Network. If none is provided, a private network will be created
+Migrate a cluster that was created before the release of Private Network clusters to a new one with a Private Network.
 
 **Usage:**
 
@@ -318,7 +318,7 @@ scw k8s cluster migrate-to-private-network <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | ID of the cluster to migrate |
-| private-network-id |  | ID of the Private Network to link to the cluster. If none is provided, a private network will be created |
+| private-network-id | Required | ID of the Private Network to link to the cluster |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
