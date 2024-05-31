@@ -6,6 +6,7 @@ This API allows you to manage your Web Hosting services.
   - ["List the control panels type: cpanel or plesk."](#"list-the-control-panels-type:-cpanel-or-plesk.")
 - [Hosting management commands](#hosting-management-commands)
   - [Order a Web Hosting plan](#order-a-web-hosting-plan)
+  - [Create a user session](#create-a-user-session)
   - [Delete a Web Hosting plan](#delete-a-web-hosting-plan)
   - [Get a Web Hosting plan](#get-a-web-hosting-plan)
   - [Get DNS records](#get-dns-records)
@@ -71,6 +72,26 @@ scw webhosting hosting create [arg=value ...]
 | domain-configuration.update-web-record |  |  |
 | domain-configuration.update-mail-record |  |  |
 | domain-configuration.update-all-records |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Create a user session
+
+Create a user session.
+
+**Usage:**
+
+```
+scw webhosting hosting create-session [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | Hosting ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
