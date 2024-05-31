@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   create          Order a Web Hosting plan
+  create-session  Create a user session
   delete          Delete a Web Hosting plan
   get             Get a Web Hosting plan
   get-dns-records Get DNS records
