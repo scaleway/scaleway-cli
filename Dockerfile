@@ -21,7 +21,7 @@ COPY .git/ .git/
 
 RUN ./scripts/build.sh
 
-FROM alpine:3.19
+FROM alpine:3.20
 WORKDIR /
 RUN apk update && apk add --no-cache bash ca-certificates openssh-client && update-ca-certificates
 COPY --from=builder /go/src/github.com/scaleway/scaleway-cli/scw .
