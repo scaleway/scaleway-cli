@@ -8,7 +8,7 @@ require (
 	github.com/alecthomas/assert v1.0.0
 	github.com/buildpacks/pack v0.34.1
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/charmbracelet/bubbletea v0.26.3
+	github.com/charmbracelet/bubbletea v0.26.4
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.4
 	github.com/dnaeon/go-vcr v1.2.0
@@ -77,7 +77,7 @@ require (
 	github.com/buildpacks/imgutil v0.0.0-20240514200737-4af87862ff7e // indirect
 	github.com/buildpacks/lifecycle v0.19.6 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
-	github.com/charmbracelet/x/ansi v0.1.1 // indirect
+	github.com/charmbracelet/x/ansi v0.1.2 // indirect
 	github.com/charmbracelet/x/input v0.1.0 // indirect
 	github.com/charmbracelet/x/term v0.1.1 // indirect
 	github.com/charmbracelet/x/windows v0.1.0 // indirect
