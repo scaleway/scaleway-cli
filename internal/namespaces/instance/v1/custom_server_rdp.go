@@ -11,6 +11,7 @@ import (
 	"reflect"
 	"strings"
 
+	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"golang.org/x/crypto/ssh"
 
@@ -77,18 +78,18 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 
 	client := core.ExtractClient(ctx)
 	apiInstance := instance.NewAPI(client)
-	resp, err := apiInstance.GetEncryptedRdpPassword(&instance.GetEncryptedRdpPasswordRequest{
+	resp, err := apiInstance.GetServer(&instance.GetServerRequest{
 		Zone:     args.Zone,
 		ServerID: args.ServerID,
 	})
 	if err != nil {
 		return nil, err
 	}
-	if resp.Value == nil {
+	if resp.Server.AdminPasswordEncryptedValue == nil {
 		return nil, fmt.Errorf("rdp password is nil")
 	}
 
-	encryptedRdpPassword, err := base64.StdEncoding.DecodeString(*resp.Value)
+	encryptedRdpPassword, err := base64.StdEncoding.DecodeString(*resp.Server.AdminPasswordEncryptedValue)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode base64 encoded rdp password: %w", err)
 	}
@@ -99,17 +100,25 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 	}
 
 	sshKeyDescription := ""
-	if resp.SSHKeyDescription != nil {
-		sshKeyDescription = *resp.SSHKeyDescription
+	if resp.Server.AdminPasswordEncryptionSSHKeyID != nil {
+		iamAPI := iam.NewAPI(client)
+		key, err := iamAPI.GetSSHKey(&iam.GetSSHKeyRequest{
+			SSHKeyID: *resp.Server.AdminPasswordEncryptionSSHKeyID,
+		})
+		if err == nil {
+			sshKeyDescription = key.Name
+		}
 	}
 
 	return struct {
 		Username          string
 		Password          string
+		SSHKeyID          *string
 		SSHKeyDescription string
 	}{
 		Username:          "Administrator",
 		Password:          string(password),
+		SSHKeyID:          resp.Server.AdminPasswordEncryptionSSHKeyID,
 		SSHKeyDescription: sshKeyDescription,
 	}, err
 }
