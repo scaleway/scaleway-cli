@@ -1,6 +1,8 @@
 package namespaces
 
 import (
+	"os"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
@@ -28,6 +30,7 @@ import (
 	ipfs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipfs/v1alpha1"
 	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
+	key_manager "github.com/scaleway/scaleway-cli/v2/internal/namespaces/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	llm_inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/llm_inference/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
@@ -44,10 +47,11 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 // Enable beta in the code when products are in beta
-//var beta = os.Getenv(scw.ScwEnableBeta) == "true"
+var beta = os.Getenv(scw.ScwEnableBeta) == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
@@ -100,7 +104,11 @@ func GetCommands() *core.Commands {
 		inference.GetCommands(),
 	)
 
-	//if beta {}
+	if beta {
+		commands.Merge(
+			key_manager.GetCommands(),
+		)
+	}
 
 	return commands
 }
