@@ -1,0 +1,38 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Dedibox Phoenix API.
+
+USAGE:
+  scw dedibox <command>
+
+AVAILABLE COMMANDS:
+  account-info Account possibility of ordering commands
+  billing      Billing commands
+  bmc          BMC (Baseboard Management Controller) access commands
+  fip          Failover IPs commands
+  invoice      Invoice commands
+  ipv6-block   IPv6 block commands
+  offer        Offer commands
+  option       Subscribable server options commands
+  os           OS commands
+  raid         RAID commands
+  refund       Refund commands
+  rescue       Rescue commands
+  reverse-ip   Reverse-IP commands
+  rpn-info     RPN's information commands
+  rpn-v1       RPN V1 commands
+  rpn-v2       
+  san          RPN SAN (Storage Area Network) commands
+  server       Baremetal server commands
+  service      Service commands
+
+FLAGS:
+  -h, --help   help for dedibox
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw dedibox [command] --help" for more information about a command.
