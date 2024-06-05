@@ -3717,6 +3717,13 @@ func instancePrivateNicCreate() *core.Command {
 				Name:       "ip-ids.{index}",
 				Short:      `Ip_ids defined from IPAM`,
 				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-ip-ids.{index}",
+				Short:      `UUID of IPAM ips, to be attached to the instance in the requested private network`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
