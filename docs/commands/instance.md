@@ -60,6 +60,7 @@ This API allows you to manage your Instances.
   - [Detach a volume from its server](#detach-a-volume-from-its-server)
   - [Migrate server to IP mobility](#migrate-server-to-ip-mobility)
   - [Get an Instance](#get-an-instance)
+  - [Get your server rdp and decrypt it using your ssh key](#get-your-server-rdp-and-decrypt-it-using-your-ssh-key)
   - [List all Instances](#list-all-instances)
   - [List Instance actions](#list-instance-actions)
   - [Reboot server](#reboot-server)
@@ -1919,6 +1920,27 @@ Get the Instance with its specified ID
 scw instance server get 94ededdf-358d-4019-9886-d754f8a2e78d
 ```
 
+
+
+
+### Get your server rdp and decrypt it using your ssh key
+
+
+
+**Usage:**
+
+```
+scw instance server get-rdp-password <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | Server ID to connect to |
+| key | Default: `~/.ssh/id_rsa` | Path of the SSH key used to decrypt the rdp password |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
