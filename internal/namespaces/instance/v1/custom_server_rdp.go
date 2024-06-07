@@ -67,8 +67,9 @@ func instanceServerGetRdpPassword() *core.Command {
 			args := argsI.(*instanceServerGetRdpPasswordRequest)
 			apiInstance := instance.NewAPI(core.ExtractClient(ctx))
 			_, err := apiInstance.WaitForServerRDPPassword(&instance.WaitForServerRDPPasswordRequest{
-				Zone:     args.Zone,
-				ServerID: args.ServerID,
+				Zone:          args.Zone,
+				ServerID:      args.ServerID,
+				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
 				return nil, err

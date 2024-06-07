@@ -12,18 +12,56 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	iamCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"golang.org/x/crypto/ssh"
 )
 
+// tryLoadKey will try to load an RSA SSH Key from given path.
+// If not found, it will generate the key and create the file.
+func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
+	pemContent, err := os.ReadFile(path)
+	if err != nil && !os.IsNotExist(err) {
+		return nil, fmt.Errorf("failed to read test key: %w", err)
+	}
+
+	if len(pemContent) == 0 {
+		privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
+		if err != nil {
+			return nil, fmt.Errorf("failed to generate key: %w", err)
+		}
+		privatePEM, err := ssh.MarshalPrivateKey(privateKey, "test-cli-instance-server-get-rdp-password")
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal private key: %w", err)
+		}
+		pemContent = pem.EncodeToMemory(privatePEM)
+		err = os.WriteFile(path, pemContent, 0600)
+		if err != nil {
+			return nil, fmt.Errorf("failed to save test key: %w", err)
+		}
+	}
+
+	key, err := ssh.ParseRawPrivateKey(pemContent)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse test key: %w", err)
+	}
+
+	privateKey, ok := key.(*rsa.PrivateKey)
+	if !ok {
+		return nil, fmt.Errorf("failed to assert private key type, expected *rsa.PrivateKey, got: %v", reflect.TypeOf(privateKey))
+	}
+
+	return privateKey, nil
+}
+
 // generateRSASSHKey generates an RSA SSH Key and upload it to IAM.
 // IAMSSHKey object is stored in metaKey.
 func generateRSASSHKey(metaKey string) func(beforeFunc *core.BeforeFuncCtx) error {
 	return func(ctx *core.BeforeFuncCtx) error {
-		privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
+		privateKey, err := loadRSASSHKey("testfixture/id_rsa")
 		if err != nil {
-			return fmt.Errorf("failed to generate private key: %w", err)
+			return fmt.Errorf("failed to load private key: %w", err)
 		}
 		privatePEM, err := ssh.MarshalPrivateKey(privateKey, "test-cli-instance-server-get-rdp-password")
 		if err != nil {
@@ -72,7 +110,10 @@ func generateRSASSHKey(metaKey string) func(beforeFunc *core.BeforeFuncCtx) erro
 
 func Test_ServerGetRdpPassword(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
+		Commands: core.NewCommandsMerge(
+			instance.GetCommands(),
+			iamCLI.GetCommands(),
+		),
 		BeforeFunc: core.BeforeFuncCombine(
 			generateRSASSHKey("SSHKey"),
 			core.ExecStoreBeforeCmd("Server", "scw instance server create type=POP2-2C-8G-WIN image=windows_server_2022 admin-password-encryption-ssh-key-id={{.SSHKey.ID}}"),
@@ -93,20 +134,7 @@ func Test_ServerGetRdpPassword(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			core.ExecAfterCmd("scw instance server terminate {{.Server.ID}}"),
-			func(ctx *core.AfterFuncCtx) error {
-				key, exists := ctx.Meta["SSHKey"]
-				if !exists {
-					return fmt.Errorf("missing ssh key")
-				}
-				sshKey, isSSHKey := key.(*iam.SSHKey)
-				if !isSSHKey {
-					return fmt.Errorf("expected ssh key")
-				}
-
-				return iam.NewAPI(ctx.Client).DeleteSSHKey(&iam.DeleteSSHKeyRequest{
-					SSHKeyID: sshKey.ID,
-				})
-			},
+			core.ExecAfterCmd("scw iam ssh-key delete {{.SSHKey.ID}}"),
 		),
 		TmpHomeDir: true,
 	}))
