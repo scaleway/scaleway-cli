@@ -33,6 +33,9 @@ type instanceCreateServerRequest struct {
 	SecurityGroupID   string
 	PlacementGroupID  string
 
+	// Windows
+	AdminPasswordEncryptionSSHKeyID *string
+
 	// IP Mobility
 	RoutedIPEnabled *bool
 
@@ -129,6 +132,11 @@ func serverCreateCommand() *core.Command {
 				Name:  "routed-ip-enabled",
 				Short: "Enable routed IP support",
 			},
+			{
+				Name:             "admin-password-encryption-ssh-key-id",
+				Short:            "ID of the IAM SSH Key used to encrypt generated admin password",
+				AutoCompleteFunc: completeSSHKeyID,
+			},
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 			core.OrganizationIDArgSpec(),
@@ -190,14 +198,15 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	needIPCreation := false
 
 	serverReq := &instance.CreateServerRequest{
-		Zone:            args.Zone,
-		Organization:    args.OrganizationID,
-		Project:         args.ProjectID,
-		Name:            args.Name,
-		CommercialType:  args.Type,
-		EnableIPv6:      scw.BoolPtr(args.IPv6),
-		Tags:            args.Tags,
-		RoutedIPEnabled: args.RoutedIPEnabled,
+		Zone:                            args.Zone,
+		Organization:                    args.OrganizationID,
+		Project:                         args.ProjectID,
+		Name:                            args.Name,
+		CommercialType:                  args.Type,
+		EnableIPv6:                      scw.BoolPtr(args.IPv6),
+		Tags:                            args.Tags,
+		RoutedIPEnabled:                 args.RoutedIPEnabled,
+		AdminPasswordEncryptionSSHKeyID: args.AdminPasswordEncryptionSSHKeyID,
 	}
 
 	client := core.ExtractClient(ctx)
