@@ -134,7 +134,7 @@ func serverCreateCommand() *core.Command {
 			},
 			{
 				Name:             "admin-password-encryption-ssh-key-id",
-				Short:            "ID of the IAM SSH Key used to encrypt generated admin password",
+				Short:            "ID of the IAM SSH Key used to encrypt generated admin password. Required when creating a windows server.",
 				AutoCompleteFunc: completeSSHKeyID,
 			},
 			core.ProjectIDArgSpec(),
@@ -212,6 +212,16 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	client := core.ExtractClient(ctx)
 	apiMarketplace := marketplace.NewAPI(client)
 	apiInstance := instance.NewAPI(client)
+
+	if commercialTypeIsWindowsServer(serverReq.CommercialType) && serverReq.AdminPasswordEncryptionSSHKeyID == nil {
+		return nil, &core.CliError{
+			Err:     core.MissingRequiredArgumentError("admin-password-encryption-ssh-key-id").Err,
+			Details: "Expected a SSH Key ID to encrypt Admin RDP password. If not provided, not password will be generated. Key must be RSA Public Key.",
+			Hint:    "Use completion or get your ssh key id using 'scw iam ssh-key list',",
+			Code:    1,
+			Empty:   false,
+		}
+	}
 
 	//
 	// Image.
