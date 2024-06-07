@@ -12,7 +12,7 @@
 /internal/namespaces/config/ @Codelax
 /internal/namespaces/container/ @Codelax
 /internal/namespaces/documentdb/ @jremy42
-/internal/namespaces/domain/ @yfodil
+/internal/namespaces/domain/ @jremy42
 /internal/namespaces/feedback/ @Codelax
 /internal/namespaces/flexibleip/ @yfodil
 /internal/namespaces/function/ @Codelax
@@ -28,7 +28,7 @@
 /internal/namespaces/lb/ @yfodil
 /internal/namespaces/llm_inference/ @Laure-di
 /internal/namespaces/marketplace/ @Codelax
-/internal/namespaces/mnq/ @Codelax
+/internal/namespaces/mnq/ @jremy42
 /internal/namespaces/object/ @Laure-di
 /internal/namespaces/rdb/ @jremy42
 /internal/namespaces/redis/ @jremy42
