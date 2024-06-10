@@ -216,7 +216,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	if commercialTypeIsWindowsServer(serverReq.CommercialType) && serverReq.AdminPasswordEncryptionSSHKeyID == nil {
 		return nil, &core.CliError{
 			Err:     core.MissingRequiredArgumentError("admin-password-encryption-ssh-key-id").Err,
-			Details: "Expected a SSH Key ID to encrypt Admin RDP password. If not provided, not password will be generated. Key must be RSA Public Key.",
+			Details: "Expected a SSH Key ID to encrypt Admin RDP password. If not provided, no password will be generated. Key must be RSA Public Key.",
 			Hint:    "Use completion or get your ssh key id using 'scw iam ssh-key list',",
 			Code:    1,
 			Empty:   false,
