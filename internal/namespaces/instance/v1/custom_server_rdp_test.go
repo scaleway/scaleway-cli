@@ -26,7 +26,7 @@ func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
 		return nil, fmt.Errorf("failed to read test key: %w", err)
 	}
 
-	if len(pemContent) == 0 {
+	if *core.UpdateCassettes {
 		privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
 		if err != nil {
 			return nil, fmt.Errorf("failed to generate key: %w", err)
@@ -40,6 +40,8 @@ func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
 		if err != nil {
 			return nil, fmt.Errorf("failed to save test key: %w", err)
 		}
+	} else if len(pemContent) == 0 {
+		return nil, fmt.Errorf("empty test key, should be updated with cassettes")
 	}
 
 	key, err := ssh.ParseRawPrivateKey(pemContent)
