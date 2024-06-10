@@ -3,7 +3,7 @@
 Missing required argument 'admin-password-encryption-ssh-key-id'
 
 Details:
-Expected a SSH Key ID to encrypt Admin RDP password. If not provided, not password will be generated. Key must be RSA Public Key.
+Expected a SSH Key ID to encrypt Admin RDP password. If not provided, no password will be generated. Key must be RSA Public Key.
 
 Hint:
 Use completion or get your ssh key id using 'scw iam ssh-key list',
@@ -11,6 +11,6 @@ Use completion or get your ssh key id using 'scw iam ssh-key list',
 {
   "message": "missing required argument 'admin-password-encryption-ssh-key-id'",
   "error": {},
-  "details": "Expected a SSH Key ID to encrypt Admin RDP password. If not provided, not password will be generated. Key must be RSA Public Key.",
+  "details": "Expected a SSH Key ID to encrypt Admin RDP password. If not provided, no password will be generated. Key must be RSA Public Key.",
   "hint": "Use completion or get your ssh key id using 'scw iam ssh-key list',"
 }
