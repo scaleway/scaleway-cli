@@ -213,7 +213,7 @@ DEPRECATED ARGS:
   {{- if or $command.IsAvailableCommand $command.Deprecated }}
   {{- if or ($command.ContainsGroup $group.ID) (and (eq $group.ID "utility") (eq $command.Name "help")) }}
   {{ rpad $command.Name .NamePadding }}
-  {{- if $command.Deprecated }}{{ if $command.Short }}{{ $command.Short }} (Deprecated){{ end }}
+  {{- if $command.Deprecated }} {{ if $command.Short }}{{ $command.Short }} (Deprecated){{ end }}
   {{- else }} {{ if $command.Short }}{{ $command.Short }}{{ end }}
 {{- end }}
 {{- end }}
