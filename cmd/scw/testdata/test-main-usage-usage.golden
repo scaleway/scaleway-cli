@@ -18,7 +18,6 @@ AVAILABLE COMMANDS:
   function      Function as a Service API
   help          Get help about how the CLI works
   iam           This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources
-  inference     This API allows you to manage your Inference services
   instance      This API allows you to manage your Instances
   iot           This API allows you to manage your IoT hubs and devices
   ipam          This API allows you to manage your Scaleway IP addresses with our IP Address Management tool
