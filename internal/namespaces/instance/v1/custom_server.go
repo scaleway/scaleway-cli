@@ -184,6 +184,9 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
 
+	// Add completion functions
+	c.ArgSpecs.GetByName("admin-password-encryption-ssh-key-id").AutoCompleteFunc = completeSSHKeyID
+
 	// Rename modified arg specs.
 	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
 	c.ArgSpecs.GetByName("security-group.id").Name = "security-group-id"

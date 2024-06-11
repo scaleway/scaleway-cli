@@ -26,9 +26,16 @@ type instanceServerGetRdpPasswordRequest struct {
 	Key      string
 }
 
+type ServerGetRdpPasswordResponse struct {
+	Username          string
+	Password          string
+	SSHKeyID          *string
+	SSHKeyDescription string
+}
+
 func instanceServerGetRdpPassword() *core.Command {
 	return &core.Command{
-		Short:     `Get your server rdp and decrypt it using your ssh key`,
+		Short:     `Get your server rdp password and decrypt it using your ssh key`,
 		Namespace: "instance",
 		Verb:      "get-rdp-password",
 		Resource:  "server",
@@ -51,6 +58,26 @@ func instanceServerGetRdpPassword() *core.Command {
 			core.ZoneArgSpec(),
 		},
 		Run: instanceServerGetRdpPasswordRun,
+		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+			// Wait only if response does not contain a password
+			if _, isPasswd := respI.(*ServerGetRdpPasswordResponse); isPasswd {
+				return respI, nil
+			}
+
+			args := argsI.(*instanceServerGetRdpPasswordRequest)
+			apiInstance := instance.NewAPI(core.ExtractClient(ctx))
+			_, err := apiInstance.WaitForServerRDPPassword(&instance.WaitForServerRDPPasswordRequest{
+				Zone:          args.Zone,
+				ServerID:      args.ServerID,
+				RetryInterval: core.DefaultRetryInterval,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			// Retry command now that encrypted password is available
+			return instanceServerGetRdpPasswordRun(ctx, argsI)
+		},
 	}
 }
 
@@ -85,8 +112,14 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 	if err != nil {
 		return nil, err
 	}
-	if resp.Server.AdminPasswordEncryptedValue == nil {
-		return nil, fmt.Errorf("rdp password is nil")
+	if resp.Server.AdminPasswordEncryptedValue == nil || *resp.Server.AdminPasswordEncryptedValue == "" {
+		return &core.CliError{
+			Err:     fmt.Errorf("rdp password is empty"),
+			Message: "RDP password is nil or empty in api response",
+			Details: "Your server have no RDP password available",
+			Hint:    "You may need to wait for your OS to start before having a generated RDP password, it can take more than 10 minutes.\nUse -w, --wait to wait for password to be available",
+			Code:    1,
+		}, nil
 	}
 
 	encryptedRdpPassword, err := base64.StdEncoding.DecodeString(*resp.Server.AdminPasswordEncryptedValue)
@@ -110,12 +143,7 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 		}
 	}
 
-	return struct {
-		Username          string
-		Password          string
-		SSHKeyID          *string
-		SSHKeyDescription string
-	}{
+	return &ServerGetRdpPasswordResponse{
 		Username:          "Administrator",
 		Password:          string(password),
 		SSHKeyID:          resp.Server.AdminPasswordEncryptionSSHKeyID,
@@ -148,4 +176,21 @@ func parsePrivateKey(ctx context.Context, key []byte) (any, error) {
 	}
 
 	return privateKey, nil
+}
+
+func completeSSHKeyID(ctx context.Context, prefix string, _ any) core.AutocompleteSuggestions {
+	resp, err := iam.NewAPI(core.ExtractClient(ctx)).ListSSHKeys(&iam.ListSSHKeysRequest{}, scw.WithAllPages())
+	if err != nil {
+		return nil
+	}
+
+	suggestion := make([]string, 0, len(resp.SSHKeys))
+
+	for _, sshKey := range resp.SSHKeys {
+		if strings.HasPrefix(sshKey.ID, prefix) {
+			suggestion = append(suggestion, sshKey.ID)
+		}
+	}
+
+	return suggestion
 }

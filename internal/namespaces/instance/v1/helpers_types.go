@@ -28,3 +28,7 @@ func completeServerType(ctx context.Context, prefix string, createReq any) core.
 
 	return suggestions
 }
+
+func commercialTypeIsWindowsServer(commercialType string) bool {
+	return strings.HasSuffix(commercialType, "-WIN")
+}
