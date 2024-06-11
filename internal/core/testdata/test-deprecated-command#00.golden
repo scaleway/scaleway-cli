@@ -6,8 +6,8 @@ USAGE:
 AVAILABLE COMMANDS:
   a           short server
   server      short server
-  b          short server (Deprecated)
-  engine     short engine (Deprecated)
+  b           short server (Deprecated)
+  engine      short engine (Deprecated)
 
 FLAGS:
   -h, --help   help for instance
