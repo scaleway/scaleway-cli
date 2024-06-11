@@ -17,7 +17,7 @@ require (
 	github.com/fatih/color v1.17.0
 	github.com/getsentry/sentry-go v0.28.0
 	github.com/ghodss/yaml v1.0.0
-	github.com/gorilla/websocket v1.5.1
+	github.com/gorilla/websocket v1.5.2
 	github.com/hashicorp/go-version v1.7.0
 	github.com/karrick/tparse/v2 v2.8.2
 	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
