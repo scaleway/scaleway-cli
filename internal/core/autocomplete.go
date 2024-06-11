@@ -186,6 +186,9 @@ func BuildAutoCompleteTree(ctx context.Context, commands *Commands) *AutoComplet
 	globalFlags := getGlobalFlags(ctx)
 	root := NewAutoCompleteCommandNode(globalFlags)
 	for _, cmd := range commands.commands {
+		if cmd.Deprecated {
+			continue
+		}
 		node := root
 
 		// Creates nodes for namespaces, resources, verbs

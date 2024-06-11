@@ -161,7 +161,12 @@ func orderCobraCommands(cobraCommands []*cobra.Command) []*cobra.Command {
 	copy(commands, cobraCommands)
 
 	sort.Slice(commands, func(i, j int) bool {
-		return commands[i].Use < commands[j].Use
+		deprecatedI := commands[i].Deprecated != ""
+		deprecatedJ := commands[j].Deprecated != ""
+		if deprecatedI == deprecatedJ {
+			return commands[i].Use < commands[j].Use
+		}
+		return !deprecatedI && deprecatedJ
 	})
 	return commands
 }
