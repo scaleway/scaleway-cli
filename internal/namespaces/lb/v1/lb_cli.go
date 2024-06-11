@@ -544,6 +544,13 @@ func lbIPList() *core.Command {
 				EnumValues: []string{"all", "ipv4", "ipv6"},
 			},
 			{
+				Name:       "tags.{index}",
+				Short:      `Tag to filter for, only IPs with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned`,
 				Required:   false,
@@ -593,6 +600,13 @@ func lbIPCreate() *core.Command {
 			{
 				Name:       "is-ipv6",
 				Short:      `If true, creates a Flexible IP with an ipv6 address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `List of tags for the IP`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -704,6 +718,13 @@ func lbIPUpdate() *core.Command {
 			{
 				Name:       "lb-id",
 				Short:      `ID of the server on which to attach the flexible IP`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `List of tags for the IP`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

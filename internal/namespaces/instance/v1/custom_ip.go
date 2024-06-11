@@ -111,7 +111,7 @@ func ipAttachCommand() *core.Command {
 				Short:    "UUID of the server to attach the IP to",
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{
@@ -176,7 +176,7 @@ func ipDetachCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{

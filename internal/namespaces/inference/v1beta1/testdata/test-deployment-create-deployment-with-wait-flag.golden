@@ -1,0 +1,43 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID         c9702118-3ee5-4f7a-b993-230524079947
+Name       cli-llm-interesting-rhodes
+ProjectID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Status     ready
+NodeType   L4
+Size       1
+MinSize    1
+MaxSize    1
+ModelName  meta/llama-3-8b-instruct:bf16
+CreatedAt  few seconds ago
+UpdatedAt  few seconds ago
+Region     fr-par
+
+Endpoints:
+ID                                    URL                                                                DISABLE AUTH
+93a11893-f034-4656-8297-6686bd71f74b  https://c9702118-3ee5-4f7a-b993-230524079947.ifr.fr-par.scw.cloud  false
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "c9702118-3ee5-4f7a-b993-230524079947",
+  "name": "cli-llm-interesting-rhodes",
+  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "status": "ready",
+  "tags": [],
+  "node_type": "L4",
+  "endpoints": [
+    {
+      "id": "93a11893-f034-4656-8297-6686bd71f74b",
+      "url": "https://c9702118-3ee5-4f7a-b993-230524079947.ifr.fr-par.scw.cloud",
+      "public_access": {},
+      "disable_auth": false
+    }
+  ],
+  "size": 1,
+  "min_size": 1,
+  "max_size": 1,
+  "error_message": null,
+  "model_name": "meta/llama-3-8b-instruct:bf16",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "region": "fr-par"
+}

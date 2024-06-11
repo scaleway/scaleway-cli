@@ -32,12 +32,13 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingHostingGetDNSRecords(),
 		webhostingOfferList(),
 		webhostingControlPanelList(),
+		webhostingHostingCreateSession(),
 	)
 }
 func webhostingRoot() *core.Command {
 	return &core.Command{
-		Short:     `Web Hosting API`,
-		Long:      `Web Hosting API.`,
+		Short:     `This API allows you to manage your Web Hosting services`,
+		Long:      `This API allows you to manage your Web Hosting services.`,
 		Namespace: "webhosting",
 	}
 }
@@ -547,8 +548,8 @@ func webhostingOfferList() *core.Command {
 
 func webhostingControlPanelList() *core.Command {
 	return &core.Command{
-		Short:     `List all control panels type`,
-		Long:      `List the control panels type: cpanel or plesk.`,
+		Short:     `"List the control panels type: cpanel or plesk."`,
+		Long:      `"List the control panels type: cpanel or plesk.".`,
 		Namespace: "webhosting",
 		Resource:  "control-panel",
 		Verb:      "list",
@@ -572,6 +573,36 @@ func webhostingControlPanelList() *core.Command {
 				return nil, err
 			}
 			return resp.ControlPanels, nil
+
+		},
+	}
+}
+
+func webhostingHostingCreateSession() *core.Command {
+	return &core.Command{
+		Short:     `Create a user session`,
+		Long:      `Create a user session.`,
+		Namespace: "webhosting",
+		Resource:  "hosting",
+		Verb:      "create-session",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.CreateSessionRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `Hosting ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*webhosting.CreateSessionRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewAPI(client)
+			return api.CreateSession(request)
 
 		},
 	}

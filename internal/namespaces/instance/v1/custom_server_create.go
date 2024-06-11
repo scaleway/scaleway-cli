@@ -33,6 +33,9 @@ type instanceCreateServerRequest struct {
 	SecurityGroupID   string
 	PlacementGroupID  string
 
+	// Windows
+	AdminPasswordEncryptionSSHKeyID *string
+
 	// IP Mobility
 	RoutedIPEnabled *bool
 
@@ -129,8 +132,13 @@ func serverCreateCommand() *core.Command {
 				Name:  "routed-ip-enabled",
 				Short: "Enable routed IP support",
 			},
+			{
+				Name:             "admin-password-encryption-ssh-key-id",
+				Short:            "ID of the IAM SSH Key used to encrypt generated admin password. Required when creating a windows server.",
+				AutoCompleteFunc: completeSSHKeyID,
+			},
 			core.ProjectIDArgSpec(),
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 			core.OrganizationIDArgSpec(),
 		},
 		Run:      instanceServerCreateRun,
@@ -190,19 +198,30 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	needIPCreation := false
 
 	serverReq := &instance.CreateServerRequest{
-		Zone:            args.Zone,
-		Organization:    args.OrganizationID,
-		Project:         args.ProjectID,
-		Name:            args.Name,
-		CommercialType:  args.Type,
-		EnableIPv6:      scw.BoolPtr(args.IPv6),
-		Tags:            args.Tags,
-		RoutedIPEnabled: args.RoutedIPEnabled,
+		Zone:                            args.Zone,
+		Organization:                    args.OrganizationID,
+		Project:                         args.ProjectID,
+		Name:                            args.Name,
+		CommercialType:                  args.Type,
+		EnableIPv6:                      scw.BoolPtr(args.IPv6),
+		Tags:                            args.Tags,
+		RoutedIPEnabled:                 args.RoutedIPEnabled,
+		AdminPasswordEncryptionSSHKeyID: args.AdminPasswordEncryptionSSHKeyID,
 	}
 
 	client := core.ExtractClient(ctx)
 	apiMarketplace := marketplace.NewAPI(client)
 	apiInstance := instance.NewAPI(client)
+
+	if commercialTypeIsWindowsServer(serverReq.CommercialType) && serverReq.AdminPasswordEncryptionSSHKeyID == nil {
+		return nil, &core.CliError{
+			Err:     core.MissingRequiredArgumentError("admin-password-encryption-ssh-key-id").Err,
+			Details: "Expected a SSH Key ID to encrypt Admin RDP password. If not provided, no password will be generated. Key must be RSA Public Key.",
+			Hint:    "Use completion or get your ssh key id using 'scw iam ssh-key list',",
+			Code:    1,
+			Empty:   false,
+		}
+	}
 
 	//
 	// Image.

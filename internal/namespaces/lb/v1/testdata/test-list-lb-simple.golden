@@ -31,6 +31,7 @@ ID                                    NAME               DESCRIPTION  STATUS  IN
         "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
         "lb_id": "7dfe5933-71cc-4cea-8861-5ede3fd9266f",
         "reverse": "51-159-206-29.lb.fr-par.scw.cloud",
+        "tags": null,
         "region": "fr-par",
         "zone": "fr-par-1"
       }
@@ -74,6 +75,7 @@ ID                                    NAME               DESCRIPTION  STATUS  IN
         "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
         "lb_id": "8896c755-f57f-4fb5-b5ae-fedd423afff8",
         "reverse": "51-159-26-87.lb.fr-par.scw.cloud",
+        "tags": null,
         "region": "fr-par",
         "zone": "fr-par-1"
       }

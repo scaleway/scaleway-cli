@@ -168,5 +168,6 @@ Password:
   },
   "backup_same_region": false,
   "maintenances": [],
+  "encryption": null,
   "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }

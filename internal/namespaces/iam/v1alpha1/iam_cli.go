@@ -77,8 +77,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func iamRoot() *core.Command {
 	return &core.Command{
-		Short:     `IAM API`,
-		Long:      `IAM API.`,
+		Short:     `This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources`,
+		Long:      `This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources.`,
 		Namespace: "iam",
 	}
 }

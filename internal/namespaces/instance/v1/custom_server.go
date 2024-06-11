@@ -184,6 +184,9 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
 
+	// Add completion functions
+	c.ArgSpecs.GetByName("admin-password-encryption-ssh-key-id").AutoCompleteFunc = completeSSHKeyID
+
 	// Rename modified arg specs.
 	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
 	c.ArgSpecs.GetByName("security-group.id").Name = "security-group-id"
@@ -441,7 +444,7 @@ func serverAttachVolumeCommand() *core.Command {
 				Short:    `ID of the volume to attach`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			request := argsI.(*instance.AttachVolumeRequest)
@@ -472,7 +475,7 @@ func serverDetachVolumeCommand() *core.Command {
 				Short:    `ID of the volume to detach`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			request := argsI.(*instance.DetachVolumeRequest)
@@ -518,7 +521,7 @@ func serverAttachIPCommand() *core.Command {
 				Short:    `UUID of the IP to attach or its UUID`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
@@ -589,7 +592,7 @@ func serverDetachIPCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*customIPDetachRequest)
@@ -662,7 +665,7 @@ func serverWaitCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{
@@ -725,7 +728,7 @@ func serverDeleteCommand() *core.Command {
 				Name:  "force-shutdown",
 				Short: "Force shutdown of the instance server before deleting it",
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{

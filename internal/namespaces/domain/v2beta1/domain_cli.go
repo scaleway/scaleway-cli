@@ -52,8 +52,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func dnsRoot() *core.Command {
 	return &core.Command{
-		Short:     `Domains and DNS API`,
-		Long:      `Manage your domains, DNS zones and records with the Domains and DNS API.`,
+		Short:     `This API allows you to manage your domains, DNS zones and records`,
+		Long:      `This API allows you to manage your domains, DNS zones and records.`,
 		Namespace: "dns",
 	}
 }

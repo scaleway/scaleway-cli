@@ -93,8 +93,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func instanceRoot() *core.Command {
 	return &core.Command{
-		Short:     `Instance API`,
-		Long:      `Instance API.`,
+		Short:     `This API allows you to manage your Instances`,
+		Long:      `This API allows you to manage your Instances.`,
 		Namespace: "instance",
 	}
 }
@@ -716,6 +716,13 @@ func instanceServerUpdate() *core.Command {
 			{
 				Name:       "commercial-type",
 				Short:      `Set the commercial_type for this Instance.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "admin-password-encryption-ssh-key-id",
+				Short:      `UUID of the SSH RSA key that will be used to encrypt the initial admin password for OS requiring it. Mandatory for Windows OS.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3709,6 +3716,13 @@ func instancePrivateNicCreate() *core.Command {
 			{
 				Name:       "ip-ids.{index}",
 				Short:      `Ip_ids defined from IPAM`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-ip-ids.{index}",
+				Short:      `UUID of IPAM ips, to be attached to the instance in the requested private network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

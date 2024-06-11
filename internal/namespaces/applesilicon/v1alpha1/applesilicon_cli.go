@@ -150,6 +150,13 @@ func appleSiliconServerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "os-id",
+				Short:      `Create a server with the given os_id`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -442,6 +449,13 @@ func appleSiliconServerReinstall() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "os-id",
+				Short:      `Reinstall the server with the OS corresponding to the os_id`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},

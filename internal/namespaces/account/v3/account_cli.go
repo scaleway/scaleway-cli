@@ -30,8 +30,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func accountRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage projects`,
-		Long:      `This API allows you to manage projects.`,
+		Short:     `This API allows you to manage your Scaleway Projects`,
+		Long:      `This API allows you to manage your Scaleway Projects.`,
 		Namespace: "account",
 	}
 }
