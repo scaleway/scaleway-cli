@@ -6,18 +6,18 @@ toolchain go1.22.2
 
 require (
 	github.com/alecthomas/assert v1.0.0
-	github.com/buildpacks/pack v0.34.1
+	github.com/buildpacks/pack v0.34.2
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/charmbracelet/bubbletea v0.26.3
+	github.com/charmbracelet/bubbletea v0.26.4
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.4
 	github.com/dnaeon/go-vcr v1.2.0
-	github.com/docker/docker v26.1.3+incompatible
+	github.com/docker/docker v26.1.4+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.17.0
 	github.com/getsentry/sentry-go v0.28.0
 	github.com/ghodss/yaml v1.0.0
-	github.com/gorilla/websocket v1.5.1
+	github.com/gorilla/websocket v1.5.2
 	github.com/hashicorp/go-version v1.7.0
 	github.com/karrick/tparse/v2 v2.8.2
 	github.com/kubernetes-client/go-base v0.0.0-20190205182333-3d0e39759d98
@@ -25,13 +25,14 @@ require (
 	github.com/mattn/go-isatty v0.0.20
 	github.com/moby/buildkit v0.13.2
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.27.0.20240529160801-7fdc9bb26e13
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.27.0.20240607082515-02c0fc2651bf
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/term v0.20.0
-	golang.org/x/text v0.15.0
+	golang.org/x/crypto v0.24.0
+	golang.org/x/term v0.21.0
+	golang.org/x/text v0.16.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -74,10 +75,10 @@ require (
 	github.com/aws/smithy-go v1.20.1 // indirect
 	github.com/awslabs/amazon-ecr-credential-helper/ecr-login v0.0.0-20231213181459-b0fcec718dc6 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/buildpacks/imgutil v0.0.0-20240514200737-4af87862ff7e // indirect
+	github.com/buildpacks/imgutil v0.0.0-20240605145725-186f89b2d168 // indirect
 	github.com/buildpacks/lifecycle v0.19.6 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
-	github.com/charmbracelet/x/ansi v0.1.1 // indirect
+	github.com/charmbracelet/x/ansi v0.1.2 // indirect
 	github.com/charmbracelet/x/input v0.1.0 // indirect
 	github.com/charmbracelet/x/term v0.1.1 // indirect
 	github.com/charmbracelet/x/windows v0.1.0 // indirect
@@ -181,11 +182,10 @@ require (
 	go.opentelemetry.io/otel/sdk v1.25.0 // indirect
 	go.opentelemetry.io/otel/trace v1.25.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.2.0 // indirect
-	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/sys v0.21.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	google.golang.org/genproto v0.0.0-20240401170217-c3f982113cda // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240401170217-c3f982113cda // indirect

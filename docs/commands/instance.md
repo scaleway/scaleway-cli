@@ -60,6 +60,7 @@ This API allows you to manage your Instances.
   - [Detach a volume from its server](#detach-a-volume-from-its-server)
   - [Migrate server to IP mobility](#migrate-server-to-ip-mobility)
   - [Get an Instance](#get-an-instance)
+  - [Get your server rdp password and decrypt it using your ssh key](#get-your-server-rdp-password-and-decrypt-it-using-your-ssh-key)
   - [List all Instances](#list-all-instances)
   - [List Instance actions](#list-instance-actions)
   - [Reboot server](#reboot-server)
@@ -948,7 +949,8 @@ scw instance private-nic create [arg=value ...]
 | server-id | Required | UUID of the Instance the private NIC will be attached to |
 | private-network-id | Required | UUID of the private network where the private NIC will be attached |
 | tags.{index} |  | Private NIC tags |
-| ip-ids.{index} |  | Ip_ids defined from IPAM |
+| ~~ip-ids.{index}~~ | Deprecated | Ip_ids defined from IPAM |
+| ipam-ip-ids.{index} |  | UUID of IPAM ips, to be attached to the instance in the requested private network |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1718,6 +1720,7 @@ scw instance server create [arg=value ...]
 | cloud-init |  | The cloud-init script to use |
 | boot-type | Default: `local`<br />One of: `local`, `bootscript`, `rescue` | The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set. |
 | routed-ip-enabled |  | Enable routed IP support |
+| admin-password-encryption-ssh-key-id |  | ID of the IAM SSH Key used to encrypt generated admin password. Required when creating a windows server. |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
@@ -1918,6 +1921,27 @@ Get the Instance with its specified ID
 scw instance server get 94ededdf-358d-4019-9886-d754f8a2e78d
 ```
 
+
+
+
+### Get your server rdp password and decrypt it using your ssh key
+
+
+
+**Usage:**
+
+```
+scw instance server get-rdp-password <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | Server ID to connect to |
+| key | Default: `~/.ssh/id_rsa` | Path of the SSH key used to decrypt the rdp password |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
