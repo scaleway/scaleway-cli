@@ -15,7 +15,7 @@ require (
 	github.com/docker/docker v26.1.4+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.17.0
-	github.com/getsentry/sentry-go v0.28.0
+	github.com/getsentry/sentry-go v0.28.1
 	github.com/ghodss/yaml v1.0.0
 	github.com/gorilla/websocket v1.5.2
 	github.com/hashicorp/go-version v1.7.0
