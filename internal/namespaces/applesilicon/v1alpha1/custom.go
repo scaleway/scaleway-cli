@@ -17,6 +17,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeCPU{}, cpuMarshalerFunc)
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeDisk{}, diskMarshalerFunc)
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeMemory{}, memoryMarshalerFunc)
+	human.RegisterMarshalerFunc(applesilicon.OS{}, OSMarshalerFunc)
 
 	human.RegisterMarshalerFunc(applesilicon.ServerStatus(""), human.EnumMarshalFunc(serverStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeStock(""), human.EnumMarshalFunc(serverTypeStockMarshalSpecs))
