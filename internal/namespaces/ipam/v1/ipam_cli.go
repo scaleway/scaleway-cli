@@ -21,8 +21,10 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		ipamRoot(),
 		ipamIP(),
+		ipamIPSet(),
 		ipamIPCreate(),
 		ipamIPDelete(),
+		ipamIPSetRelease(),
 		ipamIPGet(),
 		ipamIPUpdate(),
 		ipamIPList(),
@@ -30,8 +32,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func ipamRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage IP addresses with Scaleway's IP Address Management tool`,
-		Long:      `This API allows you to manage IP addresses with Scaleway's IP Address Management tool.`,
+		Short:     `This API allows you to manage your Scaleway IP addresses with our IP Address Management tool`,
+		Long:      `This API allows you to manage your Scaleway IP addresses with our IP Address Management tool.`,
 		Namespace: "ipam",
 	}
 }
@@ -42,6 +44,15 @@ func ipamIP() *core.Command {
 		Long:      `*ips_long.`,
 		Namespace: "ipam",
 		Resource:  "ip",
+	}
+}
+
+func ipamIPSet() *core.Command {
+	return &core.Command{
+		Short:     `Management command for sets of IPs`,
+		Long:      `*ips_long.`,
+		Namespace: "ipam",
+		Resource:  "ip-set",
 	}
 }
 
@@ -86,7 +97,7 @@ func ipamIPCreate() *core.Command {
 			},
 			{
 				Name:       "address",
-				Short:      `Request a specific IP in the requested source pool`,
+				Short:      `Request this specific IP address in the specified source pool`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -142,6 +153,41 @@ func ipamIPDelete() *core.Command {
 			return &core.SuccessResult{
 				Resource: "ip",
 				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func ipamIPSetRelease() *core.Command {
+	return &core.Command{
+		Short:     `Release ipam resources`,
+		Long:      `Release ipam resources.`,
+		Namespace: "ipam",
+		Resource:  "ip-set",
+		Verb:      "release",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipam.ReleaseIPSetRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "ip-ids.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*ipam.ReleaseIPSetRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipam.NewAPI(client)
+			e = api.ReleaseIPSet(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "ip-set",
+				Verb:     "release",
 			}, nil
 		},
 	}
@@ -262,7 +308,21 @@ func ipamIPList() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `Private Network to filter for`,
+				Short:      `Private Network to filter for.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "subnet-id",
+				Short:      `Subnet ID to filter for.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `VPC ID to filter for.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

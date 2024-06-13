@@ -1,0 +1,45 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Policy:
+ID                abb2fc89-6c2b-46af-939c-3725a1fe0df8
+Name              test-cli-get-policy
+Description       -
+OrganizationID    ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+CreatedAt         few seconds ago
+UpdatedAt         few seconds ago
+Editable          true
+NbRules           1
+NbScopes          1
+NbPermissionSets  1
+NoPrincipal       true
+
+Rules:
+ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
+bb38e001-5eb5-428c-b1f9-0eab9e055b7f  [IPAMReadOnly]        projects                    [87221b69-c0fe-443d-985b-321d7cbd0af9]  -                -
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "abb2fc89-6c2b-46af-939c-3725a1fe0df8",
+  "name": "test-cli-get-policy",
+  "description": "",
+  "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "editable": true,
+  "nb_rules": 1,
+  "nb_scopes": 1,
+  "nb_permission_sets": 1,
+  "tags": [],
+  "no_principal": true,
+  "Rules": [
+    {
+      "id": "bb38e001-5eb5-428c-b1f9-0eab9e055b7f",
+      "permission_set_names": [
+        "IPAMReadOnly"
+      ],
+      "permission_sets_scope_type": "projects",
+      "project_ids": [
+        "87221b69-c0fe-443d-985b-321d7cbd0af9"
+      ]
+    }
+  ]
+}

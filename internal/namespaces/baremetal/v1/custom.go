@@ -11,13 +11,18 @@ func GetCommands() *core.Commands {
 
 	cmds.Merge(core.NewCommands(
 		serverWaitCommand(),
+		serverAddFlexibleIP(),
 	))
 
 	human.RegisterMarshalerFunc(baremetal.ServerPingStatus(""), human.EnumMarshalFunc(serverPingStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(baremetal.OfferStock(""), human.EnumMarshalFunc(offerAvailabilityMarshalSpecs))
+	human.RegisterMarshalerFunc(baremetal.Server{}, serverMarshalerFunc)
+
+	human.RegisterMarshalerFunc(baremetal.Offer{}, listOfferMarshalerFunc)
 
 	cmds.MustFind("baremetal", "server", "create").Override(serverCreateBuilder)
 	cmds.MustFind("baremetal", "server", "install").Override(serverInstallBuilder)
+	cmds.MustFind("baremetal", "server", "delete").Override(serverDeleteBuilder)
 	cmds.MustFind("baremetal", "server", "list").Override(serverListBuilder)
 
 	// Action commands

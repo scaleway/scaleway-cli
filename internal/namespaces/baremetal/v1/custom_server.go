@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	serverActionTimeout = 20 * time.Minute
+	ServerActionTimeout = 20 * time.Minute
 )
 
 var (
@@ -92,7 +92,7 @@ func serverWaitCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec(),
-			core.WaitTimeoutArgSpec(serverActionTimeout),
+			core.WaitTimeoutArgSpec(ServerActionTimeout),
 		},
 		Examples: []*core.Example{
 			{
@@ -110,7 +110,7 @@ func serverStartBuilder(c *core.Command) *core.Command {
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetal.StartServerRequest).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -125,7 +125,7 @@ func serverStopBuilder(c *core.Command) *core.Command {
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetal.StopServerRequest).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -142,7 +142,7 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetal.RebootServerRequest).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -217,4 +217,30 @@ func serverListBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func serverMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp baremetal.Server
+	baremetalServer := tmp(i.(baremetal.Server))
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "IPs",
+			Title:     "IPs",
+		},
+		{
+			FieldName:   "Options",
+			Title:       "Options",
+			HideIfEmpty: true,
+		},
+		{
+			FieldName:   "Install",
+			Title:       "Install",
+			HideIfEmpty: true,
+		},
+	}
+	str, err := human.Marshal(baremetalServer, opt)
+	if err != nil {
+		return "", err
+	}
+	return str, nil
 }

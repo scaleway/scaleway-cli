@@ -1,12 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Invoices management commands.
+Invoice management commands.
 
 USAGE:
   scw billing invoice <command>
 
 AVAILABLE COMMANDS:
   download    Download an invoice
+  export      Export invoices
+  get         Get an invoice
   list        List invoices
 
 FLAGS:

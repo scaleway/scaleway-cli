@@ -13,7 +13,8 @@ e04bd1f2-b108-419a-b0d8-6c4d855bbeca  51.158.57.112  26049  -     -
     "private_network": {
       "private_network_id": "64246187-39f9-45c0-8e76-e3a7defab351",
       "service_ip": "172.16.0.3/22",
-      "zone": "fr-par-1"
+      "zone": "fr-par-1",
+      "provisioning_mode": "static"
     }
   },
   {

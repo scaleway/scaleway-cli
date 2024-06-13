@@ -20,7 +20,6 @@ Function as a Service API.
   - [Deploy a function](#deploy-a-function)
   - [Get a function](#get-a-function)
   - [Get a download URL of a function](#get-a-download-url-of-a-function)
-  - [Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs](#deprecated-(replaced-by-[cockpit](https:www.scaleway.comendevelopersapicockpit)).-list-application-logs)
   - [Get an upload URL of a function](#get-an-upload-url-of-a-function)
   - [List all your functions](#list-all-your-functions)
   - [Update an existing function](#update-an-existing-function)
@@ -177,7 +176,7 @@ scw function deploy [arg=value ...]
 |------|---|-------------|
 | namespace-id |  | Function Namespace ID to deploy to |
 | name | Required | Name of the function to deploy, will be used in namespace's name if no ID is provided |
-| runtime | Required<br />One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121` |  |
+| runtime | Required<br />One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust178` |  |
 | zip-file | Required | Path of the zip file that contains your code |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -295,7 +294,7 @@ scw function function create [arg=value ...]
 | environment-variables.{key} |  | Environment variables of the function |
 | min-scale |  | Minumum number of instances to scale the function to |
 | max-scale |  | Maximum number of instances to scale the function to |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121` | Runtime to use with the function |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust178` | Runtime to use with the function |
 | memory-limit |  | Memory limit of the function in MB |
 | timeout |  | Request processing time limit for the function |
 | handler |  | Handler to use with the function |
@@ -388,27 +387,6 @@ scw function function get-download-url <function-id ...> [arg=value ...]
 
 
 
-### Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs
-
-Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the application logs of the function with the specified ID.
-
-**Usage:**
-
-```
-scw function function get-logs <function-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| function-id | Required | UUID of the function to get the logs for |
-| order-by | One of: `timestamp_desc`, `timestamp_asc` | Order of the logs |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
-
-
-
 ### Get an upload URL of a function
 
 Get an upload URL of a function associated with the specified ID.
@@ -473,7 +451,7 @@ scw function function update <function-id ...> [arg=value ...]
 | environment-variables.{key} |  | Environment variables of the function to update |
 | min-scale |  | Minumum number of instances to scale the function to |
 | max-scale |  | Maximum number of instances to scale the function to |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121` | Runtime to use with the function |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust178` | Runtime to use with the function |
 | memory-limit |  | Memory limit of the function in MB |
 | timeout |  | Processing time limit for the function |
 | redeploy |  | Redeploy failed function |
@@ -741,11 +719,9 @@ scw function trigger create [arg=value ...]
 | name | Required | Name of the trigger |
 | function-id | Required | ID of the function to trigger |
 | description |  | Description of the trigger |
-| ~~scw-sqs-config.mnq-namespace-id~~ | Deprecated |  |
 | scw-sqs-config.queue |  | Name of the SQS queue the trigger should listen to |
 | scw-sqs-config.mnq-project-id |  | ID of the Messaging and Queuing project |
 | scw-sqs-config.mnq-region |  | Region in which the Messaging and Queuing project is activated. |
-| ~~scw-nats-config.mnq-namespace-id~~ | Deprecated |  |
 | scw-nats-config.subject |  | Name of the NATS subject the trigger should listen to |
 | scw-nats-config.mnq-nats-account-id |  | ID of the Messaging and Queuing NATS account |
 | scw-nats-config.mnq-project-id |  | ID of the Messaging and Queuing project |

@@ -1,14 +1,16 @@
-package instance
+package instance_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 )
 
 func Test_ListNICs(t *testing.T) {
-	cmds := GetCommands()
+	cmds := instance.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -26,7 +28,7 @@ func Test_ListNICs(t *testing.T) {
 }
 
 func Test_GetPrivateNIC(t *testing.T) {
-	cmds := GetCommands()
+	cmds := instance.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 
 	t.Run("Get from ID", core.Test(&core.TestConfig{

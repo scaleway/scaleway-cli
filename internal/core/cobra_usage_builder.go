@@ -39,10 +39,10 @@ func buildUsageAliases(ctx context.Context, cmd *Command) string {
 	return aliasesStr
 }
 
-// buildUsageArgs builds usage args string.
+// BuildUsageArgs builds usage args string.
 // If deprecated is true, true only deprecated argSpecs will be considered.
 // This string will be used by cobra usage template.
-func buildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
+func BuildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
 	var argsBuffer bytes.Buffer
 	tw := tabwriter.NewWriter(&argsBuffer, 0, 0, 3, ' ', 0)
 
@@ -65,9 +65,27 @@ func buildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
 // _buildUsageArgs builds the arg usage list.
 // This should not be called directly.
 func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error {
+	inOneOfGroup := false
+	lastOneOfGroup := ""
+
 	for _, argSpec := range argSpecs {
 		argSpecUsageLeftPart := argSpec.Name
 		argSpecUsageRightPart := _buildArgShort(argSpec)
+
+		if argSpec.OneOfGroup != "" {
+			if argSpec.OneOfGroup != lastOneOfGroup {
+				inOneOfGroup = true
+				lastOneOfGroup = argSpec.OneOfGroup
+				_, err := fmt.Fprintf(w, "  %s (one of):\n", argSpec.OneOfGroup)
+				if err != nil {
+					return err
+				}
+			}
+		} else {
+			inOneOfGroup = false
+			lastOneOfGroup = ""
+		}
+
 		if argSpec.Default != nil {
 			_, doc := argSpec.Default(ctx)
 			argSpecUsageLeftPart = fmt.Sprintf("%s=%s", argSpecUsageLeftPart, doc)
@@ -77,6 +95,9 @@ func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error 
 		}
 		if argSpec.CanLoadFile {
 			argSpecUsageRightPart += " (Support file loading with @/path/to/file)"
+		}
+		if inOneOfGroup {
+			argSpecUsageLeftPart = "  " + argSpecUsageLeftPart
 		}
 
 		_, err := fmt.Fprintf(w, "  %s\t%s\n", argSpecUsageLeftPart, argSpecUsageRightPart)
@@ -140,7 +161,12 @@ func orderCobraCommands(cobraCommands []*cobra.Command) []*cobra.Command {
 	copy(commands, cobraCommands)
 
 	sort.Slice(commands, func(i, j int) bool {
-		return commands[i].Use < commands[j].Use
+		deprecatedI := commands[i].Deprecated != ""
+		deprecatedJ := commands[j].Deprecated != ""
+		if deprecatedI == deprecatedJ {
+			return commands[i].Use < commands[j].Use
+		}
+		return !deprecatedI && deprecatedJ
 	})
 	return commands
 }

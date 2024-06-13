@@ -1,4 +1,4 @@
-package core
+package core_test
 
 import (
 	"context"
@@ -9,28 +9,30 @@ import (
 	"testing"
 	"time"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+
 	"github.com/alecthomas/assert"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func TestCheckAPIKey(t *testing.T) {
-	testCommands := NewCommands(
-		&Command{
+	testCommands := core.NewCommands(
+		&core.Command{
 			Namespace: "test",
-			ArgSpecs:  ArgSpecs{},
+			ArgSpecs:  core.ArgSpecs{},
 			ArgsType:  reflect.TypeOf(testType{}),
 			Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
 				// Test command reload the client so the profile used is the edited one
-				return "", ReloadClient(ctx)
+				return "", core.ReloadClient(ctx)
 			},
 		})
 	metadataKey := "ApiKey"
 
-	t.Run("basic", Test(&TestConfig{
+	t.Run("basic", core.Test(&core.TestConfig{
 		Commands:   testCommands,
 		TmpHomeDir: true,
-		BeforeFunc: func(ctx *BeforeFuncCtx) error {
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
 			api := iam.NewAPI(ctx.Client)
 			accessKey, exists := ctx.Client.GetAccessKey()
 			if !exists {
@@ -53,7 +55,7 @@ func TestCheckAPIKey(t *testing.T) {
 			if err != nil {
 				return err
 			}
-			if !*UpdateCassettes {
+			if !*core.UpdateCassettes {
 				apiKey.AccessKey = "SCWXXXXXXXXXXXXXXXXX"
 			}
 
@@ -71,13 +73,13 @@ func TestCheckAPIKey(t *testing.T) {
 			return cfg.SaveTo(configPath)
 		},
 		Cmd: "scw test",
-		Check: TestCheckCombine(
-			TestCheckExitCode(0),
-			func(t *testing.T, ctx *CheckFuncCtx) {
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				assert.True(t, strings.HasPrefix(ctx.LogBuffer, "Current api key expires in"))
 			},
 		),
-		AfterFunc: func(ctx *AfterFuncCtx) error {
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			return iam.NewAPI(ctx.Client).DeleteAPIKey(&iam.DeleteAPIKeyRequest{
 				AccessKey: ctx.Meta[metadataKey].(*iam.APIKey).AccessKey,
 			})

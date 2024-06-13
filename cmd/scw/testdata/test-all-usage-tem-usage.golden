@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Transactional Email API
+This API allows you to manage your Transactional Email services.
 
 USAGE:
   scw tem <command>
@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   domain      Domain management commands
   email       Email management commands
+  webhook     Webhook management commands
 
 FLAGS:
   -h, --help   help for tem

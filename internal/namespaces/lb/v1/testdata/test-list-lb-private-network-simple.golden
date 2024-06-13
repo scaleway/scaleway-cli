@@ -21,6 +21,7 @@ IPAM IDS  DHCP CONFIG IPID  STATIC CONFIG IP ADDRESS  PRIVATE NETWORK ID        
           "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
           "lb_id": "3268271a-bb6c-4fb7-bc26-3b382754a77f",
           "reverse": "51-158-58-126.lb.fr-par.scw.cloud",
+          "tags": null,
           "region": "fr-par",
           "zone": "fr-par-1"
         }

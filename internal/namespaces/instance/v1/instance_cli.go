@@ -93,8 +93,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func instanceRoot() *core.Command {
 	return &core.Command{
-		Short:     `Instance API`,
-		Long:      `Instance API.`,
+		Short:     `This API allows you to manage your Instances`,
+		Long:      `This API allows you to manage your Instances.`,
 		Namespace: "instance",
 	}
 }
@@ -204,12 +204,8 @@ have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
 snapshot strategies on both volumes.
 
-A snapshot's volume type can be either its original volume's type
-(` + "`" + `l_ssd` + "`" + ` or ` + "`" + `b_ssd` + "`" + `) or ` + "`" + `unified` + "`" + `. Similarly, volumes can be created as well from snapshots
-of their own type or ` + "`" + `unified` + "`" + `. Therefore, to migrate data from a ` + "`" + `l_ssd` + "`" + ` volume
-to a ` + "`" + `b_ssd` + "`" + ` volume, one can create a ` + "`" + `unified` + "`" + ` snapshot from the original volume
-and a new ` + "`" + `b_ssd` + "`" + ` volume from this snapshot. The newly created volume will hold a copy
-of the data of the original volume.`,
+A snapshot's volume type is its original volume's type (` + "`" + `l_ssd` + "`" + ` or ` + "`" + `b_ssd` + "`" + `). 
+Volumes can be created from snapshots of their own type.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 	}
@@ -248,9 +244,6 @@ Two different types of volume (` + "`" + `volume_type` + "`" + `) are available:
   - ` + "`" + `b_ssd` + "`" + ` is a remote block storage: your data is stored on a
     centralized cluster. You can plug and unplug a volume while
     your Instance is running.
-
-Note: The ` + "`" + `unified` + "`" + ` volume type is not available for volumes. This
-type can only be used on snapshots.
 
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone ` + "`" + `/products/volumes` + "`" + ` API endpoint. _I.e_ for:
@@ -402,12 +395,19 @@ func instanceServerList() *core.Command {
 				Name:       "private-ip",
 				Short:      `List Instances by private_ip`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "without-ip",
 				Short:      `List Instances that are not attached to a public IP`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "with-ip",
+				Short:      `List Instances by IP (both private_ip and public_ip are supported)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -678,7 +678,7 @@ func instanceServerUpdate() *core.Command {
 			{
 				Name:       "enable-ipv6",
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -720,6 +720,13 @@ func instanceServerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "admin-password-encryption-ssh-key-id",
+				Short:      `UUID of the SSH RSA key that will be used to encrypt the initial admin password for OS requiring it. Mandatory for Windows OS.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -742,10 +749,6 @@ func instanceServerUpdate() *core.Command {
 			{
 				Short:    "Overwrite tags of a specified Instance",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111","tags":["foo","bar"]}`,
-			},
-			{
-				Short:    "Enable IPv6 on a specified Instance. Assigns an IPv6 block to the specified Instance and configures the first IP of the block.",
-				ArgsJSON: `{"enable_ipv6":true,"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
 				Short: "Apply the specified security group to a specified server",
@@ -1474,7 +1477,7 @@ func instanceSnapshotCreate() *core.Command {
 			},
 			{
 				Short:    "Import a QCOW file as an Instance snapshot",
-				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","name":"my-imported-snapshot","volume_type":"unified","zone":"fr-par-1"}`,
+				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","name":"my-imported-snapshot","volume_type":"b_ssd","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -2115,7 +2118,6 @@ func instanceSecurityGroupCreate() *core.Command {
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
-				Default:    core.DefaultValueSetter("false"),
 			},
 			{
 				Name:       "project-default",
@@ -2123,7 +2125,6 @@ func instanceSecurityGroupCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.DefaultValueSetter("false"),
 			},
 			{
 				Name:       "stateful",
@@ -3715,6 +3716,13 @@ func instancePrivateNicCreate() *core.Command {
 			{
 				Name:       "ip-ids.{index}",
 				Short:      `Ip_ids defined from IPAM`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-ip-ids.{index}",
+				Short:      `UUID of IPAM ips, to be attached to the instance in the requested private network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

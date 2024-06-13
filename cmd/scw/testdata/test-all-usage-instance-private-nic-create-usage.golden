@@ -6,11 +6,14 @@ USAGE:
   scw instance private-nic create [arg=value ...]
 
 ARGS:
-  server-id            UUID of the Instance the private NIC will be attached to
-  private-network-id   UUID of the private network where the private NIC will be attached
-  [tags.{index}]       Private NIC tags
-  [ip-ids.{index}]     Ip_ids defined from IPAM
-  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
+  server-id               UUID of the Instance the private NIC will be attached to
+  private-network-id      UUID of the private network where the private NIC will be attached
+  [tags.{index}]          Private NIC tags
+  [ipam-ip-ids.{index}]   UUID of IPAM ips, to be attached to the instance in the requested private network
+  [zone=fr-par-1]         Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
+
+DEPRECATED ARGS:
+  [ip-ids.{index}]   Ip_ids defined from IPAM
 
 FLAGS:
   -h, --help   help for create

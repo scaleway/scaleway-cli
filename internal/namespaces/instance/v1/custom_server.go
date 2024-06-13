@@ -3,6 +3,7 @@ package instance
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"reflect"
@@ -183,6 +184,9 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
 
+	// Add completion functions
+	c.ArgSpecs.GetByName("admin-password-encryption-ssh-key-id").AutoCompleteFunc = completeSSHKeyID
+
 	// Rename modified arg specs.
 	c.ArgSpecs.GetByName("placement-group").Name = "placement-group-id"
 	c.ArgSpecs.GetByName("security-group.id").Name = "security-group-id"
@@ -323,9 +327,12 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 func serverGetBuilder(c *core.Command) *core.Command {
 	// This method is here as a proof of concept before we find the correct way to implement it at larger scale
-	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+		req := request.(*instance.GetServerRequest)
 		api := instance.NewAPI(core.ExtractClient(ctx))
-		resp, err := api.ListServers(&instance.ListServersRequest{}, scw.WithAllPages())
+		resp, err := api.ListServers(&instance.ListServersRequest{
+			Zone: req.Zone,
+		}, scw.WithAllPages())
 		if err != nil {
 			return nil
 		}
@@ -437,7 +444,7 @@ func serverAttachVolumeCommand() *core.Command {
 				Short:    `ID of the volume to attach`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			request := argsI.(*instance.AttachVolumeRequest)
@@ -468,7 +475,7 @@ func serverDetachVolumeCommand() *core.Command {
 				Short:    `ID of the volume to detach`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			request := argsI.(*instance.DetachVolumeRequest)
@@ -514,7 +521,7 @@ func serverAttachIPCommand() *core.Command {
 				Short:    `UUID of the IP to attach or its UUID`,
 				Required: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
@@ -585,7 +592,7 @@ func serverDetachIPCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*customIPDetachRequest)
@@ -658,7 +665,7 @@ func serverWaitCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{
@@ -721,7 +728,7 @@ func serverDeleteCommand() *core.Command {
 				Name:  "force-shutdown",
 				Short: "Force shutdown of the instance server before deleting it",
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
 			{
@@ -742,6 +749,28 @@ func serverDeleteCommand() *core.Command {
 				Command: "scw instance server stop",
 				Short:   "Stop a running server",
 			},
+		},
+		WaitUsage: "wait until the server and its resources are deleted",
+		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+			server := respI.(*core.SuccessResult).TargetResource.(*instance.Server)
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			notFoundErr := &scw.ResourceNotFoundError{}
+
+			_, err := api.WaitForServer(&instance.WaitForServerRequest{
+				Zone:          server.Zone,
+				ServerID:      server.ID,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+			if err != nil {
+				err = errors.Unwrap(err)
+				if !errors.As(err, &notFoundErr) {
+					return nil, err
+				}
+			}
+			return respI, nil
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			deleteServerArgs := argsI.(*customDeleteServerRequest)
@@ -851,7 +880,9 @@ func serverDeleteCommand() *core.Command {
 				_, _ = interactive.Println(message[1])
 			}
 
-			return &core.SuccessResult{}, nil
+			return &core.SuccessResult{
+				TargetResource: server.Server,
+			}, nil
 		},
 	}
 }

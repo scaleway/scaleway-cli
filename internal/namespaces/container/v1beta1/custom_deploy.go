@@ -1,4 +1,4 @@
-//go:build !wasm && !freebsd
+//go:build darwin || linux || windows
 
 package container
 
@@ -17,6 +17,7 @@ import (
 	pack "github.com/buildpacks/pack/pkg/client"
 	"github.com/buildpacks/pack/pkg/logging"
 	dockertypes "github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/image"
 	dockerregistry "github.com/docker/docker/api/types/registry"
 	docker "github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/archive"
@@ -352,7 +353,7 @@ func DeployStepPushImage(t *tasks.Task, data *DeployStepBuildImageResponse) (*De
 
 	authStr := base64.URLEncoding.EncodeToString(encodedJSON)
 
-	imagePushResponse, err := data.DockerClient.ImagePush(t.Ctx, data.Tag, dockertypes.ImagePushOptions{
+	imagePushResponse, err := data.DockerClient.ImagePush(t.Ctx, data.Tag, image.PushOptions{
 		RegistryAuth: authStr,
 	})
 	if err != nil {

@@ -792,6 +792,7 @@ scw lb ip create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | reverse |  | Reverse DNS (domain name) for the IP address |
 | is-ipv6 |  | If true, creates a Flexible IP with an ipv6 address |
+| tags.{index} |  | List of tags for the IP |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -855,6 +856,7 @@ scw lb ip list [arg=value ...]
 | ip-address |  | IP address to filter for |
 | project-id |  | Project ID to filter for, only Load Balancer IP addresses from this Project will be returned |
 | ip-type | One of: `all`, `ipv4`, `ipv6` | IP type to filter for |
+| tags.{index} |  | Tag to filter for, only IPs with one or more matching tags will be returned |
 | organization-id |  | Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
@@ -878,6 +880,7 @@ scw lb ip update <ip-id ...> [arg=value ...]
 | ip-id | Required | IP address ID |
 | reverse |  | Reverse DNS (domain name) for the IP address |
 | lb-id |  | ID of the server on which to attach the flexible IP |
+| tags.{index} |  | List of tags for the IP |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -906,8 +909,8 @@ scw lb lb create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name for the Load Balancer |
 | description |  | Description for the Load Balancer |
 | ~~ip-id~~ | Deprecated | ID of an existing flexible IP address to attach to the Load Balancer |
-| assign-flexible-ip |  | Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign). |
-| assign-flexible-ipv6 |  | Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign). |
+| assign-flexible-ip | Default: `true` | Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign). |
+| assign-flexible-ipv6 | Default: `false` | Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign). |
 | ip-ids.{index} |  | List of IP IDs to attach to the Load Balancer |
 | tags.{index} |  | List of tags for the Load Balancer |
 | type | Default: `LB-S`<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L` | Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types |
@@ -997,6 +1000,7 @@ scw lb lb list [arg=value ...]
 | name |  | Load Balancer name to filter for |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of Load Balancers in the response |
 | project-id |  | Project ID to filter for, only Load Balancers from this Project will be returned |
+| tags.{index} |  | Filter by tag, only Load Balancers with one or more matching tags will be returned |
 | organization-id |  | Organization ID to filter for, only Load Balancers from this Organization will be returned |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
@@ -1041,6 +1045,8 @@ scw lb lb update <lb-id ...> [arg=value ...]
 | lb-id | Required | Load Balancer ID |
 | name | Required | Load Balancer name |
 | description | Required | Load Balancer description |
+| assign-flexible-ipv6 |  | Automatically assign a flexible public IPv6 to the Load Balancer |
+| ip-id |  | The IP ID to attach to the Load Balancer |
 | tags.{index} |  | List of tags for the Load Balancer |
 | ssl-compatibility-level | One of: `ssl_compatibility_level_unknown`, `ssl_compatibility_level_intermediate`, `ssl_compatibility_level_modern`, `ssl_compatibility_level_old` | Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |

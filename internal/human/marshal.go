@@ -98,7 +98,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 	sectionsStrs := []string(nil)
 	sectionFieldNames := map[string]bool{}
 	for _, section := range opt.Sections {
-		sectionStr, err := marshalSection(section, value, subOpts)
+		sectionStr, err := marshalSection(section, value, opt.subOption(section.FieldName))
 		if err != nil {
 			return "", err
 		}
@@ -178,7 +178,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			// If type is a struct
 			// We loop through all struct field
 			data := [][]string(nil)
-			for _, fieldIndex := range getStructFieldsIndex(value.Type()) {
+			for _, fieldIndex := range GetStructFieldsIndex(value.Type()) {
 				subData, err := marshal(value.FieldByIndex(fieldIndex), append(keys, value.Type().FieldByIndex(fieldIndex).Name))
 				if err != nil {
 					return nil, err
@@ -220,10 +220,10 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 	return strings.TrimSpace(buffer.String()), nil
 }
 
-// getStructFieldsIndex will return a list of fieldIndex ([]int) sorted by their position in the Go struct.
+// GetStructFieldsIndex will return a list of fieldIndex ([]int) sorted by their position in the Go struct.
 // This function will handle anonymous field and make sure that if a field is overwritten only the highest is returned.
 // You can use reflect GetFieldByIndex([]int) to get the correct field.
-func getStructFieldsIndex(v reflect.Type) [][]int {
+func GetStructFieldsIndex(v reflect.Type) [][]int {
 	// Using a map we make sure only the field with the highest order is returned for a given Name
 	found := map[string][]int{}
 

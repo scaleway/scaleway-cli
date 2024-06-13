@@ -1,8 +1,10 @@
-package alias
+package alias_test
 
 import (
 	"fmt"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 
 	"github.com/alecthomas/assert"
 )
@@ -37,7 +39,7 @@ func TestConfig_ResolveAliases(t *testing.T) {
 	}
 	for i, tt := range tests {
 		t.Run(fmt.Sprintf("Resolve_TestCase%d", i), func(t *testing.T) {
-			config := &Config{Aliases: tt.Aliases}
+			config := &alias.Config{Aliases: tt.Aliases}
 			actual := config.ResolveAliases(tt.Command)
 			assert.Equal(t, tt.Expected, actual)
 		})

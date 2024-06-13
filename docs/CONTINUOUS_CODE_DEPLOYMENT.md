@@ -1,7 +1,7 @@
 # Continuous code deployment
 
 Part of this repo is automatically generated from our [protocol buffer](https://en.wikipedia.org/wiki/Protocol_Buffers) monorepo.
-This enables us to keep Scaleway toolings up to date with the latest version of our APIs ([developer website](http://developers.scaleway.com), [SDK Go](https://github.com/scaleway/scaleway-sdk-go), ...).
+This enables us to keep Scaleway toolings up to date with the latest version of our APIs ([developer website](https://www.scaleway.com/en/developers/), [SDK Go](https://github.com/scaleway/scaleway-sdk-go), ...).
 
 ## Generated files
 

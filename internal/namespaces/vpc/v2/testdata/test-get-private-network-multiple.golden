@@ -1,79 +1,85 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              97e7496d-27ab-42e3-befa-f0f17148d34b
-Name            cli-pn-romantic-khorana
-OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
+ID              70b32810-d6e4-4301-b6b1-88b87fae93b0
+Name            cli-pn-sweet-lehmann
+OrganizationID  46fd79d8-1a35-4548-bfb8-03df51a0ebae
+ProjectID       46fd79d8-1a35-4548-bfb8-03df51a0ebae
 Region          fr-par
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-VpcID           1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
+VpcID           b1972fa8-5349-4d37-8777-f4f205bbd322
 DHCPEnabled     true
 
 Instance Servers:
-ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
-b2038da1-b1a4-470f-925d-ade221f6bc75  cli-srv-pedantic-gates  archived  fde85b33-3841-479c-a288-df20b54daaf3  02:00:00:18:64:20
+ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
+cc5d0649-1f7b-4aca-bcaa-041925261258  cli-srv-nifty-ramanujan  archived  c827fc5b-e253-4460-9096-80381901879c  02:00:00:18:d4:ca
 
 Load-Balancers:
 ID                                    NAME      STATE
-c10c8015-28de-4c2c-a271-58b1f20fb2a5  cli-test  ready
+b2615282-305e-41e6-9210-db7bda856838  cli-test  ready
 
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
-44c31418-0395-41c7-a934-c073ec151c95  cli-test  ready  82532a42-39de-4cbf-a45c-d1e848af814d
+90ab9d81-822c-4b58-8daf-5bda3a6dcef5  cli-test  ready  6ea5e44c-b687-483c-88dc-9fc1e770b5c0
 
 Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET
-329839cf-f397-4bf7-b0cd-10d8f9329627  few seconds ago  few seconds ago  172.16.64.0/22
-e537d54f-0c1f-4682-9a14-b9e7fd86b05d  few seconds ago  few seconds ago  fd63:256c:45f7:bcfc::/64
+ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID  PRIVATE NETWORK ID  VPC ID
+389c4a16-177b-4af3-860e-27b88f85c10b  few seconds ago  few seconds ago  172.16.40.0/22            -           -                   -
+f9ae0cd0-9bf1-4c14-9a1b-62f9eecdd6a5  few seconds ago  few seconds ago  fd5d:9132:befe:2317::/64  -           -                   -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "97e7496d-27ab-42e3-befa-f0f17148d34b",
-  "name": "cli-pn-romantic-khorana",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "id": "70b32810-d6e4-4301-b6b1-88b87fae93b0",
+  "name": "cli-pn-sweet-lehmann",
+  "organization_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+  "project_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "329839cf-f397-4bf7-b0cd-10d8f9329627",
+      "id": "389c4a16-177b-4af3-860e-27b88f85c10b",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.64.0/22"
+      "subnet": "172.16.40.0/22",
+      "project_id": "",
+      "private_network_id": "",
+      "vpc_id": ""
     },
     {
-      "id": "e537d54f-0c1f-4682-9a14-b9e7fd86b05d",
+      "id": "f9ae0cd0-9bf1-4c14-9a1b-62f9eecdd6a5",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd63:256c:45f7:bcfc::/64"
+      "subnet": "fd5d:9132:befe:2317::/64",
+      "project_id": "",
+      "private_network_id": "",
+      "vpc_id": ""
     }
   ],
-  "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c",
+  "vpc_id": "b1972fa8-5349-4d37-8777-f4f205bbd322",
   "dhcp_enabled": true,
   "instance_servers": [
     {
-      "id": "b2038da1-b1a4-470f-925d-ade221f6bc75",
-      "name": "cli-srv-pedantic-gates",
+      "id": "cc5d0649-1f7b-4aca-bcaa-041925261258",
+      "name": "cli-srv-nifty-ramanujan",
       "state": "stopped",
-      "nic_id": "fde85b33-3841-479c-a288-df20b54daaf3",
-      "mac": "02:00:00:18:64:20"
+      "nic_id": "c827fc5b-e253-4460-9096-80381901879c",
+      "mac": "02:00:00:18:d4:ca"
     }
   ],
   "lbs": [
     {
-      "id": "c10c8015-28de-4c2c-a271-58b1f20fb2a5",
+      "id": "b2615282-305e-41e6-9210-db7bda856838",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "44c31418-0395-41c7-a934-c073ec151c95",
+      "id": "90ab9d81-822c-4b58-8daf-5bda3a6dcef5",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "82532a42-39de-4cbf-a45c-d1e848af814d"
+      "endpoint_id": "6ea5e44c-b687-483c-88dc-9fc1e770b5c0"
     }
   ]
 }

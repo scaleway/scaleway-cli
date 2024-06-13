@@ -64,7 +64,7 @@ func removeFields(data []byte, mode MarshalMode, fields []string) ([]byte, error
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshal: %w", err)
 	}
-	deleteRecursive(i, fields...)
+	DeleteRecursive(i, fields...)
 
 	return marshal(i, mode)
 }

@@ -36,6 +36,7 @@ linters:
     - staticcheck
     - stylecheck
     - tenv
+    - testpackage
     - typecheck
     - unconvert
     - unparam
@@ -60,7 +61,21 @@ issues:
     - path: internal/namespaces/instance
       linters:
         - staticcheck
-      text: "SA1019:.*Organization"
+      text: "SA1019:.*(Organization)"
+
+    # Instance Public IP is mark as deprecated in the SDK
+    # This rule ignore this deprecation
+    - path: internal/namespaces
+      linters:
+        - staticcheck
+      text: "SA1019:.*PublicIP is deprecated.*"
+
+    # Instance Public IP is mark as deprecated in the SDK
+    # This rule ignore this deprecation
+    - path: internal/namespaces/instance
+      linters:
+        - staticcheck
+      text: "SA1019:.*\\.IPv6.*"
 
     - path: internal/tabwriter
       linters:

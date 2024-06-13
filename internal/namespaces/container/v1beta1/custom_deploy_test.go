@@ -1,7 +1,9 @@
-package container
+package container_test
 
 import (
 	_ "embed"
+
+	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
 
 	"fmt"
 	"os"
@@ -10,8 +12,8 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	registrycmds "github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
-	registry "github.com/scaleway/scaleway-sdk-go/api/registry/v1"
+	containerSDK "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	registrySDK "github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -55,7 +57,7 @@ func Test_Deploy(t *testing.T) {
 	appName := "cli-t-ctnr-deploy"
 	path := t.TempDir()
 
-	commands := GetCommands()
+	commands := container.GetCommands()
 	commands.Merge(registrycmds.GetCommands())
 
 	simplePath := filepath.Join(path, "simple")
@@ -142,9 +144,9 @@ func Test_Deploy(t *testing.T) {
 
 func testDeleteContainersNamespaceAfter(appName string) func(*core.AfterFuncCtx) error {
 	return func(ctx *core.AfterFuncCtx) error {
-		api := container.NewAPI(ctx.Client)
+		api := containerSDK.NewAPI(ctx.Client)
 
-		namespaces, err := api.ListNamespaces(&container.ListNamespacesRequest{
+		namespaces, err := api.ListNamespaces(&containerSDK.ListNamespacesRequest{
 			Name: &appName,
 		}, scw.WithAllPages())
 		if err != nil {
@@ -169,9 +171,9 @@ func testDeleteContainersNamespaceAfter(appName string) func(*core.AfterFuncCtx)
 
 func testDeleteRegistryAfter(appName string) func(*core.AfterFuncCtx) error {
 	return func(ctx *core.AfterFuncCtx) error {
-		api := registry.NewAPI(ctx.Client)
+		api := registrySDK.NewAPI(ctx.Client)
 
-		registries, err := api.ListNamespaces(&registry.ListNamespacesRequest{
+		registries, err := api.ListNamespaces(&registrySDK.ListNamespacesRequest{
 			Name: &appName,
 		}, scw.WithAllPages())
 		if err != nil {

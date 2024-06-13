@@ -36,8 +36,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func marketplaceRoot() *core.Command {
 	return &core.Command{
-		Short:     `Marketplace API`,
-		Long:      ``,
+		Short:     `This API allows you to find available images for use when launching a Scaleway Instance`,
+		Long:      `This API allows you to find available images for use when launching a Scaleway Instance.`,
 		Namespace: "marketplace",
 	}
 }

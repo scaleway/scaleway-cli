@@ -33,12 +33,12 @@ var (
 	referenceStatusMarshalSpecs = human.EnumMarshalSpecs{
 		block.ReferenceStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
 
-		block.ReferenceStatusAttaching:    &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		block.ReferenceStatusAttached:     &human.EnumMarshalSpec{Attribute: color.FgHiGreen},
-		block.ReferenceStatusDetaching:    &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		block.ReferenceStatusDetached:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		block.ReferenceStatusSnapshotting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		block.ReferenceStatusError:        &human.EnumMarshalSpec{Attribute: color.FgRed},
+		block.ReferenceStatusAttaching: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		block.ReferenceStatusAttached:  &human.EnumMarshalSpec{Attribute: color.FgHiGreen},
+		block.ReferenceStatusDetaching: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		block.ReferenceStatusDetached:  &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		block.ReferenceStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		block.ReferenceStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
 	}
 )
 

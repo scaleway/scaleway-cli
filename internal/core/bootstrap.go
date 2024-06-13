@@ -160,7 +160,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// Meta store globally available variables like SDK client.
 	// Meta is injected in a context object that will be passed to all commands.
-	meta := &meta{
+	meta := &Meta{
 		ProfileFlag:    profileFlag,
 		BinaryName:     config.Args[0],
 		BuildInfo:      config.BuildInfo,
@@ -179,7 +179,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		command:                     nil, // command is later injected by cobra_utils.go/cobraRun()
 		httpClient:                  httpClient,
 		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
-		betaMode:                    config.BetaMode,
+		BetaMode:                    config.BetaMode,
 	}
 	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
@@ -196,7 +196,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		ctx = context.Background()
 	}
 	ctx = account.InjectHTTPClient(ctx, httpClient)
-	ctx = injectMeta(ctx, meta)
+	ctx = InjectMeta(ctx, meta)
 
 	// Load CLI config
 	cliCfg, err := cliConfig.LoadConfig(ExtractCliConfigPath(ctx))

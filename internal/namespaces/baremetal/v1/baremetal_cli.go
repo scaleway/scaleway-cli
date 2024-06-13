@@ -1036,6 +1036,13 @@ func baremetalOfferList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_subscription_period", "hourly", "monthly"},
 			},
+			{
+				Name:       "name",
+				Short:      `Offer name to filter offers by`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1083,7 +1090,7 @@ func baremetalOfferGet() *core.Command {
 				Short:      `ID of the researched Offer`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2),
 		},

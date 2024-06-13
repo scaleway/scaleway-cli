@@ -1,14 +1,16 @@
-package rdb
+package rdb_test
 
 import (
 	"testing"
 
+	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 )
 
 func Test_AddACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb acl add 1.2.3.4 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
@@ -20,10 +22,36 @@ func Test_AddACL(t *testing.T) {
 		AfterFunc: deleteInstance(),
 	}))
 
+	t.Run("Simple with description", core.Test(&core.TestConfig{
+		Commands:   rdb.GetCommands(),
+		BeforeFunc: createInstance("PostgreSQL-12"),
+		Cmd:        "scw rdb acl add 1.2.3.4 instance-id={{ .Instance.ID }} description=some-unique-description --wait",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				verifyACL(ctx, t, []string{"0.0.0.0/0", "1.2.3.4/32"})
+			},
+		),
+		AfterFunc: deleteInstance(),
+	}))
+
 	t.Run("Multiple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb acl add 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} --wait",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				verifyACL(ctx, t, []string{"0.0.0.0/0", "1.2.3.4/32", "192.168.1.0/30", "10.10.10.10/32"})
+			},
+		),
+		AfterFunc: deleteInstance(),
+	}))
+
+	t.Run("Multiple with description", core.Test(&core.TestConfig{
+		Commands:   rdb.GetCommands(),
+		BeforeFunc: createInstance("PostgreSQL-12"),
+		Cmd:        "scw rdb acl add 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} description=some-unique-description --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -36,7 +64,7 @@ func Test_AddACL(t *testing.T) {
 
 func Test_DeleteACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
 		Cmd:        "scw rdb acl delete 0.0.0.0/0 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
@@ -49,7 +77,7 @@ func Test_DeleteACL(t *testing.T) {
 	}))
 
 	t.Run("Multiple when set", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd("scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
@@ -65,7 +93,7 @@ func Test_DeleteACL(t *testing.T) {
 	}))
 
 	t.Run("Multiple when not set", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd("scw rdb acl add 192.168.1.0/32 instance-id={{ .Instance.ID }} --wait"),
@@ -83,36 +111,49 @@ func Test_DeleteACL(t *testing.T) {
 
 func Test_SetACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   rdb.GetCommands(),
 		BeforeFunc: createInstance("PostgreSQL-12"),
-		Cmd:        "scw rdb acl set rules.0.ip=1.2.3.4 instance-id={{ .Instance.ID }} --wait",
+		Cmd:        "scw rdb acl set 1.2.3.4 instance-id={{ .Instance.ID }} descriptions.0=something --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				verifyACL(ctx, t, []string{"1.2.3.4/32"})
+				acls := ctx.Result.(*rdb.CustomACLResult).Rules
+				assert.Equal(t, "something", acls[0].Description)
 			},
 		),
 		AfterFunc: deleteInstance(),
 	}))
 
 	t.Run("Multiple", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd("scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
 		),
-		Cmd: "scw rdb acl set rules.0.ip=1.2.3.4 rules.1.ip=192.168.1.0/31 rules.2.ip=11.11.11.11 instance-id={{ .Instance.ID }} --wait",
+		Cmd: "scw rdb acl set 1.2.3.4 192.168.1.0/31 11.11.11.11 instance-id={{ .Instance.ID }} descriptions.0=first descriptions.1=second descriptions.2=third --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				verifyACL(ctx, t, []string{"1.2.3.4/32", "192.168.1.0/31", "11.11.11.11/32"})
+				acls := ctx.Result.(*rdb.CustomACLResult).Rules
+				for _, acl := range acls {
+					switch acl.IP.String() {
+					case "1.2.3.4/32":
+						assert.Equal(t, "first", acl.Description)
+					case "192.168.1.0/31":
+						assert.Equal(t, "second", acl.Description)
+					case "11.11.11.11/32":
+						assert.Equal(t, "third", acl.Description)
+					}
+				}
 			},
 		),
 		AfterFunc: deleteInstance(),
 	}))
 }
 
-func verifyACLCustomResponse(res *rdbACLCustomResult, t *testing.T, expectedRules []string) {
+func verifyACLCustomResponse(res *rdb.CustomACLResult, t *testing.T, expectedRules []string) {
 	actualRules := res.Rules
 
 	var rulesFound = map[string]bool{}
@@ -138,10 +179,10 @@ func verifyACLCustomResponse(res *rdbACLCustomResult, t *testing.T, expectedRule
 
 func verifyACL(ctx *core.CheckFuncCtx, t *testing.T, expectedRules []string) {
 	switch res := ctx.Result.(type) {
-	case *rdbACLCustomResult:
+	case *rdb.CustomACLResult:
 		verifyACLCustomResponse(res, t, expectedRules)
 	case core.MultiResults:
-		verifyACLCustomResponse(res[len(res)-1].(*rdbACLCustomResult), t, expectedRules)
+		verifyACLCustomResponse(res[len(res)-1].(*rdb.CustomACLResult), t, expectedRules)
 	default:
 		t.Errorf("action is undefined for this type")
 	}

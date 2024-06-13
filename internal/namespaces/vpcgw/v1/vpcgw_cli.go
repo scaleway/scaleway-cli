@@ -33,6 +33,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcGwGatewayUpdate(),
 		vpcGwGatewayDelete(),
 		vpcGwGatewayUpgrade(),
+		vpcGwGatewayEnableIPMobility(),
 		vpcGwGatewayNetworkList(),
 		vpcGwGatewayNetworkGet(),
 		vpcGwGatewayNetworkCreate(),
@@ -66,8 +67,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func vpcGwRoot() *core.Command {
 	return &core.Command{
-		Short:     `Public Gateways API`,
-		Long:      `Public Gateways API.`,
+		Short:     `This API allows you to manage your Public Gateways`,
+		Long:      `This API allows you to manage your Public Gateways.`,
 		Namespace: "vpc-gw",
 	}
 }
@@ -513,6 +514,42 @@ func vpcGwGatewayUpgrade() *core.Command {
 			api := vpcgw.NewAPI(client)
 			return api.UpgradeGateway(request)
 
+		},
+	}
+}
+
+func vpcGwGatewayEnableIPMobility() *core.Command {
+	return &core.Command{
+		Short:     `Upgrade a Public Gateway to IP mobility`,
+		Long:      `Upgrade a Public Gateway to IP mobility (move from NAT IP to routed IP). This is idempotent: repeated calls after the first will return no error but have no effect.`,
+		Namespace: "vpc-gw",
+		Resource:  "gateway",
+		Verb:      "enable-ip-mobility",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpcgw.EnableIPMobilityRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "gateway-id",
+				Short:      `ID of the gateway to upgrade to IP mobility`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpcgw.EnableIPMobilityRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpcgw.NewAPI(client)
+			e = api.EnableIPMobility(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "gateway",
+				Verb:     "enable-ip-mobility",
+			}, nil
 		},
 	}
 }

@@ -1,13 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to query your consumption.
+This API allows you to manage and query your Scaleway billing and consumption.
 
 USAGE:
   scw billing <command>
 
 AVAILABLE COMMANDS:
-  discount    Discounts management commands
-  invoice     Invoices management commands
+  consumption Consumption management commands
+  discount    Discount management commands
+  invoice     Invoice management commands
 
 FLAGS:
   -h, --help   help for billing

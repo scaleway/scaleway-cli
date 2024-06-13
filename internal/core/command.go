@@ -47,6 +47,10 @@ type Command struct {
 	// ArgSpecs defines specifications for arguments.
 	ArgSpecs ArgSpecs
 
+	// AcceptMultiplePositionalArgs defines whether the command can accept multiple positional arguments.
+	// If enabled, positional argument is expected to be a list.
+	AcceptMultiplePositionalArgs bool
+
 	// View defines the View for this command.
 	// It is used to create the different options for the different Marshalers.
 	View *View
@@ -89,6 +93,8 @@ type Command struct {
 
 	// Groups contains a list of groups IDs
 	Groups []string
+	//
+	Deprecated bool
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
@@ -174,11 +180,11 @@ func (c *Command) seeAlsosAsStr() string {
 // These new interceptors will be added after the already present interceptors (if any).
 func (c *Command) AddInterceptors(interceptors ...CommandInterceptor) {
 	interceptors = append([]CommandInterceptor{c.Interceptor}, interceptors...)
-	c.Interceptor = combineCommandInterceptor(interceptors...)
+	c.Interceptor = CombineCommandInterceptor(interceptors...)
 }
 
-// matchAlias returns true if the alias can be used for this command
-func (c *Command) matchAlias(alias alias.Alias) bool {
+// MatchAlias returns true if the alias can be used for this command
+func (c *Command) MatchAlias(alias alias.Alias) bool {
 	if len(c.ArgSpecs) == 0 {
 		// command should be either a namespace or a resource
 		// We need to check if child commands match this alias
@@ -285,7 +291,6 @@ func (c *Commands) find(path ...string) (*Command, bool) {
 func (c *Commands) GetSortedCommand() []*Command {
 	commands := make([]*Command, len(c.commands))
 	copy(commands, c.commands)
-
 	sort.Slice(commands, func(i, j int) bool {
 		return commands[i].signature() < commands[j].signature()
 	})
@@ -325,12 +330,12 @@ func (c *Command) signature() string {
 	return c.Namespace + " " + c.Resource + " " + c.Verb + " " + c.Short
 }
 
-// aliasIsValidCommandChild returns true is alias is a valid child command of given command
+// AliasIsValidCommandChild returns true is alias is a valid child command of given command
 // Useful for this case:
 // isl => instance server list
 // valid child of "instance"
 // invalid child of "rdb instance"
-func (c *Commands) aliasIsValidCommandChild(command *Command, alias alias.Alias) bool {
+func (c *Commands) AliasIsValidCommandChild(command *Command, alias alias.Alias) bool {
 	// if alias is of size one, it means it cannot be a child
 	if len(alias.Command) == 1 {
 		return true
@@ -361,7 +366,7 @@ func (c *Commands) aliasIsValidCommandChild(command *Command, alias alias.Alias)
 func (c *Commands) addAliases(command *Command, aliases []alias.Alias) {
 	names := make([]string, 0, len(aliases))
 	for i := range aliases {
-		if c.aliasIsValidCommandChild(command, aliases[i]) && command.matchAlias(aliases[i]) {
+		if c.AliasIsValidCommandChild(command, aliases[i]) && command.MatchAlias(aliases[i]) {
 			names = append(names, aliases[i].Name)
 		}
 	}

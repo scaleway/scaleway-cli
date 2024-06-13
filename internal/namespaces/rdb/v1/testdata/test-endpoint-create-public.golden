@@ -15,7 +15,8 @@ d0a02d72-df69-4c43-88d7-047e6113d418  195.154.70.77  22783  -     -
       "private_network": {
         "private_network_id": "5cb4248d-919f-4d24-9332-6640c302f2f9",
         "service_ip": "172.16.0.3/22",
-        "zone": "fr-par-1"
+        "zone": "fr-par-1",
+        "provisioning_mode": "static"
       }
     },
     {

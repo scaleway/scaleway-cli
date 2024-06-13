@@ -6,9 +6,10 @@ USAGE:
   scw jobs definition list [arg=value ...]
 
 ARGS:
-  [order-by]         (created_at_asc | created_at_desc)
-  [project-id]      
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [order-by]           (created_at_asc | created_at_desc)
+  [project-id]        
+  [organization-id]   
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

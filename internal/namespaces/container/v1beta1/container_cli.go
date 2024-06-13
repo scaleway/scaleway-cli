@@ -42,7 +42,6 @@ func GetGeneratedCommands() *core.Commands {
 		containerCronCreate(),
 		containerCronUpdate(),
 		containerCronDelete(),
-		containerContainerGetLogs(),
 		containerDomainList(),
 		containerDomainGet(),
 		containerDomainCreate(),
@@ -60,8 +59,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func containerRoot() *core.Command {
 	return &core.Command{
-		Short:     `Container as a Service API`,
-		Long:      `Container as a Service API.`,
+		Short:     `This API allows you to manage your Serverless Containers`,
+		Long:      `This API allows you to manage your Serverless Containers.`,
 		Namespace: "container",
 	}
 }
@@ -1015,53 +1014,6 @@ func containerCronDelete() *core.Command {
 	}
 }
 
-func containerContainerGetLogs() *core.Command {
-	return &core.Command{
-		Short:     `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List your container logs`,
-		Long:      `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the logs of the container with the specified ID.`,
-		Namespace: "container",
-		Resource:  "container",
-		Verb:      "get-logs",
-		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.ListLogsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "container-id",
-				Short:      `UUID of the container`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
-				Name:       "order-by",
-				Short:      `Order of the logs`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"timestamp_desc", "timestamp_asc"},
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*container.ListLogsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
-			if request.Region == scw.Region(core.AllLocalities) {
-				opts = append(opts, scw.WithRegions(api.Regions()...))
-				request.Region = ""
-			}
-			resp, err := api.ListLogs(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-			return resp.Logs, nil
-
-		},
-	}
-}
-
 func containerDomainList() *core.Command {
 	return &core.Command{
 		Short:     `List all domain name bindings`,
@@ -1403,12 +1355,6 @@ func containerTriggerCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "scw-sqs-config.mnq-namespace-id",
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
 				Name:       "scw-sqs-config.queue",
 				Short:      `Name of the SQS queue the trigger should listen to`,
 				Required:   false,
@@ -1427,12 +1373,6 @@ func containerTriggerCreate() *core.Command {
 				Short:      `Region in which the Messaging and Queuing project is activated.`,
 				Required:   false,
 				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "scw-nats-config.mnq-namespace-id",
-				Required:   false,
-				Deprecated: true,
 				Positional: false,
 			},
 			{

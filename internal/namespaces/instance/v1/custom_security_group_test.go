@@ -1,14 +1,16 @@
-package instance
+package instance_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_SecurityGroupGet(t *testing.T) {
 	t.Run("Get", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createSecurityGroup("SecurityGroup"),
 		),

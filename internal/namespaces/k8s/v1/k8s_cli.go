@@ -35,7 +35,6 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterListAvailableVersions(),
 		k8sClusterListAvailableTypes(),
 		k8sClusterResetAdminToken(),
-		k8sClusterMigrateToPrivateNetwork(),
 		k8sPoolList(),
 		k8sPoolCreate(),
 		k8sPoolGet(),
@@ -54,8 +53,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func k8sRoot() *core.Command {
 	return &core.Command{
-		Short:     `Kubernetes API`,
-		Long:      `Kubernetes API.`,
+		Short:     `This API allows you to manage Kubernetes Kapsule and Kosmos clusters`,
+		Long:      `This API allows you to manage Kubernetes Kapsule and Kosmos clusters.`,
 		Namespace: "k8s",
 	}
 }
@@ -301,7 +300,7 @@ func k8sClusterCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel", "kilo"},
+				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel", "kilo", "none"},
 			},
 			{
 				Name:       "pools.{index}.name",
@@ -1145,49 +1144,6 @@ func k8sClusterResetAdminToken() *core.Command {
 			{
 				Short: "Reset the admin token for a cluster",
 				Raw:   `scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111`,
-			},
-		},
-	}
-}
-
-func k8sClusterMigrateToPrivateNetwork() *core.Command {
-	return &core.Command{
-		Short:     `Migrate an existing cluster to a Private Network cluster`,
-		Long:      `Migrate a cluster that was created before the release of Private Network clusters to a new one with a Private Network.`,
-		Namespace: "k8s",
-		Resource:  "cluster",
-		Verb:      "migrate-to-private-network",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.MigrateToPrivateNetworkClusterRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "cluster-id",
-				Short:      `ID of the cluster to migrate`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
-				Name:       "private-network-id",
-				Short:      `ID of the Private Network to link to the cluster`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*k8s.MigrateToPrivateNetworkClusterRequest)
-
-			client := core.ExtractClient(ctx)
-			api := k8s.NewAPI(client)
-			return api.MigrateToPrivateNetworkCluster(request)
-
-		},
-		Examples: []*core.Example{
-			{
-				Short: "Migrate a cluster to a Private Network cluster",
-				Raw:   `scw k8s cluster migrate-to-private-network 11111111-1111-1111-111111111111 private-network-id=11111111-1111-1111-111111111111`,
 			},
 		},
 	}

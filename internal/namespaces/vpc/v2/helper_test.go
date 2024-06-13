@@ -1,4 +1,4 @@
-package vpc
+package vpc_test
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -12,7 +12,7 @@ func createInstance() core.BeforeFunc {
 }
 
 func deleteInstance() core.AfterFunc {
-	return core.ExecAfterCmd("scw instance server delete {{ .Instance.ID }}")
+	return core.ExecAfterCmd("scw instance server delete {{ .Instance.ID }} --wait")
 }
 
 func createPN() core.BeforeFunc {

@@ -245,7 +245,9 @@ Default path for configuration file is based on the following priority order:
 			// Install autocomplete
 			if *args.InstallAutocomplete {
 				_, _ = interactive.Println()
-				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{})
+				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{
+					Basename: "scw",
+				})
 				if err != nil {
 					successDetails = append(successDetails, "Except for autocomplete: "+err.Error())
 				}

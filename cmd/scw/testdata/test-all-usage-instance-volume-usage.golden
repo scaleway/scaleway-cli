@@ -12,9 +12,6 @@ Two different types of volume (`volume_type`) are available:
     centralized cluster. You can plug and unplug a volume while
     your Instance is running.
 
-Note: The `unified` volume type is not available for volumes. This
-type can only be used on snapshots.
-
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone `/products/volumes` API endpoint. _I.e_ for:
   - `fr-par-1`  use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes

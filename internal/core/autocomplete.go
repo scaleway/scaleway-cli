@@ -37,7 +37,7 @@ const (
 
 // AutoCompleteArgFunc is the function called to complete arguments values.
 // It is retrieved from core.ArgSpec.AutoCompleteFunc.
-type AutoCompleteArgFunc func(ctx context.Context, prefix string) AutocompleteSuggestions
+type AutoCompleteArgFunc func(ctx context.Context, prefix string, request any) AutocompleteSuggestions
 
 // AutoCompleteNode is a node in the AutoComplete Tree.
 // An AutoCompleteNode can either represent a command, a subcommand, or a command argument.
@@ -186,6 +186,9 @@ func BuildAutoCompleteTree(ctx context.Context, commands *Commands) *AutoComplet
 	globalFlags := getGlobalFlags(ctx)
 	root := NewAutoCompleteCommandNode(globalFlags)
 	for _, cmd := range commands.commands {
+		if cmd.Deprecated {
+			continue
+		}
 		node := root
 
 		// Creates nodes for namespaces, resources, verbs
@@ -361,7 +364,7 @@ func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, a
 		return nil
 	}
 	if argSpec.AutoCompleteFunc != nil {
-		return argSpec.AutoCompleteFunc(ctx, argValuePrefix)
+		return argSpec.AutoCompleteFunc(ctx, argValuePrefix, requestFromCompletedArgs(cmd, completedArgs))
 	}
 
 	possibleValues := []string(nil)

@@ -46,7 +46,6 @@ func GetGeneratedCommands() *core.Commands {
 		functionCronCreate(),
 		functionCronUpdate(),
 		functionCronDelete(),
-		functionFunctionGetLogs(),
 		functionDomainList(),
 		functionDomainGet(),
 		functionDomainCreate(),
@@ -552,7 +551,7 @@ func functionFunctionCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121"},
+				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121", "node22", "python312", "php83", "go122", "rust178"},
 			},
 			{
 				Name:       "memory-limit",
@@ -668,7 +667,7 @@ func functionFunctionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121"},
+				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121", "node22", "python312", "php83", "go122", "rust178"},
 			},
 			{
 				Name:       "memory-limit",
@@ -1113,53 +1112,6 @@ func functionCronDelete() *core.Command {
 	}
 }
 
-func functionFunctionGetLogs() *core.Command {
-	return &core.Command{
-		Short:     `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs`,
-		Long:      `Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the application logs of the function with the specified ID.`,
-		Namespace: "function",
-		Resource:  "function",
-		Verb:      "get-logs",
-		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(function.ListLogsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "function-id",
-				Short:      `UUID of the function to get the logs for`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
-				Name:       "order-by",
-				Short:      `Order of the logs`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"timestamp_desc", "timestamp_asc"},
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*function.ListLogsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
-			if request.Region == scw.Region(core.AllLocalities) {
-				opts = append(opts, scw.WithRegions(api.Regions()...))
-				request.Region = ""
-			}
-			resp, err := api.ListLogs(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-			return resp.Logs, nil
-
-		},
-	}
-}
-
 func functionDomainList() *core.Command {
 	return &core.Command{
 		Short:     `List all domain name bindings`,
@@ -1501,12 +1453,6 @@ func functionTriggerCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "scw-sqs-config.mnq-namespace-id",
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
 				Name:       "scw-sqs-config.queue",
 				Short:      `Name of the SQS queue the trigger should listen to`,
 				Required:   false,
@@ -1525,12 +1471,6 @@ func functionTriggerCreate() *core.Command {
 				Short:      `Region in which the Messaging and Queuing project is activated.`,
 				Required:   false,
 				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "scw-nats-config.mnq-namespace-id",
-				Required:   false,
-				Deprecated: true,
 				Positional: false,
 			},
 			{

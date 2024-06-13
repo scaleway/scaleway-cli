@@ -1,12 +1,15 @@
-package instance
+package instance_test
 
 import (
 	"fmt"
 	"testing"
 
+	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -22,13 +25,13 @@ func Test_CreateServer(t *testing.T) {
 	////
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_jammy stopped=true",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "Ubuntu 22.04 Jammy Jellyfish", ctx.Result.(*instance.Server).Image.Name)
+					assert.Equal(t, "Ubuntu 22.04 Jammy Jellyfish", ctx.Result.(*instanceSDK.Server).Image.Name)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -36,12 +39,12 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("GP1-XS", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create type=GP1-XS image=ubuntu_bionic stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "GP1-XS", ctx.Result.(*instance.Server).CommercialType)
+					assert.Equal(t, "GP1-XS", ctx.Result.(*instanceSDK.Server).CommercialType)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -49,12 +52,12 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("With name", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic name=yo stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "yo", ctx.Result.(*instance.Server).Name)
+					assert.Equal(t, "yo", ctx.Result.(*instanceSDK.Server).Name)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -62,12 +65,12 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("With start", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, instance.ServerStateRunning, ctx.Result.(*instance.Server).State)
+					assert.Equal(t, instanceSDK.ServerStateRunning, ctx.Result.(*instanceSDK.Server).State)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -75,14 +78,14 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("With bootscript", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic bootscript-id=eb760e3c-30d8-49a3-b3ad-ad10c3aa440b stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
 					//nolint: staticcheck // Bootscript is deprecated
-					assert.Equal(t, "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", ctx.Result.(*instance.Server).Bootscript.ID)
-					assert.Equal(t, instance.BootTypeBootscript, ctx.Result.(*instance.Server).BootType)
+					assert.Equal(t, "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", ctx.Result.(*instanceSDK.Server).Bootscript.ID)
+					assert.Equal(t, instanceSDK.BootTypeBootscript, ctx.Result.(*instanceSDK.Server).BootType)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -90,12 +93,12 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("Image UUID", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=f974feac-abae-4365-b988-8ec7d1cec10d stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instance.Server).Image.Name)
+					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instanceSDK.Server).Image.Name)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -103,13 +106,13 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic tags.0=prod tags.1=blue stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "prod", ctx.Result.(*instance.Server).Tags[0])
-					assert.Equal(t, "blue", ctx.Result.(*instance.Server).Tags[1])
+					assert.Equal(t, "prod", ctx.Result.(*instanceSDK.Server).Tags[0])
+					assert.Equal(t, "blue", ctx.Result.(*instanceSDK.Server).Tags[1])
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -122,12 +125,12 @@ func Test_CreateServer(t *testing.T) {
 	////
 	t.Run("Volumes", func(t *testing.T) {
 		t.Run("valid single local volume", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.Server).Volumes["0"].Size)
+					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -135,7 +138,7 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("valid single local snapshot", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true"),
 				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
@@ -145,7 +148,7 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.Server).Volumes["0"].Size)
+					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -156,13 +159,13 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("valid double local volumes", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=l:10G stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.Server).Volumes["0"].Size)
-					assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.Server).Volumes["1"].Size)
+					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
+					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["1"].Size)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -170,7 +173,7 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("valid double snapshot", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true"),
 				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create unified=true volume-id={{ (index .Server.Volumes "0").ID }}`),
@@ -180,8 +183,8 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.Server).Volumes["0"].Size)
-					assert.Equal(t, 20*scw.GB, ctx.Result.(*instance.Server).Volumes["1"].Size)
+					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
+					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["1"].Size)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -192,14 +195,14 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("valid additional block volumes", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 1*scw.GB, ctx.Result.(*instance.Server).Volumes["1"].Size)
-					assert.Equal(t, 5*scw.GB, ctx.Result.(*instance.Server).Volumes["2"].Size)
-					assert.Equal(t, 10*scw.GB, ctx.Result.(*instance.Server).Volumes["3"].Size)
+					assert.Equal(t, 1*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["1"].Size)
+					assert.Equal(t, 5*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["2"].Size)
+					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["3"].Size)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -211,13 +214,13 @@ func Test_CreateServer(t *testing.T) {
 	////
 	t.Run("IPs", func(t *testing.T) {
 		t.Run("explicit new IP", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic ip=new stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
-					assert.Equal(t, false, ctx.Result.(*instance.Server).PublicIP.Dynamic)
+					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
+					assert.Equal(t, false, ctx.Result.(*instanceSDK.Server).PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -225,14 +228,14 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("run with dynamic IP", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic ip=dynamic -w", // dynamic IP is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NoError(t, ctx.Err)
 					assert.NotNil(t, ctx.Result)
-					assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
-					assert.Equal(t, true, ctx.Result.(*instance.Server).DynamicIPRequired)
+					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
+					assert.Equal(t, true, ctx.Result.(*instanceSDK.Server).DynamicIPRequired)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -240,14 +243,14 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("existing IP", core.Test(&core.TestConfig{
-			Commands:   GetCommands(),
+			Commands:   instance.GetCommands(),
 			BeforeFunc: createIP("IP"),
 			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.Address }} stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
-					assert.Equal(t, false, ctx.Result.(*instance.Server).PublicIP.Dynamic)
+					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
+					assert.Equal(t, false, ctx.Result.(*instanceSDK.Server).PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -255,14 +258,14 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("existing IP ID", core.Test(&core.TestConfig{
-			Commands:   GetCommands(),
+			Commands:   instance.GetCommands(),
 			BeforeFunc: createIP("IP"),
 			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.ID }} stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.NotEmpty(t, ctx.Result.(*instance.Server).PublicIP.Address)
-					assert.Equal(t, false, ctx.Result.(*instance.Server).PublicIP.Dynamic)
+					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
+					assert.Equal(t, false, ctx.Result.(*instanceSDK.Server).PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -270,12 +273,12 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("with ipv6", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic ipv6=true -w", // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
-					assert.NotEmpty(t, ctx.Result.(*instance.Server).IPv6.Address)
+					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).IPv6.Address)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -292,7 +295,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	// Image errors
 	////
 	t.Run("Error: invalid image label", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=macos",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -302,7 +305,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid image UUID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=7a892c1a-bbdc-491f-9974-4008e3708664",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -315,7 +318,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	// Instance type errors
 	////
 	t.Run("Error: invalid instance type", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create type=MACBOOK1-S image=ubuntu_jammy",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -328,7 +331,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	// Volume errors
 	////
 	t.Run("Error: invalid total local volumes size: too low 1", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy root-volume=l:5GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -338,7 +341,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid total local volumes size: too low 2", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy root-volume=l:5GB additional-volumes.0=block:10GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -348,8 +351,8 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid total local volumes size: too low 3", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: createVolume("Volume", 5, instance.VolumeVolumeTypeLSSD),
+		Commands:   instance.GetCommands(),
+		BeforeFunc: createVolume("Volume", 5, instanceSDK.VolumeVolumeTypeLSSD),
 		Cmd:        "scw instance server create image=ubuntu_jammy root-volume={{ .Volume.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -359,7 +362,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 1", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy root-volume=local:10GB additional-volumes.0=local:20GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -369,7 +372,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 2", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy additional-volumes.0=local:20GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -379,8 +382,8 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: createVolume("Volume", 20, instance.VolumeVolumeTypeLSSD),
+		Commands:   instance.GetCommands(),
+		BeforeFunc: createVolume("Volume", 20, instanceSDK.VolumeVolumeTypeLSSD),
 		Cmd:        "scw instance server create image=ubuntu_jammy root-volume={{ .Volume.ID }} additional-volumes.0=local:10GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -391,7 +394,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid root volume size", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy root-volume=local:2GB additional-volumes.0=local:18GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -401,8 +404,8 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: disallow existing root volume ID", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
-		BeforeFunc: createVolume("Volume", 20, instance.VolumeVolumeTypeLSSD),
+		Commands:   instance.GetCommands(),
+		BeforeFunc: createVolume("Volume", 20, instanceSDK.VolumeVolumeTypeLSSD),
 		Cmd:        "scw instance server create image=ubuntu_jammy root-volume={{ .Volume.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -413,7 +416,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid root volume ID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy root-volume=29da9ad9-e759-4a56-82c8-f0607f93055c",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -423,7 +426,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: already attached additional volume ID", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create name=cli-test image=ubuntu_jammy root-volume=l:10G additional-volumes.0=l:10G stopped=true"),
 		Cmd:        `scw instance server create image=ubuntu_jammy root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }} stopped=true`,
 		Check: core.TestCheckCombine(
@@ -435,7 +438,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid root volume format", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy root-volume=20GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -445,7 +448,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid root volume snapshot ID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy root-volume=local:29da9ad9-e759-4a56-82c8-f0607f93055c",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -455,7 +458,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid additional volume snapshot ID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy additional-volumes.0=block:29da9ad9-e759-4a56-82c8-f0607f93055c",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -468,7 +471,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	// IP errors
 	////
 	t.Run("Error: not found ip ID", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy ip=23165951-13fd-4a3b-84ed-22c2e96658f2",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -477,7 +480,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: forbidden IP", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy ip=51.15.242.82",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -486,7 +489,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid ip", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=ubuntu_jammy ip=yo",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -495,8 +498,20 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: image size is incompatible with instance type", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create image=d4067cdc-dc9d-4810-8a26-0dae51d7df42 type=DEV1-S",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+	}))
+
+	////
+	// Windows
+	////
+	t.Run("Error: ssh key id is required", core.Test(&core.TestConfig{
+		Commands: instance.GetCommands(),
+		Cmd:      "scw instance server create image=windows_server_2022 type=POP2-2C-8G-WIN",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -506,7 +521,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 func Test_CreateServerScratchStorage(t *testing.T) {
 	t.Run("Default scratch storage", core.Test(&core.TestConfig{
-		Commands: GetCommands(),
+		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server create type=H100-1-80G image=ubuntu_jammy_gpu_os_12 zone=fr-par-2",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -515,7 +530,7 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 			},
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				server, isServer := ctx.Result.(*instance.Server)
+				server, isServer := ctx.Result.(*instanceSDK.Server)
 				if !isServer {
 					t.Fatalf("Result is not a server")
 				}
@@ -523,7 +538,7 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 				if !exist {
 					t.Fatalf("Expected an additional scratch volume, found none")
 				}
-				assert.Equal(t, additionalVolume.VolumeType, instance.VolumeServerVolumeTypeScratch)
+				assert.Equal(t, additionalVolume.VolumeType, instanceSDK.VolumeServerVolumeTypeScratch)
 			},
 		),
 		AfterFunc:       core.ExecAfterCmd("scw instance server delete {{ .CmdResult.ID }} zone=fr-par-2 with-volumes=all with-ip=true force-shutdown=true"),

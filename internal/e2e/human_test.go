@@ -1,4 +1,4 @@
-package e2e
+package e2e_test
 
 import (
 	"testing"
@@ -8,6 +8,8 @@ import (
 )
 
 func TestTestCommand(t *testing.T) {
+	t.Skip("Test API not available")
+
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands:        test.GetCommands(),
 		Cmd:             "scw test -h",
@@ -21,6 +23,8 @@ func TestTestCommand(t *testing.T) {
 }
 
 func TestHumanCreate(t *testing.T) {
+	t.Skip("Test API not available")
+
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human create -h",
@@ -65,6 +69,8 @@ func TestHumanCreate(t *testing.T) {
 }
 
 func TestHumanList(t *testing.T) {
+	t.Skip("Test API not available")
+
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human list -h",
@@ -92,6 +98,8 @@ func TestHumanList(t *testing.T) {
 }
 
 func TestHumanUpdate(t *testing.T) {
+	t.Skip("Test API not available")
+
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human update -h",
@@ -127,6 +135,8 @@ func TestHumanUpdate(t *testing.T) {
 }
 
 func TestHumanGet(t *testing.T) {
+	t.Skip("Test API not available")
+
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human get -h",
@@ -172,6 +182,8 @@ func TestHumanGet(t *testing.T) {
 }
 
 func TestHumanDelete(t *testing.T) {
+	t.Skip("Test API not available")
+
 	t.Run("usage", core.Test(&core.TestConfig{
 		Commands: test.GetCommands(),
 		Cmd:      "scw test human delete -h",

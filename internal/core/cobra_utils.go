@@ -74,8 +74,14 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 		results := MultiResults(nil)
 		rawArgs = rawArgs.RemoveAllPositional()
-		for _, positionalArg := range positionalArgs {
-			rawArgsWithPositional := rawArgs.Add(positionalArgSpec.Name, positionalArg)
+
+		if cmd.AcceptMultiplePositionalArgs {
+			argNameWithIndex := fmt.Sprintf("%s.%d", positionalArgSpec.Name, 0)
+			rawArgsWithPositional := rawArgs.Add(argNameWithIndex, positionalArgs[0])
+			for i := 1; i < len(positionalArgs); i++ {
+				argNameWithIndex = fmt.Sprintf("%s.%d", positionalArgSpec.Name, i)
+				rawArgsWithPositional = rawArgsWithPositional.Add(argNameWithIndex, positionalArgs[i])
+			}
 
 			result, err := run(ctx, cobraCmd, cmd, rawArgsWithPositional)
 			if err != nil {
@@ -83,6 +89,17 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			}
 
 			results = append(results, result)
+		} else {
+			for _, positionalArg := range positionalArgs {
+				rawArgsWithPositional := rawArgs.Add(positionalArgSpec.Name, positionalArg)
+
+				result, err := run(ctx, cobraCmd, cmd, rawArgsWithPositional)
+				if err != nil {
+					return err
+				}
+
+				results = append(results, result)
+			}
 		}
 		// If only one positional parameter was provided we return the result directly instead of
 		// an array of results
@@ -146,7 +163,7 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 	}
 
 	// execute the command
-	interceptor := combineCommandInterceptor(
+	interceptor := CombineCommandInterceptor(
 		sdkStdErrorInterceptor,
 		sdkStdTypeInterceptor,
 		cmd.Interceptor,

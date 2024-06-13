@@ -8,6 +8,8 @@ import (
 	"reflect"
 	"time"
 
+	"strings"
+
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
@@ -36,6 +38,7 @@ var (
 )
 
 func serverCreateBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("type").AutoCompleteFunc = autocompleteServerType
 	c.WaitFunc = waitForServerFunc(serverActionCreate)
 	return c
 }
@@ -124,4 +127,28 @@ func serverWaitCommand() *core.Command {
 			},
 		},
 	}
+}
+
+var completeListTypeServerCache *applesilicon.ListServerTypesResponse
+
+func autocompleteServerType(ctx context.Context, prefix string, _ any) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+
+	client := core.ExtractClient(ctx)
+	api := applesilicon.NewAPI(client)
+
+	if completeListTypeServerCache == nil {
+		res, err := api.ListServerTypes(&applesilicon.ListServerTypesRequest{})
+		if err != nil {
+			return nil
+		}
+		completeListTypeServerCache = res
+	}
+
+	for _, serverType := range completeListTypeServerCache.ServerTypes {
+		if strings.HasPrefix(serverType.Name, prefix) {
+			suggestions = append(suggestions, serverType.Name)
+		}
+	}
+	return suggestions
 }

@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Consumption Tax allows you to retrieve your past or current tax charges, by project or category.
+
+USAGE:
+  scw billing consumption list-taxes [arg=value ...]
+
+ARGS:
+  [order-by]          Order consumed taxes list in the response by their update date (updated_at_desc | updated_at_asc | category_name_desc | category_name_asc)
+  [billing-period]    Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+
+FLAGS:
+  -h, --help   help for list-taxes
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

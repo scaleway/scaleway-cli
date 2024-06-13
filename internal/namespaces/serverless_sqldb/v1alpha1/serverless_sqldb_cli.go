@@ -35,8 +35,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func sdbSQLRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your Serverless SQL DB databases`,
-		Long:      `This API allows you to manage your Serverless SQL DB databases.`,
+		Short:     `This API allows you to manage your Serverless SQL Databases`,
+		Long:      `This API allows you to manage your Serverless SQL Databases.`,
 		Namespace: "sdb-sql",
 	}
 }
@@ -340,7 +340,7 @@ func sdbSQLBackupGet() *core.Command {
 func sdbSQLBackupList() *core.Command {
 	return &core.Command{
 		Short:     `List your Serverless SQL Database backups`,
-		Long:      `List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.`,
+		Long:      `List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in descending order, though this can be modified via the order_by field.`,
 		Namespace: "sdb-sql",
 		Resource:  "backup",
 		Verb:      "list",
@@ -367,7 +367,7 @@ func sdbSQLBackupList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{"created_at_desc", "created_at_asc"},
 			},
 			{
 				Name:       "organization-id",

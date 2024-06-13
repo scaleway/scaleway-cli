@@ -1,0 +1,22 @@
+package inference
+
+import (
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
+)
+
+func GetCommands() *core.Commands {
+	cmds := GetGeneratedCommands()
+
+	human.RegisterMarshalerFunc(inference.DeploymentStatus(""), human.EnumMarshalFunc(deployementStateMarshalSpecs))
+
+	human.RegisterMarshalerFunc(inference.Deployment{}, DeploymentMarshalerFunc)
+	human.RegisterMarshalerFunc([]*inference.Model{}, ListModelMarshalerFunc)
+
+	cmds.MustFind("inference", "deployment", "create").Override(deploymentCreateBuilder)
+	cmds.MustFind("inference", "deployment", "delete").Override(deploymentDeleteBuilder)
+	cmds.MustFind("inference", "endpoint", "create").Override(endpointCreateBuilder)
+
+	return cmds
+}

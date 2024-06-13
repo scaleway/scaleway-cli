@@ -135,7 +135,7 @@ func backupListBuilder(c *core.Command) *core.Command {
 		CreatedAt    *time.Time               `json:"created_at"`
 		UpdatedAt    *time.Time               `json:"updated_at"`
 		InstanceName string                   `json:"instance_name"`
-		DownloadURL  string                   `json:"download_url"`
+		IsExported   bool                     `json:"is_exported"`
 		URLExpired   bool                     `json:"url_expired"`
 		Region       scw.Region               `json:"region"`
 		SameRegion   bool                     `json:"same_region"`
@@ -172,8 +172,8 @@ func backupListBuilder(c *core.Command) *core.Command {
 				FieldName: "URLExpired",
 			},
 			{
-				Label:     "Download URL",
-				FieldName: "DownloadURL",
+				Label:     "Is Exported",
+				FieldName: "IsExported",
 			},
 			{
 				Label:     "Expires At",
@@ -206,9 +206,9 @@ func backupListBuilder(c *core.Command) *core.Command {
 		backupList := listBackupResp.([]*rdb.DatabaseBackup)
 		var res []customBackup
 		for _, backup := range backupList {
-			downloadURL := ""
+			isExported := false
 			if backup.DownloadURL != nil {
-				downloadURL = *backup.DownloadURL
+				isExported = true
 			}
 			res = append(res, customBackup{
 				ID:           backup.ID,
@@ -221,7 +221,7 @@ func backupListBuilder(c *core.Command) *core.Command {
 				CreatedAt:    backup.CreatedAt,
 				UpdatedAt:    backup.UpdatedAt,
 				InstanceName: backup.InstanceName,
-				DownloadURL:  downloadURL,
+				IsExported:   isExported,
 				URLExpired:   urlExpired(backup.DownloadURLExpiresAt),
 				Region:       backup.Region,
 				SameRegion:   backup.SameRegion,
@@ -231,99 +231,6 @@ func backupListBuilder(c *core.Command) *core.Command {
 	})
 
 	return c
-}
-
-func backupExportDisplayBuilder(i interface{}, opt *human.MarshalOpt) (string, error) {
-	databaseBackup := i.(rdb.DatabaseBackup)
-
-	type customDisplayBackup struct {
-		ID           string                   `json:"ID"`
-		InstanceID   string                   `json:"instance_ID"`
-		DatabaseName string                   `json:"database_name"`
-		Name         string                   `json:"name"`
-		Status       rdb.DatabaseBackupStatus `json:"status"`
-		Size         *scw.Size                `json:"size"`
-		ExpiresAt    *time.Time               `json:"expires_at"`
-		CreatedAt    *time.Time               `json:"created_at"`
-		UpdatedAt    *time.Time               `json:"updated_at"`
-		InstanceName string                   `json:"instance_name"`
-		IsExported   bool                     `json:"is_exported"`
-		Region       scw.Region               `json:"region"`
-		SameRegion   bool                     `json:"same_region"`
-	}
-
-	opt.Fields = []*human.MarshalFieldOpt{
-		{
-			Label:     "ID",
-			FieldName: "ID",
-		},
-		{
-			Label:     "Name",
-			FieldName: "Name",
-		},
-		{
-			Label:     "Database Name",
-			FieldName: "DatabaseName",
-		},
-		{
-			Label:     "Size",
-			FieldName: "Size",
-		},
-		{
-			Label:     "Status",
-			FieldName: "Status",
-		},
-		{
-			Label:     "Instance ID",
-			FieldName: "InstanceID",
-		},
-		{
-			Label:     "Is Exported",
-			FieldName: "IsExported",
-		},
-		{
-			Label:     "Created At",
-			FieldName: "CreatedAt",
-		},
-		{
-			Label:     "Updated At",
-			FieldName: "UpdatedAt",
-		},
-		{
-			Label:     "Region",
-			FieldName: "Region",
-		},
-		{
-			Label:     "Same Region",
-			FieldName: "SameRegion",
-		},
-	}
-
-	isExported := false
-	if databaseBackup.DownloadURL != nil {
-		isExported = true
-	}
-
-	arg := customDisplayBackup{
-		ID:           databaseBackup.ID,
-		InstanceID:   databaseBackup.InstanceID,
-		DatabaseName: databaseBackup.DatabaseName,
-		Name:         databaseBackup.Name,
-		Status:       databaseBackup.Status,
-		Size:         databaseBackup.Size,
-		ExpiresAt:    databaseBackup.ExpiresAt,
-		CreatedAt:    databaseBackup.CreatedAt,
-		UpdatedAt:    databaseBackup.UpdatedAt,
-		InstanceName: databaseBackup.InstanceName,
-		IsExported:   isExported,
-		Region:       databaseBackup.Region,
-		SameRegion:   databaseBackup.SameRegion,
-	}
-	str, err := human.Marshal(arg, opt)
-	if err != nil {
-		return "", err
-	}
-	return str, nil
 }
 
 // urlExpired: indicates if the backup url is still valid after the indicated date.

@@ -32,12 +32,13 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingHostingGetDNSRecords(),
 		webhostingOfferList(),
 		webhostingControlPanelList(),
+		webhostingHostingCreateSession(),
 	)
 }
 func webhostingRoot() *core.Command {
 	return &core.Command{
-		Short:     `Web Hosting API`,
-		Long:      `Web Hosting API.`,
+		Short:     `This API allows you to manage your Web Hosting services`,
+		Long:      `This API allows you to manage your Web Hosting services.`,
 		Namespace: "webhosting",
 	}
 }
@@ -122,6 +123,30 @@ func webhostingHostingCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_language_code", "en_US", "fr_FR", "de_DE"},
+			},
+			{
+				Name:       "domain-configuration.update-nameservers",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "domain-configuration.update-web-record",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "domain-configuration.update-mail-record",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "domain-configuration.update-all-records",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
@@ -302,6 +327,13 @@ func webhostingHostingUpdate() *core.Command {
 			{
 				Name:       "offer-id",
 				Short:      `ID of the new offer for the Web Hosting plan`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "protected",
+				Short:      `Whether the hosting is protected or not`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -516,8 +548,8 @@ func webhostingOfferList() *core.Command {
 
 func webhostingControlPanelList() *core.Command {
 	return &core.Command{
-		Short:     `List all control panels type`,
-		Long:      `List the control panels type: cpanel or plesk.`,
+		Short:     `"List the control panels type: cpanel or plesk."`,
+		Long:      `"List the control panels type: cpanel or plesk.".`,
 		Namespace: "webhosting",
 		Resource:  "control-panel",
 		Verb:      "list",
@@ -541,6 +573,36 @@ func webhostingControlPanelList() *core.Command {
 				return nil, err
 			}
 			return resp.ControlPanels, nil
+
+		},
+	}
+}
+
+func webhostingHostingCreateSession() *core.Command {
+	return &core.Command{
+		Short:     `Create a user session`,
+		Long:      `Create a user session.`,
+		Namespace: "webhosting",
+		Resource:  "hosting",
+		Verb:      "create-session",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.CreateSessionRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `Hosting ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*webhosting.CreateSessionRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewAPI(client)
+			return api.CreateSession(request)
 
 		},
 	}

@@ -150,6 +150,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
   },
   "backup_same_region": false,
   "maintenances": [],
+  "encryption": null,
   "acls": [
     {
       "ip": "0.0.0.0/0",

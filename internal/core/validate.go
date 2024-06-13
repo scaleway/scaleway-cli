@@ -20,6 +20,11 @@ type CommandValidateFunc func(ctx context.Context, cmd *Command, cmdArgs interfa
 // ArgSpecValidateFunc validates one argument of a command.
 type ArgSpecValidateFunc func(argSpec *ArgSpec, value interface{}) error
 
+type OneOfGroupManager struct {
+	Groups         map[string][]string
+	RequiredGroups map[string]bool
+}
+
 // DefaultCommandValidateFunc is the default validation function for commands.
 func DefaultCommandValidateFunc() CommandValidateFunc {
 	return func(ctx context.Context, cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
@@ -31,7 +36,7 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 		if err != nil {
 			return err
 		}
-		err = validateNoConflict(cmd, rawArgs)
+		err = ValidateNoConflict(cmd, rawArgs)
 		if err != nil {
 			return err
 		}
@@ -45,7 +50,7 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 	for _, argSpec := range cmd.ArgSpecs {
 		fieldName := strcase.ToPublicGoName(argSpec.Name)
-		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 		if err != nil {
 			logger.Infof("could not validate arg value for '%v': invalid fieldName: %v: %v", argSpec.Name, fieldName, err.Error())
 			continue
@@ -70,12 +75,12 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 // TODO refactor this method which uses a mix of reflect and string arrays
 func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
 	for _, arg := range cmd.ArgSpecs {
-		if !arg.Required {
+		if !arg.Required || arg.OneOfGroup != "" {
 			continue
 		}
 
 		fieldName := strcase.ToPublicGoName(arg.Name)
-		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 		if err != nil {
 			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
 			if !arg.Required {
@@ -95,10 +100,25 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 			}
 		}
 	}
+	if err := validateOneOfRequiredArgs(cmd, rawArgs, cmdArgs); err != nil {
+		return err
+	}
+
 	return nil
 }
 
-func validateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
+func validateOneOfRequiredArgs(cmd *Command, rawArgs args.RawArgs, cmdArgs interface{}) error {
+	oneOfManager := NewOneOfGroupManager(cmd)
+	if err := oneOfManager.ValidateUniqueOneOfGroups(rawArgs, cmdArgs); err != nil {
+		return err
+	}
+	if err := oneOfManager.ValidateRequiredOneOfGroups(rawArgs, cmdArgs); err != nil {
+		return err
+	}
+	return nil
+}
+
+func ValidateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
 	for _, arg1 := range cmd.ArgSpecs {
 		for _, arg2 := range cmd.ArgSpecs {
 			if !arg1.ConflictWith(arg2) || arg1 == arg2 {
@@ -117,7 +137,7 @@ func validateDeprecated(ctx context.Context, cmd *Command, cmdArgs interface{}, 
 	deprecatedArgs := cmd.ArgSpecs.GetDeprecated(true)
 	for _, arg := range deprecatedArgs {
 		fieldName := strcase.ToPublicGoName(arg.Name)
-		fieldValues, err := getValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 		if err != nil {
 			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
 			if !arg.Required {
@@ -248,4 +268,79 @@ func ValidateProjectID() ArgSpecValidateFunc {
 		}
 		return nil
 	}
+}
+
+func NewOneOfGroupManager(cmd *Command) *OneOfGroupManager {
+	manager := &OneOfGroupManager{
+		Groups:         make(map[string][]string),
+		RequiredGroups: make(map[string]bool),
+	}
+
+	for _, arg := range cmd.ArgSpecs {
+		if arg.OneOfGroup != "" {
+			manager.Groups[arg.OneOfGroup] = append(manager.Groups[arg.OneOfGroup], arg.Name)
+			if arg.Required {
+				manager.RequiredGroups[arg.OneOfGroup] = true
+			}
+		}
+	}
+
+	return manager
+}
+
+func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdArgs interface{}) error {
+	for groupName, groupArgs := range m.Groups {
+		existingArg := ""
+		for _, argName := range groupArgs {
+			fieldName := strcase.ToPublicGoName(argName)
+			fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+			if err != nil {
+				validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", argName, fieldName, err.Error())
+				if m.RequiredGroups[groupName] {
+					logger.Infof(validationErr.Error())
+					continue
+				}
+				panic(validationErr)
+			}
+			for i := range fieldValues {
+				argNameWithIndex := strings.Replace(argName, "{index}", strconv.Itoa(i), 1)
+				if rawArgs.ExistsArgByName(argNameWithIndex) {
+					if existingArg != "" {
+						return fmt.Errorf("arguments '%s' and '%s' are mutually exclusive", existingArg, argNameWithIndex)
+					}
+					existingArg = argNameWithIndex
+				}
+			}
+		}
+	}
+	return nil
+}
+
+func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(rawArgs args.RawArgs, cmdArgs interface{}) error {
+	for group, required := range m.RequiredGroups {
+		if required {
+			found := false
+			for _, argName := range m.Groups[group] {
+				fieldName := strcase.ToPublicGoName(argName)
+				fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+				if err != nil {
+					validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", argName, fieldName, err.Error())
+					panic(validationErr)
+				}
+				for i := range fieldValues {
+					if rawArgs.ExistsArgByName(strings.Replace(argName, "{index}", strconv.Itoa(i), 1)) {
+						found = true
+						break
+					}
+				}
+				if found {
+					break
+				}
+			}
+			if !found {
+				return fmt.Errorf("at least one argument from the '%s' group is required", group)
+			}
+		}
+	}
+	return nil
 }

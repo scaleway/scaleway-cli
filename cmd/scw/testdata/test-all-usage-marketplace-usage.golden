@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Marketplace API
+This API allows you to find available images for use when launching a Scaleway Instance.
 
 USAGE:
   scw marketplace <command>

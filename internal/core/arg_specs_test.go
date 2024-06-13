@@ -1,29 +1,31 @@
-package core
+package core_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 
 	"github.com/alecthomas/assert"
 )
 
 func TestOneOf(t *testing.T) {
-	a := &ArgSpec{
+	a := &core.ArgSpec{
 		Name:       "Argument A",
 		OneOfGroup: "ab group",
 	}
-	b := &ArgSpec{
+	b := &core.ArgSpec{
 		Name:       "Argument B",
 		OneOfGroup: "ab group",
 	}
-	c := &ArgSpec{
+	c := &core.ArgSpec{
 		Name:       "Argument C",
 		OneOfGroup: "",
 	}
-	d := &ArgSpec{
+	d := &core.ArgSpec{
 		Name:       "Argument D",
 		OneOfGroup: "",
 	}
-	e := &ArgSpec{
+	e := &core.ArgSpec{
 		Name: "Argument E",
 	}
 	assert.True(t, a.ConflictWith(b))

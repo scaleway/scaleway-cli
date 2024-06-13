@@ -1,4 +1,4 @@
-package lb
+package lb_test
 
 import (
 	"fmt"
@@ -159,5 +159,12 @@ func attachPN() core.BeforeFunc {
 func detachPN() core.AfterFunc {
 	return core.ExecAfterCmd(
 		"scw lb private-network detach {{ .LB.ID }} private-network-id={{ .PN.ID }}",
+	)
+}
+
+func createIP() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"IP",
+		"scw lb ip create is-ipv6=true",
 	)
 }

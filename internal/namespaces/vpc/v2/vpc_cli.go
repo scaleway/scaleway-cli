@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcVpc(),
 		vpcPrivateNetwork(),
 		vpcSubnet(),
+		vpcRoutes(),
 		vpcVpcList(),
 		vpcVpcCreate(),
 		vpcVpcGet(),
@@ -35,12 +36,13 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetworkDelete(),
 		vpcPrivateNetworkMigrateToRegional(),
 		vpcPrivateNetworkEnableDHCP(),
+		vpcRoutesList(),
 	)
 }
 func vpcRoot() *core.Command {
 	return &core.Command{
-		Short:     `VPC API`,
-		Long:      `VPC API.`,
+		Short:     `This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks`,
+		Long:      `This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks.`,
 		Namespace: "vpc",
 	}
 }
@@ -74,6 +76,15 @@ func vpcSubnet() *core.Command {
 		Long:      `CIDR Subnet.`,
 		Namespace: "vpc",
 		Resource:  "subnet",
+	}
+}
+
+func vpcRoutes() *core.Command {
+	return &core.Command{
+		Short:     `Routes management command`,
+		Long:      `Routes management command.`,
+		Namespace: "vpc",
+		Resource:  "routes",
 	}
 }
 
@@ -119,6 +130,13 @@ func vpcVpcList() *core.Command {
 			{
 				Name:       "is-default",
 				Short:      `Defines whether to filter only for VPCs which are the default one for their Project`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "routing-enabled",
+				Short:      `Defines whether to filter only for VPCs which route traffic between their Private Networks`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -174,6 +192,13 @@ func vpcVpcCreate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags for the VPC`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-routing",
+				Short:      `Enable routing between Private Networks in the VPC`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -616,6 +641,92 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.EnableDHCP(request)
+
+		},
+	}
+}
+
+func vpcRoutesList() *core.Command {
+	return &core.Command{
+		Short:     `Return routes with associated next hop data`,
+		Long:      `Return routes with associated next hop data.`,
+		Namespace: "vpc",
+		Resource:  "routes",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.RoutesWithNexthopAPIListRoutesWithNexthopRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of the returned routes`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc", "destination_asc", "destination_desc", "prefix_len_asc", "prefix_len_desc"},
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `VPC to filter for. Only routes within this VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-resource-id",
+				Short:      `Next hop resource ID to filter for. Only routes with a matching next hop resource ID will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-private-network-id",
+				Short:      `Next hop private network ID to filter for. Only routes with a matching next hop private network ID will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-resource-type",
+				Short:      `Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "vpc_gateway_network", "instance_private_nic", "baremetal_private_nic"},
+			},
+			{
+				Name:       "contains",
+				Short:      `Only routes whose destination is contained in this subnet will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags to filter for, only routes with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-ipv6",
+				Short:      `Only routes with an IPv6 destination will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.RoutesWithNexthopAPIListRoutesWithNexthopRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewRoutesWithNexthopAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListRoutesWithNexthop(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Routes, nil
 
 		},
 	}

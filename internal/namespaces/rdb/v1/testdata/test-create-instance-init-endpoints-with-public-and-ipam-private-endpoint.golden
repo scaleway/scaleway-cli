@@ -28,6 +28,7 @@ Endpoints.0.Port                             5432
 Endpoints.0.PrivateNetwork.PrivateNetworkID  5373de56-50d3-4058-9aaf-0bc9a70fdad5
 Endpoints.0.PrivateNetwork.ServiceIP         172.16.28.2/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
+Endpoints.0.PrivateNetwork.ProvisioningMode  static
 Endpoints.1.ID                               4c924e70-8d97-4859-8084-8a6b366e9f6c
 Endpoints.1.IP                               51.159.115.243
 Endpoints.1.Port                             25880
@@ -149,7 +150,8 @@ Password:
       "private_network": {
         "private_network_id": "5373de56-50d3-4058-9aaf-0bc9a70fdad5",
         "service_ip": "172.16.28.2/22",
-        "zone": "fr-par-1"
+        "zone": "fr-par-1",
+        "provisioning_mode": "static"
       }
     },
     {
@@ -166,5 +168,6 @@ Password:
   },
   "backup_same_region": false,
   "maintenances": [],
+  "encryption": null,
   "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }

@@ -1,8 +1,10 @@
-package object
+package object_test
 
 import (
 	"path"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -24,7 +26,7 @@ func Test_ConfigInstall(t *testing.T) {
 
 	t.Run("NoExistingConfig", func(t *testing.T) {
 		t.Run("rclone", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: object.GetCommands(),
 			Cmd:      "scw object config install type=rclone",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -38,7 +40,7 @@ func Test_ConfigInstall(t *testing.T) {
 		}))
 
 		t.Run("mc", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: object.GetCommands(),
 			Cmd:      "scw object config install type=mc",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -52,7 +54,7 @@ func Test_ConfigInstall(t *testing.T) {
 		}))
 
 		t.Run("s3cmd", core.Test(&core.TestConfig{
-			Commands: GetCommands(),
+			Commands: object.GetCommands(),
 			Cmd:      "scw object config install type=s3cmd",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {

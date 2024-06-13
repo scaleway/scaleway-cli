@@ -37,8 +37,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func fipRoot() *core.Command {
 	return &core.Command{
-		Short:     `Elastic Metal - Flexible IP API`,
-		Long:      `Elastic Metal - Flexible IP API.`,
+		Short:     `This API allows you to manage your Elastic Metal servers' flexible public IP addresses`,
+		Long:      `This API allows you to manage your Elastic Metal servers' flexible public IP addresses.`,
 		Namespace: "fip",
 	}
 }

@@ -1,39 +1,40 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              3fcef37a-506b-45a5-bde6-dec3f989c6be
-OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
-ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
-CreatedAt       few seconds ago
-UpdatedAt       few seconds ago
-Type.Name       VPC-GW-S
-Type.Bandwidth  100000000
-Type.Zone       fr-par-1
-Status          running
-Name            cli-gw-stupefied-swirles
-Version         0.6.1
-BastionEnabled  false
-BastionPort     61000
-SMTPEnabled     false
-IsLegacy        false
-Zone            fr-par-1
+ID                 842f7e39-cfed-41a3-bb7f-d4e77d069129
+OrganizationID     d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ProjectID          d3520a52-2c75-4ba0-bda8-82dd087f07f2
+CreatedAt          few seconds ago
+UpdatedAt          few seconds ago
+Type.Name          VPC-GW-S
+Type.Bandwidth     100000000
+Type.Zone          fr-par-1
+Status             running
+Name               cli-gw-dreamy-booth
+Version            0.6.1
+BastionEnabled     false
+BastionPort        61000
+SMTPEnabled        false
+IsLegacy           false
+IPMobilityEnabled  false
+Zone               fr-par-1
 
 IP:
-ID              527342d1-f9bb-4fe7-88ef-c8306d6bd728
+ID              2c139c4c-b21f-48f1-89ac-3aa31ad3dc88
 OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
 ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-Address         51.15.254.9
-Reverse         9-254-15-51.instances.scw.cloud
-GatewayID       3fcef37a-506b-45a5-bde6-dec3f989c6be
+Address         51.15.231.133
+Reverse         133-231-15-51.instances.scw.cloud
+GatewayID       842f7e39-cfed-41a3-bb7f-d4e77d069129
 Zone            fr-par-1
 
 GatewayNetworks:
-ID                                    CREATED AT       UPDATED AT       GATEWAY ID                            PRIVATE NETWORK ID                    MAC ADDRESS        ENABLE MASQUERADE  STATUS  ENABLE DHCP  ADDRESS        ZONE
-4273b9d5-646f-497e-bce7-2a7ebd7d891e  few seconds ago  few seconds ago  3fcef37a-506b-45a5-bde6-dec3f989c6be  445c4a36-1fc6-4564-bf11-8ac85545cd23  02:00:00:18:43:70  false              ready   false        172.16.8.2/22  fr-par-1
+ID                                    CREATED AT       UPDATED AT       GATEWAY ID                            PRIVATE NETWORK ID                    MAC ADDRESS        ENABLE MASQUERADE  STATUS  ENABLE DHCP  ADDRESS         ZONE
+94a3b5f9-8a80-40f8-9560-5079747e0679  few seconds ago  few seconds ago  842f7e39-cfed-41a3-bb7f-d4e77d069129  e92fc64c-0a33-4293-8a5d-d53b949b38d1  02:00:00:18:95:2B  false              ready   false        172.16.28.2/22  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "3fcef37a-506b-45a5-bde6-dec3f989c6be",
+  "id": "842f7e39-cfed-41a3-bb7f-d4e77d069129",
   "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -44,36 +45,36 @@ ID                                    CREATED AT       UPDATED AT       GATEWAY 
     "zone": "fr-par-1"
   },
   "status": "running",
-  "name": "cli-gw-stupefied-swirles",
+  "name": "cli-gw-dreamy-booth",
   "tags": [],
   "ip": {
-    "id": "527342d1-f9bb-4fe7-88ef-c8306d6bd728",
+    "id": "2c139c4c-b21f-48f1-89ac-3aa31ad3dc88",
     "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
     "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [],
-    "address": "51.15.254.9",
-    "reverse": "9-254-15-51.instances.scw.cloud",
-    "gateway_id": "3fcef37a-506b-45a5-bde6-dec3f989c6be",
+    "address": "51.15.231.133",
+    "reverse": "133-231-15-51.instances.scw.cloud",
+    "gateway_id": "842f7e39-cfed-41a3-bb7f-d4e77d069129",
     "zone": "fr-par-1"
   },
   "gateway_networks": [
     {
-      "id": "4273b9d5-646f-497e-bce7-2a7ebd7d891e",
+      "id": "94a3b5f9-8a80-40f8-9560-5079747e0679",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "gateway_id": "3fcef37a-506b-45a5-bde6-dec3f989c6be",
-      "private_network_id": "445c4a36-1fc6-4564-bf11-8ac85545cd23",
-      "mac_address": "02:00:00:18:43:70",
+      "gateway_id": "842f7e39-cfed-41a3-bb7f-d4e77d069129",
+      "private_network_id": "e92fc64c-0a33-4293-8a5d-d53b949b38d1",
+      "mac_address": "02:00:00:18:95:2B",
       "enable_masquerade": false,
       "status": "ready",
       "dhcp": null,
       "enable_dhcp": false,
-      "address": "172.16.8.2/22",
+      "address": "172.16.28.2/22",
       "ipam_config": {
         "push_default_route": false,
-        "ipam_ip_id": "104609c5-9a5d-458a-9c3c-2924e0e0c290"
+        "ipam_ip_id": "36a6c5de-695b-4b79-a435-07308cb0e25a"
       },
       "zone": "fr-par-1"
     }
@@ -85,5 +86,6 @@ ID                                    CREATED AT       UPDATED AT       GATEWAY 
   "bastion_port": 61000,
   "smtp_enabled": false,
   "is_legacy": false,
+  "ip_mobility_enabled": false,
   "zone": "fr-par-1"
 }

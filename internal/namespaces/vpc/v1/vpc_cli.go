@@ -30,8 +30,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func vpcRoot() *core.Command {
 	return &core.Command{
-		Short:     `VPC API`,
-		Long:      `VPC API.`,
+		Short:     `This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks`,
+		Long:      `This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks.`,
 		Namespace: "vpc",
 	}
 }

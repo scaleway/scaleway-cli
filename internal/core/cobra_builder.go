@@ -20,7 +20,7 @@ func init() {
 // use an index to attache leaf command to their parent.
 type cobraBuilder struct {
 	commands *Commands
-	meta     *meta
+	meta     *Meta
 	ctx      context.Context
 }
 
@@ -122,11 +122,11 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, group
 		}
 
 		if cmd.ArgsType != nil {
-			cobraCmd.Annotations["UsageArgs"] = buildUsageArgs(b.ctx, cmd, false)
+			cobraCmd.Annotations["UsageArgs"] = BuildUsageArgs(b.ctx, cmd, false)
 		}
 
 		if cmd.ArgSpecs != nil {
-			cobraCmd.Annotations["UsageDeprecatedArgs"] = buildUsageArgs(b.ctx, cmd, true)
+			cobraCmd.Annotations["UsageDeprecatedArgs"] = BuildUsageArgs(b.ctx, cmd, true)
 		}
 
 		if cmd.Examples != nil {
@@ -172,6 +172,11 @@ func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, group
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, waitUsage)
 	}
 
+	if cmd.Deprecated {
+		cobraCmd.IsAvailableCommand()
+		cobraCmd.Deprecated = "Deprecated:"
+	}
+
 	if commandHasWeb(cmd) {
 		cobraCmd.PersistentFlags().Bool("web", false, "open console page for the current ressource")
 	}
@@ -204,15 +209,19 @@ DEPRECATED ARGS:
 {{- range $_, $group := orderGroups (getCommandsGroups .Commands) }}
 
 {{ $group.Title }} COMMANDS:
-{{- range $_, $command := orderCommands $.Commands }}
-{{- if $command.IsAvailableCommand }}
+  {{- range $_, $command := orderCommands $.Commands }}
+  {{- if or $command.IsAvailableCommand $command.Deprecated }}
   {{- if or ($command.ContainsGroup $group.ID) (and (eq $group.ID "utility") (eq $command.Name "help")) }}
-  {{ rpad $command.Name .NamePadding }} {{ if $command.Short }}{{ $command.Short }}{{end}}
-  {{- end }}
+  {{ rpad $command.Name .NamePadding }}
+  {{- if $command.Deprecated }} {{ if $command.Short }}{{ $command.Short }} (Deprecated){{ end }}
+  {{- else }} {{ if $command.Short }}{{ $command.Short }}{{ end }}
 {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
+{{- end }}
+{{- end }}
+
 {{- if .HasAvailableLocalFlags }}
 
 FLAGS:

@@ -441,14 +441,17 @@ func k8sClusterWaitCommand() *core.Command {
 // Caching ListClusterTypes response for shell completion
 var completeListClusterTypesCache *k8s.ListClusterTypesResponse
 
-func autocompleteClusterType(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+func autocompleteClusterType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	req := request.(*k8s.CreateClusterRequest)
 	suggestions := core.AutocompleteSuggestions(nil)
 
 	client := core.ExtractClient(ctx)
 	api := k8s.NewAPI(client)
 
 	if completeListClusterTypesCache == nil {
-		res, err := api.ListClusterTypes(&k8s.ListClusterTypesRequest{})
+		res, err := api.ListClusterTypes(&k8s.ListClusterTypesRequest{
+			Region: req.Region,
+		})
 		if err != nil {
 			return nil
 		}
@@ -467,14 +470,17 @@ func autocompleteClusterType(ctx context.Context, prefix string) core.Autocomple
 // Caching ListK8SVersions response for shell completion
 var completeListK8SVersionsCache *k8s.ListVersionsResponse
 
-func autocompleteK8SVersion(ctx context.Context, prefix string) core.AutocompleteSuggestions {
+func autocompleteK8SVersion(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	req := request.(*k8s.CreateClusterRequest)
 	suggestions := core.AutocompleteSuggestions(nil)
 
 	client := core.ExtractClient(ctx)
 	api := k8s.NewAPI(client)
 
 	if completeListK8SVersionsCache == nil {
-		res, err := api.ListVersions(&k8s.ListVersionsRequest{})
+		res, err := api.ListVersions(&k8s.ListVersionsRequest{
+			Region: req.Region,
+		})
 		if err != nil {
 			return nil
 		}

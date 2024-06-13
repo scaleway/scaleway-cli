@@ -51,8 +51,7 @@ type autocompleteScript struct {
 
 // autocompleteScripts regroups the autocomplete scripts for the different shells
 // The key is the path of the shell.
-func autocompleteScripts(ctx context.Context) map[string]autocompleteScript {
-	binaryName := core.ExtractBinaryName(ctx)
+func autocompleteScripts(ctx context.Context, basename string) map[string]autocompleteScript {
 	homePath := core.ExtractUserHomeDir(ctx)
 	return map[string]autocompleteScript{
 		"bash": {
@@ -78,8 +77,8 @@ func autocompleteScripts(ctx context.Context) map[string]autocompleteScript {
 				return
 			}
 			complete -F _%[1]s %[1]s
-		`, binaryName),
-			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, binaryName),
+		`, basename),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=bash)"`, basename),
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".bash_profile"),
 				"linux":  path.Join(homePath, ".bashrc"),
@@ -102,8 +101,8 @@ func autocompleteScripts(ctx context.Context) map[string]autocompleteScript {
 			complete --erase --command %[1]s;
 			complete --command %[1]s --no-files;
 			complete --command %[1]s --arguments '(%[1]s autocomplete complete fish -- (commandline) (commandline --cursor) (commandline --current-token) (commandline --current-process --tokenize --cut-at-cursor))';
-		`, binaryName),
-			CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, binaryName),
+		`, basename),
+			CompleteScript: fmt.Sprintf(`eval (%s autocomplete script shell=fish)`, basename),
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".config/fish/config.fish"),
 				"linux":  path.Join(homePath, ".config/fish/config.fish"),
@@ -124,8 +123,8 @@ func autocompleteScripts(ctx context.Context) map[string]autocompleteScript {
 				compadd "${opts[@]}" -- "${output[@]}"
 			}
 			compdef _%[1]s %[1]s
-		`, binaryName),
-			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, binaryName),
+		`, basename),
+			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, basename),
 			ShellConfigurationFile: map[string]string{
 				"darwin": path.Join(homePath, ".zshrc"),
 				"linux":  path.Join(homePath, ".zshrc"),
@@ -135,7 +134,8 @@ func autocompleteScripts(ctx context.Context) map[string]autocompleteScript {
 }
 
 type InstallArgs struct {
-	Shell string
+	Shell    string
+	Basename string
 }
 
 func autocompleteInstallCommand() *core.Command {
@@ -148,6 +148,13 @@ func autocompleteInstallCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name: "shell",
+			},
+			{
+				Name: "basename",
+				Default: func(ctx context.Context) (value string, doc string) {
+					resp := core.ExtractBinaryName(ctx)
+					return resp, resp
+				},
 			},
 		},
 		ArgsType: reflect.TypeOf(InstallArgs{}),
@@ -181,8 +188,8 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 
 	shellName := filepath.Base(shellArg)
-
-	script, exists := autocompleteScripts(ctx)[shellName]
+	basename := argsI.(*InstallArgs).Basename
+	script, exists := autocompleteScripts(ctx, basename)[shellName]
 	if !exists {
 		return nil, unsupportedShellError(shellName)
 	}
@@ -380,7 +387,8 @@ func autocompleteCompleteZshCommand() *core.Command {
 }
 
 type autocompleteShowArgs struct {
-	Shell string
+	Shell    string
+	Basename string
 }
 
 func autocompleteScriptCommand() *core.Command {
@@ -396,20 +404,28 @@ func autocompleteScriptCommand() *core.Command {
 				Name:    "shell",
 				Default: core.DefaultValueSetter(os.Getenv("SHELL")),
 			},
+			{
+				Name: "basename",
+				Default: func(ctx context.Context) (value string, doc string) {
+					resp := core.ExtractBinaryName(ctx)
+					return resp, resp
+				},
+			},
 		},
 		ArgsType: reflect.TypeOf(autocompleteShowArgs{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			shell := filepath.Base(argsI.(*autocompleteShowArgs).Shell)
-			script, exists := autocompleteScripts(ctx)[shell]
+			basename := argsI.(*autocompleteShowArgs).Basename
+			script, exists := autocompleteScripts(ctx, basename)[shell]
 			if !exists {
 				return nil, unsupportedShellError(shell)
 			}
-			return trimText(script.CompleteFunc), nil
+			return TrimText(script.CompleteFunc), nil
 		},
 	}
 }
 
-func trimText(str string) string {
+func TrimText(str string) string {
 	foundFirstNonEmptyLine := false
 	strToRemove := ""
 	lines := strings.Split(str, "\n")

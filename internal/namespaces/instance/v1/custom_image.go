@@ -319,7 +319,7 @@ func imageWaitCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 			core.WaitTimeoutArgSpec(imageActionTimeout),
 		},
 		Examples: []*core.Example{

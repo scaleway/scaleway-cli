@@ -35,8 +35,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func jobsRoot() *core.Command {
 	return &core.Command{
-		Short:     `Serverless Jobs API`,
-		Long:      `Serverless Jobs API.`,
+		Short:     `This API allows you to manage your Serverless Jobs`,
+		Long:      `This API allows you to manage your Serverless Jobs.`,
 		Namespace: "jobs",
 	}
 }
@@ -107,7 +107,7 @@ func jobsDefinitionCreate() *core.Command {
 			},
 			{
 				Name:       "command",
-				Short:      `Startup command`,
+				Short:      `Startup command. If empty or not defined, the image's default command is used.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -208,6 +208,12 @@ func jobsDefinitionList() *core.Command {
 			},
 			{
 				Name:       "project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -511,6 +517,12 @@ func jobsRunList() *core.Command {
 			},
 			{
 				Name:       "project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

@@ -19,6 +19,7 @@ AVAILABLE COMMANDS:
   detach-volume    Detach a volume from its server
   enable-routed-ip Migrate server to IP mobility
   get              Get an Instance
+  get-rdp-password Get your server rdp password and decrypt it using your ssh key
   list             List all Instances
   list-actions     List Instance actions
   reboot           Reboot server

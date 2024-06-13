@@ -26,7 +26,7 @@ ARGS:
   [description]                      Description of the security group
   [project-id]                       Project ID to use. If none is passed the default project ID will be used
   [tags.{index}]                     Tags of the security group
-  [project-default=false]            Whether this security group becomes the default security group for new Instances
+  [project-default]                  Whether this security group becomes the default security group for new Instances
   [stateful=true]                    Whether the security group is stateful or not
   [inbound-default-policy=accept]    Default policy for inbound rules (unknown_policy | accept | drop)
   [outbound-default-policy=accept]   Default policy for outbound rules (unknown_policy | accept | drop)
@@ -35,7 +35,7 @@ ARGS:
   [zone=fr-par-1]                    Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 DEPRECATED ARGS:
-  [organization-default=false]   Defines whether this security group becomes the default security group for new Instances
+  [organization-default]   Defines whether this security group becomes the default security group for new Instances
 
 FLAGS:
   -h, --help   help for create

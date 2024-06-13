@@ -28,6 +28,7 @@ Endpoints.0.Port                             5432
 Endpoints.0.PrivateNetwork.PrivateNetworkID  ff3626e3-1f6d-4c7f-90a0-a6af88b16e5d
 Endpoints.0.PrivateNetwork.ServiceIP         172.16.0.3/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
+Endpoints.0.PrivateNetwork.ProvisioningMode  static
 LogsPolicy.MaxAgeRetention                   30
 BackupSameRegion                             false
 
@@ -137,7 +138,8 @@ Password:
       "private_network": {
         "private_network_id": "ff3626e3-1f6d-4c7f-90a0-a6af88b16e5d",
         "service_ip": "172.16.0.3/22",
-        "zone": "fr-par-1"
+        "zone": "fr-par-1",
+        "provisioning_mode": "static"
       }
     }
   ],
@@ -147,5 +149,6 @@ Password:
   },
   "backup_same_region": false,
   "maintenances": [],
+  "encryption": null,
   "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }

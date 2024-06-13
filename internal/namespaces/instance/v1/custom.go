@@ -193,6 +193,7 @@ func GetCommands() *core.Commands {
 		sshConfigInstallCommand(),
 		sshListKeysCommand(),
 		sshRemoveKeyCommand(),
+		instanceServerGetRdpPassword(),
 	))
 
 	// Web URLs (--web)

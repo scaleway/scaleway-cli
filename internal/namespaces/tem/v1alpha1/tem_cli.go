@@ -22,6 +22,7 @@ func GetGeneratedCommands() *core.Commands {
 		temRoot(),
 		temEmail(),
 		temDomain(),
+		temWebhook(),
 		temEmailCreate(),
 		temEmailGet(),
 		temEmailList(),
@@ -37,8 +38,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func temRoot() *core.Command {
 	return &core.Command{
-		Short:     `Transactional Email API`,
-		Long:      ``,
+		Short:     `This API allows you to manage your Transactional Email services`,
+		Long:      `This API allows you to manage your Transactional Email services.`,
 		Namespace: "tem",
 	}
 }
@@ -46,7 +47,7 @@ func temRoot() *core.Command {
 func temEmail() *core.Command {
 	return &core.Command{
 		Short:     `Email management commands`,
-		Long:      `Email management commands.`,
+		Long:      `This section lists your emails and shows you how to manage them.`,
 		Namespace: "tem",
 		Resource:  "email",
 	}
@@ -55,9 +56,18 @@ func temEmail() *core.Command {
 func temDomain() *core.Command {
 	return &core.Command{
 		Short:     `Domain management commands`,
-		Long:      `Domain management commands.`,
+		Long:      `This section lists your domains, shows you to manage them, and gives you information about them.`,
 		Namespace: "tem",
 		Resource:  "domain",
+	}
+}
+
+func temWebhook() *core.Command {
+	return &core.Command{
+		Short:     `Webhook management commands`,
+		Long:      `A Webhook can trigger a specific event based on the email or domain resource status.`,
+		Namespace: "tem",
+		Resource:  "webhook",
 	}
 }
 
@@ -528,12 +538,14 @@ func temDomainList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
+				Short:      `(Optional) ID of the Project in which to list the domains`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "status.{index}",
+				Short:      `(Optional) List domains under specific statuses`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -541,12 +553,14 @@ func temDomainList() *core.Command {
 			},
 			{
 				Name:       "name",
+				Short:      `(Optional) Names of the domains to list`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
+				Short:      `(Optional) ID of the Organization in which to list the domains`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
