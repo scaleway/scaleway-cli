@@ -196,6 +196,10 @@ func GetCommands() *core.Commands {
 		instanceServerGetRdpPassword(),
 	))
 
+	// Web URLs (--web)
+
+	addWebUrls(cmds)
+
 	return cmds
 }
 
