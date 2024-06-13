@@ -909,8 +909,8 @@ scw lb lb create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name for the Load Balancer |
 | description |  | Description for the Load Balancer |
 | ~~ip-id~~ | Deprecated | ID of an existing flexible IP address to attach to the Load Balancer |
-| assign-flexible-ip |  | Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign). |
-| assign-flexible-ipv6 |  | Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign). |
+| assign-flexible-ip | Default: `true` | Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign). |
+| assign-flexible-ipv6 | Default: `false` | Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign). |
 | ip-ids.{index} |  | List of IP IDs to attach to the Load Balancer |
 | tags.{index} |  | List of tags for the Load Balancer |
 | type | Default: `LB-S`<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L` | Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types |
