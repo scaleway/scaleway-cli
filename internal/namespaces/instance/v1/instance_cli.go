@@ -89,7 +89,6 @@ func GetGeneratedCommands() *core.Commands {
 		instancePrivateNicGet(),
 		instancePrivateNicUpdate(),
 		instancePrivateNicDelete(),
-		instanceServerDeleteRdpPassword(),
 	)
 }
 func instanceRoot() *core.Command {
@@ -717,6 +716,13 @@ func instanceServerUpdate() *core.Command {
 			{
 				Name:       "commercial-type",
 				Short:      `Set the commercial_type for this Instance.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "admin-password-encryption-ssh-key-id",
+				Short:      `UUID of the SSH RSA key that will be used to encrypt the initial admin password for OS requiring it. Mandatory for Windows OS.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3711,6 +3717,13 @@ func instancePrivateNicCreate() *core.Command {
 				Name:       "ip-ids.{index}",
 				Short:      `Ip_ids defined from IPAM`,
 				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-ip-ids.{index}",
+				Short:      `UUID of IPAM ips, to be attached to the instance in the requested private network`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -3852,42 +3865,6 @@ func instancePrivateNicDelete() *core.Command {
 			return &core.SuccessResult{
 				Resource: "private-nic",
 				Verb:     "delete",
-			}, nil
-		},
-	}
-}
-
-func instanceServerDeleteRdpPassword() *core.Command {
-	return &core.Command{
-		Short:     `Delete the encrypted RDP password`,
-		Long:      `Delete the initial administrator password for Windows RDP.`,
-		Namespace: "instance",
-		Resource:  "server",
-		Verb:      "delete-rdp-password",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteEncryptedRdpPasswordRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Short:      `UUID of the Instance`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*instance.DeleteEncryptedRdpPasswordRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-			e = api.DeleteEncryptedRdpPassword(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "server",
-				Verb:     "delete-rdp-password",
 			}, nil
 		},
 	}

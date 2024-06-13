@@ -67,6 +67,15 @@ func testAutocompleteGetCommands() *core.Commands {
 				},
 			},
 		},
+		&core.Command{
+			Namespace:  "test",
+			Resource:   "flower",
+			Verb:       "deprecated",
+			ArgsType:   reflect.TypeOf(struct{}{}),
+			Deprecated: true,
+			Short:      "this command is deprected",
+			Long:       "This command is deprecated and should not show up in autocomplete.",
+		},
 	)
 }
 
@@ -290,4 +299,18 @@ func TestAutocompleteProfiles(t *testing.T) {
 	t.Run("scw -p ", run(&testCase{Suggestions: core.AutocompleteSuggestions{"p1", "p2"}}))
 	t.Run("scw test -p ", run(&testCase{Suggestions: core.AutocompleteSuggestions{"p1", "p2"}}))
 	t.Run("scw test flower --profile ", run(&testCase{Suggestions: core.AutocompleteSuggestions{"p1", "p2"}}))
+}
+
+func TestAutocompleteDeprecatedCommand(t *testing.T) {
+	ctx := core.InjectMeta(context.Background(), &core.Meta{
+		Commands: testAutocompleteGetCommands(),
+	})
+
+	type testCase = autoCompleteTestCase
+
+	run := func(tc *testCase) func(*testing.T) {
+		return runAutocompleteTest(ctx, tc)
+	}
+
+	t.Run("scw test flower deprecated", run(&testCase{Suggestions: nil}))
 }

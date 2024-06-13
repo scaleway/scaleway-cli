@@ -178,6 +178,8 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "arch": "x86_64",
   "placement_group": null,
   "zone": "fr-par-1",
+  "admin_password_encryption_ssh_key_id": null,
+  "admin_password_encrypted_value": null,
   "Volumes": [
     {
       "id": "c18a3890-01ba-4fed-b9f7-21d7e026c938",

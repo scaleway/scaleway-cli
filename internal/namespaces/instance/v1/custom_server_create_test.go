@@ -505,6 +505,18 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckExitCode(1),
 		),
 	}))
+
+	////
+	// Windows
+	////
+	t.Run("Error: ssh key id is required", core.Test(&core.TestConfig{
+		Commands: instance.GetCommands(),
+		Cmd:      "scw instance server create image=windows_server_2022 type=POP2-2C-8G-WIN",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+	}))
 }
 
 func Test_CreateServerScratchStorage(t *testing.T) {

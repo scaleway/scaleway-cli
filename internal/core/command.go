@@ -93,6 +93,8 @@ type Command struct {
 
 	// Groups contains a list of groups IDs
 	Groups []string
+	//
+	Deprecated bool
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
@@ -289,7 +291,6 @@ func (c *Commands) find(path ...string) (*Command, bool) {
 func (c *Commands) GetSortedCommand() []*Command {
 	commands := make([]*Command, len(c.commands))
 	copy(commands, c.commands)
-
 	sort.Slice(commands, func(i, j int) bool {
 		return commands[i].signature() < commands[j].signature()
 	})

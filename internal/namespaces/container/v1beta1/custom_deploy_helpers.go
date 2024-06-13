@@ -14,13 +14,14 @@ import (
 	pack "github.com/buildpacks/pack/pkg/client"
 	dockertypes "github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/api/types/image"
 	docker "github.com/docker/docker/client"
 )
 
 type DockerClient interface {
 	pack.DockerClient
 
-	ImagePush(ctx context.Context, image string, options dockertypes.ImagePushOptions) (io.ReadCloser, error)
+	ImagePush(ctx context.Context, image string, options image.PushOptions) (io.ReadCloser, error)
 }
 
 type CustomDockerClient struct {
