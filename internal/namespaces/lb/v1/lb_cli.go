@@ -287,10 +287,11 @@ func lbLBCreate() *core.Command {
 			},
 			{
 				Name:       "assign-flexible-ip",
-				Short:      `Defines whether to automatically assign a flexible public IP to lb. Default value is ` + "`" + `false` + "`" + ` (do not assign).`,
+				Short:      `Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is ` + "`" + `true` + "`" + ` (assign).`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("true"),
 			},
 			{
 				Name:       "assign-flexible-ipv6",
@@ -298,6 +299,7 @@ func lbLBCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("false"),
 			},
 			{
 				Name:       "ip-ids.{index}",
