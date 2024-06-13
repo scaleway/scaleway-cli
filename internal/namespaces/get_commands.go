@@ -27,6 +27,7 @@ import (
 	ipfs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipfs/v1alpha1"
 	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
+	keymanager "github.com/scaleway/scaleway-cli/v2/internal/namespaces/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	llm_inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/llm_inference/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
@@ -83,6 +84,7 @@ func GetCommands() *core.Commands {
 		vpcgw.GetCommands(),
 		redis.GetCommands(),
 		secret.GetCommands(),
+		keymanager.GetCommands(),
 		shell.GetCommands(),
 		tem.GetCommands(),
 		alias.GetCommands(),
