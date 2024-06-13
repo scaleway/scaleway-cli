@@ -2,6 +2,7 @@ package applesilicon_test
 
 import (
 	"testing"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 )
