@@ -30,6 +30,7 @@ func GetGeneratedCommands() *core.Commands {
 		dediboxRaid(),
 		dediboxRescue(),
 		dediboxFip(),
+		dediboxBilling(),
 		dediboxIPv6Block(),
 		dediboxRpnInfo(),
 		dediboxSan(),
@@ -77,6 +78,13 @@ func GetGeneratedCommands() *core.Commands {
 		dediboxRescueStart(),
 		dediboxRescueGet(),
 		dediboxRescueStop(),
+		dediboxBillingListInvoice(),
+		dediboxBillingGetInvoice(),
+		dediboxBillingDownloadInvoice(),
+		dediboxBillingListRefund(),
+		dediboxBillingGetRefund(),
+		dediboxBillingDownloadRefund(),
+		dediboxBillingGetOrderCapacity(),
 		dediboxIPv6BlockGetQuota(),
 		dediboxIPv6BlockCreate(),
 		dediboxIPv6BlockGet(),
@@ -219,6 +227,15 @@ func dediboxFip() *core.Command {
 		Long:      `Failover IPs commands.`,
 		Namespace: "dedibox",
 		Resource:  "fip",
+	}
+}
+
+func dediboxBilling() *core.Command {
+	return &core.Command{
+		Short:     `Billing commands`,
+		Long:      `Billing commands.`,
+		Namespace: "dedibox",
+		Resource:  "billing",
 	}
 }
 
@@ -2047,6 +2064,221 @@ func dediboxRescueStop() *core.Command {
 				Resource: "rescue",
 				Verb:     "stop",
 			}, nil
+		},
+	}
+}
+
+func dediboxBillingListInvoice() *core.Command {
+	return &core.Command{
+		Short:     `List-invoice dedibox resources`,
+		Long:      `List-invoice dedibox resources.`,
+		Namespace: "dedibox",
+		Resource:  "billing",
+		Verb:      "list-invoice",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(dedibox.BillingAPIListInvoicesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*dedibox.BillingAPIListInvoicesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := dedibox.NewBillingAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListInvoices(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Invoices, nil
+
+		},
+	}
+}
+
+func dediboxBillingGetInvoice() *core.Command {
+	return &core.Command{
+		Short:     `Get-invoice dedibox resources`,
+		Long:      `Get-invoice dedibox resources.`,
+		Namespace: "dedibox",
+		Resource:  "billing",
+		Verb:      "get-invoice",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(dedibox.BillingAPIGetInvoiceRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "invoice-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*dedibox.BillingAPIGetInvoiceRequest)
+
+			client := core.ExtractClient(ctx)
+			api := dedibox.NewBillingAPI(client)
+			return api.GetInvoice(request)
+
+		},
+	}
+}
+
+func dediboxBillingDownloadInvoice() *core.Command {
+	return &core.Command{
+		Short:     `Download-invoice dedibox resources`,
+		Long:      `Download-invoice dedibox resources.`,
+		Namespace: "dedibox",
+		Resource:  "billing",
+		Verb:      "download-invoice",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(dedibox.BillingAPIDownloadInvoiceRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "invoice-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*dedibox.BillingAPIDownloadInvoiceRequest)
+
+			client := core.ExtractClient(ctx)
+			api := dedibox.NewBillingAPI(client)
+			return api.DownloadInvoice(request)
+
+		},
+	}
+}
+
+func dediboxBillingListRefund() *core.Command {
+	return &core.Command{
+		Short:     `List-refund dedibox resources`,
+		Long:      `List-refund dedibox resources.`,
+		Namespace: "dedibox",
+		Resource:  "billing",
+		Verb:      "list-refund",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(dedibox.BillingAPIListRefundsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc"},
+			},
+			{
+				Name:       "project-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*dedibox.BillingAPIListRefundsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := dedibox.NewBillingAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListRefunds(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Refunds, nil
+
+		},
+	}
+}
+
+func dediboxBillingGetRefund() *core.Command {
+	return &core.Command{
+		Short:     `Get-refund dedibox resources`,
+		Long:      `Get-refund dedibox resources.`,
+		Namespace: "dedibox",
+		Resource:  "billing",
+		Verb:      "get-refund",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(dedibox.BillingAPIGetRefundRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "refund-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*dedibox.BillingAPIGetRefundRequest)
+
+			client := core.ExtractClient(ctx)
+			api := dedibox.NewBillingAPI(client)
+			return api.GetRefund(request)
+
+		},
+	}
+}
+
+func dediboxBillingDownloadRefund() *core.Command {
+	return &core.Command{
+		Short:     `Download-refund dedibox resources`,
+		Long:      `Download-refund dedibox resources.`,
+		Namespace: "dedibox",
+		Resource:  "billing",
+		Verb:      "download-refund",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(dedibox.BillingAPIDownloadRefundRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "refund-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*dedibox.BillingAPIDownloadRefundRequest)
+
+			client := core.ExtractClient(ctx)
+			api := dedibox.NewBillingAPI(client)
+			return api.DownloadRefund(request)
+
+		},
+	}
+}
+
+func dediboxBillingGetOrderCapacity() *core.Command {
+	return &core.Command{
+		Short:     `Get-order-capacity dedibox resources`,
+		Long:      `Get-order-capacity dedibox resources.`,
+		Namespace: "dedibox",
+		Resource:  "billing",
+		Verb:      "get-order-capacity",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(dedibox.BillingAPICanOrderRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*dedibox.BillingAPICanOrderRequest)
+
+			client := core.ExtractClient(ctx)
+			api := dedibox.NewBillingAPI(client)
+			return api.CanOrder(request)
+
 		},
 	}
 }
