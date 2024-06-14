@@ -260,6 +260,7 @@ func clusterGetBuilder(c *core.Command) *core.Command {
 			MaxSize     uint32         `json:"max_size"`
 			Autoscaling bool           `json:"autoscaling"`
 			Autohealing bool           `json:"autohealing"`
+			Zone        scw.Zone       `json:"zone"`
 		}
 
 		customPools := []customPool{}
@@ -276,6 +277,7 @@ func clusterGetBuilder(c *core.Command) *core.Command {
 				MaxSize:     pool.MaxSize,
 				Autoscaling: pool.Autoscaling,
 				Autohealing: pool.Autohealing,
+				Zone:        pool.Zone,
 			})
 		}
 
