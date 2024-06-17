@@ -3,12 +3,14 @@ package object
 import (
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
 func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(BucketResponse{}, bucketResponseMarshalerFunc)
 	human.RegisterMarshalerFunc(bucketInfo{}, bucketInfoMarshalerFunc)
 	human.RegisterMarshalerFunc(BucketGetResult{}, bucketGetResultMarshalerFunc)
+	human.RegisterMarshalerFunc(s3.ListBucketsOutput{}.Buckets, bucketMarshalerFunc)
 
 	return core.NewCommands(
 		objectRoot(),

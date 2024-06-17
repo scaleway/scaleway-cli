@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CREATION DATE    NAME
-few seconds ago  cli-test-bucket-list-8501647004036398711
-few seconds ago  cli-test-bucket-list-9206072663127448888
+Name                                      Creation Date
+cli-test-bucket-list-8501647004036398711  few seconds ago
+cli-test-bucket-list-9206072663127448888  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {

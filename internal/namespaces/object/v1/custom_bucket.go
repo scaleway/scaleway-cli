@@ -238,6 +238,26 @@ func bucketGetResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string,
 	return str, nil
 }
 
+func bucketMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+	type tmp []types.Bucket
+	result := tmp(i.([]types.Bucket))
+	opt.Fields = []*human.MarshalFieldOpt{
+		{
+			FieldName: "Name",
+			Label:     "Name",
+		},
+		{
+			FieldName: "CreationDate",
+			Label:     "Creation Date",
+		},
+	}
+	str, err := human.Marshal(result, opt)
+	if err != nil {
+		return "", err
+	}
+	return str, nil
+}
+
 func bucketGetCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
