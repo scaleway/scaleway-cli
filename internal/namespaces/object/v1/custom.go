@@ -1,9 +1,9 @@
 package object
 
 import (
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
-	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
 func GetCommands() *core.Commands {
