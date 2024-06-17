@@ -43,8 +43,8 @@ UsernamePrefix  -
 GroupsPrefix    -
 
 Pools:
-ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN SIZE  SIZE  MAX SIZE  AUTOSCALING  AUTOHEALING
-1da2aa9e-463c-422a-b523-11274412dd5d  default  scaling  1.27.1   dev1_m     0         1     1         false        false
+ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN SIZE  SIZE  MAX SIZE  AUTOSCALING  AUTOHEALING  ZONE
+1da2aa9e-463c-422a-b523-11274412dd5d  default  scaling  1.27.1   dev1_m     0         1     1         false        false        fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "e96a93a2-c36f-42bb-b7e1-bebf52db7956",
@@ -107,7 +107,8 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
       "size": 1,
       "max_size": 1,
       "autoscaling": false,
-      "autohealing": false
+      "autohealing": false,
+      "zone": "fr-par-1"
     }
   ]
 }
