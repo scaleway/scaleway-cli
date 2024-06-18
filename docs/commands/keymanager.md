@@ -63,11 +63,11 @@ scw keymanager key decrypt [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| key-id | Required | ID of the key to decrypt |
-| ciphertext |  | Ciphertext data to decrypt |
-| associated-data |  | (Optional) Additional authenticated data |
+| Name |   | Description                                                                 |
+|------|---|-----------------------------------------------------------------------------|
+| key-id | Required | ID of the key to decrypt                                                    |
+| ciphertext |  | Base64 Ciphertext data to decrypt                                           |
+| associated-data |  | (Optional) Additional authenticated data                                    |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -145,11 +145,11 @@ scw keymanager key encrypt [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| key-id | Required | ID of the key to encrypt |
-| plaintext |  | Plaintext data to encrypt |
-| associated-data |  | (Optional) Additional authenticated data |
+| Name |   | Description                                                                 |
+|------|---|-----------------------------------------------------------------------------|
+| key-id | Required | ID of the key to encrypt                                                    |
+| plaintext |  | Base64 Plaintext data to encrypt                                            |
+| associated-data |  | (Optional) Additional authenticated data                                    |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

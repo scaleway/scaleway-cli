@@ -13,8 +13,6 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("keymanager", "key", "decrypt").Override(cipherDecrypt)
 	cmds.MustFind("keymanager", "key", "encrypt").Override(plaintextEncrypt)
-	cmds.MustFind("keymanager", "key", "create").Override(keyCreate)
-	cmds.MustFind("keymanager", "key", "generate-data-key").Override(dataKeyGenerate)
 
 	return cmds
 }
@@ -22,7 +20,7 @@ func GetCommands() *core.Commands {
 func plaintextEncrypt(c *core.Command) *core.Command {
 	*c.ArgSpecs.GetByName("plaintext") = core.ArgSpec{
 		Name:        "plaintext",
-		Short:       "Content of the plaintext in Base64.",
+		Short:       "Base64 Plaintext data to encrypt",
 		Required:    true,
 		CanLoadFile: true,
 	}
@@ -46,7 +44,7 @@ func plaintextEncrypt(c *core.Command) *core.Command {
 func cipherDecrypt(c *core.Command) *core.Command {
 	*c.ArgSpecs.GetByName("ciphertext") = core.ArgSpec{
 		Name:        "ciphertext",
-		Short:       "Content of the ciphertext in Base64.",
+		Short:       "Base64 Ciphertext data to decrypt",
 		Required:    true,
 		CanLoadFile: true,
 	}
@@ -60,35 +58,6 @@ func cipherDecrypt(c *core.Command) *core.Command {
 		}
 
 		args.Ciphertext = c
-
-		return runner(ctx, args)
-	}
-
-	return c
-}
-
-func keyCreate(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		args := argsI.(*key_manager.CreateKeyRequest)
-
-		if args.Usage == nil {
-			defaultUsage := key_manager.KeyAlgorithmSymmetricEncryptionAes256Gcm
-			args.Usage = &key_manager.KeyUsage{SymmetricEncryption: &defaultUsage}
-		}
-
-		return runner(ctx, args)
-	}
-
-	return c
-}
-
-func dataKeyGenerate(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		args := argsI.(*key_manager.GenerateDataKeyRequest)
-
-		if args.Algorithm == "" {
-			args.Algorithm = key_manager.DataKeyAlgorithmSymmetricEncryptionAes256Gcm
-		}
 
 		return runner(ctx, args)
 	}
