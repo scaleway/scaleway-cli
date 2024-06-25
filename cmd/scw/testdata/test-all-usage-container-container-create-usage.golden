@@ -23,6 +23,7 @@ ARGS:
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
   [http-option=enabled]                          Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
+  [sandbox]                                      Execution environment of the container (unknown_sandbox | v1 | v2)
   [deploy=true]                                  Deploy container after creation
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
