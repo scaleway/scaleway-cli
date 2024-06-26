@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   [image-id]      
   [version-id]    
-  [order-by]       (created_at_asc | created_at_desc)
+  [order-by]       (type_asc | type_desc | created_at_asc | created_at_desc)
   [image-label]   
   [zone]          
   [type]           (unknown_type | instance_local | instance_sbs)
