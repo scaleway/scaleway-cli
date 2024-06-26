@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update the parameters of an existing cache stage, specified by its `cache_stage_id`. Parameters which can be updated include the `fallback_ttl` and `backend_stage_id`.
+
+USAGE:
+  scw edge-services cache-stage update <cache-stage-id ...> [arg=value ...]
+
+ARGS:
+  cache-stage-id       ID of the cache stage to update
+  [fallback-ttl]       Time To Live (TTL) in seconds. Defines how long content is cached
+  [backend-stage-id]   Backend stage ID the cache stage will be linked to
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
