@@ -14,6 +14,7 @@ AVAILABLE COMMANDS:
   container     This API allows you to manage your Serverless Containers
   dns           This API allows you to manage your domains, DNS zones and records
   document-db   This API allows you to manage your Document Databases
+  edge-services Edge Services API
   fip           This API allows you to manage your Elastic Metal servers' flexible public IP addresses
   function      Function as a Service API
   help          Get help about how the CLI works

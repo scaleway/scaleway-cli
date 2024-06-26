@@ -1,0 +1,18 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Retrieve information about a purge request, specified by its `purge_request_id`. Its full details, including `status` and `target`, are returned in the response object.
+
+USAGE:
+  scw edge-services purge-request get <purge-request-id ...> [arg=value ...]
+
+ARGS:
+  purge-request-id   ID of the requested purge request
+
+FLAGS:
+  -h, --help   help for get
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
