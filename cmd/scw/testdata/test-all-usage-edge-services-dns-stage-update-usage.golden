@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update the parameters of an existing DNS stage, specified by its `dns_stage_id`.
+
+USAGE:
+  scw edge-services dns-stage update <dns-stage-id ...> [arg=value ...]
+
+ARGS:
+  dns-stage-id         ID of the DNS stage to update
+  [fqdns.{index}]      Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage
+  [tls-stage-id]       TLS stage ID the DNS stage will be linked to
+  [cache-stage-id]     Cache stage ID the DNS stage will be linked to
+  [backend-stage-id]   Backend stage ID the DNS stage will be linked to
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
