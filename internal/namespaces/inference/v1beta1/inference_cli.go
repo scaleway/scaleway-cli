@@ -210,7 +210,7 @@ func inferenceDeploymentCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.RandomValueGenerator("llm"),
+				Default:    core.RandomValueGenerator("inference"),
 			},
 			core.ProjectIDArgSpec(),
 			{
