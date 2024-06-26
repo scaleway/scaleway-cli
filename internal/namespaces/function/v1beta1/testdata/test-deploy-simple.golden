@@ -17,6 +17,7 @@ DomainName      clitestfunctiondeploeqj6jxof-cli-test-function-deploy.functions.
 Region          fr-par
 HTTPOption      enabled
 RuntimeMessage  -
+Sandbox         unknown_sandbox
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "4446ab71-78d6-4a19-b210-d7d96d2c4ed1",
@@ -39,5 +40,6 @@ RuntimeMessage  -
   "secret_environment_variables": [],
   "region": "fr-par",
   "http_option": "enabled",
-  "runtime_message": ""
+  "runtime_message": "",
+  "sandbox": "unknown_sandbox"
 }
