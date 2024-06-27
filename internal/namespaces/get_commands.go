@@ -1,6 +1,8 @@
 package namespaces
 
 import (
+	"os"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
@@ -46,10 +48,11 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 // Enable beta in the code when products are in beta
-//var beta = os.Getenv(scw.ScwEnableBeta) == "true"
+var beta = os.Getenv(scw.ScwEnableBeta) == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
@@ -80,7 +83,6 @@ func GetCommands() *core.Commands {
 		help.GetCommands(),
 		vpc.GetCommands(),
 		domain.GetCommands(),
-		dedibox.GetCommands(),
 		applesilicon.GetCommands(),
 		flexibleip.GetCommands(),
 		container.GetCommands(),
@@ -104,7 +106,9 @@ func GetCommands() *core.Commands {
 		edgeservices.GetCommands(),
 	)
 
-	//if beta {}
+	if beta {
+		commands.Merge(dedibox.GetCommands())
+	}
 
 	return commands
 }
