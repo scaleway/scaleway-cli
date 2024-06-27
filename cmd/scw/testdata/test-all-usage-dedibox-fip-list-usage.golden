@@ -6,11 +6,11 @@ USAGE:
   scw dedibox fip list [arg=value ...]
 
 ARGS:
-  [order-by]         Order of the failovers IP (ip_asc | ip_desc)
-  project-id         Filter failovers IP by project ID
-  [search]           Filter failovers IP which matching with this field
-  [only-available]   True: return all failovers IP not attached on server
-  [zone=fr-par-1]    Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | all)
+  [order-by]                           Order of the failovers IP (ip_asc | ip_desc)
+  project-id=<retrieved from config>   Filter failovers IP by project ID
+  [search]                             Filter failovers IP which matching with this field
+  [only-available]                     True: return all failovers IP not attached on server
+  [zone=fr-par-1]                      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | all)
 
 FLAGS:
   -h, --help   help for list
