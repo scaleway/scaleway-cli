@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all available server offers.
+
+USAGE:
+  scw dedibox offer list [arg=value ...]
+
+ARGS:
+  [order-by]            Order of the offers (created_at_asc | created_at_desc | name_asc | name_desc | price_asc | price_desc)
+  [commercial-range]    Filter on commercial range
+  [catalog]             Filter on catalog (all | default | beta | reseller | premium | volume | admin | inactive)
+  [project-id]          Project ID
+  [is-failover-ip]      Get the current failover IP offer
+  [is-failover-block]   Get the current failover IP block offer
+  [sold-in]             Filter offers depending on their datacenter
+  [available-only]      Set this filter to true to only return available offers
+  [is-rpn-san]          Get the RPN SAN offers
+  [zone=fr-par-1]       Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | all)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
