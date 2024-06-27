@@ -89,10 +89,7 @@ func GetOrganizationIDFromContext(ctx context.Context) string {
 
 func GetProjectIDFromContext(ctx context.Context) string {
 	client := ExtractClient(ctx)
-	projectID, exists := client.GetDefaultProjectID()
-	if !exists {
-		panic("no default project ID found")
-	}
+	projectID, _ := client.GetDefaultProjectID()
 	return projectID
 }
 
