@@ -1,6 +1,8 @@
 package namespaces
 
 import (
+	"os"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
@@ -47,7 +49,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-	"os"
 )
 
 // Enable beta in the code when products are in beta
