@@ -6,8 +6,8 @@ USAGE:
   scw dedibox rpn-v2 list [arg=value ...]
 
 ARGS:
-  [order-by]     Order of the rpn v2 groups (created_at_asc | created_at_desc)
-  [project-id]   Filter rpn v2 groups by project ID
+  [order-by]                             Order of the rpn v2 groups (created_at_asc | created_at_desc)
+  [project-id=<retrieved from config>]   Filter rpn v2 groups by project ID
 
 FLAGS:
   -h, --help   help for list

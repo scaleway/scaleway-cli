@@ -6,10 +6,10 @@ USAGE:
   scw dedibox os get [arg=value ...]
 
 ARGS:
-  os-id             ID of the OS
-  [server-id]       ID of the server
-  [project-id]      Project ID
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
+  os-id                                  ID of the OS
+  [server-id]                            ID of the server
+  [project-id=<retrieved from config>]   Project ID
+  [zone=fr-par-1]                        Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
 
 FLAGS:
   -h, --help   help for get

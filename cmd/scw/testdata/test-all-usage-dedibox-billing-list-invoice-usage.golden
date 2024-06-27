@@ -6,8 +6,8 @@ USAGE:
   scw dedibox billing list-invoice [arg=value ...]
 
 ARGS:
-  [order-by]      (created_at_asc | created_at_desc)
-  [project-id]   
+  [order-by]                              (created_at_asc | created_at_desc)
+  [project-id=<retrieved from config>]   
 
 FLAGS:
   -h, --help   help for list-invoice

@@ -6,9 +6,9 @@ USAGE:
   scw dedibox rpn-v1 list-members [arg=value ...]
 
 ARGS:
-  [order-by]     Order of the rpn v1 group members (created_at_asc | created_at_desc)
-  group-id       Filter rpn v1 group members by group ID
-  [project-id]   A project ID
+  [order-by]                             Order of the rpn v1 group members (created_at_asc | created_at_desc)
+  group-id                               Filter rpn v1 group members by group ID
+  [project-id=<retrieved from config>]   A project ID
 
 FLAGS:
   -h, --help   help for list-members
