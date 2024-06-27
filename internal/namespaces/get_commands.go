@@ -12,13 +12,16 @@ import (
 	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1beta1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
 	documentdb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/documentdb/v1beta1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
+	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/help"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
@@ -29,7 +32,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	keymanager "github.com/scaleway/scaleway-cli/v2/internal/namespaces/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
-	llm_inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/llm_inference/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
@@ -74,9 +76,11 @@ func GetCommands() *core.Commands {
 		rdb.GetCommands(),
 		lb.GetCommands(),
 		iot.GetCommands(),
+		inference.GetCommands(),
 		help.GetCommands(),
 		vpc.GetCommands(),
 		domain.GetCommands(),
+		dedibox.GetCommands(),
 		applesilicon.GetCommands(),
 		flexibleip.GetCommands(),
 		container.GetCommands(),
@@ -97,7 +101,7 @@ func GetCommands() *core.Commands {
 		ipam.GetCommands(),
 		jobs.GetCommands(),
 		serverless_sqldb.GetCommands(),
-		llm_inference.GetCommands(),
+		edgeservices.GetCommands(),
 	)
 
 	//if beta {}

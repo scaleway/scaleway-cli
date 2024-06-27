@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Service commands.
+
+USAGE:
+  scw dedibox service <command>
+
+AVAILABLE COMMANDS:
+  delete      Delete a specific service
+  get         Get a specific service
+  list        List services
+
+FLAGS:
+  -h, --help   help for service
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw dedibox service [command] --help" for more information about a command.

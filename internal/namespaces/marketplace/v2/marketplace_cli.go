@@ -293,7 +293,7 @@ func marketplaceLocalImageList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{"type_asc", "type_desc", "created_at_asc", "created_at_desc"},
 			},
 			{
 				Name:       "image-label",
