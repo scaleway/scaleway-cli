@@ -17,6 +17,7 @@ DomainName      clicnssillyshirleyusnp0hk3-cli-test-kind-herschel.functions.fnc.
 Protocol        http1
 Port            8080
 HTTPOption      enabled
+Sandbox         unknown_sandbox
 Region          fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
@@ -40,5 +41,6 @@ Region          fr-par
   "port": 8080,
   "secret_environment_variables": [],
   "http_option": "enabled",
+  "sandbox": "unknown_sandbox",
   "region": "fr-par"
 }
