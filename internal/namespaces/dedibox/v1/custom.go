@@ -2,6 +2,7 @@ package dedibox
 
 import (
 	"context"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
