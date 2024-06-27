@@ -6,9 +6,9 @@ USAGE:
   scw dedibox rpn-info get [arg=value ...]
 
 ARGS:
-  [project-id]       A project ID
-  [rpnv1-group-id]   An RPN v1 group ID
-  [rpnv2-group-id]   An RPN v2 group ID
+  [project-id=<retrieved from config>]   A project ID
+  [rpnv1-group-id]                       An RPN v1 group ID
+  [rpnv2-group-id]                       An RPN v2 group ID
 
 FLAGS:
   -h, --help   help for get

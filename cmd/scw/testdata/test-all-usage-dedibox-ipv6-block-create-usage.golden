@@ -6,7 +6,7 @@ USAGE:
   scw dedibox ipv6-block create [arg=value ...]
 
 ARGS:
-  [project-id]   ID of the project
+  [project-id=<retrieved from config>]   ID of the project
 
 FLAGS:
   -h, --help   help for create
