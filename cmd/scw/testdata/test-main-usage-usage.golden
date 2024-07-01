@@ -14,10 +14,12 @@ AVAILABLE COMMANDS:
   container     This API allows you to manage your Serverless Containers
   dns           This API allows you to manage your domains, DNS zones and records
   document-db   This API allows you to manage your Document Databases
+  edge-services Edge Services API
   fip           This API allows you to manage your Elastic Metal servers' flexible public IP addresses
   function      Function as a Service API
   help          Get help about how the CLI works
   iam           This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources
+  inference     This API allows you to manage your Inference services
   instance      This API allows you to manage your Instances
   iot           This API allows you to manage your IoT hubs and devices
   ipam          This API allows you to manage your Scaleway IP addresses with our IP Address Management tool
@@ -25,7 +27,6 @@ AVAILABLE COMMANDS:
   k8s           This API allows you to manage Kubernetes Kapsule and Kosmos clusters
   keymanager    Key Manager API
   lb            This API allows you to manage your Scaleway Load Balancer services
-  llm-inference This API allows you to manage your Inference services
   marketplace   This API allows you to find available images for use when launching a Scaleway Instance
   mnq           These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services
   object        Object-storage utils

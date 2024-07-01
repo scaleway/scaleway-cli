@@ -551,7 +551,7 @@ func functionFunctionCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121", "node22", "python312", "php83", "go122", "rust178"},
+				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121", "node22", "python312", "php83", "go122", "rust179"},
 			},
 			{
 				Name:       "memory-limit",
@@ -610,6 +610,14 @@ func functionFunctionCreate() *core.Command {
 				Default:    core.DefaultValueSetter("enabled"),
 				EnumValues: []string{"unknown_http_option", "enabled", "redirected"},
 			},
+			{
+				Name:       "sandbox",
+				Short:      `Execution environment of the function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_sandbox", "v1", "v2"},
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -667,7 +675,7 @@ func functionFunctionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121", "node22", "python312", "php83", "go122", "rust178"},
+				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121", "node22", "python312", "php83", "go122", "rust179"},
 			},
 			{
 				Name:       "memory-limit",
@@ -732,6 +740,14 @@ func functionFunctionUpdate() *core.Command {
 				Positional: false,
 				Default:    core.DefaultValueSetter("enabled"),
 				EnumValues: []string{"unknown_http_option", "enabled", "redirected"},
+			},
+			{
+				Name:       "sandbox",
+				Short:      `Execution environment of the function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_sandbox", "v1", "v2"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
