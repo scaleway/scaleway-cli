@@ -9,7 +9,6 @@ import (
 )
 
 func Test_DeploymentCreate(t *testing.T) {
-	t.Skip("Out of stock")
 	cmds := inference.GetCommands()
 
 	t.Run("Simple deployment", core.Test(&core.TestConfig{
