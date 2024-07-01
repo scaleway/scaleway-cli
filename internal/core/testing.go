@@ -31,6 +31,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const TestBucketNamePrefix = "cli-test-bucket"
+
 // Test flags
 // You can create a binary of each test using "go test -c -o myBinary"
 var (
@@ -672,6 +674,38 @@ func TestCheckGolden() TestCheck {
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
 		assert.Equal(t, string(expected), actual)
 	}
+}
+
+// TestCheckS3Golden assert stderr and stdout using golden, and omits the random suffix in the bucket name
+func TestCheckS3Golden() TestCheck {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		actual := marshalGolden(t, ctx)
+		normalizedActual := removeRandomPrefixFromOutput(actual)
+
+		goldenPath := getTestFilePath(t, ".golden")
+		// In order to avoid diff in goldens we set all timestamp to the same date
+		if *UpdateGoldens {
+			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
+			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+		}
+
+		expected, err := os.ReadFile(goldenPath)
+		require.NoError(t, err, "expected to find golden file %s", goldenPath)
+		normalizedExpected := removeRandomPrefixFromOutput(string(expected))
+
+		assert.Equal(t, normalizedExpected, normalizedActual)
+	}
+}
+
+func removeRandomPrefixFromOutput(output string) interface{} {
+	begin := strings.Index(output, TestBucketNamePrefix)
+	if begin < 0 {
+		return output
+	}
+	end := strings.IndexByte(output[begin:], '\n')
+	actualBucketName := output[begin : begin+end]
+	normalizedBucketName := strings.TrimRight(actualBucketName, "0123456789")
+	return strings.Replace(output, actualBucketName, normalizedBucketName, -1)
 }
 
 // TestCheckError asserts error
