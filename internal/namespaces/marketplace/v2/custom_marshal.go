@@ -28,6 +28,7 @@ func imageMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		ValidUntil  *time.Time
 		Description string
 	}{
+		ID:          image.ID,
 		Label:       image.Label,
 		Name:        image.Name,
 		Description: image.Description,

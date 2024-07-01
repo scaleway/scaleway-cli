@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	deploymentActionTimeout = 40 * time.Minute
+	deploymentActionTimeout = 60 * time.Minute
 )
 
 var (
