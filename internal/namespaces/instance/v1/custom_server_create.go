@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"net"
 	"reflect"
 	"strconv"
 	"strings"
@@ -193,39 +192,24 @@ func instanceWaitServerCreateRun() core.WaitFunc {
 }
 
 func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	var err error
 	args := argsI.(*instanceCreateServerRequest)
 
 	//
 	// STEP 1: Argument validation and API requests creation.
 	//
 
-	needIPCreation := false
-
-	serverReq := &instance.CreateServerRequest{
-		Zone:                            args.Zone,
-		Organization:                    args.OrganizationID,
-		Project:                         args.ProjectID,
-		Name:                            args.Name,
-		CommercialType:                  args.Type,
-		EnableIPv6:                      scw.BoolPtr(args.IPv6),
-		Tags:                            args.Tags,
-		RoutedIPEnabled:                 args.RoutedIPEnabled,
-		AdminPasswordEncryptionSSHKeyID: args.AdminPasswordEncryptionSSHKeyID,
-	}
-
 	client := core.ExtractClient(ctx)
-	apiMarketplace := marketplace.NewAPI(client)
-	apiInstance := instance.NewAPI(client)
 
-	if commercialTypeIsWindowsServer(serverReq.CommercialType) && serverReq.AdminPasswordEncryptionSSHKeyID == nil {
-		return nil, &core.CliError{
-			Err:     core.MissingRequiredArgumentError("admin-password-encryption-ssh-key-id").Err,
-			Details: "Expected a SSH Key ID to encrypt Admin RDP password. If not provided, no password will be generated. Key must be RSA Public Key.",
-			Hint:    "Use completion or get your ssh key id using 'scw iam ssh-key list',",
-			Code:    1,
-			Empty:   false,
-		}
-	}
+	serverBuilder := NewServerBuilder(client, args.Name, args.Zone, args.Type).
+		AddOrganizationID(args.OrganizationID).
+		AddProjectID(args.ProjectID).
+		AddEnableIPv6(scw.BoolPtr(args.IPv6)).
+		AddTags(args.Tags).
+		AddRoutedIPEnabled(args.RoutedIPEnabled).
+		AddAdminPasswordEncryptionSSHKeyID(args.AdminPasswordEncryptionSSHKeyID)
+
+	apiInstance := instance.NewAPI(client)
 
 	//
 	// Image.
@@ -234,54 +218,9 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	// - A local image UUID
 	// - An image label
 	//
-	switch {
-	case args.Image == "none":
-		break
-	case !validation.IsUUID(args.Image):
-		// For retro-compatibility, we replace dashes with underscores
-		imageLabel := strings.Replace(args.Image, "-", "_", -1)
-
-		// Find the corresponding local image UUID.
-		localImage, err := apiMarketplace.GetLocalImageByLabel(&marketplace.GetLocalImageByLabelRequest{
-			ImageLabel:     imageLabel,
-			Zone:           args.Zone,
-			CommercialType: serverReq.CommercialType,
-			Type:           marketplace.LocalImageTypeInstanceLocal,
-		})
-		if err != nil {
-			return nil, err
-		}
-		serverReq.Image = localImage.ID
-	default:
-		serverReq.Image = args.Image
-	}
-
-	var (
-		getImageResponse *instance.GetImageResponse
-		serverType       *instance.ServerType
-	)
-	if args.Image != "none" {
-		var err error
-		getImageResponse, err = apiInstance.GetImage(&instance.GetImageRequest{
-			Zone:    args.Zone,
-			ImageID: serverReq.Image,
-		})
-		if err != nil {
-			logger.Warningf("cannot get image %s: %s", serverReq.Image, err)
-		}
-
-		serverType = getServerType(apiInstance, serverReq.Zone, serverReq.CommercialType)
-
-		if serverType != nil && getImageResponse != nil {
-			if err := validateImageServerTypeCompatibility(getImageResponse.Image, serverType, serverReq.CommercialType); err != nil {
-				return nil, err
-			}
-		} else {
-			logger.Warningf("skipping image server-type compatibility validation")
-		}
-	} else {
-		getImageResponse = nil
-		serverType = nil
+	serverBuilder, err = serverBuilder.AddImage(args.Image)
+	if err != nil {
+		return nil, err
 	}
 
 	//
@@ -294,114 +233,55 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	// - "dynamic"
 	// - "none"
 	//
-	switch {
-	case args.IP == "", args.IP == "new":
-		needIPCreation = true
-	case validation.IsUUID(args.IP):
-		serverReq.PublicIP = scw.StringPtr(args.IP)
-	case net.ParseIP(args.IP) != nil:
-		// Find the corresponding flexible IP UUID.
-		logger.Debugf("finding public IP UUID from address: %s", args.IP)
-		res, err := apiInstance.GetIP(&instance.GetIPRequest{
-			Zone: args.Zone,
-			IP:   args.IP,
-		})
-		if err != nil { // FIXME: isNotFoundError
-			return nil, fmt.Errorf("%s does not belong to you", args.IP)
-		}
-		serverReq.PublicIP = scw.StringPtr(res.IP.ID)
-	case args.IP == "dynamic":
-		serverReq.DynamicIPRequired = scw.BoolPtr(true)
-	case args.IP == "none":
-		serverReq.DynamicIPRequired = scw.BoolPtr(false)
-	default:
-		return nil, fmt.Errorf(`invalid IP "%s", should be either 'new', 'dynamic', 'none', an IP address ID or a reserved flexible IP address`, args.IP)
+	serverBuilder, err = serverBuilder.AddIP(args.IP)
+	if err != nil {
+		return nil, err
 	}
 
-	//
 	// Volumes.
 	//
 	// More format details in buildVolumeTemplate function.
 	//
-	if len(args.AdditionalVolumes) > 0 || args.RootVolume != "" {
-		// Create initial volume template map.
-		volumes, err := buildVolumes(apiInstance, args.Zone, serverReq.Name, args.RootVolume, args.AdditionalVolumes)
-		if err != nil {
-			return nil, err
-		}
-
-		// Validate root volume type and size.
-		if args.Image != "none" && getImageResponse != nil {
-			if err := validateRootVolume(getImageResponse.Image.RootVolume.Size, volumes["0"]); err != nil {
-				return nil, err
-			}
-		} else {
-			logger.Warningf("skipping root volume validation")
-		}
-
-		// Validate total local volume sizes.
-		if args.Image != "none" && serverType != nil && getImageResponse != nil {
-			if err := validateLocalVolumeSizes(volumes, serverType, serverReq.CommercialType, getImageResponse.Image.RootVolume.Size); err != nil {
-				return nil, err
-			}
-		} else {
-			logger.Warningf("skip local volume size validation")
-		}
-
-		// Sanitize the volume map to respect API schemas
-		serverReq.Volumes = sanitizeVolumeMap(serverReq.Name, volumes)
-	}
-
 	// Add default volumes to server, ex: scratch storage for GPU servers
-	if serverType != nil {
-		serverReq.Volumes = addDefaultVolumes(serverType, serverReq.Volumes)
+	serverBuilder, err = serverBuilder.AddVolumes(args.RootVolume, args.AdditionalVolumes)
+	if err != nil {
+		return nil, err
 	}
 
 	//
 	// BootType.
 	//
-	bootType := instance.BootType(args.BootType)
-	serverReq.BootType = &bootType
+	serverBuilder = serverBuilder.AddBootType(args.BootType)
 
 	//
 	// Bootscript.
 	//
-	if args.BootscriptID != "" {
-		if !validation.IsUUID(args.BootscriptID) {
-			return nil, fmt.Errorf("bootscript ID %s is not a valid UUID", args.BootscriptID)
-		}
-		//nolint: staticcheck // Bootscript is deprecated
-		_, err := apiInstance.GetBootscript(&instance.GetBootscriptRequest{
-			Zone:         args.Zone,
-			BootscriptID: args.BootscriptID,
-		})
-		if err != nil { // FIXME: isNotFoundError
-			return nil, fmt.Errorf("bootscript ID %s does not exist", args.BootscriptID)
-		}
-
-		//nolint: staticcheck // Bootscript is deprecated
-		serverReq.Bootscript = scw.StringPtr(args.BootscriptID)
-		bootType := instance.BootTypeBootscript
-		serverReq.BootType = &bootType
+	serverBuilder, err = serverBuilder.AddBootscript(args.BootscriptID)
+	if err != nil {
+		return nil, err
 	}
 
 	//
 	// Security Group.
 	//
-	if args.SecurityGroupID != "" {
-		serverReq.SecurityGroup = scw.StringPtr(args.SecurityGroupID)
-	}
+	serverBuilder = serverBuilder.AddSecurityGroup(args.SecurityGroupID)
 
 	//
 	// Placement Group.
 	//
-	if args.PlacementGroupID != "" {
-		serverReq.PlacementGroup = scw.StringPtr(args.PlacementGroupID)
-	}
+	serverBuilder = serverBuilder.AddPlacementGroup(args.PlacementGroupID)
 
 	//
 	// STEP 2: Resource creations and modifications.
 	//
+
+	err = serverBuilder.Validate()
+	if err != nil {
+		return nil, err
+	}
+
+	createReq, createIPReq := serverBuilder.Build()
+	needIPCreation := createIPReq != nil
 
 	//
 	// IP
@@ -413,25 +293,25 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		if err != nil {
 			return nil, fmt.Errorf("error while creating your public IP: %s", err)
 		}
-		serverReq.PublicIP = scw.StringPtr(ip.ID)
-		logger.Debugf("IP created: %s", serverReq.PublicIP)
+		createReq.PublicIP = scw.StringPtr(ip.ID)
+		logger.Debugf("IP created: %s", createReq.PublicIP)
 	}
 
 	//
 	// Server Creation
 	//
 	logger.Debugf("creating server")
-	serverRes, err := apiInstance.CreateServer(serverReq)
+	serverRes, err := apiInstance.CreateServer(createReq)
 	if err != nil {
-		if needIPCreation && serverReq.PublicIP != nil {
+		if needIPCreation && createReq.PublicIP != nil {
 			// Delete the created IP
-			logger.Debugf("deleting created IP: %s", serverReq.PublicIP)
+			logger.Debugf("deleting created IP: %s", createReq.PublicIP)
 			err := apiInstance.DeleteIP(&instance.DeleteIPRequest{
 				Zone: args.Zone,
-				IP:   *serverReq.PublicIP,
+				IP:   *createReq.PublicIP,
 			})
 			if err != nil {
-				logger.Warningf("cannot delete the create IP %s: %s.", serverReq.PublicIP, err)
+				logger.Warningf("cannot delete the create IP %s: %s.", createReq.PublicIP, err)
 			}
 		}
 
