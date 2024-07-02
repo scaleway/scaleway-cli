@@ -15,7 +15,6 @@ func GetCommands() *core.Commands {
 		{"dedibox", "offer", "list"},
 		{"dedibox", "offer", "get"},
 		{"dedibox", "os", "list"},
-		{"dedibox", "os", "get"},
 		{"dedibox", "fip", "list"},
 		{"dedibox", "fip", "get-quota"},
 		{"dedibox", "billing", "list-invoice"},
