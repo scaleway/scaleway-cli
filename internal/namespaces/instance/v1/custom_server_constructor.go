@@ -97,11 +97,15 @@ func (sb *ServerBuilder) isWindows() bool {
 
 // defaultIPType returns the default IP type when created by the CLI. Used for ServerBuilder.AddIP
 func (sb *ServerBuilder) defaultIPType() instance.IPType {
-	if sb.createReq.RoutedIPEnabled != nil && *sb.createReq.RoutedIPEnabled {
-		return instance.IPTypeRoutedIPv4
+	if sb.createReq.RoutedIPEnabled != nil {
+		if *sb.createReq.RoutedIPEnabled {
+			return instance.IPTypeRoutedIPv4
+		} else {
+			return instance.IPTypeNat
+		}
 	}
 
-	return instance.IPTypeNat
+	return ""
 }
 
 // AddImage handle a custom image argument.

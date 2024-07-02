@@ -196,7 +196,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	args := argsI.(*instanceCreateServerRequest)
 
 	//
-	// STEP 1: Argument validation and API requests creation.
+	// STEP 1: Argument handling and API requests creation.
 	//
 
 	client := core.ExtractClient(ctx)
@@ -207,9 +207,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		AddEnableIPv6(scw.BoolPtr(args.IPv6)).
 		AddTags(args.Tags).
 		AddRoutedIPEnabled(args.RoutedIPEnabled).
-		AddAdminPasswordEncryptionSSHKeyID(args.AdminPasswordEncryptionSSHKeyID)
-
-	apiInstance := instance.NewAPI(client)
+		AddAdminPasswordEncryptionSSHKeyID(args.AdminPasswordEncryptionSSHKeyID).
+		AddBootType(args.BootType).
+		AddSecurityGroup(args.SecurityGroupID).
+		AddPlacementGroup(args.PlacementGroupID)
 
 	serverBuilder, err = serverBuilder.AddImage(args.Image)
 	if err != nil {
@@ -226,31 +227,13 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		return nil, err
 	}
 
-	//
-	// BootType.
-	//
-	serverBuilder = serverBuilder.AddBootType(args.BootType)
-
-	//
-	// Bootscript.
-	//
 	serverBuilder, err = serverBuilder.AddBootscript(args.BootscriptID)
 	if err != nil {
 		return nil, err
 	}
 
 	//
-	// Security Group.
-	//
-	serverBuilder = serverBuilder.AddSecurityGroup(args.SecurityGroupID)
-
-	//
-	// Placement Group.
-	//
-	serverBuilder = serverBuilder.AddPlacementGroup(args.PlacementGroupID)
-
-	//
-	// STEP 2: Resource creations and modifications.
+	// STEP 2: Validation and requests
 	//
 
 	err = serverBuilder.Validate()
@@ -262,8 +245,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	needIPCreation := createIPReq != nil
 
 	//
-	// IP
+	// IP creation
 	//
+	apiInstance := instance.NewAPI(client)
+
 	if needIPCreation {
 		logger.Debugf("creating IP")
 
