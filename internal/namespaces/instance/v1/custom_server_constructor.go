@@ -95,6 +95,15 @@ func (sb *ServerBuilder) isWindows() bool {
 	return commercialTypeIsWindowsServer(sb.createReq.CommercialType)
 }
 
+// defaultIPType returns the default IP type when created by the CLI. Used for ServerBuilder.AddIP
+func (sb *ServerBuilder) defaultIPType() instance.IPType {
+	if sb.createReq.RoutedIPEnabled != nil && *sb.createReq.RoutedIPEnabled {
+		return instance.IPTypeRoutedIPv4
+	}
+
+	return instance.IPTypeNat
+}
+
 // AddImage handle a custom image argument.
 // image could be:
 //   - A local image UUID.
@@ -147,9 +156,10 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 	switch {
 	case ip == "" || ip == "new":
 		sb.createIPReq = &instance.CreateIPRequest{
-			Zone:    sb.createReq.Zone,
-			Project: sb.createReq.Project,
-			Type:    "", // TODO
+			Zone:         sb.createReq.Zone,
+			Organization: sb.createReq.Project,
+			Project:      sb.createReq.Project,
+			Type:         sb.defaultIPType(),
 		}
 	case validation.IsUUID(ip):
 		sb.createReq.PublicIP = scw.StringPtr(ip)

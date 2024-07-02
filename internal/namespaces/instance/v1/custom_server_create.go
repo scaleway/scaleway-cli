@@ -289,11 +289,11 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	if needIPCreation {
 		logger.Debugf("creating IP")
 
-		ip, err := instanceServerCreateIPCreate(args, apiInstance)
+		ipRes, err := apiInstance.CreateIP(createIPReq)
 		if err != nil {
 			return nil, fmt.Errorf("error while creating your public IP: %s", err)
 		}
-		createReq.PublicIP = scw.StringPtr(ip.ID)
+		createReq.PublicIP = scw.StringPtr(ipRes.IP.ID)
 		logger.Debugf("IP created: %s", createReq.PublicIP)
 	}
 
@@ -684,27 +684,4 @@ func getServerType(apiInstance *instance.API, zone scw.Zone, commercialType stri
 	}
 
 	return serverType
-}
-
-func instanceServerCreateIPCreate(args *instanceCreateServerRequest, api *instance.API) (*instance.IP, error) {
-	req := &instance.CreateIPRequest{
-		Zone:         args.Zone,
-		Project:      args.ProjectID,
-		Organization: args.OrganizationID,
-	}
-
-	if args.RoutedIPEnabled != nil {
-		if *args.RoutedIPEnabled {
-			req.Type = instance.IPTypeRoutedIPv4
-		} else {
-			req.Type = instance.IPTypeNat
-		}
-	}
-
-	res, err := api.CreateIP(req)
-	if err != nil {
-		return nil, err
-	}
-
-	return res.IP, nil
 }
