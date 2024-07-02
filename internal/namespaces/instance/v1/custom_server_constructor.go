@@ -185,6 +185,11 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 	return sb, nil
 }
 
+// AddVolumes build volume templates from arguments.
+//
+// More format details in buildVolumeTemplate function.
+//
+// Also add default volumes to server, ex: scratch storage for GPU servers
 func (sb *ServerBuilder) AddVolumes(rootVolume string, additionalVolumes []string) (*ServerBuilder, error) {
 	if len(additionalVolumes) > 0 || rootVolume != "" {
 		// Create initial volume template map.

@@ -211,38 +211,16 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 
 	apiInstance := instance.NewAPI(client)
 
-	//
-	// Image.
-	//
-	// Could be:
-	// - A local image UUID
-	// - An image label
-	//
 	serverBuilder, err = serverBuilder.AddImage(args.Image)
 	if err != nil {
 		return nil, err
 	}
 
-	//
-	// IP.
-	//
-	// Could be:
-	// - "new"
-	// - A flexible IP UUID
-	// - A flexible IP address
-	// - "dynamic"
-	// - "none"
-	//
 	serverBuilder, err = serverBuilder.AddIP(args.IP)
 	if err != nil {
 		return nil, err
 	}
 
-	// Volumes.
-	//
-	// More format details in buildVolumeTemplate function.
-	//
-	// Add default volumes to server, ex: scratch storage for GPU servers
 	serverBuilder, err = serverBuilder.AddVolumes(args.RootVolume, args.AdditionalVolumes)
 	if err != nil {
 		return nil, err
