@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                cli-test-bucket-get-3299051625199989092
+ID                cli-test-bucket-get-4562132975129083921
 Region            fr-par
 APIEndpoint       https://s3.fr-par.scw.cloud
-BucketEndpoint    https://cli-test-bucket-get-3299051625199989092.s3.fr-par.scw.cloud
+BucketEndpoint    https://cli-test-bucket-get-4562132975129083921.s3.fr-par.scw.cloud
 EnableVersioning  false
 Owner             105bdce1-64c0-48ab-899d-868455867ecf
 
@@ -12,10 +12,10 @@ GRANTEE                               PERMISSION
 105bdce1-64c0-48ab-899d-868455867ecf  FULL_CONTROL
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "ID": "cli-test-bucket-get-3299051625199989092",
+  "ID": "cli-test-bucket-get-4562132975129083921",
   "Region": "fr-par",
   "APIEndpoint": "https://s3.fr-par.scw.cloud",
-  "BucketEndpoint": "https://cli-test-bucket-get-3299051625199989092.s3.fr-par.scw.cloud",
+  "BucketEndpoint": "https://cli-test-bucket-get-4562132975129083921.s3.fr-par.scw.cloud",
   "EnableVersioning": false,
   "Tags": null,
   "ACL": [
