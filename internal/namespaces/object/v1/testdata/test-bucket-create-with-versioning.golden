@@ -1,0 +1,35 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Success.
+ID                cli-test-bucket-create-3140143146901590452
+Region            fr-par
+APIEndpoint       https://s3.fr-par.scw.cloud
+BucketEndpoint    https://cli-test-bucket-create-3140143146901590452.s3.fr-par.scw.cloud
+EnableVersioning  true
+Owner             105bdce1-64c0-48ab-899d-868455867ecf
+
+Acl:
+GRANTEE                               PERMISSION
+105bdce1-64c0-48ab-899d-868455867ecf  FULL_CONTROL
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "SuccessResult": {
+    "message": "Success",
+    "details": ""
+  },
+  "BucketInfo": {
+    "ID": "cli-test-bucket-create-3140143146901590452",
+    "Region": "fr-par",
+    "APIEndpoint": "https://s3.fr-par.scw.cloud",
+    "BucketEndpoint": "https://cli-test-bucket-create-3140143146901590452.s3.fr-par.scw.cloud",
+    "EnableVersioning": true,
+    "Tags": null,
+    "ACL": [
+      {
+        "Grantee": "105bdce1-64c0-48ab-899d-868455867ecf",
+        "Permission": "FULL_CONTROL"
+      }
+    ],
+    "Owner": "105bdce1-64c0-48ab-899d-868455867ecf"
+  }
+}

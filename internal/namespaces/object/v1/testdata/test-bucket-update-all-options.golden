@@ -1,0 +1,59 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Success.
+ID                cli-test-bucket-update-267526823349285092
+Region            fr-par
+APIEndpoint       https://s3.fr-par.scw.cloud
+BucketEndpoint    https://cli-test-bucket-update-267526823349285092.s3.fr-par.scw.cloud
+EnableVersioning  true
+Owner             105bdce1-64c0-48ab-899d-868455867ecf
+
+Tags:
+KEY   VALUE
+key1  value1
+key2  value2
+
+Acl:
+GRANTEE                               PERMISSION
+105bdce1-64c0-48ab-899d-868455867ecf  FULL_CONTROL
+AllUsers                              READ
+AllUsers                              WRITE
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "SuccessResult": {
+    "message": "Success",
+    "details": ""
+  },
+  "BucketInfo": {
+    "ID": "cli-test-bucket-update-267526823349285092",
+    "Region": "fr-par",
+    "APIEndpoint": "https://s3.fr-par.scw.cloud",
+    "BucketEndpoint": "https://cli-test-bucket-update-267526823349285092.s3.fr-par.scw.cloud",
+    "EnableVersioning": true,
+    "Tags": [
+      {
+        "Key": "key1",
+        "Value": "value1"
+      },
+      {
+        "Key": "key2",
+        "Value": "value2"
+      }
+    ],
+    "ACL": [
+      {
+        "Grantee": "105bdce1-64c0-48ab-899d-868455867ecf",
+        "Permission": "FULL_CONTROL"
+      },
+      {
+        "Grantee": "AllUsers",
+        "Permission": "READ"
+      },
+      {
+        "Grantee": "AllUsers",
+        "Permission": "WRITE"
+      }
+    ],
+    "Owner": "105bdce1-64c0-48ab-899d-868455867ecf"
+  }
+}

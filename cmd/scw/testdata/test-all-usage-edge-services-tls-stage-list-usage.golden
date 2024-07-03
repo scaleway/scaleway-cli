@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all TLS stages, for a Scaleway Organization or Scaleway Project. By default, the TLS stages returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
+
+USAGE:
+  scw edge-services tls-stage list [arg=value ...]
+
+ARGS:
+  [order-by]        Sort order of TLS stages in the response (created_at_asc | created_at_desc)
+  [pipeline-id]     Pipeline ID to filter for, only TLS stages from this pipeline will be returned
+  [project-id]      Project ID to filter for, only TLS stages from this Project will be returned
+  [secret-id]       Secret ID to filter for, only TLS stages with this Secret ID will be returned
+  [secret-region]   Secret region to filter for, only TLS stages with a Secret in this region will be returned
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

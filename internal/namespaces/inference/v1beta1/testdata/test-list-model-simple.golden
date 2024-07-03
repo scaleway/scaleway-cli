@@ -2,15 +2,12 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    Name                                        Provider               Tags
 6c68b256-ef4a-48d2-a794-9b63b5c6ba5d  meta/llama-3-8b-instruct:bf16               meta                   [instruct chat]
-c55d11d3-f717-4ede-82ac-48a74b84cbf1  mistral/mixtral-8x7b-instruct-v0.1:int8     mistral                [instruct]
-a7db3243-9d6a-4149-9ffb-081e24886d00  mistral/mixtral-8x7b-instruct-v0.1:fp16     mistral                [instruct]
-2cf5427e-1cfd-4e9b-94e9-509e6a6a38a8  meta/llama-2-70b-chat:fp16                  meta                   [chat]
-efbca7c6-9b76-49b2-8789-f89cc6df7eb7  meta/llama-2-70b-chat:fp8                   meta                   [chat]
-3077ebd3-3a5a-47fc-91c2-da8cf6779c56  wizardlm/wizardlm-70b-v1.0:fp16             wizardlm               [instruct]
+a7db3243-9d6a-4149-9ffb-081e24886d00  mistral/mixtral-8x7b-instruct-v0.1:fp16     mistral                [instruct chat]
+c55d11d3-f717-4ede-82ac-48a74b84cbf1  mistral/mixtral-8x7b-instruct-v0.1:int8     mistral                [instruct chat]
+3077ebd3-3a5a-47fc-91c2-da8cf6779c56  wizardlm/wizardlm-70b-v1.0:fp16             wizardlm               [instruct chat]
 729c0386-ddde-4209-ba91-fad5ec47e2bb  wizardlm/wizardlm-70b-v1.0:fp8              wizardlm               [instruct]
-d507757c-9bd8-47d5-87d5-bc8925d8d313  meta/llama-2-7b-chat:fp8                    meta                   [chat]
-a3d49280-ab4e-4e8b-93a2-dcaa1e79f31f  meta/llama-2-7b-chat:fp16                   meta                   [chat]
 4d834112-ed88-4394-9035-6eea562ec5f5  sentence-transformers/sentence-t5-xxl:fp32  sentence-transformers  [embedding]
+12c8b72a-720e-4482-b9e1-527f7d8b7aea  meta/llama-3-70b-instruct:int8              meta                   [instruct chat]
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -34,12 +31,33 @@ a3d49280-ab4e-4e8b-93a2-dcaa1e79f31f  meta/llama-2-7b-chat:fp16                 
     "quantization_level": "bf16"
   },
   {
+    "id": "a7db3243-9d6a-4149-9ffb-081e24886d00",
+    "name": "mistral/mixtral-8x7b-instruct-v0.1:fp16",
+    "project_id": "",
+    "provider": "mistral",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "A high-quality Mixture of Experts (MoE) model with open weights by Mistral AI, licensed under Apache 2.0.",
+    "has_eula": false,
+    "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100-2"
+    ],
+    "quantization_level": "fp16"
+  },
+  {
     "id": "c55d11d3-f717-4ede-82ac-48a74b84cbf1",
     "name": "mistral/mixtral-8x7b-instruct-v0.1:int8",
     "project_id": "",
     "provider": "mistral",
     "tags": [
-      "instruct"
+      "instruct",
+      "chat"
     ],
     "description": "A high-quality Mixture of Experts (MoE) model with open weights by Mistral AI, licensed under Apache 2.0.",
     "has_eula": false,
@@ -53,69 +71,13 @@ a3d49280-ab4e-4e8b-93a2-dcaa1e79f31f  meta/llama-2-7b-chat:fp16                 
     "quantization_level": "int8"
   },
   {
-    "id": "a7db3243-9d6a-4149-9ffb-081e24886d00",
-    "name": "mistral/mixtral-8x7b-instruct-v0.1:fp16",
-    "project_id": "",
-    "provider": "mistral",
-    "tags": [
-      "instruct"
-    ],
-    "description": "A high-quality Mixture of Experts (MoE) model with open weights by Mistral AI, licensed under Apache 2.0.",
-    "has_eula": false,
-    "created_at": "2024-03-15T00:00:00Z",
-    "updated_at": "1970-01-01T00:00:00.0Z",
-    "region": "fr-par",
-    "is_public": true,
-    "compatible_node_types": [
-      "H100-2"
-    ],
-    "quantization_level": "fp16"
-  },
-  {
-    "id": "2cf5427e-1cfd-4e9b-94e9-509e6a6a38a8",
-    "name": "meta/llama-2-70b-chat:fp16",
-    "project_id": "",
-    "provider": "meta",
-    "tags": [
-      "chat"
-    ],
-    "description": "70B-param model by Meta, a powerhouse for creative text generation and complex reasoning.",
-    "has_eula": true,
-    "created_at": "2024-03-15T10:00:00Z",
-    "updated_at": "1970-01-01T00:00:00.0Z",
-    "region": "fr-par",
-    "is_public": true,
-    "compatible_node_types": [
-      "H100-2"
-    ],
-    "quantization_level": "fp16"
-  },
-  {
-    "id": "efbca7c6-9b76-49b2-8789-f89cc6df7eb7",
-    "name": "meta/llama-2-70b-chat:fp8",
-    "project_id": "",
-    "provider": "meta",
-    "tags": [
-      "chat"
-    ],
-    "description": "70B-param model by Meta, a powerhouse for creative text generation and complex reasoning.",
-    "has_eula": true,
-    "created_at": "2024-03-15T10:00:00Z",
-    "updated_at": "1970-01-01T00:00:00.0Z",
-    "region": "fr-par",
-    "is_public": true,
-    "compatible_node_types": [
-      "H100"
-    ],
-    "quantization_level": "fp8"
-  },
-  {
     "id": "3077ebd3-3a5a-47fc-91c2-da8cf6779c56",
     "name": "wizardlm/wizardlm-70b-v1.0:fp16",
     "project_id": "",
     "provider": "wizardlm",
     "tags": [
-      "instruct"
+      "instruct",
+      "chat"
     ],
     "description": "General use 70B-param model based on Llama 2.",
     "has_eula": true,
@@ -148,46 +110,6 @@ a3d49280-ab4e-4e8b-93a2-dcaa1e79f31f  meta/llama-2-7b-chat:fp16                 
     "quantization_level": "fp8"
   },
   {
-    "id": "d507757c-9bd8-47d5-87d5-bc8925d8d313",
-    "name": "meta/llama-2-7b-chat:fp8",
-    "project_id": "",
-    "provider": "meta",
-    "tags": [
-      "chat"
-    ],
-    "description": "Efficient 7B-param model by Meta, fine-tuned for swift and dynamic chat engagement.",
-    "has_eula": true,
-    "created_at": "1970-01-01T00:00:00.0Z",
-    "updated_at": "1970-01-01T00:00:00.0Z",
-    "region": "fr-par",
-    "is_public": true,
-    "compatible_node_types": [
-      "L4",
-      "H100"
-    ],
-    "quantization_level": "fp8"
-  },
-  {
-    "id": "a3d49280-ab4e-4e8b-93a2-dcaa1e79f31f",
-    "name": "meta/llama-2-7b-chat:fp16",
-    "project_id": "",
-    "provider": "meta",
-    "tags": [
-      "chat"
-    ],
-    "description": "Efficient 7B-param model by Meta, fine-tuned for swift and dynamic chat engagement.",
-    "has_eula": true,
-    "created_at": "1970-01-01T00:00:00.0Z",
-    "updated_at": "1970-01-01T00:00:00.0Z",
-    "region": "fr-par",
-    "is_public": true,
-    "compatible_node_types": [
-      "L4",
-      "H100"
-    ],
-    "quantization_level": "fp16"
-  },
-  {
     "id": "4d834112-ed88-4394-9035-6eea562ec5f5",
     "name": "sentence-transformers/sentence-t5-xxl:fp32",
     "project_id": "",
@@ -205,5 +127,25 @@ a3d49280-ab4e-4e8b-93a2-dcaa1e79f31f  meta/llama-2-7b-chat:fp16                 
       "L4"
     ],
     "quantization_level": "fp32"
+  },
+  {
+    "id": "12c8b72a-720e-4482-b9e1-527f7d8b7aea",
+    "name": "meta/llama-3-70b-instruct:int8",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "Latest 70B-param model from Meta, fine-tuned for instruction and automation.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100"
+    ],
+    "quantization_level": "int8"
   }
 ]

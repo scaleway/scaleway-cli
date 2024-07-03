@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	deploymentActionTimeout = 40 * time.Minute
+	deploymentActionTimeout = 60 * time.Minute
 )
 
 var (
@@ -96,7 +96,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 				publicEndpoint = nil
 			}
 			privateNetwork := &inference.EndpointSpecPrivateNetwork{}
-			if endpoint.EndpointSpec == nil {
+			if endpoint.EndpointSpec.PrivateNetwork == nil {
 				privateNetwork = nil
 			} else {
 				privateNetwork.PrivateNetworkID = endpoint.PrivateNetwork.PrivateNetworkID

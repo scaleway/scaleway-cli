@@ -1,0 +1,37 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Success.
+ID                cli-test-bucket-create-4609123245685100250
+Region            fr-par
+APIEndpoint       https://s3.fr-par.scw.cloud
+BucketEndpoint    https://cli-test-bucket-create-4609123245685100250.s3.fr-par.scw.cloud
+EnableVersioning  true
+
+Tags:
+KEY   VALUE
+key1  value1
+key2  value2
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "SuccessResult": {
+    "message": "Success",
+    "details": ""
+  },
+  "BucketInfo": {
+    "ID": "cli-test-bucket-create-4609123245685100250",
+    "Region": "fr-par",
+    "APIEndpoint": "https://s3.fr-par.scw.cloud",
+    "BucketEndpoint": "https://cli-test-bucket-create-4609123245685100250.s3.fr-par.scw.cloud",
+    "EnableVersioning": true,
+    "Tags": [
+      {
+        "Key": "key1",
+        "Value": "value1"
+      },
+      {
+        "Key": "key2",
+        "Value": "value2"
+      }
+    ]
+  }
+}

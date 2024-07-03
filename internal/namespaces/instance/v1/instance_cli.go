@@ -223,7 +223,7 @@ There are two ways of accessing user data:
  - **From within a running Instance**, by requesting the Metadata API at http://169.254.42.42/user_data (or http://[fd00:42::42]/user_data using IPv6).
    The ` + "`" + `scaleway-ecosystem` + "`" + ` package, installed by default on all OS images provided by Scaleway, ships with the ` + "`" + `scw-userdata` + "`" + ` helper command that allows you to easily query the user data from the instance.
    For security reasons, viewing and editing user data is only allowed to queries originating from a port below 1024 (by default, only the super-user can bind to ports below 1024).
-   To specify the source port with cURL, use the ` + "`" + `--local-port` + "`" + ` option (e.g. ` + "`" + `curl --local-port 1-1024 http://169.254.42.42/user_data` + "`" + `).
+   To specify the source port with cURL, use the ` + "`" + `--local-port` + "`" + ` option (e.g. ` + "`" + `curl --local-port 1-1023 http://169.254.42.42/user_data` + "`" + `).
  - **From the Instance API** by using the methods described below.`,
 		Namespace: "instance",
 		Resource:  "user-data",

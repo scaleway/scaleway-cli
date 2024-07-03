@@ -1,0 +1,33 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Install an OS on the server associated with the given ID.
+
+USAGE:
+  scw dedibox server install [arg=value ...]
+
+ARGS:
+  server-id                                 Server ID to install
+  [os-id]                                   OS ID to install on the server
+  [hostname]                                Hostname of the server
+  [user-login]                              User to install on the server
+  [user-password]                           User password to install on the server
+  [panel-password]                          Panel password to install on the server
+  [root-password]                           Root password to install on the server
+  [partitions.{index}.file-system]          File system of the installation partition (unknown | efi | swap | ext4 | ext3 | ext2 | xfs | ntfs | fat32 | ufs)
+  [partitions.{index}.mount-point]          Mount point of the installation partition
+  [partitions.{index}.raid-level]           RAID level of the installation partition (no_raid | raid0 | raid1 | raid5 | raid6 | raid10)
+  [partitions.{index}.capacity]             Capacity of the installation partition
+  [partitions.{index}.connectors.{index}]   Connectors of the installation partition
+  [ssh-key-ids.{index}]                     SSH key IDs authorized on the server
+  [license-offer-id]                        Offer ID of license to install on server
+  [ip-id]                                   IP to link at the license to install on server
+  [zone=fr-par-1]                           Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
+
+FLAGS:
+  -h, --help   help for install
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

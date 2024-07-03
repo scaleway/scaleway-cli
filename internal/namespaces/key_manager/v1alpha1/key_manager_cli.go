@@ -540,7 +540,7 @@ func keymanagerKeyEncrypt() *core.Command {
 			},
 			{
 				Name:       "plaintext",
-				Short:      `Plaintext data to encrypt`,
+				Short:      `Base64 Plaintext data to encrypt`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -584,7 +584,7 @@ func keymanagerKeyDecrypt() *core.Command {
 			},
 			{
 				Name:       "ciphertext",
-				Short:      `Ciphertext data to decrypt`,
+				Short:      `Base64 Ciphertext data to decrypt`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

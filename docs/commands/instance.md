@@ -1712,11 +1712,10 @@ scw instance server create [arg=value ...]
 | additional-volumes.{index} |  | Additional local and block volumes attached to your server |
 | ip | Default: `new` | Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | dynamic | none | <id> | <address>) |
 | tags.{index} |  | Server tags |
-| ipv6 |  | Enable IPv6 |
+| ipv6 |  | Enable IPv6, to be used with routed-ip-enabled=false |
 | stopped |  | Do not start server after its creation |
 | security-group-id |  | The security group ID used for this server |
 | placement-group-id |  | The placement group ID in which the server has to be created |
-| bootscript-id |  | The bootscript ID to use, if empty the local boot will be used |
 | cloud-init |  | The cloud-init script to use |
 | boot-type | Default: `local`<br />One of: `local`, `bootscript`, `rescue` | The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set. |
 | routed-ip-enabled |  | Enable routed IP support |
@@ -1752,6 +1751,11 @@ scw instance server create image=ubuntu_focal root-volume=local:10GB additional-
 Create an instance with volumes from snapshots
 ```
 scw instance server create image=ubuntu_focal root-volume=local:<snapshot_id> additional-volumes.0=block:<snapshot_id>
+```
+
+Create and start an instance from a snapshot
+```
+scw instance server create image=none root-volume=local:<snapshot_id>
 ```
 
 Use an existing IP
@@ -2760,7 +2764,7 @@ There are two ways of accessing user data:
  - **From within a running Instance**, by requesting the Metadata API at http://169.254.42.42/user_data (or http://[fd00:42::42]/user_data using IPv6).
    The `scaleway-ecosystem` package, installed by default on all OS images provided by Scaleway, ships with the `scw-userdata` helper command that allows you to easily query the user data from the instance.
    For security reasons, viewing and editing user data is only allowed to queries originating from a port below 1024 (by default, only the super-user can bind to ports below 1024).
-   To specify the source port with cURL, use the `--local-port` option (e.g. `curl --local-port 1-1024 http://169.254.42.42/user_data`).
+   To specify the source port with cURL, use the `--local-port` option (e.g. `curl --local-port 1-1023 http://169.254.42.42/user_data`).
  - **From the Instance API** by using the methods described below.
 
 
