@@ -113,10 +113,6 @@ func serverCreateCommand() *core.Command {
 				Short: "The placement group ID in which the server has to be created",
 			},
 			{
-				Name:  "bootscript-id",
-				Short: "The bootscript ID to use, if empty the local boot will be used",
-			},
-			{
 				Name:        "cloud-init",
 				Short:       "The cloud-init script to use",
 				CanLoadFile: true,
@@ -223,11 +219,6 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 
 	serverBuilder, err = serverBuilder.AddVolumes(args.RootVolume, args.AdditionalVolumes)
-	if err != nil {
-		return nil, err
-	}
-
-	serverBuilder, err = serverBuilder.AddBootscript(args.BootscriptID)
 	if err != nil {
 		return nil, err
 	}
