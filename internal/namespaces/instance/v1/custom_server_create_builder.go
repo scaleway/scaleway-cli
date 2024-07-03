@@ -60,9 +60,7 @@ func (sb *ServerBuilder) AddProjectID(projectID *string) *ServerBuilder {
 }
 
 func (sb *ServerBuilder) AddEnableIPv6(enableIPv6 *bool) *ServerBuilder {
-	if enableIPv6 != nil {
-		sb.createReq.EnableIPv6 = enableIPv6 //nolint: staticcheck
-	}
+	sb.createReq.EnableIPv6 = enableIPv6 //nolint: staticcheck
 
 	return sb
 }

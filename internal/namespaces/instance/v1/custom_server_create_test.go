@@ -278,6 +278,7 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
+					assert.NotNil(t, ctx.Result.(*instanceSDK.Server).IPv6)
 					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).IPv6.Address)
 				},
 				core.TestCheckExitCode(0),
