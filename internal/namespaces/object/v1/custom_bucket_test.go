@@ -21,7 +21,6 @@ const testBucketNameActionUpdate = "-update"
 
 func Test_BucketCreate(t *testing.T) {
 	bucketName1 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionCreate)
-	print(bucketName1)
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: object.GetCommands(),
 		Cmd:      fmt.Sprintf("scw object bucket create %s", bucketName1),
