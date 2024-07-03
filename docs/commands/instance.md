@@ -1712,11 +1712,10 @@ scw instance server create [arg=value ...]
 | additional-volumes.{index} |  | Additional local and block volumes attached to your server |
 | ip | Default: `new` | Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | dynamic | none | <id> | <address>) |
 | tags.{index} |  | Server tags |
-| ipv6 |  | Enable IPv6 |
+| ipv6 |  | Enable IPv6, to be used with routed-ip-enabled=false |
 | stopped |  | Do not start server after its creation |
 | security-group-id |  | The security group ID used for this server |
 | placement-group-id |  | The placement group ID in which the server has to be created |
-| bootscript-id |  | The bootscript ID to use, if empty the local boot will be used |
 | cloud-init |  | The cloud-init script to use |
 | boot-type | Default: `local`<br />One of: `local`, `bootscript`, `rescue` | The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set. |
 | routed-ip-enabled |  | Enable routed IP support |
