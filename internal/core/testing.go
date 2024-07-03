@@ -686,7 +686,7 @@ func TestCheckS3Golden() TestCheck {
 		// In order to avoid diff in goldens we set all timestamp to the same date
 		if *UpdateGoldens {
 			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+			require.NoError(t, os.WriteFile(goldenPath, []byte(normalizedActual), 0666)) //nolint:gosec
 		}
 
 		expected, err := os.ReadFile(goldenPath)
@@ -697,7 +697,7 @@ func TestCheckS3Golden() TestCheck {
 	}
 }
 
-func removeRandomPrefixFromOutput(output string) interface{} {
+func removeRandomPrefixFromOutput(output string) string {
 	begin := strings.Index(output, TestBucketNamePrefix)
 	if begin < 0 {
 		return output
