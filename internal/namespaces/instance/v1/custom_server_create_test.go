@@ -77,21 +77,6 @@ func Test_CreateServer(t *testing.T) {
 			AfterFunc: deleteServerAfterFunc(),
 		}))
 
-		t.Run("With bootscript", core.Test(&core.TestConfig{
-			Commands: instance.GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic bootscript-id=eb760e3c-30d8-49a3-b3ad-ad10c3aa440b stopped=true",
-			Check: core.TestCheckCombine(
-				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					assert.NotNil(t, ctx.Result)
-					//nolint: staticcheck // Bootscript is deprecated
-					assert.Equal(t, "eb760e3c-30d8-49a3-b3ad-ad10c3aa440b", ctx.Result.(*instanceSDK.Server).Bootscript.ID)
-					assert.Equal(t, instanceSDK.BootTypeBootscript, ctx.Result.(*instanceSDK.Server).BootType)
-				},
-				core.TestCheckExitCode(0),
-			),
-			AfterFunc: deleteServerAfterFunc(),
-		}))
-
 		t.Run("Image UUID", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=f974feac-abae-4365-b988-8ec7d1cec10d stopped=true",

@@ -235,29 +235,6 @@ func (sb *ServerBuilder) AddBootType(bootType string) *ServerBuilder {
 	return sb
 }
 
-func (sb *ServerBuilder) AddBootscript(bootscriptID string) (*ServerBuilder, error) {
-	if bootscriptID != "" {
-		if !validation.IsUUID(bootscriptID) {
-			return nil, fmt.Errorf("bootscript ID %s is not a valid UUID", bootscriptID)
-		}
-		//nolint: staticcheck // Bootscript is deprecated
-		_, err := sb.apiInstance.GetBootscript(&instance.GetBootscriptRequest{
-			Zone:         sb.createReq.Zone,
-			BootscriptID: bootscriptID,
-		})
-		if err != nil { // FIXME: isNotFoundError
-			return nil, fmt.Errorf("bootscript ID %s does not exist", bootscriptID)
-		}
-
-		//nolint: staticcheck // Bootscript is deprecated
-		sb.createReq.Bootscript = scw.StringPtr(bootscriptID)
-		bootType := instance.BootTypeBootscript
-		sb.createReq.BootType = &bootType
-	}
-
-	return sb, nil
-}
-
 func (sb *ServerBuilder) AddSecurityGroup(securityGroupID string) *ServerBuilder {
 	if securityGroupID != "" {
 		sb.createReq.SecurityGroup = &securityGroupID
