@@ -288,6 +288,7 @@ func backupDownloadCommand() *core.Command {
 				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
 				RetryInterval:    core.DefaultRetryInterval,
 			}
+
 			backup, err := api.WaitForDatabaseBackup(backupRequest)
 			if err != nil {
 				return nil, err
@@ -320,6 +321,11 @@ func backupDownloadCommand() *core.Command {
 			}
 
 			httpClient := core.ExtractHTTPClient(ctx)
+
+			if backup.DownloadURL == nil {
+				return nil, fmt.Errorf("Download URL is still nil after export")
+			}
+
 			res, err := httpClient.Get(*backup.DownloadURL)
 			if err != nil {
 				return nil, err
