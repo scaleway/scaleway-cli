@@ -274,10 +274,11 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic ipv6=true -w", // IPv6 is created at runtime
+			Cmd:      "scw instance server create image=ubuntu_bionic routed-ip-enabled=false ipv6=true -w", // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					assert.NotNil(t, ctx.Result)
+					assert.NotNil(t, ctx.Result.(*instanceSDK.Server).IPv6)
 					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).IPv6.Address)
 				},
 				core.TestCheckExitCode(0),

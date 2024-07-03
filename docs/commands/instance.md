@@ -1712,7 +1712,7 @@ scw instance server create [arg=value ...]
 | additional-volumes.{index} |  | Additional local and block volumes attached to your server |
 | ip | Default: `new` | Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | dynamic | none | <id> | <address>) |
 | tags.{index} |  | Server tags |
-| ipv6 |  | Enable IPv6 |
+| ipv6 |  | Enable IPv6, to be used with routed-ip-enabled=false |
 | stopped |  | Do not start server after its creation |
 | security-group-id |  | The security group ID used for this server |
 | placement-group-id |  | The placement group ID in which the server has to be created |
