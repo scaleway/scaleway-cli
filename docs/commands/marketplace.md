@@ -137,12 +137,12 @@ scw marketplace local-image list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| image-id |  |  |
-| version-id |  |  |
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| image-label |  |  |
-| zone |  |  |
-| type | One of: `unknown_type`, `instance_local`, `instance_sbs` |  |
+| order-by | One of: `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc` | Ordering to use |
+| zone |  | Filter local images available on this Availability Zone |
+| image-id |  | Filter by image id |
+| version-id |  | Filter by version id |
+| image-label |  | Filter by image label |
+| type | One of: `unknown_type`, `instance_local`, `instance_sbs` | Filter by type |
 
 
 
