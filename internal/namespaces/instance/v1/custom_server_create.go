@@ -98,7 +98,7 @@ func serverCreateCommand() *core.Command {
 			},
 			{
 				Name:  "ipv6",
-				Short: "Enable IPv6",
+				Short: "Enable IPv6, to be used with routed-ip-enabled=false",
 			},
 			{
 				Name:  "stopped",
