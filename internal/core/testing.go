@@ -686,7 +686,7 @@ func TestCheckS3Golden() TestCheck {
 		// In order to avoid diff in goldens we set all timestamp to the same date
 		if *UpdateGoldens {
 			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, os.WriteFile(goldenPath, []byte(normalizedActual), 0666)) //nolint:gosec
+			require.NoError(t, os.WriteFile(goldenPath, []byte(normalizedActual), 0644)) //nolint:gosec
 		}
 
 		expected, err := os.ReadFile(goldenPath)
