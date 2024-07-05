@@ -10,7 +10,6 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [List Private Networks](#list-private-networks)
   - [Migrate Private Networks from zoned to regional](#migrate-private-networks-from-zoned-to-regional)
   - [Update Private Network](#update-private-network)
-- [Route management command](#route-management-command)
 - [Routes management command](#routes-management-command)
   - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
 - [Subnet management command](#subnet-management-command)
@@ -185,20 +184,6 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 
 
 
-## Route management command
-
-Custom routes.
-
-Custom routes.
-
-**Usage:**
-
-```
-scw vpc route
-```
-
-
-
 ## Routes management command
 
 Routes management command.
@@ -247,8 +232,8 @@ scw vpc subnet
 
 ## VPC management command
 
-A Virtual Private Cloud (VPC) allows you to group your regional
-Private Networks together. Note that a Private Network can be a
+A Virtual Private Cloud (VPC) allows you to group your regional 
+Private Networks together. Note that a Private Network can be a 
 part of only one VPC.
 
 

@@ -804,7 +804,7 @@ scw dedibox os get [arg=value ...]
 |------|---|-------------|
 | os-id | Required | ID of the OS |
 | server-id |  | ID of the server |
-| project-id | Default: `<retrieved from config>` | Project ID |
+| project-id |  | Project ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
