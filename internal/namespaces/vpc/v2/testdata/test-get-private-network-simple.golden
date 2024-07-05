@@ -1,62 +1,62 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              3886e86d-f444-4403-a567-def30dedd577
-Name            cli-pn-modest-thompson
-OrganizationID  46fd79d8-1a35-4548-bfb8-03df51a0ebae
-ProjectID       46fd79d8-1a35-4548-bfb8-03df51a0ebae
+ID              6c221402-9ca7-4db6-b14d-ac5f16af9379
+Name            cli-pn-strange-khorana
+OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Region          fr-par
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-VpcID           b1972fa8-5349-4d37-8777-f4f205bbd322
+VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
 DHCPEnabled     true
 
 Instance Servers:
-ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
-0f16b281-2182-4d63-87c2-4792b6823230  cli-srv-admiring-hoover  archived  57573e4f-e441-4a1f-9859-0dcf5f2db8a4  02:00:00:18:d4:c9
+ID                                    NAME                       STATE     NIC ID                                MAC ADDRESS
+6756377d-5d5c-41c8-87ea-91a7b5867211  cli-srv-festive-zhukovsky  archived  8aa9c5c5-ee23-484c-8de9-47538b4d594b  02:00:00:12:e3:f0
 
 Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID  PRIVATE NETWORK ID  VPC ID
-9e23801e-377f-4a9d-bbfc-6afcc2102f9b  few seconds ago  few seconds ago  172.16.0.0/22             -           -                   -
-31377d22-029c-4d05-9888-727d28603c19  few seconds ago  few seconds ago  fd5d:9132:befe:a5b1::/64  -           -                   -
+ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
+1d1beeeb-dd6c-4f00-85d9-b1e4c6807776  few seconds ago  few seconds ago  172.16.24.0/22            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  6c221402-9ca7-4db6-b14d-ac5f16af9379  53e50f63-f6c0-44f7-8576-d6edcb965d9c
+49e7f751-4e1e-4114-8719-1d574fd5ff25  few seconds ago  few seconds ago  fd4a:c18e:554d:75a7::/64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  6c221402-9ca7-4db6-b14d-ac5f16af9379  53e50f63-f6c0-44f7-8576-d6edcb965d9c
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "3886e86d-f444-4403-a567-def30dedd577",
-  "name": "cli-pn-modest-thompson",
-  "organization_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-  "project_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+  "id": "6c221402-9ca7-4db6-b14d-ac5f16af9379",
+  "name": "cli-pn-strange-khorana",
+  "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "9e23801e-377f-4a9d-bbfc-6afcc2102f9b",
+      "id": "1d1beeeb-dd6c-4f00-85d9-b1e4c6807776",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.0.0/22",
-      "project_id": "",
-      "private_network_id": "",
-      "vpc_id": ""
+      "subnet": "172.16.24.0/22",
+      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "private_network_id": "6c221402-9ca7-4db6-b14d-ac5f16af9379",
+      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     },
     {
-      "id": "31377d22-029c-4d05-9888-727d28603c19",
+      "id": "49e7f751-4e1e-4114-8719-1d574fd5ff25",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd5d:9132:befe:a5b1::/64",
-      "project_id": "",
-      "private_network_id": "",
-      "vpc_id": ""
+      "subnet": "fd4a:c18e:554d:75a7::/64",
+      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "private_network_id": "6c221402-9ca7-4db6-b14d-ac5f16af9379",
+      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     }
   ],
-  "vpc_id": "b1972fa8-5349-4d37-8777-f4f205bbd322",
+  "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c",
   "dhcp_enabled": true,
   "instance_servers": [
     {
-      "id": "0f16b281-2182-4d63-87c2-4792b6823230",
-      "name": "cli-srv-admiring-hoover",
+      "id": "6756377d-5d5c-41c8-87ea-91a7b5867211",
+      "name": "cli-srv-festive-zhukovsky",
       "state": "stopped",
-      "nic_id": "57573e4f-e441-4a1f-9859-0dcf5f2db8a4",
-      "mac": "02:00:00:18:d4:c9"
+      "nic_id": "8aa9c5c5-ee23-484c-8de9-47538b4d594b",
+      "mac": "02:00:00:12:e3:f0"
     }
   ]
 }
