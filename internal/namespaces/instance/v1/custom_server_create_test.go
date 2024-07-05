@@ -143,6 +143,27 @@ func Test_CreateServer(t *testing.T) {
 			),
 		}))
 
+		t.Run("valid single local snapshot without image", core.Test(&core.TestConfig{
+			Commands: instance.GetCommands(),
+			BeforeFunc: core.BeforeFuncCombine(
+				core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true"),
+				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
+			),
+			Cmd: "scw instance server create image=none root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					assert.NotNil(t, ctx.Result)
+					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
+				},
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServer("Server"),
+				deleteServerAfterFunc(),
+				deleteSnapshot("Snapshot"),
+			),
+		}))
+
 		t.Run("valid double local volumes", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=l:10G stopped=true",
