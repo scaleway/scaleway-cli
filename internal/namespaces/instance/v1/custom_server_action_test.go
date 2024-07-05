@@ -142,7 +142,7 @@ func Test_ServerAction(t *testing.T) {
 func Test_ServerEnableRoutedIP(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create zone=fr-par-3 type=PRO2-XXS image=ubuntu_jammy ip=new --wait"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create zone=fr-par-3 type=PRO2-XXS image=ubuntu_jammy routed-ip-enabled=false ip=new --wait"),
 		Cmd:        `scw instance server enable-routed-ip zone=fr-par-3 {{ .Server.ID }} --wait`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {

@@ -1,28 +1,28 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            80d67883-56af-4a71-a308-be70fbee8f4a
-IP.Address       51.15.250.136
+IP.ID            43138680-e8d0-4515-8858-2c41eb7a7795
+IP.Address       51.158.67.170
 IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-IP.Type          nat
+IP.Type          routed_ipv4
 IP.State         detached
 IP.Prefix        -
-IP.IpamID        -
+IP.IpamID        2498428c-eba7-4e72-9319-467a3b03acc9
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "80d67883-56af-4a71-a308-be70fbee8f4a",
-    "address": "51.15.250.136",
+    "id": "43138680-e8d0-4515-8858-2c41eb7a7795",
+    "address": "51.158.67.170",
     "reverse": null,
     "server": null,
     "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "tags": [],
     "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "type": "nat",
+    "type": "routed_ipv4",
     "state": "detached",
     "prefix": "",
-    "ipam_id": "",
+    "ipam_id": "2498428c-eba7-4e72-9319-467a3b03acc9",
     "zone": "fr-par-1"
   }
 }
