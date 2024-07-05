@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        455bf106-48cd-421a-aafa-0e783218f4bb
+ID                        a1780194-3668-4203-bf2f-227766e8a17e
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -26,10 +26,10 @@ CheckSendProxy       false
 TransientCheckDelay  500000000 nanoseconds
 
 Pool:
-[51.158.118.38 51.15.241.198]
+[51.15.231.134 51.158.98.27]
 
 Lb:
-ID                     77e4cf81-9dd8-4639-ba6c-523b677dbb3b
+ID                     3a488e03-b553-4492-a3fa-b318f9326a88
 Name                   cli-test
 Description            cli-test
 Status                 ready
@@ -47,15 +47,15 @@ Region                 fr-par
 Zone                   fr-par-1
 
 IPs:
-ID                                    IP ADDRESS     ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                            TAGS  REGION  ZONE
-d4e38545-b7e6-4f3e-82b1-28f6d1c3f9aa  51.158.57.196  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  77e4cf81-9dd8-4639-ba6c-523b677dbb3b  51-158-57-196.lb.fr-par.scw.cloud  -     fr-par  fr-par-1
+ID                                    IP ADDRESS      ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                             TAGS  REGION  ZONE
+7af8f439-4727-46fd-a85c-4caf14a18f56  195.154.197.19  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  3a488e03-b553-4492-a3fa-b318f9326a88  195-154-197-19.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
 
 LB Instances:
 ID                                    STATUS   IP ADDRESS  CREATED AT       UPDATED AT       REGION  ZONE
-f5c11c83-ca4d-4bd2-bdd4-59c2ee5cf5e2  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
+e1ce4c3b-57f4-4f0e-b1fd-1d8a200c071e  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "455bf106-48cd-421a-aafa-0e783218f4bb",
+  "id": "a1780194-3668-4203-bf2f-227766e8a17e",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -72,17 +72,17 @@ f5c11c83-ca4d-4bd2-bdd4-59c2ee5cf5e2  pending  -           few seconds ago  few 
     "check_timeout": 1000
   },
   "pool": [
-    "51.158.118.38",
-    "51.15.241.198"
+    "51.15.231.134",
+    "51.158.98.27"
   ],
   "lb": {
-    "id": "77e4cf81-9dd8-4639-ba6c-523b677dbb3b",
+    "id": "3a488e03-b553-4492-a3fa-b318f9326a88",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "f5c11c83-ca4d-4bd2-bdd4-59c2ee5cf5e2",
+        "id": "e1ce4c3b-57f4-4f0e-b1fd-1d8a200c071e",
         "status": "pending",
         "ip_address": "",
         "created_at": "1970-01-01T00:00:00.0Z",
@@ -95,13 +95,13 @@ f5c11c83-ca4d-4bd2-bdd4-59c2ee5cf5e2  pending  -           few seconds ago  few 
     "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "ip": [
       {
-        "id": "d4e38545-b7e6-4f3e-82b1-28f6d1c3f9aa",
-        "ip_address": "51.158.57.196",
+        "id": "7af8f439-4727-46fd-a85c-4caf14a18f56",
+        "ip_address": "195.154.197.19",
         "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
         "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-        "lb_id": "77e4cf81-9dd8-4639-ba6c-523b677dbb3b",
-        "reverse": "51-158-57-196.lb.fr-par.scw.cloud",
-        "tags": null,
+        "lb_id": "3a488e03-b553-4492-a3fa-b318f9326a88",
+        "reverse": "195-154-197-19.lb.fr-par.scw.cloud",
+        "tags": [],
         "region": "fr-par",
         "zone": "fr-par-1"
       }
