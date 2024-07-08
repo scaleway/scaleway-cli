@@ -40,6 +40,8 @@ func NewServerBuilder(client *scw.Client, name string, zone scw.Zone, commercial
 		apiInstance:    instance.NewAPI(client),
 	}
 
+	sb.serverType = getServerType(sb.apiInstance, sb.createReq.Zone, sb.createReq.CommercialType)
+
 	return sb
 }
 
@@ -140,8 +142,6 @@ func (sb *ServerBuilder) AddImage(image string) (*ServerBuilder, error) {
 	} else {
 		sb.serverImage = getImageResponse.Image
 	}
-
-	sb.serverType = getServerType(sb.apiInstance, sb.createReq.Zone, sb.createReq.CommercialType)
 
 	return sb, nil
 }
