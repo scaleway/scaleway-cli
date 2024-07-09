@@ -367,7 +367,7 @@ scw inference model list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
+| order-by | One of: `display_rank_asc`, `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
 | project-id |  | Filter by Project ID |
 | name |  | Filter by model name |
 | tags.{index} |  | Filter by tags |
