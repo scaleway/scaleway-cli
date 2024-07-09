@@ -10,6 +10,7 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -208,17 +209,17 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		AddSecurityGroup(args.SecurityGroupID).
 		AddPlacementGroup(args.PlacementGroupID)
 
+	serverBuilder, err = serverBuilder.AddVolumes(args.RootVolume, args.AdditionalVolumes)
+	if err != nil {
+		return nil, err
+	}
+
 	serverBuilder, err = serverBuilder.AddImage(args.Image)
 	if err != nil {
 		return nil, err
 	}
 
 	serverBuilder, err = serverBuilder.AddIP(args.IP)
-	if err != nil {
-		return nil, err
-	}
-
-	serverBuilder, err = serverBuilder.AddVolumes(args.RootVolume, args.AdditionalVolumes)
 	if err != nil {
 		return nil, err
 	}
@@ -353,10 +354,10 @@ func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*inst
 
 // buildVolumes creates the initial volume map.
 // It is not the definitive one, it will be mutated all along the process.
-func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeServerTemplate, error) {
+func buildVolumes(api *instance.API, blockAPI *block.API, zone scw.Zone, serverName, rootVolume string, additionalVolumes []string) (map[string]*instance.VolumeServerTemplate, error) {
 	volumes := make(map[string]*instance.VolumeServerTemplate)
 	if rootVolume != "" {
-		rootVolumeTemplate, err := buildVolumeTemplate(api, zone, rootVolume)
+		rootVolumeTemplate, err := buildVolumeTemplate(api, blockAPI, zone, rootVolume)
 		if err != nil {
 			return nil, err
 		}
@@ -365,7 +366,7 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 	}
 
 	for i, v := range additionalVolumes {
-		volumeTemplate, err := buildVolumeTemplate(api, zone, v)
+		volumeTemplate, err := buildVolumeTemplate(api, blockAPI, zone, v)
 		if err != nil {
 			return nil, err
 		}
@@ -375,8 +376,9 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 		// Remove extra data for API validation.
 		if volumeTemplate.ID != nil {
 			volumeTemplate = &instance.VolumeServerTemplate{
-				ID:   volumeTemplate.ID,
-				Name: volumeTemplate.Name,
+				ID:         volumeTemplate.ID,
+				Name:       volumeTemplate.Name,
+				VolumeType: volumeTemplate.VolumeType,
 			}
 		}
 
@@ -394,7 +396,7 @@ func buildVolumes(api *instance.API, zone scw.Zone, serverName, rootVolume strin
 // - a "creation" format: ^((local|l|block|b|scratch|s):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
 // - a "creation" format with a snapshot id: l:<uuid> b:<uuid>
 // - a UUID format
-func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*instance.VolumeServerTemplate, error) {
+func buildVolumeTemplate(api *instance.API, blockAPI *block.API, zone scw.Zone, flagV string) (*instance.VolumeServerTemplate, error) {
 	parts := strings.Split(strings.TrimSpace(flagV), ":")
 
 	// Create volume.
@@ -427,7 +429,7 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*insta
 
 	// UUID format.
 	if len(parts) == 1 && validation.IsUUID(parts[0]) {
-		return buildVolumeTemplateFromUUID(api, zone, parts[0])
+		return buildVolumeTemplateFromUUID(api, blockAPI, zone, parts[0])
 	}
 
 	return nil, &core.CliError{
@@ -441,8 +443,29 @@ func buildVolumeTemplate(api *instance.API, zone scw.Zone, flagV string) (*insta
 // Add volume types and sizes allow US to treat UUID volumes like the others and simplify the implementation.
 // The instance API refuse the type and the size for UUID volumes, therefore,
 // sanitizeVolumeMap function will remove them.
-func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID string) (*instance.VolumeServerTemplate, error) {
+func buildVolumeTemplateFromUUID(api *instance.API, blockAPI *block.API, zone scw.Zone, volumeUUID string) (*instance.VolumeServerTemplate, error) {
 	res, err := api.GetVolume(&instance.GetVolumeRequest{
+		Zone:     zone,
+		VolumeID: volumeUUID,
+	})
+	if err != nil && !core.IsNotFoundError(err) {
+		return nil, err
+	}
+
+	if res != nil {
+		// Check that volume is not already attached to a server.
+		if res.Volume.Server != nil {
+			return nil, fmt.Errorf("volume %s is already attached to %s server", res.Volume.ID, res.Volume.Server.ID)
+		}
+
+		return &instance.VolumeServerTemplate{
+			ID:         &res.Volume.ID,
+			VolumeType: res.Volume.VolumeType,
+			Size:       &res.Volume.Size,
+		}, nil
+	}
+
+	blockRes, err := blockAPI.GetVolume(&block.GetVolumeRequest{
 		Zone:     zone,
 		VolumeID: volumeUUID,
 	})
@@ -453,15 +476,13 @@ func buildVolumeTemplateFromUUID(api *instance.API, zone scw.Zone, volumeUUID st
 		return nil, err
 	}
 
-	// Check that volume is not already attached to a server.
-	if res.Volume.Server != nil {
-		return nil, fmt.Errorf("volume %s is already attached to %s server", res.Volume.ID, res.Volume.Server.ID)
+	if len(blockRes.References) > 0 {
+		return nil, fmt.Errorf("volume %s is already attached to %s %s", blockRes.ID, blockRes.References[0].ProductResourceID, blockRes.References[0].ProductResourceType)
 	}
 
 	return &instance.VolumeServerTemplate{
-		ID:         &res.Volume.ID,
-		VolumeType: res.Volume.VolumeType,
-		Size:       &res.Volume.Size,
+		ID:         &blockRes.ID,
+		VolumeType: instance.VolumeVolumeTypeSbsVolume, // TODO: support snapshot
 	}, nil
 }
 
@@ -525,18 +546,23 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate,
 	volumeConstraint := serverType.VolumesConstraint
 
 	// If no root volume provided, count the default root volume size added by the API.
-	if rootVolume := volumes["0"]; rootVolume == nil {
-		localVolumeTotalSize += defaultRootVolumeSize
+	// Only count if server allows LSSD.
+	if rootVolume := volumes["0"]; rootVolume == nil &&
+		serverType.PerVolumeConstraint != nil &&
+		serverType.PerVolumeConstraint.LSSD != nil &&
+		serverType.PerVolumeConstraint.LSSD.MaxSize > 0 {
+		localVolumeTotalSize += defaultRootVolumeSize // defaultRootVolumeSize may be used for a block volume
 	}
 
 	if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
 		min := humanize.Bytes(uint64(volumeConstraint.MinSize))
+		computedLocal := humanize.Bytes(uint64(localVolumeTotalSize))
 		if volumeConstraint.MinSize == volumeConstraint.MaxSize {
-			return fmt.Errorf("%s total local volume size must be equal to %s", commercialType, min)
+			return fmt.Errorf("%s total local volume size must be equal to %s, got %s", commercialType, min, computedLocal)
 		}
 
 		max := humanize.Bytes(uint64(volumeConstraint.MaxSize))
-		return fmt.Errorf("%s total local volume size must be between %s and %s", commercialType, min, max)
+		return fmt.Errorf("%s total local volume size must be between %s and %s, got %s", commercialType, min, max, computedLocal)
 	}
 
 	return nil
@@ -571,9 +597,16 @@ func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeSer
 		// Remove extra data for API validation.
 		switch {
 		case v.ID != nil:
-			v = &instance.VolumeServerTemplate{
-				ID:   v.ID,
-				Name: v.Name,
+			if v.VolumeType == instance.VolumeVolumeTypeSbsVolume {
+				v = &instance.VolumeServerTemplate{
+					ID:         v.ID,
+					VolumeType: v.VolumeType,
+				}
+			} else {
+				v = &instance.VolumeServerTemplate{
+					ID:   v.ID,
+					Name: v.Name,
+				}
 			}
 		case v.BaseSnapshot != nil:
 			v = &instance.VolumeServerTemplate{
