@@ -401,6 +401,8 @@ func buildVolumeTemplate(api *instance.API, blockAPI *block.API, zone scw.Zone, 
 			vt.VolumeType = instance.VolumeVolumeTypeBSSD
 		case "s", "scratch":
 			vt.VolumeType = instance.VolumeVolumeTypeScratch
+		case "sbs":
+			vt.VolumeType = instance.VolumeVolumeTypeSbsVolume
 		default:
 			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
 		}

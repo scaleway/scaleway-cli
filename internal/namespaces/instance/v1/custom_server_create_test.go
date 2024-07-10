@@ -257,6 +257,27 @@ func Test_CreateServer(t *testing.T) {
 				deleteServerAfterFunc(),
 			),
 		}))
+
+		/* Not yet available
+		t.Run("create sbs root volume", core.Test(&core.TestConfig{
+			Commands: core.NewCommandsMerge(
+				instance.GetCommands(),
+				block.GetCommands(),
+			),
+			Cmd: "scw instance server create image=ubuntu_jammy root-volume=sbs:20GB stopped=true",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					assert.NotNil(t, ctx.Result)
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["0"].VolumeType)
+				},
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServerAfterFunc(),
+			),
+		}))
+
+		*/
 	})
 	////
 	// IP use cases
