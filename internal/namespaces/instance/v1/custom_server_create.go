@@ -169,6 +169,10 @@ func serverCreateCommand() *core.Command {
 				ArgsJSON: `{"image":"none","root_volume":"local:<snapshot_id>"}`,
 			},
 			{
+				Short:    "Create and start an instance using existing volume",
+				ArgsJSON: `{"image":"ubuntu_focal","additional_volumes":["<volume_id>"]}`,
+			},
+			{
 				Short: "Use an existing IP",
 				Raw: `ip=$(scw instance ip create | grep id | awk '{ print $2 }')
 scw instance server create image=ubuntu_focal ip=$ip`,
