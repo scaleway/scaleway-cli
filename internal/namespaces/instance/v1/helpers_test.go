@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
@@ -70,6 +71,16 @@ func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeVolume
 // deleteVolume deletes a volume previously registered in the context Meta at metaKey.
 func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
 	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
+}
+
+func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		cmd := fmt.Sprintf("scw block volume create name=%s from-empty.size=%dGB perf-iops=5000", ctx.T.Name(), sizeInGb)
+		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
+		volume := res.(*block.Volume)
+		ctx.Meta[metaKey] = volume
+		return nil
+	}
 }
 
 //

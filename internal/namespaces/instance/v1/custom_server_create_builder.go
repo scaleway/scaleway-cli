@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/marketplace/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -22,6 +23,7 @@ type ServerBuilder struct {
 	// All needed APIs
 	apiMarketplace *marketplace.API
 	apiInstance    *instance.API
+	apiBlock       *block.API
 
 	// serverType is filled with the ServerType if CommercialType is found in the API.
 	serverType *instance.ServerType
@@ -38,6 +40,7 @@ func NewServerBuilder(client *scw.Client, name string, zone scw.Zone, commercial
 		},
 		apiMarketplace: marketplace.NewAPI(client),
 		apiInstance:    instance.NewAPI(client),
+		apiBlock:       block.NewAPI(client),
 	}
 
 	sb.serverType = getServerType(sb.apiInstance, sb.createReq.Zone, sb.createReq.CommercialType)
@@ -95,6 +98,24 @@ func (sb *ServerBuilder) isWindows() bool {
 	return commercialTypeIsWindowsServer(sb.createReq.CommercialType)
 }
 
+func (sb *ServerBuilder) rootVolume() *instance.VolumeServerTemplate {
+	rootVolume, exists := sb.createReq.Volumes["0"]
+	if !exists {
+		return nil
+	}
+
+	return rootVolume
+}
+
+func (sb *ServerBuilder) rootVolumeIsSBS() bool {
+	rootVolume := sb.rootVolume()
+	if rootVolume == nil {
+		return false
+	}
+
+	return rootVolume.VolumeType == instance.VolumeVolumeTypeSbsVolume
+}
+
 // defaultIPType returns the default IP type when created by the CLI. Used for ServerBuilder.AddIP
 func (sb *ServerBuilder) defaultIPType() instance.IPType {
 	if sb.createReq.RoutedIPEnabled != nil {
@@ -105,6 +126,13 @@ func (sb *ServerBuilder) defaultIPType() instance.IPType {
 	}
 
 	return ""
+}
+
+func (sb *ServerBuilder) marketplaceImageType() marketplace.LocalImageType {
+	if sb.rootVolumeIsSBS() {
+		return marketplace.LocalImageTypeInstanceSbs
+	}
+	return marketplace.LocalImageTypeInstanceLocal
 }
 
 // AddImage handle a custom image argument.
@@ -122,7 +150,7 @@ func (sb *ServerBuilder) AddImage(image string) (*ServerBuilder, error) {
 			ImageLabel:     imageLabel,
 			Zone:           sb.createReq.Zone,
 			CommercialType: sb.createReq.CommercialType,
-			Type:           marketplace.LocalImageTypeInstanceLocal,
+			Type:           sb.marketplaceImageType(),
 		})
 		if err != nil {
 			return sb, err
@@ -194,15 +222,29 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 func (sb *ServerBuilder) AddVolumes(rootVolume string, additionalVolumes []string) (*ServerBuilder, error) {
 	if len(additionalVolumes) > 0 || rootVolume != "" {
 		// Create initial volume template map.
-		volumes, err := buildVolumes(sb.apiInstance, sb.createReq.Zone, sb.createReq.Name, rootVolume, additionalVolumes)
+		volumes, err := buildVolumes(sb.apiInstance, sb.apiBlock, sb.createReq.Zone, sb.createReq.Name, rootVolume, additionalVolumes)
 		if err != nil {
 			return sb, err
 		}
 
+		// Sanitize the volume map to respect API schemas
+		sb.createReq.Volumes = volumes
+	}
+
+	if sb.serverType != nil {
+		sb.createReq.Volumes = addDefaultVolumes(sb.serverType, sb.createReq.Volumes)
+	}
+
+	return sb, nil
+}
+
+func (sb *ServerBuilder) ValidateVolumes() error {
+	volumes := sb.createReq.Volumes
+	if volumes != nil {
 		// Validate root volume type and size.
-		if sb.serverImage != nil {
+		if _, hasRootVolume := volumes["0"]; sb.serverImage != nil && hasRootVolume {
 			if err := validateRootVolume(sb.serverImage.RootVolume.Size, volumes["0"]); err != nil {
-				return sb, err
+				return err
 			}
 		} else {
 			logger.Warningf("skipping root volume validation")
@@ -211,7 +253,7 @@ func (sb *ServerBuilder) AddVolumes(rootVolume string, additionalVolumes []strin
 		// Validate total local volume sizes.
 		if sb.serverType != nil && sb.serverImage != nil {
 			if err := validateLocalVolumeSizes(volumes, sb.serverType, sb.createReq.CommercialType, sb.serverImage.RootVolume.Size); err != nil {
-				return sb, err
+				return err
 			}
 		} else {
 			logger.Warningf("skip local volume size validation")
@@ -221,11 +263,7 @@ func (sb *ServerBuilder) AddVolumes(rootVolume string, additionalVolumes []strin
 		sb.createReq.Volumes = sanitizeVolumeMap(sb.createReq.Name, volumes)
 	}
 
-	if sb.serverType != nil {
-		sb.createReq.Volumes = addDefaultVolumes(sb.serverType, sb.createReq.Volumes)
-	}
-
-	return sb, nil
+	return nil
 }
 
 func (sb *ServerBuilder) AddBootType(bootType string) *ServerBuilder {
@@ -270,7 +308,7 @@ func (sb *ServerBuilder) Validate() error {
 		logger.Warningf("skipping image server-type compatibility validation")
 	}
 
-	return nil
+	return sb.ValidateVolumes()
 }
 
 func (sb *ServerBuilder) Build() (*instance.CreateServerRequest, *instance.CreateIPRequest) {

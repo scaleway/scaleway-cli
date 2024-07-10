@@ -1758,6 +1758,11 @@ Create and start an instance from a snapshot
 scw instance server create image=none root-volume=local:<snapshot_id>
 ```
 
+Create and start an instance using existing volume
+```
+scw instance server create image=ubuntu_focal additional-volumes.0=<volume_id>
+```
+
 Use an existing IP
 ```
 ip=$(scw instance ip create | grep id | awk '{ print $2 }')

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
@@ -214,6 +215,69 @@ func Test_CreateServer(t *testing.T) {
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
+
+		t.Run("sbs additional volumes", core.Test(&core.TestConfig{
+			Commands: core.NewCommandsMerge(
+				instance.GetCommands(),
+				block.GetCommands(),
+			),
+			BeforeFunc: core.BeforeFuncCombine(
+				createSbsVolume("Volume", 20),
+			),
+			Cmd: "scw instance server create image=ubuntu_jammy additional-volumes.0={{.Volume.ID}} stopped=true",
+			Check: core.TestCheckCombine(
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					assert.NotNil(t, ctx.Result)
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["1"].VolumeType)
+				},
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServerAfterFunc(),
+			),
+		}))
+
+		t.Run("use sbs root volume", core.Test(&core.TestConfig{
+			Commands: core.NewCommandsMerge(
+				instance.GetCommands(),
+				block.GetCommands(),
+			),
+			BeforeFunc: core.BeforeFuncCombine(
+				createSbsVolume("Volume", 20),
+			),
+			Cmd: "scw instance server create image=none root-volume={{.Volume.ID}} stopped=true",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					assert.NotNil(t, ctx.Result)
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["0"].VolumeType)
+				},
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServerAfterFunc(),
+			),
+		}))
+
+		/* Not yet available
+		t.Run("create sbs root volume", core.Test(&core.TestConfig{
+			Commands: core.NewCommandsMerge(
+				instance.GetCommands(),
+				block.GetCommands(),
+			),
+			Cmd: "scw instance server create image=ubuntu_jammy root-volume=sbs:20GB stopped=true",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					assert.NotNil(t, ctx.Result)
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["0"].VolumeType)
+				},
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServerAfterFunc(),
+			),
+		}))
+
+		*/
 	})
 	////
 	// IP use cases
