@@ -111,6 +111,7 @@ scw ipam ip list [arg=value ...]
 | tags.{index} |  | Tags to filter for, only IPs with one or more matching tags will be returned |
 | is-ipv6 |  | Defines whether to filter only for IPv4s or IPv6s |
 | resource-name |  | Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned. |
+| resource-types.{index} | One of: `unknown_type`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment` | Resource types to filter for. Only IPs attached to these types of resources will be returned |
 | organization-id |  | Organization ID to filter for. Only IPs belonging to this Organization will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
