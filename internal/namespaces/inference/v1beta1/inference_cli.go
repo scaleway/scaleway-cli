@@ -698,7 +698,7 @@ func inferenceModelList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{"display_rank_asc", "created_at_asc", "created_at_desc", "name_asc", "name_desc"},
 			},
 			{
 				Name:       "project-id",
