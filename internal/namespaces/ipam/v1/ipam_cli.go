@@ -378,6 +378,14 @@ func ipamIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "resource-types.{index}",
+				Short:      `Resource types to filter for. Only IPs attached to these types of resources will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment"},
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for. Only IPs belonging to this Organization will be returned`,
 				Required:   false,
