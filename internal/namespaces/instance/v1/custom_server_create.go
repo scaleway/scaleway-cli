@@ -373,15 +373,6 @@ func buildVolumes(api *instance.API, blockAPI *block.API, zone scw.Zone, serverN
 		index := strconv.Itoa(i + 1)
 		volumeTemplate.Name = scw.StringPtr(serverName + "-" + index)
 
-		// Remove extra data for API validation.
-		if volumeTemplate.ID != nil {
-			volumeTemplate = &instance.VolumeServerTemplate{
-				ID:         volumeTemplate.ID,
-				Name:       volumeTemplate.Name,
-				VolumeType: volumeTemplate.VolumeType,
-			}
-		}
-
 		volumes[index] = volumeTemplate
 	}
 
