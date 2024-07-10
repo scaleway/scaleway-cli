@@ -75,7 +75,6 @@ func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
 
 func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-
 		cmd := fmt.Sprintf("scw block volume create name=%s from-empty.size=%dGB perf-iops=5000", ctx.T.Name(), sizeInGb)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		volume := res.(*block.Volume)
