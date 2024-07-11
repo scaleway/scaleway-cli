@@ -40,7 +40,7 @@ scw jobs definition create [arg=value ...]
 | cpu-limit | Required | CPU limit of the job |
 | memory-limit | Required | Memory limit of the job (in MiB) |
 | local-storage-capacity |  | Local storage capacity of the job (in MiB) |
-| image-uri |  | Image to use for the job |
+| image-uri | Required | Image to use for the job |
 | command |  | Startup command. If empty or not defined, the image's default command is used. |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | environment-variables.{key} |  | Environment variables of the job |

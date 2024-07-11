@@ -101,7 +101,7 @@ func jobsDefinitionCreate() *core.Command {
 			{
 				Name:       "image-uri",
 				Short:      `Image to use for the job`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
