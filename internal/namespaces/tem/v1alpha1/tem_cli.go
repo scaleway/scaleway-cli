@@ -65,7 +65,7 @@ func temDomain() *core.Command {
 func temWebhook() *core.Command {
 	return &core.Command{
 		Short:     `Webhook management commands`,
-		Long:      `A Webhook can trigger a specific event based on the email or domain resource status.`,
+		Long:      `Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events.`,
 		Namespace: "tem",
 		Resource:  "webhook",
 	}
