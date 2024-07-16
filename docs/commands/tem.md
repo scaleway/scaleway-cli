@@ -288,9 +288,9 @@ scw tem email list [arg=value ...]
 
 ## Webhook management commands
 
-Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events.
+A Webhook can trigger a specific event based on the email or domain resource status.
 
-Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events.
+A Webhook can trigger a specific event based on the email or domain resource status.
 
 **Usage:**
 
