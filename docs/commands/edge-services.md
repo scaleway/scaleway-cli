@@ -128,6 +128,7 @@ scw edge-services backend-stage list [arg=value ...]
 | project-id |  | Project ID to filter for, only backend stages from this Project will be returned |
 | bucket-name |  | Bucket name to filter for, only backend stages from this Bucket will be returned |
 | bucket-region |  | Bucket region to filter for, only backend stages with buckets in this region will be returned |
+| lb-id |  | Load Balancer ID to filter for, only backend stages with this Load Balancer will be returned |
 
 
 
@@ -458,6 +459,7 @@ scw edge-services pipeline list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of pipelines in the response |
 | name |  | Pipeline name to filter for, only pipelines with this string within their name will be returned |
 | project-id |  | Project ID to filter for, only pipelines from this Project will be returned |
+| has-backend-stage-lb |  | Filter on backend stage, only pipelines with a Load Balancer origin will be returned |
 | organization-id |  | Organization ID to filter for, only pipelines from this Organization will be returned |
 
 

@@ -151,6 +151,13 @@ func edgeServicesPipelineList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "has-backend-stage-lb",
+				Short:      `Filter on backend stage, only pipelines with a Load Balancer origin will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for, only pipelines from this Organization will be returned`,
 				Required:   false,
@@ -1045,6 +1052,13 @@ func edgeServicesBackendStageList() *core.Command {
 			{
 				Name:       "bucket-region",
 				Short:      `Bucket region to filter for, only backend stages with buckets in this region will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "lb-id",
+				Short:      `Load Balancer ID to filter for, only backend stages with this Load Balancer will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
