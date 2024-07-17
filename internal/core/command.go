@@ -263,6 +263,14 @@ func (c *Commands) Remove(namespace, verb string) {
 	}
 }
 
+func (c *Commands) RemoveResource(namespace, resource string) {
+	for i := range c.commands {
+		if c.commands[i].Namespace == namespace && c.commands[i].Resource == resource && c.commands[i].Verb == "" {
+			c.commands = append(c.commands[:i], c.commands[i+1:]...)
+			return
+		}
+	}
+}
 func (c *Commands) Add(cmd *Command) {
 	c.commands = append(c.commands, cmd)
 	c.commandIndex[cmd.getPath()] = cmd
