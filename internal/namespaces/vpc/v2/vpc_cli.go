@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcVpc(),
 		vpcPrivateNetwork(),
 		vpcSubnet(),
+		vpcRoute(),
 		vpcRoutes(),
 		vpcVpcList(),
 		vpcVpcCreate(),
@@ -50,8 +51,8 @@ func vpcRoot() *core.Command {
 func vpcVpc() *core.Command {
 	return &core.Command{
 		Short: `VPC management command`,
-		Long: `A Virtual Private Cloud (VPC) allows you to group your regional 
-Private Networks together. Note that a Private Network can be a 
+		Long: `A Virtual Private Cloud (VPC) allows you to group your regional
+Private Networks together. Note that a Private Network can be a
 part of only one VPC.`,
 		Namespace: "vpc",
 		Resource:  "vpc",
@@ -76,6 +77,15 @@ func vpcSubnet() *core.Command {
 		Long:      `CIDR Subnet.`,
 		Namespace: "vpc",
 		Resource:  "subnet",
+	}
+}
+
+func vpcRoute() *core.Command {
+	return &core.Command{
+		Short:     `Route management command`,
+		Long:      `Custom routes.`,
+		Namespace: "vpc",
+		Resource:  "route",
 	}
 }
 
