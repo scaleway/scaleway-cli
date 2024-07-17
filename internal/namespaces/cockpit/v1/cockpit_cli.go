@@ -46,6 +46,7 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitDataSourceGet(),
 		cockpitDataSourceDelete(),
 		cockpitDataSourceList(),
+		cockpitDataSourceUpdate(),
 		cockpitUsageOverviewGet(),
 		cockpitTokenCreate(),
 		cockpitTokenList(),
@@ -679,6 +680,43 @@ You can list data sources by Project, type and origin.`,
 				return nil, err
 			}
 			return resp.DataSources, nil
+
+		},
+	}
+}
+
+func cockpitDataSourceUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a data source`,
+		Long:      `Update a given data source name, specified by the data source ID.`,
+		Namespace: "cockpit",
+		Resource:  "data-source",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(cockpit.RegionalAPIUpdateDataSourceRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "data-source-id",
+				Short:      `ID of the data source to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Updated name of the data source`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*cockpit.RegionalAPIUpdateDataSourceRequest)
+
+			client := core.ExtractClient(ctx)
+			api := cockpit.NewRegionalAPI(client)
+			return api.UpdateDataSource(request)
 
 		},
 	}
