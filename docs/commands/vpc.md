@@ -232,8 +232,8 @@ scw vpc subnet
 
 ## VPC management command
 
-A Virtual Private Cloud (VPC) allows you to group your regional 
-Private Networks together. Note that a Private Network can be a 
+A Virtual Private Cloud (VPC) allows you to group your regional
+Private Networks together. Note that a Private Network can be a
 part of only one VPC.
 
 
