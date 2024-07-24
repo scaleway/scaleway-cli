@@ -11,7 +11,7 @@ ARGS:
   [order-by]     Sort order of the returned DNS zone records (name_asc | name_desc)
   dns-zone       DNS zone on which to filter the returned DNS zone records
   [name]         Name on which to filter the returned DNS zone records
-  [type]         Record type on which to filter the returned DNS zone records (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME)
+  [type]         Record type on which to filter the returned DNS zone records (unknown | A | AAAA | CNAME | TXT | SRV | TLSA | MX | NS | PTR | CAA | ALIAS | LOC | SSHFP | HINFO | RP | URI | DS | NAPTR | DNAME | SVCB | HTTPS)
   [id]           Record ID on which to filter the returned DNS zone records
 
 FLAGS:

@@ -204,7 +204,7 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 | changes.{index}.add.records.{index}.name |  |  |
 | changes.{index}.add.records.{index}.priority |  |  |
 | changes.{index}.add.records.{index}.ttl |  |  |
-| changes.{index}.add.records.{index}.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME` |  |
+| changes.{index}.add.records.{index}.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
 | changes.{index}.add.records.{index}.comment |  |  |
 | changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.countries.{index} |  |  |
 | changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.continents.{index} |  |  |
@@ -222,14 +222,14 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 | changes.{index}.add.records.{index}.id |  |  |
 | changes.{index}.set.id |  |  |
 | changes.{index}.set.id-fields.name |  |  |
-| changes.{index}.set.id-fields.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME` |  |
+| changes.{index}.set.id-fields.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
 | changes.{index}.set.id-fields.data |  |  |
 | changes.{index}.set.id-fields.ttl |  |  |
 | changes.{index}.set.records.{index}.data |  |  |
 | changes.{index}.set.records.{index}.name |  |  |
 | changes.{index}.set.records.{index}.priority |  |  |
 | changes.{index}.set.records.{index}.ttl |  |  |
-| changes.{index}.set.records.{index}.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME` |  |
+| changes.{index}.set.records.{index}.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
 | changes.{index}.set.records.{index}.comment |  |  |
 | changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.countries.{index} |  |  |
 | changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.continents.{index} |  |  |
@@ -247,7 +247,7 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 | changes.{index}.set.records.{index}.id |  |  |
 | changes.{index}.delete.id |  |  |
 | changes.{index}.delete.id-fields.name |  |  |
-| changes.{index}.delete.id-fields.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME` |  |
+| changes.{index}.delete.id-fields.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
 | changes.{index}.delete.id-fields.data |  |  |
 | changes.{index}.delete.id-fields.ttl |  |  |
 | return-all-records |  | Specifies whether or not to return all the records |
@@ -334,7 +334,7 @@ scw dns record list <dns-zone ...> [arg=value ...]
 | order-by | One of: `name_asc`, `name_desc` | Sort order of the returned DNS zone records |
 | dns-zone | Required | DNS zone on which to filter the returned DNS zone records |
 | name |  | Name on which to filter the returned DNS zone records |
-| type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME` | Record type on which to filter the returned DNS zone records |
+| type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` | Record type on which to filter the returned DNS zone records |
 | id |  | Record ID on which to filter the returned DNS zone records |
 
 
