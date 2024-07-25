@@ -296,6 +296,7 @@ scw tem email list [arg=value ...]
 
 Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events. This feature is in beta. You can request quotas from the [Scaleway betas page](https://www.scaleway.com/fr/betas/#email-webhooks).
 
+
 ### Create a Webhook
 
 Create a new Webhook triggered by a list of event types and pushed to a Scaleway SNS ARN.
@@ -363,7 +364,6 @@ scw tem webhook get <webhook-id ...> [arg=value ...]
 ### List Webhooks
 
 Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter.
-
 
 **Usage:**
 
