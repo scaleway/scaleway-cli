@@ -153,7 +153,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
     "0": {
       "id": "a6abb479-db47-4429-900f-b0ce63e3c6f3",
       "name": "Ubuntu 18.04 Bionic Beaver",
-      "export_uri": "",
+      "export_uri": null,
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
         "id": "75b0d534-42c9-4d62-862f-27aa7efebc6b",
@@ -184,7 +184,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
     {
       "id": "a6abb479-db47-4429-900f-b0ce63e3c6f3",
       "name": "Ubuntu 18.04 Bionic Beaver",
-      "export_uri": "",
+      "export_uri": null,
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
         "id": "75b0d534-42c9-4d62-862f-27aa7efebc6b",

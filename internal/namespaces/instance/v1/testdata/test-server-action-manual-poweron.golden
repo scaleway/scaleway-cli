@@ -55,7 +55,6 @@ Bootscript                    x86_64 mainline 4.4.230 rev1
 BootType                      local
 Volumes.0.ID                  2c0392b4-a294-46d8-a393-39f4bfacf77f
 Volumes.0.Name                Ubuntu 22.04 Jammy Jellyfish
-Volumes.0.ExportURI           -
 Volumes.0.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Volumes.0.Server.ID           41687115-b01c-4ebd-a78e-695a01433a77
 Volumes.0.Server.Name         cli-srv-youthful-lederberg
@@ -172,7 +171,7 @@ Zone                          fr-par-1
     "0": {
       "id": "2c0392b4-a294-46d8-a393-39f4bfacf77f",
       "name": "Ubuntu 22.04 Jammy Jellyfish",
-      "export_uri": "",
+      "export_uri": null,
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
         "id": "41687115-b01c-4ebd-a78e-695a01433a77",
