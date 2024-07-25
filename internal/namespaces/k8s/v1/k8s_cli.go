@@ -25,6 +25,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sNode(),
 		k8sVersion(),
 		k8sClusterType(),
+		k8sACL(),
 		k8sClusterList(),
 		k8sClusterCreate(),
 		k8sClusterGet(),
@@ -106,6 +107,15 @@ func k8sClusterType() *core.Command {
 A cluster type represents the different commercial types of clusters offered by Scaleway.`,
 		Namespace: "k8s",
 		Resource:  "cluster-type",
+	}
+}
+
+func k8sACL() *core.Command {
+	return &core.Command{
+		Short:     `Access Control List (ACL) management commands`,
+		Long:      `Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.`,
+		Namespace: "k8s",
+		Resource:  "acl",
 	}
 }
 
