@@ -16,6 +16,12 @@ This API allows you to manage your Transactional Email services.
   - [Email statuses](#email-statuses)
   - [List emails](#list-emails)
 - [Webhook management commands](#webhook-management-commands)
+  - [Create a Webhook](#create-a-webhook)
+  - [Delete a Webhook](#delete-a-webhook)
+  - [Get information about a Webhook](#get-information-about-a-webhook)
+  - [List Webhooks](#list-webhooks)
+  - [List Webhook triggered events](#list-webhook-triggered-events)
+  - [Update a Webhook](#update-a-webhook)
 
   
 ## Domain management commands
@@ -288,15 +294,143 @@ scw tem email list [arg=value ...]
 
 ## Webhook management commands
 
-Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events.
+Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events. This feature is in beta. You can request quotas from the [Scaleway betas page](https://www.scaleway.com/fr/betas/#email-webhooks).
 
-Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events.
+
+### Create a Webhook
+
+Create a new Webhook triggered by a list of event types and pushed to a Scaleway SNS ARN.
 
 **Usage:**
 
 ```
-scw tem webhook
+scw tem webhook create [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain-id |  | ID of the Domain to watch for triggering events |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| name |  | Name of the Webhook |
+| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found` | List of event types that will trigger an event |
+| sns-arn |  | Scaleway SNS ARN topic to push the events to |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a Webhook
+
+You must specify the Webhook you want to delete by the `region` and `webhook_id`. Deleting a Webhook is permanent and cannot be undone.
+
+**Usage:**
+
+```
+scw tem webhook delete <webhook-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| webhook-id | Required | ID of the Webhook to delete |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get information about a Webhook
+
+Retrieve information about a specific Webhook using the `webhook_id` and `region` parameters.
+
+**Usage:**
+
+```
+scw tem webhook get <webhook-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| webhook-id | Required | ID of the Webhook to check |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List Webhooks
+
+Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter.
+
+**Usage:**
+
+```
+scw tem webhook list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_desc`, `created_at_asc` | (Optional) List Webhooks corresponding to specific criteria |
+| project-id |  | (Optional) ID of the Project for which to list the Webhooks |
+| domain-id |  | (Optional) ID of the Domain for which to list the Webhooks |
+| organization-id |  | (Optional) ID of the Organization for which to list the Webhooks |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List Webhook triggered events
+
+Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the `region`.
+
+**Usage:**
+
+```
+scw tem webhook list-events [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_desc`, `created_at_asc` | (Optional) List Webhook events corresponding to specific criteria |
+| webhook-id | Required | ID of the Webhook linked to the events |
+| email-id |  | ID of the email linked to the events |
+| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found` | List of event types linked to the events |
+| statuses.{index} | One of: `unknown_status`, `sending`, `sent`, `failed` | List of event statuses |
+| project-id |  | ID of the webhook Project |
+| domain-id |  | ID of the domain to watch for triggering events |
+| organization-id |  | ID of the webhook Organization |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update a Webhook
+
+Update a Webhook events type, SNS ARN or name.
+
+**Usage:**
+
+```
+scw tem webhook update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| webhook-id | Required | ID of the Webhook to update |
+| name |  | Name of the Webhook to update |
+| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found` | List of event types to update |
+| sns-arn |  | Scaleway SNS ARN topic to update |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 

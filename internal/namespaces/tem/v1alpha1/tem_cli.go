@@ -34,6 +34,12 @@ func GetGeneratedCommands() *core.Commands {
 		temDomainRevoke(),
 		temDomainCheck(),
 		temDomainGetLastStatus(),
+		temWebhookCreate(),
+		temWebhookList(),
+		temWebhookGet(),
+		temWebhookUpdate(),
+		temWebhookDelete(),
+		temWebhookListEvents(),
 	)
 }
 func temRoot() *core.Command {
@@ -65,7 +71,7 @@ func temDomain() *core.Command {
 func temWebhook() *core.Command {
 	return &core.Command{
 		Short:     `Webhook management commands`,
-		Long:      `Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events.`,
+		Long:      `Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events. This feature is in beta. You can request quotas from the [Scaleway betas page](https://www.scaleway.com/fr/betas/#email-webhooks).`,
 		Namespace: "tem",
 		Resource:  "webhook",
 	}
@@ -672,6 +678,329 @@ func temDomainGetLastStatus() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.GetDomainLastStatus(request)
+
+		},
+	}
+}
+
+func temWebhookCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a Webhook`,
+		Long:      `Create a new Webhook triggered by a list of event types and pushed to a Scaleway SNS ARN.`,
+		Namespace: "tem",
+		Resource:  "webhook",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.CreateWebhookRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-id",
+				Short:      `ID of the Domain to watch for triggering events`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "name",
+				Short:      `Name of the Webhook`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "event-types.{index}",
+				Short:      `List of event types that will trigger an event`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found"},
+			},
+			{
+				Name:       "sns-arn",
+				Short:      `Scaleway SNS ARN topic to push the events to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.CreateWebhookRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			return api.CreateWebhook(request)
+
+		},
+	}
+}
+
+func temWebhookList() *core.Command {
+	return &core.Command{
+		Short:     `List Webhooks`,
+		Long:      `Retrieve Webhooks in a specific Project or in a specific Organization using the ` + "`" + `region` + "`" + ` parameter.`,
+		Namespace: "tem",
+		Resource:  "webhook",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.ListWebhooksRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `(Optional) List Webhooks corresponding to specific criteria`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_desc", "created_at_asc"},
+			},
+			{
+				Name:       "project-id",
+				Short:      `(Optional) ID of the Project for which to list the Webhooks`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "domain-id",
+				Short:      `(Optional) ID of the Domain for which to list the Webhooks`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `(Optional) ID of the Organization for which to list the Webhooks`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.ListWebhooksRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListWebhooks(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Webhooks, nil
+
+		},
+	}
+}
+
+func temWebhookGet() *core.Command {
+	return &core.Command{
+		Short:     `Get information about a Webhook`,
+		Long:      `Retrieve information about a specific Webhook using the ` + "`" + `webhook_id` + "`" + ` and ` + "`" + `region` + "`" + ` parameters.`,
+		Namespace: "tem",
+		Resource:  "webhook",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.GetWebhookRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "webhook-id",
+				Short:      `ID of the Webhook to check`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.GetWebhookRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			return api.GetWebhook(request)
+
+		},
+	}
+}
+
+func temWebhookUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a Webhook`,
+		Long:      `Update a Webhook events type, SNS ARN or name.`,
+		Namespace: "tem",
+		Resource:  "webhook",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.UpdateWebhookRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "webhook-id",
+				Short:      `ID of the Webhook to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the Webhook to update`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "event-types.{index}",
+				Short:      `List of event types to update`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found"},
+			},
+			{
+				Name:       "sns-arn",
+				Short:      `Scaleway SNS ARN topic to update`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.UpdateWebhookRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			return api.UpdateWebhook(request)
+
+		},
+	}
+}
+
+func temWebhookDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a Webhook`,
+		Long:      `You must specify the Webhook you want to delete by the ` + "`" + `region` + "`" + ` and ` + "`" + `webhook_id` + "`" + `. Deleting a Webhook is permanent and cannot be undone.`,
+		Namespace: "tem",
+		Resource:  "webhook",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.DeleteWebhookRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "webhook-id",
+				Short:      `ID of the Webhook to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.DeleteWebhookRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			e = api.DeleteWebhook(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "webhook",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func temWebhookListEvents() *core.Command {
+	return &core.Command{
+		Short:     `List Webhook triggered events`,
+		Long:      `Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the ` + "`" + `region` + "`" + `.`,
+		Namespace: "tem",
+		Resource:  "webhook",
+		Verb:      "list-events",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.ListWebhookEventsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `(Optional) List Webhook events corresponding to specific criteria`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_desc", "created_at_asc"},
+			},
+			{
+				Name:       "webhook-id",
+				Short:      `ID of the Webhook linked to the events`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "email-id",
+				Short:      `ID of the email linked to the events`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "event-types.{index}",
+				Short:      `List of event types linked to the events`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found"},
+			},
+			{
+				Name:       "statuses.{index}",
+				Short:      `List of event statuses`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_status", "sending", "sent", "failed"},
+			},
+			{
+				Name:       "project-id",
+				Short:      `ID of the webhook Project`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "domain-id",
+				Short:      `ID of the domain to watch for triggering events`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `ID of the webhook Organization`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.ListWebhookEventsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListWebhookEvents(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.WebhookEvents, nil
 
 		},
 	}

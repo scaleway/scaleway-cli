@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update a Webhook events type, SNS ARN or name.
+
+USAGE:
+  scw tem webhook update [arg=value ...]
+
+ARGS:
+  webhook-id              ID of the Webhook to update
+  [name]                  Name of the Webhook to update
+  [event-types.{index}]   List of event types to update (unknown_type | email_queued | email_dropped | email_deferred | email_delivered | email_spam | email_mailbox_not_found)
+  [sns-arn]               Scaleway SNS ARN topic to update
+  [region=fr-par]         Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
