@@ -23,7 +23,7 @@ This API allows you to manage your Public Gateways.
   - [List Public Gateways](#list-public-gateways)
   - [Refresh a Public Gateway's SSH keys](#refresh-a-public-gateway's-ssh-keys)
   - [Update a Public Gateway](#update-a-public-gateway)
-  - [Upgrade a Public Gateway to the latest version](#upgrade-a-public-gateway-to-the-latest-version)
+  - [Upgrade a Public Gateway to the latest version and/or to a different commercial offer type](#upgrade-a-public-gateway-to-the-latest-version-andor-to-a-different-commercial-offer-type)
 - [Gateway Networks management](#gateway-networks-management)
   - [Attach a Public Gateway to a Private Network](#attach-a-public-gateway-to-a-private-network)
   - [Detach a Public Gateway from a Private Network](#detach-a-public-gateway-from-a-private-network)
@@ -484,9 +484,9 @@ scw vpc-gw gateway update <gateway-id ...> [arg=value ...]
 
 
 
-### Upgrade a Public Gateway to the latest version
+### Upgrade a Public Gateway to the latest version and/or to a different commercial offer type
 
-Upgrade a given Public Gateway to the newest software version. This applies the latest bugfixes and features to your Public Gateway, but its service will be interrupted during the update.
+Upgrade a given Public Gateway to the newest software version or to a different commercial offer type. This applies the latest bugfixes and features to your Public Gateway. Note that gateway service will be interrupted during the update.
 
 **Usage:**
 
@@ -500,6 +500,7 @@ scw vpc-gw gateway upgrade <gateway-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | gateway-id | Required | ID of the gateway to upgrade |
+| type |  | Gateway type (commercial offer) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
