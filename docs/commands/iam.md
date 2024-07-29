@@ -693,6 +693,7 @@ scw iam policy create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name of the policy to create (max length is 64 characters) |
 | description |  | Description of the policy to create (max length is 200 characters) |
 | rules.{index}.permission-set-names.{index} |  | Names of permission sets bound to the rule |
+| rules.{index}.condition |  | Condition expression to evaluate |
 | rules.{index}.project-ids.{index} |  | List of Project IDs the rule is scoped to |
 | rules.{index}.organization-id |  | ID of Organization the rule is scoped to |
 | tags.{index} |  | Tags associated with the policy (maximum of 10 tags) |
@@ -889,6 +890,7 @@ scw iam rule update <policy-id ...> [arg=value ...]
 |------|---|-------------|
 | policy-id | Required | Id of policy to update |
 | rules.{index}.permission-set-names.{index} |  | Names of permission sets bound to the rule |
+| rules.{index}.condition |  | Condition expression to evaluate |
 | rules.{index}.project-ids.{index} |  | List of Project IDs the rule is scoped to |
 | rules.{index}.organization-id |  | ID of Organization the rule is scoped to |
 

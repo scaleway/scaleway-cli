@@ -8,6 +8,7 @@ USAGE:
 ARGS:
   policy-id                                      Id of policy to update
   [rules.{index}.permission-set-names.{index}]   Names of permission sets bound to the rule
+  [rules.{index}.condition]                      Condition expression to evaluate
   [rules.{index}.project-ids.{index}]            List of Project IDs the rule is scoped to
   [rules.{index}.organization-id]                ID of Organization the rule is scoped to
 
