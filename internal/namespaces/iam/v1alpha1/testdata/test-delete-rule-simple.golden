@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
-fc7a8836-b5dd-4380-a9c7-6be096134a69  [VPCReadOnly]         projects                    [952694bf-3221-43fc-b2dd-44701b746762]  -                -
+ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
+fc7a8836-b5dd-4380-a9c7-6be096134a69  [VPCReadOnly]         projects                    -          [952694bf-3221-43fc-b2dd-44701b746762]  -                -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -10,6 +10,7 @@ fc7a8836-b5dd-4380-a9c7-6be096134a69  [VPCReadOnly]         projects            
       "VPCReadOnly"
     ],
     "permission_sets_scope_type": "projects",
+    "condition": "",
     "project_ids": [
       "952694bf-3221-43fc-b2dd-44701b746762"
     ]

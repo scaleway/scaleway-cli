@@ -14,8 +14,8 @@ NbPermissionSets  1
 NoPrincipal       true
 
 Rules:
-ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
-bb38e001-5eb5-428c-b1f9-0eab9e055b7f  [IPAMReadOnly]        projects                    [87221b69-c0fe-443d-985b-321d7cbd0af9]  -                -
+ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
+bb38e001-5eb5-428c-b1f9-0eab9e055b7f  [IPAMReadOnly]        projects                    -          [87221b69-c0fe-443d-985b-321d7cbd0af9]  -                -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "abb2fc89-6c2b-46af-939c-3725a1fe0df8",
@@ -37,6 +37,7 @@ bb38e001-5eb5-428c-b1f9-0eab9e055b7f  [IPAMReadOnly]        projects            
         "IPAMReadOnly"
       ],
       "permission_sets_scope_type": "projects",
+      "condition": "",
       "project_ids": [
         "87221b69-c0fe-443d-985b-321d7cbd0af9"
       ]
