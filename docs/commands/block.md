@@ -5,6 +5,7 @@ This API allows you to manage your Block Storage volumes.
 - [A Block Storage snapshot is a read-only picture of a Block volume, taken at a specific time](#a-block-storage-snapshot-is-a-read-only-picture-of-a-block-volume,-taken-at-a-specific-time)
   - [Create a snapshot of a volume](#create-a-snapshot-of-a-volume)
   - [Delete a snapshot](#delete-a-snapshot)
+  - [Export a snapshot to a Scaleway Object Storage bucket](#export-a-snapshot-to-a-scaleway-object-storage-bucket)
   - [Get a snapshot](#get-a-snapshot)
   - [List all snapshots](#list-all-snapshots)
   - [Update a snapshot](#update-a-snapshot)
@@ -63,6 +64,29 @@ scw block snapshot delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | snapshot-id | Required | UUID of the snapshot |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Export a snapshot to a Scaleway Object Storage bucket
+
+The snapshot is exported in QCOW2 format.
+The snapshot must not be in transient state.
+
+**Usage:**
+
+```
+scw block snapshot export-to-object-storage [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the snapshot |
+| bucket |  | Scaleway Object Storage bucket where the object is stored |
+| key |  | The object key inside the given bucket |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
