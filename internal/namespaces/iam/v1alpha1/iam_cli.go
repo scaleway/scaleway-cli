@@ -1453,6 +1453,13 @@ func iamPolicyCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "rules.{index}.condition",
+				Short:      `Condition expression to evaluate`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "rules.{index}.project-ids.{index}",
 				Short:      `List of Project IDs the rule is scoped to`,
 				Required:   false,
@@ -1710,6 +1717,13 @@ func iamRuleUpdate() *core.Command {
 			{
 				Name:       "rules.{index}.permission-set-names.{index}",
 				Short:      `Names of permission sets bound to the rule`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.condition",
+				Short:      `Condition expression to evaluate`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
