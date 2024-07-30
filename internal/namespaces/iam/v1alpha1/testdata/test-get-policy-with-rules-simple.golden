@@ -1,10 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Policy:
-ID                abb2fc89-6c2b-46af-939c-3725a1fe0df8
+ID                a0ec7d54-6dc8-46f5-b808-84e1b728fe0a
 Name              test-cli-get-policy
 Description       -
-OrganizationID    ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 Editable          true
@@ -14,14 +14,14 @@ NbPermissionSets  1
 NoPrincipal       true
 
 Rules:
-ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
-bb38e001-5eb5-428c-b1f9-0eab9e055b7f  [IPAMReadOnly]        projects                    [87221b69-c0fe-443d-985b-321d7cbd0af9]  -                -
+ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
+67cce713-1763-446e-8b05-4f520b925131  [IPAMReadOnly]        projects                    -          [54826627-c2b8-4bc1-baa8-ac2a78b02daf]  -                -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "abb2fc89-6c2b-46af-939c-3725a1fe0df8",
+  "id": "a0ec7d54-6dc8-46f5-b808-84e1b728fe0a",
   "name": "test-cli-get-policy",
   "description": "",
-  "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "editable": true,
@@ -32,13 +32,14 @@ bb38e001-5eb5-428c-b1f9-0eab9e055b7f  [IPAMReadOnly]        projects            
   "no_principal": true,
   "Rules": [
     {
-      "id": "bb38e001-5eb5-428c-b1f9-0eab9e055b7f",
+      "id": "67cce713-1763-446e-8b05-4f520b925131",
       "permission_set_names": [
         "IPAMReadOnly"
       ],
       "permission_sets_scope_type": "projects",
+      "condition": "",
       "project_ids": [
-        "87221b69-c0fe-443d-985b-321d7cbd0af9"
+        "54826627-c2b8-4bc1-baa8-ac2a78b02daf"
       ]
     }
   ]

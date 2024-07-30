@@ -51,7 +51,6 @@ Bootscript                    x86_64 mainline 4.4.230 rev1
 BootType                      local
 Volumes.0.ID                  08424d6f-cf09-4498-94b5-042ef6eb38f1
 Volumes.0.Name                Ubuntu Jammy GPU OS 12 passthrough
-Volumes.0.ExportURI           -
 Volumes.0.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Volumes.0.Server.ID           475ad734-23b2-4f8d-b5be-6d08cc547079
 Volumes.0.Server.Name         cli-srv-dazzling-einstein
@@ -65,7 +64,6 @@ Volumes.0.Boot                false
 Volumes.0.Zone                fr-par-2
 Volumes.1.ID                  318bd18f-ef0c-4595-825b-097757fdf331
 Volumes.1.Name                default-cli-scratch-volume
-Volumes.1.ExportURI           -
 Volumes.1.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Volumes.1.Server.ID           475ad734-23b2-4f8d-b5be-6d08cc547079
 Volumes.1.Server.Name         cli-srv-dazzling-einstein
@@ -173,7 +171,7 @@ Zone                          fr-par-2
     "0": {
       "id": "08424d6f-cf09-4498-94b5-042ef6eb38f1",
       "name": "Ubuntu Jammy GPU OS 12 passthrough",
-      "export_uri": "",
+      "export_uri": null,
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
         "id": "475ad734-23b2-4f8d-b5be-6d08cc547079",
@@ -191,7 +189,7 @@ Zone                          fr-par-2
     "1": {
       "id": "318bd18f-ef0c-4595-825b-097757fdf331",
       "name": "default-cli-scratch-volume",
-      "export_uri": "",
+      "export_uri": null,
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
         "id": "475ad734-23b2-4f8d-b5be-6d08cc547079",

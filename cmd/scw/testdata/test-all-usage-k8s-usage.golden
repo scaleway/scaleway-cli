@@ -6,6 +6,7 @@ USAGE:
   scw k8s <command>
 
 AVAILABLE COMMANDS:
+  acl          Access Control List (ACL) management commands
   cluster      Kapsule cluster management commands
   cluster-type Cluster type management commands
   kubeconfig   Manage your Kubernetes Kapsule cluster's kubeconfig files

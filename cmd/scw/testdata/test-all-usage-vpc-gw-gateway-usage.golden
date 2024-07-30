@@ -13,7 +13,7 @@ AVAILABLE COMMANDS:
   list               List Public Gateways
   refresh-ssh-keys   Refresh a Public Gateway's SSH keys
   update             Update a Public Gateway
-  upgrade            Upgrade a Public Gateway to the latest version
+  upgrade            Upgrade a Public Gateway to the latest version and/or to a different commercial offer type
 
 FLAGS:
   -h, --help   help for gateway

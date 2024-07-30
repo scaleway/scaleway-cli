@@ -2,6 +2,7 @@
 # Documentation for `scw k8s`
 This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   
+- [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
 - [Kapsule cluster management commands](#kapsule-cluster-management-commands)
   - [Create a new Cluster](#create-a-new-cluster)
   - [Delete a Cluster](#delete-a-cluster)
@@ -40,6 +41,20 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [List all available Versions](#list-all-available-versions)
 
   
+## Access Control List (ACL) management commands
+
+Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.
+
+Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.
+
+**Usage:**
+
+```
+scw k8s acl
+```
+
+
+
 ## Kapsule cluster management commands
 
 A cluster is a fully managed Kubernetes cluster

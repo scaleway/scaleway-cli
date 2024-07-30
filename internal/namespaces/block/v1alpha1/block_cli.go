@@ -32,6 +32,7 @@ func GetGeneratedCommands() *core.Commands {
 		blockSnapshotList(),
 		blockSnapshotGet(),
 		blockSnapshotCreate(),
+		blockSnapshotExportToObjectStorage(),
 		blockSnapshotDelete(),
 		blockSnapshotUpdate(),
 	)
@@ -502,6 +503,51 @@ If your volume is in a transient state, you need to wait until the end of the cu
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.CreateSnapshot(request)
+
+		},
+	}
+}
+
+func blockSnapshotExportToObjectStorage() *core.Command {
+	return &core.Command{
+		Short: `Export a snapshot to a Scaleway Object Storage bucket`,
+		Long: `The snapshot is exported in QCOW2 format.
+The snapshot must not be in transient state.`,
+		Namespace: "block",
+		Resource:  "snapshot",
+		Verb:      "export-to-object-storage",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(block.ExportSnapshotToObjectStorageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `UUID of the snapshot`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "bucket",
+				Short:      `Scaleway Object Storage bucket where the object is stored`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "key",
+				Short:      `The object key inside the given bucket`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms3, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*block.ExportSnapshotToObjectStorageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := block.NewAPI(client)
+			return api.ExportSnapshotToObjectStorage(request)
 
 		},
 	}

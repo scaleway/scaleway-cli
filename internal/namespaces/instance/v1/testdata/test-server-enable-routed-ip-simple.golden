@@ -55,7 +55,6 @@ Bootscript                    x86_64 mainline 4.4.230 rev1
 BootType                      local
 Volumes.0.ID                  8c935774-18e4-4747-8765-820399eaaab8
 Volumes.0.Name                Ubuntu 22.04 Jammy Jellyfish
-Volumes.0.ExportURI           -
 Volumes.0.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Volumes.0.Server.ID           1ffc7827-8cdc-48b9-a203-860a05499050
 Volumes.0.Server.Name         cli-srv-condescending-faraday
@@ -172,7 +171,7 @@ Zone                          fr-par-3
     "0": {
       "id": "8c935774-18e4-4747-8765-820399eaaab8",
       "name": "Ubuntu 22.04 Jammy Jellyfish",
-      "export_uri": "",
+      "export_uri": null,
       "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
       "server": {
         "id": "1ffc7827-8cdc-48b9-a203-860a05499050",
