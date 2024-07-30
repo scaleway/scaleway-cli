@@ -591,6 +591,13 @@ func containerContainerCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_sandbox", "v1", "v2"},
 			},
+			{
+				Name:       "local-storage-limit",
+				Short:      `Local storage limit of the container (in MB)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -740,6 +747,13 @@ func containerContainerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_sandbox", "v1", "v2"},
+			},
+			{
+				Name:       "local-storage-limit",
+				Short:      `Local storage limit of the container (in MB)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
