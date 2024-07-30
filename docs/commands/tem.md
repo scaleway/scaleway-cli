@@ -67,6 +67,7 @@ scw tem domain create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | domain-name |  | Fully qualified domain dame |
 | accept-tos |  | Accept Scaleway's Terms of Service |
+| autoconfig |  | Activate auto-configuration of the domain's DNS zone |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
