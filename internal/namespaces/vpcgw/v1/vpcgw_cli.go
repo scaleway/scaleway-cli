@@ -490,8 +490,8 @@ func vpcGwGatewayDelete() *core.Command {
 
 func vpcGwGatewayUpgrade() *core.Command {
 	return &core.Command{
-		Short:     `Upgrade a Public Gateway to the latest version`,
-		Long:      `Upgrade a given Public Gateway to the newest software version. This applies the latest bugfixes and features to your Public Gateway, but its service will be interrupted during the update.`,
+		Short:     `Upgrade a Public Gateway to the latest version and/or to a different commercial offer type`,
+		Long:      `Upgrade a given Public Gateway to the newest software version or to a different commercial offer type. This applies the latest bugfixes and features to your Public Gateway. Note that gateway service will be interrupted during the update.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "upgrade",
@@ -504,6 +504,13 @@ func vpcGwGatewayUpgrade() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "type",
+				Short:      `Gateway type (commercial offer)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
