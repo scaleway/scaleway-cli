@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Checkout should always be before setup-go to ensure caching is working
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
