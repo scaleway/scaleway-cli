@@ -237,6 +237,7 @@ scw apple-silicon server update <name ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | UUID of the server you want to update |
 | name | Required | Updated name for your server |
+| schedule-deletion |  | Specify whether the server should be flagged for automatic deletion |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 

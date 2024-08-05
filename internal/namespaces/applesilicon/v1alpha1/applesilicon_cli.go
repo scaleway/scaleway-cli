@@ -354,6 +354,13 @@ func appleSiliconServerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			{
+				Name:       "schedule-deletion",
+				Short:      `Specify whether the server should be flagged for automatic deletion`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
