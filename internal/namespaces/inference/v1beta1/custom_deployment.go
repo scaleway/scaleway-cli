@@ -70,7 +70,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := inference.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForDeployment(&inference.WaitForDeploymentRequest{
-			DeploymentId:  respI.(*inference.Deployment).ID,
+			DeploymentID:  respI.(*inference.Deployment).ID,
 			Region:        respI.(*inference.Deployment).Region,
 			Status:        respI.(*inference.Deployment).Status,
 			Timeout:       scw.TimeDurationPtr(deploymentActionTimeout),
@@ -119,7 +119,7 @@ func deploymentDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := inference.NewAPI(core.ExtractClient(ctx))
 		deployment, err := api.WaitForDeployment(&inference.WaitForDeploymentRequest{
-			DeploymentId:  respI.(*inference.Deployment).ID,
+			DeploymentID:  respI.(*inference.Deployment).ID,
 			Region:        respI.(*inference.Deployment).Region,
 			Status:        respI.(*inference.Deployment).Status,
 			Timeout:       scw.TimeDurationPtr(deploymentActionTimeout),
