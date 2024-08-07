@@ -7,7 +7,11 @@ jobs:
     name: Ensure docs are generated
     runs-on: ubuntu-latest
     steps:
+      # Checkout should always be before setup-go to ensure caching is working
       - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
       - name: Generate code
         run: go run ./cmd/scw-doc-gen
         env:
