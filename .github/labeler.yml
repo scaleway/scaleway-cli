@@ -1,0 +1,119 @@
+account:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/account/**
+
+apple-silicon:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/applesilicon/**
+
+baremetal:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/baremetal/**
+
+billing:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/billing/**
+
+container:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/container/**
+
+dedibox:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/dedibox/**
+
+domain:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/domain/**
+
+flexible-ip:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/flexibleip/**
+
+function:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/function/**
+
+iam:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/iam/**
+
+instance:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/instance/**
+
+iot:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/iot/**
+
+k8s:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/k8s/**
+
+load-balancer:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/lb/**
+
+mnq:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/mnq/**
+
+rdb:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/rdb/**
+
+redis:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/redis/**
+
+registry:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/registry/**
+
+sdb:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/serverless_sqldb/**
+
+secret:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/secret/**
+
+tem:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/tem/**
+
+vpc:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/vpc/**
+
+vpcgw:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/vpcgw/**
+
+webhosting:
+  - changed-files:
+      - any-glob-to-any-file:
+          - internal/namespaces/webhosting/**
