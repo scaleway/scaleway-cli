@@ -1521,7 +1521,7 @@ func iamPolicyCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Add a policy for a group that gives InstanceFullAccess on all projects",
-				Raw:   `scw iam policy create group-id=11111111-1111-1111-1111-111111111111 rules.0.organization-id=11111111-1111-1111-1111-111111111111 rules.0.permission-set-names.0=InstanceFullAccess`,
+				Raw:   `scw iam policy create group-id=11111111-1111-1111-1111-111111111111 rules.0.organization-id=11111111-1111-1111-1111-111111111111 rules.0.permission-set-names.0=InstancesFullAccess`,
 			},
 		},
 	}
