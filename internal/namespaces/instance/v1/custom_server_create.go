@@ -552,14 +552,14 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate,
 	}
 
 	if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
-		min := humanize.Bytes(uint64(volumeConstraint.MinSize))
+		minSize := humanize.Bytes(uint64(volumeConstraint.MinSize))
 		computedLocal := humanize.Bytes(uint64(localVolumeTotalSize))
 		if volumeConstraint.MinSize == volumeConstraint.MaxSize {
-			return fmt.Errorf("%s total local volume size must be equal to %s, got %s", commercialType, min, computedLocal)
+			return fmt.Errorf("%s total local volume size must be equal to %s, got %s", commercialType, minSize, computedLocal)
 		}
 
-		max := humanize.Bytes(uint64(volumeConstraint.MaxSize))
-		return fmt.Errorf("%s total local volume size must be between %s and %s, got %s", commercialType, min, max, computedLocal)
+		maxSize := humanize.Bytes(uint64(volumeConstraint.MaxSize))
+		return fmt.Errorf("%s total local volume size must be between %s and %s, got %s", commercialType, minSize, maxSize, computedLocal)
 	}
 
 	return nil
