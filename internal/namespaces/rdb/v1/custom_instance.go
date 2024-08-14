@@ -706,7 +706,7 @@ func getPublicEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) {
 		}
 	}
 
-	return nil, fmt.Errorf(errorMessagePublicEndpointNotFound)
+	return nil, fmt.Errorf("%s", errorMessagePublicEndpointNotFound)
 }
 
 func getPrivateEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) {
@@ -716,7 +716,7 @@ func getPrivateEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) 
 		}
 	}
 
-	return nil, fmt.Errorf(errorMessagePrivateEndpointNotFound)
+	return nil, fmt.Errorf("%s", errorMessagePrivateEndpointNotFound)
 }
 
 func createConnectCommandLineArgs(endpoint *rdbSDK.Endpoint, family engineFamily, args *instanceConnectArgs) ([]string, error) {
@@ -815,7 +815,7 @@ func instanceConnectCommand() *core.Command {
 			}
 
 			if len(instance.Endpoints) == 0 {
-				return nil, fmt.Errorf(errorMessageEndpointNotFound)
+				return nil, fmt.Errorf("%s", errorMessageEndpointNotFound)
 			}
 
 			var endpoint *rdbSDK.Endpoint
