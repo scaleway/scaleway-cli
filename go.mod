@@ -14,7 +14,7 @@ require (
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.4
 	github.com/dnaeon/go-vcr v1.2.0
-	github.com/docker/docker v27.1.1+incompatible
+	github.com/docker/docker v27.1.2+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.17.0
 	github.com/getsentry/sentry-go v0.28.1
@@ -148,6 +148,7 @@ require (
 	github.com/moby/sys/sequential v0.5.0 // indirect
 	github.com/moby/sys/signal v0.7.0 // indirect
 	github.com/moby/sys/user v0.1.0 // indirect
+	github.com/moby/sys/userns v0.1.0 // indirect
 	github.com/moby/term v0.5.0 // indirect
 	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6 // indirect
