@@ -22,7 +22,8 @@ func GetCommands() *core.Commands {
 }
 
 type loginArgs struct {
-	Port int `json:"port"`
+	Port     int  `json:"port"`
+	PrintURL bool `json:"print_url"`
 }
 
 func loginCommand() *core.Command {
@@ -63,10 +64,15 @@ Once you connected to Scaleway, the profile should be configured.
 			}
 
 			callbackURL := fmt.Sprintf("http://localhost:%d/callback", wb.Port())
-			err = open.Start("https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL)
-			if err != nil {
-				logger.Warningf("Failed to open web url, you may not have a default browser configured")
-				logger.Warningf(fmt.Sprintf("You can open it: %s", callbackURL))
+			logger.Debugf("Web server started, waiting for callback on %s\n", callbackURL)
+			if args.PrintURL {
+				logger.Infof("https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL + "\n")
+			} else {
+				err = open.Start("https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL)
+				if err != nil {
+					logger.Warningf("Failed to open web url, you may not have a default browser configured")
+					logger.Warningf(fmt.Sprintf("You can open it: %s", callbackURL))
+				}
 			}
 
 			fmt.Println("waiting for callback...")

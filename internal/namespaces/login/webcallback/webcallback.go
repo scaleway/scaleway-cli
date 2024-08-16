@@ -3,6 +3,7 @@ package webcallback
 import (
 	"context"
 	"errors"
+	"fmt"
 	"net"
 	"net/http"
 	"strconv"
@@ -46,12 +47,18 @@ func (wb *WebCallback) Start(ctx context.Context) error {
 
 	wb.srv.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !strings.HasSuffix(r.URL.Path, "callback") {
-			logger.Warningf("request has an unexpected path: %s", r.URL.Path)
+			w.WriteHeader(400)
+			_, _ = w.Write([]byte(webpageString("Invalid URL")))
 		}
-		wb.tokenChan <- r.URL.Query().Get("token")
-
-		w.WriteHeader(200)
-		_, _ = w.Write([]byte(webpage))
+		token := r.URL.Query().Get("token")
+		if token != "" {
+			wb.tokenChan <- r.URL.Query().Get("token")
+			w.WriteHeader(200)
+			_, _ = w.Write([]byte(webpageString("You can close this page.")))
+		} else {
+			w.WriteHeader(400)
+			_, _ = w.Write([]byte(webpageString("Invalid Token.")))
+		}
 
 		cancel()
 	})
@@ -92,12 +99,14 @@ func (wb *WebCallback) Port() int {
 	return wb.port
 }
 
-var webpage = `<!DOCTYPE html>
+func webpageString(msg string) string {
+	return fmt.Sprintf(`<!DOCTYPE html>
 <html>
 <head>
 </head>
 <body>
-You can close this page.
+%s
 </body>
 </html>
-`
+`, msg)
+}
