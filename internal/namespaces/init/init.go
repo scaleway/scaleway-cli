@@ -54,10 +54,10 @@ See below the schema `scw init` follows to ask for default config:
 */
 
 func GetCommands() *core.Commands {
-	return core.NewCommands(initCommand())
+	return core.NewCommands(InitCommand())
 }
 
-type initArgs struct {
+type InitArgs struct {
 	AccessKey      string
 	SecretKey      string
 	ProjectID      string
@@ -70,7 +70,7 @@ type initArgs struct {
 	InstallAutocomplete *bool
 }
 
-func initCommand() *core.Command {
+func InitCommand() *core.Command {
 	return &core.Command{
 		Groups: []string{"config"},
 		Short:  `Initialize the config`,
@@ -83,7 +83,7 @@ Default path for configuration file is based on the following priority order:
 - $USERPROFILE/.config/scw/config.yaml`,
 		Namespace:            "init",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(initArgs{}),
+		ArgsType:             reflect.TypeOf(InitArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:         "secret-key",
@@ -126,9 +126,13 @@ Default path for configuration file is based on the following priority order:
 				Short:   "Config management help",
 				Command: "scw config",
 			},
+			{
+				Short:   "Login through a web page",
+				Command: "scw login",
+			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*initArgs)
+			args := argsI.(*InitArgs)
 
 			profileName := core.ExtractProfileName(ctx)
 			configPath := core.ExtractConfigPath(ctx)
@@ -243,7 +247,7 @@ Default path for configuration file is based on the following priority order:
 			successDetails := []string(nil)
 
 			// Install autocomplete
-			if *args.InstallAutocomplete {
+			if args.InstallAutocomplete != nil && *args.InstallAutocomplete {
 				_, _ = interactive.Println()
 				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{
 					Basename: "scw",
@@ -254,7 +258,7 @@ Default path for configuration file is based on the following priority order:
 			}
 
 			// Init SSH Key
-			if *args.WithSSHKey {
+			if args.WithSSHKey != nil && *args.WithSSHKey {
 				_, _ = interactive.Println()
 				_, err := iamcommands.InitWithSSHKeyRun(ctx, nil)
 				if err != nil {
