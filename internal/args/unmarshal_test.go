@@ -6,6 +6,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -35,7 +37,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			err := args.UnmarshalStruct(testCase.args, testCase.data)
 
 			if testCase.error == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, testCase.expected, testCase.data)
 			} else {
 				assert.Equal(t, testCase.error, err.Error())

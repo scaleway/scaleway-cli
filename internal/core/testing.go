@@ -654,7 +654,7 @@ func TestCheckGoldenAndReplacePatterns(replacements ...GoldenReplacement) TestCh
 		expected, err := os.ReadFile(goldenPath)
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
 		assert.Equal(t, string(expected), actual)
-		assert.Nil(t, actualReplaceErr, "failed to match test output with regexes")
+		assert.NoError(t, actualReplaceErr, "failed to match test output with regexes")
 	}
 }
 
