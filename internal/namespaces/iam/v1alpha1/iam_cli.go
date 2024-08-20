@@ -1945,6 +1945,9 @@ func iamAPIKeyList() *core.Command {
 			{
 				FieldName: "DefaultProjectID",
 			},
+			{
+				FieldName: "Description",
+			},
 		}},
 	}
 }
