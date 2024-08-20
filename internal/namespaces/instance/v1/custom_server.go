@@ -623,7 +623,7 @@ func serverDetachIPCommand() *core.Command {
 				}
 				return nil, fmt.Errorf("no public ip found")
 			}
-			return nil, fmt.Errorf("no server found")
+			return nil, errors.New("no server found")
 		},
 		Examples: []*core.Example{
 			{

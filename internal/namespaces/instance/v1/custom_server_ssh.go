@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os/exec"
 	"reflect"
@@ -69,7 +70,7 @@ func instanceServerSSHRun(ctx context.Context, argsI interface{}) (i interface{}
 
 	if serverResp.Server.State != instance.ServerStateRunning {
 		return nil, &core.CliError{
-			Err:  fmt.Errorf("server is not running"),
+			Err:  errors.New("server is not running"),
 			Hint: fmt.Sprintf("Start the instance with: %s instance server start %s --wait", core.ExtractBinaryName(ctx), serverResp.Server.ID),
 		}
 	}

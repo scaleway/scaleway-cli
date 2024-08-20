@@ -3,6 +3,7 @@ package secret
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -84,7 +85,7 @@ func getSecretVersionField(data []byte, field string) ([]byte, error) {
 
 	rawField, ok := rawFields.(map[string]interface{})[field]
 	if !ok {
-		return nil, fmt.Errorf("JSON field is not present")
+		return nil, errors.New("JSON field is not present")
 	}
 
 	switch field := rawField.(type) {

@@ -686,7 +686,7 @@ func passwordFileHint(family engineFamily) string {
 
 func detectEngineFamily(instance *rdbSDK.Instance) (engineFamily, error) {
 	if instance == nil {
-		return Unknown, fmt.Errorf("instance engine is nil")
+		return Unknown, errors.New("instance engine is nil")
 	}
 	if strings.HasPrefix(instance.Engine, string(PostgreSQL)) {
 		return PostgreSQL, nil

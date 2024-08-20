@@ -2,6 +2,7 @@ package tasks_test
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"runtime"
@@ -45,7 +46,7 @@ func TestInvalidGeneric(t *testing.T) {
 	ts.SetLoggerMode(tasks.PrinterModeQuiet)
 
 	tasks.Add(ts, "convert int to string", func(_ *tasks.Task, args int) (nextArgs string, err error) {
-		return fmt.Sprintf("%d", args), nil
+		return strconv.Itoa(args), nil
 	})
 	tasks.Add(ts, "divide by 4", func(_ *tasks.Task, args int) (nextArgs int, err error) {
 		return args / 4, nil
@@ -76,7 +77,7 @@ func TestCleanup(t *testing.T) {
 			clean++
 			return nil
 		})
-		return nil, fmt.Errorf("fail")
+		return nil, errors.New("fail")
 	})
 
 	_, err := ts.Execute(context.Background(), nil)
@@ -125,7 +126,7 @@ func TestCleanupOnContext(t *testing.T) {
 
 		select {
 		case <-task.Ctx.Done():
-			return nil, fmt.Errorf("interrupted")
+			return nil, errors.New("interrupted")
 		case <-time.After(time.Second * 3):
 			return nil, nil
 		}

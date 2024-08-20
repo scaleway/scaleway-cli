@@ -2,6 +2,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"reflect"
@@ -103,7 +104,7 @@ func setupTemplatePrinter(printer *Printer, opts string) error {
 	printer.printerType = PrinterTypeTemplate
 	if opts == "" {
 		return &CliError{
-			Err:     fmt.Errorf("cannot use a template output with an empty template"),
+			Err:     errors.New("cannot use a template output with an empty template"),
 			Hint:    `Try using golang template string: scw instance server list -o template="{{ .ID }} ☜(˚▽˚)☞ {{ .Name }}"`,
 			Details: `https://golang.org/pkg/text/template`,
 		}

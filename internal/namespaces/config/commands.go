@@ -3,6 +3,7 @@ package config
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"reflect"
@@ -823,7 +824,7 @@ func validateAccessKey(profile *scw.Profile) error {
 	if profile.AccessKey != nil {
 		if *profile.AccessKey == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("access key cannot be empty"),
+				Err: errors.New("access key cannot be empty"),
 			}
 		}
 
@@ -838,7 +839,7 @@ func validateSecretKey(profile *scw.Profile) error {
 	if profile.SecretKey != nil {
 		if *profile.SecretKey == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("secret key cannot be empty"),
+				Err: errors.New("secret key cannot be empty"),
 			}
 		}
 
@@ -853,7 +854,7 @@ func validateDefaultOrganizationID(profile *scw.Profile) error {
 	if profile.DefaultOrganizationID != nil {
 		if *profile.DefaultOrganizationID == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("default organization ID cannot be empty"),
+				Err: errors.New("default organization ID cannot be empty"),
 			}
 		}
 

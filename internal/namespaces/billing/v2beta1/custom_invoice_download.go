@@ -2,6 +2,7 @@ package billing
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -83,7 +84,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 		if len(file) > 0 {
 			fileExtension := filepath.Ext(file)
 			if extensionOnFile := checkDownloadInvoiceExt(fileExtension); !extensionOnFile {
-				return fmt.Errorf("file has not supported extension")
+				return errors.New("file has not supported extension")
 			}
 		}
 
@@ -126,7 +127,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 				return err
 			}
 			if !overrideFile {
-				return fmt.Errorf("download file canceled")
+				return errors.New("download file canceled")
 			}
 		}
 

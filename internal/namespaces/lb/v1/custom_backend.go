@@ -782,7 +782,7 @@ func interceptBackend() core.CommandInterceptor {
 					switch detail.ArgumentName {
 					case "Port":
 						return nil, &core.CliError{
-							Err: fmt.Errorf("missing or invalid 'health-check.port' argument"),
+							Err: errors.New("missing or invalid 'health-check.port' argument"),
 						}
 					case "CheckMaxRetries":
 						return nil, &core.CliError{

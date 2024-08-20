@@ -2,6 +2,7 @@ package billing
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -122,7 +123,7 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 				return err
 			}
 			if !overrideFile {
-				return fmt.Errorf("export file canceled")
+				return errors.New("export file canceled")
 			}
 		}
 

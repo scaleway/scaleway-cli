@@ -2,6 +2,7 @@ package autocomplete
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -269,7 +270,7 @@ func autocompleteCompleteBashCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 3 {
-				return nil, fmt.Errorf("not enough arguments")
+				return nil, errors.New("not enough arguments")
 			}
 			wordIndex, err := strconv.Atoi(rawArgs[1])
 			if err != nil {
@@ -354,7 +355,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 2 {
-				return nil, fmt.Errorf("not enough arguments")
+				return nil, errors.New("not enough arguments")
 			}
 
 			// First arg is the word index.

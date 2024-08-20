@@ -2,6 +2,7 @@ package applesilicon
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os/exec"
 	"reflect"
@@ -70,7 +71,7 @@ func serverSSHRun(ctx context.Context, argsI interface{}) (i interface{}, e erro
 
 	if serverResp.Status != applesilicon.ServerStatusReady {
 		return nil, &core.CliError{
-			Err:     fmt.Errorf("server is not ready"),
+			Err:     errors.New("server is not ready"),
 			Details: fmt.Sprintf("Server %s currently in %s", serverResp.Name, serverResp.Status),
 		}
 	}

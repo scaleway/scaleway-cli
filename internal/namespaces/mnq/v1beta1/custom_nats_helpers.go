@@ -3,6 +3,7 @@ package mnq
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -76,7 +77,7 @@ func getNATSContextDir(ctx context.Context) (string, error) {
 	if xdgConfigHome == "" {
 		homeDir := core.ExtractEnv(ctx, "HOME")
 		if homeDir == "" {
-			return "", fmt.Errorf("both XDG_CONFIG_HOME and HOME are not set")
+			return "", errors.New("both XDG_CONFIG_HOME and HOME are not set")
 		}
 		return filepath.Join(homeDir, ".config", "nats", "context"), nil
 	}

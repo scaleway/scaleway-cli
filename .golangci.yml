@@ -62,6 +62,7 @@ linters:
     - wastedassign # wastedassign finds wasted assignment statements. [fast: false, auto-fix: false]
     - whitespace # Tool for detection of leading and trailing whitespace [fast: true, auto-fix: true]
     - zerologlint # Detects the wrong usage of `zerolog` that a user forgets to dispatch with `Send` or `Msg` [fast: false, auto-fix: false]
+    - perfsprint # Checks that fmt.Sprintf can be replaced with a faster alternative. [fast: false, auto-fix: false]
 
   disable:
     - cyclop # checks function and package cyclomatic complexity [fast: false, auto-fix: false]
