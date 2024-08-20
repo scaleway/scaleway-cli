@@ -22,7 +22,7 @@ func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (st
 
 	var password strings.Builder
 
-	for i := 0; i < minNumbers; i++ {
+	for range minNumbers {
 		random, err := randInt(len(numbers))
 		if err != nil {
 			return "", err
@@ -30,7 +30,7 @@ func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (st
 		password.WriteString(string(numbers[random]))
 	}
 
-	for i := 0; i < minUpper; i++ {
+	for range minUpper {
 		random, err := randInt(len(upperLetters))
 		if err != nil {
 			return "", err
@@ -38,7 +38,7 @@ func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (st
 		password.WriteString(string(upperLetters[random]))
 	}
 
-	for i := 0; i < minLower; i++ {
+	for range minLower {
 		random, err := randInt(len(lowerLetters))
 		if err != nil {
 			return "", err
@@ -46,7 +46,7 @@ func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (st
 		password.WriteString(string(lowerLetters[random]))
 	}
 
-	for i := 0; i < minSymbol; i++ {
+	for range minSymbol {
 		random, err := randInt(len(SpecialSymbols))
 		if err != nil {
 			return "", err
@@ -55,7 +55,7 @@ func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (st
 	}
 
 	remainingLength := length - minNumbers - minLower - minUpper - minSymbol
-	for i := 0; i < remainingLength; i++ {
+	for range remainingLength {
 		random, err := randInt(len(allSet))
 		if err != nil {
 			return "", err

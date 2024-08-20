@@ -227,7 +227,7 @@ func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
 			// We construct two caches:
 			anonymousFieldIndexes := []int(nil)
 			fieldIndexByName := map[string]int{}
-			for i := 0; i < argType.NumField(); i++ {
+			for i := range argType.NumField() {
 				field := argType.Field(i)
 				if field.Anonymous {
 					anonymousFieldIndexes = append(anonymousFieldIndexes, i)
@@ -285,7 +285,7 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 	case reflect.Struct:
 		fields := []string(nil)
 
-		for i := 0; i < argType.NumField(); i++ {
+		for i := range argType.NumField() {
 			field := argType.Field(i)
 			fieldBase := base
 
