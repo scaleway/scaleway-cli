@@ -50,9 +50,9 @@ func Test_SSHConfigInstall(t *testing.T) {
 			func(ctx *core.BeforeFuncCtx) error {
 				homeDir := ctx.Meta["HOME"].(string)
 				configPath := sshconfig.DefaultConfigFilePath(homeDir)
-				err := os.Mkdir(filepath.Join(homeDir, ".ssh"), 0700)
+				err := os.Mkdir(filepath.Join(homeDir, ".ssh"), 0o700)
 				assert.Nil(t, err)
-				err = os.WriteFile(configPath, []byte(`Host myhost`), 0600)
+				err = os.WriteFile(configPath, []byte(`Host myhost`), 0o600)
 				assert.Nil(t, err)
 
 				return nil

@@ -19,16 +19,14 @@ const (
 	deploymentActionTimeout = 60 * time.Minute
 )
 
-var (
-	deployementStateMarshalSpecs = human.EnumMarshalSpecs{
-		inference.DeploymentStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		inference.DeploymentStatusDeploying: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		inference.DeploymentStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		inference.DeploymentStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-		inference.DeploymentStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		inference.DeploymentStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-	}
-)
+var deployementStateMarshalSpecs = human.EnumMarshalSpecs{
+	inference.DeploymentStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	inference.DeploymentStatusDeploying: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	inference.DeploymentStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	inference.DeploymentStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+	inference.DeploymentStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	inference.DeploymentStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
+}
 
 func DeploymentMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp inference.Deployment

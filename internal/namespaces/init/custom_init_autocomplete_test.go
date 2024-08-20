@@ -96,7 +96,7 @@ eval (scw autocomplete script shell=fish)
 						configPath := path.Join(homeDir, ".config", "fish", "config.fish")
 
 						// Ensure the subfolders for the configuration files are all created
-						err := os.MkdirAll(filepath.Dir(configPath), 0755)
+						err := os.MkdirAll(filepath.Dir(configPath), 0o755)
 						if err != nil {
 							return err
 						}

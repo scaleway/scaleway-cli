@@ -77,7 +77,7 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 		if err != nil {
 			return err
 		}
-		err = os.WriteFile(path.Join(outDir, name+".md"), []byte(namespaceDoc), 0600)
+		err = os.WriteFile(path.Join(outDir, name+".md"), []byte(namespaceDoc), 0o600)
 		if err != nil {
 			return err
 		}

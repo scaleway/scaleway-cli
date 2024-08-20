@@ -13,7 +13,6 @@ import (
 
 // Command represent a CLI command. From this higher level type we create Cobra command objects.
 type Command struct {
-
 	// Namespace is the top level entry point of a command. (e.g scw instance)
 	Namespace string
 
@@ -271,6 +270,7 @@ func (c *Commands) RemoveResource(namespace, resource string) {
 		}
 	}
 }
+
 func (c *Commands) Add(cmd *Command) {
 	c.commands = append(c.commands, cmd)
 	c.commandIndex[cmd.getPath()] = cmd

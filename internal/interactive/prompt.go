@@ -140,7 +140,6 @@ func Readline(config *ReadlineConfig) (string, error) {
 			return nil, 0, false
 		}),
 	})
-
 	if err != nil {
 		return "", err
 	}
@@ -167,7 +166,6 @@ func Readline(config *ReadlineConfig) (string, error) {
 
 		// Handle user input validation
 		err = validateFunc(s)
-
 		// If ValidateFunc returns an error we print it and Readline again
 		if err != nil {
 			s, err := human.Marshal(err, nil)

@@ -3,12 +3,11 @@ package instance
 import (
 	"context"
 	"encoding/base64"
+	"encoding/binary"
 	"fmt"
 	"hash/crc32"
 	"reflect"
 	"strings"
-
-	"encoding/binary"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"

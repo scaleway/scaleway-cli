@@ -397,10 +397,12 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			{
 				FieldName: "Image",
 				Title:     "Server Image",
-			}, {
+			},
+			{
 				FieldName: "AllowedActions",
 				Title:     "Allowed Actions",
-			}, {
+			},
+			{
 				FieldName: "Volumes",
 				Title:     "Volumes",
 			},

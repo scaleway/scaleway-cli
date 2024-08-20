@@ -20,11 +20,11 @@ func Test_initWithSSHKeyCommand(t *testing.T) {
 			pathToPublicKey := path.Join(tmpDir, ".ssh", "id_ed25519.pub")
 			_, err := os.Stat(pathToPublicKey)
 			if err != nil {
-				err := os.MkdirAll(path.Join(tmpDir, ".ssh"), 0755)
+				err := os.MkdirAll(path.Join(tmpDir, ".ssh"), 0o755)
 				if err != nil {
 					return err
 				}
-				err = os.WriteFile(pathToPublicKey, []byte(key), 0644)
+				err = os.WriteFile(pathToPublicKey, []byte(key), 0o644)
 				return err
 			}
 			return err

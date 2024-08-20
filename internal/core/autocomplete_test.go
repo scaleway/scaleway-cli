@@ -219,9 +219,8 @@ func TestAutocompleteArgs(t *testing.T) {
 		Namespace: "test",
 		Resource:  "flower",
 		Verb:      "list",
-		ArgsType: reflect.TypeOf(struct {
-		}{}),
-		ArgSpecs: core.ArgSpecs{},
+		ArgsType:  reflect.TypeOf(struct{}{}),
+		ArgSpecs:  core.ArgSpecs{},
 		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
 			return []*struct {
 				Name string
@@ -239,9 +238,8 @@ func TestAutocompleteArgs(t *testing.T) {
 		Namespace: "test",
 		Resource:  "material",
 		Verb:      "list",
-		ArgsType: reflect.TypeOf(struct {
-		}{}),
-		ArgSpecs: core.ArgSpecs{},
+		ArgsType:  reflect.TypeOf(struct{}{}),
+		ArgSpecs:  core.ArgSpecs{},
 		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
 			return []*struct {
 				Name string

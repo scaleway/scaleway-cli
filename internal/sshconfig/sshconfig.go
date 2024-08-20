@@ -18,8 +18,8 @@ var (
 	sshDefaultConfigFileName = "config"
 	sshConfigFolderHomePath  = ".ssh"
 
-	sshConfigFileMode   = os.FileMode(0600)
-	sshConfigFolderMode = os.FileMode(0700)
+	sshConfigFileMode   = os.FileMode(0o600)
+	sshConfigFolderMode = os.FileMode(0o700)
 
 	ErrFileNotFound = errors.New("file not found")
 )

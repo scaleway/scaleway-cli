@@ -17,17 +17,15 @@ import (
 // Marshalers
 //
 
-var (
-	volumeStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.VolumeStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.VolumeStateError:        &human.EnumMarshalSpec{Attribute: color.FgRed},
-		instance.VolumeStateFetching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.VolumeStateHotsyncing:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.VolumeStateResizing:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.VolumeStateSaving:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.VolumeStateSnapshotting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	}
-)
+var volumeStateMarshalSpecs = human.EnumMarshalSpecs{
+	instance.VolumeStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	instance.VolumeStateError:        &human.EnumMarshalSpec{Attribute: color.FgRed},
+	instance.VolumeStateFetching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	instance.VolumeStateHotsyncing:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	instance.VolumeStateResizing:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	instance.VolumeStateSaving:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	instance.VolumeStateSnapshotting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+}
 
 // serversMarshalerFunc marshals a VolumeSummary.
 func volumeSummaryMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
