@@ -26,7 +26,7 @@ func (b *buffer) Write(buf []byte) (written int, err error) {
 	m := len(buf)
 	if n+m <= cap(b.a) {
 		b.a = b.a[0 : n+m]
-		for i := 0; i < m; i++ {
+		for i := range m {
 			b.a[n+i] = buf[i]
 		}
 	} else {
@@ -75,7 +75,7 @@ func check(t *testing.T, testname string, minwidth, tabwidth, padding int, padch
 	// write byte-by-byte
 	title = testname + " (written byte-by-byte)"
 	b.clear()
-	for i := 0; i < len(src); i++ {
+	for i := range len(src) {
 		write(t, title, &w, src[i:i+1])
 	}
 	verify(t, title, &w, &b, src, expected)
@@ -698,7 +698,7 @@ func BenchmarkTable(b *testing.B) {
 					for i := 0; i < b.N; i++ {
 						w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 						// Write the line h times.
-						for j := 0; j < h; j++ {
+						for range h {
 							w.Write(line)
 						}
 						w.Flush()
@@ -710,7 +710,7 @@ func BenchmarkTable(b *testing.B) {
 					w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 					for i := 0; i < b.N; i++ {
 						// Write the line h times.
-						for j := 0; j < h; j++ {
+						for range h {
 							w.Write(line)
 						}
 						w.Flush()
@@ -730,7 +730,7 @@ func BenchmarkPyramid(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 				// Write increasing prefixes of that line.
-				for j := 0; j < x; j++ {
+				for j := range x {
 					w.Write(line[:j*2])
 					w.Write([]byte{'\n'})
 				}
@@ -752,7 +752,7 @@ func BenchmarkRagged(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 				// Write the lines in turn h times.
-				for j := 0; j < h; j++ {
+				for j := range h {
 					w.Write(lines[j%len(lines)])
 					w.Write([]byte{'\n'})
 				}

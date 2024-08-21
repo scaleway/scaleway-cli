@@ -143,7 +143,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			// If type is a slice:
 			// We loop through all items and marshal them with key = key.0, key.1, ....
 			data := [][]string(nil)
-			for i := 0; i < value.Len(); i++ {
+			for i := range value.Len() {
 				subData, err := marshal(value.Index(i), append(keys, strconv.Itoa(i)))
 				if err != nil {
 					return nil, err
@@ -233,7 +233,7 @@ func GetStructFieldsIndex(v reflect.Type) [][]int {
 			v = v.Elem()
 		}
 
-		for i := 0; i < v.NumField(); i++ {
+		for i := range v.NumField() {
 			field := v.Field(i)
 			// If a field is anonymous we start recursive call
 			if field.Anonymous {
@@ -307,7 +307,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 	grid = append(grid, headerRow)
 
 	// For each item in the slice
-	for i := 0; i < slice.Len(); i++ {
+	for i := range slice.Len() {
 		item := slice.Index(i)
 		row := []string(nil)
 		for _, fieldSpec := range opt.Fields {
@@ -422,7 +422,7 @@ func computeMaxCols(grid [][]string) int {
 		return maxCols
 	}
 	colMaxSize := make([]int, len(grid[0]))
-	for i := 0; i < len(grid); i++ {
+	for i := range len(grid) {
 		lineSize := 0
 		for j := 0; j < maxCols; j++ {
 			size := len(grid[i][j]) + colPadding
@@ -443,7 +443,7 @@ func computeMaxCols(grid [][]string) int {
 func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 	results := []*MarshalFieldOpt(nil)
 	// Loop through all struct field
-	for fieldIdx := 0; fieldIdx < t.NumField(); fieldIdx++ {
+	for fieldIdx := range t.NumField() {
 		field := t.Field(fieldIdx)
 		fieldType := field.Type
 

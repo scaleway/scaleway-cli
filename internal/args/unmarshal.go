@@ -332,7 +332,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// We construct two caches:
 		anonymousFieldIndexes := []int(nil)
 		fieldIndexByName := map[string]int{}
-		for i := 0; i < dest.Type().NumField(); i++ {
+		for i := range dest.Type().NumField() {
 			field := dest.Type().Field(i)
 			if field.Anonymous {
 				anonymousFieldIndexes = append(anonymousFieldIndexes, i)

@@ -15,14 +15,14 @@ import (
 // becomes struct{FieldName string `json:"field_name"`}
 func newObjectWithForcedJSONTags(t reflect.Type) interface{} {
 	structFieldsCopy := []reflect.StructField(nil)
-	for i := 0; i < t.NumField(); i++ {
+	for i := range t.NumField() {
 		fieldCopy := t.Field(i)
 		if fieldCopy.Anonymous {
 			anonymousType := fieldCopy.Type
 			if anonymousType.Kind() == reflect.Ptr {
 				anonymousType = anonymousType.Elem()
 			}
-			for i := 0; i < anonymousType.NumField(); i++ {
+			for i := range anonymousType.NumField() {
 				fieldCopy := anonymousType.Field(i)
 				fieldCopy.Tag = reflect.StructTag(`json:"` + strings.ReplaceAll(strcase.ToBashArg(fieldCopy.Name), "-", "_") + `"`)
 				structFieldsCopy = append(structFieldsCopy, fieldCopy)
@@ -49,7 +49,7 @@ func GetValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 		values := []reflect.Value(nil)
 		errs := []error(nil)
 
-		for i := 0; i < value.Len(); i++ {
+		for i := range value.Len() {
 			newValues, err := GetValuesForFieldByName(value.Index(i), parts[1:])
 			if err != nil {
 				errs = append(errs, err)
@@ -90,7 +90,7 @@ func GetValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 		anonymousFieldIndexes := []int(nil)
 		fieldIndexByName := map[string]int{}
 
-		for i := 0; i < value.NumField(); i++ {
+		for i := range value.NumField() {
 			field := value.Type().Field(i)
 			if field.Anonymous {
 				anonymousFieldIndexes = append(anonymousFieldIndexes, i)
