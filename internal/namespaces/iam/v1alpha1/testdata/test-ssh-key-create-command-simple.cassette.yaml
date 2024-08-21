@@ -2,32 +2,38 @@
 version: 1
 interactions:
 - request:
-    body: '{"name":"foobar","public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
-      foobar@foobar","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a"}'
+    body: '{"id":"5851f537-a89c-4864-b08b-944c40a83a2d", "name":"foobar", "public_key":"ecdsa-sha2-nistp256
+      AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=",
+      "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 (ecdsa-sha2-nistp256)",
+      "created_at":"2024-08-21T15:44:38.027159Z", "updated_at":"2024-08-21T15:44:38.027159Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.0; darwin; arm64) cli-e2e-test
     url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
     method: POST
   response:
-    body: '{"id":"61feb7c8-3878-42e4-9d57-cdc491c20634","name":"foobar","public_key":"ecdsa-sha2-nistp256
-      AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
-      foobar@foobar","fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
-      foobar@foobar (ecdsa-sha2-nistp256)","created_at":"2023-02-20T13:39:44.364037Z","updated_at":"2023-02-20T13:39:44.364037Z","organization_id":"63a66ec9-a385-4194-bc15-04aa6921274a","project_id":"63a66ec9-a385-4194-bc15-04aa6921274a","disabled":false}'
+    body: '{"id":"5851f537-a89c-4864-b08b-944c40a83a2d", "name":"foobar", "public_key":"ecdsa-sha2-nistp256
+      AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=",
+      "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 (ecdsa-sha2-nistp256)",
+      "created_at":"2024-08-21T15:44:38.027159Z", "updated_at":"2024-08-21T15:44:38.027159Z",
+      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "disabled":false}'
     headers:
       Content-Length:
-      - "571"
+      - "551"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Feb 2023 13:39:44 GMT
+      - Wed, 21 Aug 2024 15:44:38 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-2;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -35,7 +41,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - f566e970-36fe-4745-8175-ba96eedf010c
+      - 28f36f18-b730-4a77-b467-04ae4d7991db
     status: 200 OK
     code: 200
     duration: ""
@@ -44,8 +50,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys/61feb7c8-3878-42e4-9d57-cdc491c20634
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.0; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys/5851f537-a89c-4864-b08b-944c40a83a2d
     method: DELETE
   response:
     body: ""
@@ -55,9 +61,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 20 Feb 2023 13:39:44 GMT
+      - Wed, 21 Aug 2024 15:44:38 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-2;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -65,7 +71,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 21d0257a-838b-4c1c-9ab7-c7e3efb23bea
+      - ed057a2f-1efe-49d5-be28-3ff0e54f8231
     status: 204 No Content
     code: 204
     duration: ""

@@ -203,7 +203,7 @@ func getTestFilePath(t *testing.T, suffix string) string {
 	specialChars := regexp.MustCompile(`[\\?%*:|"<>. ]`)
 
 	// Replace nested tests separators.
-	fileName := strings.Replace(t.Name(), "/", "-", -1)
+	fileName := strings.ReplaceAll(t.Name(), "/", "-")
 
 	fileName = strcase.ToBashArg(fileName)
 
@@ -704,7 +704,7 @@ func removeRandomPrefixFromOutput(output string) string {
 	end := strings.IndexByte(output[begin:], '\n')
 	actualBucketName := output[begin : begin+end]
 	normalizedBucketName := strings.TrimRight(actualBucketName, "0123456789")
-	return strings.Replace(output, actualBucketName, normalizedBucketName, -1)
+	return strings.ReplaceAll(output, actualBucketName, normalizedBucketName)
 }
 
 // TestCheckError asserts error

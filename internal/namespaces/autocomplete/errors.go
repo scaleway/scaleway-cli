@@ -13,9 +13,9 @@ func unsupportedShellError(shell string) *core.CliError {
 	}
 }
 
-func unsupportedOsError(OS string) *core.CliError {
+func unsupportedOsError(os string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("unsupported OS '%v'", OS),
+		Err: fmt.Errorf("unsupported OS '%v'", os),
 	}
 }
 

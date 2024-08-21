@@ -27,7 +27,7 @@ var marshalFuncs = map[reflect.Type]MarshalFunc{
 	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(src interface{}) (s string, e error) {
 		v := src.(*scw.Size)
 		value := humanize.Bytes(uint64(*v))
-		value = strings.Replace(value, " ", "", -1)
+		value = strings.ReplaceAll(value, " ", "")
 		return value, nil
 	},
 	reflect.TypeOf((*time.Time)(nil)).Elem(): func(src interface{}) (string, error) {

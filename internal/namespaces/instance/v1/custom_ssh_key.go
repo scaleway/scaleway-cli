@@ -112,7 +112,8 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 				}
 			}
 
-			tags := append(server.Server.Tags, formattedKey)
+			tags := server.Server.Tags
+			tags = append(tags, formattedKey)
 
 			_, err = api.UpdateServer(&instance.UpdateServerRequest{
 				Zone:     args.Zone,

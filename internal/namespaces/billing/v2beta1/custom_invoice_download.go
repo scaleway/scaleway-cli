@@ -138,8 +138,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 }
 
 func addDownloadExt(fileName, contentType string) string {
-	switch contentType {
-	case "application/pdf":
+	if contentType == "application/pdf" {
 		fileName += ".pdf"
 	}
 
@@ -147,12 +146,7 @@ func addDownloadExt(fileName, contentType string) string {
 }
 
 func checkDownloadInvoiceExt(ext string) bool {
-	switch ext {
-	case ".pdf":
-		return true
-	}
-
-	return false
+	return ext == ".pdf"
 }
 
 func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, error) {

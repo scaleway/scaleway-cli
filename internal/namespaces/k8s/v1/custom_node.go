@@ -43,8 +43,7 @@ func waitForNodeFunc(action int) core.WaitFunc {
 			Timeout:       scw.TimeDurationPtr(nodeActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
-		switch action {
-		case nodeActionReboot:
+		if action == nodeActionReboot {
 			return node, err
 		}
 		return nil, err

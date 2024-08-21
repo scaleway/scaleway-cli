@@ -250,7 +250,8 @@ func endpointListCommand() *core.Command {
 func endpointRequestFromCustom(customEndpoints []*rdbEndpointSpecCustom) ([]*rdb.EndpointSpec, error) {
 	endpoints := []*rdb.EndpointSpec(nil)
 	for _, customEndpoint := range customEndpoints {
-		if customEndpoint.PrivateNetwork != nil && customEndpoint.PrivateNetwork.EndpointSpecPrivateNetwork != nil {
+		switch {
+		case customEndpoint.PrivateNetwork != nil && customEndpoint.PrivateNetwork.EndpointSpecPrivateNetwork != nil:
 			ipamConfig := &rdb.EndpointSpecPrivateNetworkIpamConfig{}
 			if !customEndpoint.PrivateNetwork.EnableIpam || customEndpoint.PrivateNetwork.ServiceIP != nil {
 				ipamConfig = nil
@@ -262,11 +263,11 @@ func endpointRequestFromCustom(customEndpoints []*rdbEndpointSpecCustom) ([]*rdb
 					IpamConfig:       ipamConfig,
 				},
 			})
-		} else if customEndpoint.LoadBalancer {
+		case customEndpoint.LoadBalancer:
 			endpoints = append(endpoints, &rdb.EndpointSpec{
 				LoadBalancer: &rdb.EndpointSpecLoadBalancer{},
 			})
-		} else {
+		default:
 			return nil, errors.New("endpoint must be either a load-balancer or a private network")
 		}
 	}

@@ -370,8 +370,7 @@ func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, a
 	possibleValues := []string(nil)
 
 	if fieldType, err := args.GetArgType(cmd.ArgsType, argSpec.Name); err == nil {
-		switch fieldType.Kind() {
-		case reflect.Bool:
+		if fieldType.Kind() == reflect.Bool {
 			possibleValues = []string{"true", "false"}
 		}
 	}

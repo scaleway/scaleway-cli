@@ -67,6 +67,7 @@ linters:
     - wastedassign # wastedassign finds wasted assignment statements. [fast: false, auto-fix: false]
     - whitespace # Tool for detection of leading and trailing whitespace [fast: true, auto-fix: true]
     - zerologlint # Detects the wrong usage of `zerolog` that a user forgets to dispatch with `Send` or `Msg` [fast: false, auto-fix: false]
+    - gocritic # Provides diagnostics that check for bugs, performance and style issues. [fast: false, auto-fix: false]
 
   disable:
     - cyclop # checks function and package cyclomatic complexity [fast: false, auto-fix: false]

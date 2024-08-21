@@ -28,9 +28,8 @@ func (m *ListPrompt) Init() tea.Cmd {
 }
 
 func (m *ListPrompt) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	switch msg := msg.(type) {
-	// Key is pressed
-	case tea.KeyMsg:
+	if msg, ok := msg.(tea.KeyMsg); ok {
+		// Key is pressed
 		switch msg.String() {
 		case "ctrl+c", "q":
 			m.cancelled = true

@@ -266,13 +266,14 @@ func checkEndpoints(t *testing.T, endpoints []*redisSDK.Endpoint, nbExpectedPub,
 		"private-ipam":   nbExpectedPrivIpam,
 	}
 	for _, endpoint := range endpoints {
-		if endpoint.PrivateNetwork == nil {
+		switch {
+		case endpoint.PrivateNetwork == nil:
 			expectedEndpoints["public"]--
-		} else if endpoint.PrivateNetwork.ProvisioningMode == redisSDK.PrivateNetworkProvisioningModeStatic {
+		case endpoint.PrivateNetwork.ProvisioningMode == redisSDK.PrivateNetworkProvisioningModeStatic:
 			expectedEndpoints["private-static"]--
-		} else if endpoint.PrivateNetwork.ProvisioningMode == redisSDK.PrivateNetworkProvisioningModeIpam {
+		case endpoint.PrivateNetwork.ProvisioningMode == redisSDK.PrivateNetworkProvisioningModeIpam:
 			expectedEndpoints["private-ipam"]--
-		} else {
+		default:
 			t.Error("unknown endpoint type")
 		}
 	}

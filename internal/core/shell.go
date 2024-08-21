@@ -77,11 +77,12 @@ func ArgIsOption(arg string) bool {
 }
 
 func argIsPositional(cmd *Command, arg string) bool {
-	if cmd.Verb != "" && cmd.Verb == arg {
+	switch {
+	case cmd.Verb != "" && cmd.Verb == arg:
 		return false
-	} else if cmd.Resource != "" && cmd.Resource == arg {
+	case cmd.Resource != "" && cmd.Resource == arg:
 		return false
-	} else if cmd.Namespace != "" && cmd.Resource == arg {
+	case cmd.Namespace != "" && cmd.Resource == arg:
 		return false
 	}
 
