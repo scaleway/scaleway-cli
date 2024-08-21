@@ -22,6 +22,7 @@ linters:
     - gocheckcompilerdirectives # Checks that go compiler directive comments (//go:) are valid. [fast: true, auto-fix: false]
     - gochecksumtype # Run exhaustiveness checks on Go "sum types" [fast: false, auto-fix: false]
     - goconst # Finds repeated strings that could be replaced by a constant [fast: true, auto-fix: false]
+    - gocritic # Provides diagnostics that check for bugs, performance and style issues. [fast: false, auto-fix: false]
     - gocyclo # Computes and checks the cyclomatic complexity of functions [fast: true, auto-fix: false]
     - gofmt # Gofmt checks whether code was gofmt-ed. By default this tool runs with -s option to check for code simplification [fast: true, auto-fix: true]
     - gofumpt # Gofumpt checks whether code was gofumpt-ed. [fast: true, auto-fix: true]
@@ -67,7 +68,6 @@ linters:
     - wastedassign # wastedassign finds wasted assignment statements. [fast: false, auto-fix: false]
     - whitespace # Tool for detection of leading and trailing whitespace [fast: true, auto-fix: true]
     - zerologlint # Detects the wrong usage of `zerolog` that a user forgets to dispatch with `Send` or `Msg` [fast: false, auto-fix: false]
-    - gocritic # Provides diagnostics that check for bugs, performance and style issues. [fast: false, auto-fix: false]
 
   disable:
     - cyclop # checks function and package cyclomatic complexity [fast: false, auto-fix: false]
