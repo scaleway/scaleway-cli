@@ -22,6 +22,7 @@ linters:
     - gosec #(gas): Inspects source code for security problems [fast: false, auto-fix: false]
     - gosimple #(megacheck): Linter for Go source code that specializes in simplifying a code [fast: false, auto-fix: false]
     - govet #(vet, vetshadow): Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string [fast: false, auto-fix: false]
+    - importas # Enforces consistent import aliases [fast: false, auto-fix: false]
     - ineffassign # Detects when assignments to existing variables are not used [fast: true, auto-fix: false]
     - misspell # Finds commonly misspelled English words in comments [fast: true, auto-fix: true]
     - nakedret # Finds naked returns in functions greater than a specified function length [fast: true, auto-fix: false]
