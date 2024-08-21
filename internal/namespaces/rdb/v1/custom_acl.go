@@ -196,7 +196,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 			return nil, fmt.Errorf("failed to remove ACL rule: %w", err)
 		}
 
-		message := ""
+		var message string
 		if ruleWasSet {
 			message = fmt.Sprintf("ACL rule %s successfully deleted", args.ACLRuleIPs.String())
 		} else {
