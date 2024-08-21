@@ -251,7 +251,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"time=2006-01-02T15:04:05Z",
 		},
 		expected: &WellKnownTypes{
-			Time: time.Date(2006, 01, 02, 15, 04, 05, 0, time.UTC),
+			Time: time.Date(2006, 1, 2, 15, 4, 5, 0, time.UTC),
 		},
 	}))
 
@@ -260,7 +260,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"time=+1m1s",
 		},
 		expected: &WellKnownTypes{
-			Time: time.Date(1970, 01, 01, 0, 1, 1, 0, time.UTC),
+			Time: time.Date(1970, 1, 1, 0, 1, 1, 0, time.UTC),
 		},
 	}))
 
@@ -533,6 +533,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		error: "cannot unmarshal arg 'strings': missing index on the array",
 	}))
 }
+
 func TestIsUmarshalableValue(t *testing.T) {
 	type TestCase struct {
 		expected bool

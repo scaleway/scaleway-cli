@@ -128,7 +128,6 @@ func Test_getValuesForFieldByName(t *testing.T) {
 			},
 		},
 		{
-
 			name: "Special test",
 			testCase: TestCase{
 				cmdArgs: &SpecialRequest{

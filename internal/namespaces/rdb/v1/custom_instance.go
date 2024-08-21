@@ -30,21 +30,19 @@ const (
 	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
 
-var (
-	instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
-		rdbSDK.InstanceStatusUnknown:      &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-		rdbSDK.InstanceStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-		rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "provisioning"},
-		rdbSDK.InstanceStatusConfiguring:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "configuring"},
-		rdbSDK.InstanceStatusDeleting:     &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
-		rdbSDK.InstanceStatusError:        &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		rdbSDK.InstanceStatusAutohealing:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "auto-healing"},
-		rdbSDK.InstanceStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-		rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "initialized"},
-		rdbSDK.InstanceStatusDiskFull:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "disk_full"},
-		rdbSDK.InstanceStatusBackuping:    &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "backuping"},
-	}
-)
+var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
+	rdbSDK.InstanceStatusUnknown:      &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	rdbSDK.InstanceStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+	rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "provisioning"},
+	rdbSDK.InstanceStatusConfiguring:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "configuring"},
+	rdbSDK.InstanceStatusDeleting:     &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
+	rdbSDK.InstanceStatusError:        &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+	rdbSDK.InstanceStatusAutohealing:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "auto-healing"},
+	rdbSDK.InstanceStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
+	rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "initialized"},
+	rdbSDK.InstanceStatusDiskFull:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "disk_full"},
+	rdbSDK.InstanceStatusBackuping:    &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "backuping"},
+}
 
 type serverWaitRequest struct {
 	InstanceID string
@@ -843,10 +841,9 @@ func instanceConnectCommand() *core.Command {
 
 			// Run command
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
-			//cmd.Stdin = os.Stdin
+			// cmd.Stdin = os.Stdin
 			core.ExtractLogger(ctx).Debugf("executing: %s\n", cmd.Args)
 			exitCode, err := core.ExecCmd(ctx, cmd)
-
 			if err != nil {
 				return nil, err
 			}

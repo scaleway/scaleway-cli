@@ -10,13 +10,11 @@ import (
 	mnq "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
 )
 
-var (
-	mnqSqsInfoStatusMarshalSpecs = human.EnumMarshalSpecs{
-		mnq.SqsInfoStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
-		mnq.SqsInfoStatusEnabled:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		mnq.SqsInfoStatusDisabled:      &human.EnumMarshalSpec{Attribute: color.FgRed},
-	}
-)
+var mnqSqsInfoStatusMarshalSpecs = human.EnumMarshalSpecs{
+	mnq.SqsInfoStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
+	mnq.SqsInfoStatusEnabled:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	mnq.SqsInfoStatusDisabled:      &human.EnumMarshalSpec{Attribute: color.FgRed},
+}
 
 func mnqSqsListCredentialsBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("project-id").AutoCompleteFunc = autocompleteSqsProjectID
@@ -74,7 +72,6 @@ func autocompleteSqsCredentialsID(ctx context.Context, prefix string, request an
 				Region:    req.Region,
 				ProjectID: &completeSqsInfoCache.ProjectID,
 			})
-
 			if err != nil {
 				return nil
 			}

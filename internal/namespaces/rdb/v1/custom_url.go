@@ -52,7 +52,7 @@ func databaseGetURLCommand() *core.Command {
 }
 
 func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
-	//var u url.URL
+	// var u url.URL
 	u := &url.URL{}
 	client := core.ExtractClient(ctx)
 	api := rdb.NewAPI(client)

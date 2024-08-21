@@ -16,13 +16,11 @@ import (
 // Marshalers
 //
 
-var (
-	serverTypesAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ServerTypesAvailabilityAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ServerTypesAvailabilityScarce:    &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low stock"},
-		instance.ServerTypesAvailabilityShortage:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "out of stock"},
-	}
-)
+var serverTypesAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
+	instance.ServerTypesAvailabilityAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	instance.ServerTypesAvailabilityScarce:    &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low stock"},
+	instance.ServerTypesAvailabilityShortage:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "out of stock"},
+}
 
 //
 // Builders

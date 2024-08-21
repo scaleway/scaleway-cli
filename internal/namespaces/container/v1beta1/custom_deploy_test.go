@@ -2,16 +2,14 @@ package container_test
 
 import (
 	_ "embed"
-	"runtime"
-
-	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
-
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
 	registrycmds "github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	containerSDK "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	registrySDK "github.com/scaleway/scaleway-sdk-go/api/registry/v1"
@@ -36,7 +34,7 @@ var (
 
 func loadTestdataBeforeFunc(path string, filename string, content string) func(ctx *core.BeforeFuncCtx) error {
 	return func(_ *core.BeforeFuncCtx) error {
-		err := os.WriteFile(filepath.Join(path, filename), []byte(content), 0600)
+		err := os.WriteFile(filepath.Join(path, filename), []byte(content), 0o600)
 		if err != nil {
 			return err
 		}
@@ -46,7 +44,7 @@ func loadTestdataBeforeFunc(path string, filename string, content string) func(c
 
 func mkdirAllBeforeFunc(path string) func(ctx *core.BeforeFuncCtx) error {
 	return func(_ *core.BeforeFuncCtx) error {
-		err := os.MkdirAll(path, 0700)
+		err := os.MkdirAll(path, 0o700)
 		if err != nil {
 			return err
 		}

@@ -15,19 +15,17 @@ const (
 	gatewayActionTimeout = 60 * time.Minute
 )
 
-var (
-	gatewayStatusMarshalSpecs = human.EnumMarshalSpecs{
-		vpcgw.GatewayStatusAllocating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		vpcgw.GatewayStatusConfiguring: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		vpcgw.GatewayStatusDeleted:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-		vpcgw.GatewayStatusDeleting:    &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		vpcgw.GatewayStatusFailed:      &human.EnumMarshalSpec{Attribute: color.FgRed},
-		vpcgw.GatewayStatusRunning:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		vpcgw.GatewayStatusStopped:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-		vpcgw.GatewayStatusStopping:    &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		vpcgw.GatewayStatusUnknown:     &human.EnumMarshalSpec{Attribute: color.Faint},
-	}
-)
+var gatewayStatusMarshalSpecs = human.EnumMarshalSpecs{
+	vpcgw.GatewayStatusAllocating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	vpcgw.GatewayStatusConfiguring: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	vpcgw.GatewayStatusDeleted:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+	vpcgw.GatewayStatusDeleting:    &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	vpcgw.GatewayStatusFailed:      &human.EnumMarshalSpec{Attribute: color.FgRed},
+	vpcgw.GatewayStatusRunning:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	vpcgw.GatewayStatusStopped:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+	vpcgw.GatewayStatusStopping:    &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	vpcgw.GatewayStatusUnknown:     &human.EnumMarshalSpec{Attribute: color.Faint},
+}
 
 func gatewayCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {

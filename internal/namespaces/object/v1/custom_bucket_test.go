@@ -14,10 +14,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-const testBucketNameActionCreate = "-create"
-const testBucketNameActionDelete = "-delete"
-const testBucketNameActionGet = "-get"
-const testBucketNameActionUpdate = "-update"
+const (
+	testBucketNameActionCreate = "-create"
+	testBucketNameActionDelete = "-delete"
+	testBucketNameActionGet    = "-get"
+	testBucketNameActionUpdate = "-update"
+)
 
 func Test_BucketCreate(t *testing.T) {
 	bucketName1 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionCreate)

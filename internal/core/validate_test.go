@@ -23,8 +23,7 @@ type FirstNestedElement struct {
 	SecondNestedElement *SecondNestedElement
 }
 
-type SecondNestedElement struct {
-}
+type SecondNestedElement struct{}
 
 type elementCustom struct {
 	*Element

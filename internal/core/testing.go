@@ -132,7 +132,6 @@ type AfterFuncCtx struct {
 
 // TestConfig contain configuration that can be used with the Test function
 type TestConfig struct {
-
 	// Array of command to load (see main.go)
 	Commands *Commands
 
@@ -619,7 +618,7 @@ type GoldenReplacement struct {
 // GoldenReplacePatterns replace the list of patterns with their given replacement
 func GoldenReplacePatterns(golden string, replacements ...GoldenReplacement) (string, error) {
 	var matchFailed []string
-	var changedGolden = golden
+	changedGolden := golden
 
 	for _, replacement := range replacements {
 		if !replacement.Pattern.MatchString(changedGolden) {
@@ -647,8 +646,8 @@ func TestCheckGoldenAndReplacePatterns(replacements ...GoldenReplacement) TestCh
 		goldenPath := getTestFilePath(t, ".golden")
 		// In order to avoid diff in goldens we set all timestamp to the same date
 		if *UpdateGoldens {
-			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0o755))
+			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0o644)) //nolint:gosec
 		}
 
 		expected, err := os.ReadFile(goldenPath)
@@ -666,8 +665,8 @@ func TestCheckGolden() TestCheck {
 		goldenPath := getTestFilePath(t, ".golden")
 		// In order to avoid diff in goldens we set all timestamp to the same date
 		if *UpdateGoldens {
-			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0644)) //nolint:gosec
+			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0o755))
+			require.NoError(t, os.WriteFile(goldenPath, []byte(actual), 0o644)) //nolint:gosec
 		}
 
 		expected, err := os.ReadFile(goldenPath)
@@ -685,8 +684,8 @@ func TestCheckS3Golden() TestCheck {
 		goldenPath := getTestFilePath(t, ".golden")
 		// In order to avoid diff in goldens we set all timestamp to the same date
 		if *UpdateGoldens {
-			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0755))
-			require.NoError(t, os.WriteFile(goldenPath, []byte(normalizedActual), 0644)) //nolint:gosec
+			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0o755))
+			require.NoError(t, os.WriteFile(goldenPath, []byte(normalizedActual), 0o644)) //nolint:gosec
 		}
 
 		expected, err := os.ReadFile(goldenPath)

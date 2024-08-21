@@ -30,7 +30,7 @@ func writeHelperScript(scriptPath string, scriptContent string) error {
 		return fmt.Errorf("%s is not a directory", scriptDir)
 	}
 
-	f, err := os.OpenFile(scriptPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
+	f, err := os.OpenFile(scriptPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o755)
 	if err != nil {
 		return err
 	}
@@ -52,12 +52,12 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 		if !errors.Is(err, os.ErrNotExist) {
 			return err
 		}
-		if err := os.MkdirAll(path.Dir(dockerConfigFilePath), 0755); err != nil {
+		if err := os.MkdirAll(path.Dir(dockerConfigFilePath), 0o755); err != nil {
 			return err
 		}
 	}
 
-	f, err := os.OpenFile(dockerConfigFilePath, os.O_RDWR|os.O_CREATE, 0600)
+	f, err := os.OpenFile(dockerConfigFilePath, os.O_RDWR|os.O_CREATE, 0o600)
 	if err != nil {
 		return err
 	}

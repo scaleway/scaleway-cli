@@ -36,7 +36,7 @@ func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
 			return nil, fmt.Errorf("failed to marshal private key: %w", err)
 		}
 		pemContent = pem.EncodeToMemory(privatePEM)
-		err = os.WriteFile(path, pemContent, 0600)
+		err = os.WriteFile(path, pemContent, 0o600)
 		if err != nil {
 			return nil, fmt.Errorf("failed to save test key: %w", err)
 		}
@@ -76,16 +76,16 @@ func generateRSASSHKey(metaKey string) func(beforeFunc *core.BeforeFuncCtx) erro
 		authorizedKey := ssh.MarshalAuthorizedKey(publicKey)
 
 		sshDir := filepath.Join(ctx.OverrideEnv["HOME"], ".ssh")
-		err = os.MkdirAll(sshDir, 0700)
+		err = os.MkdirAll(sshDir, 0o700)
 		if err != nil {
 			return fmt.Errorf("failed to create directory %q: %w", sshDir, err)
 		}
 
-		err = os.WriteFile(filepath.Join(sshDir, "id_rsa"), pem.EncodeToMemory(privatePEM), 0600)
+		err = os.WriteFile(filepath.Join(sshDir, "id_rsa"), pem.EncodeToMemory(privatePEM), 0o600)
 		if err != nil {
 			return fmt.Errorf("failed to write private key: %w", err)
 		}
-		err = os.WriteFile(filepath.Join(sshDir, "id_rsa.pub"), authorizedKey, 0600)
+		err = os.WriteFile(filepath.Join(sshDir, "id_rsa.pub"), authorizedKey, 0o600)
 		if err != nil {
 			return fmt.Errorf("failed to write public key: %w", err)
 		}
