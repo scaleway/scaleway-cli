@@ -34,7 +34,6 @@ theme:
   icon:
     repo: fontawesome/brands/github
   name: material
-  custom_dir: overrides
   logo: assets/logo.png
   font:
     text: Inter
