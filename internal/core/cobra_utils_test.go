@@ -282,7 +282,7 @@ func Test_MultiPositionalArg(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				res := ctx.Result.(*testAcceptMultiPositionalArgsType)
-				assert.Equal(t, 1, len(res.NameIDs))
+				assert.Len(t, res.NameIDs, 1)
 				assert.Equal(t, "pos1", res.NameIDs[0])
 				assert.Equal(t, "tag1", res.Tag)
 			},
@@ -297,7 +297,7 @@ func Test_MultiPositionalArg(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				res := ctx.Result.(*testAcceptMultiPositionalArgsType)
-				assert.Equal(t, 3, len(res.NameIDs))
+				assert.Len(t, res.NameIDs, 3)
 				assert.Equal(t, "pos1", res.NameIDs[0])
 				assert.Equal(t, "pos2", res.NameIDs[1])
 				assert.Equal(t, "pos3", res.NameIDs[2])

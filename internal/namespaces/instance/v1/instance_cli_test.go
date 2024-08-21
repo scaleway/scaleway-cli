@@ -184,7 +184,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup2.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				assert.NoError(t, ctx.Err)
+				require.NoError(t, ctx.Err)
 				assert.Equal(t,
 					ctx.Meta["PlacementGroup2"].(*instanceSDK.PlacementGroup).ID,
 					ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID,
