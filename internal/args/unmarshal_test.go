@@ -251,7 +251,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"time=2006-01-02T15:04:05Z",
 		},
 		expected: &WellKnownTypes{
-			Time: time.Date(2006, 0o1, 0o2, 15, 0o4, 0o5, 0, time.UTC),
+			Time: time.Date(2006, 1, 2, 15, 4, 5, 0, time.UTC),
 		},
 	}))
 
@@ -260,7 +260,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			"time=+1m1s",
 		},
 		expected: &WellKnownTypes{
-			Time: time.Date(1970, 0o1, 0o1, 0, 1, 1, 0, time.UTC),
+			Time: time.Date(1970, 1, 1, 0, 1, 1, 0, time.UTC),
 		},
 	}))
 
