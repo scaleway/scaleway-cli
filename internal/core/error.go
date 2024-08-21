@@ -11,7 +11,6 @@ import (
 // CliError is an all-in-one error structure that can be used in commands to return useful errors to the user.
 // CliError implements JSON and human marshaler for a smooth experience.
 type CliError struct {
-
 	// The original error that triggers this CLI error.
 	// The Err.String() will be print in red to the user.
 	Err error

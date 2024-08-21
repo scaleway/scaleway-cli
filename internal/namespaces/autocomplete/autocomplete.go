@@ -201,7 +201,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 
 	// If the file doesn't exist, create it
-	f, err := os.OpenFile(shellConfigurationFilePath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+	f, err := os.OpenFile(shellConfigurationFilePath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0o644)
 	if f != nil {
 		defer f.Close()
 	}

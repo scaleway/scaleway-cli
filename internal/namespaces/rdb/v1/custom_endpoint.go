@@ -76,7 +76,6 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 			Default:  core.DefaultValueSetter("true"),
 		},
 		{
-
 			Name:     "load-balancer",
 			Short:    "Will configure a public Load-Balancer endpoint",
 			Required: false,

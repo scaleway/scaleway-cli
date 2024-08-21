@@ -13,12 +13,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var (
-	aclRuleActionMarshalSpecs = human.EnumMarshalSpecs{
-		rdb.ACLRuleActionAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
-		rdb.ACLRuleActionDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
-	}
-)
+var aclRuleActionMarshalSpecs = human.EnumMarshalSpecs{
+	rdb.ACLRuleActionAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
+	rdb.ACLRuleActionDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
+}
 
 type rdbACLCustomArgs struct {
 	Region      scw.Region

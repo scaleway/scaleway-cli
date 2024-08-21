@@ -112,7 +112,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFile(clusterNameSuffix string, 
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		err = os.WriteFile(file, content, 0644)
+		err = os.WriteFile(file, content, 0o644)
 		return err
 	}
 }
@@ -142,7 +142,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(clusterNameSuffi
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		err = os.WriteFile(file, content, 0644)
+		err = os.WriteFile(file, content, 0o644)
 		if err != nil {
 			return err
 		}

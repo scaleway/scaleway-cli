@@ -102,10 +102,10 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 	found := false
 	for _, cluster := range existingKubeconfig.Clusters {
 		if cluster.Name == kubeconfig.Clusters[0].Name+suffix {
-			//t.Log(string(cluster.Cluster.CertificateAuthorityData))
+			// t.Log(string(cluster.Cluster.CertificateAuthorityData))
 			// t.Log(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
 			// panic(string(cluster.Cluster.CertificateAuthorityData))
-			//panic(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
+			// panic(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
 			assert.Equal(t, string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData), string(cluster.Cluster.CertificateAuthorityData))
 			assert.Equal(t, kubeconfig.Clusters[0].Cluster.Server, cluster.Cluster.Server)
 			found = true

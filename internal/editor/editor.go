@@ -9,29 +9,33 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/config"
 )
 
-var SkipEditor = false
-var marshalMode = MarshalModeYAML
+var (
+	SkipEditor  = false
+	marshalMode = MarshalModeYAML
+)
 
-type GetResourceFunc func(interface{}) (interface{}, error)
-type Config struct {
-	// PutRequest means that the request replace all fields
-	// If false, fields that were not edited will not be sent
-	// If true, all fields will be sent
-	PutRequest bool
+type (
+	GetResourceFunc func(interface{}) (interface{}, error)
+	Config          struct {
+		// PutRequest means that the request replace all fields
+		// If false, fields that were not edited will not be sent
+		// If true, all fields will be sent
+		PutRequest bool
 
-	MarshalMode MarshalMode
+		MarshalMode MarshalMode
 
-	// Template is a template that will be shown before marshaled data in edited file
-	Template string
+		// Template is a template that will be shown before marshaled data in edited file
+		Template string
 
-	// IgnoreFields is a list of json tags that will be removed from marshaled data
-	// The content of these fields will be lost in edited data
-	IgnoreFields []string
+		// IgnoreFields is a list of json tags that will be removed from marshaled data
+		// The content of these fields will be lost in edited data
+		IgnoreFields []string
 
-	// If not empty, this will replace edited text as if it was edited in the terminal
-	// Should be paired with global SkipEditor as true, useful for tests
-	EditedResource string
-}
+		// If not empty, this will replace edited text as if it was edited in the terminal
+		// Should be paired with global SkipEditor as true, useful for tests
+		EditedResource string
+	}
+)
 
 func editorPathAndArgs(fileName string) (string, []string) {
 	defaultEditor := config.GetDefaultEditor()

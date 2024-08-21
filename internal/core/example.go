@@ -11,7 +11,6 @@ import (
 
 // Example represents an example for the usage of a CLI command.
 type Example struct {
-
 	// Short is the title given to the example.
 	Short string
 
@@ -32,11 +31,11 @@ func (e *Example) GetCommandLine(binaryName string, cmd *Command) string {
 	case e.ArgsJSON != "":
 		//  Query and path parameters don't have json tag,
 		//  so we need to enforce a JSON tag on every field to make this work.
-		var cmdArgs = newObjectWithForcedJSONTags(cmd.ArgsType)
+		cmdArgs := newObjectWithForcedJSONTags(cmd.ArgsType)
 		if err := json.Unmarshal([]byte(e.ArgsJSON), cmdArgs); err != nil {
 			panic(fmt.Errorf("in command '%s', example '%s': %w", cmd.getPath(), cmd.Short, err))
 		}
-		var cmdArgsAsStrings, err = args.MarshalStruct(cmdArgs)
+		cmdArgsAsStrings, err := args.MarshalStruct(cmdArgs)
 		positionalArg := cmd.ArgSpecs.GetPositionalArg()
 		if positionalArg != nil {
 			for i, cmdArg := range cmdArgsAsStrings {

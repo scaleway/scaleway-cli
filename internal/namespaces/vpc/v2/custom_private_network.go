@@ -22,7 +22,6 @@ func privateNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 
 	// Sections
 	opt.Sections = []*human.MarshalSection{
-
 		{
 			FieldName:   "Subnets",
 			Title:       "Subnets",

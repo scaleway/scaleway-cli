@@ -7,11 +7,9 @@ import (
 	billing "github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
 )
 
-var (
-	invoiceTypeMarshalSpecs = human.EnumMarshalSpecs{
-		billing.DownloadInvoiceRequestFileTypePdf: &human.EnumMarshalSpec{Attribute: color.FgHiBlue, Value: "pdf"},
-	}
-)
+var invoiceTypeMarshalSpecs = human.EnumMarshalSpecs{
+	billing.DownloadInvoiceRequestFileTypePdf: &human.EnumMarshalSpec{Attribute: color.FgHiBlue, Value: "pdf"},
+}
 
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()

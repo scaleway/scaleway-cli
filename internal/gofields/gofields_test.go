@@ -67,7 +67,7 @@ func TestGetValue(t *testing.T) {
 			},
 		},
 		Pets: map[string]*Pet{
-			"rex": &Pet{
+			"rex": {
 				Animal: Animal{
 					Species: "dog",
 				},

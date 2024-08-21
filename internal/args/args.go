@@ -24,24 +24,22 @@ func (a RawArgs) ExistsArgByName(name string) bool {
 	return ok
 }
 
-var (
-	scalarKinds = map[reflect.Kind]bool{
-		reflect.Int:     true,
-		reflect.Int8:    true,
-		reflect.Int16:   true,
-		reflect.Int32:   true,
-		reflect.Int64:   true,
-		reflect.Uint:    true,
-		reflect.Uint8:   true,
-		reflect.Uint16:  true,
-		reflect.Uint32:  true,
-		reflect.Uint64:  true,
-		reflect.Float32: true,
-		reflect.Float64: true,
-		reflect.Bool:    true,
-		reflect.String:  true,
-	}
-)
+var scalarKinds = map[reflect.Kind]bool{
+	reflect.Int:     true,
+	reflect.Int8:    true,
+	reflect.Int16:   true,
+	reflect.Int32:   true,
+	reflect.Int64:   true,
+	reflect.Uint:    true,
+	reflect.Uint8:   true,
+	reflect.Uint16:  true,
+	reflect.Uint32:  true,
+	reflect.Uint64:  true,
+	reflect.Float32: true,
+	reflect.Float64: true,
+	reflect.Bool:    true,
+	reflect.String:  true,
+}
 
 // SplitRaw creates a map that maps arg names to their values.
 // ["arg1=1", "arg2=2", "arg3"] => {"arg1": "1", "arg2": "2", "arg3":"" }

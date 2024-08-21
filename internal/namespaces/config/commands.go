@@ -222,7 +222,8 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					}
 					return nil
 				},
-			}, {
+			},
+			{
 				Name:  "default-project-id",
 				Short: "A default Scaleway project id",
 				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
