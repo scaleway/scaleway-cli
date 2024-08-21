@@ -282,10 +282,10 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		}
 
 		// Make sure array is big enough to access the correct index.
-		diff := int(index) - dest.Len()
+		diff := int(index) - dest.Len() //nolint:gosec
 		switch {
 		case diff > 0:
-			return &MissingIndicesInArrayError{IndexToInsert: int(index), CurrentLength: dest.Len()}
+			return &MissingIndicesInArrayError{IndexToInsert: int(index), CurrentLength: dest.Len()} //nolint:gosec
 		case diff == 0:
 			// Append one element to our slice.
 			dest.Set(reflect.AppendSlice(dest, reflect.MakeSlice(dest.Type(), 1, 1)))
@@ -294,7 +294,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		}
 
 		// Recursively call set without the index word
-		return set(dest.Index(int(index)), argNameWords[1:], value)
+		return set(dest.Index(int(index)), argNameWords[1:], value) //nolint:gosec
 
 	case reflect.Map:
 		// If map is nil we create it.
