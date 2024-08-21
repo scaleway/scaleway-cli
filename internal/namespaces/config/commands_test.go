@@ -495,7 +495,7 @@ profiles:
     send_telemetry: true
 `
 
-	if _, err := tmpFile.Write([]byte(configContent)); err != nil {
+	if _, err := tmpFile.WriteString(configContent); err != nil {
 		return nil, err
 	}
 	if err := tmpFile.Close(); err != nil {

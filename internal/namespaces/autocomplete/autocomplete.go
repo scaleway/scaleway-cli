@@ -243,7 +243,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 
 	// Append to file
-	_, err = f.Write([]byte(autoCompleteScript + "\n"))
+	_, err = f.WriteString(autoCompleteScript + "\n")
 	if err != nil {
 		return nil, err
 	}
