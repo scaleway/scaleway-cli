@@ -44,14 +44,14 @@ func tagGetBuilder(c *core.Command) *core.Command {
 			ImageID: tag.ImageID,
 		})
 		if err != nil {
-			return getTagResp, nil
+			return getTagResp, err
 		}
 
 		namespace, err := api.GetNamespace(&registry.GetNamespaceRequest{
 			NamespaceID: image.NamespaceID,
 		})
 		if err != nil {
-			return getTagResp, nil
+			return getTagResp, err
 		}
 
 		res := customTag{

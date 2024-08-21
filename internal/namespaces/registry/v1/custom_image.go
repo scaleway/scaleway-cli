@@ -46,7 +46,7 @@ func imageGetBuilder(c *core.Command) *core.Command {
 			NamespaceID: image.NamespaceID,
 		})
 		if err != nil {
-			return getImageResp, nil
+			return getImageResp, err
 		}
 
 		res := customImage{

@@ -29,6 +29,7 @@ linters:
     - ineffassign # Detects when assignments to existing variables are not used [fast: true, auto-fix: false]
     - misspell # Finds commonly misspelled English words in comments [fast: true, auto-fix: true]
     - nakedret # Finds naked returns in functions greater than a specified function length [fast: true, auto-fix: false]
+    - nilerr # Finds the code that returns nil even if it checks that the error is not nil. [fast: false, auto-fix: false]
     - nolintlint # Reports ill-formed or insufficient nolint directives [fast: true, auto-fix: false]
     - prealloc # Finds slice declarations that could potentially be pre-allocated [fast: true, auto-fix: false]
     - predeclared # find code that shadows one of Go's predeclared identifiers [fast: true, auto-fix: false]
