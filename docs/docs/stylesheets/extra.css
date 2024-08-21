@@ -1,7 +1,4 @@
-@font-face {
-  font-family: "SpaceGrotesk";
-  src: url(../fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 
 @font-face {
   font-family: "Inter";
@@ -12,7 +9,7 @@ li.md-nav__item{
   margin-left: .5rem;
 }
 
-h1, h2, h3, h4, h5, h6{
-  font-family: SpaceGrotesk;
+.md-typeset h1, h2, h3, h4, h5, h6{
+  font-family: "Space Grotesk", sans-serif;
 }
 
