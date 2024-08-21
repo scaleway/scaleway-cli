@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url(../fonts/Space_Grotesk/);
+}
+
+li.md-nav__item{
+  margin-left: .5rem;
+}
+
+h1{
+  font-family: SpaceGrotesk;
+}

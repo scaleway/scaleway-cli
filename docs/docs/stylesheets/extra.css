@@ -1,8 +1,18 @@
 @font-face {
-  font-family: "<font>";
-  src: "...";
+  font-family: "SpaceGrotesk";
+  src: url(../fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url(../fonts/Inter/Inter-VariableFont_slnt,wght.ttf);
 }
 
 li.md-nav__item{
   margin-left: .5rem;
 }
+
+h1, h2, h3, h4, h5, h6{
+  font-family: SpaceGrotesk;
+}
+

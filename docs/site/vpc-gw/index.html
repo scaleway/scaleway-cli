@@ -1,0 +1,4325 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/scaleway-cli-documentation/vpc-gw/">
+      
+      
+        <link rel="prev" href="../vpc/">
+      
+      
+        <link rel="next" href="../ipam/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>Puvblic Gateway - Scaleway Command Line Interface Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-XXXXXXXXXX",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#documentation-for-scw-vpc-gw" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Scaleway Command Line Interface Documentation" class="md-header__button md-logo" aria-label="Scaleway Command Line Interface Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Scaleway Command Line Interface Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Puvblic Gateway
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/scaleway/scaleway-cli" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    scaleway/scaleway-cli
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Scaleway Command Line Interface Documentation" class="md-nav__button md-logo" aria-label="Scaleway Command Line Interface Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    Scaleway Command Line Interface Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/scaleway/scaleway-cli" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    scaleway/scaleway-cli
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Platform
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Platform
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../account/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Account
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../billing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Billing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secret/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secret Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../marketplace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Marketplace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    AI & Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            AI & Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managed Inference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Bare Metal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bare Metal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../baremetal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elastic Metal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apple-silicon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apple Silicon
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flexible IP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Compute
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Compute
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Container Registry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Labs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Labs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPFS Pinning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPFS Naming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managed Databases
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Managed Databases
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PostgreSQL and MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis™
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-db/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Document Databases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managed Services
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Managed Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IOT Hub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transactional Email
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../webhosting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Hosting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Puvblic Gateway
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Puvblic Gateway
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dhcp-configuration-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      DHCP configuration management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DHCP configuration management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-dhcp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a DHCP configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-dhcp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a DHCP configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-dhcp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a DHCP configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-dhcp-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      List DHCP configurations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-dhcp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a DHCP configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dhcp-entries-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      DHCP entries management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DHCP entries management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-dhcp-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a DHCP entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-dhcp-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a DHCP entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-dhcp-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a DHCP entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-dhcp-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      List DHCP entries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-all-dhcp-reservations-on-a-gateway-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set all DHCP reservations on a Gateway Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-dhcp-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a DHCP entry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-gateway-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Gateway management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Gateway management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-public-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a Public Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-public-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a Public Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-a-public-gateway-to-ip-mobility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade a Public Gateway to IP mobility
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-public-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a Public Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-public-gateways" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Public Gateways
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-a-public-gateways-ssh-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh a Public Gateway's SSH keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-public-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a Public Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-a-public-gateway-to-the-latest-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade a Public Gateway to the latest version
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gateway-networks-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gateway Networks management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gateway Networks management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach-a-public-gateway-to-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attach a Public Gateway to a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detach-a-public-gateway-from-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detach a Public Gateway from a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-public-gateway-connection-to-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a Public Gateway connection to a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-public-gateway-connections-to-private-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Public Gateway connections to Private Networks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-public-gateways-connection-to-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a Public Gateway's connection to a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gateway-types-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gateway types information
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gateway types information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-public-gateway-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Public Gateway types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-address-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP address management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IP address management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reserve-an-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reserve an IP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete an IP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-an-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get an IP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-ips" class="md-nav__link">
+    <span class="md-ellipsis">
+      List IPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-an-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update an IP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pat-rules-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      PAT rules management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PAT rules management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-pat-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a PAT rule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-pat-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a PAT rule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-pat-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a PAT rule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-pat-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      List PAT rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-all-pat-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set all PAT rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-pat-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a PAT rule
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domains and DNS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Observability
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Observability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cockpit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cockpit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Serverless
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Serverless
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdb-sql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Databases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mnq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Messaging and Queuing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Storage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../block/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BLock Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Object Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    CLI configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            CLI configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alias/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alias
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autocomplete/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autocompletion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feedback/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Feedback
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../help/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../init/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Initialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shell
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dhcp-configuration-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      DHCP configuration management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DHCP configuration management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-dhcp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a DHCP configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-dhcp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a DHCP configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-dhcp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a DHCP configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-dhcp-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      List DHCP configurations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-dhcp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a DHCP configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dhcp-entries-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      DHCP entries management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DHCP entries management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-dhcp-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a DHCP entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-dhcp-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a DHCP entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-dhcp-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a DHCP entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-dhcp-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      List DHCP entries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-all-dhcp-reservations-on-a-gateway-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set all DHCP reservations on a Gateway Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-dhcp-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a DHCP entry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-gateway-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Gateway management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Gateway management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-public-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a Public Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-public-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a Public Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-a-public-gateway-to-ip-mobility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade a Public Gateway to IP mobility
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-public-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a Public Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-public-gateways" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Public Gateways
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-a-public-gateways-ssh-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh a Public Gateway's SSH keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-public-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a Public Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-a-public-gateway-to-the-latest-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade a Public Gateway to the latest version
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gateway-networks-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gateway Networks management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gateway Networks management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach-a-public-gateway-to-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attach a Public Gateway to a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detach-a-public-gateway-from-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detach a Public Gateway from a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-public-gateway-connection-to-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a Public Gateway connection to a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-public-gateway-connections-to-private-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Public Gateway connections to Private Networks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-public-gateways-connection-to-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a Public Gateway's connection to a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gateway-types-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gateway types information
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gateway types information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-public-gateway-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Public Gateway types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-address-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP address management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IP address management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reserve-an-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reserve an IP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete an IP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-an-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get an IP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-ips" class="md-nav__link">
+    <span class="md-ellipsis">
+      List IPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-an-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update an IP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pat-rules-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      PAT rules management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PAT rules management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-pat-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a PAT rule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-pat-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a PAT rule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-pat-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a PAT rule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-pat-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      List PAT rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-all-pat-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set all PAT rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-pat-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a PAT rule
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/scaleway/scaleway-cli/edit/master/docs/commands/vpc-gw.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/scaleway/scaleway-cli/raw/master/docs/commands/vpc-gw.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<!-- DO NOT EDIT: this file is automatically generated using scw-doc-gen -->
+<h1 id="documentation-for-scw-vpc-gw">Documentation for <code>scw vpc-gw</code></h1>
+<p>Public Gateways API.</p>
+<h2 id="dhcp-configuration-management">DHCP configuration management</h2>
+<p>These objects define a DHCP configuration, i.e. how IP addresses should be assigned to devices on a Private Network attached to a Public Gateway. Definable parameters include the subnet for the DHCP server, the validity  period for DHCP entries, whether to use dynamic pooling, and more. A DHCP configuration object has a DHCP ID, which can then be used as part of a  call to create or update a Gateway Network. This lets you attach an existing DHCP configuration to a Public Gateway attached to a Private Network. Similarly, you can use a DHCP ID as a query parameter to list Gateway Networks which use this DHCP configuration object.</p>
+<h3 id="create-a-dhcp-configuration">Create a DHCP configuration</h3>
+<p>Create a new DHCP configuration object, containing settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. The response object includes the ID of the DHCP configuration object. You can use this ID as part of a call to <code>Create a Public Gateway connection to a Private Network</code> or <code>Update a Public Gateway connection to a Private Network</code> to directly apply this DHCP configuration.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Project ID to use. If none is passed the default project ID will be used</td>
+</tr>
+<tr>
+<td>subnet</td>
+<td>Required</td>
+<td>Subnet for the DHCP server</td>
+</tr>
+<tr>
+<td>address</td>
+<td></td>
+<td>IP address of the DHCP server. This will be the gateway's address in the Private Network. Defaults to the first address of the subnet</td>
+</tr>
+<tr>
+<td>pool-low</td>
+<td></td>
+<td>Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet</td>
+</tr>
+<tr>
+<td>pool-high</td>
+<td></td>
+<td>High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet</td>
+</tr>
+<tr>
+<td>enable-dynamic</td>
+<td></td>
+<td>Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true</td>
+</tr>
+<tr>
+<td>valid-lifetime</td>
+<td></td>
+<td>How long DHCP entries will be valid for. Defaults to 1h (3600s)</td>
+</tr>
+<tr>
+<td>renew-timer</td>
+<td></td>
+<td>After how long a renew will be attempted. Must be 30s lower than <code>rebind_timer</code>. Defaults to 50m (3000s)</td>
+</tr>
+<tr>
+<td>rebind-timer</td>
+<td></td>
+<td>After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than <code>valid_lifetime</code>. Defaults to 51m (3060s)</td>
+</tr>
+<tr>
+<td>push-default-route</td>
+<td></td>
+<td>Defines whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true</td>
+</tr>
+<tr>
+<td>push-dns-server</td>
+<td></td>
+<td>Defines whether the gateway should push custom DNS servers to clients. This allows for Instance hostname -&gt; IP resolution. Defaults to true</td>
+</tr>
+<tr>
+<td>dns-servers-override.{index}</td>
+<td></td>
+<td>Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself</td>
+</tr>
+<tr>
+<td>dns-search.{index}</td>
+<td></td>
+<td>Array of search paths in addition to the pushed DNS configuration</td>
+</tr>
+<tr>
+<td>dns-local-name</td>
+<td></td>
+<td>TLD given to hostnames in the Private Network. Allowed characters are <code>a-z0-9-.</code>. Defaults to the slugified Private Network name if created along a GatewayNetwork, or else to <code>priv</code></td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-dhcp-configuration">Delete a DHCP configuration</h3>
+<p>Delete a DHCP configuration object, identified by its DHCP ID. Note that you cannot delete a DHCP configuration object that is currently being used by a Gateway Network.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp delete &lt;dhcp-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dhcp-id</td>
+<td>Required</td>
+<td>DHCP configuration ID to delete</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-dhcp-configuration">Get a DHCP configuration</h3>
+<p>Get a DHCP configuration object, identified by its DHCP ID. The response object contains configuration settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. Note that the response does not contain the IDs of any Private Network / Public Gateway the configuration is attached to. Use the <code>List Public Gateway connections to Private Networks</code> method for that purpose, filtering on DHCP ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp get &lt;dhcp-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dhcp-id</td>
+<td>Required</td>
+<td>ID of the DHCP configuration to fetch</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-dhcp-configurations">List DHCP configurations</h3>
+<p>List DHCP configurations, optionally filtering by Organization, Project, Public Gateway IP address or more. The response is an array of DHCP configuration objects, each identified by a DHCP ID and containing configuration settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. Note that the response does not contain the IDs of any Private Network / Public Gateway the configuration is attached to. Use the <code>List Public Gateway connections to Private Networks</code> method for that purpose, filtering on DHCP ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>subnet_asc</code>, <code>subnet_desc</code></td>
+<td>Order in which to return results</td>
+</tr>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Include only DHCP configuration objects in this Project</td>
+</tr>
+<tr>
+<td>address</td>
+<td></td>
+<td>Filter for DHCP configuration objects with this DHCP server IP address (the gateway's address in the Private Network)</td>
+</tr>
+<tr>
+<td>has-address</td>
+<td></td>
+<td>Filter for DHCP configuration objects with subnets containing this IP address</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Include only DHCP configuration objects in this Organization</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-dhcp-configuration">Update a DHCP configuration</h3>
+<p>Update a DHCP configuration object, identified by its DHCP ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp update &lt;dhcp-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dhcp-id</td>
+<td>Required</td>
+<td>DHCP configuration to update</td>
+</tr>
+<tr>
+<td>subnet</td>
+<td></td>
+<td>Subnet for the DHCP server</td>
+</tr>
+<tr>
+<td>address</td>
+<td></td>
+<td>IP address of the DHCP server. This will be the Public Gateway's address in the Private Network. It must be part of config's subnet</td>
+</tr>
+<tr>
+<td>pool-low</td>
+<td></td>
+<td>Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet</td>
+</tr>
+<tr>
+<td>pool-high</td>
+<td></td>
+<td>High IP (inclusive) of the dynamic address pool. Must be in the config's subnet</td>
+</tr>
+<tr>
+<td>enable-dynamic</td>
+<td></td>
+<td>Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true</td>
+</tr>
+<tr>
+<td>valid-lifetime</td>
+<td></td>
+<td>How long DHCP entries will be valid for</td>
+</tr>
+<tr>
+<td>renew-timer</td>
+<td></td>
+<td>After how long a renew will be attempted. Must be 30s lower than <code>rebind_timer</code></td>
+</tr>
+<tr>
+<td>rebind-timer</td>
+<td></td>
+<td>After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than <code>valid_lifetime</code></td>
+</tr>
+<tr>
+<td>push-default-route</td>
+<td></td>
+<td>Defines whether the gateway should push a default route to DHCP clients, or only hand out IPs</td>
+</tr>
+<tr>
+<td>push-dns-server</td>
+<td></td>
+<td>Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -&gt; IP resolution</td>
+</tr>
+<tr>
+<td>dns-servers-override.{index}</td>
+<td></td>
+<td>Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself</td>
+</tr>
+<tr>
+<td>dns-search.{index}</td>
+<td></td>
+<td>Array of search paths in addition to the pushed DNS configuration</td>
+</tr>
+<tr>
+<td>dns-local-name</td>
+<td></td>
+<td>TLD given to hostnames in the Private Networks. If an instance with hostname <code>foo</code> gets a lease, and this is set to <code>bar</code>, <code>foo.bar</code> will resolve. Allowed characters are <code>a-z0-9-.</code></td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dhcp-entries-management">DHCP entries management</h2>
+<p>DHCP entries belong to a specified Gateway Network (Public Gateway / Private Network connection). A DHCP entry can hold either a dynamic DHCP lease (an IP address dynamically assigned by the Public Gateway to a device) or a static, user-created DHCP reservation.</p>
+<h3 id="create-a-dhcp-entry">Create a DHCP entry</h3>
+<p>Create a static DHCP reservation, specifying the Gateway Network for the reservation, the MAC address of the target device and the IP address to assign this device. The response is a DHCP entry object, confirming the ID and configuration details of the static DHCP reservation.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp-entry create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-network-id</td>
+<td></td>
+<td>GatewayNetwork on which to create a DHCP reservation</td>
+</tr>
+<tr>
+<td>mac-address</td>
+<td></td>
+<td>MAC address to give a static entry to</td>
+</tr>
+<tr>
+<td>ip-address</td>
+<td></td>
+<td>IP address to give to the device</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-dhcp-entry">Delete a DHCP entry</h3>
+<p>Delete a static DHCP reservation, identified by its DHCP entry ID. Note that you cannot delete DHCP entries of type <code>lease</code>, these are deleted automatically when their time-to-live expires.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp-entry delete &lt;dhcp-entry-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dhcp-entry-id</td>
+<td>Required</td>
+<td>ID of the DHCP entry to delete</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-dhcp-entry">Get a DHCP entry</h3>
+<p>Get a DHCP entry, specified by its DHCP entry ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp-entry get &lt;dhcp-entry-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dhcp-entry-id</td>
+<td>Required</td>
+<td>ID of the DHCP entry to fetch</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-dhcp-entries">List DHCP entries</h3>
+<p>List DHCP entries, whether dynamically assigned and/or statically reserved. DHCP entries can be filtered by the Gateway Network they are on, their MAC address, IP address, type or hostname.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp-entry list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>ip_address_asc</code>, <code>ip_address_desc</code>, <code>hostname_asc</code>, <code>hostname_desc</code></td>
+<td>Order in which to return results</td>
+</tr>
+<tr>
+<td>gateway-network-id</td>
+<td></td>
+<td>Filter for entries on this GatewayNetwork</td>
+</tr>
+<tr>
+<td>mac-address</td>
+<td></td>
+<td>Filter for entries with this MAC address</td>
+</tr>
+<tr>
+<td>ip-address</td>
+<td></td>
+<td>Filter for entries with this IP address</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td></td>
+<td>Filter for entries with this hostname substring</td>
+</tr>
+<tr>
+<td>type</td>
+<td>One of: <code>unknown</code>, <code>reservation</code>, <code>lease</code></td>
+<td>Filter for entries of this type</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="set-all-dhcp-reservations-on-a-gateway-network">Set all DHCP reservations on a Gateway Network</h3>
+<p>Set the list of DHCP reservations attached to a Gateway Network. Reservations are identified by their MAC address, and will sync the current DHCP entry list to the given list, creating, updating or deleting DHCP entries accordingly.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp-entry set [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-network-id</td>
+<td></td>
+<td>ID of the Gateway Network on which to set DHCP reservation list</td>
+</tr>
+<tr>
+<td>dhcp-entries.{index}.mac-address</td>
+<td></td>
+<td>MAC address to give a static entry to</td>
+</tr>
+<tr>
+<td>dhcp-entries.{index}.ip-address</td>
+<td></td>
+<td>IP address to give to the device</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-dhcp-entry">Update a DHCP entry</h3>
+<p>Update the IP address for a DHCP entry, specified by its DHCP entry ID. You can update an existing DHCP entry of any type (<code>reservation</code> (static), <code>lease</code> (dynamic) or <code>unknown</code>), but in manually updating the IP address the entry will necessarily be of type <code>reservation</code> after the update.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw dhcp-entry update &lt;dhcp-entry-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dhcp-entry-id</td>
+<td>Required</td>
+<td>ID of the DHCP entry to update</td>
+</tr>
+<tr>
+<td>ip-address</td>
+<td></td>
+<td>New IP address to give to the device</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-gateway-management">Public Gateway management</h2>
+<p>Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.</p>
+<h3 id="create-a-public-gateway">Create a Public Gateway</h3>
+<p>Create a new Public Gateway in the specified Scaleway Project, defining its <strong>name</strong>, <strong>type</strong> and other configuration details such as whether to enable SSH bastion.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Project ID to use. If none is passed the default project ID will be used</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Default: <code>&lt;generated&gt;</code></td>
+<td>Name for the gateway</td>
+</tr>
+<tr>
+<td>tags.{index}</td>
+<td></td>
+<td>Tags for the gateway</td>
+</tr>
+<tr>
+<td>type</td>
+<td>Default: <code>VPC-GW-S</code></td>
+<td>Gateway type (commercial offer type)</td>
+</tr>
+<tr>
+<td>upstream-dns-servers.{index}</td>
+<td></td>
+<td>Array of DNS server IP addresses to override the gateway's default recursive DNS servers</td>
+</tr>
+<tr>
+<td>ip-id</td>
+<td></td>
+<td>Existing IP address to attach to the gateway</td>
+</tr>
+<tr>
+<td>enable-smtp</td>
+<td></td>
+<td>Defines whether SMTP traffic should be allowed pass through the gateway</td>
+</tr>
+<tr>
+<td>enable-bastion</td>
+<td></td>
+<td>Defines whether SSH bastion should be enabled the gateway</td>
+</tr>
+<tr>
+<td>bastion-port</td>
+<td></td>
+<td>Port of the SSH bastion</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-public-gateway">Delete a Public Gateway</h3>
+<p>Delete an existing Public Gateway, specified by its gateway ID. This action is irreversible.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway delete &lt;gateway-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-id</td>
+<td>Required</td>
+<td>ID of the gateway to delete</td>
+</tr>
+<tr>
+<td>cleanup-dhcp</td>
+<td></td>
+<td>Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network)</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="upgrade-a-public-gateway-to-ip-mobility">Upgrade a Public Gateway to IP mobility</h3>
+<p>Upgrade a Public Gateway to IP mobility (move from NAT IP to routed IP). This is idempotent: repeated calls after the first will return no error but have no effect.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway enable-ip-mobility &lt;gateway-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-id</td>
+<td>Required</td>
+<td>ID of the gateway to upgrade to IP mobility</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-public-gateway">Get a Public Gateway</h3>
+<p>Get details of a Public Gateway, specified by its gateway ID. The response object contains full details of the gateway, including its <strong>name</strong>, <strong>type</strong>, <strong>status</strong> and more.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway get &lt;gateway-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-id</td>
+<td>Required</td>
+<td>ID of the gateway to fetch</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-public-gateways">List Public Gateways</h3>
+<p>List Public Gateways in a given Scaleway Organization or Project. By default, results are displayed in ascending order of creation date.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>name_asc</code>, <code>name_desc</code>, <code>type_asc</code>, <code>type_desc</code>, <code>status_asc</code>, <code>status_desc</code></td>
+<td>Order in which to return results</td>
+</tr>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Include only gateways in this Project</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Filter for gateways which have this search term in their name</td>
+</tr>
+<tr>
+<td>tags.{index}</td>
+<td></td>
+<td>Filter for gateways with these tags</td>
+</tr>
+<tr>
+<td>type</td>
+<td></td>
+<td>Filter for gateways of this type</td>
+</tr>
+<tr>
+<td>status</td>
+<td>One of: <code>unknown</code>, <code>stopped</code>, <code>allocating</code>, <code>configuring</code>, <code>running</code>, <code>stopping</code>, <code>failed</code>, <code>deleting</code>, <code>deleted</code>, <code>locked</code></td>
+<td>Filter for gateways with this current status. Use <code>unknown</code> to include all statuses</td>
+</tr>
+<tr>
+<td>private-network-id</td>
+<td></td>
+<td>Filter for gateways attached to this Private nNetwork</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Include only gateways in this Organization</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="refresh-a-public-gateways-ssh-keys">Refresh a Public Gateway's SSH keys</h3>
+<p>Refresh the SSH keys of a given Public Gateway, specified by its gateway ID. This adds any new SSH keys in the gateway's Scaleway Project to the gateway itself.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway refresh-ssh-keys &lt;gateway-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-id</td>
+<td>Required</td>
+<td>ID of the gateway to refresh SSH keys on</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-public-gateway">Update a Public Gateway</h3>
+<p>Update the parameters of an existing Public Gateway, for example, its <strong>name</strong>, <strong>tags</strong>, <strong>SSH bastion configuration</strong>, and <strong>DNS servers</strong>.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway update &lt;gateway-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-id</td>
+<td>Required</td>
+<td>ID of the gateway to update</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Name for the gateway</td>
+</tr>
+<tr>
+<td>tags.{index}</td>
+<td></td>
+<td>Tags for the gateway</td>
+</tr>
+<tr>
+<td>upstream-dns-servers.{index}</td>
+<td></td>
+<td>Array of DNS server IP addresses to override the gateway's default recursive DNS servers</td>
+</tr>
+<tr>
+<td>enable-bastion</td>
+<td></td>
+<td>Defines whether SSH bastion should be enabled the gateway</td>
+</tr>
+<tr>
+<td>bastion-port</td>
+<td></td>
+<td>Port of the SSH bastion</td>
+</tr>
+<tr>
+<td>enable-smtp</td>
+<td></td>
+<td>Defines whether SMTP traffic should be allowed to pass through the gateway</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="upgrade-a-public-gateway-to-the-latest-version">Upgrade a Public Gateway to the latest version</h3>
+<p>Upgrade a given Public Gateway to the newest software version. This applies the latest bugfixes and features to your Public Gateway, but its service will be interrupted during the update.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway upgrade &lt;gateway-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-id</td>
+<td>Required</td>
+<td>ID of the gateway to upgrade</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gateway-networks-management">Gateway Networks management</h2>
+<p>A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.</p>
+<h3 id="attach-a-public-gateway-to-a-private-network">Attach a Public Gateway to a Private Network</h3>
+<p>Attach a specific Public Gateway to a specific Private Network (create a GatewayNetwork). You can configure parameters for the connection including DHCP settings, whether to enable masquerade (dynamic NAT), and more.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway-network create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-id</td>
+<td></td>
+<td>Public Gateway to connect</td>
+</tr>
+<tr>
+<td>private-network-id</td>
+<td></td>
+<td>Private Network to connect</td>
+</tr>
+<tr>
+<td>enable-masquerade</td>
+<td></td>
+<td>Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.</td>
+</tr>
+<tr>
+<td>enable-dhcp</td>
+<td></td>
+<td>Defines whether to enable DHCP on this Private Network.</td>
+</tr>
+<tr>
+<td>dhcp-id</td>
+<td></td>
+<td>ID of an existing DHCP configuration object to use for this GatewayNetwork</td>
+</tr>
+<tr>
+<td>address</td>
+<td></td>
+<td>Static IP address in CIDR format to to use without DHCP</td>
+</tr>
+<tr>
+<td>ipam-config.push-default-route</td>
+<td></td>
+<td>Enabling the default route also enables masquerading</td>
+</tr>
+<tr>
+<td>ipam-config.ipam-ip-id</td>
+<td></td>
+<td>Use this IPAM-booked IP ID as the Gateway's IP in this Private Network</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="detach-a-public-gateway-from-a-private-network">Detach a Public Gateway from a Private Network</h3>
+<p>Detach a given Public Gateway from a given Private Network, i.e. delete a GatewayNetwork specified by a gateway_network_id.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway-network delete &lt;gateway-network-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-network-id</td>
+<td>Required</td>
+<td>ID of the GatewayNetwork to delete</td>
+</tr>
+<tr>
+<td>cleanup-dhcp</td>
+<td></td>
+<td>Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network)</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-public-gateway-connection-to-a-private-network">Get a Public Gateway connection to a Private Network</h3>
+<p>Get details of a given connection between a Public Gateway and a Private Network (this connection = a GatewayNetwork), specified by its <code>gateway_network_id</code>. The response object contains details of the connection including the IDs of the Public Gateway and Private Network, the dates the connection was created/updated and its configuration settings.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway-network get &lt;gateway-network-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-network-id</td>
+<td>Required</td>
+<td>ID of the GatewayNetwork to fetch</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-public-gateway-connections-to-private-networks">List Public Gateway connections to Private Networks</h3>
+<p>List the connections between Public Gateways and Private Networks (a connection = a GatewayNetwork). You can choose to filter by <code>gateway-id</code> to list all Private Networks attached to the specified Public Gateway, or by <code>private_network_id</code> to list all Public Gateways attached to the specified Private Network. Other query parameters are also available. The result is an array of GatewayNetwork objects, each giving details of the connection between a given Public Gateway and a given Private Network.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway-network list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>status_asc</code>, <code>status_desc</code></td>
+<td>Order in which to return results</td>
+</tr>
+<tr>
+<td>gateway-id</td>
+<td></td>
+<td>Filter for GatewayNetworks connected to this gateway</td>
+</tr>
+<tr>
+<td>private-network-id</td>
+<td></td>
+<td>Filter for GatewayNetworks connected to this Private Network</td>
+</tr>
+<tr>
+<td>enable-masquerade</td>
+<td></td>
+<td>Filter for GatewayNetworks with this <code>enable_masquerade</code> setting</td>
+</tr>
+<tr>
+<td>dhcp-id</td>
+<td></td>
+<td>Filter for GatewayNetworks using this DHCP configuration</td>
+</tr>
+<tr>
+<td>status</td>
+<td>One of: <code>unknown</code>, <code>created</code>, <code>attaching</code>, <code>configuring</code>, <code>ready</code>, <code>detaching</code>, <code>deleted</code></td>
+<td>Filter for GatewayNetworks with this current status this status. Use <code>unknown</code> to include all statuses</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-public-gateways-connection-to-a-private-network">Update a Public Gateway's connection to a Private Network</h3>
+<p>Update the configuration parameters of a connection between a given Public Gateway and Private Network (the connection = a GatewayNetwork). Updatable parameters include DHCP settings and whether to enable traffic masquerade (dynamic NAT).</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway-network update &lt;gateway-network-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-network-id</td>
+<td>Required</td>
+<td>ID of the GatewayNetwork to update</td>
+</tr>
+<tr>
+<td>enable-masquerade</td>
+<td></td>
+<td>Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.</td>
+</tr>
+<tr>
+<td>enable-dhcp</td>
+<td></td>
+<td>Defines whether to enable DHCP on this Private Network.</td>
+</tr>
+<tr>
+<td>dhcp-id</td>
+<td></td>
+<td>ID of the new DHCP configuration object to use with this GatewayNetwork</td>
+</tr>
+<tr>
+<td>address</td>
+<td></td>
+<td>New static IP address</td>
+</tr>
+<tr>
+<td>ipam-config.push-default-route</td>
+<td></td>
+<td>Enabling the default route also enables masquerading</td>
+</tr>
+<tr>
+<td>ipam-config.ipam-ip-id</td>
+<td></td>
+<td>Use this IPAM-booked IP ID as the Gateway's IP in this Private Network</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gateway-types-information">Gateway types information</h2>
+<p>Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.</p>
+<h3 id="list-public-gateway-types">List Public Gateway types</h3>
+<p>List the different Public Gateway commercial offer types available at Scaleway. The response is an array of objects describing the name and technical details of each available gateway type.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw gateway-type list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ip-address-management">IP address management</h2>
+<p>Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.</p>
+<h3 id="reserve-an-ip">Reserve an IP</h3>
+<p>Create (reserve) a new flexible IP address that can be used for a Public Gateway in a specified Scaleway Project.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw ip create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Project ID to use. If none is passed the default project ID will be used</td>
+</tr>
+<tr>
+<td>tags.{index}</td>
+<td></td>
+<td>Tags to give to the IP address</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-an-ip">Delete an IP</h3>
+<p>Delete a flexible IP address from your account. This action is irreversible.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw ip delete &lt;ip-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip-id</td>
+<td>Required</td>
+<td>ID of the IP address to delete</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-an-ip">Get an IP</h3>
+<p>Get details of a Public Gateway flexible IP address, identified by its IP ID. The response object contains information including which (if any) Public Gateway using this IP address, the reverse and various other metadata.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw ip get &lt;ip-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip-id</td>
+<td>Required</td>
+<td>ID of the IP address to get</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-ips">List IPs</h3>
+<p>List Public Gateway flexible IP addresses. A number of filter options are available for limiting results in the response.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw ip list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>ip_asc</code>, <code>ip_desc</code>, <code>reverse_asc</code>, <code>reverse_desc</code></td>
+<td>Order in which to return results</td>
+</tr>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Filter for IP addresses in this Project</td>
+</tr>
+<tr>
+<td>tags.{index}</td>
+<td></td>
+<td>Filter for IP addresses with these tags</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td></td>
+<td>Filter for IP addresses that have a reverse containing this string</td>
+</tr>
+<tr>
+<td>is-free</td>
+<td></td>
+<td>Filter based on whether the IP is attached to a gateway or not</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Filter for IP addresses in this Organization</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-an-ip">Update an IP</h3>
+<p>Update details of an existing flexible IP address, including its tags, reverse and the Public Gateway it is assigned to.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw ip update &lt;ip-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip-id</td>
+<td>Required</td>
+<td>ID of the IP address to update</td>
+</tr>
+<tr>
+<td>tags.{index}</td>
+<td></td>
+<td>Tags to give to the IP address</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td></td>
+<td>Reverse to set on the address. Empty string to unset</td>
+</tr>
+<tr>
+<td>gateway-id</td>
+<td></td>
+<td>Gateway to attach the IP address to. Empty string to detach</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pat-rules-management">PAT rules management</h2>
+<p>PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.</p>
+<h3 id="create-a-pat-rule">Create a PAT rule</h3>
+<p>Create a new PAT rule on a specified Public Gateway, defining the protocol to use, public port to listen on, and private port / IP address to map to.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw pat-rule create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-id</td>
+<td></td>
+<td>ID of the Gateway on which to create the rule</td>
+</tr>
+<tr>
+<td>public-port</td>
+<td></td>
+<td>Public port to listen on</td>
+</tr>
+<tr>
+<td>private-ip</td>
+<td></td>
+<td>Private IP to forward data to</td>
+</tr>
+<tr>
+<td>private-port</td>
+<td></td>
+<td>Private port to translate to</td>
+</tr>
+<tr>
+<td>protocol</td>
+<td>One of: <code>unknown</code>, <code>both</code>, <code>tcp</code>, <code>udp</code></td>
+<td>Protocol the rule should apply to</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-pat-rule">Delete a PAT rule</h3>
+<p>Delete a PAT rule, identified by its PAT rule ID. This action is irreversible.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw pat-rule delete &lt;pat-rule-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pat-rule-id</td>
+<td>Required</td>
+<td>ID of the PAT rule to delete</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-pat-rule">Get a PAT rule</h3>
+<p>Get a PAT rule, specified by its PAT rule ID. The response object gives full details of the PAT rule, including the Public Gateway it belongs to and the configuration settings in terms of public / private ports, private IP and protocol.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw pat-rule get &lt;pat-rule-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pat-rule-id</td>
+<td>Required</td>
+<td>ID of the PAT rule to get</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-pat-rules">List PAT rules</h3>
+<p>List PAT rules. You can filter by gateway ID to list all PAT rules for a particular gateway, or filter for PAT rules targeting a specific IP address or using a specific protocol.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw pat-rule list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>public_port_asc</code>, <code>public_port_desc</code></td>
+<td>Order in which to return results</td>
+</tr>
+<tr>
+<td>gateway-id</td>
+<td></td>
+<td>Filter for PAT rules on this Gateway</td>
+</tr>
+<tr>
+<td>private-ip</td>
+<td></td>
+<td>Filter for PAT rules targeting this private ip</td>
+</tr>
+<tr>
+<td>protocol</td>
+<td>One of: <code>unknown</code>, <code>both</code>, <code>tcp</code>, <code>udp</code></td>
+<td>Filter for PAT rules with this protocol</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="set-all-pat-rules">Set all PAT rules</h3>
+<p>Set a definitive list of PAT rules attached to a Public Gateway. Each rule is identified by its public port and protocol. This will sync the current PAT rule list on the gateway with the new list, creating, updating or deleting PAT rules accordingly.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw pat-rule set [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gateway-id</td>
+<td></td>
+<td>ID of the gateway on which to set the PAT rules</td>
+</tr>
+<tr>
+<td>pat-rules.{index}.public-port</td>
+<td></td>
+<td>Public port to listen on</td>
+</tr>
+<tr>
+<td>pat-rules.{index}.private-ip</td>
+<td></td>
+<td>Private IP to forward data to</td>
+</tr>
+<tr>
+<td>pat-rules.{index}.private-port</td>
+<td></td>
+<td>Private port to translate to</td>
+</tr>
+<tr>
+<td>pat-rules.{index}.protocol</td>
+<td>One of: <code>unknown</code>, <code>both</code>, <code>tcp</code>, <code>udp</code></td>
+<td>Protocol the rule should apply to</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-pat-rule">Update a PAT rule</h3>
+<p>Update a PAT rule, specified by its PAT rule ID. Configuration settings including private/public port, private IP address and protocol can all be updated.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw vpc-gw pat-rule update &lt;pat-rule-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pat-rule-id</td>
+<td>Required</td>
+<td>ID of the PAT rule to update</td>
+</tr>
+<tr>
+<td>public-port</td>
+<td></td>
+<td>Public port to listen on</td>
+</tr>
+<tr>
+<td>private-ip</td>
+<td></td>
+<td>Private IP to forward data to</td>
+</tr>
+<tr>
+<td>private-port</td>
+<td></td>
+<td>Private port to translate to</td>
+</tr>
+<tr>
+<td>protocol</td>
+<td>One of: <code>unknown</code>, <code>both</code>, <code>tcp</code>, <code>udp</code></td>
+<td>Protocol the rule should apply to</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback! Help us improve this page by referring to the <a href="/scaleway-cli-documentation/feedback/" target="_blank" rel="noopener">feedback page</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.action.edit", "content.action.view", "navigation.sections", "navigation.path", "navigation.top", "search.suggest"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>

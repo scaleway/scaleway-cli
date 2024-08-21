@@ -1,0 +1,5830 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/scaleway-cli-documentation/lb/">
+      
+      
+        <link rel="prev" href="../ipam/">
+      
+      
+        <link rel="next" href="../dns/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>Load Balancer - Scaleway Command Line Interface Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-XXXXXXXXXX",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#documentation-for-scw-lb" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Scaleway Command Line Interface Documentation" class="md-header__button md-logo" aria-label="Scaleway Command Line Interface Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Scaleway Command Line Interface Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Load Balancer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/scaleway/scaleway-cli" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    scaleway/scaleway-cli
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Scaleway Command Line Interface Documentation" class="md-nav__button md-logo" aria-label="Scaleway Command Line Interface Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    Scaleway Command Line Interface Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/scaleway/scaleway-cli" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    scaleway/scaleway-cli
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Platform
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Platform
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../account/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Account
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../billing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Billing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secret/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secret Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../marketplace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Marketplace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    AI & Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            AI & Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managed Inference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Bare Metal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bare Metal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../baremetal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elastic Metal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apple-silicon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apple Silicon
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flexible IP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Compute
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Compute
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Container Registry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Labs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Labs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPFS Pinning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPFS Naming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managed Databases
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Managed Databases
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PostgreSQL and MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis™
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-db/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Document Databases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managed Services
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Managed Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IOT Hub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transactional Email
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../webhosting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Hosting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vpc-gw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Puvblic Gateway
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Load Balancer
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancer
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#access-control-list-acl-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Control List (ACL) management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Access Control List (ACL) management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-acl-for-a-given-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create an ACL for a given frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete an ACL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-an-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get an ACL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-acls-for-a-given-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      List ACLs for a given frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-all-acls-for-a-given-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Define all ACLs for a given frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-an-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update an ACL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-a-set-of-backend-servers-to-a-given-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a set of backend servers to a given backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backend-for-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a backend for a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-backend-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a backend of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-backend-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a backend of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-backends-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      List the backends of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-backend-server-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      List backend server statistics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-a-set-of-servers-for-a-given-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove a set of servers for a given backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-all-backend-servers-for-a-given-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Define all backend servers for a given backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-backend-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a backend of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-health-check-for-a-given-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a health check for a given backend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tls-certificate-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLS certificate management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TLS certificate management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-ssltls-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create an SSL/TLS certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-ssltls-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete an SSL/TLS certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-an-ssltls-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get an SSL/TLS certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-all-ssltls-certificates-on-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      List all SSL/TLS certificates on a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-an-ssltls-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update an SSL/TLS certificate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-frontend-in-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a frontend in a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-frontends-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      List frontends of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a frontend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IP management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create an IP address
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete an IP address
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-an-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get an IP address
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-ip-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      List IP addresses
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-an-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update an IP address
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-balancer-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load balancer management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Load balancer management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-usage-statistics-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get usage statistics of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-load-balancers" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Load Balancers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrate-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migrate a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wait-for-a-load-balancer-to-reach-a-stable-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wait for a load balancer to reach a stable state
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-balancer-types-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load balancer types management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Load balancer types management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-all-load-balancer-offer-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      List all Load Balancer offer types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#private-networks-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Private networks management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Private networks management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach-a-load-balancer-to-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attach a Load Balancer to a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detach-load-balancer-from-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detach Load Balancer from Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-private-networks-attached-to-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Private Networks attached to a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-rules-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Route rules management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Route rules management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-all-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      List all routes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a route
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subscriber-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subscriber management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subscriber management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-subscriber" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a subscriber
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-subscriber" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a subscriber
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-subscriber" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a subscriber
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-all-subscribers" class="md-nav__link">
+    <span class="md-ellipsis">
+      List all subscribers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscribe-a-subscriber-to-alerts-for-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subscribe a subscriber to alerts for a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsubscribe-a-subscriber-from-alerts-for-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unsubscribe a subscriber from alerts for a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-subscriber" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a subscriber
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domains and DNS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Observability
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Observability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cockpit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cockpit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Serverless
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Serverless
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdb-sql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Databases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mnq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Messaging and Queuing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Storage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../block/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BLock Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Object Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    CLI configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            CLI configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alias/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alias
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autocomplete/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autocompletion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feedback/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Feedback
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../help/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../init/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Initialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shell
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#access-control-list-acl-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Control List (ACL) management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Access Control List (ACL) management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-acl-for-a-given-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create an ACL for a given frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete an ACL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-an-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get an ACL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-acls-for-a-given-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      List ACLs for a given frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-all-acls-for-a-given-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Define all ACLs for a given frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-an-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update an ACL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-a-set-of-backend-servers-to-a-given-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a set of backend servers to a given backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backend-for-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a backend for a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-backend-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a backend of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-backend-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a backend of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-backends-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      List the backends of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-backend-server-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      List backend server statistics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-a-set-of-servers-for-a-given-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove a set of servers for a given backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-all-backend-servers-for-a-given-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Define all backend servers for a given backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-backend-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a backend of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-health-check-for-a-given-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a health check for a given backend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tls-certificate-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLS certificate management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TLS certificate management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-ssltls-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create an SSL/TLS certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-ssltls-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete an SSL/TLS certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-an-ssltls-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get an SSL/TLS certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-all-ssltls-certificates-on-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      List all SSL/TLS certificates on a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-an-ssltls-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update an SSL/TLS certificate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-frontend-in-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a frontend in a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-frontends-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      List frontends of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a frontend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IP management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create an IP address
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete an IP address
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-an-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get an IP address
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-ip-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      List IP addresses
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-an-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update an IP address
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-balancer-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load balancer management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Load balancer management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-usage-statistics-of-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get usage statistics of a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-load-balancers" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Load Balancers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrate-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migrate a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wait-for-a-load-balancer-to-reach-a-stable-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wait for a load balancer to reach a stable state
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-balancer-types-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load balancer types management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Load balancer types management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-all-load-balancer-offer-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      List all Load Balancer offer types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#private-networks-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Private networks management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Private networks management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach-a-load-balancer-to-a-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attach a Load Balancer to a Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detach-load-balancer-from-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detach Load Balancer from Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-private-networks-attached-to-a-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Private Networks attached to a Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-rules-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Route rules management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Route rules management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-all-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      List all routes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a route
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subscriber-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subscriber management commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subscriber management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-subscriber" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a subscriber
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-subscriber" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a subscriber
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-subscriber" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a subscriber
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-all-subscribers" class="md-nav__link">
+    <span class="md-ellipsis">
+      List all subscribers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscribe-a-subscriber-to-alerts-for-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subscribe a subscriber to alerts for a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsubscribe-a-subscriber-from-alerts-for-a-given-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unsubscribe a subscriber from alerts for a given Load Balancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-subscriber" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a subscriber
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/scaleway/scaleway-cli/edit/master/docs/commands/lb.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/scaleway/scaleway-cli/raw/master/docs/commands/lb.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<!-- DO NOT EDIT: this file is automatically generated using scw-doc-gen -->
+<h1 id="documentation-for-scw-lb">Documentation for <code>scw lb</code></h1>
+<p>This API allows you to manage your Scaleway Load Balancer services.</p>
+<h2 id="access-control-list-acl-management-commands">Access Control List (ACL) management commands</h2>
+<p>Access Control List (ACL) management commands.</p>
+<h3 id="create-an-acl-for-a-given-frontend">Create an ACL for a given frontend</h3>
+<p>Create a new ACL for a given frontend. Each ACL must have a name, an action to perform (allow or deny), and a match rule (the action is carried out when the incoming traffic matches the rule).</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb acl create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frontend-id</td>
+<td>Required</td>
+<td>Frontend ID to attach the ACL to</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required<br />Default: <code>&lt;generated&gt;</code></td>
+<td>ACL name</td>
+</tr>
+<tr>
+<td>action.type</td>
+<td>One of: <code>allow</code>, <code>deny</code>, <code>redirect</code></td>
+<td>Action to take when incoming traffic matches an ACL filter</td>
+</tr>
+<tr>
+<td>action.redirect.type</td>
+<td>One of: <code>location</code>, <code>scheme</code></td>
+<td>Redirect type</td>
+</tr>
+<tr>
+<td>action.redirect.target</td>
+<td></td>
+<td>Redirect target. For a location redirect, you can use a URL e.g. <code>https://scaleway.com</code>. Using a scheme name (e.g. <code>https</code>, <code>http</code>, <code>ftp</code>, <code>git</code>) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a <code>location</code> redirect to preserve parts of the original request in the redirection URL are {{host}}, {{query}}, {{path}} and {{scheme}}</td>
+</tr>
+<tr>
+<td>action.redirect.code</td>
+<td></td>
+<td>HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302</td>
+</tr>
+<tr>
+<td>match.ip-subnet.{index}</td>
+<td></td>
+<td>List of IPs or CIDR v4/v6 addresses to filter for from the client side</td>
+</tr>
+<tr>
+<td>match.http-filter</td>
+<td>One of: <code>acl_http_filter_none</code>, <code>path_begin</code>, <code>path_end</code>, <code>regex</code>, <code>http_header_match</code></td>
+<td>Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends</td>
+</tr>
+<tr>
+<td>match.http-filter-value.{index}</td>
+<td></td>
+<td>List of values to filter for</td>
+</tr>
+<tr>
+<td>match.http-filter-option</td>
+<td></td>
+<td>Name of the HTTP header to filter on if <code>http_header_match</code> was selected in <code>http_filter</code></td>
+</tr>
+<tr>
+<td>match.invert</td>
+<td></td>
+<td>Defines whether to invert the match condition. If set to <code>true</code>, the ACL carries out its action when the condition DOES NOT match</td>
+</tr>
+<tr>
+<td>index</td>
+<td>Required</td>
+<td>Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed)</td>
+</tr>
+<tr>
+<td>description</td>
+<td></td>
+<td>ACL description</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-an-acl">Delete an ACL</h3>
+<p>Delete an ACL, specified by its ACL ID. Deleting an ACL is irreversible and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb acl delete &lt;acl-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>acl-id</td>
+<td>Required</td>
+<td>ACL ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-an-acl">Get an ACL</h3>
+<p>Get information for a particular ACL, specified by its ACL ID. The response returns full details of the ACL, including its name, action, match rule and frontend.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb acl get &lt;acl-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>acl-id</td>
+<td>Required</td>
+<td>ACL ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-acls-for-a-given-frontend">List ACLs for a given frontend</h3>
+<p>List the ACLs for a given frontend, specified by its frontend ID. The response is an array of ACL objects, each one representing an ACL that denies or allows traffic based on certain conditions.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb acl list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frontend-id</td>
+<td>Required</td>
+<td>Frontend ID (ACLs attached to this frontend will be returned in the response)</td>
+</tr>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>name_asc</code>, <code>name_desc</code></td>
+<td>Sort order of ACLs in the response</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>ACL name to filter for</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="define-all-acls-for-a-given-frontend">Define all ACLs for a given frontend</h3>
+<p>For a given frontend specified by its frontend ID, define and add the complete set of ACLS for that frontend. Any existing ACLs on this frontend will be removed.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb acl set [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>acls.{index}.name</td>
+<td>Required</td>
+<td>ACL name</td>
+</tr>
+<tr>
+<td>acls.{index}.action.type</td>
+<td>One of: <code>allow</code>, <code>deny</code>, <code>redirect</code></td>
+<td>Action to take when incoming traffic matches an ACL filter</td>
+</tr>
+<tr>
+<td>acls.{index}.action.redirect.type</td>
+<td>One of: <code>location</code>, <code>scheme</code></td>
+<td>Redirect type</td>
+</tr>
+<tr>
+<td>acls.{index}.action.redirect.target</td>
+<td></td>
+<td>Redirect target. For a location redirect, you can use a URL e.g. <code>https://scaleway.com</code>. Using a scheme name (e.g. <code>https</code>, <code>http</code>, <code>ftp</code>, <code>git</code>) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a <code>location</code> redirect to preserve parts of the original request in the redirection URL are {{host}}, {{query}}, {{path}} and {{scheme}}</td>
+</tr>
+<tr>
+<td>acls.{index}.action.redirect.code</td>
+<td></td>
+<td>HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302</td>
+</tr>
+<tr>
+<td>acls.{index}.match.ip-subnet.{index}</td>
+<td></td>
+<td>List of IPs or CIDR v4/v6 addresses to filter for from the client side</td>
+</tr>
+<tr>
+<td>acls.{index}.match.http-filter</td>
+<td>One of: <code>acl_http_filter_none</code>, <code>path_begin</code>, <code>path_end</code>, <code>regex</code>, <code>http_header_match</code></td>
+<td>Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends</td>
+</tr>
+<tr>
+<td>acls.{index}.match.http-filter-value.{index}</td>
+<td></td>
+<td>List of values to filter for</td>
+</tr>
+<tr>
+<td>acls.{index}.match.http-filter-option</td>
+<td></td>
+<td>Name of the HTTP header to filter on if <code>http_header_match</code> was selected in <code>http_filter</code></td>
+</tr>
+<tr>
+<td>acls.{index}.match.invert</td>
+<td></td>
+<td>Defines whether to invert the match condition. If set to <code>true</code>, the ACL carries out its action when the condition DOES NOT match</td>
+</tr>
+<tr>
+<td>acls.{index}.index</td>
+<td>Required</td>
+<td>Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed)</td>
+</tr>
+<tr>
+<td>acls.{index}.description</td>
+<td></td>
+<td>ACL description</td>
+</tr>
+<tr>
+<td>frontend-id</td>
+<td>Required</td>
+<td>Frontend ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-an-acl">Update an ACL</h3>
+<p>Update a particular ACL, specified by its ACL ID. You can update details including its name, action and match rule.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb acl update &lt;acl-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>acl-id</td>
+<td>Required</td>
+<td>ACL ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required</td>
+<td>ACL name</td>
+</tr>
+<tr>
+<td>action.type</td>
+<td>One of: <code>allow</code>, <code>deny</code>, <code>redirect</code></td>
+<td>Action to take when incoming traffic matches an ACL filter</td>
+</tr>
+<tr>
+<td>action.redirect.type</td>
+<td>One of: <code>location</code>, <code>scheme</code></td>
+<td>Redirect type</td>
+</tr>
+<tr>
+<td>action.redirect.target</td>
+<td></td>
+<td>Redirect target. For a location redirect, you can use a URL e.g. <code>https://scaleway.com</code>. Using a scheme name (e.g. <code>https</code>, <code>http</code>, <code>ftp</code>, <code>git</code>) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a <code>location</code> redirect to preserve parts of the original request in the redirection URL are {{host}}, {{query}}, {{path}} and {{scheme}}</td>
+</tr>
+<tr>
+<td>action.redirect.code</td>
+<td></td>
+<td>HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302</td>
+</tr>
+<tr>
+<td>match.ip-subnet.{index}</td>
+<td></td>
+<td>List of IPs or CIDR v4/v6 addresses to filter for from the client side</td>
+</tr>
+<tr>
+<td>match.http-filter</td>
+<td>One of: <code>acl_http_filter_none</code>, <code>path_begin</code>, <code>path_end</code>, <code>regex</code>, <code>http_header_match</code></td>
+<td>Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends</td>
+</tr>
+<tr>
+<td>match.http-filter-value.{index}</td>
+<td></td>
+<td>List of values to filter for</td>
+</tr>
+<tr>
+<td>match.http-filter-option</td>
+<td></td>
+<td>Name of the HTTP header to filter on if <code>http_header_match</code> was selected in <code>http_filter</code></td>
+</tr>
+<tr>
+<td>match.invert</td>
+<td></td>
+<td>Defines whether to invert the match condition. If set to <code>true</code>, the ACL carries out its action when the condition DOES NOT match</td>
+</tr>
+<tr>
+<td>index</td>
+<td>Required</td>
+<td>Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed)</td>
+</tr>
+<tr>
+<td>description</td>
+<td></td>
+<td>ACL description</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="backend-management-commands">Backend management commands</h2>
+<p>Backend management commands.</p>
+<h3 id="add-a-set-of-backend-servers-to-a-given-backend">Add a set of backend servers to a given backend</h3>
+<p>For a given backend specified by its backend ID, add a set of backend servers (identified by their IP addresses) it should forward traffic to. These will be appended to any existing set of backend servers for this backend.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend add-servers &lt;backend-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>backend-id</td>
+<td>Required</td>
+<td>Backend ID</td>
+</tr>
+<tr>
+<td>instance-server-id.{index}</td>
+<td></td>
+<td>UIID of the instance server.</td>
+</tr>
+<tr>
+<td>instance-server-tag.{index}</td>
+<td></td>
+<td>Tag of the instance server.</td>
+</tr>
+<tr>
+<td>use-instance-server-public-ip</td>
+<td></td>
+<td>Use public IP address of the instance instead of the private one</td>
+</tr>
+<tr>
+<td>baremetal-server-id.{index}</td>
+<td></td>
+<td>UIID of the baremetal server.</td>
+</tr>
+<tr>
+<td>baremetal-server-tag.{index}</td>
+<td></td>
+<td>Tag of the baremetal server.</td>
+</tr>
+<tr>
+<td>server-ip.{index}</td>
+<td>Required</td>
+<td>List of IP addresses to add to backend servers</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="create-a-backend-for-a-given-load-balancer">Create a backend for a given Load Balancer</h3>
+<p>Create a new backend for a given Load Balancer, specifying its full configuration including protocol, port and forwarding algorithm.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Required<br />Default: <code>&lt;generated&gt;</code></td>
+<td>Name for the backend</td>
+</tr>
+<tr>
+<td>forward-protocol</td>
+<td>Required<br />One of: <code>tcp</code>, <code>http</code></td>
+<td>Protocol to be used by the backend when forwarding traffic to backend servers</td>
+</tr>
+<tr>
+<td>forward-port</td>
+<td>Required</td>
+<td>Port to be used by the backend when forwarding traffic to backend servers</td>
+</tr>
+<tr>
+<td>forward-port-algorithm</td>
+<td>Required<br />Default: <code>roundrobin</code><br />One of: <code>roundrobin</code>, <code>leastconn</code>, <code>first</code></td>
+<td>Load balancing algorithm to be used when determining which backend server to forward new traffic to</td>
+</tr>
+<tr>
+<td>sticky-sessions</td>
+<td>Required<br />Default: <code>none</code><br />One of: <code>none</code>, <code>cookie</code>, <code>table</code></td>
+<td>Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server</td>
+</tr>
+<tr>
+<td>sticky-sessions-cookie-name</td>
+<td></td>
+<td>Cookie name for cookie-based sticky sessions</td>
+</tr>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>health-check.port</td>
+<td></td>
+<td>Port to use for the backend server health check</td>
+</tr>
+<tr>
+<td>health-check.check-delay</td>
+<td>Default: <code>3s</code></td>
+<td>Time to wait between two consecutive health checks</td>
+</tr>
+<tr>
+<td>health-check.check-timeout</td>
+<td>Default: <code>1s</code></td>
+<td>Maximum time a backend server has to reply to the health check</td>
+</tr>
+<tr>
+<td>health-check.check-max-retries</td>
+<td></td>
+<td>Number of consecutive unsuccessful health checks after which the server will be considered dead</td>
+</tr>
+<tr>
+<td>health-check.mysql-config.user</td>
+<td></td>
+<td>MySQL user to use for the health check</td>
+</tr>
+<tr>
+<td>health-check.pgsql-config.user</td>
+<td></td>
+<td>PostgreSQL user to use for the health check</td>
+</tr>
+<tr>
+<td>health-check.http-config.uri</td>
+<td></td>
+<td>HTTP URI used for the health check</td>
+</tr>
+<tr>
+<td>health-check.http-config.method</td>
+<td></td>
+<td>HTTP method used for the health check</td>
+</tr>
+<tr>
+<td>health-check.http-config.code</td>
+<td></td>
+<td>HTTP response code expected for a successful health check</td>
+</tr>
+<tr>
+<td>health-check.http-config.host-header</td>
+<td></td>
+<td>HTTP host header used for the health check</td>
+</tr>
+<tr>
+<td>health-check.https-config.uri</td>
+<td></td>
+<td>HTTP URI used for the health check</td>
+</tr>
+<tr>
+<td>health-check.https-config.method</td>
+<td></td>
+<td>HTTP method used for the health check</td>
+</tr>
+<tr>
+<td>health-check.https-config.code</td>
+<td></td>
+<td>HTTP response code expected for a successful health check</td>
+</tr>
+<tr>
+<td>health-check.https-config.host-header</td>
+<td></td>
+<td>HTTP host header used for the health check</td>
+</tr>
+<tr>
+<td>health-check.https-config.sni</td>
+<td></td>
+<td>SNI used for SSL health checks</td>
+</tr>
+<tr>
+<td>health-check.check-send-proxy</td>
+<td></td>
+<td>Defines whether proxy protocol should be activated for the health check</td>
+</tr>
+<tr>
+<td>health-check.transient-check-delay</td>
+<td>Default: <code>0.5s</code></td>
+<td>Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN)</td>
+</tr>
+<tr>
+<td>instance-server-id.{index}</td>
+<td></td>
+<td>UIID of the instance server.</td>
+</tr>
+<tr>
+<td>instance-server-tag.{index}</td>
+<td></td>
+<td>Tag of the instance server.</td>
+</tr>
+<tr>
+<td>use-instance-server-public-ip</td>
+<td></td>
+<td>Use public IP address of the instance instead of the private one</td>
+</tr>
+<tr>
+<td>baremetal-server-id.{index}</td>
+<td></td>
+<td>UIID of the baremetal server.</td>
+</tr>
+<tr>
+<td>baremetal-server-tag.{index}</td>
+<td></td>
+<td>Tag of the baremetal server.</td>
+</tr>
+<tr>
+<td>server-ip.{index}</td>
+<td>Required</td>
+<td>List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to</td>
+</tr>
+<tr>
+<td>~~send-proxy-v2~~</td>
+<td>Deprecated</td>
+<td>Deprecated in favor of proxy_protocol field</td>
+</tr>
+<tr>
+<td>timeout-server</td>
+<td>Default: <code>5m</code></td>
+<td>Maximum allowed time for a backend server to process a request</td>
+</tr>
+<tr>
+<td>timeout-connect</td>
+<td>Default: <code>5s</code></td>
+<td>Maximum allowed time for establishing a connection to a backend server</td>
+</tr>
+<tr>
+<td>timeout-tunnel</td>
+<td>Default: <code>15m</code></td>
+<td>Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)</td>
+</tr>
+<tr>
+<td>on-marked-down-action</td>
+<td>One of: <code>on_marked_down_action_none</code>, <code>shutdown_sessions</code></td>
+<td>Action to take when a backend server is marked as down</td>
+</tr>
+<tr>
+<td>proxy-protocol</td>
+<td>One of: <code>proxy_protocol_unknown</code>, <code>proxy_protocol_none</code>, <code>proxy_protocol_v1</code>, <code>proxy_protocol_v2</code>, <code>proxy_protocol_v2_ssl</code>, <code>proxy_protocol_v2_ssl_cn</code></td>
+<td>Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software</td>
+</tr>
+<tr>
+<td>failover-host</td>
+<td></td>
+<td>Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud</td>
+</tr>
+<tr>
+<td>ssl-bridging</td>
+<td></td>
+<td>Defines whether to enable SSL bridging between the Load Balancer and backend servers</td>
+</tr>
+<tr>
+<td>ignore-ssl-server-verify</td>
+<td></td>
+<td>Defines whether the server certificate verification should be ignored</td>
+</tr>
+<tr>
+<td>redispatch-attempt-count</td>
+<td></td>
+<td>Whether to use another backend server on each attempt</td>
+</tr>
+<tr>
+<td>max-retries</td>
+<td></td>
+<td>Number of retries when a backend server connection failed</td>
+</tr>
+<tr>
+<td>max-connections</td>
+<td></td>
+<td>Maximum number of connections allowed per backend server</td>
+</tr>
+<tr>
+<td>timeout-queue</td>
+<td></td>
+<td>Maximum time for a request to be left pending in queue when <code>max_connections</code> is reached</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-backend-of-a-given-load-balancer">Delete a backend of a given Load Balancer</h3>
+<p>Delete a backend of a given Load Balancer, specified by its backend ID. This action is irreversible and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend delete &lt;backend-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>backend-id</td>
+<td>Required</td>
+<td>ID of the backend to delete</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-backend-of-a-given-load-balancer">Get a backend of a given Load Balancer</h3>
+<p>Get the full details of a given backend, specified by its backend ID. The response contains the backend's full configuration parameters including protocol, port and forwarding algorithm.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend get &lt;backend-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>backend-id</td>
+<td>Required</td>
+<td>Backend ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-the-backends-of-a-given-load-balancer">List the backends of a given Load Balancer</h3>
+<p>List all the backends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each backend. The response is an array of backend objects, containing full details of each one including their configuration parameters such as protocol, port and forwarding algorithm.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Name of the backend to filter for</td>
+</tr>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>name_asc</code>, <code>name_desc</code></td>
+<td>Sort order of backends in the response</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-backend-server-statistics">List backend server statistics</h3>
+<p>List information about your backend servers, including their state and the result of their last health check.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend list-statistics &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>backend-id</td>
+<td></td>
+<td>ID of the backend</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="remove-a-set-of-servers-for-a-given-backend">Remove a set of servers for a given backend</h3>
+<p>For a given backend specified by its backend ID, remove the specified backend servers (identified by their IP addresses) so that it no longer forwards traffic to them.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend remove-servers &lt;backend-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>backend-id</td>
+<td>Required</td>
+<td>Backend ID</td>
+</tr>
+<tr>
+<td>instance-server-id.{index}</td>
+<td></td>
+<td>UIID of the instance server.</td>
+</tr>
+<tr>
+<td>instance-server-tag.{index}</td>
+<td></td>
+<td>Tag of the instance server.</td>
+</tr>
+<tr>
+<td>use-instance-server-public-ip</td>
+<td></td>
+<td>Use public IP address of the instance instead of the private one</td>
+</tr>
+<tr>
+<td>baremetal-server-id.{index}</td>
+<td></td>
+<td>UIID of the baremetal server.</td>
+</tr>
+<tr>
+<td>baremetal-server-tag.{index}</td>
+<td></td>
+<td>Tag of the baremetal server.</td>
+</tr>
+<tr>
+<td>server-ip.{index}</td>
+<td>Required</td>
+<td>List of IP addresses to remove from backend servers</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="define-all-backend-servers-for-a-given-backend">Define all backend servers for a given backend</h3>
+<p>For a given backend specified by its backend ID, define the set of backend servers (identified by their IP addresses) that it should forward traffic to. Any existing backend servers configured for this backend will be removed.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend set-servers &lt;backend-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>backend-id</td>
+<td>Required</td>
+<td>Backend ID</td>
+</tr>
+<tr>
+<td>instance-server-id.{index}</td>
+<td></td>
+<td>UIID of the instance server.</td>
+</tr>
+<tr>
+<td>instance-server-tag.{index}</td>
+<td></td>
+<td>Tag of the instance server.</td>
+</tr>
+<tr>
+<td>use-instance-server-public-ip</td>
+<td></td>
+<td>Use public IP address of the instance instead of the private one</td>
+</tr>
+<tr>
+<td>baremetal-server-id.{index}</td>
+<td></td>
+<td>UIID of the baremetal server.</td>
+</tr>
+<tr>
+<td>baremetal-server-tag.{index}</td>
+<td></td>
+<td>Tag of the baremetal server.</td>
+</tr>
+<tr>
+<td>server-ip.{index}</td>
+<td>Required</td>
+<td>List of IP addresses for backend servers. Any other existing backend servers will be removed</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-backend-of-a-given-load-balancer">Update a backend of a given Load Balancer</h3>
+<p>Update a backend of a given Load Balancer, specified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend update &lt;backend-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>backend-id</td>
+<td>Required</td>
+<td>Backend ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required</td>
+<td>Backend name</td>
+</tr>
+<tr>
+<td>forward-protocol</td>
+<td>Required<br />One of: <code>tcp</code>, <code>http</code></td>
+<td>Protocol to be used by the backend when forwarding traffic to backend servers</td>
+</tr>
+<tr>
+<td>forward-port</td>
+<td>Required</td>
+<td>Port to be used by the backend when forwarding traffic to backend servers</td>
+</tr>
+<tr>
+<td>forward-port-algorithm</td>
+<td>Required<br />One of: <code>roundrobin</code>, <code>leastconn</code>, <code>first</code></td>
+<td>Load balancing algorithm to be used when determining which backend server to forward new traffic to</td>
+</tr>
+<tr>
+<td>sticky-sessions</td>
+<td>Required<br />One of: <code>none</code>, <code>cookie</code>, <code>table</code></td>
+<td>Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server</td>
+</tr>
+<tr>
+<td>sticky-sessions-cookie-name</td>
+<td></td>
+<td>Cookie name for cookie-based sticky sessions</td>
+</tr>
+<tr>
+<td>~~send-proxy-v2~~</td>
+<td>Deprecated</td>
+<td>Deprecated in favor of proxy_protocol field</td>
+</tr>
+<tr>
+<td>timeout-server</td>
+<td>Default: <code>5m</code></td>
+<td>Maximum allowed time for a backend server to process a request</td>
+</tr>
+<tr>
+<td>timeout-connect</td>
+<td>Default: <code>5s</code></td>
+<td>Maximum allowed time for establishing a connection to a backend server</td>
+</tr>
+<tr>
+<td>timeout-tunnel</td>
+<td>Default: <code>15m</code></td>
+<td>Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)</td>
+</tr>
+<tr>
+<td>on-marked-down-action</td>
+<td>One of: <code>on_marked_down_action_none</code>, <code>shutdown_sessions</code></td>
+<td>Action to take when a backend server is marked as down</td>
+</tr>
+<tr>
+<td>proxy-protocol</td>
+<td>One of: <code>proxy_protocol_unknown</code>, <code>proxy_protocol_none</code>, <code>proxy_protocol_v1</code>, <code>proxy_protocol_v2</code>, <code>proxy_protocol_v2_ssl</code>, <code>proxy_protocol_v2_ssl_cn</code></td>
+<td>Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software</td>
+</tr>
+<tr>
+<td>failover-host</td>
+<td></td>
+<td>Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud</td>
+</tr>
+<tr>
+<td>ssl-bridging</td>
+<td></td>
+<td>Defines whether to enable SSL bridging between the Load Balancer and backend servers</td>
+</tr>
+<tr>
+<td>ignore-ssl-server-verify</td>
+<td></td>
+<td>Defines whether the server certificate verification should be ignored</td>
+</tr>
+<tr>
+<td>redispatch-attempt-count</td>
+<td></td>
+<td>Whether to use another backend server on each attempt</td>
+</tr>
+<tr>
+<td>max-retries</td>
+<td></td>
+<td>Number of retries when a backend server connection failed</td>
+</tr>
+<tr>
+<td>max-connections</td>
+<td></td>
+<td>Maximum number of connections allowed per backend server</td>
+</tr>
+<tr>
+<td>timeout-queue</td>
+<td></td>
+<td>Maximum time for a request to be left pending in queue when <code>max_connections</code> is reached</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-health-check-for-a-given-backend">Update a health check for a given backend</h3>
+<p>Update the configuration of the health check performed by a given backend to verify the health of its backend servers, identified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb backend update-healthcheck [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>port</td>
+<td>Required</td>
+<td>Port to use for the backend server health check</td>
+</tr>
+<tr>
+<td>check-delay</td>
+<td>Required</td>
+<td>Time to wait between two consecutive health checks</td>
+</tr>
+<tr>
+<td>check-timeout</td>
+<td>Required</td>
+<td>Maximum time a backend server has to reply to the health check</td>
+</tr>
+<tr>
+<td>check-max-retries</td>
+<td>Required</td>
+<td>Number of consecutive unsuccessful health checks after which the server will be considered dead</td>
+</tr>
+<tr>
+<td>backend-id</td>
+<td>Required</td>
+<td>Backend ID</td>
+</tr>
+<tr>
+<td>check-send-proxy</td>
+<td></td>
+<td>Defines whether proxy protocol should be activated for the health check</td>
+</tr>
+<tr>
+<td>mysql-config.user</td>
+<td></td>
+<td>MySQL user to use for the health check</td>
+</tr>
+<tr>
+<td>pgsql-config.user</td>
+<td></td>
+<td>PostgreSQL user to use for the health check</td>
+</tr>
+<tr>
+<td>http-config.uri</td>
+<td></td>
+<td>HTTP URI used for the health check</td>
+</tr>
+<tr>
+<td>http-config.method</td>
+<td></td>
+<td>HTTP method used for the health check</td>
+</tr>
+<tr>
+<td>http-config.code</td>
+<td></td>
+<td>HTTP response code expected for a successful health check</td>
+</tr>
+<tr>
+<td>http-config.host-header</td>
+<td></td>
+<td>HTTP host header used for the health check</td>
+</tr>
+<tr>
+<td>https-config.uri</td>
+<td></td>
+<td>HTTP URI used for the health check</td>
+</tr>
+<tr>
+<td>https-config.method</td>
+<td></td>
+<td>HTTP method used for the health check</td>
+</tr>
+<tr>
+<td>https-config.code</td>
+<td></td>
+<td>HTTP response code expected for a successful health check</td>
+</tr>
+<tr>
+<td>https-config.host-header</td>
+<td></td>
+<td>HTTP host header used for the health check</td>
+</tr>
+<tr>
+<td>https-config.sni</td>
+<td></td>
+<td>SNI used for SSL health checks</td>
+</tr>
+<tr>
+<td>transient-check-delay</td>
+<td>Default: <code>0.5s</code></td>
+<td>Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN)</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tls-certificate-management-commands">TLS certificate management commands</h2>
+<p>TLS certificate management commands.</p>
+<h3 id="create-an-ssltls-certificate">Create an SSL/TLS certificate</h3>
+<p>Generate a new SSL/TLS certificate for a given Load Balancer. You can choose to create a Let's Encrypt certificate, or import a custom certificate.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb certificate create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required<br />Default: <code>&lt;generated&gt;</code></td>
+<td>Name for the certificate</td>
+</tr>
+<tr>
+<td>letsencrypt-common-name</td>
+<td></td>
+<td>Main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address)</td>
+</tr>
+<tr>
+<td>letsencrypt-alternative-name.{index}</td>
+<td></td>
+<td>Alternative domain names (all domain names must exist and resolve to your Load Balancer IP address)</td>
+</tr>
+<tr>
+<td>custom-certificate-chain</td>
+<td></td>
+<td>Full PEM-formatted certificate, consisting of the entire certificate chain including public key, private key, and (optionally) Certificate Authorities</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-an-ssltls-certificate">Delete an SSL/TLS certificate</h3>
+<p>Delete an SSL/TLS certificate, specified by its certificate ID. Deleting a certificate is irreversible and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb certificate delete &lt;certificate-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>certificate-id</td>
+<td>Required</td>
+<td>Certificate ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-an-ssltls-certificate">Get an SSL/TLS certificate</h3>
+<p>Get information for a particular SSL/TLS certificate, specified by its certificate ID. The response returns full details of the certificate, including its type, main domain name, and alternative domain names.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb certificate get &lt;certificate-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>certificate-id</td>
+<td>Required</td>
+<td>Certificate ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-all-ssltls-certificates-on-a-given-load-balancer">List all SSL/TLS certificates on a given Load Balancer</h3>
+<p>List all the SSL/TLS certificates on a given Load Balancer. The response is an array of certificate objects, which are by default listed in ascending order of creation date.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb certificate list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>name_asc</code>, <code>name_desc</code></td>
+<td>Sort order of certificates in the response</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Certificate name to filter for, only certificates of this name will be returned</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-an-ssltls-certificate">Update an SSL/TLS certificate</h3>
+<p>Update the name of a particular SSL/TLS certificate, specified by its certificate ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb certificate update &lt;certificate-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>certificate-id</td>
+<td>Required</td>
+<td>Certificate ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required</td>
+<td>Certificate name</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="frontend-management-commands">Frontend management commands</h2>
+<p>Frontend management commands.</p>
+<h3 id="create-a-frontend-in-a-given-load-balancer">Create a frontend in a given Load Balancer</h3>
+<p>Create a new frontend for a given Load Balancer, specifying its configuration including the port it should listen on and the backend to attach it to.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb frontend create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Required<br />Default: <code>&lt;generated&gt;</code></td>
+<td>Name for the frontend</td>
+</tr>
+<tr>
+<td>inbound-port</td>
+<td>Required</td>
+<td>Port the frontend should listen on</td>
+</tr>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID (ID of the Load Balancer to attach the frontend to)</td>
+</tr>
+<tr>
+<td>backend-id</td>
+<td>Required</td>
+<td>Backend ID (ID of the backend the frontend should pass traffic to)</td>
+</tr>
+<tr>
+<td>timeout-client</td>
+<td>Default: <code>5m</code></td>
+<td>Maximum allowed inactivity time on the client side</td>
+</tr>
+<tr>
+<td>~~certificate-id~~</td>
+<td>Deprecated</td>
+<td>Certificate ID, deprecated in favor of certificate_ids array</td>
+</tr>
+<tr>
+<td>certificate-ids.{index}</td>
+<td></td>
+<td>List of SSL/TLS certificate IDs to bind to the frontend</td>
+</tr>
+<tr>
+<td>enable-http3</td>
+<td></td>
+<td>Defines whether to enable HTTP/3 protocol on the frontend</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-frontend">Delete a frontend</h3>
+<p>Delete a given frontend, specified by its frontend ID. This action is irreversible and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb frontend delete &lt;frontend-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frontend-id</td>
+<td>Required</td>
+<td>ID of the frontend to delete</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-frontend">Get a frontend</h3>
+<p>Get the full details of a given frontend, specified by its frontend ID. The response contains the frontend's full configuration parameters including the backend it is attached to, the port it listens on, and any certificates it has.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb frontend get &lt;frontend-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frontend-id</td>
+<td>Required</td>
+<td>Frontend ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-frontends-of-a-given-load-balancer">List frontends of a given Load Balancer</h3>
+<p>List all the frontends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each frontend. The response is an array of frontend objects, containing full details of each one including the port they listen on and the backend they are attached to.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb frontend list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Name of the frontend to filter for</td>
+</tr>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>name_asc</code>, <code>name_desc</code></td>
+<td>Sort order of frontends in the response</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-frontend">Update a frontend</h3>
+<p>Update a given frontend, specified by its frontend ID. You can update configuration parameters including its name and the port it listens on. Note that the request type is PUT and not PATCH. You must set all parameters.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb frontend update &lt;frontend-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frontend-id</td>
+<td>Required</td>
+<td>Frontend ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required</td>
+<td>Frontend name</td>
+</tr>
+<tr>
+<td>inbound-port</td>
+<td>Required</td>
+<td>Port the frontend should listen on</td>
+</tr>
+<tr>
+<td>backend-id</td>
+<td>Required</td>
+<td>Backend ID (ID of the backend the frontend should pass traffic to)</td>
+</tr>
+<tr>
+<td>timeout-client</td>
+<td>Default: <code>5m</code></td>
+<td>Maximum allowed inactivity time on the client side</td>
+</tr>
+<tr>
+<td>~~certificate-id~~</td>
+<td>Deprecated</td>
+<td>Certificate ID, deprecated in favor of certificate_ids array</td>
+</tr>
+<tr>
+<td>certificate-ids.{index}</td>
+<td></td>
+<td>List of SSL/TLS certificate IDs to bind to the frontend</td>
+</tr>
+<tr>
+<td>enable-http3</td>
+<td></td>
+<td>Defines whether to enable HTTP/3 protocol on the frontend</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ip-management-commands">IP management commands</h2>
+<p>IP management commands.</p>
+<h3 id="create-an-ip-address">Create an IP address</h3>
+<p>Create a new Load Balancer flexible IP address, in the specified Scaleway Project. This can be attached to new Load Balancers created in the future.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb ip create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Project ID to use. If none is passed the default project ID will be used</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td></td>
+<td>Reverse DNS (domain name) for the IP address</td>
+</tr>
+<tr>
+<td>is-ipv6</td>
+<td></td>
+<td>If true, creates a Flexible IP with an ipv6 address</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Organization ID to use. If none is passed the default organization ID will be used</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-an-ip-address">Delete an IP address</h3>
+<p>Delete a Load Balancer flexible IP address. This action is irreversible, and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb ip delete &lt;ip-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip-id</td>
+<td>Required</td>
+<td>IP address ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-an-ip-address">Get an IP address</h3>
+<p>Retrieve the full details of a Load Balancer flexible IP address.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb ip get &lt;ip-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip-id</td>
+<td>Required</td>
+<td>IP address ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-ip-addresses">List IP addresses</h3>
+<p>List the Load Balancer flexible IP addresses held in the account (filtered by Organization ID or Project ID). It is also possible to search for a specific IP address.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb ip list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip-address</td>
+<td></td>
+<td>IP address to filter for</td>
+</tr>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Project ID to filter for, only Load Balancer IP addresses from this Project will be returned</td>
+</tr>
+<tr>
+<td>ip-type</td>
+<td>One of: <code>all</code>, <code>ipv4</code>, <code>ipv6</code></td>
+<td>IP type to filter for</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-an-ip-address">Update an IP address</h3>
+<p>Update the reverse DNS of a Load Balancer flexible IP address.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb ip update &lt;ip-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip-id</td>
+<td>Required</td>
+<td>IP address ID</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td></td>
+<td>Reverse DNS (domain name) for the IP address</td>
+</tr>
+<tr>
+<td>lb-id</td>
+<td></td>
+<td>ID of the server on which to attach the flexible IP</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="load-balancer-management-commands">Load balancer management commands</h2>
+<p>Load balancer management commands.</p>
+<h3 id="create-a-load-balancer">Create a Load Balancer</h3>
+<p>Create a new Load Balancer. Note that the Load Balancer will be created without frontends or backends; these must be created separately via the dedicated endpoints.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb lb create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Project ID to use. If none is passed the default project ID will be used</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required<br />Default: <code>&lt;generated&gt;</code></td>
+<td>Name for the Load Balancer</td>
+</tr>
+<tr>
+<td>description</td>
+<td></td>
+<td>Description for the Load Balancer</td>
+</tr>
+<tr>
+<td>~~ip-id~~</td>
+<td>Deprecated</td>
+<td>ID of an existing flexible IP address to attach to the Load Balancer</td>
+</tr>
+<tr>
+<td>assign-flexible-ip</td>
+<td></td>
+<td>Defines whether to automatically assign a flexible public IP to lb. Default value is <code>false</code> (do not assign).</td>
+</tr>
+<tr>
+<td>assign-flexible-ipv6</td>
+<td></td>
+<td>Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is <code>false</code> (do not assign).</td>
+</tr>
+<tr>
+<td>ip-ids.{index}</td>
+<td></td>
+<td>List of IP IDs to attach to the Load Balancer</td>
+</tr>
+<tr>
+<td>tags.{index}</td>
+<td></td>
+<td>List of tags for the Load Balancer</td>
+</tr>
+<tr>
+<td>type</td>
+<td>Default: <code>LB-S</code><br />One of: <code>LB-S</code>, <code>LB-GP-M</code>, <code>LB-GP-L</code></td>
+<td>Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types</td>
+</tr>
+<tr>
+<td>ssl-compatibility-level</td>
+<td>One of: <code>ssl_compatibility_level_unknown</code>, <code>ssl_compatibility_level_intermediate</code>, <code>ssl_compatibility_level_modern</code>, <code>ssl_compatibility_level_old</code></td>
+<td>Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Organization ID to use. If none is passed the default organization ID will be used</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-load-balancer">Delete a Load Balancer</h3>
+<p>Delete an existing Load Balancer, specified by its Load Balancer ID. Deleting a Load Balancer is permanent, and cannot be undone. The Load Balancer's flexible IP address can either be deleted with the Load Balancer, or kept in your account for future use.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb lb delete &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>ID of the Load Balancer to delete</td>
+</tr>
+<tr>
+<td>release-ip</td>
+<td></td>
+<td>Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-load-balancer">Get a Load Balancer</h3>
+<p>Retrieve information about an existing Load Balancer, specified by its Load Balancer ID. Its full details, including name, status and IP address, are returned in the response object.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb lb get &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-usage-statistics-of-a-given-load-balancer">Get usage statistics of a given Load Balancer</h3>
+<p>Get usage statistics of a given Load Balancer.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb lb get-stats &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>backend-id</td>
+<td></td>
+<td>ID of the backend</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-load-balancers">List Load Balancers</h3>
+<p>List all Load Balancers in the specified zone, for a Scaleway Organization or Scaleway Project. By default, the Load Balancers returned in the list are ordered by creation date in ascending order, though this can be modified via the <code>order_by</code> field.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb lb list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td></td>
+<td>Load Balancer name to filter for</td>
+</tr>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>name_asc</code>, <code>name_desc</code></td>
+<td>Sort order of Load Balancers in the response</td>
+</tr>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Project ID to filter for, only Load Balancers from this Project will be returned</td>
+</tr>
+<tr>
+<td>tags.{index}</td>
+<td></td>
+<td>Filter by tag, only Load Balancers with one or more matching tags will be returned</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Organization ID to filter for, only Load Balancers from this Organization will be returned</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="migrate-a-load-balancer">Migrate a Load Balancer</h3>
+<p>Migrate an existing Load Balancer from one commercial type to another. Allows you to scale your Load Balancer up or down in terms of bandwidth or multi-cloud provision.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb lb migrate &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>type</td>
+<td>Required<br />One of: <code>LB-S</code>, <code>LB-GP-M</code>, <code>LB-GP-L</code></td>
+<td>Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types)</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-load-balancer">Update a Load Balancer</h3>
+<p>Update the parameters of an existing Load Balancer, specified by its Load Balancer ID. Note that the request type is PUT and not PATCH. You must set all parameters.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb lb update &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required</td>
+<td>Load Balancer name</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Required</td>
+<td>Load Balancer description</td>
+</tr>
+<tr>
+<td>assign-flexible-ipv6</td>
+<td></td>
+<td>Automatically assign a flexible public IPv6 to the Load Balancer</td>
+</tr>
+<tr>
+<td>ip-id</td>
+<td></td>
+<td>The IP ID to attach to the Load Balancer</td>
+</tr>
+<tr>
+<td>tags.{index}</td>
+<td></td>
+<td>List of tags for the Load Balancer</td>
+</tr>
+<tr>
+<td>ssl-compatibility-level</td>
+<td>One of: <code>ssl_compatibility_level_unknown</code>, <code>ssl_compatibility_level_intermediate</code>, <code>ssl_compatibility_level_modern</code>, <code>ssl_compatibility_level_old</code></td>
+<td>Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wait-for-a-load-balancer-to-reach-a-stable-state">Wait for a load balancer to reach a stable state</h3>
+<p>Wait for a load balancer to reach a stable state. This is similar to using --wait flag.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb lb wait &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>ID of the load balancer you want to wait for.</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>pl-waw-1</code>, <code>nl-ams-1</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>Default: <code>10m0s</code></td>
+<td>Timeout of the wait</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<p>Wait for a load balancer to reach a stable state</p>
+<pre><code>scw lb lb wait 11111111-1111-1111-1111-111111111111
+</code></pre>
+<h2 id="load-balancer-types-management-commands">Load balancer types management commands</h2>
+<p>Load balancer types management commands.</p>
+<h3 id="list-all-load-balancer-offer-types">List all Load Balancer offer types</h3>
+<p>List all the different commercial Load Balancer types. The response includes an array of offer types, each with a name, description, and information about its stock availability.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb lb-types list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="private-networks-management-commands">Private networks management commands</h2>
+<p>Private networks management commands.</p>
+<h3 id="attach-a-load-balancer-to-a-private-network">Attach a Load Balancer to a Private Network</h3>
+<p>Attach a specified Load Balancer to a specified Private Network, defining a static or DHCP configuration for the Load Balancer on the network.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb private-network attach &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>private-network-id</td>
+<td>Required</td>
+<td>Private Network ID</td>
+</tr>
+<tr>
+<td>~~static-config.ip-address.{index}~~</td>
+<td>Deprecated</td>
+<td>Array of a local IP address for the Load Balancer on this Private Network</td>
+</tr>
+<tr>
+<td>~~dhcp-config.ip-id~~</td>
+<td>Deprecated</td>
+<td></td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="detach-load-balancer-from-private-network">Detach Load Balancer from Private Network</h3>
+<p>Detach a specified Load Balancer from a specified Private Network.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb private-network detach &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load balancer ID</td>
+</tr>
+<tr>
+<td>private-network-id</td>
+<td>Required</td>
+<td>Set your instance private network id</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-private-networks-attached-to-a-load-balancer">List Private Networks attached to a Load Balancer</h3>
+<p>List the Private Networks attached to a given Load Balancer, specified by its Load Balancer ID. The response is an array of Private Network objects, giving information including the status, configuration, name and creation date of each Private Network.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb private-network list &lt;lb-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code></td>
+<td>Sort order of Private Network objects in the response</td>
+</tr>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="route-rules-management-commands">Route rules management commands</h2>
+<p>Route rules management commands.</p>
+<h3 id="create-a-route">Create a route</h3>
+<p>Create a new route on a given frontend. To configure a route, specify the backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb route create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frontend-id</td>
+<td></td>
+<td>ID of the source frontend to create the route on</td>
+</tr>
+<tr>
+<td>backend-id</td>
+<td></td>
+<td>ID of the target backend for the route</td>
+</tr>
+<tr>
+<td>match.sni</td>
+<td></td>
+<td>Server Name Indication (SNI) value to match</td>
+</tr>
+<tr>
+<td>match.host-header</td>
+<td></td>
+<td>HTTP host header to match</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-route">Delete a route</h3>
+<p>Delete an existing route, specified by its route ID. Deleting a route is permanent, and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb route delete &lt;route-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route-id</td>
+<td>Required</td>
+<td>Route ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-route">Get a route</h3>
+<p>Retrieve information about an existing route, specified by its route ID. Its full details, origin frontend, target backend and match condition, are returned in the response object.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb route get &lt;route-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route-id</td>
+<td>Required</td>
+<td>Route ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-all-routes">List all routes</h3>
+<p>List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb route list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code></td>
+<td>Sort order of routes in the response</td>
+</tr>
+<tr>
+<td>frontend-id</td>
+<td></td>
+<td>Frontend ID to filter for, only Routes from this Frontend will be returned</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-route">Update a route</h3>
+<p>Update the configuration of an existing route, specified by its route ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb route update &lt;route-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route-id</td>
+<td>Required</td>
+<td>Route ID</td>
+</tr>
+<tr>
+<td>backend-id</td>
+<td></td>
+<td>ID of the target backend for the route</td>
+</tr>
+<tr>
+<td>match.sni</td>
+<td></td>
+<td>Server Name Indication (SNI) value to match</td>
+</tr>
+<tr>
+<td>match.host-header</td>
+<td></td>
+<td>HTTP host header to match</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="subscriber-management-commands">Subscriber management commands</h2>
+<p>Subscriber management commands.</p>
+<h3 id="create-a-subscriber">Create a subscriber</h3>
+<p>Create a new subscriber, either with an email configuration or a webhook configuration, for a specified Scaleway Project.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb subscriber create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Required</td>
+<td>Subscriber name</td>
+</tr>
+<tr>
+<td>email-config.email</td>
+<td></td>
+<td>Email address to send alerts to</td>
+</tr>
+<tr>
+<td>webhook-config.uri</td>
+<td></td>
+<td>URI to receive POST requests</td>
+</tr>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Project ID to use. If none is passed the default project ID will be used</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Organization ID to use. If none is passed the default organization ID will be used</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-subscriber">Delete a subscriber</h3>
+<p>Delete an existing subscriber, specified by its subscriber ID. Deleting a subscriber is permanent, and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb subscriber delete &lt;subscriber-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subscriber-id</td>
+<td>Required</td>
+<td>Subscriber ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-subscriber">Get a subscriber</h3>
+<p>Retrieve information about an existing subscriber, specified by its subscriber ID. Its full details, including name and email/webhook configuration, are returned in the response object.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb subscriber get &lt;subscriber-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subscriber-id</td>
+<td>Required</td>
+<td>Subscriber ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-all-subscribers">List all subscribers</h3>
+<p>List all subscribers to Load Balancer alerts. By default, returns all subscribers to Load Balancer alerts for the Organization associated with the authentication token used for the request.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb subscriber list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>created_at_asc</code>, <code>created_at_desc</code>, <code>name_asc</code>, <code>name_desc</code></td>
+<td>Sort order of subscribers in the response</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required</td>
+<td>Subscriber name to search for</td>
+</tr>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Filter subscribers by Project ID</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Filter subscribers by Organization ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code>, <code>all</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="subscribe-a-subscriber-to-alerts-for-a-given-load-balancer">Subscribe a subscriber to alerts for a given Load Balancer</h3>
+<p>Subscribe an existing subscriber to alerts for a given Load Balancer.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb subscriber subscribe [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>subscriber-id</td>
+<td>Required</td>
+<td>Subscriber ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unsubscribe-a-subscriber-from-alerts-for-a-given-load-balancer">Unsubscribe a subscriber from alerts for a given Load Balancer</h3>
+<p>Unsubscribe a subscriber from alerts for a given Load Balancer. The subscriber is not deleted, and can be resubscribed in the future if necessary.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb subscriber unsubscribe [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb-id</td>
+<td>Required</td>
+<td>Load Balancer ID</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-subscriber">Update a subscriber</h3>
+<p>Update the parameters of a given subscriber (e.g. name, webhook configuration, email configuration), specified by its subscriber ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw lb subscriber update &lt;subscriber-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subscriber-id</td>
+<td>Required</td>
+<td>Subscriber ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Required</td>
+<td>Subscriber name</td>
+</tr>
+<tr>
+<td>email-config.email</td>
+<td></td>
+<td>Email address to send alerts to</td>
+</tr>
+<tr>
+<td>webhook-config.uri</td>
+<td></td>
+<td>URI to receive POST requests</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>Default: <code>fr-par-1</code><br />One of: <code>fr-par-1</code>, <code>fr-par-2</code>, <code>nl-ams-1</code>, <code>nl-ams-2</code>, <code>nl-ams-3</code>, <code>pl-waw-1</code>, <code>pl-waw-2</code>, <code>pl-waw-3</code></td>
+<td>Zone to target. If none is passed will use default zone from the config</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback! Help us improve this page by referring to the <a href="/scaleway-cli-documentation/feedback/" target="_blank" rel="noopener">feedback page</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.action.edit", "content.action.view", "navigation.sections", "navigation.path", "navigation.top", "search.suggest"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>

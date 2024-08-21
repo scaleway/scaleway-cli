@@ -1,0 +1,3798 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/scaleway-cli-documentation/iot/">
+      
+      
+        <link rel="prev" href="../document-db/">
+      
+      
+        <link rel="next" href="../tem/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>IOT Hub - Scaleway Command Line Interface Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-XXXXXXXXXX",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#documentation-for-scw-iot" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Scaleway Command Line Interface Documentation" class="md-header__button md-logo" aria-label="Scaleway Command Line Interface Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Scaleway Command Line Interface Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IOT Hub
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/scaleway/scaleway-cli" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    scaleway/scaleway-cli
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Scaleway Command Line Interface Documentation" class="md-nav__button md-logo" aria-label="Scaleway Command Line Interface Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    Scaleway Command Line Interface Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/scaleway/scaleway-cli" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    scaleway/scaleway-cli
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Platform
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Platform
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../account/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Account
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../billing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Billing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secret/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secret Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../marketplace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Marketplace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    AI & Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            AI & Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managed Inference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Bare Metal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bare Metal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../baremetal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elastic Metal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apple-silicon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apple Silicon
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flexible IP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Compute
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Compute
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Container Registry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Labs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Labs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPFS Pinning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPFS Naming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managed Databases
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Managed Databases
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PostgreSQL and MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis™
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-db/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Document Databases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managed Services
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Managed Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    IOT Hub
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    IOT Hub
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#iot-device-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IoT Device commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IoT Device commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disable-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disable a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-devices-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a device's certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-devices-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a device's metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      List devices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renew-a-device-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Renew a device certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-a-custom-certificate-on-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set a custom certificate on a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a device
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iot-hub-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IoT Hub commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IoT Hub commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disable-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disable a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-the-certificate-authority-of-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the certificate authority of a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-hubs" class="md-nav__link">
+    <span class="md-ellipsis">
+      List hubs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-certificate-authority-of-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set the certificate authority of a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a hub
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iot-network-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IoT Network commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IoT Network commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a new network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-a-specific-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retrieve a specific network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      List the networks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iot-route-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IoT Route commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IoT Route commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      List routes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a route
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transactional Email
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../webhosting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Hosting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vpc-gw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Puvblic Gateway
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domains and DNS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Observability
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Observability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cockpit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cockpit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Serverless
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Serverless
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdb-sql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Databases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mnq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Messaging and Queuing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Storage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../block/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BLock Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Object Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    CLI configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            CLI configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alias/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alias
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autocomplete/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autocompletion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feedback/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Feedback
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../help/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../init/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Initialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shell
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#iot-device-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IoT Device commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IoT Device commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disable-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disable a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-devices-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a device's certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-devices-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a device's metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      List devices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renew-a-device-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Renew a device certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-a-custom-certificate-on-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set a custom certificate on a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a device
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iot-hub-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IoT Hub commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IoT Hub commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disable-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disable a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-the-certificate-authority-of-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the certificate authority of a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-hubs" class="md-nav__link">
+    <span class="md-ellipsis">
+      List hubs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-certificate-authority-of-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set the certificate authority of a hub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a hub
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iot-network-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IoT Network commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IoT Network commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a new network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-a-specific-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retrieve a specific network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      List the networks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iot-route-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      IoT Route commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IoT Route commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get a route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      List routes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a route
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/scaleway/scaleway-cli/edit/master/docs/commands/iot.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/scaleway/scaleway-cli/raw/master/docs/commands/iot.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<!-- DO NOT EDIT: this file is automatically generated using scw-doc-gen -->
+<h1 id="documentation-for-scw-iot">Documentation for <code>scw iot</code></h1>
+<p>This API allows you to manage IoT hubs and devices.</p>
+<h2 id="iot-device-commands">IoT Device commands</h2>
+<p>IoT Device commands.</p>
+<h3 id="add-a-device">Add a device</h3>
+<p>Attach a device to a given Hub.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Required<br />Default: <code>&lt;generated&gt;</code></td>
+<td>Device name</td>
+</tr>
+<tr>
+<td>hub-id</td>
+<td>Required</td>
+<td>Hub ID of the device</td>
+</tr>
+<tr>
+<td>allow-insecure</td>
+<td></td>
+<td>Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones</td>
+</tr>
+<tr>
+<td>allow-multiple-connections</td>
+<td></td>
+<td>Defines whether to allow multiple physical devices to connect with this device's credentials</td>
+</tr>
+<tr>
+<td>message-filters.publish.policy</td>
+<td>One of: <code>unknown</code>, <code>accept</code>, <code>reject</code></td>
+<td>How to use the topic list</td>
+</tr>
+<tr>
+<td>message-filters.publish.topics.{index}</td>
+<td></td>
+<td>List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters</td>
+</tr>
+<tr>
+<td>message-filters.subscribe.policy</td>
+<td>One of: <code>unknown</code>, <code>accept</code>, <code>reject</code></td>
+<td>How to use the topic list</td>
+</tr>
+<tr>
+<td>message-filters.subscribe.topics.{index}</td>
+<td></td>
+<td>List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters</td>
+</tr>
+<tr>
+<td>description</td>
+<td></td>
+<td>Device description</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="remove-a-device">Remove a device</h3>
+<p>Remove a specific device from the specific Hub it is attached to.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device delete &lt;device-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device-id</td>
+<td>Required</td>
+<td>Device ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="disable-a-device">Disable a device</h3>
+<p>Disable an existing device, specified by its device ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device disable &lt;device-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device-id</td>
+<td>Required</td>
+<td>Device ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="enable-a-device">Enable a device</h3>
+<p>Enable a specific device, specified by its device ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device enable &lt;device-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device-id</td>
+<td>Required</td>
+<td>Device ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-device">Get a device</h3>
+<p>Retrieve information about an existing device, specified by its device ID. Its full details, including name, status and ID, are returned in the response object.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device get &lt;device-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device-id</td>
+<td>Required</td>
+<td>Device ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-devices-certificate">Get a device's certificate</h3>
+<p>Get information for a particular PEM-encoded certificate, specified by the device ID. The response returns full details of the device, including its type of certificate.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device get-certificate &lt;device-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device-id</td>
+<td>Required</td>
+<td>Device ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-devices-metrics">Get a device's metrics</h3>
+<p>Get the metrics of an existing device, specified by its device ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device get-metrics &lt;device-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device-id</td>
+<td>Required</td>
+<td>Device ID</td>
+</tr>
+<tr>
+<td>start-date</td>
+<td>Required</td>
+<td>Start date used to compute the best scale for the returned metrics</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-devices">List devices</h3>
+<p>List all devices in the specified region. By default, returned devices are ordered by creation date in ascending order, though this can be modified via the <code>order_by</code> field.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>name_asc</code>, <code>name_desc</code>, <code>status_asc</code>, <code>status_desc</code>, <code>hub_id_asc</code>, <code>hub_id_desc</code>, <code>created_at_asc</code>, <code>created_at_desc</code>, <code>updated_at_asc</code>, <code>updated_at_desc</code>, <code>allow_insecure_asc</code>, <code>allow_insecure_desc</code></td>
+<td>Ordering of requested devices</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Name to filter for, only devices with this name will be returned</td>
+</tr>
+<tr>
+<td>hub-id</td>
+<td></td>
+<td>Hub ID to filter for, only devices attached to this Hub will be returned</td>
+</tr>
+<tr>
+<td>allow-insecure</td>
+<td></td>
+<td>Defines wheter to filter the allow_insecure flag</td>
+</tr>
+<tr>
+<td>status</td>
+<td>One of: <code>unknown</code>, <code>error</code>, <code>enabled</code>, <code>disabled</code></td>
+<td>Device status (enabled, disabled, etc.)</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code>, <code>all</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="renew-a-device-certificate">Renew a device certificate</h3>
+<p>Renew the certificate of an existing device, specified by its device ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device renew-certificate &lt;device-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device-id</td>
+<td>Required</td>
+<td>Device ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="set-a-custom-certificate-on-a-device">Set a custom certificate on a device</h3>
+<p>Switch the existing certificate of a given device with an EM-encoded custom certificate.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device set-certificate &lt;device-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device-id</td>
+<td>Required</td>
+<td>Device ID</td>
+</tr>
+<tr>
+<td>certificate-pem</td>
+<td>Required</td>
+<td>PEM-encoded custom certificate</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-device">Update a device</h3>
+<p>Update the parameters of an existing device, specified by its device ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot device update &lt;device-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device-id</td>
+<td>Required</td>
+<td>Device ID</td>
+</tr>
+<tr>
+<td>description</td>
+<td></td>
+<td>Description for the device</td>
+</tr>
+<tr>
+<td>allow-insecure</td>
+<td></td>
+<td>Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones</td>
+</tr>
+<tr>
+<td>allow-multiple-connections</td>
+<td></td>
+<td>Defines whether to allow multiple physical devices to connect with this device's credentials</td>
+</tr>
+<tr>
+<td>message-filters.publish.policy</td>
+<td>One of: <code>unknown</code>, <code>accept</code>, <code>reject</code></td>
+<td>How to use the topic list</td>
+</tr>
+<tr>
+<td>message-filters.publish.topics.{index}</td>
+<td></td>
+<td>List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters</td>
+</tr>
+<tr>
+<td>message-filters.subscribe.policy</td>
+<td>One of: <code>unknown</code>, <code>accept</code>, <code>reject</code></td>
+<td>How to use the topic list</td>
+</tr>
+<tr>
+<td>message-filters.subscribe.topics.{index}</td>
+<td></td>
+<td>List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters</td>
+</tr>
+<tr>
+<td>hub-id</td>
+<td></td>
+<td>Change Hub for this device, additional fees may apply, see IoT Hub pricing</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="iot-hub-commands">IoT Hub commands</h2>
+<p>IoT Hub commands.</p>
+<h3 id="create-a-hub">Create a hub</h3>
+<p>Create a new Hub in the targeted region, specifying its configuration including name and product plan.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot hub create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Required<br />Default: <code>&lt;generated&gt;</code></td>
+<td>Hub name (up to 255 characters)</td>
+</tr>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Project ID to use. If none is passed the default project ID will be used</td>
+</tr>
+<tr>
+<td>product-plan</td>
+<td>Required<br />Default: <code>plan_shared</code><br />One of: <code>plan_unknown</code>, <code>plan_shared</code>, <code>plan_dedicated</code>, <code>plan_ha</code></td>
+<td>Hub product plan</td>
+</tr>
+<tr>
+<td>disable-events</td>
+<td></td>
+<td>Disable Hub events</td>
+</tr>
+<tr>
+<td>events-topic-prefix</td>
+<td></td>
+<td>Topic prefix (default '$SCW/events') of Hub events</td>
+</tr>
+<tr>
+<td>twins-graphite-config.push-uri</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-hub">Delete a hub</h3>
+<p>Delete an existing IoT Hub, specified by its Hub ID. Deleting a Hub is permanent, and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot hub delete &lt;hub-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub-id</td>
+<td>Required</td>
+<td>Hub ID</td>
+</tr>
+<tr>
+<td>delete-devices</td>
+<td></td>
+<td>Defines whether to force the deletion of devices added to this Hub or reject the operation</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="disable-a-hub">Disable a hub</h3>
+<p>Disable an existing IoT Hub, specified by its Hub ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot hub disable &lt;hub-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub-id</td>
+<td>Required</td>
+<td>Hub ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="enable-a-hub">Enable a hub</h3>
+<p>Enable an existing IoT Hub, specified by its Hub ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot hub enable &lt;hub-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub-id</td>
+<td>Required</td>
+<td>Hub ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-hub">Get a hub</h3>
+<p>Retrieve information about an existing IoT Hub, specified by its Hub ID. Its full details, including name, status and endpoint, are returned in the response object.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot hub get &lt;hub-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub-id</td>
+<td>Required</td>
+<td>Hub ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-the-certificate-authority-of-a-hub">Get the certificate authority of a hub</h3>
+<p>Get information for a particular PEM-encoded certificate, specified by the Hub ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot hub get-ca [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub-id</td>
+<td>Required</td>
+<td></td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-hubs">List hubs</h3>
+<p>List all Hubs in the specified zone. By default, returned Hubs are ordered by creation date in ascending order, though this can be modified via the <code>order_by</code> field.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot hub list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>name_asc</code>, <code>name_desc</code>, <code>status_asc</code>, <code>status_desc</code>, <code>product_plan_asc</code>, <code>product_plan_desc</code>, <code>created_at_asc</code>, <code>created_at_desc</code>, <code>updated_at_asc</code>, <code>updated_at_desc</code></td>
+<td>Sort order of Hubs in the response</td>
+</tr>
+<tr>
+<td>project-id</td>
+<td></td>
+<td>Only list Hubs of this Project ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Hub name</td>
+</tr>
+<tr>
+<td>organization-id</td>
+<td></td>
+<td>Only list Hubs of this Organization ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code>, <code>all</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="set-the-certificate-authority-of-a-hub">Set the certificate authority of a hub</h3>
+<p>Set a particular PEM-encoded certificate, specified by the Hub ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot hub set-ca &lt;hub-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub-id</td>
+<td>Required</td>
+<td>Hub ID</td>
+</tr>
+<tr>
+<td>ca-cert-pem</td>
+<td>Required</td>
+<td>CA's PEM-encoded certificate</td>
+</tr>
+<tr>
+<td>challenge-cert-pem</td>
+<td>Required</td>
+<td>Proof of possession of PEM-encoded certificate</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-hub">Update a hub</h3>
+<p>Update the parameters of an existing IoT Hub, specified by its Hub ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot hub update &lt;hub-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub-id</td>
+<td>Required</td>
+<td>ID of the Hub you want to update</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Hub name (up to 255 characters)</td>
+</tr>
+<tr>
+<td>product-plan</td>
+<td>One of: <code>plan_unknown</code>, <code>plan_shared</code>, <code>plan_dedicated</code>, <code>plan_ha</code></td>
+<td>Hub product plan</td>
+</tr>
+<tr>
+<td>disable-events</td>
+<td></td>
+<td>Disable Hub events</td>
+</tr>
+<tr>
+<td>events-topic-prefix</td>
+<td></td>
+<td>Topic prefix of Hub events</td>
+</tr>
+<tr>
+<td>enable-device-auto-provisioning</td>
+<td></td>
+<td>Enable device auto provisioning</td>
+</tr>
+<tr>
+<td>twins-graphite-config.push-uri</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="iot-network-commands">IoT Network commands</h2>
+<p>IoT Network commands.</p>
+<h3 id="create-a-new-network">Create a new network</h3>
+<p>Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot network create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Required<br />Default: <code>&lt;generated&gt;</code></td>
+<td>Network name</td>
+</tr>
+<tr>
+<td>type</td>
+<td>Required<br />One of: <code>unknown</code>, <code>sigfox</code>, <code>rest</code></td>
+<td>Type of network to connect with</td>
+</tr>
+<tr>
+<td>hub-id</td>
+<td>Required</td>
+<td>Hub ID to connect the Network to</td>
+</tr>
+<tr>
+<td>topic-prefix</td>
+<td>Required</td>
+<td>Topic prefix for the Network</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-network">Delete a Network</h3>
+<p>Delete an existing network, specified by its network ID. Deleting a network is permanent, and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot network delete &lt;network-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>network-id</td>
+<td>Required</td>
+<td>Network ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="retrieve-a-specific-network">Retrieve a specific network</h3>
+<p>Retrieve an existing network, specified by its network ID.  The response returns full details of the network, including its type, the topic prefix and its endpoint.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot network get &lt;network-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>network-id</td>
+<td>Required</td>
+<td>Network ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-the-networks">List the networks</h3>
+<p>List the networks.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot network list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>name_asc</code>, <code>name_desc</code>, <code>type_asc</code>, <code>type_desc</code>, <code>created_at_asc</code>, <code>created_at_desc</code></td>
+<td>Ordering of requested routes</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Network name to filter for</td>
+</tr>
+<tr>
+<td>hub-id</td>
+<td></td>
+<td>Hub ID to filter for</td>
+</tr>
+<tr>
+<td>topic-prefix</td>
+<td></td>
+<td>Topic prefix to filter for</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code>, <code>all</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h2 id="iot-route-commands">IoT Route commands</h2>
+<p>IoT Route commands.</p>
+<h3 id="create-a-route">Create a route</h3>
+<p>Multiple kinds of routes can be created, such as:
+- Database Route
+  Create a route that will record subscribed MQTT messages into your database.
+  <b>You need to manage the database by yourself</b>.
+- REST Route.
+  Create a route that will call a REST API on received subscribed MQTT messages.
+- S3 Routes.
+  Create a route that will put subscribed MQTT messages into an S3 bucket.
+  You need to create the bucket yourself and grant write access.
+  Granting can be done with s3cmd (<code>s3cmd setacl s3://&lt;my-bucket&gt; --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031</code>).</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot route create [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Default: <code>&lt;generated&gt;</code></td>
+<td>Route name</td>
+</tr>
+<tr>
+<td>hub-id</td>
+<td></td>
+<td>Hub ID of the route</td>
+</tr>
+<tr>
+<td>topic</td>
+<td></td>
+<td>Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters</td>
+</tr>
+<tr>
+<td>s3-config.bucket-region</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>s3-config.bucket-name</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>s3-config.object-prefix</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>s3-config.strategy</td>
+<td>One of: <code>unknown</code>, <code>per_topic</code>, <code>per_message</code></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.host</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.port</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.dbname</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.username</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.password</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.query</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.engine</td>
+<td>One of: <code>unknown</code>, <code>postgresql</code>, <code>mysql</code></td>
+<td></td>
+</tr>
+<tr>
+<td>rest-config.verb</td>
+<td>One of: <code>unknown</code>, <code>get</code>, <code>post</code>, <code>put</code>, <code>patch</code>, <code>delete</code></td>
+<td></td>
+</tr>
+<tr>
+<td>rest-config.uri</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>rest-config.headers.{key}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-a-route">Delete a route</h3>
+<p>Delete an existing route, specified by its route ID. Deleting a route is permanent, and cannot be undone.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot route delete &lt;route-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route-id</td>
+<td>Required</td>
+<td>Route ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-a-route">Get a route</h3>
+<p>Get information for a particular route, specified by the route ID. The response returns full details of the route, including its type, the topic it subscribes to and its configuration.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot route get &lt;route-id ...&gt; [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route-id</td>
+<td>Required</td>
+<td>Route ID</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-routes">List routes</h3>
+<p>List all routes in the specified region. By default, returned routes are ordered by creation date in ascending order, though this can be modified via the <code>order_by</code> field.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot route list [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-by</td>
+<td>One of: <code>name_asc</code>, <code>name_desc</code>, <code>hub_id_asc</code>, <code>hub_id_desc</code>, <code>type_asc</code>, <code>type_desc</code>, <code>created_at_asc</code>, <code>created_at_desc</code></td>
+<td>Ordering of requested routes</td>
+</tr>
+<tr>
+<td>hub-id</td>
+<td></td>
+<td>Hub ID to filter for</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Route name to filter for</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code>, <code>all</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update-a-route">Update a route</h3>
+<p>Update the parameters of an existing route, specified by its route ID.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>scw iot route update [arg=value ...]
+</code></pre>
+<p><strong>Args:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route-id</td>
+<td>Required</td>
+<td>Route id</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Route name</td>
+</tr>
+<tr>
+<td>topic</td>
+<td></td>
+<td>Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters</td>
+</tr>
+<tr>
+<td>s3-config.bucket-region</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>s3-config.bucket-name</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>s3-config.object-prefix</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>s3-config.strategy</td>
+<td>One of: <code>unknown</code>, <code>per_topic</code>, <code>per_message</code></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.host</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.port</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.dbname</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.username</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.password</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.query</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>db-config.engine</td>
+<td>One of: <code>unknown</code>, <code>postgresql</code>, <code>mysql</code></td>
+<td></td>
+</tr>
+<tr>
+<td>rest-config.verb</td>
+<td>One of: <code>unknown</code>, <code>get</code>, <code>post</code>, <code>put</code>, <code>patch</code>, <code>delete</code></td>
+<td></td>
+</tr>
+<tr>
+<td>rest-config.uri</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>rest-config.headers.{key}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>region</td>
+<td>Default: <code>fr-par</code><br />One of: <code>fr-par</code></td>
+<td>Region to target. If none is passed will use default region from the config</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback! Help us improve this page by referring to the <a href="/scaleway-cli-documentation/feedback/" target="_blank" rel="noopener">feedback page</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.action.edit", "content.action.view", "navigation.sections", "navigation.path", "navigation.top", "search.suggest"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>
