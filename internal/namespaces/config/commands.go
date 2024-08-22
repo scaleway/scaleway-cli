@@ -541,7 +541,7 @@ func configDestroyCommand() *core.Command {
 			configPath := core.ExtractConfigPath(ctx)
 			err := os.Remove(configPath)
 			if err != nil {
-				return err, nil
+				return nil, err
 			}
 			return &core.SuccessResult{
 				Message: "successfully destroy config",

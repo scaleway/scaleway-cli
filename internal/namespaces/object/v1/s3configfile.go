@@ -156,7 +156,7 @@ func (c s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
 		}
 		res, err := json.Marshal(m)
 		if err != nil {
-			return nil, nil
+			return nil, err
 		}
 		return append(res, '\n'), nil
 	default:

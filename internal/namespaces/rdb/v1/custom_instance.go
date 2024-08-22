@@ -342,7 +342,7 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 			InstanceID: args.InstanceID,
 		}, scw.WithAllPages())
 		if err != nil {
-			return res, nil
+			return nil, err
 		}
 
 		return struct {

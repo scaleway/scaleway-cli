@@ -45,6 +45,7 @@ linters:
     - misspell # Finds commonly misspelled English words in comments [fast: true, auto-fix: true]
     - musttag # enforce field tags in (un)marshaled structs [fast: false, auto-fix: false]
     - nakedret # Finds naked returns in functions greater than a specified function length [fast: true, auto-fix: false]
+    - nilerr # Finds the code that returns nil even if it checks that the error is not nil. [fast: false, auto-fix: false]
     - nolintlint # Reports ill-formed or insufficient nolint directives [fast: true, auto-fix: false]
     - nosprintfhostport # Checks for misuse of Sprintf to construct a host with port in a URL. [fast: true, auto-fix: false]
     - perfsprint # Checks that fmt.Sprintf can be replaced with a faster alternative. [fast: false, auto-fix: false]

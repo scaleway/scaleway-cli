@@ -153,7 +153,7 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 func parsePrivateKey(ctx context.Context, key []byte) (any, error) {
 	privateKey, err := ssh.ParseRawPrivateKey(key)
 	if err == nil {
-		return privateKey, err
+		return privateKey, nil
 	}
 	// Key may need a passphrase
 	missingPassphraseError := &ssh.PassphraseMissingError{}
