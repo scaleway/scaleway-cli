@@ -123,7 +123,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		if args.Version == "latest" {
 			latestVersion, err := getLatestK8SVersion(core.ExtractClient(ctx))
 			if err != nil {
-				return nil, fmt.Errorf("could not retrieve latest K8S version")
+				return nil, errors.New("could not retrieve latest K8S version")
 			}
 			args.Version = latestVersion
 		}

@@ -126,7 +126,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "elements-slice.{index}.elements-slice.{index}.name",
 					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
-						return fmt.Errorf("arg validation called")
+						return errors.New("arg validation called")
 					},
 				},
 			},
@@ -156,7 +156,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "short",
 					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
-						return fmt.Errorf("arg validation called")
+						return errors.New("arg validation called")
 					},
 				},
 			},
@@ -836,7 +836,7 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof a=yo c=no",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(fmt.Errorf("arguments 'a' and 'c' are mutually exclusive")),
+				core.TestCheckError(errors.New("arguments 'a' and 'c' are mutually exclusive")),
 			),
 		})(t)
 	})

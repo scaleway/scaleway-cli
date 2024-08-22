@@ -38,7 +38,7 @@ func promptManualProjectID(ctx context.Context, defaultProjectID string) (string
 		DefaultValueDoc: defaultProjectID,
 		ValidateFunc: func(s string) error {
 			if !validation.IsProjectID(s) {
-				return fmt.Errorf("organization id is not a valid uuid")
+				return errors.New("organization id is not a valid uuid")
 			}
 			return nil
 		},

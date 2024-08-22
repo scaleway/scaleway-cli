@@ -358,7 +358,7 @@ func configUnsetCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("successfully unset %s", key),
+				Message: "successfully unset " + key,
 			}, nil
 		},
 	}
@@ -441,7 +441,7 @@ func configDeleteProfileCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("successfully delete profile %s", profileName),
+				Message: "successfully delete profile " + profileName,
 			}, nil
 		},
 	}
@@ -492,7 +492,7 @@ func configActivateProfileCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("successfully activate profile %s", profileName),
+				Message: "successfully activate profile " + profileName,
 			}, nil
 		},
 	}
@@ -869,7 +869,7 @@ func validateDefaultProjectID(profile *scw.Profile) error {
 	if profile.DefaultProjectID != nil {
 		if *profile.DefaultProjectID == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("default project ID cannot be empty"),
+				Err: errors.New("default project ID cannot be empty"),
 			}
 		}
 
@@ -884,7 +884,7 @@ func validateDefaultRegion(profile *scw.Profile) error {
 	if profile.DefaultRegion != nil {
 		if *profile.DefaultRegion == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("default region cannot be empty"),
+				Err: errors.New("default region cannot be empty"),
 			}
 		}
 
@@ -899,7 +899,7 @@ func validateDefaultZone(profile *scw.Profile) error {
 	if profile.DefaultZone != nil {
 		if *profile.DefaultZone == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("default zone cannot be empty"),
+				Err: errors.New("default zone cannot be empty"),
 			}
 		}
 

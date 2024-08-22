@@ -621,7 +621,7 @@ func serverDetachIPCommand() *core.Command {
 					}
 					return api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
 				}
-				return nil, fmt.Errorf("no public ip found")
+				return nil, errors.New("no public ip found")
 			}
 			return nil, errors.New("no server found")
 		},

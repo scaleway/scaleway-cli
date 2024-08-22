@@ -11,7 +11,7 @@ import (
 
 func promptNatsAccounts(ctx context.Context, natsAccounts []*mnq.NatsAccount, totalCount uint64) (*mnq.NatsAccount, error) {
 	if totalCount == 0 {
-		return nil, fmt.Errorf("no nats account found, please create a NATS account with 'scw mnq nats create-account'")
+		return nil, errors.New("no nats account found, please create a NATS account with 'scw mnq nats create-account'")
 	}
 
 	if !interactive.IsInteractive {

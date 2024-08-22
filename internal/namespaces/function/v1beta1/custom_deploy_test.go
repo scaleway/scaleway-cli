@@ -59,6 +59,6 @@ func testDeleteFunctionNamespaceAfter(functionName string) func(*core.AfterFuncC
 			return errors.New("namespace not found")
 		}
 
-		return core.ExecAfterCmd(fmt.Sprintf("scw function namespace delete %s", namespaceID))(ctx)
+		return core.ExecAfterCmd("scw function namespace delete " + namespaceID)(ctx)
 	}
 }

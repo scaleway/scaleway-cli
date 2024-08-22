@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -80,7 +79,7 @@ func secretVersionAccessBuilder(c *core.Command) *core.Command {
 func getSecretVersionField(data []byte, field string) ([]byte, error) {
 	var rawFields interface{}
 	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return nil, fmt.Errorf("cannot unmarshal JSON data")
+		return nil, errors.New("cannot unmarshal JSON data")
 	}
 
 	rawField, ok := rawFields.(map[string]interface{})[field]
@@ -92,6 +91,6 @@ func getSecretVersionField(data []byte, field string) ([]byte, error) {
 	case string:
 		return []byte(field), nil
 	default:
-		return nil, fmt.Errorf("JSON field type is not valid")
+		return nil, errors.New("JSON field type is not valid")
 	}
 }

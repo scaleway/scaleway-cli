@@ -10,6 +10,7 @@ import (
 	"path"
 	"reflect"
 	"runtime"
+	"strconv"
 	"strings"
 	"time"
 
@@ -734,7 +735,7 @@ func createConnectCommandLineArgs(endpoint *rdbSDK.Endpoint, family engineFamily
 		return []string{
 			clidb,
 			"--host", endpoint.IP.String(),
-			"--port", fmt.Sprintf("%d", endpoint.Port),
+			"--port", strconv.FormatUint(uint64(endpoint.Port), 10),
 			"--username", args.Username,
 			"--dbname", database,
 		}, nil
@@ -748,7 +749,7 @@ func createConnectCommandLineArgs(endpoint *rdbSDK.Endpoint, family engineFamily
 		return []string{
 			clidb,
 			"--host", endpoint.IP.String(),
-			"--port", fmt.Sprintf("%d", endpoint.Port),
+			"--port", strconv.FormatUint(uint64(endpoint.Port), 10),
 			"--database", database,
 			"--user", args.Username,
 		}, nil

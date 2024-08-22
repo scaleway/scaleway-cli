@@ -3,7 +3,6 @@ package core_test
 import (
 	"context"
 	"errors"
-	"fmt"
 	"reflect"
 	"testing"
 	"time"
@@ -190,7 +189,7 @@ func Test_PositionalArg(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
 				core.TestCheckError(&core.CliError{
-					Err:  fmt.Errorf("a positional argument is required for this command"),
+					Err:  errors.New("a positional argument is required for this command"),
 					Hint: "Try running: scw test positional <name-id> tag=world",
 				}),
 			),
@@ -312,7 +311,7 @@ func Test_MultiPositionalArg(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckError(&core.CliError{
-				Err:  fmt.Errorf("a positional argument is required for this command"),
+				Err:  errors.New("a positional argument is required for this command"),
 				Hint: "Try running: scw test multi-positional <name-ids> tag=tag1",
 			}),
 		),

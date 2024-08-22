@@ -1,6 +1,7 @@
 package iam
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -8,7 +9,7 @@ import (
 
 func installationCanceled(addKeyInstructions string) *core.CliError {
 	return &core.CliError{
-		Err:  fmt.Errorf("installation of SSH key canceled"),
+		Err:  errors.New("installation of SSH key canceled"),
 		Hint: "You can add it later using " + addKeyInstructions,
 	}
 }

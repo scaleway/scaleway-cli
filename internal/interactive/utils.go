@@ -3,7 +3,7 @@
 package interactive
 
 import (
-	"fmt"
+	"errors"
 	"io"
 	"os"
 
@@ -44,7 +44,7 @@ func isInteractive() bool {
 func ValidateOrganizationID() ValidateFunc {
 	return func(s string) error {
 		if !validation.IsOrganizationID(s) {
-			return fmt.Errorf("invalid organization-id")
+			return errors.New("invalid organization-id")
 		}
 		return nil
 	}

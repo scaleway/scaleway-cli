@@ -33,7 +33,7 @@ func runWeb(cmd *Command, respI interface{}) (interface{}, error) {
 		return nil, &CliError{
 			Err:     err,
 			Message: "Failed to open web url",
-			Details: fmt.Sprintf("You can open it: %s", url),
+			Details: "You can open it: " + url,
 			Hint:    "You may not have a default browser configured",
 			Code:    1,
 		}

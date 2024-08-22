@@ -3,7 +3,6 @@ package tasks_test
 import (
 	"context"
 	"errors"
-	"fmt"
 	"os"
 	"runtime"
 	"strconv"
@@ -20,7 +19,7 @@ func TestGeneric(t *testing.T) {
 	ts.SetLoggerMode(tasks.PrinterModeQuiet)
 
 	tasks.Add(ts, "convert int to string", func(_ *tasks.Task, args int) (nextArgs string, err error) {
-		return fmt.Sprintf("%d", args), nil
+		return strconv.Itoa(args), nil
 	})
 	tasks.Add(ts, "convert string to int and divide by 4", func(_ *tasks.Task, args string) (nextArgs int, err error) {
 		i, err := strconv.ParseInt(args, 10, 32)

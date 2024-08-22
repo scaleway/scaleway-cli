@@ -77,7 +77,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 
 		date, err := trimDateFromFileName(resp.Name)
 		if err != nil {
-			return fmt.Errorf("parse date on file name")
+			return errors.New("parse date on file name")
 		}
 
 		dir, file := getDirFile(args.FilePath)
@@ -140,7 +140,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 func addDownloadExt(fileName, contentType string) string {
 	switch contentType {
 	case "application/pdf":
-		fileName = fmt.Sprintf("%s.pdf", fileName)
+		fileName += ".pdf"
 	}
 
 	return fileName
@@ -178,7 +178,7 @@ func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, er
 			// case when filepath is a directory: join default name with custom path
 			date, err := trimDateFromFileName(resp.Name)
 			if err != nil {
-				return nil, fmt.Errorf("parse date on file name")
+				return nil, errors.New("parse date on file name")
 			}
 
 			defaultFileName := fmt.Sprintf("%s-%s-%s", invoiceDefaultPrefix, date, argsDownload.InvoiceID)

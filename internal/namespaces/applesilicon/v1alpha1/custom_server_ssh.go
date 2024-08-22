@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os/exec"
 	"reflect"
+	"strconv"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
@@ -78,7 +79,7 @@ func serverSSHRun(ctx context.Context, argsI interface{}) (i interface{}, e erro
 
 	sshArgs := []string{
 		serverResp.IP.String(),
-		"-p", fmt.Sprintf("%d", args.Port),
+		"-p", strconv.FormatUint(uint64(args.Port), 10),
 		"-l", args.Username,
 		"-t",
 	}

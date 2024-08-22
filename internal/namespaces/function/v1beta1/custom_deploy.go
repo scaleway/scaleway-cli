@@ -4,6 +4,7 @@ package function
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"os"
@@ -70,7 +71,7 @@ func functionDeploy() *core.Command {
 			}
 
 			if zipFileStat.Size() < 0 {
-				return nil, fmt.Errorf("invalid zip-file, invalid size")
+				return nil, errors.New("invalid zip-file, invalid size")
 			}
 
 			ts := tasks.Begin()

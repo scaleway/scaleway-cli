@@ -113,7 +113,7 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 	}
 	if resp.Server.AdminPasswordEncryptedValue == nil || *resp.Server.AdminPasswordEncryptedValue == "" {
 		return &core.CliError{
-			Err:     fmt.Errorf("rdp password is empty"),
+			Err:     errors.New("rdp password is empty"),
 			Message: "RDP password is nil or empty in api response",
 			Details: "Your server have no RDP password available",
 			Hint:    "You may need to wait for your OS to start before having a generated RDP password, it can take more than 10 minutes.\nUse -w, --wait to wait for password to be available",

@@ -2,7 +2,7 @@ package baremetal
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -56,7 +56,7 @@ func serverAddFlexibleIP() *core.Command {
 						return nil
 					}
 					return &core.CliError{
-						Err:  fmt.Errorf("error looks like the IP type isn't correct"),
+						Err:  errors.New("error looks like the IP type isn't correct"),
 						Hint: "Two type available : IPv6 or IPv4",
 					}
 				},

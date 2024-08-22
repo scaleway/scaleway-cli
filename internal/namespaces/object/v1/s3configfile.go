@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"path"
 	"text/template"
 
@@ -82,7 +81,7 @@ func newS3Config(ctx context.Context, region scw.Region, name string) (s3config,
 	client := core.ExtractClient(ctx)
 	accessKey, accessExists := client.GetAccessKey()
 	if !accessExists {
-		return s3config{}, fmt.Errorf("no access key found")
+		return s3config{}, errors.New("no access key found")
 	}
 	secretKey, secretExists := client.GetSecretKey()
 	if !secretExists {

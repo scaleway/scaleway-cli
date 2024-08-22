@@ -81,7 +81,7 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 		if len(file) > 0 {
 			fileExtension := filepath.Ext(file)
 			if extensionOnFile := checkExportInvoiceExt(fileExtension); !extensionOnFile {
-				return fmt.Errorf("file has not supported extension")
+				return errors.New("file has not supported extension")
 			}
 		}
 
@@ -186,7 +186,7 @@ func billingExportRun(ctx context.Context, argsI interface{}) (interface{}, erro
 func addExportExt(fileName, contentType string) string {
 	switch contentType {
 	case "text/csv":
-		fileName = fmt.Sprintf("%s.csv", fileName)
+		fileName += ".csv"
 	}
 
 	return fileName
