@@ -86,6 +86,7 @@ type autoCompleteTestCase struct {
 
 func runAutocompleteTest(ctx context.Context, tc *autoCompleteTestCase) func(*testing.T) {
 	return func(t *testing.T) {
+		t.Helper()
 		words := tc.Words
 		if len(words) == 0 {
 			name := strings.ReplaceAll(t.Name(), "TestAutocomplete/", "")

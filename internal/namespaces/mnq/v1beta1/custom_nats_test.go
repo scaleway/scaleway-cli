@@ -30,6 +30,7 @@ func Test_CreateContext(t *testing.T) {
 				},
 			),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				result, isSuccessResult := ctx.Result.(*core.SuccessResult)
 				assert.True(t, isSuccessResult, "Expected result to be of type *core.SuccessResult, got %s", reflect.TypeOf(result).String())
 				assert.NotNil(t, result)

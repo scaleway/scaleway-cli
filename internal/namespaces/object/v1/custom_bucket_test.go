@@ -28,6 +28,7 @@ func Test_BucketCreate(t *testing.T) {
 		Cmd:      "scw object bucket create " + bucketName1,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName1, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -49,6 +50,7 @@ func Test_BucketCreate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName2, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -77,6 +79,7 @@ func Test_BucketCreate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName3, bucket.ID)
 				assert.Equal(t, true, bucket.EnableVersioning)
@@ -96,6 +99,7 @@ func Test_BucketCreate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName4, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -132,6 +136,7 @@ func Test_BucketGet(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(object.BucketGetResult)
 				assert.Equal(t, bucketName1, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -152,6 +157,7 @@ func Test_BucketGet(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(object.BucketGetResult)
 				assert.Equal(t, bucketName2, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -199,6 +205,7 @@ func Test_BucketUpdate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName1, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -224,6 +231,7 @@ func Test_BucketUpdate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName2, bucket.ID)
 				assert.Equal(t, true, bucket.EnableVersioning)
@@ -261,6 +269,7 @@ func deleteBucket(name string) core.AfterFunc {
 }
 
 func checkACL(t *testing.T, expected string, actual []object.CustomS3ACLGrant, owner string) {
+	t.Helper()
 	grantsMap := make(map[types.Permission]string)
 	for _, actualACL := range actual {
 		if actualACL.Grantee == nil {

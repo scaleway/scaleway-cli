@@ -28,6 +28,7 @@ func Test_SSHConfigInstall(t *testing.T) {
 			),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 
 				configPath := sshconfig.ConfigFilePath(ctx.Meta["HOME"].(string))
@@ -69,6 +70,7 @@ func Test_SSHConfigInstall(t *testing.T) {
 			),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 
 				defaultConfigPath := sshconfig.DefaultConfigFilePath(ctx.Meta["HOME"].(string))

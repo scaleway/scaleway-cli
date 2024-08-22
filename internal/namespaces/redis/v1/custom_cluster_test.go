@@ -37,6 +37,7 @@ func Test_Endpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 1, 0, 0)
 			},
@@ -60,6 +61,7 @@ func Test_Endpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 1, 0)
 			},
@@ -89,6 +91,7 @@ func Test_Endpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 2, 0)
 			},
@@ -122,6 +125,7 @@ func Test_IpamConfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 0, 1)
 			},
@@ -151,6 +155,7 @@ func Test_IpamConfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 0, 2)
 			},
@@ -181,6 +186,7 @@ func Test_IpamConfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
 				checkEndpoints(t, endpoints, 0, 1, 1)
 			},
@@ -217,6 +223,7 @@ func Test_EndpointsEdgeCases(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, ctx.Err.Error(), expectedError)
 			},
 		),
@@ -242,6 +249,7 @@ func Test_EndpointsEdgeCases(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, ctx.Err.Error(), expectedError)
 			},
 		),
@@ -260,6 +268,7 @@ func deletePrivateNetwork(metaName string) core.AfterFunc {
 }
 
 func checkEndpoints(t *testing.T, endpoints []*redisSDK.Endpoint, nbExpectedPub, nbExpectedPrivStatic, nbExpectedPrivIpam int) {
+	t.Helper()
 	expectedEndpoints := map[string]int{
 		"public":         nbExpectedPub,
 		"private-static": nbExpectedPrivStatic,

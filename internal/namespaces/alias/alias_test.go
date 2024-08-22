@@ -23,6 +23,7 @@ func Test_Alias(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stderr), "instance server list")
 			},
 		),
@@ -41,6 +42,7 @@ func Test_Alias(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stderr), "instance server list")
 			},
 		),
@@ -57,6 +59,7 @@ func Test_Alias(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "myalias")
 				assert.Contains(t, string(ctx.Stdout), "iam")
 			},
@@ -88,6 +91,7 @@ func Test_Alias(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "Deleted")
 			},
 		),

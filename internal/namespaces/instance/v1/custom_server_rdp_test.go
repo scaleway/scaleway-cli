@@ -126,6 +126,7 @@ func Test_ServerGetRdpPassword(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotNil(t, ctx.Result)
 				resp, ok := ctx.Result.(*instance.ServerGetRdpPasswordResponse)
 				if !ok {

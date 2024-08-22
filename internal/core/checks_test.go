@@ -75,6 +75,7 @@ func TestCheckAPIKey(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.True(t, strings.HasPrefix(ctx.LogBuffer, "Current api key expires in"))
 			},
 		),

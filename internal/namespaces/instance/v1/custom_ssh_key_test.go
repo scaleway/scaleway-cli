@@ -45,6 +45,7 @@ func Test_SSHKey(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				resp, err := instanceSDK.NewAPI(ctx.Client).GetServer(&instanceSDK.GetServerRequest{
 					Zone:     server.Zone,
@@ -68,6 +69,7 @@ func Test_SSHKey(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				out := string(ctx.Stdout)
 				assert.Contains(t, out, "key1")
 				assert.Contains(t, out, "key2")
@@ -87,6 +89,7 @@ func Test_SSHKey(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				resp, err := instanceSDK.NewAPI(ctx.Client).GetServer(&instanceSDK.GetServerRequest{
 					Zone:     server.Zone,

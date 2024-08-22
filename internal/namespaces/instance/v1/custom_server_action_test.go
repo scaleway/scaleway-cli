@@ -25,6 +25,7 @@ func Test_ServerTerminate(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				_, err := api.GetIP(&instanceSDK.GetIPRequest{
@@ -45,6 +46,7 @@ func Test_ServerTerminate(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				_, err := api.GetIP(&instanceSDK.GetIPRequest{
@@ -80,6 +82,7 @@ func Test_ServerTerminate(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				_, err := api.GetVolume(&instanceSDK.GetVolumeRequest{
@@ -121,6 +124,7 @@ func Test_ServerAction(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				storedServer := ctx.Meta["Server"].(*instanceSDK.Server)
 				api := instanceSDK.NewAPI(ctx.Client)
 				resp, err := api.GetServer(&instanceSDK.GetServerRequest{
@@ -145,6 +149,7 @@ func Test_ServerEnableRoutedIP(t *testing.T) {
 		Cmd:        `scw instance server enable-routed-ip zone=fr-par-3 {{ .Server.ID }} --wait`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				storedServer := ctx.Meta["Server"].(*instanceSDK.Server)
 				api := instanceSDK.NewAPI(ctx.Client)
 				server, err := api.GetServer(&instanceSDK.GetServerRequest{

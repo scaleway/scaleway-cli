@@ -23,6 +23,7 @@ func Test_createRule(t *testing.T) {
 		Cmd: `scw iam rule create {{ .Policy.ID }} permission-set-names.0=VPCReadOnly project-ids.0={{ .Project.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "IPAMReadOnly")
 				assert.Contains(t, string(ctx.Stdout), "VPCReadOnly")
 			},
@@ -60,6 +61,7 @@ func Test_deleteRule(t *testing.T) {
 		Cmd: `scw iam rule delete {{ .Policy.ID }} rule-id={{ .Rule.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotContains(t, string(ctx.Stdout), "IPAMReadOnly")
 				assert.Contains(t, string(ctx.Stdout), "VPCReadOnly")
 			},

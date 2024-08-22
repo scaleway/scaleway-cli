@@ -22,6 +22,7 @@ func Test_getPolicyWithRules(t *testing.T) {
 		Cmd: `scw iam policy get {{ .Policy.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "IPAMReadOnly")
 			},
 			core.TestCheckGolden(),

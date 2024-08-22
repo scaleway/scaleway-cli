@@ -76,6 +76,7 @@ func TestMarshal(t *testing.T) {
 
 	run := func(tc *testCase) func(*testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			result, err := human.Marshal(tc.data, tc.opt)
 
 			// Format expected to allow indentation when writing test
