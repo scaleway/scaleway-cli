@@ -1,12 +1,21 @@
 package k8s
 
 import (
+	"encoding/json"
 	"os"
 	"path"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
+)
+
+const (
+	p1Secret  = "00000000-0000-0000-0000-111111111111"
+	p2Secret  = "00000000-0000-0000-0000-222222222222"
+	p3Secret  = "00000000-0000-0000-0000-333333333333"
+	envSecret = "66666666-6666-6666-6666-666666666666"
 )
 
 func Test_ExecCredential(t *testing.T) {
@@ -19,6 +28,7 @@ func Test_ExecCredential(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
+			assertTokenInResponse(p1Secret),
 		),
 	}))
 
@@ -29,11 +39,12 @@ func Test_ExecCredential(t *testing.T) {
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw k8s exec-credential",
 		OverrideEnv: map[string]string{
-			scw.ScwSecretKeyEnv: "66666666-6666-6666-6666-666666666666",
+			scw.ScwSecretKeyEnv: envSecret,
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
+			assertTokenInResponse(envSecret),
 		),
 	}))
 
@@ -49,6 +60,7 @@ func Test_ExecCredential(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
+			assertTokenInResponse(p2Secret),
 		),
 	}))
 
@@ -61,6 +73,7 @@ func Test_ExecCredential(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
+			assertTokenInResponse(p3Secret),
 		),
 	}))
 
@@ -76,6 +89,7 @@ func Test_ExecCredential(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
+			assertTokenInResponse(p3Secret),
 		),
 	}))
 }
@@ -97,7 +111,7 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 	return beforeFuncCreateConfigFile(&scw.Config{
 		Profile: scw.Profile{
 			AccessKey:             scw.StringPtr("SCWXXXXXXXXXXXXXXXXX"),
-			SecretKey:             scw.StringPtr("00000000-0000-0000-0000-111111111111"),
+			SecretKey:             scw.StringPtr(p1Secret),
 			APIURL:                scw.StringPtr("https://mock-api-url.com"),
 			Insecure:              scw.BoolPtr(true),
 			DefaultOrganizationID: scw.StringPtr("deadbeef-dead-dead-dead-deaddeafbeef"),
@@ -108,7 +122,7 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 		Profiles: map[string]*scw.Profile{
 			"p2": {
 				AccessKey:             scw.StringPtr("SCWP2XXXXXXXXXXXXXXX"),
-				SecretKey:             scw.StringPtr("00000000-0000-0000-0000-222222222222"),
+				SecretKey:             scw.StringPtr(p2Secret),
 				APIURL:                scw.StringPtr("https://p2-mock-api-url.com"),
 				Insecure:              scw.BoolPtr(true),
 				DefaultOrganizationID: scw.StringPtr("deadbeef-dead-dead-dead-deaddeafbeef"),
@@ -118,7 +132,7 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 			},
 			"p3": {
 				AccessKey:             scw.StringPtr("SCWP3XXXXXXXXXXXXXXX"),
-				SecretKey:             scw.StringPtr("00000000-0000-0000-0000-333333333333"),
+				SecretKey:             scw.StringPtr(p3Secret),
 				APIURL:                scw.StringPtr("https://p3-mock-api-url.com"),
 				Insecure:              scw.BoolPtr(true),
 				DefaultOrganizationID: scw.StringPtr("deadbeef-dead-dead-dead-deaddeafbeef"),
@@ -128,4 +142,16 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 			},
 		},
 	})
+}
+
+func assertTokenInResponse(expectedToken string) core.TestCheck {
+	return func(t *testing.T, ctx *core.CheckFuncCtx) {
+		res := ctx.Result.(string)
+		creds := ExecCredential{}
+		err := json.Unmarshal([]byte(res), &creds)
+		if err != nil {
+			t.Fatal(err)
+		}
+		assert.Equal(t, expectedToken, creds.Status.Token)
+	}
 }
