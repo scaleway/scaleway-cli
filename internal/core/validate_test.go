@@ -40,6 +40,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, errors.New("arg validation called"), err)
 		}
@@ -197,6 +198,7 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, nil, err)
 		}
@@ -204,6 +206,7 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 
 	runErr := func(testCase TestCase, argName string) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, core.MissingRequiredArgumentError(argName), err)
 		}
@@ -301,6 +304,7 @@ func Test_ValidateNoConflict(t *testing.T) {
 
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.ValidateNoConflict(testCase.command, testCase.rawArgs)
 			assert.Equal(t, nil, err)
 		}
@@ -308,6 +312,7 @@ func Test_ValidateNoConflict(t *testing.T) {
 
 	runErr := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.ValidateNoConflict(testCase.command, testCase.rawArgs)
 			assert.Equal(t, core.ArgumentConflictError(testCase.arg1, testCase.arg2), err)
 		}
@@ -366,6 +371,7 @@ func Test_ValidateDeprecated(t *testing.T) {
 		Cmd: "scw plop a=yo",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, "The argument 'a' is deprecated, more info with: scw plop --help\n", ctx.LogBuffer)
 			},
 		),
@@ -397,6 +403,7 @@ func TestNewOneOfGroupManager(t *testing.T) {
 				expectedRequiredGroups: map[string]bool{},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				manager := core.NewOneOfGroupManager(tc.command)
 				assert.Equal(t, tc.expectedGroups, manager.Groups)
 				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
@@ -415,6 +422,7 @@ func TestNewOneOfGroupManager(t *testing.T) {
 				expectedRequiredGroups: map[string]bool{"group1": true},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				manager := core.NewOneOfGroupManager(tc.command)
 				assert.Equal(t, tc.expectedGroups, manager.Groups)
 				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
@@ -438,6 +446,7 @@ func TestNewOneOfGroupManager(t *testing.T) {
 				expectedRequiredGroups: map[string]bool{},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				manager := core.NewOneOfGroupManager(tc.command)
 				assert.Equal(t, tc.expectedGroups, manager.Groups)
 				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
@@ -463,6 +472,7 @@ func TestNewOneOfGroupManager(t *testing.T) {
 				},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				manager := core.NewOneOfGroupManager(tc.command)
 				assert.Equal(t, tc.expectedGroups, manager.Groups)
 				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)

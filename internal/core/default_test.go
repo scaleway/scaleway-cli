@@ -18,6 +18,7 @@ func Test_ApplyDefaultValues(t *testing.T) {
 
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			result := core.ApplyDefaultValues(context.Background(), tc.argSpecs, tc.rawArgs)
 			assert.Equal(t, tc.expected, result)
 		}

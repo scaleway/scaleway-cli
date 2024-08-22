@@ -27,6 +27,7 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 
 	run := func(tc *TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			interceptor := core.CombineCommandInterceptor(tc.Interceptors...)
 			res, _ := interceptor(nil, nil, runner)
 			assert.Equal(t, tc.Expected, res)

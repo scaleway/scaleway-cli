@@ -39,6 +39,7 @@ func Test_InitAutocomplete(t *testing.T) {
 	}
 
 	runAllShells := func(t *testing.T) {
+		t.Helper()
 		t.Run("Without", core.Test(&core.TestConfig{
 			Commands:   initCLI.GetCommands(),
 			BeforeFunc: baseBeforeFunc(),
@@ -59,6 +60,7 @@ eval "$(scw autocomplete script shell=zsh)"
 				Check: core.TestCheckCombine(
 					core.TestCheckGolden(),
 					func(t *testing.T, ctx *core.CheckFuncCtx) {
+						t.Helper()
 						if runtime.GOOS == windows {
 							// autocomplete installation is not yet supported on windows
 							return
@@ -108,6 +110,7 @@ eval (scw autocomplete script shell=fish)
 				Check: core.TestCheckCombine(
 					core.TestCheckGolden(),
 					func(t *testing.T, ctx *core.CheckFuncCtx) {
+						t.Helper()
 						if runtime.GOOS == windows {
 							// autocomplete installation is not yet supported on windows
 							return
@@ -144,6 +147,7 @@ eval "$(scw autocomplete script shell=bash)"
 				Check: core.TestCheckCombine(
 					core.TestCheckGolden(),
 					func(t *testing.T, ctx *core.CheckFuncCtx) {
+						t.Helper()
 						homeDir := ctx.OverrideEnv["HOME"]
 						filePath := ""
 						switch runtime.GOOS {

@@ -45,6 +45,7 @@ func TestGetValue(t *testing.T) {
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			actual, err := gofields.GetValue(tc.Data, tc.Path)
 			if err != nil {
 				assert.Equal(t, tc.Expected, err.Error())
@@ -154,6 +155,7 @@ func TestGetType(t *testing.T) {
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			actual, err := gofields.GetType(tc.Data, tc.Path)
 			if err != nil {
 				assert.Equal(t, tc.Expected, err.Error())
@@ -229,6 +231,7 @@ func TestListFields(t *testing.T) {
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			actual := gofields.ListFields(tc.Data)
 			assert.Equal(t, tc.Expected, actual)
 		}
@@ -249,6 +252,7 @@ func TestListFieldsWithFilter(t *testing.T) {
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			actual := gofields.ListFieldsWithFilter(tc.Data, tc.Filter)
 			assert.Equal(t, tc.Expected, actual)
 		}
