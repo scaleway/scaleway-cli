@@ -8,8 +8,6 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/scaleway/scaleway-sdk-go/validation"
-
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
@@ -17,6 +15,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 func GetCommands() *core.Commands {

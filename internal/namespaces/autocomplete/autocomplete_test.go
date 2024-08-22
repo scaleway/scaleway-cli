@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
-
 	"github.com/stretchr/testify/assert"
 )
 

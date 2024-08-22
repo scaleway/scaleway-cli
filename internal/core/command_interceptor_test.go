@@ -4,9 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_CombineCommandInterceptor(t *testing.T) {

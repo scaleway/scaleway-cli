@@ -6,10 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
-
 	"github.com/alecthomas/assert"
 	"github.com/dustin/go-humanize"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 

@@ -3,9 +3,8 @@ package rdb_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
 	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"

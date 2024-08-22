@@ -3,11 +3,9 @@ package core_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestResult(t *testing.T) {
