@@ -205,6 +205,7 @@ func defaultOrganizationID(ctx context.Context, config *scw.Config, profileName 
 	}
 	return setting
 }
+
 func defaultProjectID(ctx context.Context, config *scw.Config, profileName string) *setting {
 	setting := &setting{Key: "default_project_id"}
 	switch {

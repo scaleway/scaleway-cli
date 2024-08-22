@@ -3,9 +3,8 @@ package rdb_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
 	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
@@ -209,7 +208,7 @@ func Test_EndpointList(t *testing.T) {
 func checkEndpoints(t *testing.T, client *scw.Client, instance *rdbSDK.Instance, expected []string) {
 	rdbAPI := rdbSDK.NewAPI(client)
 	ipamAPI := ipam.NewAPI(client)
-	var foundEndpoints = map[string]bool{}
+	foundEndpoints := map[string]bool{}
 
 	// First we need to update the instance as the information comes from the test's meta and may be outdated
 	instanceUpdated, err := rdbAPI.GetInstance(&rdbSDK.GetInstanceRequest{

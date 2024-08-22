@@ -20,7 +20,7 @@ type NatsEntity struct {
 
 func makeDirectoryIfNotExists(path string) error {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		return os.MkdirAll(path, os.ModeDir|0755)
+		return os.MkdirAll(path, os.ModeDir|0o755)
 	}
 	return nil
 }
@@ -63,7 +63,7 @@ func writeFile(ctx context.Context, dir string, entity *NatsEntity, extension st
 			return "", wrapError(nil, "File already exists", entity.Name, path)
 		}
 	}
-	if err := os.WriteFile(path, entity.Content, 0600); err != nil {
+	if err := os.WriteFile(path, entity.Content, 0o600); err != nil {
 		return "", wrapError(err, "Failed to write file", entity.Name, path)
 	}
 	_, _ = interactive.Println(entity.Name + " file has been successfully written to " + path)

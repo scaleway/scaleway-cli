@@ -53,7 +53,6 @@ func registryLoginRun(ctx context.Context, argsI interface{}) (i interface{}, e 
 	cmd := exec.Command(args.Program, cmdArgs...) //nolint:gosec
 	cmd.Stdin = bytes.NewBufferString(secretKey)
 	exitCode, err := core.ExecCmd(ctx, cmd)
-
 	if err != nil {
 		return nil, err
 	}

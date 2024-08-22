@@ -6,10 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
-
 	"github.com/alecthomas/assert"
 	"github.com/dustin/go-humanize"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -288,7 +287,7 @@ func TestMarshal(t *testing.T) {
 		result: `Name  Paul`,
 	}))
 
-	var testAnyString = "MyString"
+	testAnyString := "MyString"
 	t.Run("any", run(&testCase{
 		data: &StructAny{
 			String:    testAnyString,
@@ -335,7 +334,8 @@ func Test_getStructFieldsIndex(t *testing.T) {
 			name: "structs",
 			args: args{
 				v: reflect.TypeOf(&Struct{
-					Strings: []string{"aa", "ab"}},
+					Strings: []string{"aa", "ab"},
+				},
 				),
 			},
 			want: [][]int{{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}},

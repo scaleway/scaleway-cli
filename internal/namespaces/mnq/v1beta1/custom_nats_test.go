@@ -7,9 +7,8 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 )
 
 func Test_CreateContext(t *testing.T) {

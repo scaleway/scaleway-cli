@@ -3,9 +3,8 @@ package registry_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 )
 
 func Test_Logout(t *testing.T) {

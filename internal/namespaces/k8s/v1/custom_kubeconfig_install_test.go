@@ -5,12 +5,11 @@ import (
 	"path"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
-
 	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
 	api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	k8sSDK "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
@@ -102,10 +101,10 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 	found := false
 	for _, cluster := range existingKubeconfig.Clusters {
 		if cluster.Name == kubeconfig.Clusters[0].Name+suffix {
-			//t.Log(string(cluster.Cluster.CertificateAuthorityData))
+			// t.Log(string(cluster.Cluster.CertificateAuthorityData))
 			// t.Log(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
 			// panic(string(cluster.Cluster.CertificateAuthorityData))
-			//panic(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
+			// panic(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
 			assert.Equal(t, string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData), string(cluster.Cluster.CertificateAuthorityData))
 			assert.Equal(t, kubeconfig.Clusters[0].Cluster.Server, cluster.Cluster.Server)
 			found = true

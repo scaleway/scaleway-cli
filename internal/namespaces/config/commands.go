@@ -8,8 +8,6 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/scaleway/scaleway-sdk-go/validation"
-
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
@@ -17,6 +15,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 func GetCommands() *core.Commands {
@@ -222,7 +221,8 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					}
 					return nil
 				},
-			}, {
+			},
+			{
 				Name:  "default-project-id",
 				Short: "A default Scaleway project id",
 				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
@@ -291,7 +291,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 
 			argValue := reflect.ValueOf(args).Elem()
 			profileValue := reflect.ValueOf(profile).Elem()
-			for i := 0; i < argValue.NumField(); i++ {
+			for i := range argValue.NumField() {
 				field := argValue.Field(i)
 				if !field.IsNil() {
 					profileValue.Field(i).Set(field)
@@ -771,7 +771,7 @@ func getProfileField(profile *scw.Profile, key string) (reflect.Value, error) {
 func getProfileKeys() []string {
 	t := reflect.TypeOf(scw.Profile{})
 	keys := []string{}
-	for i := 0; i < t.NumField(); i++ {
+	for i := range t.NumField() {
 		field := t.Field(i)
 		switch field.Name {
 		case "APIURL":

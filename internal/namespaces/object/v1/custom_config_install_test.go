@@ -4,9 +4,8 @@ import (
 	"path"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

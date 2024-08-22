@@ -9,12 +9,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
 
-var (
-	aclMarshalSpecs = human.EnumMarshalSpecs{
-		lb.ACLActionTypeAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
-		lb.ACLActionTypeDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
-	}
-)
+var aclMarshalSpecs = human.EnumMarshalSpecs{
+	lb.ACLActionTypeAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
+	lb.ACLActionTypeDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
+}
 
 func lbACLMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.ACL

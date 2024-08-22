@@ -12,7 +12,6 @@ type View struct {
 }
 
 type ViewField struct {
-
 	// Label is the string displayed as header or key for a field.
 	Label string
 

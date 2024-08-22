@@ -35,11 +35,11 @@ func GetLatestVersionUpdateFilePath(cacheDir string) string {
 
 // CreateAndCloseFile creates a file and closes it. It returns true on succeed, false on failure.
 func CreateAndCloseFile(path string) error {
-	err := os.MkdirAll(filepath.Dir(path), 0700)
+	err := os.MkdirAll(filepath.Dir(path), 0o700)
 	if err != nil {
 		return fmt.Errorf("failed creating path %s: %s", path, err)
 	}
-	newFile, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0600)
+	newFile, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0o600)
 	if err != nil {
 		return fmt.Errorf("failed creating file %s: %s", path, err)
 	}

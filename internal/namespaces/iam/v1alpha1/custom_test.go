@@ -5,9 +5,8 @@ import (
 	"path"
 	"testing"
 
-	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 )
 
@@ -20,11 +19,11 @@ func Test_initWithSSHKeyCommand(t *testing.T) {
 			pathToPublicKey := path.Join(tmpDir, ".ssh", "id_ed25519.pub")
 			_, err := os.Stat(pathToPublicKey)
 			if err != nil {
-				err := os.MkdirAll(path.Join(tmpDir, ".ssh"), 0755)
+				err := os.MkdirAll(path.Join(tmpDir, ".ssh"), 0o755)
 				if err != nil {
 					return err
 				}
-				err = os.WriteFile(pathToPublicKey, []byte(key), 0644)
+				err = os.WriteFile(pathToPublicKey, []byte(key), 0o644)
 				return err
 			}
 			return err

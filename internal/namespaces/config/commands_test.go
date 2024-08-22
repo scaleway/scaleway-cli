@@ -7,10 +7,9 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
-
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
@@ -387,7 +386,7 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		homeDir := ctx.OverrideEnv["HOME"]
 		scwDir := path.Join(homeDir, ".config", "scw")
-		err := os.MkdirAll(scwDir, 0755)
+		err := os.MkdirAll(scwDir, 0o755)
 		if err != nil {
 			return err
 		}

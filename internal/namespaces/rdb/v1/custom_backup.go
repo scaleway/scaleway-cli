@@ -23,17 +23,15 @@ const (
 	backupActionTimeout = 20 * time.Minute
 )
 
-var (
-	backupStatusMarshalSpecs = human.EnumMarshalSpecs{
-		rdb.DatabaseBackupStatusUnknown:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-		rdb.DatabaseBackupStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "creating"},
-		rdb.DatabaseBackupStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-		rdb.DatabaseBackupStatusRestoring: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "restoring"},
-		rdb.DatabaseBackupStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
-		rdb.DatabaseBackupStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		rdb.DatabaseBackupStatusExporting: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "exporting"},
-	}
-)
+var backupStatusMarshalSpecs = human.EnumMarshalSpecs{
+	rdb.DatabaseBackupStatusUnknown:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	rdb.DatabaseBackupStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "creating"},
+	rdb.DatabaseBackupStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+	rdb.DatabaseBackupStatusRestoring: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "restoring"},
+	rdb.DatabaseBackupStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
+	rdb.DatabaseBackupStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+	rdb.DatabaseBackupStatusExporting: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "exporting"},
+}
 
 type backupWaitRequest struct {
 	BackupID string

@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
-
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestMarshal(t *testing.T) {
@@ -25,7 +25,7 @@ func TestMarshal(t *testing.T) {
 			args, err := args.MarshalStruct(testCase.data)
 
 			if testCase.error == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, testCase.expected, args)
 			} else {
 				assert.Equal(t, testCase.error, err.Error())
@@ -123,7 +123,7 @@ func TestMarshal(t *testing.T) {
 	t.Run("well-known-types", run(TestCase{
 		data: &WellKnownTypes{
 			Size: 20 * scw.GB,
-			Time: time.Date(2006, 01, 02, 15, 04, 05, 0, time.UTC),
+			Time: time.Date(2006, 1, 2, 15, 4, 5, 0, time.UTC),
 		},
 		expected: []string{
 			"size=20GB",
@@ -238,7 +238,7 @@ func TestMarshalValue(t *testing.T) {
 			value, err := args.MarshalValue(testCase.data)
 
 			if testCase.error == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, testCase.expected, value)
 			} else {
 				assert.Equal(t, testCase.error, err.Error())

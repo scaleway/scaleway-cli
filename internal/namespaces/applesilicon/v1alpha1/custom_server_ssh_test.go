@@ -3,9 +3,8 @@ package applesilicon_test
 import (
 	"testing"
 
-	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 )
 
 func Test_ServerSSH(t *testing.T) {

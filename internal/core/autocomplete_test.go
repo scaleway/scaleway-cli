@@ -8,7 +8,6 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
@@ -219,9 +218,8 @@ func TestAutocompleteArgs(t *testing.T) {
 		Namespace: "test",
 		Resource:  "flower",
 		Verb:      "list",
-		ArgsType: reflect.TypeOf(struct {
-		}{}),
-		ArgSpecs: core.ArgSpecs{},
+		ArgsType:  reflect.TypeOf(struct{}{}),
+		ArgSpecs:  core.ArgSpecs{},
 		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
 			return []*struct {
 				Name string
@@ -239,9 +237,8 @@ func TestAutocompleteArgs(t *testing.T) {
 		Namespace: "test",
 		Resource:  "material",
 		Verb:      "list",
-		ArgsType: reflect.TypeOf(struct {
-		}{}),
-		ArgSpecs: core.ArgSpecs{},
+		ArgsType:  reflect.TypeOf(struct{}{}),
+		ArgSpecs:  core.ArgSpecs{},
 		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
 			return []*struct {
 				Name string

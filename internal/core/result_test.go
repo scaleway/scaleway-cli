@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestResult(t *testing.T) {
@@ -18,9 +18,9 @@ func TestResult(t *testing.T) {
 	}
 
 	humanOutput, err := result.MarshalHuman()
-	assert.NoError(t, err)
+	require.NoError(t, err)
 	assert.Equal(t, "", humanOutput)
 	jsonOutput, err := result.MarshalJSON()
-	assert.NoError(t, err)
+	require.NoError(t, err)
 	assert.Equal(t, []byte("{}"), jsonOutput)
 }

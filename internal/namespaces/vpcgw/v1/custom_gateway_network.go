@@ -12,17 +12,15 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var (
-	gatewayNetworkStatusMarshalSpecs = human.EnumMarshalSpecs{
-		vpcgw.GatewayNetworkStatusAttaching:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		vpcgw.GatewayNetworkStatusConfiguring: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		vpcgw.GatewayNetworkStatusCreated:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		vpcgw.GatewayNetworkStatusDeleted:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-		vpcgw.GatewayNetworkStatusDetaching:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		vpcgw.GatewayNetworkStatusReady:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		vpcgw.GatewayNetworkStatusUnknown:     &human.EnumMarshalSpec{Attribute: color.Faint},
-	}
-)
+var gatewayNetworkStatusMarshalSpecs = human.EnumMarshalSpecs{
+	vpcgw.GatewayNetworkStatusAttaching:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	vpcgw.GatewayNetworkStatusConfiguring: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	vpcgw.GatewayNetworkStatusCreated:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	vpcgw.GatewayNetworkStatusDeleted:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+	vpcgw.GatewayNetworkStatusDetaching:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	vpcgw.GatewayNetworkStatusReady:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	vpcgw.GatewayNetworkStatusUnknown:     &human.EnumMarshalSpec{Attribute: color.Faint},
+}
 
 func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {

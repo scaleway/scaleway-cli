@@ -44,7 +44,6 @@ func registryLogoutRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	cmdArgs := []string{"logout", endpoint}
 	cmd := exec.Command(args.Program, cmdArgs...) //nolint:gosec
 	exitCode, err := core.ExecCmd(ctx, cmd)
-
 	if err != nil {
 		return nil, err
 	}

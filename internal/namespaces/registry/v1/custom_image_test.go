@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	registrySDK "github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 )
 

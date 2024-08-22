@@ -5,9 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
-
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 )
 
 type Friends struct {
@@ -67,7 +66,7 @@ func TestGetValue(t *testing.T) {
 			},
 		},
 		Pets: map[string]*Pet{
-			"rex": &Pet{
+			"rex": {
 				Animal: Animal{
 					Species: "dog",
 				},

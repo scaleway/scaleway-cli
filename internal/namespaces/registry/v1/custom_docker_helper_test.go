@@ -7,10 +7,9 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
-
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	"github.com/stretchr/testify/require"
 )
 
@@ -30,7 +29,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 			assert.Equal(t, "#!/bin/sh\nscw registry docker-helper \"$@\"\n", string(scriptContent))
 			stats, err := os.Stat(scriptPath)
 			require.NoError(t, err)
-			assert.Equal(t, os.FileMode(0755), stats.Mode())
+			assert.Equal(t, os.FileMode(0o755), stats.Mode())
 
 			dockerConfigPath := path.Join(ctx.Meta["HOME"].(string), ".docker", "config.json")
 			dockerConfigContent, err := os.ReadFile(dockerConfigPath)
