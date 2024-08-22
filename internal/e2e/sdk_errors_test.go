@@ -33,7 +33,7 @@ func TestSdkStandardErrors(t *testing.T) {
 		UseE2EClient:    true,
 		DisableParallel: true, // because e2e client is used
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			for i := 0; i < 10; i++ {
+			for range 10 {
 				ctx.ExecuteCmd([]string{"scw", "test", "human", "create"})
 			}
 			return nil

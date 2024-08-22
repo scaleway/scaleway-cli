@@ -8,10 +8,9 @@ import (
 	"strings"
 	"text/template"
 
-	"gopkg.in/yaml.v3"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"gopkg.in/yaml.v3"
 )
 
 // Type defines an formatter format.
@@ -293,7 +292,7 @@ func (p *Printer) printTemplate(data interface{}) error {
 	switch dataValue.Type().Kind() {
 	// If we have a slice of value, we apply the template for each item
 	case reflect.Slice:
-		for i := 0; i < dataValue.Len(); i++ {
+		for i := range dataValue.Len() {
 			elemValue := dataValue.Index(i)
 			err := p.template.Execute(writer, elemValue)
 			if err != nil {

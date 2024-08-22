@@ -7,11 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/alecthomas/assert"
 	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )

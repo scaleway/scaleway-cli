@@ -9,9 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
