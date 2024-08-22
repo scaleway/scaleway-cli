@@ -5,12 +5,11 @@ import (
 	"path"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
-
 	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
 	api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	k8sSDK "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 

@@ -3,9 +3,8 @@ package test_test
 import (
 	"testing"
 
-	test "github.com/scaleway/scaleway-cli/v2/internal/namespaces/test/custom"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	test "github.com/scaleway/scaleway-cli/v2/internal/namespaces/test/custom"
 )
 
 func Test_AnonymousFields(t *testing.T) {

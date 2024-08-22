@@ -8,10 +8,9 @@ import (
 	"strings"
 	"text/template"
 
-	"gopkg.in/yaml.v3"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"gopkg.in/yaml.v3"
 )
 
 // Type defines an formatter format.

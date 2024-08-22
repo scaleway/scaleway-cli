@@ -5,10 +5,9 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
-
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
 )
 
 func Test_FeedbackBug(t *testing.T) {
