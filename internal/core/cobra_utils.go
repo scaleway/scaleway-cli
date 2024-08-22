@@ -206,7 +206,7 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 
 	switch e := wrappedErr.(type) {
 	case *args.CannotUnmarshalError:
-		switch e.Err.(type) {
+		switch e.Err.(type) { //nolint:gocritic
 		case *args.CannotParseBoolError:
 			return &CliError{
 				Err:     errors.New(""),

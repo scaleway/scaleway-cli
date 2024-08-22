@@ -145,7 +145,7 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 
 			fieldParents := parents
 			if !field.Anonymous {
-				fieldParents = append(parents, field.Name)
+				fieldParents = append(parents, field.Name) //nolint:gocritic
 			}
 
 			res = append(res, listFields(field.Type, fieldParents, filter)...)
