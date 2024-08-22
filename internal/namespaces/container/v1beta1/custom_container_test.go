@@ -31,6 +31,7 @@ func Test_Create(t *testing.T) {
 		Cmd: fmt.Sprintf("scw container container create namespace-id={{ .Namespace.ID }} name=%s deploy=true", core.GetRandomName("test")),
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				c := ctx.Result.(*containerSDK.Container)
 				assert.Equal(t, containerSDK.ContainerStatusPending, c.Status)
 			},

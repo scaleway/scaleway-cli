@@ -22,6 +22,7 @@ func TestNullableStringValueUnmarshal(t *testing.T) {
 
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := args.UnmarshalStruct(tc.args, tc.data)
 			assert.Equal(t, tc.expectedError, err)
 			assert.Equal(t, tc.expectedStruct, tc.data)
@@ -72,6 +73,7 @@ func TestNullableStringValueMarshal(t *testing.T) {
 
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			args, err := args.MarshalStruct(tc.data)
 			assert.Equal(t, tc.expectedError, err)
 			assert.Equal(t, tc.expectedStruct, args)

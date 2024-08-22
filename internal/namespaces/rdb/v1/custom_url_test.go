@@ -21,6 +21,7 @@ func Test_UserGetURL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
 				expected := fmt.Sprintf("postgresql://%s@%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
@@ -39,6 +40,7 @@ func Test_UserGetURL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
 				expected := fmt.Sprintf("mysql://%s@%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
@@ -62,6 +64,7 @@ func Test_UserGetURL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
 				expected := fmt.Sprintf("postgresql://%s@%s", customUserName, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
@@ -81,6 +84,7 @@ func Test_UserGetURL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
 				expected := fmt.Sprintf("postgresql://%s@%s/%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))), customDBName)
@@ -101,6 +105,7 @@ func Test_DatabaseGetURL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
 				expected := fmt.Sprintf("postgresql://%s@%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))

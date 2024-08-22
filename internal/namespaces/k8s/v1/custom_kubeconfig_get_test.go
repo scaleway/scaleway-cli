@@ -21,6 +21,7 @@ func Test_GetKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				config, err := yaml.Marshal(ctx.Meta["Kubeconfig"].(api.Config))
 				assert.Equal(t, err, nil)
 				assert.Equal(t, ctx.Result.(string), string(config))

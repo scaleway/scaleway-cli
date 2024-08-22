@@ -92,6 +92,7 @@ y7JHcXauRKI7bxgOugSep2d0lhYxJl65CPOCllawcu70Ds34MKi3XkCe20I=
 // testIfKubeconfigInFile checks if the given kubeconfig is in the given file
 // it test if the user, cluster and context of the kubeconfig file are in the given file
 func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
+	t.Helper()
 	kubeconfigBytes, err := os.ReadFile(filePath)
 	assert.Nil(t, err)
 	var existingKubeconfig api.Config
@@ -147,6 +148,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
 			},
 			core.TestCheckExitCode(0),
@@ -164,6 +166,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "", testKubeconfig)
 			},

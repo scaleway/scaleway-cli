@@ -87,6 +87,7 @@ func Test_getValuesForFieldByName(t *testing.T) {
 				expectedValues: []reflect.Value{reflect.ValueOf("value1")},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
 				if err != nil {
 					assert.Equal(t, tc.expectedError, err.Error())
@@ -117,6 +118,7 @@ func Test_getValuesForFieldByName(t *testing.T) {
 				expectedValues: []reflect.Value{reflect.ValueOf("value1")},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
 				if err != nil {
 					assert.Equal(t, tc.expectedError, err.Error())
@@ -160,6 +162,7 @@ func Test_getValuesForFieldByName(t *testing.T) {
 				expectedValues: []reflect.Value{reflect.ValueOf(expectedServiceIP)},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
 				if err != nil {
 					assert.Equal(t, nil, err.Error())

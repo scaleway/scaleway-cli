@@ -24,6 +24,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size)
 				assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size)
@@ -41,6 +42,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size)
 				assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size)
@@ -68,6 +70,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
 			Cmd:        `scw instance server detach-volume volume-id={{ (index .Server.Volumes "1").ID }}`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.NotZero(t, ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes["0"])
 				assert.Nil(t, ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes["1"])
@@ -102,6 +105,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Cmd:        "scw instance server update {{ .Server.ID }} ip=none",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, (*instanceSDK.ServerIP)(nil), ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PublicIP)
 			},
 			core.TestCheckExitCode(0),
@@ -118,6 +122,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Cmd: "scw instance server update {{ .Server.ID }} ip={{ .IP.Address }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, ctx.Meta["IP"].(*instanceSDK.IP).Address, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PublicIP.Address)
 			},
 			core.TestCheckExitCode(0),
@@ -138,6 +143,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Cmd: "scw instance server update {{ .Server.ID }} ip={{ .IP2.Address }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				// Test that the Server WAS attached to IP1.
 				assert.Equal(t,
 					ctx.Meta["IP1"].(*instanceSDK.IP).Address,
@@ -167,6 +173,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t,
 					ctx.Meta["PlacementGroup2"].(*instanceSDK.PlacementGroup).ID,
 					ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID)
@@ -191,6 +198,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t,
 					ctx.Meta["SecurityGroup2"].(*instanceSDK.SecurityGroup).ID,
 					ctx.Result.(*instanceSDK.UpdateServerResponse).Server.SecurityGroup.ID)
@@ -213,6 +221,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			),
 			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }}`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["0"].Size)
 				assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["1"].Size)
@@ -225,6 +234,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
 			Cmd:        `scw instance server update {{ .Server.ID }} volume-ids=none`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Equal(t, 0, len(ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes))
 			},
@@ -285,6 +295,7 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				_, err := api.GetVolume(&instanceSDK.GetVolumeRequest{
@@ -312,6 +323,7 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				api := block.NewAPI(ctx.Client)
 				blockVolume := ctx.Meta["BlockVolume"].(*block.Volume)
 				resp, err := api.GetVolume(&block.GetVolumeRequest{

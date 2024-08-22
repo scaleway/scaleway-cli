@@ -114,6 +114,7 @@ func customS3Matcher(r *http.Request, i cassette.Request) bool {
 // It is important to call add a `defer cleanup()` so the given cassette files are correctly
 // closed and saved after the requests.
 func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
+	t.Helper()
 	recorderMode := recorder.ModeReplaying
 	if update {
 		recorderMode = recorder.ModeRecording

@@ -280,6 +280,7 @@ func Test_MultiPositionalArg(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				res := ctx.Result.(*testAcceptMultiPositionalArgsType)
 				assert.Len(t, res.NameIDs, 1)
 				assert.Equal(t, "pos1", res.NameIDs[0])
@@ -295,6 +296,7 @@ func Test_MultiPositionalArg(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				res := ctx.Result.(*testAcceptMultiPositionalArgsType)
 				assert.Len(t, res.NameIDs, 3)
 				assert.Equal(t, "pos1", res.NameIDs[0])

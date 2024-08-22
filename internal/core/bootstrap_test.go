@@ -149,6 +149,7 @@ func TestInterruptError(t *testing.T) {
 		),
 		Cmd: "scw -o json test empty success",
 		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			t.Helper()
 			assert.Equal(t, "[]\n", string(ctx.Stdout))
 		},
 	}))

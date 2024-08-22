@@ -29,6 +29,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw baremetal server create name=test-create-server-with-name zone=nl-ams-1 type=GP-BM2-S -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.Equal(t, "test-create-server-with-name", ctx.Result.(*baremetalSDK.Server).Name)
 				},
 				core.TestCheckExitCode(0),
@@ -41,6 +42,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue zone=nl-ams-1 type=GP-BM2-S -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.Equal(t, "prod", ctx.Result.(*baremetalSDK.Server).Tags[0])
 					assert.Equal(t, "blue", ctx.Result.(*baremetalSDK.Server).Tags[1])
 				},

@@ -29,6 +29,7 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=rclone",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					filePath := path.Join(ctx.OverrideEnv["HOME"], ".config", "rclone", "rclone.conf")
 					assert.FileExists(t, filePath)
 				},
@@ -43,6 +44,7 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=mc",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					filePath := path.Join(ctx.OverrideEnv["HOME"], ".mc", "config.json")
 					assert.FileExists(t, filePath)
 				},
@@ -57,6 +59,7 @@ func Test_ConfigInstall(t *testing.T) {
 			Cmd:      "scw object config install type=s3cmd",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					filePath := path.Join(ctx.OverrideEnv["HOME"], ".s3cfg")
 					assert.FileExists(t, filePath)
 				},

@@ -15,6 +15,7 @@ import (
 
 func checkConfig(check func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config)) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
+		t.Helper()
 		homeDir := ctx.OverrideEnv["HOME"]
 		config, err := scw.LoadConfigFromPath(path.Join(homeDir, ".config", "scw", "config.yaml"))
 		require.NoError(t, err)
@@ -56,6 +57,7 @@ func TestInit(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				t.Helper()
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.SecretKey)
 				assert.NotEmpty(t, *config.DefaultProjectID)
@@ -78,6 +80,7 @@ func TestInit(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				config, err := scw.LoadConfigFromPath(ctx.Meta["CONFIG_PATH"].(string))
 				require.NoError(t, err)
 				secretKey, _ := ctx.Client.GetSecretKey()
@@ -93,6 +96,7 @@ func TestInit(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				t.Helper()
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.Profiles["foobar"].SecretKey)
 			}),
@@ -127,6 +131,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					assert.Equal(t, dummyConfig.String(), config.String())
 				}),
 			),
@@ -147,6 +152,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					secretKey, _ := ctx.Client.GetSecretKey()
 					assert.Equal(t, secretKey, *config.SecretKey)
 				}),
@@ -168,6 +174,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					assert.NotNil(t, config.Profiles["test2"], "new profile should have been created")
 				}),
 			),
@@ -188,6 +195,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					assert.NotNil(t, config.Profiles["test"].DefaultZone)
 					assert.Equal(t, *config.Profiles["test"].DefaultZone, "fr-test")
 				}),
@@ -207,6 +215,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					assert.NotNil(t, config.ActiveProfile)
 					assert.Equal(t, "newprofile", *config.ActiveProfile)
 				}),
@@ -250,6 +259,7 @@ func TestInit_Prompt(t *testing.T) {
 				},
 			),
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				t.Helper()
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.SecretKey)
 				assert.NotEmpty(t, *config.DefaultProjectID)
