@@ -20,6 +20,9 @@ func k8sExecCredentialCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(struct{}{}),
 		ArgSpecs:  core.ArgSpecs{},
 		Run:       k8sExecCredentialRun,
+
+		// avoid calling checkAPIKey (Check if API Key is about to expire)
+		DisableAfterChecks: true,
 	}
 }
 
