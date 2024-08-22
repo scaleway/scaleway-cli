@@ -2,6 +2,8 @@ package rdb_test
 
 import (
 	"fmt"
+	"net"
+	"strconv"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -21,7 +23,7 @@ func Test_UserGetURL(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("postgresql://%s@%s:%d", user, ip, port)
+				expected := fmt.Sprintf("postgresql://%s@%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),
@@ -39,7 +41,7 @@ func Test_UserGetURL(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("mysql://%s@%s:%d", user, ip, port)
+				expected := fmt.Sprintf("mysql://%s@%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),
@@ -62,7 +64,7 @@ func Test_UserGetURL(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("postgresql://%s@%s:%d", customUserName, ip, port)
+				expected := fmt.Sprintf("postgresql://%s@%s", customUserName, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),
@@ -81,7 +83,7 @@ func Test_UserGetURL(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("postgresql://%s@%s:%d/%s", user, ip, port, customDBName)
+				expected := fmt.Sprintf("postgresql://%s@%s/%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))), customDBName)
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),
@@ -101,7 +103,7 @@ func Test_DatabaseGetURL(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("postgresql://%s@%s:%d", user, ip, port)
+				expected := fmt.Sprintf("postgresql://%s@%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),
