@@ -35,7 +35,7 @@ func writeHelperScript(scriptPath string, scriptContent string) error {
 	}
 	defer f.Close()
 
-	_, err = f.Write([]byte(scriptContent))
+	_, err = f.WriteString(scriptContent)
 	if err != nil {
 		return err
 	}

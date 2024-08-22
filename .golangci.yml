@@ -31,6 +31,8 @@ linters:
     - ineffassign # Detects when assignments to existing variables are not used [fast: true, auto-fix: false]
     - intrange # intrange is a linter to find places where for loops could make use of an integer range. [fast: true, auto-fix: false]
     - loggercheck # (logrlint): Checks key value pairs for common logger libraries (kitlog,klog,logr,zap). [fast: false, auto-fix: false]
+    - makezero # Finds slice declarations with non-zero initial length [fast: false, auto-fix: false]
+    - mirror # reports wrong mirror patterns of bytes/strings usage [fast: false, auto-fix: false]
     - misspell # Finds commonly misspelled English words in comments [fast: true, auto-fix: true]
     - nakedret # Finds naked returns in functions greater than a specified function length [fast: true, auto-fix: false]
     - nolintlint # Reports ill-formed or insufficient nolint directives [fast: true, auto-fix: false]
