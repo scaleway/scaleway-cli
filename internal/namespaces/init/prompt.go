@@ -2,6 +2,7 @@ package init
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/fatih/color"
@@ -21,7 +22,7 @@ func promptOrganizationID(ctx context.Context) (string, error) {
 		Prompt: "Choose your default organization ID",
 		ValidateFunc: func(s string) error {
 			if !validation.IsUUID(s) {
-				return fmt.Errorf("organization id is not a valid uuid")
+				return errors.New("organization id is not a valid uuid")
 			}
 			return nil
 		},
@@ -37,7 +38,7 @@ func promptManualProjectID(ctx context.Context, defaultProjectID string) (string
 		DefaultValueDoc: defaultProjectID,
 		ValidateFunc: func(s string) error {
 			if !validation.IsProjectID(s) {
-				return fmt.Errorf("organization id is not a valid uuid")
+				return errors.New("organization id is not a valid uuid")
 			}
 			return nil
 		},
@@ -146,7 +147,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 			if validation.IsSecretKey(s) {
 				return nil
 			}
-			return fmt.Errorf("invalid secret-key")
+			return errors.New("invalid secret-key")
 		},
 	})
 	if err != nil {
@@ -176,7 +177,7 @@ func promptAccessKey(ctx context.Context) (string, error) {
 		},
 		ValidateFunc: func(s string) error {
 			if !validation.IsAccessKey(s) {
-				return fmt.Errorf("invalid access-key")
+				return errors.New("invalid access-key")
 			}
 
 			return nil
@@ -205,7 +206,7 @@ func promptDefaultZone(ctx context.Context) (scw.Zone, error) {
 		ValidateFunc: func(s string) error {
 			logger.Debugf("s: %v", s)
 			if !validation.IsZone(s) {
-				return fmt.Errorf("invalid zone")
+				return errors.New("invalid zone")
 			}
 			return nil
 		},
@@ -242,7 +243,7 @@ func promptProfileOverride(ctx context.Context, config *scw.Config, configPath s
 			return err
 		}
 		if !overrideConfig {
-			return fmt.Errorf("initialization canceled")
+			return errors.New("initialization canceled")
 		}
 	}
 

@@ -188,7 +188,7 @@ type CannotParseDateError struct {
 }
 
 func (e *CannotParseDateError) Error() string {
-	return fmt.Sprintf(`date parsing error: could not parse %s`, e.ArgValue)
+	return "date parsing error: could not parse " + e.ArgValue
 }
 
 type CannotParseBoolError struct {

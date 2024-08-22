@@ -2,6 +2,7 @@ package autocomplete
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -269,7 +270,7 @@ func autocompleteCompleteBashCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 3 {
-				return nil, fmt.Errorf("not enough arguments")
+				return nil, errors.New("not enough arguments")
 			}
 			wordIndex, err := strconv.Atoi(rawArgs[1])
 			if err != nil {
@@ -277,7 +278,7 @@ func autocompleteCompleteBashCommand() *core.Command {
 			}
 			words := rawArgs[2:]
 			if len(words) <= wordIndex {
-				return nil, fmt.Errorf("index to complete is invalid")
+				return nil, errors.New("index to complete is invalid")
 			}
 
 			aliases := core.ExtractAliases(ctx)
@@ -316,7 +317,7 @@ func autocompleteCompleteFishCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 4 {
-				return nil, fmt.Errorf("not enough arguments")
+				return nil, errors.New("not enough arguments")
 			}
 
 			aliases := core.ExtractAliases(ctx)
@@ -354,7 +355,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 2 {
-				return nil, fmt.Errorf("not enough arguments")
+				return nil, errors.New("not enough arguments")
 			}
 
 			// First arg is the word index.
@@ -365,7 +366,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 			wordIndex-- // In zsh word index starts at 1.
 
 			if wordIndex <= 0 {
-				return nil, fmt.Errorf("index cannot be 1 (0) or lower")
+				return nil, errors.New("index cannot be 1 (0) or lower")
 			}
 
 			// Other args are all the words.

@@ -2,7 +2,7 @@ package core_test
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"path/filepath"
 	"reflect"
 	"strings"
@@ -35,7 +35,7 @@ func TestCheckAPIKey(t *testing.T) {
 			api := iam.NewAPI(ctx.Client)
 			accessKey, exists := ctx.Client.GetAccessKey()
 			if !exists {
-				return fmt.Errorf("missing access-key")
+				return errors.New("missing access-key")
 			}
 
 			apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{

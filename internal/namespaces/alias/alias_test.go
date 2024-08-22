@@ -1,7 +1,7 @@
 package alias_test
 
 import (
-	"fmt"
+	"errors"
 	"strings"
 	"testing"
 
@@ -83,7 +83,7 @@ func Test_Alias(t *testing.T) {
 				}
 
 				if strings.Contains(resString, "instance") {
-					return fmt.Errorf("alias list should not contain instance")
+					return errors.New("alias list should not contain instance")
 				}
 				return nil
 			},

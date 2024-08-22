@@ -2,6 +2,7 @@ package rdb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -266,7 +267,7 @@ func endpointRequestFromCustom(customEndpoints []*rdbEndpointSpecCustom) ([]*rdb
 				LoadBalancer: &rdb.EndpointSpecLoadBalancer{},
 			})
 		} else {
-			return nil, fmt.Errorf("endpoint must be either a load-balancer or a private network")
+			return nil, errors.New("endpoint must be either a load-balancer or a private network")
 		}
 	}
 	return endpoints, nil

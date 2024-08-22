@@ -1,6 +1,7 @@
 package function_test
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"testing"
@@ -55,9 +56,9 @@ func testDeleteFunctionNamespaceAfter(functionName string) func(*core.AfterFuncC
 		}
 
 		if namespaceID == "" {
-			return fmt.Errorf("namespace not found")
+			return errors.New("namespace not found")
 		}
 
-		return core.ExecAfterCmd(fmt.Sprintf("scw function namespace delete %s", namespaceID))(ctx)
+		return core.ExecAfterCmd("scw function namespace delete " + namespaceID)(ctx)
 	}
 }

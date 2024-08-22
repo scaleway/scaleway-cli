@@ -1,7 +1,6 @@
 package config_test
 
 import (
-	"fmt"
 	"os"
 	"path"
 	"regexp"
@@ -324,7 +323,7 @@ func Test_ConfigImportCommand(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands:   config.GetCommands(),
 			BeforeFunc: beforeFuncCreateFullConfig(),
-			Cmd:        fmt.Sprintf("scw config import %s", tmpFile.Name()),
+			Cmd:        "scw config import " + tmpFile.Name(),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),

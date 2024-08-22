@@ -59,7 +59,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		if exist {
 			otherArgs := rawArgs.Remove(positionalArgSpec.Name)
 			return &CliError{
-				Err:  fmt.Errorf("a positional argument is required for this command"),
+				Err:  errors.New("a positional argument is required for this command"),
 				Hint: positionalArgHint(meta.BinaryName, cmd, value, otherArgs, len(positionalArgs) > 0),
 			}
 		}
@@ -67,7 +67,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		// If no positional arguments were provided, return an error
 		if len(positionalArgs) == 0 {
 			return &CliError{
-				Err:  fmt.Errorf("a positional argument is required for this command"),
+				Err:  errors.New("a positional argument is required for this command"),
 				Hint: positionalArgHint(meta.BinaryName, cmd, "<"+positionalArgSpec.Name+">", rawArgs, false),
 			}
 		}
@@ -209,7 +209,7 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 		switch e.Err.(type) {
 		case *args.CannotParseBoolError:
 			return &CliError{
-				Err:     fmt.Errorf(""),
+				Err:     errors.New(""),
 				Message: fmt.Sprintf("invalid value for '%s' argument: invalid boolean value", unmarshalErr.ArgName),
 				Hint:    "Possible values: true, false",
 			}
@@ -237,7 +237,7 @@ Relative time error: %s
 
 		return &CliError{
 			Err:  fmt.Errorf("invalid argument '%s': %s", unmarshalErr.ArgName, e.Error()),
-			Hint: fmt.Sprintf("Valid arguments are: %s", strings.Join(argNames, ", ")),
+			Hint: "Valid arguments are: " + strings.Join(argNames, ", "),
 		}
 	case *args.UnknownArgError:
 		argNames := []string(nil)
@@ -248,7 +248,7 @@ Relative time error: %s
 
 		return &CliError{
 			Err:  fmt.Errorf("unknown argument '%s'", unmarshalErr.ArgName),
-			Hint: fmt.Sprintf("Valid arguments are: %s", strings.Join(argNames, ", ")),
+			Hint: "Valid arguments are: " + strings.Join(argNames, ", "),
 		}
 
 	default:

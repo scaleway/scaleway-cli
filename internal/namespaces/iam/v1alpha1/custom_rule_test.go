@@ -1,7 +1,7 @@
 package iam_test
 
 import (
-	"fmt"
+	"errors"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -51,7 +51,7 @@ func Test_deleteRule(t *testing.T) {
 				// Get first Rule ID
 				policy := ctx.Meta["Policy"].(*iam.PolicyGetInterceptorResponse)
 				if len(policy.Rules) != 2 {
-					return fmt.Errorf("expected two rules in policy")
+					return errors.New("expected two rules in policy")
 				}
 				ctx.Meta["Rule"] = policy.Rules[0]
 

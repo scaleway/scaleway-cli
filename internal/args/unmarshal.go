@@ -5,6 +5,7 @@ package args
 // into CLI arguments represented as Go data.
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -32,7 +33,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		// Only support G, GB for now (case insensitive).
 		value = strings.ToLower(value)
 		if !strings.HasSuffix(value, "g") && !strings.HasSuffix(value, "gb") {
-			return fmt.Errorf("size must be defined using the G or GB unit")
+			return errors.New("size must be defined using the G or GB unit")
 		}
 
 		bytes, err := humanize.ParseBytes(value)
@@ -70,7 +71,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		}
 
 		if len(value) == 0 {
-			return fmt.Errorf("empty time given")
+			return errors.New("empty time given")
 		}
 
 		// Handle relative time
