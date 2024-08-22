@@ -1,4 +1,4 @@
-package k8s
+package k8s_test
 
 import (
 	"encoding/json"
@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 )
@@ -21,7 +22,7 @@ const (
 func Test_ExecCredential(t *testing.T) {
 	// expect to return default secret_key
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw k8s exec-credential",
@@ -34,7 +35,7 @@ func Test_ExecCredential(t *testing.T) {
 
 	// expect to return 66666666-6666-6666-6666-666666666666
 	t.Run("with scw_secret_key env", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw k8s exec-credential",
@@ -50,7 +51,7 @@ func Test_ExecCredential(t *testing.T) {
 
 	// expect to return p2 secret_key
 	t.Run("with profile env", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw k8s exec-credential",
@@ -66,7 +67,7 @@ func Test_ExecCredential(t *testing.T) {
 
 	// expect to return p3 secret_key
 	t.Run("with profile flag", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw --profile p3 k8s exec-credential",
@@ -79,7 +80,7 @@ func Test_ExecCredential(t *testing.T) {
 
 	// expect to return p3 secret_key
 	t.Run("with profile env and flag", core.Test(&core.TestConfig{
-		Commands:   GetCommands(),
+		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw --profile p3 k8s exec-credential",
@@ -98,7 +99,7 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		homeDir := ctx.OverrideEnv["HOME"]
 		scwDir := path.Join(homeDir, ".config", "scw")
-		err := os.MkdirAll(scwDir, 0755)
+		err := os.MkdirAll(scwDir, 0o0755)
 		if err != nil {
 			return err
 		}
@@ -150,7 +151,7 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 func assertTokenInResponse(expectedToken string) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		res := ctx.Result.(string)
-		creds := ExecCredential{}
+		creds := k8s.ExecCredential{}
 		err := json.Unmarshal([]byte(res), &creds)
 		if err != nil {
 			t.Fatal(err)
