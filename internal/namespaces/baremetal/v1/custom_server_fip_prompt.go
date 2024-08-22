@@ -2,6 +2,7 @@ package baremetal
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/fatih/color"
@@ -15,7 +16,7 @@ var ipTypeOption = []string{"IPv4", "IPv6"}
 func promptIPFlexibleServer(ctx context.Context, req *serverAddFlexibleIPRequest) (*serverAddFlexibleIPRequest, error) {
 	if !interactive.IsInteractive {
 		return nil, &core.CliError{
-			Err:  fmt.Errorf("failed to create and attach a new flexible IP"),
+			Err:  errors.New("failed to create and attach a new flexible IP"),
 			Hint: "Missing argument 'ip-type'",
 		}
 	}

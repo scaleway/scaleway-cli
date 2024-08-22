@@ -2,6 +2,7 @@ package lb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -112,7 +113,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return nil, &core.CliError{
-			Err:  fmt.Errorf("missing required argument"),
+			Err:  errors.New("missing required argument"),
 			Hint: fmt.Sprintf("You need to specify %s or %s", leCommonNameArgSpecs.Name, customeCertificateArgSpecs.Name),
 			Code: 1,
 		}

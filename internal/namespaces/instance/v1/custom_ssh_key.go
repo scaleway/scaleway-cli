@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"hash/crc32"
 	"reflect"
@@ -244,7 +245,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 			}
 
 			if len(removedKeys) == 0 {
-				return nil, fmt.Errorf("no key found with given filters")
+				return nil, errors.New("no key found with given filters")
 			}
 
 			_, err = api.UpdateServer(&instance.UpdateServerRequest{

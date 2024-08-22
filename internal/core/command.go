@@ -162,8 +162,8 @@ func (c *Command) seeAlsosAsStr() string {
 	seeAlsos := make([]string, 0, len(c.SeeAlsos))
 
 	for _, cmdSeeAlso := range c.SeeAlsos {
-		short := fmt.Sprintf("  # %s", cmdSeeAlso.Short)
-		commandStr := fmt.Sprintf("  %s", cmdSeeAlso.Command)
+		short := "  # " + cmdSeeAlso.Short
+		commandStr := "  " + cmdSeeAlso.Command
 
 		seeAlsoLines := []string{
 			short,

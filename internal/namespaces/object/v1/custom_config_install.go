@@ -2,7 +2,7 @@ package object
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -88,7 +88,7 @@ func configInstallCommand() *core.Command {
 					return nil, err
 				}
 				if !doIt {
-					return nil, fmt.Errorf("installation aborted by user")
+					return nil, errors.New("installation aborted by user")
 				}
 			}
 
@@ -104,7 +104,7 @@ func configInstallCommand() *core.Command {
 				return "", err
 			}
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("Configuration file successfully installed at %s", configPath),
+				Message: "Configuration file successfully installed at " + configPath,
 			}, nil
 		},
 	}

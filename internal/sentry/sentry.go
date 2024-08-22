@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	dsn = "https://a3d5d1ef6ae94810952ab245ce61af17@sentry.scaleway.com/186"
+	dsn = "https://e2d045fcf9a549199b7906c83493e2b6@sentry-par.scaleway.com/55"
 )
 
 const ErrorBanner = `---------------------------------------------------------------------------------------

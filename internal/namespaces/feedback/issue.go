@@ -3,7 +3,7 @@ package feedback
 import (
 	"bytes"
 	"context"
-	"fmt"
+	"errors"
 	"html/template"
 	"log"
 	"net/url"
@@ -98,7 +98,7 @@ func (i issue) openInBrowser(ctx context.Context) error {
 	case darwin:
 		openCmd = exec.Command("open", i.getURL()) //nolint:gosec
 	default:
-		return fmt.Errorf("unsupported platform")
+		return errors.New("unsupported platform")
 	}
 
 	exitCode, err := core.ExecCmd(ctx, openCmd)
