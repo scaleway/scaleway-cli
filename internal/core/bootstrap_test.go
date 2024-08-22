@@ -5,10 +5,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 )
 
@@ -150,6 +149,7 @@ func TestInterruptError(t *testing.T) {
 		),
 		Cmd: "scw -o json test empty success",
 		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			t.Helper()
 			assert.Equal(t, "[]\n", string(ctx.Stdout))
 		},
 	}))

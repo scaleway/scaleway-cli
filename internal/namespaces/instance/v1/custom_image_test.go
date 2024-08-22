@@ -3,10 +3,9 @@ package instance_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
-
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -60,6 +59,7 @@ func Test_ImageDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				// Assert snapshot are deleted with the image
 				api := instanceSDK.NewAPI(ctx.Client)
 				_, err := api.GetSnapshot(&instanceSDK.GetSnapshotRequest{
@@ -104,6 +104,7 @@ func Test_ImageUpdate(t *testing.T) {
 		Cmd:        "scw instance image update {{ .ImageName.Image.ID }} name=foo",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotNil(t, ctx.Result)
 				assert.Equal(t, "foo", ctx.Result.(*instanceSDK.UpdateImageResponse).Image.Name)
 			},
@@ -124,6 +125,7 @@ func Test_ImageUpdate(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotNil(t, ctx.Result)
 				assert.Equal(t, true, ctx.Result.(*instanceSDK.UpdateImageResponse).Image.Public)
 			},
@@ -144,6 +146,7 @@ func Test_ImageUpdate(t *testing.T) {
 		Cmd:      "scw instance image update {{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotNil(t, ctx.Result)
 				assert.Equal(t, "snapVol", ctx.Result.(*instanceSDK.UpdateImageResponse).Image.ExtraVolumes["1"].Name)
 			},

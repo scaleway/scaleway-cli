@@ -25,9 +25,10 @@ func Test_BucketCreate(t *testing.T) {
 	bucketName1 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionCreate)
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: object.GetCommands(),
-		Cmd:      fmt.Sprintf("scw object bucket create %s", bucketName1),
+		Cmd:      "scw object bucket create " + bucketName1,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName1, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -49,6 +50,7 @@ func Test_BucketCreate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName2, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -77,6 +79,7 @@ func Test_BucketCreate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName3, bucket.ID)
 				assert.Equal(t, true, bucket.EnableVersioning)
@@ -96,6 +99,7 @@ func Test_BucketCreate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName4, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -113,7 +117,7 @@ func Test_BucketDelete(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   object.GetCommands(),
 		BeforeFunc: createBucket(bucketName),
-		Cmd:        fmt.Sprintf("scw object bucket delete %s", bucketName),
+		Cmd:        "scw object bucket delete " + bucketName,
 		Check: core.TestCheckCombine(
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
@@ -127,11 +131,12 @@ func Test_BucketGet(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   object.GetCommands(),
 		BeforeFunc: createBucket(bucketName1),
-		Cmd:        fmt.Sprintf("scw object bucket get %s", bucketName1),
+		Cmd:        "scw object bucket get " + bucketName1,
 		Check: core.TestCheckCombine(
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(object.BucketGetResult)
 				assert.Equal(t, bucketName1, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -152,6 +157,7 @@ func Test_BucketGet(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(object.BucketGetResult)
 				assert.Equal(t, bucketName2, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -199,6 +205,7 @@ func Test_BucketUpdate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName1, bucket.ID)
 				assert.Equal(t, false, bucket.EnableVersioning)
@@ -224,6 +231,7 @@ func Test_BucketUpdate(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName2, bucket.ID)
 				assert.Equal(t, true, bucket.EnableVersioning)
@@ -253,14 +261,15 @@ func randomNameWithPrefix(prefix string) string {
 }
 
 func createBucket(name string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd("Bucket", fmt.Sprintf("scw object bucket create %s", name))
+	return core.ExecStoreBeforeCmd("Bucket", "scw object bucket create "+name)
 }
 
 func deleteBucket(name string) core.AfterFunc {
-	return core.ExecAfterCmd(fmt.Sprintf("scw object bucket delete %s", name))
+	return core.ExecAfterCmd("scw object bucket delete " + name)
 }
 
 func checkACL(t *testing.T, expected string, actual []object.CustomS3ACLGrant, owner string) {
+	t.Helper()
 	grantsMap := make(map[types.Permission]string)
 	for _, actualACL := range actual {
 		if actualACL.Grantee == nil {

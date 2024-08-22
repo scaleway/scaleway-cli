@@ -21,6 +21,7 @@ func Test_AccessSecret(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				rawResult, isBytes := ctx.Result.(core.RawResult)
 				if !isBytes {
 					t.Fatalf("Expecting result to be bytes")

@@ -60,6 +60,11 @@ func buildVersion() string {
 }
 
 func main() {
+	exitCode := mainNoExit()
+	os.Exit(exitCode)
+}
+
+func mainNoExit() int {
 	buildInfo := &core.BuildInfo{
 		Version:   version.Must(version.NewSemver(buildVersion())), // panic when version does not respect semantic versioning
 		BuildDate: BuildDate,
@@ -82,5 +87,5 @@ func main() {
 		Platform:  terminal.NewPlatform(buildInfo.GetUserAgent()),
 	})
 
-	os.Exit(exitCode)
+	return exitCode
 }

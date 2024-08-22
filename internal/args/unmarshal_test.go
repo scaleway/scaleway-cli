@@ -6,12 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
-
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func init() {
@@ -31,6 +29,7 @@ func TestUnmarshalStruct(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			if testCase.data == nil {
 				testCase.data = reflect.New(reflect.TypeOf(testCase.expected).Elem()).Interface()
 			}
@@ -542,6 +541,7 @@ func TestIsUmarshalableValue(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			value := args.IsUmarshalableValue(testCase.data)
 			assert.Equal(t, testCase.expected, value)
 		}

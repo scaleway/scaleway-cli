@@ -2,6 +2,7 @@ package rdb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"net/url"
@@ -321,7 +322,7 @@ func backupDownloadCommand() *core.Command {
 			httpClient := core.ExtractHTTPClient(ctx)
 
 			if backup.DownloadURL == nil {
-				return nil, fmt.Errorf("download URL is still nil after export")
+				return nil, errors.New("download URL is still nil after export")
 			}
 
 			res, err := httpClient.Get(*backup.DownloadURL)

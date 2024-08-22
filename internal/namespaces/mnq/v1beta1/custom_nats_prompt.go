@@ -2,6 +2,7 @@ package mnq
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
@@ -10,11 +11,11 @@ import (
 
 func promptNatsAccounts(ctx context.Context, natsAccounts []*mnq.NatsAccount, totalCount uint64) (*mnq.NatsAccount, error) {
 	if totalCount == 0 {
-		return nil, fmt.Errorf("no nats account found, please create a NATS account with 'scw mnq nats create-account'")
+		return nil, errors.New("no nats account found, please create a NATS account with 'scw mnq nats create-account'")
 	}
 
 	if !interactive.IsInteractive {
-		return nil, fmt.Errorf("failed to create NATS context: Multiple NATS accounts found. Please provide an account ID explicitly as the command is not running in interactive mode")
+		return nil, errors.New("failed to create NATS context: Multiple NATS accounts found. Please provide an account ID explicitly as the command is not running in interactive mode")
 	}
 	if totalCount == 1 {
 		return natsAccounts[0], nil
@@ -40,7 +41,7 @@ func promptNatsAccounts(ctx context.Context, natsAccounts []*mnq.NatsAccount, to
 
 func promptOverWriteFile(ctx context.Context, filePath string) (bool, error) {
 	if !interactive.IsInteractive {
-		return false, fmt.Errorf("file Exist")
+		return false, errors.New("file Exist")
 	}
 
 	config := interactive.PromptBoolConfig{

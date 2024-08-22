@@ -200,10 +200,11 @@ type TestConfig struct {
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
 func getTestFilePath(t *testing.T, suffix string) string {
+	t.Helper()
 	specialChars := regexp.MustCompile(`[\\?%*:|"<>. ]`)
 
 	// Replace nested tests separators.
-	fileName := strings.Replace(t.Name(), "/", "-", -1)
+	fileName := strings.ReplaceAll(t.Name(), "/", "-")
 
 	fileName = strcase.ToBashArg(fileName)
 
@@ -214,6 +215,7 @@ func getTestFilePath(t *testing.T, suffix string) string {
 }
 
 func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Client) (client *scw.Client) {
+	t.Helper()
 	var err error
 
 	// Init default options
@@ -277,6 +279,7 @@ var DefaultRetryInterval *time.Duration
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
+		t.Helper()
 		if !config.DisableParallel {
 			t.Parallel()
 		}
@@ -588,6 +591,7 @@ func ExecAfterCmd(cmd string) AfterFunc {
 // TestCheckCombine combines multiple check functions into one.
 func TestCheckCombine(checks ...TestCheck) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
+		t.Helper()
 		for _, check := range checks {
 			check(t, ctx)
 		}
@@ -597,6 +601,7 @@ func TestCheckCombine(checks ...TestCheck) TestCheck {
 // TestCheckExitCode assert exitCode
 func TestCheckExitCode(expectedCode int) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
+		t.Helper()
 		assert.Equal(t, expectedCode, ctx.ExitCode, "Invalid exit code\n%s", string(ctx.Stderr))
 	}
 }
@@ -640,6 +645,7 @@ func GoldenReplacePatterns(golden string, replacements ...GoldenReplacement) (st
 // golden are matched against given regex and edited with replacements
 func TestCheckGoldenAndReplacePatterns(replacements ...GoldenReplacement) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
+		t.Helper()
 		actual := marshalGolden(t, ctx)
 		actual, actualReplaceErr := GoldenReplacePatterns(actual, replacements...)
 
@@ -660,6 +666,7 @@ func TestCheckGoldenAndReplacePatterns(replacements ...GoldenReplacement) TestCh
 // TestCheckGolden assert stderr and stdout using golden
 func TestCheckGolden() TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
+		t.Helper()
 		actual := marshalGolden(t, ctx)
 
 		goldenPath := getTestFilePath(t, ".golden")
@@ -678,6 +685,7 @@ func TestCheckGolden() TestCheck {
 // TestCheckS3Golden assert stderr and stdout using golden, and omits the random suffix in the bucket name
 func TestCheckS3Golden() TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
+		t.Helper()
 		actual := marshalGolden(t, ctx)
 		normalizedActual := removeRandomPrefixFromOutput(actual)
 
@@ -704,12 +712,13 @@ func removeRandomPrefixFromOutput(output string) string {
 	end := strings.IndexByte(output[begin:], '\n')
 	actualBucketName := output[begin : begin+end]
 	normalizedBucketName := strings.TrimRight(actualBucketName, "0123456789")
-	return strings.Replace(output, actualBucketName, normalizedBucketName, -1)
+	return strings.ReplaceAll(output, actualBucketName, normalizedBucketName)
 }
 
 // TestCheckError asserts error
 func TestCheckError(err error) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
+		t.Helper()
 		assert.Equal(t, err, ctx.Err, "Invalid error")
 	}
 }
@@ -717,6 +726,7 @@ func TestCheckError(err error) TestCheck {
 // TestCheckStdout asserts stdout using string
 func TestCheckStdout(stdout string) TestCheck {
 	return func(t *testing.T, ctx *CheckFuncCtx) {
+		t.Helper()
 		assert.Equal(t, stdout, string(ctx.Stdout), "Invalid stdout")
 	}
 }
@@ -736,6 +746,7 @@ func uniformTimestamps(input string) string {
 }
 
 func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {
+	t.Helper()
 	var jsonInterface interface{}
 	if jsonStdout.Len() > 0 {
 		err := json.Unmarshal(jsonStdout.Bytes(), &jsonInterface)
@@ -748,6 +759,7 @@ func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {
 }
 
 func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
+	t.Helper()
 	jsonStderr := &bytes.Buffer{}
 	jsonStdout := &bytes.Buffer{}
 

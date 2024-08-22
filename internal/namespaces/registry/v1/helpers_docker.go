@@ -9,9 +9,8 @@ import (
 	"os"
 	"path"
 
-	"github.com/scaleway/scaleway-sdk-go/scw"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -36,7 +35,7 @@ func writeHelperScript(scriptPath string, scriptContent string) error {
 	}
 	defer f.Close()
 
-	_, err = f.Write([]byte(scriptContent))
+	_, err = f.WriteString(scriptContent)
 	if err != nil {
 		return err
 	}

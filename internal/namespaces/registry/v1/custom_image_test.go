@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	registrySDK "github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 )
 
@@ -85,7 +84,7 @@ func setupImage(dockerImage string, namespaceEndpoint string, imageName string, 
 		core.BeforeFuncOsExec("docker", "pull", dockerImage),
 		core.BeforeFuncOsExec("docker", "tag", dockerImage, remote),
 		core.BeforeFuncOsExec("docker", "push", remote),
-		core.ExecStoreBeforeCmd("ImageListResult", fmt.Sprintf("scw registry image list name=%s", imageName)),
-		core.ExecBeforeCmd(fmt.Sprintf(`scw registry image update {{ (index .ImageListResult 0).ID }} visibility=%s`, visibility.String())),
+		core.ExecStoreBeforeCmd("ImageListResult", "scw registry image list name="+imageName),
+		core.ExecBeforeCmd("scw registry image update {{ (index .ImageListResult 0).ID }} visibility="+visibility.String()),
 	)
 }

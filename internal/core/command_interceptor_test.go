@@ -4,9 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_CombineCommandInterceptor(t *testing.T) {
@@ -28,6 +27,7 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 
 	run := func(tc *TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			interceptor := core.CombineCommandInterceptor(tc.Interceptors...)
 			res, _ := interceptor(nil, nil, runner)
 			assert.Equal(t, tc.Expected, res)

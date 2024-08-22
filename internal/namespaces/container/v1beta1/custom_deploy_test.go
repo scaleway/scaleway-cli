@@ -194,6 +194,6 @@ func testDeleteRegistryAfter(appName string) func(*core.AfterFuncCtx) error {
 			return nil
 		}
 
-		return core.ExecAfterCmd(fmt.Sprintf("scw registry namespace delete %s", registryID))(ctx)
+		return core.ExecAfterCmd("scw registry namespace delete " + registryID)(ctx)
 	}
 }

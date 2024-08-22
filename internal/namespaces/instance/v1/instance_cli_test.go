@@ -3,9 +3,8 @@ package instance_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -43,6 +42,7 @@ func Test_CreateVolume(t *testing.T) {
 		Cmd:      "scw instance volume create name=test size=20G",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, "test", ctx.Result.(*instanceSDK.CreateVolumeResponse).Volume.Name)
 			},
 			core.TestCheckExitCode(0),
@@ -78,6 +78,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Cmd:        "scw instance server update {{ .Server.ID }} placement-group-id=none",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Nil(t, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup)
 			},
@@ -95,6 +96,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Equal(t,
 					ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
@@ -140,6 +142,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id=none`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Nil(t, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup)
 			},
@@ -160,6 +163,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Equal(t,
 					ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
@@ -184,6 +188,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup2.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Equal(t,
 					ctx.Meta["PlacementGroup2"].(*instanceSDK.PlacementGroup).ID,

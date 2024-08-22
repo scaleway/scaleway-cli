@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"encoding/pem"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -41,7 +42,7 @@ func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
 			return nil, fmt.Errorf("failed to save test key: %w", err)
 		}
 	} else if len(pemContent) == 0 {
-		return nil, fmt.Errorf("empty test key, should be updated with cassettes")
+		return nil, errors.New("empty test key, should be updated with cassettes")
 	}
 
 	key, err := ssh.ParseRawPrivateKey(pemContent)
@@ -93,7 +94,7 @@ func generateRSASSHKey(metaKey string) func(beforeFunc *core.BeforeFuncCtx) erro
 		api := iam.NewAPI(ctx.Client)
 		projectID, exists := ctx.Client.GetDefaultProjectID()
 		if !exists {
-			return fmt.Errorf("missing project id")
+			return errors.New("missing project id")
 		}
 		key, err := api.CreateSSHKey(&iam.CreateSSHKeyRequest{
 			Name:      "test-cli-instance-server-get-rdp-password",
@@ -125,6 +126,7 @@ func Test_ServerGetRdpPassword(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotNil(t, ctx.Result)
 				resp, ok := ctx.Result.(*instance.ServerGetRdpPasswordResponse)
 				if !ok {

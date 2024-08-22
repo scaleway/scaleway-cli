@@ -8,7 +8,6 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
@@ -87,10 +86,11 @@ type autoCompleteTestCase struct {
 
 func runAutocompleteTest(ctx context.Context, tc *autoCompleteTestCase) func(*testing.T) {
 	return func(t *testing.T) {
+		t.Helper()
 		words := tc.Words
 		if len(words) == 0 {
-			name := strings.Replace(t.Name(), "TestAutocomplete/", "", -1)
-			name = strings.Replace(name, "_", " ", -1)
+			name := strings.ReplaceAll(t.Name(), "TestAutocomplete/", "")
+			name = strings.ReplaceAll(name, "_", " ")
 			// Test can contain a sharp if duplicated
 			// MyTest/scw_-flag_#01
 			sharpIndex := strings.Index(name, "#")

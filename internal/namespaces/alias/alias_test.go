@@ -1,7 +1,7 @@
 package alias_test
 
 import (
-	"fmt"
+	"errors"
 	"strings"
 	"testing"
 
@@ -23,6 +23,7 @@ func Test_Alias(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stderr), "instance server list")
 			},
 		),
@@ -41,6 +42,7 @@ func Test_Alias(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stderr), "instance server list")
 			},
 		),
@@ -57,6 +59,7 @@ func Test_Alias(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "myalias")
 				assert.Contains(t, string(ctx.Stdout), "iam")
 			},
@@ -80,7 +83,7 @@ func Test_Alias(t *testing.T) {
 				}
 
 				if strings.Contains(resString, "instance") {
-					return fmt.Errorf("alias list should not contain instance")
+					return errors.New("alias list should not contain instance")
 				}
 				return nil
 			},
@@ -88,6 +91,7 @@ func Test_Alias(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "Deleted")
 			},
 		),

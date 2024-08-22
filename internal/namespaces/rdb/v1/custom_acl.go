@@ -82,7 +82,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 
 		description := args.Description
 		if description == "" {
-			description = fmt.Sprintf("Allow %s", args.ACLRuleIPs.String())
+			description = "Allow " + args.ACLRuleIPs.String()
 		}
 
 		rule, err := api.AddInstanceACLRules(&rdb.AddInstanceACLRulesRequest{
@@ -196,7 +196,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 			return nil, fmt.Errorf("failed to remove ACL rule: %w", err)
 		}
 
-		message := ""
+		var message string
 		if ruleWasSet {
 			message = fmt.Sprintf("ACL rule %s successfully deleted", args.ACLRuleIPs.String())
 		} else {
@@ -271,7 +271,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 		for _, ip := range args.ACLRuleIPs {
 			aclRules = append(aclRules, &rdb.ACLRuleRequest{
 				IP:          ip,
-				Description: fmt.Sprintf("Allow %s", ip.String()),
+				Description: "Allow " + ip.String(),
 			})
 		}
 

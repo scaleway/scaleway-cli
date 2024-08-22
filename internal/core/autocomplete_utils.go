@@ -73,7 +73,7 @@ func AutocompleteProfileName() AutoCompleteArgFunc {
 			}
 		}
 
-		if strings.HasPrefix(scw.DefaultProfileName, prefix) {
+		if strings.HasPrefix(scw.DefaultProfileName, prefix) { //nolint:gocritic
 			res = append(res, scw.DefaultProfileName)
 		}
 		return res
@@ -170,7 +170,7 @@ func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, com
 	}
 	values := []string(nil)
 	// Let's iterate over the struct in the response slice and get the searched field
-	for i := 0; i < resources.Len(); i++ {
+	for i := range resources.Len() {
 		resource := resources.Index(i)
 		if resource.Kind() == reflect.Ptr {
 			resource = resource.Elem()

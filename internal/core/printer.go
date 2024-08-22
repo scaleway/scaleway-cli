@@ -2,16 +2,16 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"reflect"
 	"strings"
 	"text/template"
 
-	"gopkg.in/yaml.v3"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"gopkg.in/yaml.v3"
 )
 
 // Type defines an formatter format.
@@ -104,7 +104,7 @@ func setupTemplatePrinter(printer *Printer, opts string) error {
 	printer.printerType = PrinterTypeTemplate
 	if opts == "" {
 		return &CliError{
-			Err:     fmt.Errorf("cannot use a template output with an empty template"),
+			Err:     errors.New("cannot use a template output with an empty template"),
 			Hint:    `Try using golang template string: scw instance server list -o template="{{ .ID }} ☜(˚▽˚)☞ {{ .Name }}"`,
 			Details: `https://golang.org/pkg/text/template`,
 		}
@@ -186,7 +186,7 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 		}
 
 		if len(p.humanFields) > 0 && reflect.TypeOf(data).Kind() != reflect.Slice {
-			return p.printHuman(fmt.Errorf("list of fields for human output is only supported for commands that return a list"), nil)
+			return p.printHuman(errors.New("list of fields for human output is only supported for commands that return a list"), nil)
 		}
 
 		if len(p.humanFields) > 0 {
@@ -204,7 +204,7 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 	case *human.UnknownFieldError:
 		return p.printHuman(&CliError{
 			Err:  fmt.Errorf("unknown field '%s' in output options", e.FieldName),
-			Hint: fmt.Sprintf("Valid fields are: %s", strings.Join(e.ValidFields, ", ")),
+			Hint: "Valid fields are: " + strings.Join(e.ValidFields, ", "),
 		}, nil)
 	case nil:
 		// Do nothing
@@ -293,14 +293,14 @@ func (p *Printer) printTemplate(data interface{}) error {
 	switch dataValue.Type().Kind() {
 	// If we have a slice of value, we apply the template for each item
 	case reflect.Slice:
-		for i := 0; i < dataValue.Len(); i++ {
+		for i := range dataValue.Len() {
 			elemValue := dataValue.Index(i)
 			err := p.template.Execute(writer, elemValue)
 			if err != nil {
 				return p.printHuman(&CliError{
 					Err:     err,
 					Message: "templating error",
-					Hint:    fmt.Sprintf("Acceptable values are:\n  - %s", strings.Join(gofields.ListFields(elemValue.Type()), "\n  - ")),
+					Hint:    "Acceptable values are:\n  - " + strings.Join(gofields.ListFields(elemValue.Type()), "\n  - "),
 				}, nil)
 			}
 			_, err = writer.Write([]byte{'\n'})

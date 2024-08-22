@@ -16,7 +16,8 @@ func Test_AddACL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				verifyACL(ctx, t, []string{"0.0.0.0/0", "1.2.3.4/32"})
+				t.Helper()
+				verifyACL(t, ctx, []string{"0.0.0.0/0", "1.2.3.4/32"})
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -29,7 +30,8 @@ func Test_AddACL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				verifyACL(ctx, t, []string{"0.0.0.0/0", "1.2.3.4/32"})
+				t.Helper()
+				verifyACL(t, ctx, []string{"0.0.0.0/0", "1.2.3.4/32"})
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -42,7 +44,8 @@ func Test_AddACL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				verifyACL(ctx, t, []string{"0.0.0.0/0", "1.2.3.4/32", "192.168.1.0/30", "10.10.10.10/32"})
+				t.Helper()
+				verifyACL(t, ctx, []string{"0.0.0.0/0", "1.2.3.4/32", "192.168.1.0/30", "10.10.10.10/32"})
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -55,7 +58,8 @@ func Test_AddACL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				verifyACL(ctx, t, []string{"0.0.0.0/0", "1.2.3.4/32", "192.168.1.0/30", "10.10.10.10/32"})
+				t.Helper()
+				verifyACL(t, ctx, []string{"0.0.0.0/0", "1.2.3.4/32", "192.168.1.0/30", "10.10.10.10/32"})
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -70,7 +74,8 @@ func Test_DeleteACL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				verifyACL(ctx, t, []string{})
+				t.Helper()
+				verifyACL(t, ctx, []string{})
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -86,7 +91,8 @@ func Test_DeleteACL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				verifyACL(ctx, t, []string{"0.0.0.0/0"})
+				t.Helper()
+				verifyACL(t, ctx, []string{"0.0.0.0/0"})
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -102,7 +108,8 @@ func Test_DeleteACL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				verifyACL(ctx, t, []string{"0.0.0.0/0"})
+				t.Helper()
+				verifyACL(t, ctx, []string{"0.0.0.0/0"})
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -117,7 +124,8 @@ func Test_SetACL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				verifyACL(ctx, t, []string{"1.2.3.4/32"})
+				t.Helper()
+				verifyACL(t, ctx, []string{"1.2.3.4/32"})
 				acls := ctx.Result.(*rdb.CustomACLResult).Rules
 				assert.Equal(t, "something", acls[0].Description)
 			},
@@ -135,7 +143,8 @@ func Test_SetACL(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				verifyACL(ctx, t, []string{"1.2.3.4/32", "192.168.1.0/31", "11.11.11.11/32"})
+				t.Helper()
+				verifyACL(t, ctx, []string{"1.2.3.4/32", "192.168.1.0/31", "11.11.11.11/32"})
 				acls := ctx.Result.(*rdb.CustomACLResult).Rules
 				for _, acl := range acls {
 					switch acl.IP.String() {
@@ -153,7 +162,8 @@ func Test_SetACL(t *testing.T) {
 	}))
 }
 
-func verifyACLCustomResponse(res *rdb.CustomACLResult, t *testing.T, expectedRules []string) {
+func verifyACLCustomResponse(t *testing.T, res *rdb.CustomACLResult, expectedRules []string) {
+	t.Helper()
 	actualRules := res.Rules
 
 	rulesFound := map[string]bool{}
@@ -177,12 +187,13 @@ func verifyACLCustomResponse(res *rdb.CustomACLResult, t *testing.T, expectedRul
 	}
 }
 
-func verifyACL(ctx *core.CheckFuncCtx, t *testing.T, expectedRules []string) {
+func verifyACL(t *testing.T, ctx *core.CheckFuncCtx, expectedRules []string) {
+	t.Helper()
 	switch res := ctx.Result.(type) {
 	case *rdb.CustomACLResult:
-		verifyACLCustomResponse(res, t, expectedRules)
+		verifyACLCustomResponse(t, res, expectedRules)
 	case core.MultiResults:
-		verifyACLCustomResponse(res[len(res)-1].(*rdb.CustomACLResult), t, expectedRules)
+		verifyACLCustomResponse(t, res[len(res)-1].(*rdb.CustomACLResult), expectedRules)
 	default:
 		t.Errorf("action is undefined for this type")
 	}

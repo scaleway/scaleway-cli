@@ -162,8 +162,8 @@ func (c *Command) seeAlsosAsStr() string {
 	seeAlsos := make([]string, 0, len(c.SeeAlsos))
 
 	for _, cmdSeeAlso := range c.SeeAlsos {
-		short := fmt.Sprintf("  # %s", cmdSeeAlso.Short)
-		commandStr := fmt.Sprintf("  %s", cmdSeeAlso.Command)
+		short := "  # " + cmdSeeAlso.Short
+		commandStr := "  " + cmdSeeAlso.Command
 
 		seeAlsoLines := []string{
 			short,
@@ -386,11 +386,12 @@ func (c *Commands) applyAliases(config *alias.Config) {
 	for _, command := range c.commands {
 		aliases := []alias.Alias(nil)
 		exists := false
-		if command.Verb != "" {
+		switch {
+		case command.Verb != "":
 			aliases, exists = config.ResolveAliasesByFirstWord(command.Verb)
-		} else if command.Resource != "" {
+		case command.Resource != "":
 			aliases, exists = config.ResolveAliasesByFirstWord(command.Resource)
-		} else if command.Namespace != "" {
+		case command.Namespace != "":
 			aliases, exists = config.ResolveAliasesByFirstWord(command.Namespace)
 		}
 		if exists {

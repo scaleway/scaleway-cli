@@ -7,11 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/alecthomas/assert"
 	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
@@ -35,6 +34,7 @@ func Test_CheckVersion(t *testing.T) {
 		Cmd: "scw plop",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, "A new version of scw is available (2.5.4), beware that you are currently running 1.20.0\n", ctx.LogBuffer)
 			},
 		),
@@ -49,6 +49,7 @@ func Test_CheckVersion(t *testing.T) {
 		Cmd: "scw plop -D",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, ctx.LogBuffer, "version is up to date (99.99.0)\n")
 			},
 		),
@@ -66,6 +67,7 @@ func Test_CheckVersion(t *testing.T) {
 		Cmd: "scw plop -D",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, ctx.LogBuffer, "version was already checked during past 24 hours\n")
 			},
 		),
@@ -87,6 +89,7 @@ func Test_CheckVersion(t *testing.T) {
 		Cmd: "scw plop",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, ctx.LogBuffer, "A new version of scw is available (2.5.4), beware that you are currently running 1.0.0\n")
 			},
 		),

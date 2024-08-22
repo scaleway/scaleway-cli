@@ -4,13 +4,11 @@ import (
 	"fmt"
 	"testing"
 
-	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
-	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
-
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -31,6 +29,7 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, "Ubuntu 22.04 Jammy Jellyfish", ctx.Result.(*instanceSDK.Server).Image.Name)
 				},
@@ -44,6 +43,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create type=GP1-XS image=ubuntu_bionic stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, "GP1-XS", ctx.Result.(*instanceSDK.Server).CommercialType)
 				},
@@ -57,6 +57,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic name=yo stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, "yo", ctx.Result.(*instanceSDK.Server).Name)
 				},
@@ -70,6 +71,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, instanceSDK.ServerStateRunning, ctx.Result.(*instanceSDK.Server).State)
 				},
@@ -83,6 +85,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=f974feac-abae-4365-b988-8ec7d1cec10d stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instanceSDK.Server).Image.Name)
 				},
@@ -96,6 +99,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic tags.0=prod tags.1=blue stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, "prod", ctx.Result.(*instanceSDK.Server).Tags[0])
 					assert.Equal(t, "blue", ctx.Result.(*instanceSDK.Server).Tags[1])
@@ -115,6 +119,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
 				},
@@ -133,6 +138,7 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
 				},
@@ -154,6 +160,7 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
 				},
@@ -170,6 +177,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=l:10G stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
 					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["1"].Size)
@@ -189,6 +197,7 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
 					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["1"].Size)
@@ -206,6 +215,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, 1*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["1"].Size)
 					assert.Equal(t, 5*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["2"].Size)
@@ -227,6 +237,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd: "scw instance server create image=ubuntu_jammy additional-volumes.0={{.Volume.ID}} stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["1"].VolumeType)
 				},
@@ -249,6 +260,7 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["0"].VolumeType)
 				},
@@ -288,6 +300,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic ip=new stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
 					assert.Equal(t, false, ctx.Result.(*instanceSDK.Server).PublicIP.Dynamic)
@@ -302,6 +315,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic ip=dynamic -w", // dynamic IP is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NoError(t, ctx.Err)
 					assert.NotNil(t, ctx.Result)
 					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
@@ -318,6 +332,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.Address }} stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
 					assert.Equal(t, false, ctx.Result.(*instanceSDK.Server).PublicIP.Dynamic)
@@ -333,6 +348,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:        "scw instance server create image=ubuntu_bionic ip={{ .IP.ID }} stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
 					assert.Equal(t, false, ctx.Result.(*instanceSDK.Server).PublicIP.Dynamic)
@@ -347,6 +363,7 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      "scw instance server create image=ubuntu_bionic routed-ip-enabled=false ipv6=true -w", // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.NotNil(t, ctx.Result.(*instanceSDK.Server).IPv6)
 					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).IPv6.Address)
@@ -601,6 +618,7 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 			},
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				server, isServer := ctx.Result.(*instanceSDK.Server)
 				if !isServer {
 					t.Fatalf("Result is not a server")

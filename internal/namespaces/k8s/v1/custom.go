@@ -15,6 +15,7 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 	cmds.Merge(core.NewCommands(
+		k8sExecCredentialCommand(),
 		k8sKubeconfigCommand(),
 		k8sKubeconfigGetCommand(),
 		k8sKubeconfigInstallCommand(),

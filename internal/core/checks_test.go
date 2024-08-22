@@ -2,16 +2,15 @@ package core_test
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -36,7 +35,7 @@ func TestCheckAPIKey(t *testing.T) {
 			api := iam.NewAPI(ctx.Client)
 			accessKey, exists := ctx.Client.GetAccessKey()
 			if !exists {
-				return fmt.Errorf("missing access-key")
+				return errors.New("missing access-key")
 			}
 
 			apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{
@@ -76,6 +75,7 @@ func TestCheckAPIKey(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.True(t, strings.HasPrefix(ctx.LogBuffer, "Current api key expires in"))
 			},
 		),

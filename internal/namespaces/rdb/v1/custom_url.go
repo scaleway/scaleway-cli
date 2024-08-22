@@ -2,6 +2,7 @@ package rdb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 	"reflect"
@@ -67,11 +68,12 @@ func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
 		return nil, fmt.Errorf("failed to get instance %q", args.InstanceID)
 	}
 
-	if strings.HasPrefix(instance.Engine, string(PostgreSQL)) {
+	switch {
+	case strings.HasPrefix(instance.Engine, string(PostgreSQL)):
 		u.Scheme = "postgresql"
-	} else if strings.HasPrefix(instance.Engine, string(MySQL)) {
+	case strings.HasPrefix(instance.Engine, string(MySQL)):
 		u.Scheme = "mysql"
-	} else {
+	default:
 		return nil, fmt.Errorf("unknown engine %q", instance.Engine)
 	}
 
@@ -104,7 +106,7 @@ func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
 		endpoint = privateEndpoint
 	}
 	if endpoint == nil {
-		return nil, fmt.Errorf("instance has no endpoint therefore no url can be returned")
+		return nil, errors.New("instance has no endpoint therefore no url can be returned")
 	}
 	u.Host = fmt.Sprintf("%s:%d", endpoint.IP.String(), endpoint.Port)
 

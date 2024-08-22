@@ -58,7 +58,7 @@ func cockpitWaitCommand() *core.Command {
 
 			if targetCockpit.Status != cockpit.CockpitStatusReady {
 				return nil, &core.CliError{
-					Err:     fmt.Errorf("cockpit did not reach a stable delivery status"),
+					Err:     errors.New("cockpit did not reach a stable delivery status"),
 					Details: fmt.Sprintf("cockpit %s is in %s status", targetCockpit.ProjectID, targetCockpit.Status),
 				}
 			}

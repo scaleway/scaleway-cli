@@ -63,7 +63,7 @@ func createBackend(forwardPort int32) core.BeforeFunc {
 func addIP2Backend(ip string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"AddIP2Backend",
-		fmt.Sprintf("scw lb backend add-servers {{ .Backend.ID }} server-ip.0=%s", ip),
+		"scw lb backend add-servers {{ .Backend.ID }} server-ip.0="+ip,
 	)
 }
 
@@ -97,7 +97,7 @@ func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey 
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
+		cmd = "scw k8s kubeconfig install " + cluster.ID
 		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
 		return nil
 	}

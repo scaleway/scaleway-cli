@@ -4,10 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_ApplyDefaultValues(t *testing.T) {
@@ -19,6 +18,7 @@ func Test_ApplyDefaultValues(t *testing.T) {
 
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			result := core.ApplyDefaultValues(context.Background(), tc.argSpecs, tc.rawArgs)
 			assert.Equal(t, tc.expected, result)
 		}

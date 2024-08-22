@@ -2,6 +2,7 @@ package core_test
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 	"testing"
@@ -39,8 +40,9 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
-			assert.Equal(t, fmt.Errorf("arg validation called"), err)
+			assert.Equal(t, errors.New("arg validation called"), err)
 		}
 	}
 
@@ -50,7 +52,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "name",
 					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
-						return fmt.Errorf("arg validation called")
+						return errors.New("arg validation called")
 					},
 				},
 			},
@@ -69,7 +71,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "elements-map.{key}.name",
 					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
-						return fmt.Errorf("arg validation called")
+						return errors.New("arg validation called")
 					},
 				},
 			},
@@ -97,7 +99,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "elements-slice.{index}.name",
 					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
-						return fmt.Errorf("arg validation called")
+						return errors.New("arg validation called")
 					},
 				},
 			},
@@ -125,7 +127,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "elements-slice.{index}.elements-slice.{index}.name",
 					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
-						return fmt.Errorf("arg validation called")
+						return errors.New("arg validation called")
 					},
 				},
 			},
@@ -155,7 +157,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "short",
 					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
-						return fmt.Errorf("arg validation called")
+						return errors.New("arg validation called")
 					},
 				},
 			},
@@ -174,7 +176,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "name",
 					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
-						return fmt.Errorf("arg validation called")
+						return errors.New("arg validation called")
 					},
 				},
 			},
@@ -196,6 +198,7 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, nil, err)
 		}
@@ -203,6 +206,7 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 
 	runErr := func(testCase TestCase, argName string) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, core.MissingRequiredArgumentError(argName), err)
 		}
@@ -300,6 +304,7 @@ func Test_ValidateNoConflict(t *testing.T) {
 
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.ValidateNoConflict(testCase.command, testCase.rawArgs)
 			assert.Equal(t, nil, err)
 		}
@@ -307,6 +312,7 @@ func Test_ValidateNoConflict(t *testing.T) {
 
 	runErr := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			err := core.ValidateNoConflict(testCase.command, testCase.rawArgs)
 			assert.Equal(t, core.ArgumentConflictError(testCase.arg1, testCase.arg2), err)
 		}
@@ -365,6 +371,7 @@ func Test_ValidateDeprecated(t *testing.T) {
 		Cmd: "scw plop a=yo",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, "The argument 'a' is deprecated, more info with: scw plop --help\n", ctx.LogBuffer)
 			},
 		),
@@ -396,6 +403,7 @@ func TestNewOneOfGroupManager(t *testing.T) {
 				expectedRequiredGroups: map[string]bool{},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				manager := core.NewOneOfGroupManager(tc.command)
 				assert.Equal(t, tc.expectedGroups, manager.Groups)
 				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
@@ -414,6 +422,7 @@ func TestNewOneOfGroupManager(t *testing.T) {
 				expectedRequiredGroups: map[string]bool{"group1": true},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				manager := core.NewOneOfGroupManager(tc.command)
 				assert.Equal(t, tc.expectedGroups, manager.Groups)
 				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
@@ -437,6 +446,7 @@ func TestNewOneOfGroupManager(t *testing.T) {
 				expectedRequiredGroups: map[string]bool{},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				manager := core.NewOneOfGroupManager(tc.command)
 				assert.Equal(t, tc.expectedGroups, manager.Groups)
 				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
@@ -462,6 +472,7 @@ func TestNewOneOfGroupManager(t *testing.T) {
 				},
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
+				t.Helper()
 				manager := core.NewOneOfGroupManager(tc.command)
 				assert.Equal(t, tc.expectedGroups, manager.Groups)
 				assert.Equal(t, tc.expectedRequiredGroups, manager.RequiredGroups)
@@ -770,7 +781,7 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof c=yo",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(fmt.Errorf("at least one argument from the 'group1' group is required")),
+				core.TestCheckError(errors.New("at least one argument from the 'group1' group is required")),
 			),
 		})(t)
 	})
@@ -800,7 +811,7 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof a=yo b=no",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(fmt.Errorf("arguments 'a' and 'b' are mutually exclusive")),
+				core.TestCheckError(errors.New("arguments 'a' and 'b' are mutually exclusive")),
 			),
 		})(t)
 	})
@@ -835,7 +846,7 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof a=yo c=no",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(fmt.Errorf("arguments 'a' and 'c' are mutually exclusive")),
+				core.TestCheckError(errors.New("arguments 'a' and 'c' are mutually exclusive")),
 			),
 		})(t)
 	})
@@ -868,7 +879,7 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof all-ssh-keys=true ssh-key.0=11111111-1111-1111-1111-111111111111",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(fmt.Errorf("arguments 'ssh-key.0' and 'all-ssh-keys' are mutually exclusive")),
+				core.TestCheckError(errors.New("arguments 'ssh-key.0' and 'all-ssh-keys' are mutually exclusive")),
 			),
 		})(t)
 	})
@@ -999,7 +1010,7 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof arg=true",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(fmt.Errorf("at least one argument from the 'ssh' group is required")),
+				core.TestCheckError(errors.New("at least one argument from the 'ssh' group is required")),
 			),
 		})(t)
 	})

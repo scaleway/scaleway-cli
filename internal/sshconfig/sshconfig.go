@@ -78,7 +78,7 @@ func sshConfigFolder(homeDir string) string {
 }
 
 func includeLine() string {
-	return fmt.Sprintf("Include %s", sshConfigFileName)
+	return "Include " + sshConfigFileName
 }
 
 // DefaultConfigFilePath returns the default ssh config file path

@@ -172,8 +172,7 @@ func defaultMarshalerFunc(i interface{}, _ *MarshalOpt) (string, error) {
 		i = "-"
 	}
 
-	switch v := i.(type) {
-	case string:
+	if v, ok := i.(string); ok {
 		if v == "" {
 			i = "-"
 		}

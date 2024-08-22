@@ -144,7 +144,7 @@ func (sb *ServerBuilder) AddImage(image string) (*ServerBuilder, error) {
 	case image == "none":
 		return sb, nil
 	case !validation.IsUUID(image):
-		imageLabel := strings.Replace(image, "-", "_", -1)
+		imageLabel := strings.ReplaceAll(image, "-", "_")
 
 		localImage, err := sb.apiMarketplace.GetLocalImageByLabel(&marketplace.GetLocalImageByLabelRequest{
 			ImageLabel:     imageLabel,

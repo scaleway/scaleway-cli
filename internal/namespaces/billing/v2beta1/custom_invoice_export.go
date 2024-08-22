@@ -2,6 +2,7 @@ package billing
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -80,7 +81,7 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 		if len(file) > 0 {
 			fileExtension := filepath.Ext(file)
 			if extensionOnFile := checkExportInvoiceExt(fileExtension); !extensionOnFile {
-				return fmt.Errorf("file has not supported extension")
+				return errors.New("file has not supported extension")
 			}
 		}
 
@@ -122,7 +123,7 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 				return err
 			}
 			if !overrideFile {
-				return fmt.Errorf("export file canceled")
+				return errors.New("export file canceled")
 			}
 		}
 
@@ -183,19 +184,13 @@ func billingExportRun(ctx context.Context, argsI interface{}) (interface{}, erro
 }
 
 func addExportExt(fileName, contentType string) string {
-	switch contentType {
-	case "text/csv":
-		fileName = fmt.Sprintf("%s.csv", fileName)
+	if contentType == "text/csv" {
+		fileName += ".csv"
 	}
 
 	return fileName
 }
 
 func checkExportInvoiceExt(ext string) bool {
-	switch ext {
-	case ".csv":
-		return true
-	}
-
-	return false
+	return ext == ".csv"
 }

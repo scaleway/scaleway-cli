@@ -8,10 +8,9 @@ import (
 	"runtime"
 	"text/template"
 
-	"gopkg.in/yaml.v3"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"gopkg.in/yaml.v3"
 )
 
 const (
@@ -48,8 +47,8 @@ alias:
 )
 
 type Config struct {
-	Alias  *alias.Config `json:"alias"`
-	Output string        `json:"output"`
+	Alias  *alias.Config `json:"alias" yaml:"alias"`
+	Output string        `json:"output" yaml:"output"`
 
 	path string
 }

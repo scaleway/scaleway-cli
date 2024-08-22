@@ -4,6 +4,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -57,7 +58,7 @@ func instanceServerConsoleRun(ctx context.Context, argsI interface{}) (i interfa
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
-		return nil, fmt.Errorf("could not get secret key")
+		return nil, errors.New("could not get secret key")
 	}
 
 	ttyClient, err := gotty.NewClient(server.Zone, server.ID, secretKey)

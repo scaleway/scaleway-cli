@@ -7,9 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/args"
-
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
@@ -171,6 +170,7 @@ func TestGetArgType(t *testing.T) {
 
 	run := func(tc *TestCase) func(*testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			res, err := args.GetArgType(tc.ArgType, tc.Name)
 			if tc.expectedError == "" {
 				require.NoError(t, err)

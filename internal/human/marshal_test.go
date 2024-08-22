@@ -6,10 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
-
 	"github.com/alecthomas/assert"
 	"github.com/dustin/go-humanize"
+	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -77,11 +76,12 @@ func TestMarshal(t *testing.T) {
 
 	run := func(tc *testCase) func(*testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			result, err := human.Marshal(tc.data, tc.opt)
 
 			// Format expected to allow indentation when writing test
 			expected := tc.result
-			expected = strings.Replace(expected, "\t", "", -1)
+			expected = strings.ReplaceAll(expected, "\t", "")
 			expected = strings.Trim(expected, "\n")
 
 			if tc.result != "" {

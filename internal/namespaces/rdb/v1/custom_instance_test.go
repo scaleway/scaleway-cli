@@ -5,10 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
-
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
@@ -50,6 +49,7 @@ func Test_CreateInstance(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Result.(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint})
 			},
@@ -64,6 +64,7 @@ func Test_CreateInstance(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Result.(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint})
 			},
@@ -83,6 +84,7 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Result.(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic})
 			},
@@ -100,6 +102,7 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Result.(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointStatic})
 			},
@@ -117,6 +120,7 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Result.(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointIpam})
 			},
@@ -134,6 +138,7 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Result.(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointIpam})
 			},
@@ -172,6 +177,7 @@ func Test_UpdateInstance(t *testing.T) {
 		Cmd:        "scw rdb instance update {{ .Instance.ID }} name=foo --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, "foo", ctx.Result.(*rdbSDK.Instance).Name)
 			},
 			core.TestCheckGolden(),
@@ -186,6 +192,7 @@ func Test_UpdateInstance(t *testing.T) {
 		Cmd:        "scw rdb instance update {{ .Instance.ID }} tags.0=a --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, "a", ctx.Result.(*rdbSDK.Instance).Tags[0])
 			},
 			core.TestCheckGolden(),
@@ -200,6 +207,7 @@ func Test_UpdateInstance(t *testing.T) {
 		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=timezone settings.0.value=UTC --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, "timezone", ctx.Result.(*rdbSDK.Instance).Settings[5].Name)
 				assert.Equal(t, "UTC", ctx.Result.(*rdbSDK.Instance).Settings[5].Value)
 			},
@@ -215,6 +223,7 @@ func Test_UpdateInstance(t *testing.T) {
 		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=8 --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, "work_mem", ctx.Result.(*rdbSDK.Instance).Settings[5].Name)
 				assert.Equal(t, "8", ctx.Result.(*rdbSDK.Instance).Settings[5].Value)
 			},
@@ -240,6 +249,7 @@ func Test_UpdateInstance(t *testing.T) {
 			" name=foo2 --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t, "effective_cache_size", ctx.Result.(*rdbSDK.Instance).Settings[0].Name)
 				assert.Equal(t, "1200", ctx.Result.(*rdbSDK.Instance).Settings[0].Value)
 				assert.Equal(t, "maintenance_work_mem", ctx.Result.(*rdbSDK.Instance).Settings[1].Name)

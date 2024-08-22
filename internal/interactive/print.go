@@ -67,7 +67,7 @@ func RemoveIndent(str string) string {
 
 func makeStr(char string, length int) string {
 	str := ""
-	for i := 0; i < length; i++ {
+	for range length {
 		str += char
 	}
 	return str

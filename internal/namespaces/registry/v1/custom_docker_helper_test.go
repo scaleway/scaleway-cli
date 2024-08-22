@@ -7,10 +7,9 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
-
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	"github.com/stretchr/testify/require"
 )
 
@@ -24,6 +23,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 		Commands:   registry.GetCommands(),
 		Cmd:        "scw registry install-docker-helper path={{ .HOME }}",
 		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			t.Helper()
 			scriptPath := path.Join(ctx.Meta["HOME"].(string), "docker-credential-scw")
 			scriptContent, err := os.ReadFile(scriptPath)
 			require.NoError(t, err)
@@ -50,6 +50,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 		Commands:   registry.GetCommands(),
 		Cmd:        "scw -p profile01 registry install-docker-helper path={{ .HOME }}",
 		Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+			t.Helper()
 			scriptPath := path.Join(ctx.Meta["HOME"].(string), "docker-credential-scw")
 			scriptContent, err := os.ReadFile(scriptPath)
 			require.NoError(t, err)

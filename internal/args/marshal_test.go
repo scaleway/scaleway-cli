@@ -4,12 +4,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
-
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestMarshal(t *testing.T) {
@@ -24,6 +22,7 @@ func TestMarshal(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			args, err := args.MarshalStruct(testCase.data)
 
 			if testCase.error == "" {
@@ -237,6 +236,7 @@ func TestMarshalValue(t *testing.T) {
 
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
+			t.Helper()
 			value, err := args.MarshalValue(testCase.data)
 
 			if testCase.error == "" {
