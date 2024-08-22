@@ -24,7 +24,7 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 		return nil
 	}
 
-	customEndpoint := ""
+	var customEndpoint string
 	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
 		customEndpoint = ep
 	} else {

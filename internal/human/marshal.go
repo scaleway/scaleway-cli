@@ -318,7 +318,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 			}
 			fieldValue := reflect.ValueOf(v)
 
-			str := ""
+			var str string
 			switch {
 			// Handle inline slice.
 			case fieldValue.Type().Kind() == reflect.Slice:

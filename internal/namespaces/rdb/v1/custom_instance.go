@@ -652,7 +652,7 @@ Learn more at: https://dev.mysql.com/doc/refman/8.0/en/option-files.html`
 )
 
 func passwordFileExist(ctx context.Context, family engineFamily) bool {
-	passwordFilePath := ""
+	var passwordFilePath string
 	switch family {
 	case PostgreSQL:
 		switch runtime.GOOS {

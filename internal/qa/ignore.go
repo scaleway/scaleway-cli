@@ -19,7 +19,7 @@ func filterIgnore(unfilteredErrors []error) []error {
 
 func isIgnoredError(err error) bool {
 	for _, ignoredError := range ignoredErrors {
-		isEqual := false
+		var isEqual bool
 		switch typedError := err.(type) {
 		case *DifferentLocalizationForNamespaceError:
 			isEqual = areCommandsEquals(typedError.Command1, ignoredError.Command) || areCommandsEquals(typedError.Command2, ignoredError.Command)

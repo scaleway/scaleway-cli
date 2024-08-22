@@ -145,7 +145,7 @@ func Readline(config *ReadlineConfig) (string, error) {
 	}
 
 	promptHandler = &ReadlineHandler{rl: rl}
-	s := ""
+	var s string
 	for {
 		s, err = rl.Readline()
 		// If readline returns an error we return it
