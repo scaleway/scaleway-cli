@@ -36,9 +36,9 @@ func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
 	for {
 		prompt := terminal.Style(config.Prompt, color.Bold)
 		if config.DefaultValue {
-			prompt = prompt + " (Y/n): "
+			prompt += " (Y/n): "
 		} else {
-			prompt = prompt + " (y/N): "
+			prompt += " (y/N): "
 		}
 
 		str, err := Readline(&ReadlineConfig{

@@ -15,7 +15,8 @@ import (
 func addSSHKey(serverKey string, sshKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		server := ctx.Meta[serverKey].(*instanceSDK.Server)
-		tags := append(server.Tags, instance.FormatSSHKeyToTag(sshKey))
+		tags := server.Tags
+		tags = append(tags, instance.FormatSSHKeyToTag(sshKey))
 
 		resp, err := instanceSDK.NewAPI(ctx.Client).UpdateServer(&instanceSDK.UpdateServerRequest{
 			Zone:     server.Zone,

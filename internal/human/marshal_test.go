@@ -81,7 +81,7 @@ func TestMarshal(t *testing.T) {
 
 			// Format expected to allow indentation when writing test
 			expected := tc.result
-			expected = strings.Replace(expected, "\t", "", -1)
+			expected = strings.ReplaceAll(expected, "\t", "")
 			expected = strings.Trim(expected, "\n")
 
 			if tc.result != "" {

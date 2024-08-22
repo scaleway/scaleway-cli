@@ -53,7 +53,7 @@ func isPassword(s string) bool {
 			hasUpperCase = true
 		case value >= 'a' && value <= 'z':
 			hasLowercase = true
-		case strings.Contains(passwordgenerator.SpecialSymbols, string(value)):
+		case strings.Contains(passwordgenerator.SpecialSymbols, string(value)): //nolint:gocritic
 			hasSymbol = true
 		}
 	}

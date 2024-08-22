@@ -89,8 +89,8 @@ func runAutocompleteTest(ctx context.Context, tc *autoCompleteTestCase) func(*te
 		t.Helper()
 		words := tc.Words
 		if len(words) == 0 {
-			name := strings.Replace(t.Name(), "TestAutocomplete/", "", -1)
-			name = strings.Replace(name, "_", " ", -1)
+			name := strings.ReplaceAll(t.Name(), "TestAutocomplete/", "")
+			name = strings.ReplaceAll(name, "_", " ")
 			// Test can contain a sharp if duplicated
 			// MyTest/scw_-flag_#01
 			sharpIndex := strings.Index(name, "#")

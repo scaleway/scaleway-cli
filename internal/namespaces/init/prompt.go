@@ -136,8 +136,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 		Ctx: ctx,
 		PromptFunc: func(value string) string {
 			secretKey := "secret-key"
-			switch {
-			case validation.IsUUID(value):
+			if validation.IsUUID(value) {
 				secretKey = terminal.Style(secretKey, color.FgBlue)
 			}
 			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", secretKey), color.Bold)
@@ -169,8 +168,7 @@ func promptAccessKey(ctx context.Context) (string, error) {
 		Ctx: ctx,
 		PromptFunc: func(value string) string {
 			accessKey := "access-key"
-			switch {
-			case validation.IsAccessKey(value):
+			if validation.IsAccessKey(value) {
 				accessKey = terminal.Style(accessKey, color.FgBlue)
 			}
 			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", accessKey), color.Bold)

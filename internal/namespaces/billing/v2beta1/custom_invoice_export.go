@@ -184,8 +184,7 @@ func billingExportRun(ctx context.Context, argsI interface{}) (interface{}, erro
 }
 
 func addExportExt(fileName, contentType string) string {
-	switch contentType {
-	case "text/csv":
+	if contentType == "text/csv" {
 		fileName += ".csv"
 	}
 
@@ -193,10 +192,5 @@ func addExportExt(fileName, contentType string) string {
 }
 
 func checkExportInvoiceExt(ext string) bool {
-	switch ext {
-	case ".csv":
-		return true
-	}
-
-	return false
+	return ext == ".csv"
 }

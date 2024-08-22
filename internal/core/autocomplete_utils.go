@@ -73,7 +73,7 @@ func AutocompleteProfileName() AutoCompleteArgFunc {
 			}
 		}
 
-		if strings.HasPrefix(scw.DefaultProfileName, prefix) {
+		if strings.HasPrefix(scw.DefaultProfileName, prefix) { //nolint:gocritic
 			res = append(res, scw.DefaultProfileName)
 		}
 		return res

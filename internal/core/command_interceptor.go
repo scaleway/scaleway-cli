@@ -103,8 +103,7 @@ func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner Comman
 		}
 	case *scw.ResourceExpiredError:
 		var hint string
-		switch resourceName := sdkError.Resource; resourceName {
-		case "account_token":
+		if sdkError.Resource == "account_token" {
 			hint = "Try to generate a new token here https://console.scaleway.com/iam/api-keys"
 		}
 
@@ -124,8 +123,7 @@ func sdkStdTypeInterceptor(ctx context.Context, args interface{}, runner Command
 	if err != nil {
 		return res, err
 	}
-	switch sdkValue := res.(type) {
-	case *scw.File:
+	if sdkValue, ok := res.(*scw.File); ok {
 		ExtractLogger(ctx).Debug("Intercepting scw.File type, rendering as string")
 		fileContent, err := io.ReadAll(sdkValue.Content)
 		if err != nil {

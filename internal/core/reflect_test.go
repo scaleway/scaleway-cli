@@ -91,10 +91,8 @@ func Test_getValuesForFieldByName(t *testing.T) {
 				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
 				if err != nil {
 					assert.Equal(t, tc.expectedError, err.Error())
-				} else {
-					if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
-						t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
-					}
+				} else if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
+					t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
 				}
 			},
 		},
@@ -122,10 +120,8 @@ func Test_getValuesForFieldByName(t *testing.T) {
 				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
 				if err != nil {
 					assert.Equal(t, tc.expectedError, err.Error())
-				} else {
-					if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
-						t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
-					}
+				} else if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
+					t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
 				}
 			},
 		},
@@ -166,10 +162,8 @@ func Test_getValuesForFieldByName(t *testing.T) {
 				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
 				if err != nil {
 					assert.Equal(t, nil, err.Error())
-				} else {
-					if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
-						t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
-					}
+				} else if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
+					t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
 				}
 			},
 		},

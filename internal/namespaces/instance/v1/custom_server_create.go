@@ -45,7 +45,7 @@ type instanceCreateServerRequest struct {
 	CloudInit    string
 	BootType     string
 
-	// Deprecated, use project-id instead
+	// Deprecated: use project-id instead
 	OrganizationID *string
 }
 
@@ -513,7 +513,7 @@ func buildVolumeTemplateFromSnapshot(api *instance.API, zone scw.Zone, snapshotU
 	}, nil
 }
 
-func validateImageServerTypeCompatibility(image *instance.Image, serverType *instance.ServerType, CommercialType string) error {
+func validateImageServerTypeCompatibility(image *instance.Image, serverType *instance.ServerType, commercialType string) error {
 	// An instance might not have any constraints on the local volume size
 	if serverType.VolumesConstraint.MaxSize == 0 {
 		return nil
@@ -524,7 +524,7 @@ func validateImageServerTypeCompatibility(image *instance.Image, serverType *ins
 			humanize.Bytes(uint64(image.RootVolume.Size)),
 			humanize.Bytes(uint64(serverType.VolumesConstraint.MinSize)),
 			humanize.Bytes(uint64(serverType.VolumesConstraint.MaxSize)),
-			CommercialType,
+			commercialType,
 		)
 	}
 
@@ -641,7 +641,7 @@ func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix strin
 		completeListImagesCache = res
 	}
 
-	prefix = strings.ToLower(strings.Replace(prefix, "-", "_", -1))
+	prefix = strings.ToLower(strings.ReplaceAll(prefix, "-", "_"))
 
 	for _, image := range completeListImagesCache.Images {
 		if strings.HasPrefix(image.Label, prefix) {

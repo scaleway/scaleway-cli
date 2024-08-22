@@ -68,11 +68,12 @@ func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
 		return nil, fmt.Errorf("failed to get instance %q", args.InstanceID)
 	}
 
-	if strings.HasPrefix(instance.Engine, string(PostgreSQL)) {
+	switch {
+	case strings.HasPrefix(instance.Engine, string(PostgreSQL)):
 		u.Scheme = "postgresql"
-	} else if strings.HasPrefix(instance.Engine, string(MySQL)) {
+	case strings.HasPrefix(instance.Engine, string(MySQL)):
 		u.Scheme = "mysql"
-	} else {
+	default:
 		return nil, fmt.Errorf("unknown engine %q", instance.Engine)
 	}
 
