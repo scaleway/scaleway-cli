@@ -3,6 +3,7 @@ package k8s
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -37,7 +38,7 @@ func k8sExecCredentialRun(ctx context.Context, _ interface{}) (i interface{}, e 
 		token = core.ExtractEnv(ctx, scw.ScwSecretKeyEnv)
 	// There is no config file
 	case config == nil:
-		return nil, fmt.Errorf("config not provided")
+		return nil, errors.New("config not provided")
 	// Config file with profile name
 	case config.Profiles[profileName] != nil && config.Profiles[profileName].SecretKey != nil:
 		token = *config.Profiles[profileName].SecretKey
@@ -45,7 +46,7 @@ func k8sExecCredentialRun(ctx context.Context, _ interface{}) (i interface{}, e 
 	case config.Profile.SecretKey != nil:
 		token = *config.Profile.SecretKey
 	default:
-		return nil, fmt.Errorf("unable to find secret key")
+		return nil, errors.New("unable to find secret key")
 	}
 
 	if !validation.IsSecretKey(token) {
