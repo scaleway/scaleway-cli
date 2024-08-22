@@ -114,5 +114,5 @@ func GetValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 
 		return nil, fmt.Errorf("field %v does not exist for %v", fieldName, value.Type().Name())
 	}
-	return nil, fmt.Errorf("case is not handled")
+	return nil, errors.New("case is not handled")
 }

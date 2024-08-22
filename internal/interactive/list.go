@@ -5,6 +5,7 @@ package interactive
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"os"
 
@@ -57,7 +58,7 @@ func (m *ListPrompt) View() string {
 		if m.cursor == i {
 			s += fmt.Sprintf("> %s\n", choice)
 		} else {
-			s += fmt.Sprintf("%s\n", choice)
+			s += choice + "\n"
 		}
 	}
 
@@ -89,7 +90,7 @@ func (m *ListPrompt) Execute(ctx context.Context) (int, error) {
 	}
 
 	if m.cancelled {
-		return -1, fmt.Errorf("prompt cancelled")
+		return -1, errors.New("prompt cancelled")
 	}
 
 	return m.cursor, nil

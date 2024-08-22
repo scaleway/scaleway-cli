@@ -118,7 +118,7 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 	if args.Name == "" {
 		args.Name = filepath.Base(args.BuildSource)
 		if args.Name == "." {
-			return nil, fmt.Errorf("unable to determine application name, please specify it with name=")
+			return nil, errors.New("unable to determine application name, please specify it with name=")
 		}
 
 		args.Name = "app-" + args.Name

@@ -1,6 +1,7 @@
 package rdb_test
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
@@ -58,7 +59,7 @@ func createPN() core.BeforeFunc {
 func getIPSubnet(ipNet scw.IPNet) (*string, error) {
 	addr := ipNet.IP.To4()
 	if addr == nil {
-		return nil, fmt.Errorf("could get ip 4 bytes")
+		return nil, errors.New("could get ip 4 bytes")
 	}
 	addr = addr.Mask(addr.DefaultMask())
 	addr[3] = +3

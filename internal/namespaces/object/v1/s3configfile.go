@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
+	"errors"
 	"path"
 	"text/template"
 
@@ -81,11 +81,11 @@ func newS3Config(ctx context.Context, region scw.Region, name string) (s3config,
 	client := core.ExtractClient(ctx)
 	accessKey, accessExists := client.GetAccessKey()
 	if !accessExists {
-		return s3config{}, fmt.Errorf("no access key found")
+		return s3config{}, errors.New("no access key found")
 	}
 	secretKey, secretExists := client.GetSecretKey()
 	if !secretExists {
-		return s3config{}, fmt.Errorf("no secret key found")
+		return s3config{}, errors.New("no secret key found")
 	}
 	config := s3config{
 		AccessKey: accessKey,
@@ -108,7 +108,7 @@ func (c s3config) getPath(tool s3tool) (string, error) {
 	case mc:
 		return path.Join(homeDir, ".mc", "config.json"), nil
 	default:
-		return "", fmt.Errorf("unknown tool")
+		return "", errors.New("unknown tool")
 	}
 }
 
@@ -160,6 +160,6 @@ func (c s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
 		}
 		return append(res, '\n'), nil
 	default:
-		return nil, fmt.Errorf("unknown tool")
+		return nil, errors.New("unknown tool")
 	}
 }

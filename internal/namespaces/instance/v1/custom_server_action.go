@@ -190,7 +190,7 @@ Once your image is ready you will be able to create a new server based on this i
 
 			tmp := strings.Split(res.Task.HrefResult, "/")
 			if len(tmp) != 3 {
-				return nil, fmt.Errorf("cannot extract image id from task")
+				return nil, errors.New("cannot extract image id from task")
 			}
 			return api.GetImage(&instance.GetImageRequest{Zone: args.Zone, ImageID: tmp[2]})
 		},

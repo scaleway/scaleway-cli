@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 	"strconv"
@@ -278,7 +279,7 @@ func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
 			newError := &core.CliError{
-				Err: fmt.Errorf("cannot delete security-group currently in use"),
+				Err: errors.New("cannot delete security-group currently in use"),
 			}
 
 			// Get security-group.

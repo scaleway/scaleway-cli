@@ -3,6 +3,7 @@ package instance
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 	"strconv"
@@ -572,7 +573,7 @@ func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeS
 
 	if rootVolume.ID != nil {
 		return &core.CliError{
-			Err:     fmt.Errorf("you cannot use an existing volume as a root volume"),
+			Err:     errors.New("you cannot use an existing volume as a root volume"),
 			Details: "You must create an image of this volume and use its ID in the 'image' argument.",
 		}
 	}

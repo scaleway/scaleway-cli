@@ -58,7 +58,7 @@ func Test_UserGetURL(t *testing.T) {
 			createInstance("PostgreSQL-12"),
 			core.ExecBeforeCmd(fmt.Sprintf("scw rdb user create instance-id={{ $.Instance.ID }} name=%s password=%s is-admin=false", customUserName, customUserPassword)),
 		),
-		Cmd: fmt.Sprintf("scw rdb user get-url {{ $.Instance.ID }} user=%s", customUserName),
+		Cmd: "scw rdb user get-url {{ $.Instance.ID }} user=" + customUserName,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -75,9 +75,9 @@ func Test_UserGetURL(t *testing.T) {
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createInstance("PostgreSQL-12"),
-			core.ExecBeforeCmd(fmt.Sprintf("scw rdb database create instance-id={{ $.Instance.ID }} name=%s", customDBName)),
+			core.ExecBeforeCmd("scw rdb database create instance-id={{ $.Instance.ID }} name="+customDBName),
 		),
-		Cmd: fmt.Sprintf("scw rdb user get-url {{ $.Instance.ID }} db=%s", customDBName),
+		Cmd: "scw rdb user get-url {{ $.Instance.ID }} db=" + customDBName,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {

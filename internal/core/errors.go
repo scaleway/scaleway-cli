@@ -1,6 +1,7 @@
 package core
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -74,6 +75,6 @@ func ArgumentConflictError(arg1 string, arg2 string) *CliError {
 
 func WindowIsNotSupportedError() *CliError {
 	return &CliError{
-		Err: fmt.Errorf("windows is not currently supported"),
+		Err: errors.New("windows is not currently supported"),
 	}
 }

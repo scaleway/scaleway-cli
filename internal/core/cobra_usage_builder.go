@@ -126,7 +126,7 @@ func buildExamples(binaryName string, cmd *Command) string {
 
 	for _, cmdExample := range cmd.Examples {
 		// Build title.
-		title := fmt.Sprintf("  %s", cmdExample.Short)
+		title := "  " + cmdExample.Short
 		commandLine := cmdExample.GetCommandLine(binaryName, cmd)
 
 		commandLine = interactive.Indent(commandLine, 4)

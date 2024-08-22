@@ -2,6 +2,7 @@ package domain
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -181,7 +182,7 @@ func dnsRecordSetRun(ctx context.Context, argsI interface{}) (i interface{}, e e
 	}
 
 	if len(request.Values) == 0 {
-		return nil, fmt.Errorf("at least one values (eg: values.0) is required")
+		return nil, errors.New("at least one values (eg: values.0) is required")
 	}
 
 	for _, data := range request.Values {
