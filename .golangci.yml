@@ -34,6 +34,7 @@ linters:
     - importas # Enforces consistent import aliases [fast: false, auto-fix: false]
     - ineffassign # Detects when assignments to existing variables are not used [fast: true, auto-fix: false]
     - intrange # intrange is a linter to find places where for loops could make use of an integer range. [fast: true, auto-fix: false]
+    - ireturn # Accept Interfaces, Return Concrete Types [fast: false, auto-fix: false]
     - loggercheck # (logrlint): Checks key value pairs for common logger libraries (kitlog,klog,logr,zap). [fast: false, auto-fix: false]
     - makezero # Finds slice declarations with non-zero initial length [fast: false, auto-fix: false]
     - mirror # reports wrong mirror patterns of bytes/strings usage [fast: false, auto-fix: false]
