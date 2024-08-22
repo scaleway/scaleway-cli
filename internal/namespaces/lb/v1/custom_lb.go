@@ -230,7 +230,6 @@ func lbDeleteBuilder(c *core.Command) *core.Command {
 func lbGetStatsBuilder(c *core.Command) *core.Command {
 	c.View = &core.View{
 		Sections: []*core.ViewSection{
-
 			{
 				FieldName: "BackendServersStats",
 				Title:     "Backends Statistics",

@@ -387,7 +387,7 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		homeDir := ctx.OverrideEnv["HOME"]
 		scwDir := path.Join(homeDir, ".config", "scw")
-		err := os.MkdirAll(scwDir, 0755)
+		err := os.MkdirAll(scwDir, 0o755)
 		if err != nil {
 			return err
 		}

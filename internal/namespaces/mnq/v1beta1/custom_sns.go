@@ -66,7 +66,6 @@ func autocompleteSnsCredentialsID(ctx context.Context, prefix string, request an
 				Region:    req.Region,
 				ProjectID: &completeSnsInfoCache.ProjectID,
 			})
-
 			if err != nil {
 				return nil
 			}

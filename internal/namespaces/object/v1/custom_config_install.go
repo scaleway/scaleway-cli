@@ -93,13 +93,13 @@ func configInstallCommand() *core.Command {
 			}
 
 			// Ensure the subfolders for the configuration files are all created
-			err = os.MkdirAll(filepath.Dir(configPath), 0755)
+			err = os.MkdirAll(filepath.Dir(configPath), 0o755)
 			if err != nil {
 				return "", err
 			}
 
 			// Write the configuration file
-			err = os.WriteFile(configPath, []byte(newConfig), 0600)
+			err = os.WriteFile(configPath, []byte(newConfig), 0o600)
 			if err != nil {
 				return "", err
 			}

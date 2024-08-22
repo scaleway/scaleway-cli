@@ -156,7 +156,7 @@ func Test_SetACL(t *testing.T) {
 func verifyACLCustomResponse(res *rdb.CustomACLResult, t *testing.T, expectedRules []string) {
 	actualRules := res.Rules
 
-	var rulesFound = map[string]bool{}
+	rulesFound := map[string]bool{}
 	for _, expectedRule := range expectedRules {
 		rulesFound[expectedRule] = false
 	}

@@ -26,7 +26,7 @@ type cobraBuilder struct {
 
 // build creates the cobra root command.
 func (b *cobraBuilder) build() *cobra.Command {
-	var groups = map[string]*cobra.Group{
+	groups := map[string]*cobra.Group{
 		"available": {ID: "available", Title: "AVAILABLE"},
 		"labs":      {ID: "labs", Title: "AVAILABLE LABS"},
 		"config":    {ID: "config", Title: "CONFIGURATION"},

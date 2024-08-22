@@ -12,13 +12,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var (
-	certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
-		lb.CertificateStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		lb.CertificateStatusPending: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-		lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-	}
-)
+var certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
+	lb.CertificateStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+	lb.CertificateStatusPending: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
+	lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+}
 
 func lbCertificateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.Certificate

@@ -80,7 +80,6 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		tplData["ProfileName"] = core.ExtractProfileName(ctx)
 	}
 	err = tpl.Execute(&buf, tplData)
-
 	if err != nil {
 		return nil, err
 	}

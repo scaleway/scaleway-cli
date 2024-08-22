@@ -18,7 +18,7 @@ const (
 	ScwConfigPathEnv = "SCW_CLI_CONFIG_PATH"
 
 	DefaultConfigFileName   = "cli.yaml"
-	defaultConfigPermission = 0644
+	defaultConfigPermission = 0o644
 
 	DefaultOutput      = "human"
 	configFileTemplate = `# Scaleway CLI config file
@@ -101,7 +101,7 @@ func (c *Config) Save() error {
 		return err
 	}
 
-	err = os.MkdirAll(filepath.Dir(c.path), 0700)
+	err = os.MkdirAll(filepath.Dir(c.path), 0o700)
 	if err != nil {
 		return err
 	}

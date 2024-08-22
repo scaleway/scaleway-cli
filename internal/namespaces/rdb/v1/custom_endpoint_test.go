@@ -209,7 +209,7 @@ func Test_EndpointList(t *testing.T) {
 func checkEndpoints(t *testing.T, client *scw.Client, instance *rdbSDK.Instance, expected []string) {
 	rdbAPI := rdbSDK.NewAPI(client)
 	ipamAPI := ipam.NewAPI(client)
-	var foundEndpoints = map[string]bool{}
+	foundEndpoints := map[string]bool{}
 
 	// First we need to update the instance as the information comes from the test's meta and may be outdated
 	instanceUpdated, err := rdbAPI.GetInstance(&rdbSDK.GetInstanceRequest{

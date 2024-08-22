@@ -10,14 +10,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var (
-	logStatusMarshalSpecs = human.EnumMarshalSpecs{
-		rdb.InstanceLogStatusUnknown:  &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-		rdb.InstanceLogStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-		rdb.InstanceLogStatusCreating: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "creating"},
-		rdb.InstanceLogStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	}
-)
+var logStatusMarshalSpecs = human.EnumMarshalSpecs{
+	rdb.InstanceLogStatusUnknown:  &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	rdb.InstanceLogStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+	rdb.InstanceLogStatusCreating: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "creating"},
+	rdb.InstanceLogStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+}
 
 func logPrepareBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {

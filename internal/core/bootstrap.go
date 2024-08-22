@@ -261,7 +261,6 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()
-
 	if err != nil {
 		if _, ok := err.(*interactive.InterruptError); ok {
 			return 130, nil, err

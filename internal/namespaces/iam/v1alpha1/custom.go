@@ -16,14 +16,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var (
-	logActionMarshalSpecs = human.EnumMarshalSpecs{
-		iam.LogActionUnknownAction: &human.EnumMarshalSpec{Attribute: color.Faint},
-		iam.LogActionCreated:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		iam.LogActionUpdated:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		iam.LogActionDeleted:       &human.EnumMarshalSpec{Attribute: color.FgRed},
-	}
-)
+var logActionMarshalSpecs = human.EnumMarshalSpecs{
+	iam.LogActionUnknownAction: &human.EnumMarshalSpec{Attribute: color.Faint},
+	iam.LogActionCreated:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	iam.LogActionUpdated:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	iam.LogActionDeleted:       &human.EnumMarshalSpec{Attribute: color.FgRed},
+}
 
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
