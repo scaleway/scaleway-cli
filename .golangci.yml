@@ -21,6 +21,7 @@ linters:
     - gofmt # Gofmt checks whether code was gofmt-ed. By default this tool runs with -s option to check for code simplification [fast: true, auto-fix: true]
     - gofumpt # Gofumpt checks whether code was gofumpt-ed. [fast: true, auto-fix: true]
     - goimports # In addition to fixing imports, goimports also formats your code in the same style as gofmt. [fast: true, auto-fix: true]
+    - gomoddirectives # Manage the use of 'replace', 'retract', and 'excludes' directives in go.mod. [fast: true, auto-fix: false]
     - gomodguard # Allow and block list linter for direct Go module dependencies. This is different from depguard where there are different block types for example version constraints and module recommendations. [fast: true, auto-fix: false]
     - goprintffuncname # Checks that printf-like functions are named with `f` at the end [fast: true, auto-fix: false]
     - gosec #(gas): Inspects source code for security problems [fast: false, auto-fix: false]
