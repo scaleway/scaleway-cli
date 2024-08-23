@@ -150,6 +150,7 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 
 func assertTokenInResponse(expectedToken string) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
+		t.Helper()
 		res := ctx.Result.(string)
 		creds := k8s.ExecCredential{}
 		err := json.Unmarshal([]byte(res), &creds)
