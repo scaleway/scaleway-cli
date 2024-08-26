@@ -49,6 +49,7 @@ CONFIGURATION COMMANDS:
   config        Config file management
   info          Get info about current settings
   init          Initialize the config
+  login         Login to scaleway
 
 UTILITY COMMANDS:
   feedback      Send feedback to the Scaleway CLI Team!
