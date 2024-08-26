@@ -8,8 +8,8 @@ import (
 	"strings"
 
 	"github.com/ghodss/yaml"
-	api "github.com/kubernetes-client/go-base/config/api"
 	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 )
 
 // get the path to the wanted kubeconfig on disk
