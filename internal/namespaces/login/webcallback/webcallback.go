@@ -32,36 +32,36 @@ func New(opts ...Options) *WebCallback {
 	return wb
 }
 
-func (wb *WebCallback) Start(ctx context.Context) error {
-	ctx, cancel := context.WithCancel(ctx)
+func (wb *WebCallback) Start() error {
 	wb.tokenChan = make(chan string, 1)
 	wb.errChan = make(chan error, 1)
 
 	listener, err := net.Listen("tcp", ":"+strconv.Itoa(wb.port))
 	if err != nil {
-		cancel()
 		return err
 	}
 	wb.listener = listener
 	wb.port = listener.Addr().(*net.TCPAddr).Port
-	wb.srv = &http.Server{Addr: ":" + strconv.Itoa(wb.port)}
+	wb.srv = &http.Server{
+		Addr:              ":" + strconv.Itoa(wb.port),
+		ReadHeaderTimeout: time.Second * 5,
+		ReadTimeout:       time.Second * 5,
+	}
 
 	wb.srv.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !strings.HasSuffix(r.URL.Path, "callback") {
-			w.WriteHeader(400)
+			w.WriteHeader(http.StatusBadRequest)
 			_, _ = w.Write([]byte(webpageString("Invalid URL")))
 		}
 		token := r.URL.Query().Get("token")
 		if token != "" {
 			wb.tokenChan <- r.URL.Query().Get("token")
-			w.WriteHeader(200)
+			w.WriteHeader(http.StatusOK)
 			_, _ = w.Write([]byte(webpageString("You can close this page.")))
 		} else {
-			w.WriteHeader(400)
+			w.WriteHeader(http.StatusBadRequest)
 			_, _ = w.Write([]byte(webpageString("Invalid Token.")))
 		}
-
-		cancel()
 	})
 
 	go func() {
@@ -69,7 +69,6 @@ func (wb *WebCallback) Start(ctx context.Context) error {
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
 			wb.errChan <- err
 		}
-		cancel()
 	}()
 
 	return nil

@@ -59,22 +59,24 @@ Once you connected to Scaleway, the profile should be configured.
 			}
 
 			wb := webcallback.New(opts...)
-			err := wb.Start(ctx)
+			err := wb.Start()
 			if err != nil {
 				return nil, err
 			}
 
 			callbackURL := fmt.Sprintf("http://localhost:%d/callback", wb.Port())
 
+			accountURL := "https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL
+
 			logger.Debugf("Web server started, waiting for callback on %s\n", callbackURL)
 
 			if args.PrintURL {
-				fmt.Println("https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL)
+				fmt.Println(accountURL)
 			} else {
-				err = open.Start("https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL)
+				err = open.Start(accountURL)
 				if err != nil {
 					logger.Warningf("Failed to open web url, you may not have a default browser configured")
-					logger.Warningf(fmt.Sprintf("You can open it: %s", callbackURL))
+					logger.Warningf("You can open it: " + accountURL)
 				}
 			}
 

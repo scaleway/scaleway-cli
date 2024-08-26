@@ -15,7 +15,7 @@ func TestWebCallback(t *testing.T) {
 	t.Cleanup(func() {
 		wb.Close()
 	})
-	assert.NoError(t, wb.Start(context.Background()))
+	assert.NoError(t, wb.Start())
 	assert.NoError(t, wb.Trigger("test-token", time.Second))
 
 	ctx, cancelFunc := context.WithTimeout(context.Background(), time.Second)
