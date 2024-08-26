@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/scaleway/scaleway-sdk-go/logger"
 )
@@ -33,8 +34,8 @@ func New(opts ...Options) *WebCallback {
 
 func (wb *WebCallback) Start(ctx context.Context) error {
 	ctx, cancel := context.WithCancel(ctx)
-	wb.tokenChan = make(chan string)
-	wb.errChan = make(chan error)
+	wb.tokenChan = make(chan string, 1)
+	wb.errChan = make(chan error, 1)
 
 	listener, err := net.Listen("tcp", ":"+strconv.Itoa(wb.port))
 	if err != nil {
@@ -70,6 +71,28 @@ func (wb *WebCallback) Start(ctx context.Context) error {
 		}
 		cancel()
 	}()
+
+	return nil
+}
+
+// Trigger will trigger currently waiting callback. Made for tests
+func (wb *WebCallback) Trigger(token string, timeout time.Duration) error {
+	req, err := http.NewRequest(http.MethodGet, "http://localhost:"+strconv.Itoa(wb.port)+"/callback", nil)
+	if err != nil {
+		return err
+	}
+
+	q := req.URL.Query()
+	q.Add("token", token)
+	req.URL.RawQuery = q.Encode()
+
+	client := http.Client{Timeout: timeout}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
 
 	return nil
 }

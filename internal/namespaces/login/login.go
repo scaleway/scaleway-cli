@@ -22,7 +22,8 @@ func GetCommands() *core.Commands {
 }
 
 type loginArgs struct {
-	Port     int  `json:"port"`
+	Port int `json:"port"`
+	// PrintURL will print the account url instead of trying to open it with a browser
 	PrintURL bool `json:"print_url"`
 }
 
@@ -64,9 +65,11 @@ Once you connected to Scaleway, the profile should be configured.
 			}
 
 			callbackURL := fmt.Sprintf("http://localhost:%d/callback", wb.Port())
+
 			logger.Debugf("Web server started, waiting for callback on %s\n", callbackURL)
+
 			if args.PrintURL {
-				logger.Infof("https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL + "\n")
+				fmt.Println("https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL)
 			} else {
 				err = open.Start("https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL)
 				if err != nil {
@@ -75,7 +78,7 @@ Once you connected to Scaleway, the profile should be configured.
 				}
 			}
 
-			fmt.Println("waiting for callback...")
+			fmt.Println("waiting for callback from browser...")
 			token, err := wb.Wait(ctx)
 			if err != nil {
 				return nil, err
