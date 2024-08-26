@@ -54,10 +54,10 @@ See below the schema `scw init` follows to ask for default config:
 */
 
 func GetCommands() *core.Commands {
-	return core.NewCommands(InitCommand())
+	return core.NewCommands(Command())
 }
 
-type InitArgs struct {
+type Args struct {
 	AccessKey      string
 	SecretKey      string
 	ProjectID      string
@@ -70,7 +70,7 @@ type InitArgs struct {
 	InstallAutocomplete *bool
 }
 
-func InitCommand() *core.Command {
+func Command() *core.Command {
 	return &core.Command{
 		Groups: []string{"config"},
 		Short:  `Initialize the config`,
@@ -83,7 +83,7 @@ Default path for configuration file is based on the following priority order:
 - $USERPROFILE/.config/scw/config.yaml`,
 		Namespace:            "init",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(InitArgs{}),
+		ArgsType:             reflect.TypeOf(Args{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:         "secret-key",
@@ -132,7 +132,7 @@ Default path for configuration file is based on the following priority order:
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
-			args := argsI.(*InitArgs)
+			args := argsI.(*Args)
 
 			profileName := core.ExtractProfileName(ctx)
 			configPath := core.ExtractConfigPath(ctx)

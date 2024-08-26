@@ -112,7 +112,7 @@ Once you connected to Scaleway, the profile should be configured.
 				return nil, err
 			}
 
-			resp, err := initCommand.InitCommand().Run(ctx, &initCommand.InitArgs{
+			resp, err := initCommand.Command().Run(ctx, &initCommand.Args{
 				AccessKey:      apiKey.AccessKey,
 				SecretKey:      *apiKey.SecretKey,
 				ProjectID:      apiKey.DefaultProjectID,
