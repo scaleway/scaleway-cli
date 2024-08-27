@@ -109,6 +109,20 @@ func ipamIPCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource.name",
+				Short:      `Name of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -347,7 +361,7 @@ func ipamIPList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment"},
+				EnumValues: []string{"unknown_type", "custom", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment"},
 			},
 			{
 				Name:       "mac-address",
@@ -383,7 +397,7 @@ func ipamIPList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment"},
+				EnumValues: []string{"unknown_type", "custom", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment"},
 			},
 			{
 				Name:       "organization-id",
