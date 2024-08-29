@@ -56,6 +56,12 @@ type CreateInstanceResult struct {
 	Password string `json:"password"`
 }
 
+type rdbCreateInstanceRequestCustom struct {
+	*rdbSDK.CreateInstanceRequest
+	InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
+	GeneratePassword bool
+}
+
 func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	instanceResult := i.(CreateInstanceResult)
 
@@ -203,7 +209,7 @@ func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.
 }
 
 func autoCompleteDatabaseEngines(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
-	req := request.(*rdbSDK.CreateInstanceRequest)
+	req := request.(rdbCreateInstanceRequestCustom)
 	suggestion := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
@@ -228,12 +234,6 @@ func autoCompleteDatabaseEngines(ctx context.Context, prefix string, request any
 }
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
-	type rdbCreateInstanceRequestCustom struct {
-		*rdbSDK.CreateInstanceRequest
-		InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
-		GeneratePassword bool
-	}
-
 	c.ArgSpecs.AddBefore("init-endpoints.{index}.private-network.private-network-id", &core.ArgSpec{
 		Name:     "init-endpoints.{index}.load-balancer",
 		Short:    "Will configure a load-balancer endpoint along with your private network endpoint if true",
