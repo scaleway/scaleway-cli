@@ -6,8 +6,9 @@ USAGE:
   scw cockpit plan <command>
 
 AVAILABLE COMMANDS:
-  list        Get a list of all pricing plans available
-  select      Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request
+  get         Get current plan
+  list        List plan types
+  select      Apply a pricing plan
 
 FLAGS:
   -h, --help   help for plan

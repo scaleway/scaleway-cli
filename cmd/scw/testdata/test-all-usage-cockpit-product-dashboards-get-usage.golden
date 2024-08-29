@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve information about a given token, specified by the token ID. The token's information such as its scopes, is returned.
+Retrieve information about the dashboard of a Scaleway resource in Grafana, specified by the ID of the Project the Cockpit belongs to, and the name of the dashboard.
 
 USAGE:
-  scw cockpit token get [arg=value ...]
+  scw cockpit product-dashboards get [arg=value ...]
 
 ARGS:
-  token-id          Token ID
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [project-id]     Project ID to use. If none is passed the default project ID will be used
+  dashboard-name   Name of the dashboard
 
 FLAGS:
   -h, --help   help for get
