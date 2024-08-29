@@ -7,14 +7,14 @@ toolchain go1.22.2
 require (
 	github.com/alecthomas/assert v1.0.0
 	github.com/aws/aws-sdk-go-v2 v1.30.4
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.60.1
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.61.0
 	github.com/buildpacks/pack v0.34.2
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v0.27.1
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.4
 	github.com/dnaeon/go-vcr v1.2.0
-	github.com/docker/docker v27.1.2+incompatible
+	github.com/docker/docker v27.2.0+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.17.0
 	github.com/getsentry/sentry-go v0.28.1
@@ -26,7 +26,7 @@ require (
 	github.com/mattn/go-isatty v0.0.20
 	github.com/moby/buildkit v0.13.2
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.29.0.20240828134645-fddeabd56f4a
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.29.0.20240823125746-1aae88e92d14
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/pflag v1.0.5
