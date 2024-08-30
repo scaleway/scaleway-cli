@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Contact points are email addresses associated with the default receiver, that the Alert manager sends alerts to.
+The source of the alerts are data sources within the same Project and region as the Alert manager.
+If you need to receive alerts for other receivers, you can create additional contact points and receivers in Grafana. Make sure that you select the Scaleway Alert manager.
+
+USAGE:
+  scw cockpit contact-point create [arg=value ...]
+
+ARGS:
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  [email.to]        
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
