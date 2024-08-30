@@ -3,7 +3,7 @@ package dedibox
 import (
 	"context"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 func GetCommands() *core.Commands {

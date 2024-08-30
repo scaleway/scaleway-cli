@@ -3,7 +3,7 @@ package lb_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 )
 

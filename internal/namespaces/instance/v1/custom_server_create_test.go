@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"

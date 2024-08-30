@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	initCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init" // alias required to not collide with go init func
 	"github.com/stretchr/testify/require"
 )

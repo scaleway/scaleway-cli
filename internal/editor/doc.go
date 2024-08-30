@@ -1,7 +1,7 @@
 package editor
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 var LongDescription = `This command starts your default editor to edit a marshaled version of your resource

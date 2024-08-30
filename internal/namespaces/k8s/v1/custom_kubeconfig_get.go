@@ -5,7 +5,7 @@ import (
 	"reflect"
 
 	"github.com/ghodss/yaml"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"

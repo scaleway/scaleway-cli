@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 func Test_CorePrinter(t *testing.T) {

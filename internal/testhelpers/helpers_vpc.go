@@ -1,6 +1,6 @@
 package testhelpers
 
-import "github.com/scaleway/scaleway-cli/v2/internal/core"
+import "github.com/scaleway/scaleway-cli/v2/core"
 
 func CreatePN() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(

@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )

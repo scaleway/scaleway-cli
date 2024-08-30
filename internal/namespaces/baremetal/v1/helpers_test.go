@@ -3,7 +3,7 @@ package baremetal_test
 import (
 	"fmt"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 // createServerAndWait creates a baremetal instance

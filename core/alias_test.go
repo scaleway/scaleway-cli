@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func TestCommandMatchAlias(t *testing.T) {

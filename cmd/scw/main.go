@@ -8,8 +8,8 @@ import (
 
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/commands"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -78,7 +78,7 @@ func mainNoExit() int {
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  namespaces.GetCommands(),
+		Commands:  commands.GetCommands(),
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),

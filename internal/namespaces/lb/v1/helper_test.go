@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/ghodss/yaml"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	go_api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"

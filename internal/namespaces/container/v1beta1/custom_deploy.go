@@ -23,7 +23,7 @@ import (
 	"github.com/docker/docker/pkg/archive"
 	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"

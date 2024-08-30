@@ -7,8 +7,8 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	key_manager "github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
