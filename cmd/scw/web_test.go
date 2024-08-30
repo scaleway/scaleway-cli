@@ -6,11 +6,11 @@ import (
 	"testing"
 	"text/template"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/commands"
 )
 
 func Test_WebValidateTemplates(t *testing.T) {
-	cmds := namespaces.GetCommands()
+	cmds := commands.GetCommands()
 
 	// Test that web urls are valid templates
 	type failedTemplate struct {
@@ -37,7 +37,7 @@ func Test_WebValidateTemplates(t *testing.T) {
 }
 
 func Test_WebValidateTemplatesVariables(t *testing.T) {
-	cmds := namespaces.GetCommands()
+	cmds := commands.GetCommands()
 
 	// Test that web urls are valid templates
 	type failedTemplate struct {
