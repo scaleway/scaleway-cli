@@ -1,22 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a token in a given Project specified by the Project ID.
+Give your token the relevant scopes to ensure it has the right permissions to interact with your data sources and the Alert manager. Make sure that you create your token in the same regions as the data sources you want to use it for.
+Upon creation, your token's secret key display only once. Make sure that you save it.
 
 USAGE:
   scw cockpit token create [arg=value ...]
 
 ARGS:
-  [project-id]                   Project ID to use. If none is passed the default project ID will be used
-  [name=<generated>]             Name of the token
-  [scopes.query-metrics]         Permission to fetch metrics
-  [scopes.write-metrics]         Permission to write metrics
-  [scopes.setup-metrics-rules]   Permission to setup metrics rules
-  [scopes.query-logs]            Permission to fetch logs
-  [scopes.write-logs]            Permission to write logs
-  [scopes.setup-logs-rules]      Permission to set up logs rules
-  [scopes.setup-alerts]          Permission to set up alerts
-  [scopes.query-traces]          Permission to fetch traces
-  [scopes.write-traces]          Permission to write traces
+  [project-id]             Project ID to use. If none is passed the default project ID will be used
+  [name]                   Name of the token
+  [token-scopes.{index}]   Token permission scopes (unknown_scope | read_only_metrics | write_only_metrics | full_access_metrics_rules | read_only_logs | write_only_logs | full_access_logs_rules | full_access_alert_manager | read_only_traces | write_only_traces)
+  [region=fr-par]          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create
