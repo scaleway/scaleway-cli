@@ -266,7 +266,7 @@ Get the BMC (Baseboard Management Controller) access associated with the given I
 **Usage:**
 
 ```
-scw dedibox bmc get [arg=value ...]
+scw dedibox bmc get <server-id ...> [arg=value ...]
 ```
 
 
@@ -287,7 +287,7 @@ The BMC (Baseboard Management Controller) access is available one hour after the
 **Usage:**
 
 ```
-scw dedibox bmc start [arg=value ...]
+scw dedibox bmc start <server-id ...> [arg=value ...]
 ```
 
 
@@ -308,7 +308,7 @@ Stop BMC (Baseboard Management Controller) access associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox bmc stop [arg=value ...]
+scw dedibox bmc stop <server-id ...> [arg=value ...]
 ```
 
 
@@ -458,7 +458,7 @@ Get the server associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox fip get [arg=value ...]
+scw dedibox fip get <ip-id ...> [arg=value ...]
 ```
 
 
@@ -673,7 +673,7 @@ Return specific offer for the given ID.
 **Usage:**
 
 ```
-scw dedibox offer get [arg=value ...]
+scw dedibox offer get <offer-id ...> [arg=value ...]
 ```
 
 
@@ -727,7 +727,7 @@ List subscribable options associated to the given server ID.
 **Usage:**
 
 ```
-scw dedibox option list [arg=value ...]
+scw dedibox option list <server-id ...> [arg=value ...]
 ```
 
 
@@ -747,7 +747,7 @@ Subscribe option for the given server ID.
 **Usage:**
 
 ```
-scw dedibox option subscribe [arg=value ...]
+scw dedibox option subscribe <server-id ...> [arg=value ...]
 ```
 
 
@@ -768,7 +768,7 @@ Subscribe storage option for the given server ID.
 **Usage:**
 
 ```
-scw dedibox option subscribe-storage [arg=value ...]
+scw dedibox option subscribe-storage <server-id ...> [arg=value ...]
 ```
 
 
@@ -794,7 +794,7 @@ Return specific OS for the given ID.
 **Usage:**
 
 ```
-scw dedibox os get [arg=value ...]
+scw dedibox os get <os-id ...> [arg=value ...]
 ```
 
 
@@ -816,7 +816,7 @@ List all available OS that can be install on a baremetal server.
 **Usage:**
 
 ```
-scw dedibox os list [arg=value ...]
+scw dedibox os list <server-id ...> [arg=value ...]
 ```
 
 
@@ -826,7 +826,7 @@ scw dedibox os list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `released_at_asc`, `released_at_desc` | Order of the OS |
 | type | One of: `unknown_type`, `server`, `virtu`, `panel`, `desktop`, `custom`, `rescue` | Type of the OS |
-| server-id |  | Filter OS by compatible server ID |
+| server-id | Required | Filter OS by compatible server ID |
 | project-id | Default: `<retrieved from config>` | Project ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
@@ -844,7 +844,7 @@ Return raid for the given server ID.
 **Usage:**
 
 ```
-scw dedibox raid get [arg=value ...]
+scw dedibox raid get <server-id ...> [arg=value ...]
 ```
 
 
@@ -864,7 +864,7 @@ Update RAID associated with the given server ID.
 **Usage:**
 
 ```
-scw dedibox raid update [arg=value ...]
+scw dedibox raid update <server-id ...> [arg=value ...]
 ```
 
 
@@ -891,7 +891,7 @@ Return rescue information for the given server ID.
 **Usage:**
 
 ```
-scw dedibox rescue get [arg=value ...]
+scw dedibox rescue get <server-id ...> [arg=value ...]
 ```
 
 
@@ -911,7 +911,7 @@ Start in rescue the server associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox rescue start [arg=value ...]
+scw dedibox rescue start <server-id ...> [arg=value ...]
 ```
 
 
@@ -932,7 +932,7 @@ Stop rescue on the server associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox rescue stop [arg=value ...]
+scw dedibox rescue stop <server-id ...> [arg=value ...]
 ```
 
 
@@ -957,7 +957,7 @@ Update reverse of ip associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox reverse-ip update [arg=value ...]
+scw dedibox reverse-ip update <ip-id ...> [arg=value ...]
 ```
 
 
@@ -1048,7 +1048,7 @@ Add-members dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v1 add-members [arg=value ...]
+scw dedibox rpn-v1 add-members <group-id ...> [arg=value ...]
 ```
 
 
@@ -1091,7 +1091,7 @@ Delete dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v1 delete [arg=value ...]
+scw dedibox rpn-v1 delete <group-id ...> [arg=value ...]
 ```
 
 
@@ -1110,7 +1110,7 @@ Delete-members dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v1 delete-members [arg=value ...]
+scw dedibox rpn-v1 delete-members <group-id ...> [arg=value ...]
 ```
 
 
@@ -1130,7 +1130,7 @@ Get dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v1 get [arg=value ...]
+scw dedibox rpn-v1 get <group-id ...> [arg=value ...]
 ```
 
 
@@ -1311,7 +1311,7 @@ Update dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v1 update [arg=value ...]
+scw dedibox rpn-v1 update <group-id ...> [arg=value ...]
 ```
 
 
@@ -1336,7 +1336,7 @@ Add-members dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v2 add-members [arg=value ...]
+scw dedibox rpn-v2 add-members <group-id ...> [arg=value ...]
 ```
 
 
@@ -1378,7 +1378,7 @@ Delete dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v2 delete [arg=value ...]
+scw dedibox rpn-v2 delete <group-id ...> [arg=value ...]
 ```
 
 
@@ -1397,7 +1397,7 @@ Delete-members dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v2 delete-members [arg=value ...]
+scw dedibox rpn-v2 delete-members <group-id ...> [arg=value ...]
 ```
 
 
@@ -1417,7 +1417,7 @@ Disable-compatibility dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v2 disable-compatibility [arg=value ...]
+scw dedibox rpn-v2 disable-compatibility <group-id ...> [arg=value ...]
 ```
 
 
@@ -1456,7 +1456,7 @@ Get dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v2 get [arg=value ...]
+scw dedibox rpn-v2 get <group-id ...> [arg=value ...]
 ```
 
 
@@ -1556,7 +1556,7 @@ Update dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v2 update [arg=value ...]
+scw dedibox rpn-v2 update <group-id ...> [arg=value ...]
 ```
 
 
@@ -1576,7 +1576,7 @@ Update-vlan-members dedibox resources.
 **Usage:**
 
 ```
-scw dedibox rpn-v2 update-vlan-members [arg=value ...]
+scw dedibox rpn-v2 update-vlan-members <group-id ...> [arg=value ...]
 ```
 
 
@@ -1765,7 +1765,7 @@ Cancels the current server installation associated with the given server ID.
 **Usage:**
 
 ```
-scw dedibox server cancel-install [arg=value ...]
+scw dedibox server cancel-install <server-id ...> [arg=value ...]
 ```
 
 
@@ -1808,7 +1808,7 @@ Delete the server associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox server delete [arg=value ...]
+scw dedibox server delete <server-id ...> [arg=value ...]
 ```
 
 
@@ -1828,7 +1828,7 @@ Get the server associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox server get [arg=value ...]
+scw dedibox server get <server-id ...> [arg=value ...]
 ```
 
 
@@ -1848,7 +1848,7 @@ Get the server installation status associated with the given server ID.
 **Usage:**
 
 ```
-scw dedibox server get-install [arg=value ...]
+scw dedibox server get-install <server-id ...> [arg=value ...]
 ```
 
 
@@ -1868,7 +1868,7 @@ Get the server default partitioning schema associated with the given server ID a
 **Usage:**
 
 ```
-scw dedibox server get-partitioning [arg=value ...]
+scw dedibox server get-partitioning <server-id ...> [arg=value ...]
 ```
 
 
@@ -1889,7 +1889,7 @@ Install an OS on the server associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox server install [arg=value ...]
+scw dedibox server install <server-id ...> [arg=value ...]
 ```
 
 
@@ -1945,7 +1945,7 @@ List disks associated to the given server ID.
 **Usage:**
 
 ```
-scw dedibox server list-disks [arg=value ...]
+scw dedibox server list-disks <server-id ...> [arg=value ...]
 ```
 
 
@@ -1966,7 +1966,7 @@ List events associated to the given server ID.
 **Usage:**
 
 ```
-scw dedibox server list-events [arg=value ...]
+scw dedibox server list-events <server-id ...> [arg=value ...]
 ```
 
 
@@ -1987,7 +1987,7 @@ Reboot the server associated with the given ID, use boot param to reboot in resc
 **Usage:**
 
 ```
-scw dedibox server reboot [arg=value ...]
+scw dedibox server reboot <server-id ...> [arg=value ...]
 ```
 
 
@@ -2007,7 +2007,7 @@ Start the server associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox server start [arg=value ...]
+scw dedibox server start <server-id ...> [arg=value ...]
 ```
 
 
@@ -2027,7 +2027,7 @@ Stop the server associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox server stop [arg=value ...]
+scw dedibox server stop <server-id ...> [arg=value ...]
 ```
 
 
@@ -2047,7 +2047,7 @@ Update the server associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox server update [arg=value ...]
+scw dedibox server update <server-id ...> [arg=value ...]
 ```
 
 
@@ -2074,7 +2074,7 @@ Delete the service associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox service delete [arg=value ...]
+scw dedibox service delete <service-id ...> [arg=value ...]
 ```
 
 
@@ -2094,7 +2094,7 @@ Get the service associated with the given ID.
 **Usage:**
 
 ```
-scw dedibox service get [arg=value ...]
+scw dedibox service get <service-id ...> [arg=value ...]
 ```
 
 

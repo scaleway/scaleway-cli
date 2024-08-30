@@ -3,8 +3,8 @@ package qa
 import (
 	"reflect"
 
+	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
 )
 
 func filterIgnore(unfilteredErrors []error) []error {
@@ -47,14 +47,14 @@ func areCommandsEquals(c1 *core.Command, c2 *core.Command) bool {
 var ignoredErrors = []ignoredError{
 	{
 		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
-		Command: namespaces.GetCommands().MustFind("k8s", "kubeconfig", "uninstall"),
+		Command: commands.GetCommands().MustFind("k8s", "kubeconfig", "uninstall"),
 	},
 	{
 		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
-		Command: namespaces.GetCommands().MustFind("registry", "logout"),
+		Command: commands.GetCommands().MustFind("registry", "logout"),
 	},
 	{
 		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
-		Command: namespaces.GetCommands().MustFind("registry", "login"),
+		Command: commands.GetCommands().MustFind("registry", "login"),
 	},
 }
