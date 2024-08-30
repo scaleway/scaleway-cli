@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 
+	cmds "github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/web"
 )
@@ -15,7 +16,7 @@ var commands *core.Commands
 
 func getCommands() *core.Commands {
 	if commands == nil {
-		commands = commands.GetCommands()
+		commands = cmds.GetCommands()
 	}
 	return commands
 }
