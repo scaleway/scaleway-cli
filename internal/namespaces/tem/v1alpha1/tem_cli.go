@@ -34,6 +34,7 @@ func GetGeneratedCommands() *core.Commands {
 		temDomainRevoke(),
 		temDomainCheck(),
 		temDomainGetLastStatus(),
+		temDomainUpdate(),
 		temWebhookCreate(),
 		temWebhookList(),
 		temWebhookGet(),
@@ -685,6 +686,43 @@ func temDomainGetLastStatus() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.GetDomainLastStatus(request)
+
+		},
+	}
+}
+
+func temDomainUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a domain`,
+		Long:      `Update a domain auto-configuration.`,
+		Namespace: "tem",
+		Resource:  "domain",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.UpdateDomainRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-id",
+				Short:      `ID of the domain to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "autoconfig",
+				Short:      `(Optional) If set to true, activate auto-configuration of the domain's DNS zone`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.UpdateDomainRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			return api.UpdateDomain(request)
 
 		},
 	}
