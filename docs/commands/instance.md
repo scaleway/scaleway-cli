@@ -95,10 +95,12 @@ it-generate-hosts-for-instance-servers,-baremetal,-apple-silicon-and-bastions)
   - [List user data](#list-user-data)
   - [Add/set user data](#addset-user-data)
 - [Volume management commands](#volume-management-commands)
+  - [Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)](#migrate-a-volume-andor-snapshots-to-sbs-(scaleway-block-storage))
   - [Create a volume](#create-a-volume)
   - [Delete a volume](#delete-a-volume)
   - [Get a volume](#get-a-volume)
   - [List volumes](#list-volumes)
+  - [Get a volume or snapshot's migration plan](#get-a-volume-or-snapshot's-migration-plan)
   - [Update a volume](#update-a-volume)
   - [Wait for volume to reach a stable state](#wait-for-volume-to-reach-a-stable-state)
 - [Volume type management commands](#volume-type-management-commands)
@@ -2890,6 +2892,28 @@ subject to change depending on the volumes order. Block devices
 UUIDs can be found in `/dev/disk/by-id/`.
 
 
+### Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
+
+To be used, the call to this endpoint must be preceded by a call to the "Plan a migration" endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.
+
+**Usage:**
+
+```
+scw instance volume apply-migration [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| volume-id |  | The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint. |
+| snapshot-id |  | The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint. |
+| validation-key | Required | A value to be retrieved from a call to the "Plan a migration" endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### Create a volume
 
 Create a volume of a specified type in an Availability Zone.
@@ -3042,6 +3066,27 @@ List all block storage volumes that match a name
 scw instance volume list volume-type=b_ssd name=foobar
 ```
 
+
+
+
+### Get a volume or snapshot's migration plan
+
+Given a volume or snapshot, returns the migration plan for a call to the "Apply a migration plan" endpoint. This plan will include zero or one volume, and zero or more snapshots, which will need to be migrated together. This endpoint does not perform the actual migration itself, the "Apply a migration plan" endpoint must be used. The validation_key value returned by this endpoint must be provided to the call to the "Apply a migration plan" endpoint to confirm that all resources listed in the plan should be migrated.
+
+**Usage:**
+
+```
+scw instance volume plan-migration [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| volume-id |  | The volume for which the migration plan will be generated. |
+| snapshot-id |  | The snapshot for which the migration plan will be generated. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
