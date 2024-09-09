@@ -89,6 +89,8 @@ func GetGeneratedCommands() *core.Commands {
 		instancePrivateNicGet(),
 		instancePrivateNicUpdate(),
 		instancePrivateNicDelete(),
+		instanceVolumePlanMigration(),
+		instanceVolumeApplyMigration(),
 	)
 }
 func instanceRoot() *core.Command {
@@ -3865,6 +3867,93 @@ func instancePrivateNicDelete() *core.Command {
 			return &core.SuccessResult{
 				Resource: "private-nic",
 				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func instanceVolumePlanMigration() *core.Command {
+	return &core.Command{
+		Short:     `Get a volume or snapshot's migration plan`,
+		Long:      `Given a volume or snapshot, returns the migration plan for a call to the "Apply a migration plan" endpoint. This plan will include zero or one volume, and zero or more snapshots, which will need to be migrated together. This endpoint does not perform the actual migration itself, the "Apply a migration plan" endpoint must be used. The validation_key value returned by this endpoint must be provided to the call to the "Apply a migration plan" endpoint to confirm that all resources listed in the plan should be migrated.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "plan-migration",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.PlanBlockMigrationRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `The volume for which the migration plan will be generated.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "snapshot-id",
+				Short:      `The snapshot for which the migration plan will be generated.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.PlanBlockMigrationRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.PlanBlockMigration(request)
+
+		},
+	}
+}
+
+func instanceVolumeApplyMigration() *core.Command {
+	return &core.Command{
+		Short:     `Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)`,
+		Long:      `To be used, the call to this endpoint must be preceded by a call to the "Plan a migration" endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "apply-migration",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.ApplyBlockMigrationRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "snapshot-id",
+				Short:      `The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "validation-key",
+				Short:      `A value to be retrieved from a call to the "Plan a migration" endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ApplyBlockMigrationRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			e = api.ApplyBlockMigration(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "volume",
+				Verb:     "apply-migration",
 			}, nil
 		},
 	}
