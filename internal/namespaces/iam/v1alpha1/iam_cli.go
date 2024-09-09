@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -609,13 +609,41 @@ func iamUserCreate() *core.Command {
 			{
 				Name:       "email",
 				Short:      `Email of the user`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags associated with the user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "member.email",
+				Short:      `Email of the user to create`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "member.send-password-email",
+				Short:      `Whether or not to send an email containing the member's password.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "member.username",
+				Short:      `The member's username`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "member.password",
+				Short:      `The member's password`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

@@ -1056,8 +1056,12 @@ scw iam user create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| email | Required | Email of the user |
+| email |  | Email of the user |
 | tags.{index} |  | Tags associated with the user |
+| member.email |  | Email of the user to create |
+| member.send-password-email |  | Whether or not to send an email containing the member's password. |
+| member.username |  | The member's username |
+| member.password |  | The member's password |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
