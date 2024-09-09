@@ -12,7 +12,7 @@ USAGE:
 ARGS:
   [project-id]      Project ID to use. If none is passed the default project ID will be used
   [name]            Data source name
-  [type]            Data source type (unknown_type | metrics | logs | traces | alerts)
+  [type]            Data source type (unknown_type | metrics | logs | traces)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
