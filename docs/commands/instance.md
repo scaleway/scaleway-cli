@@ -374,7 +374,7 @@ scw instance ip create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags of the IP |
 | server |  | UUID of the Instance you want to attach the IP to |
-| type | One of: `unknown_iptype`, `nat`, `routed_ipv4`, `routed_ipv6` | IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6') |
+| type | One of: `unknown_iptype`, `nat`, `routed_ipv4`, `routed_ipv6` | IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated) |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -533,7 +533,7 @@ scw instance ip list [arg=value ...]
 | project-id |  | Project ID in which the IPs are reserved |
 | tags |  | Filter IPs with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter on the IP address (Works as a LIKE operation on the IP address) |
-| type |  | Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6') |
+| type |  | Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat') |
 | organization-id |  | Organization ID in which the IPs are reserved |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2264,7 +2264,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | volumes.{key}.organization |  | Organization ID of the volume |
 | ~~bootscript~~ | Deprecated |  |
 | dynamic-ip-required |  |  |
-| routed-ip-enabled |  | True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False) |
+| ~~routed-ip-enabled~~ | Deprecated | True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False) |
 | public-ips.{index} |  | A list of reserved IP IDs to attach to the Instance |
 | ~~enable-ipv6~~ | Deprecated |  |
 | protected |  |  |
