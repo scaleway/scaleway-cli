@@ -665,7 +665,7 @@ func instanceServerUpdate() *core.Command {
 				Name:       "routed-ip-enabled",
 				Short:      `True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False)`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -3326,7 +3326,7 @@ func instanceIPList() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6')`,
+				Short:      `Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat')`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3432,7 +3432,7 @@ func instanceIPCreate() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6')`,
+				Short:      `IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

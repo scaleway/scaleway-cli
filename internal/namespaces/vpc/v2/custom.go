@@ -10,7 +10,6 @@ func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
 	cmds.Remove("vpc", "post")
-	cmds.RemoveResource("vpc", "route")
 	cmds.MustFind("vpc", "private-network", "get").Override(privateNetworkGetBuilder)
 	human.RegisterMarshalerFunc(vpc.PrivateNetwork{}, privateNetworkMarshalerFunc)
 
