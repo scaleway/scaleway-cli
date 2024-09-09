@@ -6,7 +6,7 @@ USAGE:
   scw ipam ip <command>
 
 AVAILABLE COMMANDS:
-  create      Book a new IP
+  create      Reserve a new IP
   delete      Release an IP
   get         Get an IP
   list        List existing IPs

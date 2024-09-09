@@ -3,7 +3,7 @@
 This API allows you to manage your Scaleway IP addresses with our IP Address Management tool.
   
 - [IP management command](#ip-management-command)
-  - [Book a new IP](#book-a-new-ip)
+  - [Reserve a new IP](#reserve-a-new-ip)
   - [Release an IP](#release-an-ip)
   - [Get an IP](#get-an-ip)
   - [List existing IPs](#list-existing-ips)
@@ -17,9 +17,9 @@ This API allows you to manage your Scaleway IP addresses with our IP Address Man
 *ips_long.
 
 
-### Book a new IP
+### Reserve a new IP
 
-Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.
+Reserve a new IP from the specified source. Currently IPs can only be reserved from a Private Network.
 
 **Usage:**
 

@@ -58,8 +58,8 @@ func ipamIPSet() *core.Command {
 
 func ipamIPCreate() *core.Command {
 	return &core.Command{
-		Short:     `Book a new IP`,
-		Long:      `Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.`,
+		Short:     `Reserve a new IP`,
+		Long:      `Reserve a new IP from the specified source. Currently IPs can only be reserved from a Private Network.`,
 		Namespace: "ipam",
 		Resource:  "ip",
 		Verb:      "create",
