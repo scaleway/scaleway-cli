@@ -206,7 +206,7 @@ scw cockpit data-source create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | Data source name |
-| type | One of: `unknown_type`, `metrics`, `logs`, `traces`, `alerts` | Data source type |
+| type | One of: `unknown_type`, `metrics`, `logs`, `traces` | Data source type |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -270,7 +270,7 @@ scw cockpit data-source list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order for data sources in the response |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | origin | One of: `unknown_origin`, `scaleway`, `external` | Origin to filter for, only data sources with matching origin will be returned |
-| types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces`, `alerts` | Types to filter for, only data sources with matching types will be returned |
+| types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces` | Types to filter for, only data sources with matching types will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 

@@ -9,7 +9,6 @@ This API allows you to manage your Transactional Email services.
   - [Display SPF and DKIM records status and potential errors](#display-spf-and-dkim-records-status-and-potential-errors)
   - [List domains](#list-domains)
   - [Delete a domain](#delete-a-domain)
-  - [Update a domain](#update-a-domain)
 - [Email management commands](#email-management-commands)
   - [Cancel an email](#cancel-an-email)
   - [Send an email](#send-an-email)
@@ -152,27 +151,6 @@ scw tem domain revoke <domain-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | domain-id | Required | ID of the domain to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Update a domain
-
-Update a domain auto-configuration.
-
-**Usage:**
-
-```
-scw tem domain update <domain-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| domain-id | Required | ID of the domain to update |
-| autoconfig |  | (Optional) If set to true, activate auto-configuration of the domain's DNS zone |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

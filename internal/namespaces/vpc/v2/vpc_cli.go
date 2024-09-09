@@ -37,7 +37,6 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetworkDelete(),
 		vpcPrivateNetworkMigrateToRegional(),
 		vpcPrivateNetworkEnableDHCP(),
-		vpcRouteEnableRouting(),
 		vpcRoutesList(),
 	)
 }
@@ -652,36 +651,6 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.EnableDHCP(request)
-
-		},
-	}
-}
-
-func vpcRouteEnableRouting() *core.Command {
-	return &core.Command{
-		Short:     `Enable routing on a VPC`,
-		Long:      `Enable routing on an existing VPC. Note that you will not be able to deactivate it afterwards.`,
-		Namespace: "vpc",
-		Resource:  "route",
-		Verb:      "enable-routing",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.EnableRoutingRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "vpc-id",
-				Short:      `VPC ID`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*vpc.EnableRoutingRequest)
-
-			client := core.ExtractClient(ctx)
-			api := vpc.NewAPI(client)
-			return api.EnableRouting(request)
 
 		},
 	}
