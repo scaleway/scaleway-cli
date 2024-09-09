@@ -1,7 +1,7 @@
 package k8s
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 func k8sKubeconfigCommand() *core.Command {

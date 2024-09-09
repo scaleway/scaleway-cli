@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	initCommand "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login/webcallback"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"

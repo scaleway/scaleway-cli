@@ -1,7 +1,7 @@
 package mnq_test
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 func createNATSAccount(metaKey string) core.BeforeFunc {

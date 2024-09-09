@@ -5,7 +5,7 @@ import (
 
 	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 )

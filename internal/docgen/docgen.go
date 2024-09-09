@@ -9,7 +9,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 type tplData struct {

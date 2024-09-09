@@ -3,7 +3,7 @@ package inference_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1beta1"
 )
 

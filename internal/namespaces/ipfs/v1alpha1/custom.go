@@ -1,7 +1,7 @@
 package ipfs
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 // GetCommands returns the list of commands for the 'ipfs' namespace.

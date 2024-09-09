@@ -2,7 +2,7 @@ package documentdb
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	documentdb "github.com/scaleway/scaleway-sdk-go/api/documentdb/v1beta1"
 )

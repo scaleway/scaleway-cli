@@ -5,7 +5,7 @@ import (
 	"errors"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	fip "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1"

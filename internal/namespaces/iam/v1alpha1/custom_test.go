@@ -5,7 +5,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 )
