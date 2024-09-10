@@ -421,7 +421,7 @@ func computeMaxCols(grid [][]string) int {
 		return maxCols
 	}
 	colMaxSize := make([]int, len(grid[0]))
-	for i := range len(grid) {
+	for i := range grid {
 		lineSize := 0
 		for j := 0; j < maxCols; j++ {
 			size := len(grid[i][j]) + colPadding
