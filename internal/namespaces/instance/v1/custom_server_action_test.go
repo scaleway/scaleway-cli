@@ -157,7 +157,7 @@ func Test_ServerEnableRoutedIP(t *testing.T) {
 					ServerID: storedServer.ID,
 				})
 				assert.Nil(t, err)
-				assert.Equal(t, true, server.Server.RoutedIPEnabled)
+				assert.Equal(t, scw.BoolPtr(true), server.Server.RoutedIPEnabled)
 				ip, err := api.GetIP(&instanceSDK.GetIPRequest{
 					Zone: storedServer.Zone,
 					IP:   storedServer.PublicIP.ID,
