@@ -47,7 +47,7 @@ alias:
 )
 
 type Config struct {
-	Alias  *alias.Config `json:"alias" yaml:"alias"`
+	Alias  *alias.Config `json:"alias"  yaml:"alias"`
 	Output string        `json:"output" yaml:"output"`
 
 	path string
