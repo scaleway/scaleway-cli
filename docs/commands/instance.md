@@ -75,11 +75,13 @@ This API allows you to manage your Instances.
   - [Get availability](#get-availability)
   - [List Instance types](#list-instance-types)
 - [Snapshot management commands](#snapshot-management-commands)
+  - [Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)](#migrate-a-volume-andor-snapshots-to-sbs-(scaleway-block-storage))
   - [Create a snapshot from a specified volume or from a QCOW2 file](#create-a-snapshot-from-a-specified-volume-or-from-a-qcow2-file)
   - [Delete a snapshot](#delete-a-snapshot)
   - [Export a snapshot](#export-a-snapshot)
   - [Get a snapshot](#get-a-snapshot)
   - [List snapshots](#list-snapshots)
+  - [Get a volume or snapshot's migration plan](#get-a-volume-or-snapshot's-migration-plan)
   - [Update a snapshot](#update-a-snapshot)
   - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
 - [SSH Utilities](#ssh-utilities)
@@ -2415,6 +2417,27 @@ A snapshot's volume type is its original volume's type (`l_ssd` or `b_ssd`).
 Volumes can be created from snapshots of their own type.
 
 
+### Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
+
+To be used, the call to this endpoint must be preceded by a call to the "Plan a migration" endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.
+
+**Usage:**
+
+```
+scw instance snapshot apply-migration <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id |  | The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint. |
+| validation-key | Required | A value to be retrieved from a call to the "Plan a migration" endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### Create a snapshot from a specified volume or from a QCOW2 file
 
 Create a snapshot from a specified volume or from a QCOW2 file in a specified Availability Zone.
@@ -2606,6 +2629,26 @@ List all snapshots in fr-par-1 zone
 scw instance snapshot list zone=fr-par-1
 ```
 
+
+
+
+### Get a volume or snapshot's migration plan
+
+Given a volume or snapshot, returns the migration plan for a call to the "Apply a migration plan" endpoint. This plan will include zero or one volume, and zero or more snapshots, which will need to be migrated together. This endpoint does not perform the actual migration itself, the "Apply a migration plan" endpoint must be used. The validation_key value returned by this endpoint must be provided to the call to the "Apply a migration plan" endpoint to confirm that all resources listed in the plan should be migrated.
+
+**Usage:**
+
+```
+scw instance snapshot plan-migration <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id |  | The snapshot for which the migration plan will be generated. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2899,7 +2942,7 @@ To be used, the call to this endpoint must be preceded by a call to the "Plan a 
 **Usage:**
 
 ```
-scw instance volume apply-migration [arg=value ...]
+scw instance volume apply-migration <volume-id ...> [arg=value ...]
 ```
 
 
@@ -2908,7 +2951,6 @@ scw instance volume apply-migration [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id |  | The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint. |
-| snapshot-id |  | The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint. |
 | validation-key | Required | A value to be retrieved from a call to the "Plan a migration" endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -3076,7 +3118,7 @@ Given a volume or snapshot, returns the migration plan for a call to the "Apply 
 **Usage:**
 
 ```
-scw instance volume plan-migration [arg=value ...]
+scw instance volume plan-migration <volume-id ...> [arg=value ...]
 ```
 
 
@@ -3085,7 +3127,6 @@ scw instance volume plan-migration [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id |  | The volume for which the migration plan will be generated. |
-| snapshot-id |  | The snapshot for which the migration plan will be generated. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
