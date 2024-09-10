@@ -16,15 +16,17 @@ USAGE:
   scw instance snapshot <command>
 
 AVAILABLE COMMANDS:
-  create      Create a snapshot from a specified volume or from a QCOW2 file
-  delete      Delete a snapshot
-  export      Export a snapshot
-  get         Get a snapshot
-  list        List snapshots
-  update      Update a snapshot
+  apply-migration Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
+  create          Create a snapshot from a specified volume or from a QCOW2 file
+  delete          Delete a snapshot
+  export          Export a snapshot
+  get             Get a snapshot
+  list            List snapshots
+  plan-migration  Get a volume or snapshot's migration plan
+  update          Update a snapshot
 
 WORKFLOW COMMANDS:
-  wait        Wait for snapshot to reach a stable state
+  wait            Wait for snapshot to reach a stable state
 
 FLAGS:
   -h, --help   help for snapshot

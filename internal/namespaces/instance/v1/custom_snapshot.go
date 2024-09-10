@@ -158,3 +158,23 @@ func snapshotUpdateBuilder(c *core.Command) *core.Command {
 
 	return c
 }
+
+func snapshotPlanMigrationCommand() *core.Command {
+	cmd := instanceVolumePlanMigration()
+	cmd.Resource = "snapshot"
+
+	cmd.ArgSpecs.DeleteByName("volume-id")
+	cmd.ArgSpecs.GetByName("snapshot-id").Positional = true
+
+	return cmd
+}
+
+func snapshotApplyMigrationCommand() *core.Command {
+	cmd := instanceVolumeApplyMigration()
+	cmd.Resource = "snapshot"
+
+	cmd.ArgSpecs.DeleteByName("volume-id")
+	cmd.ArgSpecs.GetByName("snapshot-id").Positional = true
+
+	return cmd
+}

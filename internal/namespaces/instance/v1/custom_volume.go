@@ -140,3 +140,10 @@ func volumeWaitCommand() *core.Command {
 		},
 	}
 }
+
+func volumeMigrationBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.DeleteByName("snapshot-id")
+	c.ArgSpecs.GetByName("volume-id").Positional = true
+
+	return c
+}

@@ -3,10 +3,10 @@
 Given a volume or snapshot, returns the migration plan for a call to the "Apply a migration plan" endpoint. This plan will include zero or one volume, and zero or more snapshots, which will need to be migrated together. This endpoint does not perform the actual migration itself, the "Apply a migration plan" endpoint must be used. The validation_key value returned by this endpoint must be provided to the call to the "Apply a migration plan" endpoint to confirm that all resources listed in the plan should be migrated.
 
 USAGE:
-  scw instance volume plan-migration <volume-id ...> [arg=value ...]
+  scw instance snapshot plan-migration <snapshot-id ...> [arg=value ...]
 
 ARGS:
-  volume-id         The volume for which the migration plan will be generated.
+  snapshot-id       The snapshot for which the migration plan will be generated.
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
