@@ -67,7 +67,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		PrivateIP         *string
 		Tags              []string
 		ImageName         string
-		RoutedIPEnabled   bool
+		RoutedIPEnabled   *bool
 		PlacementGroup    *instance.PlacementGroup
 		ModificationDate  *time.Time
 		CreationDate      *time.Time
