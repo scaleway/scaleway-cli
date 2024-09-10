@@ -79,13 +79,14 @@ After you [installed](#Installation) the latest release just run the initializat
 scw init
 ```
 
-It will set up your profile, the authentication, and the auto-completion.
+It will set up your profile, the authentication, and the auto-completion.  
+NB: you'll need to have an **API-key** (access-key + access-secret), so be sure to create one on the [scaleway web console](https://console.scaleway.com/iam/api-keys).
 
 ## Basic commands
 
 ```
 # Create an instance server
-scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
+scw instance server create type=DEV1-S image=ubuntu_noble zone=fr-par-1 tags.0="scw-cli"
 
 # List your servers
 scw instance server list
