@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [project-id]        (Optional) ID of the Project in which to list the domains
-  [status.{index}]    (Optional) List domains under specific statuses (unknown | checked | unchecked | invalid | locked | revoked | pending)
+  [status.{index}]    (Optional) List domains under specific statuses (unknown | checked | unchecked | invalid | locked | revoked | pending | autoconfiguring)
   [name]              (Optional) Names of the domains to list
   [organization-id]   (Optional) ID of the Organization in which to list the domains
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
