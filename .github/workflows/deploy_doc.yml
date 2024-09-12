@@ -1,0 +1,28 @@
+name: build and push doc to S3
+
+on: [push]
+
+jobs:
+  build_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup material for MKdocs
+        run: |
+          cd docs && mkdocs build
+  
+  push_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: fr-par
+      - name: Push to bucket
+        run: |
+        aws s3 sync ./docs/site https://test-actions-doc.s3.fr-par.scw.cloud
