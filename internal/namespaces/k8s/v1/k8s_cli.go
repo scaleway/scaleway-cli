@@ -37,6 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterListAvailableTypes(),
 		k8sClusterResetAdminToken(),
 		k8sClusterMigrateToRoutedIPs(),
+		k8sClusterMigrateToSbsCsi(),
 		k8sPoolList(),
 		k8sPoolCreate(),
 		k8sPoolGet(),
@@ -1191,6 +1192,42 @@ func k8sClusterMigrateToRoutedIPs() *core.Command {
 			{
 				Short: "Migrate a cluster to Routed IPs",
 				Raw:   `scw k8s cluster migrate-to-routed-ips 11111111-1111-1111-111111111111`,
+			},
+		},
+	}
+}
+
+func k8sClusterMigrateToSbsCsi() *core.Command {
+	return &core.Command{
+		Short:     `Migrate a cluster to SBS CSI`,
+		Long:      `Enable the latest CSI compatible with Scaleway Block Storage (SBS) and migrate all existing PersistentVolumes/VolumeSnapshotContents to SBS.`,
+		Namespace: "k8s",
+		Resource:  "cluster",
+		Verb:      "migrate-to-sbs-csi",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.MigrateClusterToSBSCSIRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `Cluster ID for which the latest CSI compatible with Scaleway Block Storage will be enabled`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.MigrateClusterToSBSCSIRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.MigrateClusterToSBSCSI(request)
+
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Migrate a cluster to SBS CSI",
+				Raw:   `scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-111111111111`,
 			},
 		},
 	}
