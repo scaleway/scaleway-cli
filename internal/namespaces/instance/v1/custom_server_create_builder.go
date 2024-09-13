@@ -185,10 +185,9 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 	switch {
 	case ip == "" || ip == "new":
 		sb.createIPReq = &instance.CreateIPRequest{
-			Zone:         sb.createReq.Zone,
-			Organization: sb.createReq.Project,
-			Project:      sb.createReq.Project,
-			Type:         sb.defaultIPType(),
+			Zone:    sb.createReq.Zone,
+			Project: sb.createReq.Project,
+			Type:    sb.defaultIPType(),
 		}
 	case validation.IsUUID(ip):
 		sb.createReq.PublicIP = scw.StringPtr(ip)
