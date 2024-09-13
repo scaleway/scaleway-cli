@@ -80,7 +80,7 @@ func (sb *ServerBuilder) AddTags(tags []string) *ServerBuilder {
 
 func (sb *ServerBuilder) AddRoutedIPEnabled(routedIPEnabled *bool) *ServerBuilder {
 	if routedIPEnabled != nil {
-		sb.createReq.RoutedIPEnabled = routedIPEnabled
+		sb.createReq.RoutedIPEnabled = routedIPEnabled //nolint: staticcheck // Field is deprecated but still supported
 	}
 
 	return sb
@@ -118,8 +118,8 @@ func (sb *ServerBuilder) rootVolumeIsSBS() bool {
 
 // defaultIPType returns the default IP type when created by the CLI. Used for ServerBuilder.AddIP
 func (sb *ServerBuilder) defaultIPType() instance.IPType {
-	if sb.createReq.RoutedIPEnabled != nil {
-		if *sb.createReq.RoutedIPEnabled {
+	if sb.createReq.RoutedIPEnabled != nil { //nolint: staticcheck // Field is deprecated but still supported
+		if *sb.createReq.RoutedIPEnabled { //nolint: staticcheck // Field is deprecated but still supported
 			return instance.IPTypeRoutedIPv4
 		}
 		return instance.IPTypeNat
