@@ -6,7 +6,12 @@ USAGE:
   scw vpc route <command>
 
 AVAILABLE COMMANDS:
+  create         Create a Route
+  delete         Delete a Route
   enable-routing Enable routing on a VPC
+  get            Get a Route
+  list           Return routes with associated next hop data
+  update         Update Route
 
 FLAGS:
   -h, --help   help for route
