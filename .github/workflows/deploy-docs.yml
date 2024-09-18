@@ -9,7 +9,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: actions
+    environment: actions # Is this necessary if we use the "env:" context below ?
     steps:
       - uses: actions/checkout@v4
       - name: prepare temporary folder for build
