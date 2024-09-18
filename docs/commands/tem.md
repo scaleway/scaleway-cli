@@ -16,6 +16,7 @@ This API allows you to manage your Transactional Email services.
   - [Get an email](#get-an-email)
   - [Email statuses](#email-statuses)
   - [List emails](#list-emails)
+- [Project settings management commands](#project-settings-management-commands)
 - [Webhook management commands](#webhook-management-commands)
   - [Create a Webhook](#create-a-webhook)
   - [Delete a Webhook](#delete-a-webhook)
@@ -312,6 +313,20 @@ scw tem email list [arg=value ...]
 | order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `status_desc`, `status_asc`, `mail_from_desc`, `mail_from_asc`, `mail_rcpt_desc`, `mail_rcpt_asc`, `subject_desc`, `subject_asc` | (Optional) List emails corresponding to specific criteria |
 | flags.{index} | One of: `unknown_flag`, `soft_bounce`, `hard_bounce`, `spam`, `mailbox_full`, `mailbox_not_found`, `greylisted`, `send_before_expiration` | (Optional) List emails containing only specific flags |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Project settings management commands
+
+Project settings allow you to manage the configuration of your settings.
+
+Project settings allow you to manage the configuration of your settings.
+
+**Usage:**
+
+```
+scw tem project-settings
+```
 
 
 
