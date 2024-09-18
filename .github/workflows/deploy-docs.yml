@@ -30,18 +30,18 @@ jobs:
 
       - name: Sety up AWS credentials
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          CLI_DOC_ACCESS_KEY: ${{ secrets.CLI_DOC_ACCESS_KEY }}
+          CLI_DOC_SECRET_KEY: ${{ secrets.CLI_DOC_SECRET_KEY }}
         run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID 
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          aws configure set aws_access_key_id $CLI_DOC_ACCESS_KEY 
+          aws configure set aws_secret_access_key $CLI_DOC_SECRET_KEY
           aws configure set region nl-ams
 
       - name: Upload file to Scaleway Object Storage
         env:
-          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
-          S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+          CLI_DOC_BUCKET_NAME: ${{ secrets.CLI_DOC_BUCKET_NAME }}
+          CLI_DOC_S3_ENDPOINT: ${{ secrets.CLI_DOC_S3_ENDPOINT }}
         run: |
-          aws s3 cp --recursive ./docs/site/ s3://$BUCKET_NAME --endpoint-url $S3_ENDPOINT
+          aws s3 cp --recursive ./docs/site/ s3://$CLI_DOC_BUCKET_NAME --endpoint-url $CLI_DOC_S3_ENDPOINT
       - name: Delete temporary folder
         run: rm -rf docs/docs/
