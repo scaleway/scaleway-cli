@@ -20,7 +20,7 @@ type BuildInfo struct {
 	GitCommit       string           `json:"git_commit"`
 	GoArch          string           `json:"go_arch"`
 	GoOS            string           `json:"go_os"`
-	UserAgentPrefix string           `json:"user_agent"`
+	UserAgentPrefix string           `json:"user_agent_prefix"`
 }
 
 func (b *BuildInfo) MarshalJSON() ([]byte, error) {

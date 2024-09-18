@@ -367,13 +367,14 @@ func Test(config *TestConfig) func(t *testing.T) {
 		buildInfo := config.BuildInfo
 		if buildInfo == nil {
 			buildInfo = &BuildInfo{
-				Version:   version.Must(version.NewSemver("v0.0.0+test")),
-				BuildDate: "unknown",
-				GoVersion: "runtime.Version()",
-				GitBranch: "unknown",
-				GitCommit: "unknown",
-				GoArch:    "runtime.GOARCH",
-				GoOS:      "runtime.GOOS",
+				Version:         version.Must(version.NewSemver("v0.0.0+test")),
+				BuildDate:       "unknown",
+				GoVersion:       "runtime.Version()",
+				GitBranch:       "unknown",
+				GitCommit:       "unknown",
+				GoArch:          "runtime.GOARCH",
+				GoOS:            "runtime.GOOS",
+				UserAgentPrefix: "scaleway-cli",
 			}
 		}
 
