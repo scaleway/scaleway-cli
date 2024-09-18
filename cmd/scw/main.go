@@ -31,6 +31,8 @@ var (
 	GoOS      = runtime.GOOS
 	GoArch    = runtime.GOARCH
 	BetaMode  = os.Getenv(scw.ScwEnableBeta) == "true"
+
+	userAgentPrefix = "scaleway-cli"
 )
 
 // cleanup does the recover
@@ -66,13 +68,14 @@ func main() {
 
 func mainNoExit() int {
 	buildInfo := &core.BuildInfo{
-		Version:   version.Must(version.NewSemver(buildVersion())), // panic when version does not respect semantic versioning
-		BuildDate: BuildDate,
-		GoVersion: GoVersion,
-		GitBranch: GitBranch,
-		GitCommit: GitCommit,
-		GoOS:      GoOS,
-		GoArch:    GoArch,
+		Version:         version.Must(version.NewSemver(buildVersion())), // panic when version does not respect semantic versioning
+		BuildDate:       BuildDate,
+		GoVersion:       GoVersion,
+		GitBranch:       GitBranch,
+		GitCommit:       GitCommit,
+		GoOS:            GoOS,
+		GoArch:          GoArch,
+		UserAgentPrefix: userAgentPrefix,
 	}
 	defer cleanup(buildInfo)
 

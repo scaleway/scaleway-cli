@@ -13,13 +13,14 @@ import (
 )
 
 type BuildInfo struct {
-	Version   *version.Version `json:"-"`
-	BuildDate string           `json:"build_date"`
-	GoVersion string           `json:"go_version"`
-	GitBranch string           `json:"git_branch"`
-	GitCommit string           `json:"git_commit"`
-	GoArch    string           `json:"go_arch"`
-	GoOS      string           `json:"go_os"`
+	Version         *version.Version `json:"-"`
+	BuildDate       string           `json:"build_date"`
+	GoVersion       string           `json:"go_version"`
+	GitBranch       string           `json:"git_branch"`
+	GitCommit       string           `json:"git_commit"`
+	GoArch          string           `json:"go_arch"`
+	GoOS            string           `json:"go_os"`
+	UserAgentPrefix string           `json:"user_agent_prefix"`
 }
 
 func (b *BuildInfo) MarshalJSON() ([]byte, error) {
@@ -36,7 +37,6 @@ const (
 	scwDisableCheckVersionEnv   = "SCW_DISABLE_CHECK_VERSION"
 	latestGithubReleaseURL      = "https://api.github.com/repos/scaleway/scaleway-cli/releases/latest"
 	latestVersionRequestTimeout = 1 * time.Second
-	userAgentPrefix             = "scaleway-cli"
 )
 
 // IsRelease returns true when the version of the CLI is an official release:
@@ -48,9 +48,9 @@ func (b *BuildInfo) IsRelease() bool {
 
 func (b *BuildInfo) GetUserAgent() string {
 	if b.Version != nil {
-		return userAgentPrefix + "/" + b.Version.String()
+		return b.UserAgentPrefix + "/" + b.Version.String()
 	}
-	return userAgentPrefix
+	return b.UserAgentPrefix
 }
 
 func (b *BuildInfo) Tags() map[string]string {

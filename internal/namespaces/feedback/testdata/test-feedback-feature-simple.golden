@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Successfully opened the page.
-  https://github.com/scaleway/scaleway-cli/issues/new?body=%0A%23%23+Description%0A%0A%23%23+How+this+functionality+would+be+exposed%0A%0A%23%23+References%0A%0A%23%23+Version%0A%0AVersion++++0.0.0%26%2343%3Btest%0ABuildDate++unknown%0AGoVersion++runtime.Version%28%29%0AGitBranch++unknown%0AGitCommit++unknown%0AGoArch+++++runtime.GOARCH%0AGoOS+++++++runtime.GOOS%0A&issueTemplate=feature_request.md&labels=enhancement
+  https://github.com/scaleway/scaleway-cli/issues/new?body=%0A%23%23+Description%0A%0A%23%23+How+this+functionality+would+be+exposed%0A%0A%23%23+References%0A%0A%23%23+Version%0A%0AVersion++++++++++0.0.0%26%2343%3Btest%0ABuildDate++++++++unknown%0AGoVersion++++++++runtime.Version%28%29%0AGitBranch++++++++unknown%0AGitCommit++++++++unknown%0AGoArch+++++++++++runtime.GOARCH%0AGoOS+++++++++++++runtime.GOOS%0AUserAgentPrefix++scaleway-cli%0A&issueTemplate=feature_request.md&labels=enhancement
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Successfully opened the page",
-  "details": "https://github.com/scaleway/scaleway-cli/issues/new?body=%0A%23%23+Description%0A%0A%23%23+How+this+functionality+would+be+exposed%0A%0A%23%23+References%0A%0A%23%23+Version%0A%0AVersion++++0.0.0%26%2343%3Btest%0ABuildDate++unknown%0AGoVersion++runtime.Version%28%29%0AGitBranch++unknown%0AGitCommit++unknown%0AGoArch+++++runtime.GOARCH%0AGoOS+++++++runtime.GOOS%0A\u0026issueTemplate=feature_request.md\u0026labels=enhancement"
+  "details": "https://github.com/scaleway/scaleway-cli/issues/new?body=%0A%23%23+Description%0A%0A%23%23+How+this+functionality+would+be+exposed%0A%0A%23%23+References%0A%0A%23%23+Version%0A%0AVersion++++++++++0.0.0%26%2343%3Btest%0ABuildDate++++++++unknown%0AGoVersion++++++++runtime.Version%28%29%0AGitBranch++++++++unknown%0AGitCommit++++++++unknown%0AGoArch+++++++++++runtime.GOARCH%0AGoOS+++++++++++++runtime.GOOS%0AUserAgentPrefix++scaleway-cli%0A\u0026issueTemplate=feature_request.md\u0026labels=enhancement"
 }
