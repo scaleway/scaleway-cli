@@ -1,0 +1,127 @@
+site_name: Scaleway Command Line Interface Documentation
+site_url: https://mydomain.org/scaleway-cli-documentation
+extra_css:
+  - stylesheets/extra.css
+extra:
+  # Versioning tool
+  version:
+    provider: mike
+
+    # Analytics and feedback system (placeholders)
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >- 
+            Thanks for your feedback! Help us improve this page by
+            referring to the <a href="/scaleway-cli-documentation/feedback/" target="_blank" rel="noopener">feedback page</a>.
+
+# GitHub integration configuration
+repo_url: https://github.com/scaleway/scaleway-cli
+repo_name: scaleway/scaleway-cli
+edit_uri: edit/master/docs/commands/
+
+
+# Theme configuration
+theme:
+  icon:
+    repo: fontawesome/brands/github
+  name: material
+  logo: assets/logo.png
+  font:
+    text: Inter
+  palette:
+      # Palette toggle for light mode
+    - scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+  features:
+    - content.code.copy # Enable Copy button on code blocks
+    - content.action.edit # Enable "Edit content" button on page
+    - content.action.view # Enable "View source" button on page
+    - navigation.sections # Creates sections in left menu
+    - navigation.top # Enables back to top button
+    - navigation.expand # Auto expands collapsible left menu entries
+    - navigation.tracking # Automatically adds anchors to URL
+    - search.suggest # Add suggestions to search
+  markdown_extensions:
+    - attr_list
+    - md_in_html
+  
+nav:
+  - Platform:
+    - Account: account.md
+    - Billing: billing.md
+    - IAM: iam.md
+    - Secret Manager: secret.md
+    - Marketplace: marketplace.md
+  - AI & Data:
+    - Managed Inference: llm-inference.md
+  - Bare Metal:
+    - Elastic Metal: baremetal.md
+    - Apple Silicon: apple-silicon.md
+    - Flexible IP: fip.md
+  - Compute:
+    - Instances: instance.md
+  - Containers:
+    - Container Registry: registry.md
+    - Kubernetes: k8s.md
+  - Labs:
+    - IPFS Pinning: ipfs.md
+    - IPFS Naming: ipns.md
+  - Managed Databases:
+    - PostgreSQL and MySQL: rdb.md
+    - Redis™: redis.md
+    - Document Databases: document-db.md
+  - Managed Services:
+    - IOT Hub: iot.md
+    - Transactional Email: tem.md
+    - Web Hosting: webhosting.md
+  - Network:
+    - VPC: vpc.md
+    - Puvblic Gateway: vpc-gw.md
+    - IPAM: ipam.md
+    - Load Balancer: lb.md
+    - Domains and DNS: dns.md
+  - Observability:
+    - Cockpit: cockpit.md
+  - Serverless:
+    - Functions: function.md
+    - Containers: container.md
+    - Jobs: jobs.md
+    - SQL Databases: sdb-sql.md
+    - Messaging and Queuing: mnq.md
+  - Storage:
+    - BLock Storage: block.md
+    - Object Storage: object.md
+  - CLI configuration:
+    - Alias: alias.md
+    - Autocompletion: autocomplete.md
+    - Configuration: config.md
+    - Feedback: feedback.md
+    - Help: help.md
+    - Info: info.md
+    - Initialization: init.md
+    - Shell: shell.md
+    - Version: version.md
