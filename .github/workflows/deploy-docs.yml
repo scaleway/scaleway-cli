@@ -1,7 +1,8 @@
 name: Build and push CLI doc to S3
-on:
+on: 
   pull_request:
-  push:
+  push: # "pull_request" and "push" events are only for testing purposes, final trigger event should be "release"
+  # release: # Must define which of [published, unpublished, created, edited, deleted, prereleased, released] apply
     branches:
       - master
 permissions:
@@ -13,10 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: prepare temporary folder for build
-        run: |
+        run: | # Creates a temporary "docs" folder with the existing "docs" folder because the markdown files to build must be in a "docs" folder for MKdocs to work
           cd docs
           mkdir docs
-          ls
           cp commands/* docs/
           cp -r static_files/* docs/
       - name: Pull Material for MKdocs image and build doc
@@ -32,10 +32,10 @@ jobs:
         env:
           CLI_DOC_ACCESS_KEY: ${{ secrets.CLI_DOC_ACCESS_KEY }}
           CLI_DOC_SECRET_KEY: ${{ secrets.CLI_DOC_SECRET_KEY }}
-        run: |
+        run: | # AWS region "fr-par" is a placeholder as the CLI_DOC_S3_ENDPOINT variable overrides it 
           aws configure set aws_access_key_id $CLI_DOC_ACCESS_KEY 
           aws configure set aws_secret_access_key $CLI_DOC_SECRET_KEY
-          aws configure set region nl-ams
+          aws configure set region fr-par
 
       - name: Upload file to Scaleway Object Storage
         env:
