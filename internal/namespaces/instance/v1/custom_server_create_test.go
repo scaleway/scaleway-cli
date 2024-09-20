@@ -214,6 +214,7 @@ func Test_CreateServer(t *testing.T) {
 			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true",
 			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
@@ -221,7 +222,6 @@ func Test_CreateServer(t *testing.T) {
 					assert.Equal(t, 5*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["2"].Size)
 					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["3"].Size)
 				},
-				core.TestCheckExitCode(0),
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
