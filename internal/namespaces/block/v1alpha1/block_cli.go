@@ -32,6 +32,7 @@ func GetGeneratedCommands() *core.Commands {
 		blockSnapshotList(),
 		blockSnapshotGet(),
 		blockSnapshotCreate(),
+		blockSnapshotImportFromObjectStorage(),
 		blockSnapshotExportToObjectStorage(),
 		blockSnapshotDelete(),
 		blockSnapshotUpdate(),
@@ -503,6 +504,66 @@ If your volume is in a transient state, you need to wait until the end of the cu
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.CreateSnapshot(request)
+
+		},
+	}
+}
+
+func blockSnapshotImportFromObjectStorage() *core.Command {
+	return &core.Command{
+		Short: `Import a snapshot from a Scaleway Object Storage bucket`,
+		Long: `The bucket must contain a QCOW2 image.
+The bucket can be imported into any Availability Zone as long as it is in the same region as the bucket.`,
+		Namespace: "block",
+		Resource:  "snapshot",
+		Verb:      "import-from-object-storage",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(block.ImportSnapshotFromObjectStorageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "bucket",
+				Short:      `Scaleway Object Storage bucket where the object is stored`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "key",
+				Short:      `The object key inside the given bucket`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "tags.{index}",
+				Short:      `List of tags assigned to the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "size",
+				Short:      `Size of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*block.ImportSnapshotFromObjectStorageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := block.NewAPI(client)
+			return api.ImportSnapshotFromObjectStorage(request)
 
 		},
 	}

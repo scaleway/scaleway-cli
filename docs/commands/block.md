@@ -7,6 +7,7 @@ This API allows you to manage your Block Storage volumes.
   - [Delete a snapshot](#delete-a-snapshot)
   - [Export a snapshot to a Scaleway Object Storage bucket](#export-a-snapshot-to-a-scaleway-object-storage-bucket)
   - [Get a snapshot](#get-a-snapshot)
+  - [Import a snapshot from a Scaleway Object Storage bucket](#import-a-snapshot-from-a-scaleway-object-storage-bucket)
   - [List all snapshots](#list-all-snapshots)
   - [Update a snapshot](#update-a-snapshot)
 - [A Block Storage volume is a logical storage drive on a network-connected storage system. It is exposed to Instances as if it were a physical disk, and can be attached and detached like a hard drive. Several Block volumes can be attached to one Instance at a time](#a-block-storage-volume-is-a-logical-storage-drive-on-a-network-connected-storage-system.-it-is-exposed-to-instances-as-if-it-were-a-physical-disk,-and-can-be-attached-and-detached-like-a-hard-drive.-several-block-volumes-can-be-attached-to-one-instance-at-a-time)
@@ -107,6 +108,32 @@ scw block snapshot get <snapshot-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | snapshot-id | Required | UUID of the snapshot |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Import a snapshot from a Scaleway Object Storage bucket
+
+The bucket must contain a QCOW2 image.
+The bucket can be imported into any Availability Zone as long as it is in the same region as the bucket.
+
+**Usage:**
+
+```
+scw block snapshot import-from-object-storage [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| bucket |  | Scaleway Object Storage bucket where the object is stored |
+| key |  | The object key inside the given bucket |
+| name |  | Name of the snapshot |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  | List of tags assigned to the snapshot |
+| size |  | Size of the snapshot |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
