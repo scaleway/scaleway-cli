@@ -26,6 +26,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalBmc(),
 		baremetalOptions(),
 		baremetalSettings(),
+		baremetalPartitioningSchemas(),
 		baremetalPrivateNetwork(),
 		baremetalServerList(),
 		baremetalServerGet(),
@@ -122,6 +123,15 @@ func baremetalSettings() *core.Command {
 		Long:      `Allows to configure the general settings for your Elastic Metal server.`,
 		Namespace: "baremetal",
 		Resource:  "settings",
+	}
+}
+
+func baremetalPartitioningSchemas() *core.Command {
+	return &core.Command{
+		Short:     `Partitioning-schemas management commands`,
+		Long:      `Allows to customize the partitioning schemas of your servers (available on some offers and OSs).`,
+		Namespace: "baremetal",
+		Resource:  "partitioning-schemas",
 	}
 }
 
