@@ -17,6 +17,7 @@ Elastic Metal API.
 - [Operating System (OS) management commands](#operating-system-(os)-management-commands)
   - [Get OS with an ID](#get-os-with-an-id)
   - [List available OSes](#list-available-oses)
+- [Partitioning-schemas management commands](#partitioning-schemas-management-commands)
 - [Private Network management command](#private-network-management-command)
   - [Add a server to a Private Network](#add-a-server-to-a-private-network)
   - [Delete a Private Network](#delete-a-private-network)
@@ -373,6 +374,20 @@ scw baremetal os list [arg=value ...]
 |------|---|-------------|
 | offer-id |  | Offer IDs to filter OSes for |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+## Partitioning-schemas management commands
+
+Allows to customize the partitioning schemas of your servers (available on some offers and OSs).
+
+Allows to customize the partitioning schemas of your servers (available on some offers and OSs).
+
+**Usage:**
+
+```
+scw baremetal partitioning-schemas
+```
 
 
 
