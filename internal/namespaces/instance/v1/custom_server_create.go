@@ -237,6 +237,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 
 	createReq, createIPReq := serverBuilder.Build()
+	postCreationSetup := serverBuilder.BuildPostCreationSetup()
 	needIPCreation := createIPReq != nil
 
 	//
@@ -277,6 +278,13 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	}
 	server := serverRes.Server
 	logger.Debugf("server created %s", server.ID)
+
+	// Post server creation setup
+	/// Setup SBS volumes IOPS
+	err = postCreationSetup(ctx, server)
+	if err != nil {
+		logger.Warningf("error while setting up server after creation: %s", err.Error())
+	}
 
 	//
 	// Cloud-init

@@ -1,6 +1,8 @@
 package instance
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"net"
 	"strconv"
@@ -354,6 +356,32 @@ func (sb *ServerBuilder) Build() (*instance.CreateServerRequest, *instance.Creat
 	return sb.createReq, sb.createIPReq
 }
 
+type PostServerCreationSetupFunc func(ctx context.Context, server *instance.Server) error
+
+func (sb *ServerBuilder) BuildPostCreationSetup() PostServerCreationSetupFunc {
+	rootVolume := sb.rootVolume
+	volumes := sb.volumes
+
+	return func(ctx context.Context, server *instance.Server) error {
+		if rootVolume != nil {
+			serverRootVolume, hasRootVolume := server.Volumes["0"]
+			if !hasRootVolume {
+				return errors.New("root volume not found")
+			}
+			rootVolume.ExecutePostCreationSetup(ctx, sb.apiBlock, serverRootVolume.ID)
+		}
+		for i, volume := range volumes {
+			serverVolume, serverHasVolume := server.Volumes[strconv.Itoa(i+1)]
+			if !serverHasVolume {
+				return fmt.Errorf("volume %d not found in server", i+1)
+			}
+			volume.ExecutePostCreationSetup(ctx, sb.apiBlock, serverVolume.ID)
+		}
+
+		return nil
+	}
+}
+
 type VolumeBuilder struct {
 	Zone       scw.Zone
 	VolumeType instance.VolumeVolumeType
@@ -364,6 +392,8 @@ type VolumeBuilder struct {
 	VolumeID *string
 	// Size is the size of the created Volume. If used, the volume should be created from scratch.
 	Size *scw.Size
+	// IOPS is the io per second to be configured for a created volume.
+	IOPS *uint32
 }
 
 // NewVolumeBuilder creates a volume builder from a 'volumes' argument item.
@@ -371,13 +401,22 @@ type VolumeBuilder struct {
 // Volumes definition must be through multiple arguments (eg: volumes.0="l:20GB" volumes.1="b:100GB" volumes.2="sbs:50GB:15000)
 //
 // A valid volume format is either
-// - a "creation" format: ^((local|l|block|b|scratch|s|sbs):)?\d+GB?$ (size is handled by go-humanize, so other sizes are supported)
+// - a "creation" format: ^((local|l|block|b|scratch|s|sbs):)?\d+GB?(:\d+)?$ (size is handled by go-humanize, so other sizes are supported)
 // - a "creation" format with a snapshot id: l:<uuid> b:<uuid>
 // - a UUID format
 func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 	parts := strings.Split(strings.TrimSpace(flagV), ":")
 	vb := &VolumeBuilder{
 		Zone: zone,
+	}
+
+	if len(parts) == 3 {
+		iops, err := strconv.ParseUint(parts[2], 10, 32)
+		if err != nil {
+			return nil, fmt.Errorf("invalid volume iops %s in %s volume", parts[2], flagV)
+		}
+		vb.IOPS = scw.Uint32Ptr(uint32(iops))
+		parts = parts[0:2]
 	}
 
 	if len(parts) == 2 {
@@ -424,7 +463,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 // buildSnapshotVolume builds the requested volume template to create a new volume from a snapshot
 func (vb *VolumeBuilder) buildSnapshotVolume(api *instance.API) (*instance.VolumeServerTemplate, error) {
 	if vb.SnapshotID == nil {
-		return nil, fmt.Errorf("tried to build a volume from snapshot with an empty ID")
+		return nil, errors.New("tried to build a volume from snapshot with an empty ID")
 	}
 	res, err := api.GetSnapshot(&instance.GetSnapshotRequest{
 		Zone:       vb.Zone,
@@ -453,7 +492,7 @@ func (vb *VolumeBuilder) buildSnapshotVolume(api *instance.API) (*instance.Volum
 // buildImportedVolume builds the requested volume template to import an existing volume
 func (vb *VolumeBuilder) buildImportedVolume(api *instance.API, blockAPI *block.API) (*instance.VolumeServerTemplate, error) {
 	if vb.VolumeID == nil {
-		return nil, fmt.Errorf("tried to import a volume with an empty ID")
+		return nil, errors.New("tried to import a volume with an empty ID")
 	}
 
 	res, err := api.GetVolume(&instance.GetVolumeRequest{
@@ -499,7 +538,7 @@ func (vb *VolumeBuilder) buildImportedVolume(api *instance.API, blockAPI *block.
 }
 
 // buildNewVolume builds the requested volume template to create a new volume with requested size
-func (vb *VolumeBuilder) buildNewVolume(api *instance.API, blockAPI *block.API) (*instance.VolumeServerTemplate, error) {
+func (vb *VolumeBuilder) buildNewVolume() (*instance.VolumeServerTemplate, error) {
 	return &instance.VolumeServerTemplate{
 		VolumeType: vb.VolumeType,
 		Size:       vb.Size,
@@ -516,10 +555,20 @@ func (vb *VolumeBuilder) BuildVolumeServerTemplate(apiInstance *instance.API, ap
 		return vb.buildImportedVolume(apiInstance, apiBlock)
 	}
 
-	return vb.buildNewVolume(apiInstance, apiBlock)
+	return vb.buildNewVolume()
 }
 
 // ExecutePostCreationSetup executes requests that are required after volume creation.
-func (vb *VolumeBuilder) ExecutePostCreationSetup(apiInstance *instance.API, apiBlock *block.API, volumeID string) error {
-	return nil
+func (vb *VolumeBuilder) ExecutePostCreationSetup(ctx context.Context, apiBlock *block.API, volumeID string) {
+	if vb.IOPS != nil {
+		_, err := apiBlock.UpdateVolume(&block.UpdateVolumeRequest{
+			VolumeID: volumeID,
+			PerfIops: vb.IOPS,
+		},
+			scw.WithContext(ctx),
+		)
+		if err != nil {
+			core.ExtractLogger(ctx).Warning(fmt.Sprintf("Failed to update volume %s IOPS: %s", volumeID, err.Error()))
+		}
+	}
 }
