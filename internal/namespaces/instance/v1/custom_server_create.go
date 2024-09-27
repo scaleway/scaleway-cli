@@ -160,6 +160,10 @@ func serverCreateCommand() *core.Command {
 				ArgsJSON: `{"image":"ubuntu_focal","root_volume":"local:10GB","additional_volumes":["local:10GB"]}`,
 			},
 			{
+				Short:    "Create an instance with a SBS root volume (100GB and 15000 iops)",
+				ArgsJSON: `{"image":"ubuntu_focal","root_volume":"sbs:100GB:15000"}`,
+			},
+			{
 				Short:    "Create an instance with volumes from snapshots",
 				ArgsJSON: `{"image":"ubuntu_focal","root_volume":"local:<snapshot_id>","additional_volumes":["block:<snapshot_id>"]}`,
 			},

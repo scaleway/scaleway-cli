@@ -1752,6 +1752,11 @@ Create an instance with 2 local volumes (10GB and 10GB)
 scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB
 ```
 
+Create an instance with a SBS root volume (100GB and 15000 iops)
+```
+scw instance server create image=ubuntu_focal root-volume=sbs:100GB:15000
+```
+
 Create an instance with volumes from snapshots
 ```
 scw instance server create image=ubuntu_focal root-volume=local:<snapshot_id> additional-volumes.0=block:<snapshot_id>
