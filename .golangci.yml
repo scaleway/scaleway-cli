@@ -73,6 +73,7 @@ linters:
     - wastedassign # wastedassign finds wasted assignment statements. [fast: false, auto-fix: false]
     - whitespace # Tool for detection of leading and trailing whitespace [fast: true, auto-fix: true]
     - zerologlint # Detects the wrong usage of `zerolog` that a user forgets to dispatch with `Send` or `Msg` [fast: false, auto-fix: false]
+    - tagliatelle # Checks the struct tags. [fast: true, auto-fix: false]
 
   disable:
     - cyclop # checks function and package cyclomatic complexity [fast: false, auto-fix: false]
@@ -104,6 +105,10 @@ linters-settings:
   gosec:
     excludes:
       - G115
+  tagliatelle:
+    case:
+      rules:
+        json: snake
 
 issues:
   exclude-dirs:
