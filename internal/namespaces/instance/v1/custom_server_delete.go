@@ -190,22 +190,9 @@ func serverDeleteCommand() *core.Command {
 				case volume.VolumeType == instance.VolumeServerVolumeTypeScratch:
 					continue
 				}
-				if volume.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {
-					err = block.NewAPI(client).DeleteVolume(&block.DeleteVolumeRequest{
-						Zone:     deleteServerArgs.Zone,
-						VolumeID: volume.ID,
-					})
-				} else {
-					err = api.DeleteVolume(&instance.DeleteVolumeRequest{
-						Zone:     deleteServerArgs.Zone,
-						VolumeID: volume.ID,
-					})
-				}
+				err := serverDeleteVolume(volume, api, block.NewAPI(client))
 				if err != nil {
-					return nil, &core.CliError{
-						Err:  err,
-						Hint: "Make sure this resource have been deleted or try to delete it manually.",
-					}
+					return nil, err
 				}
 				humanSize, err := human.Marshal(volume.Size, nil)
 				if err != nil {
@@ -234,4 +221,47 @@ func serverDeleteCommand() *core.Command {
 			}, nil
 		},
 	}
+}
+
+func errorDeletingResource(err error) error {
+	return &core.CliError{
+		Err:  err,
+		Hint: "Make sure this resource have been deleted or try to delete it manually.",
+	}
+}
+
+func serverDeleteVolume(volume *instance.VolumeServer, instanceAPI *instance.API, blockAPI *block.API) error {
+	var err error
+
+	if volume.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {
+		_, err = blockAPI.WaitForVolumeAndReferences(&block.WaitForVolumeAndReferencesRequest{
+			Zone:     volume.Zone,
+			VolumeID: volume.ID,
+		})
+		if err != nil {
+			return errorDeletingResource(err)
+		}
+
+		err = blockAPI.DeleteVolume(&block.DeleteVolumeRequest{
+			Zone:     volume.Zone,
+			VolumeID: volume.ID,
+		})
+	} else {
+		_, err = instanceAPI.WaitForVolume(&instance.WaitForVolumeRequest{
+			VolumeID: volume.ID,
+			Zone:     volume.Zone,
+		})
+		if err != nil {
+			return errorDeletingResource(err)
+		}
+		err = instanceAPI.DeleteVolume(&instance.DeleteVolumeRequest{
+			Zone:     volume.Zone,
+			VolumeID: volume.ID,
+		})
+	}
+	if err != nil {
+		return errorDeletingResource(err)
+
+	}
+	return nil
 }
