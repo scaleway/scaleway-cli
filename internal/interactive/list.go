@@ -12,6 +12,9 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
+// Verify Interface Compliance in compile time
+var _ tea.Model = (*ListPrompt)(nil)
+
 type ListPrompt struct {
 	// Prompt that will be printed when showing the list
 	Prompt  string
