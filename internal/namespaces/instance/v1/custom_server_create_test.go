@@ -8,6 +8,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -214,6 +215,7 @@ func Test_CreateServer(t *testing.T) {
 			Commands: instance.GetCommands(),
 			Cmd:      "scw instance server create image=ubuntu_bionic additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true",
 			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
@@ -221,7 +223,6 @@ func Test_CreateServer(t *testing.T) {
 					assert.Equal(t, 5*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["2"].Size)
 					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["3"].Size)
 				},
-				core.TestCheckExitCode(0),
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
@@ -270,7 +271,6 @@ func Test_CreateServer(t *testing.T) {
 			),
 		}))
 
-		/* Not yet available
 		t.Run("create sbs root volume", core.Test(&core.TestConfig{
 			Commands: core.NewCommandsMerge(
 				instance.GetCommands(),
@@ -280,6 +280,7 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["0"].VolumeType)
 				},
@@ -289,7 +290,36 @@ func Test_CreateServer(t *testing.T) {
 			),
 		}))
 
-		*/
+		t.Run("create sbs root volume with iops", core.Test(&core.TestConfig{
+			Commands: core.NewCommandsMerge(
+				instance.GetCommands(),
+				block.GetCommands(),
+			),
+			Cmd: "scw instance server create image=ubuntu_jammy root-volume=sbs:20GB:15000 stopped=true --debug",
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+					assert.NotNil(t, ctx.Result)
+					rootVolume, rootVolumeExists := ctx.Result.(*instanceSDK.Server).Volumes["0"]
+					assert.True(t, rootVolumeExists)
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, rootVolume.VolumeType)
+
+					api := blockSDK.NewAPI(ctx.Client)
+					vol, err := api.WaitForVolume(&blockSDK.WaitForVolumeRequest{
+						VolumeID: rootVolume.ID,
+						Zone:     rootVolume.Zone,
+					})
+					assert.NoError(t, err)
+					assert.NotNil(t, vol.Specs)
+					assert.NotNil(t, vol.Specs.PerfIops)
+					assert.Equal(t, uint32(15000), *vol.Specs.PerfIops)
+				},
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServerAfterFunc(),
+			),
+		}))
 	})
 	////
 	// IP use cases
