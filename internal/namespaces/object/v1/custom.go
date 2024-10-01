@@ -12,18 +12,40 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(BucketGetResult{}, bucketGetResultMarshalerFunc)
 	human.RegisterMarshalerFunc(s3.ListBucketsOutput{}.Buckets, bucketMarshalerFunc)
 
-	return core.NewCommands(
-		objectRoot(),
-		objectConfig(),
-		objectBucket(),
-		bucketCreateCommand(),
-		bucketDeleteCommand(),
-		bucketGetCommand(),
-		bucketListCommand(),
-		bucketUpdateCommand(),
-		configGetCommand(),
-		configInstallCommand(),
-	)
+	cmds := core.NewCommands()
+
+	if cmdObjectRoot := objectRoot(); cmdObjectRoot != nil {
+		cmds.Add(cmdObjectRoot)
+	}
+	if cmdObjectConfig := objectConfig(); cmdObjectConfig != nil {
+		cmds.Add(cmdObjectConfig)
+	}
+	if cmdObjectBucket := objectBucket(); cmdObjectBucket != nil {
+		cmds.Add(cmdObjectBucket)
+	}
+	if cmdBucketCreate := bucketCreateCommand(); cmdBucketCreate != nil {
+		cmds.Add(cmdBucketCreate)
+	}
+	if cmdBucketDelete := bucketDeleteCommand(); cmdBucketDelete != nil {
+		cmds.Add(cmdBucketDelete)
+	}
+	if cmdBucketGet := bucketGetCommand(); cmdBucketGet != nil {
+		cmds.Add(cmdBucketGet)
+	}
+	if cmdBucketList := bucketListCommand(); cmdBucketList != nil {
+		cmds.Add(cmdBucketList)
+	}
+	if cmdBucketUpdate := bucketUpdateCommand(); cmdBucketUpdate != nil {
+		cmds.Add(cmdBucketUpdate)
+	}
+	if cmdConfigGet := configGetCommand(); cmdConfigGet != nil {
+		cmds.Add(cmdConfigGet)
+	}
+	if cmdConfigInstall := configInstallCommand(); cmdConfigInstall != nil {
+		cmds.Add(cmdConfigInstall)
+	}
+
+	return cmds
 }
 
 func objectRoot() *core.Command {
