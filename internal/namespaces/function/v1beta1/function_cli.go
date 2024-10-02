@@ -738,7 +738,6 @@ func functionFunctionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.DefaultValueSetter("enabled"),
 				EnumValues: []string{"unknown_http_option", "enabled", "redirected"},
 			},
 			{
