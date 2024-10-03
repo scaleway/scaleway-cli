@@ -7,8 +7,12 @@ import (
 )
 
 func GetCommands() *core.Commands {
-
 	cmds := core.NewCommands()
+
+	human.RegisterMarshalerFunc(BucketResponse{}, bucketResponseMarshalerFunc)
+	human.RegisterMarshalerFunc(bucketInfo{}, bucketInfoMarshalerFunc)
+	human.RegisterMarshalerFunc(BucketGetResult{}, bucketGetResultMarshalerFunc)
+	human.RegisterMarshalerFunc(s3.ListBucketsOutput{}.Buckets, bucketMarshalerFunc)
 
 	if cmdObjectRoot := objectRoot(); cmdObjectRoot != nil {
 		cmds.Add(cmdObjectRoot)
@@ -39,13 +43,6 @@ func GetCommands() *core.Commands {
 	}
 	if cmdConfigInstall := configInstallCommand(); cmdConfigInstall != nil {
 		cmds.Add(cmdConfigInstall)
-	}
-
-	if len(cmds.GetAll()) > 0 {
-		human.RegisterMarshalerFunc(BucketResponse{}, bucketResponseMarshalerFunc)
-		human.RegisterMarshalerFunc(bucketInfo{}, bucketInfoMarshalerFunc)
-		human.RegisterMarshalerFunc(BucketGetResult{}, bucketGetResultMarshalerFunc)
-		human.RegisterMarshalerFunc(s3.ListBucketsOutput{}.Buckets, bucketMarshalerFunc)
 	}
 
 	return cmds
