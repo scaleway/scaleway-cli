@@ -96,8 +96,8 @@ github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.11.20 h1:Xbwbmk44
 github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.11.20/go.mod h1:oAfOFzUB14ltPZj1rWwRc3d/6OgD76R8KlvU3EqM9Fg=
 github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.17.18 h1:eb+tFOIl9ZsUe2259/BKPeniKuz4/02zZFH/i4Nf8Rg=
 github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.17.18/go.mod h1:GVCC2IJNJTmdlyEsSmofEy7EfJncP7DNnXDzRjJ5Keg=
-github.com/aws/aws-sdk-go-v2/service/s3 v1.64.0 h1:I0p8knB/IDYSQ3dbanaCr4UhiYQ96bvKRhGYxvLyiD8=
-github.com/aws/aws-sdk-go-v2/service/s3 v1.64.0/go.mod h1:NLTqRLe3pUNu3nTEHI6XlHLKYmc8fbHUdMxAB6+s41Q=
+github.com/aws/aws-sdk-go-v2/service/s3 v1.64.1 h1:jjHf+M6vCp/WzbyFEroY4/Nx8dJac520A0EPwlYk0Do=
+github.com/aws/aws-sdk-go-v2/service/s3 v1.64.1/go.mod h1:NLTqRLe3pUNu3nTEHI6XlHLKYmc8fbHUdMxAB6+s41Q=
 github.com/aws/aws-sdk-go-v2/service/sso v1.20.2 h1:XOPfar83RIRPEzfihnp+U6udOveKZJvPQ76SKWrLRHc=
 github.com/aws/aws-sdk-go-v2/service/sso v1.20.2/go.mod h1:Vv9Xyk1KMHXrR3vNQe8W5LMFdTjSeWk0gBZBzvf3Qa0=
 github.com/aws/aws-sdk-go-v2/service/ssooidc v1.23.2 h1:pi0Skl6mNl2w8qWZXcdOyg197Zsf4G97U7Sso9JXGZE=
@@ -465,8 +465,8 @@ github.com/rogpeppe/go-internal v1.11.0/go.mod h1:ddIwULY96R17DhadqLgMfk9H9tvdUz
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
 github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 h1:OkMGxebDjyw0ULyrTYWeN0UNCCkmCWfjPnIA2W6oviI=
 github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06/go.mod h1:+ePHsJ1keEjQtpvf9HHw0f4ZeJ0TLRsxhunSI2hYJSs=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.30.0.20241002063243-2958268b47e4 h1:PkUW135HALZETPJIWGNTIr2mVvBhQODsGqaEwNAEosc=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.30.0.20241002063243-2958268b47e4/go.mod h1:o/2twhmcz4HlhtuuubCuwQ/fe+zyzoJR85+02gy04yY=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.30.0.20241003135237-a80efc7ba222 h1:lr/Ewp6Ph3cXaEAyaPJqT7ZvC/wBnm1VoRHVz1FqOkM=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.30.0.20241003135237-a80efc7ba222/go.mod h1:o/2twhmcz4HlhtuuubCuwQ/fe+zyzoJR85+02gy04yY=
 github.com/sclevine/spec v1.4.0 h1:z/Q9idDcay5m5irkZ28M7PtQM4aOISzOpj4bUPkDee8=
 github.com/sclevine/spec v1.4.0/go.mod h1:LvpgJaFyvQzRvc1kaDs0bulYwzC70PbiYjC4QnFHkOM=
 github.com/secure-systems-lab/go-securesystemslib v0.8.0 h1:mr5An6X45Kb2nddcFlbmfHkLguCE9laoZCUzEEpIZXA=
