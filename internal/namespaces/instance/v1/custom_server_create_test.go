@@ -117,7 +117,7 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Volumes", func(t *testing.T) {
 		t.Run("valid single local volume", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true",
+			Cmd:      "scw instance server create type=DEV1-S image=ubuntu_bionic root-volume=local:20GB stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -132,10 +132,10 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("valid single local snapshot", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true"),
+				core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S image=ubuntu_bionic root-volume=local:20GB stopped=true"),
 				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 			),
-			Cmd: "scw instance server create image=ubuntu_bionic root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+			Cmd: "scw instance server create type=DEV1-S image=ubuntu_bionic root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -154,7 +154,7 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("valid single local snapshot without image", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true"),
+				core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S image=ubuntu_bionic root-volume=local:20GB stopped=true"),
 				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 			),
 			Cmd: "scw instance server create image=none root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
@@ -175,7 +175,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("valid double local volumes", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=l:10G stopped=true",
+			Cmd:      "scw instance server create image=ubuntu_bionic type=DEV1-S root-volume=local:10GB additional-volumes.0=l:10G stopped=true",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -191,10 +191,10 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("valid double snapshot", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true"),
+				core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S image=ubuntu_bionic root-volume=local:20GB stopped=true"),
 				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create unified=true volume-id={{ (index .Server.Volumes "0").ID }}`),
 			),
-			Cmd: "scw instance server create image=ubuntu_bionic root-volume=block:{{ .Snapshot.Snapshot.ID }} additional-volumes.0=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+			Cmd: "scw instance server create type=DEV1-S image=ubuntu_bionic root-volume=block:{{ .Snapshot.Snapshot.ID }} additional-volumes.0=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -481,7 +481,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too high 1", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      "scw instance server create image=ubuntu_jammy root-volume=local:10GB additional-volumes.0=local:20GB",
+		Cmd:      "scw instance server create type=DEV1-S image=ubuntu_jammy root-volume=local:10GB additional-volumes.0=local:20GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -491,7 +491,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too high 2", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      "scw instance server create image=ubuntu_jammy additional-volumes.0=local:20GB",
+		Cmd:      "scw instance server create type=DEV1-S image=ubuntu_jammy additional-volumes.0=local:20GB",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -545,8 +545,8 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: already attached additional volume ID", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create name=cli-test image=ubuntu_jammy root-volume=l:10G additional-volumes.0=l:10G stopped=true"),
-		Cmd:        `scw instance server create image=ubuntu_jammy root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }} stopped=true`,
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S name=cli-test image=ubuntu_jammy root-volume=l:10G additional-volumes.0=l:10G stopped=true"),
+		Cmd:        `scw instance server create type=DEV1-S image=ubuntu_jammy root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }} stopped=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
