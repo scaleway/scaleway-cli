@@ -652,12 +652,6 @@ func instanceServerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "bootscript",
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
 				Name:       "dynamic-ip-required",
 				Required:   false,
 				Deprecated: false,
@@ -1116,13 +1110,6 @@ func instanceImageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_arch", "x86_64", "arm", "arm64"},
-			},
-			{
-				Name:       "default-bootscript",
-				Short:      `Default bootscript of the image`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
 			},
 			{
 				Name:       "extra-volumes.{key}.id",
