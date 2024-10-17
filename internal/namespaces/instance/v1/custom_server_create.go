@@ -28,6 +28,7 @@ type instanceCreateServerRequest struct {
 	IP                string
 	Tags              []string
 	IPv6              bool
+	IPv4              bool
 	Stopped           bool
 	SecurityGroupID   string
 	PlacementGroupID  string
@@ -99,6 +100,11 @@ func serverCreateCommand() *core.Command {
 			{
 				Name:  "ipv6",
 				Short: "Enable IPv6, to be used with routed-ip-enabled=false",
+			},
+			{
+				Name:    "ipv4",
+				Short:   "Enable/disable IPv4. Useful for routed IPs",
+				Default: core.DefaultValueSetter("true"),
 			},
 			{
 				Name:  "stopped",
@@ -209,6 +215,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		AddOrganizationID(args.OrganizationID).
 		AddProjectID(args.ProjectID).
 		AddEnableIPv6(scw.BoolPtr(args.IPv6)).
+		AddEnableIPv4(scw.BoolPtr(args.IPv4)).
 		AddTags(args.Tags).
 		AddRoutedIPEnabled(args.RoutedIPEnabled).
 		AddAdminPasswordEncryptionSSHKeyID(args.AdminPasswordEncryptionSSHKeyID).
