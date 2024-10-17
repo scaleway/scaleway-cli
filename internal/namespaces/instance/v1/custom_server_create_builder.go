@@ -171,7 +171,7 @@ func (sb *ServerBuilder) AddImage(image string) (*ServerBuilder, error) {
 		image = localImage.ID
 	}
 
-	sb.createReq.Image = image
+	sb.createReq.Image = &image
 
 	getImageResponse, err := sb.apiInstance.GetImage(&instance.GetImageRequest{
 		Zone:    sb.createReq.Zone,
