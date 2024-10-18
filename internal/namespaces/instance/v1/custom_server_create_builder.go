@@ -192,11 +192,11 @@ func (sb *ServerBuilder) AddImage(image string) (*ServerBuilder, error) {
 		image = localImage.ID
 	}
 
-	sb.createReq.Image = image
+	sb.createReq.Image = &image
 
 	getImageResponse, err := sb.apiInstance.GetImage(&instance.GetImageRequest{
 		Zone:    sb.createReq.Zone,
-		ImageID: sb.createReq.Image,
+		ImageID: *(sb.createReq.Image),
 	})
 	if err != nil {
 		logger.Warningf("cannot get image %s: %s", sb.createReq.Image, err)
