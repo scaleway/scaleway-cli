@@ -35,6 +35,9 @@ type ServerBuilder struct {
 	apiInstance    *instance.API
 	apiBlock       *block.API
 
+	// IPv4 enabled
+	enableIPv4 bool
+
 	// serverType is filled with the ServerType if CommercialType is found in the API.
 	serverType *instance.ServerType
 	// serverImage is filled with the Image if one is provided
@@ -78,6 +81,17 @@ func (sb *ServerBuilder) AddProjectID(projectID *string) *ServerBuilder {
 
 func (sb *ServerBuilder) AddEnableIPv6(enableIPv6 *bool) *ServerBuilder {
 	sb.createReq.EnableIPv6 = enableIPv6 //nolint: staticcheck
+
+	return sb
+}
+
+func (sb *ServerBuilder) AddEnableIPv4(enableIPv4 *bool) *ServerBuilder {
+	sb.enableIPv4 = *enableIPv4
+
+	// disable dynamic IP in that case
+	if !sb.enableIPv4 {
+		sb.createReq.DynamicIPRequired = enableIPv4
+	}
 
 	return sb
 }
@@ -132,9 +146,16 @@ func (sb *ServerBuilder) rootVolumeIsSBS() bool {
 func (sb *ServerBuilder) defaultIPType() instance.IPType {
 	if sb.createReq.RoutedIPEnabled != nil { //nolint: staticcheck // Field is deprecated but still supported
 		if *sb.createReq.RoutedIPEnabled { //nolint: staticcheck // Field is deprecated but still supported
+			if *sb.createReq.EnableIPv6 || !sb.enableIPv4 { //nolint: staticcheck // Field is deprecated but still supported
+				return instance.IPTypeRoutedIPv6
+			}
 			return instance.IPTypeRoutedIPv4
 		}
+		// routed_ip_enabled defaults to true, you can only have NAT IPs when specifying it to false explicitly
 		return instance.IPTypeNat
+	} else if (sb.createReq.EnableIPv6 != nil && *sb.createReq.EnableIPv6) || !sb.enableIPv4 { //nolint: staticcheck // Field is deprecated but still supported
+		// instances now have routed_ip_enabled by default
+		return instance.IPTypeRoutedIPv6
 	}
 
 	return ""
