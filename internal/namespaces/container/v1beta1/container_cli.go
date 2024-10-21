@@ -544,7 +544,7 @@ func containerContainerCreate() *core.Command {
 				Name:       "max-concurrency",
 				Short:      `Number of maximum concurrent executions of the container`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -594,6 +594,12 @@ func containerContainerCreate() *core.Command {
 			{
 				Name:       "local-storage-limit",
 				Short:      `Local storage limit of the container (in MB)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.concurrent-requests-threshold",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -703,7 +709,7 @@ func containerContainerUpdate() *core.Command {
 				Name:       "max-concurrency",
 				Short:      `Number of maximum concurrent executions of the container`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -750,6 +756,12 @@ func containerContainerUpdate() *core.Command {
 			{
 				Name:       "local-storage-limit",
 				Short:      `Local storage limit of the container (in MB)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.concurrent-requests-threshold",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
