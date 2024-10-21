@@ -288,6 +288,7 @@ func mongodbInstanceCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("mgdb"),
 			},
 			{
 				Name:       "version",
