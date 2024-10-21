@@ -71,7 +71,7 @@ scw container container create [arg=value ...]
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the container |
 | description |  | Description of the container |
 | registry-image |  | Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag"). |
-| max-concurrency |  | Number of maximum concurrent executions of the container |
+| ~~max-concurrency~~ | Deprecated | Number of maximum concurrent executions of the container |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` | Protocol the container uses |
 | port |  | Port the container listens on |
 | secret-environment-variables.{index}.key |  |  |
@@ -79,6 +79,7 @@ scw container container create [arg=value ...]
 | http-option | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
 | sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container |
 | local-storage-limit |  | Local storage limit of the container (in MB) |
+| scaling-option.concurrent-requests-threshold |  |  |
 | deploy | Default: `true` | Deploy container after creation |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -194,7 +195,7 @@ scw container container update <container-id ...> [arg=value ...]
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy settings of the container |
 | description |  | Description of the container |
 | registry-image |  | Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag"). |
-| max-concurrency |  | Number of maximum concurrent executions of the container |
+| ~~max-concurrency~~ | Deprecated | Number of maximum concurrent executions of the container |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
 | port |  |  |
 | secret-environment-variables.{index}.key |  |  |
@@ -202,6 +203,7 @@ scw container container update <container-id ...> [arg=value ...]
 | http-option | One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
 | sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container |
 | local-storage-limit |  | Local storage limit of the container (in MB) |
+| scaling-option.concurrent-requests-threshold |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
