@@ -1,6 +1,7 @@
 package commands
 
 import (
+	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"os"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -106,6 +107,7 @@ func GetCommands() *core.Commands {
 		serverless_sqldb.GetCommands(),
 		edgeservices.GetCommands(),
 		login.GetCommands(),
+		mongodb.GetCommands(),
 	)
 
 	if beta {
