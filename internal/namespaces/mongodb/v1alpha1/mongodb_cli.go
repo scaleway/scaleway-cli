@@ -36,6 +36,7 @@ func GetGeneratedCommands() *core.Commands {
 		mongodbInstanceGetCertificate(),
 		mongodbSnapshotCreate(),
 		mongodbSnapshotGet(),
+		mongodbSnapshotUpdate(),
 		mongodbSnapshotRestore(),
 		mongodbSnapshotList(),
 		mongodbSnapshotDelete(),
@@ -577,6 +578,50 @@ func mongodbSnapshotGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.GetSnapshot(request)
+
+		},
+	}
+}
+
+func mongodbSnapshotUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a Database Instance snapshot`,
+		Long:      `Update the parameters of a snapshot of a Database Instance. You can update the ` + "`" + `name` + "`" + ` and ` + "`" + `expires_at` + "`" + ` parameters.`,
+		Namespace: "mongodb",
+		Resource:  "snapshot",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(mongodb.UpdateSnapshotRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `UUID of the Snapshot`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "expires-at",
+				Short:      `Expiration date of the snapshot (must follow the ISO 8601 format)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*mongodb.UpdateSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+			return api.UpdateSnapshot(request)
 
 		},
 	}

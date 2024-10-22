@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   get         Get a Database Instance snapshot
   list        List snapshots
   restore     Restore a Database Instance snapshot
+  update      Update a Database Instance snapshot
 
 FLAGS:
   -h, --help   help for snapshot
