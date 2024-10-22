@@ -44,5 +44,6 @@ Region             fr-par
   "http_option": "enabled",
   "sandbox": "unknown_sandbox",
   "local_storage_limit": 0,
+  "scaling_option": null,
   "region": "fr-par"
 }
