@@ -18,6 +18,7 @@ This API allows you to manage your Managed Databases for MongoDB.
   - [Get a Database Instance snapshot](#get-a-database-instance-snapshot)
   - [List snapshots](#list-snapshots)
   - [Restore a Database Instance snapshot](#restore-a-database-instance-snapshot)
+  - [Update a Database Instance snapshot](#update-a-database-instance-snapshot)
 - [User management commands](#user-management-commands)
   - [List users of a Database Instance](#list-users-of-a-database-instance)
   - [Update a user on a Database Instance](#update-a-user-on-a-database-instance)
@@ -323,6 +324,28 @@ scw mongodb snapshot restore <snapshot-id ...> [arg=value ...]
 | node-type | Required | Node type to use for the new Database Instance |
 | node-number | Required | Number of nodes to use for the new Database Instance |
 | volume.volume-type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update a Database Instance snapshot
+
+Update the parameters of a snapshot of a Database Instance. You can update the `name` and `expires_at` parameters.
+
+**Usage:**
+
+```
+scw mongodb snapshot update <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| snapshot-id | Required | UUID of the Snapshot |
+| name |  | Name of the snapshot |
+| expires-at |  | Expiration date of the snapshot (must follow the ISO 8601 format) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
