@@ -10,7 +10,6 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [List Clusters](#list-clusters)
   - [List available cluster types for a cluster](#list-available-cluster-types-for-a-cluster)
   - [List available versions for a Cluster](#list-available-versions-for-a-cluster)
-  - [Migrate a cluster to Routed IPs](#migrate-a-cluster-to-routed-ips)
   - [Migrate a cluster to SBS CSI](#migrate-a-cluster-to-sbs-csi)
   - [Reset the admin token of a Cluster](#reset-the-admin-token-of-a-cluster)
   - [Change the Cluster type](#change-the-cluster-type)
@@ -313,36 +312,6 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 List all versions that a cluster can upgrade to
 ```
 scw k8s cluster list-available-versions 11111111-1111-1111-111111111111
-```
-
-
-
-
-### Migrate a cluster to Routed IPs
-
-Migrate the nodes of an existing cluster to Routed IPs and enable Routed IPs for all future nodes.
-
-**Usage:**
-
-```
-scw k8s cluster migrate-to-routed-ips <cluster-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID for which the routed ip will be enabled for the nodes |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-**Examples:**
-
-
-Migrate a cluster to Routed IPs
-```
-scw k8s cluster migrate-to-routed-ips 11111111-1111-1111-111111111111
 ```
 
 
