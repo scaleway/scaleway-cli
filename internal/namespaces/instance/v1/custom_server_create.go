@@ -129,10 +129,6 @@ func serverCreateCommand() *core.Command {
 				EnumValues: []string{instance.BootTypeLocal.String(), instance.BootTypeBootscript.String(), instance.BootTypeRescue.String()},
 			},
 			{
-				Name:  "routed-ip-enabled",
-				Short: "Enable routed IP support",
-			},
-			{
 				Name:             "admin-password-encryption-ssh-key-id",
 				Short:            "ID of the IAM SSH Key used to encrypt generated admin password. Required when creating a windows server.",
 				AutoCompleteFunc: completeSSHKeyID,
