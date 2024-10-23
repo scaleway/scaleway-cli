@@ -402,6 +402,41 @@ func Test_CreateServer(t *testing.T) {
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
+
+		t.Run("with ipv6 and dynamic ip", core.Test(&core.TestConfig{
+			Commands: instance.GetCommands(),
+			Cmd:      "scw instance server create image=ubuntu_bionic dynamic-ip-required=true ip=ipv6 -w", // IPv6 is created at runtime
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+					assert.NotNil(t, ctx.Result, "server is nil")
+					server := ctx.Result.(*instanceSDK.Server)
+					assert.Len(t, server.PublicIPs, 2)
+					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet, server.PublicIPs[0].Family)
+					assert.True(t, server.PublicIPs[0].Dynamic)
+					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet6, server.PublicIPs[1].Family)
+				},
+			),
+			AfterFunc: deleteServerAfterFunc(),
+		}))
+
+		t.Run("with ipv6 and ipv4", core.Test(&core.TestConfig{
+			Commands: instance.GetCommands(),
+			Cmd:      "scw instance server create image=ubuntu_bionic ip=both -w", // IPv6 is created at runtime
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+					assert.NotNil(t, ctx.Result, "server is nil")
+					server := ctx.Result.(*instanceSDK.Server)
+					assert.Len(t, server.PublicIPs, 2)
+					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet, server.PublicIPs[0].Family)
+					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet6, server.PublicIPs[1].Family)
+				},
+			),
+			AfterFunc: deleteServerAfterFunc(),
+		}))
 	})
 }
 
