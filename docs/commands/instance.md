@@ -1713,7 +1713,8 @@ scw instance server create [arg=value ...]
 | name | Default: `<generated>` | Server name |
 | root-volume |  | Local root volume of the server |
 | additional-volumes.{index} |  | Additional local and block volumes attached to your server |
-| ip | Default: `new` | Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | dynamic | none | <id> | <address>) |
+| ip | Default: `new` | Either an IP, an IP ID, ('new', 'ipv4', 'ipv6' or 'both') to create new IPs, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | ipv4 | ipv6 | both | dynamic | none | <id> | <address>) |
+| dynamic-ip-required |  | Define if a dynamic IPv4 is required for the Instance. If server has no IPv4, a dynamic one will be allocated. |
 | tags.{index} |  | Server tags |
 | ipv6 |  | Enable IPv6, to be used with routed-ip-enabled=false |
 | stopped |  | Do not start server after its creation |
