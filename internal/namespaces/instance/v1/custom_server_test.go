@@ -344,6 +344,8 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+
 				require.NotNil(t, ctx.Meta["Server"])
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				assert.Len(t, server.PublicIPs, 2)
