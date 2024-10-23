@@ -26,6 +26,7 @@ type instanceCreateServerRequest struct {
 	RootVolume        string
 	AdditionalVolumes []string
 	IP                string
+	DynamicIPRequired *bool
 	Tags              []string
 	IPv6              bool
 	Stopped           bool
@@ -89,8 +90,12 @@ func serverCreateCommand() *core.Command {
 			},
 			{
 				Name:    "ip",
-				Short:   `Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | dynamic | none | <id> | <address>)`,
+				Short:   `Either an IP, an IP ID, ('new', 'ipv4', 'ipv6' or 'both') to create new IPs, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | ipv4 | ipv6 | both | dynamic | none | <id> | <address>)`,
 				Default: core.DefaultValueSetter("new"),
+			},
+			{
+				Name:  "dynamic-ip-required",
+				Short: "Define if a dynamic IPv4 is required for the Instance. If server has no IPv4, a dynamic one will be allocated.",
 			},
 			{
 				Name:  "tags.{index}",
@@ -211,6 +216,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		AddEnableIPv6(scw.BoolPtr(args.IPv6)).
 		AddTags(args.Tags).
 		AddRoutedIPEnabled(args.RoutedIPEnabled).
+		AddDynamicIPRequired(args.DynamicIPRequired).
 		AddAdminPasswordEncryptionSSHKeyID(args.AdminPasswordEncryptionSSHKeyID).
 		AddBootType(args.BootType).
 		AddSecurityGroup(args.SecurityGroupID).
@@ -240,9 +246,9 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		return nil, err
 	}
 
-	createReq, createIPReq := serverBuilder.Build()
+	createReq, createIPReqs := serverBuilder.Build()
 	postCreationSetup := serverBuilder.BuildPostCreationSetup()
-	needIPCreation := createIPReq != nil
+	needIPCreation := len(createIPReqs) > 0
 
 	//
 	// IP creation
@@ -252,12 +258,13 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	if needIPCreation {
 		logger.Debugf("creating IP")
 
-		ipRes, err := apiInstance.CreateIP(createIPReq)
+		ipIDs, err := createIPs(apiInstance, createIPReqs)
 		if err != nil {
-			return nil, fmt.Errorf("error while creating your public IP: %s", err)
+			return nil, fmt.Errorf("error while creating your public IPs: %s", err)
 		}
-		createReq.PublicIP = scw.StringPtr(ipRes.IP.ID)
-		logger.Debugf("IP created: %s", createReq.PublicIP)
+
+		createReq.PublicIPs = scw.StringsPtr(ipIDs)
+		logger.Debugf("IPs created: %s", strings.Join(ipIDs, ", "))
 	}
 
 	//
@@ -266,15 +273,13 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	logger.Debugf("creating server")
 	serverRes, err := apiInstance.CreateServer(createReq)
 	if err != nil {
-		if needIPCreation && createReq.PublicIP != nil {
+		if needIPCreation && createReq.PublicIPs != nil {
 			// Delete the created IP
-			logger.Debugf("deleting created IP: %s", createReq.PublicIP)
-			err := apiInstance.DeleteIP(&instance.DeleteIPRequest{
-				Zone: args.Zone,
-				IP:   *createReq.PublicIP,
-			})
-			if err != nil {
-				logger.Warningf("cannot delete the create IP %s: %s.", createReq.PublicIP, err)
+			formattedIPs := strings.Join(*createReq.PublicIPs, ", ")
+			logger.Debugf("deleting created IPs: %s", formattedIPs)
+			errs := cleanIPs(apiInstance, createReq.Zone, *createReq.PublicIPs)
+			if len(errs) > 0 {
+				logger.Warningf("cannot delete created IPs %s: %s.", formattedIPs, errors.Join(errs...))
 			}
 		}
 

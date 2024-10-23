@@ -21,8 +21,8 @@ import (
 type ServerBuilder struct {
 	// createdReq is the request being built
 	createReq *instance.CreateServerRequest
-	// createIPReq is filled with a request if an IP is needed
-	createIPReq *instance.CreateIPRequest
+	// createIPReqs is filled with requests if one or more IP are needed
+	createIPReqs []*instance.CreateIPRequest
 
 	// volumes is the list of requested volumes
 	volumes []*VolumeBuilder
@@ -98,6 +98,14 @@ func (sb *ServerBuilder) AddRoutedIPEnabled(routedIPEnabled *bool) *ServerBuilde
 	return sb
 }
 
+func (sb *ServerBuilder) AddDynamicIPRequired(dynamicIPRequired *bool) *ServerBuilder {
+	if dynamicIPRequired != nil {
+		sb.createReq.DynamicIPRequired = dynamicIPRequired
+	}
+
+	return sb
+}
+
 func (sb *ServerBuilder) AddAdminPasswordEncryptionSSHKeyID(adminPasswordEncryptionSSHKeyID *string) *ServerBuilder {
 	if adminPasswordEncryptionSSHKeyID != nil {
 		sb.createReq.AdminPasswordEncryptionSSHKeyID = adminPasswordEncryptionSSHKeyID
@@ -126,18 +134,6 @@ func (sb *ServerBuilder) rootVolumeIsSBS() bool {
 	}
 
 	return rootVolume.VolumeType == instance.VolumeVolumeTypeSbsVolume
-}
-
-// defaultIPType returns the default IP type when created by the CLI. Used for ServerBuilder.AddIP
-func (sb *ServerBuilder) defaultIPType() instance.IPType {
-	if sb.createReq.RoutedIPEnabled != nil { //nolint: staticcheck // Field is deprecated but still supported
-		if *sb.createReq.RoutedIPEnabled { //nolint: staticcheck // Field is deprecated but still supported
-			return instance.IPTypeRoutedIPv4
-		}
-		return instance.IPTypeNat
-	}
-
-	return ""
 }
 
 func (sb *ServerBuilder) marketplaceImageType() marketplace.LocalImageType {
@@ -195,12 +191,28 @@ func (sb *ServerBuilder) AddImage(image string) (*ServerBuilder, error) {
 //   - "none"
 func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 	switch {
-	case ip == "" || ip == "new":
-		sb.createIPReq = &instance.CreateIPRequest{
+	case ip == "" || ip == "new" || ip == "ipv4":
+		sb.createIPReqs = []*instance.CreateIPRequest{{
 			Zone:    sb.createReq.Zone,
 			Project: sb.createReq.Project,
-			Type:    sb.defaultIPType(),
-		}
+			Type:    instance.IPTypeRoutedIPv4,
+		}}
+	case ip == "ipv6":
+		sb.createIPReqs = []*instance.CreateIPRequest{{
+			Zone:    sb.createReq.Zone,
+			Project: sb.createReq.Project,
+			Type:    instance.IPTypeRoutedIPv6,
+		}}
+	case ip == "both":
+		sb.createIPReqs = []*instance.CreateIPRequest{{
+			Zone:    sb.createReq.Zone,
+			Project: sb.createReq.Project,
+			Type:    instance.IPTypeRoutedIPv4,
+		}, {
+			Zone:    sb.createReq.Zone,
+			Project: sb.createReq.Project,
+			Type:    instance.IPTypeRoutedIPv6,
+		}}
 	case validation.IsUUID(ip):
 		sb.createReq.PublicIP = scw.StringPtr(ip)
 	case net.ParseIP(ip) != nil:
@@ -219,7 +231,7 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 	case ip == "none":
 		sb.createReq.DynamicIPRequired = scw.BoolPtr(false)
 	default:
-		return sb, fmt.Errorf(`invalid IP "%s", should be either 'new', 'dynamic', 'none', an IP address ID or a reserved flexible IP address`, ip)
+		return sb, fmt.Errorf(`invalid IP "%s", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address`, ip)
 	}
 
 	return sb, nil
@@ -351,8 +363,8 @@ func (sb *ServerBuilder) Validate() error {
 	return sb.ValidateVolumes()
 }
 
-func (sb *ServerBuilder) Build() (*instance.CreateServerRequest, *instance.CreateIPRequest) {
-	return sb.createReq, sb.createIPReq
+func (sb *ServerBuilder) Build() (*instance.CreateServerRequest, []*instance.CreateIPRequest) {
+	return sb.createReq, sb.createIPReqs
 }
 
 type PostServerCreationSetupFunc func(ctx context.Context, server *instance.Server) error
