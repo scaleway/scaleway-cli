@@ -16,7 +16,7 @@ require (
 	github.com/dnaeon/go-vcr v1.2.0
 	github.com/docker/docker v27.3.1+incompatible
 	github.com/dustin/go-humanize v1.0.1
-	github.com/fatih/color v1.17.0
+	github.com/fatih/color v1.18.0
 	github.com/getsentry/sentry-go v0.29.1
 	github.com/ghodss/yaml v1.0.0
 	github.com/gorilla/websocket v1.5.3
