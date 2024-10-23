@@ -11,6 +11,7 @@ import (
 	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/require"
 )
 
 // deleteServerAfterFunc deletes the created server and its attached volumes and IPs.
@@ -390,13 +391,14 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic routed-ip-enabled=false ipv6=true -w", // IPv6 is created at runtime
+			Cmd:      "scw instance server create image=ubuntu_bionic ip=ipv6 dynamic-ip-required=false -w", // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
-					assert.NotNil(t, ctx.Result)
-					assert.NotNil(t, ctx.Result.(*instanceSDK.Server).IPv6)
-					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).IPv6.Address)
+					require.NotNil(t, ctx.Result, "Server is nil")
+					server := ctx.Result.(*instanceSDK.Server)
+					assert.Len(t, server.PublicIPs, 1)
+					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet6, server.PublicIPs[0].Family)
 				},
 				core.TestCheckExitCode(0),
 			),

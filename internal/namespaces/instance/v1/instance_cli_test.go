@@ -39,20 +39,21 @@ func Test_GetServer(t *testing.T) {
 func Test_CreateVolume(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      "scw instance volume create name=test size=20G",
+		Cmd:      "scw instance volume create name=test volume-type=b_ssd size=20G",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
+				require.NotNil(t, ctx.Result)
 				assert.Equal(t, "test", ctx.Result.(*instanceSDK.CreateVolumeResponse).Volume.Name)
 			},
-			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.ExecAfterCmd("scw instance volume delete {{ .CmdResult.Volume.ID }}"),
 	}))
 
 	t.Run("Bad size unit", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      "scw instance volume create name=test size=20",
+		Cmd:      "scw instance volume create name=test volume-type=b_ssd size=20",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
