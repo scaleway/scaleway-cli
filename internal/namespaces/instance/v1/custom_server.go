@@ -821,7 +821,7 @@ func serverDeleteCommand() *core.Command {
 				return nil, err
 			}
 
-			if deleteServerArgs.WithIP && server.Server.PublicIPs != nil && !server.Server.PublicIP.Dynamic {
+			if deleteServerArgs.WithIP && server.Server.PublicIPs != nil {
 				for _, ip := range server.Server.PublicIPs {
 					if ip.Dynamic {
 						continue
