@@ -336,5 +336,29 @@ func Test_ServerDelete(t *testing.T) {
 		DisableParallel: true,
 	}))
 
+	t.Run("with multiple IPs", core.Test(&core.TestConfig{
+		Commands:   instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic ip=both"),
+		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				require.NotNil(t, ctx.Meta["Server"])
+				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				assert.Len(t, server.PublicIPs, 2)
+				api := instanceSDK.NewAPI(ctx.Client)
+				for _, ip := range server.PublicIPs {
+					_, err := api.GetIP(&instanceSDK.GetIPRequest{
+						Zone: server.Zone,
+						IP:   ip.ID,
+					})
+					assert.Error(t, err, "expected IP to be deleted")
+				}
+			},
+		),
+		DisableParallel: true,
+	}))
+
 	interactive.IsInteractive = false
 }
