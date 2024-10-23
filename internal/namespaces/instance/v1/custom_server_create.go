@@ -94,8 +94,9 @@ func serverCreateCommand() *core.Command {
 				Default: core.DefaultValueSetter("new"),
 			},
 			{
-				Name:  "dynamic-ip-required",
-				Short: "Define if a dynamic IPv4 is required for the Instance. If server has no IPv4, a dynamic one will be allocated.",
+				Name:    "dynamic-ip-required",
+				Short:   "Define if a dynamic IPv4 is required for the Instance. If server has no IPv4, a dynamic one will be allocated.",
+				Default: core.DefaultValueSetter("true"),
 			},
 			{
 				Name:  "tags.{index}",
