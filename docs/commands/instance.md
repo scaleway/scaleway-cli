@@ -1709,7 +1709,7 @@ scw instance server create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | image | Required<br />Default: `ubuntu_jammy` | Image ID or label of the server |
-| type | Required<br />Default: `DEV1-S` | Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/) |
+| type | Required | Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/) |
 | name | Default: `<generated>` | Server name |
 | root-volume |  | Local root volume of the server |
 | additional-volumes.{index} |  | Additional local and block volumes attached to your server |

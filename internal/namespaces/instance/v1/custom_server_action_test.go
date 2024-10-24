@@ -19,7 +19,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("without IP", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-jammy -w"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -40,7 +40,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("with IP", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-jammy -w"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -61,7 +61,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("without block", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-jammy additional-volumes.0=block:10G -w"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy additional-volumes.0=block:10G -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=false`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -76,7 +76,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("with block", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-jammy additional-volumes.0=block:10G -w"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy additional-volumes.0=block:10G -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true -w`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -103,7 +103,7 @@ func Test_ServerTerminate(t *testing.T) {
 func Test_ServerBackup(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-jammy"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-jammy")),
 		Cmd:        `scw instance server backup {{ .Server.ID }} name=backup`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -119,7 +119,7 @@ func Test_ServerBackup(t *testing.T) {
 func Test_ServerAction(t *testing.T) {
 	t.Run("manual poweron", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu_jammy"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu_jammy")),
 		Cmd:        `scw instance server action {{ .Server.ID }} action=poweron --wait`,
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
