@@ -338,7 +338,7 @@ func Test_ServerDelete(t *testing.T) {
 
 	t.Run("with multiple IPs", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic ip=both"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic ip=both")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

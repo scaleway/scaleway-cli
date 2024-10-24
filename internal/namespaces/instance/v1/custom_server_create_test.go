@@ -133,10 +133,10 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("valid single local snapshot", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true"),
+				core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu_bionic root-volume=local:20GB stopped=true")),
 				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 			),
-			Cmd: "scw instance server create image=ubuntu_bionic root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+			Cmd: testServerCommand("image=ubuntu_bionic root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true"),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -155,10 +155,10 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("valid single local snapshot without image", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true"),
+				core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu_bionic root-volume=local:20GB stopped=true")),
 				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 			),
-			Cmd: "scw instance server create image=none root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+			Cmd: testServerCommand("image=none root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true"),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -192,10 +192,10 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("valid double snapshot", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_bionic root-volume=local:20GB stopped=true"),
+				core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu_bionic root-volume=local:20GB stopped=true")),
 				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create unified=true volume-id={{ (index .Server.Volumes "0").ID }}`),
 			),
-			Cmd: "scw instance server create image=ubuntu_bionic root-volume=block:{{ .Snapshot.Snapshot.ID }} additional-volumes.0=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+			Cmd: testServerCommand("image=ubuntu_bionic root-volume=block:{{ .Snapshot.Snapshot.ID }} additional-volumes.0=local:{{ .Snapshot.Snapshot.ID }} stopped=true"),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -236,7 +236,7 @@ func Test_CreateServer(t *testing.T) {
 			BeforeFunc: core.BeforeFuncCombine(
 				createSbsVolume("Volume", 20),
 			),
-			Cmd: "scw instance server create image=ubuntu_jammy additional-volumes.0={{.Volume.ID}} stopped=true",
+			Cmd: testServerCommand("image=ubuntu_jammy additional-volumes.0={{.Volume.ID}} stopped=true"),
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -258,7 +258,7 @@ func Test_CreateServer(t *testing.T) {
 			BeforeFunc: core.BeforeFuncCombine(
 				createSbsVolume("Volume", 20),
 			),
-			Cmd: "scw instance server create image=none root-volume={{.Volume.ID}} stopped=true",
+			Cmd: testServerCommand("image=none root-volume={{.Volume.ID}} stopped=true"),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -277,7 +277,7 @@ func Test_CreateServer(t *testing.T) {
 				instance.GetCommands(),
 				block.GetCommands(),
 			),
-			Cmd: "scw instance server create image=ubuntu_jammy root-volume=sbs:20GB stopped=true",
+			Cmd: testServerCommand("image=ubuntu_jammy root-volume=sbs:20GB stopped=true"),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -296,7 +296,7 @@ func Test_CreateServer(t *testing.T) {
 				instance.GetCommands(),
 				block.GetCommands(),
 			),
-			Cmd: "scw instance server create image=ubuntu_jammy root-volume=sbs:20GB:15000 stopped=true --debug",
+			Cmd: testServerCommand("image=ubuntu_jammy root-volume=sbs:20GB:15000 stopped=true --debug"),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -407,7 +407,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6 and dynamic ip", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic dynamic-ip-required=true ip=ipv6 -w", // IPv6 is created at runtime
+			Cmd:      testServerCommand("image=ubuntu_bionic dynamic-ip-required=true ip=ipv6 -w"), // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -425,7 +425,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6 and ipv4", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      "scw instance server create image=ubuntu_bionic ip=both -w", // IPv6 is created at runtime
+			Cmd:      testServerCommand("image=ubuntu_bionic ip=both -w"), // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
