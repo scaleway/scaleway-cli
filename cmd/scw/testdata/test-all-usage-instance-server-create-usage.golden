@@ -36,7 +36,7 @@ EXAMPLES:
 
 ARGS:
   image=ubuntu_jammy                       Image ID or label of the server
-  type=DEV1-S                              Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/)
+  type                                     Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/)
   [name=<generated>]                       Server name
   [root-volume]                            Local root volume of the server
   [additional-volumes.{index}]             Additional local and block volumes attached to your server
