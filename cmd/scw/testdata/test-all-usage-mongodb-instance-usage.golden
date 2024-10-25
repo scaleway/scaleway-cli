@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A Managed Database for MongoDB instance is composed of one or multiple dedicated compute nodes running a single database engine.
+A Managed Database for MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
 
 USAGE:
   scw mongodb instance <command>
 
 AVAILABLE COMMANDS:
-  create          Create a MongoDB™ Database Instance
-  delete          Delete a MongoDB™ Database Instance
-  get             Get a MongoDB™ Database Instance
+  create          Create a MongoDB® Database Instance
+  delete          Delete a MongoDB® Database Instance
+  get             Get a MongoDB® Database Instance
   get-certificate Get the certificate of a Database Instance
-  list            List MongoDB™ Database Instances
-  update          Update a MongoDB™ Database Instance
+  list            List MongoDB® Database Instances
+  update          Update a MongoDB® Database Instance
   upgrade         Upgrade a Database Instance
 
 FLAGS:

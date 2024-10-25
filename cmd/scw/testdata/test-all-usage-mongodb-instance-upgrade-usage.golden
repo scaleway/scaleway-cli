@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   instance-id       UUID of the Database Instance you want to upgrade
-  [volume-size]     Increase your block storage volume size
+  [volume-size]     Increase your Block Storage volume size
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
