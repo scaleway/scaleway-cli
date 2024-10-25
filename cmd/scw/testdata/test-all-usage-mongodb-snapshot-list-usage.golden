@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [instance-id]       Instance ID the snapshots belongs to
-  [name]              Lists Database snapshots that match a name pattern
+  [name]              Lists database snapshots that match a name pattern
   [order-by]          Criteria to use when ordering snapshot listings (created_at_asc | created_at_desc | name_asc | name_desc | expires_at_asc | expires_at_desc)
   [project-id]        Project ID to list the snapshots of
   [organization-id]   Organization ID the snapshots belongs to

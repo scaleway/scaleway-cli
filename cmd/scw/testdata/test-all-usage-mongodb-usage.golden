@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage your Managed Databases for MongoDB.
+This API allows you to manage your Managed Databases for MongoDB®.
 
 USAGE:
   scw mongodb <command>
@@ -10,7 +10,7 @@ AVAILABLE COMMANDS:
   node-type   Node types management commands
   snapshot    Snapshot management commands
   user        User management commands
-  version     MongoDB™ version management commands
+  version     MongoDB® version management commands
 
 FLAGS:
   -h, --help   help for mongodb

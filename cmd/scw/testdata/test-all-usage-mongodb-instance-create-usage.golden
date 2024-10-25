@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new MongoDB™ Database Instance.
+Create a new MongoDB® Database Instance.
 
 USAGE:
   scw mongodb instance create [arg=value ...]
@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   [project-id]                                             Project ID to use. If none is passed the default project ID will be used
   [name=<generated>]                                       Name of the Database Instance
-  version                                                  Version of the MongoDB™ engine
+  version                                                  Version of the MongoDB® engine
   [tags.{index}]                                           Tags to apply to the Database Instance
   node-number                                              Number of node to use for the Database Instance
   node-type                                                Type of node to use for the Database Instance
@@ -16,7 +16,7 @@ ARGS:
   password                                                 Password of the initial user
   [volume.volume-size]                                     Volume size
   [volume.volume-type]                                     Type of volume where data is stored (unknown_type | sbs_5k | sbs_15k)
-  [endpoints.{index}.private-network.private-network-id]   UUID of the private network
+  [endpoints.{index}.private-network.private-network-id]   UUID of the Private Network
   [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

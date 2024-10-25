@@ -46,16 +46,19 @@ func GetGeneratedCommands() *core.Commands {
 }
 func mongodbRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your Managed Databases for MongoDB`,
-		Long:      `This API allows you to manage your Managed Databases for MongoDB.`,
+		Short:     `This API allows you to manage your Managed Databases for MongoDB®`,
+		Long:      `This API allows you to manage your Managed Databases for MongoDB®.`,
 		Namespace: "mongodb",
 	}
 }
 
 func mongodbNodeType() *core.Command {
 	return &core.Command{
-		Short:     `Node types management commands`,
-		Long:      `Node types powering your instance.`,
+		Short: `Node types management commands`,
+		Long: `Two node type ranges are available:
+
+* **Cost-Optimized:** a complete and highly reliable node range with shared resources that is made for scaling from development to production needs, at affordable prices.
+* **Production-Optimized:** database nodes with dedicated vCPU for the most demanding workloads and mission-critical applications.`,
 		Namespace: "mongodb",
 		Resource:  "node-type",
 	}
@@ -63,8 +66,8 @@ func mongodbNodeType() *core.Command {
 
 func mongodbVersion() *core.Command {
 	return &core.Command{
-		Short:     `MongoDB™ version management commands`,
-		Long:      `MongoDB™ versions powering your instance.`,
+		Short:     `MongoDB® version management commands`,
+		Long:      `A database engine is the core software that handles the storage, retrieval, and management of data in your Database Instance.`,
 		Namespace: "mongodb",
 		Resource:  "version",
 	}
@@ -73,7 +76,7 @@ func mongodbVersion() *core.Command {
 func mongodbInstance() *core.Command {
 	return &core.Command{
 		Short:     `Instance management commands`,
-		Long:      `A Managed Database for MongoDB instance is composed of one or multiple dedicated compute nodes running a single database engine.`,
+		Long:      `A Managed Database for MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.`,
 		Namespace: "mongodb",
 		Resource:  "instance",
 	}
@@ -82,7 +85,7 @@ func mongodbInstance() *core.Command {
 func mongodbSnapshot() *core.Command {
 	return &core.Command{
 		Short:     `Snapshot management commands`,
-		Long:      `Snapshots of your instance.`,
+		Long:      `A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time.`,
 		Namespace: "mongodb",
 		Resource:  "snapshot",
 	}
@@ -138,8 +141,8 @@ func mongodbNodeTypeList() *core.Command {
 
 func mongodbVersionList() *core.Command {
 	return &core.Command{
-		Short:     `List available MongoDB™ versions`,
-		Long:      `List available MongoDB™ versions.`,
+		Short:     `List available MongoDB® versions`,
+		Long:      `List available MongoDB® versions.`,
 		Namespace: "mongodb",
 		Resource:  "version",
 		Verb:      "list",
@@ -176,8 +179,8 @@ func mongodbVersionList() *core.Command {
 
 func mongodbInstanceList() *core.Command {
 	return &core.Command{
-		Short:     `List MongoDB™ Database Instances`,
-		Long:      `List all MongoDB™ Database Instances in the specified region, for a given Scaleway Project. By default, the MongoDB™ Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as ` + "`" + `tags` + "`" + ` and ` + "`" + `name` + "`" + `. For the ` + "`" + `name` + "`" + ` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.`,
+		Short:     `List MongoDB® Database Instances`,
+		Long:      `List all MongoDB® Database Instances in the specified region. By default, the MongoDB® Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as ` + "`" + `tags` + "`" + ` and ` + "`" + `name` + "`" + `. For the ` + "`" + `name` + "`" + ` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.`,
 		Namespace: "mongodb",
 		Resource:  "instance",
 		Verb:      "list",
@@ -208,14 +211,14 @@ func mongodbInstanceList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Project ID to list the Database Instance of`,
+				Short:      `Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Organization ID the Database Instance belongs to`,
+				Short:      `Organization ID of the Database Instance`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -244,8 +247,8 @@ func mongodbInstanceList() *core.Command {
 
 func mongodbInstanceGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a MongoDB™ Database Instance`,
-		Long:      `Retrieve information about a given MongoDB™ Database Instance, specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `instance_id` + "`" + ` parameters. Its full details, including name, status, IP address and port, are returned in the response object.`,
+		Short:     `Get a MongoDB® Database Instance`,
+		Long:      `Retrieve information about a given MongoDB® Database Instance, specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `instance_id` + "`" + ` parameters. Its full details, including name, status, IP address and port, are returned in the response object.`,
 		Namespace: "mongodb",
 		Resource:  "instance",
 		Verb:      "get",
@@ -274,8 +277,8 @@ func mongodbInstanceGet() *core.Command {
 
 func mongodbInstanceCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a MongoDB™ Database Instance`,
-		Long:      `Create a new MongoDB™ Database Instance.`,
+		Short:     `Create a MongoDB® Database Instance`,
+		Long:      `Create a new MongoDB® Database Instance.`,
 		Namespace: "mongodb",
 		Resource:  "instance",
 		Verb:      "create",
@@ -293,7 +296,7 @@ func mongodbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "version",
-				Short:      `Version of the MongoDB™ engine`,
+				Short:      `Version of the MongoDB® engine`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -350,7 +353,7 @@ func mongodbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
-				Short:      `UUID of the private network`,
+				Short:      `UUID of the Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -370,8 +373,8 @@ func mongodbInstanceCreate() *core.Command {
 
 func mongodbInstanceUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update a MongoDB™ Database Instance`,
-		Long:      `Update the parameters of a MongoDB™ Database Instance.`,
+		Short:     `Update a MongoDB® Database Instance`,
+		Long:      `Update the parameters of a MongoDB® Database Instance.`,
 		Namespace: "mongodb",
 		Resource:  "instance",
 		Verb:      "update",
@@ -414,8 +417,8 @@ func mongodbInstanceUpdate() *core.Command {
 
 func mongodbInstanceDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a MongoDB™ Database Instance`,
-		Long:      `Delete a given MongoDB™ Database Instance, specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `instance_id` + "`" + ` parameters. Deleting a MongoDB™ Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.`,
+		Short:     `Delete a MongoDB® Database Instance`,
+		Long:      `Delete a given MongoDB® Database Instance, specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `instance_id` + "`" + ` parameters. Deleting a MongoDB® Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.`,
 		Namespace: "mongodb",
 		Resource:  "instance",
 		Verb:      "delete",
@@ -461,7 +464,7 @@ func mongodbInstanceUpgrade() *core.Command {
 			},
 			{
 				Name:       "volume-size",
-				Short:      `Increase your block storage volume size`,
+				Short:      `Increase your Block Storage volume size`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -705,7 +708,7 @@ func mongodbSnapshotList() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Lists Database snapshots that match a name pattern`,
+				Short:      `Lists database snapshots that match a name pattern`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -757,7 +760,7 @@ func mongodbSnapshotList() *core.Command {
 func mongodbSnapshotDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a Database Instance snapshot`,
-		Long:      `Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the ` + "`" + `snapshot_id` + "`" + ` parameter of the snapshot you want to delete.`,
+		Long:      `Delete a given snapshot of a Database Instance. You must specify, in the endpoint, the ` + "`" + `snapshot_id` + "`" + ` parameter of the snapshot you want to delete.`,
 		Namespace: "mongodb",
 		Resource:  "snapshot",
 		Verb:      "delete",

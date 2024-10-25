@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Snapshots of your instance.
+A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time.
 
 USAGE:
   scw mongodb snapshot <command>
