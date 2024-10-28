@@ -464,6 +464,7 @@ scw container namespace create [arg=value ...]
 | description |  | Description of the namespace to create |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| tags.{index} |  | [ALPHA] Tags of the Serverless Container Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -551,6 +552,7 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 | description |  | Description of the namespace to update |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| tags.{index} |  | [ALPHA] Tags of the Serverless Container Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
