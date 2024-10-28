@@ -255,6 +255,13 @@ func containerNamespaceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "tags.{index}",
+				Short:      `[ALPHA] Tags of the Serverless Container Namespace`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -307,6 +314,13 @@ func containerNamespaceUpdate() *core.Command {
 			},
 			{
 				Name:       "secret-environment-variables.{index}.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `[ALPHA] Tags of the Serverless Container Namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

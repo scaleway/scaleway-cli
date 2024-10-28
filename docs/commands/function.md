@@ -493,6 +493,7 @@ scw function namespace create [arg=value ...]
 | description |  | Description of the namespace |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| tags.{index} |  | [ALPHA] Tags of the Serverless Function Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -580,6 +581,7 @@ scw function namespace update <namespace-id ...> [arg=value ...]
 | description |  | Description of the namespace |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| tags.{index} |  | [ALPHA] Tags of the Serverless Function Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
