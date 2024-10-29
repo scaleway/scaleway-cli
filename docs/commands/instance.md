@@ -2531,7 +2531,7 @@ scw instance snapshot delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 ### Export a snapshot
 
-Export a snapshot to a specified S3 bucket in the same region.
+Export a snapshot to a specified Object Storage bucket in the same region.
 
 **Usage:**
 
@@ -2544,8 +2544,8 @@ scw instance snapshot export [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| bucket |  | S3 bucket name |
-| key |  | S3 object key |
+| bucket |  | Object Storage bucket name |
+| key |  | Object key |
 | snapshot-id | Required | Snapshot ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2553,7 +2553,7 @@ scw instance snapshot export [arg=value ...]
 **Examples:**
 
 
-Export a snapshot to an S3 bucket
+Export a snapshot to an Object Storage bucket
 ```
 scw instance snapshot export zone=fr-par-1 snapshot-id=11111111-1111-1111-1111-111111111111 bucket=my-bucket key=my-qcow2-file-name
 ```
