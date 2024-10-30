@@ -25,6 +25,7 @@ ARGS:
   [sandbox]                                        Execution environment of the container (unknown_sandbox | v1 | v2)
   [local-storage-limit]                            Local storage limit of the container (in MB)
   [scaling-option.concurrent-requests-threshold]   
+  [scaling-option.cpu-usage-threshold]             
   [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:

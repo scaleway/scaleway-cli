@@ -80,6 +80,7 @@ scw container container create [arg=value ...]
 | sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container |
 | local-storage-limit |  | Local storage limit of the container (in MB) |
 | scaling-option.concurrent-requests-threshold |  |  |
+| scaling-option.cpu-usage-threshold |  |  |
 | deploy | Default: `true` | Deploy container after creation |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -204,6 +205,7 @@ scw container container update <container-id ...> [arg=value ...]
 | sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container |
 | local-storage-limit |  | Local storage limit of the container (in MB) |
 | scaling-option.concurrent-requests-threshold |  |  |
+| scaling-option.cpu-usage-threshold |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
