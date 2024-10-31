@@ -81,6 +81,9 @@ scw container container create [arg=value ...]
 | local-storage-limit |  | Local storage limit of the container (in MB) |
 | scaling-option.concurrent-requests-threshold |  |  |
 | scaling-option.cpu-usage-threshold |  |  |
+| health-check.http.path |  | Path to use for the HTTP health check. |
+| health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
+| health-check.interval |  | Period between health checks. |
 | deploy | Default: `true` | Deploy container after creation |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -206,6 +209,9 @@ scw container container update <container-id ...> [arg=value ...]
 | local-storage-limit |  | Local storage limit of the container (in MB) |
 | scaling-option.concurrent-requests-threshold |  |  |
 | scaling-option.cpu-usage-threshold |  |  |
+| health-check.http.path |  | Path to use for the HTTP health check. |
+| health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
+| health-check.interval |  | Period between health checks. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
