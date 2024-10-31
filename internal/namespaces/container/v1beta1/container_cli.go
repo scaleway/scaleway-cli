@@ -618,6 +618,12 @@ func containerContainerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "scaling-option.cpu-usage-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -776,6 +782,12 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "scaling-option.concurrent-requests-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.cpu-usage-threshold",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
