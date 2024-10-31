@@ -58,6 +58,7 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
   - [Update a user](#update-a-user)
+  - [Update an user's password](#update-an-user's-password)
 
   
 ## API keys management commands
@@ -1144,6 +1145,27 @@ scw iam user update <user-id ...> [arg=value ...]
 |------|---|-------------|
 | user-id | Required | ID of the user to update |
 | tags.{index} |  | New tags for the user (maximum of 10 tags) |
+
+
+
+### Update an user's password
+
+Update an user's password.
+
+**Usage:**
+
+```
+scw iam user update-password <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to update |
+| password | Required | The new password |
+| send-email |  | Whether or not to send an email alerting the user their password has changed |
 
 
 
