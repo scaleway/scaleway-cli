@@ -625,6 +625,12 @@ func containerContainerCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "scaling-option.memory-usage-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "health-check.http.path",
 				Short:      `Path to use for the HTTP health check.`,
 				Required:   false,
@@ -809,6 +815,12 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "scaling-option.cpu-usage-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.memory-usage-threshold",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

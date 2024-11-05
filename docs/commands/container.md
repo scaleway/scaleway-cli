@@ -81,6 +81,7 @@ scw container container create [arg=value ...]
 | local-storage-limit |  | Local storage limit of the container (in MB) |
 | scaling-option.concurrent-requests-threshold |  |  |
 | scaling-option.cpu-usage-threshold |  |  |
+| scaling-option.memory-usage-threshold |  |  |
 | health-check.http.path |  | Path to use for the HTTP health check. |
 | health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
 | health-check.interval |  | Period between health checks. |
@@ -209,6 +210,7 @@ scw container container update <container-id ...> [arg=value ...]
 | local-storage-limit |  | Local storage limit of the container (in MB) |
 | scaling-option.concurrent-requests-threshold |  |  |
 | scaling-option.cpu-usage-threshold |  |  |
+| scaling-option.memory-usage-threshold |  |  |
 | health-check.http.path |  | Path to use for the HTTP health check. |
 | health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
 | health-check.interval |  | Period between health checks. |
