@@ -6,7 +6,7 @@ toolchain go1.22.2
 
 require (
 	github.com/alecthomas/assert v1.0.0
-	github.com/aws/aws-sdk-go-v2 v1.32.3
+	github.com/aws/aws-sdk-go-v2 v1.32.4
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.66.2
 	github.com/buildpacks/pack v0.34.2
 	github.com/c-bata/go-prompt v0.2.6
