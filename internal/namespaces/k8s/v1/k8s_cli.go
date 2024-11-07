@@ -418,7 +418,7 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd"},
+				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd", "sbs_5k", "sbs_15k"},
 			},
 			{
 				Name:       "pools.{index}.root-volume-size",
@@ -1456,7 +1456,7 @@ func k8sPoolCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd"},
+				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd", "sbs_5k", "sbs_15k"},
 			},
 			{
 				Name:       "root-volume-size",
