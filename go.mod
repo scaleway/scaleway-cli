@@ -10,7 +10,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.66.2
 	github.com/buildpacks/pack v0.34.2
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/charmbracelet/bubbletea v1.1.2
+	github.com/charmbracelet/bubbletea v1.2.0
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.4
 	github.com/dnaeon/go-vcr v1.2.0
@@ -83,8 +83,8 @@ require (
 	github.com/buildpacks/imgutil v0.0.0-20240605145725-186f89b2d168 // indirect
 	github.com/buildpacks/lifecycle v0.19.6 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
-	github.com/charmbracelet/lipgloss v0.13.0 // indirect
-	github.com/charmbracelet/x/ansi v0.4.0 // indirect
+	github.com/charmbracelet/lipgloss v1.0.0 // indirect
+	github.com/charmbracelet/x/ansi v0.4.5 // indirect
 	github.com/charmbracelet/x/term v0.2.0 // indirect
 	github.com/chrismellard/docker-credential-acr-env v0.0.0-20230304212654-82a0ddb27589 // indirect
 	github.com/cloudflare/circl v1.3.7 // indirect
