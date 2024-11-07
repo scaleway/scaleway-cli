@@ -98,7 +98,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
 | pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
 | pools.{index}.zone |  | Zone in which the pool's nodes will be spawned |
-| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
+| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
 | pools.{index}.root-volume-size |  | System volume disk size |
 | pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
@@ -904,7 +904,7 @@ scw k8s pool create [arg=value ...]
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
 | zone |  | Zone in which the pool's nodes will be spawned |
-| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
+| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
 | root-volume-size |  | System volume disk size |
 | public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
