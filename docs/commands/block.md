@@ -275,6 +275,7 @@ scw block volume list [arg=value ...]
 | project-id |  | Filter by Project ID |
 | name |  | Filter the return volumes by their names |
 | product-resource-id |  | Filter by a product resource ID linked to this volume (such as an Instance ID) |
+| tags.{index} |  | Filter by tags. Only volumes with one or more matching tags will be returned |
 | organization-id |  | Filter by Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
