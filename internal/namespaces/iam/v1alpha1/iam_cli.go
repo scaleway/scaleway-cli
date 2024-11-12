@@ -636,6 +636,13 @@ func iamUserCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "member.send-welcome-email",
+				Short:      `Whether or not to send a welcome email that includes onboarding information.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "member.username",
 				Short:      `The member's username`,
 				Required:   false,
