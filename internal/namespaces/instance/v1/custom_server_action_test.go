@@ -114,6 +114,20 @@ func Test_ServerBackup(t *testing.T) {
 			core.ExecAfterCmd("scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local"),
 		),
 	}))
+
+	t.Run("With SBS volumes", core.Test(&core.TestConfig{
+		Commands:   instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("root-volume=sbs:20G stopped=true image=ubuntu-jammy")),
+		Cmd:        `scw instance server backup {{ .Server.ID }} name=backup`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd("scw instance image delete {{ .CmdResult.Image.ID }} with-snapshots=true"),
+			core.ExecAfterCmd("scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local"),
+		),
+	}))
 }
 
 func Test_ServerAction(t *testing.T) {
