@@ -5,7 +5,6 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -289,7 +288,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 				})
 			}
 			for _, snapshot := range snapshots {
-				if strings.HasPrefix(string(snapshot.Type), "sbs") {
+				if snapshot.Type == instance.VolumeVolumeTypeSbsSnapshot {
 					_, err := blockAPI.WaitForSnapshot(&block.WaitForSnapshotRequest{
 						SnapshotID: snapshot.ID,
 						Zone:       args.Zone,
