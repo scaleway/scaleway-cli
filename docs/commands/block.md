@@ -42,7 +42,7 @@ scw block snapshot create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id |  | UUID of the volume to snapshot |
-| name |  | Name of the snapshot |
+| name | Default: `<generated>` | Name of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | List of tags assigned to the snapshot |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
@@ -56,7 +56,7 @@ You must specify the `snapshot_id` of the snapshot you want to delete. The snaps
 **Usage:**
 
 ```
-scw block snapshot delete [arg=value ...]
+scw block snapshot delete <snapshot-id ...> [arg=value ...]
 ```
 
 
@@ -205,7 +205,7 @@ scw block volume create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required | Name of the volume |
+| name | Required<br />Default: `<generated>` | Name of the volume |
 | perf-iops | Required | The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`) |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | from-empty.size |  | Volume size in bytes, with a granularity of 1 GB (10^9 bytes) |
@@ -223,7 +223,7 @@ You must specify the `volume_id` of the volume you want to delete. The volume mu
 **Usage:**
 
 ```
-scw block volume delete [arg=value ...]
+scw block volume delete <volume-id ...> [arg=value ...]
 ```
 
 

@@ -7,7 +7,7 @@ USAGE:
   scw block volume create [arg=value ...]
 
 ARGS:
-  name                          Name of the volume
+  name=<generated>              Name of the volume
   perf-iops                     The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`)
   [project-id]                  Project ID to use. If none is passed the default project ID will be used
   [from-empty.size]             Volume size in bytes, with a granularity of 1 GB (10^9 bytes)
