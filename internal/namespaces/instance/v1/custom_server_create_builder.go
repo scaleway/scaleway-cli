@@ -434,12 +434,10 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 		switch parts[0] {
 		case "l", "local":
 			vb.VolumeType = instance.VolumeVolumeTypeLSSD
-		case "b", "block":
-			vb.VolumeType = instance.VolumeVolumeTypeBSSD
+		case "b", "block", "sbs":
+			vb.VolumeType = instance.VolumeVolumeTypeSbsVolume
 		case "s", "scratch":
 			vb.VolumeType = instance.VolumeVolumeTypeScratch
-		case "sbs":
-			vb.VolumeType = instance.VolumeVolumeTypeSbsVolume
 		default:
 			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
 		}
@@ -475,6 +473,12 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 func (vb *VolumeBuilder) buildSnapshotVolume(api *instance.API) (*instance.VolumeServerTemplate, error) {
 	if vb.SnapshotID == nil {
 		return nil, errors.New("tried to build a volume from snapshot with an empty ID")
+	}
+	if vb.VolumeType == instance.VolumeVolumeTypeSbsVolume {
+		return &instance.VolumeServerTemplate{
+			VolumeType:   vb.VolumeType,
+			BaseSnapshot: vb.SnapshotID,
+		}, nil
 	}
 	res, err := api.GetSnapshot(&instance.GetSnapshotRequest{
 		Zone:       vb.Zone,
