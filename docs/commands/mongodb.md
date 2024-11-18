@@ -2,6 +2,7 @@
 # Documentation for `scw mongodb`
 This API allows you to manage your Managed Databases for MongoDB®.
   
+- [Endpoint management commands](#endpoint-management-commands)
 - [Instance management commands](#instance-management-commands)
   - [Create a MongoDB® Database Instance](#create-a-mongodb®-database-instance)
   - [Delete a MongoDB® Database Instance](#delete-a-mongodb®-database-instance)
@@ -26,6 +27,20 @@ This API allows you to manage your Managed Databases for MongoDB®.
   - [List available MongoDB® versions](#list-available-mongodb®-versions)
 
   
+## Endpoint management commands
+
+Instance endpoints enable connection to your instance.
+
+Instance endpoints enable connection to your instance.
+
+**Usage:**
+
+```
+scw mongodb endpoint
+```
+
+
+
 ## Instance management commands
 
 A Managed Database for MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.

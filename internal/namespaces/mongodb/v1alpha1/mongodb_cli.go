@@ -25,6 +25,7 @@ func GetGeneratedCommands() *core.Commands {
 		mongodbInstance(),
 		mongodbSnapshot(),
 		mongodbUser(),
+		mongodbEndpoint(),
 		mongodbNodeTypeList(),
 		mongodbVersionList(),
 		mongodbInstanceList(),
@@ -97,6 +98,15 @@ func mongodbUser() *core.Command {
 		Long:      `Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage.`,
 		Namespace: "mongodb",
 		Resource:  "user",
+	}
+}
+
+func mongodbEndpoint() *core.Command {
+	return &core.Command{
+		Short:     `Endpoint management commands`,
+		Long:      `Instance endpoints enable connection to your instance.`,
+		Namespace: "mongodb",
+		Resource:  "endpoint",
 	}
 }
 

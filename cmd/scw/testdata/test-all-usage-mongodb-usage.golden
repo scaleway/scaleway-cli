@@ -6,6 +6,7 @@ USAGE:
   scw mongodb <command>
 
 AVAILABLE COMMANDS:
+  endpoint    Endpoint management commands
   instance    Instance management commands
   node-type   Node types management commands
   snapshot    Snapshot management commands
