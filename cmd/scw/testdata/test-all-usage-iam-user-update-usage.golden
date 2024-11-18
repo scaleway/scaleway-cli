@@ -8,6 +8,7 @@ USAGE:
 ARGS:
   user-id          ID of the user to update
   [tags.{index}]   New tags for the user (maximum of 10 tags)
+  [email]          New email for the user (only available on Members)
 
 FLAGS:
   -h, --help   help for update
