@@ -3,7 +3,7 @@
 You must specify the `snapshot_id` of the snapshot you want to delete. The snapshot must not be in use.
 
 USAGE:
-  scw block snapshot delete [arg=value ...]
+  scw block snapshot delete <snapshot-id ...> [arg=value ...]
 
 ARGS:
   snapshot-id       UUID of the snapshot

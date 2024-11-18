@@ -3,7 +3,7 @@
 You must specify the `volume_id` of the volume you want to delete. The volume must not be in the `in_use` status.
 
 USAGE:
-  scw block volume delete [arg=value ...]
+  scw block volume delete <volume-id ...> [arg=value ...]
 
 ARGS:
   volume-id         UUID of the volume

@@ -197,6 +197,7 @@ To create a volume from an existing snapshot, specify ` + "`" + `from_snapshot` 
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("vol"),
 			},
 			{
 				Name:       "perf-iops",
@@ -292,7 +293,7 @@ func blockVolumeDelete() *core.Command {
 				Short:      `UUID of the volume`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
@@ -494,6 +495,7 @@ If your volume is in a transient state, you need to wait until the end of the cu
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("snp"),
 			},
 			core.ProjectIDArgSpec(),
 			{
@@ -636,7 +638,7 @@ func blockSnapshotDelete() *core.Command {
 				Short:      `UUID of the snapshot`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
