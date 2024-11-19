@@ -6,7 +6,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -47,7 +47,7 @@ func createPN() core.BeforeFunc {
 		}
 		ctx.Meta["PN"] = pn
 		if len(pn.Subnets) > 0 {
-			ctx.Meta["IPNet"], err = getIPSubnet(pn.Subnets[0])
+			ctx.Meta["IPNet"], err = getIPSubnet(pn.Subnets[0].Subnet)
 			if err != nil {
 				return err
 			}

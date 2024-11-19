@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID    5ce2b18a-585c-4a06-bdeb-efd8ac0f90f5
-IP    51.159.205.115
-Port  13353
+ID    085fea40-fe0e-464c-bc27-333b5375ec29
+IP    51.159.204.219
+Port  22931
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "5ce2b18a-585c-4a06-bdeb-efd8ac0f90f5",
-  "ip": "51.159.205.115",
-  "port": 13353,
+  "id": "085fea40-fe0e-464c-bc27-333b5375ec29",
+  "ip": "51.159.204.219",
+  "port": 22931,
   "name": null,
   "load_balancer": {}
 }
