@@ -1146,6 +1146,7 @@ scw iam user update <user-id ...> [arg=value ...]
 |------|---|-------------|
 | user-id | Required | ID of the user to update |
 | tags.{index} |  | New tags for the user (maximum of 10 tags) |
+| email |  | New email for the user (only available on Members) |
 
 
 
