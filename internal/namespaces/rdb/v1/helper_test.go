@@ -24,14 +24,14 @@ func createInstance(engine string) core.BeforeFunc {
 	)
 }
 
-func createInstanceWithPrivateNetwork(engine string) core.BeforeFunc {
+func createInstanceWithPrivateNetwork() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
 		fmt.Sprintf(baseCommand+privateNetworkStaticSpec, name, engine, user, password),
 	)
 }
 
-func createInstanceWithPrivateNetworkAndLoadBalancer(engine string) core.BeforeFunc {
+func createInstanceWithPrivateNetworkAndLoadBalancer() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
 		fmt.Sprintf(baseCommand+privateNetworkStaticSpec+loadBalancerSpec, name, engine, user, password),
