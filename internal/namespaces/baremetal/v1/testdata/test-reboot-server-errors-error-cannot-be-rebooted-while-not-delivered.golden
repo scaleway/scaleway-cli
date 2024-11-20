@@ -3,8 +3,8 @@
 Server not found
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "server not found",
+  "message": "Server not found",
   "error": {
-    "message": "server not found"
+    "message": "Server not found"
   }
 }
