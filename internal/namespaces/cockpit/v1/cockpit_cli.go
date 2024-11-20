@@ -663,7 +663,7 @@ You can list data sources by Project, type and origin.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_origin", "scaleway", "external"},
+				EnumValues: []string{"unknown_origin", "scaleway", "custom"},
 			},
 			{
 				Name:       "types.{index}",
