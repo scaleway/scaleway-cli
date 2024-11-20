@@ -287,7 +287,7 @@ func Test_Connect(t *testing.T) {
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.BeforeFuncStoreInMeta("username", user),
-			createInstance("PostgreSQL-12"),
+			createInstance("PostgreSQL-15"),
 		),
 		Cmd: "scw rdb instance connect {{ .Instance.ID }} username={{ .username }}",
 		Check: core.TestCheckCombine(
@@ -302,7 +302,7 @@ func Test_Connect(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.BeforeFuncStoreInMeta("username", user),
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-14"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 		),
 		Cmd: "scw rdb instance connect {{ .Instance.ID }} username={{ .username }}",
 		Check: core.TestCheckCombine(

@@ -19,7 +19,7 @@ func Test_EndpointCreate(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetwork("PostgreSQL-15"),
+			createInstanceWithPrivateNetwork(),
 		),
 		Cmd: "scw rdb endpoint create {{ .Instance.ID }} load-balancer=true --wait",
 		Check: core.TestCheckCombine(
@@ -84,7 +84,7 @@ func Test_EndpointDelete(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint delete {{ .PublicEndpoint.ID }} instance-id={{ .Instance.ID }} --wait",
@@ -106,7 +106,7 @@ func Test_EndpointDelete(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint delete {{ .PrivateEndpoint.ID }} instance-id={{ .Instance.ID }} --wait",
@@ -153,7 +153,7 @@ func Test_EndpointGet(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint get {{ .PublicEndpoint.ID }}",
@@ -175,7 +175,7 @@ func Test_EndpointGet(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint get {{ .PrivateEndpoint.ID }}",
@@ -202,7 +202,7 @@ func Test_EndpointList(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 		),
 		Cmd:   "scw rdb endpoint list {{ .Instance.ID }}",
 		Check: core.TestCheckGolden(),

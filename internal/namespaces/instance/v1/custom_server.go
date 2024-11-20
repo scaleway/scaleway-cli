@@ -18,7 +18,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -366,9 +366,13 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		nics := []customNICs{}
 
 		for _, nic := range getServerResp.Server.PrivateNics {
+			region, err := getServerResp.Server.Zone.Region()
+			if err != nil {
+				return nil, err
+			}
 			pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
 				PrivateNetworkID: nic.PrivateNetworkID,
-				Zone:             getServerResp.Server.Zone,
+				Region:           region,
 			})
 			if err != nil {
 				return nil, err

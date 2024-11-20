@@ -2,35 +2,24 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                                    few seconds ago
 Region                                       fr-par
-ID                                           c62861ba-3583-48a3-8f43-b04e0f72ec3a
+ID                                           ef87e456-9f2f-4280-b4d1-aae776b8b7f0
 Name                                         cli-test
-OrganizationID                               fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID                                    fa1e3217-dc80-42ac-85c3-3f034b78b552
+OrganizationID                               951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID                                    951df375-e094-4d26-97c1-ba548eeb9c42
 Status                                       ready
-Engine                                       PostgreSQL-12
-UpgradableVersion.0.ID                       f4c1ec41-89e1-48de-b872-b63b779b0dba
-UpgradableVersion.0.Name                     PostgreSQL-13
-UpgradableVersion.0.Version                  13
-UpgradableVersion.0.MinorVersion             13.13
-UpgradableVersion.1.ID                       8af4ebbb-fd08-4038-89f6-9d8c8f1232ca
-UpgradableVersion.1.Name                     PostgreSQL-14
-UpgradableVersion.1.Version                  14
-UpgradableVersion.1.MinorVersion             14.10
-UpgradableVersion.2.ID                       764c6bb3-2f1c-4f1a-bfd5-82c540ac435c
-UpgradableVersion.2.Name                     PostgreSQL-15
-UpgradableVersion.2.Version                  15
-UpgradableVersion.2.MinorVersion             15.5
+Engine                                       PostgreSQL-15
 IsHaCluster                                  false
 NodeType                                     db-dev-s
-Endpoints.0.ID                               1f5ff8de-14fc-4751-9213-31bb0c8ad7de
-Endpoints.0.IP                               172.16.8.2
+Endpoints.0.ID                               bcaac50b-86f7-43c3-88af-431130220b02
+Endpoints.0.IP                               172.16.84.2
 Endpoints.0.Port                             5432
-Endpoints.0.PrivateNetwork.PrivateNetworkID  9d5da363-d570-43ef-a959-8f915d9831ef
-Endpoints.0.PrivateNetwork.ServiceIP         172.16.8.2/22
+Endpoints.0.PrivateNetwork.PrivateNetworkID  a5a0594d-b9d5-4ee7-a56f-44ca5520a00d
+Endpoints.0.PrivateNetwork.ServiceIP         172.16.84.2/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
-Endpoints.0.PrivateNetwork.ProvisioningMode  static
+Endpoints.0.PrivateNetwork.ProvisioningMode  ipam
 LogsPolicy.MaxAgeRetention                   30
 BackupSameRegion                             false
+Encryption.Enabled                           false
 
 Endpoint:
 -
@@ -66,32 +55,13 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "c62861ba-3583-48a3-8f43-b04e0f72ec3a",
+  "id": "ef87e456-9f2f-4280-b4d1-aae776b8b7f0",
   "name": "cli-test",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "status": "ready",
-  "engine": "PostgreSQL-12",
-  "upgradable_version": [
-    {
-      "id": "f4c1ec41-89e1-48de-b872-b63b779b0dba",
-      "name": "PostgreSQL-13",
-      "version": "13",
-      "minor_version": "13.13"
-    },
-    {
-      "id": "8af4ebbb-fd08-4038-89f6-9d8c8f1232ca",
-      "name": "PostgreSQL-14",
-      "version": "14",
-      "minor_version": "14.10"
-    },
-    {
-      "id": "764c6bb3-2f1c-4f1a-bfd5-82c540ac435c",
-      "name": "PostgreSQL-15",
-      "version": "15",
-      "minor_version": "15.5"
-    }
-  ],
+  "engine": "PostgreSQL-15",
+  "upgradable_version": [],
   "tags": [],
   "settings": [
     {
@@ -131,15 +101,15 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "1f5ff8de-14fc-4751-9213-31bb0c8ad7de",
-      "ip": "172.16.8.2",
+      "id": "bcaac50b-86f7-43c3-88af-431130220b02",
+      "ip": "172.16.84.2",
       "port": 5432,
       "name": null,
       "private_network": {
-        "private_network_id": "9d5da363-d570-43ef-a959-8f915d9831ef",
-        "service_ip": "172.16.8.2/22",
+        "private_network_id": "a5a0594d-b9d5-4ee7-a56f-44ca5520a00d",
+        "service_ip": "172.16.84.2/22",
         "zone": "fr-par-1",
-        "provisioning_mode": "static"
+        "provisioning_mode": "ipam"
       }
     }
   ],
@@ -149,6 +119,8 @@ Password:
   },
   "backup_same_region": false,
   "maintenances": [],
-  "encryption": null,
+  "encryption": {
+    "enabled": false
+  },
   "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }
