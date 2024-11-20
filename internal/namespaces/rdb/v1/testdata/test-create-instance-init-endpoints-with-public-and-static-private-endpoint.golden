@@ -1,10 +1,145 @@
-🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-postgresql-12 is not available yet
-🟥🟥🟥 JSON STDERR 🟥🟥🟥
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+CreatedAt                                    few seconds ago
+Region                                       fr-par
+ID                                           9e64a9e2-7938-4a37-a60f-c3657ec7369a
+Name                                         cli-test
+OrganizationID                               951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID                                    951df375-e094-4d26-97c1-ba548eeb9c42
+Status                                       ready
+Engine                                       PostgreSQL-15
+IsHaCluster                                  false
+NodeType                                     db-dev-s
+Endpoints.0.ID                               a2873040-b3d0-466a-a02c-d384c88d36f7
+Endpoints.0.IP                               172.16.0.3
+Endpoints.0.Port                             5432
+Endpoints.0.PrivateNetwork.PrivateNetworkID  d39dc381-c120-4621-94a2-a57031b73bd6
+Endpoints.0.PrivateNetwork.ServiceIP         172.16.0.3/22
+Endpoints.0.PrivateNetwork.Zone              fr-par-1
+Endpoints.0.PrivateNetwork.ProvisioningMode  static
+Endpoints.1.ID                               046dab4b-1774-4d56-9ad0-55d181febeea
+Endpoints.1.IP                               51.159.26.208
+Endpoints.1.Port                             17389
+LogsPolicy.MaxAgeRetention                   30
+BackupSameRegion                             false
+Encryption.Enabled                           false
+
+Endpoint:
+ID    046dab4b-1774-4d56-9ad0-55d181febeea
+IP    51.159.26.208
+Port  17389
+
+Volume:
+Type   lssd
+Size   5.0 GB
+Class  lssd
+
+Backup Schedule:
+Disabled   false
+NextRunAt  few seconds ago
+Frequency  1 days
+Retention  7 days
+
+Settings:
+NAME                             VALUE
+effective_cache_size             1300
+maintenance_work_mem             150
+max_connections                  100
+max_parallel_workers             0
+max_parallel_workers_per_gather  0
+work_mem                         4
+
+Password: 
+{4xdl*#QOoP+&3XRkGA)]
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "message": "postgresql-12 is not available yet",
-  "error": {
-    "message": "postgresql-12 is not available yet"
-  }
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "volume": {
+    "type": "lssd",
+    "size": 5000000000,
+    "class": "lssd"
+  },
+  "region": "fr-par",
+  "id": "9e64a9e2-7938-4a37-a60f-c3657ec7369a",
+  "name": "cli-test",
+  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "status": "ready",
+  "engine": "PostgreSQL-15",
+  "upgradable_version": [],
+  "endpoint": {
+    "id": "046dab4b-1774-4d56-9ad0-55d181febeea",
+    "ip": "51.159.26.208",
+    "port": 17389,
+    "name": null,
+    "load_balancer": {}
+  },
+  "tags": [],
+  "settings": [
+    {
+      "name": "effective_cache_size",
+      "value": "1300"
+    },
+    {
+      "name": "maintenance_work_mem",
+      "value": "150"
+    },
+    {
+      "name": "max_connections",
+      "value": "100"
+    },
+    {
+      "name": "max_parallel_workers",
+      "value": "0"
+    },
+    {
+      "name": "max_parallel_workers_per_gather",
+      "value": "0"
+    },
+    {
+      "name": "work_mem",
+      "value": "4"
+    }
+  ],
+  "backup_schedule": {
+    "frequency": 24,
+    "retention": 7,
+    "disabled": false,
+    "next_run_at": "1970-01-01T00:00:00.0Z"
+  },
+  "is_ha_cluster": false,
+  "read_replicas": [],
+  "node_type": "db-dev-s",
+  "init_settings": [],
+  "endpoints": [
+    {
+      "id": "a2873040-b3d0-466a-a02c-d384c88d36f7",
+      "ip": "172.16.0.3",
+      "port": 5432,
+      "name": null,
+      "private_network": {
+        "private_network_id": "d39dc381-c120-4621-94a2-a57031b73bd6",
+        "service_ip": "172.16.0.3/22",
+        "zone": "fr-par-1",
+        "provisioning_mode": "static"
+      }
+    },
+    {
+      "id": "046dab4b-1774-4d56-9ad0-55d181febeea",
+      "ip": "51.159.26.208",
+      "port": 17389,
+      "name": null,
+      "load_balancer": {}
+    }
+  ],
+  "logs_policy": {
+    "max_age_retention": 30,
+    "total_disk_retention": null
+  },
+  "backup_same_region": false,
+  "maintenances": [],
+  "encryption": {
+    "enabled": false
+  },
+  "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }

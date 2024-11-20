@@ -14,7 +14,7 @@ const (
 	name     = "cli-test"
 	user     = "foobar"
 	password = "{4xdl*#QOoP+&3XRkGA)]"
-	engine   = "PostgreSQL-12"
+	engine   = "PostgreSQL-15"
 )
 
 func createInstance(engine string) core.BeforeFunc {
