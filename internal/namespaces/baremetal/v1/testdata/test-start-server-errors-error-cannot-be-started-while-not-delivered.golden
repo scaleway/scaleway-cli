@@ -3,8 +3,8 @@
 Server is not delivered
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "server is not delivered",
+  "message": "Server is not delivered",
   "error": {
-    "message": "server is not delivered"
+    "message": "Server is not delivered"
   }
 }
