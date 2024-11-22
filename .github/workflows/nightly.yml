@@ -1,0 +1,87 @@
+name: Nightly Acceptance Tests
+
+on:
+  schedule:
+    # Will run at 00:00 every day
+    - cron: "0 0 * * *"
+
+jobs:
+  nightly:
+    strategy:
+      fail-fast: false
+      matrix:
+        products:
+          - account
+          - applesilicon
+          - baremetal
+          - billing
+          - block
+          - cockpit
+          - container
+          - dedibox
+          - documentdb
+          - domain
+          - edge_services
+          - flexibleip
+          - function
+          - iam
+          - inference
+          - init
+          - instance
+          - iot
+          - ipam
+          - jobs
+          - k8s
+          - key_manager
+          - lb
+          - login
+          - marketplace
+          - mnq
+          - mongodb
+          - object
+          - rdb
+          - redis
+          - registry
+          - sdb
+          - secret
+          - tem
+          - vpc
+          - vpcgw
+          - webhosting
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout should always be before setup-go to ensure caching is working
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.22
+      - name: Run Acceptance Tests
+        run: go test -v ./internal/namespaces/${{ matrix.products }} -timeout=4h
+        env:
+          CLI_UPDATE_CASSETTES: true
+          SCW_DEBUG: 1
+          SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
+          SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
+          SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
+          SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
+      - name: Ping on failure
+        if: ${{ failure() }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{
+          	"blocks": [
+              {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "'"Scaleway CLI Nightly workflow failed: <https://github.com/scaleway/scaleway-cli/actions/runs/${GITHUB_RUN_ID}|${FAILED_PRODUCT}>"'"
+                  }
+              }
+            ]
+          }' \
+          ${SLACK_WEBHOOK_NIGHTLY};
+        env:
+          SLACK_WEBHOOK_NIGHTLY: ${{ secrets.SLACK_WEBHOOK_NIGHTLY }}
+          FAILED_PRODUCT: ${{ matrix.products }}
