@@ -3861,8 +3861,12 @@ func instancePrivateNicDelete() *core.Command {
 
 func instanceVolumePlanMigration() *core.Command {
 	return &core.Command{
-		Short:     `Get a volume or snapshot's migration plan`,
-		Long:      `Given a volume or snapshot, returns the migration plan for a call to the "Apply a migration plan" endpoint. This plan will include zero or one volume, and zero or more snapshots, which will need to be migrated together. This endpoint does not perform the actual migration itself, the "Apply a migration plan" endpoint must be used. The validation_key value returned by this endpoint must be provided to the call to the "Apply a migration plan" endpoint to confirm that all resources listed in the plan should be migrated.`,
+		Short: `Get a volume or snapshot's migration plan`,
+		Long: `Given a volume or snapshot, returns the migration plan but does not perform the actual migration. To perform the migration, you have to call the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint afterward.
+The endpoint returns the resources that should be migrated together:
+- the volume and any snapshots created from the volume, if the call was made to plan a volume migration.
+- the base volume of the snapshot (if the volume is not deleted) and its related snapshots, if the call was made to plan a snapshot migration.
+The endpoint also returns the validation_key, which must be provided to the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint to confirm that all resources listed in the plan should be migrated.`,
 		Namespace: "instance",
 		Resource:  "volume",
 		Verb:      "plan-migration",
@@ -3899,7 +3903,7 @@ func instanceVolumePlanMigration() *core.Command {
 func instanceVolumeApplyMigration() *core.Command {
 	return &core.Command{
 		Short:     `Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)`,
-		Long:      `To be used, the call to this endpoint must be preceded by a call to the "Plan a migration" endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.`,
+		Long:      `To be used, the call to this endpoint must be preceded by a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.`,
 		Namespace: "instance",
 		Resource:  "volume",
 		Verb:      "apply-migration",
@@ -3908,21 +3912,21 @@ func instanceVolumeApplyMigration() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
-				Short:      `The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint.`,
+				Short:      `The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "snapshot-id",
-				Short:      `The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint.`,
+				Short:      `The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "validation-key",
-				Short:      `A value to be retrieved from a call to the "Plan a migration" endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.`,
+				Short:      `A value to be retrieved from a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
