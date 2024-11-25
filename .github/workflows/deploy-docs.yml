@@ -1,8 +1,11 @@
 name: Build and push CLI doc to S3
-on: 
+on:
   pull_request:
   push: # "pull_request" and "push" events are only for testing purposes, final trigger event should be "release"
   # release: # Must define which of [published, unpublished, created, edited, deleted, prereleased, released] apply
+  release:
+    types:
+      - published # Triggered only when a new release is published
     branches:
       - master
 permissions:
@@ -12,9 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: actions # Is this necessary if we use the "env:" context below ?
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out the release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
       - name: prepare temporary folder for build
-        run: | # Creates a temporary "docs" folder with the existing "docs" folder because the markdown files to build must be in a "docs" folder for MKdocs to work
+        run: | # Creates a temporary "docs" folder within the existing "docs" folder because the mkdocs.yml must be in the parent folder of the markdown pages
           cd docs
           mkdir docs
           cp commands/* docs/
@@ -32,8 +38,8 @@ jobs:
         env:
           CLI_DOC_ACCESS_KEY: ${{ secrets.CLI_DOC_ACCESS_KEY }}
           CLI_DOC_SECRET_KEY: ${{ secrets.CLI_DOC_SECRET_KEY }}
-        run: | # AWS region "fr-par" is a placeholder as the CLI_DOC_S3_ENDPOINT variable overrides it 
-          aws configure set aws_access_key_id $CLI_DOC_ACCESS_KEY 
+        run: | # AWS region "fr-par" is a placeholder as the CLI_DOC_S3_ENDPOINT variable overrides it
+          aws configure set aws_access_key_id $CLI_DOC_ACCESS_KEY
           aws configure set aws_secret_access_key $CLI_DOC_SECRET_KEY
           aws configure set region fr-par
 
