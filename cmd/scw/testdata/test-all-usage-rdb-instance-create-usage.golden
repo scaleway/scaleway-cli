@@ -11,7 +11,7 @@ ARGS:
   engine                                         Database engine of the Database Instance (PostgreSQL, MySQL, ...)
   user-name                                      Username created when the Database Instance is created
   [generate-password=true]                       Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
-  [password]                                     Password of the user
+  [password]                                     Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character
   node-type=DB-DEV-S                             Type of node to use for the Database Instance
   [is-ha-cluster]                                Defines whether or not High-Availability is enabled
   [disable-backup]                               Defines whether or not backups are disabled
