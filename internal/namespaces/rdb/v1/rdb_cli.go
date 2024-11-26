@@ -887,7 +887,7 @@ func rdbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "password",
-				Short:      `Password of the user`,
+				Short:      `Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -2034,7 +2034,7 @@ func rdbUserCreate() *core.Command {
 			},
 			{
 				Name:       "password",
-				Short:      `Password of the user you want to create`,
+				Short:      `Password of the user you want to create. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2085,7 +2085,7 @@ func rdbUserUpdate() *core.Command {
 			},
 			{
 				Name:       "password",
-				Short:      `Password of the database user`,
+				Short:      `Password of the database user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
