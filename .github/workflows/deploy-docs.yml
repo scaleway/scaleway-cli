@@ -19,6 +19,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.release.tag_name }}
+      - name: Print latest release tag
+        run: echo"${{ github.event.release.tag_name }}"
       - name: prepare temporary folder for build
         run: | # Creates a temporary "docs" folder within the existing "docs" folder because the mkdocs.yml must be in the parent folder of the markdown pages
           cd docs
