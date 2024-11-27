@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Failed to build volume template: snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist
+Cannot create the server: scaleway-sdk-go: resource snapshot_id with ID 29da9ad9-e759-4a56-82c8-f0607f93055c is not found
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "failed to build volume template: snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist"
+  "error": "cannot create the server: scaleway-sdk-go: resource snapshot_id with ID 29da9ad9-e759-4a56-82c8-f0607f93055c is not found"
 }
