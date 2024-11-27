@@ -58,7 +58,7 @@ jobs:
         with:
           go-version: 1.22
       - name: Run Acceptance Tests
-        run: go test -v ./internal/namespaces/${{ matrix.products }} -timeout=4h
+        run: go test -v ./internal/namespaces/${{ matrix.products }}/... -timeout=4h
         env:
           CLI_UPDATE_CASSETTES: true
           SCW_DEBUG: 1
