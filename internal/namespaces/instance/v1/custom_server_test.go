@@ -223,8 +223,10 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["0"].Size)
-				assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["1"].Size)
+				size0 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["0"].Size
+				size1 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["1"].Size
+				assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
+				assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
 			},
 			AfterFunc: deleteServer("Server"),
 		}))
