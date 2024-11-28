@@ -381,7 +381,11 @@ func serverTerminateCommand() *core.Command {
 						return nil, err
 					}
 
-					_, _ = interactive.Printf("successfully detached volume %s\n", volume.Name)
+					volumeName := ""
+					if volume.Name != nil {
+						volumeName = *volume.Name
+					}
+					_, _ = interactive.Printf("successfully detached volume %s\n", volumeName)
 				}
 			}
 
