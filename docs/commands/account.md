@@ -2,14 +2,14 @@
 # Documentation for `scw account`
 
 This API allows you to manage your Scaleway Projects.
-
+  
 - [Project management commands](#project-management-commands)
   - [Create a new Project for an Organization](#create-a-new-project-for-an-organization)
   - [Delete an existing Project](#delete-an-existing-project)
   - [Get an existing Project](#get-an-existing-project)
   - [List all Projects of an Organization](#list-all-projects-of-an-organization)
   - [Update Project](#update-project)
-
+  
 
 ## Project management commands
 
