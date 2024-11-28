@@ -29,7 +29,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
-	ipfs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipfs/v1alpha1"
 	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	keymanager "github.com/scaleway/scaleway-cli/v2/internal/namespaces/key_manager/v1alpha1"
@@ -98,7 +97,6 @@ func GetCommands() *core.Commands {
 		alias.GetCommands(),
 		webhosting.GetCommands(),
 		billing.GetCommands(),
-		ipfs.GetCommands(),
 		documentdb.GetCommands(),
 		mnq.GetCommands(),
 		block.GetCommands(),

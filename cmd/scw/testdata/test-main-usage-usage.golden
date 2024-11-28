@@ -41,10 +41,6 @@ AVAILABLE COMMANDS:
   vpc-gw        This API allows you to manage your Public Gateways
   webhosting    This API allows you to manage your Web Hosting services
 
-AVAILABLE LABS COMMANDS:
-  ipfs          IPFS Pinning service API
-  ipns          IPFS Naming service API
-
 CONFIGURATION COMMANDS:
   alias         Alias related commands
   config        Config file management
