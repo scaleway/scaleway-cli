@@ -10,6 +10,7 @@ This API allows you to manage your Scaleway Projects.
   - [List all Projects of an Organization](#list-all-projects-of-an-organization)
   - [Update Project](#update-project)
 
+
 ## Project management commands
 
 Project management commands.
