@@ -1,8 +1,5 @@
 name: Build and push CLI doc to S3
 on:
-  pull_request:
-  push: # "pull_request" and "push" events are only for testing purposes, final trigger event should be "release"
-  # release: # Must define which of [published, unpublished, created, edited, deleted, prereleased, released] apply
   release:
     types:
       - published # Triggered only when a new release is published
