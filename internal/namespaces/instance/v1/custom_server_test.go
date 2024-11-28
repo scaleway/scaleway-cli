@@ -26,8 +26,10 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size)
-				assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size)
+				size0 := ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size
+				size1 := ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size
+				assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
+				assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
 				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeBSSD, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
@@ -44,8 +46,10 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size)
-				assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size)
+				size0 := ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size
+				size1 := ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size
+				assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
+				assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
 				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeLSSD, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
