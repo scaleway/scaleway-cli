@@ -32,3 +32,10 @@ func completeServerType(ctx context.Context, prefix string, createReq any) core.
 func commercialTypeIsWindowsServer(commercialType string) bool {
 	return strings.HasSuffix(commercialType, "-WIN")
 }
+
+func SizeValue(s *scw.Size) scw.Size {
+	if s != nil {
+		return *s
+	}
+	return 0
+}

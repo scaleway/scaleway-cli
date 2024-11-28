@@ -123,7 +123,8 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
+					size := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
+					assert.Equal(t, 20*scw.GB, instance.SizeValue(size), "Size of volume should be 20 GB")
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -142,7 +143,8 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
+					size := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
+					assert.Equal(t, 20*scw.GB, instance.SizeValue(size), "Size of volume should be 20 GB")
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -164,7 +166,8 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
+					size := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
+					assert.Equal(t, 20*scw.GB, instance.SizeValue(size), "Size of volume should be 20 GB")
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -181,8 +184,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
-					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["1"].Size)
+					size0 := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
+					size1 := ctx.Result.(*instanceSDK.Server).Volumes["1"].Size
+					assert.Equal(t, 10*scw.GB, instance.SizeValue(size0), "Size of volume should be 10 GB")
+					assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -201,8 +206,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["0"].Size)
-					assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["1"].Size)
+					size0 := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
+					size1 := ctx.Result.(*instanceSDK.Server).Volumes["1"].Size
+					assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
+					assert.Equal(t, 20*scw.GB, instance.SizeValue(size1), "Size of volume should be 20 GB")
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -220,9 +227,12 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, 1*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["1"].Size)
-					assert.Equal(t, 5*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["2"].Size)
-					assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.Server).Volumes["3"].Size)
+					size1 := ctx.Result.(*instanceSDK.Server).Volumes["1"].Size
+					size2 := ctx.Result.(*instanceSDK.Server).Volumes["2"].Size
+					size3 := ctx.Result.(*instanceSDK.Server).Volumes["3"].Size
+					assert.Equal(t, 1*scw.GB, instance.SizeValue(size1), "Size of volume should be 1 GB")
+					assert.Equal(t, 5*scw.GB, instance.SizeValue(size2), "Size of volume should be 5 GB")
+					assert.Equal(t, 10*scw.GB, instance.SizeValue(size3), "Size of volume should be 10 GB")
 				},
 			),
 			AfterFunc: deleteServerAfterFunc(),

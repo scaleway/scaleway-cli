@@ -877,9 +877,13 @@ func serverDeleteCommand() *core.Command {
 				if err != nil {
 					logger.Debugf("cannot marshal human size %v", volume.Size)
 				}
+				volumeName := ""
+				if volume.Name != nil {
+					volumeName = *volume.Name
+				}
 				deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
 					index,
-					fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
+					fmt.Sprintf("successfully deleted volume %s (%s %s)", volumeName, humanSize, volume.VolumeType),
 				})
 			}
 
