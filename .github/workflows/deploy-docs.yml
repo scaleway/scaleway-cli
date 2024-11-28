@@ -17,7 +17,7 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name }}
       - name: Verify release commit
-        run: |
+        run: | # Commit hash to compare with the commit returned by actions/checkout@v4 - Tag to compare with the latest release
           echo "Checked out commit: $(git rev-parse HEAD)"
           echo "Expected tag: ${{ github.event.release.tag_name }}"
       - name: prepare temporary folder for build
