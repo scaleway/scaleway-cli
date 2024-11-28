@@ -61,6 +61,7 @@ jobs:
         run: go test -v ./internal/namespaces/${{ matrix.products }}/... -timeout=4h
         env:
           CLI_UPDATE_CASSETTES: true
+          CLI_UPDATE_GOLDENS: true
           SCW_DEBUG: 1
           SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
           SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
