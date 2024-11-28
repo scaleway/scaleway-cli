@@ -28,9 +28,8 @@ type cobraBuilder struct {
 func (b *cobraBuilder) build() *cobra.Command {
 	groups := map[string]*cobra.Group{
 		"available": {ID: "available", Title: "AVAILABLE"},
-		//"labs":      {ID: "labs", Title: "AVAILABLE LABS"},
-		"config":  {ID: "config", Title: "CONFIGURATION"},
-		"utility": {ID: "utility", Title: "UTILITY"},
+		"config":    {ID: "config", Title: "CONFIGURATION"},
+		"utility":   {ID: "utility", Title: "UTILITY"},
 	}
 
 	commands := b.commands.GetAll()
