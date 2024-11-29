@@ -83,7 +83,7 @@ scw billing discount list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `creation_date_desc`, `creation_date_asc` | Order discounts in the response by their description |
+| order-by | One of: `creation_date_desc`, `creation_date_asc`, `start_date_desc`, `start_date_asc`, `stop_date_desc`, `stop_date_asc` | Order discounts in the response by their description |
 | organization-id |  | ID of the organization |
 
 
