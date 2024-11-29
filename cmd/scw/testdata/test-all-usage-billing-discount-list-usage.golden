@@ -6,7 +6,7 @@ USAGE:
   scw billing discount list [arg=value ...]
 
 ARGS:
-  [order-by]          Order discounts in the response by their description (creation_date_desc | creation_date_asc)
+  [order-by]          Order discounts in the response by their description (creation_date_desc | creation_date_asc | start_date_desc | start_date_asc | stop_date_desc | stop_date_asc)
   [organization-id]   ID of the organization
 
 FLAGS:
