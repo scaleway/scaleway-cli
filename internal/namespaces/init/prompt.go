@@ -22,7 +22,7 @@ func promptOrganizationID(ctx context.Context) (string, error) {
 		Prompt: "Choose your default organization ID",
 		ValidateFunc: func(s string) error {
 			if !validation.IsUUID(s) {
-				return errors.New("organization id is not a valid uuid")
+				return core.InvalidOrganizationIDError(s)
 			}
 			return nil
 		},
@@ -38,7 +38,7 @@ func promptManualProjectID(ctx context.Context, defaultProjectID string) (string
 		DefaultValueDoc: defaultProjectID,
 		ValidateFunc: func(s string) error {
 			if !validation.IsProjectID(s) {
-				return errors.New("organization id is not a valid uuid")
+				return core.InvalidProjectIDError(s)
 			}
 			return nil
 		},
@@ -146,7 +146,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 			if validation.IsSecretKey(s) {
 				return nil
 			}
-			return errors.New("invalid secret-key")
+			return core.InvalidSecretKeyError(s)
 		},
 	})
 	if err != nil {
@@ -158,7 +158,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 		return secret, nil
 
 	default:
-		return "", fmt.Errorf("invalid secret-key: '%v'", secret)
+		return "", core.InvalidSecretKeyError(secret)
 	}
 }
 
@@ -175,7 +175,7 @@ func promptAccessKey(ctx context.Context) (string, error) {
 		},
 		ValidateFunc: func(s string) error {
 			if !validation.IsAccessKey(s) {
-				return errors.New("invalid access-key")
+				return core.InvalidAccessKeyError(s)
 			}
 
 			return nil
@@ -190,7 +190,7 @@ func promptAccessKey(ctx context.Context) (string, error) {
 		return key, nil
 
 	default:
-		return "", fmt.Errorf("invalid access-key: '%v'", key)
+		return "", core.InvalidAccessKeyError(key)
 	}
 }
 
@@ -204,7 +204,7 @@ func promptDefaultZone(ctx context.Context) (scw.Zone, error) {
 		ValidateFunc: func(s string) error {
 			logger.Debugf("s: %v", s)
 			if !validation.IsZone(s) {
-				return errors.New("invalid zone")
+				return core.InvalidZoneError(s)
 			}
 			return nil
 		},
