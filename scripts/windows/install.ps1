@@ -23,7 +23,7 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 }
 
 # Replace this line with your own SSH key
-echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6Lfs9IrfEUsw2oALOKucAqjeJo3vdADJAZS0BrJ4Vl rleone@scaleway.com" > "C:\ProgramData\ssh\administrators_authorized_keys"
+echo "INSERT YOUR SSH KEY IN PLAIN TEXT HERE" > "C:\ProgramData\ssh\administrators_authorized_keys"
 
 # Give the right permission on the file
 icacls.exe "C:\ProgramData\ssh\administrators_authorized_keys" /inheritance:r /grant "Administrators:F" /grant "SYSTEM:F"
