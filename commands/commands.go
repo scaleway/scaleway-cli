@@ -7,6 +7,7 @@ import (
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
+	audit_trail "github.com/scaleway/scaleway-cli/v2/internal/namespaces/audit_trail/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	billing "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
@@ -106,6 +107,7 @@ func GetCommands() *core.Commands {
 		edgeservices.GetCommands(),
 		login.GetCommands(),
 		mongodb.GetCommands(),
+		audit_trail.GetCommands(),
 	)
 
 	if beta {
