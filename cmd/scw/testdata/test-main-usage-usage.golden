@@ -13,7 +13,6 @@ AVAILABLE COMMANDS:
   block         This API allows you to manage your Block Storage volumes
   cockpit       This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs
   container     This API allows you to manage your Serverless Containers
-  dedibox       Dedibox Phoenix API
   dns           This API allows you to manage your domains, DNS zones and records
   document-db   This API allows you to manage your Document Databases
   edge-services Edge Services API
