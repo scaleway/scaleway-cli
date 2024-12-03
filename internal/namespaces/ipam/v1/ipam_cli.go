@@ -356,6 +356,13 @@ func ipamIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "resource-ids.{index}",
+				Short:      `Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "resource-type",
 				Short:      `Resource type to filter for. Only IPs attached to this type of resource will be returned`,
 				Required:   false,
