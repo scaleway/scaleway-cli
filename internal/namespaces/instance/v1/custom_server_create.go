@@ -242,26 +242,25 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		return nil, err
 	}
 
-	createReq, createIPReqs := serverBuilder.Build()
-	postCreationSetup := serverBuilder.BuildPostCreationSetup()
-	needIPCreation := len(createIPReqs) > 0
-
-	//
-	// IP creation
-	//
 	apiInstance := instance.NewAPI(client)
 
-	if needIPCreation {
-		logger.Debugf("creating IP")
+	preCreationSetup := serverBuilder.BuildPreCreationSetup(apiInstance)
+	postCreationSetup := serverBuilder.BuildPostCreationSetup()
 
-		ipIDs, err := createIPs(apiInstance, createIPReqs)
-		if err != nil {
-			return nil, fmt.Errorf("error while creating your public IPs: %s", err)
+	//
+	// Post server creation setup
+	/// - IPs creation
+	err = preCreationSetup.Execute(ctx)
+	if err != nil {
+		logger.Debugf("failed to create required resources, deleting created resources")
+		cleanErr := preCreationSetup.Clean(ctx)
+		if cleanErr != nil {
+			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
-
-		createReq.PublicIPs = scw.StringsPtr(ipIDs)
-		logger.Debugf("IPs created: %s", strings.Join(ipIDs, ", "))
+		return nil, fmt.Errorf("cannot create resource required for server: %s", err)
 	}
+
+	createReq := serverBuilder.Build()
 
 	//
 	// Server Creation
@@ -269,14 +268,9 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	logger.Debugf("creating server")
 	serverRes, err := apiInstance.CreateServer(createReq)
 	if err != nil {
-		if needIPCreation && createReq.PublicIPs != nil {
-			// Delete the created IP
-			formattedIPs := strings.Join(*createReq.PublicIPs, ", ")
-			logger.Debugf("deleting created IPs: %s", formattedIPs)
-			errs := cleanIPs(apiInstance, createReq.Zone, *createReq.PublicIPs)
-			if len(errs) > 0 {
-				logger.Warningf("cannot delete created IPs %s: %s.", formattedIPs, errors.Join(errs...))
-			}
+		cleanErr := preCreationSetup.Clean(ctx)
+		if cleanErr != nil {
+			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
 		return nil, fmt.Errorf("cannot create the server: %s", err)

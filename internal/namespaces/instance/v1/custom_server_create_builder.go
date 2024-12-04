@@ -118,22 +118,12 @@ func (sb *ServerBuilder) isWindows() bool {
 	return commercialTypeIsWindowsServer(sb.createReq.CommercialType)
 }
 
-func (sb *ServerBuilder) rootVolumeTemplate() *instance.VolumeServerTemplate {
-	rootVolume, exists := sb.createReq.Volumes["0"]
-	if !exists {
-		return nil
-	}
-
-	return rootVolume
-}
-
 func (sb *ServerBuilder) rootVolumeIsSBS() bool {
-	rootVolume := sb.rootVolumeTemplate()
-	if rootVolume == nil {
+	if sb.rootVolume == nil {
 		return false
 	}
 
-	return rootVolume.VolumeType == instance.VolumeVolumeTypeSbsVolume
+	return sb.rootVolume.VolumeType == instance.VolumeVolumeTypeSbsVolume
 }
 
 func (sb *ServerBuilder) marketplaceImageType() marketplace.LocalImageType {
@@ -235,6 +225,16 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 	}
 
 	return sb, nil
+}
+
+func (sb *ServerBuilder) addIPID(ipID string) *ServerBuilder {
+	if sb.createReq.PublicIPs == nil {
+		sb.createReq.PublicIPs = new([]string)
+	}
+
+	*sb.createReq.PublicIPs = append(*sb.createReq.PublicIPs, ipID)
+
+	return sb
 }
 
 // AddVolumes build volume templates from arguments.
@@ -363,8 +363,66 @@ func (sb *ServerBuilder) Validate() error {
 	return sb.ValidateVolumes()
 }
 
-func (sb *ServerBuilder) Build() (*instance.CreateServerRequest, []*instance.CreateIPRequest) {
-	return sb.createReq, sb.createIPReqs
+func (sb *ServerBuilder) Build() *instance.CreateServerRequest {
+	return sb.createReq
+}
+
+type PreServerCreationSetupFunc func(ctx context.Context) error
+type PreServerCreationSetup struct {
+	setupFunctions []PreServerCreationSetupFunc
+	cleanFunctions []PreServerCreationSetupFunc
+}
+
+func (sb *ServerBuilder) BuildPreCreationSetup(api *instance.API) *PreServerCreationSetup {
+	setup := &PreServerCreationSetup{}
+
+	for _, ipCreationRequest := range sb.createIPReqs {
+		setup.setupFunctions = append(setup.setupFunctions, func(ctx context.Context) error {
+			resp, err := api.CreateIP(ipCreationRequest, scw.WithContext(ctx))
+			if err != nil {
+				return err
+			}
+
+			sb.addIPID(resp.IP.ID)
+
+			setup.cleanFunctions = append(setup.cleanFunctions, func(ctx context.Context) error {
+				return api.DeleteIP(&instance.DeleteIPRequest{
+					IP:   resp.IP.ID,
+					Zone: resp.IP.Zone,
+				}, scw.WithContext(ctx))
+			})
+
+			return nil
+		})
+	}
+
+	return setup
+}
+
+func (s *PreServerCreationSetup) Execute(ctx context.Context) error {
+	for _, setupFunc := range s.setupFunctions {
+		if err := setupFunc(ctx); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (s *PreServerCreationSetup) Clean(ctx context.Context) error {
+	errs := []error(nil)
+
+	for _, cleanFunc := range s.cleanFunctions {
+		if err := cleanFunc(ctx); err != nil {
+			errs = append(errs, err)
+		}
+	}
+
+	if len(errs) > 0 {
+		return errors.Join(errs...)
+	}
+
+	return nil
 }
 
 type PostServerCreationSetupFunc func(ctx context.Context, server *instance.Server) error
