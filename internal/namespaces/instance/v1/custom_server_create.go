@@ -244,7 +244,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 
 	apiInstance := instance.NewAPI(client)
 
-	preCreationSetup := serverBuilder.BuildPreCreationSetup(apiInstance)
+	preCreationSetup := serverBuilder.BuildPreCreationSetup()
 	postCreationSetup := serverBuilder.BuildPostCreationSetup()
 
 	//

@@ -383,12 +383,12 @@ type PreServerCreationSetup struct {
 	cleanFunctions []PreServerCreationSetupFunc
 }
 
-func (sb *ServerBuilder) BuildPreCreationSetup(api *instance.API) *PreServerCreationSetup {
+func (sb *ServerBuilder) BuildPreCreationSetup() *PreServerCreationSetup {
 	setup := &PreServerCreationSetup{}
 
 	for _, ipCreationRequest := range sb.createIPReqs {
 		setup.setupFunctions = append(setup.setupFunctions, func(ctx context.Context) error {
-			resp, err := api.CreateIP(ipCreationRequest, scw.WithContext(ctx))
+			resp, err := sb.apiInstance.CreateIP(ipCreationRequest, scw.WithContext(ctx))
 			if err != nil {
 				return err
 			}
@@ -396,7 +396,7 @@ func (sb *ServerBuilder) BuildPreCreationSetup(api *instance.API) *PreServerCrea
 			sb.addIPID(resp.IP.ID)
 
 			setup.cleanFunctions = append(setup.cleanFunctions, func(ctx context.Context) error {
-				return api.DeleteIP(&instance.DeleteIPRequest{
+				return sb.apiInstance.DeleteIP(&instance.DeleteIPRequest{
 					IP:   resp.IP.ID,
 					Zone: resp.IP.Zone,
 				}, scw.WithContext(ctx))
@@ -406,7 +406,50 @@ func (sb *ServerBuilder) BuildPreCreationSetup(api *instance.API) *PreServerCrea
 		})
 	}
 
+	sb.BuildPreCreationVolumesSetup(setup)
+
 	return setup
+}
+
+// BuildPreCreationVolumesSetup configure PreServerCreationSetup to create required SBS volumes.
+// Instance API does not support SBS volumes creation alongside the server, they must be created before then imported.
+func (sb *ServerBuilder) BuildPreCreationVolumesSetup(setup *PreServerCreationSetup) {
+	for _, volume := range sb.volumes {
+		if volume.VolumeType != instance.VolumeVolumeTypeSbsVolume || volume.VolumeID != nil || volume.Size == nil {
+			continue
+		}
+
+		projectID := "" // If let empty, ProjectID will be set by scaleway client to default Project ID.
+		if sb.createReq.Project != nil {
+			projectID = *sb.createReq.Project
+		}
+
+		setup.setupFunctions = append(setup.setupFunctions, func(ctx context.Context) error {
+			vol, err := sb.apiBlock.CreateVolume(&block.CreateVolumeRequest{
+				Zone:      volume.Zone,
+				Name:      core.GetRandomName("vol"),
+				PerfIops:  volume.IOPS,
+				ProjectID: projectID,
+				FromEmpty: &block.CreateVolumeRequestFromEmpty{
+					Size: *volume.Size,
+				},
+			})
+			if err != nil {
+				return err
+			}
+
+			volume.VolumeID = &vol.ID
+
+			setup.cleanFunctions = append(setup.cleanFunctions, func(ctx context.Context) error {
+				return sb.apiBlock.DeleteVolume(&block.DeleteVolumeRequest{
+					Zone:     vol.Zone,
+					VolumeID: vol.ID,
+				})
+			})
+
+			return nil
+		})
+	}
 }
 
 func (s *PreServerCreationSetup) Execute(ctx context.Context) error {
