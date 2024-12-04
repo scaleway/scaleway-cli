@@ -260,7 +260,15 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		return nil, fmt.Errorf("cannot create resource required for server: %s", err)
 	}
 
-	createReq := serverBuilder.Build()
+	createReq, err := serverBuilder.Build()
+	if err != nil {
+		cleanErr := preCreationSetup.Clean(ctx)
+		if cleanErr != nil {
+			logger.Warningf("cannot clean created resources: %s.", cleanErr)
+		}
+
+		return nil, fmt.Errorf("cannot create the server: %s", err)
+	}
 
 	//
 	// Server Creation

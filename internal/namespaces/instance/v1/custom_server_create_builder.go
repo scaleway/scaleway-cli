@@ -243,8 +243,6 @@ func (sb *ServerBuilder) addIPID(ipID string) *ServerBuilder {
 //
 // Also add default volumes to server, ex: scratch storage for GPU servers
 func (sb *ServerBuilder) AddVolumes(rootVolume string, additionalVolumes []string) (*ServerBuilder, error) {
-	var err error
-
 	if len(additionalVolumes) > 0 || rootVolume != "" {
 		if rootVolume != "" {
 			rootVolumeBuilder, err := NewVolumeBuilder(sb.createReq.Zone, rootVolume)
@@ -260,29 +258,6 @@ func (sb *ServerBuilder) AddVolumes(rootVolume string, additionalVolumes []strin
 			}
 			sb.volumes = append(sb.volumes, additionalVolumeBuilder)
 		}
-
-		volumes := make(map[string]*instance.VolumeServerTemplate, len(sb.volumes)+1)
-		if sb.rootVolume != nil {
-			volumes["0"], err = sb.rootVolume.BuildVolumeServerTemplate(sb.apiInstance, sb.apiBlock)
-			if err != nil {
-				return sb, fmt.Errorf("failed to build root volume: %w", err)
-			}
-		}
-		for i, volume := range sb.volumes {
-			volumeTemplate, err := volume.BuildVolumeServerTemplate(sb.apiInstance, sb.apiBlock)
-			if err != nil {
-				return sb, fmt.Errorf("failed to build volume template: %w", err)
-			}
-			index := strconv.Itoa(i + 1)
-			volumeTemplate.Name = scw.StringPtr(sb.createReq.Name + "-" + index)
-			volumes[index] = volumeTemplate
-		}
-		// Sanitize the volume map to respect API schemas
-		sb.createReq.Volumes = volumes
-	}
-
-	if sb.serverType != nil {
-		sb.createReq.Volumes = addDefaultVolumes(sb.serverType, sb.createReq.Volumes)
 	}
 
 	return sb, nil
@@ -360,11 +335,46 @@ func (sb *ServerBuilder) Validate() error {
 		logger.Warningf("skipping image server-type compatibility validation")
 	}
 
-	return sb.ValidateVolumes()
+	return nil
 }
 
-func (sb *ServerBuilder) Build() *instance.CreateServerRequest {
-	return sb.createReq
+func (sb *ServerBuilder) BuildVolumes() error {
+	var err error
+
+	volumes := make(map[string]*instance.VolumeServerTemplate, len(sb.volumes)+1)
+	if sb.rootVolume != nil {
+		volumes["0"], err = sb.rootVolume.BuildVolumeServerTemplate(sb.apiInstance, sb.apiBlock)
+		if err != nil {
+			return fmt.Errorf("failed to build root volume: %w", err)
+		}
+	}
+
+	for i, volume := range sb.volumes {
+		volumeTemplate, err := volume.BuildVolumeServerTemplate(sb.apiInstance, sb.apiBlock)
+		if err != nil {
+			return fmt.Errorf("failed to build volume template: %w", err)
+		}
+		index := strconv.Itoa(i + 1)
+		volumeTemplate.Name = scw.StringPtr(sb.createReq.Name + "-" + index)
+		volumes[index] = volumeTemplate
+	}
+	// Sanitize the volume map to respect API schemas
+	sb.createReq.Volumes = volumes
+
+	if sb.serverType != nil {
+		sb.createReq.Volumes = addDefaultVolumes(sb.serverType, sb.createReq.Volumes)
+	}
+
+	return nil
+}
+
+func (sb *ServerBuilder) Build() (*instance.CreateServerRequest, error) {
+	err := sb.BuildVolumes()
+	if err != nil {
+		return nil, err
+	}
+
+	return sb.createReq, sb.ValidateVolumes()
 }
 
 type PreServerCreationSetupFunc func(ctx context.Context) error
