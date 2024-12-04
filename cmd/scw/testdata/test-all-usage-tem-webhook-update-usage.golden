@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   webhook-id              ID of the Webhook to update
   [name]                  Name of the Webhook to update
-  [event-types.{index}]   List of event types to update (unknown_type | email_queued | email_dropped | email_deferred | email_delivered | email_spam | email_mailbox_not_found)
+  [event-types.{index}]   List of event types to update (unknown_type | email_queued | email_dropped | email_deferred | email_delivered | email_spam | email_mailbox_not_found | email_blocklisted | blocklist_created)
   [sns-arn]               Scaleway SNS ARN topic to update
   [region=fr-par]         Region to target. If none is passed will use default region from the config (fr-par)
 

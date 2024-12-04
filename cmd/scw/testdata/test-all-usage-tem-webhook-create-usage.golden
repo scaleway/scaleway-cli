@@ -9,7 +9,7 @@ ARGS:
   [domain-id]             ID of the Domain to watch for triggering events
   [project-id]            Project ID to use. If none is passed the default project ID will be used
   [name]                  Name of the Webhook
-  [event-types.{index}]   List of event types that will trigger an event (unknown_type | email_queued | email_dropped | email_deferred | email_delivered | email_spam | email_mailbox_not_found)
+  [event-types.{index}]   List of event types that will trigger an event (unknown_type | email_queued | email_dropped | email_deferred | email_delivered | email_spam | email_mailbox_not_found | email_blocklisted | blocklist_created)
   [sns-arn]               Scaleway SNS ARN topic to push the events to
   [region=fr-par]         Region to target. If none is passed will use default region from the config (fr-par)
 
