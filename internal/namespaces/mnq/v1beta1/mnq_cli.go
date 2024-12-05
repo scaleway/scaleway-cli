@@ -382,9 +382,16 @@ func mnqNatsListCredentials() *core.Command {
 		ArgsType: reflect.TypeOf(mnq.NatsAPIListNatsCredentialsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
+				Name:       "project-id",
+				Short:      `Include only NATS accounts in this Project`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "nats-account-id",
 				Short:      `Include only credentials for this NATS account`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
