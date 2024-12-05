@@ -769,7 +769,7 @@ func temWebhookCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found"},
+				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found", "email_blocklisted", "blocklist_created"},
 			},
 			{
 				Name:       "sns-arn",
@@ -912,7 +912,7 @@ func temWebhookUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found"},
+				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found", "email_blocklisted", "blocklist_created"},
 			},
 			{
 				Name:       "sns-arn",
@@ -1008,7 +1008,7 @@ func temWebhookListEvents() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found"},
+				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found", "email_blocklisted", "blocklist_created"},
 			},
 			{
 				Name:       "statuses.{index}",
