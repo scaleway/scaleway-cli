@@ -230,7 +230,8 @@ scw mnq nats list-credentials [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| nats-account-id | Required | Include only credentials for this NATS account |
+| project-id |  | Include only NATS accounts in this Project |
+| nats-account-id |  | Include only credentials for this NATS account |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all` | Region to target. If none is passed will use default region from the config |
 
