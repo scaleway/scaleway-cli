@@ -1,0 +1,54 @@
+name: Build and push CLI doc to S3
+on:
+  release:
+    types:
+      - published # Triggered only when a new release is published
+    branches:
+      - master
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: actions # Is this necessary if we use the "env:" context below ?
+    steps:
+      - name: Check out the release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Verify release commit
+        run: | # Commit hash to compare with the commit returned by actions/checkout@v4 - Tag to compare with the latest releas
+          echo "Checked out commit: $(git rev-parse HEAD)"
+          echo "Expected tag: ${{ github.event.release.tag_name }}"
+      - name: prepare temporary folder for build
+        run: | # Creates a temporary "docs" folder within the existing "docs" folder because the mkdocs.yml must be in the parent folder of the markdown pages
+          cd docs
+          mkdir docs
+          cp commands/* docs/
+          cp -r static_files/* docs/
+      - name: Pull Material for MKdocs image and build doc
+        run: |
+          docker pull squidfunk/mkdocs-material
+          docker run --rm -i -v ${PWD}/docs:/docs squidfunk/mkdocs-material build
+      - name: Download and set up AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
+      - name: Sety up AWS credentials
+        env:
+          CLI_DOC_ACCESS_KEY: ${{ secrets.CLI_DOC_ACCESS_KEY }}
+          CLI_DOC_SECRET_KEY: ${{ secrets.CLI_DOC_SECRET_KEY }}
+        run: | # AWS region "fr-par" is a placeholder as the CLI_DOC_S3_ENDPOINT variable overrides it
+          aws configure set aws_access_key_id $CLI_DOC_ACCESS_KEY
+          aws configure set aws_secret_access_key $CLI_DOC_SECRET_KEY
+          aws configure set region fr-par
+
+      - name: Upload file to Scaleway Object Storage
+        env:
+          CLI_DOC_BUCKET_NAME: ${{ secrets.CLI_DOC_BUCKET_NAME }}
+          CLI_DOC_S3_ENDPOINT: ${{ secrets.CLI_DOC_S3_ENDPOINT }}
+        run: |
+          aws s3 cp --recursive ./docs/site/ s3://$CLI_DOC_BUCKET_NAME --endpoint-url $CLI_DOC_S3_ENDPOINT
+      - name: Delete temporary folder
+        run: rm -rf docs/docs/
