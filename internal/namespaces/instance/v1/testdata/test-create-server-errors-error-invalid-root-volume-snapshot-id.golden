@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Failed to build root volume: snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist
+Cannot create the server: failed to build root volume: snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "failed to build root volume: snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist"
+  "error": "cannot create the server: failed to build root volume: snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist"
 }

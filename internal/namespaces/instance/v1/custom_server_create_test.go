@@ -238,7 +238,7 @@ func Test_CreateServer(t *testing.T) {
 			AfterFunc: deleteServerAfterFunc(),
 		}))
 
-		t.Run("sbs additional volumes", core.Test(&core.TestConfig{
+		t.Run("sbs additional volumes from id", core.Test(&core.TestConfig{
 			Commands: core.NewCommandsMerge(
 				instance.GetCommands(),
 				block.GetCommands(),
@@ -254,6 +254,25 @@ func Test_CreateServer(t *testing.T) {
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["1"].VolumeType)
 				},
 				core.TestCheckExitCode(0),
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServerAfterFunc(),
+			),
+		}))
+
+		t.Run("sbs additional volumes", core.Test(&core.TestConfig{
+			Commands: core.NewCommandsMerge(
+				instance.GetCommands(),
+				block.GetCommands(),
+			),
+			Cmd: testServerCommand("image=ubuntu_jammy additional-volumes.0=sbs:20G stopped=true"),
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+					assert.NotNil(t, ctx.Result)
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["1"].VolumeType)
+				},
 			),
 			AfterFunc: core.AfterFuncCombine(
 				deleteServerAfterFunc(),

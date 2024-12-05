@@ -1,12 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-You cannot use an existing volume as a root volume
-
-Details:
-You must create an image of this volume and use its ID in the 'image' argument.
+Cannot create the server: you cannot use an existing volume as a root volume
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "you cannot use an existing volume as a root volume",
-  "error": {},
-  "details": "You must create an image of this volume and use its ID in the 'image' argument."
+  "error": "cannot create the server: you cannot use an existing volume as a root volume"
 }
