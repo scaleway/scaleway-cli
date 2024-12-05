@@ -9,7 +9,7 @@ ARGS:
   [order-by]              (Optional) List Webhook events corresponding to specific criteria (created_at_desc | created_at_asc)
   webhook-id              ID of the Webhook linked to the events
   [email-id]              ID of the email linked to the events
-  [event-types.{index}]   List of event types linked to the events (unknown_type | email_queued | email_dropped | email_deferred | email_delivered | email_spam | email_mailbox_not_found)
+  [event-types.{index}]   List of event types linked to the events (unknown_type | email_queued | email_dropped | email_deferred | email_delivered | email_spam | email_mailbox_not_found | email_blocklisted | blocklist_created)
   [statuses.{index}]      List of event statuses (unknown_status | sending | sent | failed)
   [project-id]            ID of the webhook Project
   [domain-id]             ID of the domain to watch for triggering events
