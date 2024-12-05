@@ -378,6 +378,7 @@ func (sb *ServerBuilder) Build() (*instance.CreateServerRequest, error) {
 }
 
 type PreServerCreationSetupFunc func(ctx context.Context) error
+
 type PreServerCreationSetup struct {
 	setupFunctions []PreServerCreationSetupFunc
 	cleanFunctions []PreServerCreationSetupFunc
@@ -433,7 +434,7 @@ func (sb *ServerBuilder) BuildPreCreationVolumesSetup(setup *PreServerCreationSe
 				FromEmpty: &block.CreateVolumeRequestFromEmpty{
 					Size: *volume.Size,
 				},
-			})
+			}, scw.WithContext(ctx))
 			if err != nil {
 				return err
 			}
@@ -444,7 +445,7 @@ func (sb *ServerBuilder) BuildPreCreationVolumesSetup(setup *PreServerCreationSe
 				return sb.apiBlock.DeleteVolume(&block.DeleteVolumeRequest{
 					Zone:     vol.Zone,
 					VolumeID: vol.ID,
-				})
+				}, scw.WithContext(ctx))
 			})
 
 			return nil
