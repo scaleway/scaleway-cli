@@ -1,19 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-MnQ SQS commands.
+MnQ Queues commands.
 
 USAGE:
   scw mnq sqs <command>
 
 AVAILABLE COMMANDS:
-  activate           Activate SQS
-  create-credentials Create SQS credentials
-  deactivate         Deactivate SQS
-  delete-credentials Delete SQS credentials
-  get-credentials    Get SQS credentials
-  get-info           Get SQS info
-  list-credentials   List SQS credentials
-  update-credentials Update SQS credentials
+  activate           Activate Queues
+  create-credentials Create Queues credentials
+  deactivate         Deactivate Queues
+  delete-credentials Delete Queues credentials
+  get-credentials    Get Queues credentials
+  get-info           Get Queues info
+  list-credentials   List Queues credentials
+  update-credentials Update Queues credentials
 
 FLAGS:
   -h, --help   help for sqs

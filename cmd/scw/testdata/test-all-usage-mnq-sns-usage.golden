@@ -1,19 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-MnQ SNS commands.
+MnQ Topics and Events commands.
 
 USAGE:
   scw mnq sns <command>
 
 AVAILABLE COMMANDS:
-  activate           Activate SNS
-  create-credentials Create SNS credentials
-  deactivate         Deactivate SNS
-  delete-credentials Delete SNS credentials
-  get-credentials    Get SNS credentials
-  get-info           Get SNS info
-  list-credentials   List SNS credentials
-  update-credentials Update SNS credentials
+  activate           Activate Topics and Events
+  create-credentials Create Topics and Events credentials
+  deactivate         Deactivate Topics and Events
+  delete-credentials Delete Topics and Events credentials
+  get-credentials    Get Topics and Events credentials
+  get-info           Get Topics and Events info
+  list-credentials   List Topics and Events credentials
+  update-credentials Update Topics and Events credentials
 
 FLAGS:
   -h, --help   help for sns

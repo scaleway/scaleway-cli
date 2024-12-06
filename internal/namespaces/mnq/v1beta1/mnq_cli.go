@@ -52,8 +52,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func mnqRoot() *core.Command {
 	return &core.Command{
-		Short:     `These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services`,
-		Long:      `These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services.`,
+		Short:     `These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topics and Events services`,
+		Long:      `These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topics and Events services.`,
 		Namespace: "mnq",
 	}
 }
@@ -69,8 +69,8 @@ func mnqNats() *core.Command {
 
 func mnqSns() *core.Command {
 	return &core.Command{
-		Short:     `MnQ SNS commands`,
-		Long:      `MnQ SNS commands.`,
+		Short:     `MnQ Topics and Events commands`,
+		Long:      `MnQ Topics and Events commands.`,
 		Namespace: "mnq",
 		Resource:  "sns",
 	}
@@ -78,8 +78,8 @@ func mnqSns() *core.Command {
 
 func mnqSqs() *core.Command {
 	return &core.Command{
-		Short:     `MnQ SQS commands`,
-		Long:      `MnQ SQS commands.`,
+		Short:     `MnQ Queues commands`,
+		Long:      `MnQ Queues commands.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
 	}
@@ -427,8 +427,8 @@ func mnqNatsListCredentials() *core.Command {
 
 func mnqSnsActivate() *core.Command {
 	return &core.Command{
-		Short:     `Activate SNS`,
-		Long:      `Activate SNS for the specified Project ID. SNS must be activated before any usage. Activating SNS does not trigger any billing, and you can deactivate at any time.`,
+		Short:     `Activate Topics and Events`,
+		Long:      `Activate Topics and Events for the specified Project ID. Topics and Events must be activated before any usage. Activating Topics and Events does not trigger any billing, and you can deactivate at any time.`,
 		Namespace: "mnq",
 		Resource:  "sns",
 		Verb:      "activate",
@@ -451,8 +451,8 @@ func mnqSnsActivate() *core.Command {
 
 func mnqSnsGetInfo() *core.Command {
 	return &core.Command{
-		Short:     `Get SNS info`,
-		Long:      `Retrieve the SNS information of the specified Project ID. Informations include the activation status and the SNS API endpoint URL.`,
+		Short:     `Get Topics and Events info`,
+		Long:      `Retrieve the Topics and Events information of the specified Project ID. Informations include the activation status and the Topics and Events API endpoint URL.`,
 		Namespace: "mnq",
 		Resource:  "sns",
 		Verb:      "get-info",
@@ -475,8 +475,8 @@ func mnqSnsGetInfo() *core.Command {
 
 func mnqSnsDeactivate() *core.Command {
 	return &core.Command{
-		Short:     `Deactivate SNS`,
-		Long:      `Deactivate SNS for the specified Project ID.You must delete all topics and credentials before this call or you need to set the force_delete parameter.`,
+		Short:     `Deactivate Topics and Events`,
+		Long:      `Deactivate Topics and Events for the specified Project ID. You must delete all topics and credentials before this call or you need to set the force_delete parameter.`,
 		Namespace: "mnq",
 		Resource:  "sns",
 		Verb:      "deactivate",
@@ -499,8 +499,8 @@ func mnqSnsDeactivate() *core.Command {
 
 func mnqSnsCreateCredentials() *core.Command {
 	return &core.Command{
-		Short:     `Create SNS credentials`,
-		Long:      `Create a set of credentials for SNS, specified by a Project ID. Credentials give the bearer access to topics, and the level of permissions can be defined granularly.`,
+		Short:     `Create Topics and Events credentials`,
+		Long:      `Create a set of credentials for Topics and Events, specified by a Project ID. Credentials give the bearer access to topics, and the level of permissions can be defined granularly.`,
 		Namespace: "mnq",
 		Resource:  "sns",
 		Verb:      "create-credentials",
@@ -518,7 +518,7 @@ func mnqSnsCreateCredentials() *core.Command {
 			},
 			{
 				Name:       "permissions.can-publish",
-				Short:      `Defines whether the credentials bearer can publish messages to the service (publish to SNS topics)`,
+				Short:      `Defines whether the credentials bearer can publish messages to the service (publish to Topics and Events topics)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -532,7 +532,7 @@ func mnqSnsCreateCredentials() *core.Command {
 			},
 			{
 				Name:       "permissions.can-manage",
-				Short:      `Defines whether the credentials bearer can manage the associated SNS topics or subscriptions`,
+				Short:      `Defines whether the credentials bearer can manage the associated Topics and Events topics or subscriptions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -552,8 +552,8 @@ func mnqSnsCreateCredentials() *core.Command {
 
 func mnqSnsDeleteCredentials() *core.Command {
 	return &core.Command{
-		Short:     `Delete SNS credentials`,
-		Long:      `Delete a set of SNS credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access SNS.`,
+		Short:     `Delete Topics and Events credentials`,
+		Long:      `Delete a set of Topics and Events credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access Topics and Events.`,
 		Namespace: "mnq",
 		Resource:  "sns",
 		Verb:      "delete-credentials",
@@ -588,8 +588,8 @@ func mnqSnsDeleteCredentials() *core.Command {
 
 func mnqSnsUpdateCredentials() *core.Command {
 	return &core.Command{
-		Short:     `Update SNS credentials`,
-		Long:      `Update a set of SNS credentials. You can update the credentials' name, or their permissions.`,
+		Short:     `Update Topics and Events credentials`,
+		Long:      `Update a set of Topics and Events credentials. You can update the credentials' name, or their permissions.`,
 		Namespace: "mnq",
 		Resource:  "sns",
 		Verb:      "update-credentials",
@@ -598,7 +598,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sns-credentials-id",
-				Short:      `ID of the SNS credentials to update`,
+				Short:      `ID of the Topics and Events credentials to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -612,7 +612,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 			},
 			{
 				Name:       "permissions.can-publish",
-				Short:      `Defines whether the credentials bearer can publish messages to the service (publish to SNS topics)`,
+				Short:      `Defines whether the credentials bearer can publish messages to the service (publish to Topics and Events topics)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -626,7 +626,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 			},
 			{
 				Name:       "permissions.can-manage",
-				Short:      `Defines whether the credentials bearer can manage the associated SNS topics or subscriptions`,
+				Short:      `Defines whether the credentials bearer can manage the associated Topics and Events topics or subscriptions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -646,7 +646,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 
 func mnqSnsGetCredentials() *core.Command {
 	return &core.Command{
-		Short:     `Get SNS credentials`,
+		Short:     `Get Topics and Events credentials`,
 		Long:      `Retrieve an existing set of credentials, identified by the ` + "`" + `credentials_id` + "`" + `. The credentials themselves, as well as their metadata (name, project ID etc), are returned in the response.`,
 		Namespace: "mnq",
 		Resource:  "sns",
@@ -656,7 +656,7 @@ func mnqSnsGetCredentials() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sns-credentials-id",
-				Short:      `ID of the SNS credentials to get`,
+				Short:      `ID of the Topics and Events credentials to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -676,8 +676,8 @@ func mnqSnsGetCredentials() *core.Command {
 
 func mnqSnsListCredentials() *core.Command {
 	return &core.Command{
-		Short:     `List SNS credentials`,
-		Long:      `List existing SNS credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.`,
+		Short:     `List Topics and Events credentials`,
+		Long:      `List existing Topics and Events credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.`,
 		Namespace: "mnq",
 		Resource:  "sns",
 		Verb:      "list-credentials",
@@ -686,7 +686,7 @@ func mnqSnsListCredentials() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `Include only SNS credentials in this Project`,
+				Short:      `Include only Topics and Events credentials in this Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -723,8 +723,8 @@ func mnqSnsListCredentials() *core.Command {
 
 func mnqSqsActivate() *core.Command {
 	return &core.Command{
-		Short:     `Activate SQS`,
-		Long:      `Activate SQS for the specified Project ID. SQS must be activated before any usage such as creating credentials and queues. Activating SQS does not trigger any billing, and you can deactivate at any time.`,
+		Short:     `Activate Queues`,
+		Long:      `Activate Queues for the specified Project ID. Queues must be activated before any usage such as creating credentials and queues. Activating Queues does not trigger any billing, and you can deactivate at any time.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
 		Verb:      "activate",
@@ -747,8 +747,8 @@ func mnqSqsActivate() *core.Command {
 
 func mnqSqsGetInfo() *core.Command {
 	return &core.Command{
-		Short:     `Get SQS info`,
-		Long:      `Retrieve the SQS information of the specified Project ID. Informations include the activation status and the SQS API endpoint URL.`,
+		Short:     `Get Queues info`,
+		Long:      `Retrieve the Queues information of the specified Project ID. Informations include the activation status and the Queues API endpoint URL.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
 		Verb:      "get-info",
@@ -771,8 +771,8 @@ func mnqSqsGetInfo() *core.Command {
 
 func mnqSqsDeactivate() *core.Command {
 	return &core.Command{
-		Short:     `Deactivate SQS`,
-		Long:      `Deactivate SQS for the specified Project ID. You must delete all queues and credentials before this call or you need to set the force_delete parameter.`,
+		Short:     `Deactivate Queues`,
+		Long:      `Deactivate Queues for the specified Project ID. You must delete all queues and credentials before this call or you need to set the force_delete parameter.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
 		Verb:      "deactivate",
@@ -795,8 +795,8 @@ func mnqSqsDeactivate() *core.Command {
 
 func mnqSqsCreateCredentials() *core.Command {
 	return &core.Command{
-		Short:     `Create SQS credentials`,
-		Long:      `Create a set of credentials for SQS, specified by a Project ID. Credentials give the bearer access to queues, and the level of permissions can be defined granularly.`,
+		Short:     `Create Queues credentials`,
+		Long:      `Create a set of credentials for Queues, specified by a Project ID. Credentials give the bearer access to queues, and the level of permissions can be defined granularly.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
 		Verb:      "create-credentials",
@@ -814,21 +814,21 @@ func mnqSqsCreateCredentials() *core.Command {
 			},
 			{
 				Name:       "permissions.can-publish",
-				Short:      `Defines whether the credentials bearer can publish messages to the service (send messages to SQS queues)`,
+				Short:      `Defines whether the credentials bearer can publish messages to the service (send messages to Queues queues)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "permissions.can-receive",
-				Short:      `Defines whether the credentials bearer can receive messages from SQS queues`,
+				Short:      `Defines whether the credentials bearer can receive messages from Queues queues`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "permissions.can-manage",
-				Short:      `Defines whether the credentials bearer can manage the associated SQS queues`,
+				Short:      `Defines whether the credentials bearer can manage the associated Queues queues`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -848,8 +848,8 @@ func mnqSqsCreateCredentials() *core.Command {
 
 func mnqSqsDeleteCredentials() *core.Command {
 	return &core.Command{
-		Short:     `Delete SQS credentials`,
-		Long:      `Delete a set of SQS credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access SQS.`,
+		Short:     `Delete Queues credentials`,
+		Long:      `Delete a set of Queues credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access Queues.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
 		Verb:      "delete-credentials",
@@ -884,8 +884,8 @@ func mnqSqsDeleteCredentials() *core.Command {
 
 func mnqSqsUpdateCredentials() *core.Command {
 	return &core.Command{
-		Short:     `Update SQS credentials`,
-		Long:      `Update a set of SQS credentials. You can update the credentials' name, or their permissions.`,
+		Short:     `Update Queues credentials`,
+		Long:      `Update a set of Queues credentials. You can update the credentials' name, or their permissions.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
 		Verb:      "update-credentials",
@@ -894,7 +894,7 @@ func mnqSqsUpdateCredentials() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sqs-credentials-id",
-				Short:      `ID of the SQS credentials to update`,
+				Short:      `ID of the Queues credentials to update`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -908,21 +908,21 @@ func mnqSqsUpdateCredentials() *core.Command {
 			},
 			{
 				Name:       "permissions.can-publish",
-				Short:      `Defines whether the credentials bearer can publish messages to the service (send messages to SQS queues)`,
+				Short:      `Defines whether the credentials bearer can publish messages to the service (send messages to Queues queues)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "permissions.can-receive",
-				Short:      `Defines whether the credentials bearer can receive messages from SQS queues`,
+				Short:      `Defines whether the credentials bearer can receive messages from Queues queues`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "permissions.can-manage",
-				Short:      `Defines whether the credentials bearer can manage the associated SQS queues`,
+				Short:      `Defines whether the credentials bearer can manage the associated Queues queues`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -942,7 +942,7 @@ func mnqSqsUpdateCredentials() *core.Command {
 
 func mnqSqsGetCredentials() *core.Command {
 	return &core.Command{
-		Short:     `Get SQS credentials`,
+		Short:     `Get Queues credentials`,
 		Long:      `Retrieve an existing set of credentials, identified by the ` + "`" + `credentials_id` + "`" + `. The credentials themselves, as well as their metadata (name, project ID etc), are returned in the response.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
@@ -952,7 +952,7 @@ func mnqSqsGetCredentials() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sqs-credentials-id",
-				Short:      `ID of the SQS credentials to get`,
+				Short:      `ID of the Queues credentials to get`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -972,8 +972,8 @@ func mnqSqsGetCredentials() *core.Command {
 
 func mnqSqsListCredentials() *core.Command {
 	return &core.Command{
-		Short:     `List SQS credentials`,
-		Long:      `List existing SQS credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.`,
+		Short:     `List Queues credentials`,
+		Long:      `List existing Queues credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
 		Verb:      "list-credentials",
@@ -982,7 +982,7 @@ func mnqSqsListCredentials() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `Include only SQS credentials in this Project`,
+				Short:      `Include only Queues credentials in this Project`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
