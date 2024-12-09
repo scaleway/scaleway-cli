@@ -58,7 +58,7 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
   - [Update a user](#update-a-user)
-  - [Update an user's password](#update-an-user's-password)
+  - [Update an user's password. Private Beta feature.](#update-an-user's-password.-private-beta-feature.)
 
   
 ## API keys management commands
@@ -68,7 +68,7 @@ API keys management commands.
 
 ### Create an API key
 
-Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id` which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.
+Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id`, which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that the secret key is only shown once. Make sure that you copy and store both keys somewhere safe.
 
 **Usage:**
 
@@ -1146,13 +1146,13 @@ scw iam user update <user-id ...> [arg=value ...]
 |------|---|-------------|
 | user-id | Required | ID of the user to update |
 | tags.{index} |  | New tags for the user (maximum of 10 tags) |
-| email |  | New email for the user (only available on Members) |
+| email |  | IAM member email |
 
 
 
-### Update an user's password
+### Update an user's password. Private Beta feature.
 
-Update an user's password.
+Update an user's password. Private Beta feature.
 
 **Usage:**
 

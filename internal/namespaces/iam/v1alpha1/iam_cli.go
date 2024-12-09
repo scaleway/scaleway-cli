@@ -552,7 +552,7 @@ func iamUserUpdate() *core.Command {
 			},
 			{
 				Name:       "email",
-				Short:      `New email for the user (only available on Members)`,
+				Short:      `IAM member email`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -678,8 +678,8 @@ func iamUserCreate() *core.Command {
 
 func iamUserUpdatePassword() *core.Command {
 	return &core.Command{
-		Short:     `Update an user's password`,
-		Long:      `Update an user's password.`,
+		Short:     `Update an user's password. Private Beta feature.`,
+		Long:      `Update an user's password. Private Beta feature.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "update-password",
@@ -2041,7 +2041,7 @@ func iamAPIKeyList() *core.Command {
 func iamAPIKeyCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create an API key`,
-		Long:      `Create an API key. You must specify the ` + "`" + `application_id` + "`" + ` or the ` + "`" + `user_id` + "`" + ` and the description. You can also specify the ` + "`" + `default_project_id` + "`" + ` which is the Project ID of your preferred Project, to use with Object Storage. The ` + "`" + `access_key` + "`" + ` and ` + "`" + `secret_key` + "`" + ` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.`,
+		Long:      `Create an API key. You must specify the ` + "`" + `application_id` + "`" + ` or the ` + "`" + `user_id` + "`" + ` and the description. You can also specify the ` + "`" + `default_project_id` + "`" + `, which is the Project ID of your preferred Project, to use with Object Storage. The ` + "`" + `access_key` + "`" + ` and ` + "`" + `secret_key` + "`" + ` values are returned in the response. Note that the secret key is only shown once. Make sure that you copy and store both keys somewhere safe.`,
 		Namespace: "iam",
 		Resource:  "api-key",
 		Verb:      "create",
