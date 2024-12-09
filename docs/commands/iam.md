@@ -1121,7 +1121,7 @@ scw iam user list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc` | Criteria for sorting results |
+| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc`, `username_asc`, `username_desc` | Criteria for sorting results |
 | user-ids.{index} |  | Filter by list of IDs |
 | mfa |  | Filter by MFA status |
 | tag |  | Filter by tags containing a given string |
