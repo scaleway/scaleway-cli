@@ -1,16 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Deactivate Topics and Events for the specified Project ID. You must delete all topics and credentials before this call or you need to set the force_delete parameter.
+Retrieve the list of Scaleway resources for which you have Audit Trail events.
 
 USAGE:
-  scw mnq sns deactivate [arg=value ...]
+  scw audit-trail product list [arg=value ...]
 
 ARGS:
-  [project-id]      Project ID to use. If none is passed the default project ID will be used
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
-  -h, --help   help for deactivate
+  -h, --help   help for list
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -58,7 +58,7 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
   - [Update a user](#update-a-user)
-  - [Update an user's password](#update-an-user's-password)
+  - [Update an user's password. Private Beta feature.](#update-an-user's-password.-private-beta-feature.)
 
   
 ## API keys management commands
@@ -68,7 +68,7 @@ API keys management commands.
 
 ### Create an API key
 
-Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id` which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.
+Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id`, which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that the secret key is only shown once. Make sure that you copy and store both keys somewhere safe.
 
 **Usage:**
 
@@ -1121,7 +1121,7 @@ scw iam user list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc` | Criteria for sorting results |
+| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc`, `username_asc`, `username_desc` | Criteria for sorting results |
 | user-ids.{index} |  | Filter by list of IDs |
 | mfa |  | Filter by MFA status |
 | tag |  | Filter by tags containing a given string |
@@ -1146,13 +1146,13 @@ scw iam user update <user-id ...> [arg=value ...]
 |------|---|-------------|
 | user-id | Required | ID of the user to update |
 | tags.{index} |  | New tags for the user (maximum of 10 tags) |
-| email |  | New email for the user (only available on Members) |
+| email |  | IAM member email |
 
 
 
-### Update an user's password
+### Update an user's password. Private Beta feature.
 
-Update an user's password.
+Update an user's password. Private Beta feature.
 
 **Usage:**
 

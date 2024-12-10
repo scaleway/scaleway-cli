@@ -1,17 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topics and Events services.
+Represent an entry in the Audit Trail.
 
 USAGE:
-  scw mnq <command>
+  scw audit-trail event <command>
 
 AVAILABLE COMMANDS:
-  nats        MnQ NATS commands
-  sns         MnQ Topics and Events commands
-  sqs         MnQ Queues commands
+  list        List events
 
 FLAGS:
-  -h, --help   help for mnq
+  -h, --help   help for event
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
@@ -19,4 +17,4 @@ GLOBAL FLAGS:
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
 
-Use "scw mnq [command] --help" for more information about a command.
+Use "scw audit-trail event [command] --help" for more information about a command.

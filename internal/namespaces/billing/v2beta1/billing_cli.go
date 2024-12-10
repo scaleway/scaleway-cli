@@ -390,7 +390,7 @@ func billingDiscountList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"creation_date_desc", "creation_date_asc"},
+				EnumValues: []string{"creation_date_desc", "creation_date_asc", "start_date_desc", "start_date_asc", "stop_date_desc", "stop_date_asc"},
 			},
 			{
 				Name:       "organization-id",

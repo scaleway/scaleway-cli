@@ -353,7 +353,7 @@ scw tem webhook create [arg=value ...]
 | domain-id |  | ID of the Domain to watch for triggering events |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | Name of the Webhook |
-| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found` | List of event types that will trigger an event |
+| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found`, `email_blocklisted`, `blocklist_created` | List of event types that will trigger an event |
 | sns-arn |  | Scaleway SNS ARN topic to push the events to |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
@@ -440,7 +440,7 @@ scw tem webhook list-events [arg=value ...]
 | order-by | One of: `created_at_desc`, `created_at_asc` | (Optional) List Webhook events corresponding to specific criteria |
 | webhook-id | Required | ID of the Webhook linked to the events |
 | email-id |  | ID of the email linked to the events |
-| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found` | List of event types linked to the events |
+| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found`, `email_blocklisted`, `blocklist_created` | List of event types linked to the events |
 | statuses.{index} | One of: `unknown_status`, `sending`, `sent`, `failed` | List of event statuses |
 | project-id |  | ID of the webhook Project |
 | domain-id |  | ID of the domain to watch for triggering events |
@@ -466,7 +466,7 @@ scw tem webhook update [arg=value ...]
 |------|---|-------------|
 | webhook-id | Required | ID of the Webhook to update |
 | name |  | Name of the Webhook to update |
-| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found` | List of event types to update |
+| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found`, `email_blocklisted`, `blocklist_created` | List of event types to update |
 | sns-arn |  | Scaleway SNS ARN topic to update |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 

@@ -42,7 +42,7 @@ jobs:
           - rdb
           - redis
           - registry
-          - sdb
+          - serverless_sqldb
           - secret
           - tem
           - vpc

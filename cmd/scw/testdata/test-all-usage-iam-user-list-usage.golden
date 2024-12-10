@@ -6,7 +6,7 @@ USAGE:
   scw iam user list [arg=value ...]
 
 ARGS:
-  [order-by=created_at_asc]                 Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | email_asc | email_desc | last_login_asc | last_login_desc)
+  [order-by=created_at_asc]                 Criteria for sorting results (created_at_asc | created_at_desc | updated_at_asc | updated_at_desc | email_asc | email_desc | last_login_asc | last_login_desc | username_asc | username_desc)
   [user-ids.{index}]                        Filter by list of IDs
   [mfa]                                     Filter by MFA status
   [tag]                                     Filter by tags containing a given string

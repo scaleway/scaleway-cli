@@ -11,7 +11,7 @@ AVAILABLE COMMANDS:
   get             Get a given user
   list            List users of an Organization
   update          Update a user
-  update-password Update an user's password
+  update-password Update an user's password. Private Beta feature.
 
 FLAGS:
   -h, --help   help for user
