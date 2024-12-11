@@ -21,14 +21,22 @@ func createServerBionic(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(metaKey, testServerCommand("stopped=true image=ubuntu-bionic"))
 }
 
+// createServer creates a stopped ubuntu server without IP and
+// register it in the context Meta at given metaKey
+//
 //nolint:unparam
 func createServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, testServerCommand("stopped=true image=ubuntu-jammy"))
+	return core.ExecStoreBeforeCmd(metaKey, testServerCommand("stopped=true image=ubuntu-jammy ip=none"))
 }
 
 // testServerCommand creates returns a create server command with the instance type and the given arguments
 func testServerCommand(params string) string {
-	return "scw instance server create type=DEV1-S " + params
+	baseCommand := "scw instance server create type=DEV1-S "
+	if !strings.Contains(params, "ip=") {
+		baseCommand += "ip=none "
+	}
+
+	return baseCommand + params
 }
 
 // createServer creates a stopped ubuntu-bionic server and
