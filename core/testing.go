@@ -90,6 +90,8 @@ func (meta testMetadata) render(strTpl string) string {
 }
 
 func GetFromMeta[T any](t *testing.T, ctx *CheckFuncCtx, key string) T {
+	t.Helper()
+
 	item, ok := ctx.Meta[key]
 	assert.True(t, ok)
 	typedItem, typeIsCorrect := item.(T)
@@ -99,6 +101,8 @@ func GetFromMeta[T any](t *testing.T, ctx *CheckFuncCtx, key string) T {
 }
 
 func GetTestResult[T any](t *testing.T, ctx *CheckFuncCtx) T {
+	t.Helper()
+
 	typedItem, typeIsCorrect := ctx.Result.(T)
 	assert.True(t, typeIsCorrect)
 	assert.NotNil(t, typedItem)
