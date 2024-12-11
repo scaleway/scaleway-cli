@@ -8,10 +8,11 @@ import (
 )
 
 func Test_ServerSSH(t *testing.T) {
+	t.Skip("Cannot run test as it's lock for 24h before deletion")
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: applesilicon.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create --wait"),
+			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create server-type=M2-M --wait"),
 		),
 		Cmd: "scw apple-silicon server ssh {{ .Server.ID }}",
 		OverrideExec: core.OverrideExecSimple(
@@ -31,7 +32,7 @@ func Test_ServerSSH(t *testing.T) {
 	t.Run("With-Exit-Code", core.Test(&core.TestConfig{
 		Commands: applesilicon.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create --wait"),
+			core.ExecStoreBeforeCmd("Server", "scw apple-silicon server create server-type=M2-M --wait"),
 		),
 		Cmd: "scw apple-silicon server ssh {{ .Server.ID }}",
 		OverrideExec: core.OverrideExecSimple(
