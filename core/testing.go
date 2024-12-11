@@ -89,6 +89,23 @@ func (meta testMetadata) render(strTpl string) string {
 	return buf.String()
 }
 
+func GetFromMeta[T any](t *testing.T, ctx *CheckFuncCtx, key string) T {
+	item, ok := ctx.Meta[key]
+	assert.True(t, ok)
+	typedItem, typeIsCorrect := item.(T)
+	assert.True(t, typeIsCorrect)
+
+	return typedItem
+}
+
+func GetTestResult[T any](t *testing.T, ctx *CheckFuncCtx) T {
+	typedItem, typeIsCorrect := ctx.Result.(T)
+	assert.True(t, typeIsCorrect)
+	assert.NotNil(t, typedItem)
+
+	return typedItem
+}
+
 func BeforeFuncStoreInMeta(key string, value interface{}) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		ctx.Meta[key] = value

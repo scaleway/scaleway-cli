@@ -26,7 +26,7 @@ func createServerBionic(metaKey string) core.BeforeFunc {
 //
 //nolint:unparam
 func createServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, testServerCommand("stopped=true image=ubuntu-jammy ip=none"))
+	return core.ExecStoreBeforeCmd(metaKey, testServerCommand("stopped=true image=ubuntu-jammy"))
 }
 
 // testServerCommand creates returns a create server command with the instance type and the given arguments
