@@ -127,7 +127,12 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(t, ctx.Meta["IP"].(*instanceSDK.IP).Address, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PublicIP.Address)
+				ip := core.GetFromMeta[*instanceSDK.IP](t, ctx, "IP")
+				resp := core.GetTestResult[*instanceSDK.UpdateServerResponse](t, ctx)
+
+				assert.NotNil(t, resp.Server)
+				assert.NotNil(t, resp.Server.PublicIP)
+				assert.Equal(t, ip.Address, resp.Server.PublicIP.Address)
 			},
 			core.TestCheckExitCode(0),
 		),
