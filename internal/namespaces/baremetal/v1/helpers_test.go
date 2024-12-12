@@ -8,15 +8,15 @@ import (
 // createServerAndWait creates a baremetal instance
 // register it in the context Meta at metaKey.
 func createServerAndWait(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=fr-par-1 type=EM-B220E-NVME -w")
+	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone="+region+" type="+offerName+" -w")
 }
 
 func createServerAndWaitDefault(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create type=EM-B220E-NVME -w")
+	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create type="+offerName+" -w")
 }
 
-func createServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone=fr-par-1 type=EM-B220E-NVME")
+func createServer(metaKey string, offerType string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone="+region+" type="+offerType)
 }
 
 // deleteServer deletes a server
@@ -24,7 +24,7 @@ func createServer(metaKey string) core.BeforeFunc {
 //
 //nolint:unparam
 func deleteServer(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd(fmt.Sprintf("scw baremetal server delete zone=fr-par-1 {{ .%s.ID }}", metaKey))
+	return core.ExecAfterCmd(fmt.Sprintf("scw baremetal server delete zone="+region+" {{ .%s.ID }}", metaKey))
 }
 
 func deleteServerDefault(metaKey string) core.AfterFunc {
