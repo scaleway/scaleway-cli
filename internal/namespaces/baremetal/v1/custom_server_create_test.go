@@ -15,18 +15,18 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
 			Commands: baremetal.GetCommands(),
-			Cmd:      "scw baremetal server create zone=nl-ams-1 type=GP-BM2-S -w",
+			Cmd:      "scw baremetal server create zone=fr-par-1 type=EM-B220E-NVME -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=nl-ams-1"),
+			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=fr-par-1"),
 		},
 		))
 
 		t.Run("With name", core.Test(&core.TestConfig{
 			Commands: baremetal.GetCommands(),
-			Cmd:      "scw baremetal server create name=test-create-server-with-name zone=nl-ams-1 type=GP-BM2-S -w",
+			Cmd:      "scw baremetal server create name=test-create-server-with-name zone=fr-par-1 type=EM-B220E-NVME -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -34,12 +34,12 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=nl-ams-1"),
+			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=fr-par-1"),
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
 			Commands: baremetal.GetCommands(),
-			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue zone=nl-ams-1 type=GP-BM2-S -w",
+			Cmd:      "scw baremetal server create tags.0=prod tags.1=blue zone=fr-par-1 type=EM-B220E-NVME -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -48,7 +48,7 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=nl-ams-1"),
+			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=fr-par-1"),
 		}))
 	})
 }
