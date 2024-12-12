@@ -26,12 +26,12 @@ require (
 	github.com/mattn/go-isatty v0.0.20
 	github.com/moby/buildkit v0.13.2
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.30.0.20241209103932-cb4590f1bf86
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.30.0.20241209153125-92afa47368ef
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/crypto v0.30.0
+	golang.org/x/crypto v0.31.0
 	golang.org/x/term v0.27.0
 	golang.org/x/text v0.21.0
 	gopkg.in/yaml.v3 v3.0.1

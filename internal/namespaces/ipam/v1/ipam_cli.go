@@ -349,6 +349,13 @@ func ipamIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "resource-name",
+				Short:      `Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "resource-id",
 				Short:      `Resource ID to filter for. Only IPs attached to this resource will be returned`,
 				Required:   false,
@@ -365,6 +372,14 @@ func ipamIPList() *core.Command {
 			{
 				Name:       "resource-type",
 				Short:      `Resource type to filter for. Only IPs attached to this type of resource will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "custom", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment", "mgdb_instance", "apple_silicon_server", "apple_silicon_private_nic"},
+			},
+			{
+				Name:       "resource-types.{index}",
+				Short:      `Resource types to filter for. Only IPs attached to these types of resources will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -392,19 +407,11 @@ func ipamIPList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "resource-name",
-				Short:      `Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.`,
+				Name:       "ip-ids.{index}",
+				Short:      `IP IDs to filter for. Only IPs with these UUIDs will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-			},
-			{
-				Name:       "resource-types.{index}",
-				Short:      `Resource types to filter for. Only IPs attached to these types of resources will be returned`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"unknown_type", "custom", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment", "mgdb_instance", "apple_silicon_server", "apple_silicon_private_nic"},
 			},
 			{
 				Name:       "organization-id",
