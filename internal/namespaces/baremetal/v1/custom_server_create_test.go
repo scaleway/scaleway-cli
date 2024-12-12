@@ -1,6 +1,7 @@
 package baremetal_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -15,7 +16,18 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
 			Commands: baremetal.GetCommands(),
-			Cmd:      "scw baremetal server create zone=" + region + " type=" + offerName + " -w",
+			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+				api := baremetalSDK.NewAPI(ctx.Client)
+				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+					OfferName: offerName,
+					Zone:      region,
+				})
+				if server.Stock != baremetalSDK.OfferStockAvailable {
+					return fmt.Errorf("offer out of stock")
+				}
+				return nil
+			},
+			Cmd: "scw baremetal server create zone=" + region + " type=" + offerName + " -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
