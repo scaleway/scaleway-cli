@@ -23,7 +23,7 @@ func Test_InstallServer(t *testing.T) {
 				createServerAndWait("Server"),
 			),
 			Commands: cmds,
-			Cmd:      "scw baremetal server install {{ .Server.ID }} zone=nl-ams-1 hostname=test-install-server ssh-key-ids.0={{ .key.ID }} os-id=" + osID + " -w",
+			Cmd:      "scw baremetal server install {{ .Server.ID }} zone=fr-par-1 hostname=test-install-server ssh-key-ids.0={{ .key.ID }} os-id=" + osID + " -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
@@ -40,7 +40,7 @@ func Test_InstallServer(t *testing.T) {
 				addSSH("key", sshKey),
 				createServerAndWait("Server"),
 			),
-			Cmd: "scw baremetal server install {{ .Server.ID }} zone=nl-ams-1 hostname=test-install-server all-ssh-keys=true os-id=" + osID + " -w",
+			Cmd: "scw baremetal server install {{ .Server.ID }} zone=fr-par-1 hostname=test-install-server all-ssh-keys=true os-id=" + osID + " -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
