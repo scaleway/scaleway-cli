@@ -155,5 +155,5 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(clusterNameSuffi
 
 // deleteCluster deletes a cluster previously registered in the context Meta at metaKey.
 func deleteCluster(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw k8s cluster delete {{ ." + metaKey + ".ID }} --wait")
+	return core.ExecAfterCmd("scw k8s cluster delete {{ ." + metaKey + ".ID }} with-additional-resources=true --wait")
 }

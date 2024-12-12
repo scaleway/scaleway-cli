@@ -1,22 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                37176254-0637-41bd-b519-091d431d29ed
+ID                2b3d49ed-7aac-4ca4-b690-ae896d15e956
 Type              kapsule
 Name              cli-test-wait-cluster
 Status            ready
 Version           1.27.1
 Region            fr-par
-OrganizationID    fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
+OrganizationID    564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID         564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 Cni               cilium
 Description       -
-ClusterURL        https://37176254-0637-41bd-b519-091d431d29ed.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.37176254-0637-41bd-b519-091d431d29ed.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://2b3d49ed-7aac-4ca4-b690-ae896d15e956.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.2b3d49ed-7aac-4ca4-b690-ae896d15e956.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 UpgradeAvailable  true
-PrivateNetworkID  65834a6d-2e7c-43f1-bd71-52fa7307ab07
+PrivateNetworkID  99b960e4-e830-4979-baab-40184b9b8209
 CommitmentEndsAt  few seconds ago
+SbsCsiEnabled     true
 
 Autoscaler configuration:
 ScaleDownDisabled              false
@@ -43,19 +44,19 @@ UsernamePrefix  -
 GroupsPrefix    -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "37176254-0637-41bd-b519-091d431d29ed",
+  "id": "2b3d49ed-7aac-4ca4-b690-ae896d15e956",
   "type": "kapsule",
   "name": "cli-test-wait-cluster",
   "status": "ready",
   "version": "1.27.1",
   "region": "fr-par",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://37176254-0637-41bd-b519-091d431d29ed.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.37176254-0637-41bd-b519-091d431d29ed.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://2b3d49ed-7aac-4ca4-b690-ae896d15e956.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.2b3d49ed-7aac-4ca4-b690-ae896d15e956.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -90,6 +91,7 @@ GroupsPrefix    -
     "required_claim": []
   },
   "apiserver_cert_sans": [],
-  "private_network_id": "65834a6d-2e7c-43f1-bd71-52fa7307ab07",
-  "commitment_ends_at": "1970-01-01T00:00:00.0Z"
+  "private_network_id": "99b960e4-e830-4979-baab-40184b9b8209",
+  "commitment_ends_at": "1970-01-01T00:00:00.0Z",
+  "sbs_csi_enabled": true
 }
