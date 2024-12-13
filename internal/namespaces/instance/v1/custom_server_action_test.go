@@ -7,6 +7,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
@@ -19,7 +20,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("without IP", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy -w")),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy ip=new -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -27,7 +28,8 @@ func Test_ServerTerminate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
-				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				server := testhelpers.MapValue[*instanceSDK.Server](t, ctx.Meta, "Server")
+				assert.NotNil(t, server.PublicIP)
 				_, err := api.GetIP(&instanceSDK.GetIPRequest{
 					IP: server.PublicIP.ID,
 				})
@@ -40,7 +42,7 @@ func Test_ServerTerminate(t *testing.T) {
 
 	t.Run("with IP", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy -w")),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy ip=new -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -48,7 +50,9 @@ func Test_ServerTerminate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
-				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				server := testhelpers.MapValue[*instanceSDK.Server](t, ctx.Meta, "Server")
+				assert.NotNil(t, server.PublicIP)
+
 				_, err := api.GetIP(&instanceSDK.GetIPRequest{
 					IP: server.PublicIP.ID,
 				})
@@ -84,9 +88,11 @@ func Test_ServerTerminate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
-				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				server := testhelpers.MapValue[*instanceSDK.Server](t, ctx.Meta, "Server")
+				volume := testhelpers.MapTValue(t, server.Volumes, "0")
+
 				_, err := api.GetVolume(&instanceSDK.GetVolumeRequest{
-					VolumeID: server.Volumes["0"].ID,
+					VolumeID: volume.ID,
 					Zone:     server.Zone,
 				})
 				require.IsType(t, &scw.ResourceNotFoundError{}, err)
@@ -139,7 +145,7 @@ func Test_ServerAction(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				storedServer := ctx.Meta["Server"].(*instanceSDK.Server)
+				storedServer := testhelpers.MapValue[*instanceSDK.Server](t, ctx.Meta, "Server")
 				api := instanceSDK.NewAPI(ctx.Client)
 				resp, err := api.GetServer(&instanceSDK.GetServerRequest{
 					Zone:     storedServer.Zone,
