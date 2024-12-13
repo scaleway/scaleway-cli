@@ -9,11 +9,16 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+const (
+	offerName = "EM-B220E-NVME"
+	region    = "fr-par-1"
+)
+
 func Test_StartServerErrors(t *testing.T) {
 	t.Run("Error: cannot be started while not delivered", core.Test(&core.TestConfig{
-		BeforeFunc: createServer("Server"),
+		BeforeFunc: createServer("Server", "EM-B111X-SATA"),
 		Commands:   baremetal.GetCommands(),
-		Cmd:        "scw baremetal server start zone=nl-ams-1 {{ .Server.ID }}",
+		Cmd:        "scw baremetal server start zone=" + region + " {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -37,9 +42,9 @@ func Test_StartServerErrors(t *testing.T) {
 
 func Test_StopServerErrors(t *testing.T) {
 	t.Run("Error: cannot be stopped while not delivered", core.Test(&core.TestConfig{
-		BeforeFunc: createServer("Server"),
+		BeforeFunc: createServer("Server", "EM-B111X-SATA"),
 		Commands:   baremetal.GetCommands(),
-		Cmd:        "scw baremetal server stop zone=nl-ams-1 {{ .Server.ID }}",
+		Cmd:        "scw baremetal server stop zone=" + region + " {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -63,9 +68,9 @@ func Test_StopServerErrors(t *testing.T) {
 
 func Test_RebootServerErrors(t *testing.T) {
 	t.Run("Error: cannot be rebooted while not delivered", core.Test(&core.TestConfig{
-		BeforeFunc: createServer("Server"),
+		BeforeFunc: createServer("Server", "EM-B111X-SATA"),
 		Commands:   baremetal.GetCommands(),
-		Cmd:        "scw baremetal server reboot zone-nl-ams-1 {{ .Server.ID }}",
+		Cmd:        "scw baremetal server reboot zone=" + region + " {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),

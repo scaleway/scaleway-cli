@@ -1,10 +1,10 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Server not found
+Server is not delivered
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "Server not found",
+  "message": "Server is not delivered",
   "error": {
-    "message": "Server not found"
+    "message": "Server is not delivered"
   }
 }
