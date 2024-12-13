@@ -40,6 +40,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamUserUpdate(),
 		iamUserDelete(),
 		iamUserCreate(),
+		iamUserUpdateUsername(),
 		iamUserUpdatePassword(),
 		iamApplicationList(),
 		iamApplicationCreate(),
@@ -671,6 +672,42 @@ func iamUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.CreateUser(request)
+
+		},
+	}
+}
+
+func iamUserUpdateUsername() *core.Command {
+	return &core.Command{
+		Short:     `Update an user's username. Private Beta feature.`,
+		Long:      `Update an user's username. Private Beta feature.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "update-username",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.UpdateUserUsernameRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "username",
+				Short:      `The new username`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.UpdateUserUsernameRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.UpdateUserUsername(request)
 
 		},
 	}
