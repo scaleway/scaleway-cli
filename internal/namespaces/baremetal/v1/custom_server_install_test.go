@@ -1,13 +1,13 @@
 package baremetal_test
 
 import (
-	"fmt"
-	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	"errors"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
 
 func Test_InstallServer(t *testing.T) {
@@ -28,7 +28,7 @@ func Test_InstallServer(t *testing.T) {
 						Zone:      region,
 					})
 					if server.Stock != baremetalSDK.OfferStockAvailable {
-						err := fmt.Errorf("offer out of stock")
+						err := errors.New("offer out of stock")
 						return err
 					}
 					return nil
@@ -58,7 +58,7 @@ func Test_InstallServer(t *testing.T) {
 						Zone:      region,
 					})
 					if server.Stock != baremetalSDK.OfferStockAvailable {
-						return fmt.Errorf("offer out of stock")
+						return errors.New("offer out of stock")
 					}
 					return nil
 				},

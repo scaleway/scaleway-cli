@@ -1,14 +1,14 @@
 package baremetal_test
 
 import (
-	"fmt"
-	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	"errors"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
+	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
 
 func Test_CreateFlexibleIPInteractive(t *testing.T) {
@@ -28,7 +28,7 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 					Zone:      region,
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return fmt.Errorf("offer out of stock")
+					return errors.New("offer out of stock")
 				}
 				return nil
 			},
@@ -60,7 +60,7 @@ func Test_CreateFlexibleIP(t *testing.T) {
 					Zone:      region,
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return fmt.Errorf("offer out of stock")
+					return errors.New("offer out of stock")
 				}
 				return nil
 			},

@@ -1,7 +1,7 @@
 package baremetal_test
 
 import (
-	"fmt"
+	"errors"
 	"testing"
 
 	"github.com/alecthomas/assert"
@@ -23,7 +23,7 @@ func Test_CreateServer(t *testing.T) {
 					Zone:      region,
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return fmt.Errorf("offer out of stock")
+					return errors.New("offer out of stock")
 				}
 				return nil
 			},
@@ -45,7 +45,7 @@ func Test_CreateServer(t *testing.T) {
 					Zone:      region,
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return fmt.Errorf("offer out of stock")
+					return errors.New("offer out of stock")
 				}
 				return nil
 			},
@@ -69,7 +69,7 @@ func Test_CreateServer(t *testing.T) {
 					Zone:      region,
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return fmt.Errorf("offer out of stock")
+					return errors.New("offer out of stock")
 				}
 				return nil
 			},
