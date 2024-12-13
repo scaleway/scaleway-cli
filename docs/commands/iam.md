@@ -59,6 +59,7 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [List users of an Organization](#list-users-of-an-organization)
   - [Update a user](#update-a-user)
   - [Update an user's password. Private Beta feature.](#update-an-user's-password.-private-beta-feature.)
+  - [Update an user's username. Private Beta feature.](#update-an-user's-username.-private-beta-feature.)
 
   
 ## API keys management commands
@@ -1168,6 +1169,26 @@ scw iam user update-password <user-id ...> [arg=value ...]
 | user-id | Required | ID of the user to update |
 | password | Required | The new password |
 | send-email |  | Whether or not to send an email alerting the user their password has changed |
+
+
+
+### Update an user's username. Private Beta feature.
+
+Update an user's username. Private Beta feature.
+
+**Usage:**
+
+```
+scw iam user update-username <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to update |
+| username | Required | The new username |
 
 
 
