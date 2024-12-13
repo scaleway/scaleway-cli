@@ -2,7 +2,7 @@ package rdb
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/human"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
 

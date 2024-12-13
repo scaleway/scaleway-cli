@@ -11,7 +11,7 @@ import (
 	"runtime"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/human"
 )
 
 const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
