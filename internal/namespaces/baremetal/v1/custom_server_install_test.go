@@ -1,6 +1,8 @@
 package baremetal_test
 
 import (
+	"fmt"
+	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -19,6 +21,18 @@ func Test_InstallServer(t *testing.T) {
 
 		t.Run("With ID", core.Test(&core.TestConfig{
 			BeforeFunc: core.BeforeFuncCombine(
+				func(ctx *core.BeforeFuncCtx) error {
+					api := baremetalSDK.NewAPI(ctx.Client)
+					server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+						OfferName: offerName,
+						Zone:      region,
+					})
+					if server.Stock != baremetalSDK.OfferStockAvailable {
+						err := fmt.Errorf("offer out of stock")
+						return err
+					}
+					return nil
+				},
 				addSSH("key", sshKey),
 				createServerAndWait("Server"),
 			),
@@ -37,6 +51,17 @@ func Test_InstallServer(t *testing.T) {
 		t.Run("All SSH keys", core.Test(&core.TestConfig{
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
+				func(ctx *core.BeforeFuncCtx) error {
+					api := baremetalSDK.NewAPI(ctx.Client)
+					server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+						OfferName: offerName,
+						Zone:      region,
+					})
+					if server.Stock != baremetalSDK.OfferStockAvailable {
+						return fmt.Errorf("offer out of stock")
+					}
+					return nil
+				},
 				addSSH("key", sshKey),
 				createServerAndWait("Server"),
 			),

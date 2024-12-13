@@ -2,7 +2,6 @@ package baremetal_test
 
 import (
 	"fmt"
-
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
 

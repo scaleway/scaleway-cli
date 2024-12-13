@@ -1,24 +1,24 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              c64d397d-fe45-47e0-a7b8-d67285165728
+ID              d03fcee0-98f1-4852-b226-204da02266bd
 OrganizationID  5ebc0159-7cb7-406c-9521-9347d1987fb2
 ProjectID       5ebc0159-7cb7-406c-9521-9347d1987fb2
-Name            cli-bm-lucid-gates
+Name            cli-bm-quizzical-ardinghelli
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
 OfferID         206ea234-9097-4ae1-af68-6d2be09f47ed
 OfferName       EM-B220E-NVME
-Domain          c64d397d-fe45-47e0-a7b8-d67285165728.fr-par-1.baremetal.scw.cloud
+Domain          d03fcee0-98f1-4852-b226-204da02266bd.fr-par-1.baremetal.scw.cloud
 BootType        normal
 Zone            fr-par-1
 PingStatus      up
 
 IPs:
 ID                                    ADDRESS                               REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-0e147df8-fe12-47d1-990e-2eb335c5261f  2001:bc8:701:701:3eec:efff:feff:174e  c64d397d-fe45-47e0-a7b8-d67285165728.fr-par-1.baremetal.scw.cloud  IPv6     active          -
-f0337c2f-3048-4866-bb58-ec87a3282a98  62.210.158.50                         c64d397d-fe45-47e0-a7b8-d67285165728.fr-par-1.baremetal.scw.cloud  IPv4     active          -
+547f44e8-431b-4bcf-ade0-f49e163ed8b2  62.210.158.112                        d03fcee0-98f1-4852-b226-204da02266bd.fr-par-1.baremetal.scw.cloud  IPv4     active          -
+73b3a7fd-4083-4ff4-a4e2-89a31fe00bcc  2001:bc8:701:702:3eec:efff:fefe:ef2c  d03fcee0-98f1-4852-b226-204da02266bd.fr-par-1.baremetal.scw.cloud  IPv6     active          -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
@@ -26,7 +26,7 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 Install:
 OsID                                            03b7f4ba-a6a1-4305-984e-b54fafbf1681
 Hostname                                        test-install-server
-SSHKeyIDs.0                                     584a34fe-d851-40e2-a928-324885541bf5
+SSHKeyIDs.0                                     6261b62a-b17a-4ae3-a897-fb759da40c7b
 Status                                          completed
 User                                            ubuntu
 ServiceUser                                     -
@@ -73,10 +73,10 @@ PartitioningSchema.Filesystems.2.Format         ext4
 PartitioningSchema.Filesystems.2.Mountpoint     /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "c64d397d-fe45-47e0-a7b8-d67285165728",
+  "id": "d03fcee0-98f1-4852-b226-204da02266bd",
   "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
   "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "name": "cli-bm-lucid-gates",
+  "name": "cli-bm-quizzical-ardinghelli",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -86,30 +86,30 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
   "tags": [],
   "ips": [
     {
-      "id": "0e147df8-fe12-47d1-990e-2eb335c5261f",
-      "address": "2001:bc8:701:701:3eec:efff:feff:174e",
-      "reverse": "c64d397d-fe45-47e0-a7b8-d67285165728.fr-par-1.baremetal.scw.cloud",
-      "version": "IPv6",
+      "id": "547f44e8-431b-4bcf-ade0-f49e163ed8b2",
+      "address": "62.210.158.112",
+      "reverse": "d03fcee0-98f1-4852-b226-204da02266bd.fr-par-1.baremetal.scw.cloud",
+      "version": "IPv4",
       "reverse_status": "active",
       "reverse_status_message": ""
     },
     {
-      "id": "f0337c2f-3048-4866-bb58-ec87a3282a98",
-      "address": "62.210.158.50",
-      "reverse": "c64d397d-fe45-47e0-a7b8-d67285165728.fr-par-1.baremetal.scw.cloud",
-      "version": "IPv4",
+      "id": "73b3a7fd-4083-4ff4-a4e2-89a31fe00bcc",
+      "address": "2001:bc8:701:702:3eec:efff:fefe:ef2c",
+      "reverse": "d03fcee0-98f1-4852-b226-204da02266bd.fr-par-1.baremetal.scw.cloud",
+      "version": "IPv6",
       "reverse_status": "active",
       "reverse_status_message": ""
     }
   ],
-  "domain": "c64d397d-fe45-47e0-a7b8-d67285165728.fr-par-1.baremetal.scw.cloud",
+  "domain": "d03fcee0-98f1-4852-b226-204da02266bd.fr-par-1.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-1",
   "install": {
     "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "584a34fe-d851-40e2-a928-324885541bf5"
+      "6261b62a-b17a-4ae3-a897-fb759da40c7b"
     ],
     "status": "completed",
     "user": "ubuntu",
