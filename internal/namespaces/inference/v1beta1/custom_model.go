@@ -1,7 +1,7 @@
 package inference
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
 )
 

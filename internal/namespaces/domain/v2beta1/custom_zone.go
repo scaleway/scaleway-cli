@@ -2,7 +2,7 @@ package domain
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 

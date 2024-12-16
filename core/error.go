@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 )
 
 // CliError is an all-in-one error structure that can be used in commands to return useful errors to the user.

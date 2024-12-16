@@ -2,7 +2,7 @@ package function
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	function "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1"
 )
 

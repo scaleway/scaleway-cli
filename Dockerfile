@@ -17,7 +17,6 @@ RUN go mod download
 COPY scripts/ scripts/
 COPY cmd/ cmd/
 COPY core/ core/
-COPY human/ human/
 COPY commands/ commands/
 COPY internal/ internal/
 COPY .git/ .git/

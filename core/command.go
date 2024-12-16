@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 )
 

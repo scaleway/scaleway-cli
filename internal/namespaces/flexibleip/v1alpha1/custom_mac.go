@@ -2,7 +2,7 @@ package flexibleip
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	flexibleip "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1"
 )
 

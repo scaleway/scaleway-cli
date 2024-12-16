@@ -8,7 +8,7 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 )
 
 func Test_Alias(t *testing.T) {
