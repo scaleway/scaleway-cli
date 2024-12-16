@@ -9,8 +9,8 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"gopkg.in/yaml.v3"
 )
 

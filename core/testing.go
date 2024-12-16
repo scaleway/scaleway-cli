@@ -19,8 +19,8 @@ import (
 	"time"
 
 	"github.com/hashicorp/go-version"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	args "github.com/scaleway/scaleway-cli/v2/internal/args"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"

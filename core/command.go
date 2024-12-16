@@ -7,8 +7,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
 )
 
 // Command represent a CLI command. From this higher level type we create Cobra command objects.
