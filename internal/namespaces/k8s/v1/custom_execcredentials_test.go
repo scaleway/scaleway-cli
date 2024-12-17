@@ -26,6 +26,10 @@ func Test_ExecCredential(t *testing.T) {
 		TmpHomeDir: true,
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw k8s exec-credential",
+		OverrideEnv: map[string]string{
+			scw.ScwAccessKeyEnv: "", // Ignore keys in test env
+			scw.ScwSecretKeyEnv: "", // Ignore keys in test env
+		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -57,6 +61,8 @@ func Test_ExecCredential(t *testing.T) {
 		Cmd:        "scw k8s exec-credential",
 		OverrideEnv: map[string]string{
 			scw.ScwActiveProfileEnv: "p2",
+			scw.ScwAccessKeyEnv:     "", // Ignore keys in test env
+			scw.ScwSecretKeyEnv:     "", // Ignore keys in test env
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -71,6 +77,10 @@ func Test_ExecCredential(t *testing.T) {
 		TmpHomeDir: true,
 		BeforeFunc: beforeFuncCreateFullConfig(),
 		Cmd:        "scw --profile p3 k8s exec-credential",
+		OverrideEnv: map[string]string{
+			scw.ScwAccessKeyEnv: "", // Ignore keys in test env
+			scw.ScwSecretKeyEnv: "", // Ignore keys in test env
+		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -86,6 +96,8 @@ func Test_ExecCredential(t *testing.T) {
 		Cmd:        "scw --profile p3 k8s exec-credential",
 		OverrideEnv: map[string]string{
 			scw.ScwActiveProfileEnv: "p2",
+			scw.ScwAccessKeyEnv:     "", // Ignore keys in test env
+			scw.ScwSecretKeyEnv:     "", // Ignore keys in test env
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
