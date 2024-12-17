@@ -8,6 +8,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -123,7 +124,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					size := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					volume := testhelpers.MapTValue(t, server.Volumes, "0")
+					size := volume.Size
 					assert.Equal(t, 20*scw.GB, instance.SizeValue(size), "Size of volume should be 20 GB")
 				},
 				core.TestCheckExitCode(0),
@@ -143,7 +146,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					size := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					volume := testhelpers.MapTValue(t, server.Volumes, "0")
+					size := volume.Size
 					assert.Equal(t, 20*scw.GB, instance.SizeValue(size), "Size of volume should be 20 GB")
 				},
 			),
@@ -166,7 +171,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					size := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					volume := testhelpers.MapTValue(t, server.Volumes, "0")
+					size := volume.Size
 					assert.Equal(t, 20*scw.GB, instance.SizeValue(size), "Size of volume should be 20 GB")
 				},
 			),
@@ -184,8 +191,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					size0 := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
-					size1 := ctx.Result.(*instanceSDK.Server).Volumes["1"].Size
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					size0 := testhelpers.MapTValue(t, server.Volumes, "0").Size
+					size1 := testhelpers.MapTValue(t, server.Volumes, "1").Size
 					assert.Equal(t, 10*scw.GB, instance.SizeValue(size0), "Size of volume should be 10 GB")
 					assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
 				},
@@ -206,8 +214,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					size0 := ctx.Result.(*instanceSDK.Server).Volumes["0"].Size
-					size1 := ctx.Result.(*instanceSDK.Server).Volumes["1"].Size
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					size0 := testhelpers.MapTValue(t, server.Volumes, "0").Size
+					size1 := testhelpers.MapTValue(t, server.Volumes, "1").Size
 					assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
 					assert.Equal(t, 20*scw.GB, instance.SizeValue(size1), "Size of volume should be 20 GB")
 				},
@@ -227,9 +236,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					size1 := ctx.Result.(*instanceSDK.Server).Volumes["1"].Size
-					size2 := ctx.Result.(*instanceSDK.Server).Volumes["2"].Size
-					size3 := ctx.Result.(*instanceSDK.Server).Volumes["3"].Size
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					size1 := testhelpers.MapTValue(t, server.Volumes, "1").Size
+					size2 := testhelpers.MapTValue(t, server.Volumes, "2").Size
+					size3 := testhelpers.MapTValue(t, server.Volumes, "3").Size
 					assert.Equal(t, 1*scw.GB, instance.SizeValue(size1), "Size of volume should be 1 GB")
 					assert.Equal(t, 5*scw.GB, instance.SizeValue(size2), "Size of volume should be 5 GB")
 					assert.Equal(t, 10*scw.GB, instance.SizeValue(size3), "Size of volume should be 10 GB")
@@ -251,7 +261,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["1"].VolumeType)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					volume := testhelpers.MapTValue(t, server.Volumes, "1")
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -271,7 +283,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["1"].VolumeType)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					volume := testhelpers.MapTValue(t, server.Volumes, "1")
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -293,7 +307,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["0"].VolumeType)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					volume := testhelpers.MapTValue(t, server.Volumes, "0")
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -312,7 +328,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.Server).Volumes["0"].VolumeType)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					volume := testhelpers.MapTValue(t, server.Volumes, "0")
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -331,7 +349,9 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					rootVolume, rootVolumeExists := ctx.Result.(*instanceSDK.Server).Volumes["0"]
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+
+					rootVolume, rootVolumeExists := server.Volumes["0"]
 					assert.True(t, rootVolumeExists)
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, rootVolume.VolumeType)
 
@@ -362,8 +382,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
-					assert.Equal(t, false, ctx.Result.(*instanceSDK.Server).PublicIP.Dynamic)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					assert.NotNil(t, server.PublicIP)
+					assert.NotEmpty(t, server.PublicIP.Address)
+					assert.Equal(t, false, server.PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -378,8 +400,10 @@ func Test_CreateServer(t *testing.T) {
 					t.Helper()
 					assert.NoError(t, ctx.Err)
 					assert.NotNil(t, ctx.Result)
-					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
-					assert.Equal(t, true, ctx.Result.(*instanceSDK.Server).DynamicIPRequired)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					assert.NotNil(t, server.PublicIP)
+					assert.NotEmpty(t, server.PublicIP.Address)
+					assert.Equal(t, true, server.DynamicIPRequired)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -394,8 +418,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
-					assert.Equal(t, false, ctx.Result.(*instanceSDK.Server).PublicIP.Dynamic)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					assert.NotNil(t, server.PublicIP)
+					assert.NotEmpty(t, server.PublicIP.Address)
+					assert.Equal(t, false, server.PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -410,8 +436,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					assert.NotEmpty(t, ctx.Result.(*instanceSDK.Server).PublicIP.Address)
-					assert.Equal(t, false, ctx.Result.(*instanceSDK.Server).PublicIP.Dynamic)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					assert.NotNil(t, server.PublicIP)
+					assert.NotEmpty(t, server.PublicIP.Address)
+					assert.Equal(t, false, server.PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -425,7 +453,7 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					require.NotNil(t, ctx.Result, "Server is nil")
-					server := ctx.Result.(*instanceSDK.Server)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.Len(t, server.PublicIPs, 1)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet6, server.PublicIPs[0].Family)
 				},
@@ -442,7 +470,7 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result, "server is nil")
-					server := ctx.Result.(*instanceSDK.Server)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.Len(t, server.PublicIPs, 2)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet, server.PublicIPs[0].Family)
 					assert.True(t, server.PublicIPs[0].Dynamic)
@@ -460,7 +488,7 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result, "server is nil")
-					server := ctx.Result.(*instanceSDK.Server)
+					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.Len(t, server.PublicIPs, 2)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet, server.PublicIPs[0].Family)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet6, server.PublicIPs[1].Family)
