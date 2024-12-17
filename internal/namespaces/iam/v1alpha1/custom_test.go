@@ -7,6 +7,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 )
 
@@ -52,8 +53,10 @@ func Test_SSHKeyCreateCommand(t *testing.T) {
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			api := iamsdk.NewAPI(ctx.Client)
+			key := testhelpers.Value[*iamsdk.SSHKey](t, ctx.CmdResult)
+
 			return api.DeleteSSHKey(&iamsdk.DeleteSSHKeyRequest{
-				SSHKeyID: ctx.CmdResult.(*iamsdk.SSHKey).ID,
+				SSHKeyID: key.ID,
 			})
 		},
 	}))
