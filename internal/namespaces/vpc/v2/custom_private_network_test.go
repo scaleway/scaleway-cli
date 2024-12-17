@@ -41,7 +41,7 @@ func Test_GetPrivateNetwork(t *testing.T) {
 			createNIC(),
 			createLB(),
 			attachLB(),
-			createRdbInstance(),
+			createRdbInstance("RDB", "PostgreSQL"),
 		),
 		Cmd:   "scw vpc private-network get {{ .PN.ID }}",
 		Check: core.TestCheckGolden(),
