@@ -1,67 +1,37 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                8d84f727-0251-48f5-8000-054706fd7def
-CreatedAt         few seconds ago
-UpdatedAt         few seconds ago
-GatewayID         b0920865-db15-452b-8a59-3fdc05d4339a
-PrivateNetworkID  33e309e0-71eb-4915-95e6-baafe98c0759
-MacAddress        02:00:00:18:95:29
-EnableMasquerade  false
-Status            ready
-EnableDHCP        true
-Zone              fr-par-1
+ID                           09df3ae8-4fc6-451d-abbd-2c2f6d5978a0
+CreatedAt                    few seconds ago
+UpdatedAt                    few seconds ago
+GatewayID                    077618e6-965d-4e56-897b-626047b26805
+PrivateNetworkID             8cd6cfc0-3ee7-434a-8551-578479f161c7
+MacAddress                   02:00:00:14:BF:0A
+EnableMasquerade             false
+Status                       ready
+EnableDHCP                   true
+Address                      172.16.68.2/22
+IpamConfig.PushDefaultRoute  true
+IpamConfig.IpamIPID          e346a9a5-b4fc-4933-84b5-645a570f9f1f
+Zone                         fr-par-1
 
 DHCP:
-ID                b9915f5e-7c29-421b-8fae-2e4bea947f91
-OrganizationID    d3520a52-2c75-4ba0-bda8-82dd087f07f2
-ProjectID         d3520a52-2c75-4ba0-bda8-82dd087f07f2
-CreatedAt         few seconds ago
-UpdatedAt         few seconds ago
-Subnet            192.168.1.0/24
-Address           192.168.1.1
-PoolLow           192.168.1.2
-PoolHigh          192.168.1.254
-EnableDynamic     true
-ValidLifetime     1 hours
-RenewTimer        50 minutes
-RebindTimer       51 minutes
-PushDefaultRoute  true
-PushDNSServer     true
-DNSLocalName      priv
-Zone              fr-par-1
+-
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "8d84f727-0251-48f5-8000-054706fd7def",
+  "id": "09df3ae8-4fc6-451d-abbd-2c2f6d5978a0",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
-  "gateway_id": "b0920865-db15-452b-8a59-3fdc05d4339a",
-  "private_network_id": "33e309e0-71eb-4915-95e6-baafe98c0759",
-  "mac_address": "02:00:00:18:95:29",
+  "gateway_id": "077618e6-965d-4e56-897b-626047b26805",
+  "private_network_id": "8cd6cfc0-3ee7-434a-8551-578479f161c7",
+  "mac_address": "02:00:00:14:BF:0A",
   "enable_masquerade": false,
   "status": "ready",
-  "dhcp": {
-    "id": "b9915f5e-7c29-421b-8fae-2e4bea947f91",
-    "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-    "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-    "created_at": "1970-01-01T00:00:00.0Z",
-    "updated_at": "1970-01-01T00:00:00.0Z",
-    "subnet": "192.168.1.0/24",
-    "address": "192.168.1.1",
-    "pool_low": "192.168.1.2",
-    "pool_high": "192.168.1.254",
-    "enable_dynamic": true,
-    "valid_lifetime": "3600.000000000s",
-    "renew_timer": "3000.000000000s",
-    "rebind_timer": "3060.000000000s",
-    "push_default_route": true,
-    "push_dns_server": true,
-    "dns_servers_override": [],
-    "dns_search": [],
-    "dns_local_name": "priv",
-    "zone": "fr-par-1"
-  },
+  "dhcp": null,
   "enable_dhcp": true,
-  "address": null,
-  "ipam_config": null,
+  "address": "172.16.68.2/22",
+  "ipam_config": {
+    "push_default_route": true,
+    "ipam_ip_id": "e346a9a5-b4fc-4933-84b5-645a570f9f1f"
+  },
   "zone": "fr-par-1"
 }

@@ -18,15 +18,12 @@ func Test_vpcGwGatewayNetworkGet(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			testhelpers.CreatePN(),
 			testhelpers.CreateGateway("GW"),
-			testhelpers.CreateDHCP(),
-			testhelpers.CreateGatewayNetworkDHCP("GW"),
+			testhelpers.CreateGatewayNetwork("GW"),
 		),
 		Cmd:   "scw vpc-gw gateway-network get {{ .GWNT.ID }}",
 		Check: core.TestCheckGolden(),
 		AfterFunc: core.AfterFuncCombine(
 			testhelpers.DeleteGatewayNetwork(),
-			testhelpers.DeletePN(),
-			testhelpers.DeleteDHCP(),
 			testhelpers.DeleteGateway("GW"),
 			testhelpers.DeleteIPVpcGw("GW"),
 		),
