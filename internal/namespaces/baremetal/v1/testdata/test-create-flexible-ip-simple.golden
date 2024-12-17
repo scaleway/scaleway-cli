@@ -8,7 +8,7 @@ UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          attached
 IPAddress       195.154.190.153/32
-ServerID        7da66b3f-0e37-4726-8356-1b8d74ab8106
+ServerID        e5ac9442-1096-4f45-bc91-717d2ecd747f
 Reverse         195-154-190-153.rev.poneytelecom.eu.
 Zone            fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
@@ -23,7 +23,7 @@ Zone            fr-par-1
   "status": "attached",
   "ip_address": "195.154.190.153/32",
   "mac_address": null,
-  "server_id": "7da66b3f-0e37-4726-8356-1b8d74ab8106",
+  "server_id": "e5ac9442-1096-4f45-bc91-717d2ecd747f",
   "reverse": "195-154-190-153.rev.poneytelecom.eu.",
   "zone": "fr-par-1"
 }

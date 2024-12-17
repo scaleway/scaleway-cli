@@ -1,12 +1,14 @@
 package baremetal_test
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
+	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
 
 func Test_CreateFlexibleIPInteractive(t *testing.T) {
@@ -19,6 +21,17 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 	t.Run("Simple Interactive", core.Test(&core.TestConfig{
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
+			func(ctx *core.BeforeFuncCtx) error {
+				api := baremetalSDK.NewAPI(ctx.Client)
+				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+					OfferName: offerName,
+					Zone:      region,
+				})
+				if server.Stock != baremetalSDK.OfferStockAvailable {
+					return errors.New("offer out of stock")
+				}
+				return nil
+			},
 			createServerAndWaitDefault("Server"),
 		),
 		Cmd: "scw baremetal server add-flexible-ip {{ .Server.ID }}",
@@ -40,6 +53,17 @@ func Test_CreateFlexibleIP(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
+			func(ctx *core.BeforeFuncCtx) error {
+				api := baremetalSDK.NewAPI(ctx.Client)
+				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+					OfferName: offerName,
+					Zone:      region,
+				})
+				if server.Stock != baremetalSDK.OfferStockAvailable {
+					return errors.New("offer out of stock")
+				}
+				return nil
+			},
 			createServerAndWaitDefault("Server"),
 		),
 		Cmd: "scw baremetal server add-flexible-ip {{ .Server.ID }} ip-type=IPv4",
