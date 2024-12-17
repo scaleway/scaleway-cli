@@ -39,6 +39,10 @@ func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
 					}
 					test := bytes.NewBuffer(content)
 					v.Set(reflect.ValueOf(test))
+				} else {
+					// Reader must be re-created as it can only be read once.
+					r := bytes.NewReader(b)
+					v.Set(reflect.ValueOf(r))
 				}
 			case *string:
 				if strings.HasPrefix(*i, "@") {
