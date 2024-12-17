@@ -8,6 +8,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	blockCli "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -26,11 +27,12 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				size0 := ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size
-				size1 := ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size
+				resp := testhelpers.Value[*instanceSDK.AttachVolumeResponse](t, ctx.Result)
+				size0 := testhelpers.MapTValue(t, resp.Server.Volumes, "0").Size
+				size1 := testhelpers.MapTValue(t, resp.Server.Volumes, "1").Size
 				assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
 				assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
-				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeBSSD, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeBSSD, resp.Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
 			DisableParallel: true,
@@ -46,11 +48,12 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				size0 := ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size
-				size1 := ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size
+				resp := testhelpers.Value[*instanceSDK.AttachVolumeResponse](t, ctx.Result)
+				size0 := testhelpers.MapTValue(t, resp.Server.Volumes, "0").Size
+				size1 := testhelpers.MapTValue(t, resp.Server.Volumes, "1").Size
 				assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
 				assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
-				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeLSSD, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeLSSD, resp.Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
 			DisableParallel: true,
@@ -76,8 +79,9 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.NotZero(t, ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes["0"])
-				assert.Nil(t, ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes["1"])
+				resp := testhelpers.Value[*instanceSDK.DetachVolumeResponse](t, ctx.Result)
+				assert.NotZero(t, resp.Server.Volumes["0"])
+				assert.Nil(t, resp.Server.Volumes["1"])
 				assert.Equal(t, 1, len(ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes))
 			},
 			AfterFunc: core.AfterFuncCombine(
@@ -110,7 +114,8 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(t, (*instanceSDK.ServerIP)(nil), ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PublicIP)
+				resp := testhelpers.Value[*instanceSDK.UpdateServerResponse](t, ctx.Result)
+				assert.Equal(t, (*instanceSDK.ServerIP)(nil), resp.Server.PublicIP)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -127,8 +132,8 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				ip := core.GetFromMeta[*instanceSDK.IP](t, ctx, "IP")
-				resp := core.GetTestResult[*instanceSDK.UpdateServerResponse](t, ctx)
+				ip := testhelpers.MapValue[*instanceSDK.IP](t, ctx.Meta, "IP")
+				resp := testhelpers.Value[*instanceSDK.UpdateServerResponse](t, ctx.Result)
 
 				assert.NotNil(t, resp.Server)
 				assert.NotNil(t, resp.Server.PublicIP)

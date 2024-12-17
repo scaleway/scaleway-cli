@@ -6,6 +6,7 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -62,8 +63,10 @@ func Test_ImageDelete(t *testing.T) {
 				t.Helper()
 				// Assert snapshot are deleted with the image
 				api := instanceSDK.NewAPI(ctx.Client)
+				snapshot := testhelpers.MapValue[*instanceSDK.CreateSnapshotResponse](t, ctx.Meta, "Snapshot")
+
 				_, err := api.GetSnapshot(&instanceSDK.GetSnapshotRequest{
-					SnapshotID: ctx.Meta["Snapshot"].(*instanceSDK.CreateSnapshotResponse).Snapshot.ID,
+					SnapshotID: snapshot.Snapshot.ID,
 				})
 				assert.IsType(t, &scw.ResourceNotFoundError{}, err)
 			},

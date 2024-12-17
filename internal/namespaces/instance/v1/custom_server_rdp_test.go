@@ -15,6 +15,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	iamCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"golang.org/x/crypto/ssh"
 )
@@ -128,10 +129,7 @@ func Test_ServerGetRdpPassword(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				assert.NotNil(t, ctx.Result)
-				resp, ok := ctx.Result.(*instance.ServerGetRdpPasswordResponse)
-				if !ok {
-					t.Fatal("Unexpected result type: " + reflect.TypeOf(ctx.Result).String())
-				}
+				resp := testhelpers.Value[*instance.ServerGetRdpPasswordResponse](t, ctx.Result)
 
 				assert.NotEmpty(t, resp.Password)
 			},
