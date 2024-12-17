@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	rdbAPI "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
 
@@ -72,12 +71,7 @@ func createRdbInstance(metaKey, engineName string) core.BeforeFunc {
 			engine.Name,
 		)
 
-		args := core.CmdToArgs(ctx.Meta, cmd)
-		res := ctx.ExecuteCmd(args)
-
-		instance := res.(rdb.CreateInstanceResult)
-		ctx.Meta[metaKey] = instance
-		return nil
+		return core.ExecStoreBeforeCmd(metaKey, cmd)(ctx)
 	}
 }
 

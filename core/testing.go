@@ -443,7 +443,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		renderedArgs := []string(nil)
 		rawArgs := config.Args
 		if config.Cmd != "" {
-			renderedArgs = CmdToArgs(meta, config.Cmd)
+			renderedArgs = cmdToArgs(meta, config.Cmd)
 		} else {
 			// We render raw arguments from meta
 			for _, arg := range rawArgs {
@@ -512,7 +512,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 	}
 }
 
-func CmdToArgs(meta testMetadata, s string) []string {
+func cmdToArgs(meta testMetadata, s string) []string {
 	return strings.Split(meta.render(s), " ")
 }
 
@@ -564,7 +564,7 @@ func AfterFuncWhenUpdatingCassette(afterFunc AfterFunc) AfterFunc {
 // in the context Meta at metaKey.
 func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		args := CmdToArgs(ctx.Meta, cmd)
+		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Logger.Debugf("ExecStoreBeforeCmd: metaKey=%s args=%s\n", metaKey, args)
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(args)
 		return nil
@@ -581,7 +581,7 @@ func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 // ExecBeforeCmd executes the given before command.
 func ExecBeforeCmd(cmd string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
-		args := CmdToArgs(ctx.Meta, cmd)
+		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Logger.Debugf("ExecBeforeCmd: args=%s\n", args)
 		ctx.ExecuteCmd(args)
 		return nil
@@ -603,7 +603,7 @@ func ExecBeforeCmdArgs(args []string) BeforeFunc {
 // ExecAfterCmd executes the given before command.
 func ExecAfterCmd(cmd string) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
-		args := CmdToArgs(ctx.Meta, cmd)
+		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Logger.Debugf("ExecAfterCmd: args=%s\n", args)
 		ctx.ExecuteCmd(args)
 		return nil
