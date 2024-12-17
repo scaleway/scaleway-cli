@@ -8,6 +8,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 )
 
 func Test_createRule(t *testing.T) {
@@ -49,7 +50,7 @@ func Test_deleteRule(t *testing.T) {
 			core.ExecStoreBeforeCmd("Policy", "scw iam policy get {{ .Policy.ID }}"),
 			func(ctx *core.BeforeFuncCtx) error {
 				// Get first Rule ID
-				policy := ctx.Meta["Policy"].(*iam.PolicyGetInterceptorResponse)
+				policy := testhelpers.MapValue[*iam.PolicyGetInterceptorResponse](t, ctx.Meta, "Policy")
 				if len(policy.Rules) != 2 {
 					return errors.New("expected two rules in policy")
 				}
