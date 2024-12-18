@@ -37,6 +37,10 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterListAvailableTypes(),
 		k8sClusterResetAdminToken(),
 		k8sClusterMigrateToSbsCsi(),
+		k8sACLList(),
+		k8sACLAdd(),
+		k8sACLSet(),
+		k8sACLDelete(),
 		k8sPoolList(),
 		k8sPoolCreate(),
 		k8sPoolGet(),
@@ -1192,6 +1196,183 @@ func k8sClusterMigrateToSbsCsi() *core.Command {
 				Short: "Migrate a cluster to SBS CSI",
 				Raw:   `scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-111111111111`,
 			},
+		},
+	}
+}
+
+func k8sACLList() *core.Command {
+	return &core.Command{
+		Short:     `List ACLs`,
+		Long:      `List ACLs for a specific cluster.`,
+		Namespace: "k8s",
+		Resource:  "acl",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.ListClusterACLRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `ID of the cluster whose ACLs will be listed`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.ListClusterACLRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListClusterACLRules(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Rules, nil
+
+		},
+	}
+}
+
+func k8sACLAdd() *core.Command {
+	return &core.Command{
+		Short:     `Add new ACLs`,
+		Long:      `Add new ACL rules for a specific cluster.`,
+		Namespace: "k8s",
+		Resource:  "acl",
+		Verb:      "add",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.AddClusterACLRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `ID of the cluster whose ACLs will be added`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.ip",
+				Short:      `IP subnet to allow`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.scaleway-ranges",
+				Short:      `Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.description",
+				Short:      `Description of the ACL`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.AddClusterACLRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.AddClusterACLRules(request)
+
+		},
+	}
+}
+
+func k8sACLSet() *core.Command {
+	return &core.Command{
+		Short:     `Set new ACLs`,
+		Long:      `Set new ACL rules for a specific cluster.`,
+		Namespace: "k8s",
+		Resource:  "acl",
+		Verb:      "set",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.SetClusterACLRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `ID of the cluster whose ACLs will be set`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.ip",
+				Short:      `IP subnet to allow`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.scaleway-ranges",
+				Short:      `Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.description",
+				Short:      `Description of the ACL`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.SetClusterACLRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			return api.SetClusterACLRules(request)
+
+		},
+	}
+}
+
+func k8sACLDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete an existing ACL`,
+		Long:      `Delete an existing ACL.`,
+		Namespace: "k8s",
+		Resource:  "acl",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.DeleteACLRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "acl-id",
+				Short:      `ID of the ACL rule to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*k8s.DeleteACLRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			e = api.DeleteACLRule(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "acl",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
