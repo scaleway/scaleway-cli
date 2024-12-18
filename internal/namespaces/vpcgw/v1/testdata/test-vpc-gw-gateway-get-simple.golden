@@ -1,42 +1,42 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                 842f7e39-cfed-41a3-bb7f-d4e77d069129
-OrganizationID     d3520a52-2c75-4ba0-bda8-82dd087f07f2
-ProjectID          d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ID                 5acaf45d-d60a-416b-9901-0598a7c6fc0d
+OrganizationID     564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID          564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 CreatedAt          few seconds ago
 UpdatedAt          few seconds ago
 Type.Name          VPC-GW-S
 Type.Bandwidth     100000000
 Type.Zone          fr-par-1
 Status             running
-Name               cli-gw-dreamy-booth
-Version            0.6.1
+Name               cli-gw-compassionate-murdock
+Version            0.7.2
 BastionEnabled     false
 BastionPort        61000
 SMTPEnabled        false
 IsLegacy           false
-IPMobilityEnabled  false
+IPMobilityEnabled  true
 Zone               fr-par-1
 
 IP:
-ID              2c139c4c-b21f-48f1-89ac-3aa31ad3dc88
-OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
-ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ID              f89e9296-419a-4cf5-90df-35fc24ad438a
+OrganizationID  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-Address         51.15.231.133
-Reverse         133-231-15-51.instances.scw.cloud
-GatewayID       842f7e39-cfed-41a3-bb7f-d4e77d069129
+Address         51.158.101.65
+Reverse         65-101-158-51.instances.scw.cloud
+GatewayID       5acaf45d-d60a-416b-9901-0598a7c6fc0d
 Zone            fr-par-1
 
 GatewayNetworks:
 ID                                    CREATED AT       UPDATED AT       GATEWAY ID                            PRIVATE NETWORK ID                    MAC ADDRESS        ENABLE MASQUERADE  STATUS  ENABLE DHCP  ADDRESS         ZONE
-94a3b5f9-8a80-40f8-9560-5079747e0679  few seconds ago  few seconds ago  842f7e39-cfed-41a3-bb7f-d4e77d069129  e92fc64c-0a33-4293-8a5d-d53b949b38d1  02:00:00:18:95:2B  false              ready   false        172.16.28.2/22  fr-par-1
+e08f8ff5-c00b-4cde-badd-a6c6a5dff911  few seconds ago  few seconds ago  5acaf45d-d60a-416b-9901-0598a7c6fc0d  8d2e6968-3376-405b-9d10-fb17941a44b2  02:00:00:1E:FA:2E  false              ready   true         172.16.60.2/22  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "842f7e39-cfed-41a3-bb7f-d4e77d069129",
-  "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "id": "5acaf45d-d60a-416b-9901-0598a7c6fc0d",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "type": {
@@ -45,47 +45,47 @@ ID                                    CREATED AT       UPDATED AT       GATEWAY 
     "zone": "fr-par-1"
   },
   "status": "running",
-  "name": "cli-gw-dreamy-booth",
+  "name": "cli-gw-compassionate-murdock",
   "tags": [],
   "ip": {
-    "id": "2c139c4c-b21f-48f1-89ac-3aa31ad3dc88",
-    "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-    "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+    "id": "f89e9296-419a-4cf5-90df-35fc24ad438a",
+    "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [],
-    "address": "51.15.231.133",
-    "reverse": "133-231-15-51.instances.scw.cloud",
-    "gateway_id": "842f7e39-cfed-41a3-bb7f-d4e77d069129",
+    "address": "51.158.101.65",
+    "reverse": "65-101-158-51.instances.scw.cloud",
+    "gateway_id": "5acaf45d-d60a-416b-9901-0598a7c6fc0d",
     "zone": "fr-par-1"
   },
   "gateway_networks": [
     {
-      "id": "94a3b5f9-8a80-40f8-9560-5079747e0679",
+      "id": "e08f8ff5-c00b-4cde-badd-a6c6a5dff911",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "gateway_id": "842f7e39-cfed-41a3-bb7f-d4e77d069129",
-      "private_network_id": "e92fc64c-0a33-4293-8a5d-d53b949b38d1",
-      "mac_address": "02:00:00:18:95:2B",
+      "gateway_id": "5acaf45d-d60a-416b-9901-0598a7c6fc0d",
+      "private_network_id": "8d2e6968-3376-405b-9d10-fb17941a44b2",
+      "mac_address": "02:00:00:1E:FA:2E",
       "enable_masquerade": false,
       "status": "ready",
       "dhcp": null,
-      "enable_dhcp": false,
-      "address": "172.16.28.2/22",
+      "enable_dhcp": true,
+      "address": "172.16.60.2/22",
       "ipam_config": {
-        "push_default_route": false,
-        "ipam_ip_id": "36a6c5de-695b-4b79-a435-07308cb0e25a"
+        "push_default_route": true,
+        "ipam_ip_id": "48b053e5-e9db-4186-a215-0e3b13899b30"
       },
       "zone": "fr-par-1"
     }
   ],
   "upstream_dns_servers": [],
-  "version": "0.6.1",
+  "version": "0.7.2",
   "can_upgrade_to": null,
   "bastion_enabled": false,
   "bastion_port": 61000,
   "smtp_enabled": false,
   "is_legacy": false,
-  "ip_mobility_enabled": false,
+  "ip_mobility_enabled": true,
   "zone": "fr-par-1"
 }
