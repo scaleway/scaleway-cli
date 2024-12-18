@@ -17,7 +17,7 @@ func Test_SSHConfigInstall(t *testing.T) {
 	t.Run("Install config and create default", core.Test(&core.TestConfig{
 		TmpHomeDir: true,
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true ip=new")),
 		Args:       []string{"scw", "instance", "ssh", "install-config"},
 		Check: core.TestCheckCombine(
 			core.TestCheckGoldenAndReplacePatterns(
@@ -58,7 +58,7 @@ func Test_SSHConfigInstall(t *testing.T) {
 
 				return nil
 			},
-			createServerBionic("Server"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true ip=new")),
 		),
 		Args: []string{"scw", "instance", "ssh", "install-config"},
 		Check: core.TestCheckCombine(
