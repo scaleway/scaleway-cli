@@ -24,6 +24,7 @@ func Test_vpcGwGatewayNetworkGet(t *testing.T) {
 		Check: core.TestCheckGolden(),
 		AfterFunc: core.AfterFuncCombine(
 			testhelpers.DeleteGatewayNetwork(),
+			testhelpers.DeletePN(),
 			testhelpers.DeleteGateway("GW"),
 			testhelpers.DeleteIPVpcGw("GW"),
 		),
