@@ -3,6 +3,10 @@
 This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   
 - [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
+  - [Add new ACLs](#add-new-acls)
+  - [Delete an existing ACL](#delete-an-existing-acl)
+  - [List ACLs](#list-acls)
+  - [Set new ACLs](#set-new-acls)
 - [Kapsule cluster management commands](#kapsule-cluster-management-commands)
   - [Create a new Cluster](#create-a-new-cluster)
   - [Delete a Cluster](#delete-a-cluster)
@@ -46,13 +50,90 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
 
 Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.
 
-Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.
+
+### Add new ACLs
+
+Add new ACL rules for a specific cluster.
 
 **Usage:**
 
 ```
-scw k8s acl
+scw k8s acl add [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | ID of the cluster whose ACLs will be added |
+| acls.{index}.ip |  | IP subnet to allow |
+| acls.{index}.scaleway-ranges |  | Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway. |
+| acls.{index}.description |  | Description of the ACL |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete an existing ACL
+
+Delete an existing ACL.
+
+**Usage:**
+
+```
+scw k8s acl delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| acl-id | Required | ID of the ACL rule to delete |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List ACLs
+
+List ACLs for a specific cluster.
+
+**Usage:**
+
+```
+scw k8s acl list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | ID of the cluster whose ACLs will be listed |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Set new ACLs
+
+Set new ACL rules for a specific cluster.
+
+**Usage:**
+
+```
+scw k8s acl set [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | ID of the cluster whose ACLs will be set |
+| acls.{index}.ip |  | IP subnet to allow |
+| acls.{index}.scaleway-ranges |  | Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway. |
+| acls.{index}.description |  | Description of the ACL |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
