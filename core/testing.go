@@ -82,7 +82,7 @@ type CheckFuncCtx struct {
 
 var testRenderHelpers = map[string]any{
 	"randint": func() string {
-		return strconv.FormatUint(rand.Uint64(), 10)
+		return strconv.FormatUint(rand.Uint64(), 10) //nolint:gosec // Use weak random for a non-important use
 	},
 }
 

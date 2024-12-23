@@ -79,7 +79,6 @@ func Test_ImageList(t *testing.T) {
 }
 
 func setupImage(dockerImage string, namespaceEndpoint string, imageName string, visibility registrySDK.ImageVisibility) core.BeforeFunc {
-
 	return func(ctx *core.BeforeFuncCtx) error {
 		namespaceEndpoint := ctx.Meta.Render(namespaceEndpoint)
 		remote := fmt.Sprintf("%s/%s:latest", namespaceEndpoint, imageName)
