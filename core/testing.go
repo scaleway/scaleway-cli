@@ -7,12 +7,14 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"math/rand/v2"
 	"net/http"
 	"os"
 	"os/exec"
 	"path"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"testing"
 	"text/template"
@@ -64,7 +66,7 @@ type CheckFuncCtx struct {
 	Result interface{}
 
 	// Meta bag
-	Meta testMetadata
+	Meta TestMetadata
 
 	// Scaleway client
 	Client *scw.Client
@@ -78,14 +80,20 @@ type CheckFuncCtx struct {
 	LogBuffer string
 }
 
-// testMetadata contains arbitrary data that can be passed along a test lifecycle.
-type testMetadata map[string]interface{}
+var testRenderHelpers = map[string]any{
+	"randint": func() string {
+		return strconv.FormatUint(rand.Uint64(), 10) //nolint:gosec // Use weak random for a non-important use
+	},
+}
 
-// render renders a go template using where content of Meta can be used
-func (meta testMetadata) render(strTpl string) string {
+// TestMetadata contains arbitrary data that can be passed along a test lifecycle.
+type TestMetadata map[string]interface{}
+
+// Render renders a go template using where content of Meta can be used
+func (meta TestMetadata) Render(strTpl string) string {
 	t := meta["t"].(*testing.T)
 	buf := &bytes.Buffer{}
-	require.NoError(t, template.Must(template.New("tpl").Parse(strTpl)).Execute(buf, meta))
+	require.NoError(t, template.Must(template.New("tpl").Funcs(testRenderHelpers).Parse(strTpl)).Execute(buf, meta))
 	return buf.String()
 }
 
@@ -105,7 +113,7 @@ type AfterFunc func(ctx *AfterFuncCtx) error
 
 type ExecFuncCtx struct {
 	T      *testing.T
-	Meta   testMetadata
+	Meta   TestMetadata
 	Client *scw.Client
 }
 
@@ -115,7 +123,7 @@ type BeforeFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        testMetadata
+	Meta        TestMetadata
 	OverrideEnv map[string]string
 	Logger      *Logger
 }
@@ -124,7 +132,7 @@ type AfterFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
 	ExecuteCmd  func(args []string) interface{}
-	Meta        testMetadata
+	Meta        TestMetadata
 	CmdResult   interface{}
 	OverrideEnv map[string]string
 	Logger      *Logger
@@ -326,7 +334,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			client = createTestClient(t, config, httpClient)
 		}
 
-		meta := testMetadata{
+		meta := TestMetadata{
 			"t": t,
 		}
 
@@ -412,7 +420,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 				Meta:        meta,
 				OverrideEnv: overrideEnv,
 				Logger:      testLogger,
-			}))
+			}), "error executing BeforeFunc")
 			testLogger.Debug("End BeforeFunc")
 		}
 
@@ -424,9 +432,9 @@ func Test(config *TestConfig) func(t *testing.T) {
 		if config.Cmd != "" {
 			renderedArgs = cmdToArgs(meta, config.Cmd)
 		} else {
-			// We render raw arguments from meta
+			// We Render raw arguments from meta
 			for _, arg := range rawArgs {
-				renderedArgs = append(renderedArgs, meta.render(arg))
+				renderedArgs = append(renderedArgs, meta.Render(arg))
 			}
 		}
 
@@ -491,8 +499,8 @@ func Test(config *TestConfig) func(t *testing.T) {
 	}
 }
 
-func cmdToArgs(meta testMetadata, s string) []string {
-	return strings.Split(meta.render(s), " ")
+func cmdToArgs(meta TestMetadata, s string) []string {
+	return strings.Split(meta.Render(s), " ")
 }
 
 // BeforeFuncCombine combines multiple before functions into one.
@@ -553,7 +561,13 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		ctx.Logger.Debugf("BeforeFuncOsExec: cmd=%s args=%s\n", cmd, args)
-		return exec.Command(cmd, args...).Run()
+		err := exec.Command(cmd, args...).Run()
+		if err != nil {
+			formattedCmd := strings.Join(append([]string{cmd}, args...), " ")
+			return fmt.Errorf("failed to execute cmd %q: %w", formattedCmd, err)
+		}
+
+		return nil
 	}
 }
 
@@ -571,7 +585,7 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 func ExecBeforeCmdArgs(args []string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		for i := range args {
-			args[i] = ctx.Meta.render(args[i])
+			args[i] = ctx.Meta.Render(args[i])
 		}
 		ctx.Logger.Debugf("ExecBeforeCmdArgs: args=%s\n", args)
 		ctx.ExecuteCmd(args)
@@ -734,7 +748,7 @@ func TestCheckStdout(stdout string) TestCheck {
 
 func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (int, error) {
-		assert.Equal(ctx.T, ctx.Meta.render(cmdStr), strings.Join(cmd.Args, " "))
+		assert.Equal(ctx.T, ctx.Meta.Render(cmdStr), strings.Join(cmd.Args, " "))
 		return exitCode, nil
 	}
 }
