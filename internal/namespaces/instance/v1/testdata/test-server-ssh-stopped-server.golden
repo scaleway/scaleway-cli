@@ -3,10 +3,10 @@
 Server is not running
 
 Hint:
-Start the instance with: scw instance server start a019a361-9cb6-4edc-b34c-b8d8e25d1742 --wait
+Start the instance with: scw instance server start 5a51dbed-307f-4040-a605-a748e5871db0 --wait
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "message": "server is not running",
   "error": {},
-  "hint": "Start the instance with: scw instance server start a019a361-9cb6-4edc-b34c-b8d8e25d1742 --wait"
+  "hint": "Start the instance with: scw instance server start 5a51dbed-307f-4040-a605-a748e5871db0 --wait"
 }
