@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                            475ad734-23b2-4f8d-b5be-6d08cc547079
-Name                          cli-srv-dazzling-einstein
-Organization                  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project                       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID                            fd9bd48b-914c-4bdc-9529-9ab66fffc07d
+Name                          cli-srv-angry-nobel
+Organization                  105bdce1-64c0-48ab-899d-868455867ecf
+Project                       105bdce1-64c0-48ab-899d-868455867ecf
 AllowedActions.0              poweron
 AllowedActions.1              backup
 CommercialType                H100-1-80G
@@ -11,8 +11,8 @@ CreationDate                  few seconds ago
 DynamicIPRequired             true
 RoutedIPEnabled               true
 EnableIPv6                    false
-Hostname                      cli-srv-dazzling-einstein
-Image.ID                      4fcfabcd-4ed8-4299-b48a-78118d1b8464
+Hostname                      cli-srv-angry-nobel
+Image.ID                      ef8a58ad-1f96-4893-bf39-9045b7e666ce
 Image.Name                    Ubuntu Jammy GPU OS 12 passthrough
 Image.Arch                    x86_64
 Image.CreationDate            few seconds ago
@@ -21,70 +21,70 @@ Image.ExtraVolumes            0
 Image.FromServer              -
 Image.Organization            51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Public                  true
-Image.RootVolume              fe7051b2-0f40-40e1-83f9-cb11a3e6fd4c
+Image.RootVolume              5fda0ed0-c972-4cb9-b3fe-d8c76610aa9a
 Image.State                   available
 Image.Project                 51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone                    fr-par-2
 Protected                     false
-PublicIP.ID                   a31632e4-d8f5-409d-a4ff-fca3ae1b00d2
-PublicIP.Address              51.159.154.54
+PublicIP.ID                   633b844e-0ee5-45c4-a6ee-57415762ee3f
+PublicIP.Address              51.159.173.252
 PublicIP.Gateway              62.210.0.1
 PublicIP.Netmask              32
 PublicIP.Family               inet
 PublicIP.Dynamic              false
 PublicIP.ProvisioningMode     dhcp
-PublicIP.IpamID               c12ae760-ac1b-489c-b425-eb045629acf0
+PublicIP.IpamID               90c213b6-270e-40e9-986a-d478f83a2006
 PublicIP.State                attached
-PublicIPs.0.ID                a31632e4-d8f5-409d-a4ff-fca3ae1b00d2
-PublicIPs.0.Address           51.159.154.54
+PublicIPs.0.ID                633b844e-0ee5-45c4-a6ee-57415762ee3f
+PublicIPs.0.Address           51.159.173.252
 PublicIPs.0.Gateway           62.210.0.1
 PublicIPs.0.Netmask           32
 PublicIPs.0.Family            inet
 PublicIPs.0.Dynamic           false
 PublicIPs.0.ProvisioningMode  dhcp
-PublicIPs.0.IpamID            c12ae760-ac1b-489c-b425-eb045629acf0
+PublicIPs.0.IpamID            90c213b6-270e-40e9-986a-d478f83a2006
 PublicIPs.0.State             attached
-MacAddress                    de:00:00:40:b0:af
+MacAddress                    de:00:00:63:4f:a3
 ModificationDate              few seconds ago
 State                         archived
 BootType                      local
-Volumes.0.ID                  08424d6f-cf09-4498-94b5-042ef6eb38f1
+Volumes.0.ID                  5dbd1232-3774-4290-94d4-aaa381ba997e
 Volumes.0.Name                Ubuntu Jammy GPU OS 12 passthrough
-Volumes.0.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Volumes.0.Server.ID           475ad734-23b2-4f8d-b5be-6d08cc547079
-Volumes.0.Server.Name         cli-srv-dazzling-einstein
+Volumes.0.Organization        105bdce1-64c0-48ab-899d-868455867ecf
+Volumes.0.Server.ID           fd9bd48b-914c-4bdc-9529-9ab66fffc07d
+Volumes.0.Server.Name         cli-srv-angry-nobel
 Volumes.0.Size                20 GB
 Volumes.0.VolumeType          b_ssd
 Volumes.0.CreationDate        few seconds ago
 Volumes.0.ModificationDate    few seconds ago
 Volumes.0.State               available
-Volumes.0.Project             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Volumes.0.Project             105bdce1-64c0-48ab-899d-868455867ecf
 Volumes.0.Boot                false
 Volumes.0.Zone                fr-par-2
-Volumes.1.ID                  318bd18f-ef0c-4595-825b-097757fdf331
-Volumes.1.Name                default-cli-scratch-volume
-Volumes.1.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Volumes.1.Server.ID           475ad734-23b2-4f8d-b5be-6d08cc547079
-Volumes.1.Server.Name         cli-srv-dazzling-einstein
+Volumes.1.ID                  9556fd24-b6cd-4c50-a82e-1888a0169988
+Volumes.1.Name                cli-srv-angry-nobel-1
+Volumes.1.Organization        105bdce1-64c0-48ab-899d-868455867ecf
+Volumes.1.Server.ID           fd9bd48b-914c-4bdc-9529-9ab66fffc07d
+Volumes.1.Server.Name         cli-srv-angry-nobel
 Volumes.1.Size                3.0 TB
 Volumes.1.VolumeType          scratch
 Volumes.1.CreationDate        few seconds ago
 Volumes.1.ModificationDate    few seconds ago
 Volumes.1.State               available
-Volumes.1.Project             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Volumes.1.Project             105bdce1-64c0-48ab-899d-868455867ecf
 Volumes.1.Boot                false
 Volumes.1.Zone                fr-par-2
-SecurityGroup.ID              07a1e012-3e68-44ec-9b41-cbe87504b716
+SecurityGroup.ID              eaabb9f4-fbdf-4310-9cb6-4d42934b673a
 SecurityGroup.Name            Default security group
 StateDetail                   -
 Arch                          x86_64
 Zone                          fr-par-2
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "475ad734-23b2-4f8d-b5be-6d08cc547079",
-  "name": "cli-srv-dazzling-einstein",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "fd9bd48b-914c-4bdc-9529-9ab66fffc07d",
+  "name": "cli-srv-angry-nobel",
+  "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
+  "project": "105bdce1-64c0-48ab-899d-868455867ecf",
   "allowed_actions": [
     "poweron",
     "backup"
@@ -95,9 +95,9 @@ Zone                          fr-par-2
   "dynamic_ip_required": true,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-dazzling-einstein",
+  "hostname": "cli-srv-angry-nobel",
   "image": {
-    "id": "4fcfabcd-4ed8-4299-b48a-78118d1b8464",
+    "id": "ef8a58ad-1f96-4893-bf39-9045b7e666ce",
     "name": "Ubuntu Jammy GPU OS 12 passthrough",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -108,7 +108,7 @@ Zone                          fr-par-2
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "fe7051b2-0f40-40e1-83f9-cb11a3e6fd4c",
+      "id": "5fda0ed0-c972-4cb9-b3fe-d8c76610aa9a",
       "name": "Ubuntu Jammy GPU OS 12 passthrough",
       "size": 20000000000,
       "volume_type": "unified"
@@ -121,32 +121,32 @@ Zone                          fr-par-2
   "protected": false,
   "private_ip": null,
   "public_ip": {
-    "id": "a31632e4-d8f5-409d-a4ff-fca3ae1b00d2",
-    "address": "51.159.154.54",
+    "id": "633b844e-0ee5-45c4-a6ee-57415762ee3f",
+    "address": "51.159.173.252",
     "gateway": "62.210.0.1",
     "netmask": "32",
     "family": "inet",
     "dynamic": false,
     "provisioning_mode": "dhcp",
     "tags": [],
-    "ipam_id": "c12ae760-ac1b-489c-b425-eb045629acf0",
+    "ipam_id": "90c213b6-270e-40e9-986a-d478f83a2006",
     "state": "attached"
   },
   "public_ips": [
     {
-      "id": "a31632e4-d8f5-409d-a4ff-fca3ae1b00d2",
-      "address": "51.159.154.54",
+      "id": "633b844e-0ee5-45c4-a6ee-57415762ee3f",
+      "address": "51.159.173.252",
       "gateway": "62.210.0.1",
       "netmask": "32",
       "family": "inet",
       "dynamic": false,
       "provisioning_mode": "dhcp",
       "tags": [],
-      "ipam_id": "c12ae760-ac1b-489c-b425-eb045629acf0",
+      "ipam_id": "90c213b6-270e-40e9-986a-d478f83a2006",
       "state": "attached"
     }
   ],
-  "mac_address": "de:00:00:40:b0:af",
+  "mac_address": "de:00:00:63:4f:a3",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -154,44 +154,44 @@ Zone                          fr-par-2
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "08424d6f-cf09-4498-94b5-042ef6eb38f1",
+      "id": "5dbd1232-3774-4290-94d4-aaa381ba997e",
       "name": "Ubuntu Jammy GPU OS 12 passthrough",
       "export_uri": null,
-      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
       "server": {
-        "id": "475ad734-23b2-4f8d-b5be-6d08cc547079",
-        "name": "cli-srv-dazzling-einstein"
+        "id": "fd9bd48b-914c-4bdc-9529-9ab66fffc07d",
+        "name": "cli-srv-angry-nobel"
       },
       "size": 20000000000,
       "volume_type": "b_ssd",
       "creation_date": "1970-01-01T00:00:00.0Z",
       "modification_date": "1970-01-01T00:00:00.0Z",
       "state": "available",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "project": "105bdce1-64c0-48ab-899d-868455867ecf",
       "boot": false,
       "zone": "fr-par-2"
     },
     "1": {
-      "id": "318bd18f-ef0c-4595-825b-097757fdf331",
-      "name": "default-cli-scratch-volume",
+      "id": "9556fd24-b6cd-4c50-a82e-1888a0169988",
+      "name": "cli-srv-angry-nobel-1",
       "export_uri": null,
-      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
       "server": {
-        "id": "475ad734-23b2-4f8d-b5be-6d08cc547079",
-        "name": "cli-srv-dazzling-einstein"
+        "id": "fd9bd48b-914c-4bdc-9529-9ab66fffc07d",
+        "name": "cli-srv-angry-nobel"
       },
       "size": 3000000000000,
       "volume_type": "scratch",
       "creation_date": "1970-01-01T00:00:00.0Z",
       "modification_date": "1970-01-01T00:00:00.0Z",
       "state": "available",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "project": "105bdce1-64c0-48ab-899d-868455867ecf",
       "boot": false,
       "zone": "fr-par-2"
     }
   },
   "security_group": {
-    "id": "07a1e012-3e68-44ec-9b41-cbe87504b716",
+    "id": "eaabb9f4-fbdf-4310-9cb6-4d42934b673a",
     "name": "Default security group"
   },
   "maintenances": [],

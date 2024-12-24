@@ -1,77 +1,59 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                            3aafe9b5-d477-4eb3-b7b0-9c8777302878
-Name                          cli-srv-dreamy-haslett
-Organization                  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project                       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-AllowedActions.0              poweron
-AllowedActions.1              backup
-CommercialType                DEV1-S
-CreationDate                  few seconds ago
-DynamicIPRequired             true
-RoutedIPEnabled               true
-EnableIPv6                    false
-Hostname                      cli-srv-dreamy-haslett
-Image.ID                      5cb01f4c-9cd0-4032-8ce6-325c458df811
-Image.Name                    Ubuntu 22.04 Jammy Jellyfish
-Image.Arch                    x86_64
-Image.CreationDate            few seconds ago
-Image.ModificationDate        few seconds ago
-Image.ExtraVolumes            0
-Image.FromServer              -
-Image.Organization            51b656e3-4865-41e8-adbc-0c45bdd780db
-Image.Public                  true
-Image.RootVolume              dd8f520a-d981-42e4-b336-92ce51d2320d
-Image.State                   available
-Image.Project                 51b656e3-4865-41e8-adbc-0c45bdd780db
-Image.Zone                    fr-par-1
-Protected                     false
-PublicIP.ID                   e8d1b6b8-0006-4bce-91e1-2b2b09c9e37d
-PublicIP.Address              51.158.73.41
-PublicIP.Gateway              62.210.0.1
-PublicIP.Netmask              32
-PublicIP.Family               inet
-PublicIP.Dynamic              false
-PublicIP.ProvisioningMode     dhcp
-PublicIP.IpamID               fd4bd014-27c8-42a2-a175-5c7dec0a3c3a
-PublicIP.State                attached
-PublicIPs.0.ID                e8d1b6b8-0006-4bce-91e1-2b2b09c9e37d
-PublicIPs.0.Address           51.158.73.41
-PublicIPs.0.Gateway           62.210.0.1
-PublicIPs.0.Netmask           32
-PublicIPs.0.Family            inet
-PublicIPs.0.Dynamic           false
-PublicIPs.0.ProvisioningMode  dhcp
-PublicIPs.0.IpamID            fd4bd014-27c8-42a2-a175-5c7dec0a3c3a
-PublicIPs.0.State             attached
-MacAddress                    de:00:00:5f:a1:a7
-ModificationDate              few seconds ago
-State                         archived
-BootType                      local
-Volumes.0.ID                  b2a541e6-cd3a-418d-9cb2-c3e10ae4b3f3
-Volumes.0.Name                Ubuntu 22.04 Jammy Jellyfish
-Volumes.0.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Volumes.0.Server.ID           3aafe9b5-d477-4eb3-b7b0-9c8777302878
-Volumes.0.Server.Name         cli-srv-dreamy-haslett
-Volumes.0.Size                20 GB
-Volumes.0.VolumeType          l_ssd
-Volumes.0.CreationDate        few seconds ago
-Volumes.0.ModificationDate    few seconds ago
-Volumes.0.State               available
-Volumes.0.Project             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Volumes.0.Boot                false
-Volumes.0.Zone                fr-par-1
-SecurityGroup.ID              0fe819c3-274d-472a-b3f5-ddb258d2d8bb
-SecurityGroup.Name            Default security group
-StateDetail                   -
-Arch                          x86_64
-Zone                          fr-par-1
+ID                          a8569577-eb93-4760-95a7-ba33daf73a70
+Name                        cli-srv-condescending-gagarin
+Organization                105bdce1-64c0-48ab-899d-868455867ecf
+Project                     105bdce1-64c0-48ab-899d-868455867ecf
+AllowedActions.0            poweron
+AllowedActions.1            backup
+CommercialType              DEV1-S
+CreationDate                few seconds ago
+DynamicIPRequired           false
+RoutedIPEnabled             true
+EnableIPv6                  false
+Hostname                    cli-srv-condescending-gagarin
+Image.ID                    bc50e86c-a6c7-401a-8fbb-2ef17ce87aee
+Image.Name                  Ubuntu 22.04 Jammy Jellyfish
+Image.Arch                  x86_64
+Image.CreationDate          few seconds ago
+Image.ModificationDate      few seconds ago
+Image.ExtraVolumes          0
+Image.FromServer            -
+Image.Organization          51b656e3-4865-41e8-adbc-0c45bdd780db
+Image.Public                true
+Image.RootVolume            f1efdd5c-375b-431e-ac06-daaf1518369b
+Image.State                 available
+Image.Project               51b656e3-4865-41e8-adbc-0c45bdd780db
+Image.Zone                  fr-par-1
+Protected                   false
+MacAddress                  de:00:00:89:34:2d
+ModificationDate            few seconds ago
+State                       archived
+BootType                    local
+Volumes.0.ID                9663cd28-78e6-4207-8761-ceba4c07be4a
+Volumes.0.Name              Ubuntu 22.04 Jammy Jellyfish
+Volumes.0.Organization      105bdce1-64c0-48ab-899d-868455867ecf
+Volumes.0.Server.ID         a8569577-eb93-4760-95a7-ba33daf73a70
+Volumes.0.Server.Name       cli-srv-condescending-gagarin
+Volumes.0.Size              20 GB
+Volumes.0.VolumeType        l_ssd
+Volumes.0.CreationDate      few seconds ago
+Volumes.0.ModificationDate  few seconds ago
+Volumes.0.State             available
+Volumes.0.Project           105bdce1-64c0-48ab-899d-868455867ecf
+Volumes.0.Boot              false
+Volumes.0.Zone              fr-par-1
+SecurityGroup.ID            5881315f-2400-43a0-ac75-08adf6cb8c12
+SecurityGroup.Name          Default security group
+StateDetail                 -
+Arch                        x86_64
+Zone                        fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "3aafe9b5-d477-4eb3-b7b0-9c8777302878",
-  "name": "cli-srv-dreamy-haslett",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "a8569577-eb93-4760-95a7-ba33daf73a70",
+  "name": "cli-srv-condescending-gagarin",
+  "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
+  "project": "105bdce1-64c0-48ab-899d-868455867ecf",
   "allowed_actions": [
     "poweron",
     "backup"
@@ -79,12 +61,12 @@ Zone                          fr-par-1
   "tags": [],
   "commercial_type": "DEV1-S",
   "creation_date": "1970-01-01T00:00:00.0Z",
-  "dynamic_ip_required": true,
+  "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-dreamy-haslett",
+  "hostname": "cli-srv-condescending-gagarin",
   "image": {
-    "id": "5cb01f4c-9cd0-4032-8ce6-325c458df811",
+    "id": "bc50e86c-a6c7-401a-8fbb-2ef17ce87aee",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -95,7 +77,7 @@ Zone                          fr-par-1
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "dd8f520a-d981-42e4-b336-92ce51d2320d",
+      "id": "f1efdd5c-375b-431e-ac06-daaf1518369b",
       "name": "Ubuntu 22.04 Jammy Jellyfish",
       "size": 10000000000,
       "volume_type": "unified"
@@ -107,33 +89,9 @@ Zone                          fr-par-1
   },
   "protected": false,
   "private_ip": null,
-  "public_ip": {
-    "id": "e8d1b6b8-0006-4bce-91e1-2b2b09c9e37d",
-    "address": "51.158.73.41",
-    "gateway": "62.210.0.1",
-    "netmask": "32",
-    "family": "inet",
-    "dynamic": false,
-    "provisioning_mode": "dhcp",
-    "tags": [],
-    "ipam_id": "fd4bd014-27c8-42a2-a175-5c7dec0a3c3a",
-    "state": "attached"
-  },
-  "public_ips": [
-    {
-      "id": "e8d1b6b8-0006-4bce-91e1-2b2b09c9e37d",
-      "address": "51.158.73.41",
-      "gateway": "62.210.0.1",
-      "netmask": "32",
-      "family": "inet",
-      "dynamic": false,
-      "provisioning_mode": "dhcp",
-      "tags": [],
-      "ipam_id": "fd4bd014-27c8-42a2-a175-5c7dec0a3c3a",
-      "state": "attached"
-    }
-  ],
-  "mac_address": "de:00:00:5f:a1:a7",
+  "public_ip": null,
+  "public_ips": [],
+  "mac_address": "de:00:00:89:34:2d",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -141,26 +99,26 @@ Zone                          fr-par-1
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "b2a541e6-cd3a-418d-9cb2-c3e10ae4b3f3",
+      "id": "9663cd28-78e6-4207-8761-ceba4c07be4a",
       "name": "Ubuntu 22.04 Jammy Jellyfish",
       "export_uri": null,
-      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
       "server": {
-        "id": "3aafe9b5-d477-4eb3-b7b0-9c8777302878",
-        "name": "cli-srv-dreamy-haslett"
+        "id": "a8569577-eb93-4760-95a7-ba33daf73a70",
+        "name": "cli-srv-condescending-gagarin"
       },
       "size": 20000000000,
       "volume_type": "l_ssd",
       "creation_date": "1970-01-01T00:00:00.0Z",
       "modification_date": "1970-01-01T00:00:00.0Z",
       "state": "available",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "project": "105bdce1-64c0-48ab-899d-868455867ecf",
       "boot": false,
       "zone": "fr-par-1"
     }
   },
   "security_group": {
-    "id": "0fe819c3-274d-472a-b3f5-ddb258d2d8bb",
+    "id": "5881315f-2400-43a0-ac75-08adf6cb8c12",
     "name": "Default security group"
   },
   "maintenances": [],

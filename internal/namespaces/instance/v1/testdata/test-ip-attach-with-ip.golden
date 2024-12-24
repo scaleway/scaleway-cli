@@ -1,33 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            43138680-e8d0-4515-8858-2c41eb7a7795
-IP.Address       51.158.67.170
-IP.Server.ID     70b453cc-ea57-4644-a00f-7f28f441d096
-IP.Server.Name   cli-srv-eager-leakey
-IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+IP.ID            63a05bc9-7c77-46e4-a427-d0b8306a4669
+IP.Address       163.172.142.230
+IP.Server.ID     05000bbe-93c9-4db8-9553-aad4836d5e15
+IP.Server.Name   cli-srv-hardcore-hodgkin
+IP.Organization  105bdce1-64c0-48ab-899d-868455867ecf
+IP.Project       105bdce1-64c0-48ab-899d-868455867ecf
 IP.Type          routed_ipv4
 IP.State         attached
 IP.Prefix        -
-IP.IpamID        051b270a-88c1-45c1-a7eb-0164063c5b75
+IP.IpamID        16f53d9e-c3a0-4ab3-8ada-b3cbb72926ab
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "43138680-e8d0-4515-8858-2c41eb7a7795",
-    "address": "51.158.67.170",
+    "id": "63a05bc9-7c77-46e4-a427-d0b8306a4669",
+    "address": "163.172.142.230",
     "reverse": null,
     "server": {
-      "id": "70b453cc-ea57-4644-a00f-7f28f441d096",
-      "name": "cli-srv-eager-leakey"
+      "id": "05000bbe-93c9-4db8-9553-aad4836d5e15",
+      "name": "cli-srv-hardcore-hodgkin"
     },
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
     "tags": [],
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "project": "105bdce1-64c0-48ab-899d-868455867ecf",
     "type": "routed_ipv4",
     "state": "attached",
     "prefix": "",
-    "ipam_id": "051b270a-88c1-45c1-a7eb-0164063c5b75",
+    "ipam_id": "16f53d9e-c3a0-4ab3-8ada-b3cbb72926ab",
     "zone": "fr-par-1"
   }
 }
