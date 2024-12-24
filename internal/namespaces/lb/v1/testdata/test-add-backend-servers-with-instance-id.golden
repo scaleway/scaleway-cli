@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Hint:
-Private ip are assigned when the server boots, start yours with: scw instance server start e176275a-656d-477d-a548-b48c957fd2a2
+Private ip are assigned when the server boots, start yours with: scw instance server start 280dd483-198d-4c6c-9a90-055ad0ffbd59
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "server e176275a-656d-477d-a548-b48c957fd2a2 (cli-srv-blissful-bardeen) does not have a private ip",
-  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start e176275a-656d-477d-a548-b48c957fd2a2"
+  "message": "server 280dd483-198d-4c6c-9a90-055ad0ffbd59 (cli-srv-youthful-pascal) does not have a private ip",
+  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start 280dd483-198d-4c6c-9a90-055ad0ffbd59"
 }

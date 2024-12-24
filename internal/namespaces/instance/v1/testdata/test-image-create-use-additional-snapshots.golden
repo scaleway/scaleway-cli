@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                7e117474-0299-45be-bcf4-1a1ed08dcf4b
-Name              cli-img-nice-lichterman
+ID                b1105364-893f-40cd-ae64-34200ad98117
+Name              cli-img-sleepy-albattani
 Arch              x86_64
 CreationDate      few seconds ago
 ModificationDate  few seconds ago
@@ -9,15 +9,15 @@ ExtraVolumes      0
 FromServer        -
 Organization      105bdce1-64c0-48ab-899d-868455867ecf
 Public            false
-RootVolume        0d0be58d-8e61-4d64-9ec6-404544395d93
+RootVolume        5130ddc8-602f-4347-8de8-ae3562f2eac2
 State             available
 Project           105bdce1-64c0-48ab-899d-868455867ecf
 Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "7e117474-0299-45be-bcf4-1a1ed08dcf4b",
-    "name": "cli-img-nice-lichterman",
+    "id": "b1105364-893f-40cd-ae64-34200ad98117",
+    "name": "cli-img-sleepy-albattani",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
@@ -27,7 +27,7 @@ Zone              fr-par-1
     "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
     "public": false,
     "root_volume": {
-      "id": "0d0be58d-8e61-4d64-9ec6-404544395d93",
+      "id": "5130ddc8-602f-4347-8de8-ae3562f2eac2",
       "name": "cli-test-image-create-snapshotA",
       "size": 10000000000,
       "volume_type": "l_ssd"

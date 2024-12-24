@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                925aa80b-9410-4385-961d-3b258706effe
-Name              cli-img-nifty-maxwell
+ID                579c0906-ccaa-4ec4-957a-bff1bbcd0f7d
+Name              cli-img-upbeat-colden
 Arch              x86_64
 CreationDate      few seconds ago
 ModificationDate  few seconds ago
@@ -9,15 +9,15 @@ ExtraVolumes      0
 FromServer        -
 Organization      105bdce1-64c0-48ab-899d-868455867ecf
 Public            false
-RootVolume        ab31f24e-1e04-4c7e-818a-5fca7e14c704
+RootVolume        61f39808-c4af-4bcd-99b5-9cde9e8ea660
 State             available
 Project           105bdce1-64c0-48ab-899d-868455867ecf
 Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "925aa80b-9410-4385-961d-3b258706effe",
-    "name": "cli-img-nifty-maxwell",
+    "id": "579c0906-ccaa-4ec4-957a-bff1bbcd0f7d",
+    "name": "cli-img-upbeat-colden",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
@@ -27,8 +27,8 @@ Zone              fr-par-1
     "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
     "public": false,
     "root_volume": {
-      "id": "ab31f24e-1e04-4c7e-818a-5fca7e14c704",
-      "name": "cli-snp-competent-keller",
+      "id": "61f39808-c4af-4bcd-99b5-9cde9e8ea660",
+      "name": "cli-snp-youthful-rosalind",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },

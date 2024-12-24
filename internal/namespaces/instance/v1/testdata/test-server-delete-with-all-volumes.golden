@@ -2,9 +2,8 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-successfully deleted ip 163.172.189.82
 successfully deleted volume Ubuntu 18.04 Bionic Beaver (10 GB l_ssd)
-successfully deleted volume cli-srv-dreamy-poincare-1 (10 GB b_ssd)
+successfully deleted volume cli-srv-frosty-bhabha-1 (10 GB b_ssd)
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",

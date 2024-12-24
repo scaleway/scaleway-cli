@@ -2,8 +2,8 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-successfully deleted ip 163.172.189.82
-successfully deleted ip 2001:bc8:710:2859:dc00:ff:fe81:91b
+successfully deleted ip 163.172.145.106
+successfully deleted ip 2001:bc8:710:4564:dc00:ff:fe89:327d
 successfully deleted volume Ubuntu 18.04 Bionic Beaver (20 GB l_ssd)
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {

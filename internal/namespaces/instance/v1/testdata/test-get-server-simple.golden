@@ -1,34 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                         75b0d534-42c9-4d62-862f-27aa7efebc6b
-Name                       cli-srv-relaxed-nightingale
-Organization               ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project                    ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-CommercialType             DEV1-S
-CreationDate               few seconds ago
-DynamicIPRequired          true
-RoutedIPEnabled            true
-EnableIPv6                 false
-Hostname                   cli-srv-relaxed-nightingale
-Protected                  false
-PublicIP.ID                e8d1b6b8-0006-4bce-91e1-2b2b09c9e37d
-PublicIP.Address           51.158.73.41
-PublicIP.Gateway           62.210.0.1
-PublicIP.Netmask           32
-PublicIP.Family            inet
-PublicIP.Dynamic           false
-PublicIP.ProvisioningMode  dhcp
-PublicIP.IpamID            2524915d-94d3-450b-9d95-37a8bfc79888
-PublicIP.State             attached
-MacAddress                 de:00:00:5f:a2:f1
-ModificationDate           few seconds ago
-State                      archived
-BootType                   local
-SecurityGroup.ID           0fe819c3-274d-472a-b3f5-ddb258d2d8bb
-SecurityGroup.Name         Default security group
-StateDetail                -
-Arch                       x86_64
-Zone                       fr-par-1
+ID                  ee873d6d-de41-40e9-808d-3327d893d829
+Name                cli-srv-affectionate-bose
+Organization        105bdce1-64c0-48ab-899d-868455867ecf
+Project             105bdce1-64c0-48ab-899d-868455867ecf
+CommercialType      DEV1-S
+CreationDate        few seconds ago
+DynamicIPRequired   false
+RoutedIPEnabled     true
+EnableIPv6          false
+Hostname            cli-srv-affectionate-bose
+Protected           false
+MacAddress          de:00:00:89:32:31
+ModificationDate    few seconds ago
+State               archived
+BootType            local
+SecurityGroup.ID    5881315f-2400-43a0-ac75-08adf6cb8c12
+SecurityGroup.Name  Default security group
+StateDetail         -
+Arch                x86_64
+Zone                fr-par-1
 
 Server Image:
 ID                655aeea7-8a30-418a-bc2e-3c04e3fdc8aa
@@ -50,11 +41,10 @@ Allowed Actions:
 
 Volumes:
 ID                                    NAME                        EXPORT URI  ORGANIZATION                          SIZE   VOLUME TYPE  CREATION DATE    MODIFICATION DATE  STATE      PROJECT                               BOOT   ZONE
-a6abb479-db47-4429-900f-b0ce63e3c6f3  Ubuntu 18.04 Bionic Beaver  -           ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  20 GB  l_ssd        few seconds ago  few seconds ago    available  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  false  fr-par-1
+9cf31e92-d459-407f-b380-7f523eb98ddd  Ubuntu 18.04 Bionic Beaver  -           105bdce1-64c0-48ab-899d-868455867ecf  20 GB  l_ssd        few seconds ago  few seconds ago    available  105bdce1-64c0-48ab-899d-868455867ecf  false  fr-par-1
 
 Public IPs:
-ID                                    ADDRESS       GATEWAY     NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  IPAM ID                               STATE
-e8d1b6b8-0006-4bce-91e1-2b2b09c9e37d  51.158.73.41  62.210.0.1  32       inet    false    dhcp               []    2524915d-94d3-450b-9d95-37a8bfc79888  attached
+ID   ADDRESS  GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  IPAM ID  STATE
 
 IPv6:
 -
@@ -63,10 +53,10 @@ Private NICs:
 ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "75b0d534-42c9-4d62-862f-27aa7efebc6b",
-  "name": "cli-srv-relaxed-nightingale",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "ee873d6d-de41-40e9-808d-3327d893d829",
+  "name": "cli-srv-affectionate-bose",
+  "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
+  "project": "105bdce1-64c0-48ab-899d-868455867ecf",
   "allowed_actions": [
     "poweron",
     "backup"
@@ -74,10 +64,10 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "tags": [],
   "commercial_type": "DEV1-S",
   "creation_date": "1970-01-01T00:00:00.0Z",
-  "dynamic_ip_required": true,
+  "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-relaxed-nightingale",
+  "hostname": "cli-srv-affectionate-bose",
   "image": {
     "id": "655aeea7-8a30-418a-bc2e-3c04e3fdc8aa",
     "name": "Ubuntu 18.04 Bionic Beaver",
@@ -102,33 +92,9 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   },
   "protected": false,
   "private_ip": null,
-  "public_ip": {
-    "id": "e8d1b6b8-0006-4bce-91e1-2b2b09c9e37d",
-    "address": "51.158.73.41",
-    "gateway": "62.210.0.1",
-    "netmask": "32",
-    "family": "inet",
-    "dynamic": false,
-    "provisioning_mode": "dhcp",
-    "tags": [],
-    "ipam_id": "2524915d-94d3-450b-9d95-37a8bfc79888",
-    "state": "attached"
-  },
-  "public_ips": [
-    {
-      "id": "e8d1b6b8-0006-4bce-91e1-2b2b09c9e37d",
-      "address": "51.158.73.41",
-      "gateway": "62.210.0.1",
-      "netmask": "32",
-      "family": "inet",
-      "dynamic": false,
-      "provisioning_mode": "dhcp",
-      "tags": [],
-      "ipam_id": "2524915d-94d3-450b-9d95-37a8bfc79888",
-      "state": "attached"
-    }
-  ],
-  "mac_address": "de:00:00:5f:a2:f1",
+  "public_ip": null,
+  "public_ips": [],
+  "mac_address": "de:00:00:89:32:31",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -136,26 +102,26 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "a6abb479-db47-4429-900f-b0ce63e3c6f3",
+      "id": "9cf31e92-d459-407f-b380-7f523eb98ddd",
       "name": "Ubuntu 18.04 Bionic Beaver",
       "export_uri": null,
-      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
       "server": {
-        "id": "75b0d534-42c9-4d62-862f-27aa7efebc6b",
-        "name": "cli-srv-relaxed-nightingale"
+        "id": "ee873d6d-de41-40e9-808d-3327d893d829",
+        "name": "cli-srv-affectionate-bose"
       },
       "size": 20000000000,
       "volume_type": "l_ssd",
       "creation_date": "1970-01-01T00:00:00.0Z",
       "modification_date": "1970-01-01T00:00:00.0Z",
       "state": "available",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "project": "105bdce1-64c0-48ab-899d-868455867ecf",
       "boot": false,
       "zone": "fr-par-1"
     }
   },
   "security_group": {
-    "id": "0fe819c3-274d-472a-b3f5-ddb258d2d8bb",
+    "id": "5881315f-2400-43a0-ac75-08adf6cb8c12",
     "name": "Default security group"
   },
   "maintenances": [],
@@ -167,20 +133,20 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "admin_password_encrypted_value": null,
   "Volumes": [
     {
-      "id": "a6abb479-db47-4429-900f-b0ce63e3c6f3",
+      "id": "9cf31e92-d459-407f-b380-7f523eb98ddd",
       "name": "Ubuntu 18.04 Bionic Beaver",
       "export_uri": null,
-      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
       "server": {
-        "id": "75b0d534-42c9-4d62-862f-27aa7efebc6b",
-        "name": "cli-srv-relaxed-nightingale"
+        "id": "ee873d6d-de41-40e9-808d-3327d893d829",
+        "name": "cli-srv-affectionate-bose"
       },
       "size": 20000000000,
       "volume_type": "l_ssd",
       "creation_date": "1970-01-01T00:00:00.0Z",
       "modification_date": "1970-01-01T00:00:00.0Z",
       "state": "available",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "project": "105bdce1-64c0-48ab-899d-868455867ecf",
       "boot": false,
       "zone": "fr-par-1"
     }
