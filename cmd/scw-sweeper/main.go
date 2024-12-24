@@ -43,12 +43,15 @@ func mainNoExit() int {
 		// handle error
 		log.Fatal(err)
 	}
-
-	profile, err := config.GetActiveProfile()
+	activeProfile, err := config.GetActiveProfile()
 	if err != nil {
 		// handle error
 		log.Fatal(err)
 	}
+
+	envProfile := scw.LoadEnvProfile()
+	profile := scw.MergeProfiles(activeProfile, envProfile)
+
 	client, err := scw.NewClient(
 		scw.WithProfile(profile),
 		scw.WithUserAgent("scw-sweeper"),
