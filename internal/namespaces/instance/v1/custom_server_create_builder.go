@@ -274,7 +274,7 @@ func (sb *ServerBuilder) ValidateVolumes() error {
 				return err
 			}
 		} else {
-			logger.Warningf("skipping root volume validation")
+			logger.Warningf("skipping root volume validation\n")
 		}
 
 		// Validate total local volume sizes.
@@ -283,7 +283,7 @@ func (sb *ServerBuilder) ValidateVolumes() error {
 				return err
 			}
 		} else {
-			logger.Warningf("skip local volume size validation")
+			logger.Warningf("skip local volume size validation\n")
 		}
 
 		// Sanitize the volume map to respect API schemas
