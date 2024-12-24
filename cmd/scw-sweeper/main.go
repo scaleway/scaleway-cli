@@ -97,11 +97,6 @@ func mainNoExit() int {
 		return -1
 	}
 
-	//err = iamSweeper.SweepAll(client)
-	//if err != nil {
-	//	return -1
-	//}
-
 	err = inferenceSweeper.SweepAllLocalities(client)
 	if err != nil {
 		return -1
@@ -141,11 +136,6 @@ func mainNoExit() int {
 	if err != nil {
 		return -1
 	}
-
-	//err = mongodbSweeper.SweepAllLocalities(client)
-	//if err != nil {
-	//	return -1
-	//}
 
 	err = rdbSweeper.SweepAllLocalities(client)
 	if err != nil {
