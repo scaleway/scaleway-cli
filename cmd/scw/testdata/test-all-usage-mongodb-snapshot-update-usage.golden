@@ -9,7 +9,7 @@ ARGS:
   snapshot-id       UUID of the Snapshot
   [name]            Name of the snapshot
   [expires-at]      Expiration date of the snapshot (must follow the ISO 8601 format)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for update

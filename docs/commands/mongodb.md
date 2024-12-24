@@ -72,7 +72,7 @@ scw mongodb instance create [arg=value ...]
 | volume.volume-size |  | Volume size |
 | volume.volume-type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
 | endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -92,7 +92,7 @@ scw mongodb instance delete <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -112,7 +112,7 @@ scw mongodb instance get <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -132,7 +132,7 @@ scw mongodb instance get-certificate <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -156,7 +156,7 @@ scw mongodb instance list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` | Criteria to use when ordering Database Instance listings |
 | project-id |  | Project ID |
 | organization-id |  | Organization ID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -178,7 +178,7 @@ scw mongodb instance update <instance-id ...> [arg=value ...]
 | instance-id | Required | UUID of the Database Instance to update |
 | name |  | Name of the Database Instance |
 | tags.{index} |  | Tags of a Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -199,7 +199,7 @@ scw mongodb instance upgrade <instance-id ...> [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance you want to upgrade |
 | volume-size |  | Increase your Block Storage volume size |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -227,7 +227,7 @@ scw mongodb node-type list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | include-disabled-types |  | Defines whether or not to include disabled types |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -254,7 +254,7 @@ scw mongodb snapshot create <instance-id ...> [arg=value ...]
 | instance-id | Required | UUID of the Database Instance to snapshot |
 | name |  | Name of the snapshot |
 | expires-at |  | Expiration date of the snapshot (must follow the ISO 8601 format) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -274,7 +274,7 @@ scw mongodb snapshot delete <snapshot-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | snapshot-id | Required | UUID of the snapshot |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -294,7 +294,7 @@ scw mongodb snapshot get <snapshot-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | snapshot-id | Required | UUID of the snapshot |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -318,7 +318,7 @@ scw mongodb snapshot list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `expires_at_asc`, `expires_at_desc` | Criteria to use when ordering snapshot listings |
 | project-id |  | Project ID to list the snapshots of |
 | organization-id |  | Organization ID the snapshots belongs to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -342,7 +342,7 @@ scw mongodb snapshot restore <snapshot-id ...> [arg=value ...]
 | node-type | Required | Node type to use for the new Database Instance |
 | node-number | Required | Number of nodes to use for the new Database Instance |
 | volume.volume-type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -364,7 +364,7 @@ scw mongodb snapshot update <snapshot-id ...> [arg=value ...]
 | snapshot-id | Required | UUID of the Snapshot |
 | name |  | Name of the snapshot |
 | expires-at |  | Expiration date of the snapshot (must follow the ISO 8601 format) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -391,7 +391,7 @@ scw mongodb user list [arg=value ...]
 | name |  | Name of the user |
 | order-by | One of: `name_asc`, `name_desc` | Criteria to use when requesting user listing |
 | instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -413,7 +413,7 @@ scw mongodb user update [arg=value ...]
 | instance-id | Required | UUID of the Database Instance the user belongs to |
 | name | Required | Name of the database user |
 | password |  | Password of the database user |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -438,7 +438,7 @@ scw mongodb version list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | version |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
