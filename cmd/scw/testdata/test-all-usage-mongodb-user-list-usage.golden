@@ -9,7 +9,7 @@ ARGS:
   [name]            Name of the user
   [order-by]        Criteria to use when requesting user listing (name_asc | name_desc)
   instance-id       UUID of the Database Instance
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
   -h, --help   help for list

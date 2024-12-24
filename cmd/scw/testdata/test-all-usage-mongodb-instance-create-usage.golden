@@ -17,7 +17,7 @@ ARGS:
   [volume.volume-size]                                     Volume size
   [volume.volume-type]                                     Type of volume where data is stored (unknown_type | sbs_5k | sbs_15k)
   [endpoints.{index}.private-network.private-network-id]   UUID of the Private Network
-  [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for create
