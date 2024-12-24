@@ -20,6 +20,7 @@ import (
 	k8sSweeper "github.com/scaleway/scaleway-sdk-go/api/k8s/v1/sweepers"
 	lbSweeper "github.com/scaleway/scaleway-sdk-go/api/lb/v1/sweepers"
 	mnqSweeper "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1/sweepers"
+	mongodbSweeper "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1/sweepers"
 	rdbSweeper "github.com/scaleway/scaleway-sdk-go/api/rdb/v1/sweepers"
 	redisSweeper "github.com/scaleway/scaleway-sdk-go/api/redis/v1/sweepers"
 	registrySweeper "github.com/scaleway/scaleway-sdk-go/api/registry/v1/sweepers"
@@ -128,6 +129,11 @@ func mainNoExit() int {
 	}
 
 	err = lbSweeper.SweepAllLocalities(client)
+	if err != nil {
+		return -1
+	}
+
+	err = mongodbSweeper.SweepAllLocalities(client)
 	if err != nil {
 		return -1
 	}
