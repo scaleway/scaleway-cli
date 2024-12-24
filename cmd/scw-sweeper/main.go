@@ -1,10 +1,9 @@
 package main
 
 import (
-	"context"
+	"log"
 	"os"
 
-	"github.com/scaleway/scaleway-cli/v2/core"
 	accountSweeper "github.com/scaleway/scaleway-sdk-go/api/account/v3/sweepers"
 	applesiliconSweeper "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1/sweepers"
 	baremetalSweeper "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1/sweepers"
@@ -13,7 +12,6 @@ import (
 	containerSweeper "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1/sweepers"
 	flexibleipSweeper "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1/sweepers"
 	functionSweeper "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1/sweepers"
-	iamSweeper "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1/sweepers"
 	inferenceSweeper "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1/sweepers"
 	instanceSweeper "github.com/scaleway/scaleway-sdk-go/api/instance/v1/sweepers"
 	iotSweeper "github.com/scaleway/scaleway-sdk-go/api/iot/v1/sweepers"
@@ -22,7 +20,6 @@ import (
 	k8sSweeper "github.com/scaleway/scaleway-sdk-go/api/k8s/v1/sweepers"
 	lbSweeper "github.com/scaleway/scaleway-sdk-go/api/lb/v1/sweepers"
 	mnqSweeper "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1/sweepers"
-	mongodbSweeper "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1/sweepers"
 	rdbSweeper "github.com/scaleway/scaleway-sdk-go/api/rdb/v1/sweepers"
 	redisSweeper "github.com/scaleway/scaleway-sdk-go/api/redis/v1/sweepers"
 	registrySweeper "github.com/scaleway/scaleway-sdk-go/api/registry/v1/sweepers"
@@ -31,6 +28,7 @@ import (
 	vpcSweeper "github.com/scaleway/scaleway-sdk-go/api/vpc/v2/sweepers"
 	vpcgwSweeper "github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1/sweepers"
 	webhostingSweeper "github.com/scaleway/scaleway-sdk-go/api/webhosting/v1alpha1/sweepers"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func main() {
@@ -39,10 +37,27 @@ func main() {
 }
 
 func mainNoExit() int {
-	ctx := context.Background()
-	client := core.ExtractClient(ctx)
+	config, err := scw.LoadConfig()
+	if err != nil {
+		// handle error
+		log.Fatal(err)
+	}
 
-	err := accountSweeper.SweepAll(client)
+	profile, err := config.GetActiveProfile()
+	if err != nil {
+		// handle error
+		log.Fatal(err)
+	}
+	client, err := scw.NewClient(
+		scw.WithProfile(profile),
+		scw.WithUserAgent("scw-sweeper"),
+		scw.WithEnv(),
+	)
+	if err != nil {
+		log.Fatalf("Cannot create Scaleway client: %s", err)
+	}
+
+	err = accountSweeper.SweepAll(client)
 	if err != nil {
 		return -1
 	}
@@ -82,10 +97,10 @@ func mainNoExit() int {
 		return -1
 	}
 
-	err = iamSweeper.SweepAll(client)
-	if err != nil {
-		return -1
-	}
+	//err = iamSweeper.SweepAll(client)
+	//if err != nil {
+	//	return -1
+	//}
 
 	err = inferenceSweeper.SweepAllLocalities(client)
 	if err != nil {
@@ -127,10 +142,10 @@ func mainNoExit() int {
 		return -1
 	}
 
-	err = mongodbSweeper.SweepAllLocalities(client)
-	if err != nil {
-		return -1
-	}
+	//err = mongodbSweeper.SweepAllLocalities(client)
+	//if err != nil {
+	//	return -1
+	//}
 
 	err = rdbSweeper.SweepAllLocalities(client)
 	if err != nil {
@@ -164,11 +179,13 @@ func mainNoExit() int {
 
 	err = vpcgwSweeper.SweepAllLocalities(client)
 	if err != nil {
+		log.Fatalf("Error sweeping vpcgw: %s", err)
 		return -1
 	}
 
 	err = webhostingSweeper.SweepAllLocalities(client)
 	if err != nil {
+		log.Fatalf("Error sweeping webhosting: %s", err)
 		return -1
 	}
 
