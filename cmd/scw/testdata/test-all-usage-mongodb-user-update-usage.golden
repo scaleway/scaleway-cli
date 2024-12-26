@@ -9,7 +9,7 @@ ARGS:
   instance-id       UUID of the Database Instance the user belongs to
   name              Name of the database user
   [password]        Password of the database user
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for update

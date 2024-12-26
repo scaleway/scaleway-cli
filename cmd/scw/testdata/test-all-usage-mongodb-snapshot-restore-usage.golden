@@ -11,7 +11,7 @@ ARGS:
   node-type              Node type to use for the new Database Instance
   node-number            Number of nodes to use for the new Database Instance
   [volume.volume-type]   Type of volume where data is stored (unknown_type | sbs_5k | sbs_15k)
-  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for restore
