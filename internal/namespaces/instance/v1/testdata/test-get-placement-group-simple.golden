@@ -1,33 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID               4ce73cc3-3e4d-41e4-95ed-426278cdeed0
-Name             cli-pg-adoring-bouman
-Organization     ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project          ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID               18c83f25-1790-4d43-be54-624f0cd5428e
+Name             cli-pg-beautiful-benz
+Organization     105bdce1-64c0-48ab-899d-868455867ecf
+Project          105bdce1-64c0-48ab-899d-868455867ecf
 PolicyMode       optional
 PolicyType       max_availability
 PolicyRespected  true
 Zone             fr-par-1
 
 Placement Group:
-ID               4ce73cc3-3e4d-41e4-95ed-426278cdeed0
-Name             cli-pg-adoring-bouman
-Organization     ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project          ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID               18c83f25-1790-4d43-be54-624f0cd5428e
+Name             cli-pg-beautiful-benz
+Organization     105bdce1-64c0-48ab-899d-868455867ecf
+Project          105bdce1-64c0-48ab-899d-868455867ecf
 PolicyMode       optional
 PolicyType       max_availability
 PolicyRespected  true
 Zone             fr-par-1
 
 Servers:
-ID                                    NAME                       POLICY RESPECTED
-864aef77-02a8-4eff-86f4-218401de5a66  cli-srv-wonderful-maxwell  true
+ID                                    NAME                    POLICY RESPECTED
+47941f95-e526-41b1-83e2-256a97e61729  cli-srv-zealous-shtern  true
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "4ce73cc3-3e4d-41e4-95ed-426278cdeed0",
-  "name": "cli-pg-adoring-bouman",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "18c83f25-1790-4d43-be54-624f0cd5428e",
+  "name": "cli-pg-beautiful-benz",
+  "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
+  "project": "105bdce1-64c0-48ab-899d-868455867ecf",
   "tags": [],
   "policy_mode": "optional",
   "policy_type": "max_availability",
@@ -35,8 +35,8 @@ ID                                    NAME                       POLICY RESPECTE
   "zone": "fr-par-1",
   "servers": [
     {
-      "id": "864aef77-02a8-4eff-86f4-218401de5a66",
-      "name": "cli-srv-wonderful-maxwell",
+      "id": "47941f95-e526-41b1-83e2-256a97e61729",
+      "name": "cli-srv-zealous-shtern",
       "policy_respected": true
     }
   ]
