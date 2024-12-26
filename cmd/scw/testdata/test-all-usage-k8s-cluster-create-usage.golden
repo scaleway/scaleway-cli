@@ -6,15 +6,15 @@ USAGE:
   scw k8s cluster create [arg=value ...]
 
 EXAMPLES:
-  Create a Kubernetes cluster named foo with cilium as CNI, in version 1.27.0 and with a pool named default composed of 3 DEV1-M
-    scw k8s cluster create name=foo version=1.27.0 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
+  Create a Kubernetes cluster named foo with cilium as CNI, in version 1.31.2 and with a pool named default composed of 3 DEV1-M
+    scw k8s cluster create name=foo version=1.31.2 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
 
-  Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.27.0 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
-    scw k8s cluster create name=bar version=1.27.0 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
+  Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.31.2 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
+    scw k8s cluster create name=bar version=1.31.2 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
 
 ARGS:
   [project-id]                                           Project ID to use. If none is passed the default project ID will be used
-  [type]                                                 Type of the cluster (possible values are kapsule, multicloud, kapsule-dedicated-8, kapsule-dedicated-16)
+  [type]                                                 Type of the cluster. See [list available cluster types](#list-available-cluster-types-for-a-cluster) for a list of valid types
   name=<generated>                                       Cluster name
   [description]                                          Cluster description
   [tags.{index}]                                         Tags associated with the cluster
@@ -22,23 +22,23 @@ ARGS:
   cni=cilium                                             Container Network Interface (CNI) plugin running in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo | none)
   [pools.{index}.name]                                   Name of the pool
   [pools.{index}.node-type]                              Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster
-  [pools.{index}.placement-group-id]                     Placement group ID in which all the nodes of the pool will be created
+  [pools.{index}.placement-group-id]                     Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
   [pools.{index}.autoscaling]                            Defines whether the autoscaling feature is enabled for the pool
   [pools.{index}.size]                                   Size (number of nodes) of the pool
   [pools.{index}.min-size]                               Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
   [pools.{index}.max-size]                               Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
-  [pools.{index}.container-runtime]                      Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24 (unknown_runtime | docker | containerd | crio)
+  [pools.{index}.container-runtime]                      Customization of the container runtime is available for each pool (unknown_runtime | docker | containerd | crio)
   [pools.{index}.autohealing]                            Defines whether the autohealing feature is enabled for the pool
-  [pools.{index}.tags.{index}]                           Tags associated with the pool
+  [pools.{index}.tags.{index}]                           Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags)
   [pools.{index}.kubelet-args.{key}]                     Kubelet arguments to be used by this pool. Note that this feature is experimental
   [pools.{index}.upgrade-policy.max-unavailable]         The maximum number of nodes that can be not ready at the same time
   [pools.{index}.upgrade-policy.max-surge]               The maximum number of nodes to be created during the upgrade
   [pools.{index}.zone]                                   Zone in which the pool's nodes will be spawned
-  [pools.{index}.root-volume-type]                       Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster (default_volume_type | l_ssd | b_ssd | sbs_5k | sbs_15k)
+  [pools.{index}.root-volume-type]                       Defines the system volume disk type. Several types of volume (`volume_type`) are provided: (default_volume_type | l_ssd | b_ssd | sbs_5k | sbs_15k)
   [pools.{index}.root-volume-size]                       System volume disk size
   [pools.{index}.public-ip-disabled]                     Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway
   [autoscaler-config.scale-down-disabled]                Disable the cluster autoscaler
-  [autoscaler-config.scale-down-delay-after-add]         How long after scale up that scale down evaluation resumes
+  [autoscaler-config.scale-down-delay-after-add]         How long after scale up the scale down evaluation resumes
   [autoscaler-config.estimator]                          Type of resource estimator to be used in scale up (unknown_estimator | binpacking)
   [autoscaler-config.expander]                           Type of node group expander to be used in scale up (unknown_expander | random | most_pods | least_waste | priority | price)
   [autoscaler-config.ignore-daemonsets-utilization]      Ignore DaemonSet pods when calculating resource utilization for scaling down

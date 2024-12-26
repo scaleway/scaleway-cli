@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   Get a cluster information
-    scw k8s cluster get 11111111-1111-1111-111111111111
+    scw k8s cluster get 11111111-1111-1111-1111-111111111111
 
 ARGS:
   cluster-id        ID of the requested cluster

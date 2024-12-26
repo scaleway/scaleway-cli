@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#path-clusters-list-available-cluster-types-for-a-cluster).
+Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#list-available-cluster-types-for-a-cluster).
 
 USAGE:
   scw k8s cluster set-type <cluster-id ...> [arg=value ...]
 
 EXAMPLES:
   Convert a kapsule cluster to a kapsule-dedicated-16 cluster
-    scw k8s cluster set-type 11111111-1111-1111-111111111111 type=kapsule-dedicated-16
+    scw k8s cluster set-type 11111111-1111-1111-1111-111111111111 type=kapsule-dedicated-16
 
 ARGS:
   cluster-id        ID of the cluster to migrate from one type to another
