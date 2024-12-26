@@ -1,62 +1,62 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              545d64db-70a4-496d-9a96-2b544fcbb44e
-Name            cli-pn-condescending-wozniak
-OrganizationID  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ID              172d077d-0a4b-479d-bb8e-d6a681087998
+Name            cli-pn-serene-payne
+OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Region          fr-par
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-VpcID           086a5171-f7ab-4667-a231-840a81203f19
+VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
 DHCPEnabled     true
 
 Instance Servers:
-ID                                    NAME                   STATE     NIC ID                                MAC ADDRESS
-e301297f-e103-4a8b-bea8-31f26d152cf9  cli-srv-angry-goodall  archived  0a32e99d-1cad-4547-8a26-8827d8d8f4df  02:00:00:1e:9e:8a
+ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
+19ad8477-5983-4e4e-813b-9314f9ae29bf  cli-srv-gracious-darwin  archived  459548e2-48d4-41b1-a015-b74501799587  02:00:00:18:0c:a9
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-fd8163aa-68d7-4336-b96d-53a3a31e39b8  few seconds ago  few seconds ago  172.16.44.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  545d64db-70a4-496d-9a96-2b544fcbb44e  086a5171-f7ab-4667-a231-840a81203f19
-8cd086c0-5517-410f-9ea8-5ff93b46b2f8  few seconds ago  few seconds ago  fd46:78ab:30b8:a93e::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  545d64db-70a4-496d-9a96-2b544fcbb44e  086a5171-f7ab-4667-a231-840a81203f19
+d31b129e-da26-480b-a1f7-d15b6df6877d  few seconds ago  few seconds ago  172.16.4.0/22             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  172d077d-0a4b-479d-bb8e-d6a681087998  53e50f63-f6c0-44f7-8576-d6edcb965d9c
+81058567-de5b-4596-a3d0-f7d5e08e1626  few seconds ago  few seconds ago  fd4a:c18e:554d:a577::/64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  172d077d-0a4b-479d-bb8e-d6a681087998  53e50f63-f6c0-44f7-8576-d6edcb965d9c
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "545d64db-70a4-496d-9a96-2b544fcbb44e",
-  "name": "cli-pn-condescending-wozniak",
-  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "id": "172d077d-0a4b-479d-bb8e-d6a681087998",
+  "name": "cli-pn-serene-payne",
+  "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "fd8163aa-68d7-4336-b96d-53a3a31e39b8",
+      "id": "d31b129e-da26-480b-a1f7-d15b6df6877d",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.44.0/22",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "545d64db-70a4-496d-9a96-2b544fcbb44e",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "subnet": "172.16.4.0/22",
+      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "private_network_id": "172d077d-0a4b-479d-bb8e-d6a681087998",
+      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     },
     {
-      "id": "8cd086c0-5517-410f-9ea8-5ff93b46b2f8",
+      "id": "81058567-de5b-4596-a3d0-f7d5e08e1626",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:a93e::/64",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "545d64db-70a4-496d-9a96-2b544fcbb44e",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "subnet": "fd4a:c18e:554d:a577::/64",
+      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "private_network_id": "172d077d-0a4b-479d-bb8e-d6a681087998",
+      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     }
   ],
-  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+  "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c",
   "dhcp_enabled": true,
   "instance_servers": [
     {
-      "id": "e301297f-e103-4a8b-bea8-31f26d152cf9",
-      "name": "cli-srv-angry-goodall",
+      "id": "19ad8477-5983-4e4e-813b-9314f9ae29bf",
+      "name": "cli-srv-gracious-darwin",
       "state": "stopped",
-      "nic_id": "0a32e99d-1cad-4547-8a26-8827d8d8f4df",
-      "mac": "02:00:00:1e:9e:8a"
+      "nic_id": "459548e2-48d4-41b1-a015-b74501799587",
+      "mac": "02:00:00:18:0c:a9"
     }
   ]
 }

@@ -1,85 +1,85 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              219b327c-7304-4404-8151-c2f88a6cdffd
-Name            cli-pn-hardcore-khayyam
-OrganizationID  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ID              d1b8825f-98c1-4a88-a559-57c8d3745804
+Name            cli-pn-kind-sutherland
+OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Region          fr-par
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-VpcID           086a5171-f7ab-4667-a231-840a81203f19
+VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
 DHCPEnabled     true
 
 Instance Servers:
-ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
-25c50c7e-9007-4f74-99ef-dfd9f8611232  cli-srv-boring-volhard  archived  bad6af7c-1753-4a45-b816-e6e5474b79e5  02:00:00:13:7f:1c
+ID                                    NAME               STATE     NIC ID                                MAC ADDRESS
+224fde09-bd5e-49b1-9b6b-41c67a758dcb  cli-srv-epic-pare  archived  24abfbef-ade9-4b58-afd7-a4d0dc7ffdcf  02:00:00:1c:92:7e
 
 Load-Balancers:
 ID                                    NAME      STATE
-827d25a3-a212-4b00-8e04-ba75f75bc1f4  cli-test  ready
+ae4dc7ff-71f6-4ab5-b866-974030d3e11c  cli-test  ready
 
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
-c46508fa-104e-452f-af7d-85dfc9a3de3f  cli-test  ready  6029852d-d9d3-4432-ab6a-cc2feb8d8137
+03cb0a3e-a459-47ad-89c8-2f9b2f22c289  cli-test  ready  a9770263-e299-4fd3-9d7b-d6ef60d6a8fa
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-f2133053-af25-416c-9559-933124dd22ca  few seconds ago  few seconds ago  172.16.20.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  219b327c-7304-4404-8151-c2f88a6cdffd  086a5171-f7ab-4667-a231-840a81203f19
-8e8b4b65-75c2-4112-9d05-3e7764201a7c  few seconds ago  few seconds ago  fd46:78ab:30b8:d0b6::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  219b327c-7304-4404-8151-c2f88a6cdffd  086a5171-f7ab-4667-a231-840a81203f19
+7bfcdcbd-a3d5-4cf0-b233-4806ac93c1d3  few seconds ago  few seconds ago  172.16.8.0/22             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  d1b8825f-98c1-4a88-a559-57c8d3745804  53e50f63-f6c0-44f7-8576-d6edcb965d9c
+f9ad5753-89e8-46a0-bbd0-e407a1828df9  few seconds ago  few seconds ago  fd4a:c18e:554d:fbef::/64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  d1b8825f-98c1-4a88-a559-57c8d3745804  53e50f63-f6c0-44f7-8576-d6edcb965d9c
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "219b327c-7304-4404-8151-c2f88a6cdffd",
-  "name": "cli-pn-hardcore-khayyam",
-  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "id": "d1b8825f-98c1-4a88-a559-57c8d3745804",
+  "name": "cli-pn-kind-sutherland",
+  "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "f2133053-af25-416c-9559-933124dd22ca",
+      "id": "7bfcdcbd-a3d5-4cf0-b233-4806ac93c1d3",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.20.0/22",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "219b327c-7304-4404-8151-c2f88a6cdffd",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "subnet": "172.16.8.0/22",
+      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "private_network_id": "d1b8825f-98c1-4a88-a559-57c8d3745804",
+      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     },
     {
-      "id": "8e8b4b65-75c2-4112-9d05-3e7764201a7c",
+      "id": "f9ad5753-89e8-46a0-bbd0-e407a1828df9",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:d0b6::/64",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "219b327c-7304-4404-8151-c2f88a6cdffd",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "subnet": "fd4a:c18e:554d:fbef::/64",
+      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "private_network_id": "d1b8825f-98c1-4a88-a559-57c8d3745804",
+      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     }
   ],
-  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+  "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c",
   "dhcp_enabled": true,
   "instance_servers": [
     {
-      "id": "25c50c7e-9007-4f74-99ef-dfd9f8611232",
-      "name": "cli-srv-boring-volhard",
+      "id": "224fde09-bd5e-49b1-9b6b-41c67a758dcb",
+      "name": "cli-srv-epic-pare",
       "state": "stopped",
-      "nic_id": "bad6af7c-1753-4a45-b816-e6e5474b79e5",
-      "mac": "02:00:00:13:7f:1c"
+      "nic_id": "24abfbef-ade9-4b58-afd7-a4d0dc7ffdcf",
+      "mac": "02:00:00:1c:92:7e"
     }
   ],
   "lbs": [
     {
-      "id": "827d25a3-a212-4b00-8e04-ba75f75bc1f4",
+      "id": "ae4dc7ff-71f6-4ab5-b866-974030d3e11c",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "c46508fa-104e-452f-af7d-85dfc9a3de3f",
+      "id": "03cb0a3e-a459-47ad-89c8-2f9b2f22c289",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "6029852d-d9d3-4432-ab6a-cc2feb8d8137"
+      "endpoint_id": "a9770263-e299-4fd3-9d7b-d6ef60d6a8fa"
     }
   ]
 }

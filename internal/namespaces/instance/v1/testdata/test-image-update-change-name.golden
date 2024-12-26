@@ -1,22 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Image.ID                e95c82b6-986a-4afc-bf3e-69bd9ed86186
+Image.ID                f60d1899-3bb8-4bde-b976-d8dd6a544554
 Image.Name              foo
 Image.Arch              x86_64
 Image.CreationDate      few seconds ago
 Image.ModificationDate  few seconds ago
 Image.ExtraVolumes      0
 Image.FromServer        -
-Image.Organization      ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Image.Organization      105bdce1-64c0-48ab-899d-868455867ecf
 Image.Public            false
-Image.RootVolume        d4c78801-f0b5-4eb6-809f-8b93631edd26
+Image.RootVolume        d6db8fc4-067a-4f06-81f3-a48ddb0d8a79
 Image.State             available
-Image.Project           ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Image.Project           105bdce1-64c0-48ab-899d-868455867ecf
 Image.Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "e95c82b6-986a-4afc-bf3e-69bd9ed86186",
+    "id": "f60d1899-3bb8-4bde-b976-d8dd6a544554",
     "name": "foo",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -24,16 +24,16 @@ Image.Zone              fr-par-1
     "default_bootscript": null,
     "extra_volumes": {},
     "from_server": "",
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
     "public": false,
     "root_volume": {
-      "id": "d4c78801-f0b5-4eb6-809f-8b93631edd26",
-      "name": "cli-snp-elated-leavitt",
+      "id": "d6db8fc4-067a-4f06-81f3-a48ddb0d8a79",
+      "name": "cli-snp-vigilant-stonebraker",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
     "state": "available",
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "project": "105bdce1-64c0-48ab-899d-868455867ecf",
     "tags": [],
     "zone": "fr-par-1"
   }
