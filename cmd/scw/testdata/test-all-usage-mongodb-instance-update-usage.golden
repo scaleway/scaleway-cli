@@ -9,7 +9,7 @@ ARGS:
   instance-id       UUID of the Database Instance to update
   [name]            Name of the Database Instance
   [tags.{index}]    Tags of a Database Instance
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for update

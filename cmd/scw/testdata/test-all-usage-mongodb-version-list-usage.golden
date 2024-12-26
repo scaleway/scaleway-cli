@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [version]         
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
   -h, --help   help for list

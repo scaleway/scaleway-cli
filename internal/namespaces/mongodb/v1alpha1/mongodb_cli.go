@@ -127,7 +127,7 @@ func mongodbNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListNodeTypesRequest)
@@ -165,7 +165,7 @@ func mongodbVersionList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListVersionsRequest)
@@ -233,7 +233,7 @@ func mongodbInstanceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListInstancesRequest)
@@ -272,7 +272,7 @@ func mongodbInstanceGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.GetInstanceRequest)
@@ -368,7 +368,7 @@ func mongodbInstanceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.CreateInstanceRequest)
@@ -412,7 +412,7 @@ func mongodbInstanceUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.UpdateInstanceRequest)
@@ -442,7 +442,7 @@ func mongodbInstanceDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.DeleteInstanceRequest)
@@ -479,7 +479,7 @@ func mongodbInstanceUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.UpgradeInstanceRequest)
@@ -509,7 +509,7 @@ func mongodbInstanceGetCertificate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.GetInstanceCertificateRequest)
@@ -553,7 +553,7 @@ func mongodbSnapshotCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.CreateSnapshotRequest)
@@ -583,7 +583,7 @@ func mongodbSnapshotGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.GetSnapshotRequest)
@@ -627,7 +627,7 @@ func mongodbSnapshotUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.UpdateSnapshotRequest)
@@ -686,7 +686,7 @@ func mongodbSnapshotRestore() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_type", "sbs_5k", "sbs_15k"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.RestoreSnapshotRequest)
@@ -745,7 +745,7 @@ func mongodbSnapshotList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListSnapshotsRequest)
@@ -784,7 +784,7 @@ func mongodbSnapshotDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.DeleteSnapshotRequest)
@@ -829,7 +829,7 @@ func mongodbUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListUsersRequest)
@@ -882,7 +882,7 @@ func mongodbUserUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.UpdateUserRequest)
