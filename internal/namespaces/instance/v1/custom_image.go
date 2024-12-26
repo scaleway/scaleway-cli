@@ -188,7 +188,14 @@ func imageListBuilder(c *core.Command) *core.Command {
 		req.Public = scw.BoolPtr(false)
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
-		listImagesResponse, err := api.ListImages(req, scw.WithAllPages())
+
+		opts := []scw.RequestOption{scw.WithAllPages()}
+		if req.Zone == scw.Zone(core.AllLocalities) {
+			opts = append(opts, scw.WithZones(api.Zones()...))
+			req.Zone = ""
+		}
+
+		listImagesResponse, err := api.ListImages(req, opts...)
 		if err != nil {
 			return nil, err
 		}
