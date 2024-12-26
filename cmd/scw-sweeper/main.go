@@ -4,11 +4,10 @@ import (
 	"log"
 	"os"
 
-	blockSweeper "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1/sweepers"
-
 	accountSweeper "github.com/scaleway/scaleway-sdk-go/api/account/v3/sweepers"
 	applesiliconSweeper "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1/sweepers"
 	baremetalSweeper "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1/sweepers"
+	blockSweeper "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1/sweepers"
 	cockpitSweeper "github.com/scaleway/scaleway-sdk-go/api/cockpit/v1/sweepers"
 	containerSweeper "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1/sweepers"
 	flexibleipSweeper "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1/sweepers"
