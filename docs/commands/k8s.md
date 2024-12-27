@@ -159,7 +159,7 @@ scw k8s cluster create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| type |  | Type of the cluster (possible values are kapsule, multicloud, kapsule-dedicated-8, kapsule-dedicated-16) |
+| type |  | Type of the cluster. See [list available cluster types](#list-available-cluster-types-for-a-cluster) for a list of valid types |
 | name | Required<br />Default: `<generated>` | Cluster name |
 | description |  | Cluster description |
 | tags.{index} |  | Tags associated with the cluster |
@@ -167,23 +167,23 @@ scw k8s cluster create [arg=value ...]
 | cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo`, `none` | Container Network Interface (CNI) plugin running in the cluster |
 | pools.{index}.name |  | Name of the pool |
 | pools.{index}.node-type |  | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
-| pools.{index}.placement-group-id |  | Placement group ID in which all the nodes of the pool will be created |
+| pools.{index}.placement-group-id |  | Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances. |
 | pools.{index}.autoscaling |  | Defines whether the autoscaling feature is enabled for the pool |
 | pools.{index}.size |  | Size (number of nodes) of the pool |
 | pools.{index}.min-size |  | Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
 | pools.{index}.max-size |  | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
-| pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24 |
+| pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool |
 | pools.{index}.autohealing |  | Defines whether the autohealing feature is enabled for the pool |
-| pools.{index}.tags.{index} |  | Tags associated with the pool |
+| pools.{index}.tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags) |
 | pools.{index}.kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is experimental |
 | pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
 | pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
 | pools.{index}.zone |  | Zone in which the pool's nodes will be spawned |
-| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
+| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
 | pools.{index}.root-volume-size |  | System volume disk size |
 | pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
-| autoscaler-config.scale-down-delay-after-add |  | How long after scale up that scale down evaluation resumes |
+| autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
 | autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Type of node group expander to be used in scale up |
 | autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down |
@@ -213,14 +213,14 @@ scw k8s cluster create [arg=value ...]
 **Examples:**
 
 
-Create a Kubernetes cluster named foo with cilium as CNI, in version 1.27.0 and with a pool named default composed of 3 DEV1-M
+Create a Kubernetes cluster named foo with cilium as CNI, in version 1.31.2 and with a pool named default composed of 3 DEV1-M
 ```
-scw k8s cluster create name=foo version=1.27.0 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
+scw k8s cluster create name=foo version=1.31.2 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
 ```
 
-Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.27.0 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
+Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.31.2 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
 ```
-scw k8s cluster create name=bar version=1.27.0 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
+scw k8s cluster create name=bar version=1.31.2 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
 ```
 
 
@@ -228,7 +228,7 @@ scw k8s cluster create name=bar version=1.27.0 tags.0=tag1 tags.1=tag2 cni=calic
 
 ### Delete a Cluster
 
-Delete a specific Kubernetes cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancer or Block Volume that are associated with the cluster.
+Delete a specific Kubernetes cluster and all its associated pools and nodes, and possibly its associated Load Balancers or Block Volumes.
 
 **Usage:**
 
@@ -249,14 +249,14 @@ scw k8s cluster delete <cluster-id ...> [arg=value ...]
 **Examples:**
 
 
-Delete a cluster
+Delete a cluster without deleting its Block volumes and Load Balancers
 ```
-scw k8s cluster delete 11111111-1111-1111-111111111111
+scw k8s cluster delete 11111111-1111-1111-1111-111111111111
 ```
 
-Delete a cluster with its Block volumes and Load Balancers
+Delete a cluster with its Block volumes and Load Balancers (best effort)
 ```
-scw k8s cluster delete 11111111-1111-1111-111111111111 with-additional-resources=true
+scw k8s cluster delete 11111111-1111-1111-1111-111111111111 with-additional-resources=true
 ```
 
 
@@ -286,7 +286,7 @@ scw k8s cluster get <cluster-id ...> [arg=value ...]
 
 Get a cluster information
 ```
-scw k8s cluster get 11111111-1111-1111-111111111111
+scw k8s cluster get 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -362,7 +362,7 @@ scw k8s cluster list-available-types <cluster-id ...> [arg=value ...]
 
 List all cluster types that a cluster can upgrade to
 ```
-scw k8s cluster list-available-types 11111111-1111-1111-111111111111
+scw k8s cluster list-available-types 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -392,7 +392,7 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 
 List all versions that a cluster can upgrade to
 ```
-scw k8s cluster list-available-versions 11111111-1111-1111-111111111111
+scw k8s cluster list-available-versions 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -401,6 +401,7 @@ scw k8s cluster list-available-versions 11111111-1111-1111-111111111111
 ### Migrate a cluster to SBS CSI
 
 Enable the latest CSI compatible with Scaleway Block Storage (SBS) and migrate all existing PersistentVolumes/VolumeSnapshotContents to SBS.
+Make sure to have the necessary Quota before running this command.
 
 **Usage:**
 
@@ -422,7 +423,7 @@ scw k8s cluster migrate-to-sbs-csi <cluster-id ...> [arg=value ...]
 
 Migrate a cluster to SBS CSI
 ```
-scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-111111111111
+scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -430,7 +431,7 @@ scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-111111111111
 
 ### Reset the admin token of a Cluster
 
-Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download kubeconfig again to keep interacting with the cluster.
+Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download the kubeconfig again to keep interacting with the cluster.
 
 **Usage:**
 
@@ -452,7 +453,7 @@ scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 
 Reset the admin token for a cluster
 ```
-scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111
+scw k8s cluster reset-admin-token 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -460,7 +461,7 @@ scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111
 
 ### Change the Cluster type
 
-Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#path-clusters-list-available-cluster-types-for-a-cluster).
+Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#list-available-cluster-types-for-a-cluster).
 
 **Usage:**
 
@@ -483,7 +484,7 @@ scw k8s cluster set-type <cluster-id ...> [arg=value ...]
 
 Convert a kapsule cluster to a kapsule-dedicated-16 cluster
 ```
-scw k8s cluster set-type 11111111-1111-1111-111111111111 type=kapsule-dedicated-16
+scw k8s cluster set-type 11111111-1111-1111-1111-111111111111 type=kapsule-dedicated-16
 ```
 
 
@@ -509,7 +510,7 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | description |  | New description for the cluster |
 | tags.{index} |  | New tags associated with the cluster |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
-| autoscaler-config.scale-down-delay-after-add |  | How long after scale up that scale down evaluation resumes |
+| autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
 | autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Type of node group expander to be used in scale up |
 | autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down |
@@ -537,9 +538,14 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 **Examples:**
 
 
-Add TTLAfterFinished and ServiceNodeExclusion as feature gates on a cluster
+Add InPlacePodVerticalScaling and SidecarContainers as feature gates on a cluster
 ```
-scw k8s cluster update 11111111-1111-1111-111111111111 feature-gates.0=TTLAfterFinished feature-gates.1=ServiceNodeExclusion
+scw k8s cluster update 11111111-1111-1111-1111-111111111111 feature-gates.0=InPlacePodVerticalScaling feature-gates.1=SidecarContainers
+```
+
+Remove all custom feature gates on a cluster
+```
+scw k8s cluster update 11111111-1111-1111-1111-111111111111 feature-gates=none
 ```
 
 
@@ -569,14 +575,14 @@ scw k8s cluster upgrade <cluster-id ...> [arg=value ...]
 **Examples:**
 
 
-Upgrade a cluster version 1.27.0 of Kubernetes (pools *are not* included)
+Upgrade a cluster to version 1.31.2 of Kubernetes (pools *are not* included)
 ```
-scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.27.0
+scw k8s cluster upgrade 11111111-1111-1111-1111-111111111111 version=1.31.2
 ```
 
-Upgrade a cluster to version 1.27.0 of Kubernetes (pools *are* included)
+Upgrade a cluster to version 1.31.2 of Kubernetes (pools *are* included)
 ```
-scw k8s cluster upgrade 11111111-1111-1111-111111111111 version=1.27.0 upgrade-pools=true
+scw k8s cluster upgrade 11111111-1111-1111-1111-111111111111 version=1.31.2 upgrade-pools=true
 ```
 
 
@@ -744,7 +750,7 @@ A node is always part of a pool. Each of them has the Kubernetes software automa
 
 ### Delete a Node in a Cluster
 
-Delete a specific Node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
+Delete a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
 
 **Usage:**
 
@@ -768,17 +774,17 @@ scw k8s node delete <node-id ...> [arg=value ...]
 
 Delete a node
 ```
-scw k8s node delete 11111111-1111-1111-111111111111
+scw k8s node delete 11111111-1111-1111-1111-111111111111
 ```
 
 Delete a node without evicting workloads
 ```
-scw k8s node delete 11111111-1111-1111-111111111111 skip-drain=true
+scw k8s node delete 11111111-1111-1111-1111-111111111111 skip-drain=true
 ```
 
 Replace a node by a new one
 ```
-scw k8s node delete 11111111-1111-1111-111111111111 replace=true
+scw k8s node delete 11111111-1111-1111-1111-111111111111 replace=true
 ```
 
 
@@ -808,7 +814,7 @@ scw k8s node get <node-id ...> [arg=value ...]
 
 Get a node
 ```
-scw k8s node get 11111111-1111-1111-111111111111
+scw k8s node get 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -842,17 +848,17 @@ scw k8s node list [arg=value ...]
 
 List all the nodes in the cluster
 ```
-scw k8s node list cluster-id=11111111-1111-1111-111111111111
+scw k8s node list cluster-id=11111111-1111-1111-1111-111111111111
 ```
 
-List all the nodes in the cluster's 2222222222222-2222-222222222222 pool
+List all the nodes in the cluster's 22222222-2222-2222-2222-222222222222 pool
 ```
-scw k8s node list cluster-id=11111111-1111-1111-111111111111 pool-id=2222222222222-2222-222222222222
+scw k8s node list cluster-id=11111111-1111-1111-1111-111111111111 pool-id=22222222-2222-2222-2222-222222222222
 ```
 
 List all cluster nodes that are ready
 ```
-scw k8s node list cluster-id=11111111-1111-1111-111111111111 status=ready
+scw k8s node list cluster-id=11111111-1111-1111-1111-111111111111 status=ready
 ```
 
 
@@ -860,7 +866,7 @@ scw k8s node list cluster-id=11111111-1111-1111-111111111111 status=ready
 
 ### Reboot a Node in a Cluster
 
-Reboot a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
+Reboot a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
 
 **Usage:**
 
@@ -882,7 +888,7 @@ scw k8s node reboot <node-id ...> [arg=value ...]
 
 Reboot a node
 ```
-scw k8s node reboot 11111111-1111-1111-111111111111
+scw k8s node reboot 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -890,7 +896,7 @@ scw k8s node reboot 11111111-1111-1111-111111111111
 
 ### Replace a Node in a Cluster
 
-Replace a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
+Replace a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
 
 **Usage:**
 
@@ -912,7 +918,7 @@ scw k8s node replace <node-id ...> [arg=value ...]
 
 Replace a node
 ```
-scw k8s node replace 11111111-1111-1111-111111111111
+scw k8s node replace 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -952,7 +958,7 @@ scw k8s node wait 11111111-1111-1111-1111-111111111111
 ## Kapsule pool management commands
 
 A pool is a set of identical nodes
-A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled. A "default pool" is automatically created with every cluster via the console.
+A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled.
 
 
 ### Create a new Pool in a Cluster
@@ -973,19 +979,19 @@ scw k8s pool create [arg=value ...]
 | cluster-id | Required | Cluster ID to which the pool will be attached |
 | name | Required<br />Default: `<generated>` | Pool name |
 | node-type | Required<br />Default: `DEV1-M` | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
-| placement-group-id |  | Placement group ID in which all the nodes of the pool will be created |
+| placement-group-id |  | Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances. |
 | autoscaling |  | Defines whether the autoscaling feature is enabled for the pool |
 | size | Required<br />Default: `1` | Size (number of nodes) of the pool |
 | min-size |  | Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
 | max-size |  | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
-| container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24 |
+| container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool |
 | autohealing |  | Defines whether the autohealing feature is enabled for the pool |
-| tags.{index} |  | Tags associated with the pool |
+| tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags) |
 | kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is experimental |
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
 | zone |  | Zone in which the pool's nodes will be spawned |
-| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
+| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
 | root-volume-size |  | System volume disk size |
 | public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -996,17 +1002,17 @@ scw k8s pool create [arg=value ...]
 
 Create a pool named 'bar' with 2 DEV1-XL on a cluster
 ```
-scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2
+scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2
 ```
 
-Create a pool named 'fish' with 5 GP1-L, autoscaling within 0 and 10 nodes and autohealing enabled, and containerd as the cluster container runtime
+Create a pool named 'fish' with 5 GP1-L, autoscaling within 0 and 10 nodes and autohealing enabled
 ```
-scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true container-runtime=containerd
+scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true
 ```
 
-Create a tagged pool named 'turtle' with 1 GP1-S which is using the already created placement group 2222222222222-2222-222222222222 for all the nodes in the pool on a cluster
+Create a tagged pool named 'turtle' with 1 GP1-S which is using the already created placement group 22222222-2222-2222-2222-222222222222 for all the nodes in the pool on a cluster
 ```
-scw k8s pool create cluster-id=11111111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=2222222222222-2222-222222222222 tags.0=turtle tags.1=placement-group
+scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=22222222-2222-2222-2222-222222222222 tags.0=turtle-uses-placement-group
 ```
 
 
@@ -1036,7 +1042,7 @@ scw k8s pool delete <pool-id ...> [arg=value ...]
 
 Delete a specific pool
 ```
-scw k8s pool delete 11111111-1111-1111-111111111111
+scw k8s pool delete 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -1066,7 +1072,7 @@ scw k8s pool get <pool-id ...> [arg=value ...]
 
 Get a given pool
 ```
-scw k8s pool get 11111111-1111-1111-111111111111
+scw k8s pool get 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -1099,22 +1105,22 @@ scw k8s pool list [arg=value ...]
 
 List all pools for a cluster
 ```
-scw k8s pool list cluster-id=11111111-1111-1111-111111111111
+scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111
 ```
 
 List all scaling pools for a cluster
 ```
-scw k8s pool list cluster-id=11111111-1111-1111-111111111111 status=scaling
+scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 status=scaling
 ```
 
 List all pools for clusters containing 'foo' in their name
 ```
-scw k8s pool list cluster-id=11111111-1111-1111-111111111111 name=foo
+scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 name=foo
 ```
 
 List all pools for a cluster and order them by ascending creation date
 ```
-scw k8s pool list cluster-id=11111111-1111-1111-111111111111 order-by=created_at_asc
+scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 order-by=created_at_asc
 ```
 
 
@@ -1122,7 +1128,7 @@ scw k8s pool list cluster-id=11111111-1111-1111-111111111111 order-by=created_at
 
 ### Update a Pool in a Cluster
 
-Update the attributes of a specific pool, such as its desired size, autoscaling settings, and tags.
+Update the attributes of a specific pool, such as its desired size, autoscaling settings, and tags. To upgrade a pool, you will need to use the dedicated endpoint.
 
 **Usage:**
 
@@ -1153,17 +1159,22 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 
 Enable autoscaling on a given pool
 ```
-scw k8s pool update 11111111-1111-1111-111111111111 autoscaling=true
+scw k8s pool update 11111111-1111-1111-1111-111111111111 autoscaling=true
 ```
 
 Reduce the size and maximum size of a given pool to 4
 ```
-scw k8s pool update 11111111-1111-1111-111111111111 size=4 max-size=4
+scw k8s pool update 11111111-1111-1111-1111-111111111111 size=4 max-size=4
 ```
 
 Modify the tags of a given pool
 ```
-scw k8s pool update 11111111-1111-1111-111111111111 tags.0=my tags.1=new tags.2=pool
+scw k8s pool update 11111111-1111-1111-1111-111111111111 tags.0=my tags.1=new tags.2=pool
+```
+
+Remove all tags of a given pool
+```
+scw k8s pool update 11111111-1111-1111-1111-111111111111 tags=none
 ```
 
 
@@ -1172,6 +1183,7 @@ scw k8s pool update 11111111-1111-1111-111111111111 tags.0=my tags.1=new tags.2=
 ### Upgrade a Pool in a Cluster
 
 Upgrade the Kubernetes version of a specific pool. Note that it only works if the targeted version matches the cluster's version.
+This will drain and replace the nodes in that pool.
 
 **Usage:**
 
@@ -1192,9 +1204,9 @@ scw k8s pool upgrade <pool-id ...> [arg=value ...]
 **Examples:**
 
 
-Upgrade a specific pool to the Kubernetes version 1.27.0
+Upgrade a specific pool to the Kubernetes version 1.31.2
 ```
-scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.27.0
+scw k8s pool upgrade 11111111-1111-1111-1111-111111111111 version=1.31.2
 ```
 
 
@@ -1259,9 +1271,9 @@ scw k8s version get <version-name ...> [arg=value ...]
 **Examples:**
 
 
-Get the Kubernetes version 1.27.0
+Get the Kubernetes version 1.31.2
 ```
-scw k8s version get 1.27.0
+scw k8s version get 1.31.2
 ```
 
 

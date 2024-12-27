@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download kubeconfig again to keep interacting with the cluster.
+Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download the kubeconfig again to keep interacting with the cluster.
 
 USAGE:
   scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 
 EXAMPLES:
   Reset the admin token for a cluster
-    scw k8s cluster reset-admin-token 11111111-1111-1111-111111111111
+    scw k8s cluster reset-admin-token 11111111-1111-1111-1111-111111111111
 
 ARGS:
   cluster-id        Cluster ID on which the admin token will be renewed
