@@ -12,6 +12,7 @@ import (
 	containerSweeper "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1/sweepers"
 	flexibleipSweeper "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1/sweepers"
 	functionSweeper "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1/sweepers"
+	iamSweeper "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1/sweepers"
 	inferenceSweeper "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1/sweepers"
 	instanceSweeper "github.com/scaleway/scaleway-sdk-go/api/instance/v1/sweepers"
 	iotSweeper "github.com/scaleway/scaleway-sdk-go/api/iot/v1/sweepers"
@@ -92,6 +93,11 @@ func mainNoExit() int {
 	}
 
 	err = functionSweeper.SweepAllLocalities(client)
+	if err != nil {
+		return -1
+	}
+
+	err = iamSweeper.SweepSSHKey(client)
 	if err != nil {
 		return -1
 	}
