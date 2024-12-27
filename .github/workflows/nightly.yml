@@ -87,7 +87,7 @@ jobs:
           SLACK_WEBHOOK_NIGHTLY: ${{ secrets.SLACK_WEBHOOK_NIGHTLY }}
           FAILED_PRODUCT: ${{ matrix.products }}
       - name: Run Sweepers
-        run: go run -v ./cmd/scw-sweepers
+        run: go run -v ./cmd/scw-sweeper
         env:
           SCW_DEBUG: 1
           SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
