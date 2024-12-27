@@ -837,7 +837,7 @@ scw k8s node list [arg=value ...]
 |------|---|-------------|
 | cluster-id | Required | Cluster ID from which the nodes will be listed from |
 | pool-id |  | Pool ID on which to filter the returned nodes |
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of the returned nodes |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | Sort order of the returned nodes |
 | name |  | Name to filter on, only nodes containing this substring in their name will be returned |
 | status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting`, `registering` | Status to filter on, only nodes with this status will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
