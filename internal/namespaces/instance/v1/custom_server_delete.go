@@ -234,9 +234,11 @@ func serverDeleteVolume(volume *instance.VolumeServer, instanceAPI *instance.API
 	var err error
 
 	if volume.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {
+		volumeAvailable := block.VolumeStatusAvailable
 		_, err = blockAPI.WaitForVolumeAndReferences(&block.WaitForVolumeAndReferencesRequest{
-			Zone:     volume.Zone,
-			VolumeID: volume.ID,
+			Zone:                 volume.Zone,
+			VolumeID:             volume.ID,
+			VolumeTerminalStatus: &volumeAvailable,
 		})
 		if err != nil {
 			return errorDeletingResource(err)
