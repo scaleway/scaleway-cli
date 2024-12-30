@@ -38,20 +38,22 @@ func main() {
 	os.Exit(exitCode)
 }
 
-func mainNoExit() int {
+func getConfigProfile() *scw.Profile {
 	config, err := scw.LoadConfig()
 	if err != nil {
-		// handle error
-		log.Fatal(err)
+		return &scw.Profile{}
 	}
-	activeProfile, err := config.GetActiveProfile()
+	profile, err := config.GetActiveProfile()
 	if err != nil {
-		// handle error
-		log.Fatal(err)
+		return &scw.Profile{}
 	}
+	return profile
+}
 
+func mainNoExit() int {
+	configProfile := getConfigProfile()
 	envProfile := scw.LoadEnvProfile()
-	profile := scw.MergeProfiles(activeProfile, envProfile)
+	profile := scw.MergeProfiles(configProfile, envProfile)
 
 	client, err := scw.NewClient(
 		scw.WithProfile(profile),
