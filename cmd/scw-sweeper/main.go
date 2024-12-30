@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/scaleway/scaleway-sdk-go/logger"
+
 	accountSweeper "github.com/scaleway/scaleway-sdk-go/api/account/v3/sweepers"
 	applesiliconSweeper "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1/sweepers"
 	baremetalSweeper "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1/sweepers"
@@ -40,13 +42,11 @@ func main() {
 func mainNoExit() int {
 	config, err := scw.LoadConfig()
 	if err != nil {
-		// handle error
-		log.Fatal(err)
+		logger.Warningf("was not able to load config: %s", err)
 	}
 	activeProfile, err := config.GetActiveProfile()
 	if err != nil {
-		// handle error
-		log.Fatal(err)
+		logger.Warningf("was not able to load active profile: %s", err)
 	}
 
 	envProfile := scw.LoadEnvProfile()
