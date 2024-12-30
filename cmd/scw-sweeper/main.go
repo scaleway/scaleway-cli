@@ -29,7 +29,6 @@ import (
 	vpcSweeper "github.com/scaleway/scaleway-sdk-go/api/vpc/v2/sweepers"
 	vpcgwSweeper "github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1/sweepers"
 	webhostingSweeper "github.com/scaleway/scaleway-sdk-go/api/webhosting/v1alpha1/sweepers"
-	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -38,18 +37,22 @@ func main() {
 	os.Exit(exitCode)
 }
 
-func mainNoExit() int {
+func getConfigProfile() *scw.Profile {
 	config, err := scw.LoadConfig()
 	if err != nil {
-		logger.Warningf("was not able to load config: %s", err)
+		return &scw.Profile{}
 	}
-	activeProfile, err := config.GetActiveProfile()
+	profile, err := config.GetActiveProfile()
 	if err != nil {
-		logger.Warningf("was not able to load active profile: %s", err)
+		return &scw.Profile{}
 	}
+	return profile
+}
 
+func mainNoExit() int {
+	configProfile := getConfigProfile()
 	envProfile := scw.LoadEnvProfile()
-	profile := scw.MergeProfiles(activeProfile, envProfile)
+	profile := scw.MergeProfiles(configProfile, envProfile)
 
 	client, err := scw.NewClient(
 		scw.WithProfile(profile),
