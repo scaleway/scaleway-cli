@@ -4,8 +4,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/scaleway/scaleway-sdk-go/logger"
-
 	accountSweeper "github.com/scaleway/scaleway-sdk-go/api/account/v3/sweepers"
 	applesiliconSweeper "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1/sweepers"
 	baremetalSweeper "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1/sweepers"
@@ -31,6 +29,7 @@ import (
 	vpcSweeper "github.com/scaleway/scaleway-sdk-go/api/vpc/v2/sweepers"
 	vpcgwSweeper "github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1/sweepers"
 	webhostingSweeper "github.com/scaleway/scaleway-sdk-go/api/webhosting/v1alpha1/sweepers"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
