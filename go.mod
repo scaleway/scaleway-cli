@@ -1,6 +1,7 @@
 module github.com/scaleway/scaleway-cli/v2
 
-go 1.22
+go 1.23
+
 toolchain go1.23.4
 
 require (
