@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a specific Kubernetes cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancer or Block Volume that are associated with the cluster.
+Delete a specific Kubernetes cluster and all its associated pools and nodes, and possibly its associated Load Balancers or Block Volumes.
 
 USAGE:
   scw k8s cluster delete <cluster-id ...> [arg=value ...]
 
 EXAMPLES:
-  Delete a cluster
-    scw k8s cluster delete 11111111-1111-1111-111111111111
+  Delete a cluster without deleting its Block volumes and Load Balancers
+    scw k8s cluster delete 11111111-1111-1111-1111-111111111111
 
-  Delete a cluster with its Block volumes and Load Balancers
-    scw k8s cluster delete 11111111-1111-1111-111111111111 with-additional-resources=true
+  Delete a cluster with its Block volumes and Load Balancers (best effort)
+    scw k8s cluster delete 11111111-1111-1111-1111-111111111111 with-additional-resources=true
 
 ARGS:
   cluster-id                    ID of the cluster to delete

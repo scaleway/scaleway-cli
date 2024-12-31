@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   List all cluster types that a cluster can upgrade to
-    scw k8s cluster list-available-types 11111111-1111-1111-111111111111
+    scw k8s cluster list-available-types 11111111-1111-1111-1111-111111111111
 
 ARGS:
   cluster-id        Cluster ID for which the available Kubernetes types will be listed

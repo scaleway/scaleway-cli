@@ -1,13 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Upgrade the Kubernetes version of a specific pool. Note that it only works if the targeted version matches the cluster's version.
+This will drain and replace the nodes in that pool.
 
 USAGE:
   scw k8s pool upgrade <pool-id ...> [arg=value ...]
 
 EXAMPLES:
-  Upgrade a specific pool to the Kubernetes version 1.27.0
-    scw k8s pool upgrade 11111111-1111-1111-111111111111 version=1.27.0
+  Upgrade a specific pool to the Kubernetes version 1.31.2
+    scw k8s pool upgrade 11111111-1111-1111-1111-111111111111 version=1.31.2
 
 ARGS:
   pool-id           ID of the pool to upgrade

@@ -1,13 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Enable the latest CSI compatible with Scaleway Block Storage (SBS) and migrate all existing PersistentVolumes/VolumeSnapshotContents to SBS.
+Make sure to have the necessary Quota before running this command.
 
 USAGE:
   scw k8s cluster migrate-to-sbs-csi <cluster-id ...> [arg=value ...]
 
 EXAMPLES:
   Migrate a cluster to SBS CSI
-    scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-111111111111
+    scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-1111-111111111111
 
 ARGS:
   cluster-id        Cluster ID for which the latest CSI compatible with Scaleway Block Storage will be enabled
