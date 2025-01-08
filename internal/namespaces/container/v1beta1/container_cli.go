@@ -1137,8 +1137,8 @@ func containerCronDelete() *core.Command {
 
 func containerDomainList() *core.Command {
 	return &core.Command{
-		Short:     `List all domain name bindings`,
-		Long:      `List all domain name bindings in a specified region.`,
+		Short:     `List all custom domains`,
+		Long:      `List all custom domains in a specified region.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "list",
@@ -1184,8 +1184,8 @@ func containerDomainList() *core.Command {
 
 func containerDomainGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a domain name binding`,
-		Long:      `Get a domain name binding for the container with the specified ID.`,
+		Short:     `Get a custom domain`,
+		Long:      `Get a custom domain for the container with the specified ID.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "get",
@@ -1214,8 +1214,8 @@ func containerDomainGet() *core.Command {
 
 func containerDomainCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a domain name binding`,
-		Long:      `Create a domain name binding for the container with the specified ID.`,
+		Short:     `Create a custom domain`,
+		Long:      `Create a custom domain for the container with the specified ID.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "create",
@@ -1251,8 +1251,8 @@ func containerDomainCreate() *core.Command {
 
 func containerDomainDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a domain name binding`,
-		Long:      `Delete the domain name binding with the specific ID.`,
+		Short:     `Delete a custom domain`,
+		Long:      `Delete the custom domain with the specific ID.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "delete",
