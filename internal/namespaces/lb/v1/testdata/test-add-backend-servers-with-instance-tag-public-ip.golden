@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        39821ac0-afd5-43b2-a102-beb7ee13b597
+ID                        b9d5b769-7c25-4a39-abca-542dd1174e50
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -26,10 +26,10 @@ CheckSendProxy       false
 TransientCheckDelay  500000000 nanoseconds
 
 Pool:
-[51.15.136.41 51.15.225.123]
+[51.15.130.58 51.15.247.178]
 
 Lb:
-ID                     9b2cb555-9d2a-41e1-ba59-9b0d70c600e0
+ID                     24914ea6-c296-487b-9714-3dd1348bf2b4
 Name                   cli-test
 Description            cli-test
 Status                 ready
@@ -47,15 +47,15 @@ Region                 fr-par
 Zone                   fr-par-1
 
 IPs:
-ID                                    IP ADDRESS   ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                          TAGS  REGION  ZONE
-aec77bc5-fcad-4fe8-83d8-5057100d8937  51.159.9.37  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  9b2cb555-9d2a-41e1-ba59-9b0d70c600e0  51-159-9-37.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
+ID                                    IP ADDRESS      ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                             TAGS  REGION  ZONE
+2fc51e1b-c688-499e-a361-6f0556f5d004  195.154.72.244  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  24914ea6-c296-487b-9714-3dd1348bf2b4  195-154-72-244.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
 
 LB Instances:
 ID                                    STATUS   IP ADDRESS  CREATED AT       UPDATED AT       REGION  ZONE
-7058611d-4188-42b3-8b6d-3c3deefe52f2  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
+82f22574-0866-4611-abd6-abce0a9033f4  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "39821ac0-afd5-43b2-a102-beb7ee13b597",
+  "id": "b9d5b769-7c25-4a39-abca-542dd1174e50",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -72,17 +72,17 @@ ID                                    STATUS   IP ADDRESS  CREATED AT       UPDA
     "check_timeout": 1000
   },
   "pool": [
-    "51.15.136.41",
-    "51.15.225.123"
+    "51.15.130.58",
+    "51.15.247.178"
   ],
   "lb": {
-    "id": "9b2cb555-9d2a-41e1-ba59-9b0d70c600e0",
+    "id": "24914ea6-c296-487b-9714-3dd1348bf2b4",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "7058611d-4188-42b3-8b6d-3c3deefe52f2",
+        "id": "82f22574-0866-4611-abd6-abce0a9033f4",
         "status": "pending",
         "ip_address": "",
         "created_at": "1970-01-01T00:00:00.0Z",
@@ -95,12 +95,12 @@ ID                                    STATUS   IP ADDRESS  CREATED AT       UPDA
     "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
     "ip": [
       {
-        "id": "aec77bc5-fcad-4fe8-83d8-5057100d8937",
-        "ip_address": "51.159.9.37",
+        "id": "2fc51e1b-c688-499e-a361-6f0556f5d004",
+        "ip_address": "195.154.72.244",
         "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
         "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "lb_id": "9b2cb555-9d2a-41e1-ba59-9b0d70c600e0",
-        "reverse": "51-159-9-37.lb.fr-par.scw.cloud",
+        "lb_id": "24914ea6-c296-487b-9714-3dd1348bf2b4",
+        "reverse": "195-154-72-244.lb.fr-par.scw.cloud",
         "tags": [],
         "region": "fr-par",
         "zone": "fr-par-1"
