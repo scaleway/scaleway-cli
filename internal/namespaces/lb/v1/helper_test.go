@@ -21,7 +21,11 @@ func createLB() core.BeforeFunc {
 }
 
 func deleteLB() core.AfterFunc {
-	return core.ExecAfterCmd("scw lb lb delete {{ .LB.ID }}")
+	return core.ExecAfterCmd("scw lb lb delete {{ .LB.ID }} --wait")
+}
+
+func deleteLBFlexibleIP() core.AfterFunc {
+	return core.ExecAfterCmd("scw lb ip delete {{ (index .LB.IP 0).ID }}")
 }
 
 func createInstance() core.BeforeFunc {

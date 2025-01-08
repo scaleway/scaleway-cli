@@ -108,8 +108,11 @@ FKQ9WcK8j+KuYrWQJihn/omlWXSQ+zs12N7yKVLVRuY8aw4XuWZwvuu4EkRLYcUD
 			"scw", "lb", "certificate", "create",
 			"lb-id={{ .LB.ID }}", "custom-certificate-chain=" + customCertificateChain,
 		},
-		Check:      core.TestCheckGolden(),
-		AfterFunc:  deleteLB(),
+		Check: core.TestCheckGolden(),
+		AfterFunc: core.AfterFuncCombine(
+			deleteLB(),
+			deleteLBFlexibleIP(),
+		),
 		TmpHomeDir: true,
 	}))
 }
