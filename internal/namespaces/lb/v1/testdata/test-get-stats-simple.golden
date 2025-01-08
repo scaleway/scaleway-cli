@@ -2,16 +2,16 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Backends Statistics:
 INSTANCE ID                           BACKEND ID                            IP             SERVER STATE  SERVER STATE CHANGED AT  LAST HEALTH CHECK STATUS
-a373a539-850b-4f3b-89d4-c7a067f54961  07f664da-f21a-4e65-90d3-7309047d3246  51.158.67.122  stopped       few seconds ago          unknown
+fa01810e-81fd-4250-b3a8-1a5e37bef3c6  0688290d-350e-43a1-8764-891e9caa737c  51.158.67.101  stopped       few seconds ago          unknown
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "backend_servers_stats": [
     {
-      "instance_id": "a373a539-850b-4f3b-89d4-c7a067f54961",
-      "backend_id": "07f664da-f21a-4e65-90d3-7309047d3246",
-      "ip": "51.158.67.122",
+      "instance_id": "fa01810e-81fd-4250-b3a8-1a5e37bef3c6",
+      "backend_id": "0688290d-350e-43a1-8764-891e9caa737c",
+      "ip": "51.158.67.101",
       "server_state": "stopped",
-      "server_state_changed_at": "2024-07-05T13:23:33Z",
+      "server_state_changed_at": "2025-01-08T14:26:44Z",
       "last_health_check_status": "unknown"
     }
   ]

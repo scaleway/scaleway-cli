@@ -16,16 +16,22 @@ func Test_ListLB(t *testing.T) {
 		BeforeFunc: createLB(),
 		Cmd:        "scw lb lb list",
 		Check:      core.TestCheckGolden(),
-		AfterFunc:  deleteLB(),
+		AfterFunc: core.AfterFuncCombine(
+			deleteLB(),
+			deleteLBFlexibleIP(),
+		),
 	}))
 }
 
 func Test_CreateLB(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:  lb.GetCommands(),
-		Cmd:       "scw lb lb create name=foobar description=foobar --wait",
-		Check:     core.TestCheckGolden(),
-		AfterFunc: core.ExecAfterCmd("scw lb lb delete {{ .CmdResult.ID }}"),
+		Commands: lb.GetCommands(),
+		Cmd:      "scw lb lb create name=foobar description=foobar --wait",
+		Check:    core.TestCheckGolden(),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd("scw lb lb delete {{ .CmdResult.ID }} --wait"),
+			core.ExecAfterCmd("scw lb ip delete {{ (index .CmdResult.IP 0).ID }}"),
+		),
 	}))
 }
 
@@ -35,7 +41,10 @@ func Test_GetLB(t *testing.T) {
 		BeforeFunc: createLB(),
 		Cmd:        "scw lb lb get {{ .LB.ID }}",
 		Check:      core.TestCheckGolden(),
-		AfterFunc:  deleteLB(),
+		AfterFunc: core.AfterFuncCombine(
+			deleteLB(),
+			deleteLBFlexibleIP(),
+		),
 	}))
 }
 
@@ -48,7 +57,10 @@ func Test_UpdateLBIPv6(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 		),
-		AfterFunc: deleteLB(),
+		AfterFunc: core.AfterFuncCombine(
+			deleteLB(),
+			deleteLBFlexibleIP(),
+		),
 	}))
 
 	t.Run("IPID", core.Test(&core.TestConfig{
@@ -73,9 +85,12 @@ func Test_WaitLB(t *testing.T) {
 			"LB",
 			"scw lb lb create name=cli-test description=cli-test",
 		),
-		Cmd:       "scw lb lb wait {{ .LB.ID }}",
-		Check:     core.TestCheckGolden(),
-		AfterFunc: deleteLB(),
+		Cmd:   "scw lb lb wait {{ .LB.ID }}",
+		Check: core.TestCheckGolden(),
+		AfterFunc: core.AfterFuncCombine(
+			deleteLB(),
+			deleteLBFlexibleIP(),
+		),
 	}))
 }
 
@@ -104,6 +119,7 @@ func Test_GetStats(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }
