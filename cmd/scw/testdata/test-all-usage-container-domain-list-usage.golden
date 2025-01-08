@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all domain name bindings in a specified region.
+List all custom domains in a specified region.
 
 USAGE:
   scw container domain list [arg=value ...]

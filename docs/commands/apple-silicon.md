@@ -228,7 +228,7 @@ Update the parameters of an existing Apple silicon server, specified by its serv
 **Usage:**
 
 ```
-scw apple-silicon server update <name ...> [arg=value ...]
+scw apple-silicon server update <server-id ...> [arg=value ...]
 ```
 
 
@@ -237,7 +237,7 @@ scw apple-silicon server update <name ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | server-id | Required | UUID of the server you want to update |
-| name | Required | Updated name for your server |
+| name |  | Updated name for your server |
 | schedule-deletion |  | Specify whether the server should be flagged for automatic deletion |
 | enable-vpc |  | Activate or deactivate Private Network support for this server |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
