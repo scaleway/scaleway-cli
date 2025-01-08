@@ -6,6 +6,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
+	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -16,6 +17,18 @@ const (
 	password = "{4xdl*#QOoP+&3XRkGA)]"
 	engine   = "PostgreSQL-15"
 )
+
+func fetchLatestEngine(engine string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		api := rdbSDK.NewAPI(ctx.Client)
+		dbEngine, err := api.FetchLatestEngineVersion(engine)
+		if err != nil {
+			return err
+		}
+		ctx.Meta["latestEngine"] = dbEngine.Name
+		return nil
+	}
+}
 
 func createInstance(engine string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(

@@ -37,7 +37,7 @@ func Test_EndpointCreate(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstance("PostgreSQL-15"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 		),
 		Cmd: "scw rdb endpoint create {{ .Instance.ID }} private-network.private-network-id={{ .PN.ID }} private-network.service-ip={{ .IPNet }} --wait",
 		Check: core.TestCheckCombine(
@@ -58,7 +58,7 @@ func Test_EndpointCreate(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstance("PostgreSQL-15"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 		),
 		Cmd: "scw rdb endpoint create {{ .Instance.ID }} private-network.private-network-id={{ .PN.ID }} private-network.enable-ipam=true --wait",
 		Check: core.TestCheckCombine(
@@ -127,7 +127,7 @@ func Test_EndpointDelete(t *testing.T) {
 	t.Run("All", core.Test(&core.TestConfig{
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
-			createInstance("PostgreSQL-15"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint delete {{ .PublicEndpoint.ID }} instance-id={{ .Instance.ID }} --wait",
