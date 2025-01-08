@@ -225,7 +225,7 @@ func lbUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func lbDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI interface{}, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI interface{}, _ interface{}) (interface{}, error) {
 		api := lb.NewZonedAPI(core.ExtractClient(ctx))
 		waitForLb, err := api.WaitForLb(&lb.ZonedAPIWaitForLBRequest{
 			LBID:          argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
