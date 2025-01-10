@@ -6,10 +6,10 @@ USAGE:
   scw container domain <command>
 
 AVAILABLE COMMANDS:
-  create      Create a domain name binding
-  delete      Delete a domain name binding
-  get         Get a domain name binding
-  list        List all domain name bindings
+  create      Create a custom domain
+  delete      Delete a custom domain
+  get         Get a custom domain
+  list        List all custom domains
 
 FLAGS:
   -h, --help   help for domain

@@ -352,14 +352,14 @@ func appleSiliconServerUpdate() *core.Command {
 				Short:      `UUID of the server you want to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
 				Short:      `Updated name for your server`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "schedule-deletion",

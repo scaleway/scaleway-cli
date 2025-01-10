@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a domain name binding for the container with the specified ID.
+Get a custom domain for the container with the specified ID.
 
 USAGE:
   scw container domain get <domain-id ...> [arg=value ...]
