@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the domain name binding with the specific ID.
+Delete the custom domain with the specific ID.
 
 USAGE:
   scw container domain delete <domain-id ...> [arg=value ...]
