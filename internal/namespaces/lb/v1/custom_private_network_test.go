@@ -27,11 +27,12 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 			deleteLB(),
 			core.AfterFuncWhenUpdatingCassette(
 				func(_ *core.AfterFuncCtx) error {
-					time.Sleep(10 * time.Second)
+					time.Sleep(1 * time.Minute)
 					return nil
 				},
 			),
 			deletePN(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }

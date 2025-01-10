@@ -25,6 +25,7 @@ func Test_GetFrontend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }

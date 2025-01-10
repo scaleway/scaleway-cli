@@ -2,6 +2,8 @@ package lb
 
 import (
 	"context"
+	"errors"
+	"net/http"
 	"reflect"
 	"strings"
 	"time"
@@ -223,6 +225,26 @@ func lbUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func lbDeleteBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, argsI interface{}, _ interface{}) (interface{}, error) {
+		api := lb.NewZonedAPI(core.ExtractClient(ctx))
+		waitForLb, err := api.WaitForLb(&lb.ZonedAPIWaitForLBRequest{
+			LBID:          argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
+			Zone:          argsI.(*lb.ZonedAPIDeleteLBRequest).Zone,
+			RetryInterval: core.DefaultRetryInterval,
+		})
+		if err != nil {
+			notFoundError := &scw.ResourceNotFoundError{}
+			responseError := &scw.ResponseError{}
+			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
+				return &core.SuccessResult{
+					Resource: "lb",
+					Verb:     "delete",
+				}, nil
+			}
+			return nil, err
+		}
+		return waitForLb, nil
+	}
 	c.Interceptor = interceptLB()
 	return c
 }
