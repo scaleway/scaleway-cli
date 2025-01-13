@@ -25,6 +25,7 @@ func Test_GetBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }
@@ -44,6 +45,7 @@ func Test_CreateBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -58,6 +60,7 @@ func Test_CreateBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -72,6 +75,7 @@ func Test_CreateBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -86,6 +90,7 @@ func Test_CreateBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }
@@ -106,6 +111,7 @@ func Test_AddBackendServers(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -121,6 +127,7 @@ func Test_AddBackendServers(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -136,6 +143,7 @@ func Test_AddBackendServers(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -151,6 +159,7 @@ func Test_AddBackendServers(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }

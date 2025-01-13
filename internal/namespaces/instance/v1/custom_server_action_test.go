@@ -123,7 +123,7 @@ func Test_ServerBackup(t *testing.T) {
 
 	t.Run("With SBS volumes", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("root-volume=sbs:20G stopped=true image=ubuntu-jammy")),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("root-volume=sbs:20G additional-volumes.0=sbs:10G additional-volumes.1=sbs:15G stopped=true image=ubuntu-jammy")),
 		Cmd:        `scw instance server backup {{ .Server.ID }} name=backup`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

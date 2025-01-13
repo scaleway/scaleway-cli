@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        af69e3c4-2b68-4b1b-8759-23ff1cfd6423
+ID                        b9d5b769-7c25-4a39-abca-542dd1174e50
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -26,15 +26,15 @@ CheckSendProxy       false
 TransientCheckDelay  500000000 nanoseconds
 
 Pool:
-[51.15.213.110 51.15.234.137]
+[51.15.130.58 51.15.247.178]
 
 Lb:
-ID                     e0a1d0d7-dfce-48de-b06a-c43135ac9aa8
+ID                     24914ea6-c296-487b-9714-3dd1348bf2b4
 Name                   cli-test
 Description            cli-test
 Status                 ready
-OrganizationID         105bdce1-64c0-48ab-899d-868455867ecf
-ProjectID              105bdce1-64c0-48ab-899d-868455867ecf
+OrganizationID         564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 FrontendCount          0
 BackendCount           1
 Type                   lb-s
@@ -47,15 +47,15 @@ Region                 fr-par
 Zone                   fr-par-1
 
 IPs:
-ID                                    IP ADDRESS    ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                           TAGS  REGION  ZONE
-e6369dfe-6220-4b1c-bf7f-9554076e757f  51.159.74.55  105bdce1-64c0-48ab-899d-868455867ecf  105bdce1-64c0-48ab-899d-868455867ecf  e0a1d0d7-dfce-48de-b06a-c43135ac9aa8  51-159-74-55.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
+ID                                    IP ADDRESS      ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                             TAGS  REGION  ZONE
+2fc51e1b-c688-499e-a361-6f0556f5d004  195.154.72.244  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  24914ea6-c296-487b-9714-3dd1348bf2b4  195-154-72-244.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
 
 LB Instances:
 ID                                    STATUS   IP ADDRESS  CREATED AT       UPDATED AT       REGION  ZONE
-c0af172f-72f1-4c88-af2d-d7e046af9106  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
+82f22574-0866-4611-abd6-abce0a9033f4  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "af69e3c4-2b68-4b1b-8759-23ff1cfd6423",
+  "id": "b9d5b769-7c25-4a39-abca-542dd1174e50",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -72,17 +72,17 @@ c0af172f-72f1-4c88-af2d-d7e046af9106  pending  -           few seconds ago  few 
     "check_timeout": 1000
   },
   "pool": [
-    "51.15.213.110",
-    "51.15.234.137"
+    "51.15.130.58",
+    "51.15.247.178"
   ],
   "lb": {
-    "id": "e0a1d0d7-dfce-48de-b06a-c43135ac9aa8",
+    "id": "24914ea6-c296-487b-9714-3dd1348bf2b4",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "c0af172f-72f1-4c88-af2d-d7e046af9106",
+        "id": "82f22574-0866-4611-abd6-abce0a9033f4",
         "status": "pending",
         "ip_address": "",
         "created_at": "1970-01-01T00:00:00.0Z",
@@ -91,16 +91,16 @@ c0af172f-72f1-4c88-af2d-d7e046af9106  pending  -           few seconds ago  few 
         "zone": "fr-par-1"
       }
     ],
-    "organization_id": "105bdce1-64c0-48ab-899d-868455867ecf",
-    "project_id": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
     "ip": [
       {
-        "id": "e6369dfe-6220-4b1c-bf7f-9554076e757f",
-        "ip_address": "51.159.74.55",
-        "organization_id": "105bdce1-64c0-48ab-899d-868455867ecf",
-        "project_id": "105bdce1-64c0-48ab-899d-868455867ecf",
-        "lb_id": "e0a1d0d7-dfce-48de-b06a-c43135ac9aa8",
-        "reverse": "51-159-74-55.lb.fr-par.scw.cloud",
+        "id": "2fc51e1b-c688-499e-a361-6f0556f5d004",
+        "ip_address": "195.154.72.244",
+        "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+        "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+        "lb_id": "24914ea6-c296-487b-9714-3dd1348bf2b4",
+        "reverse": "195-154-72-244.lb.fr-par.scw.cloud",
         "tags": [],
         "region": "fr-par",
         "zone": "fr-par-1"
