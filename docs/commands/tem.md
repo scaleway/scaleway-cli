@@ -2,6 +2,7 @@
 # Documentation for `scw tem`
 This API allows you to manage your Transactional Email services.
   
+- [Blocklist](#blocklist)
 - [Domain management commands](#domain-management-commands)
   - [Domain DNS check](#domain-dns-check)
   - [Register a domain in a project](#register-a-domain-in-a-project)
@@ -26,6 +27,20 @@ This API allows you to manage your Transactional Email services.
   - [Update a Webhook](#update-a-webhook)
 
   
+## Blocklist
+
+This section allows you to manage the blocklist of your emails.
+
+This section allows you to manage the blocklist of your emails.
+
+**Usage:**
+
+```
+scw tem blocklists
+```
+
+
+
 ## Domain management commands
 
 This section lists your domains, shows you to manage them, and gives you information about them.
@@ -311,7 +326,7 @@ scw tem email list [arg=value ...]
 | subject |  | (Optional) List emails with this subject |
 | search |  | (Optional) List emails by searching to all fields |
 | order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `status_desc`, `status_asc`, `mail_from_desc`, `mail_from_asc`, `mail_rcpt_desc`, `mail_rcpt_asc`, `subject_desc`, `subject_asc` | (Optional) List emails corresponding to specific criteria |
-| flags.{index} | One of: `unknown_flag`, `soft_bounce`, `hard_bounce`, `spam`, `mailbox_full`, `mailbox_not_found`, `greylisted`, `send_before_expiration` | (Optional) List emails containing only specific flags |
+| flags.{index} | One of: `unknown_flag`, `soft_bounce`, `hard_bounce`, `spam`, `mailbox_full`, `mailbox_not_found`, `greylisted`, `send_before_expiration`, `blocklisted` | (Optional) List emails containing only specific flags |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 

@@ -24,6 +24,7 @@ func GetGeneratedCommands() *core.Commands {
 		temDomain(),
 		temWebhook(),
 		temProjectSettings(),
+		temBlocklists(),
 		temEmailCreate(),
 		temEmailGet(),
 		temEmailList(),
@@ -85,6 +86,15 @@ func temProjectSettings() *core.Command {
 		Long:      `Project settings allow you to manage the configuration of your settings.`,
 		Namespace: "tem",
 		Resource:  "project-settings",
+	}
+}
+
+func temBlocklists() *core.Command {
+	return &core.Command{
+		Short:     `Blocklist`,
+		Long:      `This section allows you to manage the blocklist of your emails.`,
+		Namespace: "tem",
+		Resource:  "blocklists",
 	}
 }
 
@@ -363,7 +373,7 @@ func temEmailList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_flag", "soft_bounce", "hard_bounce", "spam", "mailbox_full", "mailbox_not_found", "greylisted", "send_before_expiration"},
+				EnumValues: []string{"unknown_flag", "soft_bounce", "hard_bounce", "spam", "mailbox_full", "mailbox_not_found", "greylisted", "send_before_expiration", "blocklisted"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
