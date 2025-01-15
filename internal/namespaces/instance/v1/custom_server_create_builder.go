@@ -164,7 +164,7 @@ func (sb *ServerBuilder) AddImage(image string) (*ServerBuilder, error) {
 		ImageID: *(sb.createReq.Image),
 	})
 	if err != nil {
-		logger.Warningf("cannot get image %s: %s", sb.createReq.Image, err)
+		logger.Warningf("cannot get image %s: %s", *sb.createReq.Image, err)
 	} else {
 		sb.serverImage = getImageResponse.Image
 	}
@@ -546,12 +546,11 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 		switch parts[0] {
 		case "l", "local":
 			vb.VolumeType = instance.VolumeVolumeTypeLSSD
-		case "b", "block":
-			vb.VolumeType = instance.VolumeVolumeTypeBSSD
+		case "sbs", "b", "block":
+			vb.VolumeType = instance.VolumeVolumeTypeSbsVolume
 		case "s", "scratch":
 			vb.VolumeType = instance.VolumeVolumeTypeScratch
-		case "sbs":
-			vb.VolumeType = instance.VolumeVolumeTypeSbsVolume
+
 		default:
 			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
 		}
