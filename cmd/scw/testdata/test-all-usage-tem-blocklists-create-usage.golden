@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create multiple blocklists in a specific Project or Organization using the `region` parameter.
+
+USAGE:
+  scw tem blocklists create [arg=value ...]
+
+ARGS:
+  [domain-id]        Domain ID linked to the blocklist
+  [emails.{index}]   Email blocked by the blocklist
+  [type]             Type of blocklist (unknown_type | mailbox_full | mailbox_not_found)
+  [reason]           Reason to block the email
+  [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

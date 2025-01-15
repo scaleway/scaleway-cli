@@ -6,6 +6,7 @@ USAGE:
   scw tem <command>
 
 AVAILABLE COMMANDS:
+  blocklists       Blocklist
   domain           Domain management commands
   email            Email management commands
   project-settings Project settings management commands
