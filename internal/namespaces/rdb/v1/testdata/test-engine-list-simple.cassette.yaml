@@ -159,18 +159,21 @@ interactions:
       "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
       "description":"Sets the planner s assumption about the size of the data cache.",
       "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
-      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"hot_standby_feedback",
-      "default_value":"off", "hot_configurable":true, "description":"Specifies whether
-      or not a hot standby will send feedback to the primary or upstream standby about
-      queries currently executing on the standby.", "property_type":"BOOLEAN", "unit":null,
-      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
-      "float_max":null}, {"name":"idle_in_transaction_session_timeout", "default_value":"3600000",
-      "hot_configurable":true, "description":"Sets the maximum allowed duration of
-      any idling transaction. Value in ms", "property_type":"INT", "unit":"ms", "string_constraint":null,
-      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"lock_timeout",
-      "default_value":"0", "hot_configurable":false, "description":"Sets the maximum
-      allowed duration of any wait for a lock.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
       "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
       "hot_configurable":true, "description":"Sets the minimum execution time above
       which autovacuum actions will be logged", "property_type":"INT", "unit":"ms",
@@ -199,33 +202,55 @@ interactions:
       "default_value":"1024", "hot_configurable":true, "description":"Maximum size
       to let the WAL grow during automatic checkpoints. Be careful adjusting this
       setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
-      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"statement_timeout",
-      "default_value":"86400000", "hot_configurable":true, "description":"Sets the
-      maximum allowed duration of any statement. Value in ms", "property_type":"INT",
-      "unit":"ms", "string_constraint":null, "int_min":30000, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count", "default_value":"0",
-      "hot_configurable":true, "description":"Maximum number of TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle", "default_value":"0",
-      "hot_configurable":true, "description":"Time between issuing TCP keepalives.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval", "default_value":"0",
-      "hot_configurable":true, "description":"Time between TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"temp_buffers", "default_value":"8192",
-      "hot_configurable":true, "description":"Sets the maximum number of temporary
-      buffers used by each session.", "property_type":"INT", "unit":"kB", "string_constraint":null,
-      "int_min":800, "int_max":1073741824, "float_min":null, "float_max":null}, {"name":"temp_file_limit",
-      "default_value":"-1", "hot_configurable":false, "description":"Limits the total
-      size of all temporary files used by each session.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
-      "float_max":null}, {"name":"timezone", "default_value":"GMT", "hot_configurable":true,
-      "description":"This option sets the global timezone system variable.", "property_type":"STRING",
-      "unit":null, "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pgaudit.log",
+      "default_value":"none", "hot_configurable":true, "description":"Specifies which
+      classes of statements will be logged by session audit logging", "property_type":"STRING",
+      "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -279,18 +304,21 @@ interactions:
       "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
       "description":"Sets the planner s assumption about the size of the data cache.",
       "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
-      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"hot_standby_feedback",
-      "default_value":"off", "hot_configurable":true, "description":"Specifies whether
-      or not a hot standby will send feedback to the primary or upstream standby about
-      queries currently executing on the standby.", "property_type":"BOOLEAN", "unit":null,
-      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
-      "float_max":null}, {"name":"idle_in_transaction_session_timeout", "default_value":"3600000",
-      "hot_configurable":true, "description":"Sets the maximum allowed duration of
-      any idling transaction. Value in ms", "property_type":"INT", "unit":"ms", "string_constraint":null,
-      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"lock_timeout",
-      "default_value":"0", "hot_configurable":false, "description":"Sets the maximum
-      allowed duration of any wait for a lock.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
       "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
       "hot_configurable":true, "description":"Sets the minimum execution time above
       which autovacuum actions will be logged", "property_type":"INT", "unit":"ms",
@@ -319,33 +347,55 @@ interactions:
       "default_value":"1024", "hot_configurable":true, "description":"Maximum size
       to let the WAL grow during automatic checkpoints. Be careful adjusting this
       setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
-      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"statement_timeout",
-      "default_value":"86400000", "hot_configurable":true, "description":"Sets the
-      maximum allowed duration of any statement. Value in ms", "property_type":"INT",
-      "unit":"ms", "string_constraint":null, "int_min":30000, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count", "default_value":"0",
-      "hot_configurable":true, "description":"Maximum number of TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle", "default_value":"0",
-      "hot_configurable":true, "description":"Time between issuing TCP keepalives.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval", "default_value":"0",
-      "hot_configurable":true, "description":"Time between TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"temp_buffers", "default_value":"8192",
-      "hot_configurable":true, "description":"Sets the maximum number of temporary
-      buffers used by each session.", "property_type":"INT", "unit":"kB", "string_constraint":null,
-      "int_min":800, "int_max":1073741824, "float_min":null, "float_max":null}, {"name":"temp_file_limit",
-      "default_value":"-1", "hot_configurable":false, "description":"Limits the total
-      size of all temporary files used by each session.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
-      "float_max":null}, {"name":"timezone", "default_value":"GMT", "hot_configurable":true,
-      "description":"This option sets the global timezone system variable.", "property_type":"STRING",
-      "unit":null, "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pgaudit.log",
+      "default_value":"none", "hot_configurable":true, "description":"Specifies which
+      classes of statements will be logged by session audit logging", "property_type":"STRING",
+      "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -399,18 +449,21 @@ interactions:
       "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
       "description":"Sets the planner s assumption about the size of the data cache.",
       "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
-      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"hot_standby_feedback",
-      "default_value":"off", "hot_configurable":true, "description":"Specifies whether
-      or not a hot standby will send feedback to the primary or upstream standby about
-      queries currently executing on the standby.", "property_type":"BOOLEAN", "unit":null,
-      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
-      "float_max":null}, {"name":"idle_in_transaction_session_timeout", "default_value":"3600000",
-      "hot_configurable":true, "description":"Sets the maximum allowed duration of
-      any idling transaction. Value in ms", "property_type":"INT", "unit":"ms", "string_constraint":null,
-      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"lock_timeout",
-      "default_value":"0", "hot_configurable":false, "description":"Sets the maximum
-      allowed duration of any wait for a lock.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
       "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
       "hot_configurable":true, "description":"Sets the minimum execution time above
       which autovacuum actions will be logged", "property_type":"INT", "unit":"ms",
@@ -439,33 +492,55 @@ interactions:
       "default_value":"1024", "hot_configurable":true, "description":"Maximum size
       to let the WAL grow during automatic checkpoints. Be careful adjusting this
       setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
-      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"statement_timeout",
-      "default_value":"86400000", "hot_configurable":true, "description":"Sets the
-      maximum allowed duration of any statement. Value in ms", "property_type":"INT",
-      "unit":"ms", "string_constraint":null, "int_min":30000, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count", "default_value":"0",
-      "hot_configurable":true, "description":"Maximum number of TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle", "default_value":"0",
-      "hot_configurable":true, "description":"Time between issuing TCP keepalives.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval", "default_value":"0",
-      "hot_configurable":true, "description":"Time between TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"temp_buffers", "default_value":"8192",
-      "hot_configurable":true, "description":"Sets the maximum number of temporary
-      buffers used by each session.", "property_type":"INT", "unit":"kB", "string_constraint":null,
-      "int_min":800, "int_max":1073741824, "float_min":null, "float_max":null}, {"name":"temp_file_limit",
-      "default_value":"-1", "hot_configurable":false, "description":"Limits the total
-      size of all temporary files used by each session.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
-      "float_max":null}, {"name":"timezone", "default_value":"GMT", "hot_configurable":true,
-      "description":"This option sets the global timezone system variable.", "property_type":"STRING",
-      "unit":null, "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pgaudit.log",
+      "default_value":"none", "hot_configurable":true, "description":"Specifies which
+      classes of statements will be logged by session audit logging", "property_type":"STRING",
+      "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -519,18 +594,21 @@ interactions:
       "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
       "description":"Sets the planner s assumption about the size of the data cache.",
       "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
-      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"hot_standby_feedback",
-      "default_value":"off", "hot_configurable":true, "description":"Specifies whether
-      or not a hot standby will send feedback to the primary or upstream standby about
-      queries currently executing on the standby.", "property_type":"BOOLEAN", "unit":null,
-      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
-      "float_max":null}, {"name":"idle_in_transaction_session_timeout", "default_value":"3600000",
-      "hot_configurable":true, "description":"Sets the maximum allowed duration of
-      any idling transaction. Value in ms", "property_type":"INT", "unit":"ms", "string_constraint":null,
-      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"lock_timeout",
-      "default_value":"0", "hot_configurable":false, "description":"Sets the maximum
-      allowed duration of any wait for a lock.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
       "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
       "hot_configurable":true, "description":"Sets the minimum execution time above
       which autovacuum actions will be logged", "property_type":"INT", "unit":"ms",
@@ -559,33 +637,55 @@ interactions:
       "default_value":"1024", "hot_configurable":true, "description":"Maximum size
       to let the WAL grow during automatic checkpoints. Be careful adjusting this
       setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
-      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"statement_timeout",
-      "default_value":"86400000", "hot_configurable":true, "description":"Sets the
-      maximum allowed duration of any statement. Value in ms", "property_type":"INT",
-      "unit":"ms", "string_constraint":null, "int_min":30000, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count", "default_value":"0",
-      "hot_configurable":true, "description":"Maximum number of TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle", "default_value":"0",
-      "hot_configurable":true, "description":"Time between issuing TCP keepalives.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval", "default_value":"0",
-      "hot_configurable":true, "description":"Time between TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"temp_buffers", "default_value":"8192",
-      "hot_configurable":true, "description":"Sets the maximum number of temporary
-      buffers used by each session.", "property_type":"INT", "unit":"kB", "string_constraint":null,
-      "int_min":800, "int_max":1073741824, "float_min":null, "float_max":null}, {"name":"temp_file_limit",
-      "default_value":"-1", "hot_configurable":false, "description":"Limits the total
-      size of all temporary files used by each session.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
-      "float_max":null}, {"name":"timezone", "default_value":"GMT", "hot_configurable":true,
-      "description":"This option sets the global timezone system variable.", "property_type":"STRING",
-      "unit":null, "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pgaudit.log",
+      "default_value":"none", "hot_configurable":true, "description":"Specifies which
+      classes of statements will be logged by session audit logging", "property_type":"STRING",
+      "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -604,7 +704,7 @@ interactions:
       {"name":"work_mem", "default_value":"4", "hot_configurable":true, "description":"Sets
       the maximum memory to be used for query workspaces.", "property_type":"INT",
       "unit":"MB", "string_constraint":null, "int_min":1, "int_max":2097151, "float_min":null,
-      "float_max":null}], "disabled":false, "beta":false, "available_init_settings":[]},
+      "float_max":null}], "disabled":true, "beta":false, "available_init_settings":[]},
       {"version":"11", "name":"PostgreSQL-11", "end_of_life":"2023-11-09T00:00:00Z",
       "available_settings":[{"name":"bgwriter_delay", "default_value":"200", "hot_configurable":true,
       "description":"Background writer sleep time between rounds.", "property_type":"INT",
@@ -705,7 +805,10 @@ interactions:
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -940,7 +1043,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
     url: https://api.scaleway.com/rdb/v1/regions/fr-par/database-engines?page=1
     method: GET
   response:
@@ -1101,18 +1204,21 @@ interactions:
       "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
       "description":"Sets the planner s assumption about the size of the data cache.",
       "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
-      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"hot_standby_feedback",
-      "default_value":"off", "hot_configurable":true, "description":"Specifies whether
-      or not a hot standby will send feedback to the primary or upstream standby about
-      queries currently executing on the standby.", "property_type":"BOOLEAN", "unit":null,
-      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
-      "float_max":null}, {"name":"idle_in_transaction_session_timeout", "default_value":"3600000",
-      "hot_configurable":true, "description":"Sets the maximum allowed duration of
-      any idling transaction. Value in ms", "property_type":"INT", "unit":"ms", "string_constraint":null,
-      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"lock_timeout",
-      "default_value":"0", "hot_configurable":false, "description":"Sets the maximum
-      allowed duration of any wait for a lock.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
       "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
       "hot_configurable":true, "description":"Sets the minimum execution time above
       which autovacuum actions will be logged", "property_type":"INT", "unit":"ms",
@@ -1141,33 +1247,55 @@ interactions:
       "default_value":"1024", "hot_configurable":true, "description":"Maximum size
       to let the WAL grow during automatic checkpoints. Be careful adjusting this
       setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
-      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"statement_timeout",
-      "default_value":"86400000", "hot_configurable":true, "description":"Sets the
-      maximum allowed duration of any statement. Value in ms", "property_type":"INT",
-      "unit":"ms", "string_constraint":null, "int_min":30000, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count", "default_value":"0",
-      "hot_configurable":true, "description":"Maximum number of TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle", "default_value":"0",
-      "hot_configurable":true, "description":"Time between issuing TCP keepalives.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval", "default_value":"0",
-      "hot_configurable":true, "description":"Time between TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"temp_buffers", "default_value":"8192",
-      "hot_configurable":true, "description":"Sets the maximum number of temporary
-      buffers used by each session.", "property_type":"INT", "unit":"kB", "string_constraint":null,
-      "int_min":800, "int_max":1073741824, "float_min":null, "float_max":null}, {"name":"temp_file_limit",
-      "default_value":"-1", "hot_configurable":false, "description":"Limits the total
-      size of all temporary files used by each session.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
-      "float_max":null}, {"name":"timezone", "default_value":"GMT", "hot_configurable":true,
-      "description":"This option sets the global timezone system variable.", "property_type":"STRING",
-      "unit":null, "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pgaudit.log",
+      "default_value":"none", "hot_configurable":true, "description":"Specifies which
+      classes of statements will be logged by session audit logging", "property_type":"STRING",
+      "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -1221,18 +1349,21 @@ interactions:
       "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
       "description":"Sets the planner s assumption about the size of the data cache.",
       "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
-      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"hot_standby_feedback",
-      "default_value":"off", "hot_configurable":true, "description":"Specifies whether
-      or not a hot standby will send feedback to the primary or upstream standby about
-      queries currently executing on the standby.", "property_type":"BOOLEAN", "unit":null,
-      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
-      "float_max":null}, {"name":"idle_in_transaction_session_timeout", "default_value":"3600000",
-      "hot_configurable":true, "description":"Sets the maximum allowed duration of
-      any idling transaction. Value in ms", "property_type":"INT", "unit":"ms", "string_constraint":null,
-      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"lock_timeout",
-      "default_value":"0", "hot_configurable":false, "description":"Sets the maximum
-      allowed duration of any wait for a lock.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
       "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
       "hot_configurable":true, "description":"Sets the minimum execution time above
       which autovacuum actions will be logged", "property_type":"INT", "unit":"ms",
@@ -1261,33 +1392,55 @@ interactions:
       "default_value":"1024", "hot_configurable":true, "description":"Maximum size
       to let the WAL grow during automatic checkpoints. Be careful adjusting this
       setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
-      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"statement_timeout",
-      "default_value":"86400000", "hot_configurable":true, "description":"Sets the
-      maximum allowed duration of any statement. Value in ms", "property_type":"INT",
-      "unit":"ms", "string_constraint":null, "int_min":30000, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count", "default_value":"0",
-      "hot_configurable":true, "description":"Maximum number of TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle", "default_value":"0",
-      "hot_configurable":true, "description":"Time between issuing TCP keepalives.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval", "default_value":"0",
-      "hot_configurable":true, "description":"Time between TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"temp_buffers", "default_value":"8192",
-      "hot_configurable":true, "description":"Sets the maximum number of temporary
-      buffers used by each session.", "property_type":"INT", "unit":"kB", "string_constraint":null,
-      "int_min":800, "int_max":1073741824, "float_min":null, "float_max":null}, {"name":"temp_file_limit",
-      "default_value":"-1", "hot_configurable":false, "description":"Limits the total
-      size of all temporary files used by each session.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
-      "float_max":null}, {"name":"timezone", "default_value":"GMT", "hot_configurable":true,
-      "description":"This option sets the global timezone system variable.", "property_type":"STRING",
-      "unit":null, "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pgaudit.log",
+      "default_value":"none", "hot_configurable":true, "description":"Specifies which
+      classes of statements will be logged by session audit logging", "property_type":"STRING",
+      "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -1341,18 +1494,21 @@ interactions:
       "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
       "description":"Sets the planner s assumption about the size of the data cache.",
       "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
-      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"hot_standby_feedback",
-      "default_value":"off", "hot_configurable":true, "description":"Specifies whether
-      or not a hot standby will send feedback to the primary or upstream standby about
-      queries currently executing on the standby.", "property_type":"BOOLEAN", "unit":null,
-      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
-      "float_max":null}, {"name":"idle_in_transaction_session_timeout", "default_value":"3600000",
-      "hot_configurable":true, "description":"Sets the maximum allowed duration of
-      any idling transaction. Value in ms", "property_type":"INT", "unit":"ms", "string_constraint":null,
-      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"lock_timeout",
-      "default_value":"0", "hot_configurable":false, "description":"Sets the maximum
-      allowed duration of any wait for a lock.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
       "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
       "hot_configurable":true, "description":"Sets the minimum execution time above
       which autovacuum actions will be logged", "property_type":"INT", "unit":"ms",
@@ -1381,33 +1537,55 @@ interactions:
       "default_value":"1024", "hot_configurable":true, "description":"Maximum size
       to let the WAL grow during automatic checkpoints. Be careful adjusting this
       setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
-      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"statement_timeout",
-      "default_value":"86400000", "hot_configurable":true, "description":"Sets the
-      maximum allowed duration of any statement. Value in ms", "property_type":"INT",
-      "unit":"ms", "string_constraint":null, "int_min":30000, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count", "default_value":"0",
-      "hot_configurable":true, "description":"Maximum number of TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle", "default_value":"0",
-      "hot_configurable":true, "description":"Time between issuing TCP keepalives.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval", "default_value":"0",
-      "hot_configurable":true, "description":"Time between TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"temp_buffers", "default_value":"8192",
-      "hot_configurable":true, "description":"Sets the maximum number of temporary
-      buffers used by each session.", "property_type":"INT", "unit":"kB", "string_constraint":null,
-      "int_min":800, "int_max":1073741824, "float_min":null, "float_max":null}, {"name":"temp_file_limit",
-      "default_value":"-1", "hot_configurable":false, "description":"Limits the total
-      size of all temporary files used by each session.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
-      "float_max":null}, {"name":"timezone", "default_value":"GMT", "hot_configurable":true,
-      "description":"This option sets the global timezone system variable.", "property_type":"STRING",
-      "unit":null, "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pgaudit.log",
+      "default_value":"none", "hot_configurable":true, "description":"Specifies which
+      classes of statements will be logged by session audit logging", "property_type":"STRING",
+      "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -1461,18 +1639,21 @@ interactions:
       "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
       "description":"Sets the planner s assumption about the size of the data cache.",
       "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
-      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"hot_standby_feedback",
-      "default_value":"off", "hot_configurable":true, "description":"Specifies whether
-      or not a hot standby will send feedback to the primary or upstream standby about
-      queries currently executing on the standby.", "property_type":"BOOLEAN", "unit":null,
-      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
-      "float_max":null}, {"name":"idle_in_transaction_session_timeout", "default_value":"3600000",
-      "hot_configurable":true, "description":"Sets the maximum allowed duration of
-      any idling transaction. Value in ms", "property_type":"INT", "unit":"ms", "string_constraint":null,
-      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"lock_timeout",
-      "default_value":"0", "hot_configurable":false, "description":"Sets the maximum
-      allowed duration of any wait for a lock.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
       "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
       "hot_configurable":true, "description":"Sets the minimum execution time above
       which autovacuum actions will be logged", "property_type":"INT", "unit":"ms",
@@ -1501,33 +1682,55 @@ interactions:
       "default_value":"1024", "hot_configurable":true, "description":"Maximum size
       to let the WAL grow during automatic checkpoints. Be careful adjusting this
       setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
-      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"statement_timeout",
-      "default_value":"86400000", "hot_configurable":true, "description":"Sets the
-      maximum allowed duration of any statement. Value in ms", "property_type":"INT",
-      "unit":"ms", "string_constraint":null, "int_min":30000, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count", "default_value":"0",
-      "hot_configurable":true, "description":"Maximum number of TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle", "default_value":"0",
-      "hot_configurable":true, "description":"Time between issuing TCP keepalives.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval", "default_value":"0",
-      "hot_configurable":true, "description":"Time between TCP keepalive retransmits.",
-      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647,
-      "float_min":null, "float_max":null}, {"name":"temp_buffers", "default_value":"8192",
-      "hot_configurable":true, "description":"Sets the maximum number of temporary
-      buffers used by each session.", "property_type":"INT", "unit":"kB", "string_constraint":null,
-      "int_min":800, "int_max":1073741824, "float_min":null, "float_max":null}, {"name":"temp_file_limit",
-      "default_value":"-1", "hot_configurable":false, "description":"Limits the total
-      size of all temporary files used by each session.", "property_type":"INT", "unit":null,
-      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
-      "float_max":null}, {"name":"timezone", "default_value":"GMT", "hot_configurable":true,
-      "description":"This option sets the global timezone system variable.", "property_type":"STRING",
-      "unit":null, "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pgaudit.log",
+      "default_value":"none", "hot_configurable":true, "description":"Specifies which
+      classes of statements will be logged by session audit logging", "property_type":"STRING",
+      "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -1546,7 +1749,7 @@ interactions:
       {"name":"work_mem", "default_value":"4", "hot_configurable":true, "description":"Sets
       the maximum memory to be used for query workspaces.", "property_type":"INT",
       "unit":"MB", "string_constraint":null, "int_min":1, "int_max":2097151, "float_min":null,
-      "float_max":null}], "disabled":false, "beta":false, "available_init_settings":[]},
+      "float_max":null}], "disabled":true, "beta":false, "available_init_settings":[]},
       {"version":"11", "name":"PostgreSQL-11", "end_of_life":"2023-11-09T00:00:00Z",
       "available_settings":[{"name":"bgwriter_delay", "default_value":"200", "hot_configurable":true,
       "description":"Background writer sleep time between rounds.", "property_type":"INT",
@@ -1647,7 +1850,10 @@ interactions:
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
       "default_value":"1024", "hot_configurable":false, "description":"Sets the size
       reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
-      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
       "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
       in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
       "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
@@ -1880,14 +2086,16 @@ interactions:
       "float_max":null}], "disabled":true, "beta":false, "available_init_settings":[]}],
       "region":"fr-par"}], "total_count":2}'
     headers:
+      Content-Length:
+      - "124206"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 08 Nov 2023 21:05:50 GMT
+      - Tue, 07 Jan 2025 14:16:07 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1895,7 +2103,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 1dbecabe-7223-4d5d-af37-a0b0effad588
+      - 3696bf47-308f-48e9-a6af-bc4cd9030064
     status: 200 OK
     code: 200
     duration: ""

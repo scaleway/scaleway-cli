@@ -1,37 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt                         few seconds ago
-Region                            fr-par
-ID                                cd243660-af1e-45f6-9f04-0c6fdf22ce6c
-Name                              cli-test
-OrganizationID                    fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID                         fa1e3217-dc80-42ac-85c3-3f034b78b552
-Status                            ready
-Engine                            PostgreSQL-12
-UpgradableVersion.0.ID            2e670f5c-493b-443f-92bd-986f23da2750
-UpgradableVersion.0.Name          PostgreSQL-13
-UpgradableVersion.0.Version       13
-UpgradableVersion.0.MinorVersion  13.12
-UpgradableVersion.1.ID            2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9
-UpgradableVersion.1.Name          PostgreSQL-14
-UpgradableVersion.1.Version       14
-UpgradableVersion.1.MinorVersion  14.9
-UpgradableVersion.2.ID            d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d
-UpgradableVersion.2.Name          PostgreSQL-15
-UpgradableVersion.2.Version       15
-UpgradableVersion.2.MinorVersion  15.4
-IsHaCluster                       false
-NodeType                          db-dev-s
-Endpoints.0.ID                    ca968a49-bf25-4de3-bb24-e84d04aa7a4b
-Endpoints.0.IP                    51.158.58.219
-Endpoints.0.Port                  10495
-LogsPolicy.MaxAgeRetention        30
-BackupSameRegion                  false
+CreatedAt                   few seconds ago
+Region                      fr-par
+ID                          ee17644d-8d1c-4fc1-86db-3ad64dd8e2dd
+Name                        cli-test
+OrganizationID              5ebc0159-7cb7-406c-9521-9347d1987fb2
+ProjectID                   5ebc0159-7cb7-406c-9521-9347d1987fb2
+Status                      ready
+Engine                      PostgreSQL-15
+IsHaCluster                 false
+NodeType                    db-dev-s
+Endpoints.0.ID              737d3510-55ac-475d-9adc-ab0ddc56a9f6
+Endpoints.0.IP              51.159.8.181
+Endpoints.0.Port            27851
+LogsPolicy.MaxAgeRetention  30
+BackupSameRegion            false
+Encryption.Enabled          false
 
 Endpoint:
-ID    ca968a49-bf25-4de3-bb24-e84d04aa7a4b
-IP    51.158.58.219
-Port  10495
+ID    737d3510-55ac-475d-9adc-ab0ddc56a9f6
+IP    51.159.8.181
+Port  27851
 
 Volume:
 Type   lssd
@@ -55,7 +44,7 @@ work_mem                         4
 
 ACLs:
 IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  10495  tcp       inbound    allow   Allow All
+0.0.0.0/0  27851  tcp       inbound    allow   Allow All
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -65,36 +54,17 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "cd243660-af1e-45f6-9f04-0c6fdf22ce6c",
+  "id": "ee17644d-8d1c-4fc1-86db-3ad64dd8e2dd",
   "name": "cli-test",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
   "status": "ready",
-  "engine": "PostgreSQL-12",
-  "upgradable_version": [
-    {
-      "id": "2e670f5c-493b-443f-92bd-986f23da2750",
-      "name": "PostgreSQL-13",
-      "version": "13",
-      "minor_version": "13.12"
-    },
-    {
-      "id": "2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9",
-      "name": "PostgreSQL-14",
-      "version": "14",
-      "minor_version": "14.9"
-    },
-    {
-      "id": "d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d",
-      "name": "PostgreSQL-15",
-      "version": "15",
-      "minor_version": "15.4"
-    }
-  ],
+  "engine": "PostgreSQL-15",
+  "upgradable_version": [],
   "endpoint": {
-    "id": "ca968a49-bf25-4de3-bb24-e84d04aa7a4b",
-    "ip": "51.158.58.219",
-    "port": 10495,
+    "id": "737d3510-55ac-475d-9adc-ab0ddc56a9f6",
+    "ip": "51.159.8.181",
+    "port": 27851,
     "name": null,
     "load_balancer": {}
   },
@@ -137,9 +107,9 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
   "init_settings": [],
   "endpoints": [
     {
-      "id": "ca968a49-bf25-4de3-bb24-e84d04aa7a4b",
-      "ip": "51.158.58.219",
-      "port": 10495,
+      "id": "737d3510-55ac-475d-9adc-ab0ddc56a9f6",
+      "ip": "51.159.8.181",
+      "port": 27851,
       "name": null,
       "load_balancer": {}
     }
@@ -150,11 +120,13 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
   },
   "backup_same_region": false,
   "maintenances": [],
-  "encryption": null,
+  "encryption": {
+    "enabled": false
+  },
   "acls": [
     {
       "ip": "0.0.0.0/0",
-      "port": 10495,
+      "port": 27851,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
