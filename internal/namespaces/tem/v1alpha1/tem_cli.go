@@ -43,6 +43,9 @@ func GetGeneratedCommands() *core.Commands {
 		temWebhookUpdate(),
 		temWebhookDelete(),
 		temWebhookListEvents(),
+		temBlocklistsList(),
+		temBlocklistsCreate(),
+		temBlocklistsDelete(),
 	)
 }
 func temRoot() *core.Command {
@@ -1067,6 +1070,163 @@ func temWebhookListEvents() *core.Command {
 			}
 			return resp.WebhookEvents, nil
 
+		},
+	}
+}
+
+func temBlocklistsList() *core.Command {
+	return &core.Command{
+		Short:     `List blocklists`,
+		Long:      `Retrieve the list of blocklists.`,
+		Namespace: "tem",
+		Resource:  "blocklists",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.ListBlocklistsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `(Optional) List blocklist corresponding to specific criteria`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_desc", "created_at_asc", "ends_at_desc", "ends_at_asc"},
+			},
+			{
+				Name:       "domain-id",
+				Short:      `(Optional) Filter by a domain ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "email",
+				Short:      `(Optional) Filter by an email address`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "type",
+				Short:      `(Optional) Filter by a blocklist type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "mailbox_full", "mailbox_not_found"},
+			},
+			{
+				Name:       "custom",
+				Short:      `(Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.ListBlocklistsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListBlocklists(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.Blocklists, nil
+
+		},
+	}
+}
+
+func temBlocklistsCreate() *core.Command {
+	return &core.Command{
+		Short:     `Bulk create blocklists`,
+		Long:      `Create multiple blocklists in a specific Project or Organization using the ` + "`" + `region` + "`" + ` parameter.`,
+		Namespace: "tem",
+		Resource:  "blocklists",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.BulkCreateBlocklistsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-id",
+				Short:      `Domain ID linked to the blocklist`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "emails.{index}",
+				Short:      `Email blocked by the blocklist`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "type",
+				Short:      `Type of blocklist`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "mailbox_full", "mailbox_not_found"},
+			},
+			{
+				Name:       "reason",
+				Short:      `Reason to block the email`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.BulkCreateBlocklistsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			return api.BulkCreateBlocklists(request)
+
+		},
+	}
+}
+
+func temBlocklistsDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a blocklist`,
+		Long:      `You must specify the blocklist you want to delete by the ` + "`" + `region` + "`" + ` and ` + "`" + `blocklist_id` + "`" + `.`,
+		Namespace: "tem",
+		Resource:  "blocklists",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(tem.DeleteBlocklistRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "blocklist-id",
+				Short:      `ID of the blocklist to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*tem.DeleteBlocklistRequest)
+
+			client := core.ExtractClient(ctx)
+			api := tem.NewAPI(client)
+			e = api.DeleteBlocklist(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "blocklists",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
