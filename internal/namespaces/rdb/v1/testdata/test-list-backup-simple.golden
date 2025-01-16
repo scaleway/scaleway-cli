@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    Name                  Database Name  Size    Status  Instance ID                           URL Expired  Is Exported  Expires At       Created At       Updated At       Region  Same Region
-4a7d57b2-f92b-4b13-86de-b56e47cad9f5  will_be_exported      rdb            2.1 kB  ready   8a25dbba-dac7-49bf-854c-5f1da6a545bc  false        true         few seconds ago  few seconds ago  few seconds ago  fr-par  false
+4a7d57b2-f92b-4b13-86de-b56e47cad9f5  will_be_exported      rdb            2.1 kB  ready   8a25dbba-dac7-49bf-854c-5f1da6a545bc  true         true         few seconds ago  few seconds ago  few seconds ago  fr-par  false
 a929798a-28be-4717-b8a7-0c02c088160e  will_not_be_exported  rdb            2.1 kB  ready   8a25dbba-dac7-49bf-854c-5f1da6a545bc  true         false        few seconds ago  few seconds ago  few seconds ago  fr-par  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
@@ -17,7 +17,7 @@ a929798a-28be-4717-b8a7-0c02c088160e  will_not_be_exported  rdb            2.1 k
     "updated_at": "1970-01-01T00:00:00.0Z",
     "instance_name": "cli-test",
     "is_exported": true,
-    "url_expired": false,
+    "url_expired": true,
     "region": "fr-par",
     "same_region": false
   },
