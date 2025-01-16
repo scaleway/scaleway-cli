@@ -217,6 +217,7 @@ scw jobs run list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | job-definition-id |  |  |
 | project-id |  |  |
+| state | One of: `unknown_state`, `queued`, `scheduled`, `running`, `succeeded`, `failed`, `canceled`, `internal_error` |  |
 | organization-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
