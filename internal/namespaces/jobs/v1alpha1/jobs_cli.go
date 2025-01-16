@@ -759,6 +759,13 @@ func jobsRunList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "state",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_state", "queued", "scheduled", "running", "succeeded", "failed", "canceled", "internal_error"},
+			},
+			{
 				Name:       "organization-id",
 				Required:   false,
 				Deprecated: false,
