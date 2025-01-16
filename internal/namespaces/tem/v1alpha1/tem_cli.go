@@ -25,6 +25,7 @@ func GetGeneratedCommands() *core.Commands {
 		temWebhook(),
 		temProjectSettings(),
 		temBlocklists(),
+		temOffers(),
 		temEmailCreate(),
 		temEmailGet(),
 		temEmailList(),
@@ -86,7 +87,7 @@ func temWebhook() *core.Command {
 func temProjectSettings() *core.Command {
 	return &core.Command{
 		Short:     `Project settings management commands`,
-		Long:      `Project settings allow you to manage the configuration of your settings.`,
+		Long:      `Project settings allow you to manage the configuration of your projects.`,
 		Namespace: "tem",
 		Resource:  "project-settings",
 	}
@@ -98,6 +99,15 @@ func temBlocklists() *core.Command {
 		Long:      `This section allows you to manage the blocklist of your emails.`,
 		Namespace: "tem",
 		Resource:  "blocklists",
+	}
+}
+
+func temOffers() *core.Command {
+	return &core.Command{
+		Short:     `Project offers management commands`,
+		Long:      `This section allows you to manage and get get subscribed information about your project email offer.`,
+		Namespace: "tem",
+		Resource:  "offers",
 	}
 }
 

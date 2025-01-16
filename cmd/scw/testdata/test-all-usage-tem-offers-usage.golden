@@ -1,16 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update an user's password. Private Beta feature.
+This section allows you to manage and get get subscribed information about your project email offer.
 
 USAGE:
-  scw iam user update-password <user-id ...> [arg=value ...]
-
-ARGS:
-  user-id    ID of the user to update
-  password   The new password
+  scw tem offers
 
 FLAGS:
-  -h, --help   help for update-password
+  -h, --help   help for offers
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
