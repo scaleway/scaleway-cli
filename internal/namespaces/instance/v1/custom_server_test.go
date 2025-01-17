@@ -6,10 +6,10 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	blockCli "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
-	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
+	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
@@ -73,7 +73,10 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 	})
 	t.Run("Detach", func(t *testing.T) {
 		t.Run("simple block volume", core.Test(&core.TestConfig{
-			Commands:   instance.GetCommands(),
+			Commands: core.NewCommandsMerge(
+				block.GetCommands(),
+				instance.GetCommands(),
+			),
 			BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 			Cmd:        `scw instance server detach-volume volume-id={{ (index .Server.Volumes "1").ID }}`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -85,7 +88,8 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				assert.Equal(t, 1, len(ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes))
 			},
 			AfterFunc: core.AfterFuncCombine(
-				core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+				core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`),
+				core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
 				deleteServer("Server"),
 			),
 			DisableParallel: true,
@@ -246,7 +250,10 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		}))
 
 		t.Run("detach all volumes", core.Test(&core.TestConfig{
-			Commands:   instance.GetCommands(),
+			Commands: core.NewCommandsMerge(
+				block.GetCommands(),
+				instance.GetCommands(),
+			),
 			BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 			Cmd:        `scw instance server update {{ .Server.ID }} volume-ids=none`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -255,8 +262,9 @@ func Test_ServerUpdateCustom(t *testing.T) {
 				assert.Equal(t, 0, len(ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes))
 			},
 			AfterFunc: core.AfterFuncCombine(
-				core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`),
-				core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+				core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`), // Local volume
+				core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`),
+				core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
 				deleteServer("Server"),
 			),
 		}))
@@ -292,14 +300,20 @@ func Test_ServerDelete(t *testing.T) {
 	}))
 
 	t.Run("only local volumes", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
+		Commands: core.NewCommandsMerge(
+			block.GetCommands(),
+			instance.GetCommands(),
+		),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`),
+			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
+		),
 		DisableParallel: true,
 	}))
 
@@ -327,7 +341,7 @@ func Test_ServerDelete(t *testing.T) {
 	t.Run("with sbs volumes", core.Test(&core.TestConfig{
 		Commands: core.NewCommandsMerge(
 			instance.GetCommands(),
-			blockCli.GetCommands(),
+			block.GetCommands(),
 		),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("BlockVolume", "scw block volume create perf-iops=5000 from-empty.size=10G name=cli-test-server-delete-with-sbs-volumes"),
@@ -340,9 +354,9 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				api := block.NewAPI(ctx.Client)
-				blockVolume := ctx.Meta["BlockVolume"].(*block.Volume)
-				resp, err := api.GetVolume(&block.GetVolumeRequest{
+				api := blockSDK.NewAPI(ctx.Client)
+				blockVolume := ctx.Meta["BlockVolume"].(*blockSDK.Volume)
+				resp, err := api.GetVolume(&blockSDK.GetVolumeRequest{
 					Zone:     blockVolume.Zone,
 					VolumeID: blockVolume.ID,
 				})
