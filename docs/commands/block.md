@@ -16,6 +16,7 @@ This API allows you to manage your Block Storage volumes.
   - [Get a volume](#get-a-volume)
   - [List volumes](#list-volumes)
   - [Update a volume](#update-a-volume)
+  - [Wait for volume to reach a stable state](#wait-for-volume-to-reach-a-stable-state)
 - [Block Storage volume types are determined by their storage class and their IOPS. There are two storage classes available: `bssd` and `sbs`. The IOPS can be chosen for volumes of the `sbs` storage class](#block-storage-volume-types-are-determined-by-their-storage-class-and-their-iops.-there-are-two-storage-classes-available:-`bssd`-and-`sbs`.-the-iops-can-be-chosen-for-volumes-of-the-`sbs`-storage-class)
   - [List volume types](#list-volume-types)
 
@@ -303,6 +304,38 @@ scw block volume update <volume-id ...> [arg=value ...]
 | tags.{index} |  | List of tags assigned to the volume |
 | perf-iops |  | The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Wait for volume to reach a stable state
+
+Wait for volume to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the volume.
+
+**Usage:**
+
+```
+scw block volume wait <volume-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| timeout | Default: `5m0s` | Timeout of the wait |
+| volume-id | Required | ID of the volume affected by the action. |
+| terminal-status | One of: `unknown_status`, `creating`, `available`, `in_use`, `deleting`, `deleted`, `resizing`, `error`, `snapshotting`, `locked`, `updating` | Expected terminal status, will wait until this status is reached. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Wait for a volume to be available
+```
+scw block volume wait 11111111-1111-1111-1111-111111111111 terminal-status=available
+```
+
 
 
 
