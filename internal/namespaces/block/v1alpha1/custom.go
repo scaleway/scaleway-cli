@@ -45,6 +45,8 @@ var (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.Add(volumeWaitCommand())
+
 	human.RegisterMarshalerFunc(block.VolumeStatus(""), human.EnumMarshalFunc(volumeStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(block.SnapshotStatus(""), human.EnumMarshalFunc(snapshotStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(block.ReferenceStatus(""), human.EnumMarshalFunc(referenceStatusMarshalSpecs))
