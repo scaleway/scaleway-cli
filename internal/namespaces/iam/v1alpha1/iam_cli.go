@@ -737,13 +737,6 @@ func iamUserUpdatePassword() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "send-email",
-				Short:      `Whether or not to send an email alerting the user their password has changed`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.UpdateUserPasswordRequest)

@@ -1168,7 +1168,6 @@ scw iam user update-password <user-id ...> [arg=value ...]
 |------|---|-------------|
 | user-id | Required | ID of the user to update |
 | password | Required | The new password |
-| send-email |  | Whether or not to send an email alerting the user their password has changed |
 
 
 
