@@ -24,6 +24,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetwork(),
 		vpcSubnet(),
 		vpcRoute(),
+		vpcRule(),
 		vpcVpcList(),
 		vpcVpcCreate(),
 		vpcVpcGet(),
@@ -90,6 +91,15 @@ func vpcRoute() *core.Command {
 		Long:      `Custom routes.`,
 		Namespace: "vpc",
 		Resource:  "route",
+	}
+}
+
+func vpcRule() *core.Command {
+	return &core.Command{
+		Short:     `Rule management command`,
+		Long:      `Acl Rules.`,
+		Namespace: "vpc",
+		Resource:  "rule",
 	}
 }
 
