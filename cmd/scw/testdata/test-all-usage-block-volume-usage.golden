@@ -12,6 +12,9 @@ AVAILABLE COMMANDS:
   list        List volumes
   update      Update a volume
 
+WORKFLOW COMMANDS:
+  wait        Wait for volume to reach a stable state
+
 FLAGS:
   -h, --help   help for volume
 
