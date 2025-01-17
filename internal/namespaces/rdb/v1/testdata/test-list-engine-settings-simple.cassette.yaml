@@ -128,7 +128,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
     url: https://api.scaleway.com/rdb/v1/regions/fr-par/database-engines?name=MySQL&version=8
     method: GET
   response:
@@ -256,14 +256,16 @@ interactions:
       "unit":null, "string_constraint":null, "int_min":0, "int_max":1, "float_min":null,
       "float_max":null}]}], "region":"fr-par"}], "total_count":1}'
     headers:
+      Content-Length:
+      - "15235"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 08 Nov 2023 21:05:50 GMT
+      - Tue, 07 Jan 2025 14:16:07 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -271,7 +273,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - f90e42af-232c-4312-a8f1-9c048d4684b0
+      - c7b04d8a-059d-40af-af57-e93bddaf0fa4
     status: 200 OK
     code: 200
     duration: ""

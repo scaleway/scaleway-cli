@@ -1,37 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt                         few seconds ago
-Region                            fr-par
-ID                                f65eb701-5128-4e26-9315-1038f2a657dd
-Name                              foobar
-OrganizationID                    fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID                         fa1e3217-dc80-42ac-85c3-3f034b78b552
-Status                            ready
-Engine                            PostgreSQL-12
-UpgradableVersion.0.ID            2e670f5c-493b-443f-92bd-986f23da2750
-UpgradableVersion.0.Name          PostgreSQL-13
-UpgradableVersion.0.Version       13
-UpgradableVersion.0.MinorVersion  13.12
-UpgradableVersion.1.ID            2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9
-UpgradableVersion.1.Name          PostgreSQL-14
-UpgradableVersion.1.Version       14
-UpgradableVersion.1.MinorVersion  14.9
-UpgradableVersion.2.ID            d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d
-UpgradableVersion.2.Name          PostgreSQL-15
-UpgradableVersion.2.Version       15
-UpgradableVersion.2.MinorVersion  15.4
-IsHaCluster                       false
-NodeType                          db-dev-m
-Endpoints.0.ID                    08f281c9-099c-40c0-9db5-683eb5e2d25d
-Endpoints.0.IP                    51.159.204.209
-Endpoints.0.Port                  28479
-LogsPolicy.MaxAgeRetention        30
-BackupSameRegion                  false
+CreatedAt                   few seconds ago
+Region                      fr-par
+ID                          1cbfbaed-b378-4f15-aef0-fa52f335d6ee
+Name                        foobar
+OrganizationID              5ebc0159-7cb7-406c-9521-9347d1987fb2
+ProjectID                   5ebc0159-7cb7-406c-9521-9347d1987fb2
+Status                      ready
+Engine                      PostgreSQL-15
+IsHaCluster                 false
+NodeType                    db-dev-m
+Endpoints.0.ID              cabf3e8b-60d6-4e0a-ad86-9649f58056fb
+Endpoints.0.IP              51.159.114.202
+Endpoints.0.Port            23659
+LogsPolicy.MaxAgeRetention  30
+BackupSameRegion            false
+Encryption.Enabled          false
 
 Endpoint:
-ID    08f281c9-099c-40c0-9db5-683eb5e2d25d
-IP    51.159.204.209
-Port  28479
+ID    cabf3e8b-60d6-4e0a-ad86-9649f58056fb
+IP    51.159.114.202
+Port  23659
 
 Volume:
 Type   lssd
@@ -61,36 +50,17 @@ work_mem                         4
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "f65eb701-5128-4e26-9315-1038f2a657dd",
+  "id": "1cbfbaed-b378-4f15-aef0-fa52f335d6ee",
   "name": "foobar",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
   "status": "ready",
-  "engine": "PostgreSQL-12",
-  "upgradable_version": [
-    {
-      "id": "2e670f5c-493b-443f-92bd-986f23da2750",
-      "name": "PostgreSQL-13",
-      "version": "13",
-      "minor_version": "13.12"
-    },
-    {
-      "id": "2988cc5e-e0dd-48ba-bd8b-b394db1fc6b9",
-      "name": "PostgreSQL-14",
-      "version": "14",
-      "minor_version": "14.9"
-    },
-    {
-      "id": "d6fa23a8-ff53-464e-b0b0-4c4a3c1eb87d",
-      "name": "PostgreSQL-15",
-      "version": "15",
-      "minor_version": "15.4"
-    }
-  ],
+  "engine": "PostgreSQL-15",
+  "upgradable_version": [],
   "endpoint": {
-    "id": "08f281c9-099c-40c0-9db5-683eb5e2d25d",
-    "ip": "51.159.204.209",
-    "port": 28479,
+    "id": "cabf3e8b-60d6-4e0a-ad86-9649f58056fb",
+    "ip": "51.159.114.202",
+    "port": 23659,
     "name": null,
     "load_balancer": {}
   },
@@ -133,9 +103,9 @@ work_mem                         4
   "init_settings": [],
   "endpoints": [
     {
-      "id": "08f281c9-099c-40c0-9db5-683eb5e2d25d",
-      "ip": "51.159.204.209",
-      "port": 28479,
+      "id": "cabf3e8b-60d6-4e0a-ad86-9649f58056fb",
+      "ip": "51.159.114.202",
+      "port": 23659,
       "name": null,
       "load_balancer": {}
     }
@@ -146,5 +116,7 @@ work_mem                         4
   },
   "backup_same_region": false,
   "maintenances": [],
-  "encryption": null
+  "encryption": {
+    "enabled": false
+  }
 }

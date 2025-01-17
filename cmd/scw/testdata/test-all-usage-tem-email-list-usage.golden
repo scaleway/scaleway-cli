@@ -17,7 +17,7 @@ ARGS:
   [subject]            (Optional) List emails with this subject
   [search]             (Optional) List emails by searching to all fields
   [order-by]           (Optional) List emails corresponding to specific criteria (created_at_desc | created_at_asc | updated_at_desc | updated_at_asc | status_desc | status_asc | mail_from_desc | mail_from_asc | mail_rcpt_desc | mail_rcpt_asc | subject_desc | subject_asc)
-  [flags.{index}]      (Optional) List emails containing only specific flags (unknown_flag | soft_bounce | hard_bounce | spam | mailbox_full | mailbox_not_found | greylisted | send_before_expiration)
+  [flags.{index}]      (Optional) List emails containing only specific flags (unknown_flag | soft_bounce | hard_bounce | spam | mailbox_full | mailbox_not_found | greylisted | send_before_expiration | blocklisted)
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | all)
 
 DEPRECATED ARGS:

@@ -2,32 +2,32 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                                    few seconds ago
 Region                                       fr-par
-ID                                           085d86ca-6636-4d36-a1d6-700f9226a10d
+ID                                           7dcc0495-dd11-43d5-9b24-cde1900503e3
 Name                                         cli-test
-OrganizationID                               951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID                                    951df375-e094-4d26-97c1-ba548eeb9c42
+OrganizationID                               5ebc0159-7cb7-406c-9521-9347d1987fb2
+ProjectID                                    5ebc0159-7cb7-406c-9521-9347d1987fb2
 Status                                       ready
 Engine                                       PostgreSQL-15
 IsHaCluster                                  false
 NodeType                                     db-dev-s
-Endpoints.0.ID                               c7ef11bb-76f1-4345-9bdf-94b0c96edb2a
-Endpoints.0.IP                               172.16.88.2
+Endpoints.0.ID                               ffce9c00-0a4f-44a7-a2ce-d41661290a14
+Endpoints.0.IP                               172.16.28.2
 Endpoints.0.Port                             5432
-Endpoints.0.PrivateNetwork.PrivateNetworkID  8f9569a3-c65a-442f-a566-3a2a009b1b88
-Endpoints.0.PrivateNetwork.ServiceIP         172.16.88.2/22
+Endpoints.0.PrivateNetwork.PrivateNetworkID  c3f95c45-66c1-4b17-aa69-ef8668792e00
+Endpoints.0.PrivateNetwork.ServiceIP         172.16.28.2/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
 Endpoints.0.PrivateNetwork.ProvisioningMode  ipam
-Endpoints.1.ID                               62a1b1f3-40a4-49c8-b8c8-fc9bcded236d
-Endpoints.1.IP                               51.158.57.112
-Endpoints.1.Port                             22370
+Endpoints.1.ID                               02229f84-eb4c-4ba6-a94a-f8f07131ae21
+Endpoints.1.IP                               195.154.70.203
+Endpoints.1.Port                             4837
 LogsPolicy.MaxAgeRetention                   30
 BackupSameRegion                             false
 Encryption.Enabled                           false
 
 Endpoint:
-ID    62a1b1f3-40a4-49c8-b8c8-fc9bcded236d
-IP    51.158.57.112
-Port  22370
+ID    02229f84-eb4c-4ba6-a94a-f8f07131ae21
+IP    195.154.70.203
+Port  4837
 
 Volume:
 Type   lssd
@@ -60,17 +60,17 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "085d86ca-6636-4d36-a1d6-700f9226a10d",
+  "id": "7dcc0495-dd11-43d5-9b24-cde1900503e3",
   "name": "cli-test",
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
   "status": "ready",
   "engine": "PostgreSQL-15",
   "upgradable_version": [],
   "endpoint": {
-    "id": "62a1b1f3-40a4-49c8-b8c8-fc9bcded236d",
-    "ip": "51.158.57.112",
-    "port": 22370,
+    "id": "02229f84-eb4c-4ba6-a94a-f8f07131ae21",
+    "ip": "195.154.70.203",
+    "port": 4837,
     "name": null,
     "load_balancer": {}
   },
@@ -113,21 +113,21 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "c7ef11bb-76f1-4345-9bdf-94b0c96edb2a",
-      "ip": "172.16.88.2",
+      "id": "ffce9c00-0a4f-44a7-a2ce-d41661290a14",
+      "ip": "172.16.28.2",
       "port": 5432,
       "name": null,
       "private_network": {
-        "private_network_id": "8f9569a3-c65a-442f-a566-3a2a009b1b88",
-        "service_ip": "172.16.88.2/22",
+        "private_network_id": "c3f95c45-66c1-4b17-aa69-ef8668792e00",
+        "service_ip": "172.16.28.2/22",
         "zone": "fr-par-1",
         "provisioning_mode": "ipam"
       }
     },
     {
-      "id": "62a1b1f3-40a4-49c8-b8c8-fc9bcded236d",
-      "ip": "51.158.57.112",
-      "port": 22370,
+      "id": "02229f84-eb4c-4ba6-a94a-f8f07131ae21",
+      "ip": "195.154.70.203",
+      "port": 4837,
       "name": null,
       "load_balancer": {}
     }

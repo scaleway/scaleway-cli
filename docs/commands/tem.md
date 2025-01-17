@@ -2,6 +2,10 @@
 # Documentation for `scw tem`
 This API allows you to manage your Transactional Email services.
   
+- [Blocklist](#blocklist)
+  - [Bulk create blocklists](#bulk-create-blocklists)
+  - [Delete a blocklist](#delete-a-blocklist)
+  - [List blocklists](#list-blocklists)
 - [Domain management commands](#domain-management-commands)
   - [Domain DNS check](#domain-dns-check)
   - [Register a domain in a project](#register-a-domain-in-a-project)
@@ -26,6 +30,78 @@ This API allows you to manage your Transactional Email services.
   - [Update a Webhook](#update-a-webhook)
 
   
+## Blocklist
+
+This section allows you to manage the blocklist of your emails.
+
+
+### Bulk create blocklists
+
+Create multiple blocklists in a specific Project or Organization using the `region` parameter.
+
+**Usage:**
+
+```
+scw tem blocklists create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain-id |  | Domain ID linked to the blocklist |
+| emails.{index} |  | Email blocked by the blocklist |
+| type | One of: `unknown_type`, `mailbox_full`, `mailbox_not_found` | Type of blocklist |
+| reason |  | Reason to block the email |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a blocklist
+
+You must specify the blocklist you want to delete by the `region` and `blocklist_id`.
+
+**Usage:**
+
+```
+scw tem blocklists delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| blocklist-id | Required | ID of the blocklist to delete |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List blocklists
+
+Retrieve the list of blocklists.
+
+**Usage:**
+
+```
+scw tem blocklists list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_desc`, `created_at_asc`, `ends_at_desc`, `ends_at_asc` | (Optional) List blocklist corresponding to specific criteria |
+| domain-id |  | (Optional) Filter by a domain ID |
+| email |  | (Optional) Filter by an email address |
+| type | One of: `unknown_type`, `mailbox_full`, `mailbox_not_found` | (Optional) Filter by a blocklist type |
+| custom |  | (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false) |
+| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
 ## Domain management commands
 
 This section lists your domains, shows you to manage them, and gives you information about them.
@@ -311,7 +387,7 @@ scw tem email list [arg=value ...]
 | subject |  | (Optional) List emails with this subject |
 | search |  | (Optional) List emails by searching to all fields |
 | order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `status_desc`, `status_asc`, `mail_from_desc`, `mail_from_asc`, `mail_rcpt_desc`, `mail_rcpt_asc`, `subject_desc`, `subject_asc` | (Optional) List emails corresponding to specific criteria |
-| flags.{index} | One of: `unknown_flag`, `soft_bounce`, `hard_bounce`, `spam`, `mailbox_full`, `mailbox_not_found`, `greylisted`, `send_before_expiration` | (Optional) List emails containing only specific flags |
+| flags.{index} | One of: `unknown_flag`, `soft_bounce`, `hard_bounce`, `spam`, `mailbox_full`, `mailbox_not_found`, `greylisted`, `send_before_expiration`, `blocklisted` | (Optional) List emails containing only specific flags |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 

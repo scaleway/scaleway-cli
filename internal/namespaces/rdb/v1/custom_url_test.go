@@ -15,7 +15,7 @@ func Test_UserGetURL(t *testing.T) {
 	t.Run("Postgres", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createInstance("PostgreSQL-12"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 		),
 		Cmd: "scw rdb user get-url {{ $.Instance.ID }}",
 		Check: core.TestCheckCombine(
@@ -34,7 +34,7 @@ func Test_UserGetURL(t *testing.T) {
 	t.Run("MySQL", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createInstance("MySQL-8"),
+			fetchLatestEngine("MySQL"), createInstance("{{.latestEngine}}"),
 		),
 		Cmd: "scw rdb user get-url {{ $.Instance.ID }}",
 		Check: core.TestCheckCombine(
@@ -57,7 +57,7 @@ func Test_UserGetURL(t *testing.T) {
 	t.Run("With custom user", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createInstance("PostgreSQL-12"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 			core.ExecBeforeCmd(fmt.Sprintf("scw rdb user create instance-id={{ $.Instance.ID }} name=%s password=%s is-admin=false", customUserName, customUserPassword)),
 		),
 		Cmd: "scw rdb user get-url {{ $.Instance.ID }} user=" + customUserName,
@@ -77,7 +77,7 @@ func Test_UserGetURL(t *testing.T) {
 	t.Run("With custom database", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createInstance("PostgreSQL-12"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 			core.ExecBeforeCmd("scw rdb database create instance-id={{ $.Instance.ID }} name="+customDBName),
 		),
 		Cmd: "scw rdb user get-url {{ $.Instance.ID }} db=" + customDBName,
@@ -99,7 +99,7 @@ func Test_DatabaseGetURL(t *testing.T) {
 	t.Run("Postgres", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createInstance("PostgreSQL-12"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 		),
 		Cmd: "scw rdb database get-url {{ $.Instance.ID }}",
 		Check: core.TestCheckCombine(

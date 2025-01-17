@@ -2,18 +2,18 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                                    few seconds ago
 Region                                       fr-par
-ID                                           344ab830-95e0-4a77-aaeb-f418af1ebc28
+ID                                           983f229a-3fa8-45b2-9835-97cae2c2d1cf
 Name                                         cli-test
-OrganizationID                               951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID                                    951df375-e094-4d26-97c1-ba548eeb9c42
+OrganizationID                               5ebc0159-7cb7-406c-9521-9347d1987fb2
+ProjectID                                    5ebc0159-7cb7-406c-9521-9347d1987fb2
 Status                                       ready
 Engine                                       PostgreSQL-15
 IsHaCluster                                  false
 NodeType                                     db-dev-s
-Endpoints.0.ID                               a9982be5-7f01-47e1-9ce1-ee79c7d803ce
+Endpoints.0.ID                               985255dc-9b99-487a-93d8-4847c892df7a
 Endpoints.0.IP                               172.16.0.3
 Endpoints.0.Port                             5432
-Endpoints.0.PrivateNetwork.PrivateNetworkID  05194470-da05-4611-a6d4-2182d482099e
+Endpoints.0.PrivateNetwork.PrivateNetworkID  53fbd31b-aa1e-4e17-b6bd-cd807f9ba171
 Endpoints.0.PrivateNetwork.ServiceIP         172.16.0.3/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
 Endpoints.0.PrivateNetwork.ProvisioningMode  static
@@ -55,10 +55,10 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "344ab830-95e0-4a77-aaeb-f418af1ebc28",
+  "id": "983f229a-3fa8-45b2-9835-97cae2c2d1cf",
   "name": "cli-test",
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
   "status": "ready",
   "engine": "PostgreSQL-15",
   "upgradable_version": [],
@@ -101,12 +101,12 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "a9982be5-7f01-47e1-9ce1-ee79c7d803ce",
+      "id": "985255dc-9b99-487a-93d8-4847c892df7a",
       "ip": "172.16.0.3",
       "port": 5432,
       "name": null,
       "private_network": {
-        "private_network_id": "05194470-da05-4611-a6d4-2182d482099e",
+        "private_network_id": "53fbd31b-aa1e-4e17-b6bd-cd807f9ba171",
         "service_ip": "172.16.0.3/22",
         "zone": "fr-par-1",
         "provisioning_mode": "static"
