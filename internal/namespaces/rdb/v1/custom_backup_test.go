@@ -6,10 +6,14 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+func init() {
+	args.TestForceNow = scw.TimePtr(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
+}
 func Test_CreateBackup(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
