@@ -17,6 +17,7 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Get a Route](#get-a-route)
   - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
   - [Update Route](#update-route)
+- [Rule management command](#rule-management-command)
 - [Subnet management command](#subnet-management-command)
 - [VPC management command](#vpc-management-command)
   - [Create a VPC](#create-a-vpc)
@@ -328,6 +329,20 @@ scw vpc route update <route-id ...> [arg=value ...]
 | nexthop-resource-id |  | ID of the nexthop resource |
 | nexthop-private-network-id |  | ID of the nexthop private network |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Rule management command
+
+Acl Rules.
+
+Acl Rules.
+
+**Usage:**
+
+```
+scw vpc rule
+```
 
 
 
