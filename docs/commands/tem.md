@@ -3,7 +3,6 @@
 This API allows you to manage your Transactional Email services.
   
 - [Blocklist](#blocklist)
-=======
   - [Bulk create blocklists](#bulk-create-blocklists)
   - [Delete a blocklist](#delete-a-blocklist)
   - [List blocklists](#list-blocklists)
@@ -35,6 +34,7 @@ This API allows you to manage your Transactional Email services.
 
 This section allows you to manage the blocklist of your emails.
 
+
 ### Bulk create blocklists
 
 Create multiple blocklists in a specific Project or Organization using the `region` parameter.
@@ -64,6 +64,7 @@ You must specify the blocklist you want to delete by the `region` and `blocklist
 
 **Usage:**
 
+```
 scw tem blocklists delete [arg=value ...]
 ```
 
@@ -98,6 +99,7 @@ scw tem blocklists list [arg=value ...]
 | type | One of: `unknown_type`, `mailbox_full`, `mailbox_not_found` | (Optional) Filter by a blocklist type |
 | custom |  | (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+
 
 
 ## Domain management commands
