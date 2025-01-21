@@ -170,6 +170,11 @@ func deleteSnapshot(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw instance snapshot delete {{ ." + metaKey + ".Snapshot.ID }}")
 }
 
+// deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.
+func deleteBlockSnapshot(metaKey string) core.AfterFunc {
+	return core.ExecAfterCmd("scw block snapshot delete {{ ." + metaKey + ".ID }}")
+}
+
 func createPN() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"PN",

@@ -203,28 +203,24 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("valid double snapshot", core.Test(&core.TestConfig{
-			Commands: instance.GetCommands(),
-			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu_bionic root-volume=local:20GB stopped=true")),
-				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create unified=true volume-id={{ (index .Server.Volumes "0").ID }}`),
+			Commands: core.NewCommandsMerge(
+				instance.GetCommands(),
+				block.GetCommands(),
 			),
-			Cmd: testServerCommand("image=ubuntu_bionic root-volume=block:{{ .Snapshot.Snapshot.ID }} additional-volumes.0=local:{{ .Snapshot.Snapshot.ID }} stopped=true"),
+			BeforeFunc: core.BeforeFuncCombine(
+				core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu_jammy root-volume=block:20GB stopped=true")),
+				core.ExecStoreBeforeCmd("Snapshot", `scw block snapshot create volume-id={{ (index .Server.Volumes "0").ID }} -w`),
+			),
+			Cmd: testServerCommand("image=ubuntu_jammy root-volume=block:{{ .Snapshot.ID }} additional-volumes.0=block:{{ .Snapshot.ID }} stopped=true"),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
-				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					t.Helper()
-					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
-					size0 := testhelpers.MapTValue(t, server.Volumes, "0").Size
-					size1 := testhelpers.MapTValue(t, server.Volumes, "1").Size
-					assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
-					assert.Equal(t, 20*scw.GB, instance.SizeValue(size1), "Size of volume should be 20 GB")
-				},
+				testServerSBSVolumeSize("0", 20),
+				testServerSBSVolumeSize("1", 20),
 			),
 			AfterFunc: core.AfterFuncCombine(
 				deleteServer("Server"),
 				deleteServerAfterFunc(),
-				deleteSnapshot("Snapshot"),
+				deleteBlockSnapshot("Snapshot"),
 			),
 		}))
 
