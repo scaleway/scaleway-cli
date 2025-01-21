@@ -10,6 +10,7 @@ This API allows you to manage your Block Storage volumes.
   - [Import a snapshot from a Scaleway Object Storage bucket](#import-a-snapshot-from-a-scaleway-object-storage-bucket)
   - [List all snapshots](#list-all-snapshots)
   - [Update a snapshot](#update-a-snapshot)
+  - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
 - [A Block Storage volume is a logical storage drive on a network-connected storage system. It is exposed to Instances as if it were a physical disk, and can be attached and detached like a hard drive. Several Block volumes can be attached to one Instance at a time](#a-block-storage-volume-is-a-logical-storage-drive-on-a-network-connected-storage-system.-it-is-exposed-to-instances-as-if-it-were-a-physical-disk,-and-can-be-attached-and-detached-like-a-hard-drive.-several-block-volumes-can-be-attached-to-one-instance-at-a-time)
   - [Create a volume](#create-a-volume)
   - [Delete a detached volume](#delete-a-detached-volume)
@@ -182,6 +183,38 @@ scw block snapshot update <snapshot-id ...> [arg=value ...]
 | name |  | When defined, is the name of the snapshot |
 | tags.{index} |  | List of tags assigned to the snapshot |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Wait for snapshot to reach a stable state
+
+Wait for snapshot to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the snapshot.
+
+**Usage:**
+
+```
+scw block snapshot wait <snapshot-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| timeout | Default: `5m0s` | Timeout of the wait |
+| snapshot-id | Required | ID of the snapshot affected by the action. |
+| terminal-status | One of: `unknown_status`, `creating`, `available`, `error`, `deleting`, `deleted`, `in_use`, `locked`, `exporting` | Expected terminal status, will wait until this status is reached. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Wait for a snapshot to be available
+```
+scw block snapshot wait 11111111-1111-1111-1111-111111111111 terminal-status=available
+```
+
 
 
 

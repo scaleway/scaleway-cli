@@ -18,6 +18,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for create
+  -w, --wait   wait until the volume is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
