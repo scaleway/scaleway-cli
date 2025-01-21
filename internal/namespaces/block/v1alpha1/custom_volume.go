@@ -73,3 +73,16 @@ func volumeWaitCommand() *core.Command {
 		},
 	}
 }
+
+func blockVolumeCreateBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		resp := respI.(*block.Volume)
+
+		return block.NewAPI(core.ExtractClient(ctx)).WaitForVolume(&block.WaitForVolumeRequest{
+			VolumeID: resp.ID,
+			Zone:     resp.Zone,
+		})
+	}
+
+	return c
+}
