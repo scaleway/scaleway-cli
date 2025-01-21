@@ -34,6 +34,7 @@ func Test_SnapshotWait(t *testing.T) {
 		Cmd:        "scw block snapshot create volume-id={{ .Volume.ID }} -w",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				snap := testhelpers.Value[*blockSDK.Snapshot](t, ctx.Result)
 				require.Equal(t, blockSDK.SnapshotStatusAvailable, snap.Status)
 			},

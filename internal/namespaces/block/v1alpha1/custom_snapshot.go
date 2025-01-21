@@ -75,7 +75,7 @@ func snapshotWaitCommand() *core.Command {
 }
 
 func blockSnapshotCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		resp := respI.(*block.Snapshot)
 
 		return block.NewAPI(core.ExtractClient(ctx)).WaitForSnapshot(&block.WaitForSnapshotRequest{

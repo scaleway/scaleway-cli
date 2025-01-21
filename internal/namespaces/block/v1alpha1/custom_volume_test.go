@@ -29,6 +29,7 @@ func Test_VolumeWait(t *testing.T) {
 		Cmd:      "scw block volume create perf-iops=5000 from-empty.size=20GB -w",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				vol := testhelpers.Value[*blockSDK.Volume](t, ctx.Result)
 				require.Equal(t, blockSDK.VolumeStatusAvailable, vol.Status)
 			},
