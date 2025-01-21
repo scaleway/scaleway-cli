@@ -583,7 +583,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 }
 
 // buildSnapshotVolume builds the requested volume template to create a new volume from a snapshot
-func (vb *VolumeBuilder) buildSnapshotVolume(api *instance.API) (*instance.VolumeServerTemplate, error) {
+func (vb *VolumeBuilder) buildSnapshotVolume(api *instance.API, blockAPI *block.API) (*instance.VolumeServerTemplate, error) {
 	if vb.SnapshotID == nil {
 		return nil, errors.New("tried to build a volume from snapshot with an empty ID")
 	}
@@ -591,23 +591,41 @@ func (vb *VolumeBuilder) buildSnapshotVolume(api *instance.API) (*instance.Volum
 		Zone:       vb.Zone,
 		SnapshotID: *vb.SnapshotID,
 	})
+	if err != nil && !core.IsNotFoundError(err) {
+		return nil, fmt.Errorf("invalid snapshot %s: %w", *vb.SnapshotID, err)
+	}
+
+	if res != nil {
+		snapshotType := res.Snapshot.VolumeType
+
+		if snapshotType != instance.VolumeVolumeTypeUnified && snapshotType != vb.VolumeType {
+			return nil, fmt.Errorf("snapshot of type %s not compatible with requested volume type %s", snapshotType, vb.VolumeType)
+		}
+
+		return &instance.VolumeServerTemplate{
+			Name:         &res.Snapshot.Name,
+			VolumeType:   vb.VolumeType,
+			BaseSnapshot: &res.Snapshot.ID,
+			Size:         &res.Snapshot.Size,
+		}, nil
+	}
+
+	blockRes, err := blockAPI.GetSnapshot(&block.GetSnapshotRequest{
+		Zone:       vb.Zone,
+		SnapshotID: *vb.SnapshotID,
+	})
 	if err != nil {
 		if core.IsNotFoundError(err) {
 			return nil, fmt.Errorf("snapshot %s does not exist", *vb.SnapshotID)
 		}
-	}
-
-	snapshotType := res.Snapshot.VolumeType
-
-	if snapshotType != instance.VolumeVolumeTypeUnified && snapshotType != vb.VolumeType {
-		return nil, fmt.Errorf("snapshot of type %s not compatible with requested volume type %s", snapshotType, vb.VolumeType)
+		return nil, err
 	}
 
 	return &instance.VolumeServerTemplate{
-		Name:         &res.Snapshot.Name,
+		Name:         &blockRes.Name,
 		VolumeType:   vb.VolumeType,
-		BaseSnapshot: &res.Snapshot.ID,
-		Size:         &res.Snapshot.Size,
+		BaseSnapshot: &blockRes.ID,
+		Size:         &blockRes.Size,
 	}, nil
 }
 
@@ -670,7 +688,7 @@ func (vb *VolumeBuilder) buildNewVolume() (*instance.VolumeServerTemplate, error
 // BuildVolumeServerTemplate builds the requested volume template to be used in a CreateServerRequest
 func (vb *VolumeBuilder) BuildVolumeServerTemplate(apiInstance *instance.API, apiBlock *block.API) (*instance.VolumeServerTemplate, error) {
 	if vb.SnapshotID != nil {
-		return vb.buildSnapshotVolume(apiInstance)
+		return vb.buildSnapshotVolume(apiInstance, apiBlock)
 	}
 
 	if vb.VolumeID != nil {
