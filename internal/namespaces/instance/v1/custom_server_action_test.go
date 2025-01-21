@@ -56,8 +56,7 @@ func Test_ServerTerminate(t *testing.T) {
 				_, err := api.GetIP(&instanceSDK.GetIPRequest{
 					IP: server.PublicIP.ID,
 				})
-				require.IsType(t, &scw.ResponseError{}, err)
-				assert.Equal(t, 403, err.(*scw.ResponseError).StatusCode)
+				require.IsType(t, &scw.PermissionsDeniedError{}, err)
 			},
 		),
 		DisableParallel: true,
