@@ -233,17 +233,9 @@ func Test_CreateServer(t *testing.T) {
 			Cmd:      testServerCommand("image=ubuntu_bionic additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true"),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
-				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					t.Helper()
-					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
-					size1 := testhelpers.MapTValue(t, server.Volumes, "1").Size
-					size2 := testhelpers.MapTValue(t, server.Volumes, "2").Size
-					size3 := testhelpers.MapTValue(t, server.Volumes, "3").Size
-					assert.Equal(t, 1*scw.GB, instance.SizeValue(size1), "Size of volume should be 1 GB")
-					assert.Equal(t, 5*scw.GB, instance.SizeValue(size2), "Size of volume should be 5 GB")
-					assert.Equal(t, 10*scw.GB, instance.SizeValue(size3), "Size of volume should be 10 GB")
-				},
+				testServerSBSVolumeSize("1", 1),
+				testServerSBSVolumeSize("2", 5),
+				testServerSBSVolumeSize("3", 10),
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
