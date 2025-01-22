@@ -62,7 +62,7 @@ func volumeWaitCommand() *core.Command {
 				Name:       "terminal-status",
 				Short:      `Expected terminal status, will wait until this status is reached.`,
 				EnumValues: volumeStatusStrings,
-			}, g
+			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Examples: []*core.Example{
