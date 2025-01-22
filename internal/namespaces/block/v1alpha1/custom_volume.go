@@ -24,10 +24,10 @@ type volumeWaitRequest struct {
 }
 
 func volumeWaitCommand() *core.Command {
-	terminalStatus := block.VolumeStatus("").Values()
-	terminalStatusStrings := make([]string, len(terminalStatus))
-	for k, v := range terminalStatus {
-		terminalStatusStrings[k] = v.String()
+	volumeStatuses := block.VolumeStatus("").Values()
+	volumeStatusStrings := make([]string, len(volumeStatuses))
+	for k, v := range volumeStatuses {
+		volumeStatusStrings[k] = v.String()
 	}
 
 	return &core.Command{
