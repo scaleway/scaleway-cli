@@ -6,6 +6,7 @@ import (
 	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -63,7 +64,10 @@ func Test_ServerTerminate(t *testing.T) {
 	}))
 
 	t.Run("without block", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
+		Commands: core.NewCommandsMerge(
+			instance.GetCommands(),
+			block.GetCommands(),
+		),
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy additional-volumes.0=block:10G -w")),
 		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=false`,
 		Check: core.TestCheckCombine(
@@ -71,8 +75,8 @@ func Test_ServerTerminate(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd(`scw instance volume wait {{ (index .Server.Volumes "1").ID }}`),
-			core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+			core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`),
+			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
 		),
 		DisableParallel: true,
 	}))

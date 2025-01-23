@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-successfully deleted volume cli-srv-cranky-goldstine-1 (10 GB b_ssd)
+successfully deleted volume  (- sbs_volume)
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",

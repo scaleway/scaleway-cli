@@ -3,10 +3,14 @@ package instance_test
 import (
 	"fmt"
 	"strings"
+	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/require"
 )
 
 //
@@ -166,6 +170,11 @@ func deleteSnapshot(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw instance snapshot delete {{ ." + metaKey + ".Snapshot.ID }}")
 }
 
+// deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.
+func deleteBlockSnapshot(metaKey string) core.AfterFunc {
+	return core.ExecAfterCmd("scw block snapshot delete {{ ." + metaKey + ".ID }}")
+}
+
 func createPN() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"PN",
@@ -178,4 +187,23 @@ func createNIC() core.BeforeFunc {
 		"NIC",
 		"scw instance private-nic create server-id={{ .Server.ID }} private-network-id={{ .PN.ID }}",
 	)
+}
+
+// testServerSBSVolumeSize checks the size of a volume in Result's server.
+// The server must be returned as result of the test's Cmd
+func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
+	return func(t *testing.T, ctx *core.CheckFuncCtx) {
+		t.Helper()
+		require.NotNil(t, ctx.Result)
+		server := testhelpers.Value[*instance.Server](t, ctx.Result)
+		blockAPI := block.NewAPI(ctx.Client)
+		serverVolume := testhelpers.MapTValue(t, server.Volumes, volumeKey)
+		volume, err := blockAPI.GetVolume(&block.GetVolumeRequest{
+			Zone:     server.Zone,
+			VolumeID: serverVolume.ID,
+		})
+		require.NoError(t, err)
+
+		require.Equal(t, scw.Size(sizeInGB)*scw.GB, volume.Size, "Size of volume should be %d GB", sizeInGB)
+	}
 }
