@@ -919,12 +919,12 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:14 GMT
+      - Thu, 23 Jan 2025 13:37:08 GMT
       Link:
       - </products/servers?page=2&per_page=50&>; rel="next",</products/servers?page=2&per_page=50&>;
         rel="last"
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-1;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -932,7 +932,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 47061631-1642-43a5-94ed-6d5bb4a0bc4c
+      - f926d108-86fe-4f4e-98ae-5f1314737399
       X-Total-Count:
       - "68"
     status: 200 OK
@@ -1282,12 +1282,12 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:14 GMT
+      - Thu, 23 Jan 2025 13:37:08 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="first",</products/servers?page=1&per_page=50&>;
         rel="previous",</products/servers?page=2&per_page=50&>; rel="last"
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-1;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1295,7 +1295,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 86e6c69a-d9c1-42be-85a6-a60b62eb54e4
+      - fc88060b-7123-4707-a8d4-3b31da248506
       X-Total-Count:
       - "68"
     status: 200 OK
@@ -1349,9 +1349,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:14 GMT
+      - Thu, 23 Jan 2025 13:37:09 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-1;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1359,7 +1359,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4cbf060d-1427-4407-aa7b-38d15fdf5735
+      - a531b33b-86c0-435f-824b-890977c04b67
     status: 200 OK
     code: 200
     duration: ""
@@ -1393,9 +1393,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:14 GMT
+      - Thu, 23 Jan 2025 13:37:09 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-1;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1403,12 +1403,12 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c557da24-8645-430b-9e6f-5c3c310fe5b6
+      - fa6e9817-e39f-4730-8b78-6209ef10d55b
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"type": "not_found", "message": "resource is not found", "resource": "instance_snapshot",
+    body: '{"message": "resource is not found", "type": "not_found", "resource": "instance_snapshot",
       "resource_id": "29da9ad9-e759-4a56-82c8-f0607f93055c"}'
     form: {}
     headers:
@@ -1417,7 +1417,7 @@ interactions:
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/snapshots/29da9ad9-e759-4a56-82c8-f0607f93055c
     method: GET
   response:
-    body: '{"type": "not_found", "message": "resource is not found", "resource": "instance_snapshot",
+    body: '{"message": "resource is not found", "type": "not_found", "resource": "instance_snapshot",
       "resource_id": "29da9ad9-e759-4a56-82c8-f0607f93055c"}'
     headers:
       Content-Length:
@@ -1427,9 +1427,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:14 GMT
+      - Thu, 23 Jan 2025 13:37:08 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-1;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1437,7 +1437,39 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 898a1ac6-ed9d-4b39-ad0d-b9cdd19fea1b
+      - 4cbe2bb3-6bb1-4a57-97f1-5fb7f8aa9671
+    status: 404 Not Found
+    code: 404
+    duration: ""
+- request:
+    body: '{"message":"resource is not found","resource":"snapshot","resource_id":"29da9ad9-e759-4a56-82c8-f0607f93055c","type":"not_found"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.4; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/snapshots/29da9ad9-e759-4a56-82c8-f0607f93055c
+    method: GET
+  response:
+    body: '{"message":"resource is not found","resource":"snapshot","resource_id":"29da9ad9-e759-4a56-82c8-f0607f93055c","type":"not_found"}'
+    headers:
+      Content-Length:
+      - "129"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Jan 2025 13:37:09 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2fecb006-7ac4-47be-ab7d-d89f3a7e298a
     status: 404 Not Found
     code: 404
     duration: ""
