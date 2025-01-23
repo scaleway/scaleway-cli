@@ -24,10 +24,10 @@ type volumeWaitRequest struct {
 }
 
 func volumeWaitCommand() *core.Command {
-	terminalStatus := block.VolumeStatus("").Values()
-	terminalStatusStrings := make([]string, len(terminalStatus))
-	for k, v := range terminalStatus {
-		terminalStatusStrings[k] = v.String()
+	volumeStatuses := block.VolumeStatus("").Values()
+	volumeStatusStrings := make([]string, len(volumeStatuses))
+	for k, v := range volumeStatuses {
+		volumeStatusStrings[k] = v.String()
 	}
 
 	return &core.Command{
@@ -61,7 +61,7 @@ func volumeWaitCommand() *core.Command {
 			{
 				Name:       "terminal-status",
 				Short:      `Expected terminal status, will wait until this status is reached.`,
-				EnumValues: terminalStatusStrings,
+				EnumValues: volumeStatusStrings,
 			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
@@ -72,4 +72,17 @@ func volumeWaitCommand() *core.Command {
 			},
 		},
 	}
+}
+
+func blockVolumeCreateBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+		resp := respI.(*block.Volume)
+
+		return block.NewAPI(core.ExtractClient(ctx)).WaitForVolume(&block.WaitForVolumeRequest{
+			VolumeID: resp.ID,
+			Zone:     resp.Zone,
+		})
+	}
+
+	return c
 }
