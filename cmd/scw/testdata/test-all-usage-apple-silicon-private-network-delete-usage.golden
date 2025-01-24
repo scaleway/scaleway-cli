@@ -1,12 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Project settings allow you to manage the configuration of your projects.
+Delete a Private Network.
 
 USAGE:
-  scw tem project-settings
+  scw apple-silicon private-network delete [arg=value ...]
+
+ARGS:
+  server-id            ID of the server
+  private-network-id   ID of the Private Network
+  [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-3)
 
 FLAGS:
-  -h, --help   help for project-settings
+  -h, --help   help for delete
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

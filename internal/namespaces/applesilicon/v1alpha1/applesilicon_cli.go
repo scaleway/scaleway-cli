@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		appleSiliconServer(),
 		appleSiliconOs(),
 		appleSiliconServerType(),
+		appleSiliconPrivateNetwork(),
 		appleSiliconServerTypeList(),
 		appleSiliconServerTypeGet(),
 		appleSiliconServerCreate(),
@@ -34,6 +35,10 @@ func GetGeneratedCommands() *core.Commands {
 		appleSiliconServerDelete(),
 		appleSiliconServerReboot(),
 		appleSiliconServerReinstall(),
+		appleSiliconPrivateNetworkAdd(),
+		appleSiliconPrivateNetworkSet(),
+		appleSiliconPrivateNetworkList(),
+		appleSiliconPrivateNetworkDelete(),
 	)
 }
 func appleSiliconRoot() *core.Command {
@@ -68,6 +73,20 @@ func appleSiliconServerType() *core.Command {
 		Long:      `Server-Types management commands.`,
 		Namespace: "apple-silicon",
 		Resource:  "server-type",
+	}
+}
+
+func appleSiliconPrivateNetwork() *core.Command {
+	return &core.Command{
+		Short: `Private network management command`,
+		Long: `A Private Network allows you to interconnect your resources
+in an isolated and private
+network. Network reachability is limited to the
+resources that are in the same VPC.
+
+Note that a resource can be a part of multiple Private Networks.`,
+		Namespace: "apple-silicon",
+		Resource:  "private-network",
 	}
 }
 
@@ -487,6 +506,205 @@ func appleSiliconServerReinstall() *core.Command {
 			api := applesilicon.NewAPI(client)
 			return api.ReinstallServer(request)
 
+		},
+	}
+}
+
+func appleSiliconPrivateNetworkAdd() *core.Command {
+	return &core.Command{
+		Short:     `Add a server to a Private Network`,
+		Long:      `Add an Apple silicon server to a Private Network.`,
+		Namespace: "apple-silicon",
+		Resource:  "private-network",
+		Verb:      "add",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPIAddServerPrivateNetworkRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `ID of the Private Network`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-ip-ids.{index}",
+				Short:      `IPAM IDs of IPs to attach to the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*applesilicon.PrivateNetworkAPIAddServerPrivateNetworkRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewPrivateNetworkAPI(client)
+			return api.AddServerPrivateNetwork(request)
+
+		},
+	}
+}
+
+func appleSiliconPrivateNetworkSet() *core.Command {
+	return &core.Command{
+		Short:     `Set multiple Private Networks on a server`,
+		Long:      `Configure multiple Private Networks on an Apple silicon server.`,
+		Namespace: "apple-silicon",
+		Resource:  "private-network",
+		Verb:      "set",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPISetServerPrivateNetworksRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "per-private-network-ipam-ip-ids.{key}",
+				Short:      `Object where the keys are the IDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Apple silicon server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*applesilicon.PrivateNetworkAPISetServerPrivateNetworksRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewPrivateNetworkAPI(client)
+			return api.SetServerPrivateNetworks(request)
+
+		},
+	}
+}
+
+func appleSiliconPrivateNetworkList() *core.Command {
+	return &core.Command{
+		Short:     `List the Private Networks of a server`,
+		Long:      `List the Private Networks of an Apple silicon server.`,
+		Namespace: "apple-silicon",
+		Resource:  "private-network",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order for the returned Private Networks`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+			},
+			{
+				Name:       "server-id",
+				Short:      `Filter Private Networks by server ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `Filter Private Networks by Private Network ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Filter Private Networks by Project ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ipam-ip-ids.{index}",
+				Short:      `Filter Private Networks by IPAM IP IDs`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter Private Networks by Organization ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar3, scw.Zone(core.AllLocalities)),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewPrivateNetworkAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListServerPrivateNetworks(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+			return resp.ServerPrivateNetworks, nil
+
+		},
+	}
+}
+
+func appleSiliconPrivateNetworkDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a Private Network`,
+		Long:      `Delete a Private Network.`,
+		Namespace: "apple-silicon",
+		Resource:  "private-network",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPIDeleteServerPrivateNetworkRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `ID of the Private Network`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*applesilicon.PrivateNetworkAPIDeleteServerPrivateNetworkRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewPrivateNetworkAPI(client)
+			e = api.DeleteServerPrivateNetwork(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "private-network",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
