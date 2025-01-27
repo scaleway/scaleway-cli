@@ -3,7 +3,7 @@
 Get the server associated with the given ID.
 
 USAGE:
-  scw dedibox fip get [arg=value ...]
+  scw dedibox fip get <ip-id ...> [arg=value ...]
 
 ARGS:
   ip-id             ID of the failover IP

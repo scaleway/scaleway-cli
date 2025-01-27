@@ -3,7 +3,7 @@
 Get the server associated with the given ID.
 
 USAGE:
-  scw dedibox server get [arg=value ...]
+  scw dedibox server get <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         ID of the server

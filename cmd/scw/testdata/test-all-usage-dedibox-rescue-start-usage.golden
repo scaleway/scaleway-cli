@@ -3,7 +3,7 @@
 Start in rescue the server associated with the given ID.
 
 USAGE:
-  scw dedibox rescue start [arg=value ...]
+  scw dedibox rescue start <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         ID of the server to start rescue

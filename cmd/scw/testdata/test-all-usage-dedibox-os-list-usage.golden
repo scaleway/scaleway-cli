@@ -3,12 +3,12 @@
 List all available OS that can be install on a baremetal server.
 
 USAGE:
-  scw dedibox os list [arg=value ...]
+  scw dedibox os list <server-id ...> [arg=value ...]
 
 ARGS:
   [order-by]                             Order of the OS (created_at_asc | created_at_desc | released_at_asc | released_at_desc)
   [type]                                 Type of the OS (unknown_type | server | virtu | panel | desktop | custom | rescue)
-  [server-id]                            Filter OS by compatible server ID
+  server-id                              Filter OS by compatible server ID
   [project-id=<retrieved from config>]   Project ID
   [zone=fr-par-1]                        Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | all)
 

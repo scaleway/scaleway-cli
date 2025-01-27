@@ -3,7 +3,7 @@
 Cancels the current server installation associated with the given server ID.
 
 USAGE:
-  scw dedibox server cancel-install [arg=value ...]
+  scw dedibox server cancel-install <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         Server ID of the server to cancel install

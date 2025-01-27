@@ -4,7 +4,7 @@ Start BMC (Baseboard Management Controller) access associated with the given ID.
 The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
 
 USAGE:
-  scw dedibox bmc start [arg=value ...]
+  scw dedibox bmc start <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         ID of the server to start the BMC access

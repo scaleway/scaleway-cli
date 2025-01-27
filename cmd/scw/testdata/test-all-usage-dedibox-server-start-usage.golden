@@ -3,7 +3,7 @@
 Start the server associated with the given ID.
 
 USAGE:
-  scw dedibox server start [arg=value ...]
+  scw dedibox server start <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         Server ID to start

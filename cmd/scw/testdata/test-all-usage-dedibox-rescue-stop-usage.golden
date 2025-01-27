@@ -3,7 +3,7 @@
 Stop rescue on the server associated with the given ID.
 
 USAGE:
-  scw dedibox rescue stop [arg=value ...]
+  scw dedibox rescue stop <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         ID of the server to stop rescue

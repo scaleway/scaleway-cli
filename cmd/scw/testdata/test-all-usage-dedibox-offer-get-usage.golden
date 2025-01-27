@@ -3,7 +3,7 @@
 Return specific offer for the given ID.
 
 USAGE:
-  scw dedibox offer get [arg=value ...]
+  scw dedibox offer get <offer-id ...> [arg=value ...]
 
 ARGS:
   offer-id                               ID of offer

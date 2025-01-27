@@ -3,7 +3,7 @@
 Get the BMC (Baseboard Management Controller) access associated with the given ID.
 
 USAGE:
-  scw dedibox bmc get [arg=value ...]
+  scw dedibox bmc get <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         ID of the server to get BMC access
