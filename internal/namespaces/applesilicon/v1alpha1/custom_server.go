@@ -12,6 +12,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	account "github.com/scaleway/scaleway-sdk-go/api/account/v3"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -39,6 +40,12 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 
 	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
 		args := argsI.(*applesilicon.CreateServerRequest)
+		req := &account.ProjectAPIGetProjectRequest{ProjectID: args.ProjectID}
+		accountAPI := account.NewProjectAPI(core.ExtractClient(ctx))
+		project, err := accountAPI.GetProject(req)
+		if err != nil {
+			return nil, err
+		}
 		bareMetalLink := "\u001B[38;2;121;45;212;4m\u001B]8;;https://console.scaleway.com/organization/contracts\u001B\\Bare Metal Specific Conditions\u001B]8;;\u001B\\\u001B[0m (\u001B[38;2;121;45;212mhttps://console.scaleway.com/organization/contracts\u001B[0m)"
 		appleLink := "\u001B[4m\u001B[38;2;121;45;212m\u001B]8;;https://www.apple.com/legal/sla/\u001B\\macOS License Agreement\u001B]8;;\u001B\\\u001B[0m (https://www.apple.com/legal/sla/)"
 
