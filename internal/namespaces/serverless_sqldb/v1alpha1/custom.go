@@ -2,8 +2,8 @@ package serverless_sqldb
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	serverless_sqldb "github.com/scaleway/scaleway-sdk-go/api/serverless_sqldb/v1alpha1"
 )
 

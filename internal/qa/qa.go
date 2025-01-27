@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 func LintCommands(commands *core.Commands) []error {

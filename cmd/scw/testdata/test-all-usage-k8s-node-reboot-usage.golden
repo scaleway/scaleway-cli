@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Reboot a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
+Reboot a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
 
 USAGE:
   scw k8s node reboot <node-id ...> [arg=value ...]
 
 EXAMPLES:
   Reboot a node
-    scw k8s node reboot 11111111-1111-1111-111111111111
+    scw k8s node reboot 11111111-1111-1111-1111-111111111111
 
 ARGS:
   node-id           ID of the node to reboot

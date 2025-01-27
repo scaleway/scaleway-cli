@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 	"strconv"
@@ -9,9 +10,9 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -278,7 +279,7 @@ func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
 			newError := &core.CliError{
-				Err: fmt.Errorf("cannot delete security-group currently in use"),
+				Err: errors.New("cannot delete security-group currently in use"),
 			}
 
 			// Get security-group.

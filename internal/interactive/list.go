@@ -5,6 +5,7 @@ package interactive
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"os"
 
@@ -27,9 +28,8 @@ func (m *ListPrompt) Init() tea.Cmd {
 }
 
 func (m *ListPrompt) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	switch msg := msg.(type) {
-	// Key is pressed
-	case tea.KeyMsg:
+	if msg, ok := msg.(tea.KeyMsg); ok {
+		// Key is pressed
 		switch msg.String() {
 		case "ctrl+c", "q":
 			m.cancelled = true
@@ -57,7 +57,7 @@ func (m *ListPrompt) View() string {
 		if m.cursor == i {
 			s += fmt.Sprintf("> %s\n", choice)
 		} else {
-			s += fmt.Sprintf("%s\n", choice)
+			s += choice + "\n"
 		}
 	}
 
@@ -89,7 +89,7 @@ func (m *ListPrompt) Execute(ctx context.Context) (int, error) {
 	}
 
 	if m.cancelled {
-		return -1, fmt.Errorf("prompt cancelled")
+		return -1, errors.New("prompt cancelled")
 	}
 
 	return m.cursor, nil

@@ -1,9 +1,10 @@
 package autocomplete
 
 import (
+	"errors"
 	"fmt"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 func unsupportedShellError(shell string) *core.CliError {
@@ -12,15 +13,15 @@ func unsupportedShellError(shell string) *core.CliError {
 	}
 }
 
-func unsupportedOsError(OS string) *core.CliError {
+func unsupportedOsError(os string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("unsupported OS '%v'", OS),
+		Err: fmt.Errorf("unsupported OS '%v'", os),
 	}
 }
 
 func installationCancelledError(shellName string, script string) *core.CliError {
 	return &core.CliError{
-		Err:  fmt.Errorf("installation cancelled"),
+		Err:  errors.New("installation cancelled"),
 		Hint: fmt.Sprintf("To manually enable autocomplete for %v, run: %v", shellName, script),
 	}
 }

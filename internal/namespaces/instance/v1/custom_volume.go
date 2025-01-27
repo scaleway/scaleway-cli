@@ -2,13 +2,13 @@ package instance
 
 import (
 	"context"
-	"fmt"
 	"reflect"
+	"strconv"
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -17,17 +17,15 @@ import (
 // Marshalers
 //
 
-var (
-	volumeStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.VolumeStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.VolumeStateError:        &human.EnumMarshalSpec{Attribute: color.FgRed},
-		instance.VolumeStateFetching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.VolumeStateHotsyncing:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.VolumeStateResizing:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.VolumeStateSaving:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.VolumeStateSnapshotting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	}
-)
+var volumeStateMarshalSpecs = human.EnumMarshalSpecs{
+	instance.VolumeStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	instance.VolumeStateError:        &human.EnumMarshalSpec{Attribute: color.FgRed},
+	instance.VolumeStateFetching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	instance.VolumeStateHotsyncing:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	instance.VolumeStateResizing:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	instance.VolumeStateSaving:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	instance.VolumeStateSnapshotting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+}
 
 // serversMarshalerFunc marshals a VolumeSummary.
 func volumeSummaryMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -38,7 +36,7 @@ func volumeSummaryMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, e
 // volumeMapMarshalerFunc returns the length of the map.
 func volumeMapMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	volumes := i.(map[string]*instance.Volume)
-	return fmt.Sprintf("%v", len(volumes)), nil
+	return strconv.Itoa(len(volumes)), nil
 }
 
 // Builders
@@ -141,4 +139,11 @@ func volumeWaitCommand() *core.Command {
 			},
 		},
 	}
+}
+
+func volumeMigrationBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.DeleteByName("snapshot-id")
+	c.ArgSpecs.GetByName("volume-id").Positional = true
+
+	return c
 }

@@ -7,9 +7,8 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_CreateContext(t *testing.T) {
@@ -31,6 +30,7 @@ func Test_CreateContext(t *testing.T) {
 				},
 			),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				result, isSuccessResult := ctx.Result.(*core.SuccessResult)
 				assert.True(t, isSuccessResult, "Expected result to be of type *core.SuccessResult, got %s", reflect.TypeOf(result).String())
 				assert.NotNil(t, result)

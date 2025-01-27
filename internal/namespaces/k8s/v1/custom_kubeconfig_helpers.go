@@ -8,8 +8,8 @@ import (
 	"strings"
 
 	"github.com/ghodss/yaml"
-	api "github.com/kubernetes-client/go-base/config/api"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 )
 
 // get the path to the wanted kubeconfig on disk
@@ -58,5 +58,5 @@ func marshalAndWriteKubeconfig(kubeconfig *api.Config, kubeconfigPath string) er
 		return err
 	}
 
-	return os.WriteFile(kubeconfigPath, newKubeconfig, 0600)
+	return os.WriteFile(kubeconfigPath, newKubeconfig, 0o600)
 }

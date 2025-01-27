@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -177,8 +177,14 @@ Once your image is ready you will be able to create a new server based on this i
 						VolumeType: instance.SnapshotVolumeTypeUnified,
 					}
 				} else {
-					template = &instance.ServerActionRequestVolumeBackupTemplate{
-						VolumeType: instance.SnapshotVolumeType(v.VolumeType),
+					if v.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {
+						template = &instance.ServerActionRequestVolumeBackupTemplate{
+							VolumeType: instance.SnapshotVolumeType("sbs_snapshot"),
+						}
+					} else {
+						template = &instance.ServerActionRequestVolumeBackupTemplate{
+							VolumeType: instance.SnapshotVolumeType(v.VolumeType),
+						}
 					}
 				}
 				req.Volumes[v.ID] = template
@@ -190,7 +196,7 @@ Once your image is ready you will be able to create a new server based on this i
 
 			tmp := strings.Split(res.Task.HrefResult, "/")
 			if len(tmp) != 3 {
-				return nil, fmt.Errorf("cannot extract image id from task")
+				return nil, errors.New("cannot extract image id from task")
 			}
 			return api.GetImage(&instance.GetImageRequest{Zone: args.Zone, ImageID: tmp[2]})
 		},
@@ -375,7 +381,11 @@ func serverTerminateCommand() *core.Command {
 						return nil, err
 					}
 
-					_, _ = interactive.Printf("successfully detached volume %s\n", volume.Name)
+					volumeName := ""
+					if volume.Name != nil {
+						volumeName = *volume.Name
+					}
+					_, _ = interactive.Printf("successfully detached volume %s\n", volumeName)
 				}
 			}
 

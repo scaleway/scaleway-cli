@@ -6,9 +6,11 @@ USAGE:
   scw tem <command>
 
 AVAILABLE COMMANDS:
-  domain      Domain management commands
-  email       Email management commands
-  webhook     Webhook management commands
+  blocklists       Blocklist
+  domain           Domain management commands
+  email            Email management commands
+  project-settings Project settings management commands
+  webhook          Webhook management commands
 
 FLAGS:
   -h, --help   help for tem

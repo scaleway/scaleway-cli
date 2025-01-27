@@ -3,10 +3,10 @@ package secret
 import (
 	"context"
 	"encoding/json"
-	"fmt"
+	"errors"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	secret "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
 )
 
@@ -79,18 +79,18 @@ func secretVersionAccessBuilder(c *core.Command) *core.Command {
 func getSecretVersionField(data []byte, field string) ([]byte, error) {
 	var rawFields interface{}
 	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return nil, fmt.Errorf("cannot unmarshal JSON data")
+		return nil, errors.New("cannot unmarshal JSON data")
 	}
 
 	rawField, ok := rawFields.(map[string]interface{})[field]
 	if !ok {
-		return nil, fmt.Errorf("JSON field is not present")
+		return nil, errors.New("JSON field is not present")
 	}
 
 	switch field := rawField.(type) {
 	case string:
 		return []byte(field), nil
 	default:
-		return nil, fmt.Errorf("JSON field type is not valid")
+		return nil, errors.New("JSON field type is not valid")
 	}
 }

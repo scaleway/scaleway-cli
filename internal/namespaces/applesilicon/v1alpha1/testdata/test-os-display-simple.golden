@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID            e08d1e5d-b4b9-402a-9f9a-97732d17e374
-Name          macos-sonoma-14
-Label         macOS Sonoma 14
+Name          macos-sonoma-14.4
+Label         macOS Sonoma 14.4
 ImageURL      https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png
 Family        Sonoma
 IsBeta        false
@@ -14,8 +14,8 @@ CompatibleServerTypes:
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "e08d1e5d-b4b9-402a-9f9a-97732d17e374",
-  "name": "macos-sonoma-14",
-  "label": "macOS Sonoma 14",
+  "name": "macos-sonoma-14.4",
+  "label": "macOS Sonoma 14.4",
   "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png",
   "family": "Sonoma",
   "is_beta": false,

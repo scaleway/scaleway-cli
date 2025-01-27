@@ -1,13 +1,14 @@
 package iam_test
 
 import (
-	"fmt"
+	"errors"
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 )
 
 func Test_createRule(t *testing.T) {
@@ -23,6 +24,7 @@ func Test_createRule(t *testing.T) {
 		Cmd: `scw iam rule create {{ .Policy.ID }} permission-set-names.0=VPCReadOnly project-ids.0={{ .Project.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "IPAMReadOnly")
 				assert.Contains(t, string(ctx.Stdout), "VPCReadOnly")
 			},
@@ -48,9 +50,9 @@ func Test_deleteRule(t *testing.T) {
 			core.ExecStoreBeforeCmd("Policy", "scw iam policy get {{ .Policy.ID }}"),
 			func(ctx *core.BeforeFuncCtx) error {
 				// Get first Rule ID
-				policy := ctx.Meta["Policy"].(*iam.PolicyGetInterceptorResponse)
+				policy := testhelpers.MapValue[*iam.PolicyGetInterceptorResponse](t, ctx.Meta, "Policy")
 				if len(policy.Rules) != 2 {
-					return fmt.Errorf("expected two rules in policy")
+					return errors.New("expected two rules in policy")
 				}
 				ctx.Meta["Rule"] = policy.Rules[0]
 
@@ -60,6 +62,7 @@ func Test_deleteRule(t *testing.T) {
 		Cmd: `scw iam rule delete {{ .Policy.ID }} rule-id={{ .Rule.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotContains(t, string(ctx.Stdout), "IPAMReadOnly")
 				assert.Contains(t, string(ctx.Stdout), "VPCReadOnly")
 			},

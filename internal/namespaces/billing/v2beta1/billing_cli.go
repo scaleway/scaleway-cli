@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -390,7 +390,7 @@ func billingDiscountList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"creation_date_desc", "creation_date_asc"},
+				EnumValues: []string{"creation_date_desc", "creation_date_asc", "start_date_desc", "start_date_asc", "stop_date_desc", "stop_date_asc"},
 			},
 			{
 				Name:       "organization-id",

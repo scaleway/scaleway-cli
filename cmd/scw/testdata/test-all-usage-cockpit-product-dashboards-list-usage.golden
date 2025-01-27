@@ -1,0 +1,19 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Retrieve a list of available dashboards in Grafana, for all Scaleway resources which are integrated with Cockpit.
+
+USAGE:
+  scw cockpit product-dashboards list [arg=value ...]
+
+ARGS:
+  [project-id]     Project ID to use. If none is passed the default project ID will be used
+  [tags.{index}]   Tags to filter for
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

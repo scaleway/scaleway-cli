@@ -1,13 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID.
+Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
+Each Grafana user is associated with a role: viewer or editor. A viewer can only view dashboards, whereas an editor can create and edit dashboards. Note that the `admin` username is not available for creation.
 
 USAGE:
   scw cockpit grafana-user create [arg=value ...]
 
 ARGS:
   [project-id]   Project ID to use. If none is passed the default project ID will be used
-  [login]        Username of the Grafana user
+  [login]        Username of the Grafana user. Note that the `admin` username is not available for creation
   [role]         Role assigned to the Grafana user (unknown_role | editor | viewer)
 
 FLAGS:

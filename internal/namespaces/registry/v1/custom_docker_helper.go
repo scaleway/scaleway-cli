@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -16,7 +17,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -70,7 +71,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 	if err != nil {
 		return nil, err
 	}
-	helperScriptPath := filepath.Join(scriptDirArg, fmt.Sprintf("docker-credential-%s", binaryName))
+	helperScriptPath := filepath.Join(scriptDirArg, "docker-credential-"+binaryName)
 	buf := bytes.Buffer{}
 	tplData := map[string]string{
 		"BinaryName": binaryName,
@@ -80,7 +81,6 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		tplData["ProfileName"] = core.ExtractProfileName(ctx)
 	}
 	err = tpl.Execute(&buf, tplData)
-
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		return nil, err
 	}
 	if !continueInstallation {
-		return nil, fmt.Errorf("installation cancelled")
+		return nil, errors.New("installation cancelled")
 	}
 
 	err = writeHelperScript(helperScriptPath, helperScriptContent)
@@ -120,7 +120,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 	}
 
 	_, _ = interactive.Println()
-	_, err = exec.LookPath(fmt.Sprintf("docker-credential-%s", binaryName))
+	_, err = exec.LookPath("docker-credential-" + binaryName)
 	if err != nil {
 		_, _ = interactive.Println(fmt.Sprintf("docker-credential-%s is not present in your $PATH, you should add %s to your $PATH to make it work.", binaryName, path.Dir(helperScriptPath)))
 		_, _ = interactive.Println(fmt.Sprintf("You can add it by adding `export PATH=$PATH:%s` to your `.bashrc`, `.fishrc` or `.zshrc`", path.Dir(helperScriptPath)))
@@ -185,7 +185,7 @@ func registryDockerHelperGetRun(ctx context.Context, _ interface{}) (i interface
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
-		return nil, fmt.Errorf("could not get secret key")
+		return nil, errors.New("could not get secret key")
 	}
 
 	raw, err := json.Marshal(registryDockerHelperGetResponse{

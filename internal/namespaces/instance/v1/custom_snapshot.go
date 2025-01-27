@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -157,4 +157,24 @@ func snapshotUpdateBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func snapshotPlanMigrationCommand() *core.Command {
+	cmd := instanceVolumePlanMigration()
+	cmd.Resource = "snapshot"
+
+	cmd.ArgSpecs.DeleteByName("volume-id")
+	cmd.ArgSpecs.GetByName("snapshot-id").Positional = true
+
+	return cmd
+}
+
+func snapshotApplyMigrationCommand() *core.Command {
+	cmd := instanceVolumeApplyMigration()
+	cmd.Resource = "snapshot"
+
+	cmd.ArgSpecs.DeleteByName("volume-id")
+	cmd.ArgSpecs.GetByName("snapshot-id").Positional = true
+
+	return cmd
 }

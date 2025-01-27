@@ -1,0 +1,29 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Retrieve the list of Audit Trail events for a Scaleway Organization and/or Project. You must specify the `organization_id` and optionally, the `project_id`.
+
+USAGE:
+  scw audit-trail event list [arg=value ...]
+
+ARGS:
+  [project-id]        (Optional) ID of the Project containing the Audit Trail events
+  [resource-type]     (Optional) Returns a paginated list of Scaleway resources' features (unknown_type | secm_secret | secm_secret_version | kube_cluster | kube_pool | kube_node | kube_acl)
+  [method-name]       (Optional) Name of the method or the API call performed
+  [status]            (Optional) HTTP status code of the request. Returns either `200` if the request was successful or `403` if the permission was denied
+  [recorded-after]    (Optional) The `recorded_after` parameter defines the earliest timestamp from which Audit Trail events are retrieved. Returns `one hour ago` by default
+  [recorded-before]   (Optional) The `recorded_before` parameter defines the latest timestamp up to which Audit Trail events are retrieved. Returns `now` by default
+  [order-by]           (recorded_at_desc | recorded_at_asc)
+  [page-size]         
+  [page-token]        
+  [product-name]      (Optional) Name of the Scaleway resource in a hyphenated format
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

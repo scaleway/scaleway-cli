@@ -17,10 +17,10 @@ This API allows you to manage your Serverless Containers.
   - [Update an existing cron](#update-an-existing-cron)
 - [Deploy a container](#deploy-a-container)
 - [Domain management commands](#domain-management-commands)
-  - [Create a domain name binding](#create-a-domain-name-binding)
-  - [Delete a domain name binding](#delete-a-domain-name-binding)
-  - [Get a domain name binding](#get-a-domain-name-binding)
-  - [List all domain name bindings](#list-all-domain-name-bindings)
+  - [Create a custom domain](#create-a-custom-domain)
+  - [Delete a custom domain](#delete-a-custom-domain)
+  - [Get a custom domain](#get-a-custom-domain)
+  - [List all custom domains](#list-all-custom-domains)
 - [Namespace management commands](#namespace-management-commands)
   - [Create a new namespace](#create-a-new-namespace)
   - [Delete an existing namespace](#delete-an-existing-namespace)
@@ -71,13 +71,20 @@ scw container container create [arg=value ...]
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the container |
 | description |  | Description of the container |
 | registry-image |  | Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag"). |
-| max-concurrency |  | Number of maximum concurrent executions of the container |
+| ~~max-concurrency~~ | Deprecated | Number of maximum concurrent executions of the container |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` | Protocol the container uses |
 | port |  | Port the container listens on |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | http-option | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
 | sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container |
+| local-storage-limit |  | Local storage limit of the container (in MB) |
+| scaling-option.concurrent-requests-threshold |  |  |
+| scaling-option.cpu-usage-threshold |  |  |
+| scaling-option.memory-usage-threshold |  |  |
+| health-check.http.path |  | Path to use for the HTTP health check. |
+| health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
+| health-check.interval |  | Period between health checks. |
 | deploy | Default: `true` | Deploy container after creation |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -193,13 +200,20 @@ scw container container update <container-id ...> [arg=value ...]
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy settings of the container |
 | description |  | Description of the container |
 | registry-image |  | Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag"). |
-| max-concurrency |  | Number of maximum concurrent executions of the container |
+| ~~max-concurrency~~ | Deprecated | Number of maximum concurrent executions of the container |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
 | port |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
-| http-option | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
+| http-option | One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
 | sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container |
+| local-storage-limit |  | Local storage limit of the container (in MB) |
+| scaling-option.concurrent-requests-threshold |  |  |
+| scaling-option.cpu-usage-threshold |  |  |
+| scaling-option.memory-usage-threshold |  |  |
+| health-check.http.path |  | Path to use for the HTTP health check. |
+| health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
+| health-check.interval |  | Period between health checks. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -352,9 +366,9 @@ scw container deploy [arg=value ...]
 Domain management commands.
 
 
-### Create a domain name binding
+### Create a custom domain
 
-Create a domain name binding for the container with the specified ID.
+Create a custom domain for the container with the specified ID.
 
 **Usage:**
 
@@ -373,9 +387,9 @@ scw container domain create [arg=value ...]
 
 
 
-### Delete a domain name binding
+### Delete a custom domain
 
-Delete the domain name binding with the specific ID.
+Delete the custom domain with the specific ID.
 
 **Usage:**
 
@@ -393,9 +407,9 @@ scw container domain delete <domain-id ...> [arg=value ...]
 
 
 
-### Get a domain name binding
+### Get a custom domain
 
-Get a domain name binding for the container with the specified ID.
+Get a custom domain for the container with the specified ID.
 
 **Usage:**
 
@@ -413,9 +427,9 @@ scw container domain get <domain-id ...> [arg=value ...]
 
 
 
-### List all domain name bindings
+### List all custom domains
 
-List all domain name bindings in a specified region.
+List all custom domains in a specified region.
 
 **Usage:**
 
@@ -460,6 +474,7 @@ scw container namespace create [arg=value ...]
 | description |  | Description of the namespace to create |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| tags.{index} |  | [ALPHA] Tags of the Serverless Container Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -547,6 +562,7 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 | description |  | Description of the namespace to update |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| tags.{index} |  | [ALPHA] Tags of the Serverless Container Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

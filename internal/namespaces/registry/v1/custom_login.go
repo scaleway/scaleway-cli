@@ -3,11 +3,11 @@ package registry
 import (
 	"bytes"
 	"context"
-	"fmt"
+	"errors"
 	"os/exec"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -46,14 +46,13 @@ func registryLoginRun(ctx context.Context, argsI interface{}) (i interface{}, e 
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
-		return nil, fmt.Errorf("could not get secret key")
+		return nil, errors.New("could not get secret key")
 	}
 
 	cmdArgs := []string{"login", "-u", "scaleway", "--password-stdin", endpoint}
 	cmd := exec.Command(args.Program, cmdArgs...) //nolint:gosec
 	cmd.Stdin = bytes.NewBufferString(secretKey)
 	exitCode, err := core.ExecCmd(ctx, cmd)
-
 	if err != nil {
 		return nil, err
 	}

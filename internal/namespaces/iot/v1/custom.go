@@ -1,8 +1,8 @@
 package iot
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
 

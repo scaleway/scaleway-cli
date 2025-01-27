@@ -1,19 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the attributes of a specific pool, such as its desired size, autoscaling settings, and tags.
+Update the attributes of a specific pool, such as its desired size, autoscaling settings, and tags. To upgrade a pool, you will need to use the dedicated endpoint.
 
 USAGE:
   scw k8s pool update <pool-id ...> [arg=value ...]
 
 EXAMPLES:
   Enable autoscaling on a given pool
-    scw k8s pool update 11111111-1111-1111-111111111111 autoscaling=true
+    scw k8s pool update 11111111-1111-1111-1111-111111111111 autoscaling=true
 
   Reduce the size and maximum size of a given pool to 4
-    scw k8s pool update 11111111-1111-1111-111111111111 size=4 max-size=4
+    scw k8s pool update 11111111-1111-1111-1111-111111111111 size=4 max-size=4
 
   Modify the tags of a given pool
-    scw k8s pool update 11111111-1111-1111-111111111111 tags.0=my tags.1=new tags.2=pool
+    scw k8s pool update 11111111-1111-1111-1111-111111111111 tags.0=my tags.1=new tags.2=pool
+
+  Remove all tags of a given pool
+    scw k8s pool update 11111111-1111-1111-1111-111111111111 tags=none
 
 ARGS:
   pool-id                            ID of the pool to update

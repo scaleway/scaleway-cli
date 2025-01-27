@@ -87,3 +87,11 @@ scw instance server list zone=all -o template="{{.ID}} zone={{.Zone}}" | xargs -
 # Get all backup older than 7 days
 scw rdb backup list -ojson | jq --arg d "$(date -d "7 days ago" --utc --iso-8601=ns)" '.[] | select (.created_at < $d)'
 ```
+
+## IPAM
+
+### Find resource ipv4 with exact name using jq
+
+```bash
+scw ipam ip list resource-name=<server-name> is-ipv6=false -ojson | jq '.[] | select(.resource.name == "<server-name>")'
+```

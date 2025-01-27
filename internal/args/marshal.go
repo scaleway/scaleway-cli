@@ -27,7 +27,7 @@ var marshalFuncs = map[reflect.Type]MarshalFunc{
 	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(src interface{}) (s string, e error) {
 		v := src.(*scw.Size)
 		value := humanize.Bytes(uint64(*v))
-		value = strings.Replace(value, " ", "", -1)
+		value = strings.ReplaceAll(value, " ", "")
 		return value, nil
 	},
 	reflect.TypeOf((*time.Time)(nil)).Elem(): func(src interface{}) (string, error) {
@@ -140,7 +140,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 
 		// We loop through all items and marshal them with key = key.0, key.1, ....
 		args := []string(nil)
-		for i := 0; i < src.Len(); i++ {
+		for i := range src.Len() {
 			subArgs, err := marshal(src.Index(i), append(keys, strconv.Itoa(i)))
 			if err != nil {
 				return nil, err
@@ -178,7 +178,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 		// If type is a struct
 		// We loop through all struct field
 		args := []string(nil)
-		for i := 0; i < src.NumField(); i++ {
+		for i := range src.NumField() {
 			fieldValue := src.Field(i)
 			key := strcase.ToBashArg(src.Type().Field(i).Name)
 			newArgs, err := marshal(fieldValue, append(keys, key))

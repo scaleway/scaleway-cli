@@ -2,7 +2,6 @@ package interactive
 
 import (
 	"context"
-	"fmt"
 	"io"
 )
 
@@ -45,7 +44,7 @@ type mockResponseReader struct {
 func (m *mockResponseReader) Read(p []byte) (n int, err error) {
 	if m.ctx != nil {
 		if mockResponse, exist := popMockResponseFromContext(m.ctx); exist {
-			buff := []byte(fmt.Sprintf("%s\n", mockResponse))
+			buff := []byte(mockResponse + "\n")
 			copy(p, buff)
 			return len(buff), nil
 		}

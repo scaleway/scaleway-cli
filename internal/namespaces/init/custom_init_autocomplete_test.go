@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	initCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init" // alias required to not collide with go init func
 	"github.com/stretchr/testify/require"
 )
@@ -39,6 +39,7 @@ func Test_InitAutocomplete(t *testing.T) {
 	}
 
 	runAllShells := func(t *testing.T) {
+		t.Helper()
 		t.Run("Without", core.Test(&core.TestConfig{
 			Commands:   initCLI.GetCommands(),
 			BeforeFunc: baseBeforeFunc(),
@@ -59,6 +60,7 @@ eval "$(scw autocomplete script shell=zsh)"
 				Check: core.TestCheckCombine(
 					core.TestCheckGolden(),
 					func(t *testing.T, ctx *core.CheckFuncCtx) {
+						t.Helper()
 						if runtime.GOOS == windows {
 							// autocomplete installation is not yet supported on windows
 							return
@@ -96,7 +98,7 @@ eval (scw autocomplete script shell=fish)
 						configPath := path.Join(homeDir, ".config", "fish", "config.fish")
 
 						// Ensure the subfolders for the configuration files are all created
-						err := os.MkdirAll(filepath.Dir(configPath), 0755)
+						err := os.MkdirAll(filepath.Dir(configPath), 0o755)
 						if err != nil {
 							return err
 						}
@@ -108,6 +110,7 @@ eval (scw autocomplete script shell=fish)
 				Check: core.TestCheckCombine(
 					core.TestCheckGolden(),
 					func(t *testing.T, ctx *core.CheckFuncCtx) {
+						t.Helper()
 						if runtime.GOOS == windows {
 							// autocomplete installation is not yet supported on windows
 							return
@@ -144,6 +147,7 @@ eval "$(scw autocomplete script shell=bash)"
 				Check: core.TestCheckCombine(
 					core.TestCheckGolden(),
 					func(t *testing.T, ctx *core.CheckFuncCtx) {
+						t.Helper()
 						homeDir := ctx.OverrideEnv["HOME"]
 						filePath := ""
 						switch runtime.GOOS {

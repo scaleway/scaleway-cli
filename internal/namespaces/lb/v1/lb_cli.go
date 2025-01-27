@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -1041,7 +1041,7 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "failover-host",
-				Short:      `Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud`,
+				Short:      `Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1242,7 +1242,7 @@ func lbBackendUpdate() *core.Command {
 			},
 			{
 				Name:       "failover-host",
-				Short:      `Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud`,
+				Short:      `Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

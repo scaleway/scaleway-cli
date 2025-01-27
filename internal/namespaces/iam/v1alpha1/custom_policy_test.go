@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 )
@@ -22,6 +22,7 @@ func Test_getPolicyWithRules(t *testing.T) {
 		Cmd: `scw iam policy get {{ .Policy.ID }}`,
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "IPAMReadOnly")
 			},
 			core.TestCheckGolden(),

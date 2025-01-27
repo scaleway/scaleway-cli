@@ -1,0 +1,19 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Retrieve information on your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to.
+The output returned displays the URL to access your Cockpit's Grafana.
+
+USAGE:
+  scw cockpit grafana get [arg=value ...]
+
+ARGS:
+  [project-id]   Project ID to use. If none is passed the default project ID will be used
+
+FLAGS:
+  -h, --help   help for get
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

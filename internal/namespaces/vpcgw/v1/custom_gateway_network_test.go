@@ -3,10 +3,9 @@ package vpcgw_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 )
 
@@ -19,15 +18,13 @@ func Test_vpcGwGatewayNetworkGet(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			testhelpers.CreatePN(),
 			testhelpers.CreateGateway("GW"),
-			testhelpers.CreateDHCP(),
-			testhelpers.CreateGatewayNetworkDHCP("GW"),
+			testhelpers.CreateGatewayNetwork("GW"),
 		),
 		Cmd:   "scw vpc-gw gateway-network get {{ .GWNT.ID }}",
 		Check: core.TestCheckGolden(),
 		AfterFunc: core.AfterFuncCombine(
 			testhelpers.DeleteGatewayNetwork(),
 			testhelpers.DeletePN(),
-			testhelpers.DeleteDHCP(),
 			testhelpers.DeleteGateway("GW"),
 			testhelpers.DeleteIPVpcGw("GW"),
 		),

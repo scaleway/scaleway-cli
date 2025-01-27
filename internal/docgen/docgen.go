@@ -9,7 +9,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 type tplData struct {
@@ -77,7 +77,7 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 		if err != nil {
 			return err
 		}
-		err = os.WriteFile(path.Join(outDir, name+".md"), []byte(namespaceDoc), 0600)
+		err = os.WriteFile(path.Join(outDir, name+".md"), []byte(namespaceDoc), 0o600)
 		if err != nil {
 			return err
 		}

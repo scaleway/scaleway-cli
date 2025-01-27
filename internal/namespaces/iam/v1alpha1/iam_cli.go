@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -40,6 +40,8 @@ func GetGeneratedCommands() *core.Commands {
 		iamUserUpdate(),
 		iamUserDelete(),
 		iamUserCreate(),
+		iamUserUpdateUsername(),
+		iamUserUpdatePassword(),
 		iamApplicationList(),
 		iamApplicationCreate(),
 		iamApplicationGet(),
@@ -449,7 +451,7 @@ func iamUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "email_asc", "email_desc", "last_login_asc", "last_login_desc"},
+				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "email_asc", "email_desc", "last_login_asc", "last_login_desc", "username_asc", "username_desc"},
 			},
 			{
 				Name:       "user-ids.{index}",
@@ -549,6 +551,13 @@ func iamUserUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "email",
+				Short:      `IAM member email`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iam.UpdateUserRequest)
@@ -609,13 +618,48 @@ func iamUserCreate() *core.Command {
 			{
 				Name:       "email",
 				Short:      `Email of the user`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags associated with the user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "member.email",
+				Short:      `Email of the user to create`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "member.send-password-email",
+				Short:      `Whether or not to send an email containing the member's password.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "member.send-welcome-email",
+				Short:      `Whether or not to send a welcome email that includes onboarding information.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "member.username",
+				Short:      `The member's username`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "member.password",
+				Short:      `The member's password`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -628,6 +672,78 @@ func iamUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.CreateUser(request)
+
+		},
+	}
+}
+
+func iamUserUpdateUsername() *core.Command {
+	return &core.Command{
+		Short:     `Update an user's username. Private Beta feature.`,
+		Long:      `Update an user's username. Private Beta feature.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "update-username",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.UpdateUserUsernameRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "username",
+				Short:      `The new username`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.UpdateUserUsernameRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.UpdateUserUsername(request)
+
+		},
+	}
+}
+
+func iamUserUpdatePassword() *core.Command {
+	return &core.Command{
+		Short:     `Update an user's password. Private Beta feature.`,
+		Long:      `Update an user's password. Private Beta feature.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "update-password",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.UpdateUserPasswordRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "password",
+				Short:      `The new password`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.UpdateUserPasswordRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.UpdateUserPassword(request)
 
 		},
 	}
@@ -1521,7 +1637,7 @@ func iamPolicyCreate() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Add a policy for a group that gives InstanceFullAccess on all projects",
-				Raw:   `scw iam policy create group-id=11111111-1111-1111-1111-111111111111 rules.0.organization-id=11111111-1111-1111-1111-111111111111 rules.0.permission-set-names.0=InstanceFullAccess`,
+				Raw:   `scw iam policy create group-id=11111111-1111-1111-1111-111111111111 rules.0.organization-id=11111111-1111-1111-1111-111111111111 rules.0.permission-set-names.0=InstancesFullAccess`,
 			},
 		},
 	}
@@ -1945,6 +2061,9 @@ func iamAPIKeyList() *core.Command {
 			{
 				FieldName: "DefaultProjectID",
 			},
+			{
+				FieldName: "Description",
+			},
 		}},
 	}
 }
@@ -1952,7 +2071,7 @@ func iamAPIKeyList() *core.Command {
 func iamAPIKeyCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create an API key`,
-		Long:      `Create an API key. You must specify the ` + "`" + `application_id` + "`" + ` or the ` + "`" + `user_id` + "`" + ` and the description. You can also specify the ` + "`" + `default_project_id` + "`" + ` which is the Project ID of your preferred Project, to use with Object Storage. The ` + "`" + `access_key` + "`" + ` and ` + "`" + `secret_key` + "`" + ` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.`,
+		Long:      `Create an API key. You must specify the ` + "`" + `application_id` + "`" + ` or the ` + "`" + `user_id` + "`" + ` and the description. You can also specify the ` + "`" + `default_project_id` + "`" + `, which is the Project ID of your preferred Project, to use with Object Storage. The ` + "`" + `access_key` + "`" + ` and ` + "`" + `secret_key` + "`" + ` values are returned in the response. Note that the secret key is only shown once. Make sure that you copy and store both keys somewhere safe.`,
 		Namespace: "iam",
 		Resource:  "api-key",
 		Verb:      "create",

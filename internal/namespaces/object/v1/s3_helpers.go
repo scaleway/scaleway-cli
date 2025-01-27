@@ -1,3 +1,5 @@
+//go:build darwin || linux || windows
+
 package object
 
 import (
@@ -8,7 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -24,7 +26,7 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 		return nil
 	}
 
-	customEndpoint := ""
+	var customEndpoint string
 	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
 		customEndpoint = ep
 	} else {
@@ -76,11 +78,6 @@ func verifyACLInput(aclInput string) (bool, []types.BucketCannedACL) {
 		}
 	}
 	return false, possibleValues
-}
-
-type CustomS3ACLGrant struct {
-	Grantee    *string
-	Permission types.Permission
 }
 
 func awsACLToCustomGrants(output *s3.GetBucketAclOutput) []CustomS3ACLGrant {

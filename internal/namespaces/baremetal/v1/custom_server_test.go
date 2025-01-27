@@ -1,20 +1,38 @@
 package baremetal_test
 
 import (
+	"errors"
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+const (
+	offerName = "EM-B220E-NVME"
+	region    = "fr-par-1"
+)
+
 func Test_StartServerErrors(t *testing.T) {
 	t.Run("Error: cannot be started while not delivered", core.Test(&core.TestConfig{
-		BeforeFunc: createServer("Server"),
-		Commands:   baremetal.GetCommands(),
-		Cmd:        "scw baremetal server start zone=nl-ams-1 {{ .Server.ID }}",
+		BeforeFunc: core.BeforeFuncCombine(
+			func(ctx *core.BeforeFuncCtx) error {
+				api := baremetalSDK.NewAPI(ctx.Client)
+				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+					OfferName: "EM-B111X-SATA",
+					Zone:      region,
+				})
+				if server.Stock != baremetalSDK.OfferStockAvailable {
+					return errors.New("offer out of stock")
+				}
+				return nil
+			},
+			createServer("Server", "EM-B111X-SATA"),
+		),
+		Commands: baremetal.GetCommands(),
+		Cmd:      "scw baremetal server start zone=" + region + " {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -38,9 +56,22 @@ func Test_StartServerErrors(t *testing.T) {
 
 func Test_StopServerErrors(t *testing.T) {
 	t.Run("Error: cannot be stopped while not delivered", core.Test(&core.TestConfig{
-		BeforeFunc: createServer("Server"),
-		Commands:   baremetal.GetCommands(),
-		Cmd:        "scw baremetal server stop zone=nl-ams-1 {{ .Server.ID }}",
+		BeforeFunc: core.BeforeFuncCombine(
+			func(ctx *core.BeforeFuncCtx) error {
+				api := baremetalSDK.NewAPI(ctx.Client)
+				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+					OfferName: "EM-B111X-SATA",
+					Zone:      region,
+				})
+				if server.Stock != baremetalSDK.OfferStockAvailable {
+					return errors.New("offer out of stock")
+				}
+				return nil
+			},
+			createServer("Server", "EM-B111X-SATA"),
+		),
+		Commands: baremetal.GetCommands(),
+		Cmd:      "scw baremetal server stop zone=" + region + " {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -64,9 +95,22 @@ func Test_StopServerErrors(t *testing.T) {
 
 func Test_RebootServerErrors(t *testing.T) {
 	t.Run("Error: cannot be rebooted while not delivered", core.Test(&core.TestConfig{
-		BeforeFunc: createServer("Server"),
-		Commands:   baremetal.GetCommands(),
-		Cmd:        "scw baremetal server reboot zone-nl-ams-1 {{ .Server.ID }}",
+		BeforeFunc: core.BeforeFuncCombine(
+			func(ctx *core.BeforeFuncCtx) error {
+				api := baremetalSDK.NewAPI(ctx.Client)
+				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+					OfferName: "EM-B111X-SATA",
+					Zone:      region,
+				})
+				if server.Stock != baremetalSDK.OfferStockAvailable {
+					return errors.New("offer out of stock")
+				}
+				return nil
+			},
+			createServer("Server", "EM-B111X-SATA"),
+		),
+		Commands: baremetal.GetCommands(),
+		Cmd:      "scw baremetal server reboot zone=" + region + " {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),

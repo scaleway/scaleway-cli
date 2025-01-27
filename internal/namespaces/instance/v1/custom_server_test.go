@@ -3,13 +3,13 @@ package instance_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
-
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	blockCli "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
-	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
+	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
@@ -25,10 +25,14 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size)
-				assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size)
-				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeBSSD, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+				resp := testhelpers.Value[*instanceSDK.AttachVolumeResponse](t, ctx.Result)
+				size0 := testhelpers.MapTValue(t, resp.Server.Volumes, "0").Size
+				size1 := testhelpers.MapTValue(t, resp.Server.Volumes, "1").Size
+				assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
+				assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
+				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeBSSD, resp.Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
 			DisableParallel: true,
@@ -42,10 +46,14 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["0"].Size)
-				assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].Size)
-				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeLSSD, ctx.Result.(*instanceSDK.AttachVolumeResponse).Server.Volumes["1"].VolumeType)
+				resp := testhelpers.Value[*instanceSDK.AttachVolumeResponse](t, ctx.Result)
+				size0 := testhelpers.MapTValue(t, resp.Server.Volumes, "0").Size
+				size1 := testhelpers.MapTValue(t, resp.Server.Volumes, "1").Size
+				assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
+				assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
+				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeLSSD, resp.Server.Volumes["1"].VolumeType)
 			},
 			AfterFunc:       deleteServer("Server"),
 			DisableParallel: true,
@@ -65,17 +73,23 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 	})
 	t.Run("Detach", func(t *testing.T) {
 		t.Run("simple block volume", core.Test(&core.TestConfig{
-			Commands:   instance.GetCommands(),
-			BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+			Commands: core.NewCommandsMerge(
+				block.GetCommands(),
+				instance.GetCommands(),
+			),
+			BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 			Cmd:        `scw instance server detach-volume volume-id={{ (index .Server.Volumes "1").ID }}`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.NotZero(t, ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes["0"])
-				assert.Nil(t, ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes["1"])
+				resp := testhelpers.Value[*instanceSDK.DetachVolumeResponse](t, ctx.Result)
+				assert.NotZero(t, resp.Server.Volumes["0"])
+				assert.Nil(t, resp.Server.Volumes["1"])
 				assert.Equal(t, 1, len(ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes))
 			},
 			AfterFunc: core.AfterFuncCombine(
-				core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+				core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`),
+				core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
 				deleteServer("Server"),
 			),
 			DisableParallel: true,
@@ -103,7 +117,9 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Cmd:        "scw instance server update {{ .Server.ID }} ip=none",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				assert.Equal(t, (*instanceSDK.ServerIP)(nil), ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PublicIP)
+				t.Helper()
+				resp := testhelpers.Value[*instanceSDK.UpdateServerResponse](t, ctx.Result)
+				assert.Equal(t, (*instanceSDK.ServerIP)(nil), resp.Server.PublicIP)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -119,7 +135,13 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Cmd: "scw instance server update {{ .Server.ID }} ip={{ .IP.Address }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				assert.Equal(t, ctx.Meta["IP"].(*instanceSDK.IP).Address, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PublicIP.Address)
+				t.Helper()
+				ip := testhelpers.MapValue[*instanceSDK.IP](t, ctx.Meta, "IP")
+				resp := testhelpers.Value[*instanceSDK.UpdateServerResponse](t, ctx.Result)
+
+				assert.NotNil(t, resp.Server)
+				assert.NotNil(t, resp.Server.PublicIP)
+				assert.Equal(t, ip.Address, resp.Server.PublicIP.Address)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -139,6 +161,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Cmd: "scw instance server update {{ .Server.ID }} ip={{ .IP2.Address }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				// Test that the Server WAS attached to IP1.
 				assert.Equal(t,
 					ctx.Meta["IP1"].(*instanceSDK.IP).Address,
@@ -162,12 +185,13 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup1"),
 			createPlacementGroup("PlacementGroup2"),
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic placement-group-id={{ .PlacementGroup1.ID }}"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic placement-group-id={{ .PlacementGroup1.ID }}")),
 		),
 		Cmd: "scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup2.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t,
 					ctx.Meta["PlacementGroup2"].(*instanceSDK.PlacementGroup).ID,
 					ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID)
@@ -186,12 +210,13 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createSecurityGroup("SecurityGroup1"),
 			createSecurityGroup("SecurityGroup2"),
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic security-group-id={{ .SecurityGroup1.ID }}"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic security-group-id={{ .SecurityGroup1.ID }}")),
 		),
 		Cmd: "scw instance server update {{ .Server.ID }} security-group-id={{ .SecurityGroup2.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Equal(t,
 					ctx.Meta["SecurityGroup2"].(*instanceSDK.SecurityGroup).ID,
 					ctx.Result.(*instanceSDK.UpdateServerResponse).Server.SecurityGroup.ID)
@@ -214,24 +239,32 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			),
 			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }}`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Equal(t, 20*scw.GB, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["0"].Size)
-				assert.Equal(t, 10*scw.GB, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["1"].Size)
+				size0 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["0"].Size
+				size1 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["1"].Size
+				assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
+				assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
 			},
 			AfterFunc: deleteServer("Server"),
 		}))
 
 		t.Run("detach all volumes", core.Test(&core.TestConfig{
-			Commands:   instance.GetCommands(),
-			BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+			Commands: core.NewCommandsMerge(
+				block.GetCommands(),
+				instance.GetCommands(),
+			),
+			BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 			Cmd:        `scw instance server update {{ .Server.ID }} volume-ids=none`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Equal(t, 0, len(ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes))
 			},
 			AfterFunc: core.AfterFuncCombine(
-				core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`),
-				core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+				core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`), // Local volume
+				core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`),
+				core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
 				deleteServer("Server"),
 			),
 		}))
@@ -245,7 +278,7 @@ func Test_ServerDelete(t *testing.T) {
 
 	t.Run("with all volumes", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -256,7 +289,7 @@ func Test_ServerDelete(t *testing.T) {
 
 	t.Run("only block volumes", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=block`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -267,25 +300,32 @@ func Test_ServerDelete(t *testing.T) {
 	}))
 
 	t.Run("only local volumes", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		Commands: core.NewCommandsMerge(
+			block.GetCommands(),
+			instance.GetCommands(),
+		),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "1").ID }}`),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`),
+			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
+		),
 		DisableParallel: true,
 	}))
 
 	t.Run("with none volumes", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic additional-volumes.0=block:10G"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=none`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				_, err := api.GetVolume(&instanceSDK.GetVolumeRequest{
@@ -301,11 +341,11 @@ func Test_ServerDelete(t *testing.T) {
 	t.Run("with sbs volumes", core.Test(&core.TestConfig{
 		Commands: core.NewCommandsMerge(
 			instance.GetCommands(),
-			blockCli.GetCommands(),
+			block.GetCommands(),
 		),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("BlockVolume", "scw block volume create perf-iops=5000 from-empty.size=10G name=cli-test-server-delete-with-sbs-volumes"),
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-jammy"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-jammy")),
 			core.ExecBeforeCmd("scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .BlockVolume.ID }}"),
 		),
 		Cmd: `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
@@ -313,13 +353,40 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				api := block.NewAPI(ctx.Client)
-				blockVolume := ctx.Meta["BlockVolume"].(*block.Volume)
-				resp, err := api.GetVolume(&block.GetVolumeRequest{
+				t.Helper()
+				api := blockSDK.NewAPI(ctx.Client)
+				blockVolume := ctx.Meta["BlockVolume"].(*blockSDK.Volume)
+				resp, err := api.GetVolume(&blockSDK.GetVolumeRequest{
 					Zone:     blockVolume.Zone,
 					VolumeID: blockVolume.ID,
 				})
 				assert.Error(t, err, "%v", resp)
+			},
+		),
+		DisableParallel: true,
+	}))
+
+	t.Run("with multiple IPs", core.Test(&core.TestConfig{
+		Commands:   instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic ip=both")),
+		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+
+				require.NotNil(t, ctx.Meta["Server"])
+				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				assert.Len(t, server.PublicIPs, 2)
+				api := instanceSDK.NewAPI(ctx.Client)
+				for _, ip := range server.PublicIPs {
+					_, err := api.GetIP(&instanceSDK.GetIPRequest{
+						Zone: server.Zone,
+						IP:   ip.ID,
+					})
+					assert.Error(t, err, "expected IP to be deleted")
+				}
 			},
 		),
 		DisableParallel: true,

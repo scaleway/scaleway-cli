@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve the SQS information of the specified Project ID. Informations include the activation status and the SQS API endpoint URL.
+Retrieve the Queues information of the specified Project ID. Informations include the activation status and the Queues API endpoint URL.
 
 USAGE:
   scw mnq sqs get-info [arg=value ...]

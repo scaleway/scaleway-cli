@@ -1,7 +1,7 @@
 package secret_test
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 func createSecret(name string) core.BeforeFunc {

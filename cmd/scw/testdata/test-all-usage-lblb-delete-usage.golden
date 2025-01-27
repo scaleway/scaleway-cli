@@ -12,6 +12,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for delete
+  -w, --wait   wait until the lb is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

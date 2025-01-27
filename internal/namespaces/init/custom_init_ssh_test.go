@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	iamcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	initCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init" // alias required to not collide with go init func
 	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
@@ -21,13 +21,13 @@ func setUpSSHKeyLocallyWithKeyName(key string, name string) core.BeforeFunc {
 		ctx.Logger.Info("public key path set to: ", keyPath)
 
 		// Ensure the subfolders for the configuration files are all created
-		err := os.MkdirAll(filepath.Dir(keyPath), 0755)
+		err := os.MkdirAll(filepath.Dir(keyPath), 0o755)
 		if err != nil {
 			return err
 		}
 
 		// Write the configuration file
-		err = os.WriteFile(keyPath, []byte(key), 0600)
+		err = os.WriteFile(keyPath, []byte(key), 0o600)
 		if err != nil {
 			return err
 		}

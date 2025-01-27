@@ -2,10 +2,11 @@ package init
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/account/v3"
@@ -21,7 +22,7 @@ func promptOrganizationID(ctx context.Context) (string, error) {
 		Prompt: "Choose your default organization ID",
 		ValidateFunc: func(s string) error {
 			if !validation.IsUUID(s) {
-				return fmt.Errorf("organization id is not a valid uuid")
+				return core.InvalidOrganizationIDError(s)
 			}
 			return nil
 		},
@@ -37,7 +38,7 @@ func promptManualProjectID(ctx context.Context, defaultProjectID string) (string
 		DefaultValueDoc: defaultProjectID,
 		ValidateFunc: func(s string) error {
 			if !validation.IsProjectID(s) {
-				return fmt.Errorf("organization id is not a valid uuid")
+				return core.InvalidProjectIDError(s)
 			}
 			return nil
 		},
@@ -135,8 +136,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 		Ctx: ctx,
 		PromptFunc: func(value string) string {
 			secretKey := "secret-key"
-			switch {
-			case validation.IsUUID(value):
+			if validation.IsUUID(value) {
 				secretKey = terminal.Style(secretKey, color.FgBlue)
 			}
 			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", secretKey), color.Bold)
@@ -146,7 +146,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 			if validation.IsSecretKey(s) {
 				return nil
 			}
-			return fmt.Errorf("invalid secret-key")
+			return core.InvalidSecretKeyError(s)
 		},
 	})
 	if err != nil {
@@ -158,7 +158,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 		return secret, nil
 
 	default:
-		return "", fmt.Errorf("invalid secret-key: '%v'", secret)
+		return "", core.InvalidSecretKeyError(secret)
 	}
 }
 
@@ -168,15 +168,14 @@ func promptAccessKey(ctx context.Context) (string, error) {
 		Ctx: ctx,
 		PromptFunc: func(value string) string {
 			accessKey := "access-key"
-			switch {
-			case validation.IsAccessKey(value):
+			if validation.IsAccessKey(value) {
 				accessKey = terminal.Style(accessKey, color.FgBlue)
 			}
 			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", accessKey), color.Bold)
 		},
 		ValidateFunc: func(s string) error {
 			if !validation.IsAccessKey(s) {
-				return fmt.Errorf("invalid access-key")
+				return core.InvalidAccessKeyError(s)
 			}
 
 			return nil
@@ -191,7 +190,7 @@ func promptAccessKey(ctx context.Context) (string, error) {
 		return key, nil
 
 	default:
-		return "", fmt.Errorf("invalid access-key: '%v'", key)
+		return "", core.InvalidAccessKeyError(key)
 	}
 }
 
@@ -205,7 +204,7 @@ func promptDefaultZone(ctx context.Context) (scw.Zone, error) {
 		ValidateFunc: func(s string) error {
 			logger.Debugf("s: %v", s)
 			if !validation.IsZone(s) {
-				return fmt.Errorf("invalid zone")
+				return core.InvalidZoneError(s)
 			}
 			return nil
 		},
@@ -242,7 +241,7 @@ func promptProfileOverride(ctx context.Context, config *scw.Config, configPath s
 			return err
 		}
 		if !overrideConfig {
-			return fmt.Errorf("initialization canceled")
+			return errors.New("initialization canceled")
 		}
 	}
 

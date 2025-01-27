@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services.
+These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topics and Events services.
 
 USAGE:
   scw mnq <command>
 
 AVAILABLE COMMANDS:
   nats        MnQ NATS commands
-  sns         MnQ SNS commands
-  sqs         MnQ SQS commands
+  sns         MnQ Topics and Events commands
+  sqs         MnQ Queues commands
 
 FLAGS:
   -h, --help   help for mnq

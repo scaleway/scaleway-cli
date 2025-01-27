@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/internal/docgen"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
 )
 
 // This command is used to generate markdown documentation for each commands (custom or generated) of the CLI
 func main() {
-	commands := namespaces.GetCommands()
+	cmds := commands.GetCommands()
 
 	outDir := flag.String("outdir", "./docs/commands", "Directory where markdown will be created")
 	flag.Parse()
@@ -25,7 +25,7 @@ func main() {
 		panic(fmt.Errorf("outdir %s must be a valid directory", *outDir))
 	}
 
-	err = docgen.GenerateDocs(commands, *outDir)
+	err = docgen.GenerateDocs(cmds, *outDir)
 	if err != nil {
 		panic(err)
 	}

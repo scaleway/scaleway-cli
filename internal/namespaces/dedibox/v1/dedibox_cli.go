@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/dedibox/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -23,7 +23,6 @@ func GetGeneratedCommands() *core.Commands {
 		dediboxServer(),
 		dediboxService(),
 		dediboxOffer(),
-		dediboxOption(),
 		dediboxOs(),
 		dediboxBmc(),
 		dediboxReverseIP(),
@@ -38,10 +37,10 @@ func GetGeneratedCommands() *core.Commands {
 		dediboxRpnV2(),
 		dediboxServerList(),
 		dediboxServerGet(),
-		dediboxOptionList(),
-		dediboxOptionSubscribe(),
+		dediboxServerListOptions(),
+		dediboxServerSubscribeOption(),
 		dediboxServerCreate(),
-		dediboxOptionSubscribeStorage(),
+		dediboxServerSubscribeStorage(),
 		dediboxServerUpdate(),
 		dediboxServerReboot(),
 		dediboxServerStart(),
@@ -164,15 +163,6 @@ func dediboxOffer() *core.Command {
 		Long:      `Offer commands.`,
 		Namespace: "dedibox",
 		Resource:  "offer",
-	}
-}
-
-func dediboxOption() *core.Command {
-	return &core.Command{
-		Short:     `Subscribable server options commands`,
-		Long:      `Subscribable server options commands.`,
-		Namespace: "dedibox",
-		Resource:  "option",
 	}
 }
 
@@ -353,7 +343,7 @@ func dediboxServerGet() *core.Command {
 				Short:      `ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -368,13 +358,13 @@ func dediboxServerGet() *core.Command {
 	}
 }
 
-func dediboxOptionList() *core.Command {
+func dediboxServerListOptions() *core.Command {
 	return &core.Command{
 		Short:     `List subscribable server options`,
 		Long:      `List subscribable options associated to the given server ID.`,
 		Namespace: "dedibox",
-		Resource:  "option",
-		Verb:      "list",
+		Resource:  "server",
+		Verb:      "list-options",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(dedibox.ListSubscribableServerOptionsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -383,7 +373,7 @@ func dediboxOptionList() *core.Command {
 				Short:      `Server ID of the subscribable server options`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
 		},
@@ -407,13 +397,13 @@ func dediboxOptionList() *core.Command {
 	}
 }
 
-func dediboxOptionSubscribe() *core.Command {
+func dediboxServerSubscribeOption() *core.Command {
 	return &core.Command{
 		Short:     `Subscribe server option`,
 		Long:      `Subscribe option for the given server ID.`,
 		Namespace: "dedibox",
-		Resource:  "option",
-		Verb:      "subscribe",
+		Resource:  "server",
+		Verb:      "subscribe-option",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(dedibox.SubscribeServerOptionRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -422,7 +412,7 @@ func dediboxOptionSubscribe() *core.Command {
 				Short:      `Server ID to subscribe server option`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "option-id",
@@ -489,12 +479,12 @@ func dediboxServerCreate() *core.Command {
 	}
 }
 
-func dediboxOptionSubscribeStorage() *core.Command {
+func dediboxServerSubscribeStorage() *core.Command {
 	return &core.Command{
 		Short:     `Subscribe storage server option`,
 		Long:      `Subscribe storage option for the given server ID.`,
 		Namespace: "dedibox",
-		Resource:  "option",
+		Resource:  "server",
 		Verb:      "subscribe-storage",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(dedibox.SubscribeStorageOptionsRequest{}),
@@ -504,7 +494,7 @@ func dediboxOptionSubscribeStorage() *core.Command {
 				Short:      `Server ID of the storage options to subscribe`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "options-ids.{index}",
@@ -541,7 +531,7 @@ func dediboxServerUpdate() *core.Command {
 				Short:      `Server ID to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "hostname",
@@ -585,7 +575,7 @@ func dediboxServerReboot() *core.Command {
 				Short:      `Server ID to reboot`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -621,7 +611,7 @@ func dediboxServerStart() *core.Command {
 				Short:      `Server ID to start`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -657,7 +647,7 @@ func dediboxServerStop() *core.Command {
 				Short:      `Server ID to stop`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -693,7 +683,7 @@ func dediboxServerDelete() *core.Command {
 				Short:      `Server ID to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -737,7 +727,7 @@ func dediboxServerListEvents() *core.Command {
 				Short:      `Server ID of the server events`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
 		},
@@ -784,7 +774,7 @@ func dediboxServerListDisks() *core.Command {
 				Short:      `Server ID of the server disks`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
 		},
@@ -823,7 +813,7 @@ func dediboxServiceGet() *core.Command {
 				Short:      `ID of the service`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -853,7 +843,7 @@ func dediboxServiceDelete() *core.Command {
 				Short:      `ID of the service`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -930,7 +920,7 @@ func dediboxServerInstall() *core.Command {
 				Short:      `Server ID to install`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "os-id",
@@ -1060,7 +1050,7 @@ func dediboxServerGetInstall() *core.Command {
 				Short:      `Server ID of the server to install`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -1090,7 +1080,7 @@ func dediboxServerCancelInstall() *core.Command {
 				Short:      `Server ID of the server to cancel install`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -1126,7 +1116,7 @@ func dediboxServerGetPartitioning() *core.Command {
 				Short:      `ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "os-id",
@@ -1164,7 +1154,7 @@ The BMC (Baseboard Management Controller) access is available one hour after the
 				Short:      `ID of the server to start the BMC access`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "ip",
@@ -1207,7 +1197,7 @@ func dediboxBmcGet() *core.Command {
 				Short:      `ID of the server to get BMC access`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -1237,7 +1227,7 @@ func dediboxBmcStop() *core.Command {
 				Short:      `ID of the server to stop BMC access`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -1370,7 +1360,7 @@ func dediboxOfferGet() *core.Command {
 				Short:      `ID of offer`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "project-id",
@@ -1421,9 +1411,9 @@ func dediboxOsList() *core.Command {
 			{
 				Name:       "server-id",
 				Short:      `Filter OS by compatible server ID`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "project-id",
@@ -1469,7 +1459,7 @@ func dediboxOsGet() *core.Command {
 				Short:      `ID of the OS`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "server-id",
@@ -1513,7 +1503,7 @@ func dediboxReverseIPUpdate() *core.Command {
 				Short:      `ID of the IP`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "reverse",
@@ -1839,7 +1829,7 @@ func dediboxFipGet() *core.Command {
 				Short:      `ID of the failover IP`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -1899,7 +1889,7 @@ func dediboxRaidGet() *core.Command {
 				Short:      `ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -1929,7 +1919,7 @@ func dediboxRaidUpdate() *core.Command {
 				Short:      `ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "raid-arrays.{index}.raid-level",
@@ -1980,7 +1970,7 @@ func dediboxRescueStart() *core.Command {
 				Short:      `ID of the server to start rescue`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "os-id",
@@ -2017,7 +2007,7 @@ func dediboxRescueGet() *core.Command {
 				Short:      `ID of the server to get rescue`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -2047,7 +2037,7 @@ func dediboxRescueStop() *core.Command {
 				Short:      `ID of the server to stop rescue`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
@@ -2955,7 +2945,7 @@ func dediboxRpnV1Get() *core.Command {
 				Short:      `Rpn v1 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -3028,7 +3018,7 @@ func dediboxRpnV1Delete() *core.Command {
 				Short:      `Rpn v1 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -3063,7 +3053,7 @@ func dediboxRpnV1Update() *core.Command {
 				Short:      `Rpn v1 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -3234,7 +3224,7 @@ func dediboxRpnV1AddMembers() *core.Command {
 				Short:      `The rpn v1 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "server-ids.{index}",
@@ -3277,7 +3267,7 @@ func dediboxRpnV1DeleteMembers() *core.Command {
 				Short:      `The rpn v1 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "member-ids.{index}",
@@ -3595,7 +3585,7 @@ func dediboxRpnV2Get() *core.Command {
 				Short:      `RPN V2 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -3669,7 +3659,7 @@ func dediboxRpnV2Delete() *core.Command {
 				Short:      `RPN V2 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -3704,7 +3694,7 @@ func dediboxRpnV2Update() *core.Command {
 				Short:      `RPN V2 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -3740,7 +3730,7 @@ func dediboxRpnV2AddMembers() *core.Command {
 				Short:      `RPN V2 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "servers.{index}",
@@ -3782,7 +3772,7 @@ func dediboxRpnV2DeleteMembers() *core.Command {
 				Short:      `RPN V2 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "member-ids.{index}",
@@ -3908,7 +3898,7 @@ func dediboxRpnV2UpdateVlanMembers() *core.Command {
 				Short:      `RPN V2 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "member-ids.{index}",
@@ -3999,7 +3989,7 @@ func dediboxRpnV2DisableCompatibility() *core.Command {
 				Short:      `RPN V2 group ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

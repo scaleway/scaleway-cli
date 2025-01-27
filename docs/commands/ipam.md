@@ -3,7 +3,7 @@
 This API allows you to manage your Scaleway IP addresses with our IP Address Management tool.
   
 - [IP management command](#ip-management-command)
-  - [Book a new IP](#book-a-new-ip)
+  - [Reserve a new IP](#reserve-a-new-ip)
   - [Release an IP](#release-an-ip)
   - [Get an IP](#get-an-ip)
   - [List existing IPs](#list-existing-ips)
@@ -17,9 +17,9 @@ This API allows you to manage your Scaleway IP addresses with our IP Address Man
 *ips_long.
 
 
-### Book a new IP
+### Reserve a new IP
 
-Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.
+Reserve a new IP from the specified source. Currently IPs can only be reserved from a Private Network.
 
 **Usage:**
 
@@ -39,6 +39,8 @@ scw ipam ip create [arg=value ...]
 | is-ipv6 |  | Request an IPv6 instead of an IPv4 |
 | address |  | Request this specific IP address in the specified source pool |
 | tags.{index} |  | Tags for the IP |
+| resource.mac-address |  | MAC address of the custom resource |
+| resource.name |  | Name of the custom resource |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -105,13 +107,15 @@ scw ipam ip list [arg=value ...]
 | subnet-id |  | Subnet ID to filter for. |
 | vpc-id |  | VPC ID to filter for. |
 | attached |  | Defines whether to filter only for IPs which are attached to a resource |
+| resource-name |  | Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned. |
 | resource-id |  | Resource ID to filter for. Only IPs attached to this resource will be returned |
-| resource-type | One of: `unknown_type`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment` | Resource type to filter for. Only IPs attached to this type of resource will be returned |
+| resource-ids.{index} |  | Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned |
+| resource-type | One of: `unknown_type`, `custom`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment`, `mgdb_instance`, `apple_silicon_server`, `apple_silicon_private_nic` | Resource type to filter for. Only IPs attached to this type of resource will be returned |
+| resource-types.{index} | One of: `unknown_type`, `custom`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment`, `mgdb_instance`, `apple_silicon_server`, `apple_silicon_private_nic` | Resource types to filter for. Only IPs attached to these types of resources will be returned |
 | mac-address |  | MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned |
 | tags.{index} |  | Tags to filter for, only IPs with one or more matching tags will be returned |
 | is-ipv6 |  | Defines whether to filter only for IPv4s or IPv6s |
-| resource-name |  | Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned. |
-| resource-types.{index} | One of: `unknown_type`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment` | Resource types to filter for. Only IPs attached to these types of resources will be returned |
+| ip-ids.{index} |  | IP IDs to filter for. Only IPs with these UUIDs will be returned |
 | organization-id |  | Organization ID to filter for. Only IPs belonging to this Organization will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 

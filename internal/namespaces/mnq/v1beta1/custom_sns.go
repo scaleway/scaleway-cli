@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	mnq "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
 )
 
@@ -66,7 +66,6 @@ func autocompleteSnsCredentialsID(ctx context.Context, prefix string, request an
 				Region:    req.Region,
 				ProjectID: &completeSnsInfoCache.ProjectID,
 			})
-
 			if err != nil {
 				return nil
 			}

@@ -2,23 +2,22 @@ package lb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var (
-	certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
-		lb.CertificateStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		lb.CertificateStatusPending: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-		lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-	}
-)
+var certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
+	lb.CertificateStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+	lb.CertificateStatusPending: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
+	lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+}
 
 func lbCertificateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.Certificate
@@ -114,7 +113,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return nil, &core.CliError{
-			Err:  fmt.Errorf("missing required argument"),
+			Err:  errors.New("missing required argument"),
 			Hint: fmt.Sprintf("You need to specify %s or %s", leCommonNameArgSpecs.Name, customeCertificateArgSpecs.Name),
 			Code: 1,
 		}

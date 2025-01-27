@@ -2,11 +2,13 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os/exec"
 	"reflect"
+	"strconv"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -15,7 +17,7 @@ type instanceSSHServerRequest struct {
 	Zone     scw.Zone
 	ServerID string
 	Username string
-	Port     uint
+	Port     uint64
 	Command  string
 }
 
@@ -69,21 +71,21 @@ func instanceServerSSHRun(ctx context.Context, argsI interface{}) (i interface{}
 
 	if serverResp.Server.State != instance.ServerStateRunning {
 		return nil, &core.CliError{
-			Err:  fmt.Errorf("server is not running"),
+			Err:  errors.New("server is not running"),
 			Hint: fmt.Sprintf("Start the instance with: %s instance server start %s --wait", core.ExtractBinaryName(ctx), serverResp.Server.ID),
 		}
 	}
 
 	if serverResp.Server.PublicIP == nil {
 		return nil, &core.CliError{
-			Err:  fmt.Errorf("server does not have a public IP to connect to"),
+			Err:  errors.New("server does not have a public IP to connect to"),
 			Hint: fmt.Sprintf("Add a public IP to the instance with: %s instance server update %s ip=<ip_id>", core.ExtractBinaryName(ctx), serverResp.Server.ID),
 		}
 	}
 
 	sshArgs := []string{
 		serverResp.Server.PublicIP.Address.String(),
-		"-p", fmt.Sprintf("%d", args.Port),
+		"-p", strconv.FormatUint(args.Port, 10),
 		"-l", args.Username,
 		"-t",
 	}

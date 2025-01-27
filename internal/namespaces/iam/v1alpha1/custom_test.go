@@ -5,9 +5,9 @@ import (
 	"path"
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 )
 
@@ -20,11 +20,11 @@ func Test_initWithSSHKeyCommand(t *testing.T) {
 			pathToPublicKey := path.Join(tmpDir, ".ssh", "id_ed25519.pub")
 			_, err := os.Stat(pathToPublicKey)
 			if err != nil {
-				err := os.MkdirAll(path.Join(tmpDir, ".ssh"), 0755)
+				err := os.MkdirAll(path.Join(tmpDir, ".ssh"), 0o755)
 				if err != nil {
 					return err
 				}
-				err = os.WriteFile(pathToPublicKey, []byte(key), 0644)
+				err = os.WriteFile(pathToPublicKey, []byte(key), 0o644)
 				return err
 			}
 			return err
@@ -53,8 +53,10 @@ func Test_SSHKeyCreateCommand(t *testing.T) {
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			api := iamsdk.NewAPI(ctx.Client)
+			key := testhelpers.Value[*iamsdk.SSHKey](t, ctx.CmdResult)
+
 			return api.DeleteSSHKey(&iamsdk.DeleteSSHKeyRequest{
-				SSHKeyID: ctx.CmdResult.(*iamsdk.SSHKey).ID,
+				SSHKeyID: key.ID,
 			})
 		},
 	}))

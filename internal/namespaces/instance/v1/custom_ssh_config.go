@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/sshconfig"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
@@ -139,7 +139,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 				logger.Warningf("Failed to prompt, skipping include\n")
 				return &core.SuccessResult{
 					Message: configFileGeneratedMessage + " " + configFilePath,
-				}, nil
+				}, err
 			}
 
 			if shouldIncludeConfig {

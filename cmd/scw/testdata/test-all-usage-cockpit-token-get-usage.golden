@@ -1,12 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve a given token specified by the token ID.
+Retrieve information about a given token, specified by the token ID. The token's information such as its scopes, is returned.
 
 USAGE:
-  scw cockpit token get <token-id ...> [arg=value ...]
+  scw cockpit token get [arg=value ...]
 
 ARGS:
-  token-id   ID of the token
+  token-id          Token ID
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for get

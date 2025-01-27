@@ -5,9 +5,10 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 )
 
 //
@@ -44,6 +45,7 @@ func tagGetBuilder(c *core.Command) *core.Command {
 			ImageID: tag.ImageID,
 		})
 		if err != nil {
+			logger.Warningf("cannot get image %s %s", tag.ImageID, err)
 			return getTagResp, nil
 		}
 
@@ -51,6 +53,7 @@ func tagGetBuilder(c *core.Command) *core.Command {
 			NamespaceID: image.NamespaceID,
 		})
 		if err != nil {
+			logger.Warningf("cannot get namespace %s %s", image.NamespaceID, err)
 			return getTagResp, nil
 		}
 

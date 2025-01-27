@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -255,6 +255,13 @@ func containerNamespaceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "tags.{index}",
+				Short:      `[ALPHA] Tags of the Serverless Container Namespace`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -307,6 +314,13 @@ func containerNamespaceUpdate() *core.Command {
 			},
 			{
 				Name:       "secret-environment-variables.{index}.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `[ALPHA] Tags of the Serverless Container Namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -544,7 +558,7 @@ func containerContainerCreate() *core.Command {
 				Name:       "max-concurrency",
 				Short:      `Number of maximum concurrent executions of the container`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -590,6 +604,52 @@ func containerContainerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_sandbox", "v1", "v2"},
+			},
+			{
+				Name:       "local-storage-limit",
+				Short:      `Local storage limit of the container (in MB)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.concurrent-requests-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.cpu-usage-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.memory-usage-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.http.path",
+				Short:      `Path to use for the HTTP health check.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.failure-threshold",
+				Short:      `Number of consecutive health check failures before considering the container unhealthy.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.interval",
+				Short:      `Period between health checks.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -696,7 +756,7 @@ func containerContainerUpdate() *core.Command {
 				Name:       "max-concurrency",
 				Short:      `Number of maximum concurrent executions of the container`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -730,7 +790,6 @@ func containerContainerUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.DefaultValueSetter("enabled"),
 				EnumValues: []string{"unknown_http_option", "enabled", "redirected"},
 			},
 			{
@@ -740,6 +799,52 @@ func containerContainerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_sandbox", "v1", "v2"},
+			},
+			{
+				Name:       "local-storage-limit",
+				Short:      `Local storage limit of the container (in MB)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.concurrent-requests-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.cpu-usage-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaling-option.memory-usage-threshold",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.http.path",
+				Short:      `Path to use for the HTTP health check.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.failure-threshold",
+				Short:      `Number of consecutive health check failures before considering the container unhealthy.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.interval",
+				Short:      `Period between health checks.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -1032,8 +1137,8 @@ func containerCronDelete() *core.Command {
 
 func containerDomainList() *core.Command {
 	return &core.Command{
-		Short:     `List all domain name bindings`,
-		Long:      `List all domain name bindings in a specified region.`,
+		Short:     `List all custom domains`,
+		Long:      `List all custom domains in a specified region.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "list",
@@ -1079,8 +1184,8 @@ func containerDomainList() *core.Command {
 
 func containerDomainGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a domain name binding`,
-		Long:      `Get a domain name binding for the container with the specified ID.`,
+		Short:     `Get a custom domain`,
+		Long:      `Get a custom domain for the container with the specified ID.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "get",
@@ -1109,8 +1214,8 @@ func containerDomainGet() *core.Command {
 
 func containerDomainCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a domain name binding`,
-		Long:      `Create a domain name binding for the container with the specified ID.`,
+		Short:     `Create a custom domain`,
+		Long:      `Create a custom domain for the container with the specified ID.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "create",
@@ -1146,8 +1251,8 @@ func containerDomainCreate() *core.Command {
 
 func containerDomainDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a domain name binding`,
-		Long:      `Delete the domain name binding with the specific ID.`,
+		Short:     `Delete a custom domain`,
+		Long:      `Delete the custom domain with the specific ID.`,
 		Namespace: "container",
 		Resource:  "domain",
 		Verb:      "delete",

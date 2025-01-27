@@ -1,14 +1,14 @@
 package alias_test
 
 import (
-	"fmt"
+	"errors"
 	"strings"
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/commands"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 )
 
 func Test_Alias(t *testing.T) {
@@ -17,12 +17,13 @@ func Test_Alias(t *testing.T) {
 			core.ExecBeforeCmd("scw alias create i command=instance"),
 			core.ExecBeforeCmdArgs([]string{"scw", "alias", "create", "sl", "command=server list"}),
 		),
-		Commands:      namespaces.GetCommands(),
+		Commands:      commands.GetCommands(),
 		Cmd:           "scw i sl -h",
 		EnableAliases: true,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stderr), "instance server list")
 			},
 		),
@@ -35,12 +36,13 @@ func Test_Alias(t *testing.T) {
 			core.ExecBeforeCmd("scw alias create s command=server"),
 			core.ExecBeforeCmd("scw alias create l command=list"),
 		),
-		Commands:      namespaces.GetCommands(),
+		Commands:      commands.GetCommands(),
 		Cmd:           "scw i s l -h",
 		EnableAliases: true,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stderr), "instance server list")
 			},
 		),
@@ -51,12 +53,13 @@ func Test_Alias(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecBeforeCmd("scw alias create myalias command=iam"),
 		),
-		Commands:      namespaces.GetCommands(),
+		Commands:      commands.GetCommands(),
 		Cmd:           "scw alias list",
 		EnableAliases: true,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "myalias")
 				assert.Contains(t, string(ctx.Stdout), "iam")
 			},
@@ -68,7 +71,7 @@ func Test_Alias(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecBeforeCmd("scw alias create i command=instance"),
 		),
-		Commands:      namespaces.GetCommands(),
+		Commands:      commands.GetCommands(),
 		Cmd:           "scw alias delete i",
 		EnableAliases: true,
 		AfterFunc: core.AfterFuncCombine(
@@ -80,7 +83,7 @@ func Test_Alias(t *testing.T) {
 				}
 
 				if strings.Contains(resString, "instance") {
-					return fmt.Errorf("alias list should not contain instance")
+					return errors.New("alias list should not contain instance")
 				}
 				return nil
 			},
@@ -88,6 +91,7 @@ func Test_Alias(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.Contains(t, string(ctx.Stdout), "Deleted")
 			},
 		),

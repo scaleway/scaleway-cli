@@ -3,10 +3,9 @@ package instance_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
-
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
@@ -23,6 +22,7 @@ func Test_UpdateSnapshot(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					snapshot := ctx.Result.(*instanceSDK.Snapshot)
 					assert.Equal(t, snapshot.Name, "cli-test-snapshot-update-tags")
@@ -47,6 +47,7 @@ func Test_UpdateSnapshot(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					snapshot := ctx.Result.(*instanceSDK.Snapshot)
 					assert.Equal(t, snapshot.Name, "cli-test-snapshot-update-name-updated")

@@ -3,9 +3,8 @@ package baremetal_test
 import (
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_baremetalGetOffer(t *testing.T) {

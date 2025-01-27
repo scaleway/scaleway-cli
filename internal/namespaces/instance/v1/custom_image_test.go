@@ -3,10 +3,10 @@ package instance_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
-
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -33,7 +33,7 @@ func Test_ImageCreate(t *testing.T) {
 	t.Run("Use additional snapshots", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB -w"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S ip=none image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB -w"),
 			core.ExecStoreBeforeCmd("SnapshotA", `scw instance snapshot create -w name=cli-test-image-create-snapshotA volume-id={{ (index .Server.Volumes "0").ID }}`),
 			core.ExecStoreBeforeCmd("SnapshotB", `scw instance snapshot create -w name=cli-test-image-create-snapshotB volume-id={{ (index .Server.Volumes "1").ID }}`),
 		),
@@ -60,10 +60,13 @@ func Test_ImageDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				// Assert snapshot are deleted with the image
 				api := instanceSDK.NewAPI(ctx.Client)
+				snapshot := testhelpers.MapValue[*instanceSDK.CreateSnapshotResponse](t, ctx.Meta, "Snapshot")
+
 				_, err := api.GetSnapshot(&instanceSDK.GetSnapshotRequest{
-					SnapshotID: ctx.Meta["Snapshot"].(*instanceSDK.CreateSnapshotResponse).Snapshot.ID,
+					SnapshotID: snapshot.Snapshot.ID,
 				})
 				assert.IsType(t, &scw.ResourceNotFoundError{}, err)
 			},
@@ -104,6 +107,7 @@ func Test_ImageUpdate(t *testing.T) {
 		Cmd:        "scw instance image update {{ .ImageName.Image.ID }} name=foo",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotNil(t, ctx.Result)
 				assert.Equal(t, "foo", ctx.Result.(*instanceSDK.UpdateImageResponse).Image.Name)
 			},
@@ -124,6 +128,7 @@ func Test_ImageUpdate(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotNil(t, ctx.Result)
 				assert.Equal(t, true, ctx.Result.(*instanceSDK.UpdateImageResponse).Image.Public)
 			},
@@ -144,6 +149,7 @@ func Test_ImageUpdate(t *testing.T) {
 		Cmd:      "scw instance image update {{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotNil(t, ctx.Result)
 				assert.Equal(t, "snapVol", ctx.Result.(*instanceSDK.UpdateImageResponse).Image.ExtraVolumes["1"].Name)
 			},

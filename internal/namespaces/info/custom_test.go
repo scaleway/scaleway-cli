@@ -3,9 +3,8 @@ package info_test
 import (
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_Info(t *testing.T) {

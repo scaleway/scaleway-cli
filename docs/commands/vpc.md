@@ -10,8 +10,14 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [List Private Networks](#list-private-networks)
   - [Migrate Private Networks from zoned to regional](#migrate-private-networks-from-zoned-to-regional)
   - [Update Private Network](#update-private-network)
-- [Routes management command](#routes-management-command)
+- [Route management command](#route-management-command)
+  - [Create a Route](#create-a-route)
+  - [Delete a Route](#delete-a-route)
+  - [Enable routing on a VPC](#enable-routing-on-a-vpc)
+  - [Get a Route](#get-a-route)
   - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
+  - [Update Route](#update-route)
+- [Rule management command](#rule-management-command)
 - [Subnet management command](#subnet-management-command)
 - [VPC management command](#vpc-management-command)
   - [Create a VPC](#create-a-vpc)
@@ -184,9 +190,94 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 
 
 
-## Routes management command
+## Route management command
 
-Routes management command.
+Custom routes.
+
+
+### Create a Route
+
+Create a new custom Route.
+
+**Usage:**
+
+```
+scw vpc route create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| description |  | Route description |
+| tags.{index} |  | Tags of the Route |
+| vpc-id |  | VPC the Route belongs to |
+| destination |  | Destination of the Route |
+| nexthop-resource-id |  | ID of the nexthop resource |
+| nexthop-private-network-id |  | ID of the nexthop private network |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a Route
+
+Delete a Route specified by its Route ID.
+
+**Usage:**
+
+```
+scw vpc route delete <route-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| route-id | Required | Route ID |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Enable routing on a VPC
+
+Enable routing on an existing VPC. Note that you will not be able to deactivate it afterwards.
+
+**Usage:**
+
+```
+scw vpc route enable-routing <vpc-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | VPC ID |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a Route
+
+Retrieve details of an existing Route, specified by its Route ID.
+
+**Usage:**
+
+```
+scw vpc route get <route-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| route-id | Required | Route ID |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
 
 
 ### Return routes with associated next hop data
@@ -196,7 +287,7 @@ Return routes with associated next hop data.
 **Usage:**
 
 ```
-scw vpc routes list [arg=value ...]
+scw vpc route list [arg=value ...]
 ```
 
 
@@ -213,6 +304,45 @@ scw vpc routes list [arg=value ...]
 | tags.{index} |  | Tags to filter for, only routes with one or more matching tags will be returned |
 | is-ipv6 |  | Only routes with an IPv6 destination will be returned |
 | region | Default: `fr-par`<br />One of: `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update Route
+
+Update parameters of the specified Route.
+
+**Usage:**
+
+```
+scw vpc route update <route-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| route-id | Required | Route ID |
+| description |  | Route description |
+| tags.{index} |  | Tags of the Route |
+| destination |  | Destination of the Route |
+| nexthop-resource-id |  | ID of the nexthop resource |
+| nexthop-private-network-id |  | ID of the nexthop private network |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Rule management command
+
+Acl Rules.
+
+Acl Rules.
+
+**Usage:**
+
+```
+scw vpc rule
+```
 
 
 

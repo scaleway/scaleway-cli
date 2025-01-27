@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Add new ACL rules for a specific cluster.
+
+USAGE:
+  scw k8s acl add [arg=value ...]
+
+ARGS:
+  cluster-id                       ID of the cluster whose ACLs will be added
+  [acls.{index}.ip]                IP subnet to allow
+  [acls.{index}.scaleway-ranges]   Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway.
+  [acls.{index}.description]       Description of the ACL
+  [region=fr-par]                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for add
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

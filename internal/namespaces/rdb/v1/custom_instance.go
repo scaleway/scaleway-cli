@@ -10,12 +10,13 @@ import (
 	"path"
 	"reflect"
 	"runtime"
+	"strconv"
 	"strings"
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -30,21 +31,19 @@ const (
 	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
 
-var (
-	instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
-		rdbSDK.InstanceStatusUnknown:      &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-		rdbSDK.InstanceStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-		rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "provisioning"},
-		rdbSDK.InstanceStatusConfiguring:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "configuring"},
-		rdbSDK.InstanceStatusDeleting:     &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
-		rdbSDK.InstanceStatusError:        &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		rdbSDK.InstanceStatusAutohealing:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "auto-healing"},
-		rdbSDK.InstanceStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-		rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "initialized"},
-		rdbSDK.InstanceStatusDiskFull:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "disk_full"},
-		rdbSDK.InstanceStatusBackuping:    &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "backuping"},
-	}
-)
+var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
+	rdbSDK.InstanceStatusUnknown:      &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	rdbSDK.InstanceStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+	rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "provisioning"},
+	rdbSDK.InstanceStatusConfiguring:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "configuring"},
+	rdbSDK.InstanceStatusDeleting:     &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
+	rdbSDK.InstanceStatusError:        &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+	rdbSDK.InstanceStatusAutohealing:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "auto-healing"},
+	rdbSDK.InstanceStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
+	rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "initialized"},
+	rdbSDK.InstanceStatusDiskFull:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "disk_full"},
+	rdbSDK.InstanceStatusBackuping:    &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "backuping"},
+}
 
 type serverWaitRequest struct {
 	InstanceID string
@@ -55,6 +54,12 @@ type serverWaitRequest struct {
 type CreateInstanceResult struct {
 	*rdbSDK.Instance
 	Password string `json:"password"`
+}
+
+type rdbCreateInstanceRequestCustom struct {
+	*rdbSDK.CreateInstanceRequest
+	InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
+	GeneratePassword bool
 }
 
 func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -204,7 +209,7 @@ func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.
 }
 
 func autoCompleteDatabaseEngines(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
-	req := request.(*rdbSDK.CreateInstanceRequest)
+	req := request.(rdbCreateInstanceRequestCustom)
 	suggestion := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
@@ -229,12 +234,6 @@ func autoCompleteDatabaseEngines(ctx context.Context, prefix string, request any
 }
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
-	type rdbCreateInstanceRequestCustom struct {
-		*rdbSDK.CreateInstanceRequest
-		InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
-		GeneratePassword bool
-	}
-
 	c.ArgSpecs.AddBefore("init-endpoints.{index}.private-network.private-network-id", &core.ArgSpec{
 		Name:     "init-endpoints.{index}.load-balancer",
 		Short:    "Will configure a load-balancer endpoint along with your private network endpoint if true",
@@ -343,7 +342,7 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 			InstanceID: args.InstanceID,
 		}, scw.WithAllPages())
 		if err != nil {
-			return res, nil
+			return nil, err
 		}
 
 		return struct {
@@ -654,7 +653,7 @@ Learn more at: https://dev.mysql.com/doc/refman/8.0/en/option-files.html`
 )
 
 func passwordFileExist(ctx context.Context, family engineFamily) bool {
-	passwordFilePath := ""
+	var passwordFilePath string
 	switch family {
 	case PostgreSQL:
 		switch runtime.GOOS {
@@ -688,7 +687,7 @@ func passwordFileHint(family engineFamily) string {
 
 func detectEngineFamily(instance *rdbSDK.Instance) (engineFamily, error) {
 	if instance == nil {
-		return Unknown, fmt.Errorf("instance engine is nil")
+		return Unknown, errors.New("instance engine is nil")
 	}
 	if strings.HasPrefix(instance.Engine, string(PostgreSQL)) {
 		return PostgreSQL, nil
@@ -706,7 +705,7 @@ func getPublicEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) {
 		}
 	}
 
-	return nil, fmt.Errorf(errorMessagePublicEndpointNotFound)
+	return nil, fmt.Errorf("%s", errorMessagePublicEndpointNotFound)
 }
 
 func getPrivateEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) {
@@ -716,7 +715,7 @@ func getPrivateEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) 
 		}
 	}
 
-	return nil, fmt.Errorf(errorMessagePrivateEndpointNotFound)
+	return nil, fmt.Errorf("%s", errorMessagePrivateEndpointNotFound)
 }
 
 func createConnectCommandLineArgs(endpoint *rdbSDK.Endpoint, family engineFamily, args *instanceConnectArgs) ([]string, error) {
@@ -736,7 +735,7 @@ func createConnectCommandLineArgs(endpoint *rdbSDK.Endpoint, family engineFamily
 		return []string{
 			clidb,
 			"--host", endpoint.IP.String(),
-			"--port", fmt.Sprintf("%d", endpoint.Port),
+			"--port", strconv.FormatUint(uint64(endpoint.Port), 10),
 			"--username", args.Username,
 			"--dbname", database,
 		}, nil
@@ -750,7 +749,7 @@ func createConnectCommandLineArgs(endpoint *rdbSDK.Endpoint, family engineFamily
 		return []string{
 			clidb,
 			"--host", endpoint.IP.String(),
-			"--port", fmt.Sprintf("%d", endpoint.Port),
+			"--port", strconv.FormatUint(uint64(endpoint.Port), 10),
 			"--database", database,
 			"--user", args.Username,
 		}, nil
@@ -815,7 +814,7 @@ func instanceConnectCommand() *core.Command {
 			}
 
 			if len(instance.Endpoints) == 0 {
-				return nil, fmt.Errorf(errorMessageEndpointNotFound)
+				return nil, fmt.Errorf("%s", errorMessageEndpointNotFound)
 			}
 
 			var endpoint *rdbSDK.Endpoint
@@ -843,10 +842,9 @@ func instanceConnectCommand() *core.Command {
 
 			// Run command
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
-			//cmd.Stdin = os.Stdin
+			// cmd.Stdin = os.Stdin
 			core.ExtractLogger(ctx).Debugf("executing: %s\n", cmd.Args)
 			exitCode, err := core.ExecCmd(ctx, cmd)
-
 			if err != nil {
 				return nil, err
 			}

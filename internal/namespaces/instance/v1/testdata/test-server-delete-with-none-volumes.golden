@@ -1,8 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-successfully deleted ip 51.158.72.215
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",

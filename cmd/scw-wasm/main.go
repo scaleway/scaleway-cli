@@ -8,7 +8,7 @@ import (
 	"syscall/js"
 
 	"github.com/hashicorp/go-version"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
 	"github.com/scaleway/scaleway-cli/v2/internal/wasm"
 )

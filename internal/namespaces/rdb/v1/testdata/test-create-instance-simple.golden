@@ -1,37 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt                         few seconds ago
-Region                            fr-par
-ID                                7b807f4b-9737-4b4b-bf37-fed3d35e9fe9
-Name                              cli-test
-OrganizationID                    fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID                         fa1e3217-dc80-42ac-85c3-3f034b78b552
-Status                            ready
-Engine                            PostgreSQL-12
-UpgradableVersion.0.ID            f4c1ec41-89e1-48de-b872-b63b779b0dba
-UpgradableVersion.0.Name          PostgreSQL-13
-UpgradableVersion.0.Version       13
-UpgradableVersion.0.MinorVersion  13.13
-UpgradableVersion.1.ID            8af4ebbb-fd08-4038-89f6-9d8c8f1232ca
-UpgradableVersion.1.Name          PostgreSQL-14
-UpgradableVersion.1.Version       14
-UpgradableVersion.1.MinorVersion  14.10
-UpgradableVersion.2.ID            764c6bb3-2f1c-4f1a-bfd5-82c540ac435c
-UpgradableVersion.2.Name          PostgreSQL-15
-UpgradableVersion.2.Version       15
-UpgradableVersion.2.MinorVersion  15.5
-IsHaCluster                       false
-NodeType                          db-dev-s
-Endpoints.0.ID                    a5e709a7-9942-4e90-a0ed-3bc20b100282
-Endpoints.0.IP                    51.159.206.160
-Endpoints.0.Port                  25617
-LogsPolicy.MaxAgeRetention        30
-BackupSameRegion                  false
+CreatedAt                   few seconds ago
+Region                      fr-par
+ID                          19fe63d7-3a09-4c5b-87ba-0db8206ea38d
+Name                        cli-test
+OrganizationID              5ebc0159-7cb7-406c-9521-9347d1987fb2
+ProjectID                   5ebc0159-7cb7-406c-9521-9347d1987fb2
+Status                      ready
+Engine                      PostgreSQL-15
+IsHaCluster                 false
+NodeType                    db-dev-s
+Endpoints.0.ID              4e6e7f82-a155-43c6-a364-925b6413e7c3
+Endpoints.0.IP              195.154.71.12
+Endpoints.0.Port            6467
+LogsPolicy.MaxAgeRetention  30
+BackupSameRegion            false
+Encryption.Enabled          false
 
 Endpoint:
-ID    a5e709a7-9942-4e90-a0ed-3bc20b100282
-IP    51.159.206.160
-Port  25617
+ID    4e6e7f82-a155-43c6-a364-925b6413e7c3
+IP    195.154.71.12
+Port  6467
 
 Volume:
 Type   lssd
@@ -64,36 +53,17 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "7b807f4b-9737-4b4b-bf37-fed3d35e9fe9",
+  "id": "19fe63d7-3a09-4c5b-87ba-0db8206ea38d",
   "name": "cli-test",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
   "status": "ready",
-  "engine": "PostgreSQL-12",
-  "upgradable_version": [
-    {
-      "id": "f4c1ec41-89e1-48de-b872-b63b779b0dba",
-      "name": "PostgreSQL-13",
-      "version": "13",
-      "minor_version": "13.13"
-    },
-    {
-      "id": "8af4ebbb-fd08-4038-89f6-9d8c8f1232ca",
-      "name": "PostgreSQL-14",
-      "version": "14",
-      "minor_version": "14.10"
-    },
-    {
-      "id": "764c6bb3-2f1c-4f1a-bfd5-82c540ac435c",
-      "name": "PostgreSQL-15",
-      "version": "15",
-      "minor_version": "15.5"
-    }
-  ],
+  "engine": "PostgreSQL-15",
+  "upgradable_version": [],
   "endpoint": {
-    "id": "a5e709a7-9942-4e90-a0ed-3bc20b100282",
-    "ip": "51.159.206.160",
-    "port": 25617,
+    "id": "4e6e7f82-a155-43c6-a364-925b6413e7c3",
+    "ip": "195.154.71.12",
+    "port": 6467,
     "name": null,
     "load_balancer": {}
   },
@@ -136,9 +106,9 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "a5e709a7-9942-4e90-a0ed-3bc20b100282",
-      "ip": "51.159.206.160",
-      "port": 25617,
+      "id": "4e6e7f82-a155-43c6-a364-925b6413e7c3",
+      "ip": "195.154.71.12",
+      "port": 6467,
       "name": null,
       "load_balancer": {}
     }
@@ -149,6 +119,8 @@ Password:
   },
   "backup_same_region": false,
   "maintenances": [],
-  "encryption": null,
+  "encryption": {
+    "enabled": false
+  },
   "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }

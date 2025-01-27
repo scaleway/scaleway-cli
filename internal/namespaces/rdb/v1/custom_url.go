@@ -2,12 +2,13 @@ package rdb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 	"reflect"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -52,7 +53,7 @@ func databaseGetURLCommand() *core.Command {
 }
 
 func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
-	//var u url.URL
+	// var u url.URL
 	u := &url.URL{}
 	client := core.ExtractClient(ctx)
 	api := rdb.NewAPI(client)
@@ -67,11 +68,12 @@ func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
 		return nil, fmt.Errorf("failed to get instance %q", args.InstanceID)
 	}
 
-	if strings.HasPrefix(instance.Engine, string(PostgreSQL)) {
+	switch {
+	case strings.HasPrefix(instance.Engine, string(PostgreSQL)):
 		u.Scheme = "postgresql"
-	} else if strings.HasPrefix(instance.Engine, string(MySQL)) {
+	case strings.HasPrefix(instance.Engine, string(MySQL)):
 		u.Scheme = "mysql"
-	} else {
+	default:
 		return nil, fmt.Errorf("unknown engine %q", instance.Engine)
 	}
 
@@ -104,7 +106,7 @@ func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
 		endpoint = privateEndpoint
 	}
 	if endpoint == nil {
-		return nil, fmt.Errorf("instance has no endpoint therefore no url can be returned")
+		return nil, errors.New("instance has no endpoint therefore no url can be returned")
 	}
 	u.Host = fmt.Sprintf("%s:%d", endpoint.IP.String(), endpoint.Port)
 

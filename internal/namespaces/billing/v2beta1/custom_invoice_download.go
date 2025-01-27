@@ -2,6 +2,7 @@ package billing
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -11,7 +12,7 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	billing "github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
@@ -76,14 +77,14 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 
 		date, err := trimDateFromFileName(resp.Name)
 		if err != nil {
-			return fmt.Errorf("parse date on file name")
+			return errors.New("parse date on file name")
 		}
 
 		dir, file := getDirFile(args.FilePath)
 		if len(file) > 0 {
 			fileExtension := filepath.Ext(file)
 			if extensionOnFile := checkDownloadInvoiceExt(fileExtension); !extensionOnFile {
-				return fmt.Errorf("file has not supported extension")
+				return errors.New("file has not supported extension")
 			}
 		}
 
@@ -126,7 +127,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 				return err
 			}
 			if !overrideFile {
-				return fmt.Errorf("download file canceled")
+				return errors.New("download file canceled")
 			}
 		}
 
@@ -137,21 +138,15 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 }
 
 func addDownloadExt(fileName, contentType string) string {
-	switch contentType {
-	case "application/pdf":
-		fileName = fmt.Sprintf("%s.pdf", fileName)
+	if contentType == "application/pdf" {
+		fileName += ".pdf"
 	}
 
 	return fileName
 }
 
 func checkDownloadInvoiceExt(ext string) bool {
-	switch ext {
-	case ".pdf":
-		return true
-	}
-
-	return false
+	return ext == ".pdf"
 }
 
 func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, error) {
@@ -177,7 +172,7 @@ func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, er
 			// case when filepath is a directory: join default name with custom path
 			date, err := trimDateFromFileName(resp.Name)
 			if err != nil {
-				return nil, fmt.Errorf("parse date on file name")
+				return nil, errors.New("parse date on file name")
 			}
 
 			defaultFileName := fmt.Sprintf("%s-%s-%s", invoiceDefaultPrefix, date, argsDownload.InvoiceID)

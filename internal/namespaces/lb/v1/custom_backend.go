@@ -8,8 +8,8 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
@@ -152,7 +152,7 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 					if server.Server.PrivateIP == nil {
 						return nil, &core.CliError{
 							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
-							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.Server.ID),
+							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
@@ -208,7 +208,7 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 					if server.PrivateIP == nil {
 						return nil, &core.CliError{
 							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
-							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.ID),
+							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.PrivateIP)
@@ -331,7 +331,7 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 					if server.Server.PrivateIP == nil {
 						return nil, &core.CliError{
 							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
-							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.Server.ID),
+							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
@@ -387,7 +387,7 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 					if server.PrivateIP == nil {
 						return nil, &core.CliError{
 							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
-							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.ID),
+							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.PrivateIP)
@@ -499,7 +499,7 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 					if server.Server.PrivateIP == nil {
 						return nil, &core.CliError{
 							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
-							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.Server.ID),
+							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
@@ -555,7 +555,7 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 					if server.PrivateIP == nil {
 						return nil, &core.CliError{
 							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
-							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.ID),
+							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.PrivateIP)
@@ -667,7 +667,7 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 					if server.Server.PrivateIP == nil {
 						return nil, &core.CliError{
 							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
-							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.Server.ID),
+							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
@@ -723,7 +723,7 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 					if server.PrivateIP == nil {
 						return nil, &core.CliError{
 							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
-							Hint:    fmt.Sprintf("Private ip are assigned when the server boots, start yours with: scw instance server start %s", server.ID),
+							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.PrivateIP)
@@ -782,11 +782,11 @@ func interceptBackend() core.CommandInterceptor {
 					switch detail.ArgumentName {
 					case "Port":
 						return nil, &core.CliError{
-							Err: fmt.Errorf("missing or invalid 'health-check.port' argument"),
+							Err: errors.New("missing or invalid 'health-check.port' argument"),
 						}
 					case "CheckMaxRetries":
 						return nil, &core.CliError{
-							Err: fmt.Errorf("missing or invalid 'health-check.check-max-retries' argument"),
+							Err: errors.New("missing or invalid 'health-check.check-max-retries' argument"),
 						}
 					}
 				}

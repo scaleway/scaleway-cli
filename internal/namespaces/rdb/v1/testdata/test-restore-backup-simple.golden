@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID            bf4eb12e-d7d8-4e7f-9524-787eb6cabcf3
-InstanceID    0761b1ab-69c5-49b8-891a-28b7e53dc674
+ID            787ecd88-1fe3-4c70-8d46-d31a4d5f5ade
+InstanceID    694f5cf8-e1da-4362-a38a-33eb3beb80f3
 DatabaseName  rdb
 Name          foobar
 Status        ready
@@ -14,12 +14,12 @@ Region        fr-par
 SameRegion    false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "bf4eb12e-d7d8-4e7f-9524-787eb6cabcf3",
-  "instance_id": "0761b1ab-69c5-49b8-891a-28b7e53dc674",
+  "id": "787ecd88-1fe3-4c70-8d46-d31a4d5f5ade",
+  "instance_id": "694f5cf8-e1da-4362-a38a-33eb3beb80f3",
   "database_name": "rdb",
   "name": "foobar",
   "status": "ready",
-  "size": 2107,
+  "size": 2104,
   "expires_at": "2032-01-02T22:04:05Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",

@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -58,8 +58,8 @@ func ipamIPSet() *core.Command {
 
 func ipamIPCreate() *core.Command {
 	return &core.Command{
-		Short:     `Book a new IP`,
-		Long:      `Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.`,
+		Short:     `Reserve a new IP`,
+		Long:      `Reserve a new IP from the specified source. Currently IPs can only be reserved from a Private Network.`,
 		Namespace: "ipam",
 		Resource:  "ip",
 		Verb:      "create",
@@ -105,6 +105,20 @@ func ipamIPCreate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags for the IP`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource.name",
+				Short:      `Name of the custom resource`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -335,8 +349,22 @@ func ipamIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "resource-name",
+				Short:      `Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "resource-id",
 				Short:      `Resource ID to filter for. Only IPs attached to this resource will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource-ids.{index}",
+				Short:      `Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -347,7 +375,15 @@ func ipamIPList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment"},
+				EnumValues: []string{"unknown_type", "custom", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment", "mgdb_instance", "apple_silicon_server", "apple_silicon_private_nic"},
+			},
+			{
+				Name:       "resource-types.{index}",
+				Short:      `Resource types to filter for. Only IPs attached to these types of resources will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_type", "custom", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment", "mgdb_instance", "apple_silicon_server", "apple_silicon_private_nic"},
 			},
 			{
 				Name:       "mac-address",
@@ -371,19 +407,11 @@ func ipamIPList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "resource-name",
-				Short:      `Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.`,
+				Name:       "ip-ids.{index}",
+				Short:      `IP IDs to filter for. Only IPs with these UUIDs will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-			},
-			{
-				Name:       "resource-types.{index}",
-				Short:      `Resource types to filter for. Only IPs attached to these types of resources will be returned`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"unknown_type", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment"},
 			},
 			{
 				Name:       "organization-id",

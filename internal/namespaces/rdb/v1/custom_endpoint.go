@@ -2,11 +2,12 @@ package rdb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -76,7 +77,6 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 			Default:  core.DefaultValueSetter("true"),
 		},
 		{
-
 			Name:     "load-balancer",
 			Short:    "Will configure a public Load-Balancer endpoint",
 			Required: false,
@@ -250,7 +250,8 @@ func endpointListCommand() *core.Command {
 func endpointRequestFromCustom(customEndpoints []*rdbEndpointSpecCustom) ([]*rdb.EndpointSpec, error) {
 	endpoints := []*rdb.EndpointSpec(nil)
 	for _, customEndpoint := range customEndpoints {
-		if customEndpoint.PrivateNetwork != nil && customEndpoint.PrivateNetwork.EndpointSpecPrivateNetwork != nil {
+		switch {
+		case customEndpoint.PrivateNetwork != nil && customEndpoint.PrivateNetwork.EndpointSpecPrivateNetwork != nil:
 			ipamConfig := &rdb.EndpointSpecPrivateNetworkIpamConfig{}
 			if !customEndpoint.PrivateNetwork.EnableIpam || customEndpoint.PrivateNetwork.ServiceIP != nil {
 				ipamConfig = nil
@@ -262,12 +263,12 @@ func endpointRequestFromCustom(customEndpoints []*rdbEndpointSpecCustom) ([]*rdb
 					IpamConfig:       ipamConfig,
 				},
 			})
-		} else if customEndpoint.LoadBalancer {
+		case customEndpoint.LoadBalancer:
 			endpoints = append(endpoints, &rdb.EndpointSpec{
 				LoadBalancer: &rdb.EndpointSpecLoadBalancer{},
 			})
-		} else {
-			return nil, fmt.Errorf("endpoint must be either a load-balancer or a private network")
+		default:
+			return nil, errors.New("endpoint must be either a load-balancer or a private network")
 		}
 	}
 	return endpoints, nil

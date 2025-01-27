@@ -4,9 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 )
 
@@ -28,11 +27,12 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 			deleteLB(),
 			core.AfterFuncWhenUpdatingCassette(
 				func(_ *core.AfterFuncCtx) error {
-					time.Sleep(10 * time.Second)
+					time.Sleep(1 * time.Minute)
 					return nil
 				},
 			),
 			deletePN(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }

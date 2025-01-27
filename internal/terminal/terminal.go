@@ -5,9 +5,8 @@ package terminal
 import (
 	"os"
 
-	"golang.org/x/term"
-
 	"github.com/fatih/color"
+	"golang.org/x/term"
 )
 
 func Style(msg string, styles ...color.Attribute) string {

@@ -9,7 +9,7 @@ ARGS:
   instance-id                UUID of the Database Instance in which you want to create a user
   [name]                     Name of the user you want to create
   [generate-password=true]   Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
-  [password]                 Password of the user you want to create
+  [password]                 Password of the user you want to create. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character
   [is-admin]                 Defines whether the user will have administrative privileges
   [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

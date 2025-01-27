@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -89,6 +89,8 @@ func GetGeneratedCommands() *core.Commands {
 		instancePrivateNicGet(),
 		instancePrivateNicUpdate(),
 		instancePrivateNicDelete(),
+		instanceVolumePlanMigration(),
+		instanceVolumeApplyMigration(),
 	)
 }
 func instanceRoot() *core.Command {
@@ -650,12 +652,6 @@ func instanceServerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "bootscript",
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
 				Name:       "dynamic-ip-required",
 				Required:   false,
 				Deprecated: false,
@@ -665,7 +661,7 @@ func instanceServerUpdate() *core.Command {
 				Name:       "routed-ip-enabled",
 				Short:      `True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False)`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -1114,13 +1110,6 @@ func instanceImageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_arch", "x86_64", "arm", "arm64"},
-			},
-			{
-				Name:       "default-bootscript",
-				Short:      `Default bootscript of the image`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
 			},
 			{
 				Name:       "extra-volumes.{key}.id",
@@ -1616,7 +1605,7 @@ func instanceSnapshotDelete() *core.Command {
 func instanceSnapshotExport() *core.Command {
 	return &core.Command{
 		Short:     `Export a snapshot`,
-		Long:      `Export a snapshot to a specified S3 bucket in the same region.`,
+		Long:      `Export a snapshot to a specified Object Storage bucket in the same region.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "export",
@@ -1625,14 +1614,14 @@ func instanceSnapshotExport() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "bucket",
-				Short:      `S3 bucket name`,
+				Short:      `Object Storage bucket name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "key",
-				Short:      `S3 object key`,
+				Short:      `Object key`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1656,7 +1645,7 @@ func instanceSnapshotExport() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Export a snapshot to an S3 bucket",
+				Short:    "Export a snapshot to an Object Storage bucket",
 				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},
@@ -3326,7 +3315,7 @@ func instanceIPList() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6')`,
+				Short:      `Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat')`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3432,7 +3421,7 @@ func instanceIPCreate() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6')`,
+				Short:      `IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3865,6 +3854,97 @@ func instancePrivateNicDelete() *core.Command {
 			return &core.SuccessResult{
 				Resource: "private-nic",
 				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func instanceVolumePlanMigration() *core.Command {
+	return &core.Command{
+		Short: `Get a volume or snapshot's migration plan`,
+		Long: `Given a volume or snapshot, returns the migration plan but does not perform the actual migration. To perform the migration, you have to call the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint afterward.
+The endpoint returns the resources that should be migrated together:
+- the volume and any snapshots created from the volume, if the call was made to plan a volume migration.
+- the base volume of the snapshot (if the volume is not deleted) and its related snapshots, if the call was made to plan a snapshot migration.
+The endpoint also returns the validation_key, which must be provided to the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint to confirm that all resources listed in the plan should be migrated.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "plan-migration",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.PlanBlockMigrationRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `The volume for which the migration plan will be generated.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "snapshot-id",
+				Short:      `The snapshot for which the migration plan will be generated.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.PlanBlockMigrationRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.PlanBlockMigration(request)
+
+		},
+	}
+}
+
+func instanceVolumeApplyMigration() *core.Command {
+	return &core.Command{
+		Short:     `Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)`,
+		Long:      `To be used, the call to this endpoint must be preceded by a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "apply-migration",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.ApplyBlockMigrationRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "snapshot-id",
+				Short:      `The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "validation-key",
+				Short:      `A value to be retrieved from a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.ApplyBlockMigrationRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			e = api.ApplyBlockMigration(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "volume",
+				Verb:     "apply-migration",
 			}, nil
 		},
 	}

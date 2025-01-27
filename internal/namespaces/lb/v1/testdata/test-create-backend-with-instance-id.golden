@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Hint:
-Private ip are assigned when the server boots, start yours with: scw instance server start 82f5ef6f-009e-4cbc-81e3-356fbfd2a668
+Private ip are assigned when the server boots, start yours with: scw instance server start a4632a61-d23a-44d7-9339-c6e5969a6138
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "server 82f5ef6f-009e-4cbc-81e3-356fbfd2a668 (cli-srv-condescending-booth) does not have a private ip",
-  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start 82f5ef6f-009e-4cbc-81e3-356fbfd2a668"
+  "message": "server a4632a61-d23a-44d7-9339-c6e5969a6138 (cli-srv-vigorous-bose) does not have a private ip",
+  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start a4632a61-d23a-44d7-9339-c6e5969a6138"
 }

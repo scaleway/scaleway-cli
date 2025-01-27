@@ -3,20 +3,20 @@ package config
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"reflect"
 	"strings"
 
-	"github.com/scaleway/scaleway-sdk-go/validation"
-
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
 func GetCommands() *core.Commands {
@@ -222,7 +222,8 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					}
 					return nil
 				},
-			}, {
+			},
+			{
 				Name:  "default-project-id",
 				Short: "A default Scaleway project id",
 				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
@@ -291,7 +292,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 
 			argValue := reflect.ValueOf(args).Elem()
 			profileValue := reflect.ValueOf(profile).Elem()
-			for i := 0; i < argValue.NumField(); i++ {
+			for i := range argValue.NumField() {
 				field := argValue.Field(i)
 				if !field.IsNil() {
 					profileValue.Field(i).Set(field)
@@ -357,7 +358,7 @@ func configUnsetCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("successfully unset %s", key),
+				Message: "successfully unset " + key,
 			}, nil
 		},
 	}
@@ -440,7 +441,7 @@ func configDeleteProfileCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("successfully delete profile %s", profileName),
+				Message: "successfully delete profile " + profileName,
 			}, nil
 		},
 	}
@@ -491,7 +492,7 @@ func configActivateProfileCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("successfully activate profile %s", profileName),
+				Message: "successfully activate profile " + profileName,
 			}, nil
 		},
 	}
@@ -540,7 +541,7 @@ func configDestroyCommand() *core.Command {
 			configPath := core.ExtractConfigPath(ctx)
 			err := os.Remove(configPath)
 			if err != nil {
-				return err, nil
+				return nil, err
 			}
 			return &core.SuccessResult{
 				Message: "successfully destroy config",
@@ -771,7 +772,7 @@ func getProfileField(profile *scw.Profile, key string) (reflect.Value, error) {
 func getProfileKeys() []string {
 	t := reflect.TypeOf(scw.Profile{})
 	keys := []string{}
-	for i := 0; i < t.NumField(); i++ {
+	for i := range t.NumField() {
 		field := t.Field(i)
 		switch field.Name {
 		case "APIURL":
@@ -823,7 +824,7 @@ func validateAccessKey(profile *scw.Profile) error {
 	if profile.AccessKey != nil {
 		if *profile.AccessKey == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("access key cannot be empty"),
+				Err: errors.New("access key cannot be empty"),
 			}
 		}
 
@@ -838,7 +839,7 @@ func validateSecretKey(profile *scw.Profile) error {
 	if profile.SecretKey != nil {
 		if *profile.SecretKey == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("secret key cannot be empty"),
+				Err: errors.New("secret key cannot be empty"),
 			}
 		}
 
@@ -853,7 +854,7 @@ func validateDefaultOrganizationID(profile *scw.Profile) error {
 	if profile.DefaultOrganizationID != nil {
 		if *profile.DefaultOrganizationID == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("default organization ID cannot be empty"),
+				Err: errors.New("default organization ID cannot be empty"),
 			}
 		}
 
@@ -868,7 +869,7 @@ func validateDefaultProjectID(profile *scw.Profile) error {
 	if profile.DefaultProjectID != nil {
 		if *profile.DefaultProjectID == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("default project ID cannot be empty"),
+				Err: errors.New("default project ID cannot be empty"),
 			}
 		}
 
@@ -883,7 +884,7 @@ func validateDefaultRegion(profile *scw.Profile) error {
 	if profile.DefaultRegion != nil {
 		if *profile.DefaultRegion == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("default region cannot be empty"),
+				Err: errors.New("default region cannot be empty"),
 			}
 		}
 
@@ -898,7 +899,7 @@ func validateDefaultZone(profile *scw.Profile) error {
 	if profile.DefaultZone != nil {
 		if *profile.DefaultZone == "" {
 			return &core.CliError{
-				Err: fmt.Errorf("default zone cannot be empty"),
+				Err: errors.New("default zone cannot be empty"),
 			}
 		}
 

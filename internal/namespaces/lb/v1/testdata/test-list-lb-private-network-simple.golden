@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 IPAM IDS  DHCP CONFIG IPID  STATIC CONFIG IP ADDRESS  PRIVATE NETWORK ID                    STATUS   CREATED AT       UPDATED AT
-[]        -                 -                         4838d344-a416-4e7d-9b9f-faa1ea5deb7a  pending  few seconds ago  few seconds ago
+[]        -                 -                         f6dd3849-441c-4dae-988a-93a673ad72d7  pending  few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "lb": {
-      "id": "3268271a-bb6c-4fb7-bc26-3b382754a77f",
+      "id": "7a0c3a08-e13a-46f8-b0a2-1423625bb0ef",
       "name": "cli-test",
       "description": "cli-test",
       "status": "ready",
@@ -15,13 +15,13 @@ IPAM IDS  DHCP CONFIG IPID  STATIC CONFIG IP ADDRESS  PRIVATE NETWORK ID        
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
       "ip": [
         {
-          "id": "b39ac506-623f-4455-9a3e-a8333a4e35c6",
-          "ip_address": "51.158.58.126",
+          "id": "10f0e543-9cf1-4fcc-b939-c9ec675c01db",
+          "ip_address": "51.159.25.215",
           "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
           "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-          "lb_id": "3268271a-bb6c-4fb7-bc26-3b382754a77f",
-          "reverse": "51-158-58-126.lb.fr-par.scw.cloud",
-          "tags": null,
+          "lb_id": "7a0c3a08-e13a-46f8-b0a2-1423625bb0ef",
+          "reverse": "51-159-25-215.lb.fr-par.scw.cloud",
+          "tags": [],
           "region": "fr-par",
           "zone": "fr-par-1"
         }
@@ -41,7 +41,7 @@ IPAM IDS  DHCP CONFIG IPID  STATIC CONFIG IP ADDRESS  PRIVATE NETWORK ID        
     },
     "ipam_ids": [],
     "dhcp_config": {},
-    "private_network_id": "4838d344-a416-4e7d-9b9f-faa1ea5deb7a",
+    "private_network_id": "f6dd3849-441c-4dae-988a-93a673ad72d7",
     "status": "pending",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z"

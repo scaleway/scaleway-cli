@@ -6,13 +6,13 @@ USAGE:
   scw k8s <command>
 
 AVAILABLE COMMANDS:
-  acl          Access Control List (ACL) management commands
-  cluster      Kapsule cluster management commands
-  cluster-type Cluster type management commands
-  kubeconfig   Manage your Kubernetes Kapsule cluster's kubeconfig files
-  node         Kapsule node management commands
-  pool         Kapsule pool management commands
-  version      Available Kubernetes versions commands
+  acl             Access Control List (ACL) management commands
+  cluster         Kapsule cluster management commands
+  cluster-type    Cluster type management commands
+  kubeconfig      Manage your Kubernetes Kapsule cluster's kubeconfig files
+  node            Kapsule node management commands
+  pool            Kapsule pool management commands
+  version         Available Kubernetes versions commands
 
 FLAGS:
   -h, --help   help for k8s

@@ -45,7 +45,7 @@ func hasTag(tags []string, actualTag string) bool {
 func valueMapperWithoutOpt(dest reflect.Value, src reflect.Value, includeFields []string, excludeFields []string) {
 	switch dest.Kind() {
 	case reflect.Struct:
-		for i := 0; i < dest.NumField(); i++ {
+		for i := range dest.NumField() {
 			destField := dest.Field(i)
 			fieldType := dest.Type().Field(i)
 			srcField := src.FieldByName(fieldType.Name)
@@ -82,7 +82,7 @@ func valueMapperWithoutOpt(dest reflect.Value, src reflect.Value, includeFields 
 		// If destination is a slice, allocate the slice and map each value
 		srcLen := src.Len()
 		dest.Set(reflect.MakeSlice(dest.Type(), srcLen, srcLen))
-		for i := 0; i < srcLen; i++ {
+		for i := range srcLen {
 			valueMapperWithoutOpt(dest.Index(i), src.Index(i), includeFields, excludeFields)
 		}
 	default:
@@ -140,7 +140,7 @@ func DeleteRecursive(elem interface{}, keys ...string) {
 	case reflect.Map:
 		deleteRecursiveMap(elem.(map[string]interface{}), keys...)
 	case reflect.Slice:
-		for i := 0; i < value.Len(); i++ {
+		for i := range value.Len() {
 			DeleteRecursive(value.Index(i).Interface(), keys...)
 		}
 	}

@@ -1,7 +1,7 @@
 package marketplace
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 // custom_marshal: contains all the registered MarshalFunc and the human.Marshaler implementations

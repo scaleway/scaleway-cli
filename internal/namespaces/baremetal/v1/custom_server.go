@@ -2,13 +2,14 @@ package baremetal
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -18,13 +19,11 @@ const (
 	ServerActionTimeout = 20 * time.Minute
 )
 
-var (
-	serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
-		baremetal.ServerPingStatusPingStatusDown:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "down"},
-		baremetal.ServerPingStatusPingStatusUp:      &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "up"},
-		baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-	}
-)
+var serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
+	baremetal.ServerPingStatusPingStatusDown:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "down"},
+	baremetal.ServerPingStatusPingStatusUp:      &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "up"},
+	baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+}
 
 func serverWaitCommand() *core.Command {
 	type serverWaitRequest struct {
@@ -57,7 +56,7 @@ func serverWaitCommand() *core.Command {
 			}
 			if server.Status != baremetal.ServerStatusReady {
 				return nil, &core.CliError{
-					Err:     fmt.Errorf("server did not reach a stable delivery status"),
+					Err:     errors.New("server did not reach a stable delivery status"),
 					Details: fmt.Sprintf("server %s is in %s status", server.ID, server.Status),
 				}
 			}
