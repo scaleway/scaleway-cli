@@ -25,6 +25,8 @@ const (
 	serverActionCreate = iota
 	serverActionDelete
 	serverActionReboot
+	bareMetalLink = "\u001B[38;2;121;45;212;4m\u001B]8;;https://console.scaleway.com/organization/contracts\u001B\\Bare Metal Specific Conditions\u001B]8;;\u001B\\\u001B[0m (\u001B[38;2;121;45;212mhttps://console.scaleway.com/organization/contracts\u001B[0m)"
+	appleLink     = "\u001B[4m\u001B[38;2;121;45;212m\u001B]8;;https://www.apple.com/legal/sla/\u001B\\macOS License Agreement\u001B]8;;\u001B\\\u001B[0m (https://www.apple.com/legal/sla/)"
 )
 
 var serverStatusMarshalSpecs = human.EnumMarshalSpecs{
@@ -51,8 +53,6 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return nil, err
 		}
-		bareMetalLink := "\u001B[38;2;121;45;212;4m\u001B]8;;https://console.scaleway.com/organization/contracts\u001B\\Bare Metal Specific Conditions\u001B]8;;\u001B\\\u001B[0m (\u001B[38;2;121;45;212mhttps://console.scaleway.com/organization/contracts\u001B[0m)"
-		appleLink := "\u001B[4m\u001B[38;2;121;45;212m\u001B]8;;https://www.apple.com/legal/sla/\u001B\\macOS License Agreement\u001B]8;;\u001B\\\u001B[0m (https://www.apple.com/legal/sla/)"
 		if contractInfo != nil && contractInfo.Validated {
 			fmt.Println("Please note: Signing the " + appleLink + " is mandatory.")
 		} else {
