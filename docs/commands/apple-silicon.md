@@ -5,6 +5,11 @@ Apple silicon API.
 - [OS management commands](#os-management-commands)
   - [Get an Operating System (OS)](#get-an-operating-system-(os))
   - [List all Operating Systems (OS)](#list-all-operating-systems-(os))
+- [Private network management command](#private-network-management-command)
+  - [Add a server to a Private Network](#add-a-server-to-a-private-network)
+  - [Delete a Private Network](#delete-a-private-network)
+  - [List the Private Networks of a server](#list-the-private-networks-of-a-server)
+  - [Set multiple Private Networks on a server](#set-multiple-private-networks-on-a-server)
 - [Apple silicon management commands](#apple-silicon-management-commands)
   - [Create a server](#create-a-server)
   - [Delete a server](#delete-a-server)
@@ -63,6 +68,105 @@ scw apple-silicon os list [arg=value ...]
 | server-type |  | List of compatible server types |
 | name |  | Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12")) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+## Private network management command
+
+A Private Network allows you to interconnect your resources
+in an isolated and private
+network. Network reachability is limited to the
+resources that are in the same VPC.
+
+Note that a resource can be a part of multiple Private Networks.
+
+
+### Add a server to a Private Network
+
+Add an Apple silicon server to a Private Network.
+
+**Usage:**
+
+```
+scw apple-silicon private-network add [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| private-network-id | Required | ID of the Private Network |
+| ipam-ip-ids.{index} |  | IPAM IDs of IPs to attach to the server |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Delete a Private Network
+
+Delete a Private Network.
+
+**Usage:**
+
+```
+scw apple-silicon private-network delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| private-network-id | Required | ID of the Private Network |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List the Private Networks of a server
+
+List the Private Networks of an Apple silicon server.
+
+**Usage:**
+
+```
+scw apple-silicon private-network list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Sort order for the returned Private Networks |
+| server-id |  | Filter Private Networks by server ID |
+| private-network-id |  | Filter Private Networks by Private Network ID |
+| project-id |  | Filter Private Networks by Project ID |
+| ipam-ip-ids.{index} |  | Filter Private Networks by IPAM IP IDs |
+| organization-id |  | Filter Private Networks by Organization ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Set multiple Private Networks on a server
+
+Configure multiple Private Networks on an Apple silicon server.
+
+**Usage:**
+
+```
+scw apple-silicon private-network set [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server |
+| per-private-network-ipam-ip-ids.{key} | Required | Object where the keys are the IDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Apple silicon server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment. |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
