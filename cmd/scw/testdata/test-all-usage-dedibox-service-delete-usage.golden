@@ -3,7 +3,7 @@
 Delete the service associated with the given ID.
 
 USAGE:
-  scw dedibox service delete <service-id ...> [arg=value ...]
+  scw dedibox service delete [arg=value ...]
 
 ARGS:
   service-id        ID of the service

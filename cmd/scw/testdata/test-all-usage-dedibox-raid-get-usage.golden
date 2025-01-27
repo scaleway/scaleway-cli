@@ -3,7 +3,7 @@
 Return raid for the given server ID.
 
 USAGE:
-  scw dedibox raid get <server-id ...> [arg=value ...]
+  scw dedibox raid get [arg=value ...]
 
 ARGS:
   server-id         ID of the server

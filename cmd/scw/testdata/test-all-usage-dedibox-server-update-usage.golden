@@ -3,7 +3,7 @@
 Update the server associated with the given ID.
 
 USAGE:
-  scw dedibox server update <server-id ...> [arg=value ...]
+  scw dedibox server update [arg=value ...]
 
 ARGS:
   server-id         Server ID to update

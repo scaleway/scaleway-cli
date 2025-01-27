@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   fip         Failover IPs commands
   ipv6-block  IPv6 block commands
   offer       Offer commands
+  option      Subscribable server options commands
   os          OS commands
   raid        RAID commands
   rescue      Rescue commands

@@ -3,7 +3,7 @@
 Get dedibox resources.
 
 USAGE:
-  scw dedibox rpn-v2 get <group-id ...> [arg=value ...]
+  scw dedibox rpn-v2 get [arg=value ...]
 
 ARGS:
   group-id   RPN V2 group ID

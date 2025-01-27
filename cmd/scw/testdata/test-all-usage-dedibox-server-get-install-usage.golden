@@ -3,7 +3,7 @@
 Get the server installation status associated with the given server ID.
 
 USAGE:
-  scw dedibox server get-install <server-id ...> [arg=value ...]
+  scw dedibox server get-install [arg=value ...]
 
 ARGS:
   server-id         Server ID of the server to install

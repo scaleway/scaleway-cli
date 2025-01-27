@@ -3,7 +3,7 @@
 Reboot the server associated with the given ID, use boot param to reboot in rescue.
 
 USAGE:
-  scw dedibox server reboot <server-id ...> [arg=value ...]
+  scw dedibox server reboot [arg=value ...]
 
 ARGS:
   server-id         Server ID to reboot

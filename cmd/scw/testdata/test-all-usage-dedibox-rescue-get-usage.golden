@@ -3,7 +3,7 @@
 Return rescue information for the given server ID.
 
 USAGE:
-  scw dedibox rescue get <server-id ...> [arg=value ...]
+  scw dedibox rescue get [arg=value ...]
 
 ARGS:
   server-id         ID of the server to get rescue

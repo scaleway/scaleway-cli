@@ -3,7 +3,7 @@
 Add-members dedibox resources.
 
 USAGE:
-  scw dedibox rpn-v2 add-members <group-id ...> [arg=value ...]
+  scw dedibox rpn-v2 add-members [arg=value ...]
 
 ARGS:
   group-id          RPN V2 group ID

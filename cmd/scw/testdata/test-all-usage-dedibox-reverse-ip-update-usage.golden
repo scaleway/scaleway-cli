@@ -3,7 +3,7 @@
 Update reverse of ip associated with the given ID.
 
 USAGE:
-  scw dedibox reverse-ip update <ip-id ...> [arg=value ...]
+  scw dedibox reverse-ip update [arg=value ...]
 
 ARGS:
   ip-id             ID of the IP

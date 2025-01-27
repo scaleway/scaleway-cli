@@ -3,7 +3,7 @@
 Update dedibox resources.
 
 USAGE:
-  scw dedibox rpn-v1 update <group-id ...> [arg=value ...]
+  scw dedibox rpn-v1 update [arg=value ...]
 
 ARGS:
   group-id   Rpn v1 group ID

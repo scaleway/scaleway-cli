@@ -3,7 +3,7 @@
 Update-vlan-members dedibox resources.
 
 USAGE:
-  scw dedibox rpn-v2 update-vlan-members <group-id ...> [arg=value ...]
+  scw dedibox rpn-v2 update-vlan-members [arg=value ...]
 
 ARGS:
   group-id             RPN V2 group ID
