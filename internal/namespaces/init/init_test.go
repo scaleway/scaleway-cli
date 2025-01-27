@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	initCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init" // alias required to not collide with go init func
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
@@ -15,6 +15,7 @@ import (
 
 func checkConfig(check func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config)) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
+		t.Helper()
 		homeDir := ctx.OverrideEnv["HOME"]
 		config, err := scw.LoadConfigFromPath(path.Join(homeDir, ".config", "scw", "config.yaml"))
 		require.NoError(t, err)
@@ -56,6 +57,7 @@ func TestInit(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				t.Helper()
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.SecretKey)
 				assert.NotEmpty(t, *config.DefaultProjectID)
@@ -78,6 +80,7 @@ func TestInit(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				config, err := scw.LoadConfigFromPath(ctx.Meta["CONFIG_PATH"].(string))
 				require.NoError(t, err)
 				secretKey, _ := ctx.Client.GetSecretKey()
@@ -93,6 +96,7 @@ func TestInit(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				t.Helper()
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.Profiles["foobar"].SecretKey)
 			}),
@@ -127,6 +131,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					assert.Equal(t, dummyConfig.String(), config.String())
 				}),
 			),
@@ -147,6 +152,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					secretKey, _ := ctx.Client.GetSecretKey()
 					assert.Equal(t, secretKey, *config.SecretKey)
 				}),
@@ -168,6 +174,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					assert.NotNil(t, config.Profiles["test2"], "new profile should have been created")
 				}),
 			),
@@ -188,6 +195,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					assert.NotNil(t, config.Profiles["test"].DefaultZone)
 					assert.Equal(t, *config.Profiles["test"].DefaultZone, "fr-test")
 				}),
@@ -207,6 +215,7 @@ func TestInit(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
+					t.Helper()
 					assert.NotNil(t, config.ActiveProfile)
 					assert.Equal(t, "newprofile", *config.ActiveProfile)
 				}),
@@ -217,10 +226,12 @@ func TestInit(t *testing.T) {
 
 func TestInit_Prompt(t *testing.T) {
 	promptResponse := []string{
-		"secret-key",
-		"access-key",
-		"organization-id",
-		" ",
+		"secret-key",      // Secret key prompt, should be replaced in BeforeFunc.
+		"access-key",      // Access key prompt, should be replaced in BeforeFunc.
+		"organization-id", // Organization prompt, should be replaced in BeforeFunc.
+		" ",               // default-project-id list prompt, space is validation, it will pick default organization project.
+		"",                // Telemetry prompt, use default value.
+		"y",               // Autocomplete prompt, enable it but the tests should override a SHELL variable to avoid breaking because of local configuration.
 	}
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -250,12 +261,16 @@ func TestInit_Prompt(t *testing.T) {
 				},
 			),
 			checkConfig(func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config) {
+				t.Helper()
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.SecretKey)
 				assert.NotEmpty(t, *config.DefaultProjectID)
 				assert.Equal(t, *config.DefaultProjectID, *config.DefaultProjectID)
 			}),
 		),
+		OverrideEnv: map[string]string{
+			"SHELL": "/bin/bash",
+		},
 		PromptResponseMocks: promptResponse,
 	}))
 }

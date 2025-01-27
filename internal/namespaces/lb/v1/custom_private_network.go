@@ -1,17 +1,17 @@
 package lb
 
 import (
-	"fmt"
+	"errors"
 	"time"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
 
 func lbPrivateNetworksMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	privateNetworks, ok := i.([]*lb.PrivateNetwork)
 	if !ok {
-		return "", fmt.Errorf("invalid type: expected []*lb.PrivateNetwork")
+		return "", errors.New("invalid type: expected []*lb.PrivateNetwork")
 	}
 
 	type customPrivateNetwork struct {

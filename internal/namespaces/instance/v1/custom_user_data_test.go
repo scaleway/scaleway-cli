@@ -4,9 +4,8 @@ import (
 	"os"
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 func Test_UserDataGet(t *testing.T) {
@@ -59,7 +58,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 	t.Run("on-cloud-init", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic")),
 			func(ctx *core.BeforeFuncCtx) error {
 				file, _ := os.CreateTemp("", "test")
 				_, _ = file.WriteString(content)
@@ -82,7 +81,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 	t.Run("on-random-key", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create stopped=true image=ubuntu-bionic"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic")),
 			func(ctx *core.BeforeFuncCtx) error {
 				file, _ := os.CreateTemp("", "test")
 				_, _ = file.WriteString(content)

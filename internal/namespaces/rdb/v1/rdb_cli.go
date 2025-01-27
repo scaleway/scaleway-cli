@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -702,6 +702,13 @@ func rdbInstanceUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "enable-encryption",
+				Short:      `Defines whether or not encryption should be enabled on the Database Instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -880,7 +887,7 @@ func rdbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "password",
-				Short:      `Password of the user`,
+				Short:      `Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -2027,7 +2034,7 @@ func rdbUserCreate() *core.Command {
 			},
 			{
 				Name:       "password",
-				Short:      `Password of the user you want to create`,
+				Short:      `Password of the user you want to create. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2078,7 +2085,7 @@ func rdbUserUpdate() *core.Command {
 			},
 			{
 				Name:       "password",
-				Short:      `Password of the database user`,
+				Short:      `Password of the database user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

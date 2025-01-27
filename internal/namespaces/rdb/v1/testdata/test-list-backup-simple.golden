@@ -1,33 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    Name                  Database Name  Size    Status  Instance ID                           URL Expired  Is Exported  Expires At       Created At       Updated At       Region  Same Region
-6d576d04-9dc3-4081-8c3f-ab16d4bd2b3d  will_be_exported      rdb            2.1 kB  ready   1b79dceb-5632-4176-b594-d6a73bfb06e1  true         true         few seconds ago  few seconds ago  few seconds ago  fr-par  false
-0aab45e7-e1de-493f-807b-4d843f8b383d  will_not_be_exported  rdb            2.1 kB  ready   1b79dceb-5632-4176-b594-d6a73bfb06e1  true         false        few seconds ago  few seconds ago  few seconds ago  fr-par  false
+bd5681c4-a529-463e-8368-791619b53644  will_be_exported      rdb            2.1 kB  ready   319e7311-4804-4035-9b70-c762c694a3e0  false        true         few seconds ago  few seconds ago  few seconds ago  fr-par  false
+8c2e48c7-31c1-4e15-9556-08040b8701a9  will_not_be_exported  rdb            2.1 kB  ready   319e7311-4804-4035-9b70-c762c694a3e0  true         false        few seconds ago  few seconds ago  few seconds ago  fr-par  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "ID": "6d576d04-9dc3-4081-8c3f-ab16d4bd2b3d",
-    "instance_ID": "1b79dceb-5632-4176-b594-d6a73bfb06e1",
+    "ID": "bd5681c4-a529-463e-8368-791619b53644",
+    "instance_ID": "319e7311-4804-4035-9b70-c762c694a3e0",
     "database_name": "rdb",
     "name": "will_be_exported",
     "status": "ready",
-    "size": 2107,
+    "size": 2106,
     "expires_at": "2032-01-02T22:04:05Z",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "instance_name": "cli-test",
     "is_exported": true,
-    "url_expired": true,
+    "url_expired": false,
     "region": "fr-par",
     "same_region": false
   },
   {
-    "ID": "0aab45e7-e1de-493f-807b-4d843f8b383d",
-    "instance_ID": "1b79dceb-5632-4176-b594-d6a73bfb06e1",
+    "ID": "8c2e48c7-31c1-4e15-9556-08040b8701a9",
+    "instance_ID": "319e7311-4804-4035-9b70-c762c694a3e0",
     "database_name": "rdb",
     "name": "will_not_be_exported",
     "status": "ready",
-    "size": 2107,
+    "size": 2106,
     "expires_at": "2032-01-02T22:04:05Z",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",

@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"encoding/pem"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -11,9 +12,10 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	iamCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"golang.org/x/crypto/ssh"
 )
@@ -36,12 +38,12 @@ func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
 			return nil, fmt.Errorf("failed to marshal private key: %w", err)
 		}
 		pemContent = pem.EncodeToMemory(privatePEM)
-		err = os.WriteFile(path, pemContent, 0600)
+		err = os.WriteFile(path, pemContent, 0o600)
 		if err != nil {
 			return nil, fmt.Errorf("failed to save test key: %w", err)
 		}
 	} else if len(pemContent) == 0 {
-		return nil, fmt.Errorf("empty test key, should be updated with cassettes")
+		return nil, errors.New("empty test key, should be updated with cassettes")
 	}
 
 	key, err := ssh.ParseRawPrivateKey(pemContent)
@@ -76,16 +78,16 @@ func generateRSASSHKey(metaKey string) func(beforeFunc *core.BeforeFuncCtx) erro
 		authorizedKey := ssh.MarshalAuthorizedKey(publicKey)
 
 		sshDir := filepath.Join(ctx.OverrideEnv["HOME"], ".ssh")
-		err = os.MkdirAll(sshDir, 0700)
+		err = os.MkdirAll(sshDir, 0o700)
 		if err != nil {
 			return fmt.Errorf("failed to create directory %q: %w", sshDir, err)
 		}
 
-		err = os.WriteFile(filepath.Join(sshDir, "id_rsa"), pem.EncodeToMemory(privatePEM), 0600)
+		err = os.WriteFile(filepath.Join(sshDir, "id_rsa"), pem.EncodeToMemory(privatePEM), 0o600)
 		if err != nil {
 			return fmt.Errorf("failed to write private key: %w", err)
 		}
-		err = os.WriteFile(filepath.Join(sshDir, "id_rsa.pub"), authorizedKey, 0600)
+		err = os.WriteFile(filepath.Join(sshDir, "id_rsa.pub"), authorizedKey, 0o600)
 		if err != nil {
 			return fmt.Errorf("failed to write public key: %w", err)
 		}
@@ -93,7 +95,7 @@ func generateRSASSHKey(metaKey string) func(beforeFunc *core.BeforeFuncCtx) erro
 		api := iam.NewAPI(ctx.Client)
 		projectID, exists := ctx.Client.GetDefaultProjectID()
 		if !exists {
-			return fmt.Errorf("missing project id")
+			return errors.New("missing project id")
 		}
 		key, err := api.CreateSSHKey(&iam.CreateSSHKeyRequest{
 			Name:      "test-cli-instance-server-get-rdp-password",
@@ -125,11 +127,9 @@ func Test_ServerGetRdpPassword(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				assert.NotNil(t, ctx.Result)
-				resp, ok := ctx.Result.(*instance.ServerGetRdpPasswordResponse)
-				if !ok {
-					t.Fatal("Unexpected result type: " + reflect.TypeOf(ctx.Result).String())
-				}
+				resp := testhelpers.Value[*instance.ServerGetRdpPasswordResponse](t, ctx.Result)
 
 				assert.NotEmpty(t, resp.Password)
 			},

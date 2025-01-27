@@ -3,10 +3,9 @@ package lb_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 )
 
 func Test_GetBackend(t *testing.T) {
@@ -26,6 +25,7 @@ func Test_GetBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }
@@ -45,6 +45,7 @@ func Test_CreateBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -59,6 +60,7 @@ func Test_CreateBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -73,6 +75,7 @@ func Test_CreateBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -87,6 +90,7 @@ func Test_CreateBackend(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }
@@ -107,6 +111,7 @@ func Test_AddBackendServers(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -122,6 +127,7 @@ func Test_AddBackendServers(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -137,6 +143,7 @@ func Test_AddBackendServers(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 
@@ -152,6 +159,7 @@ func Test_AddBackendServers(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteLB(),
 			deleteRunningInstance(),
+			deleteLBFlexibleIP(),
 		),
 	}))
 }

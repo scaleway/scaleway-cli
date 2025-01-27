@@ -1,6 +1,6 @@
 package inference_test
 
-import "github.com/scaleway/scaleway-cli/v2/internal/core"
+import "github.com/scaleway/scaleway-cli/v2/core"
 
 func CreateDeploymentPublicEndpoint() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(

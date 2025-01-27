@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/ghodss/yaml"
-	go_api "github.com/kubernetes-client/go-base/config/api"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	go_api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
@@ -81,7 +81,7 @@ func createClusterAndWaitAndInstallKubeconfig(clusterNameSuffix string, metaKey 
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
+		cmd = "scw k8s kubeconfig install " + cluster.ID
 		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
 		return nil
 	}
@@ -112,7 +112,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFile(clusterNameSuffix string, 
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		err = os.WriteFile(file, content, 0644)
+		err = os.WriteFile(file, content, 0o644)
 		return err
 	}
 }
@@ -142,11 +142,11 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(clusterNameSuffi
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		err = os.WriteFile(file, content, 0644)
+		err = os.WriteFile(file, content, 0o644)
 		if err != nil {
 			return err
 		}
-		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
+		cmd = "scw k8s kubeconfig install " + cluster.ID
 		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
 
 		return nil
@@ -155,5 +155,5 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(clusterNameSuffi
 
 // deleteCluster deletes a cluster previously registered in the context Meta at metaKey.
 func deleteCluster(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw k8s cluster delete {{ ." + metaKey + ".ID }} --wait")
+	return core.ExecAfterCmd("scw k8s cluster delete {{ ." + metaKey + ".ID }} with-additional-resources=true --wait")
 }

@@ -5,6 +5,7 @@
 # Default location: $HOME/.config/rclone/rclone.conf
 [scaleway]
 type = s3
+provider = Scaleway
 env_auth = false
 endpoint = s3.nl-ams.scw.cloud
 access_key_id = SCWXXXXXXXXXXXXXXXXX
@@ -21,6 +22,7 @@ storage_class =
 # Default location: $HOME/.config/rclone/rclone.conf
 [scaleway]
 type = s3
+provider = Scaleway
 env_auth = false
 endpoint = s3.nl-ams.scw.cloud
 access_key_id = SCWXXXXXXXXXXXXXXXXX

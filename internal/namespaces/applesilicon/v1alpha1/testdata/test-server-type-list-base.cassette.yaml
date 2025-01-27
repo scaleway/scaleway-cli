@@ -2,26 +2,32 @@
 version: 1
 interactions:
 - request:
-    body: ""
+    body: '{"server_types":[{"name":"M2-M","cpu":{"name":"Apple M2","core_count":8,"frequency":3500000000},"disk":{"capacity":256000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"e08d1e5d-b4b9-402a-9f9a-97732d17e374","name":"macos-sonoma-14.4","label":"macOS
+      Sonoma 14.4","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png","family":"Sonoma","is_beta":false,"xcode_version":"15","version":"14.4","compatible_server_types":["M1-M","M2-M","M2-L"]},"gpu":{"count":10},"network":{"public_bandwidth_bps":1000000000}},{"name":"M2-L","cpu":{"name":"Apple
+      M2 Pro","core_count":10,"frequency":3500000000},"disk":{"capacity":512000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"e08d1e5d-b4b9-402a-9f9a-97732d17e374","name":"macos-sonoma-14.4","label":"macOS
+      Sonoma 14.4","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png","family":"Sonoma","is_beta":false,"xcode_version":"15","version":"14.4","compatible_server_types":["M1-M","M2-M","M2-L"]},"gpu":{"count":16},"network":{"public_bandwidth_bps":1000000000}}]}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.15.7; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.2; darwin; arm64) cli-e2e-test
     url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/server-types
     method: GET
   response:
-    body: '{"server_types":[{"name":"M1-M","cpu":{"name":"Apple M1","core_count":8},"disk":{"capacity":256000000000,"type":"SSD"},"memory":{"capacity":8000000000,"type":"LPDDR4"},"stock":"low_stock","minimum_lease_duration":"86400s"}]}'
+    body: '{"server_types":[{"name":"M2-M","cpu":{"name":"Apple M2","core_count":8,"frequency":3500000000},"disk":{"capacity":256000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"e08d1e5d-b4b9-402a-9f9a-97732d17e374","name":"macos-sonoma-14.4","label":"macOS
+      Sonoma 14.4","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png","family":"Sonoma","is_beta":false,"xcode_version":"15","version":"14.4","compatible_server_types":["M1-M","M2-M","M2-L"]},"gpu":{"count":10},"network":{"public_bandwidth_bps":1000000000}},{"name":"M2-L","cpu":{"name":"Apple
+      M2 Pro","core_count":10,"frequency":3500000000},"disk":{"capacity":512000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"e08d1e5d-b4b9-402a-9f9a-97732d17e374","name":"macos-sonoma-14.4","label":"macOS
+      Sonoma 14.4","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png","family":"Sonoma","is_beta":false,"xcode_version":"15","version":"14.4","compatible_server_types":["M1-M","M2-M","M2-L"]},"gpu":{"count":16},"network":{"public_bandwidth_bps":1000000000}}]}'
     headers:
       Content-Length:
-      - "224"
+      - "1269"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 05 Feb 2021 18:04:16 GMT
+      - Wed, 11 Dec 2024 10:57:16 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-1;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -29,7 +35,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - f68db5c3-b1c7-4cb4-98dd-67d6cd32c41a
+      - 25a5fd08-35cb-41b5-bf40-d101f078726d
     status: 200 OK
     code: 200
     duration: ""

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"reflect"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 )
 
 type ArgSpecInvalidError struct {

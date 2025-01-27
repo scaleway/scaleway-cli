@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              6c221402-9ca7-4db6-b14d-ac5f16af9379
-Name            cli-pn-strange-khorana
+ID              172d077d-0a4b-479d-bb8e-d6a681087998
+Name            cli-pn-serene-payne
 OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Region          fr-par
@@ -11,17 +11,17 @@ VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
 DHCPEnabled     true
 
 Instance Servers:
-ID                                    NAME                       STATE     NIC ID                                MAC ADDRESS
-6756377d-5d5c-41c8-87ea-91a7b5867211  cli-srv-festive-zhukovsky  archived  8aa9c5c5-ee23-484c-8de9-47538b4d594b  02:00:00:12:e3:f0
+ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
+19ad8477-5983-4e4e-813b-9314f9ae29bf  cli-srv-gracious-darwin  archived  459548e2-48d4-41b1-a015-b74501799587  02:00:00:18:0c:a9
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-1d1beeeb-dd6c-4f00-85d9-b1e4c6807776  few seconds ago  few seconds ago  172.16.24.0/22            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  6c221402-9ca7-4db6-b14d-ac5f16af9379  53e50f63-f6c0-44f7-8576-d6edcb965d9c
-49e7f751-4e1e-4114-8719-1d574fd5ff25  few seconds ago  few seconds ago  fd4a:c18e:554d:75a7::/64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  6c221402-9ca7-4db6-b14d-ac5f16af9379  53e50f63-f6c0-44f7-8576-d6edcb965d9c
+d31b129e-da26-480b-a1f7-d15b6df6877d  few seconds ago  few seconds ago  172.16.4.0/22             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  172d077d-0a4b-479d-bb8e-d6a681087998  53e50f63-f6c0-44f7-8576-d6edcb965d9c
+81058567-de5b-4596-a3d0-f7d5e08e1626  few seconds ago  few seconds ago  fd4a:c18e:554d:a577::/64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  172d077d-0a4b-479d-bb8e-d6a681087998  53e50f63-f6c0-44f7-8576-d6edcb965d9c
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "6c221402-9ca7-4db6-b14d-ac5f16af9379",
-  "name": "cli-pn-strange-khorana",
+  "id": "172d077d-0a4b-479d-bb8e-d6a681087998",
+  "name": "cli-pn-serene-payne",
   "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "region": "fr-par",
@@ -30,21 +30,21 @@ ID                                    CREATED AT       UPDATED AT       SUBNET  
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "1d1beeeb-dd6c-4f00-85d9-b1e4c6807776",
+      "id": "d31b129e-da26-480b-a1f7-d15b6df6877d",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.24.0/22",
+      "subnet": "172.16.4.0/22",
       "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "private_network_id": "6c221402-9ca7-4db6-b14d-ac5f16af9379",
+      "private_network_id": "172d077d-0a4b-479d-bb8e-d6a681087998",
       "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     },
     {
-      "id": "49e7f751-4e1e-4114-8719-1d574fd5ff25",
+      "id": "81058567-de5b-4596-a3d0-f7d5e08e1626",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd4a:c18e:554d:75a7::/64",
+      "subnet": "fd4a:c18e:554d:a577::/64",
       "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "private_network_id": "6c221402-9ca7-4db6-b14d-ac5f16af9379",
+      "private_network_id": "172d077d-0a4b-479d-bb8e-d6a681087998",
       "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     }
   ],
@@ -52,11 +52,11 @@ ID                                    CREATED AT       UPDATED AT       SUBNET  
   "dhcp_enabled": true,
   "instance_servers": [
     {
-      "id": "6756377d-5d5c-41c8-87ea-91a7b5867211",
-      "name": "cli-srv-festive-zhukovsky",
+      "id": "19ad8477-5983-4e4e-813b-9314f9ae29bf",
+      "name": "cli-srv-gracious-darwin",
       "state": "stopped",
-      "nic_id": "8aa9c5c5-ee23-484c-8de9-47538b4d594b",
-      "mac": "02:00:00:12:e3:f0"
+      "nic_id": "459548e2-48d4-41b1-a015-b74501799587",
+      "mac": "02:00:00:18:0c:a9"
     }
   ]
 }

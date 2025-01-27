@@ -7,16 +7,16 @@ USAGE:
 
 EXAMPLES:
   List all pools for a cluster
-    scw k8s pool list cluster-id=11111111-1111-1111-111111111111
+    scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111
 
   List all scaling pools for a cluster
-    scw k8s pool list cluster-id=11111111-1111-1111-111111111111 status=scaling
+    scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 status=scaling
 
   List all pools for clusters containing 'foo' in their name
-    scw k8s pool list cluster-id=11111111-1111-1111-111111111111 name=foo
+    scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 name=foo
 
   List all pools for a cluster and order them by ascending creation date
-    scw k8s pool list cluster-id=11111111-1111-1111-111111111111 order-by=created_at_asc
+    scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 order-by=created_at_asc
 
 ARGS:
   cluster-id        ID of the cluster whose pools will be listed

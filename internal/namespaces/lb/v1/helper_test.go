@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/ghodss/yaml"
-	go_api "github.com/kubernetes-client/go-base/config/api"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	go_api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
@@ -21,27 +21,31 @@ func createLB() core.BeforeFunc {
 }
 
 func deleteLB() core.AfterFunc {
-	return core.ExecAfterCmd("scw lb lb delete {{ .LB.ID }}")
+	return core.ExecAfterCmd("scw lb lb delete {{ .LB.ID }} --wait")
+}
+
+func deleteLBFlexibleIP() core.AfterFunc {
+	return core.ExecAfterCmd("scw lb ip delete {{ (index .LB.IP 0).ID }}")
 }
 
 func createInstance() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create stopped=true image=ubuntu_focal",
+		"scw instance server create type=DEV1-S stopped=true image=ubuntu_focal",
 	)
 }
 
 func createRunningInstance() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create image=ubuntu_bionic -w",
+		"scw instance server create type=DEV1-S image=ubuntu_bionic -w",
 	)
 }
 
 func createRunningInstanceWithTag() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create image=ubuntu_bionic tags.0=foo -w",
+		"scw instance server create type=DEV1-S image=ubuntu_bionic tags.0=foo -w",
 	)
 }
 
@@ -63,7 +67,7 @@ func createBackend(forwardPort int32) core.BeforeFunc {
 func addIP2Backend(ip string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"AddIP2Backend",
-		fmt.Sprintf("scw lb backend add-servers {{ .Backend.ID }} server-ip.0=%s", ip),
+		"scw lb backend add-servers {{ .Backend.ID }} server-ip.0="+ip,
 	)
 }
 
@@ -97,7 +101,7 @@ func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey 
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		cmd = fmt.Sprintf("scw k8s kubeconfig install %s", cluster.ID)
+		cmd = "scw k8s kubeconfig install " + cluster.ID
 		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
 		return nil
 	}

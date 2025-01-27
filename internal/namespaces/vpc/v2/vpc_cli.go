@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -24,7 +24,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetwork(),
 		vpcSubnet(),
 		vpcRoute(),
-		vpcRoutes(),
+		vpcRule(),
 		vpcVpcList(),
 		vpcVpcCreate(),
 		vpcVpcGet(),
@@ -37,7 +37,12 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetworkDelete(),
 		vpcPrivateNetworkMigrateToRegional(),
 		vpcPrivateNetworkEnableDHCP(),
-		vpcRoutesList(),
+		vpcRouteEnableRouting(),
+		vpcRouteCreate(),
+		vpcRouteGet(),
+		vpcRouteUpdate(),
+		vpcRouteDelete(),
+		vpcRouteList(),
 	)
 }
 func vpcRoot() *core.Command {
@@ -89,12 +94,12 @@ func vpcRoute() *core.Command {
 	}
 }
 
-func vpcRoutes() *core.Command {
+func vpcRule() *core.Command {
 	return &core.Command{
-		Short:     `Routes management command`,
-		Long:      `Routes management command.`,
+		Short:     `Rule management command`,
+		Long:      `Acl Rules.`,
 		Namespace: "vpc",
-		Resource:  "routes",
+		Resource:  "rule",
 	}
 }
 
@@ -656,12 +661,238 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 	}
 }
 
-func vpcRoutesList() *core.Command {
+func vpcRouteEnableRouting() *core.Command {
+	return &core.Command{
+		Short:     `Enable routing on a VPC`,
+		Long:      `Enable routing on an existing VPC. Note that you will not be able to deactivate it afterwards.`,
+		Namespace: "vpc",
+		Resource:  "route",
+		Verb:      "enable-routing",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.EnableRoutingRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-id",
+				Short:      `VPC ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.EnableRoutingRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			return api.EnableRouting(request)
+
+		},
+	}
+}
+
+func vpcRouteCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a Route`,
+		Long:      `Create a new custom Route.`,
+		Namespace: "vpc",
+		Resource:  "route",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.CreateRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "description",
+				Short:      `Route description`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the Route`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `VPC the Route belongs to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "destination",
+				Short:      `Destination of the Route`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-resource-id",
+				Short:      `ID of the nexthop resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-private-network-id",
+				Short:      `ID of the nexthop private network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.CreateRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			return api.CreateRoute(request)
+
+		},
+	}
+}
+
+func vpcRouteGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a Route`,
+		Long:      `Retrieve details of an existing Route, specified by its Route ID.`,
+		Namespace: "vpc",
+		Resource:  "route",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.GetRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.GetRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			return api.GetRoute(request)
+
+		},
+	}
+}
+
+func vpcRouteUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update Route`,
+		Long:      `Update parameters of the specified Route.`,
+		Namespace: "vpc",
+		Resource:  "route",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.UpdateRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "description",
+				Short:      `Route description`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the Route`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "destination",
+				Short:      `Destination of the Route`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-resource-id",
+				Short:      `ID of the nexthop resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-private-network-id",
+				Short:      `ID of the nexthop private network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.UpdateRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			return api.UpdateRoute(request)
+
+		},
+	}
+}
+
+func vpcRouteDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a Route`,
+		Long:      `Delete a Route specified by its Route ID.`,
+		Namespace: "vpc",
+		Resource:  "route",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.DeleteRouteRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-id",
+				Short:      `Route ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.DeleteRouteRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			e = api.DeleteRoute(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "route",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func vpcRouteList() *core.Command {
 	return &core.Command{
 		Short:     `Return routes with associated next hop data`,
 		Long:      `Return routes with associated next hop data.`,
 		Namespace: "vpc",
-		Resource:  "routes",
+		Resource:  "route",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(vpc.RoutesWithNexthopAPIListRoutesWithNexthopRequest{}),

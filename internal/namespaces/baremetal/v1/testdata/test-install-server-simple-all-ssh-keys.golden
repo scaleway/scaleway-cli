@@ -1,79 +1,215 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              eaea9b3b-a780-4701-9d9c-8cd7da25fd48
-OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID       951df375-e094-4d26-97c1-ba548eeb9c42
-Name            cli-bm-youthful-lichterman
+ID              48da1e2e-75cd-403b-b1e0-80f01d385fdb
+OrganizationID  5ebc0159-7cb7-406c-9521-9347d1987fb2
+ProjectID       5ebc0159-7cb7-406c-9521-9347d1987fb2
+Name            cli-bm-focused-khayyam
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
-OfferID         c27dd792-2538-4c54-8989-f460b1aeb5fd
-OfferName       -
-Domain          eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud
+OfferID         206ea234-9097-4ae1-af68-6d2be09f47ed
+OfferName       EM-B220E-NVME
+Domain          48da1e2e-75cd-403b-b1e0-80f01d385fdb.fr-par-1.baremetal.scw.cloud
 BootType        normal
-Zone            nl-ams-1
-PingStatus      down
+Zone            fr-par-1
+PingStatus      up
 
 IPs:
-ID                                    ADDRESS                             REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-bae39857-7fbe-4ae6-afb4-330acd46714d  2001:bc8:1600:6:224:ecff:fef2:c008  eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud  IPv6     pending         -
-bf7cf0c8-3eb4-420f-aa7d-2d41afbfdc73  51.158.156.45                       eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud  IPv4     active          -
+ID                                    ADDRESS                               REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
+e0f7df0d-5752-4529-bf06-6637d20e5982  2001:bc8:701:701:3eec:efff:feff:18a4  48da1e2e-75cd-403b-b1e0-80f01d385fdb.fr-par-1.baremetal.scw.cloud  IPv6     active          -
+edaca978-d124-447c-a557-9a3a2e9ffeaa  62.210.158.58                         48da1e2e-75cd-403b-b1e0-80f01d385fdb.fr-par-1.baremetal.scw.cloud  IPv4     active          -
+
+Options:
+ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 
 Install:
-OsID         03b7f4ba-a6a1-4305-984e-b54fafbf1681
-Hostname     test-install-server
-SSHKeyIDs.0  02aeb573-5220-4e1d-8983-fbd12fc38b5f
-Status       completed
-User         -
-ServiceUser  -
-ServiceURL   -
+OsID                                            03b7f4ba-a6a1-4305-984e-b54fafbf1681
+Hostname                                        test-install-server
+SSHKeyIDs.0                                     031b2215-fcd7-4d18-aab8-8e12f573da07
+SSHKeyIDs.1                                     29bfc835-9ade-42f2-a31a-c122bc07cefd
+SSHKeyIDs.2                                     aa54bf68-0509-4a87-b6d6-88d9f2328659
+SSHKeyIDs.3                                     6261b62a-b17a-4ae3-a897-fb759da40c7b
+Status                                          completed
+User                                            ubuntu
+ServiceUser                                     -
+ServiceURL                                      -
+PartitioningSchema.Disks.0.Device               /dev/nvme0n1
+PartitioningSchema.Disks.0.Partitions.0.Label   uefi
+PartitioningSchema.Disks.0.Partitions.0.Number  1
+PartitioningSchema.Disks.0.Partitions.0.Size    512 MiB
+PartitioningSchema.Disks.0.Partitions.1.Label   swap
+PartitioningSchema.Disks.0.Partitions.1.Number  2
+PartitioningSchema.Disks.0.Partitions.1.Size    4.0 GiB
+PartitioningSchema.Disks.0.Partitions.2.Label   boot
+PartitioningSchema.Disks.0.Partitions.2.Number  3
+PartitioningSchema.Disks.0.Partitions.2.Size    512 MiB
+PartitioningSchema.Disks.0.Partitions.3.Label   root
+PartitioningSchema.Disks.0.Partitions.3.Number  4
+PartitioningSchema.Disks.0.Partitions.3.Size    949 GiB
+PartitioningSchema.Disks.1.Device               /dev/nvme1n1
+PartitioningSchema.Disks.1.Partitions.0.Label   swap
+PartitioningSchema.Disks.1.Partitions.0.Number  1
+PartitioningSchema.Disks.1.Partitions.0.Size    4.0 GiB
+PartitioningSchema.Disks.1.Partitions.1.Label   boot
+PartitioningSchema.Disks.1.Partitions.1.Number  2
+PartitioningSchema.Disks.1.Partitions.1.Size    512 MiB
+PartitioningSchema.Disks.1.Partitions.2.Label   root
+PartitioningSchema.Disks.1.Partitions.2.Number  3
+PartitioningSchema.Disks.1.Partitions.2.Size    949 GiB
+PartitioningSchema.Raids.0.Name                 /dev/md0
+PartitioningSchema.Raids.0.Level                raid_level_1
+PartitioningSchema.Raids.0.Devices.0            /dev/nvme0n1p3
+PartitioningSchema.Raids.0.Devices.1            /dev/nvme1n1p2
+PartitioningSchema.Raids.1.Name                 /dev/md1
+PartitioningSchema.Raids.1.Level                raid_level_1
+PartitioningSchema.Raids.1.Devices.0            /dev/nvme0n1p4
+PartitioningSchema.Raids.1.Devices.1            /dev/nvme1n1p3
+PartitioningSchema.Filesystems.0.Device         /dev/nvme0n1p1
+PartitioningSchema.Filesystems.0.Format         fat32
+PartitioningSchema.Filesystems.0.Mountpoint     /boot/efi
+PartitioningSchema.Filesystems.1.Device         /dev/md0
+PartitioningSchema.Filesystems.1.Format         ext4
+PartitioningSchema.Filesystems.1.Mountpoint     /boot
+PartitioningSchema.Filesystems.2.Device         /dev/md1
+PartitioningSchema.Filesystems.2.Format         ext4
+PartitioningSchema.Filesystems.2.Mountpoint     /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "eaea9b3b-a780-4701-9d9c-8cd7da25fd48",
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "name": "cli-bm-youthful-lichterman",
+  "id": "48da1e2e-75cd-403b-b1e0-80f01d385fdb",
+  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "name": "cli-bm-focused-khayyam",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "c27dd792-2538-4c54-8989-f460b1aeb5fd",
-  "offer_name": "",
+  "offer_id": "206ea234-9097-4ae1-af68-6d2be09f47ed",
+  "offer_name": "EM-B220E-NVME",
   "tags": [],
   "ips": [
     {
-      "id": "bae39857-7fbe-4ae6-afb4-330acd46714d",
-      "address": "2001:bc8:1600:6:224:ecff:fef2:c008",
-      "reverse": "eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud",
+      "id": "e0f7df0d-5752-4529-bf06-6637d20e5982",
+      "address": "2001:bc8:701:701:3eec:efff:feff:18a4",
+      "reverse": "48da1e2e-75cd-403b-b1e0-80f01d385fdb.fr-par-1.baremetal.scw.cloud",
       "version": "IPv6",
-      "reverse_status": "pending",
+      "reverse_status": "active",
       "reverse_status_message": ""
     },
     {
-      "id": "bf7cf0c8-3eb4-420f-aa7d-2d41afbfdc73",
-      "address": "51.158.156.45",
-      "reverse": "eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud",
+      "id": "edaca978-d124-447c-a557-9a3a2e9ffeaa",
+      "address": "62.210.158.58",
+      "reverse": "48da1e2e-75cd-403b-b1e0-80f01d385fdb.fr-par-1.baremetal.scw.cloud",
       "version": "IPv4",
       "reverse_status": "active",
       "reverse_status_message": ""
     }
   ],
-  "domain": "eaea9b3b-a780-4701-9d9c-8cd7da25fd48.nl-ams-1.baremetal.scw.cloud",
+  "domain": "48da1e2e-75cd-403b-b1e0-80f01d385fdb.fr-par-1.baremetal.scw.cloud",
   "boot_type": "normal",
-  "zone": "nl-ams-1",
+  "zone": "fr-par-1",
   "install": {
     "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "02aeb573-5220-4e1d-8983-fbd12fc38b5f"
+      "031b2215-fcd7-4d18-aab8-8e12f573da07",
+      "29bfc835-9ade-42f2-a31a-c122bc07cefd",
+      "aa54bf68-0509-4a87-b6d6-88d9f2328659",
+      "6261b62a-b17a-4ae3-a897-fb759da40c7b"
     ],
     "status": "completed",
-    "user": "",
+    "user": "ubuntu",
     "service_user": "",
-    "service_url": ""
+    "service_url": "",
+    "partitioning_schema": {
+      "disks": [
+        {
+          "device": "/dev/nvme0n1",
+          "partitions": [
+            {
+              "label": "uefi",
+              "number": 1,
+              "size": 536870912
+            },
+            {
+              "label": "swap",
+              "number": 2,
+              "size": 4294967296
+            },
+            {
+              "label": "boot",
+              "number": 3,
+              "size": 536870912
+            },
+            {
+              "label": "root",
+              "number": 4,
+              "size": 1018839433216
+            }
+          ]
+        },
+        {
+          "device": "/dev/nvme1n1",
+          "partitions": [
+            {
+              "label": "swap",
+              "number": 1,
+              "size": 4294967296
+            },
+            {
+              "label": "boot",
+              "number": 2,
+              "size": 536870912
+            },
+            {
+              "label": "root",
+              "number": 3,
+              "size": 1018839433216
+            }
+          ]
+        }
+      ],
+      "raids": [
+        {
+          "name": "/dev/md0",
+          "level": "raid_level_1",
+          "devices": [
+            "/dev/nvme0n1p3",
+            "/dev/nvme1n1p2"
+          ]
+        },
+        {
+          "name": "/dev/md1",
+          "level": "raid_level_1",
+          "devices": [
+            "/dev/nvme0n1p4",
+            "/dev/nvme1n1p3"
+          ]
+        }
+      ],
+      "filesystems": [
+        {
+          "device": "/dev/nvme0n1p1",
+          "format": "fat32",
+          "mountpoint": "/boot/efi"
+        },
+        {
+          "device": "/dev/md0",
+          "format": "ext4",
+          "mountpoint": "/boot"
+        },
+        {
+          "device": "/dev/md1",
+          "format": "ext4",
+          "mountpoint": "/"
+        }
+      ],
+      "zfs": {
+        "pools": []
+      }
+    }
   },
-  "ping_status": "ping_status_down",
-  "options": null,
+  "ping_status": "ping_status_up",
+  "options": [],
   "rescue_server": null
 }

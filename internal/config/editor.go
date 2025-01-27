@@ -5,11 +5,9 @@ import (
 	"runtime"
 )
 
-var (
-	// List of env variables where to find the editor to use
-	// Order in slice is override order, the latest will override the first ones
-	editorEnvVariables = []string{"EDITOR", "VISUAL"}
-)
+// List of env variables where to find the editor to use
+// Order in slice is override order, the latest will override the first ones
+var editorEnvVariables = []string{"EDITOR", "VISUAL"}
 
 func GetSystemDefaultEditor() string {
 	switch runtime.GOOS {

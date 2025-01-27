@@ -3,11 +3,12 @@ package mnq
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	mnq "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -20,7 +21,7 @@ type NatsEntity struct {
 
 func makeDirectoryIfNotExists(path string) error {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		return os.MkdirAll(path, os.ModeDir|0755)
+		return os.MkdirAll(path, os.ModeDir|0o755)
 	}
 	return nil
 }
@@ -39,14 +40,17 @@ func FileExists(filePath string) bool {
 	return !os.IsNotExist(err)
 }
 
-func natsContextFrom(account *mnq.NatsAccount, credsPath string) []byte {
+func natsContextFrom(account *mnq.NatsAccount, credsPath string) ([]byte, error) {
 	ctx := &natsContext{
 		Description:     "Nats context created by Scaleway CLI",
 		URL:             account.Endpoint,
 		CredentialsPath: credsPath,
 	}
-	b, _ := json.Marshal(ctx)
-	return b
+	b, err := json.Marshal(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return b, nil
 }
 
 func writeFile(ctx context.Context, dir string, entity *NatsEntity, extension string) (string, error) {
@@ -63,7 +67,7 @@ func writeFile(ctx context.Context, dir string, entity *NatsEntity, extension st
 			return "", wrapError(nil, "File already exists", entity.Name, path)
 		}
 	}
-	if err := os.WriteFile(path, entity.Content, 0600); err != nil {
+	if err := os.WriteFile(path, entity.Content, 0o600); err != nil {
 		return "", wrapError(err, "Failed to write file", entity.Name, path)
 	}
 	_, _ = interactive.Println(entity.Name + " file has been successfully written to " + path)
@@ -76,7 +80,7 @@ func getNATSContextDir(ctx context.Context) (string, error) {
 	if xdgConfigHome == "" {
 		homeDir := core.ExtractEnv(ctx, "HOME")
 		if homeDir == "" {
-			return "", fmt.Errorf("both XDG_CONFIG_HOME and HOME are not set")
+			return "", errors.New("both XDG_CONFIG_HOME and HOME are not set")
 		}
 		return filepath.Join(homeDir, ".config", "nats", "context"), nil
 	}
@@ -97,9 +101,14 @@ func saveNATSCredentials(ctx context.Context, creds *mnq.NatsCredentials, natsAc
 		return "", err
 	}
 
+	natsContent, err := natsContextFrom(natsAccount, credsPath)
+	if err != nil {
+		return "", err
+	}
+
 	contextEntity := &NatsEntity{
 		Name:    natsAccount.Name,
-		Content: natsContextFrom(natsAccount, credsPath),
+		Content: natsContent,
 	}
 
 	contextPath, err := writeFile(ctx, natsContextDir, contextEntity, "json")

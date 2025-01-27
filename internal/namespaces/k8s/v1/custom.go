@@ -1,8 +1,8 @@
 package k8s
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
@@ -15,6 +15,7 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 	cmds.Merge(core.NewCommands(
+		k8sExecCredentialCommand(),
 		k8sKubeconfigCommand(),
 		k8sKubeconfigGetCommand(),
 		k8sKubeconfigInstallCommand(),

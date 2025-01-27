@@ -6,6 +6,7 @@ USAGE:
 AVAILABLE COMMANDS:
   account       This API allows you to manage your Scaleway Projects
   apple-silicon Apple silicon API
+  audit-trail   This API allows you to ensure accountability and security by recording events and changes performed within your Scaleway Organization.
   autocomplete  Autocomplete related commands
   baremetal     Elastic Metal API
   billing       This API allows you to manage and query your Scaleway billing and consumption
@@ -28,7 +29,8 @@ AVAILABLE COMMANDS:
   keymanager    Key Manager API
   lb            This API allows you to manage your Scaleway Load Balancer services
   marketplace   This API allows you to find available images for use when launching a Scaleway Instance
-  mnq           These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services
+  mnq           These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topics and Events services
+  mongodb       This API allows you to manage your Managed Databases for MongoDB®
   object        Object-storage utils
   rdb           This API allows you to manage your Managed Databases for PostgreSQL and MySQL
   redis         This API allows you to manage your Managed Databases for Redis™
@@ -40,15 +42,12 @@ AVAILABLE COMMANDS:
   vpc-gw        This API allows you to manage your Public Gateways
   webhosting    This API allows you to manage your Web Hosting services
 
-AVAILABLE LABS COMMANDS:
-  ipfs          IPFS Pinning service API
-  ipns          IPFS Naming service API
-
 CONFIGURATION COMMANDS:
   alias         Alias related commands
   config        Config file management
   info          Get info about current settings
   init          Initialize the config
+  login         Login to scaleway
 
 UTILITY COMMANDS:
   feedback      Send feedback to the Scaleway CLI Team!

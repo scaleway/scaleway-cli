@@ -1,7 +1,9 @@
 package registry
 
-type program string
-type programs []program
+type (
+	program  string
+	programs []program
+)
 
 const (
 	docker         = program("docker")
@@ -10,9 +12,7 @@ const (
 	endpointSuffix = ".scw.cloud"
 )
 
-var (
-	availablePrograms = programs{docker, podman}
-)
+var availablePrograms = programs{docker, podman}
 
 func (p programs) StringArray() []string {
 	res := make([]string, 0, len(p))

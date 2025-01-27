@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -123,7 +123,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		if args.Version == "latest" {
 			latestVersion, err := getLatestK8SVersion(core.ExtractClient(ctx))
 			if err != nil {
-				return nil, fmt.Errorf("could not retrieve latest K8S version")
+				return nil, errors.New("could not retrieve latest K8S version")
 			}
 			args.Version = latestVersion
 		}

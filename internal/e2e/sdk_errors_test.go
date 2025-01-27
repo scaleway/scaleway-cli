@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/test/v1"
 	sdktest "github.com/scaleway/scaleway-sdk-go/api/test/v1"
 )
@@ -33,7 +33,7 @@ func TestSdkStandardErrors(t *testing.T) {
 		UseE2EClient:    true,
 		DisableParallel: true, // because e2e client is used
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			for i := 0; i < 10; i++ {
+			for range 10 {
 				ctx.ExecuteCmd([]string{"scw", "test", "human", "create"})
 			}
 			return nil

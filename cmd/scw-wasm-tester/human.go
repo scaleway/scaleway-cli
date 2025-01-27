@@ -6,8 +6,8 @@ import (
 	"syscall/js"
 
 	"github.com/hashicorp/go-version"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 )
 
 func wasmTestMarshalBuildInfo(_ js.Value, _ []js.Value) any {

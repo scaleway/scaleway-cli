@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/sshconfig"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -17,7 +17,7 @@ func Test_SSHConfigInstall(t *testing.T) {
 	t.Run("Install config and create default", core.Test(&core.TestConfig{
 		TmpHomeDir: true,
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true ip=new")),
 		Args:       []string{"scw", "instance", "ssh", "install-config"},
 		Check: core.TestCheckCombine(
 			core.TestCheckGoldenAndReplacePatterns(
@@ -28,6 +28,7 @@ func Test_SSHConfigInstall(t *testing.T) {
 			),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 
 				configPath := sshconfig.ConfigFilePath(ctx.Meta["HOME"].(string))
@@ -50,14 +51,14 @@ func Test_SSHConfigInstall(t *testing.T) {
 			func(ctx *core.BeforeFuncCtx) error {
 				homeDir := ctx.Meta["HOME"].(string)
 				configPath := sshconfig.DefaultConfigFilePath(homeDir)
-				err := os.Mkdir(filepath.Join(homeDir, ".ssh"), 0700)
+				err := os.Mkdir(filepath.Join(homeDir, ".ssh"), 0o700)
 				assert.Nil(t, err)
-				err = os.WriteFile(configPath, []byte(`Host myhost`), 0600)
+				err = os.WriteFile(configPath, []byte(`Host myhost`), 0o600)
 				assert.Nil(t, err)
 
 				return nil
 			},
-			createServerBionic("Server"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true ip=new")),
 		),
 		Args: []string{"scw", "instance", "ssh", "install-config"},
 		Check: core.TestCheckCombine(
@@ -69,6 +70,7 @@ func Test_SSHConfigInstall(t *testing.T) {
 			),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 
 				defaultConfigPath := sshconfig.DefaultConfigFilePath(ctx.Meta["HOME"].(string))

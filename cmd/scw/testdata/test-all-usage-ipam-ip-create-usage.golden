@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.
+Reserve a new IP from the specified source. Currently IPs can only be reserved from a Private Network.
 
 USAGE:
   scw ipam ip create [arg=value ...]
@@ -13,6 +13,8 @@ ARGS:
   [is-ipv6]                     Request an IPv6 instead of an IPv4
   [address]                     Request this specific IP address in the specified source pool
   [tags.{index}]                Tags for the IP
+  [resource.mac-address]        MAC address of the custom resource
+  [resource.name]               Name of the custom resource
   [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

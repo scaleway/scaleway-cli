@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/dedibox/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -23,7 +23,6 @@ func GetGeneratedCommands() *core.Commands {
 		dediboxServer(),
 		dediboxService(),
 		dediboxOffer(),
-		dediboxOption(),
 		dediboxOs(),
 		dediboxBmc(),
 		dediboxReverseIP(),
@@ -38,10 +37,10 @@ func GetGeneratedCommands() *core.Commands {
 		dediboxRpnV2(),
 		dediboxServerList(),
 		dediboxServerGet(),
-		dediboxOptionList(),
-		dediboxOptionSubscribe(),
+		dediboxServerListOptions(),
+		dediboxServerSubscribeOption(),
 		dediboxServerCreate(),
-		dediboxOptionSubscribeStorage(),
+		dediboxServerSubscribeStorage(),
 		dediboxServerUpdate(),
 		dediboxServerReboot(),
 		dediboxServerStart(),
@@ -164,15 +163,6 @@ func dediboxOffer() *core.Command {
 		Long:      `Offer commands.`,
 		Namespace: "dedibox",
 		Resource:  "offer",
-	}
-}
-
-func dediboxOption() *core.Command {
-	return &core.Command{
-		Short:     `Subscribable server options commands`,
-		Long:      `Subscribable server options commands.`,
-		Namespace: "dedibox",
-		Resource:  "option",
 	}
 }
 
@@ -368,13 +358,13 @@ func dediboxServerGet() *core.Command {
 	}
 }
 
-func dediboxOptionList() *core.Command {
+func dediboxServerListOptions() *core.Command {
 	return &core.Command{
 		Short:     `List subscribable server options`,
 		Long:      `List subscribable options associated to the given server ID.`,
 		Namespace: "dedibox",
-		Resource:  "option",
-		Verb:      "list",
+		Resource:  "server",
+		Verb:      "list-options",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(dedibox.ListSubscribableServerOptionsRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -407,13 +397,13 @@ func dediboxOptionList() *core.Command {
 	}
 }
 
-func dediboxOptionSubscribe() *core.Command {
+func dediboxServerSubscribeOption() *core.Command {
 	return &core.Command{
 		Short:     `Subscribe server option`,
 		Long:      `Subscribe option for the given server ID.`,
 		Namespace: "dedibox",
-		Resource:  "option",
-		Verb:      "subscribe",
+		Resource:  "server",
+		Verb:      "subscribe-option",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(dedibox.SubscribeServerOptionRequest{}),
 		ArgSpecs: core.ArgSpecs{
@@ -489,12 +479,12 @@ func dediboxServerCreate() *core.Command {
 	}
 }
 
-func dediboxOptionSubscribeStorage() *core.Command {
+func dediboxServerSubscribeStorage() *core.Command {
 	return &core.Command{
 		Short:     `Subscribe storage server option`,
 		Long:      `Subscribe storage option for the given server ID.`,
 		Namespace: "dedibox",
-		Resource:  "option",
+		Resource:  "server",
 		Verb:      "subscribe-storage",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(dedibox.SubscribeStorageOptionsRequest{}),

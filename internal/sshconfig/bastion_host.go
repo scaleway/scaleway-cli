@@ -30,7 +30,7 @@ func (b BastionHost) Config() string {
 }
 
 func (b BastionHost) name() string {
-	return fmt.Sprintf("*.%s", b.Name)
+	return "*." + b.Name
 }
 
 func (b BastionHost) address() string {

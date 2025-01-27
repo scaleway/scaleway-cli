@@ -5,6 +5,7 @@ package args
 // into CLI arguments represented as Go data.
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -32,7 +33,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		// Only support G, GB for now (case insensitive).
 		value = strings.ToLower(value)
 		if !strings.HasSuffix(value, "g") && !strings.HasSuffix(value, "gb") {
-			return fmt.Errorf("size must be defined using the G or GB unit")
+			return errors.New("size must be defined using the G or GB unit")
 		}
 
 		bytes, err := humanize.ParseBytes(value)
@@ -70,7 +71,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		}
 
 		if len(value) == 0 {
-			return fmt.Errorf("empty time given")
+			return errors.New("empty time given")
 		}
 
 		// Handle relative time
@@ -332,7 +333,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// We construct two caches:
 		anonymousFieldIndexes := []int(nil)
 		fieldIndexByName := map[string]int{}
-		for i := 0; i < dest.Type().NumField(); i++ {
+		for i := range dest.Type().NumField() {
 			field := dest.Type().Field(i)
 			if field.Anonymous {
 				anonymousFieldIndexes = append(anonymousFieldIndexes, i)

@@ -1,0 +1,155 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"e09f17d5-7486-4750-b91a-3be27feab133", "name":"cli-vol-optimistic-northcutt",
+      "type":"sbs_5k", "size":20000000000, "project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "created_at":"2025-01-21T14:47:52.927439Z", "updated_at":"2025-01-21T14:47:52.927439Z",
+      "references":[], "parent_snapshot_id":null, "status":"creating", "tags":[],
+      "specs":{"perf_iops":5000, "class":"sbs"}, "last_detached_at":null, "zone":"fr-par-1"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.4; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes
+    method: POST
+  response:
+    body: '{"id":"e09f17d5-7486-4750-b91a-3be27feab133", "name":"cli-vol-optimistic-northcutt",
+      "type":"sbs_5k", "size":20000000000, "project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "created_at":"2025-01-21T14:47:52.927439Z", "updated_at":"2025-01-21T14:47:52.927439Z",
+      "references":[], "parent_snapshot_id":null, "status":"creating", "tags":[],
+      "specs":{"perf_iops":5000, "class":"sbs"}, "last_detached_at":null, "zone":"fr-par-1"}'
+    headers:
+      Content-Length:
+      - "425"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 21 Jan 2025 14:47:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 91b6a6d1-2f28-40bc-85bf-b153caf3b2ec
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"e09f17d5-7486-4750-b91a-3be27feab133", "name":"cli-vol-optimistic-northcutt",
+      "type":"sbs_5k", "size":20000000000, "project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "created_at":"2025-01-21T14:47:52.927439Z", "updated_at":"2025-01-21T14:47:52.927439Z",
+      "references":[], "parent_snapshot_id":null, "status":"creating", "tags":[],
+      "specs":{"perf_iops":5000, "class":"sbs"}, "last_detached_at":null, "zone":"fr-par-1"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.4; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e09f17d5-7486-4750-b91a-3be27feab133
+    method: GET
+  response:
+    body: '{"id":"e09f17d5-7486-4750-b91a-3be27feab133", "name":"cli-vol-optimistic-northcutt",
+      "type":"sbs_5k", "size":20000000000, "project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "created_at":"2025-01-21T14:47:52.927439Z", "updated_at":"2025-01-21T14:47:52.927439Z",
+      "references":[], "parent_snapshot_id":null, "status":"creating", "tags":[],
+      "specs":{"perf_iops":5000, "class":"sbs"}, "last_detached_at":null, "zone":"fr-par-1"}'
+    headers:
+      Content-Length:
+      - "425"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 21 Jan 2025 14:47:53 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 1d601dc8-f3f6-4677-b63e-f44549614dd6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"e09f17d5-7486-4750-b91a-3be27feab133", "name":"cli-vol-optimistic-northcutt",
+      "type":"sbs_5k", "size":20000000000, "project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "created_at":"2025-01-21T14:47:52.927439Z", "updated_at":"2025-01-21T14:47:52.927439Z",
+      "references":[], "parent_snapshot_id":null, "status":"available", "tags":[],
+      "specs":{"perf_iops":5000, "class":"sbs"}, "last_detached_at":null, "zone":"fr-par-1"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.4; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e09f17d5-7486-4750-b91a-3be27feab133
+    method: GET
+  response:
+    body: '{"id":"e09f17d5-7486-4750-b91a-3be27feab133", "name":"cli-vol-optimistic-northcutt",
+      "type":"sbs_5k", "size":20000000000, "project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "created_at":"2025-01-21T14:47:52.927439Z", "updated_at":"2025-01-21T14:47:52.927439Z",
+      "references":[], "parent_snapshot_id":null, "status":"available", "tags":[],
+      "specs":{"perf_iops":5000, "class":"sbs"}, "last_detached_at":null, "zone":"fr-par-1"}'
+    headers:
+      Content-Length:
+      - "426"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 21 Jan 2025 14:47:58 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 50c2710d-8625-41f9-be7f-77c4194253b3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.4; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e09f17d5-7486-4750-b91a-3be27feab133
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 21 Jan 2025 14:47:58 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d8ba37cd-cd77-4952-b664-00977ebce775
+    status: 204 No Content
+    code: 204
+    duration: ""

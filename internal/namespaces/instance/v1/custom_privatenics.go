@@ -5,18 +5,16 @@ import (
 	"net"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
-var (
-	privateNICStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.PrivateNICStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.PrivateNICStateSyncing:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.PrivateNICStateSyncingError: &human.EnumMarshalSpec{Attribute: color.FgRed},
-	}
-)
+var privateNICStateMarshalSpecs = human.EnumMarshalSpecs{
+	instance.PrivateNICStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	instance.PrivateNICStateSyncing:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	instance.PrivateNICStateSyncingError: &human.EnumMarshalSpec{Attribute: color.FgRed},
+}
 
 func privateNicGetBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("private-nic-id").Short = "The private NIC unique ID or MAC address"

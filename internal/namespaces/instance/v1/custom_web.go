@@ -1,6 +1,6 @@
 package instance
 
-import "github.com/scaleway/scaleway-cli/v2/internal/core"
+import "github.com/scaleway/scaleway-cli/v2/core"
 
 func addWebUrls(cmds *core.Commands) {
 	const imageURL = "https://console.scaleway.com/instance/images"

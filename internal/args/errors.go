@@ -10,8 +10,7 @@ import (
 // Marshal & Unmarshal Errors
 //
 
-type DataMustBeAPointerError struct {
-}
+type DataMustBeAPointerError struct{}
 
 func (e *DataMustBeAPointerError) Error() string {
 	return "data must be a pointer to a struct"
@@ -21,8 +20,7 @@ func (e *DataMustBeAPointerError) Error() string {
 // Marshal Errors
 //
 
-type DataMustBeAMarshalableValueError struct {
-}
+type DataMustBeAMarshalableValueError struct{}
 
 func (e *DataMustBeAMarshalableValueError) Error() string {
 	return "data must be a marshalable value (a scalar type or a Marshaler)"
@@ -71,22 +69,19 @@ func (e *UnmarshalArgError) Unwrap() error {
 	return e.Err
 }
 
-type InvalidArgNameError struct {
-}
+type InvalidArgNameError struct{}
 
 func (e *InvalidArgNameError) Error() string {
 	return "arg name must only contain lowercase letters, numbers or dashes"
 }
 
-type UnknownArgError struct {
-}
+type UnknownArgError struct{}
 
 func (e *UnknownArgError) Error() string {
 	return "unknown argument"
 }
 
-type DuplicateArgError struct {
-}
+type DuplicateArgError struct{}
 
 func (e *DuplicateArgError) Error() string {
 	return "duplicate argument"
@@ -100,8 +95,7 @@ func (e *CannotSetNestedFieldError) Error() string {
 	return fmt.Sprintf("cannot set nested field for unmarshalable type %T", e.Dest)
 }
 
-type MissingIndexOnArrayError struct {
-}
+type MissingIndexOnArrayError struct{}
 
 func (e *MissingIndexOnArrayError) Error() string {
 	return "missing index on the array"
@@ -129,8 +123,7 @@ func (e *MissingIndicesInArrayError) Error() string {
 	}
 }
 
-type MissingMapKeyError struct {
-}
+type MissingMapKeyError struct{}
 
 func (e *MissingMapKeyError) Error() string {
 	return "missing map key"
@@ -195,7 +188,7 @@ type CannotParseDateError struct {
 }
 
 func (e *CannotParseDateError) Error() string {
-	return fmt.Sprintf(`date parsing error: could not parse %s`, e.ArgValue)
+	return "date parsing error: could not parse " + e.ArgValue
 }
 
 type CannotParseBoolError struct {

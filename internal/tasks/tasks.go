@@ -10,8 +10,10 @@ import (
 	"reflect"
 )
 
-type TaskFunc[T any, U any] func(t *Task, args T) (nextArgs U, err error)
-type CleanupFunc func(ctx context.Context) error
+type (
+	TaskFunc[T any, U any] func(t *Task, args T) (nextArgs U, err error)
+	CleanupFunc            func(ctx context.Context) error
+)
 
 type Task struct {
 	Name string

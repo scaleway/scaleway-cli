@@ -3,15 +3,15 @@ package feedback
 import (
 	"bytes"
 	"context"
-	"fmt"
+	"errors"
 	"html/template"
 	"log"
 	"net/url"
 	"os/exec"
 	"runtime"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 )
 
 const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
@@ -98,7 +98,7 @@ func (i issue) openInBrowser(ctx context.Context) error {
 	case darwin:
 		openCmd = exec.Command("open", i.getURL()) //nolint:gosec
 	default:
-		return fmt.Errorf("unsupported platform")
+		return errors.New("unsupported platform")
 	}
 
 	exitCode, err := core.ExecCmd(ctx, openCmd)

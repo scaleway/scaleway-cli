@@ -9,7 +9,7 @@ import (
 
 	"github.com/chzyer/readline"
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
@@ -36,9 +36,9 @@ func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
 	for {
 		prompt := terminal.Style(config.Prompt, color.Bold)
 		if config.DefaultValue {
-			prompt = prompt + " (Y/n): "
+			prompt += " (Y/n): "
 		} else {
-			prompt = prompt + " (y/N): "
+			prompt += " (y/N): "
 		}
 
 		str, err := Readline(&ReadlineConfig{
@@ -140,13 +140,12 @@ func Readline(config *ReadlineConfig) (string, error) {
 			return nil, 0, false
 		}),
 	})
-
 	if err != nil {
 		return "", err
 	}
 
 	promptHandler = &ReadlineHandler{rl: rl}
-	s := ""
+	var s string
 	for {
 		s, err = rl.Readline()
 		// If readline returns an error we return it
@@ -167,7 +166,6 @@ func Readline(config *ReadlineConfig) (string, error) {
 
 		// Handle user input validation
 		err = validateFunc(s)
-
 		// If ValidateFunc returns an error we print it and Readline again
 		if err != nil {
 			s, err := human.Marshal(err, nil)

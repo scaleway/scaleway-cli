@@ -1,13 +1,16 @@
 package vpc_test
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"fmt"
+
+	"github.com/scaleway/scaleway-cli/v2/core"
+	rdbAPI "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
 
 func createInstance() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create stopped=true image=ubuntu_focal",
+		"scw instance server create type=DEV1-S stopped=true image=ubuntu_focal",
 	)
 }
 
@@ -56,11 +59,20 @@ func deleteLB() core.AfterFunc {
 	return core.ExecAfterCmd("scw lb lb delete {{ .LB.ID }}")
 }
 
-func createRdbInstance() core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(
-		"RDB",
-		"scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=cli-test engine=PostgreSQL-12 user-name=foobar password={4xdl*#QOoP+&3XRkGA)] init-endpoints.0.private-network.private-network-id={{ .PN.ID }} init-endpoints.0.private-network.service-ip=192.168.0.1/24 --wait",
-	)
+func createRdbInstance(metaKey, engineName string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		api := rdbAPI.NewAPI(ctx.Client)
+		engine, err := api.FetchLatestEngineVersion(engineName)
+		if err != nil {
+			return err
+		}
+		cmd := fmt.Sprintf(
+			"scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=cli-test engine=%s user-name=foobar password={4xdl*#QOoP+&3XRkGA)] init-endpoints.0.private-network.private-network-id={{ .PN.ID }} init-endpoints.0.private-network.service-ip=192.168.0.1/24 --wait",
+			engine.Name,
+		)
+
+		return core.ExecStoreBeforeCmd(metaKey, cmd)(ctx)
+	}
 }
 
 func detachRdbInstance() core.AfterFunc {

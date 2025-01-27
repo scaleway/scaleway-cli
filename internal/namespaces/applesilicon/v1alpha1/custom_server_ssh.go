@@ -2,11 +2,13 @@ package applesilicon
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os/exec"
 	"reflect"
+	"strconv"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -70,14 +72,14 @@ func serverSSHRun(ctx context.Context, argsI interface{}) (i interface{}, e erro
 
 	if serverResp.Status != applesilicon.ServerStatusReady {
 		return nil, &core.CliError{
-			Err:     fmt.Errorf("server is not ready"),
+			Err:     errors.New("server is not ready"),
 			Details: fmt.Sprintf("Server %s currently in %s", serverResp.Name, serverResp.Status),
 		}
 	}
 
 	sshArgs := []string{
 		serverResp.IP.String(),
-		"-p", fmt.Sprintf("%d", args.Port),
+		"-p", strconv.FormatUint(uint64(args.Port), 10),
 		"-l", args.Username,
 		"-t",
 	}

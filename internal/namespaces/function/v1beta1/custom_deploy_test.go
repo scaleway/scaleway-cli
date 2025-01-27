@@ -1,13 +1,13 @@
 package function_test
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	functionSDK "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -56,9 +56,9 @@ func testDeleteFunctionNamespaceAfter(functionName string) func(*core.AfterFuncC
 		}
 
 		if namespaceID == "" {
-			return fmt.Errorf("namespace not found")
+			return errors.New("namespace not found")
 		}
 
-		return core.ExecAfterCmd(fmt.Sprintf("scw function namespace delete %s", namespaceID))(ctx)
+		return core.ExecAfterCmd("scw function namespace delete " + namespaceID)(ctx)
 	}
 }

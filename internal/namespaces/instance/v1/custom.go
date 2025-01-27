@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
@@ -114,6 +114,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "snapshot", "update").Override(snapshotUpdateBuilder)
 	cmds.Merge(core.NewCommands(
 		snapshotWaitCommand(),
+		snapshotPlanMigrationCommand(),
+		snapshotApplyMigrationCommand(),
 	))
 
 	//
@@ -126,6 +128,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
 	cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
+	cmds.MustFind("instance", "volume", "plan-migration").Override(volumeMigrationBuilder)
+	cmds.MustFind("instance", "volume", "apply-migration").Override(volumeMigrationBuilder)
 	cmds.Merge(core.NewCommands(
 		volumeWaitCommand(),
 	))

@@ -3,10 +3,9 @@ package instance_test
 import (
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
-
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
@@ -16,7 +15,8 @@ import (
 func addSSHKey(serverKey string, sshKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		server := ctx.Meta[serverKey].(*instanceSDK.Server)
-		tags := append(server.Tags, instance.FormatSSHKeyToTag(sshKey))
+		tags := server.Tags
+		tags = append(tags, instance.FormatSSHKeyToTag(sshKey))
 
 		resp, err := instanceSDK.NewAPI(ctx.Client).UpdateServer(&instanceSDK.UpdateServerRequest{
 			Zone:     server.Zone,
@@ -45,6 +45,7 @@ func Test_SSHKey(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				resp, err := instanceSDK.NewAPI(ctx.Client).GetServer(&instanceSDK.GetServerRequest{
 					Zone:     server.Zone,
@@ -68,6 +69,7 @@ func Test_SSHKey(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				out := string(ctx.Stdout)
 				assert.Contains(t, out, "key1")
 				assert.Contains(t, out, "key2")
@@ -87,6 +89,7 @@ func Test_SSHKey(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				server := ctx.Meta["Server"].(*instanceSDK.Server)
 				resp, err := instanceSDK.NewAPI(ctx.Client).GetServer(&instanceSDK.GetServerRequest{
 					Zone:     server.Zone,

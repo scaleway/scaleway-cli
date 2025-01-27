@@ -55,6 +55,8 @@ dockers:
       - go.sum
       - scripts
       - cmd
+      - core
+      - commands
       - internal
       - .git
     build_flag_templates:

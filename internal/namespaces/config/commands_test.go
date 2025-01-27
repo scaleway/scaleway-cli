@@ -1,16 +1,14 @@
 package config_test
 
 import (
-	"fmt"
 	"os"
 	"path"
 	"regexp"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
-
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
@@ -70,6 +68,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
+				t.Helper()
 				assert.Equal(t, "SCWNEWXXXXXXXXXXXXXX", *config.AccessKey)
 			}),
 		),
@@ -84,6 +83,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
+				t.Helper()
 				assert.Equal(t, "SCWNEWXXXXXXXXXXXXXX", *config.Profiles["p1"].AccessKey)
 			}),
 		),
@@ -98,6 +98,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
+				t.Helper()
 				assert.Equal(t, true, *config.SendTelemetry)
 			}),
 		),
@@ -112,6 +113,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
+				t.Helper()
 				assert.Equal(t, "SCWNEWXXXXXXXXXXXXXX", *config.Profiles["test"].AccessKey)
 			}),
 		),
@@ -128,6 +130,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
+				t.Helper()
 				assert.Nil(t, config.AccessKey)
 			}),
 		),
@@ -142,6 +145,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
+				t.Helper()
 				assert.Nil(t, config.Profiles["p1"].AccessKey)
 			}),
 		),
@@ -156,6 +160,7 @@ func Test_ConfigUnsetCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
+				t.Helper()
 				assert.Nil(t, config.SendTelemetry)
 			}),
 		),
@@ -183,6 +188,7 @@ func Test_ConfigDeleteProfileCommand(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
+				t.Helper()
 				assert.Nil(t, config.Profiles["p2"])
 			}),
 		),
@@ -317,11 +323,12 @@ func Test_ConfigImportCommand(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands:   config.GetCommands(),
 			BeforeFunc: beforeFuncCreateFullConfig(),
-			Cmd:        fmt.Sprintf("scw config import %s", tmpFile.Name()),
+			Cmd:        "scw config import " + tmpFile.Name(),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, config *scw.Config) {
+					t.Helper()
 					// config
 					assert.Equal(t, "22222222-2222-2222-2222-222222222222", *config.SecretKey)
 					assert.Equal(t, "nl-ams", *config.DefaultRegion)
@@ -376,6 +383,7 @@ func Test_ConfigValidateCommand(t *testing.T) {
 
 func checkConfig(f func(t *testing.T, config *scw.Config)) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
+		t.Helper()
 		homeDir := ctx.OverrideEnv["HOME"]
 		config, err := scw.LoadConfigFromPath(path.Join(homeDir, ".config", "scw", "config.yaml"))
 		require.NoError(t, err)
@@ -387,7 +395,7 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		homeDir := ctx.OverrideEnv["HOME"]
 		scwDir := path.Join(homeDir, ".config", "scw")
-		err := os.MkdirAll(scwDir, 0755)
+		err := os.MkdirAll(scwDir, 0o755)
 		if err != nil {
 			return err
 		}
@@ -496,7 +504,7 @@ profiles:
     send_telemetry: true
 `
 
-	if _, err := tmpFile.Write([]byte(configContent)); err != nil {
+	if _, err := tmpFile.WriteString(configContent); err != nil {
 		return nil, err
 	}
 	if err := tmpFile.Close(); err != nil {

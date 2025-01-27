@@ -5,18 +5,18 @@ import (
 	"path"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
-
 	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
-	api "github.com/kubernetes-client/go-base/config/api"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
+	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8sSDK "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
 // testIfKubeconfigNotInFile checks if the given kubeconfig is not in the given file
 // it tests if the user, cluster and context of the kubeconfig file are not in the given file
 func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
+	t.Helper()
 	kubeconfigBytes, err := os.ReadFile(filePath)
 	assert.Nil(t, err)
 	var existingKubeconfig k8sSDK.Kubeconfig
@@ -62,6 +62,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
 			},
 			core.TestCheckExitCode(0),
@@ -78,6 +79,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, _ *core.CheckFuncCtx) {
+				t.Helper()
 				_, err := os.Stat(path.Join(os.TempDir(), "emptyfile"))
 				assert.True(t, os.IsNotExist(err))
 			},
@@ -95,6 +97,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "", testKubeconfig)
 			},

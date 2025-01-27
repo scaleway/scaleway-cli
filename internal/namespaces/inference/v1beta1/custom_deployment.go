@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -19,16 +19,14 @@ const (
 	deploymentActionTimeout = 60 * time.Minute
 )
 
-var (
-	deployementStateMarshalSpecs = human.EnumMarshalSpecs{
-		inference.DeploymentStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		inference.DeploymentStatusDeploying: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		inference.DeploymentStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		inference.DeploymentStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-		inference.DeploymentStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		inference.DeploymentStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-	}
-)
+var deployementStateMarshalSpecs = human.EnumMarshalSpecs{
+	inference.DeploymentStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	inference.DeploymentStatusDeploying: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	inference.DeploymentStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	inference.DeploymentStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+	inference.DeploymentStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	inference.DeploymentStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
+}
 
 func DeploymentMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	type tmp inference.Deployment
@@ -70,7 +68,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := inference.NewAPI(core.ExtractClient(ctx))
 		return api.WaitForDeployment(&inference.WaitForDeploymentRequest{
-			DeploymentId:  respI.(*inference.Deployment).ID,
+			DeploymentID:  respI.(*inference.Deployment).ID,
 			Region:        respI.(*inference.Deployment).Region,
 			Status:        respI.(*inference.Deployment).Status,
 			Timeout:       scw.TimeDurationPtr(deploymentActionTimeout),
@@ -119,7 +117,7 @@ func deploymentDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := inference.NewAPI(core.ExtractClient(ctx))
 		deployment, err := api.WaitForDeployment(&inference.WaitForDeploymentRequest{
-			DeploymentId:  respI.(*inference.Deployment).ID,
+			DeploymentID:  respI.(*inference.Deployment).ID,
 			Region:        respI.(*inference.Deployment).Region,
 			Status:        respI.(*inference.Deployment).Status,
 			Timeout:       scw.TimeDurationPtr(deploymentActionTimeout),

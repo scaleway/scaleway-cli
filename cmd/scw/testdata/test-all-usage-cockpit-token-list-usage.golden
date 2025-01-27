@@ -1,13 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a list of tokens in a given Project specified by the Project ID.
+Retrieve a list of all tokens in the specified region. By default, tokens returned in the list are ordered by creation date, in ascending order.
+You can filter tokens by Project ID and token scopes.
 
 USAGE:
   scw cockpit token list [arg=value ...]
 
 ARGS:
-  [order-by]     How the response is ordered (created_at_asc | created_at_desc | name_asc | name_desc)
-  [project-id]   Project ID to use. If none is passed the default project ID will be used
+  [order-by]               Order in which to return results (created_at_asc | created_at_desc | name_asc | name_desc)
+  [project-id]             Project ID to use. If none is passed the default project ID will be used
+  [token-scopes.{index}]   Token scopes to filter for (unknown_scope | read_only_metrics | write_only_metrics | full_access_metrics_rules | read_only_logs | write_only_logs | full_access_logs_rules | full_access_alert_manager | read_only_traces | write_only_traces)
+  [region=fr-par]          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

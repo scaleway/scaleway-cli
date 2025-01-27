@@ -4,11 +4,12 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/gotty"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -57,7 +58,7 @@ func instanceServerConsoleRun(ctx context.Context, argsI interface{}) (i interfa
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
-		return nil, fmt.Errorf("could not get secret key")
+		return nil, errors.New("could not get secret key")
 	}
 
 	ttyClient, err := gotty.NewClient(server.Zone, server.ID, secretKey)

@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Checkout should always be before setup-go to ensure caching is working
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
@@ -18,4 +19,4 @@ jobs:
       - name: Run coverage
         run: go test -coverprofile=coverage.out -covermode=count ./...
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5

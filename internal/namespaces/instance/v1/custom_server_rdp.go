@@ -11,13 +11,12 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"golang.org/x/crypto/ssh"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"golang.org/x/crypto/ssh"
 )
 
 type instanceServerGetRdpPasswordRequest struct {
@@ -114,7 +113,7 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 	}
 	if resp.Server.AdminPasswordEncryptedValue == nil || *resp.Server.AdminPasswordEncryptedValue == "" {
 		return &core.CliError{
-			Err:     fmt.Errorf("rdp password is empty"),
+			Err:     errors.New("rdp password is empty"),
 			Message: "RDP password is nil or empty in api response",
 			Details: "Your server have no RDP password available",
 			Hint:    "You may need to wait for your OS to start before having a generated RDP password, it can take more than 10 minutes.\nUse -w, --wait to wait for password to be available",
@@ -154,7 +153,7 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 func parsePrivateKey(ctx context.Context, key []byte) (any, error) {
 	privateKey, err := ssh.ParseRawPrivateKey(key)
 	if err == nil {
-		return privateKey, err
+		return privateKey, nil
 	}
 	// Key may need a passphrase
 	missingPassphraseError := &ssh.PassphraseMissingError{}

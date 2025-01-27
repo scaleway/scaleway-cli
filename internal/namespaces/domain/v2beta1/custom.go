@@ -1,14 +1,12 @@
 package domain
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
-var (
-	domainTypes = []string{"A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR"}
-)
+var domainTypes = []string{"A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR"}
 
 const defaultTTL = "3600"
 

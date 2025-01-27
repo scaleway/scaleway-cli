@@ -79,13 +79,14 @@ After you [installed](#Installation) the latest release just run the initializat
 scw init
 ```
 
-It will set up your profile, the authentication, and the auto-completion.
+It will set up your profile, the authentication, and the auto-completion.  
+NB: you'll need to have an **API-key** (access-key + access-secret), so be sure to create one on the [scaleway web console](https://console.scaleway.com/iam/api-keys).
 
 ## Basic commands
 
 ```
 # Create an instance server
-scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
+scw instance server create type=DEV1-S image=ubuntu_noble zone=fr-par-1 tags.0="scw-cli"
 
 # List your servers
 scw instance server list
@@ -124,6 +125,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `instance`     | Instance API                            | [CLI](./docs/commands/instance.md) / [API](https://www.scaleway.com/en/developers/api/instance/)                  |
 | `iot`          | IoT API                                 | [CLI](./docs/commands/iot.md) / [API](https://www.scaleway.com/en/developers/api/iot/)                            |
 | `ipam`         | IPAM API                                | [CLI](./docs/commands/ipam.md) / [API](https://www.scaleway.com/en/developers/api/ipam/)                          |
+| `jobs`         | Serverless Jobs API                     | [CLI](./docs/commands/jobs.md) / [API](https://www.scaleway.com/en/developers/api/serverless-jobs/)               |
 | `k8s`          | Kapsule API                             | [CLI](./docs/commands/k8s.md) / [API](https://www.scaleway.com/en/developers/api/kubernetes/)                     |
 | `lb`           | Load Balancer API                       | [CLI](./docs/commands/lb.md) / [API](https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/)         |
 | `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                             |

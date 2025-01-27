@@ -5,12 +5,11 @@ import (
 	"path"
 	"testing"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
-
 	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
-	api "github.com/kubernetes-client/go-base/config/api"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
+	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8sSDK "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
@@ -93,6 +92,7 @@ y7JHcXauRKI7bxgOugSep2d0lhYxJl65CPOCllawcu70Ds34MKi3XkCe20I=
 // testIfKubeconfigInFile checks if the given kubeconfig is in the given file
 // it test if the user, cluster and context of the kubeconfig file are in the given file
 func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
+	t.Helper()
 	kubeconfigBytes, err := os.ReadFile(filePath)
 	assert.Nil(t, err)
 	var existingKubeconfig api.Config
@@ -102,10 +102,10 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 	found := false
 	for _, cluster := range existingKubeconfig.Clusters {
 		if cluster.Name == kubeconfig.Clusters[0].Name+suffix {
-			//t.Log(string(cluster.Cluster.CertificateAuthorityData))
+			// t.Log(string(cluster.Cluster.CertificateAuthorityData))
 			// t.Log(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
 			// panic(string(cluster.Cluster.CertificateAuthorityData))
-			//panic(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
+			// panic(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
 			assert.Equal(t, string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData), string(cluster.Cluster.CertificateAuthorityData))
 			assert.Equal(t, kubeconfig.Clusters[0].Cluster.Server, cluster.Cluster.Server)
 			found = true
@@ -148,6 +148,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
 			},
 			core.TestCheckExitCode(0),
@@ -165,6 +166,7 @@ func Test_InstallKubeconfig(t *testing.T) {
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
 				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "", testKubeconfig)
 			},

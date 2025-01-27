@@ -2,7 +2,7 @@ package webhosting
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	webhosting "github.com/scaleway/scaleway-sdk-go/api/webhosting/v1alpha1"
 )
 

@@ -115,7 +115,7 @@ func validateClient(client *scw.Client) error {
 	accessKey, _ := client.GetAccessKey()
 	if accessKey == "" {
 		return &platform.ClientError{
-			Err:     fmt.Errorf("access key is required"),
+			Err:     errors.New("access key is required"),
 			Details: configErrorDetails("access_key", "SCW_ACCESS_KEY"),
 		}
 	}
@@ -129,7 +129,7 @@ func validateClient(client *scw.Client) error {
 	secretKey, _ := client.GetSecretKey()
 	if secretKey == "" {
 		return &platform.ClientError{
-			Err:     fmt.Errorf("secret key is required"),
+			Err:     errors.New("secret key is required"),
 			Details: configErrorDetails("secret_key", "SCW_SECRET_KEY"),
 		}
 	}
@@ -143,7 +143,7 @@ func validateClient(client *scw.Client) error {
 	defaultOrganizationID, _ := client.GetDefaultOrganizationID()
 	if defaultOrganizationID == "" {
 		return &platform.ClientError{
-			Err:     fmt.Errorf("organization ID is required"),
+			Err:     errors.New("organization ID is required"),
 			Details: configErrorDetails("default_organization_id", "SCW_DEFAULT_ORGANIZATION_ID"),
 		}
 	}
@@ -157,7 +157,7 @@ func validateClient(client *scw.Client) error {
 	defaultZone, _ := client.GetDefaultZone()
 	if defaultZone == "" {
 		return &platform.ClientError{
-			Err:     fmt.Errorf("default zone is required"),
+			Err:     errors.New("default zone is required"),
 			Details: configErrorDetails("default_zone", "SCW_DEFAULT_ZONE"),
 		}
 	}
@@ -175,7 +175,7 @@ func validateClient(client *scw.Client) error {
 	defaultRegion, _ := client.GetDefaultRegion()
 	if defaultRegion == "" {
 		return &platform.ClientError{
-			Err:     fmt.Errorf("default region is required"),
+			Err:     errors.New("default region is required"),
 			Details: configErrorDetails("default_region", "SCW_DEFAULT_REGION"),
 		}
 	}

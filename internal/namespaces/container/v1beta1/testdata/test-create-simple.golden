@@ -1,24 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              eff8830f-5f3b-4e42-a2f0-8e4a77ec4cb0
-Name            cli-test-kind-herschel
-NamespaceID     550f7065-ee73-4399-a32b-49b179950b57
-Status          pending
-MinScale        0
-MaxScale        5
-MemoryLimit     256
-CPULimit        140
-Timeout         5 minutes
-Privacy         public
-Description     -
-RegistryImage   rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3/cli-test-kind-herschel:latest
-MaxConcurrency  50
-DomainName      clicnssillyshirleyusnp0hk3-cli-test-kind-herschel.functions.fnc.fr-par.scw.cloud
-Protocol        http1
-Port            8080
-HTTPOption      enabled
-Sandbox         unknown_sandbox
-Region          fr-par
+ID                 eff8830f-5f3b-4e42-a2f0-8e4a77ec4cb0
+Name               cli-test-kind-herschel
+NamespaceID        550f7065-ee73-4399-a32b-49b179950b57
+Status             pending
+MinScale           0
+MaxScale           5
+MemoryLimit        256
+CPULimit           140
+Timeout            5 minutes
+Privacy            public
+Description        -
+RegistryImage      rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3/cli-test-kind-herschel:latest
+MaxConcurrency     50
+DomainName         clicnssillyshirleyusnp0hk3-cli-test-kind-herschel.functions.fnc.fr-par.scw.cloud
+Protocol           http1
+Port               8080
+HTTPOption         enabled
+Sandbox            unknown_sandbox
+LocalStorageLimit  0
+Region             fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "eff8830f-5f3b-4e42-a2f0-8e4a77ec4cb0",
@@ -42,5 +43,11 @@ Region          fr-par
   "secret_environment_variables": [],
   "http_option": "enabled",
   "sandbox": "unknown_sandbox",
+  "local_storage_limit": 0,
+  "scaling_option": null,
+  "health_check": null,
+  "created_at": null,
+  "updated_at": null,
+  "ready_at": null,
   "region": "fr-par"
 }

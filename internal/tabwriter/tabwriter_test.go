@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"strconv"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
@@ -26,7 +27,7 @@ func (b *buffer) Write(buf []byte) (written int, err error) {
 	m := len(buf)
 	if n+m <= cap(b.a) {
 		b.a = b.a[0 : n+m]
-		for i := 0; i < m; i++ {
+		for i := range m {
 			b.a[n+i] = buf[i]
 		}
 	} else {
@@ -38,6 +39,7 @@ func (b *buffer) Write(buf []byte) (written int, err error) {
 func (b *buffer) String() string { return string(b.a) }
 
 func write(t *testing.T, testname string, w *tabwriter.Writer, src string) {
+	t.Helper()
 	written, err := io.WriteString(w, src)
 	if err != nil {
 		t.Errorf("--- test: %s\n--- src:\n%q\n--- write error: %v\n", testname, src, err)
@@ -48,6 +50,7 @@ func write(t *testing.T, testname string, w *tabwriter.Writer, src string) {
 }
 
 func verify(t *testing.T, testname string, w *tabwriter.Writer, b *buffer, src, expected string) {
+	t.Helper()
 	err := w.Flush()
 	if err != nil {
 		t.Errorf("--- test: %s\n--- src:\n%q\n--- flush error: %v\n", testname, src, err)
@@ -60,6 +63,7 @@ func verify(t *testing.T, testname string, w *tabwriter.Writer, b *buffer, src, 
 }
 
 func check(t *testing.T, testname string, minwidth, tabwidth, padding int, padchar byte, flags uint, src, expected string) {
+	t.Helper()
 	var b buffer
 	b.init(1000)
 
@@ -75,7 +79,7 @@ func check(t *testing.T, testname string, minwidth, tabwidth, padding int, padch
 	// write byte-by-byte
 	title = testname + " (written byte-by-byte)"
 	b.clear()
-	for i := 0; i < len(src); i++ {
+	for i := range len(src) {
 		write(t, title, &w, src[i:i+1])
 	}
 	verify(t, title, &w, &b, src, expected)
@@ -656,6 +660,7 @@ func (panicWriter) Write([]byte) (int, error) {
 }
 
 func wantPanicString(t *testing.T, want string) {
+	t.Helper()
 	if e := recover(); e != nil {
 		got, ok := e.(string)
 		switch {
@@ -695,10 +700,10 @@ func BenchmarkTable(b *testing.B) {
 			b.Run(fmt.Sprintf("%dx%d", w, h), func(b *testing.B) {
 				b.Run("new", func(b *testing.B) {
 					b.ReportAllocs()
-					for i := 0; i < b.N; i++ {
+					for range b.N {
 						w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 						// Write the line h times.
-						for j := 0; j < h; j++ {
+						for range h {
 							w.Write(line)
 						}
 						w.Flush()
@@ -708,9 +713,9 @@ func BenchmarkTable(b *testing.B) {
 				b.Run("reuse", func(b *testing.B) {
 					b.ReportAllocs()
 					w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
-					for i := 0; i < b.N; i++ {
+					for range b.N {
 						// Write the line h times.
-						for j := 0; j < h; j++ {
+						for range h {
 							w.Write(line)
 						}
 						w.Flush()
@@ -725,12 +730,12 @@ func BenchmarkPyramid(b *testing.B) {
 	for _, x := range [...]int{10, 100, 1000} {
 		// Build a line with x cells.
 		line := bytes.Repeat([]byte("a\t"), x)
-		b.Run(fmt.Sprintf("%d", x), func(b *testing.B) {
+		b.Run(strconv.Itoa(x), func(b *testing.B) {
 			b.ReportAllocs()
-			for i := 0; i < b.N; i++ {
+			for range b.N {
 				w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 				// Write increasing prefixes of that line.
-				for j := 0; j < x; j++ {
+				for j := range x {
 					w.Write(line[:j*2])
 					w.Write([]byte{'\n'})
 				}
@@ -747,12 +752,12 @@ func BenchmarkRagged(b *testing.B) {
 		lines[i] = bytes.Repeat([]byte("a\t"), w)
 	}
 	for _, h := range [...]int{10, 100, 1000} {
-		b.Run(fmt.Sprintf("%d", h), func(b *testing.B) {
+		b.Run(strconv.Itoa(h), func(b *testing.B) {
 			b.ReportAllocs()
-			for i := 0; i < b.N; i++ {
+			for range b.N {
 				w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 				// Write the lines in turn h times.
-				for j := 0; j < h; j++ {
+				for j := range h {
 					w.Write(lines[j%len(lines)])
 					w.Write([]byte{'\n'})
 				}
@@ -777,7 +782,7 @@ lines
 
 func BenchmarkCode(b *testing.B) {
 	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
 		// The code is small, so it's reasonable for the tabwriter user
 		// to write it all at once, or buffer the writes.

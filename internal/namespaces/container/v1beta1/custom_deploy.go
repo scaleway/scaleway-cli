@@ -23,7 +23,7 @@ import (
 	"github.com/docker/docker/pkg/archive"
 	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -118,7 +118,7 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 	if args.Name == "" {
 		args.Name = filepath.Base(args.BuildSource)
 		if args.Name == "." {
-			return nil, fmt.Errorf("unable to determine application name, please specify it with name=")
+			return nil, errors.New("unable to determine application name, please specify it with name=")
 		}
 
 		args.Name = "app-" + args.Name

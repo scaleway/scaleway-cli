@@ -3,9 +3,8 @@ package rdb_test
 import (
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
 	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
@@ -20,12 +19,13 @@ func Test_EndpointCreate(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetwork("PostgreSQL-15"),
+			createInstanceWithPrivateNetwork(),
 		),
 		Cmd: "scw rdb endpoint create {{ .Instance.ID }} load-balancer=true --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic, publicEndpoint})
 			},
@@ -37,12 +37,13 @@ func Test_EndpointCreate(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstance("PostgreSQL-15"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 		),
 		Cmd: "scw rdb endpoint create {{ .Instance.ID }} private-network.private-network-id={{ .PN.ID }} private-network.service-ip={{ .IPNet }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic, publicEndpoint})
 			},
@@ -57,12 +58,13 @@ func Test_EndpointCreate(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstance("PostgreSQL-15"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 		),
 		Cmd: "scw rdb endpoint create {{ .Instance.ID }} private-network.private-network-id={{ .PN.ID }} private-network.enable-ipam=true --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointIpam, publicEndpoint})
 			},
@@ -82,13 +84,14 @@ func Test_EndpointDelete(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint delete {{ .PublicEndpoint.ID }} instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic})
 			},
@@ -103,13 +106,14 @@ func Test_EndpointDelete(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint delete {{ .PrivateEndpoint.ID }} instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint})
 			},
@@ -123,13 +127,14 @@ func Test_EndpointDelete(t *testing.T) {
 	t.Run("All", core.Test(&core.TestConfig{
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
-			createInstance("PostgreSQL-15"),
+			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint delete {{ .PublicEndpoint.ID }} instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{})
 			},
@@ -148,13 +153,14 @@ func Test_EndpointGet(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint get {{ .PublicEndpoint.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointStatic})
 			},
@@ -169,13 +175,14 @@ func Test_EndpointGet(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 			listEndpointsInMeta(),
 		),
 		Cmd: "scw rdb endpoint get {{ .PrivateEndpoint.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
 				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointStatic})
 			},
@@ -195,7 +202,7 @@ func Test_EndpointList(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
-			createInstanceWithPrivateNetworkAndLoadBalancer("PostgreSQL-15"),
+			createInstanceWithPrivateNetworkAndLoadBalancer(),
 		),
 		Cmd:   "scw rdb endpoint list {{ .Instance.ID }}",
 		Check: core.TestCheckGolden(),
@@ -207,9 +214,10 @@ func Test_EndpointList(t *testing.T) {
 }
 
 func checkEndpoints(t *testing.T, client *scw.Client, instance *rdbSDK.Instance, expected []string) {
+	t.Helper()
 	rdbAPI := rdbSDK.NewAPI(client)
 	ipamAPI := ipam.NewAPI(client)
-	var foundEndpoints = map[string]bool{}
+	foundEndpoints := map[string]bool{}
 
 	// First we need to update the instance as the information comes from the test's meta and may be outdated
 	instanceUpdated, err := rdbAPI.GetInstance(&rdbSDK.GetInstanceRequest{

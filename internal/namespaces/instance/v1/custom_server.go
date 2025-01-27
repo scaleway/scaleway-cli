@@ -13,12 +13,10 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
@@ -67,7 +65,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		PrivateIP         *string
 		Tags              []string
 		ImageName         string
-		RoutedIPEnabled   bool
+		RoutedIPEnabled   *bool
 		PlacementGroup    *instance.PlacementGroup
 		ModificationDate  *time.Time
 		CreationDate      *time.Time
@@ -103,7 +101,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 			PrivateIP:         server.PrivateIP,
 			Tags:              server.Tags,
 			ImageName:         serverImageName,
-			RoutedIPEnabled:   server.RoutedIPEnabled,
+			RoutedIPEnabled:   server.RoutedIPEnabled, //nolint: staticcheck // Field is deprecated but still supported
 			PlacementGroup:    server.PlacementGroup,
 			ModificationDate:  server.ModificationDate,
 			CreationDate:      server.CreationDate,
@@ -366,9 +364,13 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		nics := []customNICs{}
 
 		for _, nic := range getServerResp.Server.PrivateNics {
+			region, err := getServerResp.Server.Zone.Region()
+			if err != nil {
+				return nil, err
+			}
 			pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
 				PrivateNetworkID: nic.PrivateNetworkID,
-				Zone:             getServerResp.Server.Zone,
+				Region:           region,
 			})
 			if err != nil {
 				return nil, err
@@ -397,10 +399,12 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			{
 				FieldName: "Image",
 				Title:     "Server Image",
-			}, {
+			},
+			{
 				FieldName: "AllowedActions",
 				Title:     "Allowed Actions",
-			}, {
+			},
+			{
 				FieldName: "Volumes",
 				Title:     "Volumes",
 			},
@@ -619,9 +623,9 @@ func serverDetachIPCommand() *core.Command {
 					}
 					return api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
 				}
-				return nil, fmt.Errorf("no public ip found")
+				return nil, errors.New("no public ip found")
 			}
-			return nil, fmt.Errorf("no server found")
+			return nil, errors.New("no server found")
 		},
 		Examples: []*core.Example{
 			{
@@ -672,217 +676,6 @@ func serverWaitCommand() *core.Command {
 				Short:    "Wait for a server to reach a stable state",
 				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
-		},
-	}
-}
-
-type customDeleteServerRequest struct {
-	Zone          scw.Zone
-	ServerID      string
-	WithVolumes   withVolumes
-	WithIP        bool
-	ForceShutdown bool
-}
-
-type withVolumes string
-
-const (
-	withVolumesNone  = withVolumes("none")
-	withVolumesLocal = withVolumes("local")
-	withVolumesBlock = withVolumes("block")
-	withVolumesRoot  = withVolumes("root")
-	withVolumesAll   = withVolumes("all")
-)
-
-func serverDeleteCommand() *core.Command {
-	return &core.Command{
-		Short:     `Delete server`,
-		Long:      `Delete a server with the given ID.`,
-		Namespace: "instance",
-		Verb:      "delete",
-		Resource:  "server",
-		ArgsType:  reflect.TypeOf(customDeleteServerRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "server-id",
-				Required:   true,
-				Positional: true,
-			},
-			{
-				Name:    "with-volumes",
-				Short:   "Delete the volumes attached to the server",
-				Default: core.DefaultValueSetter("all"),
-				EnumValues: []string{
-					string(withVolumesNone),
-					string(withVolumesLocal),
-					string(withVolumesBlock),
-					string(withVolumesRoot),
-					string(withVolumesAll),
-				},
-			},
-			{
-				Name:  "with-ip",
-				Short: "Delete the IP attached to the server",
-			},
-			{
-				Name:  "force-shutdown",
-				Short: "Force shutdown of the instance server before deleting it",
-			},
-			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
-		},
-		Examples: []*core.Example{
-			{
-				Short:    "Delete a server in the default zone with a given id",
-				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-			{
-				Short:    "Delete a server in fr-par-1 zone with a given id",
-				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-		},
-		SeeAlsos: []*core.SeeAlso{
-			{
-				Command: "scw instance server terminate",
-				Short:   "Terminate a running server",
-			},
-			{
-				Command: "scw instance server stop",
-				Short:   "Stop a running server",
-			},
-		},
-		WaitUsage: "wait until the server and its resources are deleted",
-		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
-			server := respI.(*core.SuccessResult).TargetResource.(*instance.Server)
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-
-			notFoundErr := &scw.ResourceNotFoundError{}
-
-			_, err := api.WaitForServer(&instance.WaitForServerRequest{
-				Zone:          server.Zone,
-				ServerID:      server.ID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
-				RetryInterval: core.DefaultRetryInterval,
-			})
-			if err != nil {
-				err = errors.Unwrap(err)
-				if !errors.As(err, &notFoundErr) {
-					return nil, err
-				}
-			}
-			return respI, nil
-		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
-			deleteServerArgs := argsI.(*customDeleteServerRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-
-			server, err := api.GetServer(&instance.GetServerRequest{
-				Zone:     deleteServerArgs.Zone,
-				ServerID: deleteServerArgs.ServerID,
-			})
-			if err != nil {
-				return nil, err
-			}
-
-			if deleteServerArgs.ForceShutdown {
-				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
-					Zone:          deleteServerArgs.Zone,
-					ServerID:      deleteServerArgs.ServerID,
-					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
-					RetryInterval: core.DefaultRetryInterval,
-				})
-				if err != nil {
-					return nil, err
-				}
-
-				if finalStateServer.State != instance.ServerStateStopped {
-					err = api.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
-						Zone:          deleteServerArgs.Zone,
-						ServerID:      deleteServerArgs.ServerID,
-						Action:        instance.ServerActionPoweroff,
-						Timeout:       scw.TimeDurationPtr(serverActionTimeout),
-						RetryInterval: core.DefaultRetryInterval,
-					})
-					if err != nil {
-						return nil, err
-					}
-				}
-			}
-
-			err = api.DeleteServer(&instance.DeleteServerRequest{
-				Zone:     deleteServerArgs.Zone,
-				ServerID: deleteServerArgs.ServerID,
-			})
-			if err != nil {
-				return nil, err
-			}
-
-			if deleteServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
-				err = api.DeleteIP(&instance.DeleteIPRequest{
-					Zone: deleteServerArgs.Zone,
-					IP:   server.Server.PublicIP.ID,
-				})
-				if err != nil {
-					return nil, err
-				}
-				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
-			}
-
-			deletedVolumeMessages := [][2]string(nil)
-		volumeDelete:
-			for index, volume := range server.Server.Volumes {
-				switch {
-				case deleteServerArgs.WithVolumes == withVolumesNone:
-					break volumeDelete
-				case deleteServerArgs.WithVolumes == withVolumesRoot && index != "0":
-					continue
-				case deleteServerArgs.WithVolumes == withVolumesLocal && volume.VolumeType != instance.VolumeServerVolumeTypeLSSD:
-					continue
-				case deleteServerArgs.WithVolumes == withVolumesBlock && volume.VolumeType != instance.VolumeServerVolumeTypeBSSD && volume.VolumeType != instance.VolumeServerVolumeTypeSbsVolume:
-					continue
-				case volume.VolumeType == instance.VolumeServerVolumeTypeScratch:
-					continue
-				}
-				if volume.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {
-					err = block.NewAPI(client).DeleteVolume(&block.DeleteVolumeRequest{
-						Zone:     deleteServerArgs.Zone,
-						VolumeID: volume.ID,
-					})
-				} else {
-					err = api.DeleteVolume(&instance.DeleteVolumeRequest{
-						Zone:     deleteServerArgs.Zone,
-						VolumeID: volume.ID,
-					})
-				}
-				if err != nil {
-					return nil, &core.CliError{
-						Err:  err,
-						Hint: "Make sure this resource have been deleted or try to delete it manually.",
-					}
-				}
-				humanSize, err := human.Marshal(volume.Size, nil)
-				if err != nil {
-					logger.Debugf("cannot marshal human size %v", volume.Size)
-				}
-				deletedVolumeMessages = append(deletedVolumeMessages, [2]string{
-					index,
-					fmt.Sprintf("successfully deleted volume %s (%s %s)", volume.Name, humanSize, volume.VolumeType),
-				})
-			}
-
-			// Sort and print deleted volume messages
-			sort.Slice(deletedVolumeMessages, func(i, j int) bool {
-				return deletedVolumeMessages[i][0] < deletedVolumeMessages[j][0]
-			})
-			for _, message := range deletedVolumeMessages {
-				_, _ = interactive.Println(message[1])
-			}
-
-			return &core.SuccessResult{
-				TargetResource: server.Server,
-			}, nil
 		},
 	}
 }

@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -16,13 +16,11 @@ import (
 // Marshalers
 //
 
-var (
-	serverTypesAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ServerTypesAvailabilityAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ServerTypesAvailabilityScarce:    &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low stock"},
-		instance.ServerTypesAvailabilityShortage:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "out of stock"},
-	}
-)
+var serverTypesAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
+	instance.ServerTypesAvailabilityAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	instance.ServerTypesAvailabilityScarce:    &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low stock"},
+	instance.ServerTypesAvailabilityShortage:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "out of stock"},
+}
 
 //
 // Builders

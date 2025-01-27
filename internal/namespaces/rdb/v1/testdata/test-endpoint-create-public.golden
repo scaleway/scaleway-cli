@@ -1,34 +1,34 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-✅ Endpoint d0a02d72-df69-4c43-88d7-047e6113d418 successfully added.
+✅ Endpoint 9f32c59c-cc84-4d57-9d23-0c1a639af825 successfully added.
 ID                                    IP             PORT   NAME  HOSTNAME
-41db4d59-b3e9-4287-a0d5-6fc17c87ea79  172.16.0.3     5432   -     -
-d0a02d72-df69-4c43-88d7-047e6113d418  195.154.70.77  22783  -     -
+39afbfc4-7d05-4349-b248-0dc1c0465ed1  172.16.0.3     5432   -     -
+9f32c59c-cc84-4d57-9d23-0c1a639af825  195.154.69.50  28739  -     -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Endpoints": [
     {
-      "id": "41db4d59-b3e9-4287-a0d5-6fc17c87ea79",
+      "id": "39afbfc4-7d05-4349-b248-0dc1c0465ed1",
       "ip": "172.16.0.3",
       "port": 5432,
       "name": null,
       "private_network": {
-        "private_network_id": "5cb4248d-919f-4d24-9332-6640c302f2f9",
+        "private_network_id": "7edb4da5-96da-4916-8533-b29132ed172d",
         "service_ip": "172.16.0.3/22",
         "zone": "fr-par-1",
         "provisioning_mode": "static"
       }
     },
     {
-      "id": "d0a02d72-df69-4c43-88d7-047e6113d418",
-      "ip": "195.154.70.77",
-      "port": 22783,
+      "id": "9f32c59c-cc84-4d57-9d23-0c1a639af825",
+      "ip": "195.154.69.50",
+      "port": 28739,
       "name": null,
       "load_balancer": {}
     }
   ],
   "Success": {
-    "message": "Endpoint d0a02d72-df69-4c43-88d7-047e6113d418 successfully added",
+    "message": "Endpoint 9f32c59c-cc84-4d57-9d23-0c1a639af825 successfully added",
     "details": ""
   }
 }

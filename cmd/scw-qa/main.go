@@ -6,15 +6,15 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/internal/qa"
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
 func main() {
-	commands := namespaces.GetCommands()
-	errors := qa.LintCommands(commands)
+	cmds := commands.GetCommands()
+	errors := qa.LintCommands(cmds)
 
 	fmt.Println(terminal.Style("Errors:", color.Bold))
 	for _, err := range errors {

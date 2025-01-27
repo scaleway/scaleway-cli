@@ -5,18 +5,16 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 )
 
-var (
-	serverTypeStockMarshalSpecs = human.EnumMarshalSpecs{
-		applesilicon.ServerTypeStockLowStock:  &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low stock"},
-		applesilicon.ServerTypeStockNoStock:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "no stock"},
-		applesilicon.ServerTypeStockHighStock: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "high stock"},
-	}
-)
+var serverTypeStockMarshalSpecs = human.EnumMarshalSpecs{
+	applesilicon.ServerTypeStockLowStock:  &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low stock"},
+	applesilicon.ServerTypeStockNoStock:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "no stock"},
+	applesilicon.ServerTypeStockHighStock: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "high stock"},
+}
 
 func cpuMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	cpu := i.(applesilicon.ServerTypeCPU)

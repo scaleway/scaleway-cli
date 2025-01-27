@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -31,4 +31,11 @@ func completeServerType(ctx context.Context, prefix string, createReq any) core.
 
 func commercialTypeIsWindowsServer(commercialType string) bool {
 	return strings.HasSuffix(commercialType, "-WIN")
+}
+
+func SizeValue(s *scw.Size) scw.Size {
+	if s != nil {
+		return *s
+	}
+	return 0
 }

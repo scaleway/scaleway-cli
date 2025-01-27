@@ -15,8 +15,10 @@ const (
 	MarshalModeJSON = MarshalMode("json")
 )
 
-var MarshalModeDefault = MarshalModeYAML
-var MarshalModeEnum = []MarshalMode{MarshalModeYAML, MarshalModeJSON}
+var (
+	MarshalModeDefault = MarshalModeYAML
+	MarshalModeEnum    = []MarshalMode{MarshalModeYAML, MarshalModeJSON}
+)
 
 func marshal(i interface{}, mode MarshalMode) ([]byte, error) {
 	if mode == "" {

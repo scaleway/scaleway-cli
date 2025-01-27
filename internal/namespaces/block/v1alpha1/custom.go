@@ -2,8 +2,8 @@ package block
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 )
 
@@ -44,6 +44,12 @@ var (
 
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
+
+	cmds.Add(volumeWaitCommand())
+	cmds.Add(snapshotWaitCommand())
+
+	cmds.MustFind("block", "snapshot", "create").Override(blockSnapshotCreateBuilder)
+	cmds.MustFind("block", "volume", "create").Override(blockVolumeCreateBuilder)
 
 	human.RegisterMarshalerFunc(block.VolumeStatus(""), human.EnumMarshalFunc(volumeStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(block.SnapshotStatus(""), human.EnumMarshalFunc(snapshotStatusMarshalSpecs))

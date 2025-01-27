@@ -6,19 +6,17 @@ import (
 	"reflect"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var (
-	aclRuleActionMarshalSpecs = human.EnumMarshalSpecs{
-		rdb.ACLRuleActionAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
-		rdb.ACLRuleActionDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
-	}
-)
+var aclRuleActionMarshalSpecs = human.EnumMarshalSpecs{
+	rdb.ACLRuleActionAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
+	rdb.ACLRuleActionDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
+}
 
 type rdbACLCustomArgs struct {
 	Region      scw.Region
@@ -84,7 +82,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 
 		description := args.Description
 		if description == "" {
-			description = fmt.Sprintf("Allow %s", args.ACLRuleIPs.String())
+			description = "Allow " + args.ACLRuleIPs.String()
 		}
 
 		rule, err := api.AddInstanceACLRules(&rdb.AddInstanceACLRulesRequest{
@@ -198,7 +196,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 			return nil, fmt.Errorf("failed to remove ACL rule: %w", err)
 		}
 
-		message := ""
+		var message string
 		if ruleWasSet {
 			message = fmt.Sprintf("ACL rule %s successfully deleted", args.ACLRuleIPs.String())
 		} else {
@@ -273,7 +271,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 		for _, ip := range args.ACLRuleIPs {
 			aclRules = append(aclRules, &rdb.ACLRuleRequest{
 				IP:          ip,
-				Description: fmt.Sprintf("Allow %s", ip.String()),
+				Description: "Allow " + ip.String(),
 			})
 		}
 

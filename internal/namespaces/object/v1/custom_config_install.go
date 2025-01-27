@@ -1,13 +1,15 @@
+//go:build darwin || linux || windows
+
 package object
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"os"
 	"path/filepath"
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -88,23 +90,23 @@ func configInstallCommand() *core.Command {
 					return nil, err
 				}
 				if !doIt {
-					return nil, fmt.Errorf("installation aborted by user")
+					return nil, errors.New("installation aborted by user")
 				}
 			}
 
 			// Ensure the subfolders for the configuration files are all created
-			err = os.MkdirAll(filepath.Dir(configPath), 0755)
+			err = os.MkdirAll(filepath.Dir(configPath), 0o755)
 			if err != nil {
 				return "", err
 			}
 
 			// Write the configuration file
-			err = os.WriteFile(configPath, []byte(newConfig), 0600)
+			err = os.WriteFile(configPath, []byte(newConfig), 0o600)
 			if err != nil {
 				return "", err
 			}
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("Configuration file successfully installed at %s", configPath),
+				Message: "Configuration file successfully installed at " + configPath,
 			}, nil
 		},
 	}

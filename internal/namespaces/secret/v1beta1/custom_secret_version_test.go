@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
 )
 
@@ -21,6 +21,7 @@ func Test_AccessSecret(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
 				rawResult, isBytes := ctx.Result.(core.RawResult)
 				if !isBytes {
 					t.Fatalf("Expecting result to be bytes")

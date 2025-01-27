@@ -1,12 +1,13 @@
 package baremetal_test
 
 import (
+	"errors"
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
+	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
 
 func Test_InstallServer(t *testing.T) {
@@ -20,11 +21,23 @@ func Test_InstallServer(t *testing.T) {
 
 		t.Run("With ID", core.Test(&core.TestConfig{
 			BeforeFunc: core.BeforeFuncCombine(
+				func(ctx *core.BeforeFuncCtx) error {
+					api := baremetalSDK.NewAPI(ctx.Client)
+					server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+						OfferName: offerName,
+						Zone:      region,
+					})
+					if server.Stock != baremetalSDK.OfferStockAvailable {
+						err := errors.New("offer out of stock")
+						return err
+					}
+					return nil
+				},
 				addSSH("key", sshKey),
 				createServerAndWait("Server"),
 			),
 			Commands: cmds,
-			Cmd:      "scw baremetal server install {{ .Server.ID }} zone=nl-ams-1 hostname=test-install-server ssh-key-ids.0={{ .key.ID }} os-id=" + osID + " -w",
+			Cmd:      "scw baremetal server install {{ .Server.ID }} zone=" + region + " hostname=test-install-server ssh-key-ids.0={{ .key.ID }} os-id=" + osID + " -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
@@ -38,10 +51,21 @@ func Test_InstallServer(t *testing.T) {
 		t.Run("All SSH keys", core.Test(&core.TestConfig{
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
+				func(ctx *core.BeforeFuncCtx) error {
+					api := baremetalSDK.NewAPI(ctx.Client)
+					server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
+						OfferName: offerName,
+						Zone:      region,
+					})
+					if server.Stock != baremetalSDK.OfferStockAvailable {
+						return errors.New("offer out of stock")
+					}
+					return nil
+				},
 				addSSH("key", sshKey),
 				createServerAndWait("Server"),
 			),
-			Cmd: "scw baremetal server install {{ .Server.ID }} zone=nl-ams-1 hostname=test-install-server all-ssh-keys=true os-id=" + osID + " -w",
+			Cmd: "scw baremetal server install {{ .Server.ID }} zone=" + region + " hostname=test-install-server all-ssh-keys=true os-id=" + osID + " -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),

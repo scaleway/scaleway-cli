@@ -3,8 +3,8 @@ package vpc
 import (
 	"context"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
@@ -22,7 +22,6 @@ func privateNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 
 	// Sections
 	opt.Sections = []*human.MarshalSection{
-
 		{
 			FieldName:   "Subnets",
 			Title:       "Subnets",

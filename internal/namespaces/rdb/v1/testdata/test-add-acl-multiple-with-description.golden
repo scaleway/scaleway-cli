@@ -1,27 +1,27 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rule 1.2.3.4/32 successfully added.
-IP          PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0   1302  tcp       inbound    allow   Allow All
-1.2.3.4/32  1302  tcp       inbound    allow   some-unique-description
+IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0   13907  tcp       inbound    allow   Allow All
+1.2.3.4/32  13907  tcp       inbound    allow   some-unique-description
 ✅ ACL rule 192.168.1.0/30 successfully added.
-IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       1302  tcp       inbound    allow   Allow All
-1.2.3.4/32      1302  tcp       inbound    allow   some-unique-description
-192.168.1.0/30  1302  tcp       inbound    allow   some-unique-description
+IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0       13907  tcp       inbound    allow   Allow All
+1.2.3.4/32      13907  tcp       inbound    allow   some-unique-description
+192.168.1.0/30  13907  tcp       inbound    allow   some-unique-description
 ✅ ACL rule 10.10.10.10/32 successfully added.
-IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       1302  tcp       inbound    allow   Allow All
-1.2.3.4/32      1302  tcp       inbound    allow   some-unique-description
-10.10.10.10/32  1302  tcp       inbound    allow   some-unique-description
-192.168.1.0/30  1302  tcp       inbound    allow   some-unique-description
+IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0       13907  tcp       inbound    allow   Allow All
+1.2.3.4/32      13907  tcp       inbound    allow   some-unique-description
+10.10.10.10/32  13907  tcp       inbound    allow   some-unique-description
+192.168.1.0/30  13907  tcp       inbound    allow   some-unique-description
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 1302,
+        "port": 13907,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -29,7 +29,7 @@ IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "1.2.3.4/32",
-        "port": 1302,
+        "port": 13907,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -45,7 +45,7 @@ IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 1302,
+        "port": 13907,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -53,7 +53,7 @@ IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "1.2.3.4/32",
-        "port": 1302,
+        "port": 13907,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -61,7 +61,7 @@ IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "192.168.1.0/30",
-        "port": 1302,
+        "port": 13907,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -77,7 +77,7 @@ IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 1302,
+        "port": 13907,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -85,7 +85,7 @@ IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "1.2.3.4/32",
-        "port": 1302,
+        "port": 13907,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -93,7 +93,7 @@ IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "10.10.10.10/32",
-        "port": 1302,
+        "port": 13907,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -101,7 +101,7 @@ IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "192.168.1.0/30",
-        "port": 1302,
+        "port": 13907,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",

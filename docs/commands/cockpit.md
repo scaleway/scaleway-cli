@@ -2,49 +2,62 @@
 # Documentation for `scw cockpit`
 This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs.
   
-- [Managed alerts management commands](#managed-alerts-management-commands)
-  - [Disable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to](#disable-the-sending-of-managed-alerts-for-a-given-cockpit,-specified-by-the-id-of-the-project-the-cockpit-belongs-to)
-  - [Enable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to](#enable-the-sending-of-managed-alerts-for-a-given-cockpit,-specified-by-the-id-of-the-project-the-cockpit-belongs-to)
-  - [Send a test alert to make sure your contact points get notified when an actual alert is triggered](#send-a-test-alert-to-make-sure-your-contact-points-get-notified-when-an-actual-alert-is-triggered)
-- [Cockpit management commands](#cockpit-management-commands)
-  - [Activate the Cockpit of a given Project specified by the Project ID](#activate-the-cockpit-of-a-given-project-specified-by-the-project-id)
-  - [Deactivate the Cockpit of a given Project specified by the Project ID](#deactivate-the-cockpit-of-a-given-project-specified-by-the-project-id)
-  - [Retrieve the Cockpit of a given Project specified by the Project ID](#retrieve-the-cockpit-of-a-given-project-specified-by-the-project-id)
-  - [Wait for a cockpit to reach a stable state (installation)](#wait-for-a-cockpit-to-reach-a-stable-state-(installation))
-- [Contacts management commands](#contacts-management-commands)
-  - [Create a contact point associated with the default receiver, to receive alerts](#create-a-contact-point-associated-with-the-default-receiver,-to-receive-alerts)
-  - [Delete a contact point associated with the default receiver](#delete-a-contact-point-associated-with-the-default-receiver)
-  - [Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to](#get-a-list-of-contact-points-created-for-a-given-cockpit,-specified-by-the-id-of-the-project-the-cockpit-belongs-to)
+- [Alerting management commands](#alerting-management-commands)
+  - [Disable the Alert manager](#disable-the-alert-manager)
+  - [Enable the Alert manager](#enable-the-alert-manager)
+  - [Get the Alert manager](#get-the-alert-manager)
+- [Contact point management commands](#contact-point-management-commands)
+  - [Create a contact point](#create-a-contact-point)
+  - [Delete a contact point](#delete-a-contact-point)
+  - [List contact points](#list-contact-points)
 - [Datasource management commands](#datasource-management-commands)
+  - [Create a data source](#create-a-data-source)
+  - [Delete a data source](#delete-a-data-source)
+  - [Get a data source](#get-a-data-source)
+  - [List data sources](#list-data-sources)
+  - [Update a data source](#update-a-data-source)
 - [Grafana user management commands](#grafana-user-management-commands)
-  - [Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID](#create-a-grafana-user-for-your-cockpit's-grafana.-make-sure-you-save-the-automatically-generated-password-and-the-grafana-user-id)
-  - [Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user](#delete-a-grafana-user-from-your-cockpit's-grafana,-specified-by-the-id-of-the-project-the-cockpit-belongs-to,-and-the-id-of-the-grafana-user)
-  - [Get a list of all Grafana users created in your Cockpit's Grafana](#get-a-list-of-all-grafana-users-created-in-your-cockpit's-grafana)
-  - [Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user](#reset-the-password-of-a-grafana-user,-specified-by-the-id-of-the-project-the-cockpit-belongs-to,-and-the-id-of-the-grafana-user)
+  - [Get your Cockpit's Grafana](#get-your-cockpit's-grafana)
+  - [Synchronize Grafana data sources](#synchronize-grafana-data-sources)
+- [Grafana user management commands](#grafana-user-management-commands)
+  - [Create a Grafana user](#create-a-grafana-user)
+  - [Delete a Grafana user](#delete-a-grafana-user)
+  - [List Grafana users](#list-grafana-users)
+  - [Reset a Grafana user password](#reset-a-grafana-user-password)
+- [Managed alerts management commands](#managed-alerts-management-commands)
+  - [Disable managed alerts](#disable-managed-alerts)
+  - [Enable managed alerts](#enable-managed-alerts)
 - [Pricing plans management commands](#pricing-plans-management-commands)
-  - [Get a list of all pricing plans available](#get-a-list-of-all-pricing-plans-available)
-  - [Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request](#select-your-chosen-pricing-plan-for-your-cockpit,-specifying-the-cockpit's-project-id-and-the-pricing-plan's-id-in-the-request)
+  - [Get current plan](#get-current-plan)
+  - [List plan types](#list-plan-types)
+  - [Apply a pricing plan](#apply-a-pricing-plan)
 - [Product dashboards management commands](#product-dashboards-management-commands)
+  - [Get Scaleway resource dashboard](#get-scaleway-resource-dashboard)
+  - [List Scaleway resources dashboards](#list-scaleway-resources-dashboards)
+- [Test alert management commands](#test-alert-management-commands)
+  - [Trigger a test alert](#trigger-a-test-alert)
 - [Token management commands](#token-management-commands)
-  - [Create a token in a given Project specified by the Project ID](#create-a-token-in-a-given-project-specified-by-the-project-id)
-  - [Delete a given token specified by the token ID](#delete-a-given-token-specified-by-the-token-id)
-  - [Retrieve a given token specified by the token ID](#retrieve-a-given-token-specified-by-the-token-id)
-  - [Get a list of tokens in a given Project specified by the Project ID](#get-a-list-of-tokens-in-a-given-project-specified-by-the-project-id)
+  - [Create a token](#create-a-token)
+  - [Delete a token](#delete-a-token)
+  - [Get a token](#get-a-token)
+  - [List tokens](#list-tokens)
+- [Usage overview management commands](#usage-overview-management-commands)
+  - [Get data source usage overview](#get-data-source-usage-overview)
 
   
-## Managed alerts management commands
+## Alerting management commands
 
-Managed alerts management commands.
+Alerting management commands.
 
 
-### Disable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to
+### Disable the Alert manager
 
-Disable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
+Disabling the Alert manager deletes the contact points you have created and disables managed alerts in the specified Project and region.
 
 **Usage:**
 
 ```
-scw cockpit alert disable [arg=value ...]
+scw cockpit alert-manager disable [arg=value ...]
 ```
 
 
@@ -53,17 +66,18 @@ scw cockpit alert disable [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Enable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to
+### Enable the Alert manager
 
-Enable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
+Enabling the Alert manager allows you to enable managed alerts and create contact points in the specified Project and region, to be notified when your Scaleway resources may require your attention.
 
 **Usage:**
 
 ```
-scw cockpit alert enable [arg=value ...]
+scw cockpit alert-manager enable [arg=value ...]
 ```
 
 
@@ -72,17 +86,19 @@ scw cockpit alert enable [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Send a test alert to make sure your contact points get notified when an actual alert is triggered
+### Get the Alert manager
 
-Send a test alert to make sure your contact points get notified when an actual alert is triggered.
+Retrieve information about the Alert manager which is unique per Project and region. By default the Alert manager is disabled.
+The output returned displays a URL to access the Alert manager, and whether the Alert manager and managed alerts are enabled.
 
 **Usage:**
 
 ```
-scw cockpit alert test [arg=value ...]
+scw cockpit alert-manager get [arg=value ...]
 ```
 
 
@@ -91,22 +107,25 @@ scw cockpit alert test [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-## Cockpit management commands
+## Contact point management commands
 
-Cockpit management commands.
+Contact point management commands.
 
 
-### Activate the Cockpit of a given Project specified by the Project ID
+### Create a contact point
 
-Activate the Cockpit of a given Project specified by the Project ID.
+Contact points are email addresses associated with the default receiver, that the Alert manager sends alerts to.
+The source of the alerts are data sources within the same Project and region as the Alert manager.
+If you need to receive alerts for other receivers, you can create additional contact points and receivers in Grafana. Make sure that you select the Scaleway Alert manager.
 
 **Usage:**
 
 ```
-scw cockpit cockpit activate [arg=value ...]
+scw cockpit contact-point create [arg=value ...]
 ```
 
 
@@ -115,110 +134,19 @@ scw cockpit cockpit activate [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| email.to |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Deactivate the Cockpit of a given Project specified by the Project ID
-
-Deactivate the Cockpit of a given Project specified by the Project ID.
-
-**Usage:**
-
-```
-scw cockpit cockpit deactivate [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-
-
-
-### Retrieve the Cockpit of a given Project specified by the Project ID
-
-Retrieve the Cockpit of a given Project specified by the Project ID.
-
-**Usage:**
-
-```
-scw cockpit cockpit get [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-
-
-
-### Wait for a cockpit to reach a stable state (installation)
-
-Wait for a cockpit to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the cockpit.
-
-**Usage:**
-
-```
-scw cockpit cockpit wait <project-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id | Required | The ID of the project the cockpit is attached to |
-| timeout | Default: `3m0s` | Timeout of the wait |
-
-
-**Examples:**
-
-
-Wait for a cockpit to reach a stable state
-```
-scw cockpit cockpit wait 11111111-1111-1111-1111-111111111111
-```
-
-
-
-
-## Contacts management commands
-
-Contacts management commands.
-
-
-### Create a contact point associated with the default receiver, to receive alerts
-
-Create a contact point associated with the default receiver, to receive alerts.
-
-**Usage:**
-
-```
-scw cockpit contact create [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| contact-point.email.to |  |  |
-
-
-
-### Delete a contact point associated with the default receiver
+### Delete a contact point
 
 Delete a contact point associated with the default receiver.
 
 **Usage:**
 
 ```
-scw cockpit contact delete [arg=value ...]
+scw cockpit contact-point delete [arg=value ...]
 ```
 
 
@@ -227,18 +155,19 @@ scw cockpit contact delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| contact-point.email.to |  |  |
+| email.to |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to
+### List contact points
 
-Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
+Retrieve a list of contact points for the specified Project. The response lists all contact points and receivers created in Grafana or via the API.
 
 **Usage:**
 
 ```
-scw cockpit contact list [arg=value ...]
+scw cockpit contact-point list [arg=value ...]
 ```
 
 
@@ -247,6 +176,7 @@ scw cockpit contact list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -254,13 +184,117 @@ scw cockpit contact list [arg=value ...]
 
 Datasource management commands.
 
-Datasource management commands.
+
+### Create a data source
+
+You must specify the data source type upon creation. Available data source types include:
+  - metrics
+  - logs
+  - traces
+The name of the data source will then be used as reference to name the associated Grafana data source.
 
 **Usage:**
 
 ```
-scw cockpit datasource
+scw cockpit data-source create [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| name |  | Data source name |
+| type | One of: `unknown_type`, `metrics`, `logs`, `traces` | Data source type |
+| retention-days |  | BETA - Duration for which the data will be retained in the data source |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a data source
+
+Delete a given data source, specified by the data source ID. Note that deleting a data source is irreversible, and cannot be undone.
+
+**Usage:**
+
+```
+scw cockpit data-source delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| data-source-id | Required | ID of the data source to delete |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a data source
+
+Retrieve information about a given data source, specified by the data source ID. The data source's information such as its name, type, URL, origin, and retention period, is returned.
+
+**Usage:**
+
+```
+scw cockpit data-source get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| data-source-id | Required | ID of the relevant data source |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List data sources
+
+Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
+You can list data sources by Project, type and origin.
+
+**Usage:**
+
+```
+scw cockpit data-source list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order for data sources in the response |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| origin | One of: `unknown_origin`, `scaleway`, `external`, `custom` | Origin to filter for, only data sources with matching origin will be returned |
+| types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces` | Types to filter for, only data sources with matching types will be returned |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update a data source
+
+Update a given data source name, specified by the data source ID.
+
+**Usage:**
+
+```
+scw cockpit data-source update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| data-source-id | Required | ID of the data source to update |
+| name |  | Updated name of the data source |
+| retention-days |  | BETA - Duration for which the data will be retained in the data source |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -269,9 +303,54 @@ scw cockpit datasource
 Grafana user management commands.
 
 
-### Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID
+### Get your Cockpit's Grafana
 
-Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID.
+Retrieve information on your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to.
+The output returned displays the URL to access your Cockpit's Grafana.
+
+**Usage:**
+
+```
+scw cockpit grafana get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
+### Synchronize Grafana data sources
+
+Trigger the synchronization of all your data sources and the alert manager in the relevant regions. The alert manager will only be synchronized if you have enabled it.
+
+**Usage:**
+
+```
+scw cockpit grafana sync-data-sources [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
+## Grafana user management commands
+
+Grafana user management commands.
+
+
+### Create a Grafana user
+
+Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
+Each Grafana user is associated with a role: viewer or editor. A viewer can only view dashboards, whereas an editor can create and edit dashboards. Note that the `admin` username is not available for creation.
 
 **Usage:**
 
@@ -285,12 +364,12 @@ scw cockpit grafana-user create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| login |  | Username of the Grafana user |
+| login |  | Username of the Grafana user. Note that the `admin` username is not available for creation |
 | role | One of: `unknown_role`, `editor`, `viewer` | Role assigned to the Grafana user |
 
 
 
-### Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user
+### Delete a Grafana user
 
 Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
 
@@ -310,9 +389,9 @@ scw cockpit grafana-user delete [arg=value ...]
 
 
 
-### Get a list of all Grafana users created in your Cockpit's Grafana
+### List Grafana users
 
-Get a list of all Grafana users created in your Cockpit's Grafana.
+List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.
 
 **Usage:**
 
@@ -325,14 +404,15 @@ scw cockpit grafana-user list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `login_asc`, `login_desc` |  |
+| order-by | One of: `login_asc`, `login_desc` | Order of the Grafana users |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 
 
 
-### Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user
+### Reset a Grafana user password
 
 Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
+A new password regenerates and only displays once. Make sure that you save it.
 
 **Usage:**
 
@@ -350,14 +430,80 @@ scw cockpit grafana-user reset-password [arg=value ...]
 
 
 
+## Managed alerts management commands
+
+Managed alerts management commands.
+
+
+### Disable managed alerts
+
+Disable the sending of managed alerts for the specified Project.
+
+**Usage:**
+
+```
+scw cockpit managed-alerts disable [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Enable managed alerts
+
+Enable the sending of managed alerts for the specified Project. Managed alerts are predefined alerts that apply to Scaleway recources integrated with Cockpit by default.
+
+**Usage:**
+
+```
+scw cockpit managed-alerts enable [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ## Pricing plans management commands
 
 Pricing plans management commands.
 
 
-### Get a list of all pricing plans available
+### Get current plan
 
-Get a list of all pricing plans available.
+Retrieve a pricing plan for the given Project, specified by the ID of the Project.
+Deprecated, retention is now managed at the data source level.
+
+**Usage:**
+
+```
+scw cockpit plan get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
+### List plan types
+
+Retrieve a list of available pricing plan types.
+Deprecated, retention is now managed at the data source level.
 
 **Usage:**
 
@@ -374,9 +520,10 @@ scw cockpit plan list [arg=value ...]
 
 
 
-### Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request
+### Apply a pricing plan
 
-Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request.
+Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
+Deprecated, retention is now managed at the data source level.
 
 **Usage:**
 
@@ -390,7 +537,7 @@ scw cockpit plan select [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| plan-id |  | ID of the pricing plan |
+| plan-name | One of: `unknown_name`, `free`, `premium`, `custom` | Name of the pricing plan |
 
 
 
@@ -398,13 +545,69 @@ scw cockpit plan select [arg=value ...]
 
 Product dashboards management commands.
 
-Product dashboards management commands.
+
+### Get Scaleway resource dashboard
+
+Retrieve information about the dashboard of a Scaleway resource in Grafana, specified by the ID of the Project the Cockpit belongs to, and the name of the dashboard.
 
 **Usage:**
 
 ```
-scw cockpit product-dashboards
+scw cockpit product-dashboards get [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| dashboard-name | Required | Name of the dashboard |
+
+
+
+### List Scaleway resources dashboards
+
+Retrieve a list of available dashboards in Grafana, for all Scaleway resources which are integrated with Cockpit.
+
+**Usage:**
+
+```
+scw cockpit product-dashboards list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  | Tags to filter for |
+
+
+
+## Test alert management commands
+
+Test alert management commands.
+
+
+### Trigger a test alert
+
+Send a test alert to the Alert manager to make sure your contact points get notified.
+
+**Usage:**
+
+```
+scw cockpit test-alert trigger [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -413,9 +616,10 @@ scw cockpit product-dashboards
 Token management commands.
 
 
-### Create a token in a given Project specified by the Project ID
+### Create a token
 
-Create a token in a given Project specified by the Project ID.
+Give your token the relevant scopes to ensure it has the right permissions to interact with your data sources and the Alert manager. Make sure that you create your token in the same regions as the data sources you want to use it for.
+Upon creation, your token's secret key display only once. Make sure that you save it.
 
 **Usage:**
 
@@ -429,22 +633,15 @@ scw cockpit token create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name of the token |
-| scopes.query-metrics |  | Permission to fetch metrics |
-| scopes.write-metrics |  | Permission to write metrics |
-| scopes.setup-metrics-rules |  | Permission to setup metrics rules |
-| scopes.query-logs |  | Permission to fetch logs |
-| scopes.write-logs |  | Permission to write logs |
-| scopes.setup-logs-rules |  | Permission to set up logs rules |
-| scopes.setup-alerts |  | Permission to set up alerts |
-| scopes.query-traces |  | Permission to fetch traces |
-| scopes.write-traces |  | Permission to write traces |
+| name |  | Name of the token |
+| token-scopes.{index} | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` | Token permission scopes |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Delete a given token specified by the token ID
+### Delete a token
 
-Delete a given token specified by the token ID.
+Delete a given token, specified by the token ID. Deleting a token is irreversible and cannot be undone.
 
 **Usage:**
 
@@ -457,18 +654,19 @@ scw cockpit token delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| token-id | Required | ID of the token |
+| token-id | Required | ID of the token to delete |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Retrieve a given token specified by the token ID
+### Get a token
 
-Retrieve a given token specified by the token ID.
+Retrieve information about a given token, specified by the token ID. The token's information such as its scopes, is returned.
 
 **Usage:**
 
 ```
-scw cockpit token get <token-id ...> [arg=value ...]
+scw cockpit token get [arg=value ...]
 ```
 
 
@@ -476,13 +674,15 @@ scw cockpit token get <token-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| token-id | Required | ID of the token |
+| token-id | Required | Token ID |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Get a list of tokens in a given Project specified by the Project ID
+### List tokens
 
-Get a list of tokens in a given Project specified by the Project ID.
+Retrieve a list of all tokens in the specified region. By default, tokens returned in the list are ordered by creation date, in ascending order.
+You can filter tokens by Project ID and token scopes.
 
 **Usage:**
 
@@ -495,8 +695,36 @@ scw cockpit token list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | How the response is ordered |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| token-scopes.{index} | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` | Token scopes to filter for |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Usage overview management commands
+
+Usage overview management commands.
+
+
+### Get data source usage overview
+
+Retrieve the data source usage overview per type for the specified Project.
+
+**Usage:**
+
+```
+scw cockpit usage-overview get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| interval |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

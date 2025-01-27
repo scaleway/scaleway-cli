@@ -58,6 +58,8 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
   - [Update a user](#update-a-user)
+  - [Update an user's password. Private Beta feature.](#update-an-user's-password.-private-beta-feature.)
+  - [Update an user's username. Private Beta feature.](#update-an-user's-username.-private-beta-feature.)
 
   
 ## API keys management commands
@@ -67,7 +69,7 @@ API keys management commands.
 
 ### Create an API key
 
-Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id` which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.
+Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id`, which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that the secret key is only shown once. Make sure that you copy and store both keys somewhere safe.
 
 **Usage:**
 
@@ -709,7 +711,7 @@ scw iam policy create [arg=value ...]
 
 Add a policy for a group that gives InstanceFullAccess on all projects
 ```
-scw iam policy create group-id=11111111-1111-1111-1111-111111111111 rules.0.organization-id=11111111-1111-1111-1111-111111111111 rules.0.permission-set-names.0=InstanceFullAccess
+scw iam policy create group-id=11111111-1111-1111-1111-111111111111 rules.0.organization-id=11111111-1111-1111-1111-111111111111 rules.0.permission-set-names.0=InstancesFullAccess
 ```
 
 
@@ -1056,8 +1058,13 @@ scw iam user create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| email | Required | Email of the user |
+| email |  | Email of the user |
 | tags.{index} |  | Tags associated with the user |
+| member.email |  | Email of the user to create |
+| member.send-password-email |  | Whether or not to send an email containing the member's password. |
+| member.send-welcome-email |  | Whether or not to send a welcome email that includes onboarding information. |
+| member.username |  | The member's username |
+| member.password |  | The member's password |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -1115,7 +1122,7 @@ scw iam user list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc` | Criteria for sorting results |
+| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc`, `username_asc`, `username_desc` | Criteria for sorting results |
 | user-ids.{index} |  | Filter by list of IDs |
 | mfa |  | Filter by MFA status |
 | tag |  | Filter by tags containing a given string |
@@ -1140,6 +1147,47 @@ scw iam user update <user-id ...> [arg=value ...]
 |------|---|-------------|
 | user-id | Required | ID of the user to update |
 | tags.{index} |  | New tags for the user (maximum of 10 tags) |
+| email |  | IAM member email |
+
+
+
+### Update an user's password. Private Beta feature.
+
+Update an user's password. Private Beta feature.
+
+**Usage:**
+
+```
+scw iam user update-password <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to update |
+| password | Required | The new password |
+
+
+
+### Update an user's username. Private Beta feature.
+
+Update an user's username. Private Beta feature.
+
+**Usage:**
+
+```
+scw iam user update-username <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to update |
+| username | Required | The new username |
 
 
 

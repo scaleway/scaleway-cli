@@ -8,8 +8,8 @@ import (
 
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/commands"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -31,6 +31,8 @@ var (
 	GoOS      = runtime.GOOS
 	GoArch    = runtime.GOARCH
 	BetaMode  = os.Getenv(scw.ScwEnableBeta) == "true"
+
+	userAgentPrefix = "scaleway-cli"
 )
 
 // cleanup does the recover
@@ -60,20 +62,26 @@ func buildVersion() string {
 }
 
 func main() {
+	exitCode := mainNoExit()
+	os.Exit(exitCode)
+}
+
+func mainNoExit() int {
 	buildInfo := &core.BuildInfo{
-		Version:   version.Must(version.NewSemver(buildVersion())), // panic when version does not respect semantic versioning
-		BuildDate: BuildDate,
-		GoVersion: GoVersion,
-		GitBranch: GitBranch,
-		GitCommit: GitCommit,
-		GoOS:      GoOS,
-		GoArch:    GoArch,
+		Version:         version.Must(version.NewSemver(buildVersion())), // panic when version does not respect semantic versioning
+		BuildDate:       BuildDate,
+		GoVersion:       GoVersion,
+		GitBranch:       GitBranch,
+		GitCommit:       GitCommit,
+		GoOS:            GoOS,
+		GoArch:          GoArch,
+		UserAgentPrefix: userAgentPrefix,
 	}
 	defer cleanup(buildInfo)
 
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  namespaces.GetCommands(),
+		Commands:  commands.GetCommands(),
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),
@@ -82,5 +90,5 @@ func main() {
 		Platform:  terminal.NewPlatform(buildInfo.GetUserAgent()),
 	})
 
-	os.Exit(exitCode)
+	return exitCode
 }

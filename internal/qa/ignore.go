@@ -3,8 +3,8 @@ package qa
 import (
 	"reflect"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces"
+	"github.com/scaleway/scaleway-cli/v2/commands"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 func filterIgnore(unfilteredErrors []error) []error {
@@ -19,7 +19,7 @@ func filterIgnore(unfilteredErrors []error) []error {
 
 func isIgnoredError(err error) bool {
 	for _, ignoredError := range ignoredErrors {
-		isEqual := false
+		var isEqual bool
 		switch typedError := err.(type) {
 		case *DifferentLocalizationForNamespaceError:
 			isEqual = areCommandsEquals(typedError.Command1, ignoredError.Command) || areCommandsEquals(typedError.Command2, ignoredError.Command)
@@ -47,14 +47,14 @@ func areCommandsEquals(c1 *core.Command, c2 *core.Command) bool {
 var ignoredErrors = []ignoredError{
 	{
 		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
-		Command: namespaces.GetCommands().MustFind("k8s", "kubeconfig", "uninstall"),
+		Command: commands.GetCommands().MustFind("k8s", "kubeconfig", "uninstall"),
 	},
 	{
 		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
-		Command: namespaces.GetCommands().MustFind("registry", "logout"),
+		Command: commands.GetCommands().MustFind("registry", "logout"),
 	},
 	{
 		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
-		Command: namespaces.GetCommands().MustFind("registry", "login"),
+		Command: commands.GetCommands().MustFind("registry", "login"),
 	},
 }
