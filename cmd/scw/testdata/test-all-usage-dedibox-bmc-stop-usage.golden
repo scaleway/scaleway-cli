@@ -3,7 +3,7 @@
 Stop BMC (Baseboard Management Controller) access associated with the given ID.
 
 USAGE:
-  scw dedibox bmc stop <server-id ...> [arg=value ...]
+  scw dedibox bmc stop [arg=value ...]
 
 ARGS:
   server-id         ID of the server to stop BMC access

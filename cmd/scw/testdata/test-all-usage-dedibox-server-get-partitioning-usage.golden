@@ -3,7 +3,7 @@
 Get the server default partitioning schema associated with the given server ID and OS ID.
 
 USAGE:
-  scw dedibox server get-partitioning <server-id ...> [arg=value ...]
+  scw dedibox server get-partitioning [arg=value ...]
 
 ARGS:
   server-id         ID of the server

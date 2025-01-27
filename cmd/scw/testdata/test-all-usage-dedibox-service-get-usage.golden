@@ -3,7 +3,7 @@
 Get the service associated with the given ID.
 
 USAGE:
-  scw dedibox service get <service-id ...> [arg=value ...]
+  scw dedibox service get [arg=value ...]
 
 ARGS:
   service-id        ID of the service

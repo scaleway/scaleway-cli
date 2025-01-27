@@ -3,7 +3,7 @@
 Delete dedibox resources.
 
 USAGE:
-  scw dedibox rpn-v1 delete <group-id ...> [arg=value ...]
+  scw dedibox rpn-v1 delete [arg=value ...]
 
 ARGS:
   group-id   Rpn v1 group ID

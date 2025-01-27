@@ -3,7 +3,7 @@
 Install an OS on the server associated with the given ID.
 
 USAGE:
-  scw dedibox server install <server-id ...> [arg=value ...]
+  scw dedibox server install [arg=value ...]
 
 ARGS:
   server-id                                 Server ID to install
