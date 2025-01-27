@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the service associated with the given ID.
+List subscribable options associated to the given server ID.
 
 USAGE:
-  scw dedibox service delete <service-id ...> [arg=value ...]
+  scw dedibox server list-options <server-id ...> [arg=value ...]
 
 ARGS:
-  service-id        ID of the service
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1)
+  server-id         Server ID of the subscribable server options
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | all)
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help   help for list-options
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

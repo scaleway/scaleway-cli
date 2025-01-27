@@ -3,7 +3,7 @@
 Update RAID associated with the given server ID.
 
 USAGE:
-  scw dedibox raid update [arg=value ...]
+  scw dedibox raid update <server-id ...> [arg=value ...]
 
 ARGS:
   server-id                              ID of the server

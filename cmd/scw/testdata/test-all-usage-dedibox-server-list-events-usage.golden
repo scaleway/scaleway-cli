@@ -3,7 +3,7 @@
 List events associated to the given server ID.
 
 USAGE:
-  scw dedibox server list-events [arg=value ...]
+  scw dedibox server list-events <server-id ...> [arg=value ...]
 
 ARGS:
   [order-by]        Order of the server events (created_at_asc | created_at_desc)

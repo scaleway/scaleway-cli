@@ -3,7 +3,7 @@
 Delete the server associated with the given ID.
 
 USAGE:
-  scw dedibox server delete [arg=value ...]
+  scw dedibox server delete <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         Server ID to delete

@@ -3,7 +3,7 @@
 Stop the server associated with the given ID.
 
 USAGE:
-  scw dedibox server stop [arg=value ...]
+  scw dedibox server stop <server-id ...> [arg=value ...]
 
 ARGS:
   server-id         Server ID to stop

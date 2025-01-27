@@ -3,7 +3,7 @@
 List disks associated to the given server ID.
 
 USAGE:
-  scw dedibox server list-disks [arg=value ...]
+  scw dedibox server list-disks <server-id ...> [arg=value ...]
 
 ARGS:
   [order-by]        Order of the server disks (created_at_asc | created_at_desc)

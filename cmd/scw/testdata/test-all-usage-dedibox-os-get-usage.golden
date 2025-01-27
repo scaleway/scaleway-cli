@@ -3,7 +3,7 @@
 Return specific OS for the given ID.
 
 USAGE:
-  scw dedibox os get [arg=value ...]
+  scw dedibox os get <os-id ...> [arg=value ...]
 
 ARGS:
   os-id             ID of the OS
