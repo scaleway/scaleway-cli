@@ -600,7 +600,7 @@ func vpcPrivateNetworkMigrateToRegional() *core.Command {
 		Namespace: "vpc",
 		Resource:  "private-network",
 		Verb:      "migrate-to-regional",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpc.MigrateZonalPrivateNetworksRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),

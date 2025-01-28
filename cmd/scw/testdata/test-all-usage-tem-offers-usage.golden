@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Project settings allow you to manage the configuration of your projects.
+This section allows you to manage and get get subscribed information about your project email offer.
 
 USAGE:
-  scw tem project-settings
+  scw tem offers
 
 FLAGS:
-  -h, --help   help for project-settings
+  -h, --help   help for offers
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
