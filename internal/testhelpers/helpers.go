@@ -35,8 +35,8 @@ func Value[T any](t *testing.T, v any) T {
 	t.Helper()
 
 	typedItem, typeIsCorrect := v.(T)
-	assert.True(t, typeIsCorrect)
-	assert.NotNil(t, typedItem)
+	assert.True(t, typeIsCorrect, "Requested value has invalid type")
+	assert.NotNil(t, typedItem, "Item is nil")
 
 	return typedItem
 }

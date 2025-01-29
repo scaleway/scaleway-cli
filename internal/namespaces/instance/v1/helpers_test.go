@@ -39,6 +39,9 @@ func testServerCommand(params string) string {
 	if !strings.Contains(params, "ip=") {
 		baseCommand += "ip=none "
 	}
+	if !strings.Contains(params, "image=") {
+		baseCommand += "image=ubuntu_jammy "
+	}
 
 	return baseCommand + params
 }
@@ -189,13 +192,12 @@ func createNIC() core.BeforeFunc {
 	)
 }
 
-// testServerSBSVolumeSize checks the size of a volume in Result's server.
-// The server must be returned as result of the test's Cmd
-func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
+// testServerSBSVolumeSize checks the size of a volume in an instance server.
+// The server must be returned by the given instanceFetcher function
+func testServerFetcherSBSVolumeSize(volumeKey string, sizeInGB int, serverFetcher func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		t.Helper()
-		require.NotNil(t, ctx.Result)
-		server := testhelpers.Value[*instance.Server](t, ctx.Result)
+		server := serverFetcher(t, ctx)
 		blockAPI := block.NewAPI(ctx.Client)
 		serverVolume := testhelpers.MapTValue(t, server.Volumes, volumeKey)
 		volume, err := blockAPI.GetVolume(&block.GetVolumeRequest{
@@ -206,4 +208,25 @@ func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 
 		require.Equal(t, scw.Size(sizeInGB)*scw.GB, volume.Size, "Size of volume should be %d GB", sizeInGB)
 	}
+}
+
+// testServerSBSVolumeSize checks the size of a volume in Result's server.
+// The server must be returned as result of the test's Cmd
+func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
+	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		return testhelpers.Value[*instance.Server](t, ctx.Result)
+	})
+}
+
+// testAttachVolumeServerSBSVolumeSize is the same as testServerSBSVolumeSize but the test's Cmd must be "scw instance server attach-volume"
+func testAttachVolumeServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
+	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		return testhelpers.Value[*instance.AttachServerVolumeResponse](t, ctx.Result).Server
+	})
+}
+
+func testServerUpdateServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
+	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		return testhelpers.Value[*instance.UpdateServerResponse](t, ctx.Result).Server
+	})
 }
