@@ -15,6 +15,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -291,9 +292,17 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 			volumes := make(map[string]*instance.VolumeServerTemplate)
 			for i, volumeID := range *customRequest.VolumeIDs {
 				index := strconv.Itoa(i)
-				volumes[index] = &instance.VolumeServerTemplate{
-					ID:   scw.StringPtr(volumeID),
-					Name: scw.StringPtr(getServerResponse.Server.Name + "-" + index),
+
+				if volumeIsFromSBS(block.NewAPI(client), customRequest.Zone, volumeID) {
+					volumes[index] = &instance.VolumeServerTemplate{
+						ID:         scw.StringPtr(volumeID),
+						VolumeType: instance.VolumeVolumeTypeSbsVolume,
+					}
+				} else {
+					volumes[index] = &instance.VolumeServerTemplate{
+						ID:   scw.StringPtr(volumeID),
+						Name: scw.StringPtr(getServerResponse.Server.Name + "-" + index),
+					}
 				}
 			}
 			customRequest.Volumes = &volumes
@@ -321,6 +330,18 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func volumeIsFromSBS(api *block.API, zone scw.Zone, volumeID string) bool {
+	_, err := api.GetVolume(&block.GetVolumeRequest{
+		Zone:     zone,
+		VolumeID: volumeID,
+	})
+	if err == nil {
+		return true
+	}
+
+	return false
 }
 
 func serverGetBuilder(c *core.Command) *core.Command {
