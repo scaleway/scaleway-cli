@@ -337,11 +337,8 @@ func volumeIsFromSBS(api *block.API, zone scw.Zone, volumeID string) bool {
 		Zone:     zone,
 		VolumeID: volumeID,
 	})
-	if err == nil {
-		return true
-	}
 
-	return false
+	return err == nil
 }
 
 func serverGetBuilder(c *core.Command) *core.Command {
