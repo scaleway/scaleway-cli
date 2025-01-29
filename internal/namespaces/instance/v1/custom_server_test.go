@@ -232,20 +232,27 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	// Volumes cases.
 	t.Run("Volumes", func(t *testing.T) {
 		t.Run("valid simple block volume", core.Test(&core.TestConfig{
-			Commands: instance.GetCommands(),
+			Commands: core.NewCommandsMerge(
+				block.GetCommands(),
+				instance.GetCommands(),
+			),
 			BeforeFunc: core.BeforeFuncCombine(
 				createServerBionic("Server"),
 				createVolume("Volume", 10, instanceSDK.VolumeVolumeTypeBSSD),
+				createSbsVolume("VolumeSBS", 10),
 			),
-			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }}`,
-			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				require.NoError(t, ctx.Err)
-				size0 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["0"].Size
-				size1 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["1"].Size
-				assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
-				assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
-			},
+			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }} volume-ids.2={{ .VolumeSBS.ID }}`,
+			Check: core.TestCheckCombine(
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+					require.NoError(t, ctx.Err)
+					size0 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["0"].Size
+					size1 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["1"].Size
+					assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
+					assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
+					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["2"].VolumeType)
+				},
+			),
 			AfterFunc: deleteServer("Server"),
 		}))
 
