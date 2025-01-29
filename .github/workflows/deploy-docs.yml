@@ -10,14 +10,14 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: actions # Is this necessary if we use the "env:" context below ?
+    environment: actions
     steps:
       - name: Check out the release tag
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.release.tag_name }}
       - name: Verify release commit
-        run: | # Commit hash to compare with the commit returned by actions/checkout@v4 - Tag to compare with the latest releas
+        run: | # Commit hash to compare with the commit returned by actions/checkout@v4 - Tag to compare with the latest release
           echo "Checked out commit: $(git rev-parse HEAD)"
           echo "Expected tag: ${{ github.event.release.tag_name }}"
       - name: prepare temporary folder for build
@@ -32,10 +32,13 @@ jobs:
           docker run --rm -i -v ${PWD}/docs:/docs squidfunk/mkdocs-material build
       - name: Download and set up AWS CLI
         run: |
-          sudo apt-get update
-          sudo apt-get install -y awscli
+          apt update
+          apt install curl unzip -y
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          ./aws/install
 
-      - name: Sety up AWS credentials
+      - name: Set up AWS credentials
         env:
           CLI_DOC_ACCESS_KEY: ${{ secrets.CLI_DOC_ACCESS_KEY }}
           CLI_DOC_SECRET_KEY: ${{ secrets.CLI_DOC_SECRET_KEY }}
