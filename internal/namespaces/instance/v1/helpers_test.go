@@ -95,7 +95,7 @@ func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
 
 func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf("scw block volume create name=%s from-empty.size=%dGB perf-iops=5000", ctx.T.Name(), sizeInGb)
+		cmd := fmt.Sprintf("scw block volume create name=%s from-empty.size=%dGB perf-iops=5000 -w", ctx.T.Name(), sizeInGb)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		volume := res.(*block.Volume)
 		ctx.Meta[metaKey] = volume
@@ -221,7 +221,7 @@ func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 // testAttachVolumeServerSBSVolumeSize is the same as testServerSBSVolumeSize but the test's Cmd must be "scw instance server attach-volume"
 func testAttachVolumeServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
-		return testhelpers.Value[*instance.AttachServerVolumeResponse](t, ctx.Result).Server
+		return testhelpers.Value[*instance.AttachVolumeResponse](t, ctx.Result).Server
 	})
 }
 

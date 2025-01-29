@@ -242,21 +242,13 @@ func Test_ServerUpdateCustom(t *testing.T) {
 				instance.GetCommands(),
 			),
 			BeforeFunc: core.BeforeFuncCombine(
-				createServerBionic("Server"),
-				createVolume("Volume", 10, instanceSDK.VolumeVolumeTypeBSSD),
-				createSbsVolume("VolumeSBS", 10),
+				createServer("Server"),
+				createSbsVolume("Volume", 10),
 			),
-			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }} volume-ids.2={{ .VolumeSBS.ID }}`,
+			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }}`,
 			Check: core.TestCheckCombine(
-				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					t.Helper()
-					require.NoError(t, ctx.Err)
-					size0 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["0"].Size
-					size1 := ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["1"].Size
-					assert.Equal(t, 20*scw.GB, instance.SizeValue(size0), "Size of volume should be 20 GB")
-					assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
-					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes["2"].VolumeType)
-				},
+				testServerUpdateServerSBSVolumeSize("0", 10),
+				testServerUpdateServerSBSVolumeSize("1", 10),
 			),
 			AfterFunc: deleteServer("Server"),
 		}))
@@ -291,7 +283,7 @@ func Test_ServerDelete(t *testing.T) {
 
 	t.Run("with all volumes", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -302,7 +294,7 @@ func Test_ServerDelete(t *testing.T) {
 
 	t.Run("only block volumes", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true root-volume=l:20G additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=block`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -317,7 +309,7 @@ func Test_ServerDelete(t *testing.T) {
 			block.GetCommands(),
 			instance.GetCommands(),
 		),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -331,8 +323,11 @@ func Test_ServerDelete(t *testing.T) {
 	}))
 
 	t.Run("with none volumes", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic additional-volumes.0=block:10G")),
+		Commands: core.NewCommandsMerge(
+			block.GetCommands(),
+			instance.GetCommands(),
+		),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true root-volume=l:20G additional-volumes.0=block:10G")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=none`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -347,7 +342,10 @@ func Test_ServerDelete(t *testing.T) {
 				assert.NoError(t, err)
 			},
 		),
-		AfterFunc:       core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`),
+			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
+		),
 		DisableParallel: true,
 	}))
 
@@ -381,7 +379,7 @@ func Test_ServerDelete(t *testing.T) {
 
 	t.Run("with multiple IPs", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic ip=both")),
+		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true ip=both")),
 		Cmd:        `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
