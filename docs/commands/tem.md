@@ -20,7 +20,6 @@ This API allows you to manage your Transactional Email services.
   - [Get an email](#get-an-email)
   - [Email statuses](#email-statuses)
   - [List emails](#list-emails)
-- [Project offers management commands](#project-offers-management-commands)
 - [Project settings management commands](#project-settings-management-commands)
 - [Webhook management commands](#webhook-management-commands)
   - [Create a Webhook](#create-a-webhook)
@@ -393,25 +392,11 @@ scw tem email list [arg=value ...]
 
 
 
-## Project offers management commands
-
-This section allows you to manage and get get subscribed information about your project email offer.
-
-This section allows you to manage and get get subscribed information about your project email offer.
-
-**Usage:**
-
-```
-scw tem offers
-```
-
-
-
 ## Project settings management commands
 
-Project settings allow you to manage the configuration of your projects.
+Project settings allow you to manage the configuration of your settings.
 
-Project settings allow you to manage the configuration of your projects.
+Project settings allow you to manage the configuration of your settings.
 
 **Usage:**
 
