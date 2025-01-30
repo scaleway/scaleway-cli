@@ -9,7 +9,6 @@ AVAILABLE COMMANDS:
   blocklists       Blocklist
   domain           Domain management commands
   email            Email management commands
-  offers           Project offers management commands
   project-settings Project settings management commands
   webhook          Webhook management commands
 
