@@ -9,13 +9,12 @@ USAGE:
   scw vpc private-network <command>
 
 AVAILABLE COMMANDS:
-  create              Create a Private Network
-  delete              Delete a Private Network
-  enable-dhcp         Enable DHCP on a Private Network
-  get                 Get a Private Network
-  list                List Private Networks
-  migrate-to-regional Migrate Private Networks from zoned to regional
-  update              Update Private Network
+  create      Create a Private Network
+  delete      Delete a Private Network
+  enable-dhcp Enable DHCP on a Private Network
+  get         Get a Private Network
+  list        List Private Networks
+  update      Update Private Network
 
 FLAGS:
   -h, --help   help for private-network
