@@ -35,7 +35,6 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetworkGet(),
 		vpcPrivateNetworkUpdate(),
 		vpcPrivateNetworkDelete(),
-		vpcPrivateNetworkMigrateToRegional(),
 		vpcPrivateNetworkEnableDHCP(),
 		vpcRouteEnableRouting(),
 		vpcRouteCreate(),
@@ -588,44 +587,6 @@ func vpcPrivateNetworkDelete() *core.Command {
 			return &core.SuccessResult{
 				Resource: "private-network",
 				Verb:     "delete",
-			}, nil
-		},
-	}
-}
-
-func vpcPrivateNetworkMigrateToRegional() *core.Command {
-	return &core.Command{
-		Short:     `Migrate Private Networks from zoned to regional`,
-		Long:      `Transform multiple existing zoned Private Networks (scoped to a single Availability Zone) into regional Private Networks, scoped to an entire region. You can transform one or many Private Networks (specified by their Private Network IDs) within a single Scaleway Organization or Project, with the same call.`,
-		Namespace: "vpc",
-		Resource:  "private-network",
-		Verb:      "migrate-to-regional",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.MigrateZonalPrivateNetworksRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			{
-				Name:       "private-network-ids.{index}",
-				Short:      `IDs of the Private Networks to migrate`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*vpc.MigrateZonalPrivateNetworksRequest)
-
-			client := core.ExtractClient(ctx)
-			api := vpc.NewAPI(client)
-			e = api.MigrateZonalPrivateNetworks(request)
-			if e != nil {
-				return nil, e
-			}
-			return &core.SuccessResult{
-				Resource: "private-network",
-				Verb:     "migrate-to-regional",
 			}, nil
 		},
 	}
