@@ -17,14 +17,6 @@ import (
 // Server
 //
 
-// createServerBionic creates a stopped ubuntu-bionic server and
-// register it in the context Meta at metaKey.
-//
-//nolint:unparam
-func createServerBionic(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, testServerCommand("stopped=true image=ubuntu-bionic"))
-}
-
 // createServer creates a stopped ubuntu server without IP and
 // register it in the context Meta at given metaKey
 //
@@ -93,6 +85,10 @@ func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
 	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
 }
 
+// createSbsVolume creates a volume of the given size and
+// register it in the context Meta at metaKey
+//
+//nolint:unparam
 func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf("scw block volume create name=%s from-empty.size=%dGB perf-iops=5000 -w", ctx.T.Name(), sizeInGb)
@@ -214,6 +210,7 @@ func testServerFetcherSBSVolumeSize(volumeKey string, sizeInGB int, serverFetche
 // The server must be returned as result of the test's Cmd
 func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		t.Helper()
 		return testhelpers.Value[*instance.Server](t, ctx.Result)
 	})
 }
@@ -221,12 +218,14 @@ func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 // testAttachVolumeServerSBSVolumeSize is the same as testServerSBSVolumeSize but the test's Cmd must be "scw instance server attach-volume"
 func testAttachVolumeServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		t.Helper()
 		return testhelpers.Value[*instance.AttachVolumeResponse](t, ctx.Result).Server
 	})
 }
 
 func testServerUpdateServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		t.Helper()
 		return testhelpers.Value[*instance.UpdateServerResponse](t, ctx.Result).Server
 	})
 }
