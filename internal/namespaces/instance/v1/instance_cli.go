@@ -3315,7 +3315,7 @@ func instanceIPList() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat')`,
+				Short:      `Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6')`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3421,11 +3421,11 @@ func instanceIPCreate() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated)`,
+				Short:      `IP type to reserve (either 'routed_ipv4' or 'routed_ipv6')`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_iptype", "nat", "routed_ipv4", "routed_ipv6"},
+				EnumValues: []string{"unknown_iptype", "routed_ipv4", "routed_ipv6"},
 			},
 			core.OrganizationArgSpec(),
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
@@ -3525,11 +3525,11 @@ func instanceIPUpdate() *core.Command {
 			},
 			{
 				Name:       "type",
-				Short:      `Convert a 'nat' IP to a 'routed_ipv4'`,
+				Short:      `Should have no effect`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_iptype", "nat", "routed_ipv4", "routed_ipv6"},
+				EnumValues: []string{"unknown_iptype", "routed_ipv4", "routed_ipv6"},
 			},
 			{
 				Name:       "tags.{index}",
