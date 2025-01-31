@@ -919,12 +919,12 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:13 GMT
+      - Wed, 29 Jan 2025 10:45:55 GMT
       Link:
       - </products/servers?page=2&per_page=50&>; rel="next",</products/servers?page=2&per_page=50&>;
         rel="last"
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -932,7 +932,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 2e0987d6-6ef5-4051-8301-57cb0eafc6fe
+      - 374a5a2c-622c-41cd-ab4e-0c0967485e03
       X-Total-Count:
       - "68"
     status: 200 OK
@@ -1282,12 +1282,12 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:13 GMT
+      - Wed, 29 Jan 2025 10:45:55 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="first",</products/servers?page=1&per_page=50&>;
         rel="previous",</products/servers?page=2&per_page=50&>; rel="last"
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1295,7 +1295,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b623d8ab-3851-4a5c-8463-ad3dcca006ff
+      - 3b557279-d994-41b1-a37c-eea04fd355a6
       X-Total-Count:
       - "68"
     status: 200 OK

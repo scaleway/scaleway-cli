@@ -1,39 +1,39 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                579c0906-ccaa-4ec4-957a-bff1bbcd0f7d
-Name              cli-img-upbeat-colden
+ID                93ce4f39-b33d-4941-9667-f75342ba3a0f
+Name              cli-img-bold-hopper
 Arch              x86_64
 CreationDate      few seconds ago
 ModificationDate  few seconds ago
 ExtraVolumes      0
 FromServer        -
-Organization      105bdce1-64c0-48ab-899d-868455867ecf
+Organization      ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Public            false
-RootVolume        61f39808-c4af-4bcd-99b5-9cde9e8ea660
+RootVolume        b5f46c10-5014-4bd9-9570-93145988475a
 State             available
-Project           105bdce1-64c0-48ab-899d-868455867ecf
+Project           ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "579c0906-ccaa-4ec4-957a-bff1bbcd0f7d",
-    "name": "cli-img-upbeat-colden",
+    "id": "93ce4f39-b33d-4941-9667-f75342ba3a0f",
+    "name": "cli-img-bold-hopper",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
     "extra_volumes": {},
     "from_server": "",
-    "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "public": false,
     "root_volume": {
-      "id": "61f39808-c4af-4bcd-99b5-9cde9e8ea660",
-      "name": "cli-snp-youthful-rosalind",
+      "id": "b5f46c10-5014-4bd9-9570-93145988475a",
+      "name": "cli-snp-brave-edison",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
     "state": "available",
-    "project": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "tags": [],
     "zone": "fr-par-1"
   }

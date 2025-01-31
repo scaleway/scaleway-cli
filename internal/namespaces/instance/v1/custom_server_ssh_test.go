@@ -48,7 +48,7 @@ func Test_ServerSSH(t *testing.T) {
 
 	t.Run("Stopped server", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: createServer("Server"),
 		Cmd:        "scw instance server ssh {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

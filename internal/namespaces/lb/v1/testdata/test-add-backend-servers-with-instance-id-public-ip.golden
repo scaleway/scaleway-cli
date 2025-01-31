@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        b69035cf-5865-4231-bf8c-91665ccb93bd
+ID                        c95c88cc-5b33-4aaf-bcdc-493d42bdf334
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -26,15 +26,15 @@ CheckSendProxy       false
 TransientCheckDelay  500000000 nanoseconds
 
 Pool:
-[212.47.240.49]
+[51.15.213.110]
 
 Lb:
-ID                     a80278de-ce52-4d38-8094-47122e017553
+ID                     1f1b61c7-ede7-48e0-ab53-992b24fc8092
 Name                   cli-test
 Description            cli-test
 Status                 ready
-OrganizationID         564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+OrganizationID         105bdce1-64c0-48ab-899d-868455867ecf
+ProjectID              105bdce1-64c0-48ab-899d-868455867ecf
 FrontendCount          0
 BackendCount           1
 Type                   lb-s
@@ -47,15 +47,15 @@ Region                 fr-par
 Zone                   fr-par-1
 
 IPs:
-ID                                    IP ADDRESS   ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                          TAGS  REGION  ZONE
-aec77bc5-fcad-4fe8-83d8-5057100d8937  51.159.9.37  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  a80278de-ce52-4d38-8094-47122e017553  51-159-9-37.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
+ID                                    IP ADDRESS     ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                            TAGS  REGION  ZONE
+83ed6033-494e-4683-bb31-7a9a70d85eb3  51.159.26.108  105bdce1-64c0-48ab-899d-868455867ecf  105bdce1-64c0-48ab-899d-868455867ecf  1f1b61c7-ede7-48e0-ab53-992b24fc8092  51-159-26-108.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
 
 LB Instances:
 ID                                    STATUS   IP ADDRESS  CREATED AT       UPDATED AT       REGION  ZONE
-541c1042-cc76-4901-b8d3-4b23ba8845bb  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
+f9556418-002b-4481-bd63-dbb51abe5d72  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "b69035cf-5865-4231-bf8c-91665ccb93bd",
+  "id": "c95c88cc-5b33-4aaf-bcdc-493d42bdf334",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -72,16 +72,16 @@ ID                                    STATUS   IP ADDRESS  CREATED AT       UPDA
     "check_timeout": 1000
   },
   "pool": [
-    "212.47.240.49"
+    "51.15.213.110"
   ],
   "lb": {
-    "id": "a80278de-ce52-4d38-8094-47122e017553",
+    "id": "1f1b61c7-ede7-48e0-ab53-992b24fc8092",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "541c1042-cc76-4901-b8d3-4b23ba8845bb",
+        "id": "f9556418-002b-4481-bd63-dbb51abe5d72",
         "status": "pending",
         "ip_address": "",
         "created_at": "1970-01-01T00:00:00.0Z",
@@ -90,16 +90,16 @@ ID                                    STATUS   IP ADDRESS  CREATED AT       UPDA
         "zone": "fr-par-1"
       }
     ],
-    "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-    "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    "organization_id": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "project_id": "105bdce1-64c0-48ab-899d-868455867ecf",
     "ip": [
       {
-        "id": "aec77bc5-fcad-4fe8-83d8-5057100d8937",
-        "ip_address": "51.159.9.37",
-        "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "lb_id": "a80278de-ce52-4d38-8094-47122e017553",
-        "reverse": "51-159-9-37.lb.fr-par.scw.cloud",
+        "id": "83ed6033-494e-4683-bb31-7a9a70d85eb3",
+        "ip_address": "51.159.26.108",
+        "organization_id": "105bdce1-64c0-48ab-899d-868455867ecf",
+        "project_id": "105bdce1-64c0-48ab-899d-868455867ecf",
+        "lb_id": "1f1b61c7-ede7-48e0-ab53-992b24fc8092",
+        "reverse": "51-159-26-108.lb.fr-par.scw.cloud",
         "tags": [],
         "region": "fr-par",
         "zone": "fr-par-1"

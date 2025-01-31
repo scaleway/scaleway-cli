@@ -38,14 +38,14 @@ func createInstance() core.BeforeFunc {
 func createRunningInstance() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create type=DEV1-S image=ubuntu_bionic -w",
+		"scw instance server create type=DEV1-S image=ubuntu_jammy -w",
 	)
 }
 
 func createRunningInstanceWithTag() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create type=DEV1-S image=ubuntu_bionic tags.0=foo -w",
+		"scw instance server create type=DEV1-S image=ubuntu_jammy tags.0=foo -w",
 	)
 }
 

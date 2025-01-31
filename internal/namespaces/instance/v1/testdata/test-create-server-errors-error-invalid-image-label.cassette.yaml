@@ -919,12 +919,12 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:05 GMT
+      - Wed, 29 Jan 2025 10:45:43 GMT
       Link:
       - </products/servers?page=2&per_page=50&>; rel="next",</products/servers?page=2&per_page=50&>;
         rel="last"
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -932,7 +932,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b49ed653-caf5-4382-be74-f69ac6dc2641
+      - ea4c52a8-0821-4836-8751-f0c5f83b70df
       X-Total-Count:
       - "68"
     status: 200 OK
@@ -1282,12 +1282,12 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:06 GMT
+      - Wed, 29 Jan 2025 10:45:44 GMT
       Link:
       - </products/servers?page=1&per_page=50&>; rel="first",</products/servers?page=1&per_page=50&>;
         rel="previous",</products/servers?page=2&per_page=50&>; rel="last"
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1295,7 +1295,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - ba700a85-9ae6-41bd-9b6e-51a77e0e0eac
+      - aa47e127-890c-4173-9589-12a544e976b9
       X-Total-Count:
       - "68"
     status: 200 OK
@@ -1307,7 +1307,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.4; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/marketplace/v2/local-images?image_label=macos&order_by=type_asc&type=instance_local&zone=fr-par-1
+    url: https://api.scaleway.com/marketplace/v2/local-images?image_label=macos&order_by=type_asc&type=instance_sbs&zone=fr-par-1
     method: GET
   response:
     body: '{"message":"Not found","resource":"MarketplaceImage","resource_id":"macos","type":"not_found"}'
@@ -1319,9 +1319,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Dec 2024 09:28:06 GMT
+      - Wed, 29 Jan 2025 10:45:44 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -1329,7 +1329,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 3eb47aca-889a-49fe-ad3c-403d026a1b75
+      - edbfd2e4-4304-4283-8958-341f88a76ce2
     status: 404 Not Found
     code: 404
     duration: ""

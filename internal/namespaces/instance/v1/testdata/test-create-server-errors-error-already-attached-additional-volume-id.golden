@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cannot create the server: failed to build volume template: volume 2fa51c6d-69b2-4bdd-bef8-80f011e72f33 is already attached to 8c6642d3-5c68-4e73-aa61-f655e5fbbe9c server
+Cannot create the server: failed to build volume template: volume 74465ed6-6cd9-4a34-b31a-d49944e08deb is already attached to 8eebd670-d38b-46ed-841f-98a853141bc4 server
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "cannot create the server: failed to build volume template: volume 2fa51c6d-69b2-4bdd-bef8-80f011e72f33 is already attached to 8c6642d3-5c68-4e73-aa61-f655e5fbbe9c server"
+  "error": "cannot create the server: failed to build volume template: volume 74465ed6-6cd9-4a34-b31a-d49944e08deb is already attached to 8eebd670-d38b-46ed-841f-98a853141bc4 server"
 }

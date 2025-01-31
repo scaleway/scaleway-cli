@@ -1,39 +1,39 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Image.ID                08296844-7dee-41fe-bb65-0152d9f5eabe
+Image.ID                47d75e83-2b6a-4783-a695-18bc7bbbcdd7
 Image.Name              backup
 Image.Arch              x86_64
 Image.CreationDate      few seconds ago
 Image.ModificationDate  few seconds ago
 Image.ExtraVolumes      0
-Image.FromServer        9066f489-7fa8-43af-8eaf-57fce6f45c0c
-Image.Organization      105bdce1-64c0-48ab-899d-868455867ecf
+Image.FromServer        5221c0f2-09c1-4b93-ad82-f60e40ab868e
+Image.Organization      ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Image.Public            false
-Image.RootVolume        3edabf7b-8784-443c-95d7-ddccc25aefcc
+Image.RootVolume        eb16f983-c2a4-48ab-90ad-f068b2c2d49c
 Image.State             available
-Image.Project           105bdce1-64c0-48ab-899d-868455867ecf
+Image.Project           ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Image.Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "08296844-7dee-41fe-bb65-0152d9f5eabe",
+    "id": "47d75e83-2b6a-4783-a695-18bc7bbbcdd7",
     "name": "backup",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
     "extra_volumes": {},
-    "from_server": "9066f489-7fa8-43af-8eaf-57fce6f45c0c",
-    "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "from_server": "5221c0f2-09c1-4b93-ad82-f60e40ab868e",
+    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "public": false,
     "root_volume": {
-      "id": "3edabf7b-8784-443c-95d7-ddccc25aefcc",
-      "name": "backup_snap_0",
-      "size": 20000000000,
-      "volume_type": "l_ssd"
+      "id": "eb16f983-c2a4-48ab-90ad-f068b2c2d49c",
+      "name": "",
+      "size": 0,
+      "volume_type": "sbs_snapshot"
     },
     "state": "available",
-    "project": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
     "tags": [],
     "zone": "fr-par-1"
   }

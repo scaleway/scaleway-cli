@@ -39,7 +39,7 @@ func Test_SSHKey(t *testing.T) {
 
 	t.Run("Add key", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: createServer("Server"),
 		Args:       []string{"scw", "instance", "ssh", "add-key", "server-id={{.Server.ID}}", "public-key=" + sshKey},
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -60,7 +60,7 @@ func Test_SSHKey(t *testing.T) {
 	t.Run("List keys", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServerBionic("Server"),
+			createServer("Server"),
 			addSSHKey("Server", sshKey),
 			addSSHKey("Server", sshKey2),
 		),
@@ -80,7 +80,7 @@ func Test_SSHKey(t *testing.T) {
 	t.Run("Remove key", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			createServerBionic("Server"),
+			createServer("Server"),
 			addSSHKey("Server", sshKey),
 			addSSHKey("Server", sshKey2),
 		),
