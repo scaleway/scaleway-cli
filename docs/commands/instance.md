@@ -377,7 +377,7 @@ scw instance ip create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags of the IP |
 | server |  | UUID of the Instance you want to attach the IP to |
-| type | One of: `unknown_iptype`, `nat`, `routed_ipv4`, `routed_ipv6` | IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated) |
+| type | One of: `unknown_iptype`, `routed_ipv4`, `routed_ipv6` | IP type to reserve (either 'routed_ipv4' or 'routed_ipv6') |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -536,7 +536,7 @@ scw instance ip list [arg=value ...]
 | project-id |  | Project ID in which the IPs are reserved |
 | tags |  | Filter IPs with these exact tags (to filter with several tags, use commas to separate them) |
 | name |  | Filter on the IP address (Works as a LIKE operation on the IP address) |
-| type |  | Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat') |
+| type |  | Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6') |
 | organization-id |  | Organization ID in which the IPs are reserved |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
@@ -574,7 +574,7 @@ scw instance ip update <ip ...> [arg=value ...]
 |------|---|-------------|
 | ip | Required | IP ID or IP address |
 | reverse |  | Reverse domain name |
-| type | One of: `unknown_iptype`, `nat`, `routed_ipv4`, `routed_ipv6` | Convert a 'nat' IP to a 'routed_ipv4' |
+| type | One of: `unknown_iptype`, `routed_ipv4`, `routed_ipv6` | Should have no effect |
 | tags.{index} |  | An array of keywords you want to tag this IP with |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
