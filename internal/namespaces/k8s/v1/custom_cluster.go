@@ -164,10 +164,14 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 		if request.Type == "" || strings.HasPrefix(request.Type, "kapsule") {
 			if request.PrivateNetworkID == nil {
-				pn, err = vpcAPI.CreatePrivateNetwork(&vpc.CreatePrivateNetworkRequest{
+				createPNReq := &vpc.CreatePrivateNetworkRequest{
 					Region: request.Region,
 					Tags:   []string{"created-along-with-k8s-cluster", "created-by-cli"},
-				}, scw.WithContext(ctx))
+				}
+				if request.ProjectID != nil {
+					createPNReq.ProjectID = *request.ProjectID
+				}
+				pn, err = vpcAPI.CreatePrivateNetwork(createPNReq, scw.WithContext(ctx))
 				if err != nil {
 					return nil, err
 				}
