@@ -1,46 +1,35 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                628b7978-0d1e-408e-aba2-51b3f63606c7
-Name              cli-snp-agitated-feynman
-Organization      105bdce1-64c0-48ab-899d-868455867ecf
-Project           105bdce1-64c0-48ab-899d-868455867ecf
-VolumeType        l_ssd
-Size              20 GB
-State             available
-BaseVolume.ID     179dc269-4329-4903-9a9b-927cc544f2c4
-BaseVolume.Name   Ubuntu 18.04 Bionic Beaver
-CreationDate      few seconds ago
-ModificationDate  few seconds ago
-Zone              fr-par-1
+ID                   92b97c2f-8a84-4db0-bcc1-152ffcb78621
+Name                 cli-snp-hopeful-tu
+ParentVolume.ID      57b0e2ad-ea4a-4c29-8cc7-72f7b68ae3b2
+ParentVolume.Name    Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0
+ParentVolume.Type    sbs_5k
+ParentVolume.Status  in_use
+Size                 10 GB
+ProjectID            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+CreatedAt            few seconds ago
+UpdatedAt            few seconds ago
+Status               available
+Zone                 fr-par-1
+Class                sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "snapshot": {
-    "id": "628b7978-0d1e-408e-aba2-51b3f63606c7",
-    "name": "cli-snp-agitated-feynman",
-    "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
-    "project": "105bdce1-64c0-48ab-899d-868455867ecf",
-    "tags": [],
-    "volume_type": "l_ssd",
-    "size": 20000000000,
-    "state": "available",
-    "base_volume": {
-      "id": "179dc269-4329-4903-9a9b-927cc544f2c4",
-      "name": "Ubuntu 18.04 Bionic Beaver"
-    },
-    "creation_date": "1970-01-01T00:00:00.0Z",
-    "modification_date": "1970-01-01T00:00:00.0Z",
-    "zone": "fr-par-1",
-    "error_reason": null
+  "id": "92b97c2f-8a84-4db0-bcc1-152ffcb78621",
+  "name": "cli-snp-hopeful-tu",
+  "parent_volume": {
+    "id": "57b0e2ad-ea4a-4c29-8cc7-72f7b68ae3b2",
+    "name": "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0",
+    "type": "sbs_5k",
+    "status": "in_use"
   },
-  "task": {
-    "id": "c0b7c7dc-5395-439d-b41f-fdc4b9e50fcd",
-    "description": "volume_cold_snapshot",
-    "progress": 100,
-    "started_at": "1970-01-01T00:00:00.0Z",
-    "terminated_at": null,
-    "status": "success",
-    "href_from": "/snapshots",
-    "href_result": "snapshots/628b7978-0d1e-408e-aba2-51b3f63606c7",
-    "zone": "fr-par-1"
-  }
+  "size": 10000000000,
+  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "references": [],
+  "status": "available",
+  "tags": [],
+  "zone": "fr-par-1",
+  "class": "sbs"
 }

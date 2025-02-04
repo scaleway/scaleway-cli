@@ -120,7 +120,7 @@ func (sb *ServerBuilder) isWindows() bool {
 
 func (sb *ServerBuilder) rootVolumeIsSBS() bool {
 	if sb.rootVolume == nil {
-		return false
+		return true // Default to SBS if no volume type is requested. Local SSD is now only on explicit request.
 	}
 
 	return sb.rootVolume.VolumeType == instance.VolumeVolumeTypeSbsVolume

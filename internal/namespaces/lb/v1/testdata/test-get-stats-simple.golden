@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Backends Statistics:
-INSTANCE ID                           BACKEND ID                            IP             SERVER STATE  SERVER STATE CHANGED AT  LAST HEALTH CHECK STATUS
-32f7fe6f-a011-4153-a285-f89b5cca32f1  2b369986-e5d4-4b43-ba94-9749c3ac9f4e  51.158.69.226  stopped       few seconds ago          unknown
+INSTANCE ID                           BACKEND ID                            IP            SERVER STATE  SERVER STATE CHANGED AT  LAST HEALTH CHECK STATUS
+76fd4d9a-3003-4c49-a288-2da3429fac75  a0c57fef-73e3-4f9f-a8ec-21181e99d25a  51.15.254.23  stopped       few seconds ago          unknown
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "backend_servers_stats": [
     {
-      "instance_id": "32f7fe6f-a011-4153-a285-f89b5cca32f1",
-      "backend_id": "2b369986-e5d4-4b43-ba94-9749c3ac9f4e",
-      "ip": "51.158.69.226",
+      "instance_id": "76fd4d9a-3003-4c49-a288-2da3429fac75",
+      "backend_id": "a0c57fef-73e3-4f9f-a8ec-21181e99d25a",
+      "ip": "51.15.254.23",
       "server_state": "stopped",
-      "server_state_changed_at": "2025-01-08T15:04:34Z",
+      "server_state_changed_at": "2025-01-30T15:47:21Z",
       "last_health_check_status": "unknown"
     }
   ]

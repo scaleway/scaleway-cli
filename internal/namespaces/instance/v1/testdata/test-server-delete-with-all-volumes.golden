@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-successfully deleted volume Ubuntu 18.04 Bionic Beaver (10 GB l_ssd)
+successfully deleted volume  (- sbs_volume)
 successfully deleted volume  (- sbs_volume)
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {

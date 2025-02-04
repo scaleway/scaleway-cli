@@ -1,59 +1,50 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                          a8569577-eb93-4760-95a7-ba33daf73a70
-Name                        cli-srv-condescending-gagarin
-Organization                105bdce1-64c0-48ab-899d-868455867ecf
-Project                     105bdce1-64c0-48ab-899d-868455867ecf
-AllowedActions.0            poweron
-AllowedActions.1            backup
-CommercialType              DEV1-S
-CreationDate                few seconds ago
-DynamicIPRequired           false
-RoutedIPEnabled             true
-EnableIPv6                  false
-Hostname                    cli-srv-condescending-gagarin
-Image.ID                    bc50e86c-a6c7-401a-8fbb-2ef17ce87aee
-Image.Name                  Ubuntu 22.04 Jammy Jellyfish
-Image.Arch                  x86_64
-Image.CreationDate          few seconds ago
-Image.ModificationDate      few seconds ago
-Image.ExtraVolumes          0
-Image.FromServer            -
-Image.Organization          51b656e3-4865-41e8-adbc-0c45bdd780db
-Image.Public                true
-Image.RootVolume            f1efdd5c-375b-431e-ac06-daaf1518369b
-Image.State                 available
-Image.Project               51b656e3-4865-41e8-adbc-0c45bdd780db
-Image.Zone                  fr-par-1
-Protected                   false
-MacAddress                  de:00:00:89:34:2d
-ModificationDate            few seconds ago
-State                       archived
-BootType                    local
-Volumes.0.ID                9663cd28-78e6-4207-8761-ceba4c07be4a
-Volumes.0.Name              Ubuntu 22.04 Jammy Jellyfish
-Volumes.0.Organization      105bdce1-64c0-48ab-899d-868455867ecf
-Volumes.0.Server.ID         a8569577-eb93-4760-95a7-ba33daf73a70
-Volumes.0.Server.Name       cli-srv-condescending-gagarin
-Volumes.0.Size              20 GB
-Volumes.0.VolumeType        l_ssd
-Volumes.0.CreationDate      few seconds ago
-Volumes.0.ModificationDate  few seconds ago
-Volumes.0.State             available
-Volumes.0.Project           105bdce1-64c0-48ab-899d-868455867ecf
-Volumes.0.Boot              false
-Volumes.0.Zone              fr-par-1
-SecurityGroup.ID            5881315f-2400-43a0-ac75-08adf6cb8c12
-SecurityGroup.Name          Default security group
-StateDetail                 -
-Arch                        x86_64
-Zone                        fr-par-1
+ID                      cf1cfe02-38f9-4fce-bc1c-ab61925cff05
+Name                    cli-srv-friendly-heyrovsky
+Organization            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Project                 ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+AllowedActions.0        poweron
+AllowedActions.1        backup
+CommercialType          DEV1-S
+CreationDate            few seconds ago
+DynamicIPRequired       false
+RoutedIPEnabled         true
+EnableIPv6              false
+Hostname                cli-srv-friendly-heyrovsky
+Image.ID                1fb9bfa4-68c3-4d6f-a362-8913a1af27b0
+Image.Name              Ubuntu 22.04 Jammy Jellyfish
+Image.Arch              x86_64
+Image.CreationDate      few seconds ago
+Image.ModificationDate  few seconds ago
+Image.ExtraVolumes      0
+Image.FromServer        -
+Image.Organization      51b656e3-4865-41e8-adbc-0c45bdd780db
+Image.Public            true
+Image.RootVolume        4eb9437f-8993-444a-b564-f7654add2131
+Image.State             available
+Image.Project           51b656e3-4865-41e8-adbc-0c45bdd780db
+Image.Zone              fr-par-1
+Protected               false
+MacAddress              de:00:00:90:7f:af
+ModificationDate        few seconds ago
+State                   archived
+BootType                local
+Volumes.0.ID            097ddb23-205f-477e-9149-db82ae9fccbe
+Volumes.0.VolumeType    sbs_volume
+Volumes.0.Boot          false
+Volumes.0.Zone          fr-par-1
+SecurityGroup.ID        0fe819c3-274d-472a-b3f5-ddb258d2d8bb
+SecurityGroup.Name      Default security group
+StateDetail             -
+Arch                    x86_64
+Zone                    fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "a8569577-eb93-4760-95a7-ba33daf73a70",
-  "name": "cli-srv-condescending-gagarin",
-  "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
-  "project": "105bdce1-64c0-48ab-899d-868455867ecf",
+  "id": "cf1cfe02-38f9-4fce-bc1c-ab61925cff05",
+  "name": "cli-srv-friendly-heyrovsky",
+  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "allowed_actions": [
     "poweron",
     "backup"
@@ -64,9 +55,9 @@ Zone                        fr-par-1
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-condescending-gagarin",
+  "hostname": "cli-srv-friendly-heyrovsky",
   "image": {
-    "id": "bc50e86c-a6c7-401a-8fbb-2ef17ce87aee",
+    "id": "1fb9bfa4-68c3-4d6f-a362-8913a1af27b0",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -77,10 +68,10 @@ Zone                        fr-par-1
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "f1efdd5c-375b-431e-ac06-daaf1518369b",
-      "name": "Ubuntu 22.04 Jammy Jellyfish",
-      "size": 10000000000,
-      "volume_type": "unified"
+      "id": "4eb9437f-8993-444a-b564-f7654add2131",
+      "name": "",
+      "size": 0,
+      "volume_type": "sbs_snapshot"
     },
     "state": "available",
     "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
@@ -91,7 +82,7 @@ Zone                        fr-par-1
   "private_ip": null,
   "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:89:34:2d",
+  "mac_address": "de:00:00:90:7f:af",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -99,26 +90,23 @@ Zone                        fr-par-1
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "9663cd28-78e6-4207-8761-ceba4c07be4a",
-      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "id": "097ddb23-205f-477e-9149-db82ae9fccbe",
+      "name": null,
       "export_uri": null,
-      "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
-      "server": {
-        "id": "a8569577-eb93-4760-95a7-ba33daf73a70",
-        "name": "cli-srv-condescending-gagarin"
-      },
-      "size": 20000000000,
-      "volume_type": "l_ssd",
-      "creation_date": "1970-01-01T00:00:00.0Z",
-      "modification_date": "1970-01-01T00:00:00.0Z",
-      "state": "available",
-      "project": "105bdce1-64c0-48ab-899d-868455867ecf",
+      "organization": null,
+      "server": null,
+      "size": null,
+      "volume_type": "sbs_volume",
+      "creation_date": null,
+      "modification_date": null,
+      "state": null,
+      "project": null,
       "boot": false,
       "zone": "fr-par-1"
     }
   },
   "security_group": {
-    "id": "5881315f-2400-43a0-ac75-08adf6cb8c12",
+    "id": "0fe819c3-274d-472a-b3f5-ddb258d2d8bb",
     "name": "Default security group"
   },
   "maintenances": [],
