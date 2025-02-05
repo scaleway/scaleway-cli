@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	key_manager "github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -34,6 +34,8 @@ func GetGeneratedCommands() *core.Commands {
 		keymanagerKeyGenerateDataKey(),
 		keymanagerKeyEncrypt(),
 		keymanagerKeyDecrypt(),
+		keymanagerKeyImportKeyMaterial(),
+		keymanagerKeyDeleteKeyMaterial(),
 	)
 }
 func keymanagerRoot() *core.Command {
@@ -56,7 +58,7 @@ func keymanagerKey() *core.Command {
 func keymanagerKeyCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a key`,
-		Long:      `Create a key in a given region specified by the ` + "`" + `region` + "`" + ` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys that can be used without being stored in Key Manager.`,
+		Long:      `Create a key in a given region specified by the ` + "`" + `region` + "`" + ` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "create",
@@ -73,6 +75,7 @@ func keymanagerKeyCreate() *core.Command {
 			},
 			{
 				Name:       "usage.symmetric-encryption",
+				Short:      `Algorithm used to encrypt and decrypt arbitrary payloads.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -113,6 +116,14 @@ func keymanagerKeyCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "origin",
+				Short:      `Key origin`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_origin", "scaleway_kms", "external"},
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -129,7 +140,7 @@ func keymanagerKeyCreate() *core.Command {
 func keymanagerKeyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get key metadata`,
-		Long:      `Retrieve the metadata of a key specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `key_id` + "`" + ` parameters.`,
+		Long:      `Retrieve metadata for a specified key using the ` + "`" + `region` + "`" + ` and ` + "`" + `key_id` + "`" + ` parameters.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "get",
@@ -141,7 +152,7 @@ func keymanagerKeyGet() *core.Command {
 				Short:      `ID of the key to target`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -159,7 +170,7 @@ func keymanagerKeyGet() *core.Command {
 func keymanagerKeyUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a key`,
-		Long:      `Update a key's metadata (name, description and tags), specified by the ` + "`" + `key_id` + "`" + ` and ` + "`" + `region` + "`" + ` parameters.`,
+		Long:      `Modify a key's metadata including name, description and tags, specified by the ` + "`" + `key_id` + "`" + ` and ` + "`" + `region` + "`" + ` parameters.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "update",
@@ -171,7 +182,7 @@ func keymanagerKeyUpdate() *core.Command {
 				Short:      `ID of the key to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -224,7 +235,7 @@ func keymanagerKeyUpdate() *core.Command {
 func keymanagerKeyDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a key`,
-		Long:      `Delete an existing key specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `key_id` + "`" + ` parameters. Deleting a key is permanent and cannot be undone. All data encrypted using this key, including data encryption keys, will become unusable.`,
+		Long:      `Permanently delete a key specified by the ` + "`" + `region` + "`" + ` and ` + "`" + `key_id` + "`" + ` parameters. This action is irreversible. Any data encrypted with this key, including data encryption keys, will no longer be decipherable.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "delete",
@@ -236,7 +247,7 @@ func keymanagerKeyDelete() *core.Command {
 				Short:      `ID of the key to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -260,7 +271,7 @@ func keymanagerKeyDelete() *core.Command {
 func keymanagerKeyRotate() *core.Command {
 	return &core.Command{
 		Short:     `Rotate a key`,
-		Long:      `Generate a new version of an existing key with randomly generated key material. Rotated keys can still be used to decrypt previously encrypted data. The key's new material will be used for subsequent encryption operations and data key generation.`,
+		Long:      `Generate a new version of an existing key with new key material. Previous key versions remain usable to decrypt previously encrypted data, but the key's new version will be used for subsequent encryption operations and data key generation.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "rotate",
@@ -272,7 +283,7 @@ func keymanagerKeyRotate() *core.Command {
 				Short:      `ID of the key to rotate`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -290,7 +301,7 @@ func keymanagerKeyRotate() *core.Command {
 func keymanagerKeyProtect() *core.Command {
 	return &core.Command{
 		Short:     `Apply key protection`,
-		Long:      `Apply key protection to a given key specified by the ` + "`" + `key_id` + "`" + ` parameter. Applying key protection means that your key can be used and modified, but it cannot be deleted.`,
+		Long:      `Apply protection to a given key specified by the ` + "`" + `key_id` + "`" + ` parameter. Applying key protection means that your key can be used and modified, but it cannot be deleted.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "protect",
@@ -302,7 +313,7 @@ func keymanagerKeyProtect() *core.Command {
 				Short:      `ID of the key to apply key protection to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -332,7 +343,7 @@ func keymanagerKeyUnprotect() *core.Command {
 				Short:      `ID of the key to remove key protection from`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -362,7 +373,7 @@ func keymanagerKeyEnable() *core.Command {
 				Short:      `ID of the key to enable`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -380,7 +391,7 @@ func keymanagerKeyEnable() *core.Command {
 func keymanagerKeyDisable() *core.Command {
 	return &core.Command{
 		Short:     `Disable key`,
-		Long:      `Disable a given key to be used for cryptographic operations. Disabling a key renders it unusable. You must specify the ` + "`" + `region` + "`" + ` and ` + "`" + `key_id` + "`" + ` parameters.`,
+		Long:      `Disable a given key, preventing it to be used for cryptographic operations. Disabling a key renders it unusable. You must specify the ` + "`" + `region` + "`" + ` and ` + "`" + `key_id` + "`" + ` parameters.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "disable",
@@ -392,7 +403,7 @@ func keymanagerKeyDisable() *core.Command {
 				Short:      `ID of the key to disable`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -410,7 +421,7 @@ func keymanagerKeyDisable() *core.Command {
 func keymanagerKeyList() *core.Command {
 	return &core.Command{
 		Short:     `List keys`,
-		Long:      `Retrieve the list of keys created within all Projects of an Organization or in a given Project. You must specify the ` + "`" + `region` + "`" + `, and either the ` + "`" + `organization_id` + "`" + ` or the ` + "`" + `project_id` + "`" + `.`,
+		Long:      `Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the ` + "`" + `region` + "`" + `, and either the ` + "`" + `organization_id` + "`" + ` or the ` + "`" + `project_id` + "`" + `.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "list",
@@ -476,10 +487,10 @@ func keymanagerKeyList() *core.Command {
 
 func keymanagerKeyGenerateDataKey() *core.Command {
 	return &core.Command{
-		Short: `Generate a data encryption key`,
-		Long: `Generate a new data encryption key to use for cryptographic operations outside of Key Manager. Note that Key Manager does not store your data encryption key. The data encryption key is encrypted and must be decrypted using the key you have created in Key Manager. The data encryption key's plaintext is returned in the response object, for immediate usage.
+		Short: `Create a data encryption key`,
+		Long: `Create a new data encryption key for cryptographic operations outside of Key Manager. The data encryption key is encrypted and must be decrypted using the key you have created in Key Manager.
 
-Always store the data encryption key's ciphertext, rather than its plaintext, which must not be stored. To retrieve your key's plaintext, call the Decrypt endpoint with your key's ID and ciphertext.`,
+The data encryption key is returned in plaintext and ciphertext but it should only be stored in its encrypted form (ciphertext). Key Manager does not store your data encryption key. To retrieve your key's plaintext, use the ` + "`" + `Decrypt` + "`" + ` method with your key's ID and ciphertext.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "generate-data-key",
@@ -491,14 +502,15 @@ Always store the data encryption key's ciphertext, rather than its plaintext, wh
 				Short:      `ID of the key`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "algorithm",
-				Short:      `Symmetric encryption algorithm of the data encryption key`,
+				Short:      `Algorithm with which the data encryption key will be used to encrypt and decrypt arbitrary payloads`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.DefaultValueSetter("aes_256_gcm"),
 				EnumValues: []string{"unknown_symmetric_encryption", "aes_256_gcm"},
 			},
 			{
@@ -523,8 +535,8 @@ Always store the data encryption key's ciphertext, rather than its plaintext, wh
 
 func keymanagerKeyEncrypt() *core.Command {
 	return &core.Command{
-		Short:     `Encrypt data`,
-		Long:      `Encrypt data using an existing key, specified by the ` + "`" + `key_id` + "`" + ` parameter. Only keys with a usage set to **symmetric_encryption** are supported by this method. The maximum payload size that can be encrypted is 64KB of plaintext.`,
+		Short:     `Encrypt a payload`,
+		Long:      `Encrypt a payload using an existing key, specified by the ` + "`" + `key_id` + "`" + ` parameter. Only keys with a usage set to ` + "`" + `symmetric_encryption` + "`" + ` are supported by this method. The maximum payload size that can be encrypted is 64 KB of plaintext.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "encrypt",
@@ -536,11 +548,11 @@ func keymanagerKeyEncrypt() *core.Command {
 				Short:      `ID of the key to encrypt`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "plaintext",
-				Short:      `Base64 Plaintext data to encrypt`,
+				Short:      `Plaintext data to encrypt`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -567,8 +579,8 @@ func keymanagerKeyEncrypt() *core.Command {
 
 func keymanagerKeyDecrypt() *core.Command {
 	return &core.Command{
-		Short:     `Decrypt data`,
-		Long:      `Decrypt data using an existing key, specified by the ` + "`" + `key_id` + "`" + ` parameter. The maximum payload size that can be decrypted is the result of the encryption of 64KB of data (around 131KB).`,
+		Short:     `Decrypt an encrypted payload`,
+		Long:      `Decrypt an encrypted payload using an existing key, specified by the ` + "`" + `key_id` + "`" + ` parameter. The maximum payload size that can be decrypted is equivalent to the encrypted output of 64 KB of data (around 131 KB).`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "decrypt",
@@ -580,11 +592,11 @@ func keymanagerKeyDecrypt() *core.Command {
 				Short:      `ID of the key to decrypt`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "ciphertext",
-				Short:      `Base64 Ciphertext data to decrypt`,
+				Short:      `Ciphertext data to decrypt`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -605,6 +617,86 @@ func keymanagerKeyDecrypt() *core.Command {
 			api := key_manager.NewAPI(client)
 			return api.Decrypt(request)
 
+		},
+	}
+}
+
+func keymanagerKeyImportKeyMaterial() *core.Command {
+	return &core.Command{
+		Short:     `Import key material`,
+		Long:      `Import externally generated key material into Key Manager to derive a new cryptographic key. The key's origin must be ` + "`" + `external` + "`" + `.`,
+		Namespace: "keymanager",
+		Resource:  "key",
+		Verb:      "import-key-material",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(key_manager.ImportKeyMaterialRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "key-id",
+				Short:      `ID of the key in which to import key material`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "key-material",
+				Short:      `The key material The key material is a random sequence of bytes used to derive a cryptographic key.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "salt",
+				Short:      `(Optional) Salt value to pass the key derivation function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*key_manager.ImportKeyMaterialRequest)
+
+			client := core.ExtractClient(ctx)
+			api := key_manager.NewAPI(client)
+			return api.ImportKeyMaterial(request)
+
+		},
+	}
+}
+
+func keymanagerKeyDeleteKeyMaterial() *core.Command {
+	return &core.Command{
+		Short:     `Delete key material`,
+		Long:      `Delete previously imported key material. This renders the associated cryptographic key unusable for any operation. The key's origin must be ` + "`" + `external` + "`" + `.`,
+		Namespace: "keymanager",
+		Resource:  "key",
+		Verb:      "delete-key-material",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(key_manager.DeleteKeyMaterialRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "key-id",
+				Short:      `ID of the key of which to delete the key material`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*key_manager.DeleteKeyMaterialRequest)
+
+			client := core.ExtractClient(ctx)
+			api := key_manager.NewAPI(client)
+			e = api.DeleteKeyMaterial(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "key",
+				Verb:     "delete-key-material",
+			}, nil
 		},
 	}
 }

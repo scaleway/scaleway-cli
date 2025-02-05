@@ -6,19 +6,21 @@ USAGE:
   scw keymanager key <command>
 
 AVAILABLE COMMANDS:
-  create            Create a key
-  decrypt           Decrypt data
-  delete            Delete a key
-  disable           Disable key
-  enable            Enable key
-  encrypt           Encrypt data
-  generate-data-key Generate a data encryption key
-  get               Get key metadata
-  list              List keys
-  protect           Apply key protection
-  rotate            Rotate a key
-  unprotect         Remove key protection
-  update            Update a key
+  create              Create a key
+  decrypt             Decrypt an encrypted payload
+  delete              Delete a key
+  delete-key-material Delete key material
+  disable             Disable key
+  enable              Enable key
+  encrypt             Encrypt a payload
+  generate-data-key   Create a data encryption key
+  get                 Get key metadata
+  import-key-material Import key material
+  list                List keys
+  protect             Apply key protection
+  rotate              Rotate a key
+  unprotect           Remove key protection
+  update              Update a key
 
 FLAGS:
   -h, --help   help for key
