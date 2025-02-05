@@ -9,6 +9,8 @@
 
 Scaleway CLI is a tool to help you pilot your Scaleway infrastructure directly from your terminal.
 
+Refer to the [documentation](https://cli.scaleway.com/) for a complete reference of the different CLI commands.
+
 # Installation
 
 ## With a Package Manager (Recommended)
