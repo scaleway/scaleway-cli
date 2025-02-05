@@ -135,6 +135,7 @@ scw cockpit contact-point create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | email.to |  |  |
+| receive-resolved-notifications |  | Send an email notification when an alert is marked as resolved |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
