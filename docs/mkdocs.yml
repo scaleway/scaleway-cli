@@ -101,7 +101,7 @@ nav:
     - Web Hosting: webhosting.md
   - Network:
     - VPC: vpc.md
-    - Puvblic Gateway: vpc-gw.md
+    - Public Gateway: vpc-gw.md
     - IPAM: ipam.md
     - Load Balancer: lb.md
     - Domains and DNS: dns.md
@@ -114,7 +114,7 @@ nav:
     - SQL Databases: sdb-sql.md
     - Messaging and Queuing: mnq.md
   - Storage:
-    - BLock Storage: block.md
+    - Block Storage: block.md
     - Object Storage: object.md
   - CLI configuration:
     - Alias: alias.md
