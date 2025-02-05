@@ -1017,6 +1017,13 @@ If you need to receive alerts for other receivers, you can create additional con
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "receive-resolved-notifications",
+				Short:      `Send an email notification when an alert is marked as resolved`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
