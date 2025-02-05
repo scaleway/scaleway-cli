@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Generate a new version of an existing key with randomly generated key material. Rotated keys can still be used to decrypt previously encrypted data. The key's new material will be used for subsequent encryption operations and data key generation.
+Generate a new version of an existing key with new key material. Previous key versions remain usable to decrypt previously encrypted data, but the key's new version will be used for subsequent encryption operations and data key generation.
 
 USAGE:
-  scw keymanager key rotate [arg=value ...]
+  scw keymanager key rotate <key-id ...> [arg=value ...]
 
 ARGS:
   key-id            ID of the key to rotate

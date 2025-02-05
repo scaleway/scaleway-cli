@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Import externally generated key material into Key Manager to derive a new cryptographic key. The key's origin must be `external`.
+
+USAGE:
+  scw keymanager key import-key-material <key-id ...> [arg=value ...]
+
+ARGS:
+  key-id            ID of the key in which to import key material
+  [key-material]    The key material The key material is a random sequence of bytes used to derive a cryptographic key.
+  [salt]            (Optional) Salt value to pass the key derivation function
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for import-key-material
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a key's metadata (name, description and tags), specified by the `key_id` and `region` parameters.
+Modify a key's metadata including name, description and tags, specified by the `key_id` and `region` parameters.
 
 USAGE:
-  scw keymanager key update [arg=value ...]
+  scw keymanager key update <key-id ...> [arg=value ...]
 
 ARGS:
   key-id                               ID of the key to update

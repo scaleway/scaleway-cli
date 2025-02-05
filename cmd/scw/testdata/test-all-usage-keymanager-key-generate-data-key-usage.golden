@@ -1,17 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Generate a new data encryption key to use for cryptographic operations outside of Key Manager. Note that Key Manager does not store your data encryption key. The data encryption key is encrypted and must be decrypted using the key you have created in Key Manager. The data encryption key's plaintext is returned in the response object, for immediate usage.
+Create a new data encryption key for cryptographic operations outside of Key Manager. The data encryption key is encrypted and must be decrypted using the key you have created in Key Manager.
 
-Always store the data encryption key's ciphertext, rather than its plaintext, which must not be stored. To retrieve your key's plaintext, call the Decrypt endpoint with your key's ID and ciphertext.
+The data encryption key is returned in plaintext and ciphertext but it should only be stored in its encrypted form (ciphertext). Key Manager does not store your data encryption key. To retrieve your key's plaintext, use the `Decrypt` method with your key's ID and ciphertext.
 
 USAGE:
-  scw keymanager key generate-data-key [arg=value ...]
+  scw keymanager key generate-data-key <key-id ...> [arg=value ...]
 
 ARGS:
-  key-id                ID of the key
-  [algorithm]           Symmetric encryption algorithm of the data encryption key (unknown_symmetric_encryption | aes_256_gcm)
-  [without-plaintext]   (Optional) Defines whether to return the data encryption key's plaintext in the response object
-  [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  key-id                    ID of the key
+  [algorithm=aes_256_gcm]   Algorithm with which the data encryption key will be used to encrypt and decrypt arbitrary payloads (unknown_symmetric_encryption | aes_256_gcm)
+  [without-plaintext]       (Optional) Defines whether to return the data encryption key's plaintext in the response object
+  [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for generate-data-key
