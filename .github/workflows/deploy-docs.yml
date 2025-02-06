@@ -1,5 +1,6 @@
 name: Build and push CLI doc to S3
 on:
+  workflow_dispatch:
   release:
     types:
       - published # Triggered only when a new release is published
@@ -12,24 +13,29 @@ jobs:
     runs-on: ubuntu-latest
     environment: actions
     steps:
-      - name: Check out the release tag
+      - name: Check out the repo
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.release.tag_name }}
-      - name: Verify release commit
-        run: | # Commit hash to compare with the commit returned by actions/checkout@v4 - Tag to compare with the latest release
-          echo "Checked out commit: $(git rev-parse HEAD)"
-          echo "Expected tag: ${{ github.event.release.tag_name }}"
+
+      - name: Get latest release tag
+        run: echo "LATEST_TAG=$(gh release view --json tagName -q '.tagName')" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.CLI_DOC_GITHUB_TOKEN }}
+
+      - name: Check out latest release tag
+        run: git checkout $LATEST_TAG
+
       - name: prepare temporary folder for build
         run: | # Creates a temporary "docs" folder within the existing "docs" folder because the mkdocs.yml must be in the parent folder of the markdown pages
           cd docs
           mkdir docs
           cp commands/* docs/
           cp -r static_files/* docs/
+
       - name: Pull Material for MKdocs image and build doc
         run: |
           docker pull squidfunk/mkdocs-material
           docker run --rm -i -v ${PWD}/docs:/docs squidfunk/mkdocs-material build
+          
       - name: Download and set up AWS CLI
         run: |
           apt update
@@ -53,5 +59,6 @@ jobs:
           CLI_DOC_S3_ENDPOINT: ${{ secrets.CLI_DOC_S3_ENDPOINT }}
         run: |
           aws s3 cp --recursive ./docs/site/ s3://$CLI_DOC_BUCKET_NAME --endpoint-url $CLI_DOC_S3_ENDPOINT
+      
       - name: Delete temporary folder
         run: rm -rf docs/docs/
