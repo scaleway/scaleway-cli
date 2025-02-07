@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              d1b8825f-98c1-4a88-a559-57c8d3745804
-Name            cli-pn-kind-sutherland
+ID              82e2935f-1e06-46cb-83a9-ad664aedd289
+Name            cli-pn-exciting-keldysh
 OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
 Region          fr-par
@@ -11,25 +11,25 @@ VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
 DHCPEnabled     true
 
 Instance Servers:
-ID                                    NAME               STATE     NIC ID                                MAC ADDRESS
-224fde09-bd5e-49b1-9b6b-41c67a758dcb  cli-srv-epic-pare  archived  24abfbef-ade9-4b58-afd7-a4d0dc7ffdcf  02:00:00:1c:92:7e
+ID                                    NAME                   STATE     NIC ID                                MAC ADDRESS
+d5ea776f-d30a-4e93-9ec9-d293dfd84104  cli-srv-musing-euclid  archived  77b139c7-3a48-40ca-af8b-04a16218a780  02:00:00:10:01:16
 
 Load-Balancers:
 ID                                    NAME      STATE
-ae4dc7ff-71f6-4ab5-b866-974030d3e11c  cli-test  ready
+f072f5f0-2237-4f33-80aa-6d6ea7a763ad  cli-test  ready
 
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
-03cb0a3e-a459-47ad-89c8-2f9b2f22c289  cli-test  ready  a9770263-e299-4fd3-9d7b-d6ef60d6a8fa
+84262b73-ce51-43a8-9cac-def2c76ca2c0  cli-test  ready  c96e842e-fba1-469c-95da-71c7f0027ada
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-7bfcdcbd-a3d5-4cf0-b233-4806ac93c1d3  few seconds ago  few seconds ago  172.16.8.0/22             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  d1b8825f-98c1-4a88-a559-57c8d3745804  53e50f63-f6c0-44f7-8576-d6edcb965d9c
-f9ad5753-89e8-46a0-bbd0-e407a1828df9  few seconds ago  few seconds ago  fd4a:c18e:554d:fbef::/64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  d1b8825f-98c1-4a88-a559-57c8d3745804  53e50f63-f6c0-44f7-8576-d6edcb965d9c
+80d43601-5f30-4591-92da-e50f3a49e4da  few seconds ago  few seconds ago  172.16.4.0/22             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  82e2935f-1e06-46cb-83a9-ad664aedd289  53e50f63-f6c0-44f7-8576-d6edcb965d9c
+dd08a119-9d52-4afa-af50-0c990aa63d61  few seconds ago  few seconds ago  fd4a:c18e:554d:4a8c::/64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  82e2935f-1e06-46cb-83a9-ad664aedd289  53e50f63-f6c0-44f7-8576-d6edcb965d9c
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d1b8825f-98c1-4a88-a559-57c8d3745804",
-  "name": "cli-pn-kind-sutherland",
+  "id": "82e2935f-1e06-46cb-83a9-ad664aedd289",
+  "name": "cli-pn-exciting-keldysh",
   "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
   "region": "fr-par",
@@ -38,21 +38,21 @@ f9ad5753-89e8-46a0-bbd0-e407a1828df9  few seconds ago  few seconds ago  fd4a:c18
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "7bfcdcbd-a3d5-4cf0-b233-4806ac93c1d3",
+      "id": "80d43601-5f30-4591-92da-e50f3a49e4da",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.8.0/22",
+      "subnet": "172.16.4.0/22",
       "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "private_network_id": "d1b8825f-98c1-4a88-a559-57c8d3745804",
+      "private_network_id": "82e2935f-1e06-46cb-83a9-ad664aedd289",
       "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     },
     {
-      "id": "f9ad5753-89e8-46a0-bbd0-e407a1828df9",
+      "id": "dd08a119-9d52-4afa-af50-0c990aa63d61",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd4a:c18e:554d:fbef::/64",
+      "subnet": "fd4a:c18e:554d:4a8c::/64",
       "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "private_network_id": "d1b8825f-98c1-4a88-a559-57c8d3745804",
+      "private_network_id": "82e2935f-1e06-46cb-83a9-ad664aedd289",
       "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
     }
   ],
@@ -60,26 +60,26 @@ f9ad5753-89e8-46a0-bbd0-e407a1828df9  few seconds ago  few seconds ago  fd4a:c18
   "dhcp_enabled": true,
   "instance_servers": [
     {
-      "id": "224fde09-bd5e-49b1-9b6b-41c67a758dcb",
-      "name": "cli-srv-epic-pare",
+      "id": "d5ea776f-d30a-4e93-9ec9-d293dfd84104",
+      "name": "cli-srv-musing-euclid",
       "state": "stopped",
-      "nic_id": "24abfbef-ade9-4b58-afd7-a4d0dc7ffdcf",
-      "mac": "02:00:00:1c:92:7e"
+      "nic_id": "77b139c7-3a48-40ca-af8b-04a16218a780",
+      "mac": "02:00:00:10:01:16"
     }
   ],
   "lbs": [
     {
-      "id": "ae4dc7ff-71f6-4ab5-b866-974030d3e11c",
+      "id": "f072f5f0-2237-4f33-80aa-6d6ea7a763ad",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "03cb0a3e-a459-47ad-89c8-2f9b2f22c289",
+      "id": "84262b73-ce51-43a8-9cac-def2c76ca2c0",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "a9770263-e299-4fd3-9d7b-d6ef60d6a8fa"
+      "endpoint_id": "c96e842e-fba1-469c-95da-71c7f0027ada"
     }
   ]
 }

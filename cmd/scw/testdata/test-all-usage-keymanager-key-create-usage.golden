@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a key in a given region specified by the `region` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys that can be used without being stored in Key Manager.
+Create a key in a given region specified by the `region` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.
 
 USAGE:
   scw keymanager key create [arg=value ...]
@@ -8,12 +8,13 @@ USAGE:
 ARGS:
   [project-id]                         Project ID to use. If none is passed the default project ID will be used
   [name]                               (Optional) Name of the key
-  [usage.symmetric-encryption]          (unknown_symmetric_encryption | aes_256_gcm)
+  [usage.symmetric-encryption]         Algorithm used to encrypt and decrypt arbitrary payloads. (unknown_symmetric_encryption | aes_256_gcm)
   [description]                        (Optional) Description of the key
   [tags.{index}]                       (Optional) List of the key's tags
   [rotation-policy.rotation-period]    Rotation period
   [rotation-policy.next-rotation-at]   Key next rotation date
   [unprotected]                        (Optional) Defines whether key protection is applied to a key. Protected keys can be used but not deleted
+  [origin]                             Key origin (unknown_origin | scaleway_kms | external)
   [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

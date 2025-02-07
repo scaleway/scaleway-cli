@@ -8,7 +8,6 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Enable DHCP on a Private Network](#enable-dhcp-on-a-private-network)
   - [Get a Private Network](#get-a-private-network)
   - [List Private Networks](#list-private-networks)
-  - [Migrate Private Networks from zoned to regional](#migrate-private-networks-from-zoned-to-regional)
   - [Update Private Network](#update-private-network)
 - [Route management command](#route-management-command)
   - [Create a Route](#create-a-route)
@@ -143,28 +142,6 @@ scw vpc private-network list [arg=value ...]
 | dhcp-enabled |  | DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned |
 | organization-id |  | Organization ID to filter for. Only Private Networks belonging to this Organization will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Migrate Private Networks from zoned to regional
-
-Transform multiple existing zoned Private Networks (scoped to a single Availability Zone) into regional Private Networks, scoped to an entire region. You can transform one or many Private Networks (specified by their Private Network IDs) within a single Scaleway Organization or Project, with the same call.
-
-**Usage:**
-
-```
-scw vpc private-network migrate-to-regional <private-network-ids.{index} ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| private-network-ids.{index} | Required | IDs of the Private Networks to migrate |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/stretchr/testify/assert"
@@ -25,7 +26,7 @@ func Test_ListServer(t *testing.T) {
 func Test_GetServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: createServer("Server"),
 		Cmd:        "scw instance server get {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -64,7 +65,7 @@ func Test_CreateVolume(t *testing.T) {
 func Test_ServerUpdate(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: createServer("Server"),
 		Cmd:        "scw instance server update {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -75,7 +76,7 @@ func Test_ServerUpdate(t *testing.T) {
 
 	t.Run("No initial placement group & placement-group-id=none", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: createServer("Server"),
 		Cmd:        "scw instance server update {{ .Server.ID }} placement-group-id=none",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -92,7 +93,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup"),
-			createServerBionic("Server"),
+			createServer("Server"),
 		),
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup.ID }}`,
 		Check: core.TestCheckCombine(
@@ -114,7 +115,7 @@ func Test_ServerUpdate(t *testing.T) {
 
 	t.Run(`No initial placement group & placement-group-id=<valid, but non existing pg id>`, core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: createServer("Server"),
 		Cmd:        `scw instance server update {{ .Server.ID }} placement-group-id=11111111-1111-1111-1111-111111111111`,
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
@@ -125,7 +126,7 @@ func Test_ServerUpdate(t *testing.T) {
 
 	t.Run(`No initial placement group & placement-group-id=<invalid pg id>`, core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: createServer("Server"),
 		Cmd:        `scw instance server update {{ .Server.ID }} placement-group-id=1111111`,
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
@@ -138,7 +139,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup"),
-			core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic placement-group-id={{ .PlacementGroup.ID }} stopped=true")),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("placement-group-id={{ .PlacementGroup.ID }} stopped=true")),
 		),
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id=none`,
 		Check: core.TestCheckCombine(
@@ -159,7 +160,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup"),
-			core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic placement-group-id={{ .PlacementGroup.ID }} stopped=true")),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("placement-group-id={{ .PlacementGroup.ID }} stopped=true")),
 		),
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup.ID }}`,
 		Check: core.TestCheckCombine(
@@ -184,7 +185,7 @@ func Test_ServerUpdate(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup1"),
 			createPlacementGroup("PlacementGroup2"),
-			core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic placement-group-id={{ .PlacementGroup1.ID }} stopped=true")),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("placement-group-id={{ .PlacementGroup1.ID }} stopped=true")),
 		),
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup2.ID }}`,
 		Check: core.TestCheckCombine(
@@ -209,15 +210,18 @@ func Test_ServerUpdate(t *testing.T) {
 // Snapshot
 func Test_SnapshotCreate(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: createServerBionic("Server"),
-		Cmd:        `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`,
+		Commands: core.NewCommandsMerge(
+			block.GetCommands(),
+			instance.GetCommands(),
+		),
+		BeforeFunc: createServer("Server"),
+		Cmd:        `scw block snapshot create volume-id={{ (index .Server.Volumes "0").ID }} -w`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd("scw instance snapshot delete {{ .CmdResult.Snapshot.ID }}"),
+			core.ExecAfterCmd("scw block snapshot delete {{ .CmdResult.ID }}"),
 			deleteServer("Server"),
 		),
 	}))

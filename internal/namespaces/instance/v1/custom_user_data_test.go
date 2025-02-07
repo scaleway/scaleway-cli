@@ -11,7 +11,7 @@ import (
 func Test_UserDataGet(t *testing.T) {
 	t.Run("Get an existing key", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			createServerBionic("Server"),
+			createServer("Server"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{.Server.ID}} key=happy content=true"),
 		),
 		Commands:  instance.GetCommands(),
@@ -24,7 +24,7 @@ func Test_UserDataGet(t *testing.T) {
 	}))
 
 	t.Run("Get an nonexistent key", core.Test(&core.TestConfig{
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: createServer("Server"),
 		Commands:   instance.GetCommands(),
 		Cmd:        "scw instance user-data get server-id={{.Server.ID}} key=happy",
 		AfterFunc:  deleteServer("Server"),
@@ -38,7 +38,7 @@ func Test_UserDataGet(t *testing.T) {
 func Test_UserDataList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			createServerBionic("Server"),
+			createServer("Server"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=foo content=bar"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=bar content=foo"),
 		),
@@ -58,7 +58,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 	t.Run("on-cloud-init", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic")),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
 				file, _ := os.CreateTemp("", "test")
 				_, _ = file.WriteString(content)
@@ -81,7 +81,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 	t.Run("on-random-key", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic")),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
 				file, _ := os.CreateTemp("", "test")
 				_, _ = file.WriteString(content)

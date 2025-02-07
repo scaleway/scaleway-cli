@@ -3,7 +3,7 @@
 Enable a given key to be used for cryptographic operations. Enabling a key allows you to make a disabled key usable again. You must specify the `region` and `key_id` parameters.
 
 USAGE:
-  scw keymanager key enable [arg=value ...]
+  scw keymanager key enable <key-id ...> [arg=value ...]
 
 ARGS:
   key-id            ID of the key to enable
