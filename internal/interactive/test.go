@@ -29,6 +29,7 @@ func popMockResponseFromContext(ctx context.Context) (string, bool) {
 	}
 	str := (*mockValues)[0]
 	*mockValues = (*mockValues)[1:]
+
 	return str, true
 }
 
@@ -46,9 +47,11 @@ func (m *mockResponseReader) Read(p []byte) (n int, err error) {
 		if mockResponse, exist := popMockResponseFromContext(m.ctx); exist {
 			buff := []byte(mockResponse + "\n")
 			copy(p, buff)
+
 			return len(buff), nil
 		}
 	}
+
 	return m.defaultReader.Read(p)
 }
 

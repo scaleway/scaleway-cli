@@ -18,6 +18,7 @@ func baseBeforeFunc() core.BeforeFunc {
 		ctx.Meta["SecretKey"], _ = ctx.Client.GetSecretKey()
 		ctx.Meta["ProjectID"], _ = ctx.Client.GetDefaultProjectID()
 		ctx.Meta["OrganizationID"], _ = ctx.Client.GetDefaultOrganizationID()
+
 		return nil
 	}
 }
@@ -102,6 +103,7 @@ eval (scw autocomplete script shell=fish)
 						if err != nil {
 							return err
 						}
+
 						return nil
 					},
 					baseBeforeFunc(),

@@ -170,6 +170,7 @@ func websocketReader(conn *websocket.Conn) (chan []byte, chan error) {
 				if _, isClose := err.(*websocket.CloseError); !isClose {
 					errChan <- err
 				}
+
 				return
 			}
 			readChan <- data
@@ -194,6 +195,7 @@ func consoleReader(cns console.Console) (chan []byte, chan error) {
 			size, err := cns.Read(buff)
 			if err != nil {
 				errChan <- err
+
 				return
 			}
 			readChan <- buff[:size]

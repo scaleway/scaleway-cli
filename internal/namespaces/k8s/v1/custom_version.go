@@ -19,6 +19,7 @@ func versionListBuilder(c *core.Command) *core.Command {
 		}
 
 		versionsResponse := originalRes.(*k8s.ListVersionsResponse)
+
 		return versionsResponse.Versions, nil
 	})
 
@@ -75,5 +76,6 @@ func getLatestK8SVersion(scwClient *scw.Client) (string, error) {
 			latestVersion = newVersion
 		}
 	}
+
 	return latestVersion.String(), nil
 }

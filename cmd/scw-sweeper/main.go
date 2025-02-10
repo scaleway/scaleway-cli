@@ -47,6 +47,7 @@ func getConfigProfile() *scw.Profile {
 	if err != nil {
 		return &scw.Profile{}
 	}
+
 	return profile
 }
 
@@ -189,12 +190,14 @@ func mainNoExit() int {
 	err = vpcgwSweeper.SweepAllLocalities(client)
 	if err != nil {
 		log.Fatalf("Error sweeping vpcgw: %s", err)
+
 		return -1
 	}
 
 	err = webhostingSweeper.SweepAllLocalities(client)
 	if err != nil {
 		log.Fatalf("Error sweeping webhosting: %s", err)
+
 		return -1
 	}
 

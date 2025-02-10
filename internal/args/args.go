@@ -21,6 +21,7 @@ type RawArgs []string
 func (a RawArgs) ExistsArgByName(name string) bool {
 	argsMap := SplitRawMap(a)
 	_, ok := argsMap[name]
+
 	return ok
 }
 
@@ -48,6 +49,7 @@ func SplitRawMap(rawArgs []string) map[string]struct{} {
 	for _, arg := range SplitRaw(rawArgs) {
 		argsMap[arg[0]] = struct{}{}
 	}
+
 	return argsMap
 }
 
@@ -62,6 +64,7 @@ func SplitRaw(rawArgs []string) [][2]string {
 		}
 		keyValue = append(keyValue, [2]string{tmp[0], tmp[1]})
 	}
+
 	return keyValue
 }
 
@@ -70,6 +73,7 @@ func getInterfaceFromReflectValue(reflectValue reflect.Value) interface{} {
 	if reflectValue.CanAddr() {
 		i = reflectValue.Addr().Interface()
 	}
+
 	return i
 }
 
@@ -80,6 +84,7 @@ func (a RawArgs) GetPositionalArgs() []string {
 			positionalArgs = append(positionalArgs, arg)
 		}
 	}
+
 	return positionalArgs
 }
 
@@ -90,6 +95,7 @@ func (a RawArgs) Get(argName string) (string, bool) {
 			return value, true
 		}
 	}
+
 	return "", false
 }
 
@@ -140,6 +146,7 @@ func (a RawArgs) GetAll(argName string) []string {
 			}
 		}
 	}
+
 	return res
 }
 
@@ -160,6 +167,7 @@ func (a RawArgs) Add(name string, value string) RawArgs {
 func (a RawArgs) Remove(argName string) RawArgs {
 	return a.filter(func(arg string) bool {
 		name, _ := splitArg(arg)
+
 		return name != argName
 	})
 }
@@ -171,6 +179,7 @@ func (a RawArgs) filter(test func(string) bool) RawArgs {
 			argsCopy = append(argsCopy, arg)
 		}
 	}
+
 	return argsCopy
 }
 
@@ -185,6 +194,7 @@ func (a RawArgs) GetSliceOrMapKeys(prefix string) []string {
 		name = strings.TrimPrefix(name, prefix+".")
 		keys = append(keys, strings.SplitN(name, ".", 2)[0])
 	}
+
 	return keys
 }
 
@@ -193,11 +203,13 @@ func splitArg(arg string) (name string, value string) {
 	if len(part) == 1 {
 		return "", part[0]
 	}
+
 	return part[0], part[1]
 }
 
 func isPositionalArg(arg string) bool {
 	pos := strings.IndexRune(arg, '=')
+
 	return pos == -1
 }
 
@@ -248,6 +260,7 @@ func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
 				}
 			}
 		}
+
 		return nil, fmt.Errorf("count not find %s", name)
 	}
 
@@ -290,6 +303,7 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 			// If this is an embedded struct, skip adding its name to base
 			if field.Anonymous {
 				fields = append(fields, listArgTypeFields(fieldBase, field.Type)...)
+
 				continue
 			}
 
@@ -308,6 +322,7 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 				return []string{}
 			}
 		}
+
 		return []string{base}
 	}
 }

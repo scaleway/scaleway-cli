@@ -25,6 +25,7 @@ type BuildInfo struct {
 
 func (b *BuildInfo) MarshalJSON() ([]byte, error) {
 	type Tmp BuildInfo
+
 	return json.Marshal(
 		struct {
 			Tmp
@@ -50,6 +51,7 @@ func (b *BuildInfo) GetUserAgent() string {
 	if b.Version != nil {
 		return b.UserAgentPrefix + "/" + b.Version.String()
 	}
+
 	return b.UserAgentPrefix
 }
 
@@ -65,6 +67,7 @@ func (b *BuildInfo) Tags() map[string]string {
 func (b *BuildInfo) checkVersion(ctx context.Context) {
 	if !b.IsRelease() || ExtractEnv(ctx, scwDisableCheckVersionEnv) == "true" {
 		ExtractLogger(ctx).Debug("skipping check version")
+
 		return
 	}
 
@@ -72,6 +75,7 @@ func (b *BuildInfo) checkVersion(ctx context.Context) {
 	latestVersion, err := getLatestVersion(ExtractHTTPClient(ctx))
 	if err != nil {
 		ExtractLogger(ctx).Debugf("failed to retrieve latest version: %s\n", err)
+
 		return
 	}
 

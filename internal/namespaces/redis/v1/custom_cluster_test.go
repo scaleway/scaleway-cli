@@ -30,6 +30,7 @@ func Test_Endpoints(t *testing.T) {
 		BeforeFunc: core.BeforeFuncWhenUpdatingCassette(
 			func(_ *core.BeforeFuncCtx) error {
 				time.Sleep(1 * time.Minute)
+
 				return nil
 			},
 		),
@@ -52,6 +53,7 @@ func Test_Endpoints(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				}),
 		),
@@ -80,6 +82,7 @@ func Test_Endpoints(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),
@@ -115,6 +118,7 @@ func Test_IpamConfig(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),
@@ -144,6 +148,7 @@ func Test_IpamConfig(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),
@@ -175,6 +180,7 @@ func Test_IpamConfig(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),
@@ -211,6 +217,7 @@ func Test_EndpointsEdgeCases(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),
@@ -239,6 +246,7 @@ func Test_EndpointsEdgeCases(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),

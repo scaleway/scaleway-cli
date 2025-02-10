@@ -26,5 +26,6 @@ func (a *Alias) Args() []string {
 	if a.args == nil {
 		a.computeArgs()
 	}
+
 	return a.args
 }

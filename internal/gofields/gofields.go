@@ -27,6 +27,7 @@ func GetValue(data interface{}, path string) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return v.Interface(), nil
 }
 
@@ -52,12 +53,14 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		if idx >= value.Len() {
 			return reflect.Value{}, fmt.Errorf("trying to access array %s but %d is out of range", strings.Join(parents, "."), idx)
 		}
+
 		return getValue(value.Index(idx), append(parents, path[0]), path[1:])
 	case reflect.Map:
 		v := value.MapIndex(reflect.ValueOf(path[0]))
 		if !v.IsValid() {
 			return reflect.Value{}, fmt.Errorf("trying to access map %s but %s key does not exist", strings.Join(parents, "."), path[0])
 		}
+
 		return getValue(v, append(parents, path[0]), path[1:])
 	case reflect.Struct:
 		f, exist := value.Type().FieldByName(path[0])
@@ -68,6 +71,7 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 			return reflect.Value{}, fmt.Errorf("field %s is private in %s", path[0], strings.Join(parents, "."))
 		}
 		v := value.FieldByIndex(f.Index)
+
 		return getValue(v, append(parents, path[0]), path[1:])
 	default:
 		return reflect.Value{}, fmt.Errorf("cannot get %s in field %s", strings.Join(path, "."), strings.Join(parents, "."))
@@ -95,6 +99,7 @@ func getType(t reflect.Type, parents []string, path []string) (reflect.Type, err
 		if err != nil {
 			return nil, fmt.Errorf("trying to access array %s but %s is not a numerical index", strings.Join(parents, "."), path[0])
 		}
+
 		return getType(t.Elem(), append(parents, path[0]), path[1:])
 	case reflect.Map:
 		return getType(t.Elem(), append(parents, path[0]), path[1:])
@@ -106,6 +111,7 @@ func getType(t reflect.Type, parents []string, path []string) (reflect.Type, err
 		if !isFieldPublic(field) {
 			return nil, fmt.Errorf("field %s is private in %s", path[0], strings.Join(parents, "."))
 		}
+
 		return getType(field.Type, append(parents, path[0]), path[1:])
 	default:
 		return nil, fmt.Errorf("cannot get %s in field %s", strings.Join(path, "."), strings.Join(parents, "."))
@@ -150,12 +156,14 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 
 			res = append(res, listFields(field.Type, fieldParents, filter)...)
 		}
+
 		return res
 	default:
 		path := strings.Join(parents, ".")
 		if filter != nil && !filter(t, path) {
 			return nil
 		}
+
 		return []string{path}
 	}
 }

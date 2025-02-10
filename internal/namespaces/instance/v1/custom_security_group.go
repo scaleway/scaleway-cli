@@ -61,6 +61,7 @@ func marshalSecurityGroupRules(i interface{}, _ *human.MarshalOpt) (out string, 
 		if rule.DestPortTo != nil {
 			dest += "-" + strconv.Itoa(int(*rule.DestPortTo))
 		}
+
 		return &humanRule{
 			ID:        rule.ID,
 			Direction: string(rule.Direction),
@@ -235,6 +236,7 @@ func securityGroupGetBuilder(c *core.Command) *core.Command {
 			Rules:         securityGroupRules.Rules,
 		}, nil
 	}
+
 	return c
 }
 
@@ -298,11 +300,13 @@ func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 			}
 
 			newError.Hint = hint
+
 			return nil, newError
 		}
 
 		return nil, originalErr
 	})
+
 	return c
 }
 
@@ -355,6 +359,7 @@ func securityGroupClearCommand() *core.Command {
 					return nil, err
 				}
 			}
+
 			return &core.SuccessResult{Message: "Successful reset of the security group rules"}, err
 		},
 		ArgSpecs: core.ArgSpecs{

@@ -28,10 +28,12 @@ var marshalFuncs = map[reflect.Type]MarshalFunc{
 		v := src.(*scw.Size)
 		value := humanize.Bytes(uint64(*v))
 		value = strings.ReplaceAll(value, " ", "")
+
 		return value, nil
 	},
 	reflect.TypeOf((*time.Time)(nil)).Elem(): func(src interface{}) (string, error) {
 		v := src.(*time.Time)
+
 		return v.Format(time.RFC3339), nil
 	},
 }
@@ -114,6 +116,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 		if isDefault {
 			return nil, err
 		}
+
 		return []string{marshalKeyValue(keys, value)}, nil
 	}
 
@@ -147,6 +150,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 			}
 			args = append(args, subArgs...)
 		}
+
 		return args, nil
 
 	case reflect.Map:
@@ -172,6 +176,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 			}
 			args = append(args, newArgs...)
 		}
+
 		return args, nil
 
 	case reflect.Struct:
@@ -187,6 +192,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 			}
 			args = append(args, newArgs...)
 		}
+
 		return args, nil
 
 	default:
@@ -213,6 +219,7 @@ func marshalValue(src reflect.Value) (string, error) {
 		if err != nil {
 			return "", err
 		}
+
 		return value, nil
 	}
 
@@ -222,6 +229,7 @@ func marshalValue(src reflect.Value) (string, error) {
 		if err != nil {
 			return "", err
 		}
+
 		return value, nil
 	}
 
@@ -242,6 +250,7 @@ func marshalKeyValue(keys []string, value interface{}) string {
 	if key != "" {
 		valueStr = key + "=" + valueStr
 	}
+
 	return valueStr
 }
 

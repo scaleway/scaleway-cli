@@ -18,6 +18,7 @@ var serverTypeStockMarshalSpecs = human.EnumMarshalSpecs{
 
 func cpuMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	cpu := i.(applesilicon.ServerTypeCPU)
+
 	return fmt.Sprintf("%s (%d cores)", cpu.Name, cpu.CoreCount), nil
 }
 
@@ -27,6 +28,7 @@ func diskMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return capacityStr, nil
 }
 
@@ -36,6 +38,7 @@ func memoryMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return capacityStr, nil
 }
 
@@ -76,6 +79,7 @@ func serverTypeBuilder(c *core.Command) *core.Command {
 		}
 
 		versionsResponse := originalRes.(*applesilicon.ListServerTypesResponse)
+
 		return versionsResponse.ServerTypes, nil
 	})
 

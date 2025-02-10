@@ -15,7 +15,9 @@ func (r *retryableHTTPTransport) RoundTrip(request *http.Request) (*http.Respons
 	res, err := r.transport.RoundTrip(request)
 	if err == nil && res.StatusCode == http.StatusTooManyRequests {
 		time.Sleep(defaultRetryInterval)
+
 		return r.RoundTrip(request)
 	}
+
 	return res, err
 }

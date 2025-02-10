@@ -24,6 +24,7 @@ func (s ArgSpecs) GetPositionalArg() *ArgSpec {
 			positionalArg = argSpec
 		}
 	}
+
 	return positionalArg
 }
 
@@ -35,6 +36,7 @@ func (s ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
 			result = append(result, argSpec)
 		}
 	}
+
 	return result
 }
 
@@ -44,6 +46,7 @@ func (s ArgSpecs) GetByName(name string) *ArgSpec {
 			return spec
 		}
 	}
+
 	return nil
 }
 
@@ -51,6 +54,7 @@ func (s *ArgSpecs) DeleteByName(name string) {
 	for i, spec := range *s {
 		if spec.Name == name {
 			*s = append((*s)[:i], (*s)[i+1:]...)
+
 			return
 		}
 	}
@@ -65,6 +69,7 @@ func (s *ArgSpecs) AddBefore(name string, argSpec *ArgSpec) {
 			newSpecs = append(newSpecs, argSpec)
 			newSpecs = append(newSpecs, (*s)[i:]...)
 			*s = newSpecs
+
 			return
 		}
 	}
@@ -127,6 +132,7 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 	for _, zone := range zones {
 		enumValues = append(enumValues, zone.String())
 	}
+
 	return &ArgSpec{
 		Name:       "zone",
 		Short:      "Zone to target. If none is passed will use default zone from the config",
@@ -140,6 +146,7 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 			if validation.IsZone(value.(scw.Zone).String()) {
 				return nil
 			}
+
 			return &CliError{
 				Err:  fmt.Errorf("invalid zone %s", value),
 				Hint: "Zone format should look like XX-XXX-X (e.g. fr-par-1)",
@@ -148,6 +155,7 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 		Default: func(ctx context.Context) (value string, doc string) {
 			client := ExtractClient(ctx)
 			zone, _ := client.GetDefaultZone()
+
 			return zone.String(), zone.String()
 		},
 	}
@@ -158,6 +166,7 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 	for _, region := range regions {
 		enumValues = append(enumValues, region.String())
 	}
+
 	return &ArgSpec{
 		Name:       "region",
 		Short:      "Region to target. If none is passed will use default region from the config",
@@ -171,6 +180,7 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 			if validation.IsRegion(value.(scw.Region).String()) {
 				return nil
 			}
+
 			return &CliError{
 				Err:  fmt.Errorf("invalid region %s", value),
 				Hint: "Region format should look like XX-XXX (e.g. fr-par)",
@@ -179,6 +189,7 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 		Default: func(ctx context.Context) (value string, doc string) {
 			client := ExtractClient(ctx)
 			region, _ := client.GetDefaultRegion()
+
 			return region.String(), region.String()
 		},
 	}

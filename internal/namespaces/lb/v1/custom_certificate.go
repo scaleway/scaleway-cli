@@ -124,16 +124,19 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 
 func certificateGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptCertificate()
+
 	return c
 }
 
 func certificateUpdateBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptCertificate()
+
 	return c
 }
 
 func certificateDeleteBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptCertificate()
+
 	return c
 }
 

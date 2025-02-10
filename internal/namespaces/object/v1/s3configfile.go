@@ -27,6 +27,7 @@ func (s supportedTool) ToStringArray() []string {
 	for _, x := range s {
 		res = append(res, x.String())
 	}
+
 	return res
 }
 
@@ -97,6 +98,7 @@ func newS3Config(ctx context.Context, region scw.Region, name string) (s3config,
 		Name:      name,
 		ctx:       ctx,
 	}
+
 	return config, nil
 }
 
@@ -161,6 +163,7 @@ func (c s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
 		if err != nil {
 			return nil, err
 		}
+
 		return append(res, '\n'), nil
 	default:
 		return nil, errors.New("unknown tool")

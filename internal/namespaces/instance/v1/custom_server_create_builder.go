@@ -130,6 +130,7 @@ func (sb *ServerBuilder) marketplaceImageType() marketplace.LocalImageType {
 	if sb.rootVolumeIsSBS() {
 		return marketplace.LocalImageTypeInstanceSbs
 	}
+
 	return marketplace.LocalImageTypeInstanceLocal
 }
 
@@ -618,6 +619,7 @@ func (vb *VolumeBuilder) buildSnapshotVolume(api *instance.API, blockAPI *block.
 		if core.IsNotFoundError(err) {
 			return nil, fmt.Errorf("snapshot %s does not exist", *vb.SnapshotID)
 		}
+
 		return nil, err
 	}
 
@@ -664,6 +666,7 @@ func (vb *VolumeBuilder) buildImportedVolume(api *instance.API, blockAPI *block.
 		if core.IsNotFoundError(err) {
 			return nil, fmt.Errorf("volume %s does not exist", *vb.VolumeID)
 		}
+
 		return nil, err
 	}
 

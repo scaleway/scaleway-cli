@@ -62,6 +62,7 @@ func (e *UnmarshalArgError) Error() string {
 	if e.ArgValue != "" {
 		arg += "=" + e.ArgValue
 	}
+
 	return fmt.Sprintf("cannot unmarshal arg '%s': %s", arg, e.Err)
 }
 
@@ -174,10 +175,12 @@ func missingIndices(index, length int) string {
 	for i := length; i < index; i++ {
 		if i-length == 10 {
 			s = append(s, "...")
+
 			break
 		}
 		s = append(s, strconv.Itoa(i))
 	}
+
 	return strings.Join(s, ",")
 }
 

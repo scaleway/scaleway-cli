@@ -22,6 +22,7 @@ func subscribeToResize(resizeChan chan bool) func() {
 	}()
 
 	signal.Notify(sigChan, syscall.SIGWINCH)
+
 	return func() {
 		signal.Stop(sigChan)
 		close(sigChan)

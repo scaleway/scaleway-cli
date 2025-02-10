@@ -31,6 +31,7 @@ func gatewayCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		getResp := respI.(*vpcgw.Gateway)
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForGateway(&vpcgw.WaitForGatewayRequest{
 			GatewayID:     getResp.ID,
 			Zone:          getResp.Zone,
@@ -38,6 +39,7 @@ func gatewayCreateBuilder(c *core.Command) *core.Command {
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
+
 	return c
 }
 
@@ -58,5 +60,6 @@ func gatewayMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	if err != nil {
 		return "", err
 	}
+
 	return str, nil
 }

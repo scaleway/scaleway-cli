@@ -73,6 +73,7 @@ func (s *CliError) MarshalHuman() (string, error) {
 func (s *CliError) MarshalJSON() ([]byte, error) {
 	if s.Empty {
 		type emptyRes struct{}
+
 		return json.Marshal(&emptyRes{})
 	}
 
@@ -87,6 +88,7 @@ func (s *CliError) MarshalJSON() ([]byte, error) {
 		Details string `json:"details,omitempty"`
 		Hint    string `json:"hint,omitempty"`
 	}
+
 	return json.Marshal(&tmpRes{
 		Message: message,
 		Error:   s.Err,

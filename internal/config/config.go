@@ -74,6 +74,7 @@ func LoadConfig(configPath string) (*Config, error) {
 				path:   configPath,
 			}, nil
 		}
+
 		return nil, fmt.Errorf("failed to read cli config file: %w", err)
 	}
 	config := &Config{
@@ -104,6 +105,7 @@ func (c *Config) Save() error {
 	if err != nil {
 		return err
 	}
+
 	return os.WriteFile(c.path, []byte(file), defaultConfigPermission)
 }
 
@@ -132,5 +134,6 @@ func FilePath() (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return filepath.Clean(filepath.Join(configDir, DefaultConfigFileName)), nil
 }

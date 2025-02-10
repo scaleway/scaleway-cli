@@ -26,6 +26,7 @@ func Test_Login(t *testing.T) {
 			secret, _ := ctx.Client.GetSecretKey()
 			require.NoError(t, err)
 			assert.Equal(t, secret, string(stdin))
+
 			return 0, nil
 		},
 	}))
@@ -42,6 +43,7 @@ func Test_Login(t *testing.T) {
 			secret, _ := ctx.Client.GetSecretKey()
 			require.NoError(t, err)
 			assert.Equal(t, secret, string(stdin))
+
 			return 0, nil
 		},
 	}))

@@ -41,7 +41,9 @@ func GetCommands() *core.Commands {
 func setProjectDefaultValue(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("project-id").Default = func(ctx context.Context) (value string, doc string) {
 		projectID := core.GetProjectIDFromContext(ctx)
+
 		return projectID, "<retrieved from config>"
 	}
+
 	return c
 }

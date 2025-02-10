@@ -27,6 +27,7 @@ func (e *Example) GetCommandLine(binaryName string, cmd *Command) string {
 		res := e.Raw
 		res = strings.Trim(res, "\n")
 		res = interactive.RemoveIndent(res)
+
 		return res
 	case e.ArgsJSON != "":
 		//  Query and path parameters don't have json tag,
@@ -45,6 +46,7 @@ func (e *Example) GetCommandLine(binaryName string, cmd *Command) string {
 				cmdArgsAsStrings[i] = strings.TrimLeft(cmdArg, positionalArg.Prefix())
 				// Switch the positional args with args at position 0 to make sure it is always at the beginning
 				cmdArgsAsStrings[0], cmdArgsAsStrings[i] = cmdArgsAsStrings[i], cmdArgsAsStrings[0]
+
 				break
 			}
 		}
@@ -61,6 +63,7 @@ func (e *Example) GetCommandLine(binaryName string, cmd *Command) string {
 			cmd.Verb,
 		}
 		commandParts = append(commandParts, cmdArgsAsStrings...)
+
 		return strings.Join(commandParts, " ")
 	default:
 		panic(fmt.Errorf("in command '%s' invalid example '%s', it should either have a ArgsJSON or a Raw", cmd.getPath(), cmd.Short))

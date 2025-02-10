@@ -36,6 +36,7 @@ func TestSdkStandardErrors(t *testing.T) {
 			for range 10 {
 				ctx.ExecuteCmd([]string{"scw", "test", "human", "create"})
 			}
+
 			return nil
 		},
 		Cmd: "scw test human create",
@@ -56,6 +57,7 @@ func TestSdkStandardErrors(t *testing.T) {
 				HumanID: "0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",
 			})
 			assert.Equal(t, nil, err)
+
 			return nil
 		},
 		Cmd: "scw test human update human-id=0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 eyes-color=red",

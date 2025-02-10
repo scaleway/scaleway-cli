@@ -20,6 +20,7 @@ func configInstallCommand() *core.Command {
 		Type   s3tool
 		Name   string
 	}
+
 	return &core.Command{
 		Namespace: "object",
 		Resource:  "config",
@@ -105,6 +106,7 @@ func configInstallCommand() *core.Command {
 			if err != nil {
 				return "", err
 			}
+
 			return &core.SuccessResult{
 				Message: "Configuration file successfully installed at " + configPath,
 			}, nil

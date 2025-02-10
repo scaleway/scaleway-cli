@@ -231,6 +231,7 @@ func bucketListCommand() *core.Command {
 			if err != nil {
 				return nil, fmt.Errorf("could not list buckets: %w", err)
 			}
+
 			return buckets.Buckets, nil
 		},
 	}
@@ -365,6 +366,7 @@ func getAPIEndpoint(region string) string {
 	if customEndpoint := os.Getenv("SCW_S3_ENDPOINT"); customEndpoint != "" {
 		return customEndpoint
 	}
+
 	return fmt.Sprintf("https://s3.%s.scw.cloud", region)
 }
 
@@ -375,8 +377,10 @@ func getBucketEndpoint(name, region string) (string, error) {
 			return "", fmt.Errorf("could not parse custom endpoint %s: %w", customEndpoint, err)
 		}
 		u = u.JoinPath(name, u.Path)
+
 		return u.String(), nil
 	}
+
 	return fmt.Sprintf("https://%s.s3.%s.scw.cloud", name, region), nil
 }
 
@@ -437,6 +441,7 @@ func putBucketVersioning(ctx context.Context, client *s3.Client, name string, en
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -460,6 +465,7 @@ func putBucketTagging(ctx context.Context, client *s3.Client, name string, tags 
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -471,6 +477,7 @@ func putBucketACL(ctx context.Context, client *s3.Client, name string, acl strin
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 

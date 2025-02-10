@@ -25,6 +25,7 @@ func Test_CreateServer(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			Cmd: "scw baremetal server create zone=" + region + " type=" + offerName + " -w",
@@ -47,6 +48,7 @@ func Test_CreateServer(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			Cmd: "scw baremetal server create name=test-create-server-with-name zone=" + region + " type=" + offerName + " -w",
@@ -71,6 +73,7 @@ func Test_CreateServer(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			Cmd: "scw baremetal server create tags.0=prod tags.1=blue zone=" + region + " type=" + offerName + " -w",

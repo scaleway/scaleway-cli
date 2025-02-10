@@ -26,6 +26,7 @@ func TestGeneric(t *testing.T) {
 		if err != nil {
 			return 0, err
 		}
+
 		return int(i) / 4, nil
 	})
 
@@ -60,22 +61,28 @@ func TestCleanup(t *testing.T) {
 	tasks.Add(ts, "TaskFunc 1", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
 		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
+
 			return nil
 		})
+
 		return nil, nil
 	})
 	tasks.Add(ts, "TaskFunc 2", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
 		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
+
 			return nil
 		})
+
 		return nil, nil
 	})
 	tasks.Add(ts, "TaskFunc 3", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
 		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
+
 			return nil
 		})
+
 		return nil, errors.New("fail")
 	})
 
@@ -96,20 +103,25 @@ func TestCleanupOnContext(t *testing.T) {
 	tasks.Add(ts, "TaskFunc 1", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
 		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
+
 			return nil
 		})
+
 		return nil, nil
 	})
 	tasks.Add(ts, "TaskFunc 2", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
 		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
+
 			return nil
 		})
+
 		return nil, nil
 	})
 	tasks.Add(ts, "TaskFunc 3", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
 		task.AddToCleanUp(func(_ context.Context) error {
 			clean++
+
 			return nil
 		})
 		p, err := os.FindProcess(os.Getpid())

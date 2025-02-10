@@ -28,6 +28,7 @@ func appendArgs(prefix string, args map[string]string) string {
 	for k, v := range args {
 		cmd += fmt.Sprintf(" %s=%s", k, v)
 	}
+
 	return cmd
 }
 
@@ -72,6 +73,7 @@ func TestInit(t *testing.T) {
 			baseBeforeFunc(),
 			func(ctx *core.BeforeFuncCtx) error {
 				ctx.Meta["CONFIG_PATH"] = path.Join(ctx.Meta["HOME"].(string), "new_config_path.yml")
+
 				return nil
 			},
 		),

@@ -26,6 +26,7 @@ func wasFileModifiedLast24h(path string) bool {
 
 	yesterday := time.Now().AddDate(0, 0, -1)
 	lastUpdate := stat.ModTime()
+
 	return lastUpdate.After(yesterday)
 }
 
@@ -54,6 +55,7 @@ func runAfterCommandChecks(ctx context.Context, checkFuncs ...AfterCommandCheckF
 	cmdDisableCheck := cmd != nil && cmd.DisableAfterChecks
 	if cmdDisableCheck {
 		ExtractLogger(ctx).Debug("skipping after command checks")
+
 		return
 	}
 
@@ -62,6 +64,7 @@ func runAfterCommandChecks(ctx context.Context, checkFuncs ...AfterCommandCheckF
 	// do nothing if last refresh at during the last 24h
 	if wasFileModifiedLast24h(lastChecksFilePath) {
 		ExtractLogger(ctx).Debug("version was already checked during past 24 hours")
+
 		return
 	}
 
@@ -69,6 +72,7 @@ func runAfterCommandChecks(ctx context.Context, checkFuncs ...AfterCommandCheckF
 	err := CreateAndCloseFile(lastChecksFilePath)
 	if err != nil {
 		ExtractLogger(ctx).Debug(err.Error())
+
 		return
 	}
 

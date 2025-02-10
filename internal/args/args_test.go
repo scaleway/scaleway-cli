@@ -98,6 +98,7 @@ type RecursiveWithMapOfRecursive struct {
 
 func (c *CustomStruct) UnmarshalArgs(value string) error {
 	c.value = strings.ToUpper(value)
+
 	return nil
 }
 
@@ -109,6 +110,7 @@ type CustomString string
 
 func (c *CustomString) UnmarshalArgs(value string) error {
 	*c = CustomString(strings.ToUpper(value))
+
 	return nil
 }
 
@@ -129,12 +131,14 @@ type height int
 
 func marshalHeight(src interface{}) (string, error) {
 	h := src.(*height)
+
 	return fmt.Sprintf("%dcm", *h), nil
 }
 
 func unmarshalHeight(value string, dest interface{}) error {
 	h := dest.(*height)
 	_, err := fmt.Sscanf(value, "%dcm", h)
+
 	return err
 }
 

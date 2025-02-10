@@ -50,6 +50,7 @@ func serverLocationMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, er
 	if err != nil {
 		return "", err
 	}
+
 	return string(zone), nil
 }
 
@@ -115,6 +116,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 			ImageID:           serverImageID,
 		})
 	}
+
 	return human.Marshal(humanServers, opt)
 }
 
@@ -130,12 +132,14 @@ func orderVolumes(v map[string]*instance.VolumeServer) []*instance.VolumeServer 
 	for _, index := range indexes {
 		orderedVolumes = append(orderedVolumes, v[index])
 	}
+
 	return orderedVolumes
 }
 
 // serversMarshalerFunc marshals a BootscriptID.
 func bootscriptMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	bootscript := i.(instance.Bootscript)
+
 	return bootscript.Title, nil
 }
 
@@ -168,6 +172,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 
 		return runner(ctx, request)
 	})
+
 	return c
 }
 
@@ -359,6 +364,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 				suggestion = append(suggestion, s.ID)
 			}
 		}
+
 		return suggestion
 	}
 
@@ -473,6 +479,7 @@ func serverAttachVolumeCommand() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
+
 			return api.AttachVolume(request)
 		},
 		Examples: []*core.Example{
@@ -504,6 +511,7 @@ func serverDetachVolumeCommand() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
+
 			return api.DetachVolume(request)
 		},
 		Examples: []*core.Example{
@@ -578,6 +586,7 @@ func serverAttachIPCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
 		},
 		Examples: []*core.Example{
@@ -639,10 +648,13 @@ func serverDetachIPCommand() *core.Command {
 					if err != nil {
 						return nil, err
 					}
+
 					return api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
 				}
+
 				return nil, errors.New("no public ip found")
 			}
+
 			return nil, errors.New("no server found")
 		},
 		Examples: []*core.Example{

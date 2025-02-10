@@ -116,6 +116,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			if categoryA != categoryB {
 				return categoryA < categoryB
 			}
+
 			return serverTypes[i].HourlyPrice.ToFloat() < serverTypes[j].HourlyPrice.ToFloat()
 		})
 

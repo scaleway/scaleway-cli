@@ -48,6 +48,7 @@ func lbMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 		if err != nil {
 			return "", err
 		}
+
 		return strings.Join([]string{
 			lbResp,
 			warningKapsuleTaggedMessageView(),
@@ -74,6 +75,7 @@ func lbWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := lb.NewZonedAPI(core.ExtractClient(ctx))
 			args := argsI.(*lb.ZonedAPIWaitForLBRequest)
+
 			return api.WaitForLb(&lb.ZonedAPIWaitForLBRequest{
 				LBID:          args.LBID,
 				Zone:          args.Zone,
@@ -110,12 +112,14 @@ func lbCreateBuilder(c *core.Command) *core.Command {
 
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := lb.NewZonedAPI(core.ExtractClient(ctx))
+
 		return api.WaitForLb(&lb.ZonedAPIWaitForLBRequest{
 			LBID:          respI.(*lb.LB).ID,
 			Zone:          respI.(*lb.LB).Zone,
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
+
 	return c
 }
 
@@ -132,11 +136,13 @@ func lbMigrateBuilder(c *core.Command) *core.Command {
 		return nil
 	}
 	c.Interceptor = interceptLB()
+
 	return c
 }
 
 func lbGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptLB()
+
 	return c
 }
 
@@ -221,6 +227,7 @@ func lbUpdateBuilder(c *core.Command) *core.Command {
 	}
 
 	c.Interceptor = interceptLB()
+
 	return c
 }
 
@@ -241,11 +248,14 @@ func lbDeleteBuilder(c *core.Command) *core.Command {
 					Verb:     "delete",
 				}, nil
 			}
+
 			return nil, err
 		}
+
 		return waitForLb, nil
 	}
 	c.Interceptor = interceptLB()
+
 	return c
 }
 

@@ -29,5 +29,6 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(domain.DNSZoneStatus(""), human.EnumMarshalFunc(zoneStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(domain.SSLCertificateStatus(""), human.EnumMarshalFunc(certificateStatusMarshalSpecs))
+
 	return cmds
 }

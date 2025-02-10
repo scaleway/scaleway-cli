@@ -18,11 +18,13 @@ var mnqSqsInfoStatusMarshalSpecs = human.EnumMarshalSpecs{
 
 func mnqSqsListCredentialsBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("project-id").AutoCompleteFunc = autocompleteSqsProjectID
+
 	return c
 }
 
 func mnqSqsGetCredentialsBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("sqs-credentials-id").AutoCompleteFunc = autocompleteSqsCredentialsID
+
 	return c
 }
 
@@ -45,6 +47,7 @@ func autocompleteSqsProjectID(ctx context.Context, prefix string, request any) c
 	}
 
 	suggestions = append(suggestions, completeSqsInfoCache.ProjectID)
+
 	return suggestions
 }
 
@@ -84,5 +87,6 @@ func autocompleteSqsCredentialsID(ctx context.Context, prefix string, request an
 			}
 		}
 	}
+
 	return suggestions
 }

@@ -189,6 +189,7 @@ func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, er
 	fileOutput, err := os.Create(fileName)
 	if err != nil {
 		dir, file := getDirFile(fileName)
+
 		return nil, fmt.Errorf("unavailable to create file %s on directory %s", file, dir)
 	}
 	defer fileOutput.Close()
@@ -208,5 +209,6 @@ func trimDateFromFileName(filename string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return d.Format(formatLayout), nil
 }

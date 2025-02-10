@@ -98,6 +98,7 @@ func openDefaultConfigFile(homeDir string) (*os.File, error) {
 		if os.IsNotExist(err) {
 			return nil, ErrFileNotFound
 		}
+
 		return nil, fmt.Errorf("failed to open default ssh config file: %w", err)
 	}
 
@@ -142,6 +143,7 @@ func IncludeConfigFile(homeDir string) error {
 		fi, err := configFile.Stat()
 		if err != nil {
 			_ = configFile.Close()
+
 			return fmt.Errorf("failed to stat file: %w", err)
 		}
 		configFileMode = fi.Mode()
@@ -149,6 +151,7 @@ func IncludeConfigFile(homeDir string) error {
 		fileContent, err = io.ReadAll(configFile)
 		if err != nil {
 			_ = configFile.Close()
+
 			return fmt.Errorf("failed to read file: %w", err)
 		}
 

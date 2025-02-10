@@ -38,6 +38,7 @@ func loadTestdataBeforeFunc(path string, filename string, content string) func(c
 		if err != nil {
 			return err
 		}
+
 		return err
 	}
 }
@@ -48,6 +49,7 @@ func mkdirAllBeforeFunc(path string) func(ctx *core.BeforeFuncCtx) error {
 		if err != nil {
 			return err
 		}
+
 		return nil
 	}
 }
@@ -159,6 +161,7 @@ func testDeleteContainersNamespaceAfter(appName string) func(*core.AfterFuncCtx)
 		for _, namespace := range namespaces.Namespaces {
 			if namespace.Name == appName {
 				namespaceID = namespace.ID
+
 				break
 			}
 		}
@@ -186,6 +189,7 @@ func testDeleteRegistryAfter(appName string) func(*core.AfterFuncCtx) error {
 		for _, registry := range registries.Namespaces {
 			if registry.Name == appName {
 				registryID = registry.ID
+
 				break
 			}
 		}

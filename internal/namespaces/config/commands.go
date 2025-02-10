@@ -57,6 +57,7 @@ func configRoot() *core.Command {
 		fmt.Fprintf(w, "  %s%s%s%s%s\n", envVar[0], terminal.Style(envVar[1], color.Bold, color.FgBlue), envVar[2], envVar[3], envVar[4])
 	}
 	w.Flush()
+
 	return &core.Command{
 		Groups: []string{"config"},
 		Short:  `Config file management`,
@@ -186,6 +187,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					if !reflect.ValueOf(value).IsNil() && !validation.IsAccessKey(*value.(*string)) {
 						return core.InvalidAccessKeyError(*value.(*string))
 					}
+
 					return nil
 				},
 			},
@@ -196,6 +198,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					if !reflect.ValueOf(value).IsNil() && !validation.IsSecretKey(*value.(*string)) {
 						return core.InvalidSecretKeyError(*value.(*string))
 					}
+
 					return nil
 				},
 			},
@@ -206,6 +209,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					if !reflect.ValueOf(value).IsNil() && !validation.IsURL(*value.(*string)) {
 						return fmt.Errorf("%s is not a valid URL", *value.(*string))
 					}
+
 					return nil
 				},
 			},
@@ -220,6 +224,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					if !reflect.ValueOf(value).IsNil() && !validation.IsOrganizationID(*value.(*string)) {
 						return core.InvalidOrganizationIDError(*value.(*string))
 					}
+
 					return nil
 				},
 			},
@@ -230,6 +235,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					if !reflect.ValueOf(value).IsNil() && !validation.IsProjectID(*value.(*string)) {
 						return core.InvalidProjectIDError(*value.(*string))
 					}
+
 					return nil
 				},
 			},
@@ -387,6 +393,7 @@ func configDumpCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return config, nil
 		},
 	}
@@ -519,6 +526,7 @@ func configResetCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return &core.SuccessResult{
 				Message: "successfully reset config",
 			}, nil
@@ -543,6 +551,7 @@ func configDestroyCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return &core.SuccessResult{
 				Message: "successfully destroy config",
 			}, nil
@@ -749,6 +758,7 @@ func getProfileValue(profile *scw.Profile, fieldName string) (interface{}, error
 	if err != nil {
 		return nil, err
 	}
+
 	return field.Interface(), nil
 }
 
@@ -758,6 +768,7 @@ func unsetProfileValue(profile *scw.Profile, key string) error {
 		return err
 	}
 	field.Set(reflect.Zero(field.Type()))
+
 	return nil
 }
 
@@ -766,6 +777,7 @@ func getProfileField(profile *scw.Profile, key string) (reflect.Value, error) {
 	if !field.IsValid() {
 		return reflect.ValueOf(nil), invalidProfileKeyError(key)
 	}
+
 	return field, nil
 }
 
@@ -781,6 +793,7 @@ func getProfileKeys() []string {
 			keys = append(keys, strcase.ToBashArg(t.Field(i).Name))
 		}
 	}
+
 	return keys
 }
 
@@ -795,6 +808,7 @@ func getProfile(config *scw.Config, profileName string) (*scw.Profile, error) {
 	if !exist {
 		return nil, unknownProfileError(profileName)
 	}
+
 	return profile, nil
 }
 
@@ -817,6 +831,7 @@ func validateProfile(profile *scw.Profile) error {
 	if err := validateDefaultZone(profile); err != nil {
 		return err
 	}
+
 	return validateAPIURL(profile)
 }
 
@@ -832,6 +847,7 @@ func validateAccessKey(profile *scw.Profile) error {
 			return core.InvalidAccessKeyError(*profile.AccessKey)
 		}
 	}
+
 	return nil
 }
 
@@ -847,6 +863,7 @@ func validateSecretKey(profile *scw.Profile) error {
 			return core.InvalidSecretKeyError(*profile.SecretKey)
 		}
 	}
+
 	return nil
 }
 
@@ -862,6 +879,7 @@ func validateDefaultOrganizationID(profile *scw.Profile) error {
 			return core.InvalidOrganizationIDError(*profile.DefaultOrganizationID)
 		}
 	}
+
 	return nil
 }
 
@@ -877,6 +895,7 @@ func validateDefaultProjectID(profile *scw.Profile) error {
 			return core.InvalidProjectIDError(*profile.DefaultProjectID)
 		}
 	}
+
 	return nil
 }
 
@@ -892,6 +911,7 @@ func validateDefaultRegion(profile *scw.Profile) error {
 			return core.InvalidRegionError(*profile.DefaultRegion)
 		}
 	}
+
 	return nil
 }
 
@@ -907,6 +927,7 @@ func validateDefaultZone(profile *scw.Profile) error {
 			return core.InvalidZoneError(*profile.DefaultZone)
 		}
 	}
+
 	return nil
 }
 
@@ -916,5 +937,6 @@ func validateAPIURL(profile *scw.Profile) error {
 			return core.InvalidAPIURLError(*profile.APIURL)
 		}
 	}
+
 	return nil
 }

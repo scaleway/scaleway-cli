@@ -51,6 +51,7 @@ func testDeleteFunctionNamespaceAfter(functionName string) func(*core.AfterFuncC
 		for _, namespace := range namespaces.Namespaces {
 			if namespace.Name == functionName {
 				namespaceID = namespace.ID
+
 				break
 			}
 		}

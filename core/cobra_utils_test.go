@@ -92,6 +92,7 @@ func testGetCommands() *core.Commands {
 						res += " "
 					}
 				}
+
 				return res, nil
 			},
 		},
@@ -102,6 +103,7 @@ func testGetCommands() *core.Commands {
 			AllowAnonymousClient: true,
 			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
 				a := argsI.(*testDate)
+
 				return a.Date, nil
 			},
 		},

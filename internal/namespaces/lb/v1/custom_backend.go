@@ -58,6 +58,7 @@ func lbBackendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 
 func backendGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptBackend()
+
 	return c
 }
 
@@ -247,11 +248,13 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 
 func backendUpdateBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptBackend()
+
 	return c
 }
 
 func backendDeleteBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptBackend()
+
 	return c
 }
 
@@ -420,6 +423,7 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 	}
 
 	c.Interceptor = interceptBackend()
+
 	return c
 }
 
@@ -588,6 +592,7 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 	}
 
 	c.Interceptor = interceptBackend()
+
 	return c
 }
 
@@ -756,11 +761,13 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 	}
 
 	c.Interceptor = interceptBackend()
+
 	return c
 }
 
 func backendUpdateHealthcheckBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptBackend()
+
 	return c
 }
 
@@ -791,6 +798,7 @@ func interceptBackend() core.CommandInterceptor {
 					}
 				}
 			}
+
 			return nil, err
 		}
 

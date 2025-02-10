@@ -81,6 +81,7 @@ func serverWaitCommand() *core.Command {
 				}
 			}
 			logger.Debugf("server reached a stable installation status")
+
 			return server, nil
 		},
 		ArgSpecs: core.ArgSpecs{
@@ -106,6 +107,7 @@ func serverWaitCommand() *core.Command {
 func serverStartBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetal.StartServerRequest).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
@@ -121,6 +123,7 @@ func serverStartBuilder(c *core.Command) *core.Command {
 func serverStopBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetal.StopServerRequest).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
@@ -138,6 +141,7 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetal.RebootServerRequest).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
@@ -241,5 +245,6 @@ func serverMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return str, nil
 }

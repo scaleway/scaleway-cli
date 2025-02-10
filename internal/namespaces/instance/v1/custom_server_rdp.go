@@ -51,6 +51,7 @@ func instanceServerGetRdpPassword() *core.Command {
 				Short: "Path of the SSH key used to decrypt the rdp password",
 				Default: func(ctx context.Context) (value string, doc string) {
 					homeDir := core.ExtractUserHomeDir(ctx)
+
 					return filepath.Join(homeDir, ".ssh/id_rsa"), "~/.ssh/id_rsa"
 				},
 			},
