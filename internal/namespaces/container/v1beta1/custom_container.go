@@ -32,6 +32,7 @@ func waitForContainer(ctx context.Context, _, respI interface{}) (interface{}, e
 
 	client := core.ExtractClient(ctx)
 	api := container.NewAPI(client)
+
 	return api.WaitForContainer(&container.WaitForContainerRequest{
 		ContainerID:   c.ID,
 		Region:        c.Region,
@@ -42,6 +43,7 @@ func waitForContainer(ctx context.Context, _, respI interface{}) (interface{}, e
 
 func containerContainerDeployBuilder(command *core.Command) *core.Command {
 	command.WaitFunc = waitForContainer
+
 	return command
 }
 
@@ -78,10 +80,12 @@ func containerContainerCreateBuilder(command *core.Command) *core.Command {
 	})
 
 	command.WaitFunc = waitForContainer
+
 	return command
 }
 
 func containerContainerUpdateBuilder(command *core.Command) *core.Command {
 	command.WaitFunc = waitForContainer
+
 	return command
 }

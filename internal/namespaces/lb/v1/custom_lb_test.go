@@ -110,6 +110,7 @@ func Test_GetStats(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(10 * time.Second)
+
 					return nil
 				},
 			),

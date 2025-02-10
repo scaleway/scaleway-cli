@@ -75,6 +75,7 @@ func placementGroupCreateBuilder(c *core.Command) *core.Command {
 
 		return runner(ctx, request)
 	})
+
 	return c
 }
 
@@ -103,5 +104,6 @@ func placementGroupListBuilder(c *core.Command) *core.Command {
 
 		return runner(ctx, request)
 	})
+
 	return c
 }

@@ -105,6 +105,7 @@ func (wb *WebCallback) Wait(ctx context.Context) (string, error) {
 		return token, nil
 	case <-ctx.Done():
 		logger.Warningf("context canceled, closing web server")
+
 		return "", ctx.Err()
 	}
 }

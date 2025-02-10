@@ -58,6 +58,7 @@ func deleteServer(metaKey string) core.AfterFunc {
 				return err
 			}
 		}
+
 		return core.ExecAfterCmd("scw instance server delete {{ ." + metaKey + ".ID }} with-ip=true with-volumes=all")(ctx)
 	}
 }
@@ -76,6 +77,7 @@ func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeVolume
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		createVolumeResponse := res.(*instance.CreateVolumeResponse)
 		ctx.Meta[metaKey] = createVolumeResponse.Volume
+
 		return nil
 	}
 }
@@ -95,6 +97,7 @@ func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		volume := res.(*block.Volume)
 		ctx.Meta[metaKey] = volume
+
 		return nil
 	}
 }
@@ -109,6 +112,7 @@ func createIP(metaKey string) core.BeforeFunc {
 		res := ctx.ExecuteCmd(strings.Split("scw instance ip create", " "))
 		createIPResponse := res.(*instance.CreateIPResponse)
 		ctx.Meta[metaKey] = createIPResponse.IP
+
 		return nil
 	}
 }
@@ -129,6 +133,7 @@ func createPlacementGroup(metaKey string) core.BeforeFunc {
 		res := ctx.ExecuteCmd([]string{"scw", "instance", "placement-group", "create"})
 		createPlacementGroupResponse := res.(*instance.CreatePlacementGroupResponse)
 		ctx.Meta[metaKey] = createPlacementGroupResponse.PlacementGroup
+
 		return nil
 	}
 }
@@ -150,6 +155,7 @@ func createSecurityGroup(metaKey string) core.BeforeFunc {
 		res := ctx.ExecuteCmd([]string{"scw", "instance", "security-group", "create"})
 		createSecurityGroupResponse := res.(*instance.CreateSecurityGroupResponse)
 		ctx.Meta[metaKey] = createSecurityGroupResponse.SecurityGroup
+
 		return nil
 	}
 }
@@ -211,6 +217,7 @@ func testServerFetcherSBSVolumeSize(volumeKey string, sizeInGB int, serverFetche
 func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
 		t.Helper()
+
 		return testhelpers.Value[*instance.Server](t, ctx.Result)
 	})
 }
@@ -219,6 +226,7 @@ func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 func testAttachVolumeServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
 		t.Helper()
+
 		return testhelpers.Value[*instance.AttachVolumeResponse](t, ctx.Result).Server
 	})
 }
@@ -226,6 +234,7 @@ func testAttachVolumeServerSBSVolumeSize(volumeKey string, sizeInGB int) core.Te
 func testServerUpdateServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
 		t.Helper()
+
 		return testhelpers.Value[*instance.UpdateServerResponse](t, ctx.Result).Server
 	})
 }

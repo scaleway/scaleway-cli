@@ -66,6 +66,7 @@ func configGetCommand() *core.Command {
 			if err != nil {
 				return "", err
 			}
+
 			return config.getConfigFile(args.Type)
 		},
 	}

@@ -55,6 +55,7 @@ func serverAddFlexibleIP() *core.Command {
 					if value == "IPv4" || value == "IPv6" || value == "" {
 						return nil
 					}
+
 					return &core.CliError{
 						Err:  errors.New("error looks like the IP type isn't correct"),
 						Hint: "Two type available : IPv6 or IPv4",
@@ -101,6 +102,7 @@ func serverAddFlexibleIP() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return apiFip.WaitForFlexibleIP(&fip.WaitForFlexibleIPRequest{
 				FipID:         flexibleIP.ID,
 				Zone:          flexibleIP.Zone,

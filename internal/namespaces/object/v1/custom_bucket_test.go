@@ -257,6 +257,7 @@ func randomNameWithPrefix(prefix string) string {
 	if err != nil {
 		return ""
 	}
+
 	return fmt.Sprintf("%s-%d", prefix, randomInt)
 }
 

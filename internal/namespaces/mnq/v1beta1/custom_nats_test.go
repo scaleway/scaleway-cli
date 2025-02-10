@@ -53,6 +53,7 @@ func Test_CreateContext(t *testing.T) {
 					t.Errorf("Failed to delete the file : %s", err)
 				}
 			}
+
 			return nil
 		},
 		),

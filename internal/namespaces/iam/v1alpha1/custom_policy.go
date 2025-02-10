@@ -24,8 +24,10 @@ func iamPolicyCreateBuilder(c *core.Command) *core.Command {
 		for _, ps := range resp.PermissionSets {
 			suggestions = append(suggestions, ps.Name)
 		}
+
 		return suggestions
 	}
+
 	return c
 }
 

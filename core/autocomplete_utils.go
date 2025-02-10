@@ -76,6 +76,7 @@ func AutocompleteProfileName() AutoCompleteArgFunc {
 		if strings.HasPrefix(scw.DefaultProfileName, prefix) { //nolint:gocritic
 			res = append(res, scw.DefaultProfileName)
 		}
+
 		return res
 	}
 }
@@ -202,6 +203,7 @@ func listRawArgsLocalities(completedArgs map[string]string, cmd *Command) []stri
 			listRawArgs = append(listRawArgs, arg+value)
 		}
 	}
+
 	return listRawArgs
 }
 

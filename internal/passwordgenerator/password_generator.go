@@ -79,5 +79,6 @@ func randInt(length int) (int, error) {
 	if err != nil {
 		return 0, err
 	}
+
 	return int(i.Int64()), nil
 }

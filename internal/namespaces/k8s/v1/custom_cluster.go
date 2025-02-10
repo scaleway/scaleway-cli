@@ -99,6 +99,7 @@ func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 		}
 
 		listClusterAvailableVersionsResponse := originalRes.(*k8s.ListClusterAvailableVersionsResponse)
+
 		return listClusterAvailableVersionsResponse.Versions, nil
 	})
 
@@ -200,6 +201,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 					return nil, errors.Join(err, errPN)
 				}
 			}
+
 			return nil, err
 		}
 
@@ -320,16 +322,19 @@ func clusterGetBuilder(c *core.Command) *core.Command {
 
 func clusterDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForClusterFunc(clusterActionDelete)
+
 	return c
 }
 
 func clusterUpgradeBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForClusterFunc(clusterActionUpgrade)
+
 	return c
 }
 
 func clusterUpdateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForClusterFunc(clusterActionUpdate)
+
 	return c
 }
 
@@ -367,6 +372,7 @@ func waitForClusterFunc(action int) core.WaitFunc {
 				}
 			}
 		}
+
 		return nil, err
 	}
 }
@@ -376,6 +382,7 @@ func k8sClusterWaitCommand() *core.Command {
 		k8s.WaitForClusterRequest
 		WaitForPools bool
 	}
+
 	return &core.Command{
 		Short:     `Wait for a cluster to reach a stable state`,
 		Long:      `Wait for server to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the server.`,

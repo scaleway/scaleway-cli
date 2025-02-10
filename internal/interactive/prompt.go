@@ -88,6 +88,7 @@ func PromptStringWithConfig(config *PromptStringConfig) (string, error) {
 	if v == "" {
 		v = config.DefaultValue
 	}
+
 	return v, err
 }
 
@@ -137,6 +138,7 @@ func Readline(config *ReadlineConfig) (string, error) {
 			value := string(line)
 			promptHandler.SetPrompt(promptFunc(value))
 			promptHandler.rl.Refresh()
+
 			return nil, 0, false
 		}),
 	})
@@ -176,6 +178,7 @@ func Readline(config *ReadlineConfig) (string, error) {
 			if err != nil {
 				return "", err
 			}
+
 			continue
 		}
 

@@ -27,6 +27,7 @@ func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kub
 	for _, cluster := range existingKubeconfig.Clusters {
 		if cluster.Name == kubeconfig.Clusters[0].Name+suffix {
 			found = true
+
 			break
 		}
 	}
@@ -36,6 +37,7 @@ func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kub
 	for _, context := range existingKubeconfig.Contexts {
 		if context.Name == kubeconfig.Contexts[0].Name+suffix {
 			found = true
+
 			break
 		}
 	}
@@ -45,6 +47,7 @@ func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kub
 	for _, user := range existingKubeconfig.Users {
 		if user.Name == kubeconfig.AuthInfos[0].Name+suffix {
 			found = true
+
 			break
 		}
 	}

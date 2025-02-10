@@ -68,6 +68,7 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := instance.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 			SnapshotID:    respI.(*instance.CreateSnapshotResponse).Snapshot.ID,
 			Zone:          argsI.(*customCreateSnapshotRequest).Zone,
@@ -104,6 +105,7 @@ func snapshotListBuilder(c *core.Command) *core.Command {
 
 		return runner(ctx, request)
 	})
+
 	return c
 }
 
@@ -118,6 +120,7 @@ func snapshotWaitCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.WaitForSnapshotRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
+
 			return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 				Zone:          argsI.(*instance.WaitForSnapshotRequest).Zone,
 				SnapshotID:    argsI.(*instance.WaitForSnapshotRequest).SnapshotID,
@@ -148,6 +151,7 @@ func snapshotUpdateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		snapshot := respI.(*instance.UpdateSnapshotResponse).Snapshot
 		api := instance.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 			SnapshotID:    snapshot.ID,
 			Zone:          snapshot.Zone,

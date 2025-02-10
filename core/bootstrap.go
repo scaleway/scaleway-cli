@@ -132,6 +132,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	})
 	if err != nil {
 		_, _ = fmt.Fprintln(config.Stderr, err)
+
 		return 1, nil, err
 	}
 	interactive.SetOutputWriter(config.Stderr) // set printer for interactive function (always stderr).
@@ -154,6 +155,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 			if printErr != nil {
 				_, _ = fmt.Fprintln(config.Stderr, printErr)
 			}
+
 			return 1, nil, err
 		}
 	}
@@ -205,6 +207,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		if printErr != nil {
 			_, _ = fmt.Fprintln(config.Stderr, printErr)
 		}
+
 		return 1, nil, err
 	}
 	meta.CliConfig = cliCfg
@@ -217,6 +220,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		})
 		if err != nil {
 			_, _ = fmt.Fprintln(config.Stderr, err)
+
 			return 1, nil, err
 		}
 	}
@@ -243,6 +247,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	// ShellMode
 	if len(config.Args) >= 2 && config.Args[1] == "shell" {
 		RunShell(ctx, printer, meta, rootCmd, config.Args)
+
 		return 0, meta.result, nil
 	}
 
@@ -273,6 +278,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 		}
+
 		return errorCode, nil, err
 	}
 

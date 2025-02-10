@@ -325,6 +325,7 @@ func TestUnmarshalStruct(t *testing.T) {
 			n1 := &Nested{Basic: Basic{String: "test"}}
 			m1 := &map[string]**Nested{"key2": &n1}
 			m2 := map[string]**map[string]**Nested{"key1": &m1}
+
 			return &Insane{Map: &m2}
 		}(),
 	}))

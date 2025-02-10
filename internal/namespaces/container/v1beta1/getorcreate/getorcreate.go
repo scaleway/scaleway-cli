@@ -23,6 +23,7 @@ func Namespace(ctx context.Context, api *container.API, region scw.Region, name 
 	for _, namespace := range namespaces {
 		if namespace.Name == name {
 			matchingNamespace = namespace
+
 			break
 		}
 	}
@@ -66,6 +67,7 @@ func Container(ctx context.Context, api *container.API, region scw.Region, names
 	for _, container := range containers {
 		if container.Name == name {
 			matchingContainer = container
+
 			break
 		}
 	}
@@ -101,6 +103,7 @@ func Registry(ctx context.Context, api *registry.API, region scw.Region, name st
 	for _, namespace := range registries {
 		if namespace.Name == name {
 			matchingNamespace = namespace
+
 			break
 		}
 	}

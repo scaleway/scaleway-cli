@@ -10,11 +10,13 @@ import (
 
 func mnqSnsListCredentialsBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("project-id").AutoCompleteFunc = autocompleteSnsProjectID
+
 	return c
 }
 
 func mnqSnsGetCredentialsBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("sns-credentials-id").AutoCompleteFunc = autocompleteSnsCredentialsID
+
 	return c
 }
 
@@ -39,6 +41,7 @@ func autocompleteSnsProjectID(ctx context.Context, prefix string, request any) c
 	}
 
 	suggestions = append(suggestions, completeSnsInfoCache.ProjectID)
+
 	return suggestions
 }
 
@@ -78,5 +81,6 @@ func autocompleteSnsCredentialsID(ctx context.Context, prefix string, request an
 			}
 		}
 	}
+
 	return suggestions
 }

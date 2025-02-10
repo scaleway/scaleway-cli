@@ -40,6 +40,7 @@ func rdbACLCustomResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (stri
 	if err != nil {
 		return "", err
 	}
+
 	return messageStr + "\n" + aclStr, nil
 }
 
@@ -72,6 +73,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return nil, err
 		}
+
 		return respI.(*CustomACLResult), nil
 	}
 

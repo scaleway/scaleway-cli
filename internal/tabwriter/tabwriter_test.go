@@ -33,6 +33,7 @@ func (b *buffer) Write(buf []byte) (written int, err error) {
 	} else {
 		panic("buffer.Write: buffer too small")
 	}
+
 	return len(buf), nil
 }
 

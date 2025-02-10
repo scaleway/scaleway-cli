@@ -117,6 +117,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 					includePrompt += "\nFile was not found, it will be created"
 				} else {
 					logger.Warningf("Failed to check default config file, skipping include prompt\n")
+
 					return &core.SuccessResult{
 						Message: configFileGeneratedMessage + " " + configFilePath,
 					}, nil
@@ -137,6 +138,7 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 			})
 			if err != nil {
 				logger.Warningf("Failed to prompt, skipping include\n")
+
 				return &core.SuccessResult{
 					Message: configFileGeneratedMessage + " " + configFilePath,
 				}, err
@@ -268,6 +270,7 @@ func sshConfigListAppleSiliconServers(ctx context.Context, args *sshConfigInstal
 		if strings.Contains(err.Error(), "unknown service") {
 			return nil, nil
 		}
+
 		return nil, err
 	}
 

@@ -52,12 +52,14 @@ func (s *SuccessResult) MarshalHuman() (string, error) {
 func (s *SuccessResult) MarshalJSON() ([]byte, error) {
 	if s.Empty {
 		type emptyRes struct{}
+
 		return json.Marshal(&emptyRes{})
 	}
 	type tmpRes struct {
 		Message string `json:"message"`
 		Details string `json:"details"`
 	}
+
 	return json.Marshal(&tmpRes{
 		Message: s.getMessage(),
 		Details: s.Details,
@@ -87,5 +89,6 @@ func (mr MultiResults) MarshalHuman() (string, error) {
 		}
 		strs = append(strs, str)
 	}
+
 	return strings.Join(strs, "\n"), nil
 }

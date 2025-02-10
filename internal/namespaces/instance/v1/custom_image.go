@@ -84,6 +84,7 @@ func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 			ModificationDate: image.ModificationDate,
 		})
 	}
+
 	return human.Marshal(humanImages, nil)
 }
 
@@ -220,6 +221,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 			getServerResponse, err := api.GetServer(&serverReq)
 			if _, ok := err.(*scw.ResourceNotFoundError); ok {
 				newCustomImage.ServerName = "-"
+
 				continue
 			}
 			if err != nil {
@@ -323,6 +325,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 				}
 			}
 		}
+
 		return runnerRes, nil
 	})
 
@@ -344,6 +347,7 @@ func imageWaitCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(instance.WaitForImageRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
+
 			return api.WaitForImage(&instance.WaitForImageRequest{
 				Zone:          argsI.(*instance.WaitForImageRequest).Zone,
 				ImageID:       argsI.(*instance.WaitForImageRequest).ImageID,

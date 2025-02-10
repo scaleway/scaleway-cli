@@ -27,6 +27,7 @@ func Test_StartServerErrors(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			createServer("Server", "EM-B111X-SATA"),
@@ -47,6 +48,7 @@ func Test_StartServerErrors(t *testing.T) {
 					Timeout:       scw.TimeDurationPtr(baremetal.ServerActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
+
 				return err
 			},
 			deleteServer("Server"),
@@ -66,6 +68,7 @@ func Test_StopServerErrors(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			createServer("Server", "EM-B111X-SATA"),
@@ -86,6 +89,7 @@ func Test_StopServerErrors(t *testing.T) {
 					Timeout:       scw.TimeDurationPtr(baremetal.ServerActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
+
 				return err
 			},
 			deleteServer("Server"),
@@ -105,6 +109,7 @@ func Test_RebootServerErrors(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			createServer("Server", "EM-B111X-SATA"),
@@ -125,6 +130,7 @@ func Test_RebootServerErrors(t *testing.T) {
 					Timeout:       scw.TimeDurationPtr(baremetal.ServerActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
+
 				return err
 			},
 			deleteServer("Server"),

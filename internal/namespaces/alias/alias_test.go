@@ -85,6 +85,7 @@ func Test_Alias(t *testing.T) {
 				if strings.Contains(resString, "instance") {
 					return errors.New("alias list should not contain instance")
 				}
+
 				return nil
 			},
 		),

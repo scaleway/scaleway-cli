@@ -52,6 +52,7 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 		// If we have no resource command is the namespace command
 		if c.Resource == "" {
 			namespace.Cmd = c
+
 			continue
 		}
 
@@ -65,6 +66,7 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 		// If we have no verb command is the resource command
 		if c.Verb == "" {
 			resource.Cmd = c
+
 			continue
 		}
 
@@ -93,6 +95,7 @@ func renderNamespace(data *tplNamespace) (string, error) {
 		return "", err
 	}
 	str := buffer.String()
+
 	return str, nil
 }
 
@@ -110,16 +113,19 @@ func newTemplate() *template.Template {
 			for i := 0; i < len(args); i += 2 {
 				res[args[i].(string)] = args[i+1]
 			}
+
 			return res
 		},
 		"anchor": func(short string) string {
 			res := strings.ToLower(short)
 			res = strings.ReplaceAll(res, " ", "-")
 			res = strings.ReplaceAll(res, "/", "")
+
 			return res
 		},
 		"remove_escape_sequence": func(s string) string {
 			re := regexp.MustCompile(ansi)
+
 			return re.ReplaceAllString(s, "")
 		},
 		"arg_spec_flag": func(arg *core.ArgSpec) string {
@@ -137,6 +143,7 @@ func newTemplate() *template.Template {
 			if len(arg.EnumValues) > 0 {
 				parts = append(parts, fmt.Sprintf("One of: `%s`", strings.Join(arg.EnumValues, "`, `")))
 			}
+
 			return strings.Join(parts, "<br />")
 		},
 		"arg_spec_name": func(arg *core.ArgSpec) string {
@@ -144,15 +151,18 @@ func newTemplate() *template.Template {
 			if arg.Deprecated {
 				res = "~~" + arg.Name + "~~"
 			}
+
 			return res
 		},
 		"default": func(defaultValue string, value string) string {
 			if value == "" {
 				return defaultValue
 			}
+
 			return value
 		},
 	})
 	tpl = template.Must(tpl.Parse(tplStr))
+
 	return tpl
 }

@@ -27,6 +27,7 @@ func promptIPFlexibleServer(ctx context.Context, req *serverAddFlexibleIPRequest
 	if err != nil {
 		return nil, err
 	}
+
 	return req, nil
 }
 
@@ -40,5 +41,6 @@ func promptChooseIPType(ctx context.Context) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return ipTypeOption[ipTypeIndex], nil
 }

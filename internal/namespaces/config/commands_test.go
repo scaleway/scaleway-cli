@@ -242,6 +242,7 @@ func Test_ConfigDestroyCommand(t *testing.T) {
 				if err != nil {
 					t.Fatalf("MkdirAll %q: %s", path, err)
 				}
+
 				return nil
 			},
 			beforeFuncCreateFullConfig(),
@@ -260,6 +261,7 @@ func Test_ConfigDestroyCommand(t *testing.T) {
 		},
 		AfterFunc: func(_ *core.AfterFuncCtx) error {
 			_ = os.RemoveAll(path)
+
 			return nil
 		},
 	}))

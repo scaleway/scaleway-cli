@@ -19,5 +19,6 @@ func (p programs) StringArray() []string {
 	for _, prog := range p {
 		res = append(res, string(prog))
 	}
+
 	return res
 }

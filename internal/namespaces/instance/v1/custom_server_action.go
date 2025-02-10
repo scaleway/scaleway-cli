@@ -198,11 +198,13 @@ Once your image is ready you will be able to create a new server based on this i
 			if len(tmp) != 3 {
 				return nil, errors.New("cannot extract image id from task")
 			}
+
 			return api.GetImage(&instance.GetImageRequest{Zone: args.Zone, ImageID: tmp[2]})
 		},
 		WaitFunc: func(ctx context.Context, _, respI interface{}) (i interface{}, err error) {
 			resp := respI.(*instance.GetImageResponse)
 			api := instance.NewAPI(core.ExtractClient(ctx))
+
 			return api.WaitForImage(&instance.WaitForImageRequest{
 				ImageID:       resp.Image.ID,
 				Zone:          resp.Image.Zone,
@@ -341,6 +343,7 @@ func serverTerminateCommand() *core.Command {
 						if errors.As(err, &notFoundErr) {
 							continue
 						}
+
 						return nil, err
 					}
 				}
@@ -434,6 +437,7 @@ func shouldDeleteBlockVolumes(ctx context.Context, server *instance.GetServerRes
 				Ctx:          ctx,
 			})
 		}
+
 		return false, nil
 	default:
 		return false, fmt.Errorf("unsupported with-block value %v", terminateWithBlock)
@@ -467,6 +471,7 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 			ServerID: args.ServerID,
 			Action:   action,
 		})
+
 		return &core.SuccessResult{Message: fmt.Sprintf("%s successfully started for the server", action)}, err
 	}
 }

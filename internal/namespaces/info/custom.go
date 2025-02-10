@@ -29,6 +29,7 @@ type infoResult struct {
 
 func (i infoResult) MarshalHuman() (string, error) {
 	type tmp infoResult
+
 	return human.Marshal(tmp(i), &human.MarshalOpt{
 		Sections: []*human.MarshalSection{
 			{
@@ -72,6 +73,7 @@ func infosRoot() *core.Command {
 			req := argsI.(*infoArgs)
 			config, _ := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 			profileName := core.ExtractProfileName(ctx)
+
 			return &infoResult{
 				BuildInfo: core.ExtractBuildInfo(ctx),
 				Settings: []*setting{
@@ -104,6 +106,7 @@ func configPath(ctx context.Context) *setting {
 	default:
 		setting.Origin = defaultOrigin
 	}
+
 	return setting
 }
 
@@ -126,6 +129,7 @@ func profile(ctx context.Context, config *scw.Config) *setting {
 	default:
 		setting.Origin = ""
 	}
+
 	return setting
 }
 
@@ -150,6 +154,7 @@ func defaultRegion(ctx context.Context, config *scw.Config, profileName string) 
 	default:
 		setting.Origin = defaultOrigin
 	}
+
 	return setting
 }
 
@@ -179,6 +184,7 @@ func defaultZone(ctx context.Context, config *scw.Config, profileName string) *s
 	default:
 		setting.Origin = defaultOrigin
 	}
+
 	return setting
 }
 
@@ -203,6 +209,7 @@ func defaultOrganizationID(ctx context.Context, config *scw.Config, profileName 
 	default:
 		setting.Origin = unknownOrigin
 	}
+
 	return setting
 }
 
@@ -227,6 +234,7 @@ func defaultProjectID(ctx context.Context, config *scw.Config, profileName strin
 	default:
 		setting.Origin = unknownOrigin
 	}
+
 	return setting
 }
 
@@ -251,6 +259,7 @@ func accessKey(ctx context.Context, config *scw.Config, profileName string) *set
 	default:
 		setting.Origin = unknownOrigin
 	}
+
 	return setting
 }
 
@@ -289,5 +298,6 @@ func secretKey(ctx context.Context, config *scw.Config, profileName string, show
 	if !showSecret {
 		setting.Value = hideSecretKey(setting.Value)
 	}
+
 	return setting
 }

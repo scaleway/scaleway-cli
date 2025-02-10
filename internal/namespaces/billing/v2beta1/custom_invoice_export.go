@@ -171,6 +171,7 @@ func billingExportRun(ctx context.Context, argsI interface{}) (interface{}, erro
 	fileOutput, err := os.Create(fileName)
 	if err != nil {
 		dir, file := getDirFile(fileName)
+
 		return nil, fmt.Errorf("unavailable to create file %s on directory %s", file, dir)
 	}
 	defer fileOutput.Close()

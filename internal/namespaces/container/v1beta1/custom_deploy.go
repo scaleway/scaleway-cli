@@ -163,6 +163,7 @@ func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, 
 	}
 
 	container := result.(*DeployStepDeployContainerResponse).Container
+
 	return fmt.Sprintln(terminal.Style("Your application is now available at", color.FgGreen), terminal.Style("https://"+container.DomainName, color.FgGreen, color.Bold)), nil
 }
 
@@ -284,6 +285,7 @@ func DeployStepDockerBuildImage(t *tasks.Task, data *DeployStepPackImageResponse
 			if jerr.Code == 0 {
 				jerr.Code = 1
 			}
+
 			return nil, fmt.Errorf("docker build failed with error code %d: %s", jerr.Code, jerr.Message)
 		}
 
@@ -368,6 +370,7 @@ func DeployStepPushImage(t *tasks.Task, data *DeployStepBuildImageResponse) (*De
 			if jerr.Code == 0 {
 				jerr.Code = 1
 			}
+
 			return nil, fmt.Errorf("docker build failed with error code %d: %s", jerr.Code, jerr.Message)
 		}
 

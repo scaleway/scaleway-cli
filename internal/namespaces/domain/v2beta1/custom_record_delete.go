@@ -103,5 +103,6 @@ func dnsRecordDeleteRun(ctx context.Context, argsI interface{}) (i interface{}, 
 	if err != nil {
 		return nil, fmt.Errorf("cannot delete the record: %s", err)
 	}
+
 	return resp, nil
 }

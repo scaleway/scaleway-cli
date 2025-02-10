@@ -257,6 +257,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		if cleanErr != nil {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
+
 		return nil, fmt.Errorf("cannot create resource required for server: %s", err)
 	}
 
@@ -417,6 +418,7 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate,
 		}
 
 		maxSize := humanize.Bytes(uint64(volumeConstraint.MaxSize))
+
 		return fmt.Errorf("%s total local volume size must be between %s and %s, got %s", commercialType, minSize, maxSize, computedLocal)
 	}
 

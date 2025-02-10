@@ -39,6 +39,7 @@ func lastArg(args []string) string {
 	if l == 1 {
 		return args[0]
 	}
+
 	return ""
 }
 
@@ -48,6 +49,7 @@ func firstArg(args []string) string {
 	if l >= 1 {
 		return args[0]
 	}
+
 	return ""
 }
 
@@ -58,6 +60,7 @@ func trimLastArg(args []string) []string {
 	if l > 1 {
 		return args[:l-1]
 	}
+
 	return []string(nil)
 }
 
@@ -68,6 +71,7 @@ func trimFirstArg(args []string) []string {
 	if l > 1 {
 		return args[1:]
 	}
+
 	return []string(nil)
 }
 
@@ -99,6 +103,7 @@ func removeOptions(args []string) []string {
 			filteredArgs = append(filteredArgs, arg)
 		}
 	}
+
 	return filteredArgs
 }
 
@@ -123,6 +128,7 @@ func OptionToArgSpecName(option string) string {
 		}
 		optionName = strings.Join(elems, ".")
 	}
+
 	return optionName
 }
 
@@ -144,6 +150,7 @@ func getCommand(meta *Meta, args []string, suggest string) *Command {
 			return command
 		}
 	}
+
 	return nil
 }
 
@@ -161,6 +168,7 @@ func getSuggestDescription(meta *Meta, args []string, suggest string) string {
 		if option != nil {
 			return option.Short
 		}
+
 		return ""
 	}
 
@@ -169,6 +177,7 @@ func getSuggestDescription(meta *Meta, args []string, suggest string) string {
 		if option != nil {
 			return option.Short
 		}
+
 		return ""
 	}
 
@@ -196,6 +205,7 @@ func sortOptions(meta *Meta, args []string, toSuggest string, suggestions []stri
 		if argSpecs[i].Arg != nil && argSpecs[j].Arg != nil && argSpecs[i].Arg.Required != argSpecs[j].Arg.Required {
 			return argSpecs[i].Arg.Required
 		}
+
 		return argSpecs[i].Text < argSpecs[j].Text
 	})
 
@@ -301,6 +311,7 @@ func getShellCommand(rootCmd *cobra.Command) *cobra.Command {
 			return command
 		}
 	}
+
 	return nil
 }
 
@@ -314,6 +325,7 @@ func RunShell(ctx context.Context, printer *Printer, meta *Meta, rootCmd *cobra.
 	_ = shellCobraCommand.ParseFlags(args)
 	if isHelp, _ := shellCobraCommand.Flags().GetBool("help"); isHelp {
 		shellCobraCommand.HelpFunc()(shellCobraCommand, args)
+
 		return
 	}
 

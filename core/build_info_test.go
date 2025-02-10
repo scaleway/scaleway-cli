@@ -84,6 +84,7 @@ func Test_CheckVersion(t *testing.T) {
 			err := core.CreateAndCloseFile(filePath)
 			require.NoError(t, err)
 			twoDaysAgo := time.Now().Local().Add(-2 * time.Hour * 24)
+
 			return os.Chtimes(filePath, twoDaysAgo, twoDaysAgo)
 		},
 		Cmd: "scw plop",

@@ -31,6 +31,7 @@ func userDataSetBuilder(c *core.Command) *core.Command {
 
 	c.ArgSpecs.DeleteByName("content.content-type")
 	c.ArgSpecs.DeleteByName("content.content")
+
 	return c
 }
 
@@ -44,6 +45,7 @@ func userDataGetBuilder(c *core.Command) *core.Command {
 					return nil, fmt.Errorf("'%s' key does not exist", req.Key)
 				}
 			}
+
 			return nil, err
 		}
 

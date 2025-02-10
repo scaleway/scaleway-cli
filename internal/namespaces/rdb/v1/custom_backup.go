@@ -51,6 +51,7 @@ func backupWaitCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(backupWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
+
 			return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: argsI.(*backupWaitRequest).BackupID,
 				Region:           argsI.(*backupWaitRequest).Region,
@@ -81,6 +82,7 @@ func backupCreateBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 			DatabaseBackupID: respI.(*rdb.DatabaseBackup).ID,
 			Region:           respI.(*rdb.DatabaseBackup).Region,
@@ -96,6 +98,7 @@ func backupExportBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 			DatabaseBackupID: respI.(*rdb.DatabaseBackup).ID,
 			Region:           respI.(*rdb.DatabaseBackup).Region,
@@ -111,6 +114,7 @@ func backupRestoreBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 			DatabaseBackupID: respI.(*rdb.DatabaseBackup).ID,
 			Region:           respI.(*rdb.DatabaseBackup).Region,
@@ -226,6 +230,7 @@ func backupListBuilder(c *core.Command) *core.Command {
 				SameRegion:   backup.SameRegion,
 			})
 		}
+
 		return res, nil
 	})
 
@@ -237,6 +242,7 @@ func urlExpired(expirationDate *time.Time) bool {
 	if expirationDate == nil {
 		return true
 	}
+
 	return time.Now().After(*expirationDate)
 }
 
@@ -247,6 +253,7 @@ func getDefaultFileName(rawURL string) (string, error) {
 	}
 	splitURL := strings.Split(u.Path, "/")
 	filename := splitURL[len(splitURL)-1]
+
 	return filename, nil
 }
 
@@ -261,6 +268,7 @@ func backupResultMarshallerFunc(i interface{}, _ *human.MarshalOpt) (string, err
 	if err != nil {
 		return "", err
 	}
+
 	return fmt.Sprintf("Backup downloaded to %s successfully (%s written)", backupResult.FileName, sizeStr), nil
 }
 
@@ -368,6 +376,7 @@ func backupDownloadCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return backupDownloadResult{
 				Size:     scw.Size(size),
 				FileName: filename,

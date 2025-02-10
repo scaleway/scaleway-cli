@@ -31,21 +31,25 @@ func lbFrontendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 
 func frontendGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptFrontend()
+
 	return c
 }
 
 func frontendCreateBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptFrontend()
+
 	return c
 }
 
 func frontendUpdateBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptFrontend()
+
 	return c
 }
 
 func frontendDeleteBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptFrontend()
+
 	return c
 }
 

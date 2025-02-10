@@ -31,6 +31,7 @@ func rdbEndpointCustomResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) 
 	if err != nil {
 		return "", err
 	}
+
 	return messageStr + "\n" + endpointsStr, nil
 }
 
@@ -178,6 +179,7 @@ func endpointDeleteBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return nil, err
 		}
+
 		return &core.SuccessResult{
 			Resource: "endpoint",
 			Verb:     "delete",
@@ -205,6 +207,7 @@ func endpointDeleteBuilder(c *core.Command) *core.Command {
 
 func endpointGetBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("endpoint-id").Positional = true
+
 	return c
 }
 
@@ -271,5 +274,6 @@ func endpointRequestFromCustom(customEndpoints []*rdbEndpointSpecCustom) ([]*rdb
 			return nil, errors.New("endpoint must be either a load-balancer or a private network")
 		}
 	}
+
 	return endpoints, nil
 }

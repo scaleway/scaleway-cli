@@ -297,6 +297,7 @@ func (b *Writer) writePadding(textw, cellw int, useTabs bool) {
 			panic("internal error")
 		}
 		b.writeN(tabs, (n+b.tabwidth-1)/b.tabwidth)
+
 		return
 	}
 
@@ -354,6 +355,7 @@ func (b *Writer) writeLines(pos0 int, line0, line1 int) (pos int) {
 			b.write0(newline)
 		}
 	}
+
 	return pos
 }
 
@@ -470,6 +472,7 @@ func (b *Writer) endEscape() {
 	case ANSISGREndCharacter:
 		b.pos++
 		b.endChar = 0
+
 		return
 	}
 	b.pos = len(b.buf)
@@ -483,6 +486,7 @@ func (b *Writer) terminateCell(htab bool) int {
 	line := &b.lines[len(b.lines)-1]
 	*line = append(*line, b.cell)
 	b.cell = cell{}
+
 	return len(*line)
 }
 
@@ -494,6 +498,7 @@ func (b *Writer) handlePanic(err *error, op string) {
 		}
 		if nerr, ok := e.(osError); ok {
 			*err = nerr.err
+
 			return
 		}
 		panic("tabwriter: panic during " + op)
@@ -513,6 +518,7 @@ func (b *Writer) Flush() error {
 func (b *Writer) flush() (err error) {
 	defer b.handlePanic(&err, "Flush")
 	b.flushNoDefers()
+
 	return nil
 }
 
@@ -621,6 +627,7 @@ func (b *Writer) Write(buf []byte) (n int, err error) {
 	// append leftover text
 	b.append(buf[n:])
 	n = len(buf)
+
 	return n, nil
 }
 

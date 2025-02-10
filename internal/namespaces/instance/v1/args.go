@@ -13,6 +13,7 @@ func init() {
 func marshalNullableStringValue() args.MarshalFunc {
 	return func(src interface{}) (s string, e error) {
 		nullableStringValue := src.(*instance.NullableStringValue)
+
 		return nullableStringValue.Value, nil
 	}
 }
@@ -28,6 +29,7 @@ func unmarshalNullableStringValue() args.UnmarshalFunc {
 		if value == "" || value == "none" {
 			nullableStringValue.Null = true
 		}
+
 		return nil
 	}
 }

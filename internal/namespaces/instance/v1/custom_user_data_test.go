@@ -60,9 +60,10 @@ func Test_UserDataFileUpload(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := os.CreateTemp("", "test")
+				file, _ := os.CreateTemp(t.TempDir(), "test")
 				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
+
 				return nil
 			},
 		),
@@ -73,6 +74,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			func(ctx *core.AfterFuncCtx) error {
 				_ = os.RemoveAll(ctx.Meta["filePath"].(string))
+
 				return nil
 			},
 		),
@@ -83,9 +85,10 @@ func Test_UserDataFileUpload(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := os.CreateTemp("", "test")
+				file, _ := os.CreateTemp(t.TempDir(), "test")
 				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
+
 				return nil
 			},
 		),
@@ -96,6 +99,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			func(ctx *core.AfterFuncCtx) error {
 				_ = os.RemoveAll(ctx.Meta["filePath"].(string))
+
 				return nil
 			},
 		),

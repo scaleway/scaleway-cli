@@ -54,6 +54,7 @@ func NewTasksLogger(ctx context.Context, mode LoggerMode) (*Logger, error) {
 		// resumeLogs()
 		close(doneChan)
 	}()
+
 	return logger, nil
 }
 
@@ -64,6 +65,7 @@ func (l *Logger) Write(s *buildkit.SolveStatus) {
 func (l *Logger) CloseAndWait() error {
 	close(l.status)
 	<-l.done
+
 	return l.err
 }
 

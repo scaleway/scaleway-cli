@@ -19,6 +19,7 @@ func Test_CreateBackup(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),
@@ -39,6 +40,7 @@ func Test_RestoreBackup(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),
@@ -65,6 +67,7 @@ func Test_ExportBackup(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				func(_ *core.BeforeFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),
@@ -105,6 +108,7 @@ func Test_DownloadBackup(t *testing.T) {
 			deleteInstance(),
 			func(_ *core.AfterFuncCtx) error {
 				err := os.Remove("simple_dump")
+
 				return err
 			},
 		),
@@ -130,6 +134,7 @@ func Test_DownloadBackup(t *testing.T) {
 			deleteInstance(),
 			func(_ *core.AfterFuncCtx) error {
 				err := os.Remove("no_previous_export_dump")
+
 				return err
 			},
 		),

@@ -40,6 +40,7 @@ func updateMarketplaceGetImage(c *core.Command) {
 		if err != nil {
 			return nil, err
 		}
+
 		return getImageByLabel(resp.Images, args.Label)
 	}
 }
@@ -51,5 +52,6 @@ func getImageByLabel(images []*marketplace.Image, label string) (*marketplace.Im
 			return image, nil
 		}
 	}
+
 	return nil, fmt.Errorf("image not found: no image with label '%v'", label)
 }

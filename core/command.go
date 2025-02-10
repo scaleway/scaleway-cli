@@ -133,6 +133,7 @@ func (c *Command) getPath() string {
 	}
 
 	c.path = strings.Join(path, indexCommandSeparator)
+
 	return c.path
 }
 
@@ -154,6 +155,7 @@ func (c *Command) GetUsage(binaryName string, commands *Commands) string {
 	if len(c.ArgSpecs) > 0 {
 		parts = append(parts, "[arg=value ...]")
 	}
+
 	return strings.Join(parts, " ")
 }
 
@@ -250,6 +252,7 @@ func (c *Commands) Find(path ...string) *Command {
 	if exist {
 		return cmd
 	}
+
 	return nil
 }
 
@@ -257,6 +260,7 @@ func (c *Commands) Remove(namespace, verb string) {
 	for i := range c.commands {
 		if c.commands[i].Namespace == namespace && c.commands[i].Verb == verb {
 			c.commands = append(c.commands[:i], c.commands[i+1:]...)
+
 			return
 		}
 	}
@@ -266,6 +270,7 @@ func (c *Commands) RemoveResource(namespace, resource string) {
 	for i := range c.commands {
 		if c.commands[i].Namespace == namespace && c.commands[i].Resource == resource && c.commands[i].Verb == "" {
 			c.commands = append(c.commands[:i], c.commands[i+1:]...)
+
 			return
 		}
 	}
@@ -292,6 +297,7 @@ func (c *Commands) find(path ...string) (*Command, bool) {
 	if exist {
 		return cmd, true
 	}
+
 	return nil, false
 }
 
@@ -302,6 +308,7 @@ func (c *Commands) GetSortedCommand() []*Command {
 	sort.Slice(commands, func(i, j int) bool {
 		return commands[i].signature() < commands[j].signature()
 	})
+
 	return commands
 }
 
@@ -323,6 +330,7 @@ func (c *Commands) HasSubCommands(cmd *Command) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -330,6 +338,7 @@ func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
 	if c.View != nil {
 		return c.View.getHumanMarshalerOpt()
 	}
+
 	return nil
 }
 
@@ -364,6 +373,7 @@ func (c *Commands) AliasIsValidCommandChild(command *Command, alias alias.Alias)
 		if len(alias.Command) > 2 {
 			return c.Find(command.Namespace, alias.Command[1], alias.Command[2]) != nil
 		}
+
 		return c.Find(command.Namespace, alias.Command[1]) != nil
 	}
 
@@ -414,6 +424,7 @@ func (c *Command) Copy() *Command {
 		sa := *c.SeeAlsos[i]
 		newCommand.SeeAlsos[i] = &sa
 	}
+
 	return &newCommand
 }
 
@@ -423,5 +434,6 @@ func (c *Commands) Copy() *Commands {
 	for i := range c.commands {
 		newCommands[i] = c.commands[i].Copy()
 	}
+
 	return NewCommands(newCommands...)
 }

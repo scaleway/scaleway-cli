@@ -45,6 +45,7 @@ func feedbackBugCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return &core.SuccessResult{
 				Message: "Successfully opened the page",
 				Details: issue.getURL(),
@@ -72,6 +73,7 @@ func feedbackFeatureRequestCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return &core.SuccessResult{
 				Message: "Successfully opened the page",
 				Details: issue.getURL(),

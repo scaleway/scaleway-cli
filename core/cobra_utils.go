@@ -49,6 +49,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			}
 
 			meta.result = data
+
 			return nil
 		}
 
@@ -58,6 +59,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		value, exist := rawArgs.Get(positionalArgSpec.Name)
 		if exist {
 			otherArgs := rawArgs.Remove(positionalArgSpec.Name)
+
 			return &CliError{
 				Err:  errors.New("a positional argument is required for this command"),
 				Hint: positionalArgHint(meta.BinaryName, cmd, value, otherArgs, len(positionalArgs) > 0),
@@ -130,6 +132,7 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 		if unmarshalError, ok := err.(*args.UnmarshalArgError); ok {
 			return nil, handleUnmarshalErrors(cmd, unmarshalError)
 		}
+
 		return nil, err
 	}
 
@@ -182,6 +185,7 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 			return nil, err
 		}
 	}
+
 	return data, nil
 }
 
@@ -198,6 +202,7 @@ func positionalArgHint(binaryName string, cmd *Command, hintValue string, otherA
 	suggestedArgs = append(suggestedArgs, otherArgs...)
 
 	suggestedCommand := append([]string{cmd.GetCommandLine(binaryName)}, suggestedArgs...)
+
 	return "Try running: " + strings.Join(suggestedCommand, " ")
 }
 
@@ -215,6 +220,7 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 			}
 		case *args.CannotParseDateError:
 			dateErr := e.Err.(*args.CannotParseDateError)
+
 			return &CliError{
 				Err:     fmt.Errorf("date parsing error: %s", dateErr.ArgValue),
 				Message: fmt.Sprintf("could not parse %s as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339", dateErr.ArgValue),
@@ -265,6 +271,7 @@ func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
 				return err
 			}
 			cobraCmd.Println(out)
+
 			return nil
 		}
 
@@ -272,6 +279,7 @@ func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
 		if err != nil {
 			return err
 		}
+
 		return &CliError{Empty: true, Code: 1}
 	}
 }

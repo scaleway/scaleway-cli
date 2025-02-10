@@ -39,6 +39,7 @@ func hasTag(tags []string, actualTag string) bool {
 			return true
 		}
 	}
+
 	return false
 }
 

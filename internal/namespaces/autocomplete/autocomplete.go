@@ -54,6 +54,7 @@ type autocompleteScript struct {
 // The key is the path of the shell.
 func autocompleteScripts(ctx context.Context, basename string) map[string]autocompleteScript {
 	homePath := core.ExtractUserHomeDir(ctx)
+
 	return map[string]autocompleteScript{
 		"bash": {
 			// If `scw` is the first word on the command line,
@@ -154,6 +155,7 @@ func autocompleteInstallCommand() *core.Command {
 				Name: "basename",
 				Default: func(ctx context.Context) (value string, doc string) {
 					resp := core.ExtractBinaryName(ctx)
+
 					return resp, resp
 				},
 			},
@@ -219,6 +221,7 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	if strings.Contains(string(shellConfigurationFileContent), script.CompleteScript) {
 		_, _ = interactive.Println()
 		_, _ = interactive.Println("Autocomplete looks already installed. If it does not work properly, try to open a new shell.")
+
 		return "", nil
 	}
 
@@ -383,6 +386,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 			rightWords := aliases.ResolveAliases(words[wordIndex+1:])
 
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
+
 			return strings.Join(res.Suggestions, " "), nil
 		},
 	}
@@ -410,6 +414,7 @@ func autocompleteScriptCommand() *core.Command {
 				Name: "basename",
 				Default: func(ctx context.Context) (value string, doc string) {
 					resp := core.ExtractBinaryName(ctx)
+
 					return resp, resp
 				},
 			},
@@ -422,6 +427,7 @@ func autocompleteScriptCommand() *core.Command {
 			if !exists {
 				return nil, unsupportedShellError(shell)
 			}
+
 			return TrimText(script.CompleteFunc), nil
 		},
 	}
@@ -437,8 +443,10 @@ func TrimText(str string) string {
 				for _, c := range line {
 					if c == ' ' || c == '\t' {
 						strToRemove += string(c)
+
 						continue
 					}
+
 					break
 				}
 				foundFirstNonEmptyLine = true
@@ -449,6 +457,7 @@ func TrimText(str string) string {
 		}
 	}
 	lines = removeStartingAndEndingEmptyLines(lines)
+
 	return strings.Join(lines, "\n")
 }
 
@@ -457,6 +466,7 @@ func removeStartingAndEndingEmptyLines(lines []string) []string {
 	lines = reverseLines(lines)
 	lines = removeStartingEmptyLines(lines)
 	lines = reverseLines(lines)
+
 	return lines
 }
 
@@ -471,6 +481,7 @@ func removeStartingEmptyLines(lines []string) []string {
 			lines2 = append(lines2, line)
 		}
 	}
+
 	return lines2
 }
 
@@ -478,5 +489,6 @@ func reverseLines(lines []string) []string {
 	for i, j := 0, len(lines)-1; i < j; i, j = i+1, j-1 {
 		lines[i], lines[j] = lines[j], lines[i]
 	}
+
 	return lines
 }

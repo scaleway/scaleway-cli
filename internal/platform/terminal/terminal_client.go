@@ -86,6 +86,7 @@ func (p *Platform) CreateClient(httpClient *http.Client, configPath string, prof
 
 func errIsConfigFileNotFound(err error) bool {
 	var target *scw.ConfigFileNotFoundError
+
 	return errors.As(err, &target)
 }
 
@@ -167,6 +168,7 @@ func validateClient(client *scw.Client) error {
 		for _, z := range scw.AllZones {
 			zones = append(zones, string(z))
 		}
+
 		return &platform.ClientError{
 			Err: fmt.Errorf("invalid default zone format '%s', available zones are: %s", defaultZone, strings.Join(zones, ", ")),
 		}
@@ -185,6 +187,7 @@ func validateClient(client *scw.Client) error {
 		for _, z := range scw.AllRegions {
 			regions = append(regions, string(z))
 		}
+
 		return &platform.ClientError{
 			Err: fmt.Errorf("invalid default region format '%s', available regions are: %s", defaultRegion, strings.Join(regions, ", ")),
 		}

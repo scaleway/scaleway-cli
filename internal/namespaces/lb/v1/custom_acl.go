@@ -34,21 +34,25 @@ func lbACLMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 
 func ACLGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptACL()
+
 	return c
 }
 
 func ACLCreateBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptACL()
+
 	return c
 }
 
 func ACLUpdateBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptACL()
+
 	return c
 }
 
 func ACLDeleteBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptACL()
+
 	return c
 }
 

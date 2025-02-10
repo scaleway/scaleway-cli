@@ -37,16 +37,19 @@ var serverStatusMarshalSpecs = human.EnumMarshalSpecs{
 func serverCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("type").AutoCompleteFunc = autocompleteServerType
 	c.WaitFunc = waitForServerFunc(serverActionCreate)
+
 	return c
 }
 
 func serverDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForServerFunc(serverActionDelete)
+
 	return c
 }
 
 func serverRebootBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForServerFunc(serverActionReboot)
+
 	return c
 }
 
@@ -74,6 +77,7 @@ func waitForServerFunc(action int) core.WaitFunc {
 				}
 			}
 		}
+
 		return nil, err
 	}
 }
@@ -147,5 +151,6 @@ func autocompleteServerType(ctx context.Context, prefix string, _ any) core.Auto
 			suggestions = append(suggestions, serverType.Name)
 		}
 	}
+
 	return suggestions
 }

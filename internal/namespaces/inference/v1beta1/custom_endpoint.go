@@ -41,7 +41,9 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 			}
 			createEndpointreq.Endpoint = &endpointToCreate
 		}
+
 		return runner(ctx, createEndpointreq)
 	}
+
 	return c
 }

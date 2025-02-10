@@ -103,6 +103,7 @@ func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
 		cmd = "scw k8s kubeconfig install " + cluster.ID
 		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
+
 		return nil
 	}
 }

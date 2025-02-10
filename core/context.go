@@ -84,12 +84,14 @@ func ExtractAliases(ctx context.Context) *alias.Config {
 func GetOrganizationIDFromContext(ctx context.Context) string {
 	client := ExtractClient(ctx)
 	organizationID, _ := client.GetDefaultOrganizationID()
+
 	return organizationID
 }
 
 func GetProjectIDFromContext(ctx context.Context) string {
 	client := ExtractClient(ctx)
 	projectID, _ := client.GetDefaultProjectID()
+
 	return projectID
 }
 
@@ -117,6 +119,7 @@ func ExtractEnv(ctx context.Context, envKey string) string {
 
 	if envKey == "HOME" {
 		homeDir, _ := os.UserHomeDir()
+
 		return homeDir
 	}
 
@@ -132,6 +135,7 @@ func ExtractCacheDir(ctx context.Context) string {
 	if env != "" {
 		return env
 	}
+
 	return scw.GetCacheDirectory()
 }
 
@@ -178,6 +182,7 @@ func ExtractConfigPath(ctx context.Context) string {
 	if home := meta.OverrideEnv["HOME"]; home != "" {
 		return path.Join(home, ".config", "scw", "config.yaml")
 	}
+
 	return scw.GetConfigPath()
 }
 
@@ -188,6 +193,7 @@ func ExtractCliConfigPath(ctx context.Context) string {
 		return path.Join(home, ".config", "scw", cliConfig.DefaultConfigFileName)
 	}
 	configPath, _ := cliConfig.FilePath()
+
 	return configPath
 }
 
@@ -195,6 +201,7 @@ func ReloadClient(ctx context.Context) error {
 	var err error
 	meta := extractMeta(ctx)
 	meta.Client, err = meta.Platform.CreateClient(meta.httpClient, ExtractConfigPath(ctx), ExtractProfileName(ctx))
+
 	return err
 }
 
@@ -213,6 +220,7 @@ func GetDocGenContext() context.Context {
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithDefaultRegion(scw.RegionFrPar),
 	)
+
 	return InjectMeta(ctx, &Meta{
 		Client: client,
 	})

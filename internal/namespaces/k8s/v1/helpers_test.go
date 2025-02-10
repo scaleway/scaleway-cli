@@ -52,6 +52,7 @@ func createClusterAndWaitAndKubeconfig(clusterNameSuffix string, metaKey string,
 		}
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
+
 		return nil
 	}
 }
@@ -83,6 +84,7 @@ func createClusterAndWaitAndInstallKubeconfig(clusterNameSuffix string, metaKey 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
 		cmd = "scw k8s kubeconfig install " + cluster.ID
 		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
+
 		return nil
 	}
 }
@@ -113,6 +115,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFile(clusterNameSuffix string, 
 
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
 		err = os.WriteFile(file, content, 0o644)
+
 		return err
 	}
 }

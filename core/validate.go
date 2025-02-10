@@ -42,6 +42,7 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 		}
 
 		validateDeprecated(ctx, cmd, cmdArgs, rawArgs)
+
 		return nil
 	}
 }
@@ -53,6 +54,7 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
 		if err != nil {
 			logger.Infof("could not validate arg value for '%v': invalid fieldName: %v: %v", argSpec.Name, fieldName, err.Error())
+
 			continue
 		}
 		validateFunc := DefaultArgSpecValidateFunc()
@@ -66,6 +68,7 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -85,6 +88,7 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
 			if !arg.Required {
 				logger.Infof(validationErr.Error())
+
 				continue
 			}
 			panic(validationErr)
@@ -115,6 +119,7 @@ func validateOneOfRequiredArgs(cmd *Command, rawArgs args.RawArgs, cmdArgs inter
 	if err := oneOfManager.ValidateRequiredOneOfGroups(rawArgs, cmdArgs); err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -129,6 +134,7 @@ func ValidateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -142,6 +148,7 @@ func validateDeprecated(ctx context.Context, cmd *Command, cmdArgs interface{}, 
 			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
 			if !arg.Required {
 				logger.Infof(validationErr.Error())
+
 				continue
 			}
 			panic(validationErr)
@@ -179,6 +186,7 @@ func DefaultArgSpecValidateFunc() ArgSpecValidateFunc {
 		if !stringExists(argSpec.EnumValues, strValue) {
 			return InvalidValueForEnumError(argSpec.Name, argSpec.EnumValues, strValue)
 		}
+
 		return nil
 	}
 }
@@ -189,6 +197,7 @@ func stringExists(strs []string, s string) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -206,6 +215,7 @@ func ValidateSecretKey() ArgSpecValidateFunc {
 		if !validation.IsSecretKey(value) {
 			return InvalidSecretKeyError(value)
 		}
+
 		return nil
 	}
 }
@@ -224,6 +234,7 @@ func ValidateAccessKey() ArgSpecValidateFunc {
 		if !validation.IsAccessKey(value) {
 			return InvalidAccessKeyError(value)
 		}
+
 		return nil
 	}
 }
@@ -245,6 +256,7 @@ func ValidateOrganizationID() ArgSpecValidateFunc {
 		if !validation.IsOrganizationID(value) {
 			return InvalidOrganizationIDError(value)
 		}
+
 		return nil
 	}
 }
@@ -266,6 +278,7 @@ func ValidateProjectID() ArgSpecValidateFunc {
 		if !validation.IsProjectID(value) {
 			return InvalidProjectIDError(value)
 		}
+
 		return nil
 	}
 }
@@ -298,6 +311,7 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdA
 				validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", argName, fieldName, err.Error())
 				if m.RequiredGroups[groupName] {
 					logger.Infof(validationErr.Error())
+
 					continue
 				}
 				panic(validationErr)
@@ -313,6 +327,7 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdA
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -330,6 +345,7 @@ func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(rawArgs args.RawArgs, cm
 				for i := range fieldValues {
 					if rawArgs.ExistsArgByName(strings.Replace(argName, "{index}", strconv.Itoa(i), 1)) {
 						found = true
+
 						break
 					}
 				}
@@ -342,5 +358,6 @@ func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(rawArgs args.RawArgs, cm
 			}
 		}
 	}
+
 	return nil
 }

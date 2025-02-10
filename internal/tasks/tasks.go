@@ -67,6 +67,7 @@ func Add[TaskArg any, TaskReturn any](ts *Tasks, name string, taskFunc TaskFunc[
 			} else {
 				passedData, err = taskFunc(t, i.(TaskArg))
 			}
+
 			return
 		},
 	})
@@ -92,6 +93,7 @@ func (ts *Tasks) Cleanup(ctx context.Context, logger *Logger, failed int) {
 		select {
 		case <-cancelableCtx.Done():
 			fmt.Println("cleanup has been cancelled, there may be dangling resources")
+
 			return
 		default:
 		}
@@ -106,6 +108,7 @@ func (ts *Tasks) Cleanup(ctx context.Context, logger *Logger, failed int) {
 				err = cleanUpFunc(cancelableCtx)
 				if err != nil {
 					loggerEntry.Complete(err)
+
 					break
 				}
 
@@ -154,6 +157,7 @@ func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, er
 		case <-ctx.Done():
 			loggerEntry.Complete(context.Canceled)
 			ts.Cleanup(ctx, logger, i)
+
 			return nil, fmt.Errorf("task %d %q failed: context canceled", i+1, task.Name)
 		default:
 		}

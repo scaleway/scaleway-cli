@@ -16,6 +16,7 @@ func Test_CombineCommandInterceptor(t *testing.T) {
 	newInterceptor := func(name string) core.CommandInterceptor {
 		return func(ctx context.Context, args interface{}, runner core.CommandRunner) (interface{}, error) {
 			res, _ := runner(ctx, args)
+
 			return append([]string{name}, res.([]string)...), nil
 		}
 	}

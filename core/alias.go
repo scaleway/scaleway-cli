@@ -6,5 +6,6 @@ func aliasDisabled(cmd string) bool {
 	case "alias", "autocomplete", "init":
 		return true
 	}
+
 	return false
 }

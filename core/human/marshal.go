@@ -35,6 +35,7 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 		subOpt := *opt
 		subOpt.Title = ""
 		body, err := Marshal(data, &subOpt)
+
 		return terminal.Style(opt.Title+":", color.Bold) + "\n" + body, err
 	}
 
@@ -128,6 +129,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 		// If data has a registered MarshalerFunc call it.
 		case marshalerFunc != nil:
 			str, err := marshalerFunc(value.Interface(), subOpts)
+
 			return [][]string{{strings.Join(keys, "."), str}}, err
 
 		// If data is a stringers
@@ -149,6 +151,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 				}
 				data = append(data, subData...)
 			}
+
 			return data, nil
 
 		case rType.Kind() == reflect.Map:
@@ -171,6 +174,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 				}
 				data = append(data, subData...)
 			}
+
 			return data, nil
 
 		case rType.Kind() == reflect.Struct:
@@ -195,6 +199,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			if err != nil {
 				return nil, err
 			}
+
 			return [][]string{{strings.Join(keys, "."), str}}, nil
 		}
 	}
@@ -314,6 +319,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 			if err != nil {
 				logger.Debugf("invalid getFieldValue(): '%v' might not be exported", fieldSpec.FieldName)
 				row = append(row, "")
+
 				continue
 			}
 			fieldValue := reflect.ValueOf(v)
@@ -333,6 +339,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		}
 		grid = append(grid, row)
 	}
+
 	return formatGrid(grid, !opt.DisableShrinking)
 }
 
@@ -409,6 +416,7 @@ func formatGrid(grid [][]string, shrinkColumns bool) (string, error) {
 		fmt.Fprintln(w, strings.Join(line, "\t"))
 	}
 	w.Flush()
+
 	return strings.TrimSpace(buffer.String()), nil
 }
 
@@ -434,6 +442,7 @@ func computeMaxCols(grid [][]string) int {
 			}
 		}
 	}
+
 	return maxCols
 }
 
@@ -448,6 +457,7 @@ func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 
 		if field.Anonymous {
 			results = append(results, getDefaultFieldsOpt(fieldType)...)
+
 			continue
 		}
 

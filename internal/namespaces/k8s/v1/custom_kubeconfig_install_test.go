@@ -109,6 +109,7 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 			assert.Equal(t, string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData), string(cluster.Cluster.CertificateAuthorityData))
 			assert.Equal(t, kubeconfig.Clusters[0].Cluster.Server, cluster.Cluster.Server)
 			found = true
+
 			break
 		}
 	}
@@ -121,6 +122,7 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 			assert.Equal(t, kubeconfig.Contexts[0].Context.AuthInfo+suffix, context.Context.AuthInfo)
 			assert.Equal(t, kubeconfig.Contexts[0].Context.Namespace, context.Context.Namespace)
 			found = true
+
 			break
 		}
 	}
@@ -131,6 +133,7 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 		if user.Name == kubeconfig.AuthInfos[0].Name+suffix {
 			assert.Equal(t, kubeconfig.AuthInfos[0].AuthInfo.Username, user.AuthInfo.Username)
 			found = true
+
 			break
 		}
 	}

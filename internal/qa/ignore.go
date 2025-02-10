@@ -14,6 +14,7 @@ func filterIgnore(unfilteredErrors []error) []error {
 			res = append(res, v)
 		}
 	}
+
 	return res
 }
 
@@ -30,6 +31,7 @@ func isIgnoredError(err error) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
