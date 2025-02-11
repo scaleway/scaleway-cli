@@ -1,6 +1,5 @@
 name: Build and push CLI doc to S3
 on:
-  workflow_dispatch:
   release:
     types:
       - published # Triggered only when a new release is published
