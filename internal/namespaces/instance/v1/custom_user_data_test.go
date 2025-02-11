@@ -54,14 +54,21 @@ func Test_UserDataList(t *testing.T) {
 
 func Test_UserDataFileUpload(t *testing.T) {
 	content := "cloud-init file content"
+	file, err := os.CreateTemp(t.TempDir(), "test")
+	defer os.Remove(file.Name()) // clean up
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
+	_, err = file.WriteString(content)
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
 
 	t.Run("on-cloud-init", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := os.CreateTemp(t.TempDir(), "test")
-				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
 
 				return nil
@@ -78,8 +85,6 @@ func Test_UserDataFileUpload(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := os.CreateTemp(t.TempDir(), "test")
-				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
 
 				return nil
