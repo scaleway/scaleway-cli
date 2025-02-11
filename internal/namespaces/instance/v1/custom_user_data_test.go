@@ -71,13 +71,6 @@ func Test_UserDataFileUpload(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
-		AfterFunc: core.AfterFuncCombine(
-			func(ctx *core.AfterFuncCtx) error {
-				_ = os.RemoveAll(ctx.Meta["filePath"].(string))
-
-				return nil
-			},
-		),
 	}))
 
 	t.Run("on-random-key", core.Test(&core.TestConfig{
@@ -95,13 +88,6 @@ func Test_UserDataFileUpload(t *testing.T) {
 		Cmd: `scw instance user-data set key=foobar server-id={{ .Server.ID }} content=@{{ .filePath }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			func(ctx *core.AfterFuncCtx) error {
-				_ = os.RemoveAll(ctx.Meta["filePath"].(string))
-
-				return nil
-			},
 		),
 	}))
 }
