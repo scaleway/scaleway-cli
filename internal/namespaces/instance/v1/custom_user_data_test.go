@@ -55,7 +55,6 @@ func Test_UserDataList(t *testing.T) {
 func Test_UserDataFileUpload(t *testing.T) {
 	content := "cloud-init file content"
 	file, err := os.CreateTemp(t.TempDir(), "test")
-	defer os.Remove(file.Name()) // clean up
 	if err != nil {
 		t.Fatalf("%s", err)
 	}
