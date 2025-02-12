@@ -43,7 +43,7 @@ scw mongodb endpoint
 
 ## Instance management commands
 
-A Managed Database for MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
+A Managed MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
 
 
 ### Create a MongoDB® Database Instance
