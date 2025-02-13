@@ -183,6 +183,14 @@ func appleSiliconServerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "commitment-type",
+				Short:      `Activate commitment for this server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"duration_24h", "renewed_monthly", "none"},
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -393,6 +401,13 @@ func appleSiliconServerUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "commitment-type.commitment-type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"duration_24h", "renewed_monthly", "none"},
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
