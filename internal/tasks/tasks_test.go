@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGeneric(t *testing.T) {

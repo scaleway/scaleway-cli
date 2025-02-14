@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_ApplyDefaultValues(t *testing.T) {

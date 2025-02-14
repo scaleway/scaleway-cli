@@ -3,11 +3,11 @@ package k8s_test
 import (
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_GetKubeconfig(t *testing.T) {

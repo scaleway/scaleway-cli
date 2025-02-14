@@ -6,8 +6,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPrint(t *testing.T) {

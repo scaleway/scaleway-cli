@@ -3,8 +3,8 @@ package editor_test
 import (
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_updateResourceEditor(t *testing.T) {

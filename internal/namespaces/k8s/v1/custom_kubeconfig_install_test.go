@@ -5,12 +5,12 @@ import (
 	"path"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8sSDK "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	"github.com/stretchr/testify/assert"
 )
 
 var (

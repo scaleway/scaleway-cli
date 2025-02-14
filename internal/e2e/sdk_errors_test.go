@@ -3,10 +3,10 @@ package e2e_test
 import (
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/test/v1"
 	sdktest "github.com/scaleway/scaleway-sdk-go/api/test/v1"
+	"github.com/stretchr/testify/assert"
 )
 
 // TestSdkStandardErrors tests standard errors

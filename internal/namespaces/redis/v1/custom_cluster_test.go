@@ -6,11 +6,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	redisSDK "github.com/scaleway/scaleway-sdk-go/api/redis/v1"
+	"github.com/stretchr/testify/assert"
 )
 
 const (

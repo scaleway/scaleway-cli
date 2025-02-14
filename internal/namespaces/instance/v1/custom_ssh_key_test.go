@@ -3,10 +3,10 @@ package instance_test
 import (
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/stretchr/testify/assert"
 )
 
 // addSSHKey add an ssh key to server stored in meta with given key

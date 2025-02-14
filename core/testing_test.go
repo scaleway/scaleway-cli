@@ -4,8 +4,8 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGoldenIgnoreLines(t *testing.T) {

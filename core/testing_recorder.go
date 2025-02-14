@@ -10,9 +10,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
+	"github.com/stretchr/testify/assert"
 )
 
 func cassetteRequestFilter(i *cassette.Interaction) error {
