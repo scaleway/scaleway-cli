@@ -6,12 +6,12 @@ import (
 	"os"
 	"runtime"
 	"strconv"
-	"strings"
 	"testing"
 	"time"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestGeneric(t *testing.T) {
@@ -31,7 +31,7 @@ func TestGeneric(t *testing.T) {
 	})
 
 	res, err := ts.Execute(context.Background(), 12)
-	assert.Nil(t, err)
+	require.NoError(t, err)
 	assert.Equal(t, 3, res)
 }
 
@@ -87,8 +87,8 @@ func TestCleanup(t *testing.T) {
 	})
 
 	_, err := ts.Execute(context.Background(), nil)
-	assert.NotNil(t, err, "Execute should return error after cleanup")
-	assert.Equal(t, clean, 3, "3 task cleanup should have been executed")
+	require.Error(t, err, "Execute should return error after cleanup")
+	assert.Equal(t, 3, clean, "3 task cleanup should have been executed")
 }
 
 func TestCleanupOnContext(t *testing.T) {
@@ -144,7 +144,7 @@ func TestCleanupOnContext(t *testing.T) {
 	})
 
 	_, err := ts.Execute(ctx, nil)
-	assert.NotNil(t, err, "context should have been interrupted")
-	assert.True(t, strings.Contains(err.Error(), "interrupted"), "error is not interrupted: %s", err)
-	assert.Equal(t, clean, 3, "3 task cleanup should have been executed")
+	require.Error(t, err, "context should have been interrupted")
+	assert.Contains(t, err.Error(), "interrupted", "error is not interrupted: %s", err)
+	assert.Equal(t, 3, clean, "3 task cleanup should have been executed")
 }

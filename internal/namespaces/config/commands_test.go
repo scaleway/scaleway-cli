@@ -6,10 +6,10 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -99,7 +99,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
 				t.Helper()
-				assert.Equal(t, true, *config.SendTelemetry)
+				assert.True(t, *config.SendTelemetry)
 			}),
 		),
 		TmpHomeDir: true,

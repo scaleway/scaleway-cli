@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
@@ -12,6 +11,7 @@ import (
 	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -348,7 +348,7 @@ func Test_CreateServer(t *testing.T) {
 						VolumeID: rootVolume.ID,
 						Zone:     rootVolume.Zone,
 					})
-					assert.NoError(t, err)
+					require.NoError(t, err)
 					assert.NotNil(t, vol.Specs)
 					assert.NotNil(t, vol.Specs.PerfIops)
 					assert.Equal(t, uint32(15000), *vol.Specs.PerfIops)
@@ -373,7 +373,7 @@ func Test_CreateServer(t *testing.T) {
 					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
-					assert.Equal(t, false, server.PublicIP.Dynamic)
+					assert.False(t, server.PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -386,12 +386,12 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
-					assert.NoError(t, ctx.Err)
+					require.NoError(t, ctx.Err)
 					assert.NotNil(t, ctx.Result)
 					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
-					assert.Equal(t, true, server.DynamicIPRequired)
+					assert.True(t, server.DynamicIPRequired)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -409,7 +409,7 @@ func Test_CreateServer(t *testing.T) {
 					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
-					assert.Equal(t, false, server.PublicIP.Dynamic)
+					assert.False(t, server.PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -427,7 +427,7 @@ func Test_CreateServer(t *testing.T) {
 					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
-					assert.Equal(t, false, server.PublicIP.Dynamic)
+					assert.False(t, server.PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -739,7 +739,7 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 				if !exist {
 					t.Fatalf("Expected an additional scratch volume, found none")
 				}
-				assert.Equal(t, additionalVolume.VolumeType, instanceSDK.VolumeServerVolumeTypeScratch)
+				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeScratch, additionalVolume.VolumeType)
 			},
 		),
 		AfterFunc:       core.ExecAfterCmd("scw instance server delete {{ .CmdResult.ID }} zone=fr-par-2 with-volumes=all with-ip=true force-shutdown=true"),

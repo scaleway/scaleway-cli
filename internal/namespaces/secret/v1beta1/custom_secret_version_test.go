@@ -3,9 +3,9 @@ package secret_test
 import (
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_AccessSecret(t *testing.T) {

@@ -5,10 +5,11 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_valueMapper(t *testing.T) {
@@ -141,7 +142,7 @@ func Test_valueMapperSliceOfPointers(t *testing.T) {
 
 func Test_valueMapperSliceStructPointer(t *testing.T) {
 	_, ipnet, err := net.ParseCIDR("192.168.0.0/24")
-	assert.Nil(t, err)
+	require.NoError(t, err)
 
 	src := instance.ListSecurityGroupRulesResponse{
 		TotalCount: 0,
@@ -168,7 +169,7 @@ func Test_valueMapperSliceStructPointer(t *testing.T) {
 
 	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Rules)
-	assert.Equal(t, 1, len(dest.Rules))
+	assert.Len(t, dest.Rules, 1)
 	expectedRule := src.Rules[0]
 	actualRule := dest.Rules[0]
 	assert.NotNil(t, actualRule.ID)

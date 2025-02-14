@@ -4,10 +4,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	"github.com/stretchr/testify/assert"
 )
 
 // All test below should succeed to create an instance.

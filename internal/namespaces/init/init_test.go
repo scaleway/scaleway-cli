@@ -6,10 +6,10 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	initCLI "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init" // alias required to not collide with go init func
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -62,7 +62,6 @@ func TestInit(t *testing.T) {
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.SecretKey)
 				assert.NotEmpty(t, *config.DefaultProjectID)
-				assert.Equal(t, *config.DefaultProjectID, *config.DefaultProjectID)
 			}),
 		),
 	}))
@@ -199,7 +198,7 @@ func TestInit(t *testing.T) {
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
 					t.Helper()
 					assert.NotNil(t, config.Profiles["test"].DefaultZone)
-					assert.Equal(t, *config.Profiles["test"].DefaultZone, "fr-test")
+					assert.Equal(t, "fr-test", *config.Profiles["test"].DefaultZone)
 				}),
 			),
 			TmpHomeDir: true,
@@ -267,7 +266,6 @@ func TestInit_Prompt(t *testing.T) {
 				secretKey, _ := ctx.Client.GetSecretKey()
 				assert.Equal(t, secretKey, *config.SecretKey)
 				assert.NotEmpty(t, *config.DefaultProjectID)
-				assert.Equal(t, *config.DefaultProjectID, *config.DefaultProjectID)
 			}),
 		),
 		OverrideEnv: map[string]string{

@@ -5,10 +5,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestInterruptError(t *testing.T) {

@@ -3,7 +3,6 @@ package instance_test
 import (
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
@@ -12,6 +11,7 @@ import (
 	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -90,7 +90,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				resp := testhelpers.Value[*instanceSDK.DetachVolumeResponse](t, ctx.Result)
 				assert.NotZero(t, resp.Server.Volumes["0"])
 				assert.Nil(t, resp.Server.Volumes["1"])
-				assert.Equal(t, 1, len(ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes))
+				assert.Len(t, ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes, 1)
 			},
 			AfterFunc: core.AfterFuncCombine(
 				core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`),
@@ -263,7 +263,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Equal(t, 0, len(ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes))
+				assert.Empty(t, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes)
 			},
 			AfterFunc: core.AfterFuncCombine(
 				core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "0").ID }}`),
