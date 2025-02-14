@@ -54,14 +54,20 @@ func Test_UserDataList(t *testing.T) {
 
 func Test_UserDataFileUpload(t *testing.T) {
 	content := "cloud-init file content"
+	file, err := os.CreateTemp(t.TempDir(), "test")
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
+	_, err = file.WriteString(content)
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
 
 	t.Run("on-cloud-init", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := os.CreateTemp(t.TempDir(), "test")
-				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
 
 				return nil
@@ -71,13 +77,6 @@ func Test_UserDataFileUpload(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
-		AfterFunc: core.AfterFuncCombine(
-			func(ctx *core.AfterFuncCtx) error {
-				_ = os.RemoveAll(ctx.Meta["filePath"].(string))
-
-				return nil
-			},
-		),
 	}))
 
 	t.Run("on-random-key", core.Test(&core.TestConfig{
@@ -85,8 +84,6 @@ func Test_UserDataFileUpload(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := os.CreateTemp(t.TempDir(), "test")
-				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
 
 				return nil
@@ -95,13 +92,6 @@ func Test_UserDataFileUpload(t *testing.T) {
 		Cmd: `scw instance user-data set key=foobar server-id={{ .Server.ID }} content=@{{ .filePath }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			func(ctx *core.AfterFuncCtx) error {
-				_ = os.RemoveAll(ctx.Meta["filePath"].(string))
-
-				return nil
-			},
 		),
 	}))
 }
