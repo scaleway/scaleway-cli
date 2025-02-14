@@ -77,7 +77,7 @@ func mongodbVersion() *core.Command {
 func mongodbInstance() *core.Command {
 	return &core.Command{
 		Short:     `Instance management commands`,
-		Long:      `A Managed Database for MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.`,
+		Long:      `A Managed MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.`,
 		Namespace: "mongodb",
 		Resource:  "instance",
 	}
