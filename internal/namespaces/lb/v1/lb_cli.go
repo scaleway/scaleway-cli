@@ -1721,6 +1721,13 @@ func lbFrontendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "connection-rate-limit",
+				Short:      `Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1827,6 +1834,13 @@ func lbFrontendUpdate() *core.Command {
 			{
 				Name:       "enable-http3",
 				Short:      `Defines whether to enable HTTP/3 protocol on the frontend`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "connection-rate-limit",
+				Short:      `Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
