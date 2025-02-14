@@ -35,7 +35,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 			dockerConfigPath := path.Join(ctx.Meta["HOME"].(string), ".docker", "config.json")
 			dockerConfigContent, err := os.ReadFile(dockerConfigPath)
 			require.NoError(t, err)
-			assert.Equal(t, "{\n  \"credHelpers\": {\n    \"rg.fr-par.scw.cloud\": \"scw\",\n    \"rg.nl-ams.scw.cloud\": \"scw\",\n    \"rg.pl-waw.scw.cloud\": \"scw\"\n  }\n}\n", string(dockerConfigContent))
+			assert.JSONEq(t, "{\n  \"credHelpers\": {\n    \"rg.fr-par.scw.cloud\": \"scw\",\n    \"rg.nl-ams.scw.cloud\": \"scw\",\n    \"rg.pl-waw.scw.cloud\": \"scw\"\n  }\n}\n", string(dockerConfigContent))
 		},
 		AfterFunc:   nil,
 		TmpHomeDir:  true,

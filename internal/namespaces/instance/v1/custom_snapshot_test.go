@@ -25,10 +25,10 @@ func Test_UpdateSnapshot(t *testing.T) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					snapshot := ctx.Result.(*instanceSDK.Snapshot)
-					assert.Equal(t, snapshot.Name, "cli-test-snapshot-update-tags")
+					assert.Equal(t, "cli-test-snapshot-update-tags", snapshot.Name)
 					assert.Len(t, snapshot.Tags, 2)
-					assert.Equal(t, snapshot.Tags[0], "bar")
-					assert.Equal(t, snapshot.Tags[1], "foo")
+					assert.Equal(t, "bar", snapshot.Tags[0])
+					assert.Equal(t, "foo", snapshot.Tags[1])
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -50,10 +50,10 @@ func Test_UpdateSnapshot(t *testing.T) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					snapshot := ctx.Result.(*instanceSDK.Snapshot)
-					assert.Equal(t, snapshot.Name, "cli-test-snapshot-update-name-updated")
+					assert.Equal(t, "cli-test-snapshot-update-name-updated", snapshot.Name)
 					assert.Len(t, snapshot.Tags, 2)
-					assert.Equal(t, snapshot.Tags[0], "foo")
-					assert.Equal(t, snapshot.Tags[1], "bar")
+					assert.Equal(t, "foo", snapshot.Tags[0])
+					assert.Equal(t, "bar", snapshot.Tags[1])
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(

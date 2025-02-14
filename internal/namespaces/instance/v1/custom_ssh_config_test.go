@@ -11,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/sshconfig"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_SSHConfigInstall(t *testing.T) {
@@ -33,11 +34,11 @@ func Test_SSHConfigInstall(t *testing.T) {
 
 				configPath := sshconfig.ConfigFilePath(ctx.Meta["HOME"].(string))
 				content, err := os.ReadFile(configPath)
-				assert.Nil(t, err)
+				require.NoError(t, err)
 				assert.Contains(t, string(content), "Host "+server.Name)
 
 				included, err := sshconfig.ConfigIsIncluded(ctx.Meta["HOME"].(string))
-				assert.Nil(t, err)
+				require.NoError(t, err)
 				assert.True(t, included)
 			},
 		),
@@ -52,9 +53,9 @@ func Test_SSHConfigInstall(t *testing.T) {
 				homeDir := ctx.Meta["HOME"].(string)
 				configPath := sshconfig.DefaultConfigFilePath(homeDir)
 				err := os.Mkdir(filepath.Join(homeDir, ".ssh"), 0o700)
-				assert.Nil(t, err)
+				require.NoError(t, err)
 				err = os.WriteFile(configPath, []byte(`Host myhost`), 0o600)
-				assert.Nil(t, err)
+				assert.NoError(t, err)
 
 				return nil
 			},
@@ -75,17 +76,17 @@ func Test_SSHConfigInstall(t *testing.T) {
 
 				defaultConfigPath := sshconfig.DefaultConfigFilePath(ctx.Meta["HOME"].(string))
 				content, err := os.ReadFile(defaultConfigPath)
-				assert.Nil(t, err)
+				require.NoError(t, err)
 				assert.Contains(t, string(content), "Include scaleway.config")
 				assert.Contains(t, string(content), "Host myhost")
 
 				configPath := sshconfig.ConfigFilePath(ctx.Meta["HOME"].(string))
 				content, err = os.ReadFile(configPath)
-				assert.Nil(t, err)
+				require.NoError(t, err)
 				assert.Contains(t, string(content), "Host "+server.Name)
 
 				included, err := sshconfig.ConfigIsIncluded(ctx.Meta["HOME"].(string))
-				assert.Nil(t, err)
+				require.NoError(t, err)
 				assert.True(t, included)
 			},
 		),

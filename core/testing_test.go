@@ -6,6 +6,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestGoldenIgnoreLines(t *testing.T) {
@@ -21,7 +22,7 @@ Line4`
 		Pattern:     regexp.MustCompile("Line2\nLine3\n"),
 		Replacement: "",
 	})
-	assert.Nil(t, err)
+	require.NoError(t, err)
 	assert.Equal(t, expected, actual)
 
 	expected2 := `
@@ -34,6 +35,6 @@ Line1`
 			Pattern:     regexp.MustCompile("(?s)(Line1).*(Line2).*(Line3).*(Line4)"),
 			Replacement: "$4\n$3\n$2\n$1",
 		})
-	assert.Nil(t, err)
+	require.NoError(t, err)
 	assert.Equal(t, expected2, actual2)
 }

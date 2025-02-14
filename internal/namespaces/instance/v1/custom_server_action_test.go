@@ -154,7 +154,7 @@ func Test_ServerAction(t *testing.T) {
 					Zone:     storedServer.Zone,
 					ServerID: storedServer.ID,
 				})
-				assert.Nil(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, instanceSDK.ServerStateRunning, resp.Server.State)
 			},
 			core.TestCheckGolden(),

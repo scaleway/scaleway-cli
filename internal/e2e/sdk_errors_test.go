@@ -56,7 +56,7 @@ func TestSdkStandardErrors(t *testing.T) {
 			_, err := api.RunHuman(&sdktest.RunHumanRequest{
 				HumanID: "0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",
 			})
-			assert.Equal(t, nil, err)
+			assert.NoError(t, err)
 
 			return nil
 		},

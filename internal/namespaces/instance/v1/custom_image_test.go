@@ -130,7 +130,7 @@ func Test_ImageUpdate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				assert.NotNil(t, ctx.Result)
-				assert.Equal(t, true, ctx.Result.(*instanceSDK.UpdateImageResponse).Image.Public)
+				assert.True(t, ctx.Result.(*instanceSDK.UpdateImageResponse).Image.Public)
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(

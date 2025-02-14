@@ -7,6 +7,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 // addSSHKey add an ssh key to server stored in meta with given key
@@ -51,7 +52,7 @@ func Test_SSHKey(t *testing.T) {
 					Zone:     server.Zone,
 					ServerID: server.ID,
 				})
-				assert.Nil(t, err)
+				require.NoError(t, err)
 				assert.Len(t, resp.Server.Tags, 1)
 			},
 		),
@@ -95,7 +96,7 @@ func Test_SSHKey(t *testing.T) {
 					Zone:     server.Zone,
 					ServerID: server.ID,
 				})
-				assert.Nil(t, err)
+				require.NoError(t, err)
 				assert.Len(t, resp.Server.Tags, 1)
 			},
 		),

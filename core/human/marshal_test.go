@@ -10,6 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 type Struct struct {
@@ -85,10 +86,8 @@ func TestMarshal(t *testing.T) {
 			expected = strings.Trim(expected, "\n")
 
 			if tc.result != "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, expected, result)
-			} else {
-				assert.Equal(t, err, err)
 			}
 		}
 	}

@@ -99,7 +99,7 @@ func Test_ConfigSetCommand(t *testing.T) {
 			core.TestCheckGolden(),
 			checkConfig(func(t *testing.T, config *scw.Config) {
 				t.Helper()
-				assert.Equal(t, true, *config.SendTelemetry)
+				assert.True(t, *config.SendTelemetry)
 			}),
 		),
 		TmpHomeDir: true,

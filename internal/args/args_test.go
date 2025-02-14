@@ -150,7 +150,7 @@ type SamePrefixArgName struct {
 func TestRawArgs_GetAll(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		a := args.RawArgs{"ssh-keys.0=foo", "ssh-keys.1=bar"}
-		assert.Equal(t, a.GetAll("ssh-keys.{index}"), []string{"foo", "bar"})
+		assert.Equal(t, []string{"foo", "bar"}, a.GetAll("ssh-keys.{index}"))
 	})
 
 	t.Run("Insane", func(t *testing.T) {
@@ -160,7 +160,7 @@ func TestRawArgs_GetAll(t *testing.T) {
 			"countries.FR.cities.nice.street.promenade=anglais",
 			"countries.RU.cities.moscow.street.kremelin=rouge",
 		}
-		assert.Equal(t, a.GetAll("countries.{key}.cities.{key}.street.{key}"), []string{"pouet", "tati", "anglais", "rouge"})
+		assert.Equal(t, []string{"pouet", "tati", "anglais", "rouge"}, a.GetAll("countries.{key}.cities.{key}.street.{key}"))
 	})
 }
 

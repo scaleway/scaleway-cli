@@ -5,6 +5,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_updateResourceEditor(t *testing.T) {
@@ -26,7 +27,7 @@ func Test_updateResourceEditor(t *testing.T) {
 	}
 
 	_, err := editor.UpdateResourceEditor(resource, updateRequest, &editor.Config{})
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func Test_updateResourceEditor_pointers(t *testing.T) {
@@ -50,7 +51,7 @@ func Test_updateResourceEditor_pointers(t *testing.T) {
 	}
 
 	editedUpdateRequestI, err := editor.UpdateResourceEditor(resource, updateRequest, &editor.Config{})
-	assert.Nil(t, err)
+	require.NoError(t, err)
 	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
 
 	assert.NotNil(t, editedUpdateRequest.Name)
@@ -85,8 +86,8 @@ id: uuid
 env: {}
 `,
 	})
-	assert.Nil(t, err)
+	require.NoError(t, err)
 	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
 	assert.NotNil(t, editedUpdateRequest.Env)
-	assert.True(t, len(*editedUpdateRequest.Env) == 0)
+	assert.Empty(t, *editedUpdateRequest.Env)
 }
