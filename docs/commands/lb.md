@@ -676,6 +676,7 @@ scw lb frontend create [arg=value ...]
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array |
 | certificate-ids.{index} |  | List of SSL/TLS certificate IDs to bind to the frontend |
 | enable-http3 |  | Defines whether to enable HTTP/3 protocol on the frontend |
+| connection-rate-limit |  | Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -765,6 +766,7 @@ scw lb frontend update <frontend-id ...> [arg=value ...]
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array |
 | certificate-ids.{index} |  | List of SSL/TLS certificate IDs to bind to the frontend |
 | enable-http3 |  | Defines whether to enable HTTP/3 protocol on the frontend |
+| connection-rate-limit |  | Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
