@@ -11,7 +11,6 @@ ARGS:
   [type]               Create a server of the given type
   [os-id]              Create a server with the given os_id
   [enable-vpc]         Activate the Private Network feature for this server
-  [commitment-type]    Activate commitment for this server (duration_24h | renewed_monthly | none)
   [zone=fr-par-1]      Zone to target. If none is passed will use default zone from the config (fr-par-3)
 
 FLAGS:
