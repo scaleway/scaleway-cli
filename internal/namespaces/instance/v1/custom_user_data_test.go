@@ -52,7 +52,7 @@ func Test_UserDataList(t *testing.T) {
 	}))
 }
 
-func Test_UserDataFileUpload(t *testing.T) {
+func Test_UserDataFileUploadOn(t *testing.T) {
 	content := "cloud-init file content"
 	file, err := os.CreateTemp(t.TempDir(), "test")
 	if err != nil {
@@ -63,7 +63,7 @@ func Test_UserDataFileUpload(t *testing.T) {
 		t.Fatalf("%s", err)
 	}
 
-	t.Run("on-cloud-init", core.Test(&core.TestConfig{
+	t.Run("cloud-init", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
@@ -79,7 +79,20 @@ func Test_UserDataFileUpload(t *testing.T) {
 		),
 	}))
 
-	t.Run("on-random-key", core.Test(&core.TestConfig{
+}
+
+func Test_UserDataFileUploadOnRandom(t *testing.T) {
+	content := "cloud-init file content"
+	file, err := os.CreateTemp(t.TempDir(), "test")
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
+	_, err = file.WriteString(content)
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
+
+	t.Run("key", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
