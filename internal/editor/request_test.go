@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_createGetResourceRequest(t *testing.T) {

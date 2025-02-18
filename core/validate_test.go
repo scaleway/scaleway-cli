@@ -3,13 +3,12 @@ package core_test
 import (
 	"context"
 	"errors"
-	"fmt"
 	"reflect"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/stretchr/testify/assert"
 )
 
 type Element struct {
@@ -200,7 +199,7 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
 			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
-			assert.Equal(t, nil, err)
+			assert.NoError(t, err)
 		}
 	}
 
@@ -306,7 +305,7 @@ func Test_ValidateNoConflict(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
 			err := core.ValidateNoConflict(testCase.command, testCase.rawArgs)
-			assert.Equal(t, nil, err)
+			assert.NoError(t, err)
 		}
 	}
 
@@ -551,7 +550,7 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 			if tt.expectedError == "" {
 				assert.NoError(t, err, "Expected no error, got %v", err)
 			} else {
-				assert.EqualError(t, err, tt.expectedError, fmt.Sprintf("Expected error message '%s', got '%v'", tt.expectedError, err))
+				assert.EqualError(t, err, tt.expectedError, "Expected error message '%s', got '%v'", tt.expectedError, err)
 			}
 		})
 	}
@@ -696,7 +695,7 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 			if tt.expectedError == "" {
 				assert.NoError(t, err, "Expected no error, got %v", err)
 			} else {
-				assert.EqualError(t, err, tt.expectedError, fmt.Sprintf("Expected error message '%s', got '%v'", tt.expectedError, err))
+				assert.EqualError(t, err, tt.expectedError, "Expected error message '%s', got '%v'", tt.expectedError, err)
 			}
 		})
 	}

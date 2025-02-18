@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
 	containerSDK "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/stretchr/testify/assert"
 )
 
 func createNamespace(metaKey string) core.BeforeFunc {
