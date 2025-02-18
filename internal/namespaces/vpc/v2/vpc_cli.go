@@ -893,7 +893,7 @@ func vpcRouteList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "vpc_gateway_network", "instance_private_nic", "baremetal_private_nic"},
+				EnumValues: []string{"unknown_type", "vpc_gateway_network", "instance_private_nic", "baremetal_private_nic", "apple_silicon_private_nic"},
 			},
 			{
 				Name:       "contains",
