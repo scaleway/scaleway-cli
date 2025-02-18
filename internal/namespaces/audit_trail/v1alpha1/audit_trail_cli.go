@@ -75,7 +75,7 @@ func auditTrailEventList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "secm_secret", "secm_secret_version", "kube_cluster", "kube_pool", "kube_node", "kube_acl", "keym_key"},
+				EnumValues: []string{"unknown_type", "secm_secret", "secm_secret_version", "kube_cluster", "kube_pool", "kube_node", "kube_acl", "keym_key", "iamx_user", "iamx_application", "iamx_group", "iamx_policy", "iamx_api_key", "iamx_ssh_key"},
 			},
 			{
 				Name:       "method-name",
