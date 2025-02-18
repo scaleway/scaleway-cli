@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestConfig_ResolveAliases(t *testing.T) {

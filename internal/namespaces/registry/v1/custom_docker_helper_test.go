@@ -7,9 +7,9 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -35,7 +35,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 			dockerConfigPath := path.Join(ctx.Meta["HOME"].(string), ".docker", "config.json")
 			dockerConfigContent, err := os.ReadFile(dockerConfigPath)
 			require.NoError(t, err)
-			assert.Equal(t, "{\n  \"credHelpers\": {\n    \"rg.fr-par.scw.cloud\": \"scw\",\n    \"rg.nl-ams.scw.cloud\": \"scw\",\n    \"rg.pl-waw.scw.cloud\": \"scw\"\n  }\n}\n", string(dockerConfigContent))
+			assert.JSONEq(t, "{\n  \"credHelpers\": {\n    \"rg.fr-par.scw.cloud\": \"scw\",\n    \"rg.nl-ams.scw.cloud\": \"scw\",\n    \"rg.pl-waw.scw.cloud\": \"scw\"\n  }\n}\n", string(dockerConfigContent))
 		},
 		AfterFunc:   nil,
 		TmpHomeDir:  true,
