@@ -6,9 +6,9 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_CreateContext(t *testing.T) {

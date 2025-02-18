@@ -5,8 +5,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 

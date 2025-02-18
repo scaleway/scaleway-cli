@@ -5,7 +5,6 @@ go 1.22
 toolchain go1.22.2
 
 require (
-	github.com/alecthomas/assert v1.0.0
 	github.com/aws/aws-sdk-go-v2 v1.36.1
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.77.0
 	github.com/buildpacks/pack v0.34.2
@@ -56,8 +55,6 @@ require (
 	github.com/Microsoft/hcsshim v0.12.2 // indirect
 	github.com/ProtonMail/go-crypto v1.1.3 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
-	github.com/alecthomas/colour v0.1.0 // indirect
-	github.com/alecthomas/repr v0.2.0 // indirect
 	github.com/apex/log v1.9.0 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.6.9 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.27.7 // indirect

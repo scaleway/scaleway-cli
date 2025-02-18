@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
+	"github.com/stretchr/testify/assert"
 )
 
 type Friends struct {
