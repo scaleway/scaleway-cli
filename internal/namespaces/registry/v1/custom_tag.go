@@ -46,6 +46,7 @@ func tagGetBuilder(c *core.Command) *core.Command {
 		})
 		if err != nil {
 			logger.Warningf("cannot get image %s %s", tag.ImageID, err)
+
 			return getTagResp, nil
 		}
 
@@ -54,6 +55,7 @@ func tagGetBuilder(c *core.Command) *core.Command {
 		})
 		if err != nil {
 			logger.Warningf("cannot get namespace %s %s", image.NamespaceID, err)
+
 			return getTagResp, nil
 		}
 

@@ -32,6 +32,7 @@ func newObjectWithForcedJSONTags(t reflect.Type) interface{} {
 			structFieldsCopy = append(structFieldsCopy, fieldCopy)
 		}
 	}
+
 	return reflect.New(reflect.StructOf(structFieldsCopy)).Interface()
 }
 
@@ -84,6 +85,7 @@ func GetValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 			}
 			values = append(values, newValues...)
 		}
+
 		return values, nil
 
 	case reflect.Struct:
@@ -114,5 +116,6 @@ func GetValuesForFieldByName(value reflect.Value, parts []string) (values []refl
 
 		return nil, fmt.Errorf("field %v does not exist for %v", fieldName, value.Type().Name())
 	}
+
 	return nil, errors.New("case is not handled")
 }

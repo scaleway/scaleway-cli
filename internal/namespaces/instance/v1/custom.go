@@ -214,6 +214,7 @@ func marshallNestedField(nestedKey string) human.MarshalerFunc {
 			return "", fmt.Errorf("%T must be a struct", i)
 		}
 		nestedValue := reflect.ValueOf(i).FieldByName(nestedKey)
+
 		return human.Marshal(nestedValue.Interface(), opt)
 	}
 }

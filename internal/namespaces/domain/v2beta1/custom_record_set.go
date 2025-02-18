@@ -198,5 +198,6 @@ func dnsRecordSetRun(ctx context.Context, argsI interface{}) (i interface{}, e e
 	if err != nil {
 		return nil, fmt.Errorf("cannot set the record: %s", err)
 	}
+
 	return resp.Records, nil
 }

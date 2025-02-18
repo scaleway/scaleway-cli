@@ -3,18 +3,18 @@ package instance_test
 import (
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_ImageCreate(t *testing.T) {
 	t.Run("Create simple image", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			createServer("Server"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-jammy root-volume=l:20G")),
 			core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 		),
 		Commands: instance.GetCommands(),
@@ -77,7 +77,7 @@ func Test_ImageDelete(t *testing.T) {
 
 func createImage(metaKey string) core.BeforeFunc {
 	return core.BeforeFuncCombine(
-		createServer("Server"),
+		core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-jammy root-volume=l:20G")),
 		core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
 		core.ExecStoreBeforeCmd(metaKey, `scw instance image create snapshot-id={{ .Snapshot.Snapshot.ID }} arch=x86_64`),
 	)
@@ -130,7 +130,7 @@ func Test_ImageUpdate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				assert.NotNil(t, ctx.Result)
-				assert.Equal(t, true, ctx.Result.(*instanceSDK.UpdateImageResponse).Image.Public)
+				assert.True(t, ctx.Result.(*instanceSDK.UpdateImageResponse).Image.Public)
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(

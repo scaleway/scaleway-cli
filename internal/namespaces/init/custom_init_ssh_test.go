@@ -31,6 +31,7 @@ func setUpSSHKeyLocallyWithKeyName(key string, name string) core.BeforeFunc {
 		if err != nil {
 			return err
 		}
+
 		return nil
 	}
 }
@@ -52,6 +53,7 @@ func removeSSHKeyFromAccount(publicSSHKey string) core.AfterFunc {
 		if id != "" {
 			err = api.DeleteSSHKey(&iamsdk.DeleteSSHKeyRequest{SSHKeyID: id})
 		}
+
 		return err
 	}
 }
@@ -63,6 +65,7 @@ func addSSHKeyToAccount(metaKey string, name string, key string) core.BeforeFunc
 			"scw", "iam", "ssh-key", "create", "public-key=" + key, "name=" + name,
 		}
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(cmd)
+
 		return nil
 	}
 }

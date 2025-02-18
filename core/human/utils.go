@@ -17,6 +17,7 @@ func Capitalize(s string) string {
 	for i, c := range s {
 		return string(unicode.ToUpper(c)) + s[i+1:]
 	}
+
 	return ""
 }
 

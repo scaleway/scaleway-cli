@@ -301,6 +301,7 @@ func loadConfigOrEmpty(configPath string, activeProfile string) (*scw.Config, er
 			return nil, err
 		}
 	}
+
 	return config, nil
 }
 
@@ -334,12 +335,14 @@ func isHTTPCodeError(err error, statusCode int) bool {
 	if errors.As(err, &responseError) && responseError.StatusCode == statusCode {
 		return true
 	}
+
 	return false
 }
 
 // is403Error returns true if err is an HTTP 403 error
 func is403Error(err error) bool {
 	permissionsDeniedError := &scw.PermissionsDeniedError{}
+
 	return isHTTPCodeError(err, http.StatusForbidden) || errors.As(err, &permissionsDeniedError)
 }
 

@@ -36,6 +36,7 @@ func promptNatsAccounts(ctx context.Context, natsAccounts []*mnq.NatsAccount, to
 	if err != nil {
 		return nil, err
 	}
+
 	return natsAccounts[index], nil
 }
 
@@ -50,5 +51,6 @@ func promptOverWriteFile(ctx context.Context, filePath string) (bool, error) {
 		DefaultValue: true,
 	}
 	overWrite, _ := interactive.PromptBoolWithConfig(&config)
+
 	return overWrite, nil
 }

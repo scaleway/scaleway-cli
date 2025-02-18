@@ -25,8 +25,10 @@ func Test_initWithSSHKeyCommand(t *testing.T) {
 					return err
 				}
 				err = os.WriteFile(pathToPublicKey, []byte(key), 0o644)
+
 				return err
 			}
+
 			return err
 		},
 		Cmd: `scw iam ssh-key init with-ssh-key=true`,

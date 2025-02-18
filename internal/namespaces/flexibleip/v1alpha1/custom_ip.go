@@ -29,6 +29,7 @@ func createIPBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		getResp := respI.(*flexibleip.FlexibleIP)
 		api := flexibleip.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForFlexibleIP(&flexibleip.WaitForFlexibleIPRequest{
 			FipID:         getResp.ID,
 			Zone:          getResp.Zone,
@@ -36,5 +37,6 @@ func createIPBuilder(c *core.Command) *core.Command {
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
+
 	return c
 }

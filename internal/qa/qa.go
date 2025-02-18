@@ -46,6 +46,7 @@ func testShortEndWithDotError(commands *core.Commands) []error {
 			})
 		}
 	}
+
 	return errors
 }
 
@@ -66,6 +67,7 @@ func testShortIsNotPresentError(commands *core.Commands) []error {
 			})
 		}
 	}
+
 	return errors
 }
 
@@ -122,6 +124,7 @@ func testWellKnownArgAtTheEndError(commands *core.Commands) []error {
 					if argspec.Name == wellKnownArgsOrder[wkaCounter] {
 						respectOrder = true
 						wkaCounter++ // next well-known arg can't be the same
+
 						break
 					}
 				}
@@ -144,6 +147,7 @@ func testWellKnownArgAtTheEndError(commands *core.Commands) []error {
 			})
 		}
 	}
+
 	return errors
 }
 
@@ -168,6 +172,7 @@ func testArgMustUseDashError(commands *core.Commands) []error {
 			}
 		}
 	}
+
 	return errors
 }
 
@@ -192,6 +197,7 @@ func testPositionalArgMustBeRequiredError(commands *core.Commands) []error {
 			}
 		}
 	}
+
 	return errors
 }
 
@@ -216,6 +222,7 @@ func testExampleCanHaveOnlyOneTypeOfExampleError(commands *core.Commands) []erro
 			}
 		}
 	}
+
 	return errors
 }
 
@@ -294,6 +301,7 @@ func testDifferentLocalizationForNamespaceError(commands *core.Commands) []error
 			}
 		}
 	}
+
 	return errors
 }
 
@@ -315,6 +323,7 @@ func testDuplicatedCommandError(commands *core.Commands) []error {
 
 		if uniqueness[key] {
 			errors = append(errors, &DuplicatedCommandError{Command: command})
+
 			continue
 		}
 
@@ -345,6 +354,7 @@ func testAtLeastOneExampleIsPresentError(commands *core.Commands) []error {
 
 		if len(command.Examples) == 0 {
 			errors = append(errors, &MissingExampleError{Command: command})
+
 			continue
 		}
 	}

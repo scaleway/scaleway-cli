@@ -41,6 +41,7 @@ func DeploymentMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 	if err != nil {
 		return "", err
 	}
+
 	return str, nil
 }
 
@@ -67,6 +68,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := inference.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForDeployment(&inference.WaitForDeploymentRequest{
 			DeploymentID:  respI.(*inference.Deployment).ID,
 			Region:        respI.(*inference.Deployment).Region,
@@ -86,6 +88,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 				DisableAuth:    false,
 			}
 			deploymentRequest.Endpoints = append(deploymentRequest.Endpoints, &endpoint)
+
 			return runner(ctx, deploymentRequest)
 		}
 		for _, endpoint := range deploymentCreateCustomRequest.Endpoints {
@@ -132,10 +135,13 @@ func deploymentDeleteBuilder(c *core.Command) *core.Command {
 					Verb:     "delete",
 				}, nil
 			}
+
 			return nil, err
 		}
+
 		return deployment, nil
 	}
+
 	return c
 }
 

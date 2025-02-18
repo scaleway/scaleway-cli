@@ -17,6 +17,7 @@ import (
 
 func promptOrganizationID(ctx context.Context) (string, error) {
 	_, _ = interactive.Println()
+
 	return interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
 		Ctx:    ctx,
 		Prompt: "Choose your default organization ID",
@@ -24,6 +25,7 @@ func promptOrganizationID(ctx context.Context) (string, error) {
 			if !validation.IsUUID(s) {
 				return core.InvalidOrganizationIDError(s)
 			}
+
 			return nil
 		},
 	})
@@ -31,6 +33,7 @@ func promptOrganizationID(ctx context.Context) (string, error) {
 
 func promptManualProjectID(ctx context.Context, defaultProjectID string) (string, error) {
 	_, _ = interactive.Println()
+
 	return interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
 		Ctx:             ctx,
 		Prompt:          "Choose your default project ID",
@@ -40,6 +43,7 @@ func promptManualProjectID(ctx context.Context, defaultProjectID string) (string
 			if !validation.IsProjectID(s) {
 				return core.InvalidProjectIDError(s)
 			}
+
 			return nil
 		},
 	})
@@ -139,6 +143,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 			if validation.IsUUID(value) {
 				secretKey = terminal.Style(secretKey, color.FgBlue)
 			}
+
 			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", secretKey), color.Bold)
 		},
 		Password: true,
@@ -146,6 +151,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 			if validation.IsSecretKey(s) {
 				return nil
 			}
+
 			return core.InvalidSecretKeyError(s)
 		},
 	})
@@ -171,6 +177,7 @@ func promptAccessKey(ctx context.Context) (string, error) {
 			if validation.IsAccessKey(value) {
 				accessKey = terminal.Style(accessKey, color.FgBlue)
 			}
+
 			return terminal.Style(fmt.Sprintf("Enter a valid %s: ", accessKey), color.Bold)
 		},
 		ValidateFunc: func(s string) error {
@@ -206,12 +213,14 @@ func promptDefaultZone(ctx context.Context) (scw.Zone, error) {
 			if !validation.IsZone(s) {
 				return core.InvalidZoneError(s)
 			}
+
 			return nil
 		},
 	})
 	if err != nil {
 		return "", err
 	}
+
 	return scw.ParseZone(zone)
 }
 

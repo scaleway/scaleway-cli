@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Decrypt data using an existing key, specified by the `key_id` parameter. The maximum payload size that can be decrypted is the result of the encryption of 64KB of data (around 131KB).
+Decrypt an encrypted payload using an existing key, specified by the `key_id` parameter. The maximum payload size that can be decrypted is equivalent to the encrypted output of 64 KB of data (around 131 KB).
 
 USAGE:
-  scw keymanager key decrypt [arg=value ...]
+  scw keymanager key decrypt <key-id ...> [arg=value ...]
 
 ARGS:
   key-id              ID of the key to decrypt

@@ -29,8 +29,10 @@ func Test_InstallServer(t *testing.T) {
 					})
 					if server.Stock != baremetalSDK.OfferStockAvailable {
 						err := errors.New("offer out of stock")
+
 						return err
 					}
+
 					return nil
 				},
 				addSSH("key", sshKey),
@@ -60,6 +62,7 @@ func Test_InstallServer(t *testing.T) {
 					if server.Stock != baremetalSDK.OfferStockAvailable {
 						return errors.New("offer out of stock")
 					}
+
 					return nil
 				},
 				addSSH("key", sshKey),

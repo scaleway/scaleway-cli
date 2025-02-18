@@ -94,12 +94,14 @@ func (meta TestMetadata) Render(strTpl string) string {
 	t := meta["t"].(*testing.T)
 	buf := &bytes.Buffer{}
 	require.NoError(t, template.Must(template.New("tpl").Funcs(testRenderHelpers).Parse(strTpl)).Execute(buf, meta))
+
 	return buf.String()
 }
 
 func BeforeFuncStoreInMeta(key string, value interface{}) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		ctx.Meta[key] = value
+
 		return nil
 	}
 }
@@ -344,12 +346,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		if config.TmpHomeDir {
-			dir, err := os.MkdirTemp(os.TempDir(), "scw")
-			require.NoError(t, err)
-			defer func() {
-				err = os.RemoveAll(dir)
-				assert.NoError(t, err)
-			}()
+			dir := t.TempDir()
 			overrideEnv["HOME"] = dir
 			overrideEnv[scw.ScwCacheDirEnv] = dir
 			meta["HOME"] = dir
@@ -512,6 +509,7 @@ func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 				return err
 			}
 		}
+
 		return nil
 	}
 }
@@ -521,6 +519,7 @@ func BeforeFuncWhenUpdatingCassette(beforeFunc BeforeFunc) BeforeFunc {
 		if *UpdateCassettes {
 			return beforeFunc(ctx)
 		}
+
 		return nil
 	}
 }
@@ -534,6 +533,7 @@ func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 				return err
 			}
 		}
+
 		return nil
 	}
 }
@@ -543,6 +543,7 @@ func AfterFuncWhenUpdatingCassette(afterFunc AfterFunc) AfterFunc {
 		if *UpdateCassettes {
 			return afterFunc(ctx)
 		}
+
 		return nil
 	}
 }
@@ -554,6 +555,7 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Logger.Debugf("ExecStoreBeforeCmd: metaKey=%s args=%s\n", metaKey, args)
 		ctx.Meta[metaKey] = ctx.ExecuteCmd(args)
+
 		return nil
 	}
 }
@@ -564,6 +566,7 @@ func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 		err := exec.Command(cmd, args...).Run()
 		if err != nil {
 			formattedCmd := strings.Join(append([]string{cmd}, args...), " ")
+
 			return fmt.Errorf("failed to execute cmd %q: %w", formattedCmd, err)
 		}
 
@@ -577,6 +580,7 @@ func ExecBeforeCmd(cmd string) BeforeFunc {
 		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Logger.Debugf("ExecBeforeCmd: args=%s\n", args)
 		ctx.ExecuteCmd(args)
+
 		return nil
 	}
 }
@@ -589,6 +593,7 @@ func ExecBeforeCmdArgs(args []string) BeforeFunc {
 		}
 		ctx.Logger.Debugf("ExecBeforeCmdArgs: args=%s\n", args)
 		ctx.ExecuteCmd(args)
+
 		return nil
 	}
 }
@@ -599,6 +604,7 @@ func ExecAfterCmd(cmd string) AfterFunc {
 		args := cmdToArgs(ctx.Meta, cmd)
 		ctx.Logger.Debugf("ExecAfterCmd: args=%s\n", args)
 		ctx.ExecuteCmd(args)
+
 		return nil
 	}
 }
@@ -645,6 +651,7 @@ func GoldenReplacePatterns(golden string, replacements ...GoldenReplacement) (st
 			if !replacement.OptionalMatch {
 				matchFailed = append(matchFailed, replacement.Pattern.String())
 			}
+
 			continue
 		}
 		changedGolden = replacement.Pattern.ReplaceAllString(changedGolden, replacement.Replacement)
@@ -653,6 +660,7 @@ func GoldenReplacePatterns(golden string, replacements ...GoldenReplacement) (st
 	if len(matchFailed) > 0 {
 		return changedGolden, fmt.Errorf("failed to match regex in golden: %#q", matchFailed)
 	}
+
 	return changedGolden, nil
 }
 
@@ -727,6 +735,7 @@ func removeRandomPrefixFromOutput(output string) string {
 	end := strings.IndexByte(output[begin:], '\n')
 	actualBucketName := output[begin : begin+end]
 	normalizedBucketName := strings.TrimRight(actualBucketName, "0123456789")
+
 	return strings.ReplaceAll(output, actualBucketName, normalizedBucketName)
 }
 
@@ -749,6 +758,7 @@ func TestCheckStdout(stdout string) TestCheck {
 func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 		assert.Equal(ctx.T, ctx.Meta.Render(cmdStr), strings.Join(cmd.Args, " "))
+
 		return exitCode, nil
 	}
 }
@@ -826,5 +836,6 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	str = uniformTimestamps(str)
 	// Replace Windows return carriage.
 	str = strings.ReplaceAll(str, "\r", "")
+
 	return str
 }

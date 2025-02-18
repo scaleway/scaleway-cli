@@ -4,10 +4,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	"github.com/stretchr/testify/assert"
 )
 
 // All test below should succeed to create an instance.
@@ -25,6 +25,7 @@ func Test_CreateServer(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			Cmd: "scw baremetal server create zone=" + region + " type=" + offerName + " -w",
@@ -47,6 +48,7 @@ func Test_CreateServer(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			Cmd: "scw baremetal server create name=test-create-server-with-name zone=" + region + " type=" + offerName + " -w",
@@ -71,6 +73,7 @@ func Test_CreateServer(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			Cmd: "scw baremetal server create tags.0=prod tags.1=blue zone=" + region + " type=" + offerName + " -w",

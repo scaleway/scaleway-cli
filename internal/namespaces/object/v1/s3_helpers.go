@@ -77,6 +77,7 @@ func verifyACLInput(aclInput string) (bool, []types.BucketCannedACL) {
 			return true, nil
 		}
 	}
+
 	return false, possibleValues
 }
 
@@ -96,6 +97,7 @@ func awsACLToCustomGrants(output *s3.GetBucketAclOutput) []CustomS3ACLGrant {
 			Permission: grant.Permission,
 		})
 	}
+
 	return customGrants
 }
 
@@ -107,5 +109,6 @@ func normalizeOwnerID(id *string) string {
 	if len(tab) != 2 {
 		return ""
 	}
+
 	return tab[0]
 }

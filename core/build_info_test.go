@@ -7,11 +7,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alecthomas/assert"
 	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -84,6 +84,7 @@ func Test_CheckVersion(t *testing.T) {
 			err := core.CreateAndCloseFile(filePath)
 			require.NoError(t, err)
 			twoDaysAgo := time.Now().Local().Add(-2 * time.Hour * 24)
+
 			return os.Chtimes(filePath, twoDaysAgo, twoDaysAgo)
 		},
 		Cmd: "scw plop",

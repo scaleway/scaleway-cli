@@ -67,6 +67,7 @@ func (node *AutoCompleteNode) addFlags(flags []FlagSpec) {
 // newAutoCompleteResponse builds a new AutocompleteResponse
 func newAutoCompleteResponse(suggestions []string) *AutocompleteResponse {
 	sort.Strings(suggestions)
+
 	return &AutocompleteResponse{
 		Suggestions: suggestions,
 	}
@@ -80,6 +81,7 @@ func NewAutoCompleteCommandNode(flags []FlagSpec) *AutoCompleteNode {
 		Type:     AutoCompleteNodeTypeCommand,
 	}
 	node.addFlags(flags)
+
 	return node
 }
 
@@ -128,6 +130,7 @@ func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *Auto
 	if len(node.Children) == 0 {
 		node.Children = parent.Children
 	}
+
 	return node
 }
 
@@ -142,6 +145,7 @@ func (node *AutoCompleteNode) GetChildOrCreate(name string, aliases []string, fl
 			node.Children[alias] = childNode
 		}
 	}
+
 	return node.Children[name]
 }
 
@@ -164,6 +168,7 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 			return child, true
 		}
 	}
+
 	return nil, false
 }
 
@@ -178,6 +183,7 @@ func (node *AutoCompleteNode) isLeafCommand() bool {
 			return false
 		}
 	}
+
 	return true
 }
 
@@ -205,6 +211,7 @@ func BuildAutoCompleteTree(ctx context.Context, commands *Commands) *AutoComplet
 		for _, argSpec := range nonDeprecatedArgs {
 			if argSpec.Positional {
 				node.Children[positionalValueNodeID] = NewAutoCompleteArgNode(cmd, argSpec)
+
 				continue
 			}
 			node.Children[argSpec.Name+"="] = NewAutoCompleteArgNode(cmd, argSpec)
@@ -322,6 +329,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 					suggestions = append(suggestions, positionalSuggestion)
 				}
 			}
+
 			continue
 		}
 
@@ -346,6 +354,7 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 				continue
 			}
 			suggestions = append(suggestions, key)
+
 			continue
 		}
 
@@ -391,16 +400,19 @@ func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, a
 			suggestions = append(suggestions, value)
 		}
 	}
+
 	return suggestions
 }
 
 func isCompletingArgValue(wordToComplete string) bool {
 	wordParts := strings.SplitN(wordToComplete, "=", 2)
+
 	return len(wordParts) == 2
 }
 
 func splitArgWord(wordToComplete string) (string, string) {
 	wordParts := strings.SplitN(wordToComplete, "=", 2)
+
 	return wordParts[0] + "=", wordParts[1]
 }
 
@@ -413,6 +425,7 @@ func wordValue(word string) string {
 	if len(words) >= 2 {
 		return words[1]
 	}
+
 	return ""
 }
 
@@ -447,6 +460,7 @@ func hasPrefix(key, wordToComplete string) bool {
 	if leftKey == leftWord || leftKey == sliceSchema || leftKey == mapSchema {
 		return hasPrefix(rightKey, rightWord)
 	}
+
 	return false
 }
 
@@ -473,6 +487,7 @@ func keySuggestion(key string, completedArg map[string]string, wordToComplete st
 				return []string{}
 			}
 		}
+
 		return []string{newKey}
 	}
 
@@ -518,6 +533,7 @@ func keySuggestion(key string, completedArg map[string]string, wordToComplete st
 				for k := 1; k <= j; k++ {
 					baseIndex[len(baseIndex)-k] = "0"
 				}
+
 				break
 			}
 			if strings.HasSuffix(newKey, ".") {
@@ -535,5 +551,6 @@ func keySuggestion(key string, completedArg map[string]string, wordToComplete st
 			baseIndex[len(baseIndex)-j-1] = strconv.Itoa(newIndex + 1)
 		}
 	}
+
 	return finalKeys
 }

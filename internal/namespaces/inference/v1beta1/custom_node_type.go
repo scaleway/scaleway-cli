@@ -39,5 +39,6 @@ func ListNodeTypeMarshaler(i interface{}, opt *human.MarshalOpt) (string, error)
 	if err != nil {
 		return "", err
 	}
+
 	return str, nil
 }

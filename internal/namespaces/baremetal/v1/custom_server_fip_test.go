@@ -30,6 +30,7 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			createServerAndWaitDefault("Server"),
@@ -62,6 +63,7 @@ func Test_CreateFlexibleIP(t *testing.T) {
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
 				}
+
 				return nil
 			},
 			createServerAndWaitDefault("Server"),

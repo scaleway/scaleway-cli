@@ -35,7 +35,9 @@ func logPrepareBuilder(c *core.Command) *core.Command {
 			readyLogs[i] = logs
 		}
 		respI.(*rdb.PrepareInstanceLogsResponse).InstanceLogs = readyLogs
+
 		return respI.(*rdb.PrepareInstanceLogsResponse), nil
 	}
+
 	return c
 }

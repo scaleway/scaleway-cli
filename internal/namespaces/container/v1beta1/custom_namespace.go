@@ -30,6 +30,7 @@ func waitForContainerNamespace(ctx context.Context, _, respI interface{}) (inter
 
 	client := core.ExtractClient(ctx)
 	api := container.NewAPI(client)
+
 	return api.WaitForNamespace(&container.WaitForNamespaceRequest{
 		NamespaceID:   ns.ID,
 		Region:        ns.Region,

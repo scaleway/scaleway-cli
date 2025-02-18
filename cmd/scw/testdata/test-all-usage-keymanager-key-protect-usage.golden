@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Apply key protection to a given key specified by the `key_id` parameter. Applying key protection means that your key can be used and modified, but it cannot be deleted.
+Apply protection to a given key specified by the `key_id` parameter. Applying key protection means that your key can be used and modified, but it cannot be deleted.
 
 USAGE:
-  scw keymanager key protect [arg=value ...]
+  scw keymanager key protect <key-id ...> [arg=value ...]
 
 ARGS:
   key-id            ID of the key to apply key protection to

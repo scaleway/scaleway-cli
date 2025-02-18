@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
@@ -12,6 +11,7 @@ import (
 	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -43,42 +43,42 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("GP1-XS", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      "scw instance server create type=GP1-XS image=ubuntu_bionic stopped=true",
+			Cmd:      "scw instance server create type=GP1-XS image=ubuntu_jammy stopped=true",
 			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, "GP1-XS", ctx.Result.(*instanceSDK.Server).CommercialType)
 				},
-				core.TestCheckExitCode(0),
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("With name", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic name=yo stopped=true"),
+			Cmd:      testServerCommand("image=ubuntu_jammy name=yo stopped=true"),
 			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, "yo", ctx.Result.(*instanceSDK.Server).Name)
 				},
-				core.TestCheckExitCode(0),
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
 
 		t.Run("With start", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic -w"),
+			Cmd:      testServerCommand("image=ubuntu_jammy -w"),
 			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, instanceSDK.ServerStateRunning, ctx.Result.(*instanceSDK.Server).State)
 				},
-				core.TestCheckExitCode(0),
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
@@ -99,15 +99,15 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("Tags", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic tags.0=prod tags.1=blue stopped=true"),
+			Cmd:      testServerCommand("image=ubuntu_jammy tags.0=prod tags.1=blue stopped=true"),
 			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(t, "prod", ctx.Result.(*instanceSDK.Server).Tags[0])
 					assert.Equal(t, "blue", ctx.Result.(*instanceSDK.Server).Tags[1])
 				},
-				core.TestCheckExitCode(0),
 			),
 			AfterFunc: deleteServerAfterFunc(),
 		}))
@@ -226,7 +226,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("valid additional block volumes", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true"),
+			Cmd:      testServerCommand("image=ubuntu_jammy additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true"),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				testServerSBSVolumeSize("1", 1),
@@ -348,7 +348,7 @@ func Test_CreateServer(t *testing.T) {
 						VolumeID: rootVolume.ID,
 						Zone:     rootVolume.Zone,
 					})
-					assert.NoError(t, err)
+					require.NoError(t, err)
 					assert.NotNil(t, vol.Specs)
 					assert.NotNil(t, vol.Specs.PerfIops)
 					assert.Equal(t, uint32(15000), *vol.Specs.PerfIops)
@@ -365,7 +365,7 @@ func Test_CreateServer(t *testing.T) {
 	t.Run("IPs", func(t *testing.T) {
 		t.Run("explicit new IP", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic ip=new stopped=true"),
+			Cmd:      testServerCommand("ip=new stopped=true"),
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -373,7 +373,7 @@ func Test_CreateServer(t *testing.T) {
 					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
-					assert.Equal(t, false, server.PublicIP.Dynamic)
+					assert.False(t, server.PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -382,16 +382,16 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("run with dynamic IP", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic ip=dynamic -w"), // dynamic IP is created at runtime
+			Cmd:      testServerCommand("ip=dynamic -w"), // dynamic IP is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
-					assert.NoError(t, ctx.Err)
+					require.NoError(t, ctx.Err)
 					assert.NotNil(t, ctx.Result)
 					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
-					assert.Equal(t, true, server.DynamicIPRequired)
+					assert.True(t, server.DynamicIPRequired)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -401,7 +401,7 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("existing IP", core.Test(&core.TestConfig{
 			Commands:   instance.GetCommands(),
 			BeforeFunc: createIP("IP"),
-			Cmd:        testServerCommand("image=ubuntu_bionic ip={{ .IP.Address }} stopped=true"),
+			Cmd:        testServerCommand("ip={{ .IP.Address }} stopped=true"),
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -409,7 +409,7 @@ func Test_CreateServer(t *testing.T) {
 					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
-					assert.Equal(t, false, server.PublicIP.Dynamic)
+					assert.False(t, server.PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -419,7 +419,7 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("existing IP ID", core.Test(&core.TestConfig{
 			Commands:   instance.GetCommands(),
 			BeforeFunc: createIP("IP"),
-			Cmd:        testServerCommand("image=ubuntu_bionic ip={{ .IP.ID }} stopped=true"),
+			Cmd:        testServerCommand("ip={{ .IP.ID }} stopped=true"),
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -427,7 +427,7 @@ func Test_CreateServer(t *testing.T) {
 					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
-					assert.Equal(t, false, server.PublicIP.Dynamic)
+					assert.False(t, server.PublicIP.Dynamic)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -436,7 +436,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic ip=ipv6 dynamic-ip-required=false -w"), // IPv6 is created at runtime
+			Cmd:      testServerCommand("ip=ipv6 dynamic-ip-required=false -w"), // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -452,7 +452,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6 and dynamic ip", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic dynamic-ip-required=true ip=ipv6 -w"), // IPv6 is created at runtime
+			Cmd:      testServerCommand("dynamic-ip-required=true ip=ipv6 -w"), // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -470,7 +470,7 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6 and ipv4", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic ip=both -w"), // IPv6 is created at runtime
+			Cmd:      testServerCommand("ip=both -w"), // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -573,7 +573,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too high 2", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      testServerCommand("image=ubuntu_jammy additional-volumes.0=local:20GB"),
+		Cmd:      testServerCommand("image=ubuntu_jammy additional-volumes.0=local:30GB"),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -739,7 +739,7 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 				if !exist {
 					t.Fatalf("Expected an additional scratch volume, found none")
 				}
-				assert.Equal(t, additionalVolume.VolumeType, instanceSDK.VolumeServerVolumeTypeScratch)
+				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeScratch, additionalVolume.VolumeType)
 			},
 		),
 		AfterFunc:       core.ExecAfterCmd("scw instance server delete {{ .CmdResult.ID }} zone=fr-par-2 with-volumes=all with-ip=true force-shutdown=true"),

@@ -252,6 +252,7 @@ func aliasDeleteCommand() *core.Command {
 			} else {
 				response.Alias = "Not found"
 			}
+
 			return response, err
 		},
 	}

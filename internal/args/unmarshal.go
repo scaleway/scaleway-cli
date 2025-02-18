@@ -41,6 +41,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 			return err
 		}
 		*(dest.(*scw.Size)) = scw.Size(bytes)
+
 		return nil
 	},
 
@@ -54,11 +55,13 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 			return fmt.Errorf("%s is not a valid IP", value)
 		}
 		*(dest.(*net.IP)) = ip
+
 		return nil
 	},
 
 	reflect.TypeOf((*io.Reader)(nil)).Elem(): func(value string, dest interface{}) error {
 		*(dest.(*io.Reader)) = strings.NewReader(value)
+
 		return nil
 	},
 
@@ -67,6 +70,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		absoluteTimeParsed, absoluteErr := time.Parse(time.RFC3339, value)
 		if absoluteErr == nil {
 			*(dest.(*time.Time)) = absoluteTimeParsed
+
 			return nil
 		}
 
@@ -87,8 +91,10 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		relativeTimeParsed, relativeErr := tparse.ParseWithMap(time.RFC3339, "t"+value, m)
 		if relativeErr == nil {
 			*(dest.(*time.Time)) = relativeTimeParsed
+
 			return nil
 		}
+
 		return &CannotParseDateError{
 			ArgValue:               value,
 			AbsoluteTimeParseError: absoluteErr,
@@ -102,6 +108,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 			return fmt.Errorf("failed to parse duration: %w", err)
 		}
 		*(dest.(*time.Duration)) = duration
+
 		return nil
 	},
 	reflect.TypeOf((*scw.JSONObject)(nil)).Elem(): func(value string, dest interface{}) error {
@@ -110,10 +117,12 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 			return fmt.Errorf("failed to parse json object: %w", err)
 		}
 		*(dest.(*scw.JSONObject)) = jsonObject
+
 		return nil
 	},
 	reflect.TypeOf((*[]byte)(nil)).Elem(): func(value string, dest interface{}) error {
 		*(dest.(*[]byte)) = []byte(value)
+
 		return nil
 	},
 	reflect.TypeOf((*scw.Duration)(nil)).Elem(): func(value string, dest interface{}) error {
@@ -122,6 +131,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 			return fmt.Errorf("failed to parse duration: %w", err)
 		}
 		*(dest.(*scw.Duration)) = *scw.NewDurationFromTimeDuration(duration)
+
 		return nil
 	},
 }
@@ -134,6 +144,7 @@ func UnmarshalStruct(args []string, data interface{}) error {
 	// First check if we want to retrieve a simple []string
 	if raw, ok := data.(*RawArgs); ok {
 		*raw = args
+
 		return nil
 	}
 
@@ -243,6 +254,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			dest.Set(reflect.New(dest.Type().Elem()))
 			dest = dest.Elem()
 		}
+
 		return unmarshalValue(value, dest)
 	}
 
@@ -262,6 +274,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		if dest.Elem().Kind() == reflect.Slice && len(argNameWords) == 0 && value == emptySliceValue {
 			sliceDest := dest.Elem()
 			sliceDest.Set(reflect.MakeSlice(sliceDest.Type(), 0, 0))
+
 			return nil
 		}
 
@@ -375,6 +388,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// We look in all struct fields + all anonymous fields without success.
 		return &UnknownArgError{}
 	}
+
 	return &UnmarshalableTypeError{Dest: dest.Interface()}
 }
 
@@ -400,14 +414,17 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 		i, err := strconv.ParseInt(value, 0, bitSize[dest.Kind()])
 		dest.SetInt(i)
+
 		return err
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 		i, err := strconv.ParseUint(value, 0, bitSize[dest.Kind()])
 		dest.SetUint(i)
+
 		return err
 	case reflect.Float32, reflect.Float64:
 		f, err := strconv.ParseFloat(value, bitSize[dest.Kind()])
 		dest.SetFloat(f)
+
 		return err
 	case reflect.Bool:
 		switch value {
@@ -418,9 +435,11 @@ func unmarshalScalar(value string, dest reflect.Value) error {
 		default:
 			return &CannotParseBoolError{Value: value}
 		}
+
 		return nil
 	case reflect.String:
 		dest.SetString(value)
+
 		return nil
 	default:
 		return &UnmarshalableTypeError{Dest: dest.Interface()}

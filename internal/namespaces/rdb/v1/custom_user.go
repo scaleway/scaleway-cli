@@ -81,6 +81,7 @@ func userListBuilder(c *core.Command) *core.Command {
 				core.ExtractLogger(ctx).Errorf("unsupported permission value %s", privilege.Permission)
 			}
 		}
+
 		return res, nil
 	}
 

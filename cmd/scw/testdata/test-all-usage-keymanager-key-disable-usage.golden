@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Disable a given key to be used for cryptographic operations. Disabling a key renders it unusable. You must specify the `region` and `key_id` parameters.
+Disable a given key, preventing it to be used for cryptographic operations. Disabling a key renders it unusable. You must specify the `region` and `key_id` parameters.
 
 USAGE:
-  scw keymanager key disable [arg=value ...]
+  scw keymanager key disable <key-id ...> [arg=value ...]
 
 ARGS:
   key-id            ID of the key to disable

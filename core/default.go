@@ -21,6 +21,7 @@ func ApplyDefaultValues(ctx context.Context, argSpecs ArgSpecs, rawArgs args.Raw
 			if _, exist := rawArgs.Get(argSpec.Name); !exist {
 				rawArgs = rawArgs.Add(argSpec.Name, defaultValue)
 			}
+
 			continue
 		}
 

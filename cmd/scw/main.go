@@ -56,8 +56,10 @@ func buildVersion() string {
 		if ok && buildInfos.Main.Version != "(devel)" && buildInfos.Main.Version != "" {
 			return buildInfos.Main.Version
 		}
+
 		return "v2+dev"
 	}
+
 	return Version
 }
 

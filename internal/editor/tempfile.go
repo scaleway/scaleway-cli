@@ -13,6 +13,7 @@ func temporaryFileNamePattern(marshalMode MarshalMode) string {
 	case MarshalModeJSON:
 		pattern += "*.json"
 	}
+
 	return pattern
 }
 

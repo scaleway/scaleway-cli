@@ -110,6 +110,7 @@ func serverDeleteCommand() *core.Command {
 					return nil, err
 				}
 			}
+
 			return respI, nil
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
@@ -264,5 +265,6 @@ func serverDeleteVolume(volume *instance.VolumeServer, instanceAPI *instance.API
 	if err != nil {
 		return errorDeletingResource(err)
 	}
+
 	return nil
 }

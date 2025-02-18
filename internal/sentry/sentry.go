@@ -40,6 +40,7 @@ func logAndSentry(sentryHub *sentry.Hub, err error) {
 		event := sentryHub.Recover(err)
 		if event == nil {
 			logger.Debugf("failed to capture exception with sentry")
+
 			return
 		}
 		logger.Debugf("sending sentry report: %s", *event)
@@ -56,6 +57,7 @@ func newSentryClient(version string) (*sentry.Client, error) {
 		AttachStacktrace: true,
 		BeforeSend: func(event *sentry.Event, _ *sentry.EventHint) *sentry.Event {
 			filterStackFrames(event)
+
 			return event
 		},
 		Release: version,

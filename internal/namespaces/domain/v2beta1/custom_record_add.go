@@ -183,5 +183,6 @@ func dnsRecordAddRun(ctx context.Context, argsI interface{}) (i interface{}, e e
 	if err != nil {
 		return nil, fmt.Errorf("cannot add the record: %s", err)
 	}
+
 	return resp.Records, nil
 }

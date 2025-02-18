@@ -17,14 +17,6 @@ import (
 // Server
 //
 
-// createServerBionic creates a stopped ubuntu-bionic server and
-// register it in the context Meta at metaKey.
-//
-//nolint:unparam
-func createServerBionic(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, testServerCommand("stopped=true image=ubuntu-bionic"))
-}
-
 // createServer creates a stopped ubuntu server without IP and
 // register it in the context Meta at given metaKey
 //
@@ -38,6 +30,9 @@ func testServerCommand(params string) string {
 	baseCommand := "scw instance server create type=DEV1-S "
 	if !strings.Contains(params, "ip=") {
 		baseCommand += "ip=none "
+	}
+	if !strings.Contains(params, "image=") {
+		baseCommand += "image=ubuntu_jammy "
 	}
 
 	return baseCommand + params
@@ -63,6 +58,7 @@ func deleteServer(metaKey string) core.AfterFunc {
 				return err
 			}
 		}
+
 		return core.ExecAfterCmd("scw instance server delete {{ ." + metaKey + ".ID }} with-ip=true with-volumes=all")(ctx)
 	}
 }
@@ -81,6 +77,7 @@ func createVolume(metaKey string, sizeInGb int, volumeType instance.VolumeVolume
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		createVolumeResponse := res.(*instance.CreateVolumeResponse)
 		ctx.Meta[metaKey] = createVolumeResponse.Volume
+
 		return nil
 	}
 }
@@ -90,12 +87,17 @@ func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
 	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
 }
 
+// createSbsVolume creates a volume of the given size and
+// register it in the context Meta at metaKey
+//
+//nolint:unparam
 func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf("scw block volume create name=%s from-empty.size=%dGB perf-iops=5000", ctx.T.Name(), sizeInGb)
+		cmd := fmt.Sprintf("scw block volume create name=%s from-empty.size=%dGB perf-iops=5000 -w", ctx.T.Name(), sizeInGb)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		volume := res.(*block.Volume)
 		ctx.Meta[metaKey] = volume
+
 		return nil
 	}
 }
@@ -110,6 +112,7 @@ func createIP(metaKey string) core.BeforeFunc {
 		res := ctx.ExecuteCmd(strings.Split("scw instance ip create", " "))
 		createIPResponse := res.(*instance.CreateIPResponse)
 		ctx.Meta[metaKey] = createIPResponse.IP
+
 		return nil
 	}
 }
@@ -130,6 +133,7 @@ func createPlacementGroup(metaKey string) core.BeforeFunc {
 		res := ctx.ExecuteCmd([]string{"scw", "instance", "placement-group", "create"})
 		createPlacementGroupResponse := res.(*instance.CreatePlacementGroupResponse)
 		ctx.Meta[metaKey] = createPlacementGroupResponse.PlacementGroup
+
 		return nil
 	}
 }
@@ -151,6 +155,7 @@ func createSecurityGroup(metaKey string) core.BeforeFunc {
 		res := ctx.ExecuteCmd([]string{"scw", "instance", "security-group", "create"})
 		createSecurityGroupResponse := res.(*instance.CreateSecurityGroupResponse)
 		ctx.Meta[metaKey] = createSecurityGroupResponse.SecurityGroup
+
 		return nil
 	}
 }
@@ -189,13 +194,12 @@ func createNIC() core.BeforeFunc {
 	)
 }
 
-// testServerSBSVolumeSize checks the size of a volume in Result's server.
-// The server must be returned as result of the test's Cmd
-func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
+// testServerSBSVolumeSize checks the size of a volume in an instance server.
+// The server must be returned by the given instanceFetcher function
+func testServerFetcherSBSVolumeSize(volumeKey string, sizeInGB int, serverFetcher func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		t.Helper()
-		require.NotNil(t, ctx.Result)
-		server := testhelpers.Value[*instance.Server](t, ctx.Result)
+		server := serverFetcher(t, ctx)
 		blockAPI := block.NewAPI(ctx.Client)
 		serverVolume := testhelpers.MapTValue(t, server.Volumes, volumeKey)
 		volume, err := blockAPI.GetVolume(&block.GetVolumeRequest{
@@ -206,4 +210,31 @@ func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 
 		require.Equal(t, scw.Size(sizeInGB)*scw.GB, volume.Size, "Size of volume should be %d GB", sizeInGB)
 	}
+}
+
+// testServerSBSVolumeSize checks the size of a volume in Result's server.
+// The server must be returned as result of the test's Cmd
+func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
+	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		t.Helper()
+
+		return testhelpers.Value[*instance.Server](t, ctx.Result)
+	})
+}
+
+// testAttachVolumeServerSBSVolumeSize is the same as testServerSBSVolumeSize but the test's Cmd must be "scw instance server attach-volume"
+func testAttachVolumeServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
+	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		t.Helper()
+
+		return testhelpers.Value[*instance.AttachVolumeResponse](t, ctx.Result).Server
+	})
+}
+
+func testServerUpdateServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
+	return testServerFetcherSBSVolumeSize(volumeKey, sizeInGB, func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		t.Helper()
+
+		return testhelpers.Value[*instance.UpdateServerResponse](t, ctx.Result).Server
+	})
 }

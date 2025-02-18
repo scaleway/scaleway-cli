@@ -57,5 +57,6 @@ func isPassword(s string) bool {
 			hasSymbol = true
 		}
 	}
+
 	return hasNumber && hasUpperCase && hasLowercase && hasSymbol && hasLength >= minLength
 }

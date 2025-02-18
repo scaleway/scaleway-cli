@@ -97,6 +97,7 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 	default:
 		return fmt.Errorf("invalid option %s for json outout. Valid options are: %s", opts, PrinterOptJSONPretty)
 	}
+
 	return nil
 }
 
@@ -150,6 +151,7 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 	// No matter the printer type if data is a RawResult we should print it as is.
 	if rawResult, isRawResult := data.(RawResult); isRawResult {
 		_, err := p.stdout.Write(rawResult)
+
 		return err
 	}
 
@@ -172,8 +174,10 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 	if err != nil {
 		// if the printer itself returns an error, don't try to format it just print it
 		_, err := fmt.Fprintln(p.stderr, err.Error())
+
 		return err
 	}
+
 	return nil
 }
 
@@ -222,6 +226,7 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 	} else {
 		_, err = fmt.Fprintln(p.stdout, str)
 	}
+
 	return err
 }
 
@@ -233,6 +238,7 @@ func (p *Printer) printWide(data interface{}, opt *human.MarshalOpt) error {
 			DisableShrinking: true,
 		}
 	}
+
 	return p.printHuman(data, opt)
 }
 
@@ -258,6 +264,7 @@ func (p *Printer) printJSON(data interface{}) error {
 	// We handle special case to make sure that a nil slice is marshal as `[]`
 	if reflect.TypeOf(data).Kind() == reflect.Slice && reflect.ValueOf(data).IsNil() {
 		_, err := p.stdout.Write([]byte("[]\n"))
+
 		return err
 	}
 
@@ -318,5 +325,6 @@ func (p *Printer) printTemplate(data interface{}) error {
 			return err
 		}
 	}
+
 	return nil
 }

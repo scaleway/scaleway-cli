@@ -50,6 +50,7 @@ It avoid running docker login commands.
 					if err != nil || !stat.IsDir() {
 						return fmt.Errorf("%s is not a directory", value)
 					}
+
 					return nil
 				},
 			},
@@ -173,6 +174,7 @@ func registryDockerHelperGetRun(ctx context.Context, _ interface{}) (i interface
 	for _, region := range scw.AllRegions {
 		if serverURL == getRegistryEndpoint(region) {
 			serverFound = true
+
 			break
 		}
 	}
@@ -195,6 +197,7 @@ func registryDockerHelperGetRun(ctx context.Context, _ interface{}) (i interface
 	if err != nil {
 		return nil, err
 	}
+
 	return core.RawResult(raw), nil
 }
 
@@ -243,6 +246,7 @@ func registryDockerHelperListCommand() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return core.RawResult(raw), nil
 		},
 	}

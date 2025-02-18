@@ -231,6 +231,7 @@ func listCustomInstanceServers(client *scw.Client, pn *vpc.PrivateNetwork) ([]cu
 			}
 		}
 	}
+
 	return customInstanceServers, nil
 }
 
@@ -271,6 +272,7 @@ func listCustomBaremetalServers(client *scw.Client, pn *vpc.PrivateNetwork) ([]c
 			}
 		}
 	}
+
 	return customBaremetalServers, nil
 }
 
@@ -293,6 +295,7 @@ func listCustomK8sClusters(client *scw.Client, pn *vpc.PrivateNetwork) ([]custom
 			})
 		}
 	}
+
 	return customK8sClusters, nil
 }
 
@@ -364,6 +367,7 @@ func listCustomRdbs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customRdb, er
 			}
 		}
 	}
+
 	return customRdbs, nil
 }
 
@@ -395,6 +399,7 @@ func listCustomRedisClusters(client *scw.Client, pn *vpc.PrivateNetwork) ([]cust
 			}
 		}
 	}
+
 	return customClusters, nil
 }
 
@@ -426,6 +431,7 @@ func listCustomGateways(client *scw.Client, pn *vpc.PrivateNetwork) ([]customGat
 			}
 		}
 	}
+
 	return customGateways, nil
 }
 

@@ -44,5 +44,6 @@ func (v *View) getHumanMarshalerOpt() *human.MarshalOpt {
 		})
 	}
 	opt.Title = v.Title
+
 	return opt
 }

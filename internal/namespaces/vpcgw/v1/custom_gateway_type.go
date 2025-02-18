@@ -15,6 +15,7 @@ func vpcgwGatewayTypeListBuilder(c *core.Command) *core.Command {
 		}
 
 		typesResponse := res.(*vpcgw.ListGatewayTypesResponse)
+
 		return typesResponse.Types, nil
 	})
 

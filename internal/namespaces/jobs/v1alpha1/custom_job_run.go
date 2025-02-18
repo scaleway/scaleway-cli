@@ -32,6 +32,7 @@ func jobsRunWait() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
+
 			return api.WaitForJobRun(request)
 		},
 	}

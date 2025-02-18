@@ -23,6 +23,7 @@ func makeDirectoryIfNotExists(path string) error {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		return os.MkdirAll(path, os.ModeDir|0o755)
 	}
+
 	return nil
 }
 
@@ -37,6 +38,7 @@ func wrapError(err error, message, name, path string) error {
 
 func FileExists(filePath string) bool {
 	_, err := os.Stat(filePath)
+
 	return !os.IsNotExist(err)
 }
 
@@ -50,6 +52,7 @@ func natsContextFrom(account *mnq.NatsAccount, credsPath string) ([]byte, error)
 	if err != nil {
 		return nil, err
 	}
+
 	return b, nil
 }
 
@@ -71,6 +74,7 @@ func writeFile(ctx context.Context, dir string, entity *NatsEntity, extension st
 		return "", wrapError(err, "Failed to write file", entity.Name, path)
 	}
 	_, _ = interactive.Println(entity.Name + " file has been successfully written to " + path)
+
 	return path, nil
 }
 
@@ -82,8 +86,10 @@ func getNATSContextDir(ctx context.Context) (string, error) {
 		if homeDir == "" {
 			return "", errors.New("both XDG_CONFIG_HOME and HOME are not set")
 		}
+
 		return filepath.Join(homeDir, ".config", "nats", "context"), nil
 	}
+
 	return xdgConfigHome, nil
 }
 
@@ -115,6 +121,7 @@ func saveNATSCredentials(ctx context.Context, creds *mnq.NatsCredentials, natsAc
 	if err != nil {
 		return "", err
 	}
+
 	return contextPath, nil
 }
 
@@ -141,5 +148,6 @@ func getNatsAccountID(ctx context.Context, args *CreateContextRequest, api *mnq.
 			return nil, fmt.Errorf("failed to get nats account: %w", err)
 		}
 	}
+
 	return natsAccount, nil
 }

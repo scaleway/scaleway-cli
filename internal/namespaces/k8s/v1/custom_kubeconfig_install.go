@@ -119,6 +119,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		if cluster.Name == kubeconfig.Clusters[0].Name+"-"+request.ClusterID {
 			clusterFoundInExistingKubeconfig = true
 			cluster.Cluster = kubeconfig.Clusters[0].Cluster
+
 			break
 		}
 	}
@@ -138,6 +139,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 				Cluster:  kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
 				AuthInfo: kubeconfig.AuthInfos[0].Name,
 			}
+
 			break
 		}
 	}
@@ -157,6 +159,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		if user.Name == kubeconfig.AuthInfos[0].Name+"-"+request.ClusterID {
 			userFoundInExistingKubeconfig = true
 			user.AuthInfo = kubeconfig.AuthInfos[0].AuthInfo
+
 			break
 		}
 	}

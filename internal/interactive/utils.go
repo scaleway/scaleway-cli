@@ -46,6 +46,7 @@ func ValidateOrganizationID() ValidateFunc {
 		if !validation.IsOrganizationID(s) {
 			return errors.New("invalid organization-id")
 		}
+
 		return nil
 	}
 }
@@ -62,5 +63,6 @@ func (wc *writeCloser) Close() error {
 	if closer, ok := wc.Writer.(io.Closer); ok {
 		return closer.Close()
 	}
+
 	return nil
 }

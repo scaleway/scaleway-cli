@@ -23,6 +23,7 @@ func (c *Cache) Get(cmd string) interface{} {
 	if c == nil {
 		return nil
 	}
+
 	return c.m[cmd]
 }
 

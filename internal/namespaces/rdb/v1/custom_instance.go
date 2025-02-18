@@ -127,6 +127,7 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 		if backupSchedule.Disabled {
 			return "Disabled", nil
 		}
+
 		return "Enabled", nil
 	}
 
@@ -159,6 +160,7 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 func instanceCloneBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
@@ -321,6 +323,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		args := argsI.(*rdbCreateInstanceRequestCustom)
 		args.NodeType = strings.ToLower(args.NodeType)
+
 		return runner(ctx, args)
 	}
 
@@ -380,6 +383,7 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 			},
 		},
 	}
+
 	return c
 }
 
@@ -388,6 +392,7 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
@@ -518,6 +523,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 						if change.Name == setting.Name {
 							setting.Value = change.Value
 							matched = true
+
 							break
 						}
 					}
@@ -545,6 +551,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 		},
 		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				InstanceID:    respI.(*rdbSDK.Instance).ID,
 				Region:        respI.(*rdbSDK.Instance).Region,
@@ -585,10 +592,13 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
 				return instance, nil
 			}
+
 			return nil, err
 		}
+
 		return instance, nil
 	}
+
 	return c
 }
 
@@ -603,6 +613,7 @@ func instanceWaitCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
@@ -671,6 +682,7 @@ func passwordFileExist(ctx context.Context, family engineFamily) bool {
 		return false
 	}
 	_, err := os.Stat(passwordFilePath)
+
 	return err == nil
 }
 
@@ -695,6 +707,7 @@ func detectEngineFamily(instance *rdbSDK.Instance) (engineFamily, error) {
 	if strings.HasPrefix(instance.Engine, string(MySQL)) {
 		return MySQL, nil
 	}
+
 	return Unknown, fmt.Errorf("unknown engine: %s", instance.Engine)
 }
 

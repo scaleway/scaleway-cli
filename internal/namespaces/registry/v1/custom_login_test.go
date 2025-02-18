@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -26,6 +26,7 @@ func Test_Login(t *testing.T) {
 			secret, _ := ctx.Client.GetSecretKey()
 			require.NoError(t, err)
 			assert.Equal(t, secret, string(stdin))
+
 			return 0, nil
 		},
 	}))
@@ -42,6 +43,7 @@ func Test_Login(t *testing.T) {
 			secret, _ := ctx.Client.GetSecretKey()
 			require.NoError(t, err)
 			assert.Equal(t, secret, string(stdin))
+
 			return 0, nil
 		},
 	}))

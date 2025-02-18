@@ -11,7 +11,7 @@ import (
 func Test_UserDataGet(t *testing.T) {
 	t.Run("Get an existing key", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			createServerBionic("Server"),
+			createServer("Server"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{.Server.ID}} key=happy content=true"),
 		),
 		Commands:  instance.GetCommands(),
@@ -24,7 +24,7 @@ func Test_UserDataGet(t *testing.T) {
 	}))
 
 	t.Run("Get an nonexistent key", core.Test(&core.TestConfig{
-		BeforeFunc: createServerBionic("Server"),
+		BeforeFunc: createServer("Server"),
 		Commands:   instance.GetCommands(),
 		Cmd:        "scw instance user-data get server-id={{.Server.ID}} key=happy",
 		AfterFunc:  deleteServer("Server"),
@@ -38,7 +38,7 @@ func Test_UserDataGet(t *testing.T) {
 func Test_UserDataList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			createServerBionic("Server"),
+			createServer("Server"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=foo content=bar"),
 			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=bar content=foo"),
 		),
@@ -52,17 +52,24 @@ func Test_UserDataList(t *testing.T) {
 	}))
 }
 
-func Test_UserDataFileUpload(t *testing.T) {
+func Test_UserDataFileUploadOn(t *testing.T) {
 	content := "cloud-init file content"
+	file, err := os.CreateTemp(t.TempDir(), "test")
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
+	_, err = file.WriteString(content)
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
 
-	t.Run("on-cloud-init", core.Test(&core.TestConfig{
+	t.Run("cloud-init", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic")),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := os.CreateTemp("", "test")
-				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
+
 				return nil
 			},
 		),
@@ -70,22 +77,42 @@ func Test_UserDataFileUpload(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
-		AfterFunc: core.AfterFuncCombine(
-			func(ctx *core.AfterFuncCtx) error {
-				_ = os.RemoveAll(ctx.Meta["filePath"].(string))
-				return nil
-			},
-		),
-	}))
+		AfterFunc: func(_ *core.AfterFuncCtx) error {
+			// We need to close this file explicitly because it is not closed by the os.Remove call on windows
+			// https://github.com/golang/go/issues/50510
+			err = file.Close()
+			if err != nil {
+				return err
+			}
 
-	t.Run("on-random-key", core.Test(&core.TestConfig{
+			err = os.RemoveAll(file.Name())
+			if err != nil {
+				return err
+			}
+
+			return nil
+		},
+	}))
+}
+
+func Test_UserDataFileUploadOnRandom(t *testing.T) {
+	content := "cloud-init file content"
+	file, err := os.CreateTemp(t.TempDir(), "test")
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
+	_, err = file.WriteString(content)
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
+
+	t.Run("key", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-bionic")),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true")),
 			func(ctx *core.BeforeFuncCtx) error {
-				file, _ := os.CreateTemp("", "test")
-				_, _ = file.WriteString(content)
 				ctx.Meta["filePath"] = file.Name()
+
 				return nil
 			},
 		),
@@ -93,11 +120,20 @@ func Test_UserDataFileUpload(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
-		AfterFunc: core.AfterFuncCombine(
-			func(ctx *core.AfterFuncCtx) error {
-				_ = os.RemoveAll(ctx.Meta["filePath"].(string))
-				return nil
-			},
-		),
+		AfterFunc: func(_ *core.AfterFuncCtx) error {
+			// We need to close this file explicitly because it is not closed by the os.Remove call on windows
+			// https://github.com/golang/go/issues/50510
+			err = file.Close()
+			if err != nil {
+				return err
+			}
+
+			err = os.RemoveAll(file.Name())
+			if err != nil {
+				return err
+			}
+
+			return nil
+		},
 	}))
 }

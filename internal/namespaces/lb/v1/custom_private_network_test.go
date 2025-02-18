@@ -28,6 +28,7 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 			core.AfterFuncWhenUpdatingCassette(
 				func(_ *core.AfterFuncCtx) error {
 					time.Sleep(1 * time.Minute)
+
 					return nil
 				},
 			),

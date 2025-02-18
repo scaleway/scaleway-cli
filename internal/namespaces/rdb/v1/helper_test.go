@@ -26,6 +26,7 @@ func fetchLatestEngine(engine string) core.BeforeFunc {
 			return err
 		}
 		ctx.Meta["latestEngine"] = dbEngine.Name
+
 		return nil
 	}
 }
@@ -65,6 +66,7 @@ func createPN() core.BeforeFunc {
 				return err
 			}
 		}
+
 		return nil
 	}
 }
@@ -79,6 +81,7 @@ func getIPSubnet(ipNet scw.IPNet) (*string, error) {
 
 	sz, _ := ipNet.Mask.Size()
 	ipNetStr := fmt.Sprintf("%s/%d", addr.String(), sz)
+
 	return &ipNetStr, nil
 }
 
@@ -92,6 +95,7 @@ func listEndpointsInMeta() core.BeforeFunc {
 				ctx.Meta["PublicEndpoint"] = endpoint
 			}
 		}
+
 		return nil
 	}
 }

@@ -5,12 +5,13 @@ import (
 	"path"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8sSDK "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var (
@@ -94,10 +95,10 @@ y7JHcXauRKI7bxgOugSep2d0lhYxJl65CPOCllawcu70Ds34MKi3XkCe20I=
 func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
 	t.Helper()
 	kubeconfigBytes, err := os.ReadFile(filePath)
-	assert.Nil(t, err)
+	require.NoError(t, err)
 	var existingKubeconfig api.Config
 	err = yaml.Unmarshal(kubeconfigBytes, &existingKubeconfig)
-	assert.Nil(t, err)
+	require.NoError(t, err)
 
 	found := false
 	for _, cluster := range existingKubeconfig.Clusters {
@@ -109,6 +110,7 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 			assert.Equal(t, string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData), string(cluster.Cluster.CertificateAuthorityData))
 			assert.Equal(t, kubeconfig.Clusters[0].Cluster.Server, cluster.Cluster.Server)
 			found = true
+
 			break
 		}
 	}
@@ -121,6 +123,7 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 			assert.Equal(t, kubeconfig.Contexts[0].Context.AuthInfo+suffix, context.Context.AuthInfo)
 			assert.Equal(t, kubeconfig.Contexts[0].Context.Namespace, context.Context.Namespace)
 			found = true
+
 			break
 		}
 	}
@@ -131,6 +134,7 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 		if user.Name == kubeconfig.AuthInfos[0].Name+suffix {
 			assert.Equal(t, kubeconfig.AuthInfos[0].AuthInfo.Username, user.AuthInfo.Username)
 			found = true
+
 			break
 		}
 	}

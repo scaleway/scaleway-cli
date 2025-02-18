@@ -33,6 +33,7 @@ func (m *ListPrompt) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "ctrl+c", "q":
 			m.cancelled = true
+
 			return m, tea.Quit
 		case "up", "k":
 			if m.cursor > 0 {

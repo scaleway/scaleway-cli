@@ -5,12 +5,13 @@ import (
 	"path"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8sSDK "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 // testIfKubeconfigNotInFile checks if the given kubeconfig is not in the given file
@@ -18,15 +19,16 @@ import (
 func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
 	t.Helper()
 	kubeconfigBytes, err := os.ReadFile(filePath)
-	assert.Nil(t, err)
+	require.NoError(t, err)
 	var existingKubeconfig k8sSDK.Kubeconfig
 	err = yaml.Unmarshal(kubeconfigBytes, &existingKubeconfig)
-	assert.Nil(t, err)
+	require.NoError(t, err)
 
 	found := false
 	for _, cluster := range existingKubeconfig.Clusters {
 		if cluster.Name == kubeconfig.Clusters[0].Name+suffix {
 			found = true
+
 			break
 		}
 	}
@@ -36,6 +38,7 @@ func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kub
 	for _, context := range existingKubeconfig.Contexts {
 		if context.Name == kubeconfig.Contexts[0].Name+suffix {
 			found = true
+
 			break
 		}
 	}
@@ -45,6 +48,7 @@ func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kub
 	for _, user := range existingKubeconfig.Users {
 		if user.Name == kubeconfig.AuthInfos[0].Name+suffix {
 			found = true
+
 			break
 		}
 	}

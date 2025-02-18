@@ -10,6 +10,7 @@ func CreateGateway(metakey string) core.BeforeFunc {
 		res := ctx.ExecuteCmd([]string{"scw", "vpc-gw", "gateway", "create", "--wait"})
 		createGatewayResponse := res.(*vpcgw.Gateway)
 		ctx.Meta[metakey] = createGatewayResponse
+
 		return nil
 	}
 }

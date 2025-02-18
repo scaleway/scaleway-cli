@@ -21,6 +21,7 @@ func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterc
 		}
 		if combinedInterceptors == nil {
 			combinedInterceptors = interceptor
+
 			continue
 		}
 
@@ -31,6 +32,7 @@ func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterc
 			})
 		}
 	}
+
 	return combinedInterceptors
 }
 
@@ -129,6 +131,7 @@ func sdkStdTypeInterceptor(ctx context.Context, args interface{}, runner Command
 		if err != nil {
 			return nil, err
 		}
+
 		return string(fileContent), nil
 	}
 

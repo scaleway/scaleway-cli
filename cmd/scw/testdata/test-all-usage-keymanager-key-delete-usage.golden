@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete an existing key specified by the `region` and `key_id` parameters. Deleting a key is permanent and cannot be undone. All data encrypted using this key, including data encryption keys, will become unusable.
+Permanently delete a key specified by the `region` and `key_id` parameters. This action is irreversible. Any data encrypted with this key, including data encryption keys, will no longer be decipherable.
 
 USAGE:
-  scw keymanager key delete [arg=value ...]
+  scw keymanager key delete <key-id ...> [arg=value ...]
 
 ARGS:
   key-id            ID of the key to delete

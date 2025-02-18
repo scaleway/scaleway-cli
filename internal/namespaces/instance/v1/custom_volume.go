@@ -30,12 +30,14 @@ var volumeStateMarshalSpecs = human.EnumMarshalSpecs{
 // serversMarshalerFunc marshals a VolumeSummary.
 func volumeSummaryMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	volumeSummary := i.(instance.VolumeSummary)
+
 	return human.Marshal(volumeSummary.ID, opt)
 }
 
 // volumeMapMarshalerFunc returns the length of the map.
 func volumeMapMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	volumes := i.(map[string]*instance.Volume)
+
 	return strconv.Itoa(len(volumes)), nil
 }
 
@@ -66,6 +68,7 @@ func volumeCreateBuilder(c *core.Command) *core.Command {
 
 		return runner(ctx, request)
 	})
+
 	return c
 }
 
@@ -94,6 +97,7 @@ func volumeListBuilder(c *core.Command) *core.Command {
 
 		return runner(ctx, request)
 	})
+
 	return c
 }
 

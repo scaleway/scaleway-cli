@@ -105,6 +105,7 @@ func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error 
 			return err
 		}
 	}
+
 	return nil
 }
 
@@ -152,6 +153,7 @@ func usageFuncBuilder(cmd *cobra.Command, annotationBuilder func()) func(*cobra.
 		annotationBuilder()
 		// after building annotation we remove this function as we prefer to use default UsageFunc
 		cmd.SetUsageFunc(nil)
+
 		return cmd.UsageFunc()(command)
 	}
 }
@@ -166,8 +168,10 @@ func orderCobraCommands(cobraCommands []*cobra.Command) []*cobra.Command {
 		if deprecatedI == deprecatedJ {
 			return commands[i].Use < commands[j].Use
 		}
+
 		return !deprecatedI && deprecatedJ
 	})
+
 	return commands
 }
 
@@ -178,6 +182,7 @@ func orderCobraGroups(cobraGroups []*cobra.Group) []*cobra.Group {
 	sort.Slice(groups, func(i, j int) bool {
 		return groups[i].Title < groups[j].Title
 	})
+
 	return groups
 }
 

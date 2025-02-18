@@ -18,6 +18,7 @@ func GetWidth() int {
 	if err != nil {
 		return -1
 	}
+
 	return w
 }
 
@@ -26,6 +27,7 @@ func GetHeight() int {
 	if err != nil {
 		return -1
 	}
+
 	return h
 }
 

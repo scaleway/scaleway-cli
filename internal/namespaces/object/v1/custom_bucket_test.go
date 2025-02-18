@@ -7,11 +7,11 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/alecthomas/assert"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 )
 
 const (
@@ -31,7 +31,7 @@ func Test_BucketCreate(t *testing.T) {
 				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName1, bucket.ID)
-				assert.Equal(t, false, bucket.EnableVersioning)
+				assert.False(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag(nil), bucket.Tags)
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
 			},
@@ -53,7 +53,7 @@ func Test_BucketCreate(t *testing.T) {
 				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName2, bucket.ID)
-				assert.Equal(t, false, bucket.EnableVersioning)
+				assert.False(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag{
 					{
 						Key:   scw.StringPtr("key1"),
@@ -82,7 +82,7 @@ func Test_BucketCreate(t *testing.T) {
 				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName3, bucket.ID)
-				assert.Equal(t, true, bucket.EnableVersioning)
+				assert.True(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag(nil), bucket.Tags)
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
 			},
@@ -102,7 +102,7 @@ func Test_BucketCreate(t *testing.T) {
 				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName4, bucket.ID)
-				assert.Equal(t, false, bucket.EnableVersioning)
+				assert.False(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag(nil), bucket.Tags)
 				checkACL(t, "authenticated-read", bucket.ACL, bucket.Owner)
 			},
@@ -139,7 +139,7 @@ func Test_BucketGet(t *testing.T) {
 				t.Helper()
 				bucket := ctx.Result.(object.BucketGetResult)
 				assert.Equal(t, bucketName1, bucket.ID)
-				assert.Equal(t, false, bucket.EnableVersioning)
+				assert.False(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag(nil), bucket.Tags)
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
 			},
@@ -160,7 +160,7 @@ func Test_BucketGet(t *testing.T) {
 				t.Helper()
 				bucket := ctx.Result.(object.BucketGetResult)
 				assert.Equal(t, bucketName2, bucket.ID)
-				assert.Equal(t, false, bucket.EnableVersioning)
+				assert.False(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag(nil), bucket.Tags)
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
 				assert.Equal(t, int64(0), *bucket.NbObjects)
@@ -208,7 +208,7 @@ func Test_BucketUpdate(t *testing.T) {
 				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName1, bucket.ID)
-				assert.Equal(t, false, bucket.EnableVersioning)
+				assert.False(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag{
 					{
 						Key:   scw.StringPtr("key1"),
@@ -234,7 +234,7 @@ func Test_BucketUpdate(t *testing.T) {
 				t.Helper()
 				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
 				assert.Equal(t, bucketName2, bucket.ID)
-				assert.Equal(t, true, bucket.EnableVersioning)
+				assert.True(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag{
 					{
 						Key:   scw.StringPtr("key1"),
@@ -257,6 +257,7 @@ func randomNameWithPrefix(prefix string) string {
 	if err != nil {
 		return ""
 	}
+
 	return fmt.Sprintf("%s-%d", prefix, randomInt)
 }
 
@@ -280,19 +281,19 @@ func checkACL(t *testing.T, expected string, actual []object.CustomS3ACLGrant, o
 
 	switch expected {
 	case "private":
-		assert.Equal(t, 1, len(grantsMap))
+		assert.Len(t, grantsMap, 1)
 		assert.Equal(t, owner, grantsMap["FULL_CONTROL"])
 	case "public-read":
-		assert.Equal(t, 2, len(grantsMap))
+		assert.Len(t, grantsMap, 2)
 		assert.Equal(t, owner, grantsMap["FULL_CONTROL"])
 		assert.Equal(t, "AllUsers", grantsMap["READ"])
 	case "public-read-write":
-		assert.Equal(t, 3, len(grantsMap))
+		assert.Len(t, grantsMap, 3)
 		assert.Equal(t, owner, grantsMap["FULL_CONTROL"])
 		assert.Equal(t, "AllUsers", grantsMap["READ"])
 		assert.Equal(t, "AllUsers", grantsMap["WRITE"])
 	case "authenticated-read":
-		assert.Equal(t, 2, len(grantsMap))
+		assert.Len(t, grantsMap, 2)
 		assert.Equal(t, owner, grantsMap["FULL_CONTROL"])
 		assert.Equal(t, "AuthenticatedUsers", grantsMap["READ"])
 	}

@@ -129,6 +129,7 @@ Once you connected to Scaleway, the profile should be configured.
 				if cleanErr != nil {
 					logger.Warningf("Failed to clean API key: %s\n", err.Error())
 				}
+
 				return nil, err
 			}
 

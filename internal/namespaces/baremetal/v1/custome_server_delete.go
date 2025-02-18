@@ -24,9 +24,12 @@ func serverDeleteBuilder(c *core.Command) *core.Command {
 			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
 				return server, nil
 			}
+
 			return nil, err
 		}
+
 		return server, nil
 	}
+
 	return c
 }

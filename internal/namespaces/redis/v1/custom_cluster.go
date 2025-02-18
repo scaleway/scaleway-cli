@@ -18,6 +18,7 @@ const redisActionTimeout = 15 * time.Minute
 
 func redisClusterMigrateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
+
 	return c
 }
 
@@ -56,6 +57,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return nil, err
 		}
+
 		return cluster, nil
 	}
 
@@ -87,6 +89,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return nil, err
 		}
+
 		return cluster, nil
 	}
 
@@ -109,10 +112,13 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
 				return cluster, nil
 			}
+
 			return nil, err
 		}
+
 		return cluster, nil
 	}
+
 	return c
 }
 
@@ -126,6 +132,7 @@ func clusterWaitCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(redis.WaitForClusterRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := redis.NewAPI(core.ExtractClient(ctx))
+
 			return api.WaitForCluster(&redis.WaitForClusterRequest{
 				Zone:          argsI.(*redis.WaitForClusterRequest).Zone,
 				ClusterID:     argsI.(*redis.WaitForClusterRequest).ClusterID,
@@ -159,13 +166,16 @@ func ACLAddListBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 		ACLAddResponse := originalResp.(*redis.AddACLRulesResponse)
+
 		return ACLAddResponse.ACLRules, nil
 	})
+
 	return c
 }
 
 func redisSettingAddBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("settings.{index}.name").AutoCompleteFunc = autoCompleteSettingsName
+
 	return c
 }
 
@@ -246,6 +256,7 @@ func autoCompleteSettingsName(ctx context.Context, prefix string, request any) c
 			}
 		}
 	}
+
 	return suggestions
 }
 
@@ -272,5 +283,6 @@ func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.
 			}
 		}
 	}
+
 	return suggestions
 }

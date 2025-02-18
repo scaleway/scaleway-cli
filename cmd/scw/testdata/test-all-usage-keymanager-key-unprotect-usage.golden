@@ -3,7 +3,7 @@
 Remove key protection from a given key specified by the `key_id` parameter. Removing key protection means that your key can be deleted anytime.
 
 USAGE:
-  scw keymanager key unprotect [arg=value ...]
+  scw keymanager key unprotect <key-id ...> [arg=value ...]
 
 ARGS:
   key-id            ID of the key to remove key protection from

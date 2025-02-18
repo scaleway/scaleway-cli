@@ -704,8 +704,8 @@ func webhostingDNSRecordsGetDNSRecords() *core.Command {
 
 func webhostingDomainCheckOwnership() *core.Command {
 	return &core.Command{
-		Short:     `"Check whether you own this domain or not."`,
-		Long:      `"Check whether you own this domain or not.".`,
+		Short:     `Check whether you own this domain or not.`,
+		Long:      `Check whether you own this domain or not.`,
 		Namespace: "webhosting",
 		Resource:  "domain",
 		Verb:      "check-ownership",
@@ -735,8 +735,8 @@ func webhostingDomainCheckOwnership() *core.Command {
 
 func webhostingDomainSyncDNSRecords() *core.Command {
 	return &core.Command{
-		Short:     `"Synchronize your DNS records on the Elements Console and on cPanel."`,
-		Long:      `"Synchronize your DNS records on the Elements Console and on cPanel.".`,
+		Short:     `Synchronize your DNS records on the Elements Console and on cPanel.`,
+		Long:      `Synchronize your DNS records on the Elements Console and on cPanel.`,
 		Namespace: "webhosting",
 		Resource:  "domain",
 		Verb:      "sync-dns-records",
@@ -767,6 +767,13 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 			{
 				Name:       "update-all-records",
 				Short:      `Whether or not to synchronize all types of records. This one has priority.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "update-nameservers",
+				Short:      `Whether or not to synchronize domain nameservers.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

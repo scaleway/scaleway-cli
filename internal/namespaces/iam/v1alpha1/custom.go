@@ -70,8 +70,10 @@ func initWithSSHCommand() *core.Command {
 func setOrganizationDefaultValue(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("organization-id").Default = func(ctx context.Context) (value string, doc string) {
 		organizationID := core.GetOrganizationIDFromContext(ctx)
+
 		return organizationID, "<retrieved from config>"
 	}
+
 	return c
 }
 
@@ -108,6 +110,7 @@ func InitWithSSHKeyRun(ctx context.Context, _ interface{}) (i interface{}, e err
 	for _, SSHKey := range listSSHKeysResponse.SSHKeys {
 		if strings.TrimSpace(SSHKey.PublicKey) == strings.TrimSpace(string(localSSHKeyContent)) {
 			_, _ = interactive.Println("Looks like your local SSH key " + shortenedFilename + " is already present in your Scaleway account.")
+
 			return nil, nil
 		}
 	}

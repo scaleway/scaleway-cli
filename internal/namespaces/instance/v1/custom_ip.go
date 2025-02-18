@@ -67,6 +67,7 @@ func ipListBuilder(c *core.Command) *core.Command {
 
 		return runner(ctx, request)
 	})
+
 	return c
 }
 

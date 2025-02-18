@@ -4,13 +4,15 @@ This API allows you to conveniently store and use cryptographic keys.
   
 - [Key management commands](#key-management-commands)
   - [Create a key](#create-a-key)
-  - [Decrypt data](#decrypt-data)
+  - [Decrypt an encrypted payload](#decrypt-an-encrypted-payload)
   - [Delete a key](#delete-a-key)
+  - [Delete key material](#delete-key-material)
   - [Disable key](#disable-key)
   - [Enable key](#enable-key)
-  - [Encrypt data](#encrypt-data)
-  - [Generate a data encryption key](#generate-a-data-encryption-key)
+  - [Encrypt a payload](#encrypt-a-payload)
+  - [Create a data encryption key](#create-a-data-encryption-key)
   - [Get key metadata](#get-key-metadata)
+  - [Import key material](#import-key-material)
   - [List keys](#list-keys)
   - [Apply key protection](#apply-key-protection)
   - [Rotate a key](#rotate-a-key)
@@ -25,7 +27,7 @@ Keys are logical containers which store cryptographic keys.
 
 ### Create a key
 
-Create a key in a given region specified by the `region` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys that can be used without being stored in Key Manager.
+Create a key in a given region specified by the `region` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.
 
 **Usage:**
 
@@ -40,24 +42,25 @@ scw keymanager key create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | (Optional) Name of the key |
-| usage.symmetric-encryption | One of: `unknown_symmetric_encryption`, `aes_256_gcm` |  |
+| usage.symmetric-encryption | One of: `unknown_symmetric_encryption`, `aes_256_gcm` | Algorithm used to encrypt and decrypt arbitrary payloads. |
 | description |  | (Optional) Description of the key |
 | tags.{index} |  | (Optional) List of the key's tags |
 | rotation-policy.rotation-period |  | Rotation period |
 | rotation-policy.next-rotation-at |  | Key next rotation date |
 | unprotected |  | (Optional) Defines whether key protection is applied to a key. Protected keys can be used but not deleted |
+| origin | One of: `unknown_origin`, `scaleway_kms`, `external` | Key origin |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Decrypt data
+### Decrypt an encrypted payload
 
-Decrypt data using an existing key, specified by the `key_id` parameter. The maximum payload size that can be decrypted is the result of the encryption of 64KB of data (around 131KB).
+Decrypt an encrypted payload using an existing key, specified by the `key_id` parameter. The maximum payload size that can be decrypted is equivalent to the encrypted output of 64 KB of data (around 131 KB).
 
 **Usage:**
 
 ```
-scw keymanager key decrypt [arg=value ...]
+scw keymanager key decrypt <key-id ...> [arg=value ...]
 ```
 
 
@@ -74,12 +77,12 @@ scw keymanager key decrypt [arg=value ...]
 
 ### Delete a key
 
-Delete an existing key specified by the `region` and `key_id` parameters. Deleting a key is permanent and cannot be undone. All data encrypted using this key, including data encryption keys, will become unusable.
+Permanently delete a key specified by the `region` and `key_id` parameters. This action is irreversible. Any data encrypted with this key, including data encryption keys, will no longer be decipherable.
 
 **Usage:**
 
 ```
-scw keymanager key delete [arg=value ...]
+scw keymanager key delete <key-id ...> [arg=value ...]
 ```
 
 
@@ -92,14 +95,34 @@ scw keymanager key delete [arg=value ...]
 
 
 
-### Disable key
+### Delete key material
 
-Disable a given key to be used for cryptographic operations. Disabling a key renders it unusable. You must specify the `region` and `key_id` parameters.
+Delete previously imported key material. This renders the associated cryptographic key unusable for any operation. The key's origin must be `external`.
 
 **Usage:**
 
 ```
-scw keymanager key disable [arg=value ...]
+scw keymanager key delete-key-material <key-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| key-id | Required | ID of the key of which to delete the key material |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Disable key
+
+Disable a given key, preventing it to be used for cryptographic operations. Disabling a key renders it unusable. You must specify the `region` and `key_id` parameters.
+
+**Usage:**
+
+```
+scw keymanager key disable <key-id ...> [arg=value ...]
 ```
 
 
@@ -119,7 +142,7 @@ Enable a given key to be used for cryptographic operations. Enabling a key allow
 **Usage:**
 
 ```
-scw keymanager key enable [arg=value ...]
+scw keymanager key enable <key-id ...> [arg=value ...]
 ```
 
 
@@ -132,14 +155,14 @@ scw keymanager key enable [arg=value ...]
 
 
 
-### Encrypt data
+### Encrypt a payload
 
-Encrypt data using an existing key, specified by the `key_id` parameter. Only keys with a usage set to **symmetric_encryption** are supported by this method. The maximum payload size that can be encrypted is 64KB of plaintext.
+Encrypt a payload using an existing key, specified by the `key_id` parameter. Only keys with a usage set to `symmetric_encryption` are supported by this method. The maximum payload size that can be encrypted is 64 KB of plaintext.
 
 **Usage:**
 
 ```
-scw keymanager key encrypt [arg=value ...]
+scw keymanager key encrypt <key-id ...> [arg=value ...]
 ```
 
 
@@ -154,16 +177,16 @@ scw keymanager key encrypt [arg=value ...]
 
 
 
-### Generate a data encryption key
+### Create a data encryption key
 
-Generate a new data encryption key to use for cryptographic operations outside of Key Manager. Note that Key Manager does not store your data encryption key. The data encryption key is encrypted and must be decrypted using the key you have created in Key Manager. The data encryption key's plaintext is returned in the response object, for immediate usage.
+Create a new data encryption key for cryptographic operations outside of Key Manager. The data encryption key is encrypted and must be decrypted using the key you have created in Key Manager.
 
-Always store the data encryption key's ciphertext, rather than its plaintext, which must not be stored. To retrieve your key's plaintext, call the Decrypt endpoint with your key's ID and ciphertext.
+The data encryption key is returned in plaintext and ciphertext but it should only be stored in its encrypted form (ciphertext). Key Manager does not store your data encryption key. To retrieve your key's plaintext, use the `Decrypt` method with your key's ID and ciphertext.
 
 **Usage:**
 
 ```
-scw keymanager key generate-data-key [arg=value ...]
+scw keymanager key generate-data-key <key-id ...> [arg=value ...]
 ```
 
 
@@ -172,7 +195,7 @@ scw keymanager key generate-data-key [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | key-id | Required | ID of the key |
-| algorithm | One of: `unknown_symmetric_encryption`, `aes_256_gcm` | Symmetric encryption algorithm of the data encryption key |
+| algorithm | Default: `aes_256_gcm`<br />One of: `unknown_symmetric_encryption`, `aes_256_gcm` | Algorithm with which the data encryption key will be used to encrypt and decrypt arbitrary payloads |
 | without-plaintext |  | (Optional) Defines whether to return the data encryption key's plaintext in the response object |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -180,12 +203,12 @@ scw keymanager key generate-data-key [arg=value ...]
 
 ### Get key metadata
 
-Retrieve the metadata of a key specified by the `region` and `key_id` parameters.
+Retrieve metadata for a specified key using the `region` and `key_id` parameters.
 
 **Usage:**
 
 ```
-scw keymanager key get [arg=value ...]
+scw keymanager key get <key-id ...> [arg=value ...]
 ```
 
 
@@ -198,9 +221,31 @@ scw keymanager key get [arg=value ...]
 
 
 
+### Import key material
+
+Import externally generated key material into Key Manager to derive a new cryptographic key. The key's origin must be `external`.
+
+**Usage:**
+
+```
+scw keymanager key import-key-material <key-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| key-id | Required | ID of the key in which to import key material |
+| key-material |  | The key material The key material is a random sequence of bytes used to derive a cryptographic key. |
+| salt |  | (Optional) Salt value to pass the key derivation function |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### List keys
 
-Retrieve the list of keys created within all Projects of an Organization or in a given Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
+Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
 
 **Usage:**
 
@@ -224,12 +269,12 @@ scw keymanager key list [arg=value ...]
 
 ### Apply key protection
 
-Apply key protection to a given key specified by the `key_id` parameter. Applying key protection means that your key can be used and modified, but it cannot be deleted.
+Apply protection to a given key specified by the `key_id` parameter. Applying key protection means that your key can be used and modified, but it cannot be deleted.
 
 **Usage:**
 
 ```
-scw keymanager key protect [arg=value ...]
+scw keymanager key protect <key-id ...> [arg=value ...]
 ```
 
 
@@ -244,12 +289,12 @@ scw keymanager key protect [arg=value ...]
 
 ### Rotate a key
 
-Generate a new version of an existing key with randomly generated key material. Rotated keys can still be used to decrypt previously encrypted data. The key's new material will be used for subsequent encryption operations and data key generation.
+Generate a new version of an existing key with new key material. Previous key versions remain usable to decrypt previously encrypted data, but the key's new version will be used for subsequent encryption operations and data key generation.
 
 **Usage:**
 
 ```
-scw keymanager key rotate [arg=value ...]
+scw keymanager key rotate <key-id ...> [arg=value ...]
 ```
 
 
@@ -269,7 +314,7 @@ Remove key protection from a given key specified by the `key_id` parameter. Remo
 **Usage:**
 
 ```
-scw keymanager key unprotect [arg=value ...]
+scw keymanager key unprotect <key-id ...> [arg=value ...]
 ```
 
 
@@ -284,12 +329,12 @@ scw keymanager key unprotect [arg=value ...]
 
 ### Update a key
 
-Update a key's metadata (name, description and tags), specified by the `key_id` and `region` parameters.
+Modify a key's metadata including name, description and tags, specified by the `key_id` and `region` parameters.
 
 **Usage:**
 
 ```
-scw keymanager key update [arg=value ...]
+scw keymanager key update <key-id ...> [arg=value ...]
 ```
 
 

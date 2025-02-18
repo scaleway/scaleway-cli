@@ -33,6 +33,7 @@ func init() {
 		if v {
 			return terminal.Style("true", color.FgGreen), nil
 		}
+
 		return terminal.Style("false", color.FgRed), nil
 	})
 	marshalerFuncs.Store(reflect.TypeOf(time.Time{}), func(i interface{}, _ *MarshalOpt) (string, error) {
@@ -43,6 +44,7 @@ func init() {
 		if t == nil {
 			return Marshal(nil, nil)
 		}
+
 		return Marshal(*t, nil)
 	})
 	marshalerFuncs.Store(reflect.TypeOf(scw.Size(0)), func(i interface{}, _ *MarshalOpt) (string, error) {
@@ -73,6 +75,7 @@ func init() {
 			}
 			strs = append(strs, s)
 		}
+
 		return strings.Join(strs, ", "), nil
 	})
 	marshalerFuncs.Store(reflect.TypeOf(net.IP{}), func(i interface{}, _ *MarshalOpt) (string, error) {
@@ -92,6 +95,7 @@ func init() {
 	})
 	marshalerFuncs.Store(reflect.TypeOf(version.Version{}), func(i interface{}, _ *MarshalOpt) (string, error) {
 		v := i.(version.Version)
+
 		return v.String(), nil
 	})
 	marshalerFuncs.Store(reflect.TypeOf(scw.Duration{}), func(i interface{}, _ *MarshalOpt) (string, error) {
@@ -124,6 +128,7 @@ func init() {
 		if len(res) == 0 {
 			return "0 seconds", nil
 		}
+
 		return strings.Join(res, " "), nil
 	})
 	registerMarshaler(func(i scw.JSONObject, _ *MarshalOpt) (string, error) {
@@ -131,6 +136,7 @@ func init() {
 		if err != nil {
 			return "", err
 		}
+
 		return string(data), nil
 	})
 	registerMarshaler(func(i []byte, _ *MarshalOpt) (string, error) {
@@ -138,6 +144,7 @@ func init() {
 		if err != nil {
 			return "", err
 		}
+
 		return strings.Trim(string(data), "\""), nil
 	})
 }
@@ -163,6 +170,7 @@ func getMarshalerFunc(key reflect.Type) (MarshalerFunc, bool) {
 	if mf, ok := value.(MarshalerFunc); ok {
 		return mf, true
 	}
+
 	return nil, false
 }
 
@@ -219,6 +227,7 @@ func EnumMarshalFunc(specs EnumMarshalSpecs) MarshalerFunc {
 			}
 			value = terminal.Style(value, spec.Attribute)
 		}
+
 		return value, nil
 	}
 }

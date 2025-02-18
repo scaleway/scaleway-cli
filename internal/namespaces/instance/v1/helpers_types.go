@@ -37,5 +37,6 @@ func SizeValue(s *scw.Size) scw.Size {
 	if s != nil {
 		return *s
 	}
+
 	return 0
 }

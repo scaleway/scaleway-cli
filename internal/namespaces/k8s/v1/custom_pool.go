@@ -52,16 +52,19 @@ func poolCreateBuilder(c *core.Command) *core.Command {
 
 func poolDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForPoolFunc(poolActionDelete)
+
 	return c
 }
 
 func poolUpgradeBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForPoolFunc(poolActionUpgrade)
+
 	return c
 }
 
 func poolUpdateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForPoolFunc(poolActionUpdate)
+
 	return c
 }
 
@@ -90,6 +93,7 @@ func waitForPoolFunc(action int) core.WaitFunc {
 				}
 			}
 		}
+
 		return nil, err
 	}
 }
@@ -105,6 +109,7 @@ func k8sPoolWaitCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(k8s.WaitForPoolRequest{}),
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
+
 			return api.WaitForPool(&k8s.WaitForPoolRequest{
 				Region:        argsI.(*k8s.WaitForPoolRequest).Region,
 				PoolID:        argsI.(*k8s.WaitForPoolRequest).PoolID,

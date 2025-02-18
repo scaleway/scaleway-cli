@@ -27,6 +27,7 @@ func (c *Config) GetAlias(name string) []string {
 	if aliasExists {
 		return alias
 	}
+
 	return nil
 }
 
@@ -41,6 +42,7 @@ func (c *Config) ResolveAliases(command []string) []string {
 			expandedCommand = append(expandedCommand, arg)
 		}
 	}
+
 	return expandedCommand
 }
 
@@ -49,6 +51,7 @@ func (c *Config) ResolveAliases(command []string) []string {
 func (c *Config) AddAlias(name string, command []string) bool {
 	_, exists := c.Aliases[name]
 	c.Aliases[name] = command
+
 	return exists
 }
 
@@ -57,6 +60,7 @@ func (c *Config) AddAlias(name string, command []string) bool {
 func (c *Config) DeleteAlias(name string) bool {
 	_, exists := c.Aliases[name]
 	delete(c.Aliases, name)
+
 	return exists
 }
 
@@ -84,5 +88,6 @@ func (c *Config) ResolveAliasesByFirstWord(firstWord string) ([]Alias, bool) {
 		c.fillAliasByFirstWord()
 	}
 	alias, ok := c.aliasesByFirstWord[firstWord]
+
 	return alias, ok
 }

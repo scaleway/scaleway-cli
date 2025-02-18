@@ -38,6 +38,7 @@ func addSSH(metaKey string, key string) core.BeforeFunc {
 		ctx.Meta[metaKey] = ctx.ExecuteCmd([]string{
 			"scw", "iam", "ssh-key", "create", "public-key=" + key,
 		})
+
 		return nil
 	}
 }

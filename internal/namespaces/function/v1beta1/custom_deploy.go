@@ -26,6 +26,7 @@ type functionDeployRequest struct {
 
 func functionDeploy() *core.Command {
 	functionCreate := functionFunctionCreate()
+
 	return &core.Command{
 		Short:     `Deploy a function`,
 		Long:      `Create or fetch, upload and deploy your function`,
@@ -104,6 +105,7 @@ func validateRuntime(api *function.API, region scw.Region, runtime function.Func
 			return nil
 		}
 	}
+
 	return fmt.Errorf("invalid runtime %q", runtimeName)
 }
 
@@ -137,6 +139,7 @@ func DeployStepCreateNamespace(api *function.API, region scw.Region, functionNam
 				Region:      namespace.Region,
 				NamespaceID: namespace.ID,
 			})
+
 			return err
 		})
 
@@ -197,6 +200,7 @@ func DeployStepCreateFunction(api *function.API, functionName string, runtime fu
 				FunctionID: fc.ID,
 				Region:     fc.Region,
 			})
+
 			return err
 		})
 
@@ -262,6 +266,7 @@ func DeployStepFunctionDeploy(api *function.API, runtime function.FunctionRuntim
 		if err != nil {
 			return nil, err
 		}
+
 		return api.WaitForFunction(&function.WaitForFunctionRequest{
 			FunctionID:    fc.ID,
 			Region:        fc.Region,

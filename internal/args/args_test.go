@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alecthomas/assert"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -98,6 +98,7 @@ type RecursiveWithMapOfRecursive struct {
 
 func (c *CustomStruct) UnmarshalArgs(value string) error {
 	c.value = strings.ToUpper(value)
+
 	return nil
 }
 
@@ -109,6 +110,7 @@ type CustomString string
 
 func (c *CustomString) UnmarshalArgs(value string) error {
 	*c = CustomString(strings.ToUpper(value))
+
 	return nil
 }
 
@@ -129,12 +131,14 @@ type height int
 
 func marshalHeight(src interface{}) (string, error) {
 	h := src.(*height)
+
 	return fmt.Sprintf("%dcm", *h), nil
 }
 
 func unmarshalHeight(value string, dest interface{}) error {
 	h := dest.(*height)
 	_, err := fmt.Sscanf(value, "%dcm", h)
+
 	return err
 }
 
@@ -146,7 +150,7 @@ type SamePrefixArgName struct {
 func TestRawArgs_GetAll(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		a := args.RawArgs{"ssh-keys.0=foo", "ssh-keys.1=bar"}
-		assert.Equal(t, a.GetAll("ssh-keys.{index}"), []string{"foo", "bar"})
+		assert.Equal(t, []string{"foo", "bar"}, a.GetAll("ssh-keys.{index}"))
 	})
 
 	t.Run("Insane", func(t *testing.T) {
@@ -156,7 +160,7 @@ func TestRawArgs_GetAll(t *testing.T) {
 			"countries.FR.cities.nice.street.promenade=anglais",
 			"countries.RU.cities.moscow.street.kremelin=rouge",
 		}
-		assert.Equal(t, a.GetAll("countries.{key}.cities.{key}.street.{key}"), []string{"pouet", "tati", "anglais", "rouge"})
+		assert.Equal(t, []string{"pouet", "tati", "anglais", "rouge"}, a.GetAll("countries.{key}.cities.{key}.street.{key}"))
 	})
 }
 

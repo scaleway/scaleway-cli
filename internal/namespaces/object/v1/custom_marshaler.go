@@ -67,6 +67,7 @@ func bucketInfoMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, erro
 	if err != nil {
 		return "", err
 	}
+
 	return str, nil
 }
 
@@ -94,6 +95,7 @@ func bucketGetResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string,
 	if err != nil {
 		return "", err
 	}
+
 	return str, nil
 }
 
@@ -120,5 +122,6 @@ func bucketMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return str, nil
 }
