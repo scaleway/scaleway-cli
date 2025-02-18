@@ -78,9 +78,19 @@ func Test_UserDataFileUploadOn(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 		AfterFunc: func(_ *core.AfterFuncCtx) error {
-			err = os.RemoveAll(file.Name())
+			// We need to close this file explicitly because it is not closed by the os.Remove call on windows
+			// https://github.com/golang/go/issues/50510
+			err = file.Close()
+			if err != nil {
+				return err
+			}
 
-			return err
+			err = os.RemoveAll(file.Name())
+			if err != nil {
+				return err
+			}
+
+			return nil
 		},
 	}))
 }
@@ -111,9 +121,19 @@ func Test_UserDataFileUploadOnRandom(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 		AfterFunc: func(_ *core.AfterFuncCtx) error {
-			err = os.RemoveAll(file.Name())
+			// We need to close this file explicitly because it is not closed by the os.Remove call on windows
+			// https://github.com/golang/go/issues/50510
+			err = file.Close()
+			if err != nil {
+				return err
+			}
 
-			return err
+			err = os.RemoveAll(file.Name())
+			if err != nil {
+				return err
+			}
+
+			return nil
 		},
 	}))
 }
