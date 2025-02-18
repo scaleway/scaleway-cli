@@ -77,12 +77,12 @@ func Test_UserDataFileUploadOn(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
-	}))
+		AfterFunc: func(_ *core.AfterFuncCtx) error {
+			err = os.RemoveAll(file.Name())
 
-	err = os.RemoveAll(file.Name())
-	if err != nil {
-		t.Fatalf("%s", err)
-	}
+			return err
+		},
+	}))
 }
 
 func Test_UserDataFileUploadOnRandom(t *testing.T) {
@@ -110,10 +110,10 @@ func Test_UserDataFileUploadOnRandom(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
-	}))
+		AfterFunc: func(_ *core.AfterFuncCtx) error {
+			err = os.RemoveAll(file.Name())
 
-	err = os.RemoveAll(file.Name())
-	if err != nil {
-		t.Fatalf("%s", err)
-	}
+			return err
+		},
+	}))
 }
