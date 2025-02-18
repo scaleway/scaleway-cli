@@ -79,6 +79,10 @@ func Test_UserDataFileUploadOn(t *testing.T) {
 		),
 	}))
 
+	err = os.RemoveAll(file.Name())
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
 }
 
 func Test_UserDataFileUploadOnRandom(t *testing.T) {
@@ -107,4 +111,9 @@ func Test_UserDataFileUploadOnRandom(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 	}))
+
+	err = os.RemoveAll(file.Name())
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
 }
