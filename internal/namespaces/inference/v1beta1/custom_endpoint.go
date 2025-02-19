@@ -42,9 +42,7 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 			endpointToCreate.Public = publicEndpoint
 		}
 		if endpoint.PrivateNetwork != nil && endpoint.PrivateNetwork.PrivateNetworkID != "" {
-			endpointToCreate.PrivateNetwork = &inference.EndpointSpecPrivateNetwork{
-				PrivateNetworkID: endpoint.PrivateNetwork.PrivateNetworkID,
-			}
+			endpointToCreate.PrivateNetwork = &inference.EndpointSpecPrivateNetwork{PrivateNetworkID: endpoint.PrivateNetwork.PrivateNetworkID}
 		}
 		createEndpointreq.Endpoint = &endpointToCreate
 
