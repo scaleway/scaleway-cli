@@ -21,6 +21,7 @@ This API allows you to manage your Transactional Email services.
   - [Email statuses](#email-statuses)
   - [List emails](#list-emails)
 - [Project offers management commands](#project-offers-management-commands)
+- [Project consumption management commands](#project-consumption-management-commands)
 - [Project settings management commands](#project-settings-management-commands)
 - [Webhook management commands](#webhook-management-commands)
   - [Create a Webhook](#create-a-webhook)
@@ -403,6 +404,20 @@ This section allows you to manage and get get subscribed information about your 
 
 ```
 scw tem offers
+```
+
+
+
+## Project consumption management commands
+
+Project consumption allow you to see your project consumption.
+
+Project consumption allow you to see your project consumption.
+
+**Usage:**
+
+```
+scw tem project-consumption
 ```
 
 
