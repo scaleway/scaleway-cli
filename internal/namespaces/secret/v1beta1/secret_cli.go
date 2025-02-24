@@ -375,6 +375,13 @@ func secretSecretList() *core.Command {
 				EnumValues: []string{"unknown_type", "opaque", "certificate", "key_value", "basic_credentials", "database_credentials", "ssh_key"},
 			},
 			{
+				Name:       "scheduled-for-deletion",
+				Short:      `Filter by whether the secret was scheduled for deletion / not scheduled for deletion (optional)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Filter by Organization ID (optional)`,
 				Required:   false,
@@ -752,7 +759,7 @@ func secretVersionList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_status", "enabled", "disabled", "deleted"},
+				EnumValues: []string{"unknown_status", "enabled", "disabled", "deleted", "scheduled_for_deletion"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},

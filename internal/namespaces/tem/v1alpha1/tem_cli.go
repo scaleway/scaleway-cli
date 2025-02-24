@@ -26,6 +26,7 @@ func GetGeneratedCommands() *core.Commands {
 		temProjectSettings(),
 		temBlocklists(),
 		temOffers(),
+		temProjectConsumption(),
 		temEmailCreate(),
 		temEmailGet(),
 		temEmailList(),
@@ -108,6 +109,15 @@ func temOffers() *core.Command {
 		Long:      `This section allows you to manage and get get subscribed information about your project email offer.`,
 		Namespace: "tem",
 		Resource:  "offers",
+	}
+}
+
+func temProjectConsumption() *core.Command {
+	return &core.Command{
+		Short:     `Project consumption management commands`,
+		Long:      `Project consumption allow you to see your project consumption.`,
+		Namespace: "tem",
+		Resource:  "project-consumption",
 	}
 }
 
