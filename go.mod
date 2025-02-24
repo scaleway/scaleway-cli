@@ -1,8 +1,7 @@
 module github.com/scaleway/scaleway-cli/v2
 
 go 1.22
-
-toolchain go1.22.2
+toolchain go1.23.6
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.36.2
@@ -30,7 +29,7 @@ require (
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/crypto v0.33.0
+	golang.org/x/crypto v0.34.0
 	golang.org/x/term v0.29.0
 	golang.org/x/text v0.22.0
 	gopkg.in/yaml.v3 v3.0.1
