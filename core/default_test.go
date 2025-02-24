@@ -1,7 +1,6 @@
 package core_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -19,7 +18,7 @@ func Test_ApplyDefaultValues(t *testing.T) {
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
-			result := core.ApplyDefaultValues(context.Background(), tc.argSpecs, tc.rawArgs)
+			result := core.ApplyDefaultValues(t.Context(), tc.argSpecs, tc.rawArgs)
 			assert.Equal(t, tc.expected, result)
 		}
 	}
