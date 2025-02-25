@@ -413,6 +413,13 @@ func blockSnapshotList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "tags.{index}",
+				Short:      `Filter by tags. Only snapshots with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Filter by Organization ID`,
 				Required:   false,
