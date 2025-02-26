@@ -234,5 +234,6 @@ PrivateBandwidth(Mbit/s):
   "private_bandwidth": 1000000000,
   "shared_bandwidth": true,
   "tags": [],
-  "gpus": []
+  "gpus": [],
+  "monthly_offer_id": null
 }
