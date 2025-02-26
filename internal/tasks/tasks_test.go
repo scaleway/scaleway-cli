@@ -30,7 +30,7 @@ func TestGeneric(t *testing.T) {
 		return int(i) / 4, nil
 	})
 
-	res, err := ts.Execute(context.Background(), 12)
+	res, err := ts.Execute(t.Context(), 12)
 	require.NoError(t, err)
 	assert.Equal(t, 3, res)
 }
@@ -86,7 +86,7 @@ func TestCleanup(t *testing.T) {
 		return nil, errors.New("fail")
 	})
 
-	_, err := ts.Execute(context.Background(), nil)
+	_, err := ts.Execute(t.Context(), nil)
 	require.Error(t, err, "Execute should return error after cleanup")
 	assert.Equal(t, 3, clean, "3 task cleanup should have been executed")
 }
@@ -98,7 +98,7 @@ func TestCleanupOnContext(t *testing.T) {
 	ts := tasks.Begin()
 
 	clean := 0
-	ctx := context.Background()
+	ctx := t.Context()
 
 	tasks.Add(ts, "TaskFunc 1", func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
 		task.AddToCleanUp(func(_ context.Context) error {

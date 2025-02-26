@@ -319,7 +319,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		ctx := config.Ctx
 		if ctx == nil {
-			ctx = context.Background()
+			ctx = t.Context()
 		}
 		if len(config.PromptResponseMocks) > 0 {
 			ctx = interactive.InjectMockResponseToContext(ctx, config.PromptResponseMocks)

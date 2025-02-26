@@ -2,7 +2,6 @@ package interactive_test
 
 import (
 	"bytes"
-	"context"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
@@ -18,7 +17,7 @@ func TestPromptStringWithConfig(t *testing.T) {
 
 		interactive.SetOutputWriter(buffer)
 
-		ctx := context.Background()
+		ctx := t.Context()
 		ctx = interactive.InjectMockResponseToContext(ctx, []string{"mock1", "mock2"})
 
 		s, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{

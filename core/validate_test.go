@@ -40,7 +40,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
-			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := core.DefaultCommandValidateFunc()(t.Context(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, errors.New("arg validation called"), err)
 		}
 	}
@@ -198,7 +198,7 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
-			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := core.DefaultCommandValidateFunc()(t.Context(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.NoError(t, err)
 		}
 	}
@@ -206,7 +206,7 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	runErr := func(testCase TestCase, argName string) func(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
-			err := core.DefaultCommandValidateFunc()(context.Background(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := core.DefaultCommandValidateFunc()(t.Context(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
 			assert.Equal(t, core.MissingRequiredArgumentError(argName), err)
 		}
 	}
