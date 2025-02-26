@@ -114,7 +114,7 @@ func runAutocompleteTest(ctx context.Context, tc *autoCompleteTestCase) func(*te
 }
 
 func TestAutocomplete(t *testing.T) {
-	ctx := core.InjectMeta(context.Background(), &core.Meta{
+	ctx := core.InjectMeta(t.Context(), &core.Meta{
 		Commands: testAutocompleteGetCommands(),
 	})
 
@@ -253,7 +253,7 @@ func TestAutocompleteArgs(t *testing.T) {
 			}, nil
 		},
 	})
-	ctx := core.InjectMeta(context.Background(), &core.Meta{
+	ctx := core.InjectMeta(t.Context(), &core.Meta{
 		Commands: commands,
 		BetaMode: true,
 	})
@@ -272,7 +272,7 @@ func TestAutocompleteArgs(t *testing.T) {
 
 func TestAutocompleteProfiles(t *testing.T) {
 	commands := testAutocompleteGetCommands()
-	ctx := core.InjectMeta(context.Background(), &core.Meta{
+	ctx := core.InjectMeta(t.Context(), &core.Meta{
 		Commands: commands,
 		BetaMode: true,
 		Platform: terminal.NewPlatform(""),
@@ -300,7 +300,7 @@ func TestAutocompleteProfiles(t *testing.T) {
 }
 
 func TestAutocompleteDeprecatedCommand(t *testing.T) {
-	ctx := core.InjectMeta(context.Background(), &core.Meta{
+	ctx := core.InjectMeta(t.Context(), &core.Meta{
 		Commands: testAutocompleteGetCommands(),
 	})
 
