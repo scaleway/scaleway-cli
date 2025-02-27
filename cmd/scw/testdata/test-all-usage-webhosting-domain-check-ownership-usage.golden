@@ -1,20 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the details of one of your existing Web Hosting plans, specified by its `hosting_id`.
+Check whether you own this domain or not.
 
 USAGE:
-  scw webhosting hosting get [arg=value ...]
-
-EXAMPLES:
-  Get a Hosting with the given ID
-    scw webhosting hosting get hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
+  scw webhosting domain check-ownership [arg=value ...]
 
 ARGS:
-  hosting-id        Hosting ID
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  domain            Domain for which ownership is to be verified.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help   help for check-ownership
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

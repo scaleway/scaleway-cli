@@ -1,0 +1,26 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Database users represent the users that can access and manage the databases in your Web Hosting plan.
+
+USAGE:
+  scw webhosting database-user <command>
+
+AVAILABLE COMMANDS:
+  assign          "Assign a database user to a database"
+  change-password "Change the password of a database user"
+  create          "Create a new database user"
+  delete          "Delete a database user"
+  get             "Get details of a database user"
+  list            "List all database users"
+  unassign        "Unassign a database user from a database"
+
+FLAGS:
+  -h, --help   help for database-user
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw webhosting database-user [command] --help" for more information about a command.
