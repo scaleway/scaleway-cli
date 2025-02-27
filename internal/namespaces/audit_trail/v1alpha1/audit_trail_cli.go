@@ -155,6 +155,7 @@ func auditTrailProductList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(audit_trail.ListProductsRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
