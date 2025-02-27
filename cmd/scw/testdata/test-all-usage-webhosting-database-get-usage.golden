@@ -1,16 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the details of one of your existing Web Hosting plans, specified by its `hosting_id`.
+"Get details of a database within your hosting plan".
 
 USAGE:
-  scw webhosting hosting get [arg=value ...]
-
-EXAMPLES:
-  Get a Hosting with the given ID
-    scw webhosting hosting get hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
+  scw webhosting database get [arg=value ...]
 
 ARGS:
-  hosting-id        Hosting ID
+  hosting-id        UUID of the hosting plan
+  database-name     Name of the database
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

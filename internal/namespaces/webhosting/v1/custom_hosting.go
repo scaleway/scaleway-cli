@@ -3,7 +3,7 @@ package webhosting
 import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	webhosting "github.com/scaleway/scaleway-sdk-go/api/webhosting/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/webhosting/v1"
 )
 
 var (
@@ -16,8 +16,8 @@ var (
 	}
 
 	hostingDNSMarshalSpecs = human.EnumMarshalSpecs{
-		webhosting.HostingDNSStatusValid:   &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		webhosting.HostingDNSStatusInvalid: &human.EnumMarshalSpec{Attribute: color.FgRed},
+		webhosting.DNSRecordsStatusValid:   &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		webhosting.DNSRecordsStatusInvalid: &human.EnumMarshalSpec{Attribute: color.FgRed},
 	}
 
 	nameserverMarshalSpecs = human.EnumMarshalSpecs{

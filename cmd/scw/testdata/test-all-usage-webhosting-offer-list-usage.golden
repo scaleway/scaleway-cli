@@ -1,27 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List the different Web Hosting offers, and their options, available to order from Scaleway.
+List all available hosting offers along with their specific options.
 
 USAGE:
   scw webhosting offer list [arg=value ...]
 
-EXAMPLES:
-  List all offers available for purchase
-    scw webhosting offer list hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
-
-  List only offers, no options
-    scw webhosting offer list without-options=true
-
-  List only options
-    scw webhosting offer list only-options=true
-
 ARGS:
-  [order-by]                 Sort order of offers in the response (price_asc)
-  [without-options]          Defines whether the response should consist of offers only, without options
-  [only-options]             Defines whether the response should consist of options only, without offers
-  [hosting-id]               ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan)
-  [control-panels.{index}]   Name of the control panel to filter for
-  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [order-by]                 Sort order for Web Hosting offers in the response (price_asc)
+  [hosting-id]               UUID of the hosting plan
+  [control-panels.{index}]   Name of the control panel(s) to filter for
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

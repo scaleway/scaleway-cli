@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Get dns records status and check if you own the domain with these calls.
+
+USAGE:
+  scw webhosting domain <command>
+
+AVAILABLE COMMANDS:
+  check-ownership  Check whether you own this domain or not.
+  sync-dns-records Synchronize your DNS records on the Elements Console and on cPanel.
+
+FLAGS:
+  -h, --help   help for domain
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw webhosting domain [command] --help" for more information about a command.

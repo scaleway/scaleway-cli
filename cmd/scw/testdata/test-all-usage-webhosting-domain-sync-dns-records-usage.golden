@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Synchronize your DNS records on the Elements Console and on cPanel.
+
+USAGE:
+  scw webhosting domain sync-dns-records [arg=value ...]
+
+ARGS:
+  domain                          Domain for which the DNS records will be synchronized.
+  [update-web-records]            Whether or not to synchronize the web records.
+  [update-mail-records]           Whether or not to synchronize the mail records.
+  [update-all-records]            Whether or not to synchronize all types of records. This one has priority.
+  [update-nameservers]            Whether or not to synchronize domain nameservers.
+  [custom-records.{index}.name]   
+  [custom-records.{index}.type]    (unknown_type | a | cname | mx | txt | ns | aaaa)
+  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for sync-dns-records
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

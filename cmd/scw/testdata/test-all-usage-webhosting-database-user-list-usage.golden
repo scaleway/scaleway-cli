@@ -1,11 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-"List the control panels type: cpanel or plesk.".
+"List all database users".
 
 USAGE:
-  scw webhosting control-panel list [arg=value ...]
+  scw webhosting database-user list [arg=value ...]
 
 ARGS:
+  hosting-id        UUID of the hosting plan
+  [order-by]        Sort order of database users in the response (username_asc | username_desc)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

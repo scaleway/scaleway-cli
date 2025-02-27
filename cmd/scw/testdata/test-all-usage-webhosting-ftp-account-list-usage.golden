@@ -1,11 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-"List the control panels type: cpanel or plesk.".
+List all FTP accounts within your hosting plan.
 
 USAGE:
-  scw webhosting control-panel list [arg=value ...]
+  scw webhosting ftp-account list [arg=value ...]
 
 ARGS:
+  [order-by]        Sort order of FTP accounts in the response (username_asc | username_desc)
+  hosting-id        UUID of the hosting plan
+  [domain]          Domain to filter the FTP accounts
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
