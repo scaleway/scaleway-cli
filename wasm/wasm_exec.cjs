@@ -20,6 +20,7 @@
         O_TRUNC: -1,
         O_APPEND: -1,
         O_EXCL: -1,
+        O_DIRECTORY: -1,
       }, // unused
       writeSync(fd, buf) {
         outputBuf += decoder.decode(buf)
@@ -137,6 +138,14 @@
       },
       chdir() {
         throw enosys()
+      },
+    }
+  }
+
+  if (!globalThis.path) {
+    globalThis.path = {
+      resolve(...pathSegments) {
+        return pathSegments.join('/')
       },
     }
   }
@@ -286,10 +295,16 @@
         )
       }
 
+      const testCallExport = (a, b) => {
+        this._inst.exports.testExport0()
+        return this._inst.exports.testExport(a, b)
+      }
+
       const timeOrigin = Date.now() - performance.now()
       this.importObject = {
         _gotest: {
           add: (a, b) => a + b,
+          callExport: testCallExport,
         },
         gojs: {
           // Go's SP does not change as long as no Go code is running. Some operations (e.g. calls, getters and setters)

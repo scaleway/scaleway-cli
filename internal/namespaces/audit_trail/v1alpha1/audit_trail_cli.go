@@ -75,7 +75,7 @@ func auditTrailEventList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "secm_secret", "secm_secret_version", "kube_cluster", "kube_pool", "kube_node", "kube_acl", "keym_key", "iamx_user", "iamx_application", "iamx_group", "iamx_policy", "iamx_api_key", "iamx_ssh_key"},
+				EnumValues: []string{"unknown_type", "secm_secret", "secm_secret_version", "kube_cluster", "kube_pool", "kube_node", "kube_acl", "keym_key", "iam_user", "iam_application", "iam_group", "iam_policy", "iam_api_key", "iam_ssh_key"},
 			},
 			{
 				Name:       "method-name",
@@ -155,6 +155,7 @@ func auditTrailProductList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(audit_trail.ListProductsRequest{}),
 		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {

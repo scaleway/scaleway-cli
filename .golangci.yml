@@ -62,7 +62,6 @@ linters:
     - staticcheck
     - stylecheck # Stylecheck is a replacement for golint [fast: false, auto-fix: false]
     - tagalign # check that struct tags are well aligned [fast: true, auto-fix: true]
-    - tenv # tenv is analyzer that detects using os.Setenv instead of t.Setenv since Go1.17 [fast: false, auto-fix: false]
     - testifylint # Checks usage of github.com/stretchr/testify. [fast: false, auto-fix: false]
     - testpackage # linter that makes you use a separate _test package [fast: true, auto-fix: false]
     - thelper # thelper detects golang test helpers without t.Helper() call and checks the consistency of test helpers [fast: false, auto-fix: false]
