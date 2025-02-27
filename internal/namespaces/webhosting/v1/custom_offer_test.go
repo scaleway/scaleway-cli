@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1"
 )
 
 func Test_ListOffer(t *testing.T) {
