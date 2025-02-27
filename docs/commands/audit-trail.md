@@ -63,6 +63,7 @@ scw audit-trail product list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
