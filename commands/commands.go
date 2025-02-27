@@ -49,7 +49,7 @@ import (
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
-	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
