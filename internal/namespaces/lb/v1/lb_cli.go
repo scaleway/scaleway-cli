@@ -1979,6 +1979,13 @@ func lbRouteCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "match.match-subdomains",
+				Short:      `If true, all subdomains will match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -2056,6 +2063,13 @@ func lbRouteUpdate() *core.Command {
 			{
 				Name:       "match.host-header",
 				Short:      `HTTP host header to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.match-subdomains",
+				Short:      `If true, all subdomains will match`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

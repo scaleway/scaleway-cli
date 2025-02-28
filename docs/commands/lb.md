@@ -1203,6 +1203,7 @@ scw lb route create [arg=value ...]
 | backend-id |  | ID of the target backend for the route |
 | match.sni |  | Server Name Indication (SNI) value to match |
 | match.host-header |  | HTTP host header to match |
+| match.match-subdomains |  | If true, all subdomains will match |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1287,6 +1288,7 @@ scw lb route update <route-id ...> [arg=value ...]
 | backend-id |  | ID of the target backend for the route |
 | match.sni |  | Server Name Indication (SNI) value to match |
 | match.host-header |  | HTTP host header to match |
+| match.match-subdomains |  | If true, all subdomains will match |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
