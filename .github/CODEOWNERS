@@ -4,8 +4,8 @@
 
 /internal/namespaces/account/ @scaleway/devtools-core
 /internal/namespaces/alias/ @scaleway/devtools
-/internal/namespaces/applesilicon/ @scalway/devtools-compute-foundation
-/internal/namespaces/baremetal/ @scalway/devtools-compute-foundation
+/internal/namespaces/applesilicon/ @scaleway/devtools-compute-foundation
+/internal/namespaces/baremetal/ @scaleway/devtools-compute-foundation
 /internal/namespaces/billing/ @scaleway/devtools-core
 /internal/namespaces/block/ @scaleway/devtools-storage
 /internal/namespaces/cockpit/ @scaleway/devtools-dms
