@@ -160,7 +160,7 @@ scw secret secret list [arg=value ...]
 | path |  | Filter by exact path (optional) |
 | ephemeral |  | Filter by ephemeral / not ephemeral (optional) |
 | type | One of: `unknown_type`, `opaque`, `certificate`, `key_value`, `basic_credentials`, `database_credentials`, `ssh_key` | Filter by secret type (optional) |
-| scheduled-for-deletion |  | Filter by whether the secret was scheduled for deletion / not scheduled for deletion (optional) |
+| scheduled-for-deletion |  | Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets. |
 | organization-id |  | Filter by Organization ID (optional) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
