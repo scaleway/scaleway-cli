@@ -42,6 +42,7 @@ func GetGeneratedCommands() *core.Commands {
 		instanceUserDataDelete(),
 		instanceUserDataSet(),
 		instanceUserDataGet(),
+		instanceServerGetCompatibleTypes(),
 		instanceImageList(),
 		instanceImageGet(),
 		instanceImageCreate(),
@@ -953,6 +954,41 @@ func instanceUserDataGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetServerUserData(request)
+
+		},
+	}
+}
+
+func instanceServerGetCompatibleTypes() *core.Command {
+	return &core.Command{
+		Short: `Get Instance compatible types`,
+		Long: `Get compatible commercial types that can be used to update the Instance. The compatibility of an Instance offer is based on:
+* the CPU architecture
+* the OS type
+* the required l_ssd storage size
+* the required scratch storage size
+If the specified Instance offer is flagged as end of service, the best compatible offer is the first returned.`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "get-compatible-types",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.GetServerCompatibleTypesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `UUID of the Instance you want to get`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.GetServerCompatibleTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			return api.GetServerCompatibleTypes(request)
 
 		},
 	}
