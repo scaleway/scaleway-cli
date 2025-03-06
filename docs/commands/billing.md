@@ -70,7 +70,10 @@ Discount management commands.
 
 ### List discounts
 
-List all discounts for your organization and usable categories, products, offers, references, regions and zones where the discount can be applied.
+List all discounts for your Organization and usable categories, products, offers, references, regions and zones where the discount can be applied. As a reseller:
+- If you do not specify an `organization_id` you will list the discounts applied to your own Organization and your customers
+- If you indicate your `organization_id` you will list only the discounts applied to your Organization
+- If you indicate `the organization_id` of one of your customers, you will list the discounts applied to their Organization.
 
 **Usage:**
 
