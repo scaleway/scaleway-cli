@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   enable-ip-mobility Upgrade a Public Gateway to IP mobility
   get                Get a Public Gateway
   list               List Public Gateways
+  migrate-to-v2      Put a Public Gateway in IPAM mode
   refresh-ssh-keys   Refresh a Public Gateway's SSH keys
   update             Update a Public Gateway
   upgrade            Upgrade a Public Gateway to the latest version and/or to a different commercial offer type

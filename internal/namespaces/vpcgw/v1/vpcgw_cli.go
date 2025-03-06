@@ -63,6 +63,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcGwIPUpdate(),
 		vpcGwIPDelete(),
 		vpcGwGatewayRefreshSSHKeys(),
+		vpcGwGatewayMigrateToV2(),
 	)
 }
 func vpcGwRoot() *core.Command {
@@ -2256,6 +2257,42 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 			api := vpcgw.NewAPI(client)
 			return api.RefreshSSHKeys(request)
 
+		},
+	}
+}
+
+func vpcGwGatewayMigrateToV2() *core.Command {
+	return &core.Command{
+		Short:     `Put a Public Gateway in IPAM mode`,
+		Long:      `Put a Public Gateway in IPAM mode, so that it can be used with the Public Gateways API v2. This call is idempotent.`,
+		Namespace: "vpc-gw",
+		Resource:  "gateway",
+		Verb:      "migrate-to-v2",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpcgw.MigrateToV2Request{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "gateway-id",
+				Short:      `ID of the gateway to put into IPAM mode`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpcgw.MigrateToV2Request)
+
+			client := core.ExtractClient(ctx)
+			api := vpcgw.NewAPI(client)
+			e = api.MigrateToV2(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "gateway",
+				Verb:     "migrate-to-v2",
+			}, nil
 		},
 	}
 }

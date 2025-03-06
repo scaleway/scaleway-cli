@@ -21,6 +21,7 @@ This API allows you to manage your Public Gateways.
   - [Upgrade a Public Gateway to IP mobility](#upgrade-a-public-gateway-to-ip-mobility)
   - [Get a Public Gateway](#get-a-public-gateway)
   - [List Public Gateways](#list-public-gateways)
+  - [Put a Public Gateway in IPAM mode](#put-a-public-gateway-in-ipam-mode)
   - [Refresh a Public Gateway's SSH keys](#refresh-a-public-gateway's-ssh-keys)
   - [Update a Public Gateway](#update-a-public-gateway)
   - [Upgrade a Public Gateway to the latest version and/or to a different commercial offer type](#upgrade-a-public-gateway-to-the-latest-version-andor-to-a-different-commercial-offer-type)
@@ -435,6 +436,26 @@ scw vpc-gw gateway list [arg=value ...]
 | private-network-id |  | Filter for gateways attached to this Private nNetwork |
 | organization-id |  | Include only gateways in this Organization |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Put a Public Gateway in IPAM mode
+
+Put a Public Gateway in IPAM mode, so that it can be used with the Public Gateways API v2. This call is idempotent.
+
+**Usage:**
+
+```
+scw vpc-gw gateway migrate-to-v2 <gateway-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| gateway-id | Required | ID of the gateway to put into IPAM mode |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
