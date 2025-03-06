@@ -29,7 +29,7 @@ import (
 	sdbSweeper "github.com/scaleway/scaleway-sdk-go/api/serverless_sqldb/v1alpha1/sweepers"
 	vpcSweeper "github.com/scaleway/scaleway-sdk-go/api/vpc/v2/sweepers"
 	vpcgwSweeper "github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1/sweepers"
-	webhostingSweeper "github.com/scaleway/scaleway-sdk-go/api/webhosting/v1alpha1/sweepers"
+	webhostingSweeper "github.com/scaleway/scaleway-sdk-go/api/webhosting/v1/sweepers"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
