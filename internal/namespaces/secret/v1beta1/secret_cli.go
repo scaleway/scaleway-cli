@@ -376,7 +376,7 @@ func secretSecretList() *core.Command {
 			},
 			{
 				Name:       "scheduled-for-deletion",
-				Short:      `Filter by whether the secret was scheduled for deletion / not scheduled for deletion (optional)`,
+				Short:      `Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
