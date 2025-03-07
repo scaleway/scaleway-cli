@@ -146,7 +146,7 @@ scw tem domain create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | domain-name |  | Fully qualified domain dame |
-| accept-tos |  | Accept Scaleway's Terms of Service |
+| ~~accept-tos~~ | Deprecated | Deprecated. Accept Scaleway's Terms of Service |
 | autoconfig |  | Activate auto-configuration of the domain's DNS zone |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
@@ -383,7 +383,7 @@ scw tem email list [arg=value ...]
 | since |  | (Optional) List emails created after this date |
 | until |  | (Optional) List emails created before this date |
 | mail-from |  | (Optional) List emails sent with this sender's email address |
-| ~~mail-to~~ | Deprecated | List emails sent to this recipient's email address |
+| ~~mail-to~~ | Deprecated | Deprecated. List emails sent to this recipient's email address |
 | mail-rcpt |  | (Optional) List emails sent to this recipient's email address |
 | statuses.{index} | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled` | (Optional) List emails with any of these statuses |
 | subject |  | (Optional) List emails with this subject |
