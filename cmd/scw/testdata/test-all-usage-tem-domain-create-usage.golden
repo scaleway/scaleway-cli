@@ -8,9 +8,11 @@ USAGE:
 ARGS:
   [project-id]      Project ID to use. If none is passed the default project ID will be used
   [domain-name]     Fully qualified domain dame
-  [accept-tos]      Accept Scaleway's Terms of Service
   [autoconfig]      Activate auto-configuration of the domain's DNS zone
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+
+DEPRECATED ARGS:
+  [accept-tos]   Deprecated. Accept Scaleway's Terms of Service
 
 FLAGS:
   -h, --help   help for create
