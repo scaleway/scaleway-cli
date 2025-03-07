@@ -79,7 +79,7 @@ func auditTrailEventList() *core.Command {
 			},
 			{
 				Name:       "method-name",
-				Short:      `(Optional) Name of the method or the API call performed`,
+				Short:      `(Optional) Name of the method of the API call performed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -127,6 +127,13 @@ func auditTrailEventList() *core.Command {
 			{
 				Name:       "product-name",
 				Short:      `(Optional) Name of the Scaleway resource in a hyphenated format`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "service-name",
+				Short:      `(Optional) Name of the service of the API call performed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
