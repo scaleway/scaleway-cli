@@ -21,7 +21,7 @@ ARGS:
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | all)
 
 DEPRECATED ARGS:
-  [mail-to]   List emails sent to this recipient's email address
+  [mail-to]   Deprecated. List emails sent to this recipient's email address
 
 FLAGS:
   -h, --help   help for list
