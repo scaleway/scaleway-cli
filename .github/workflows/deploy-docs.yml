@@ -4,8 +4,6 @@ on:
   release:
     types:
       - published # Triggered only when a new release is published
-    branches:
-      - master
 permissions:
   contents: write
 jobs:
