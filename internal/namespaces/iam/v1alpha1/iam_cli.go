@@ -475,6 +475,14 @@ func iamUserList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "status",
+				Short:      `Filter by user status`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_status", "invitation_pending", "activated"},
+			},
+			{
 				Name:       "organization-id",
 				Short:      `ID of the Organization to filter`,
 				Required:   true,
