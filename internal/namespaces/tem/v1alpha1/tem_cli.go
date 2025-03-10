@@ -348,7 +348,7 @@ func temEmailList() *core.Command {
 			},
 			{
 				Name:       "mail-to",
-				Short:      `List emails sent to this recipient's email address`,
+				Short:      `Deprecated. List emails sent to this recipient's email address`,
 				Required:   false,
 				Deprecated: true,
 				Positional: false,
@@ -528,9 +528,9 @@ func temDomainCreate() *core.Command {
 			},
 			{
 				Name:       "accept-tos",
-				Short:      `Accept Scaleway's Terms of Service`,
+				Short:      `Deprecated. Accept Scaleway's Terms of Service`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
