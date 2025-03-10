@@ -31,7 +31,7 @@ func eventListBuilder(c *core.Command) *core.Command {
 				FieldName: "Principal.ID",
 			},
 			{
-				Label:     "Source IP",
+				Label:     "SourceIP",
 				FieldName: "SourceIP",
 			},
 			{
