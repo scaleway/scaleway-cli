@@ -67,7 +67,7 @@ func eventListBuilder(c *core.Command) *core.Command {
 				FieldName: "Resource.Type",
 			},
 			{
-				Label:     "Resource ID",
+				Label:     "ResourceID",
 				FieldName: "Resource.ID",
 			},
 			{
