@@ -11,7 +11,7 @@ func eventListBuilder(c *core.Command) *core.Command {
 	c.View = &core.View{
 		Fields: []*core.ViewField{
 			{
-				Label:     "Recorded at",
+				Label:     "Recorded At",
 				FieldName: "RecordedAt",
 			},
 			{
