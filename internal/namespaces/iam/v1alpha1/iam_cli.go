@@ -475,12 +475,12 @@ func iamUserList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "status",
-				Short:      `Filter by user status`,
+				Name:       "type",
+				Short:      `Filter by user type`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_status", "invitation_pending", "activated"},
+				EnumValues: []string{"unknown_type", "guest", "owner", "member"},
 			},
 			{
 				Name:       "organization-id",
