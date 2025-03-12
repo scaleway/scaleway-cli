@@ -19,6 +19,10 @@ ARGS:
   [domain-configuration.update-mail-record]   
   [domain-configuration.update-all-records]   
   [skip-welcome-email]                        Indicates whether to skip a welcome email to the contact email containing hosting info.
+  [auto-config-domain-dns.nameservers]        Whether or not to synchronize domain nameservers.
+  [auto-config-domain-dns.web-records]        Whether or not to synchronize web records.
+  [auto-config-domain-dns.mail-records]       Whether or not to synchronize mail records.
+  [auto-config-domain-dns.all-records]        Whether or not to synchronize all types of records. Takes priority over the other fields.
   [region=fr-par]                             Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
