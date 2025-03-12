@@ -1126,7 +1126,7 @@ scw iam user list [arg=value ...]
 | user-ids.{index} |  | Filter by list of IDs |
 | mfa |  | Filter by MFA status |
 | tag |  | Filter by tags containing a given string |
-| status | One of: `unknown_status`, `invitation_pending`, `activated` | Filter by user status |
+| type | One of: `unknown_type`, `guest`, `owner`, `member` | Filter by user type |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
 
