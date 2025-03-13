@@ -393,12 +393,16 @@ scw webhosting domain sync-dns-records [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | domain | Required | Domain for which the DNS records will be synchronized. |
-| update-web-records |  | Whether or not to synchronize the web records. |
-| update-mail-records |  | Whether or not to synchronize the mail records. |
-| update-all-records |  | Whether or not to synchronize all types of records. This one has priority. |
-| update-nameservers |  | Whether or not to synchronize domain nameservers. |
+| ~~update-web-records~~ | Deprecated | Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns). |
+| ~~update-mail-records~~ | Deprecated | Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns). |
+| ~~update-all-records~~ | Deprecated | Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns). |
+| ~~update-nameservers~~ | Deprecated | Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns). |
 | custom-records.{index}.name |  |  |
 | custom-records.{index}.type | One of: `unknown_type`, `a`, `cname`, `mx`, `txt`, `ns`, `aaaa` |  |
+| auto-config-domain-dns.nameservers |  | Whether or not to synchronize domain nameservers. |
+| auto-config-domain-dns.web-records |  | Whether or not to synchronize web records. |
+| auto-config-domain-dns.mail-records |  | Whether or not to synchronize mail records. |
+| auto-config-domain-dns.all-records |  | Whether or not to synchronize all types of records. Takes priority over the other fields. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -507,6 +511,10 @@ scw webhosting hosting create [arg=value ...]
 | domain-configuration.update-mail-record |  |  |
 | domain-configuration.update-all-records |  |  |
 | skip-welcome-email |  | Indicates whether to skip a welcome email to the contact email containing hosting info. |
+| auto-config-domain-dns.nameservers |  | Whether or not to synchronize domain nameservers. |
+| auto-config-domain-dns.web-records |  | Whether or not to synchronize web records. |
+| auto-config-domain-dns.mail-records |  | Whether or not to synchronize mail records. |
+| auto-config-domain-dns.all-records |  | Whether or not to synchronize all types of records. Takes priority over the other fields. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

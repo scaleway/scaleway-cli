@@ -6,14 +6,20 @@ USAGE:
   scw webhosting domain sync-dns-records [arg=value ...]
 
 ARGS:
-  domain                          Domain for which the DNS records will be synchronized.
-  [update-web-records]            Whether or not to synchronize the web records.
-  [update-mail-records]           Whether or not to synchronize the mail records.
-  [update-all-records]            Whether or not to synchronize all types of records. This one has priority.
-  [update-nameservers]            Whether or not to synchronize domain nameservers.
-  [custom-records.{index}.name]   
-  [custom-records.{index}.type]    (unknown_type | a | cname | mx | txt | ns | aaaa)
-  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  domain                                  Domain for which the DNS records will be synchronized.
+  [custom-records.{index}.name]           
+  [custom-records.{index}.type]            (unknown_type | a | cname | mx | txt | ns | aaaa)
+  [auto-config-domain-dns.nameservers]    Whether or not to synchronize domain nameservers.
+  [auto-config-domain-dns.web-records]    Whether or not to synchronize web records.
+  [auto-config-domain-dns.mail-records]   Whether or not to synchronize mail records.
+  [auto-config-domain-dns.all-records]    Whether or not to synchronize all types of records. Takes priority over the other fields.
+  [region=fr-par]                         Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [update-web-records]    Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns).
+  [update-mail-records]   Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns).
+  [update-all-records]    Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns).
+  [update-nameservers]    Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
 
 FLAGS:
   -h, --help   help for sync-dns-records
