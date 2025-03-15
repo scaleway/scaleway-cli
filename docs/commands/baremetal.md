@@ -549,6 +549,7 @@ scw baremetal server create [arg=value ...]
 | install.partitioning-schema.disks.{index}.partitions.{index}.label | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs` |  |
 | install.partitioning-schema.disks.{index}.partitions.{index}.number |  |  |
 | install.partitioning-schema.disks.{index}.partitions.{index}.size |  |  |
+| install.partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |  |  |
 | install.partitioning-schema.raids.{index}.name |  |  |
 | install.partitioning-schema.raids.{index}.level | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |  |
 | install.partitioning-schema.raids.{index}.devices.{index} |  |  |
@@ -684,6 +685,7 @@ scw baremetal server install <server-id ...> [arg=value ...]
 | partitioning-schema.disks.{index}.partitions.{index}.label | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs` |  |
 | partitioning-schema.disks.{index}.partitions.{index}.number |  |  |
 | partitioning-schema.disks.{index}.partitions.{index}.size |  |  |
+| partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |  |  |
 | partitioning-schema.raids.{index}.name |  |  |
 | partitioning-schema.raids.{index}.level | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |  |
 | partitioning-schema.raids.{index}.devices.{index} |  |  |

@@ -389,6 +389,12 @@ func baremetalServerCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "install.partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "install.partitioning-schema.raids.{index}.name",
 				Required:   false,
 				Deprecated: false,
@@ -622,6 +628,12 @@ func baremetalServerInstall() *core.Command {
 			},
 			{
 				Name:       "partitioning-schema.disks.{index}.partitions.{index}.size",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
