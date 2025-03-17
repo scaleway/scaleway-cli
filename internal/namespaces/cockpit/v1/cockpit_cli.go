@@ -1018,7 +1018,7 @@ If you need to receive alerts for other receivers, you can create additional con
 				Positional: false,
 			},
 			{
-				Name:       "receive-resolved-notifications",
+				Name:       "send-resolved-notifications",
 				Short:      `Send an email notification when an alert is marked as resolved`,
 				Required:   false,
 				Deprecated: false,
