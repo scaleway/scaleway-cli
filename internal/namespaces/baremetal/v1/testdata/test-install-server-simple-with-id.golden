@@ -24,53 +24,60 @@ Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 
 Install:
-OsID                                            03b7f4ba-a6a1-4305-984e-b54fafbf1681
-Hostname                                        test-install-server
-SSHKeyIDs.0                                     6261b62a-b17a-4ae3-a897-fb759da40c7b
-Status                                          completed
-User                                            ubuntu
-ServiceUser                                     -
-ServiceURL                                      -
-PartitioningSchema.Disks.0.Device               /dev/nvme0n1
-PartitioningSchema.Disks.0.Partitions.0.Label   uefi
-PartitioningSchema.Disks.0.Partitions.0.Number  1
-PartitioningSchema.Disks.0.Partitions.0.Size    512 MiB
-PartitioningSchema.Disks.0.Partitions.1.Label   swap
-PartitioningSchema.Disks.0.Partitions.1.Number  2
-PartitioningSchema.Disks.0.Partitions.1.Size    4.0 GiB
-PartitioningSchema.Disks.0.Partitions.2.Label   boot
-PartitioningSchema.Disks.0.Partitions.2.Number  3
-PartitioningSchema.Disks.0.Partitions.2.Size    512 MiB
-PartitioningSchema.Disks.0.Partitions.3.Label   root
-PartitioningSchema.Disks.0.Partitions.3.Number  4
-PartitioningSchema.Disks.0.Partitions.3.Size    949 GiB
-PartitioningSchema.Disks.1.Device               /dev/nvme1n1
-PartitioningSchema.Disks.1.Partitions.0.Label   swap
-PartitioningSchema.Disks.1.Partitions.0.Number  1
-PartitioningSchema.Disks.1.Partitions.0.Size    4.0 GiB
-PartitioningSchema.Disks.1.Partitions.1.Label   boot
-PartitioningSchema.Disks.1.Partitions.1.Number  2
-PartitioningSchema.Disks.1.Partitions.1.Size    512 MiB
-PartitioningSchema.Disks.1.Partitions.2.Label   root
-PartitioningSchema.Disks.1.Partitions.2.Number  3
-PartitioningSchema.Disks.1.Partitions.2.Size    949 GiB
-PartitioningSchema.Raids.0.Name                 /dev/md0
-PartitioningSchema.Raids.0.Level                raid_level_1
-PartitioningSchema.Raids.0.Devices.0            /dev/nvme0n1p3
-PartitioningSchema.Raids.0.Devices.1            /dev/nvme1n1p2
-PartitioningSchema.Raids.1.Name                 /dev/md1
-PartitioningSchema.Raids.1.Level                raid_level_1
-PartitioningSchema.Raids.1.Devices.0            /dev/nvme0n1p4
-PartitioningSchema.Raids.1.Devices.1            /dev/nvme1n1p3
-PartitioningSchema.Filesystems.0.Device         /dev/nvme0n1p1
-PartitioningSchema.Filesystems.0.Format         fat32
-PartitioningSchema.Filesystems.0.Mountpoint     /boot/efi
-PartitioningSchema.Filesystems.1.Device         /dev/md0
-PartitioningSchema.Filesystems.1.Format         ext4
-PartitioningSchema.Filesystems.1.Mountpoint     /boot
-PartitioningSchema.Filesystems.2.Device         /dev/md1
-PartitioningSchema.Filesystems.2.Format         ext4
-PartitioningSchema.Filesystems.2.Mountpoint     /
+OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
+Hostname                                                      test-install-server
+SSHKeyIDs.0                                                   6261b62a-b17a-4ae3-a897-fb759da40c7b
+Status                                                        completed
+User                                                          ubuntu
+ServiceUser                                                   -
+ServiceURL                                                    -
+PartitioningSchema.Disks.0.Device                             /dev/nvme0n1
+PartitioningSchema.Disks.0.Partitions.0.Label                 uefi
+PartitioningSchema.Disks.0.Partitions.0.Number                1
+PartitioningSchema.Disks.0.Partitions.0.Size                  512 MiB
+PartitioningSchema.Disks.0.Partitions.0.UseAllAvailableSpace  false
+PartitioningSchema.Disks.0.Partitions.1.Label                 swap
+PartitioningSchema.Disks.0.Partitions.1.Number                2
+PartitioningSchema.Disks.0.Partitions.1.Size                  4.0 GiB
+PartitioningSchema.Disks.0.Partitions.1.UseAllAvailableSpace  false
+PartitioningSchema.Disks.0.Partitions.2.Label                 boot
+PartitioningSchema.Disks.0.Partitions.2.Number                3
+PartitioningSchema.Disks.0.Partitions.2.Size                  512 MiB
+PartitioningSchema.Disks.0.Partitions.2.UseAllAvailableSpace  false
+PartitioningSchema.Disks.0.Partitions.3.Label                 root
+PartitioningSchema.Disks.0.Partitions.3.Number                4
+PartitioningSchema.Disks.0.Partitions.3.Size                  949 GiB
+PartitioningSchema.Disks.0.Partitions.3.UseAllAvailableSpace  false
+PartitioningSchema.Disks.1.Device                             /dev/nvme1n1
+PartitioningSchema.Disks.1.Partitions.0.Label                 swap
+PartitioningSchema.Disks.1.Partitions.0.Number                1
+PartitioningSchema.Disks.1.Partitions.0.Size                  4.0 GiB
+PartitioningSchema.Disks.1.Partitions.0.UseAllAvailableSpace  false
+PartitioningSchema.Disks.1.Partitions.1.Label                 boot
+PartitioningSchema.Disks.1.Partitions.1.Number                2
+PartitioningSchema.Disks.1.Partitions.1.Size                  512 MiB
+PartitioningSchema.Disks.1.Partitions.1.UseAllAvailableSpace  false
+PartitioningSchema.Disks.1.Partitions.2.Label                 root
+PartitioningSchema.Disks.1.Partitions.2.Number                3
+PartitioningSchema.Disks.1.Partitions.2.Size                  949 GiB
+PartitioningSchema.Disks.1.Partitions.2.UseAllAvailableSpace  false
+PartitioningSchema.Raids.0.Name                               /dev/md0
+PartitioningSchema.Raids.0.Level                              raid_level_1
+PartitioningSchema.Raids.0.Devices.0                          /dev/nvme0n1p3
+PartitioningSchema.Raids.0.Devices.1                          /dev/nvme1n1p2
+PartitioningSchema.Raids.1.Name                               /dev/md1
+PartitioningSchema.Raids.1.Level                              raid_level_1
+PartitioningSchema.Raids.1.Devices.0                          /dev/nvme0n1p4
+PartitioningSchema.Raids.1.Devices.1                          /dev/nvme1n1p3
+PartitioningSchema.Filesystems.0.Device                       /dev/nvme0n1p1
+PartitioningSchema.Filesystems.0.Format                       fat32
+PartitioningSchema.Filesystems.0.Mountpoint                   /boot/efi
+PartitioningSchema.Filesystems.1.Device                       /dev/md0
+PartitioningSchema.Filesystems.1.Format                       ext4
+PartitioningSchema.Filesystems.1.Mountpoint                   /boot
+PartitioningSchema.Filesystems.2.Device                       /dev/md1
+PartitioningSchema.Filesystems.2.Format                       ext4
+PartitioningSchema.Filesystems.2.Mountpoint                   /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "d03fcee0-98f1-4852-b226-204da02266bd",
@@ -123,22 +130,26 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
             {
               "label": "uefi",
               "number": 1,
-              "size": 536870912
+              "size": 536870912,
+              "use_all_available_space": false
             },
             {
               "label": "swap",
               "number": 2,
-              "size": 4294967296
+              "size": 4294967296,
+              "use_all_available_space": false
             },
             {
               "label": "boot",
               "number": 3,
-              "size": 536870912
+              "size": 536870912,
+              "use_all_available_space": false
             },
             {
               "label": "root",
               "number": 4,
-              "size": 1018839433216
+              "size": 1018839433216,
+              "use_all_available_space": false
             }
           ]
         },
@@ -148,17 +159,20 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
             {
               "label": "swap",
               "number": 1,
-              "size": 4294967296
+              "size": 4294967296,
+              "use_all_available_space": false
             },
             {
               "label": "boot",
               "number": 2,
-              "size": 536870912
+              "size": 536870912,
+              "use_all_available_space": false
             },
             {
               "label": "root",
               "number": 3,
-              "size": 1018839433216
+              "size": 1018839433216,
+              "use_all_available_space": false
             }
           ]
         }
