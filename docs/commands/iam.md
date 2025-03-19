@@ -1065,6 +1065,10 @@ scw iam user create [arg=value ...]
 | member.send-welcome-email |  | Whether or not to send a welcome email that includes onboarding information. |
 | member.username |  | The member's username |
 | member.password |  | The member's password |
+| member.first-name |  | The member's first name |
+| member.last-name |  | The member's last name |
+| member.phone-number |  | The member's phone number |
+| member.locale |  | The member's locale |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -1149,6 +1153,10 @@ scw iam user update <user-id ...> [arg=value ...]
 | user-id | Required | ID of the user to update |
 | tags.{index} |  | New tags for the user (maximum of 10 tags) |
 | email |  | IAM member email |
+| first-name |  | IAM member first name |
+| last-name |  | IAM member last name |
+| phone-number |  | IAM member phone number |
+| locale |  | IAM member locale |
 
 
 
