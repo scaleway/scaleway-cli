@@ -1,0 +1,36 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"message":"authentication is denied","method":"api_key","reason":"not_found","type":"denied_authentication"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.32.0.20250319145910-2e85f595df2a (go1.24.1; darwin;
+        amd64) cli-e2e-test
+    url: https://api.scaleway.com/mongodb/v1alpha1/regions/fr-par/versions
+    method: GET
+  response:
+    body: '{"message":"authentication is denied","method":"api_key","reason":"not_found","type":"denied_authentication"}'
+    headers:
+      Content-Length:
+      - "109"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 24 Mar 2025 14:30:10 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a0f944b0-a8b6-43ad-8ddd-eb2ceee0c692
+    status: 401 Unauthorized
+    code: 401
+    duration: ""
