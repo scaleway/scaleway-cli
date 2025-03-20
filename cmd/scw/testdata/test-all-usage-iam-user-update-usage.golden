@@ -9,6 +9,10 @@ ARGS:
   user-id          ID of the user to update
   [tags.{index}]   New tags for the user (maximum of 10 tags)
   [email]          IAM member email
+  [first-name]     IAM member first name
+  [last-name]      IAM member last name
+  [phone-number]   IAM member phone number
+  [locale]         IAM member locale
 
 FLAGS:
   -h, --help   help for update
