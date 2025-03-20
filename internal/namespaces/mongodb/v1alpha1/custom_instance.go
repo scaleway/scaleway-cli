@@ -39,7 +39,7 @@ func fetchLatestEngine(ctx context.Context) (string, string) {
 	if err != nil {
 		return "", ""
 	}
-	
+
 	return latestValueVersion.Version, latestValueVersion.Version
 }
 
