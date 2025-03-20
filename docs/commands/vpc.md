@@ -17,6 +17,8 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
   - [Update Route](#update-route)
 - [Rule management command](#rule-management-command)
+  - [Get Acl Rules for VPC](#get-acl-rules-for-vpc)
+  - [Set VPC ACL rules](#set-vpc-acl-rules)
 - [Subnet management command](#subnet-management-command)
 - [VPC management command](#vpc-management-command)
   - [Create a VPC](#create-a-vpc)
@@ -313,13 +315,56 @@ scw vpc route update <route-id ...> [arg=value ...]
 
 Acl Rules.
 
-Acl Rules.
+
+### Get Acl Rules for VPC
+
+Retrieve a list of ACL rules for a VPC, specified by its VPC ID.
 
 **Usage:**
 
 ```
-scw vpc rule
+scw vpc rule get [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | ID of the Network ACL's VPC |
+| is-ipv6 | Required | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Set VPC ACL rules
+
+Set the list of ACL rules and the default routing policy for a VPC.
+
+**Usage:**
+
+```
+scw vpc rule set [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | ID of the Network ACL's VPC |
+| rules.{index}.protocol | Required<br />One of: `ANY`, `TCP`, `UDP`, `ICMP` | Protocol to which this rule applies |
+| rules.{index}.source | Required | Source IP range to which this rule applies (CIDR notation with subnet mask) |
+| rules.{index}.src-port-low | Required | Starting port of the source port range to which this rule applies (inclusive) |
+| rules.{index}.src-port-high | Required | Ending port of the source port range to which this rule applies (inclusive) |
+| rules.{index}.destination | Required | Destination IP range to which this rule applies (CIDR notation with subnet mask) |
+| rules.{index}.dst-port-low | Required | Starting port of the destination port range to which this rule applies (inclusive) |
+| rules.{index}.dst-port-high | Required | Ending port of the destination port range to which this rule applies (inclusive) |
+| rules.{index}.action | Required<br />One of: `unknown_action`, `accept`, `drop` | Policy to apply to the packet |
+| rules.{index}.description | Required | Rule description |
+| is-ipv6 | Required | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. |
+| default-policy | Required<br />One of: `unknown_action`, `accept`, `drop` | Action to take for packets which do not match any rules |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

@@ -909,7 +909,7 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "health-check.http-config.uri",
-				Short:      `HTTP URI used for the health check`,
+				Short:      `HTTP path used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -937,7 +937,7 @@ func lbBackendCreate() *core.Command {
 			},
 			{
 				Name:       "health-check.https-config.uri",
-				Short:      `HTTP URI used for the health check`,
+				Short:      `HTTP path used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1517,7 +1517,7 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			},
 			{
 				Name:       "http-config.uri",
-				Short:      `HTTP URI used for the health check`,
+				Short:      `HTTP path used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1545,7 +1545,7 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			},
 			{
 				Name:       "https-config.uri",
-				Short:      `HTTP URI used for the health check`,
+				Short:      `HTTP path used for the health check`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

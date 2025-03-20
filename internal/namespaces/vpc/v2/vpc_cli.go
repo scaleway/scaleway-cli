@@ -41,6 +41,8 @@ func GetGeneratedCommands() *core.Commands {
 		vpcRouteGet(),
 		vpcRouteUpdate(),
 		vpcRouteDelete(),
+		vpcRuleGet(),
+		vpcRuleSet(),
 		vpcRouteList(),
 	)
 }
@@ -844,6 +846,153 @@ func vpcRouteDelete() *core.Command {
 				Resource: "route",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func vpcRuleGet() *core.Command {
+	return &core.Command{
+		Short:     `Get Acl Rules for VPC`,
+		Long:      `Retrieve a list of ACL rules for a VPC, specified by its VPC ID.`,
+		Namespace: "vpc",
+		Resource:  "rule",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.GetACLRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-id",
+				Short:      `ID of the Network ACL's VPC`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-ipv6",
+				Short:      `Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.GetACLRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			return api.GetACL(request)
+
+		},
+	}
+}
+
+func vpcRuleSet() *core.Command {
+	return &core.Command{
+		Short:     `Set VPC ACL rules`,
+		Long:      `Set the list of ACL rules and the default routing policy for a VPC.`,
+		Namespace: "vpc",
+		Resource:  "rule",
+		Verb:      "set",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.SetACLRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-id",
+				Short:      `ID of the Network ACL's VPC`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.protocol",
+				Short:      `Protocol to which this rule applies`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"ANY", "TCP", "UDP", "ICMP"},
+			},
+			{
+				Name:       "rules.{index}.source",
+				Short:      `Source IP range to which this rule applies (CIDR notation with subnet mask)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.src-port-low",
+				Short:      `Starting port of the source port range to which this rule applies (inclusive)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.src-port-high",
+				Short:      `Ending port of the source port range to which this rule applies (inclusive)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.destination",
+				Short:      `Destination IP range to which this rule applies (CIDR notation with subnet mask)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.dst-port-low",
+				Short:      `Starting port of the destination port range to which this rule applies (inclusive)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.dst-port-high",
+				Short:      `Ending port of the destination port range to which this rule applies (inclusive)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.action",
+				Short:      `Policy to apply to the packet`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_action", "accept", "drop"},
+			},
+			{
+				Name:       "rules.{index}.description",
+				Short:      `Rule description`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-ipv6",
+				Short:      `Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "default-policy",
+				Short:      `Action to take for packets which do not match any rules`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"unknown_action", "accept", "drop"},
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.SetACLRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			return api.SetACL(request)
+
 		},
 	}
 }

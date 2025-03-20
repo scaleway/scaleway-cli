@@ -291,11 +291,11 @@ scw lb backend create [arg=value ...]
 | health-check.check-max-retries |  | Number of consecutive unsuccessful health checks after which the server will be considered dead |
 | health-check.mysql-config.user |  | MySQL user to use for the health check |
 | health-check.pgsql-config.user |  | PostgreSQL user to use for the health check |
-| health-check.http-config.uri |  | HTTP URI used for the health check |
+| health-check.http-config.uri |  | HTTP path used for the health check |
 | health-check.http-config.method |  | HTTP method used for the health check |
 | health-check.http-config.code |  | HTTP response code expected for a successful health check |
 | health-check.http-config.host-header |  | HTTP host header used for the health check |
-| health-check.https-config.uri |  | HTTP URI used for the health check |
+| health-check.https-config.uri |  | HTTP path used for the health check |
 | health-check.https-config.method |  | HTTP method used for the health check |
 | health-check.https-config.code |  | HTTP response code expected for a successful health check |
 | health-check.https-config.host-header |  | HTTP host header used for the health check |
@@ -522,11 +522,11 @@ scw lb backend update-healthcheck [arg=value ...]
 | check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
 | mysql-config.user |  | MySQL user to use for the health check |
 | pgsql-config.user |  | PostgreSQL user to use for the health check |
-| http-config.uri |  | HTTP URI used for the health check |
+| http-config.uri |  | HTTP path used for the health check |
 | http-config.method |  | HTTP method used for the health check |
 | http-config.code |  | HTTP response code expected for a successful health check |
 | http-config.host-header |  | HTTP host header used for the health check |
-| https-config.uri |  | HTTP URI used for the health check |
+| https-config.uri |  | HTTP path used for the health check |
 | https-config.method |  | HTTP method used for the health check |
 | https-config.code |  | HTTP response code expected for a successful health check |
 | https-config.host-header |  | HTTP host header used for the health check |
