@@ -13,5 +13,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(mongodb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(mongodb.NodeTypeStock(""), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
 
+	cmds.MustFind("mongodb", "instance", "create").Override(instanceCreateBuilder)
+
 	return cmds
 }
