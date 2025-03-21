@@ -176,7 +176,7 @@ scw function deploy [arg=value ...]
 |------|---|-------------|
 | namespace-id |  | Function Namespace ID to deploy to |
 | name | Required | Name of the function to deploy, will be used in namespace's name if no ID is provided |
-| runtime | Required<br />One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124` |  |
+| runtime | Required<br />One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84` |  |
 | zip-file | Required | Path of the zip file that contains your code |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -294,7 +294,7 @@ scw function function create [arg=value ...]
 | environment-variables.{key} |  | Environment variables of the function |
 | min-scale |  | Minumum number of instances to scale the function to |
 | max-scale |  | Maximum number of instances to scale the function to |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124` | Runtime to use with the function |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84` | Runtime to use with the function |
 | memory-limit |  | Memory limit of the function in MB |
 | timeout |  | Request processing time limit for the function |
 | handler |  | Handler to use with the function |
@@ -452,7 +452,7 @@ scw function function update <function-id ...> [arg=value ...]
 | environment-variables.{key} |  | Environment variables of the function to update |
 | min-scale |  | Minumum number of instances to scale the function to |
 | max-scale |  | Maximum number of instances to scale the function to |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124` | Runtime to use with the function |
+| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84` | Runtime to use with the function |
 | memory-limit |  | Memory limit of the function in MB |
 | timeout |  | Processing time limit for the function |
 | redeploy |  | Redeploy failed function |
