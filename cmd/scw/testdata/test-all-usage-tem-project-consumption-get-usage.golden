@@ -1,20 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Project consumption allow you to see your project consumption.
+Get project resource consumption.
 
 USAGE:
-  scw tem project-consumption <command>
+  scw tem project-consumption get [arg=value ...]
 
-AVAILABLE COMMANDS:
-  get         Get project resource consumption.
+ARGS:
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for project-consumption
+  -h, --help   help for get
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
-
-Use "scw tem project-consumption [command] --help" for more information about a command.
