@@ -819,6 +819,13 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "auto-config-domain-dns.none",
+				Short:      `No automatic domain configuration. Users must configure their domain for the Web Hosting to work.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -1002,6 +1009,13 @@ func webhostingHostingCreate() *core.Command {
 			{
 				Name:       "auto-config-domain-dns.all-records",
 				Short:      `Whether or not to synchronize all types of records. Takes priority over the other fields.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "auto-config-domain-dns.none",
+				Short:      `No automatic domain configuration. Users must configure their domain for the Web Hosting to work.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
