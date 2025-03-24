@@ -48,9 +48,6 @@ func GetGeneratedCommands() *core.Commands {
 		temBlocklistsList(),
 		temBlocklistsCreate(),
 		temBlocklistsDelete(),
-		temOffersUpdate(),
-		temOffersList(),
-		temProjectConsumptionGet(),
 	)
 }
 func temRoot() *core.Command {
@@ -1250,85 +1247,6 @@ func temBlocklistsDelete() *core.Command {
 				Resource: "blocklists",
 				Verb:     "delete",
 			}, nil
-		},
-	}
-}
-
-func temOffersUpdate() *core.Command {
-	return &core.Command{
-		Short:     `Update a subscribed offer`,
-		Long:      `Update a subscribed offer.`,
-		Namespace: "tem",
-		Resource:  "offers",
-		Verb:      "update",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.UpdateOfferSubscriptionRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			{
-				Name:       "name",
-				Short:      `Name of the offer-subscription`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{"unknown_name", "essential", "scale"},
-			},
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*tem.UpdateOfferSubscriptionRequest)
-
-			client := core.ExtractClient(ctx)
-			api := tem.NewAPI(client)
-			return api.UpdateOfferSubscription(request)
-
-		},
-	}
-}
-
-func temOffersList() *core.Command {
-	return &core.Command{
-		Short:     `List the available offers.`,
-		Long:      `Retrieve the list of the available and free-of-charge offers you can subscribe to.`,
-		Namespace: "tem",
-		Resource:  "offers",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.ListOffersRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*tem.ListOffersRequest)
-
-			client := core.ExtractClient(ctx)
-			api := tem.NewAPI(client)
-			return api.ListOffers(request)
-
-		},
-	}
-}
-
-func temProjectConsumptionGet() *core.Command {
-	return &core.Command{
-		Short:     `Get project resource consumption.`,
-		Long:      `Get project resource consumption.`,
-		Namespace: "tem",
-		Resource:  "project-consumption",
-		Verb:      "get",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.GetProjectConsumptionRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*tem.GetProjectConsumptionRequest)
-
-			client := core.ExtractClient(ctx)
-			api := tem.NewAPI(client)
-			return api.GetProjectConsumption(request)
-
 		},
 	}
 }
