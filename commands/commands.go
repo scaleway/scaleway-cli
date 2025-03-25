@@ -28,6 +28,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	interlink "github.com/scaleway/scaleway-cli/v2/internal/namespaces/interlink/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
 	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha1"
@@ -108,6 +109,7 @@ func GetCommands() *core.Commands {
 		login.GetCommands(),
 		mongodb.GetCommands(),
 		audit_trail.GetCommands(),
+		interlink.GetCommands(),
 	)
 
 	if beta {

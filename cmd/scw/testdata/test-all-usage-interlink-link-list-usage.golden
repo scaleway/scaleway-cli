@@ -1,0 +1,32 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all your links (InterLink connections). A number of filters are available, including Project ID, name, tags and status.
+
+USAGE:
+  scw interlink link list [arg=value ...]
+
+ARGS:
+  [order-by]            Order in which to return results (created_at_asc | created_at_desc | name_asc | name_desc | status_asc | status_desc)
+  [project-id]          Project ID to filter for
+  [name]                Link name to filter for
+  [tags.{index}]        Tags to filter for
+  [status]              Link status to filter for (unknown_link_status | configuring | failed | requested | refused | expired | provisioning | active | limited_connectivity | all_down | deprovisioning | deleted | locked)
+  [bgp-v4-status]       BGP IPv4 status to filter for (unknown_bgp_status | up | down)
+  [bgp-v6-status]       BGP IPv6 status to filter for (unknown_bgp_status | up | down)
+  [pop-id]              Filter for links attached to this PoP (via ports)
+  [bandwidth-mbps]      Filter for link bandwidth (in Mbps)
+  [partner-id]          Filter for links hosted by this partner
+  [vpc-id]              Filter for links attached to this VPC
+  [routing-policy-id]   Filter for links using this routing policy
+  [pairing-key]         Filter for the link with this pairing_key
+  [organization-id]     Organization ID to filter for
+  [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

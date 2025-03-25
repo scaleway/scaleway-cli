@@ -22,6 +22,7 @@ AVAILABLE COMMANDS:
   iam           This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources
   inference     This API allows you to manage your Inference services
   instance      This API allows you to manage your Instances
+  interlink     This API allows you to manage your InterLink services
   iot           This API allows you to manage your IoT hubs and devices
   ipam          This API allows you to manage your Scaleway IP addresses with our IP Address Management tool
   jobs          This API allows you to manage your Serverless Jobs
