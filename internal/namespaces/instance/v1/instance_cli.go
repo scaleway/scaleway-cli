@@ -299,7 +299,6 @@ func instanceServerTypeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetServerTypesAvailability(request)
-
 		},
 	}
 }
@@ -322,7 +321,6 @@ func instanceServerTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.ListServersTypes(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -355,7 +353,6 @@ func instanceVolumeTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.ListVolumesTypes(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -497,7 +494,6 @@ func instanceServerList() *core.Command {
 				return nil, err
 			}
 			return resp.Servers, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -545,7 +541,6 @@ func instanceServerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -732,7 +727,6 @@ func instanceServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdateServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -783,7 +777,6 @@ func instanceServerListActions() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.ListServerActions(request)
-
 		},
 	}
 }
@@ -813,7 +806,6 @@ func instanceUserDataList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.ListServerUserData(request)
-
 		},
 	}
 }
@@ -954,7 +946,6 @@ func instanceUserDataGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetServerUserData(request)
-
 		},
 	}
 }
@@ -989,7 +980,6 @@ If the specified Instance offer is flagged as end of service, the best compatibl
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetServerCompatibleTypes(request)
-
 		},
 	}
 }
@@ -1057,7 +1047,6 @@ func instanceImageList() *core.Command {
 				return nil, err
 			}
 			return resp.Images, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1099,7 +1088,6 @@ func instanceImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetImage(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1214,7 +1202,6 @@ func instanceImageCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.CreateImage(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1286,7 +1273,6 @@ func instanceImageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdateImage(request)
-
 		},
 	}
 }
@@ -1399,7 +1385,6 @@ func instanceSnapshotList() *core.Command {
 				return nil, err
 			}
 			return resp.Snapshots, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1485,7 +1470,6 @@ func instanceSnapshotCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.CreateSnapshot(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1533,7 +1517,6 @@ func instanceSnapshotGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetSnapshot(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1587,7 +1570,6 @@ func instanceSnapshotUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdateSnapshot(request)
-
 		},
 	}
 }
@@ -1677,7 +1659,6 @@ func instanceSnapshotExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.ExportSnapshot(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1751,7 +1732,6 @@ func instanceVolumeList() *core.Command {
 				return nil, err
 			}
 			return resp.Volumes, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1873,7 +1853,6 @@ func instanceVolumeCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.CreateVolume(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1913,7 +1892,6 @@ func instanceVolumeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetVolume(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1970,7 +1948,6 @@ func instanceVolumeUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdateVolume(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2093,7 +2070,6 @@ func instanceSecurityGroupList() *core.Command {
 				return nil, err
 			}
 			return resp.SecurityGroups, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2193,7 +2169,6 @@ func instanceSecurityGroupCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.CreateSecurityGroup(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2245,7 +2220,6 @@ func instanceSecurityGroupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetSecurityGroup(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2388,7 +2362,6 @@ func instanceSecurityGroupUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdateSecurityGroup(request)
-
 		},
 	}
 }
@@ -2411,7 +2384,6 @@ func instanceSecurityGroupListDefaultRules() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.ListDefaultSecurityGroupRules(request)
-
 		},
 	}
 }
@@ -2450,7 +2422,6 @@ func instanceSecurityGroupListRules() *core.Command {
 				return nil, err
 			}
 			return resp.Rules, nil
-
 		},
 	}
 }
@@ -2536,7 +2507,6 @@ func instanceSecurityGroupCreateRule() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.CreateSecurityGroupRule(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2661,7 +2631,6 @@ func instanceSecurityGroupSetRules() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.SetSecurityGroupRules(request)
-
 		},
 	}
 }
@@ -2743,7 +2712,6 @@ func instanceSecurityGroupGetRule() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetSecurityGroupRule(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2838,7 +2806,6 @@ func instanceSecurityGroupUpdateRule() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdateSecurityGroupRule(request)
-
 		},
 	}
 }
@@ -2898,7 +2865,6 @@ func instancePlacementGroupList() *core.Command {
 				return nil, err
 			}
 			return resp.PlacementGroups, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2964,7 +2930,6 @@ func instancePlacementGroupCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.CreatePlacementGroup(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3020,7 +2985,6 @@ func instancePlacementGroupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetPlacementGroup(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3083,7 +3047,6 @@ func instancePlacementGroupSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.SetPlacementGroup(request)
-
 		},
 	}
 }
@@ -3143,7 +3106,6 @@ func instancePlacementGroupUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdatePlacementGroup(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3233,7 +3195,6 @@ func instancePlacementGroupGetServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetPlacementGroupServers(request)
-
 		},
 	}
 }
@@ -3270,7 +3231,6 @@ func instancePlacementGroupSetServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.SetPlacementGroupServers(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3313,7 +3273,6 @@ func instancePlacementGroupUpdateServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdatePlacementGroupServers(request)
-
 		},
 	}
 }
@@ -3380,7 +3339,6 @@ func instanceIPList() *core.Command {
 				return nil, err
 			}
 			return resp.IPs, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3472,7 +3430,6 @@ func instanceIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.CreateIP(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3516,7 +3473,6 @@ func instanceIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetIP(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3582,7 +3538,6 @@ func instanceIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdateIP(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3692,7 +3647,6 @@ func instancePrivateNicList() *core.Command {
 				return nil, err
 			}
 			return resp.PrivateNics, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3760,7 +3714,6 @@ func instancePrivateNicCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.CreatePrivateNIC(request)
-
 		},
 	}
 }
@@ -3797,7 +3750,6 @@ func instancePrivateNicGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.GetPrivateNIC(request)
-
 		},
 	}
 }
@@ -3841,7 +3793,6 @@ func instancePrivateNicUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.UpdatePrivateNIC(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -3931,7 +3882,6 @@ The endpoint also returns the validation_key, which must be provided to the [Mig
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			return api.PlanBlockMigration(request)
-
 		},
 	}
 }

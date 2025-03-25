@@ -108,7 +108,6 @@ func appleSiliconServerTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 			return api.ListServerTypes(request)
-
 		},
 	}
 }
@@ -138,7 +137,6 @@ func appleSiliconServerTypeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 			return api.GetServerType(request)
-
 		},
 	}
 }
@@ -199,7 +197,6 @@ func appleSiliconServerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 			return api.CreateServer(request)
-
 		},
 	}
 }
@@ -253,7 +250,6 @@ func appleSiliconServerList() *core.Command {
 				return nil, err
 			}
 			return resp.Servers, nil
-
 		},
 	}
 }
@@ -299,7 +295,6 @@ func appleSiliconOsList() *core.Command {
 				return nil, err
 			}
 			return resp.Os, nil
-
 		},
 	}
 }
@@ -329,7 +324,6 @@ func appleSiliconOsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 			return api.GetOS(request)
-
 		},
 	}
 }
@@ -359,7 +353,6 @@ func appleSiliconServerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 			return api.GetServer(request)
-
 		},
 	}
 }
@@ -417,7 +410,6 @@ func appleSiliconServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 			return api.UpdateServer(request)
-
 		},
 	}
 }
@@ -483,7 +475,6 @@ func appleSiliconServerReboot() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 			return api.RebootServer(request)
-
 		},
 	}
 }
@@ -520,7 +511,6 @@ func appleSiliconServerReinstall() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 			return api.ReinstallServer(request)
-
 		},
 	}
 }
@@ -564,7 +554,6 @@ func appleSiliconPrivateNetworkAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
 			return api.AddServerPrivateNetwork(request)
-
 		},
 	}
 }
@@ -601,7 +590,6 @@ func appleSiliconPrivateNetworkSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
 			return api.SetServerPrivateNetworks(request)
-
 		},
 	}
 }
@@ -676,7 +664,6 @@ func appleSiliconPrivateNetworkList() *core.Command {
 				return nil, err
 			}
 			return resp.ServerPrivateNetworks, nil
-
 		},
 	}
 }

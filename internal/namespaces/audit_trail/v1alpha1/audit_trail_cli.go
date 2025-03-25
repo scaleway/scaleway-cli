@@ -147,7 +147,6 @@ func auditTrailEventList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 			return api.ListEvents(request)
-
 		},
 	}
 }
@@ -171,7 +170,6 @@ func auditTrailProductList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 			return api.ListProducts(request)
-
 		},
 	}
 }

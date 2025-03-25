@@ -129,7 +129,6 @@ func marketplaceImageList() *core.Command {
 				return nil, err
 			}
 			return resp.Images, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -193,7 +192,6 @@ func marketplaceImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 			return api.GetImage(request)
-
 		},
 	}
 }
@@ -233,7 +231,6 @@ func marketplaceVersionList() *core.Command {
 				return nil, err
 			}
 			return resp.Versions, nil
-
 		},
 	}
 }
@@ -261,7 +258,6 @@ func marketplaceVersionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 			return api.GetVersion(request)
-
 		},
 	}
 }
@@ -332,7 +328,6 @@ func marketplaceLocalImageList() *core.Command {
 				return nil, err
 			}
 			return resp.LocalImages, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -380,7 +375,6 @@ func marketplaceLocalImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 			return api.GetLocalImage(request)
-
 		},
 	}
 }
@@ -406,7 +400,6 @@ func marketplaceCategoryList() *core.Command {
 				return nil, err
 			}
 			return resp.Categories, nil
-
 		},
 	}
 }
@@ -434,7 +427,6 @@ func marketplaceCategoryGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 			return api.GetCategory(request)
-
 		},
 	}
 }

@@ -159,7 +159,6 @@ func inferenceDeploymentList() *core.Command {
 				return nil, err
 			}
 			return resp.Deployments, nil
-
 		},
 	}
 }
@@ -189,7 +188,6 @@ func inferenceDeploymentGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.GetDeployment(request)
-
 		},
 	}
 }
@@ -278,7 +276,6 @@ func inferenceDeploymentCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.CreateDeployment(request)
-
 		},
 	}
 }
@@ -336,7 +333,6 @@ func inferenceDeploymentUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.UpdateDeployment(request)
-
 		},
 	}
 }
@@ -366,7 +362,6 @@ func inferenceDeploymentDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.DeleteDeployment(request)
-
 		},
 	}
 }
@@ -396,7 +391,6 @@ The CA certificate will be returned as a PEM file.`,
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.GetDeploymentCertificate(request)
-
 		},
 	}
 }
@@ -441,7 +435,6 @@ func inferenceEndpointCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.CreateEndpoint(request)
-
 		},
 	}
 }
@@ -478,7 +471,6 @@ func inferenceEndpointUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.UpdateEndpoint(request)
-
 		},
 	}
 }
@@ -553,7 +545,6 @@ func inferenceACLList() *core.Command {
 				return nil, err
 			}
 			return resp.Rules, nil
-
 		},
 	}
 }
@@ -597,7 +588,6 @@ func inferenceACLAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.AddDeploymentACLRules(request)
-
 		},
 	}
 }
@@ -641,7 +631,6 @@ func inferenceACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.SetDeploymentACLRules(request)
-
 		},
 	}
 }
@@ -738,7 +727,6 @@ func inferenceModelList() *core.Command {
 				return nil, err
 			}
 			return resp.Models, nil
-
 		},
 	}
 }
@@ -768,7 +756,6 @@ func inferenceModelGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 			return api.GetModel(request)
-
 		},
 	}
 }
@@ -807,7 +794,6 @@ func inferenceNodeTypeList() *core.Command {
 				return nil, err
 			}
 			return resp.NodeTypes, nil
-
 		},
 	}
 }

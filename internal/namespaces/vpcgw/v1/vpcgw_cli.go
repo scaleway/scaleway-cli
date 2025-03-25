@@ -222,7 +222,6 @@ func vpcGwGatewayList() *core.Command {
 				return nil, err
 			}
 			return resp.Gateways, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -287,7 +286,6 @@ func vpcGwGatewayGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.GetGateway(request)
-
 		},
 	}
 }
@@ -369,7 +367,6 @@ func vpcGwGatewayCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.CreateGateway(request)
-
 		},
 	}
 }
@@ -441,7 +438,6 @@ func vpcGwGatewayUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.UpdateGateway(request)
-
 		},
 	}
 }
@@ -521,7 +517,6 @@ func vpcGwGatewayUpgrade() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.UpgradeGateway(request)
-
 		},
 	}
 }
@@ -633,7 +628,6 @@ func vpcGwGatewayNetworkList() *core.Command {
 				return nil, err
 			}
 			return resp.GatewayNetworks, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -698,7 +692,6 @@ func vpcGwGatewayNetworkGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.GetGatewayNetwork(request)
-
 		},
 	}
 }
@@ -777,7 +770,6 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.CreateGatewayNetwork(request)
-
 		},
 	}
 }
@@ -849,7 +841,6 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.UpdateGatewayNetwork(request)
-
 		},
 	}
 }
@@ -960,7 +951,6 @@ func vpcGwDHCPList() *core.Command {
 				return nil, err
 			}
 			return resp.Dhcps, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1049,7 +1039,6 @@ func vpcGwDHCPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.GetDHCP(request)
-
 		},
 	}
 }
@@ -1164,7 +1153,6 @@ func vpcGwDHCPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.CreateDHCP(request)
-
 		},
 	}
 }
@@ -1285,7 +1273,6 @@ func vpcGwDHCPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.UpdateDHCP(request)
-
 		},
 	}
 }
@@ -1397,7 +1384,6 @@ func vpcGwDHCPEntryList() *core.Command {
 				return nil, err
 			}
 			return resp.DHCPEntries, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1456,7 +1442,6 @@ func vpcGwDHCPEntryGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.GetDHCPEntry(request)
-
 		},
 	}
 }
@@ -1500,7 +1485,6 @@ func vpcGwDHCPEntryCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.CreateDHCPEntry(request)
-
 		},
 	}
 }
@@ -1537,7 +1521,6 @@ func vpcGwDHCPEntryUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.UpdateDHCPEntry(request)
-
 		},
 	}
 }
@@ -1581,7 +1564,6 @@ func vpcGwDHCPEntrySet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.SetDHCPEntries(request)
-
 		},
 	}
 }
@@ -1679,7 +1661,6 @@ func vpcGwPatRuleList() *core.Command {
 				return nil, err
 			}
 			return resp.PatRules, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1738,7 +1719,6 @@ func vpcGwPatRuleGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.GetPATRule(request)
-
 		},
 	}
 }
@@ -1797,7 +1777,6 @@ func vpcGwPatRuleCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.CreatePATRule(request)
-
 		},
 	}
 }
@@ -1856,7 +1835,6 @@ func vpcGwPatRuleUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.UpdatePATRule(request)
-
 		},
 	}
 }
@@ -1915,7 +1893,6 @@ func vpcGwPatRuleSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.SetPATRules(request)
-
 		},
 	}
 }
@@ -1974,7 +1951,6 @@ func vpcGwGatewayTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.ListGatewayTypes(request)
-
 		},
 	}
 }
@@ -2049,7 +2025,6 @@ func vpcGwIPList() *core.Command {
 				return nil, err
 			}
 			return resp.IPs, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -2108,7 +2083,6 @@ func vpcGwIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.GetIP(request)
-
 		},
 	}
 }
@@ -2139,7 +2113,6 @@ func vpcGwIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.CreateIP(request)
-
 		},
 	}
 }
@@ -2190,7 +2163,6 @@ func vpcGwIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.UpdateIP(request)
-
 		},
 	}
 }
@@ -2256,7 +2228,6 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 			return api.RefreshSSHKeys(request)
-
 		},
 	}
 }

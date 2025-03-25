@@ -100,7 +100,6 @@ func blockVolumeTypeList() *core.Command {
 				return nil, err
 			}
 			return resp.VolumeTypes, nil
-
 		},
 	}
 }
@@ -175,7 +174,6 @@ func blockVolumeList() *core.Command {
 				return nil, err
 			}
 			return resp.Volumes, nil
-
 		},
 	}
 }
@@ -243,7 +241,6 @@ To create a volume from an existing snapshot, specify ` + "`" + `from_snapshot` 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.CreateVolume(request)
-
 		},
 	}
 }
@@ -273,7 +270,6 @@ func blockVolumeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.GetVolume(request)
-
 		},
 	}
 }
@@ -368,7 +364,6 @@ You can only resize a volume to a larger size. It is currently not possible to c
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.UpdateVolume(request)
-
 		},
 	}
 }
@@ -443,7 +438,6 @@ func blockSnapshotList() *core.Command {
 				return nil, err
 			}
 			return resp.Snapshots, nil
-
 		},
 	}
 }
@@ -473,7 +467,6 @@ func blockSnapshotGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.GetSnapshot(request)
-
 		},
 	}
 }
@@ -520,7 +513,6 @@ If your volume is in a transient state, you need to wait until the end of the cu
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.CreateSnapshot(request)
-
 		},
 	}
 }
@@ -580,7 +572,6 @@ The bucket can be imported into any Availability Zone as long as it is in the sa
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.ImportSnapshotFromObjectStorage(request)
-
 		},
 	}
 }
@@ -625,7 +616,6 @@ The snapshot must not be in transient state.`,
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.ExportSnapshotToObjectStorage(request)
-
 		},
 	}
 }
@@ -705,7 +695,6 @@ func blockSnapshotUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 			return api.UpdateSnapshot(request)
-
 		},
 	}
 }

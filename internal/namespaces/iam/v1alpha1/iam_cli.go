@@ -234,7 +234,6 @@ func iamSSHKeyList() *core.Command {
 				return nil, err
 			}
 			return resp.SSHKeys, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -292,7 +291,6 @@ func iamSSHKeyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.CreateSSHKey(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -337,7 +335,6 @@ func iamSSHKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.GetSSHKey(request)
-
 		},
 	}
 }
@@ -379,7 +376,6 @@ func iamSSHKeyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.UpdateSSHKey(request)
-
 		},
 	}
 }
@@ -501,7 +497,6 @@ func iamUserList() *core.Command {
 				return nil, err
 			}
 			return resp.Users, nil
-
 		},
 	}
 }
@@ -530,7 +525,6 @@ func iamUserGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.GetUser(request)
-
 		},
 	}
 }
@@ -601,7 +595,6 @@ func iamUserUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.UpdateUser(request)
-
 		},
 	}
 }
@@ -736,7 +729,6 @@ func iamUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.CreateUser(request)
-
 		},
 	}
 }
@@ -772,7 +764,6 @@ func iamUserUpdateUsername() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.UpdateUserUsername(request)
-
 		},
 	}
 }
@@ -808,7 +799,6 @@ func iamUserUpdatePassword() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.UpdateUserPassword(request)
-
 		},
 	}
 }
@@ -873,7 +863,6 @@ func iamApplicationList() *core.Command {
 				return nil, err
 			}
 			return resp.Applications, nil
-
 		},
 	}
 }
@@ -918,7 +907,6 @@ func iamApplicationCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.CreateApplication(request)
-
 		},
 	}
 }
@@ -947,7 +935,6 @@ func iamApplicationGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.GetApplication(request)
-
 		},
 	}
 }
@@ -997,7 +984,6 @@ func iamApplicationUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.UpdateApplication(request)
-
 		},
 	}
 }
@@ -1104,7 +1090,6 @@ func iamGroupList() *core.Command {
 				return nil, err
 			}
 			return resp.Groups, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1163,7 +1148,6 @@ func iamGroupCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.CreateGroup(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1212,7 +1196,6 @@ func iamGroupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.GetGroup(request)
-
 		},
 	}
 }
@@ -1262,7 +1245,6 @@ func iamGroupUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.UpdateGroup(request)
-
 		},
 	}
 }
@@ -1302,7 +1284,6 @@ func iamGroupSetMembers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.SetGroupMembers(request)
-
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -1355,7 +1336,6 @@ func iamGroupAddMember() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.AddGroupMember(request)
-
 		},
 	}
 }
@@ -1398,7 +1378,6 @@ func iamGroupAddMembers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.AddGroupMembers(request)
-
 		},
 	}
 }
@@ -1441,7 +1420,6 @@ func iamGroupRemoveMember() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.RemoveGroupMember(request)
-
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -1595,7 +1573,6 @@ func iamPolicyList() *core.Command {
 				return nil, err
 			}
 			return resp.Policies, nil
-
 		},
 	}
 }
@@ -1696,7 +1673,6 @@ func iamPolicyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.CreatePolicy(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1731,7 +1707,6 @@ func iamPolicyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.GetPolicy(request)
-
 		},
 	}
 }
@@ -1809,7 +1784,6 @@ func iamPolicyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.UpdatePolicy(request)
-
 		},
 	}
 }
@@ -1872,7 +1846,6 @@ func iamPolicyClone() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.ClonePolicy(request)
-
 		},
 	}
 }
@@ -1929,7 +1902,6 @@ func iamRuleUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.SetRules(request)
-
 		},
 	}
 }
@@ -1963,7 +1935,6 @@ func iamRuleList() *core.Command {
 				return nil, err
 			}
 			return resp.Rules, nil
-
 		},
 	}
 }
@@ -2000,7 +1971,6 @@ func iamPermissionSetList() *core.Command {
 				return nil, err
 			}
 			return resp.PermissionSets, nil
-
 		},
 	}
 }
@@ -2107,7 +2077,6 @@ func iamAPIKeyList() *core.Command {
 				return nil, err
 			}
 			return resp.APIKeys, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -2184,7 +2153,6 @@ func iamAPIKeyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.CreateAPIKey(request)
-
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -2223,7 +2191,6 @@ func iamAPIKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.GetAPIKey(request)
-
 		},
 	}
 }
@@ -2266,7 +2233,6 @@ func iamAPIKeyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.UpdateAPIKey(request)
-
 		},
 	}
 }
@@ -2367,7 +2333,6 @@ func iamJwtList() *core.Command {
 				return nil, err
 			}
 			return resp.Jwts, nil
-
 		},
 	}
 }
@@ -2396,7 +2361,6 @@ func iamJwtGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.GetJWT(request)
-
 		},
 	}
 }
@@ -2505,7 +2469,6 @@ func iamLogList() *core.Command {
 				return nil, err
 			}
 			return resp.Logs, nil
-
 		},
 	}
 }
@@ -2534,7 +2497,6 @@ func iamLogGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.GetLog(request)
-
 		},
 	}
 }

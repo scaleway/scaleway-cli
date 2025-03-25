@@ -113,7 +113,6 @@ func billingConsumptionList() *core.Command {
 				return nil, err
 			}
 			return resp.Consumptions, nil
-
 		},
 	}
 }
@@ -156,7 +155,6 @@ func billingConsumptionListTaxes() *core.Command {
 				return nil, err
 			}
 			return resp.Taxes, nil
-
 		},
 	}
 }
@@ -220,7 +218,6 @@ func billingInvoiceList() *core.Command {
 				return nil, err
 			}
 			return resp.Invoices, nil
-
 		},
 	}
 }
@@ -303,7 +300,6 @@ func billingInvoiceExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 			return api.ExportInvoices(request)
-
 		},
 	}
 }
@@ -332,7 +328,6 @@ func billingInvoiceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 			return api.GetInvoice(request)
-
 		},
 	}
 }
@@ -369,7 +364,6 @@ func billingInvoiceDownload() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 			return api.DownloadInvoice(request)
-
 		},
 	}
 }
@@ -414,7 +408,6 @@ func billingDiscountList() *core.Command {
 				return nil, err
 			}
 			return resp.Discounts, nil
-
 		},
 	}
 }

@@ -151,7 +151,6 @@ func secretSecretCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.CreateSecret(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -187,7 +186,6 @@ func secretSecretGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.GetSecret(request)
-
 		},
 	}
 }
@@ -267,7 +265,6 @@ func secretSecretUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.UpdateSecret(request)
-
 		},
 	}
 }
@@ -405,7 +402,6 @@ func secretSecretList() *core.Command {
 				return nil, err
 			}
 			return resp.Secrets, nil
-
 		},
 	}
 }
@@ -435,7 +431,6 @@ func secretSecretProtect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.ProtectSecret(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -471,7 +466,6 @@ func secretSecretUnprotect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.UnprotectSecret(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -579,7 +573,6 @@ func secretVersionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.CreateSecretVersion(request)
-
 		},
 	}
 }
@@ -616,7 +609,6 @@ func secretVersionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.GetSecretVersion(request)
-
 		},
 	}
 }
@@ -682,7 +674,6 @@ func secretVersionUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.UpdateSecretVersion(request)
-
 		},
 	}
 }
@@ -778,7 +769,6 @@ func secretVersionList() *core.Command {
 				return nil, err
 			}
 			return resp.Versions, nil
-
 		},
 	}
 }
@@ -815,7 +805,6 @@ func secretVersionAccess() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.AccessSecretVersion(request)
-
 		},
 	}
 }
@@ -860,7 +849,6 @@ func secretVersionAccessByPath() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.AccessSecretVersionByPath(request)
-
 		},
 	}
 }
@@ -897,7 +885,6 @@ func secretVersionEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.EnableSecretVersion(request)
-
 		},
 	}
 }
@@ -934,7 +921,6 @@ func secretVersionDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 			return api.DisableSecretVersion(request)
-
 		},
 	}
 }

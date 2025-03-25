@@ -202,7 +202,6 @@ func k8sClusterList() *core.Command {
 				return nil, err
 			}
 			return resp.Clusters, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -615,7 +614,6 @@ func k8sClusterCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.CreateCluster(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -655,7 +653,6 @@ func k8sClusterGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.GetCluster(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -876,7 +873,6 @@ func k8sClusterUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.UpdateCluster(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -923,7 +919,6 @@ func k8sClusterDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.DeleteCluster(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -977,7 +972,6 @@ func k8sClusterUpgrade() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.UpgradeCluster(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1024,7 +1018,6 @@ func k8sClusterSetType() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.SetClusterType(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1060,7 +1053,6 @@ func k8sClusterListAvailableVersions() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.ListClusterAvailableVersions(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1104,7 +1096,6 @@ func k8sClusterListAvailableTypes() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.ListClusterAvailableTypes(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1215,7 +1206,6 @@ Make sure to have the necessary Quota before running this command.`,
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.MigrateClusterToSBSCSI(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1260,7 +1250,6 @@ func k8sACLList() *core.Command {
 				return nil, err
 			}
 			return resp.Rules, nil
-
 		},
 	}
 }
@@ -1311,7 +1300,6 @@ func k8sACLAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.AddClusterACLRules(request)
-
 		},
 	}
 }
@@ -1362,7 +1350,6 @@ func k8sACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.SetClusterACLRules(request)
-
 		},
 	}
 }
@@ -1460,7 +1447,6 @@ func k8sPoolList() *core.Command {
 				return nil, err
 			}
 			return resp.Pools, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1672,7 +1658,6 @@ func k8sPoolCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.CreatePool(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1716,7 +1701,6 @@ func k8sPoolGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.GetPool(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1760,7 +1744,6 @@ This will drain and replace the nodes in that pool.`,
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.UpgradePool(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1857,7 +1840,6 @@ func k8sPoolUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.UpdatePool(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1905,7 +1887,6 @@ func k8sPoolDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.DeletePool(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1980,7 +1961,6 @@ func k8sNodeList() *core.Command {
 				return nil, err
 			}
 			return resp.Nodes, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2050,7 +2030,6 @@ func k8sNodeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.GetNode(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2086,7 +2065,6 @@ func k8sNodeReplace() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.ReplaceNode(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2122,7 +2100,6 @@ func k8sNodeReboot() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.RebootNode(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2172,7 +2149,6 @@ func k8sNodeDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.DeleteNode(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2209,7 +2185,6 @@ func k8sVersionList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.ListVersions(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2265,7 +2240,6 @@ func k8sVersionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 			return api.GetVersion(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -2303,7 +2277,6 @@ func k8sClusterTypeList() *core.Command {
 				return nil, err
 			}
 			return resp.ClusterTypes, nil
-
 		},
 	}
 }

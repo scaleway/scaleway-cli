@@ -155,7 +155,6 @@ func iotHubList() *core.Command {
 				return nil, err
 			}
 			return resp.Hubs, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -263,7 +262,6 @@ func iotHubCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.CreateHub(request)
-
 		},
 	}
 }
@@ -293,7 +291,6 @@ func iotHubGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.GetHub(request)
-
 		},
 	}
 }
@@ -365,7 +362,6 @@ func iotHubUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.UpdateHub(request)
-
 		},
 	}
 }
@@ -395,7 +391,6 @@ func iotHubEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.EnableHub(request)
-
 		},
 	}
 }
@@ -425,7 +420,6 @@ func iotHubDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.DisableHub(request)
-
 		},
 	}
 }
@@ -512,7 +506,6 @@ func iotHubSetCa() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.SetHubCA(request)
-
 		},
 	}
 }
@@ -541,7 +534,6 @@ func iotHubGetCa() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.GetHubCA(request)
-
 		},
 	}
 }
@@ -610,7 +602,6 @@ func iotDeviceList() *core.Command {
 				return nil, err
 			}
 			return resp.Devices, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -737,7 +728,6 @@ func iotDeviceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.CreateDevice(request)
-
 		},
 	}
 }
@@ -767,7 +757,6 @@ func iotDeviceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.GetDevice(request)
-
 		},
 	}
 }
@@ -855,7 +844,6 @@ func iotDeviceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.UpdateDevice(request)
-
 		},
 	}
 }
@@ -885,7 +873,6 @@ func iotDeviceEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.EnableDevice(request)
-
 		},
 	}
 }
@@ -915,7 +902,6 @@ func iotDeviceDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.DisableDevice(request)
-
 		},
 	}
 }
@@ -945,7 +931,6 @@ func iotDeviceRenewCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.RenewDeviceCertificate(request)
-
 		},
 	}
 }
@@ -982,7 +967,6 @@ func iotDeviceSetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.SetDeviceCertificate(request)
-
 		},
 	}
 }
@@ -1012,7 +996,6 @@ func iotDeviceGetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.GetDeviceCertificate(request)
-
 		},
 	}
 }
@@ -1085,7 +1068,6 @@ func iotDeviceGetMetrics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.GetDeviceMetrics(request)
-
 		},
 	}
 }
@@ -1139,7 +1121,6 @@ func iotRouteList() *core.Command {
 				return nil, err
 			}
 			return resp.Routes, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1300,7 +1281,6 @@ func iotRouteCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.CreateRoute(request)
-
 		},
 	}
 }
@@ -1431,7 +1411,6 @@ func iotRouteUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.UpdateRoute(request)
-
 		},
 	}
 }
@@ -1461,7 +1440,6 @@ func iotRouteGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.GetRoute(request)
-
 		},
 	}
 }
@@ -1558,7 +1536,6 @@ func iotNetworkList() *core.Command {
 				return nil, err
 			}
 			return resp.Networks, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1634,7 +1611,6 @@ func iotNetworkCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.CreateNetwork(request)
-
 		},
 	}
 }
@@ -1664,7 +1640,6 @@ func iotNetworkGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 			return api.GetNetwork(request)
-
 		},
 	}
 }
