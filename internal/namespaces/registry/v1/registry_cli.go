@@ -134,7 +134,6 @@ func registryNamespaceList() *core.Command {
 				return nil, err
 			}
 			return resp.Namespaces, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -208,7 +207,6 @@ func registryNamespaceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 			return api.GetNamespace(request)
-
 		},
 	}
 }
@@ -255,7 +253,6 @@ func registryNamespaceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 			return api.CreateNamespace(request)
-
 		},
 	}
 }
@@ -299,7 +296,6 @@ func registryNamespaceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 			return api.UpdateNamespace(request)
-
 		},
 	}
 }
@@ -329,7 +325,6 @@ func registryNamespaceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 			return api.DeleteNamespace(request)
-
 		},
 	}
 }
@@ -397,7 +392,6 @@ func registryImageList() *core.Command {
 				return nil, err
 			}
 			return resp.Images, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -459,7 +453,6 @@ func registryImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 			return api.GetImage(request)
-
 		},
 	}
 }
@@ -497,7 +490,6 @@ func registryImageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 			return api.UpdateImage(request)
-
 		},
 	}
 }
@@ -527,7 +519,6 @@ func registryImageDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 			return api.DeleteImage(request)
-
 		},
 	}
 }
@@ -581,7 +572,6 @@ func registryTagList() *core.Command {
 				return nil, err
 			}
 			return resp.Tags, nil
-
 		},
 	}
 }
@@ -611,7 +601,6 @@ func registryTagGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 			return api.GetTag(request)
-
 		},
 	}
 }
@@ -648,7 +637,6 @@ func registryTagDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 			return api.DeleteTag(request)
-
 		},
 	}
 }

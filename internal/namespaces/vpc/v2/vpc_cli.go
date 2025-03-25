@@ -181,7 +181,6 @@ func vpcVpcList() *core.Command {
 				return nil, err
 			}
 			return resp.Vpcs, nil
-
 		},
 	}
 }
@@ -227,7 +226,6 @@ func vpcVpcCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.CreateVPC(request)
-
 		},
 	}
 }
@@ -257,7 +255,6 @@ func vpcVpcGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.GetVPC(request)
-
 		},
 	}
 }
@@ -301,7 +298,6 @@ func vpcVpcUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.UpdateVPC(request)
-
 		},
 	}
 }
@@ -426,7 +422,6 @@ func vpcPrivateNetworkList() *core.Command {
 				return nil, err
 			}
 			return resp.PrivateNetworks, nil
-
 		},
 	}
 }
@@ -479,7 +474,6 @@ func vpcPrivateNetworkCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.CreatePrivateNetwork(request)
-
 		},
 	}
 }
@@ -509,7 +503,6 @@ func vpcPrivateNetworkGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.GetPrivateNetwork(request)
-
 		},
 	}
 }
@@ -553,7 +546,6 @@ func vpcPrivateNetworkUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.UpdatePrivateNetwork(request)
-
 		},
 	}
 }
@@ -619,7 +611,6 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.EnableDHCP(request)
-
 		},
 	}
 }
@@ -649,7 +640,6 @@ func vpcRouteEnableRouting() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.EnableRouting(request)
-
 		},
 	}
 }
@@ -714,7 +704,6 @@ func vpcRouteCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.CreateRoute(request)
-
 		},
 	}
 }
@@ -744,7 +733,6 @@ func vpcRouteGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.GetRoute(request)
-
 		},
 	}
 }
@@ -809,7 +797,6 @@ func vpcRouteUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.UpdateRoute(request)
-
 		},
 	}
 }
@@ -882,7 +869,6 @@ func vpcRuleGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.GetACL(request)
-
 		},
 	}
 }
@@ -992,7 +978,6 @@ func vpcRuleSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 			return api.SetACL(request)
-
 		},
 	}
 }
@@ -1078,7 +1063,6 @@ func vpcRouteList() *core.Command {
 				return nil, err
 			}
 			return resp.Routes, nil
-
 		},
 	}
 }

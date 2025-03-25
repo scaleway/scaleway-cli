@@ -78,7 +78,6 @@ func accountProjectCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
 			return api.CreateProject(request)
-
 		},
 	}
 }
@@ -128,7 +127,6 @@ func accountProjectList() *core.Command {
 				return nil, err
 			}
 			return resp.Projects, nil
-
 		},
 	}
 }
@@ -151,7 +149,6 @@ func accountProjectGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
 			return api.GetProject(request)
-
 		},
 	}
 }
@@ -217,7 +214,6 @@ func accountProjectUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
 			return api.UpdateProject(request)
-
 		},
 	}
 }

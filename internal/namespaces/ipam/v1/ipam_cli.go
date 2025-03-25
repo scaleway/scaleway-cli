@@ -131,7 +131,6 @@ func ipamIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 			return api.BookIP(request)
-
 		},
 	}
 }
@@ -232,7 +231,6 @@ func ipamIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 			return api.GetIP(request)
-
 		},
 	}
 }
@@ -283,7 +281,6 @@ func ipamIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 			return api.UpdateIP(request)
-
 		},
 	}
 }
@@ -437,7 +434,6 @@ func ipamIPList() *core.Command {
 				return nil, err
 			}
 			return resp.IPs, nil
-
 		},
 	}
 }

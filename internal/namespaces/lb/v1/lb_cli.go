@@ -247,7 +247,6 @@ func lbLBList() *core.Command {
 				return nil, err
 			}
 			return resp.LBs, nil
-
 		},
 	}
 }
@@ -339,7 +338,6 @@ func lbLBCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.CreateLB(request)
-
 		},
 	}
 }
@@ -369,7 +367,6 @@ func lbLBGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.GetLB(request)
-
 		},
 	}
 }
@@ -428,7 +425,6 @@ func lbLBUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UpdateLB(request)
-
 		},
 	}
 }
@@ -508,7 +504,6 @@ func lbLBMigrate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.MigrateLB(request)
-
 		},
 	}
 }
@@ -576,7 +571,6 @@ func lbIPList() *core.Command {
 				return nil, err
 			}
 			return resp.IPs, nil
-
 		},
 	}
 }
@@ -622,7 +616,6 @@ func lbIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.CreateIP(request)
-
 		},
 	}
 }
@@ -652,7 +645,6 @@ func lbIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.GetIP(request)
-
 		},
 	}
 }
@@ -739,7 +731,6 @@ func lbIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UpdateIP(request)
-
 		},
 	}
 }
@@ -793,7 +784,6 @@ func lbBackendList() *core.Command {
 				return nil, err
 			}
 			return resp.Backends, nil
-
 		},
 	}
 }
@@ -1096,7 +1086,6 @@ func lbBackendCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.CreateBackend(request)
-
 		},
 	}
 }
@@ -1126,7 +1115,6 @@ func lbBackendGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.GetBackend(request)
-
 		},
 	}
 }
@@ -1297,7 +1285,6 @@ func lbBackendUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UpdateBackend(request)
-
 		},
 	}
 }
@@ -1370,7 +1357,6 @@ func lbBackendAddServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.AddBackendServers(request)
-
 		},
 	}
 }
@@ -1407,7 +1393,6 @@ func lbBackendRemoveServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.RemoveBackendServers(request)
-
 		},
 	}
 }
@@ -1444,7 +1429,6 @@ func lbBackendSetServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.SetBackendServers(request)
-
 		},
 	}
 }
@@ -1594,7 +1578,6 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UpdateHealthCheck(request)
-
 		},
 	}
 }
@@ -1648,7 +1631,6 @@ func lbFrontendList() *core.Command {
 				return nil, err
 			}
 			return resp.Frontends, nil
-
 		},
 	}
 }
@@ -1736,7 +1718,6 @@ func lbFrontendCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.CreateFrontend(request)
-
 		},
 	}
 }
@@ -1766,7 +1747,6 @@ func lbFrontendGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.GetFrontend(request)
-
 		},
 	}
 }
@@ -1853,7 +1833,6 @@ func lbFrontendUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UpdateFrontend(request)
-
 		},
 	}
 }
@@ -1936,7 +1915,6 @@ func lbRouteList() *core.Command {
 				return nil, err
 			}
 			return resp.Routes, nil
-
 		},
 	}
 }
@@ -1994,7 +1972,6 @@ func lbRouteCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.CreateRoute(request)
-
 		},
 	}
 }
@@ -2024,7 +2001,6 @@ func lbRouteGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.GetRoute(request)
-
 		},
 	}
 }
@@ -2082,7 +2058,6 @@ func lbRouteUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UpdateRoute(request)
-
 		},
 	}
 }
@@ -2155,7 +2130,6 @@ func lbLBGetStats() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.GetLBStats(request)
-
 		},
 	}
 }
@@ -2201,7 +2175,6 @@ func lbBackendListStatistics() *core.Command {
 				return nil, err
 			}
 			return resp.BackendServersStats, nil
-
 		},
 	}
 }
@@ -2255,7 +2228,6 @@ func lbACLList() *core.Command {
 				return nil, err
 			}
 			return resp.ACLs, nil
-
 		},
 	}
 }
@@ -2373,7 +2345,6 @@ func lbACLCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.CreateACL(request)
-
 		},
 	}
 }
@@ -2403,7 +2374,6 @@ func lbACLGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.GetACL(request)
-
 		},
 	}
 }
@@ -2520,7 +2490,6 @@ func lbACLUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UpdateACL(request)
-
 		},
 	}
 }
@@ -2673,7 +2642,6 @@ func lbACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.SetACLs(request)
-
 		},
 	}
 }
@@ -2732,7 +2700,6 @@ func lbCertificateCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.CreateCertificate(request)
-
 		},
 	}
 }
@@ -2786,7 +2753,6 @@ func lbCertificateList() *core.Command {
 				return nil, err
 			}
 			return resp.Certificates, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -2854,7 +2820,6 @@ func lbCertificateGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.GetCertificate(request)
-
 		},
 	}
 }
@@ -2891,7 +2856,6 @@ func lbCertificateUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UpdateCertificate(request)
-
 		},
 	}
 }
@@ -2959,7 +2923,6 @@ func lbLBTypesList() *core.Command {
 				return nil, err
 			}
 			return resp.LBTypes, nil
-
 		},
 	}
 }
@@ -3005,7 +2968,6 @@ func lbSubscriberCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.CreateSubscriber(request)
-
 		},
 	}
 }
@@ -3035,7 +2997,6 @@ func lbSubscriberGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.GetSubscriber(request)
-
 		},
 	}
 }
@@ -3096,7 +3057,6 @@ func lbSubscriberList() *core.Command {
 				return nil, err
 			}
 			return resp.Subscribers, nil
-
 		},
 	}
 }
@@ -3147,7 +3107,6 @@ func lbSubscriberUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UpdateSubscriber(request)
-
 		},
 	}
 }
@@ -3220,7 +3179,6 @@ func lbSubscriberSubscribe() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.SubscribeToLB(request)
-
 		},
 	}
 }
@@ -3250,7 +3208,6 @@ func lbSubscriberUnsubscribe() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.UnsubscribeFromLB(request)
-
 		},
 	}
 }
@@ -3297,7 +3254,6 @@ func lbPrivateNetworkList() *core.Command {
 				return nil, err
 			}
 			return resp.PrivateNetwork, nil
-
 		},
 	}
 }
@@ -3341,7 +3297,6 @@ func lbPrivateNetworkAttach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 			return api.AttachPrivateNetwork(request)
-
 		},
 	}
 }

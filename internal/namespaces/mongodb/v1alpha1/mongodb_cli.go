@@ -144,7 +144,6 @@ func mongodbNodeTypeList() *core.Command {
 				return nil, err
 			}
 			return resp.NodeTypes, nil
-
 		},
 	}
 }
@@ -182,7 +181,6 @@ func mongodbVersionList() *core.Command {
 				return nil, err
 			}
 			return resp.Versions, nil
-
 		},
 	}
 }
@@ -250,7 +248,6 @@ func mongodbInstanceList() *core.Command {
 				return nil, err
 			}
 			return resp.Instances, nil
-
 		},
 	}
 }
@@ -280,7 +277,6 @@ func mongodbInstanceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.GetInstance(request)
-
 		},
 	}
 }
@@ -376,7 +372,6 @@ func mongodbInstanceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.CreateInstance(request)
-
 		},
 	}
 }
@@ -420,7 +415,6 @@ func mongodbInstanceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.UpdateInstance(request)
-
 		},
 	}
 }
@@ -450,7 +444,6 @@ func mongodbInstanceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.DeleteInstance(request)
-
 		},
 	}
 }
@@ -487,7 +480,6 @@ func mongodbInstanceUpgrade() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.UpgradeInstance(request)
-
 		},
 	}
 }
@@ -517,7 +509,6 @@ func mongodbInstanceGetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.GetInstanceCertificate(request)
-
 		},
 	}
 }
@@ -561,7 +552,6 @@ func mongodbSnapshotCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.CreateSnapshot(request)
-
 		},
 	}
 }
@@ -591,7 +581,6 @@ func mongodbSnapshotGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.GetSnapshot(request)
-
 		},
 	}
 }
@@ -635,7 +624,6 @@ func mongodbSnapshotUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.UpdateSnapshot(request)
-
 		},
 	}
 }
@@ -694,7 +682,6 @@ func mongodbSnapshotRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.RestoreSnapshot(request)
-
 		},
 	}
 }
@@ -762,7 +749,6 @@ func mongodbSnapshotList() *core.Command {
 				return nil, err
 			}
 			return resp.Snapshots, nil
-
 		},
 	}
 }
@@ -792,7 +778,6 @@ func mongodbSnapshotDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.DeleteSnapshot(request)
-
 		},
 	}
 }
@@ -846,7 +831,6 @@ func mongodbUserList() *core.Command {
 				return nil, err
 			}
 			return resp.Users, nil
-
 		},
 	}
 }
@@ -890,7 +874,6 @@ func mongodbUserUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 			return api.UpdateUser(request)
-
 		},
 	}
 }

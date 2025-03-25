@@ -90,7 +90,6 @@ func baremetalPrivateNetworkAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
 			return api.AddServerPrivateNetwork(request)
-
 		},
 	}
 }
@@ -127,7 +126,6 @@ func baremetalPrivateNetworkSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
 			return api.SetServerPrivateNetworks(request)
-
 		},
 	}
 }
@@ -202,7 +200,6 @@ func baremetalPrivateNetworkList() *core.Command {
 				return nil, err
 			}
 			return resp.ServerPrivateNetworks, nil
-
 		},
 	}
 }

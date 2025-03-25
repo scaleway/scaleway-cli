@@ -106,7 +106,6 @@ func sdbSQLDatabaseCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 			return api.CreateDatabase(request)
-
 		},
 	}
 }
@@ -136,7 +135,6 @@ func sdbSQLDatabaseGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 			return api.GetDatabase(request)
-
 		},
 	}
 }
@@ -166,7 +164,6 @@ func sdbSQLDatabaseDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 			return api.DeleteDatabase(request)
-
 		},
 	}
 }
@@ -221,7 +218,6 @@ func sdbSQLDatabaseList() *core.Command {
 				return nil, err
 			}
 			return resp.Databases, nil
-
 		},
 	}
 }
@@ -265,7 +261,6 @@ func sdbSQLDatabaseUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 			return api.UpdateDatabase(request)
-
 		},
 	}
 }
@@ -302,7 +297,6 @@ func sdbSQLDatabaseRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 			return api.RestoreDatabaseFromBackup(request)
-
 		},
 	}
 }
@@ -332,7 +326,6 @@ func sdbSQLBackupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 			return api.GetDatabaseBackup(request)
-
 		},
 	}
 }
@@ -393,7 +386,6 @@ func sdbSQLBackupList() *core.Command {
 				return nil, err
 			}
 			return resp.Backups, nil
-
 		},
 	}
 }
@@ -423,7 +415,6 @@ func sdbSQLBackupExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 			return api.ExportDatabaseBackup(request)
-
 		},
 	}
 }

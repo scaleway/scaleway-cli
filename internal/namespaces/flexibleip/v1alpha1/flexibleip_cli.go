@@ -116,7 +116,6 @@ func fipIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 			return api.CreateFlexibleIP(request)
-
 		},
 	}
 }
@@ -146,7 +145,6 @@ func fipIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 			return api.GetFlexibleIP(request)
-
 		},
 	}
 }
@@ -222,7 +220,6 @@ func fipIPList() *core.Command {
 				return nil, err
 			}
 			return resp.FlexibleIPs, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -308,7 +305,6 @@ func fipIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 			return api.UpdateFlexibleIP(request)
-
 		},
 	}
 }
@@ -381,7 +377,6 @@ func fipIPAttach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 			return api.AttachFlexibleIP(request)
-
 		},
 	}
 }
@@ -411,7 +406,6 @@ func fipIPDetach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 			return api.DetachFlexibleIP(request)
-
 		},
 	}
 }
@@ -449,7 +443,6 @@ func fipMacCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 			return api.GenerateMACAddr(request)
-
 		},
 	}
 }
@@ -486,7 +479,6 @@ func fipMacDuplicate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 			return api.DuplicateMACAddr(request)
-
 		},
 	}
 }
@@ -521,7 +513,6 @@ func fipMacMove() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 			return api.MoveMACAddr(request)
-
 		},
 	}
 }

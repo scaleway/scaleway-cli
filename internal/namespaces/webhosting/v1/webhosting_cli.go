@@ -187,7 +187,6 @@ func webhostingControlPanelList() *core.Command {
 				return nil, err
 			}
 			return resp.ControlPanels, nil
-
 		},
 	}
 }
@@ -243,7 +242,6 @@ func webhostingDatabaseCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 			return api.CreateDatabase(request)
-
 		},
 	}
 }
@@ -290,7 +288,6 @@ func webhostingDatabaseList() *core.Command {
 				return nil, err
 			}
 			return resp.Databases, nil
-
 		},
 	}
 }
@@ -327,7 +324,6 @@ func webhostingDatabaseGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 			return api.GetDatabase(request)
-
 		},
 	}
 }
@@ -364,7 +360,6 @@ func webhostingDatabaseDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 			return api.DeleteDatabase(request)
-
 		},
 	}
 }
@@ -408,7 +403,6 @@ func webhostingDatabaseUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 			return api.CreateDatabaseUser(request)
-
 		},
 	}
 }
@@ -455,7 +449,6 @@ func webhostingDatabaseUserList() *core.Command {
 				return nil, err
 			}
 			return resp.Users, nil
-
 		},
 	}
 }
@@ -492,7 +485,6 @@ func webhostingDatabaseUserGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 			return api.GetDatabaseUser(request)
-
 		},
 	}
 }
@@ -529,7 +521,6 @@ func webhostingDatabaseUserDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 			return api.DeleteDatabaseUser(request)
-
 		},
 	}
 }
@@ -573,7 +564,6 @@ func webhostingDatabaseUserChangePassword() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 			return api.ChangeDatabaseUserPassword(request)
-
 		},
 	}
 }
@@ -617,7 +607,6 @@ func webhostingDatabaseUserAssign() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 			return api.AssignDatabaseUser(request)
-
 		},
 	}
 }
@@ -661,7 +650,6 @@ func webhostingDatabaseUserUnassign() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 			return api.UnassignDatabaseUser(request)
-
 		},
 	}
 }
@@ -691,7 +679,6 @@ func webhostingDNSRecordsGetDNSRecords() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 			return api.GetDomainDNSRecords(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -728,7 +715,6 @@ func webhostingDomainCheckOwnership() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 			return api.CheckUserOwnsDomain(request)
-
 		},
 	}
 }
@@ -834,7 +820,6 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 			return api.SyncDomainDNSRecords(request)
-
 		},
 	}
 }
@@ -888,7 +873,6 @@ func webhostingOfferList() *core.Command {
 				return nil, err
 			}
 			return resp.Offers, nil
-
 		},
 	}
 }
@@ -1028,7 +1012,6 @@ func webhostingHostingCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 			return api.CreateHosting(request)
-
 		},
 	}
 }
@@ -1111,7 +1094,6 @@ func webhostingHostingList() *core.Command {
 				return nil, err
 			}
 			return resp.Hostings, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1147,7 +1129,6 @@ func webhostingHostingGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 			return api.GetHosting(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1225,7 +1206,6 @@ func webhostingHostingUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 			return api.UpdateHosting(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1265,7 +1245,6 @@ func webhostingHostingDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 			return api.DeleteHosting(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1301,7 +1280,6 @@ func webhostingHostingCreateSession() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 			return api.CreateSession(request)
-
 		},
 	}
 }
@@ -1352,7 +1330,6 @@ func webhostingFtpAccountCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
 			return api.CreateFtpAccount(request)
-
 		},
 	}
 }
@@ -1406,7 +1383,6 @@ func webhostingFtpAccountList() *core.Command {
 				return nil, err
 			}
 			return resp.FtpAccounts, nil
-
 		},
 	}
 }
@@ -1443,7 +1419,6 @@ func webhostingFtpAccountDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
 			return api.RemoveFtpAccount(request)
-
 		},
 	}
 }
@@ -1494,7 +1469,6 @@ func webhostingMailAccountCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
 			return api.CreateMailAccount(request)
-
 		},
 	}
 }
@@ -1548,7 +1522,6 @@ func webhostingMailAccountList() *core.Command {
 				return nil, err
 			}
 			return resp.MailAccounts, nil
-
 		},
 	}
 }
@@ -1592,7 +1565,6 @@ func webhostingMailAccountDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
 			return api.RemoveMailAccount(request)
-
 		},
 	}
 }
@@ -1643,7 +1615,6 @@ func webhostingMailAccountChangePassword() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
 			return api.ChangeMailAccountPassword(request)
-
 		},
 	}
 }
@@ -1690,7 +1661,6 @@ func webhostingWebsiteList() *core.Command {
 				return nil, err
 			}
 			return resp.Websites, nil
-
 		},
 	}
 }

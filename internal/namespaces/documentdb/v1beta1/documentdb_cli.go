@@ -275,7 +275,6 @@ func documentDbEngineList() *core.Command {
 				return nil, err
 			}
 			return resp.Engines, nil
-
 		},
 	}
 }
@@ -314,7 +313,6 @@ func documentDbNodeTypeList() *core.Command {
 				return nil, err
 			}
 			return resp.NodeTypes, nil
-
 		},
 	}
 }
@@ -394,7 +392,6 @@ func documentDbInstanceUpgrade() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.UpgradeInstance(request)
-
 		},
 	}
 }
@@ -462,7 +459,6 @@ func documentDbInstanceList() *core.Command {
 				return nil, err
 			}
 			return resp.Instances, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -524,7 +520,6 @@ func documentDbInstanceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.GetInstance(request)
-
 		},
 	}
 }
@@ -654,7 +649,6 @@ func documentDbInstanceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.CreateInstance(request)
-
 		},
 	}
 }
@@ -747,7 +741,6 @@ func documentDbInstanceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.UpdateInstance(request)
-
 		},
 	}
 }
@@ -777,7 +770,6 @@ func documentDbInstanceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.DeleteInstance(request)
-
 		},
 	}
 }
@@ -821,7 +813,6 @@ func documentDbInstanceClone() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.CloneInstance(request)
-
 		},
 	}
 }
@@ -851,7 +842,6 @@ func documentDbInstanceRestart() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.RestartInstance(request)
-
 		},
 	}
 }
@@ -881,7 +871,6 @@ func documentDbInstanceGetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.GetInstanceCertificate(request)
-
 		},
 	}
 }
@@ -968,7 +957,6 @@ func documentDbInstanceGetMetrics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.GetInstanceMetrics(request)
-
 		},
 	}
 }
@@ -1019,7 +1007,6 @@ func documentDbReadReplicaCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.CreateReadReplica(request)
-
 		},
 	}
 }
@@ -1049,7 +1036,6 @@ func documentDbReadReplicaGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.GetReadReplica(request)
-
 		},
 	}
 }
@@ -1079,7 +1065,6 @@ func documentDbReadReplicaDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.DeleteReadReplica(request)
-
 		},
 	}
 }
@@ -1110,7 +1095,6 @@ The configured endpoints do not change.`,
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.ResetReadReplica(request)
-
 		},
 	}
 }
@@ -1154,7 +1138,6 @@ func documentDbReadReplicaCreateEndpoint() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.CreateReadReplicaEndpoint(request)
-
 		},
 	}
 }
@@ -1192,7 +1175,6 @@ func documentDbLogList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.ListInstanceLogs(request)
-
 		},
 	}
 }
@@ -1222,7 +1204,6 @@ func documentDbLogGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.GetInstanceLog(request)
-
 		},
 	}
 }
@@ -1295,7 +1276,6 @@ func documentDbLogListDetails() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.ListInstanceLogsDetails(request)
-
 		},
 	}
 }
@@ -1337,7 +1317,6 @@ func documentDbSettingAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.AddInstanceSettings(request)
-
 		},
 	}
 }
@@ -1374,7 +1353,6 @@ func documentDbSettingDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.DeleteInstanceSettings(request)
-
 		},
 	}
 }
@@ -1416,7 +1394,6 @@ func documentDbSettingSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.SetInstanceSettings(request)
-
 		},
 	}
 }
@@ -1455,7 +1432,6 @@ func documentDbACLList() *core.Command {
 				return nil, err
 			}
 			return resp.Rules, nil
-
 		},
 	}
 }
@@ -1497,7 +1473,6 @@ func documentDbACLAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.AddInstanceACLRules(request)
-
 		},
 	}
 }
@@ -1539,7 +1514,6 @@ func documentDbACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.SetInstanceACLRules(request)
-
 		},
 	}
 }
@@ -1576,7 +1550,6 @@ func documentDbACLDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.DeleteInstanceACLRules(request)
-
 		},
 	}
 }
@@ -1630,7 +1603,6 @@ func documentDbUserList() *core.Command {
 				return nil, err
 			}
 			return resp.Users, nil
-
 		},
 	}
 }
@@ -1681,7 +1653,6 @@ func documentDbUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.CreateUser(request)
-
 		},
 	}
 }
@@ -1732,7 +1703,6 @@ func documentDbUserUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.UpdateUser(request)
-
 		},
 	}
 }
@@ -1843,7 +1813,6 @@ func documentDbDatabaseList() *core.Command {
 				return nil, err
 			}
 			return resp.Databases, nil
-
 		},
 	}
 }
@@ -1880,7 +1849,6 @@ func documentDbDatabaseCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.CreateDatabase(request)
-
 		},
 	}
 }
@@ -1984,7 +1952,6 @@ func documentDbPrivilegeList() *core.Command {
 				return nil, err
 			}
 			return resp.Privileges, nil
-
 		},
 	}
 }
@@ -2036,7 +2003,6 @@ func documentDbPrivilegeSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.SetPrivilege(request)
-
 		},
 	}
 }
@@ -2104,7 +2070,6 @@ func documentDbSnapshotList() *core.Command {
 				return nil, err
 			}
 			return resp.Snapshots, nil
-
 		},
 	}
 }
@@ -2134,7 +2099,6 @@ func documentDbSnapshotGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.GetSnapshot(request)
-
 		},
 	}
 }
@@ -2179,7 +2143,6 @@ func documentDbSnapshotCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.CreateSnapshot(request)
-
 		},
 	}
 }
@@ -2223,7 +2186,6 @@ func documentDbSnapshotUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.UpdateSnapshot(request)
-
 		},
 	}
 }
@@ -2253,7 +2215,6 @@ func documentDbSnapshotDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.DeleteSnapshot(request)
-
 		},
 	}
 }
@@ -2304,7 +2265,6 @@ func documentDbSnapshotRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.CreateInstanceFromSnapshot(request)
-
 		},
 	}
 }
@@ -2348,7 +2308,6 @@ func documentDbEndpointCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.CreateEndpoint(request)
-
 		},
 	}
 }
@@ -2414,7 +2373,6 @@ func documentDbEndpointGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.GetEndpoint(request)
-
 		},
 	}
 }
@@ -2451,7 +2409,6 @@ func documentDbEndpointMigrate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := documentdb.NewAPI(client)
 			return api.MigrateEndpoint(request)
-
 		},
 	}
 }
