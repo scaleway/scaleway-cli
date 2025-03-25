@@ -1,0 +1,30 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Links commands.
+
+USAGE:
+  scw interlink link <command>
+
+AVAILABLE COMMANDS:
+  attach_policy       Attach a routing policy
+  attach_vpc          Attach a VPC
+  create              Create a link
+  delete              Delete a link
+  detach_policy       Detach a routing policy
+  detach_vpc          Detach a VPC
+  disable_propagation Disable route propagation
+  enable_propagation  Enable route propagation
+  get                 Get a link
+  list                List links
+  update              Update a link
+
+FLAGS:
+  -h, --help   help for link
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw interlink link [command] --help" for more information about a command.
