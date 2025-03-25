@@ -3,6 +3,8 @@ package commands
 import (
 	"os"
 
+	interlink "github.com/scaleway/scaleway-cli/v2/internal/namespaces/interlink/v1beta1"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
@@ -108,6 +110,7 @@ func GetCommands() *core.Commands {
 		login.GetCommands(),
 		mongodb.GetCommands(),
 		audit_trail.GetCommands(),
+		interlink.GetCommands(),
 	)
 
 	if beta {
