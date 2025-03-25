@@ -188,7 +188,6 @@ func functionNamespaceList() *core.Command {
 				return nil, err
 			}
 			return resp.Namespaces, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -253,7 +252,6 @@ func functionNamespaceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.GetNamespace(request)
-
 		},
 	}
 }
@@ -317,7 +315,6 @@ func functionNamespaceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.CreateNamespace(request)
-
 		},
 	}
 }
@@ -380,7 +377,6 @@ func functionNamespaceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.UpdateNamespace(request)
-
 		},
 	}
 }
@@ -410,7 +406,6 @@ func functionNamespaceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.DeleteNamespace(request)
-
 		},
 	}
 }
@@ -478,7 +473,6 @@ func functionFunctionList() *core.Command {
 				return nil, err
 			}
 			return resp.Functions, nil
-
 		},
 	}
 }
@@ -508,7 +502,6 @@ func functionFunctionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.GetFunction(request)
-
 		},
 	}
 }
@@ -640,7 +633,6 @@ func functionFunctionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.CreateFunction(request)
-
 		},
 	}
 }
@@ -770,7 +762,6 @@ func functionFunctionUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.UpdateFunction(request)
-
 		},
 	}
 }
@@ -800,7 +791,6 @@ func functionFunctionDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.DeleteFunction(request)
-
 		},
 	}
 }
@@ -830,7 +820,6 @@ func functionFunctionDeploy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.DeployFunction(request)
-
 		},
 	}
 }
@@ -853,7 +842,6 @@ func functionRuntimeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.ListFunctionRuntimes(request)
-
 		},
 	}
 }
@@ -890,7 +878,6 @@ func functionFunctionGetUploadURL() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.GetFunctionUploadURL(request)
-
 		},
 	}
 }
@@ -920,7 +907,6 @@ func functionFunctionGetDownloadURL() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.GetFunctionDownloadURL(request)
-
 		},
 	}
 }
@@ -967,7 +953,6 @@ func functionCronList() *core.Command {
 				return nil, err
 			}
 			return resp.Crons, nil
-
 		},
 	}
 }
@@ -997,7 +982,6 @@ func functionCronGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.GetCron(request)
-
 		},
 	}
 }
@@ -1048,7 +1032,6 @@ func functionCronCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.CreateCron(request)
-
 		},
 	}
 }
@@ -1106,7 +1089,6 @@ func functionCronUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.UpdateCron(request)
-
 		},
 	}
 }
@@ -1136,7 +1118,6 @@ func functionCronDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.DeleteCron(request)
-
 		},
 	}
 }
@@ -1183,7 +1164,6 @@ func functionDomainList() *core.Command {
 				return nil, err
 			}
 			return resp.Domains, nil
-
 		},
 	}
 }
@@ -1213,7 +1193,6 @@ func functionDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.GetDomain(request)
-
 		},
 	}
 }
@@ -1250,7 +1229,6 @@ func functionDomainCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.CreateDomain(request)
-
 		},
 	}
 }
@@ -1280,7 +1258,6 @@ func functionDomainDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.DeleteDomain(request)
-
 		},
 	}
 }
@@ -1331,7 +1308,6 @@ func functionTokenCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.CreateToken(request)
-
 		},
 	}
 }
@@ -1361,7 +1337,6 @@ func functionTokenGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.GetToken(request)
-
 		},
 	}
 }
@@ -1415,7 +1390,6 @@ func functionTokenList() *core.Command {
 				return nil, err
 			}
 			return resp.Tokens, nil
-
 		},
 	}
 }
@@ -1445,7 +1419,6 @@ func functionTokenDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.DeleteToken(request)
-
 		},
 	}
 }
@@ -1538,7 +1511,6 @@ func functionTriggerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.CreateTrigger(request)
-
 		},
 	}
 }
@@ -1568,7 +1540,6 @@ func functionTriggerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.GetTrigger(request)
-
 		},
 	}
 }
@@ -1623,7 +1594,6 @@ func functionTriggerList() *core.Command {
 				return nil, err
 			}
 			return resp.Triggers, nil
-
 		},
 	}
 }
@@ -1667,7 +1637,6 @@ func functionTriggerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.UpdateTrigger(request)
-
 		},
 	}
 }
@@ -1697,7 +1666,6 @@ func functionTriggerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 			return api.DeleteTrigger(request)
-
 		},
 	}
 }

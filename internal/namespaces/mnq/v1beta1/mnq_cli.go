@@ -112,7 +112,6 @@ func mnqNatsCreateAccount() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 			return api.CreateNatsAccount(request)
-
 		},
 	}
 }
@@ -185,7 +184,6 @@ func mnqNatsUpdateAccount() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 			return api.UpdateNatsAccount(request)
-
 		},
 	}
 }
@@ -215,7 +213,6 @@ func mnqNatsGetAccount() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 			return api.GetNatsAccount(request)
-
 		},
 	}
 }
@@ -262,7 +259,6 @@ func mnqNatsListAccounts() *core.Command {
 				return nil, err
 			}
 			return resp.NatsAccounts, nil
-
 		},
 	}
 }
@@ -300,7 +296,6 @@ func mnqNatsCreateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 			return api.CreateNatsCredentials(request)
-
 		},
 	}
 }
@@ -366,7 +361,6 @@ func mnqNatsGetCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 			return api.GetNatsCredentials(request)
-
 		},
 	}
 }
@@ -420,7 +414,6 @@ func mnqNatsListCredentials() *core.Command {
 				return nil, err
 			}
 			return resp.NatsCredentials, nil
-
 		},
 	}
 }
@@ -444,7 +437,6 @@ func mnqSnsActivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 			return api.ActivateSns(request)
-
 		},
 	}
 }
@@ -468,7 +460,6 @@ func mnqSnsGetInfo() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 			return api.GetSnsInfo(request)
-
 		},
 	}
 }
@@ -492,7 +483,6 @@ func mnqSnsDeactivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 			return api.DeactivateSns(request)
-
 		},
 	}
 }
@@ -545,7 +535,6 @@ func mnqSnsCreateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 			return api.CreateSnsCredentials(request)
-
 		},
 	}
 }
@@ -639,7 +628,6 @@ func mnqSnsUpdateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 			return api.UpdateSnsCredentials(request)
-
 		},
 	}
 }
@@ -669,7 +657,6 @@ func mnqSnsGetCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 			return api.GetSnsCredentials(request)
-
 		},
 	}
 }
@@ -716,7 +703,6 @@ func mnqSnsListCredentials() *core.Command {
 				return nil, err
 			}
 			return resp.SnsCredentials, nil
-
 		},
 	}
 }
@@ -740,7 +726,6 @@ func mnqSqsActivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 			return api.ActivateSqs(request)
-
 		},
 	}
 }
@@ -764,7 +749,6 @@ func mnqSqsGetInfo() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 			return api.GetSqsInfo(request)
-
 		},
 	}
 }
@@ -788,7 +772,6 @@ func mnqSqsDeactivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 			return api.DeactivateSqs(request)
-
 		},
 	}
 }
@@ -841,7 +824,6 @@ func mnqSqsCreateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 			return api.CreateSqsCredentials(request)
-
 		},
 	}
 }
@@ -935,7 +917,6 @@ func mnqSqsUpdateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 			return api.UpdateSqsCredentials(request)
-
 		},
 	}
 }
@@ -965,7 +946,6 @@ func mnqSqsGetCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 			return api.GetSqsCredentials(request)
-
 		},
 	}
 }
@@ -1012,7 +992,6 @@ func mnqSqsListCredentials() *core.Command {
 				return nil, err
 			}
 			return resp.SqsCredentials, nil
-
 		},
 	}
 }

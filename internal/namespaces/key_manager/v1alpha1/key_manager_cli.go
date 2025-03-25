@@ -132,7 +132,6 @@ func keymanagerKeyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.CreateKey(request)
-
 		},
 	}
 }
@@ -162,7 +161,6 @@ func keymanagerKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.GetKey(request)
-
 		},
 	}
 }
@@ -227,7 +225,6 @@ func keymanagerKeyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.UpdateKey(request)
-
 		},
 	}
 }
@@ -293,7 +290,6 @@ func keymanagerKeyRotate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.RotateKey(request)
-
 		},
 	}
 }
@@ -323,7 +319,6 @@ func keymanagerKeyProtect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.ProtectKey(request)
-
 		},
 	}
 }
@@ -353,7 +348,6 @@ func keymanagerKeyUnprotect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.UnprotectKey(request)
-
 		},
 	}
 }
@@ -383,7 +377,6 @@ func keymanagerKeyEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.EnableKey(request)
-
 		},
 	}
 }
@@ -413,7 +406,6 @@ func keymanagerKeyDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.DisableKey(request)
-
 		},
 	}
 }
@@ -480,7 +472,6 @@ func keymanagerKeyList() *core.Command {
 				return nil, err
 			}
 			return resp.Keys, nil
-
 		},
 	}
 }
@@ -528,7 +519,6 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.GenerateDataKey(request)
-
 		},
 	}
 }
@@ -572,7 +562,6 @@ func keymanagerKeyEncrypt() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.Encrypt(request)
-
 		},
 	}
 }
@@ -616,7 +605,6 @@ func keymanagerKeyDecrypt() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.Decrypt(request)
-
 		},
 	}
 }
@@ -660,7 +648,6 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 			return api.ImportKeyMaterial(request)
-
 		},
 	}
 }

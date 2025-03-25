@@ -233,7 +233,6 @@ func redisClusterCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.CreateCluster(request)
-
 		},
 	}
 }
@@ -291,7 +290,6 @@ func redisClusterUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.UpdateCluster(request)
-
 		},
 	}
 }
@@ -321,7 +319,6 @@ func redisClusterGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.GetCluster(request)
-
 		},
 	}
 }
@@ -396,7 +393,6 @@ func redisClusterList() *core.Command {
 				return nil, err
 			}
 			return resp.Clusters, nil
-
 		},
 	}
 }
@@ -447,7 +443,6 @@ func redisClusterMigrate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.MigrateCluster(request)
-
 		},
 	}
 }
@@ -477,7 +472,6 @@ func redisClusterDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.DeleteCluster(request)
-
 		},
 	}
 }
@@ -528,7 +522,6 @@ func redisClusterMetrics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.GetClusterMetrics(request)
-
 		},
 	}
 }
@@ -567,7 +560,6 @@ func redisNodeTypeList() *core.Command {
 				return nil, err
 			}
 			return resp.NodeTypes, nil
-
 		},
 	}
 }
@@ -627,7 +619,6 @@ func redisVersionList() *core.Command {
 				return nil, err
 			}
 			return resp.Versions, nil
-
 		},
 	}
 }
@@ -657,7 +648,6 @@ func redisClusterGetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.GetClusterCertificate(request)
-
 		},
 	}
 }
@@ -687,7 +677,6 @@ func redisClusterRenewCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.RenewClusterCertificate(request)
-
 		},
 	}
 }
@@ -731,7 +720,6 @@ func redisSettingAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.AddClusterSettings(request)
-
 		},
 	}
 }
@@ -768,7 +756,6 @@ func redisSettingDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.DeleteClusterSetting(request)
-
 		},
 	}
 }
@@ -812,7 +799,6 @@ func redisSettingSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.SetClusterSettings(request)
-
 		},
 	}
 }
@@ -856,7 +842,6 @@ func redisACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.SetACLRules(request)
-
 		},
 	}
 }
@@ -900,7 +885,6 @@ func redisACLAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.AddACLRules(request)
-
 		},
 	}
 }
@@ -930,7 +914,6 @@ func redisACLDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.DeleteACLRule(request)
-
 		},
 	}
 }
@@ -960,7 +943,6 @@ func redisACLGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.GetACLRule(request)
-
 		},
 	}
 }
@@ -1004,7 +986,6 @@ func redisEndpointSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.SetEndpoints(request)
-
 		},
 	}
 }
@@ -1048,7 +1029,6 @@ func redisEndpointAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.AddEndpoints(request)
-
 		},
 	}
 }
@@ -1078,7 +1058,6 @@ func redisEndpointDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.DeleteEndpoint(request)
-
 		},
 	}
 }
@@ -1108,7 +1087,6 @@ func redisEndpointGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.GetEndpoint(request)
-
 		},
 	}
 }
@@ -1152,7 +1130,6 @@ func redisEndpointUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 			return api.UpdateEndpoint(request)
-
 		},
 	}
 }

@@ -196,7 +196,6 @@ func dnsZoneList() *core.Command {
 				return nil, err
 			}
 			return resp.DNSZones, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -265,7 +264,6 @@ func dnsZoneCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.CreateDNSZone(request)
-
 		},
 	}
 }
@@ -302,7 +300,6 @@ func dnsZoneUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.UpdateDNSZone(request)
-
 		},
 	}
 }
@@ -352,7 +349,6 @@ func dnsZoneClone() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.CloneDNSZone(request)
-
 		},
 	}
 }
@@ -382,7 +378,6 @@ func dnsZoneDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.DeleteDNSZone(request)
-
 		},
 	}
 }
@@ -454,7 +449,6 @@ You can filter records by type and name.`,
 				return nil, err
 			}
 			return resp.Records, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -841,7 +835,6 @@ All edits will be versioned.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.UpdateDNSZoneRecords(request)
-
 		},
 	}
 }
@@ -877,7 +870,6 @@ func dnsRecordListNameservers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.ListDNSZoneNameservers(request)
-
 		},
 	}
 }
@@ -918,7 +910,6 @@ func dnsRecordUpdateNameservers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.UpdateDNSZoneNameservers(request)
-
 		},
 	}
 }
@@ -948,7 +939,6 @@ All edits will be versioned.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.ClearDNSZoneRecords(request)
-
 		},
 	}
 }
@@ -986,7 +976,6 @@ func dnsZoneExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.ExportRawDNSZone(request)
-
 		},
 	}
 }
@@ -1059,7 +1048,6 @@ func dnsZoneImport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.ImportRawDNSZone(request)
-
 		},
 	}
 }
@@ -1103,7 +1091,6 @@ You can recreate the given DNS zone and its sub DNS zone if needed.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.RefreshDNSZone(request)
-
 		},
 	}
 }
@@ -1137,7 +1124,6 @@ The maximum version count is 100. If the count reaches this limit, the oldest ve
 				return nil, err
 			}
 			return resp.Versions, nil
-
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1178,7 +1164,6 @@ func dnsVersionShow() *core.Command {
 				return nil, err
 			}
 			return resp.Records, nil
-
 		},
 	}
 }
@@ -1206,7 +1191,6 @@ func dnsVersionDiff() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.GetDNSZoneVersionDiff(request)
-
 		},
 	}
 }
@@ -1234,7 +1218,6 @@ func dnsVersionRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.RestoreDNSZoneVersion(request)
-
 		},
 	}
 }
@@ -1262,7 +1245,6 @@ func dnsCertificateGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.GetSSLCertificate(request)
-
 		},
 	}
 }
@@ -1296,7 +1278,6 @@ func dnsCertificateCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.CreateSSLCertificate(request)
-
 		},
 	}
 }
@@ -1335,7 +1316,6 @@ func dnsCertificateList() *core.Command {
 				return nil, err
 			}
 			return resp.Certificates, nil
-
 		},
 	}
 }
@@ -1363,7 +1343,6 @@ func dnsCertificateDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.DeleteSSLCertificate(request)
-
 		},
 	}
 }
@@ -1391,7 +1370,6 @@ func dnsTsigKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 			return api.GetDNSZoneTsigKey(request)
-
 		},
 	}
 }

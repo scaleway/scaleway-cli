@@ -132,7 +132,6 @@ func interlinkPartnerList() *core.Command {
 				return nil, err
 			}
 			return resp.Partners, nil
-
 		},
 	}
 }
@@ -162,7 +161,6 @@ func interlinkPartnerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.GetPartner(request)
-
 		},
 	}
 }
@@ -230,7 +228,6 @@ func interlinkPopList() *core.Command {
 				return nil, err
 			}
 			return resp.Pops, nil
-
 		},
 	}
 }
@@ -260,7 +257,6 @@ func interlinkPopGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.GetPop(request)
-
 		},
 	}
 }
@@ -394,7 +390,6 @@ func interlinkLinkList() *core.Command {
 				return nil, err
 			}
 			return resp.Links, nil
-
 		},
 	}
 }
@@ -424,7 +419,6 @@ func interlinkLinkGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.GetLink(request)
-
 		},
 	}
 }
@@ -497,7 +491,6 @@ func interlinkLinkCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.CreateLink(request)
-
 		},
 	}
 }
@@ -541,7 +534,6 @@ func interlinkLinkUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.UpdateLink(request)
-
 		},
 	}
 }
@@ -571,7 +563,6 @@ func interlinkLinkDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.DeleteLink(request)
-
 		},
 	}
 }
@@ -608,7 +599,6 @@ func interlinkLinkAttachVpc() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.AttachVpc(request)
-
 		},
 	}
 }
@@ -638,7 +628,6 @@ func interlinkLinkDetachVpc() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.DetachVpc(request)
-
 		},
 	}
 }
@@ -675,7 +664,6 @@ func interlinkLinkAttachPolicy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.AttachRoutingPolicy(request)
-
 		},
 	}
 }
@@ -705,7 +693,6 @@ func interlinkLinkDetachPolicy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.DetachRoutingPolicy(request)
-
 		},
 	}
 }
@@ -735,7 +722,6 @@ func interlinkLinkEnablePropagation() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.EnableRoutePropagation(request)
-
 		},
 	}
 }
@@ -765,7 +751,6 @@ func interlinkLinkDisablePropagation() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.DisableRoutePropagation(request)
-
 		},
 	}
 }
@@ -833,7 +818,6 @@ func interlinkRoutingPolicyList() *core.Command {
 				return nil, err
 			}
 			return resp.RoutingPolicies, nil
-
 		},
 	}
 }
@@ -863,7 +847,6 @@ func interlinkRoutingPolicyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.GetRoutingPolicy(request)
-
 		},
 	}
 }
@@ -915,7 +898,6 @@ func interlinkRoutingPolicyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.CreateRoutingPolicy(request)
-
 		},
 	}
 }
@@ -973,7 +955,6 @@ func interlinkRoutingPolicyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 			return api.UpdateRoutingPolicy(request)
-
 		},
 	}
 }

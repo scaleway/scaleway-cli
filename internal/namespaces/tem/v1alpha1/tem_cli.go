@@ -262,7 +262,6 @@ func temEmailCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.CreateEmail(request)
-
 		},
 	}
 }
@@ -292,7 +291,6 @@ func temEmailGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.GetEmail(request)
-
 		},
 	}
 }
@@ -418,7 +416,6 @@ func temEmailList() *core.Command {
 				return nil, err
 			}
 			return resp.Emails, nil
-
 		},
 	}
 }
@@ -476,7 +473,6 @@ func temEmailGetStatistics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.GetStatistics(request)
-
 		},
 	}
 }
@@ -506,7 +502,6 @@ func temEmailCancel() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.CancelEmail(request)
-
 		},
 	}
 }
@@ -551,7 +546,6 @@ func temDomainCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.CreateDomain(request)
-
 		},
 	}
 }
@@ -581,7 +575,6 @@ func temDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.GetDomain(request)
-
 		},
 	}
 }
@@ -642,7 +635,6 @@ func temDomainList() *core.Command {
 				return nil, err
 			}
 			return resp.Domains, nil
-
 		},
 	}
 }
@@ -672,7 +664,6 @@ func temDomainRevoke() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.RevokeDomain(request)
-
 		},
 	}
 }
@@ -702,7 +693,6 @@ func temDomainCheck() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.CheckDomain(request)
-
 		},
 	}
 }
@@ -732,7 +722,6 @@ func temDomainGetLastStatus() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.GetDomainLastStatus(request)
-
 		},
 	}
 }
@@ -769,7 +758,6 @@ func temDomainUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.UpdateDomain(request)
-
 		},
 	}
 }
@@ -822,7 +810,6 @@ func temWebhookCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.CreateWebhook(request)
-
 		},
 	}
 }
@@ -883,7 +870,6 @@ func temWebhookList() *core.Command {
 				return nil, err
 			}
 			return resp.Webhooks, nil
-
 		},
 	}
 }
@@ -913,7 +899,6 @@ func temWebhookGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.GetWebhook(request)
-
 		},
 	}
 }
@@ -965,7 +950,6 @@ func temWebhookUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.UpdateWebhook(request)
-
 		},
 	}
 }
@@ -1092,7 +1076,6 @@ func temWebhookListEvents() *core.Command {
 				return nil, err
 			}
 			return resp.WebhookEvents, nil
-
 		},
 	}
 }
@@ -1161,7 +1144,6 @@ func temBlocklistsList() *core.Command {
 				return nil, err
 			}
 			return resp.Blocklists, nil
-
 		},
 	}
 }
@@ -1213,7 +1195,6 @@ func temBlocklistsCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.BulkCreateBlocklists(request)
-
 		},
 	}
 }
@@ -1281,7 +1262,6 @@ func temOffersUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.UpdateOfferSubscription(request)
-
 		},
 	}
 }
@@ -1304,7 +1284,6 @@ func temOffersList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.ListOffers(request)
-
 		},
 	}
 }
@@ -1328,7 +1307,6 @@ func temProjectConsumptionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 			return api.GetProjectConsumption(request)
-
 		},
 	}
 }

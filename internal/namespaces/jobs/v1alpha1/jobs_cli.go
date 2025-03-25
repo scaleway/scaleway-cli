@@ -169,7 +169,6 @@ func jobsDefinitionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.CreateJobDefinition(request)
-
 		},
 	}
 }
@@ -199,7 +198,6 @@ func jobsDefinitionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.GetJobDefinition(request)
-
 		},
 	}
 }
@@ -250,7 +248,6 @@ func jobsDefinitionList() *core.Command {
 				return nil, err
 			}
 			return resp.JobDefinitions, nil
-
 		},
 	}
 }
@@ -355,7 +352,6 @@ func jobsDefinitionUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.UpdateJobDefinition(request)
-
 		},
 	}
 }
@@ -442,7 +438,6 @@ func jobsDefinitionStart() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.StartJobDefinition(request)
-
 		},
 	}
 }
@@ -496,7 +491,6 @@ func jobsSecretCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.CreateJobDefinitionSecrets(request)
-
 		},
 	}
 }
@@ -533,7 +527,6 @@ func jobsSecretGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.GetJobDefinitionSecret(request)
-
 		},
 	}
 }
@@ -563,7 +556,6 @@ func jobsSecretList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.ListJobDefinitionSecrets(request)
-
 		},
 	}
 }
@@ -621,7 +613,6 @@ func jobsSecretUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.UpdateJobDefinitionSecret(request)
-
 		},
 	}
 }
@@ -694,7 +685,6 @@ func jobsRunGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.GetJobRun(request)
-
 		},
 	}
 }
@@ -724,7 +714,6 @@ func jobsRunStop() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 			return api.StopJobRun(request)
-
 		},
 	}
 }
@@ -788,7 +777,6 @@ func jobsRunList() *core.Command {
 				return nil, err
 			}
 			return resp.JobRuns, nil
-
 		},
 	}
 }

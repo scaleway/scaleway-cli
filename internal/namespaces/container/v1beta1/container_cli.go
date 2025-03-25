@@ -175,7 +175,6 @@ func containerNamespaceList() *core.Command {
 				return nil, err
 			}
 			return resp.Namespaces, nil
-
 		},
 	}
 }
@@ -205,7 +204,6 @@ func containerNamespaceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.GetNamespace(request)
-
 		},
 	}
 }
@@ -270,7 +268,6 @@ func containerNamespaceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.CreateNamespace(request)
-
 		},
 	}
 }
@@ -333,7 +330,6 @@ func containerNamespaceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.UpdateNamespace(request)
-
 		},
 	}
 }
@@ -363,7 +359,6 @@ func containerNamespaceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteNamespace(request)
-
 		},
 	}
 }
@@ -431,7 +426,6 @@ func containerContainerList() *core.Command {
 				return nil, err
 			}
 			return resp.Containers, nil
-
 		},
 	}
 }
@@ -461,7 +455,6 @@ func containerContainerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.GetContainer(request)
-
 		},
 	}
 }
@@ -659,7 +652,6 @@ func containerContainerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.CreateContainer(request)
-
 		},
 	}
 }
@@ -854,7 +846,6 @@ func containerContainerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.UpdateContainer(request)
-
 		},
 	}
 }
@@ -884,7 +875,6 @@ func containerContainerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteContainer(request)
-
 		},
 	}
 }
@@ -914,7 +904,6 @@ func containerContainerDeploy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeployContainer(request)
-
 		},
 	}
 }
@@ -961,7 +950,6 @@ func containerCronList() *core.Command {
 				return nil, err
 			}
 			return resp.Crons, nil
-
 		},
 	}
 }
@@ -991,7 +979,6 @@ func containerCronGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.GetCron(request)
-
 		},
 	}
 }
@@ -1042,7 +1029,6 @@ func containerCronCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.CreateCron(request)
-
 		},
 	}
 }
@@ -1100,7 +1086,6 @@ func containerCronUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.UpdateCron(request)
-
 		},
 	}
 }
@@ -1130,7 +1115,6 @@ func containerCronDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteCron(request)
-
 		},
 	}
 }
@@ -1177,7 +1161,6 @@ func containerDomainList() *core.Command {
 				return nil, err
 			}
 			return resp.Domains, nil
-
 		},
 	}
 }
@@ -1207,7 +1190,6 @@ func containerDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.GetDomain(request)
-
 		},
 	}
 }
@@ -1244,7 +1226,6 @@ func containerDomainCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.CreateDomain(request)
-
 		},
 	}
 }
@@ -1274,7 +1255,6 @@ func containerDomainDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteDomain(request)
-
 		},
 	}
 }
@@ -1325,7 +1305,6 @@ func containerTokenCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.CreateToken(request)
-
 		},
 	}
 }
@@ -1355,7 +1334,6 @@ func containerTokenGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.GetToken(request)
-
 		},
 	}
 }
@@ -1409,7 +1387,6 @@ func containerTokenList() *core.Command {
 				return nil, err
 			}
 			return resp.Tokens, nil
-
 		},
 	}
 }
@@ -1439,7 +1416,6 @@ func containerTokenDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteToken(request)
-
 		},
 	}
 }
@@ -1532,7 +1508,6 @@ func containerTriggerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.CreateTrigger(request)
-
 		},
 	}
 }
@@ -1562,7 +1537,6 @@ func containerTriggerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.GetTrigger(request)
-
 		},
 	}
 }
@@ -1617,7 +1591,6 @@ func containerTriggerList() *core.Command {
 				return nil, err
 			}
 			return resp.Triggers, nil
-
 		},
 	}
 }
@@ -1661,7 +1634,6 @@ func containerTriggerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.UpdateTrigger(request)
-
 		},
 	}
 }
@@ -1691,7 +1663,6 @@ func containerTriggerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 			return api.DeleteTrigger(request)
-
 		},
 	}
 }

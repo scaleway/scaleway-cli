@@ -228,7 +228,6 @@ func baremetalServerList() *core.Command {
 				return nil, err
 			}
 			return resp.Servers, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -264,7 +263,6 @@ func baremetalServerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.GetServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -479,7 +477,6 @@ func baremetalServerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.CreateServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -536,7 +533,6 @@ func baremetalServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.UpdateServer(request)
-
 		},
 	}
 }
@@ -715,7 +711,6 @@ func baremetalServerInstall() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.InstallServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -765,7 +760,6 @@ func baremetalServerGetMetrics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.GetServerMetrics(request)
-
 		},
 	}
 }
@@ -795,7 +789,6 @@ func baremetalServerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.DeleteServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -839,7 +832,6 @@ func baremetalServerReboot() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.RebootServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -887,7 +879,6 @@ func baremetalServerStart() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.StartServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -927,7 +918,6 @@ func baremetalServerStop() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.StopServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -980,7 +970,6 @@ func baremetalServerListEvents() *core.Command {
 				return nil, err
 			}
 			return resp.Events, nil
-
 		},
 	}
 }
@@ -1020,7 +1009,6 @@ After adding the BMC option, you need to Get Remote Access to get the login/pass
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.StartBMCAccess(request)
-
 		},
 	}
 }
@@ -1050,7 +1038,6 @@ func baremetalBmcGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.GetBMCAccess(request)
-
 		},
 	}
 }
@@ -1130,7 +1117,6 @@ func baremetalServerUpdateIP() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.UpdateIP(request)
-
 		},
 	}
 }
@@ -1174,7 +1160,6 @@ func baremetalOptionsAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.AddOptionServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1217,7 +1202,6 @@ func baremetalOptionsDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.DeleteOptionServer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1270,7 +1254,6 @@ func baremetalOfferList() *core.Command {
 				return nil, err
 			}
 			return resp.Offers, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1310,7 +1293,6 @@ func baremetalOfferGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.GetOffer(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1346,7 +1328,6 @@ func baremetalOptionsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.GetOption(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1398,7 +1379,6 @@ func baremetalOptionsList() *core.Command {
 				return nil, err
 			}
 			return resp.Options, nil
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1455,7 +1435,6 @@ func baremetalSettingsList() *core.Command {
 				return nil, err
 			}
 			return resp.Settings, nil
-
 		},
 	}
 }
@@ -1492,7 +1471,6 @@ func baremetalSettingsUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.UpdateSetting(request)
-
 		},
 	}
 }
@@ -1531,7 +1509,6 @@ func baremetalOsList() *core.Command {
 				return nil, err
 			}
 			return resp.Os, nil
-
 		},
 	}
 }
@@ -1561,7 +1538,6 @@ func baremetalOsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 			return api.GetOS(request)
-
 		},
 		Examples: []*core.Example{
 			{
@@ -1604,7 +1580,6 @@ func baremetalPrivateNetworkAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
 			return api.AddServerPrivateNetwork(request)
-
 		},
 	}
 }
@@ -1641,7 +1616,6 @@ func baremetalPrivateNetworkSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
 			return api.SetServerPrivateNetworks(request)
-
 		},
 	}
 }
@@ -1709,7 +1683,6 @@ func baremetalPrivateNetworkList() *core.Command {
 				return nil, err
 			}
 			return resp.ServerPrivateNetworks, nil
-
 		},
 	}
 }

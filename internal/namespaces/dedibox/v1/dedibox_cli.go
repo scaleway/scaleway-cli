@@ -323,7 +323,6 @@ func dediboxServerList() *core.Command {
 				return nil, err
 			}
 			return resp.Servers, nil
-
 		},
 	}
 }
@@ -353,7 +352,6 @@ func dediboxServerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetServer(request)
-
 		},
 	}
 }
@@ -392,7 +390,6 @@ func dediboxServerListOptions() *core.Command {
 				return nil, err
 			}
 			return resp.ServerOptions, nil
-
 		},
 	}
 }
@@ -429,7 +426,6 @@ func dediboxServerSubscribeOption() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.SubscribeServerOption(request)
-
 		},
 	}
 }
@@ -474,7 +470,6 @@ func dediboxServerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.CreateServer(request)
-
 		},
 	}
 }
@@ -511,7 +506,6 @@ func dediboxServerSubscribeStorage() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.SubscribeStorageOptions(request)
-
 		},
 	}
 }
@@ -555,7 +549,6 @@ func dediboxServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.UpdateServer(request)
-
 		},
 	}
 }
@@ -746,7 +739,6 @@ func dediboxServerListEvents() *core.Command {
 				return nil, err
 			}
 			return resp.Events, nil
-
 		},
 	}
 }
@@ -793,7 +785,6 @@ func dediboxServerListDisks() *core.Command {
 				return nil, err
 			}
 			return resp.Disks, nil
-
 		},
 	}
 }
@@ -823,7 +814,6 @@ func dediboxServiceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetService(request)
-
 		},
 	}
 }
@@ -853,7 +843,6 @@ func dediboxServiceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.DeleteService(request)
-
 		},
 	}
 }
@@ -900,7 +889,6 @@ func dediboxServiceList() *core.Command {
 				return nil, err
 			}
 			return resp.Services, nil
-
 		},
 	}
 }
@@ -1030,7 +1018,6 @@ func dediboxServerInstall() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.InstallServer(request)
-
 		},
 	}
 }
@@ -1060,7 +1047,6 @@ func dediboxServerGetInstall() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetServerInstall(request)
-
 		},
 	}
 }
@@ -1133,7 +1119,6 @@ func dediboxServerGetPartitioning() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetServerDefaultPartitioning(request)
-
 		},
 	}
 }
@@ -1207,7 +1192,6 @@ func dediboxBmcGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetBMCAccess(request)
-
 		},
 	}
 }
@@ -1340,7 +1324,6 @@ func dediboxOfferList() *core.Command {
 				return nil, err
 			}
 			return resp.Offers, nil
-
 		},
 	}
 }
@@ -1377,7 +1360,6 @@ func dediboxOfferGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetOffer(request)
-
 		},
 	}
 }
@@ -1439,7 +1421,6 @@ func dediboxOsList() *core.Command {
 				return nil, err
 			}
 			return resp.Os, nil
-
 		},
 	}
 }
@@ -1483,7 +1464,6 @@ func dediboxOsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetOS(request)
-
 		},
 	}
 }
@@ -1520,7 +1500,6 @@ func dediboxReverseIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.UpdateReverse(request)
-
 		},
 	}
 }
@@ -1558,7 +1537,6 @@ func dediboxFipCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.CreateFailoverIPs(request)
-
 		},
 	}
 }
@@ -1682,7 +1660,6 @@ func dediboxFipAttachMac() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.AttachFailoverIPToMacAddress(request)
-
 		},
 	}
 }
@@ -1712,7 +1689,6 @@ func dediboxFipDetachMac() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.DetachFailoverIPFromMacAddress(request)
-
 		},
 	}
 }
@@ -1809,7 +1785,6 @@ func dediboxFipList() *core.Command {
 				return nil, err
 			}
 			return resp.FailoverIPs, nil
-
 		},
 	}
 }
@@ -1839,7 +1814,6 @@ func dediboxFipGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetFailoverIP(request)
-
 		},
 	}
 }
@@ -1869,7 +1843,6 @@ func dediboxFipGetQuota() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetRemainingQuota(request)
-
 		},
 	}
 }
@@ -1899,7 +1872,6 @@ func dediboxRaidGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetRaid(request)
-
 		},
 	}
 }
@@ -1987,7 +1959,6 @@ func dediboxRescueStart() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.StartRescue(request)
-
 		},
 	}
 }
@@ -2017,7 +1988,6 @@ func dediboxRescueGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 			return api.GetRescue(request)
-
 		},
 	}
 }
@@ -2093,7 +2063,6 @@ func dediboxBillingListInvoice() *core.Command {
 				return nil, err
 			}
 			return resp.Invoices, nil
-
 		},
 	}
 }
@@ -2121,7 +2090,6 @@ func dediboxBillingGetInvoice() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 			return api.GetInvoice(request)
-
 		},
 	}
 }
@@ -2149,7 +2117,6 @@ func dediboxBillingDownloadInvoice() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 			return api.DownloadInvoice(request)
-
 		},
 	}
 }
@@ -2189,7 +2156,6 @@ func dediboxBillingListRefund() *core.Command {
 				return nil, err
 			}
 			return resp.Refunds, nil
-
 		},
 	}
 }
@@ -2217,7 +2183,6 @@ func dediboxBillingGetRefund() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 			return api.GetRefund(request)
-
 		},
 	}
 }
@@ -2245,7 +2210,6 @@ func dediboxBillingDownloadRefund() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 			return api.DownloadRefund(request)
-
 		},
 	}
 }
@@ -2268,7 +2232,6 @@ func dediboxBillingGetOrderCapacity() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 			return api.CanOrder(request)
-
 		},
 	}
 }
@@ -2300,7 +2263,6 @@ func dediboxIPv6BlockGetQuota() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 			return api.GetIPv6BlockQuotas(request)
-
 		},
 	}
 }
@@ -2329,7 +2291,6 @@ func dediboxIPv6BlockCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 			return api.CreateIPv6Block(request)
-
 		},
 	}
 }
@@ -2358,7 +2319,6 @@ func dediboxIPv6BlockGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 			return api.GetIPv6Block(request)
-
 		},
 	}
 }
@@ -2395,7 +2355,6 @@ If DNS is used, minimum of 2 is necessary and maximum of 5 (no duplicate).`,
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 			return api.UpdateIPv6Block(request)
-
 		},
 	}
 }
@@ -2475,7 +2434,6 @@ func dediboxIPv6BlockCreateSubnet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 			return api.CreateIPv6BlockSubnet(request)
-
 		},
 	}
 }
@@ -2504,7 +2462,6 @@ func dediboxIPv6BlockListSubnet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 			return api.ListIPv6BlockSubnetsAvailable(request)
-
 		},
 	}
 }
@@ -2546,7 +2503,6 @@ func dediboxRpnInfoList() *core.Command {
 				return nil, err
 			}
 			return resp.Servers, nil
-
 		},
 	}
 }
@@ -2589,7 +2545,6 @@ func dediboxRpnInfoGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnAPI(client)
 			return api.GetRpnStatus(request)
-
 		},
 	}
 }
@@ -2631,7 +2586,6 @@ func dediboxSanList() *core.Command {
 				return nil, err
 			}
 			return resp.RpnSans, nil
-
 		},
 	}
 }
@@ -2660,7 +2614,6 @@ func dediboxSanGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
 			return api.GetRpnSan(request)
-
 		},
 	}
 }
@@ -2725,7 +2678,6 @@ func dediboxSanCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
 			return api.CreateRpnSan(request)
-
 		},
 	}
 }
@@ -2762,7 +2714,6 @@ func dediboxSanListIPs() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
 			return api.ListIPs(request)
-
 		},
 	}
 }
@@ -2883,7 +2834,6 @@ func dediboxSanListAvailableIPs() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
 			return api.ListAvailableIPs(request)
-
 		},
 	}
 }
@@ -2925,7 +2875,6 @@ func dediboxRpnV1List() *core.Command {
 				return nil, err
 			}
 			return resp.RpnGroups, nil
-
 		},
 	}
 }
@@ -2954,7 +2903,6 @@ func dediboxRpnV1Get() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 			return api.GetRpnGroup(request)
-
 		},
 	}
 }
@@ -2998,7 +2946,6 @@ func dediboxRpnV1Create() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 			return api.CreateRpnGroup(request)
-
 		},
 	}
 }
@@ -3069,7 +3016,6 @@ func dediboxRpnV1Update() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 			return api.UpdateRpnGroupName(request)
-
 		},
 	}
 }
@@ -3118,7 +3064,6 @@ func dediboxRpnV1ListMembers() *core.Command {
 				return nil, err
 			}
 			return resp.Members, nil
-
 		},
 	}
 }
@@ -3247,7 +3192,6 @@ func dediboxRpnV1AddMembers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 			return api.AddRpnGroupMembers(request)
-
 		},
 	}
 }
@@ -3283,7 +3227,6 @@ func dediboxRpnV1DeleteMembers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 			return api.DeleteRpnGroupMembers(request)
-
 		},
 	}
 }
@@ -3325,7 +3268,6 @@ func dediboxRpnV1ListCapableServer() *core.Command {
 				return nil, err
 			}
 			return resp.Servers, nil
-
 		},
 	}
 }
@@ -3367,7 +3309,6 @@ func dediboxRpnV1ListCapableSanServer() *core.Command {
 				return nil, err
 			}
 			return resp.SanServers, nil
-
 		},
 	}
 }
@@ -3403,7 +3344,6 @@ func dediboxRpnV1ListInvites() *core.Command {
 				return nil, err
 			}
 			return resp.Members, nil
-
 		},
 	}
 }
@@ -3515,7 +3455,6 @@ func dediboxRpnV2List() *core.Command {
 				return nil, err
 			}
 			return resp.RpnGroups, nil
-
 		},
 	}
 }
@@ -3565,7 +3504,6 @@ func dediboxRpnV2ListMembers() *core.Command {
 				return nil, err
 			}
 			return resp.Members, nil
-
 		},
 	}
 }
@@ -3594,7 +3532,6 @@ func dediboxRpnV2Get() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
 			return api.GetRpnV2Group(request)
-
 		},
 	}
 }
@@ -3639,7 +3576,6 @@ func dediboxRpnV2Create() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
 			return api.CreateRpnV2Group(request)
-
 		},
 	}
 }
@@ -3710,7 +3646,6 @@ func dediboxRpnV2Update() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
 			return api.UpdateRpnV2GroupName(request)
-
 		},
 	}
 }
@@ -3836,7 +3771,6 @@ func dediboxRpnV2ListCapableResources() *core.Command {
 				return nil, err
 			}
 			return resp.Servers, nil
-
 		},
 	}
 }
@@ -3878,7 +3812,6 @@ func dediboxRpnV2ListLogs() *core.Command {
 				return nil, err
 			}
 			return resp.Logs, nil
-
 		},
 	}
 }
