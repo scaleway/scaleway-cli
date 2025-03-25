@@ -63,14 +63,14 @@ scw mongodb instance create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name | Default: `<generated>` | Name of the Database Instance |
-| version | Required | Version of the MongoDB® engine |
+| version | Required<br />Default: `` | Version of the MongoDB® engine |
 | tags.{index} |  | Tags to apply to the Database Instance |
-| node-number | Required | Number of node to use for the Database Instance |
+| node-number | Required<br />Default: `1` | Number of node to use for the Database Instance |
 | node-type | Required | Type of node to use for the Database Instance |
 | user-name | Required | Username created when the Database Instance is created |
 | password | Required | Password of the initial user |
-| volume.volume-size |  | Volume size |
-| volume.volume-type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
+| volume.volume-size | Default: `5GB` | Volume size |
+| volume.volume-type | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
 | endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 

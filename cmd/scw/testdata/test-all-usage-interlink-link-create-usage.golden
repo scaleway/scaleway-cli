@@ -1,0 +1,26 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a link (InterLink connection) in a given PoP, specifying its various configuration details. For the moment only hosted links (faciliated by partners) are available, though in the future dedicated and shared links will also be possible.
+
+USAGE:
+  scw interlink link create [arg=value ...]
+
+ARGS:
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  name              Name of the link
+  [tags.{index}]    List of tags to apply to the link
+  pop-id            PoP (location) where the link will be created
+  bandwidth-mbps    Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the port
+  [dedicated]       If true, a dedicated link (1 link per port, dedicated to one customer) will be crated. It is not necessary to specify a `port_id` or `partner_id`. A new port will created and assigned to the link. Note that Scaleway has not yet enabled the creation of dedicated links, this field is reserved for future use.
+  [port-id]         If set, a shared link (N links per port, one of which is this customer's port) will be created. As the customer, specify the ID of the port you already have for this link. Note that shared links are not currently available. Note that Scaleway has not yet enabled the creation of shared links, this field is reserved for future use.
+  [partner-id]      If set, a hosted link (N links per port on a partner port) will be created. Specify the ID of the chosen partner, who already has a shareable port with available bandwidth. Note that this is currently the only type of link offered by Scaleway, and therefore this field must be set when creating a link.
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
