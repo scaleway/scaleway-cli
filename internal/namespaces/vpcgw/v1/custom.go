@@ -8,6 +8,18 @@ import (
 
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
+	for _, cmd := range cmds.GetAll() {
+		if cmd.Resource == "" || cmd.Verb == "" {
+			continue
+		}
+		if cmd.Verb == "migrate-to-v2" {
+			continue
+		}
+		if cmd.Resource == "dhcp" || cmd.Resource == "dhcp-entry" {
+			continue
+		}
+		cmd.Hidden = true
+	}
 
 	cmds.MustFind("vpc-gw").Groups = []string{"network"}
 
