@@ -6,22 +6,13 @@ USAGE:
   scw vpc-gw gateway <command>
 
 AVAILABLE COMMANDS:
-  -v2                 Public Gateway management
-  create              Create a Public Gateway
   create-v2           Create a Public Gateway
-  delete              Delete a Public Gateway
   delete-v2           Delete a Public Gateway
-  enable-ip-mobility  Upgrade a Public Gateway to IP mobility
-  get                 Get a Public Gateway
   get-v2              Get a Public Gateway
-  list                List Public Gateways
   list-v2             List Public Gateways
   migrate-to-v2       Put a Public Gateway in IPAM mode
-  refresh-ssh-keys    Refresh a Public Gateway's SSH keys
   refresh-ssh-keys-v2 Refresh a Public Gateway's SSH keys
-  update              Update a Public Gateway
   update-v2           Update a Public Gateway
-  upgrade             Upgrade a Public Gateway to the latest version and/or to a different commercial offer type
   upgrade-v2          Upgrade a Public Gateway to the latest version and/or to a different commercial offer type
 
 FLAGS:

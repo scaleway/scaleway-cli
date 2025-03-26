@@ -9,7 +9,7 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 	for _, cmd := range cmds.GetAll() {
-		if cmd.Resource == "" {
+		if cmd.Resource == "" || cmd.Verb == "" {
 			continue
 		}
 		if cmd.Verb == "migrate-to-v2" {
@@ -20,6 +20,7 @@ func GetCommands() *core.Commands {
 		}
 		cmd.Hidden = true
 	}
+
 	human.RegisterMarshalerFunc(vpcgw.GatewayNetworkStatus(""), human.EnumMarshalFunc(gatewayNetworkStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(vpcgw.GatewayStatus(""), human.EnumMarshalFunc(gatewayStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(vpcgw.Gateway{}, gatewayMarshalerFunc)
