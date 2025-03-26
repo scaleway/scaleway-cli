@@ -735,8 +735,8 @@ func iamUserCreate() *core.Command {
 
 func iamUserUpdateUsername() *core.Command {
 	return &core.Command{
-		Short:     `Update an user's username. Private Beta feature.`,
-		Long:      `Update an user's username. Private Beta feature.`,
+		Short:     `Update an user's username.`,
+		Long:      `Update an user's username.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "update-username",
@@ -770,8 +770,8 @@ func iamUserUpdateUsername() *core.Command {
 
 func iamUserUpdatePassword() *core.Command {
 	return &core.Command{
-		Short:     `Update an user's password. Private Beta feature.`,
-		Long:      `Update an user's password. Private Beta feature.`,
+		Short:     `Update an user's password.`,
+		Long:      `Update an user's password.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "update-password",
