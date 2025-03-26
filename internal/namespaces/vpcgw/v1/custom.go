@@ -9,6 +9,9 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 	for _, cmd := range cmds.GetAll() {
+		if cmd.Resource == "" {
+			continue
+		}
 		if cmd.Verb == "migrate-to-v2" {
 			continue
 		}
