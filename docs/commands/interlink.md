@@ -2,7 +2,8 @@
 # Documentation for `scw interlink`
 This API allows you to manage your InterLink services.
   
-- [Links commands](#links-commands)
+- [Connection commands](#connection-commands)
+- [Link commands](#link-commands)
   - [Attach a routing policy](#attach-a-routing-policy)
   - [Attach a VPC](#attach-a-vpc)
   - [Create a link](#create-a-link)
@@ -14,13 +15,13 @@ This API allows you to manage your InterLink services.
   - [Get a link](#get-a-link)
   - [List links](#list-links)
   - [Update a link](#update-a-link)
-- [Partners commands](#partners-commands)
+- [Partner commands](#partner-commands)
   - [Get a partner](#get-a-partner)
   - [List available partners](#list-available-partners)
 - [PoP commands](#pop-commands)
   - [Get a PoP](#get-a-pop)
   - [List PoPs](#list-pops)
-- [Routing policies commands](#routing-policies-commands)
+- [Routing policy commands](#routing-policy-commands)
   - [Create a routing policy](#create-a-routing-policy)
   - [Delete a routing policy](#delete-a-routing-policy)
   - [Get routing policy](#get-routing-policy)
@@ -28,9 +29,23 @@ This API allows you to manage your InterLink services.
   - [Update a routing policy](#update-a-routing-policy)
 
   
-## Links commands
+## Connection commands
 
-Links commands.
+Connection commands.
+
+Connection commands.
+
+**Usage:**
+
+```
+scw interlink connection
+```
+
+
+
+## Link commands
+
+Link commands.
 
 
 ### Attach a routing policy
@@ -77,7 +92,7 @@ scw interlink link attach_vpc <link-id ...> [arg=value ...]
 
 ### Create a link
 
-Create a link (InterLink connection) in a given PoP, specifying its various configuration details. For the moment only hosted links (faciliated by partners) are available, though in the future dedicated and shared links will also be possible.
+Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (faciliated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).
 
 **Usage:**
 
@@ -94,10 +109,9 @@ scw interlink link create [arg=value ...]
 | name | Required | Name of the link |
 | tags.{index} |  | List of tags to apply to the link |
 | pop-id | Required | PoP (location) where the link will be created |
-| bandwidth-mbps | Required | Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the port |
-| dedicated |  | If true, a dedicated link (1 link per port, dedicated to one customer) will be crated. It is not necessary to specify a `port_id` or `partner_id`. A new port will created and assigned to the link. Note that Scaleway has not yet enabled the creation of dedicated links, this field is reserved for future use. |
-| port-id |  | If set, a shared link (N links per port, one of which is this customer's port) will be created. As the customer, specify the ID of the port you already have for this link. Note that shared links are not currently available. Note that Scaleway has not yet enabled the creation of shared links, this field is reserved for future use. |
-| partner-id |  | If set, a hosted link (N links per port on a partner port) will be created. Specify the ID of the chosen partner, who already has a shareable port with available bandwidth. Note that this is currently the only type of link offered by Scaleway, and therefore this field must be set when creating a link. |
+| bandwidth-mbps | Required | Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection |
+| connection-id |  | If set, creates a self-hosted link using this dedicated physical connection. As the customer, specify the ID of the physical connection you already have for this link. |
+| partner-id |  | If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -204,7 +218,7 @@ scw interlink link enable_propagation <link-id ...> [arg=value ...]
 
 ### Get a link
 
-Get a link (InterLink connection) for the given link ID. The response object includes information about the link's various configuration details.
+Get a link (InterLink session / logical InterLink resource) for the given link ID. The response object includes information about the link's various configuration details.
 
 **Usage:**
 
@@ -244,12 +258,14 @@ scw interlink link list [arg=value ...]
 | status | One of: `unknown_link_status`, `configuring`, `failed`, `requested`, `refused`, `expired`, `provisioning`, `active`, `limited_connectivity`, `all_down`, `deprovisioning`, `deleted`, `locked` | Link status to filter for |
 | bgp-v4-status | One of: `unknown_bgp_status`, `up`, `down` | BGP IPv4 status to filter for |
 | bgp-v6-status | One of: `unknown_bgp_status`, `up`, `down` | BGP IPv6 status to filter for |
-| pop-id |  | Filter for links attached to this PoP (via ports) |
+| pop-id |  | Filter for links attached to this PoP (via connections) |
 | bandwidth-mbps |  | Filter for link bandwidth (in Mbps) |
 | partner-id |  | Filter for links hosted by this partner |
 | vpc-id |  | Filter for links attached to this VPC |
 | routing-policy-id |  | Filter for links using this routing policy |
 | pairing-key |  | Filter for the link with this pairing_key |
+| kind | One of: `hosted`, `self_hosted` | Filter for hosted or self-hosted links |
+| connection-id |  | Filter for links self-hosted on this connection |
 | organization-id |  | Organization ID to filter for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
@@ -277,9 +293,9 @@ scw interlink link update <link-id ...> [arg=value ...]
 
 
 
-## Partners commands
+## Partner commands
 
-Partners commands.
+Partner commands.
 
 
 ### Get a partner
@@ -318,7 +334,7 @@ scw interlink partner list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `name_asc`, `name_desc` | Order in which to return results |
-| pop-ids.{index} |  | Filter for partners present (offering a port) in one of these PoPs |
+| pop-ids.{index} |  | Filter for partners present (offering a connection) in one of these PoPs |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -366,15 +382,16 @@ scw interlink pop list [arg=value ...]
 | order-by | One of: `name_asc`, `name_desc` | Order in which to return results |
 | name |  | PoP name to filter for |
 | hosting-provider-name |  | Hosting provider name to filter for |
-| partner-id |  | Filter for PoPs hosting an available shared port from this partner |
-| link-bandwidth-mbps |  | Filter for PoPs with a shared port allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity. |
+| partner-id |  | Filter for PoPs hosting an available shared connection from this partner |
+| link-bandwidth-mbps |  | Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity. |
+| dedicated-available |  | Filter for PoPs with a dedicated connection available for self-hosted links. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
-## Routing policies commands
+## Routing policy commands
 
-Routing policies commands.
+Routing policy commands.
 
 
 ### Create a routing policy
