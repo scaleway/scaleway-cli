@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [order-by]          Order in which to return results (name_asc | name_desc)
-  [pop-ids.{index}]   Filter for partners present (offering a port) in one of these PoPs
+  [pop-ids.{index}]   Filter for partners present (offering a connection) in one of these PoPs
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

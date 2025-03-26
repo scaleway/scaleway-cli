@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a link (InterLink connection) for the given link ID. The response object includes information about the link's various configuration details.
+Get a link (InterLink session / logical InterLink resource) for the given link ID. The response object includes information about the link's various configuration details.
 
 USAGE:
   scw interlink link get <link-id ...> [arg=value ...]
