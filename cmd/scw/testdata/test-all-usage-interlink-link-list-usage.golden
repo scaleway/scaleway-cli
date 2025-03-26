@@ -13,12 +13,14 @@ ARGS:
   [status]              Link status to filter for (unknown_link_status | configuring | failed | requested | refused | expired | provisioning | active | limited_connectivity | all_down | deprovisioning | deleted | locked)
   [bgp-v4-status]       BGP IPv4 status to filter for (unknown_bgp_status | up | down)
   [bgp-v6-status]       BGP IPv6 status to filter for (unknown_bgp_status | up | down)
-  [pop-id]              Filter for links attached to this PoP (via ports)
+  [pop-id]              Filter for links attached to this PoP (via connections)
   [bandwidth-mbps]      Filter for link bandwidth (in Mbps)
   [partner-id]          Filter for links hosted by this partner
   [vpc-id]              Filter for links attached to this VPC
   [routing-policy-id]   Filter for links using this routing policy
   [pairing-key]         Filter for the link with this pairing_key
+  [kind]                Filter for hosted or self-hosted links (hosted | self_hosted)
+  [connection-id]       Filter for links self-hosted on this connection
   [organization-id]     Organization ID to filter for
   [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 

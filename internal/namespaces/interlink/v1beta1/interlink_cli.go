@@ -22,6 +22,7 @@ func GetGeneratedCommands() *core.Commands {
 		interlinkRoot(),
 		interlinkPartner(),
 		interlinkPop(),
+		interlinkConnection(),
 		interlinkLink(),
 		interlinkRoutingPolicy(),
 		interlinkPartnerList(),
@@ -56,8 +57,8 @@ func interlinkRoot() *core.Command {
 
 func interlinkPartner() *core.Command {
 	return &core.Command{
-		Short:     `Partners commands`,
-		Long:      `Partners commands.`,
+		Short:     `Partner commands`,
+		Long:      `Partner commands.`,
 		Namespace: "interlink",
 		Resource:  "partner",
 	}
@@ -72,10 +73,19 @@ func interlinkPop() *core.Command {
 	}
 }
 
+func interlinkConnection() *core.Command {
+	return &core.Command{
+		Short:     `Connection commands`,
+		Long:      `Connection commands.`,
+		Namespace: "interlink",
+		Resource:  "connection",
+	}
+}
+
 func interlinkLink() *core.Command {
 	return &core.Command{
-		Short:     `Links commands`,
-		Long:      `Links commands.`,
+		Short:     `Link commands`,
+		Long:      `Link commands.`,
 		Namespace: "interlink",
 		Resource:  "link",
 	}
@@ -83,8 +93,8 @@ func interlinkLink() *core.Command {
 
 func interlinkRoutingPolicy() *core.Command {
 	return &core.Command{
-		Short:     `Routing policies commands`,
-		Long:      `Routing policies commands.`,
+		Short:     `Routing policy commands`,
+		Long:      `Routing policy commands.`,
 		Namespace: "interlink",
 		Resource:  "routing-policy",
 	}
@@ -110,7 +120,7 @@ func interlinkPartnerList() *core.Command {
 			},
 			{
 				Name:       "pop-ids.{index}",
-				Short:      `Filter for partners present (offering a port) in one of these PoPs`,
+				Short:      `Filter for partners present (offering a connection) in one of these PoPs`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -199,14 +209,21 @@ func interlinkPopList() *core.Command {
 			},
 			{
 				Name:       "partner-id",
-				Short:      `Filter for PoPs hosting an available shared port from this partner`,
+				Short:      `Filter for PoPs hosting an available shared connection from this partner`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "link-bandwidth-mbps",
-				Short:      `Filter for PoPs with a shared port allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.`,
+				Short:      `Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dedicated-available",
+				Short:      `Filter for PoPs with a dedicated connection available for self-hosted links.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -326,7 +343,7 @@ func interlinkLinkList() *core.Command {
 			},
 			{
 				Name:       "pop-id",
-				Short:      `Filter for links attached to this PoP (via ports)`,
+				Short:      `Filter for links attached to this PoP (via connections)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -367,6 +384,21 @@ func interlinkLinkList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "kind",
+				Short:      `Filter for hosted or self-hosted links`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{"hosted", "self_hosted"},
+			},
+			{
+				Name:       "connection-id",
+				Short:      `Filter for links self-hosted on this connection`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for`,
 				Required:   false,
@@ -397,7 +429,7 @@ func interlinkLinkList() *core.Command {
 func interlinkLinkGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a link`,
-		Long:      `Get a link (InterLink connection) for the given link ID. The response object includes information about the link's various configuration details.`,
+		Long:      `Get a link (InterLink session / logical InterLink resource) for the given link ID. The response object includes information about the link's various configuration details.`,
 		Namespace: "interlink",
 		Resource:  "link",
 		Verb:      "get",
@@ -426,7 +458,7 @@ func interlinkLinkGet() *core.Command {
 func interlinkLinkCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a link`,
-		Long:      `Create a link (InterLink connection) in a given PoP, specifying its various configuration details. For the moment only hosted links (faciliated by partners) are available, though in the future dedicated and shared links will also be possible.`,
+		Long:      `Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (faciliated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).`,
 		Namespace: "interlink",
 		Resource:  "link",
 		Verb:      "create",
@@ -457,28 +489,21 @@ func interlinkLinkCreate() *core.Command {
 			},
 			{
 				Name:       "bandwidth-mbps",
-				Short:      `Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the port`,
+				Short:      `Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "dedicated",
-				Short:      `If true, a dedicated link (1 link per port, dedicated to one customer) will be crated. It is not necessary to specify a ` + "`" + `port_id` + "`" + ` or ` + "`" + `partner_id` + "`" + `. A new port will created and assigned to the link. Note that Scaleway has not yet enabled the creation of dedicated links, this field is reserved for future use.`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "port-id",
-				Short:      `If set, a shared link (N links per port, one of which is this customer's port) will be created. As the customer, specify the ID of the port you already have for this link. Note that shared links are not currently available. Note that Scaleway has not yet enabled the creation of shared links, this field is reserved for future use.`,
+				Name:       "connection-id",
+				Short:      `If set, creates a self-hosted link using this dedicated physical connection. As the customer, specify the ID of the physical connection you already have for this link.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "partner-id",
-				Short:      `If set, a hosted link (N links per port on a partner port) will be created. Specify the ID of the chosen partner, who already has a shareable port with available bandwidth. Note that this is currently the only type of link offered by Scaleway, and therefore this field must be set when creating a link.`,
+				Short:      `If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
