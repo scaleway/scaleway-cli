@@ -11,7 +11,7 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 	for _, cmd := range cmds.GetAll() {
-		if !strings.HasSuffix(cmd.Verb, "-v2") {
+		if cmd.Verb != "" && !strings.HasSuffix(cmd.Verb, "-v2") {
 			cmd.Verb = strings.TrimSpace(cmd.Verb) + "-v2"
 		}
 	}

@@ -6,16 +6,10 @@ USAGE:
   scw vpc-gw gateway-network <command>
 
 AVAILABLE COMMANDS:
-  -v2         Gateway Networks management
-  create      Attach a Public Gateway to a Private Network
   create-v2   Attach a Public Gateway to a Private Network
-  delete      Detach a Public Gateway from a Private Network
   delete-v2   Detach a Public Gateway from a Private Network
-  get         Get a Public Gateway connection to a Private Network
   get-v2      Get a Public Gateway connection to a Private Network
-  list        List Public Gateway connections to Private Networks
   list-v2     List Public Gateway connections to Private Networks
-  update      Update a Public Gateway's connection to a Private Network
   update-v2   Update a Public Gateway's connection to a Private Network
 
 FLAGS:

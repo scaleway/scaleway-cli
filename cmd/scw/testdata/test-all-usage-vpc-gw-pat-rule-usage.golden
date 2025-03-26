@@ -6,18 +6,11 @@ USAGE:
   scw vpc-gw pat-rule <command>
 
 AVAILABLE COMMANDS:
-  -v2         PAT rules management
-  create      Create a PAT rule
   create-v2   Create a PAT rule
-  delete      Delete a PAT rule
   delete-v2   Delete a PAT rule
-  get         Get a PAT rule
   get-v2      Get a PAT rule
-  list        List PAT rules
   list-v2     List PAT rules
-  set         Set all PAT rules
   set-v2      Set all PAT rules
-  update      Update a PAT rule
   update-v2   Update a PAT rule
 
 FLAGS:

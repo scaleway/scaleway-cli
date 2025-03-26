@@ -6,8 +6,6 @@ USAGE:
   scw vpc-gw gateway-type <command>
 
 AVAILABLE COMMANDS:
-  -v2         Gateway types information
-  list        List Public Gateway types
   list-v2     List Public Gateway types
 
 FLAGS:

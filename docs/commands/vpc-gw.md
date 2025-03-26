@@ -16,64 +16,34 @@ This API allows you to manage your Public Gateways.
   - [Set all DHCP reservations on a Gateway Network](#set-all-dhcp-reservations-on-a-gateway-network)
   - [Update a DHCP entry](#update-a-dhcp-entry)
 - [Public Gateway management](#public-gateway-management)
-  - [Public Gateway management](#public-gateway-management)
-  - [Create a Public Gateway](#create-a-public-gateway)
   - [Create a Public Gateway](#create-a-public-gateway)
   - [Delete a Public Gateway](#delete-a-public-gateway)
-  - [Delete a Public Gateway](#delete-a-public-gateway)
-  - [Upgrade a Public Gateway to IP mobility](#upgrade-a-public-gateway-to-ip-mobility)
   - [Get a Public Gateway](#get-a-public-gateway)
-  - [Get a Public Gateway](#get-a-public-gateway)
-  - [List Public Gateways](#list-public-gateways)
   - [List Public Gateways](#list-public-gateways)
   - [Put a Public Gateway in IPAM mode](#put-a-public-gateway-in-ipam-mode)
   - [Refresh a Public Gateway's SSH keys](#refresh-a-public-gateway's-ssh-keys)
-  - [Refresh a Public Gateway's SSH keys](#refresh-a-public-gateway's-ssh-keys)
   - [Update a Public Gateway](#update-a-public-gateway)
-  - [Update a Public Gateway](#update-a-public-gateway)
-  - [Upgrade a Public Gateway to the latest version and/or to a different commercial offer type](#upgrade-a-public-gateway-to-the-latest-version-andor-to-a-different-commercial-offer-type)
   - [Upgrade a Public Gateway to the latest version and/or to a different commercial offer type](#upgrade-a-public-gateway-to-the-latest-version-andor-to-a-different-commercial-offer-type)
 - [Gateway Networks management](#gateway-networks-management)
-  - [Gateway Networks management](#gateway-networks-management)
-  - [Attach a Public Gateway to a Private Network](#attach-a-public-gateway-to-a-private-network)
   - [Attach a Public Gateway to a Private Network](#attach-a-public-gateway-to-a-private-network)
   - [Detach a Public Gateway from a Private Network](#detach-a-public-gateway-from-a-private-network)
-  - [Detach a Public Gateway from a Private Network](#detach-a-public-gateway-from-a-private-network)
-  - [Get a Public Gateway connection to a Private Network](#get-a-public-gateway-connection-to-a-private-network)
   - [Get a Public Gateway connection to a Private Network](#get-a-public-gateway-connection-to-a-private-network)
   - [List Public Gateway connections to Private Networks](#list-public-gateway-connections-to-private-networks)
-  - [List Public Gateway connections to Private Networks](#list-public-gateway-connections-to-private-networks)
-  - [Update a Public Gateway's connection to a Private Network](#update-a-public-gateway's-connection-to-a-private-network)
   - [Update a Public Gateway's connection to a Private Network](#update-a-public-gateway's-connection-to-a-private-network)
 - [Gateway types information](#gateway-types-information)
-  - [Gateway types information](#gateway-types-information)
-  - [List Public Gateway types](#list-public-gateway-types)
   - [List Public Gateway types](#list-public-gateway-types)
 - [IP address management](#ip-address-management)
-  - [IP address management](#ip-address-management)
-  - [Reserve an IP](#reserve-an-ip)
   - [Reserve an IP](#reserve-an-ip)
   - [Delete an IP](#delete-an-ip)
-  - [Delete an IP](#delete-an-ip)
-  - [Get an IP](#get-an-ip)
   - [Get an IP](#get-an-ip)
   - [List IPs](#list-ips)
-  - [List IPs](#list-ips)
-  - [Update an IP](#update-an-ip)
   - [Update an IP](#update-an-ip)
 - [PAT rules management](#pat-rules-management)
-  - [PAT rules management](#pat-rules-management)
-  - [Create a PAT rule](#create-a-pat-rule)
   - [Create a PAT rule](#create-a-pat-rule)
   - [Delete a PAT rule](#delete-a-pat-rule)
-  - [Delete a PAT rule](#delete-a-pat-rule)
-  - [Get a PAT rule](#get-a-pat-rule)
   - [Get a PAT rule](#get-a-pat-rule)
   - [List PAT rules](#list-pat-rules)
-  - [List PAT rules](#list-pat-rules)
   - [Set all PAT rules](#set-all-pat-rules)
-  - [Set all PAT rules](#set-all-pat-rules)
-  - [Update a PAT rule](#update-a-pat-rule)
   - [Update a PAT rule](#update-a-pat-rule)
 
   
@@ -349,48 +319,8 @@ scw vpc-gw dhcp-entry update <dhcp-entry-id ...> [arg=value ...]
 
 ## Public Gateway management
 
-Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.
-
-
-### Public Gateway management
-
 Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such NAT and PAT rules.
 
-**Usage:**
-
-```
-scw vpc-gw gateway
-```
-
-
-
-### Create a Public Gateway
-
-Create a new Public Gateway in the specified Scaleway Project, defining its **name**, **type** and other configuration details such as whether to enable SSH bastion.
-
-**Usage:**
-
-```
-scw vpc-gw gateway create [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name for the gateway |
-| tags.{index} |  | Tags for the gateway |
-| type | Default: `VPC-GW-S` | Gateway type (commercial offer type) |
-| upstream-dns-servers.{index} |  | Array of DNS server IP addresses to override the gateway's default recursive DNS servers |
-| ip-id |  | Existing IP address to attach to the gateway |
-| enable-smtp |  | Defines whether SMTP traffic should be allowed pass through the gateway |
-| enable-bastion |  | Defines whether SSH bastion should be enabled the gateway |
-| bastion-port |  | Port of the SSH bastion |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
 
 ### Create a Public Gateway
 
@@ -415,27 +345,6 @@ scw vpc-gw gateway create [arg=value ...]
 | enable-smtp |  | Defines whether SMTP traffic should be allowed pass through the gateway |
 | enable-bastion |  | Defines whether SSH bastion should be enabled the gateway |
 | bastion-port |  | Port of the SSH bastion |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Delete a Public Gateway
-
-Delete an existing Public Gateway, specified by its gateway ID. This action is irreversible.
-
-**Usage:**
-
-```
-scw vpc-gw gateway delete <gateway-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-id | Required | ID of the gateway to delete |
-| cleanup-dhcp |  | Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -461,26 +370,6 @@ scw vpc-gw gateway delete <gateway-id ...> [arg=value ...]
 
 
 
-### Upgrade a Public Gateway to IP mobility
-
-Upgrade a Public Gateway to IP mobility (move from NAT IP to routed IP). This is idempotent: repeated calls after the first will return no error but have no effect.
-
-**Usage:**
-
-```
-scw vpc-gw gateway enable-ip-mobility <gateway-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-id | Required | ID of the gateway to upgrade to IP mobility |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
 ### Get a Public Gateway
 
 Get details of a Public Gateway, specified by its gateway ID. The response object contains full details of the gateway, including its **name**, **type**, **status** and more.
@@ -498,53 +387,6 @@ scw vpc-gw gateway get <gateway-id ...> [arg=value ...]
 |------|---|-------------|
 | gateway-id | Required | ID of the gateway to fetch |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Get a Public Gateway
-
-Get details of a Public Gateway, specified by its gateway ID. The response object contains full details of the gateway, including its **name**, **type**, **status** and more.
-
-**Usage:**
-
-```
-scw vpc-gw gateway get <gateway-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-id | Required | ID of the gateway to fetch |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### List Public Gateways
-
-List Public Gateways in a given Scaleway Organization or Project. By default, results are displayed in ascending order of creation date.
-
-**Usage:**
-
-```
-scw vpc-gw gateway list [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc`, `status_asc`, `status_desc` | Order in which to return results |
-| project-id |  | Include only gateways in this Project |
-| name |  | Filter for gateways which have this search term in their name |
-| tags.{index} |  | Filter for gateways with these tags |
-| type |  | Filter for gateways of this type |
-| status | One of: `unknown`, `stopped`, `allocating`, `configuring`, `running`, `stopping`, `failed`, `deleting`, `deleted`, `locked` | Filter for gateways with this current status. Use `unknown` to include all statuses |
-| private-network-id |  | Filter for gateways attached to this Private nNetwork |
-| organization-id |  | Include only gateways in this Organization |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -616,52 +458,6 @@ scw vpc-gw gateway refresh-ssh-keys <gateway-id ...> [arg=value ...]
 
 
 
-### Refresh a Public Gateway's SSH keys
-
-Refresh the SSH keys of a given Public Gateway, specified by its gateway ID. This adds any new SSH keys in the gateway's Scaleway Project to the gateway itself.
-
-**Usage:**
-
-```
-scw vpc-gw gateway refresh-ssh-keys <gateway-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-id | Required | ID of the gateway to refresh SSH keys on |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Update a Public Gateway
-
-Update the parameters of an existing Public Gateway, for example, its **name**, **tags**, **SSH bastion configuration**, and **DNS servers**.
-
-**Usage:**
-
-```
-scw vpc-gw gateway update <gateway-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-id | Required | ID of the gateway to update |
-| name |  | Name for the gateway |
-| tags.{index} |  | Tags for the gateway |
-| upstream-dns-servers.{index} |  | Array of DNS server IP addresses to override the gateway's default recursive DNS servers |
-| enable-bastion |  | Defines whether SSH bastion should be enabled the gateway |
-| bastion-port |  | Port of the SSH bastion |
-| enable-smtp |  | Defines whether SMTP traffic should be allowed to pass through the gateway |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
 ### Update a Public Gateway
 
 Update the parameters of an existing Public Gateway, for example, its **name**, **tags**, **SSH bastion configuration**, and **DNS servers**.
@@ -683,27 +479,6 @@ scw vpc-gw gateway update <gateway-id ...> [arg=value ...]
 | enable-bastion |  | Defines whether SSH bastion should be enabled the gateway |
 | bastion-port |  | Port of the SSH bastion |
 | enable-smtp |  | Defines whether SMTP traffic should be allowed to pass through the gateway |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Upgrade a Public Gateway to the latest version and/or to a different commercial offer type
-
-Upgrade a given Public Gateway to the newest software version or to a different commercial offer type. This applies the latest bugfixes and features to your Public Gateway. Note that gateway service will be interrupted during the update.
-
-**Usage:**
-
-```
-scw vpc-gw gateway upgrade <gateway-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-id | Required | ID of the gateway to upgrade |
-| type |  | Gateway type (commercial offer) |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -731,46 +506,7 @@ scw vpc-gw gateway upgrade <gateway-id ...> [arg=value ...]
 
 ## Gateway Networks management
 
-A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.
-
-
-### Gateway Networks management
-
 A Gateway Network represents the connection of a Private Network to a Public Gateway.
-
-**Usage:**
-
-```
-scw vpc-gw gateway-network
-```
-
-
-
-### Attach a Public Gateway to a Private Network
-
-Attach a specific Public Gateway to a specific Private Network (create a GatewayNetwork). You can configure parameters for the connection including DHCP settings, whether to enable masquerade (dynamic NAT), and more.
-
-**Usage:**
-
-```
-scw vpc-gw gateway-network create [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-id |  | Public Gateway to connect |
-| private-network-id |  | Private Network to connect |
-| enable-masquerade |  | Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork. |
-| enable-dhcp |  | Defines whether to enable DHCP on this Private Network. |
-| dhcp-id |  | ID of an existing DHCP configuration object to use for this GatewayNetwork |
-| address |  | Static IP address in CIDR format to to use without DHCP |
-| ipam-config.push-default-route |  | Enabling the default route also enables masquerading |
-| ipam-config.ipam-ip-id |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
 
 
 ### Attach a Public Gateway to a Private Network
@@ -813,27 +549,6 @@ scw vpc-gw gateway-network delete <gateway-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | gateway-network-id | Required | ID of the GatewayNetwork to delete |
-| cleanup-dhcp |  | Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Detach a Public Gateway from a Private Network
-
-Detach a given Public Gateway from a given Private Network, i.e. delete a GatewayNetwork specified by a gateway_network_id.
-
-**Usage:**
-
-```
-scw vpc-gw gateway-network delete <gateway-network-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-network-id | Required | ID of the GatewayNetwork to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -855,51 +570,6 @@ scw vpc-gw gateway-network get <gateway-network-id ...> [arg=value ...]
 |------|---|-------------|
 | gateway-network-id | Required | ID of the GatewayNetwork to fetch |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Get a Public Gateway connection to a Private Network
-
-Get details of a given connection between a Public Gateway and a Private Network (this connection = a GatewayNetwork), specified by its `gateway_network_id`. The response object contains details of the connection including the IDs of the Public Gateway and Private Network, the dates the connection was created/updated and its configuration settings.
-
-**Usage:**
-
-```
-scw vpc-gw gateway-network get <gateway-network-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-network-id | Required | ID of the GatewayNetwork to fetch |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### List Public Gateway connections to Private Networks
-
-List the connections between Public Gateways and Private Networks (a connection = a GatewayNetwork). You can choose to filter by `gateway-id` to list all Private Networks attached to the specified Public Gateway, or by `private_network_id` to list all Public Gateways attached to the specified Private Network. Other query parameters are also available. The result is an array of GatewayNetwork objects, each giving details of the connection between a given Public Gateway and a given Private Network.
-
-**Usage:**
-
-```
-scw vpc-gw gateway-network list [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `status_asc`, `status_desc` | Order in which to return results |
-| gateway-id |  | Filter for GatewayNetworks connected to this gateway |
-| private-network-id |  | Filter for GatewayNetworks connected to this Private Network |
-| enable-masquerade |  | Filter for GatewayNetworks with this `enable_masquerade` setting |
-| dhcp-id |  | Filter for GatewayNetworks using this DHCP configuration |
-| status | One of: `unknown`, `created`, `attaching`, `configuring`, `ready`, `detaching`, `deleted` | Filter for GatewayNetworks with this current status this status. Use `unknown` to include all statuses |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -924,32 +594,6 @@ scw vpc-gw gateway-network list [arg=value ...]
 | private-network-ids.{index} |  | Filter for GatewayNetworks connected to these Private Networks |
 | masquerade-enabled |  | Filter for GatewayNetworks with this `enable_masquerade` setting |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Update a Public Gateway's connection to a Private Network
-
-Update the configuration parameters of a connection between a given Public Gateway and Private Network (the connection = a GatewayNetwork). Updatable parameters include DHCP settings and whether to enable traffic masquerade (dynamic NAT).
-
-**Usage:**
-
-```
-scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-network-id | Required | ID of the GatewayNetwork to update |
-| enable-masquerade |  | Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork. |
-| enable-dhcp |  | Defines whether to enable DHCP on this Private Network. |
-| dhcp-id |  | ID of the new DHCP configuration object to use with this GatewayNetwork |
-| address |  | New static IP address |
-| ipam-config.push-default-route |  | Enabling the default route also enables masquerading |
-| ipam-config.ipam-ip-id |  | Use this IPAM-booked IP ID as the Gateway's IP in this Private Network |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -981,37 +625,6 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
 
 
-### Gateway types information
-
-Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
-
-**Usage:**
-
-```
-scw vpc-gw gateway-type
-```
-
-
-
-### List Public Gateway types
-
-List the different Public Gateway commercial offer types available at Scaleway. The response is an array of objects describing the name and technical details of each available gateway type.
-
-**Usage:**
-
-```
-scw vpc-gw gateway-type list [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
 ### List Public Gateway types
 
 List the different Public Gateway commercial offer types available at Scaleway. The response is an array of objects describing the name and technical details of each available gateway type.
@@ -1036,39 +649,6 @@ scw vpc-gw gateway-type list [arg=value ...]
 Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.
 
 
-### IP address management
-
-Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.
-
-**Usage:**
-
-```
-scw vpc-gw ip
-```
-
-
-
-### Reserve an IP
-
-Create (reserve) a new flexible IP address that can be used for a Public Gateway in a specified Scaleway Project.
-
-**Usage:**
-
-```
-scw vpc-gw ip create [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| tags.{index} |  | Tags to give to the IP address |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
 ### Reserve an IP
 
 Create (reserve) a new flexible IP address that can be used for a Public Gateway in a specified Scaleway Project.
@@ -1110,26 +690,6 @@ scw vpc-gw ip delete <ip-id ...> [arg=value ...]
 
 
 
-### Delete an IP
-
-Delete a flexible IP address from your account. This action is irreversible.
-
-**Usage:**
-
-```
-scw vpc-gw ip delete <ip-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | ID of the IP address to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
 ### Get an IP
 
 Get details of a Public Gateway flexible IP address, identified by its IP ID. The response object contains information including which (if any) Public Gateway using this IP address, the reverse and various other metadata.
@@ -1147,51 +707,6 @@ scw vpc-gw ip get <ip-id ...> [arg=value ...]
 |------|---|-------------|
 | ip-id | Required | ID of the IP address to get |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Get an IP
-
-Get details of a Public Gateway flexible IP address, identified by its IP ID. The response object contains information including which (if any) Public Gateway using this IP address, the reverse and various other metadata.
-
-**Usage:**
-
-```
-scw vpc-gw ip get <ip-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | ID of the IP address to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### List IPs
-
-List Public Gateway flexible IP addresses. A number of filter options are available for limiting results in the response.
-
-**Usage:**
-
-```
-scw vpc-gw ip list [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `ip_asc`, `ip_desc`, `reverse_asc`, `reverse_desc` | Order in which to return results |
-| project-id |  | Filter for IP addresses in this Project |
-| tags.{index} |  | Filter for IP addresses with these tags |
-| reverse |  | Filter for IP addresses that have a reverse containing this string |
-| is-free |  | Filter based on whether the IP is attached to a gateway or not |
-| organization-id |  | Filter for IP addresses in this Organization |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1243,68 +758,9 @@ scw vpc-gw ip update <ip-id ...> [arg=value ...]
 
 
 
-### Update an IP
-
-Update details of an existing flexible IP address, including its tags, reverse and the Public Gateway it is assigned to.
-
-**Usage:**
-
-```
-scw vpc-gw ip update <ip-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | ID of the IP address to update |
-| tags.{index} |  | Tags to give to the IP address |
-| reverse |  | Reverse to set on the address. Empty string to unset |
-| gateway-id |  | Gateway to attach the IP address to. Empty string to detach |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
 ## PAT rules management
 
 PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
-
-
-### PAT rules management
-
-PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
-
-**Usage:**
-
-```
-scw vpc-gw pat-rule
-```
-
-
-
-### Create a PAT rule
-
-Create a new PAT rule on a specified Public Gateway, defining the protocol to use, public port to listen on, and private port / IP address to map to.
-
-**Usage:**
-
-```
-scw vpc-gw pat-rule create [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-id |  | ID of the Gateway on which to create the rule |
-| public-port |  | Public port to listen on |
-| private-ip |  | Private IP to forward data to |
-| private-port |  | Private port to translate to |
-| protocol | One of: `unknown`, `both`, `tcp`, `udp` | Protocol the rule should apply to |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
 
 
 ### Create a PAT rule
@@ -1351,26 +807,6 @@ scw vpc-gw pat-rule delete <pat-rule-id ...> [arg=value ...]
 
 
 
-### Delete a PAT rule
-
-Delete a PAT rule, identified by its PAT rule ID. This action is irreversible.
-
-**Usage:**
-
-```
-scw vpc-gw pat-rule delete <pat-rule-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| pat-rule-id | Required | ID of the PAT rule to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
 ### Get a PAT rule
 
 Get a PAT rule, specified by its PAT rule ID. The response object gives full details of the PAT rule, including the Public Gateway it belongs to and the configuration settings in terms of public / private ports, private IP and protocol.
@@ -1388,49 +824,6 @@ scw vpc-gw pat-rule get <pat-rule-id ...> [arg=value ...]
 |------|---|-------------|
 | pat-rule-id | Required | ID of the PAT rule to get |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Get a PAT rule
-
-Get a PAT rule, specified by its PAT rule ID. The response object gives full details of the PAT rule, including the Public Gateway it belongs to and the configuration settings in terms of public / private ports, private IP and protocol.
-
-**Usage:**
-
-```
-scw vpc-gw pat-rule get <pat-rule-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| pat-rule-id | Required | ID of the PAT rule to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### List PAT rules
-
-List PAT rules. You can filter by gateway ID to list all PAT rules for a particular gateway, or filter for PAT rules targeting a specific IP address or using a specific protocol.
-
-**Usage:**
-
-```
-scw vpc-gw pat-rule list [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `public_port_asc`, `public_port_desc` | Order in which to return results |
-| gateway-id |  | Filter for PAT rules on this Gateway |
-| private-ip |  | Filter for PAT rules targeting this private ip |
-| protocol | One of: `unknown`, `both`, `tcp`, `udp` | Filter for PAT rules with this protocol |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1476,55 +869,7 @@ scw vpc-gw pat-rule set [arg=value ...]
 | pat-rules.{index}.public-port |  | Public port to listen on |
 | pat-rules.{index}.private-ip |  | Private IP to forward data to |
 | pat-rules.{index}.private-port |  | Private port to translate to |
-| pat-rules.{index}.protocol | One of: `unknown`, `both`, `tcp`, `udp` | Protocol the rule should apply to |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Set all PAT rules
-
-Set a definitive list of PAT rules attached to a Public Gateway. Each rule is identified by its public port and protocol. This will sync the current PAT rule list on the gateway with the new list, creating, updating or deleting PAT rules accordingly.
-
-**Usage:**
-
-```
-scw vpc-gw pat-rule set [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| gateway-id |  | ID of the gateway on which to set the PAT rules |
-| pat-rules.{index}.public-port |  | Public port to listen on |
-| pat-rules.{index}.private-ip |  | Private IP to forward data to |
-| pat-rules.{index}.private-port |  | Private port to translate to |
 | pat-rules.{index}.protocol | One of: `unknown_protocol`, `both`, `tcp`, `udp` | Protocol the rule should apply to |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
-
-
-
-### Update a PAT rule
-
-Update a PAT rule, specified by its PAT rule ID. Configuration settings including private/public port, private IP address and protocol can all be updated.
-
-**Usage:**
-
-```
-scw vpc-gw pat-rule update <pat-rule-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| pat-rule-id | Required | ID of the PAT rule to update |
-| public-port |  | Public port to listen on |
-| private-ip |  | Private IP to forward data to |
-| private-port |  | Private port to translate to |
-| protocol | One of: `unknown`, `both`, `tcp`, `udp` | Protocol the rule should apply to |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 

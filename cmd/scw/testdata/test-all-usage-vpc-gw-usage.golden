@@ -8,11 +8,6 @@ USAGE:
 AVAILABLE COMMANDS:
   dhcp            DHCP configuration management
   dhcp-entry      DHCP entries management
-  gateway         Public Gateway management
-  gateway-network Gateway Networks management
-  gateway-type    Gateway types information
-  ip              IP address management
-  pat-rule        PAT rules management
 
 FLAGS:
   -h, --help   help for vpc-gw
