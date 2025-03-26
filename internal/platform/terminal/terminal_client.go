@@ -93,9 +93,9 @@ func errIsConfigFileNotFound(err error) bool {
 // configErrorDetails generate a detailed error message for an invalid client option.
 func configErrorDetails(configKey, varEnv string) string {
 	// TODO: update the more info link
-	return fmt.Sprintf(`%s can be initialised using the command "scw init".
+	return fmt.Sprintf(`%s can be initialized using the command "scw init".
 
-After initialisation, there are three ways to provide %s:
+After initialization, there are three ways to provide %s:
 - with the Scaleway config file, in the %s key: %s;
 - with the %s environement variable;
 
@@ -110,10 +110,25 @@ More info: https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-
 	)
 }
 
+// noConfigErrorDetails prints a message prompting the user to run 'scw login' when both the access key
+// and the secret key are missing.
+func noConfigErrorDetails() string {
+	return `You can create a new API keypair using the command "scw login".`
+}
+
 // validateClient validate a client configuration and make sure all mandatory setting are present.
 // This function is only call for commands that require a valid client.
 func validateClient(client *scw.Client) error {
-	accessKey, _ := client.GetAccessKey()
+	accessKey, accessKeyExists := client.GetAccessKey()
+	secretKey, secretKeyExists := client.GetSecretKey()
+
+	if !accessKeyExists && !secretKeyExists {
+		return &platform.ClientError{
+			Err:     errors.New("no credentials provided"),
+			Details: noConfigErrorDetails(),
+		}
+	}
+
 	if accessKey == "" {
 		return &platform.ClientError{
 			Err:     errors.New("access key is required"),
@@ -127,7 +142,6 @@ func validateClient(client *scw.Client) error {
 		}
 	}
 
-	secretKey, _ := client.GetSecretKey()
 	if secretKey == "" {
 		return &platform.ClientError{
 			Err:     errors.New("secret key is required"),
