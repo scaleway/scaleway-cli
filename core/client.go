@@ -1,7 +1,6 @@
 package core
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/platform"
@@ -25,7 +24,7 @@ func createAnonymousClient(httpClient *http.Client, buildInfo *BuildInfo) (*scw.
 }
 
 func createClientError(err error) error {
-	credentialsHint := "You can get your credentials here: https://console.scaleway.com/iam/api-keys"
+	credentialsHint := "You can check your credentials here: https://console.scaleway.com/iam/api-keys"
 
 	if clientError, isClientError := err.(*platform.ClientError); isClientError {
 		err = &CliError{
@@ -35,5 +34,5 @@ func createClientError(err error) error {
 		}
 	}
 
-	return fmt.Errorf("failed to create client: %w", err)
+	return err
 }
