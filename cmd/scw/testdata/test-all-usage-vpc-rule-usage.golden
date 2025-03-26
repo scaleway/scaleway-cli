@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Acl Rules.
+ACL Rules.
 
 USAGE:
   scw vpc rule <command>
 
 AVAILABLE COMMANDS:
-  get         Get Acl Rules for VPC
+  get         Get ACL Rules for VPC
   set         Set VPC ACL rules
 
 FLAGS:
