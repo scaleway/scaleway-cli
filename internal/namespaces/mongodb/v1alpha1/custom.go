@@ -11,9 +11,18 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("mongodb").Groups = []string{"database"}
 
-	human.RegisterMarshalerFunc(mongodb.SnapshotStatus(""), human.EnumMarshalFunc(snapshotStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(mongodb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(mongodb.NodeTypeStock(""), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		mongodb.SnapshotStatus(""),
+		human.EnumMarshalFunc(snapshotStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		mongodb.InstanceStatus(""),
+		human.EnumMarshalFunc(instanceStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		mongodb.NodeTypeStock(""),
+		human.EnumMarshalFunc(nodeTypeStockMarshalSpecs),
+	)
 
 	cmds.MustFind("mongodb", "instance", "create").Override(instanceCreateBuilder)
 

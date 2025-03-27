@@ -123,10 +123,14 @@ func serverCreateCommand() *core.Command {
 				CanLoadFile: true,
 			},
 			{
-				Name:       "boot-type",
-				Short:      "The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set.",
-				Default:    core.DefaultValueSetter(instance.BootTypeLocal.String()),
-				EnumValues: []string{instance.BootTypeLocal.String(), instance.BootTypeBootscript.String(), instance.BootTypeRescue.String()},
+				Name:    "boot-type",
+				Short:   "The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set.",
+				Default: core.DefaultValueSetter(instance.BootTypeLocal.String()),
+				EnumValues: []string{
+					instance.BootTypeLocal.String(),
+					instance.BootTypeBootscript.String(),
+					instance.BootTypeRescue.String(),
+				},
 			},
 			{
 				Name:             "admin-password-encryption-ssh-key-id",
@@ -187,12 +191,13 @@ scw instance server create image=ubuntu_focal ip=$ip`,
 
 func instanceWaitServerCreateRun() core.WaitFunc {
 	return func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-			Zone:          argsI.(*instanceCreateServerRequest).Zone,
-			ServerID:      respI.(*instance.Server).ID,
-			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
-			RetryInterval: core.DefaultRetryInterval,
-		})
+		return instance.NewAPI(core.ExtractClient(ctx)).
+			WaitForServer(&instance.WaitForServerRequest{
+				Zone:          argsI.(*instanceCreateServerRequest).Zone,
+				ServerID:      respI.(*instance.Server).ID,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
 	}
 }
 
@@ -305,7 +310,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			Content:  bytes.NewBufferString(args.CloudInit),
 		})
 		if err != nil {
-			logger.Warningf("error while setting up your cloud-init metadata: %s. Note that the server is successfully created.", err)
+			logger.Warningf(
+				"error while setting up your cloud-init metadata: %s. Note that the server is successfully created.",
+				err,
+			)
 		} else {
 			logger.Debugf("cloud-init set")
 		}
@@ -322,7 +330,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 			Action:   instance.ServerActionPoweron,
 		})
 		if err != nil {
-			logger.Warningf("Cannot start the server: %s. Note that the server is successfully created.", err)
+			logger.Warningf(
+				"Cannot start the server: %s. Note that the server is successfully created.",
+				err,
+			)
 		} else {
 			logger.Debugf("server started")
 		}
@@ -331,7 +342,10 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 	return server, nil
 }
 
-func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
+func addDefaultVolumes(
+	serverType *instance.ServerType,
+	volumes map[string]*instance.VolumeServerTemplate,
+) map[string]*instance.VolumeServerTemplate {
 	needScratch := false
 	hasScratch := false
 	defaultVolumes := []*instance.VolumeServerTemplate(nil)
@@ -371,13 +385,19 @@ func addDefaultVolumes(serverType *instance.ServerType, volumes map[string]*inst
 	return volumes
 }
 
-func validateImageServerTypeCompatibility(image *instance.Image, serverType *instance.ServerType, commercialType string) error {
+func validateImageServerTypeCompatibility(
+	image *instance.Image,
+	serverType *instance.ServerType,
+	commercialType string,
+) error {
 	// An instance might not have any constraints on the local volume size
 	if serverType.VolumesConstraint.MaxSize == 0 {
 		return nil
 	}
-	if image.RootVolume.VolumeType == instance.VolumeVolumeTypeLSSD && image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
-		return fmt.Errorf("image %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
+	if image.RootVolume.VolumeType == instance.VolumeVolumeTypeLSSD &&
+		image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
+		return fmt.Errorf(
+			"image %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
 			image.ID,
 			humanize.Bytes(uint64(image.RootVolume.Size)),
 			humanize.Bytes(uint64(serverType.VolumesConstraint.MinSize)),
@@ -390,7 +410,12 @@ func validateImageServerTypeCompatibility(image *instance.Image, serverType *ins
 }
 
 // validateLocalVolumeSizes validates the total size of local volumes.
-func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate, serverType *instance.ServerType, commercialType string, defaultRootVolumeSize scw.Size) error {
+func validateLocalVolumeSizes(
+	volumes map[string]*instance.VolumeServerTemplate,
+	serverType *instance.ServerType,
+	commercialType string,
+	defaultRootVolumeSize scw.Size,
+) error {
 	// Calculate local volume total size.
 	var localVolumeTotalSize scw.Size
 	for _, volume := range volumes {
@@ -410,22 +435,37 @@ func validateLocalVolumeSizes(volumes map[string]*instance.VolumeServerTemplate,
 		localVolumeTotalSize += defaultRootVolumeSize // defaultRootVolumeSize may be used for a block volume
 	}
 
-	if localVolumeTotalSize < volumeConstraint.MinSize || localVolumeTotalSize > volumeConstraint.MaxSize {
+	if localVolumeTotalSize < volumeConstraint.MinSize ||
+		localVolumeTotalSize > volumeConstraint.MaxSize {
 		minSize := humanize.Bytes(uint64(volumeConstraint.MinSize))
 		computedLocal := humanize.Bytes(uint64(localVolumeTotalSize))
 		if volumeConstraint.MinSize == volumeConstraint.MaxSize {
-			return fmt.Errorf("%s total local volume size must be equal to %s, got %s", commercialType, minSize, computedLocal)
+			return fmt.Errorf(
+				"%s total local volume size must be equal to %s, got %s",
+				commercialType,
+				minSize,
+				computedLocal,
+			)
 		}
 
 		maxSize := humanize.Bytes(uint64(volumeConstraint.MaxSize))
 
-		return fmt.Errorf("%s total local volume size must be between %s and %s, got %s", commercialType, minSize, maxSize, computedLocal)
+		return fmt.Errorf(
+			"%s total local volume size must be between %s and %s, got %s",
+			commercialType,
+			minSize,
+			maxSize,
+			computedLocal,
+		)
 	}
 
 	return nil
 }
 
-func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeServerTemplate) error {
+func validateRootVolume(
+	imageRequiredSize scw.Size,
+	rootVolume *instance.VolumeServerTemplate,
+) error {
 	if rootVolume == nil {
 		return nil
 	}
@@ -438,14 +478,20 @@ func validateRootVolume(imageRequiredSize scw.Size, rootVolume *instance.VolumeS
 	}
 
 	if rootVolume.Size != nil && *rootVolume.Size < imageRequiredSize {
-		return fmt.Errorf("first volume size must be at least %s for this image", humanize.Bytes(uint64(imageRequiredSize)))
+		return fmt.Errorf(
+			"first volume size must be at least %s for this image",
+			humanize.Bytes(uint64(imageRequiredSize)),
+		)
 	}
 
 	return nil
 }
 
 // sanitizeVolumeMap removes extra data for API validation.
-func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeServerTemplate) map[string]*instance.VolumeServerTemplate {
+func sanitizeVolumeMap(
+	serverName string,
+	volumes map[string]*instance.VolumeServerTemplate,
+) map[string]*instance.VolumeServerTemplate {
 	m := make(map[string]*instance.VolumeServerTemplate)
 
 	for index, v := range volumes {
@@ -486,7 +532,11 @@ func sanitizeVolumeMap(serverName string, volumes map[string]*instance.VolumeSer
 // Caching listImage response for shell completion
 var completeListImagesCache *marketplace.ListImagesResponse
 
-func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix string, _ any) core.AutocompleteSuggestions {
+func instanceServerCreateImageAutoCompleteFunc(
+	ctx context.Context,
+	prefix string,
+	_ any,
+) core.AutocompleteSuggestions {
 	suggestions := core.AutocompleteSuggestions(nil)
 
 	client := core.ExtractClient(ctx)
@@ -512,7 +562,11 @@ func instanceServerCreateImageAutoCompleteFunc(ctx context.Context, prefix strin
 }
 
 // getServerType is a util to get a instance.ServerType by its commercialType
-func getServerType(apiInstance *instance.API, zone scw.Zone, commercialType string) *instance.ServerType {
+func getServerType(
+	apiInstance *instance.API,
+	zone scw.Zone,
+	commercialType string,
+) *instance.ServerType {
 	serverType := (*instance.ServerType)(nil)
 
 	serverTypesRes, err := apiInstance.ListServersTypes(&instance.ListServersTypesRequest{

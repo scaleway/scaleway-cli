@@ -76,7 +76,11 @@ func (wb *WebCallback) Start() error {
 
 // Trigger will trigger currently waiting callback. Made for tests
 func (wb *WebCallback) Trigger(token string, timeout time.Duration) error {
-	req, err := http.NewRequest(http.MethodGet, "http://localhost:"+strconv.Itoa(wb.port)+"/callback", nil)
+	req, err := http.NewRequest(
+		http.MethodGet,
+		"http://localhost:"+strconv.Itoa(wb.port)+"/callback",
+		nil,
+	)
 	if err != nil {
 		return err
 	}

@@ -88,7 +88,12 @@ var autocompleteResourceToNamespace = map[string]string{
 // AutocompleteGetArg tries to complete an argument by using the list verb if it exists for the same resource
 // It will search for the same field in the response of the list
 // Field name will be stripped of the resource name (ex: cluster-id -> id)
-func AutocompleteGetArg(ctx context.Context, cmd *Command, argSpec *ArgSpec, completedArgs map[string]string) []string {
+func AutocompleteGetArg(
+	ctx context.Context,
+	cmd *Command,
+	argSpec *ArgSpec,
+	completedArgs map[string]string,
+) []string {
 	commands := ExtractCommands(ctx)
 
 	// The argument we want to find (ex: server-id)

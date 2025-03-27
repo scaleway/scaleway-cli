@@ -25,13 +25,34 @@ const (
 )
 
 var backupStatusMarshalSpecs = human.EnumMarshalSpecs{
-	rdb.DatabaseBackupStatusUnknown:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-	rdb.DatabaseBackupStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "creating"},
-	rdb.DatabaseBackupStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-	rdb.DatabaseBackupStatusRestoring: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "restoring"},
-	rdb.DatabaseBackupStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
-	rdb.DatabaseBackupStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	rdb.DatabaseBackupStatusExporting: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "exporting"},
+	rdb.DatabaseBackupStatusUnknown: &human.EnumMarshalSpec{
+		Attribute: color.Faint,
+		Value:     "unknown",
+	},
+	rdb.DatabaseBackupStatusCreating: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "creating",
+	},
+	rdb.DatabaseBackupStatusReady: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "ready",
+	},
+	rdb.DatabaseBackupStatusRestoring: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "restoring",
+	},
+	rdb.DatabaseBackupStatusDeleting: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "deleting",
+	},
+	rdb.DatabaseBackupStatusError: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "error",
+	},
+	rdb.DatabaseBackupStatusExporting: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "exporting",
+	},
 }
 
 type backupWaitRequest struct {
@@ -201,38 +222,40 @@ func backupListBuilder(c *core.Command) *core.Command {
 		},
 	}
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		listBackupResp, err := runner(ctx, argsI)
-		if err != nil {
-			return listBackupResp, err
-		}
-		backupList := listBackupResp.([]*rdb.DatabaseBackup)
-		var res []customBackup
-		for _, backup := range backupList {
-			isExported := false
-			if backup.DownloadURL != nil {
-				isExported = true
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			listBackupResp, err := runner(ctx, argsI)
+			if err != nil {
+				return listBackupResp, err
 			}
-			res = append(res, customBackup{
-				ID:           backup.ID,
-				InstanceID:   backup.InstanceID,
-				DatabaseName: backup.DatabaseName,
-				Name:         backup.Name,
-				Status:       backup.Status,
-				Size:         backup.Size,
-				ExpiresAt:    backup.ExpiresAt,
-				CreatedAt:    backup.CreatedAt,
-				UpdatedAt:    backup.UpdatedAt,
-				InstanceName: backup.InstanceName,
-				IsExported:   isExported,
-				URLExpired:   urlExpired(backup.DownloadURLExpiresAt),
-				Region:       backup.Region,
-				SameRegion:   backup.SameRegion,
-			})
-		}
+			backupList := listBackupResp.([]*rdb.DatabaseBackup)
+			var res []customBackup
+			for _, backup := range backupList {
+				isExported := false
+				if backup.DownloadURL != nil {
+					isExported = true
+				}
+				res = append(res, customBackup{
+					ID:           backup.ID,
+					InstanceID:   backup.InstanceID,
+					DatabaseName: backup.DatabaseName,
+					Name:         backup.Name,
+					Status:       backup.Status,
+					Size:         backup.Size,
+					ExpiresAt:    backup.ExpiresAt,
+					CreatedAt:    backup.CreatedAt,
+					UpdatedAt:    backup.UpdatedAt,
+					InstanceName: backup.InstanceName,
+					IsExported:   isExported,
+					URLExpired:   urlExpired(backup.DownloadURLExpiresAt),
+					Region:       backup.Region,
+					SameRegion:   backup.SameRegion,
+				})
+			}
 
-		return res, nil
-	})
+			return res, nil
+		},
+	)
 
 	return c
 }
@@ -269,7 +292,11 @@ func backupResultMarshallerFunc(i interface{}, _ *human.MarshalOpt) (string, err
 		return "", err
 	}
 
-	return fmt.Sprintf("Backup downloaded to %s successfully (%s written)", backupResult.FileName, sizeStr), nil
+	return fmt.Sprintf(
+		"Backup downloaded to %s successfully (%s written)",
+		backupResult.FileName,
+		sizeStr,
+	), nil
 }
 
 func backupDownloadCommand() *core.Command {

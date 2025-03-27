@@ -16,8 +16,14 @@ func Test_getPolicyWithRules(t *testing.T) {
 			account.GetCommands(),
 		),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Project", "scw account project create name=test-cli-get-policy"),
-			core.ExecStoreBeforeCmd("Policy", "scw iam policy create name=test-cli-get-policy no-principal=true rules.0.permission-set-names.0=IPAMReadOnly rules.0.project-ids.0={{ .Project.ID }}"),
+			core.ExecStoreBeforeCmd(
+				"Project",
+				"scw account project create name=test-cli-get-policy",
+			),
+			core.ExecStoreBeforeCmd(
+				"Policy",
+				"scw iam policy create name=test-cli-get-policy no-principal=true rules.0.permission-set-names.0=IPAMReadOnly rules.0.project-ids.0={{ .Project.ID }}",
+			),
 		),
 		Cmd: `scw iam policy get {{ .Policy.ID }}`,
 		Check: core.TestCheckCombine(

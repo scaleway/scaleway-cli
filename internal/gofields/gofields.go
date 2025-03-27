@@ -48,33 +48,57 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 	case reflect.Slice:
 		idx, err := strconv.Atoi(path[0])
 		if err != nil {
-			return reflect.Value{}, fmt.Errorf("trying to access array %s but %s is not a numerical index", strings.Join(parents, "."), path[0])
+			return reflect.Value{}, fmt.Errorf(
+				"trying to access array %s but %s is not a numerical index",
+				strings.Join(parents, "."),
+				path[0],
+			)
 		}
 		if idx >= value.Len() {
-			return reflect.Value{}, fmt.Errorf("trying to access array %s but %d is out of range", strings.Join(parents, "."), idx)
+			return reflect.Value{}, fmt.Errorf(
+				"trying to access array %s but %d is out of range",
+				strings.Join(parents, "."),
+				idx,
+			)
 		}
 
 		return getValue(value.Index(idx), append(parents, path[0]), path[1:])
 	case reflect.Map:
 		v := value.MapIndex(reflect.ValueOf(path[0]))
 		if !v.IsValid() {
-			return reflect.Value{}, fmt.Errorf("trying to access map %s but %s key does not exist", strings.Join(parents, "."), path[0])
+			return reflect.Value{}, fmt.Errorf(
+				"trying to access map %s but %s key does not exist",
+				strings.Join(parents, "."),
+				path[0],
+			)
 		}
 
 		return getValue(v, append(parents, path[0]), path[1:])
 	case reflect.Struct:
 		f, exist := value.Type().FieldByName(path[0])
 		if !exist {
-			return reflect.Value{}, fmt.Errorf("field %s does not exist in %s", path[0], strings.Join(parents, "."))
+			return reflect.Value{}, fmt.Errorf(
+				"field %s does not exist in %s",
+				path[0],
+				strings.Join(parents, "."),
+			)
 		}
 		if !isFieldPublic(f) {
-			return reflect.Value{}, fmt.Errorf("field %s is private in %s", path[0], strings.Join(parents, "."))
+			return reflect.Value{}, fmt.Errorf(
+				"field %s is private in %s",
+				path[0],
+				strings.Join(parents, "."),
+			)
 		}
 		v := value.FieldByIndex(f.Index)
 
 		return getValue(v, append(parents, path[0]), path[1:])
 	default:
-		return reflect.Value{}, fmt.Errorf("cannot get %s in field %s", strings.Join(path, "."), strings.Join(parents, "."))
+		return reflect.Value{}, fmt.Errorf(
+			"cannot get %s in field %s",
+			strings.Join(path, "."),
+			strings.Join(parents, "."),
+		)
 	}
 }
 
@@ -97,7 +121,11 @@ func getType(t reflect.Type, parents []string, path []string) (reflect.Type, err
 	case reflect.Slice:
 		_, err := strconv.Atoi(path[0])
 		if err != nil {
-			return nil, fmt.Errorf("trying to access array %s but %s is not a numerical index", strings.Join(parents, "."), path[0])
+			return nil, fmt.Errorf(
+				"trying to access array %s but %s is not a numerical index",
+				strings.Join(parents, "."),
+				path[0],
+			)
 		}
 
 		return getType(t.Elem(), append(parents, path[0]), path[1:])
@@ -106,7 +134,11 @@ func getType(t reflect.Type, parents []string, path []string) (reflect.Type, err
 	case reflect.Struct:
 		field, exist := t.FieldByName(path[0])
 		if !exist {
-			return nil, fmt.Errorf("field %s does not exist in %s", path[0], strings.Join(parents, "."))
+			return nil, fmt.Errorf(
+				"field %s does not exist in %s",
+				path[0],
+				strings.Join(parents, "."),
+			)
 		}
 		if !isFieldPublic(field) {
 			return nil, fmt.Errorf("field %s is private in %s", path[0], strings.Join(parents, "."))
@@ -114,7 +146,11 @@ func getType(t reflect.Type, parents []string, path []string) (reflect.Type, err
 
 		return getType(field.Type, append(parents, path[0]), path[1:])
 	default:
-		return nil, fmt.Errorf("cannot get %s in field %s", strings.Join(path, "."), strings.Join(parents, "."))
+		return nil, fmt.Errorf(
+			"cannot get %s in field %s",
+			strings.Join(path, "."),
+			strings.Join(parents, "."),
+		)
 	}
 }
 
@@ -170,7 +206,8 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 
 // IsNil test if a given value is nil. It is saf to call the mthod with non nillable value like scalar types
 func IsNil(value reflect.Value) bool {
-	return (value.Kind() == reflect.Ptr || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) && value.IsNil()
+	return (value.Kind() == reflect.Ptr || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) &&
+		value.IsNil()
 }
 
 // isFieldPublic returns true if the given field is public (Name starts with an uppercase)

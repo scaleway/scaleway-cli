@@ -173,8 +173,19 @@ Default path for configuration file is based on the following priority order:
 			}
 
 			if args.ProjectID == "" {
-				args.ProjectID = getAPIKeyDefaultProjectID(ctx, args.AccessKey, args.SecretKey, args.OrganizationID)
-				args.ProjectID, err = promptProjectID(ctx, args.AccessKey, args.SecretKey, args.OrganizationID, args.ProjectID)
+				args.ProjectID = getAPIKeyDefaultProjectID(
+					ctx,
+					args.AccessKey,
+					args.SecretKey,
+					args.OrganizationID,
+				)
+				args.ProjectID, err = promptProjectID(
+					ctx,
+					args.AccessKey,
+					args.SecretKey,
+					args.OrganizationID,
+					args.ProjectID,
+				)
 				if err != nil {
 					return nil, err
 				}
@@ -233,7 +244,11 @@ Default path for configuration file is based on the following priority order:
 			}
 
 			// Persist configuration on disk
-			interactive.Printf("Config saved at %s:\n%s\n", configPath, terminal.Style(fmt.Sprint(config), color.Faint))
+			interactive.Printf(
+				"Config saved at %s:\n%s\n",
+				configPath,
+				terminal.Style(fmt.Sprint(config), color.Faint),
+			)
 			err = config.SaveTo(configPath)
 			if err != nil {
 				return nil, err
@@ -307,11 +322,19 @@ func loadConfigOrEmpty(configPath string, activeProfile string) (*scw.Config, er
 
 // getAPIKeyDefaultProjectID tries to find the api-key default project ID
 // return default project ID (organization ID) if it cannot find it
-func getAPIKeyDefaultProjectID(ctx context.Context, accessKey string, secretKey string, organizationID string) string {
+func getAPIKeyDefaultProjectID(
+	ctx context.Context,
+	accessKey string,
+	secretKey string,
+	organizationID string,
+) string {
 	client := core.ExtractClient(ctx)
 	api := iam.NewAPI(client)
 
-	apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{AccessKey: accessKey}, scw.WithAuthRequest(accessKey, secretKey))
+	apiKey, err := api.GetAPIKey(
+		&iam.GetAPIKeyRequest{AccessKey: accessKey},
+		scw.WithAuthRequest(accessKey, secretKey),
+	)
 	if err != nil && !is403Error(err) {
 		// If 403 Unauthorized, API Key does not have permissions to get himself
 		// It requires IAM permission to fetch an API Key

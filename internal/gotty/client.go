@@ -49,7 +49,10 @@ func (c *Client) Connect() error {
 	defer func() {
 		// Websocket protocol require the server to close the connection.
 		// This sent a close request.
-		conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, "")) //nolint:errcheck
+		conn.WriteMessage(
+			websocket.CloseMessage,
+			websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""),
+		)
 	}()
 
 	// This is how scaleway implement gotty authentication
@@ -91,7 +94,12 @@ func (c *Client) Connect() error {
 			if err != nil {
 				return err
 			}
-			message := fmt.Sprintf(`%c{"columns":%d,"rows":%d}`, resizeTerminalCode, size.Width, size.Height)
+			message := fmt.Sprintf(
+				`%c{"columns":%d,"rows":%d}`,
+				resizeTerminalCode,
+				size.Width,
+				size.Height,
+			)
 			err = conn.WriteMessage(websocket.TextMessage, []byte(message))
 			if err != nil {
 				return fmt.Errorf("failed to write message on websocket: %w", err)

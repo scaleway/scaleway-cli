@@ -27,7 +27,12 @@ func Test_EndpointCreate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
-				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic, publicEndpoint})
+				checkEndpoints(
+					t,
+					ctx.Client,
+					instance,
+					[]string{privateEndpointStatic, publicEndpoint},
+				)
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -45,7 +50,12 @@ func Test_EndpointCreate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
-				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointStatic, publicEndpoint})
+				checkEndpoints(
+					t,
+					ctx.Client,
+					instance,
+					[]string{privateEndpointStatic, publicEndpoint},
+				)
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -66,7 +76,12 @@ func Test_EndpointCreate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
-				checkEndpoints(t, ctx.Client, instance, []string{privateEndpointIpam, publicEndpoint})
+				checkEndpoints(
+					t,
+					ctx.Client,
+					instance,
+					[]string{privateEndpointIpam, publicEndpoint},
+				)
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -162,7 +177,12 @@ func Test_EndpointGet(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
-				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointStatic})
+				checkEndpoints(
+					t,
+					ctx.Client,
+					instance,
+					[]string{publicEndpoint, privateEndpointStatic},
+				)
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -184,7 +204,12 @@ func Test_EndpointGet(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
-				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointStatic})
+				checkEndpoints(
+					t,
+					ctx.Client,
+					instance,
+					[]string{publicEndpoint, privateEndpointStatic},
+				)
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -213,7 +238,12 @@ func Test_EndpointList(t *testing.T) {
 	}))
 }
 
-func checkEndpoints(t *testing.T, client *scw.Client, instance *rdbSDK.Instance, expected []string) {
+func checkEndpoints(
+	t *testing.T,
+	client *scw.Client,
+	instance *rdbSDK.Instance,
+	expected []string,
+) {
 	t.Helper()
 	rdbAPI := rdbSDK.NewAPI(client)
 	ipamAPI := ipam.NewAPI(client)

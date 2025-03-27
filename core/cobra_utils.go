@@ -24,7 +24,11 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 		// If command requires authentication and the client was not directly provided in the bootstrap config, we create a new client and overwrite the existing one
 		if !cmd.AllowAnonymousClient && !meta.isClientFromBootstrapConfig {
-			client, err := meta.Platform.CreateClient(meta.httpClient, ExtractConfigPath(ctx), ExtractProfileName(ctx))
+			client, err := meta.Platform.CreateClient(
+				meta.httpClient,
+				ExtractConfigPath(ctx),
+				ExtractProfileName(ctx),
+			)
 			if err != nil {
 				return createClientError(err)
 			}
@@ -58,11 +62,34 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 		positionalArgs := rawArgs.GetPositionalArgs()
 
+		// Return an error if a positional argument was provide using `key=value` syntax.
+		value, exist := rawArgs.Get(positionalArgSpec.Name)
+		if exist {
+			otherArgs := rawArgs.Remove(positionalArgSpec.Name)
+
+			return &CliError{
+				Err: errors.New("a positional argument is required for this command"),
+				Hint: positionalArgHint(
+					meta.BinaryName,
+					cmd,
+					value,
+					otherArgs,
+					len(positionalArgs) > 0,
+				),
+			}
+		}
+
 		// If no positional arguments were provided, return an error
 		if len(positionalArgs) == 0 {
 			return &CliError{
-				Err:  errors.New("a positional argument is required for this command"),
-				Hint: positionalArgHint(meta.BinaryName, cmd, "<"+positionalArgSpec.Name+">", rawArgs.Remove(positionalArgSpec.Name), false),
+				Err: errors.New("a positional argument is required for this command"),
+				Hint: positionalArgHint(
+					meta.BinaryName,
+					cmd,
+					"<"+positionalArgSpec.Name+">",
+					rawArgs,
+					false,
+				),
 			}
 		}
 
@@ -74,7 +101,10 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 			rawArgsWithPositional := rawArgs.Add(argNameWithIndex, positionalArgs[0])
 			for i := 1; i < len(positionalArgs); i++ {
 				argNameWithIndex = fmt.Sprintf("%s.%d", positionalArgSpec.Name, i)
-				rawArgsWithPositional = rawArgsWithPositional.Add(argNameWithIndex, positionalArgs[i])
+				rawArgsWithPositional = rawArgsWithPositional.Add(
+					argNameWithIndex,
+					positionalArgs[i],
+				)
 			}
 
 			result, err := run(ctx, cobraCmd, cmd, rawArgsWithPositional)
@@ -107,7 +137,12 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 	}
 }
 
-func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []string) (interface{}, error) {
+func run(
+	ctx context.Context,
+	cobraCmd *cobra.Command,
+	cmd *Command,
+	rawArgs []string,
+) (interface{}, error) {
 	var err error
 
 	// create a new Args interface{}
@@ -164,9 +199,13 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 		cmd.Interceptor,
 	)
 
-	data, err := interceptor(ctx, cmdArgs, func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-		return cmd.Run(ctx, argsI)
-	})
+	data, err := interceptor(
+		ctx,
+		cmdArgs,
+		func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			return cmd.Run(ctx, argsI)
+		},
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +221,13 @@ func run(ctx context.Context, cobraCmd *cobra.Command, cmd *Command, rawArgs []s
 }
 
 // positionalArgHint formats the positional argument error hint.
-func positionalArgHint(binaryName string, cmd *Command, hintValue string, otherArgs []string, positionalArgumentFound bool) string {
+func positionalArgHint(
+	binaryName string,
+	cmd *Command,
+	hintValue string,
+	otherArgs []string,
+	positionalArgumentFound bool,
+) string {
 	suggestedArgs := []string{}
 
 	// If no positional argument exists, suggest one.

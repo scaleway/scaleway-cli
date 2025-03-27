@@ -32,6 +32,7 @@ func GetGeneratedCommands() *core.Commands {
 		testHumanSmoke(),
 	)
 }
+
 func testRoot() *core.Command {
 	return &core.Command{
 		Short: `No Auth Service for end-to-end testing`,
@@ -88,8 +89,8 @@ Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.Register(request)
 
+			return api.Register(request)
 		},
 	}
 }
@@ -109,7 +110,14 @@ func testHumanList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "height_asc", "height_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"height_asc",
+					"height_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -134,8 +142,8 @@ func testHumanList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Humans, nil
 
+			return resp.Humans, nil
 		},
 	}
 }
@@ -163,8 +171,8 @@ func testHumanGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.GetHuman(request)
 
+			return api.GetHuman(request)
 		},
 	}
 }
@@ -226,7 +234,17 @@ func testHumanCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
+				EnumValues: []string{
+					"unknown",
+					"amber",
+					"blue",
+					"brown",
+					"gray",
+					"green",
+					"hazel",
+					"red",
+					"violet",
+				},
 			},
 			{
 				Name:       "name",
@@ -242,8 +260,8 @@ func testHumanCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.CreateHuman(request)
 
+			return api.CreateHuman(request)
 		},
 		Examples: []*core.Example{
 			{
@@ -318,7 +336,17 @@ func testHumanUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "amber", "blue", "brown", "gray", "green", "hazel", "red", "violet"},
+				EnumValues: []string{
+					"unknown",
+					"amber",
+					"blue",
+					"brown",
+					"gray",
+					"green",
+					"hazel",
+					"red",
+					"violet",
+				},
 			},
 			{
 				Name:       "name",
@@ -332,8 +360,8 @@ func testHumanUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.UpdateHuman(request)
 
+			return api.UpdateHuman(request)
 		},
 	}
 }
@@ -361,8 +389,8 @@ func testHumanDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.DeleteHuman(request)
 
+			return api.DeleteHuman(request)
 		},
 	}
 }
@@ -390,8 +418,8 @@ func testHumanRun() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.RunHuman(request)
 
+			return api.RunHuman(request)
 		},
 		Examples: []*core.Example{
 			{
@@ -426,8 +454,8 @@ func testHumanSmoke() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := test.NewAPI(client)
-			return api.SmokeHuman(request)
 
+			return api.SmokeHuman(request)
 		},
 	}
 }

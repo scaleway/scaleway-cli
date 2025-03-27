@@ -13,8 +13,14 @@ func Test_ImageList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: registry.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("PublicNamespace", "scw registry namespace create name=cli-public-namespace-{{randint}} is-public=true"),
-			core.ExecStoreBeforeCmd("PrivateNamespace", "scw registry namespace create name=cli-private-namespace-{{randint}} is-public=false"),
+			core.ExecStoreBeforeCmd(
+				"PublicNamespace",
+				"scw registry namespace create name=cli-public-namespace-{{randint}} is-public=true",
+			),
+			core.ExecStoreBeforeCmd(
+				"PrivateNamespace",
+				"scw registry namespace create name=cli-private-namespace-{{randint}} is-public=false",
+			),
 			core.BeforeFuncWhenUpdatingCassette(
 				core.ExecBeforeCmd("scw registry login"),
 			),
@@ -78,7 +84,12 @@ func Test_ImageList(t *testing.T) {
 	}))
 }
 
-func setupImage(dockerImage string, namespaceEndpoint string, imageName string, visibility registrySDK.ImageVisibility) core.BeforeFunc {
+func setupImage(
+	dockerImage string,
+	namespaceEndpoint string,
+	imageName string,
+	visibility registrySDK.ImageVisibility,
+) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		namespaceEndpoint := ctx.Meta.Render(namespaceEndpoint)
 		remote := fmt.Sprintf("%s/%s:latest", namespaceEndpoint, imageName)
@@ -88,7 +99,11 @@ func setupImage(dockerImage string, namespaceEndpoint string, imageName string, 
 			core.BeforeFuncOsExec("docker", "tag", dockerImage, remote),
 			core.BeforeFuncOsExec("docker", "push", remote),
 			core.ExecStoreBeforeCmd("ImageListResult", "scw registry image list name="+imageName),
-			core.ExecBeforeCmd("scw registry image update {{ (index .ImageListResult 0).ID }} visibility="+visibility.String()),
-		)(ctx)
+			core.ExecBeforeCmd(
+				"scw registry image update {{ (index .ImageListResult 0).ID }} visibility="+visibility.String(),
+			),
+		)(
+			ctx,
+		)
 	}
 }

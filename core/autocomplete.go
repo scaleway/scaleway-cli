@@ -137,7 +137,11 @@ func NewAutoCompleteFlagNode(parent *AutoCompleteNode, flagSpec *FlagSpec) *Auto
 // GetChildOrCreate search a child node by name,
 // and either returns it if found
 // or create new children with the given name and aliases, and returns it.
-func (node *AutoCompleteNode) GetChildOrCreate(name string, aliases []string, flags []FlagSpec) *AutoCompleteNode {
+func (node *AutoCompleteNode) GetChildOrCreate(
+	name string,
+	aliases []string,
+	flags []FlagSpec,
+) *AutoCompleteNode {
 	if _, exist := node.Children[name]; !exist {
 		childNode := NewAutoCompleteCommandNode(flags)
 		node.Children[name] = childNode
@@ -234,7 +238,12 @@ func BuildAutoCompleteTree(ctx context.Context, commands *Commands) *AutoComplet
 //
 // command <flag name>=<flag value beginning><tab> gives no suggestion for now
 // eg: scw test flower create name=p -o=jso
-func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string, rightWords []string) *AutocompleteResponse {
+func AutoComplete(
+	ctx context.Context,
+	leftWords []string,
+	wordToComplete string,
+	rightWords []string,
+) *AutocompleteResponse {
 	commands := ExtractCommands(ctx)
 
 	// Create AutoComplete Tree
@@ -310,7 +319,13 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 			// We try to complete the value of an unknown arg
 			return &AutocompleteResponse{}
 		}
-		suggestions := AutoCompleteArgValue(ctx, argNode.Command, argNode.ArgSpec, argValuePrefix, completedArgs)
+		suggestions := AutoCompleteArgValue(
+			ctx,
+			argNode.Command,
+			argNode.ArgSpec,
+			argValuePrefix,
+			completedArgs,
+		)
 
 		// We need to prefix suggestions with the argName to enable the arg value auto-completion.
 		for k, s := range suggestions {
@@ -368,12 +383,22 @@ func AutoComplete(ctx context.Context, leftWords []string, wordToComplete string
 // AutoCompleteArgValue returns suggestions for a (argument name, argument value prefix) pair.
 // Priority is given to the AutoCompleteFunc from the ArgSpec, if it is set.
 // Otherwise, we use EnumValues from the ArgSpec.
-func AutoCompleteArgValue(ctx context.Context, cmd *Command, argSpec *ArgSpec, argValuePrefix string, completedArgs map[string]string) []string {
+func AutoCompleteArgValue(
+	ctx context.Context,
+	cmd *Command,
+	argSpec *ArgSpec,
+	argValuePrefix string,
+	completedArgs map[string]string,
+) []string {
 	if argSpec == nil {
 		return nil
 	}
 	if argSpec.AutoCompleteFunc != nil {
-		return argSpec.AutoCompleteFunc(ctx, argValuePrefix, requestFromCompletedArgs(cmd, completedArgs))
+		return argSpec.AutoCompleteFunc(
+			ctx,
+			argValuePrefix,
+			requestFromCompletedArgs(cmd, completedArgs),
+		)
 	}
 
 	possibleValues := []string(nil)
@@ -475,7 +500,8 @@ func keySuggestion(key string, completedArg map[string]string, wordToComplete st
 		if i >= len(splitWordToComplete) {
 			continue
 		}
-		if k != splitWordToComplete[i] && (k == sliceSchema || k == mapSchema) && splitWordToComplete[i] != "" {
+		if k != splitWordToComplete[i] && (k == sliceSchema || k == mapSchema) &&
+			splitWordToComplete[i] != "" {
 			splitKey[i] = splitWordToComplete[i]
 		}
 	}

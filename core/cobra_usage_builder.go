@@ -30,7 +30,12 @@ func buildUsageAliases(ctx context.Context, cmd *Command) string {
 
 	aliasCfg := ExtractAliases(ctx)
 	for _, aliasName := range aliases {
-		_, _ = fmt.Fprintf(tw, " %s\t%s\n", aliasName, strings.Join(aliasCfg.GetAlias(aliasName), " "))
+		_, _ = fmt.Fprintf(
+			tw,
+			" %s\t%s\n",
+			aliasName,
+			strings.Join(aliasCfg.GetAlias(aliasName), " "),
+		)
 	}
 	tw.Flush()
 

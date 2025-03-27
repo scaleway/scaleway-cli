@@ -18,8 +18,14 @@ func Test_createRule(t *testing.T) {
 			account.GetCommands(),
 		),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Project", "scw account project create name=test-cli-iam-create-rule"),
-			core.ExecStoreBeforeCmd("Policy", "scw iam policy create name=test-cli-iam-create-rule no-principal=true rules.0.permission-set-names.0=IPAMReadOnly rules.0.project-ids.0={{ .Project.ID }}"),
+			core.ExecStoreBeforeCmd(
+				"Project",
+				"scw account project create name=test-cli-iam-create-rule",
+			),
+			core.ExecStoreBeforeCmd(
+				"Policy",
+				"scw iam policy create name=test-cli-iam-create-rule no-principal=true rules.0.permission-set-names.0=IPAMReadOnly rules.0.project-ids.0={{ .Project.ID }}",
+			),
 		),
 		Cmd: `scw iam rule create {{ .Policy.ID }} permission-set-names.0=VPCReadOnly project-ids.0={{ .Project.ID }}`,
 		Check: core.TestCheckCombine(
@@ -45,12 +51,22 @@ func Test_deleteRule(t *testing.T) {
 			account.GetCommands(),
 		),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Project", "scw account project create name=test-cli-iam-delete-rule"),
-			core.ExecStoreBeforeCmd("Policy", "scw iam policy create name=test-cli-iam-delete-rule no-principal=true rules.0.permission-set-names.0=IPAMReadOnly rules.0.project-ids.0={{ .Project.ID }} rules.1.permission-set-names.0=VPCReadOnly rules.1.project-ids.0={{ .Project.ID }}"),
+			core.ExecStoreBeforeCmd(
+				"Project",
+				"scw account project create name=test-cli-iam-delete-rule",
+			),
+			core.ExecStoreBeforeCmd(
+				"Policy",
+				"scw iam policy create name=test-cli-iam-delete-rule no-principal=true rules.0.permission-set-names.0=IPAMReadOnly rules.0.project-ids.0={{ .Project.ID }} rules.1.permission-set-names.0=VPCReadOnly rules.1.project-ids.0={{ .Project.ID }}",
+			),
 			core.ExecStoreBeforeCmd("Policy", "scw iam policy get {{ .Policy.ID }}"),
 			func(ctx *core.BeforeFuncCtx) error {
 				// Get first Rule ID
-				policy := testhelpers.MapValue[*iam.PolicyGetInterceptorResponse](t, ctx.Meta, "Policy")
+				policy := testhelpers.MapValue[*iam.PolicyGetInterceptorResponse](
+					t,
+					ctx.Meta,
+					"Policy",
+				)
 				if len(policy.Rules) != 2 {
 					return errors.New("expected two rules in policy")
 				}

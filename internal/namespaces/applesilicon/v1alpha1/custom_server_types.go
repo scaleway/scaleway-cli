@@ -11,9 +11,18 @@ import (
 )
 
 var serverTypeStockMarshalSpecs = human.EnumMarshalSpecs{
-	applesilicon.ServerTypeStockLowStock:  &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low stock"},
-	applesilicon.ServerTypeStockNoStock:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "no stock"},
-	applesilicon.ServerTypeStockHighStock: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "high stock"},
+	applesilicon.ServerTypeStockLowStock: &human.EnumMarshalSpec{
+		Attribute: color.FgYellow,
+		Value:     "low stock",
+	},
+	applesilicon.ServerTypeStockNoStock: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "no stock",
+	},
+	applesilicon.ServerTypeStockHighStock: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "high stock",
+	},
 }
 
 func cpuMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
@@ -72,16 +81,18 @@ func serverTypeBuilder(c *core.Command) *core.Command {
 		},
 	}
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		originalRes, err := runner(ctx, argsI)
-		if err != nil {
-			return nil, err
-		}
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			originalRes, err := runner(ctx, argsI)
+			if err != nil {
+				return nil, err
+			}
 
-		versionsResponse := originalRes.(*applesilicon.ListServerTypesResponse)
+			versionsResponse := originalRes.(*applesilicon.ListServerTypesResponse)
 
-		return versionsResponse.ServerTypes, nil
-	})
+			return versionsResponse.ServerTypes, nil
+		},
+	)
 
 	return c
 }

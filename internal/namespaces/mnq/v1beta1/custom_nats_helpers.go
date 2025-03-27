@@ -56,7 +56,12 @@ func natsContextFrom(account *mnq.NatsAccount, credsPath string) ([]byte, error)
 	return b, nil
 }
 
-func writeFile(ctx context.Context, dir string, entity *NatsEntity, extension string) (string, error) {
+func writeFile(
+	ctx context.Context,
+	dir string,
+	entity *NatsEntity,
+	extension string,
+) (string, error) {
 	path := filepath.Join(dir, entity.Name+"."+extension)
 	if err := makeDirectoryIfNotExists(dir); err != nil {
 		return "", wrapError(err, "Failed to create directory", entity.Name, path)
@@ -93,7 +98,11 @@ func getNATSContextDir(ctx context.Context) (string, error) {
 	return xdgConfigHome, nil
 }
 
-func saveNATSCredentials(ctx context.Context, creds *mnq.NatsCredentials, natsAccount *mnq.NatsAccount) (string, error) {
+func saveNATSCredentials(
+	ctx context.Context,
+	creds *mnq.NatsCredentials,
+	natsAccount *mnq.NatsAccount,
+) (string, error) {
 	natsContextDir, err := getNATSContextDir(ctx)
 	if err != nil {
 		return "", err
@@ -125,7 +134,11 @@ func saveNATSCredentials(ctx context.Context, creds *mnq.NatsCredentials, natsAc
 	return contextPath, nil
 }
 
-func getNatsAccountID(ctx context.Context, args *CreateContextRequest, api *mnq.NatsAPI) (*mnq.NatsAccount, error) {
+func getNatsAccountID(
+	ctx context.Context,
+	args *CreateContextRequest,
+	api *mnq.NatsAPI,
+) (*mnq.NatsAccount, error) {
 	var natsAccount *mnq.NatsAccount
 	if args.NatsAccountID == "" {
 		natsAccountsResp, err := api.ListNatsAccounts(&mnq.NatsAPIListNatsAccountsRequest{
@@ -134,7 +147,11 @@ func getNatsAccountID(ctx context.Context, args *CreateContextRequest, api *mnq.
 		if err != nil {
 			return nil, fmt.Errorf("failed to list nats account: %w", err)
 		}
-		natsAccount, err = promptNatsAccounts(ctx, natsAccountsResp.NatsAccounts, natsAccountsResp.TotalCount)
+		natsAccount, err = promptNatsAccounts(
+			ctx,
+			natsAccountsResp.NatsAccounts,
+			natsAccountsResp.TotalCount,
+		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to list nats account: %w", err)
 		}

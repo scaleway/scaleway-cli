@@ -22,7 +22,10 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("jobs").Groups = []string{"serverless"}
 
-	human.RegisterMarshalerFunc(jobs.JobRunState(""), human.EnumMarshalFunc(jobRunStateMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		jobs.JobRunState(""),
+		human.EnumMarshalFunc(jobRunStateMarshalSpecs),
+	)
 
 	cmds.Merge(core.NewCommands(
 		jobsRunWait(),

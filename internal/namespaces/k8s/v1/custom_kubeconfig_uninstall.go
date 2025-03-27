@@ -104,5 +104,9 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		return nil, err
 	}
 
-	return fmt.Sprintf("Cluster %s successfully deleted from %s", request.ClusterID, kubeconfigPath), nil
+	return fmt.Sprintf(
+		"Cluster %s successfully deleted from %s",
+		request.ClusterID,
+		kubeconfigPath,
+	), nil
 }

@@ -11,7 +11,10 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("mnq").Groups = []string{"integration"}
 
-	human.RegisterMarshalerFunc(mnq.SnsInfoStatus(""), human.EnumMarshalFunc(mnqSqsInfoStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		mnq.SnsInfoStatus(""),
+		human.EnumMarshalFunc(mnqSqsInfoStatusMarshalSpecs),
+	)
 
 	cmds.MustFind("mnq", "nats", "get-account").Override(mnqNatsGetAccountBuilder)
 	cmds.MustFind("mnq", "nats", "list-credentials").Override(mnqNatsListCredentialsBuilder)

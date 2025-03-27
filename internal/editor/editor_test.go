@@ -50,7 +50,11 @@ func Test_updateResourceEditor_pointers(t *testing.T) {
 		nil,
 	}
 
-	editedUpdateRequestI, err := editor.UpdateResourceEditor(resource, updateRequest, &editor.Config{})
+	editedUpdateRequestI, err := editor.UpdateResourceEditor(
+		resource,
+		updateRequest,
+		&editor.Config{},
+	)
 	require.NoError(t, err)
 	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
 
@@ -80,12 +84,16 @@ func Test_updateResourceEditor_map(t *testing.T) {
 		nil,
 	}
 
-	editedUpdateRequestI, err := editor.UpdateResourceEditor(resource, updateRequest, &editor.Config{
-		EditedResource: `
+	editedUpdateRequestI, err := editor.UpdateResourceEditor(
+		resource,
+		updateRequest,
+		&editor.Config{
+			EditedResource: `
 id: uuid
 env: {}
 `,
-	})
+		},
+	)
 	require.NoError(t, err)
 	editedUpdateRequest := editedUpdateRequestI.(*UpdateRequest)
 	assert.NotNil(t, editedUpdateRequest.Env)

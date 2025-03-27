@@ -53,9 +53,18 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("block", "snapshot", "create").Override(blockSnapshotCreateBuilder)
 	cmds.MustFind("block", "volume", "create").Override(blockVolumeCreateBuilder)
 
-	human.RegisterMarshalerFunc(block.VolumeStatus(""), human.EnumMarshalFunc(volumeStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(block.SnapshotStatus(""), human.EnumMarshalFunc(snapshotStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(block.ReferenceStatus(""), human.EnumMarshalFunc(referenceStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		block.VolumeStatus(""),
+		human.EnumMarshalFunc(volumeStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		block.SnapshotStatus(""),
+		human.EnumMarshalFunc(snapshotStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		block.ReferenceStatus(""),
+		human.EnumMarshalFunc(referenceStatusMarshalSpecs),
+	)
 
 	return cmds
 }

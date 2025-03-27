@@ -77,7 +77,9 @@ type WellKnownArgOrderError struct {
 }
 
 func (err WellKnownArgOrderError) Error() string {
-	return "well-known arg order must be respected '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
+	return "well-known arg order must be respected '" + err.Command.GetCommandLine(
+		"scw",
+	) + "', arg '" + err.Argspec.Name + "'"
 }
 
 type WellKnownArgAtTheEndError struct {
@@ -86,7 +88,9 @@ type WellKnownArgAtTheEndError struct {
 }
 
 func (err WellKnownArgAtTheEndError) Error() string {
-	return "well-known arg must be at the end'" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
+	return "well-known arg must be at the end'" + err.Command.GetCommandLine(
+		"scw",
+	) + "', arg '" + err.Argspec.Name + "'"
 }
 
 const (
@@ -157,7 +161,9 @@ type ArgMustUseDashError struct {
 }
 
 func (err ArgMustUseDashError) Error() string {
-	return "arg must use dash for command '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
+	return "arg must use dash for command '" + err.Command.GetCommandLine(
+		"scw",
+	) + "', arg '" + err.Argspec.Name + "'"
 }
 
 func testArgMustUseDashError(commands *core.Commands) []error {
@@ -182,7 +188,9 @@ type PositionalArgMustBeRequiredError struct {
 }
 
 func (err PositionalArgMustBeRequiredError) Error() string {
-	return "positional argument must be required '" + err.Command.GetCommandLine("scw") + "', arg '" + err.Argspec.Name + "'"
+	return "positional argument must be required '" + err.Command.GetCommandLine(
+		"scw",
+	) + "', arg '" + err.Argspec.Name + "'"
 }
 
 func testPositionalArgMustBeRequiredError(commands *core.Commands) []error {
@@ -207,7 +215,11 @@ type ExampleCanHaveOnlyOneTypeOfExampleError struct {
 }
 
 func (err ExampleCanHaveOnlyOneTypeOfExampleError) Error() string {
-	return "arg must use dash for command '" + err.Command.GetCommandLine("scw") + "', example #" + strconv.Itoa(err.ExampleIndex)
+	return "arg must use dash for command '" + err.Command.GetCommandLine(
+		"scw",
+	) + "', example #" + strconv.Itoa(
+		err.ExampleIndex,
+	)
 }
 
 func testExampleCanHaveOnlyOneTypeOfExampleError(commands *core.Commands) []error {
@@ -235,8 +247,15 @@ type DifferentLocalizationForNamespaceError struct {
 }
 
 func (err DifferentLocalizationForNamespaceError) Error() string {
-	return fmt.Sprintf("different localization for commands '%v', '%v': %v, %v",
-		err.Command1.GetCommandLine("scw"), err.Command2.GetCommandLine("scw"), err.ArgNames1, err.ArgNames2)
+	return fmt.Sprintf(
+		"different localization for commands '%v', '%v': %v, %v",
+		err.Command1.GetCommandLine(
+			"scw",
+		),
+		err.Command2.GetCommandLine("scw"),
+		err.ArgNames1,
+		err.ArgNames2,
+	)
 }
 
 func testDifferentLocalizationForNamespaceError(commands *core.Commands) []error {
@@ -247,18 +266,30 @@ func testDifferentLocalizationForNamespaceError(commands *core.Commands) []error
 				continue
 			}
 
-			samePathLength := strings.Count(command1.GetCommandLine("scw"), " ") == strings.Count(command2.GetCommandLine("scw"), " ")
+			samePathLength := strings.Count(
+				command1.GetCommandLine("scw"),
+				" ",
+			) == strings.Count(
+				command2.GetCommandLine("scw"),
+				" ",
+			)
 
 			sameNamespace := command1.Namespace == command2.Namespace
 
-			c1HasRegionOnly := command1.ArgSpecs.GetByName("region") != nil && command1.ArgSpecs.GetByName("zone") == nil
-			c2HasRegionOnly := command2.ArgSpecs.GetByName("region") != nil && command2.ArgSpecs.GetByName("zone") == nil
+			c1HasRegionOnly := command1.ArgSpecs.GetByName("region") != nil &&
+				command1.ArgSpecs.GetByName("zone") == nil
+			c2HasRegionOnly := command2.ArgSpecs.GetByName("region") != nil &&
+				command2.ArgSpecs.GetByName("zone") == nil
 
-			c1HasZoneOnly := command1.ArgSpecs.GetByName("region") == nil && command1.ArgSpecs.GetByName("zone") != nil
-			c2HasZoneOnly := command2.ArgSpecs.GetByName("region") == nil && command2.ArgSpecs.GetByName("zone") != nil
+			c1HasZoneOnly := command1.ArgSpecs.GetByName("region") == nil &&
+				command1.ArgSpecs.GetByName("zone") != nil
+			c2HasZoneOnly := command2.ArgSpecs.GetByName("region") == nil &&
+				command2.ArgSpecs.GetByName("zone") != nil
 
-			c1NoRegionNoZone := command1.ArgSpecs.GetByName("region") == nil && command1.ArgSpecs.GetByName("zone") == nil
-			c2NoRegionNoZone := command2.ArgSpecs.GetByName("region") == nil && command2.ArgSpecs.GetByName("zone") == nil
+			c1NoRegionNoZone := command1.ArgSpecs.GetByName("region") == nil &&
+				command1.ArgSpecs.GetByName("zone") == nil
+			c2NoRegionNoZone := command2.ArgSpecs.GetByName("region") == nil &&
+				command2.ArgSpecs.GetByName("zone") == nil
 
 			if !samePathLength {
 				continue
@@ -296,7 +327,15 @@ func testDifferentLocalizationForNamespaceError(commands *core.Commands) []error
 					Command2:  command2,
 					ArgNames1: argNames1,
 					ArgNames2: argNames2,
-					Checks:    []bool{sameNamespace, c1HasRegionOnly, c2HasRegionOnly, c1HasZoneOnly, c2HasZoneOnly, c1NoRegionNoZone, c2NoRegionNoZone},
+					Checks: []bool{
+						sameNamespace,
+						c1HasRegionOnly,
+						c2HasRegionOnly,
+						c1HasZoneOnly,
+						c2HasZoneOnly,
+						c1NoRegionNoZone,
+						c2NoRegionNoZone,
+					},
 				})
 			}
 		}

@@ -58,10 +58,15 @@ func Test_buildUsageArgs(t *testing.T) {
 				Default: core.DefaultValueSetter("1"),
 			},
 			{
-				Name:       "color",
-				Short:      "Filter by color",
-				Default:    core.DefaultValueSetter(ServerColorRed),
-				EnumValues: []string{ServerColorBlue, ServerColorRed, ServerColorPink, ServerColorGreen},
+				Name:    "color",
+				Short:   "Filter by color",
+				Default: core.DefaultValueSetter(ServerColorRed),
+				EnumValues: []string{
+					ServerColorBlue,
+					ServerColorRed,
+					ServerColorPink,
+					ServerColorGreen,
+				},
 			},
 			{
 				Name:  "multi-word-arg",

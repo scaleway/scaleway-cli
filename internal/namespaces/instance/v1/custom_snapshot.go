@@ -34,37 +34,39 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customCreateSnapshotRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customCreateSnapshotRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customCreateSnapshotRequest)
 
-		if args.CreateSnapshotRequest == nil {
-			args.CreateSnapshotRequest = &instance.CreateSnapshotRequest{}
-		}
-
-		request := args.CreateSnapshotRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
-
-		client := core.ExtractClient(ctx)
-		api := instance.NewAPI(client)
-		if args.Unified {
-			request.VolumeType = instance.SnapshotVolumeTypeUnified
-		} else if request.VolumeID != nil {
-			// If the snapshot is not unified, we need to set the snapshot volume type to the same type as the volume we target.
-			// Done only when creating snapshot from volume
-			volume, err := api.GetVolume(&instance.GetVolumeRequest{
-				VolumeID: *args.VolumeID,
-				Zone:     args.Zone,
-			})
-			if err != nil {
-				return nil, err
+			if args.CreateSnapshotRequest == nil {
+				args.CreateSnapshotRequest = &instance.CreateSnapshotRequest{}
 			}
 
-			request.VolumeType = instance.SnapshotVolumeType(volume.Volume.VolumeType)
-		}
+			request := args.CreateSnapshotRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			if args.Unified {
+				request.VolumeType = instance.SnapshotVolumeTypeUnified
+			} else if request.VolumeID != nil {
+				// If the snapshot is not unified, we need to set the snapshot volume type to the same type as the volume we target.
+				// Done only when creating snapshot from volume
+				volume, err := api.GetVolume(&instance.GetVolumeRequest{
+					VolumeID: *args.VolumeID,
+					Zone:     args.Zone,
+				})
+				if err != nil {
+					return nil, err
+				}
+
+				request.VolumeType = instance.SnapshotVolumeType(volume.Volume.VolumeType)
+			}
+
+			return runner(ctx, request)
+		},
+	)
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
 		api := instance.NewAPI(core.ExtractClient(ctx))
@@ -92,19 +94,21 @@ func snapshotListBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customListSnapshotsRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customListSnapshotsRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customListSnapshotsRequest)
 
-		if args.ListSnapshotsRequest == nil {
-			args.ListSnapshotsRequest = &instance.ListSnapshotsRequest{}
-		}
+			if args.ListSnapshotsRequest == nil {
+				args.ListSnapshotsRequest = &instance.ListSnapshotsRequest{}
+			}
 
-		request := args.ListSnapshotsRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.ListSnapshotsRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }

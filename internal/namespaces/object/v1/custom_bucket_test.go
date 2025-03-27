@@ -45,7 +45,10 @@ func Test_BucketCreate(t *testing.T) {
 
 	t.Run("With tags", core.Test(&core.TestConfig{
 		Commands: object.GetCommands(),
-		Cmd:      fmt.Sprintf("scw object bucket create %s tags.0=\"key1=value1\" tags.1=\"key2=value2\"", bucketName2),
+		Cmd: fmt.Sprintf(
+			"scw object bucket create %s tags.0=\"key1=value1\" tags.1=\"key2=value2\"",
+			bucketName2,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
@@ -226,7 +229,10 @@ func Test_BucketUpdate(t *testing.T) {
 	t.Run("All options", core.Test(&core.TestConfig{
 		Commands:   object.GetCommands(),
 		BeforeFunc: createBucket(bucketName2),
-		Cmd:        fmt.Sprintf("scw object bucket update %s enable-versioning=true acl=public-read-write tags.0=\"key1=value1\" tags.1=\"key2=value2\"", bucketName2),
+		Cmd: fmt.Sprintf(
+			"scw object bucket update %s enable-versioning=true acl=public-read-write tags.0=\"key1=value1\" tags.1=\"key2=value2\"",
+			bucketName2,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),

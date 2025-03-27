@@ -2,7 +2,7 @@
 # Golang CI pipeline configuration
 #
 # To execute linters in local the ./scripts/lint.sh script can be used.
-version: 2
+version: "2"
 
 formatters:
   enable:
@@ -99,21 +99,23 @@ linters:
     - varnamelen # checks that the length of a variable's name matches its scope [fast: false, auto-fix: false]
     - wsl # Whitespace Linter - Forces you to use empty lines! [fast: true, auto-fix: false]
 
-linters-settings:
-  goconst:
-    min-len: 5
-  gosec:
-    excludes:
-      - G115
 
-issues:
-  exclude-dirs:
-    - internal/pkg
+  settings:
+    goconst:
+      min-len: 5
+    gosec:
+      excludes:
+        - G115
+    revive:
+      rules:
+        - name: exported
+          disabled: true
 
-  max-issues-per-linter: 0
-  max-same-issues: 0
+  exclusions:
+    paths:
+      - internal/pkg
 
-  exclude-rules:
+    rules:
     - path: _test\.go
       linters:
         - stylecheck
@@ -158,3 +160,7 @@ issues:
     - path: internal/namespaces/k8s/v1/types/types.go
       linters:
         - tagalign
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

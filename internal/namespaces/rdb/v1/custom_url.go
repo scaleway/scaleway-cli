@@ -87,7 +87,11 @@ func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
 		return nil, fmt.Errorf("failed to list users for instance %q", args.InstanceID)
 	}
 	if users.TotalCount != 1 {
-		return nil, fmt.Errorf("expected 1 user with the name %q, got %d", args.User, users.TotalCount)
+		return nil, fmt.Errorf(
+			"expected 1 user with the name %q, got %d",
+			args.User,
+			users.TotalCount,
+		)
 	}
 	u.User = url.User(users.Users[0].Name)
 
@@ -121,7 +125,11 @@ func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
 			return nil, fmt.Errorf("failed to list databases for instance %q", args.InstanceID)
 		}
 		if databases.TotalCount != 1 {
-			return nil, fmt.Errorf("expected 1 database with the name %q, got %d", args.Db, databases.TotalCount)
+			return nil, fmt.Errorf(
+				"expected 1 database with the name %q, got %d",
+				args.Db,
+				databases.TotalCount,
+			)
 		}
 		u = u.JoinPath(databases.Databases[0].Name)
 	}

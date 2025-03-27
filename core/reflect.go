@@ -24,7 +24,13 @@ func newObjectWithForcedJSONTags(t reflect.Type) interface{} {
 			}
 			for i := range anonymousType.NumField() {
 				fieldCopy := anonymousType.Field(i)
-				fieldCopy.Tag = reflect.StructTag(`json:"` + strings.ReplaceAll(strcase.ToBashArg(fieldCopy.Name), "-", "_") + `"`)
+				fieldCopy.Tag = reflect.StructTag(
+					`json:"` + strings.ReplaceAll(
+						strcase.ToBashArg(fieldCopy.Name),
+						"-",
+						"_",
+					) + `"`,
+				)
 				structFieldsCopy = append(structFieldsCopy, fieldCopy)
 			}
 		} else {
@@ -38,7 +44,10 @@ func newObjectWithForcedJSONTags(t reflect.Type) interface{} {
 
 // GetValuesForFieldByName recursively search for fields in a cmdArgs' value and returns its values if they exist.
 // The search is based on the name of the field.
-func GetValuesForFieldByName(value reflect.Value, parts []string) (values []reflect.Value, err error) {
+func GetValuesForFieldByName(
+	value reflect.Value,
+	parts []string,
+) (values []reflect.Value, err error) {
 	if len(parts) == 0 {
 		return []reflect.Value{value}, nil
 	}

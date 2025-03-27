@@ -23,10 +23,12 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		placementGroupServersResponse, err := api.GetPlacementGroupServers(&instance.GetPlacementGroupServersRequest{
-			Zone:             req.Zone,
-			PlacementGroupID: req.PlacementGroupID,
-		})
+		placementGroupServersResponse, err := api.GetPlacementGroupServers(
+			&instance.GetPlacementGroupServersRequest{
+				Zone:             req.Zone,
+				PlacementGroupID: req.PlacementGroupID,
+			},
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -62,19 +64,21 @@ func placementGroupCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customCreatePlacementGroupRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customCreatePlacementGroupRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customCreatePlacementGroupRequest)
 
-		if args.CreatePlacementGroupRequest == nil {
-			args.CreatePlacementGroupRequest = &instance.CreatePlacementGroupRequest{}
-		}
+			if args.CreatePlacementGroupRequest == nil {
+				args.CreatePlacementGroupRequest = &instance.CreatePlacementGroupRequest{}
+			}
 
-		request := args.CreatePlacementGroupRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.CreatePlacementGroupRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
@@ -91,19 +95,21 @@ func placementGroupListBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customListPlacementGroupsRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customListPlacementGroupsRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customListPlacementGroupsRequest)
 
-		if args.ListPlacementGroupsRequest == nil {
-			args.ListPlacementGroupsRequest = &instance.ListPlacementGroupsRequest{}
-		}
+			if args.ListPlacementGroupsRequest == nil {
+				args.ListPlacementGroupsRequest = &instance.ListPlacementGroupsRequest{}
+			}
 
-		request := args.ListPlacementGroupsRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.ListPlacementGroupsRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }

@@ -12,7 +12,9 @@ func Test_UserDataGet(t *testing.T) {
 	t.Run("Get an existing key", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			createServer("Server"),
-			core.ExecBeforeCmd("scw instance user-data set server-id={{.Server.ID}} key=happy content=true"),
+			core.ExecBeforeCmd(
+				"scw instance user-data set server-id={{.Server.ID}} key=happy content=true",
+			),
 		),
 		Commands:  instance.GetCommands(),
 		Cmd:       "scw instance user-data get server-id={{.Server.ID}} key=happy",
@@ -39,8 +41,12 @@ func Test_UserDataList(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			createServer("Server"),
-			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=foo content=bar"),
-			core.ExecBeforeCmd("scw instance user-data set server-id={{ .Server.ID }} key=bar content=foo"),
+			core.ExecBeforeCmd(
+				"scw instance user-data set server-id={{ .Server.ID }} key=foo content=bar",
+			),
+			core.ExecBeforeCmd(
+				"scw instance user-data set server-id={{ .Server.ID }} key=bar content=foo",
+			),
 		),
 		Commands:  instance.GetCommands(),
 		Cmd:       "scw instance user-data list server-id={{ .Server.ID }}",

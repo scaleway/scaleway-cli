@@ -80,7 +80,9 @@ func (b *BuildInfo) checkVersion(ctx context.Context) {
 	}
 
 	if b.Version.LessThan(latestVersion) {
-		ExtractLogger(ctx).Warningf("A new version of scw is available (%s), beware that you are currently running %s\n", latestVersion, b.Version)
+		ExtractLogger(
+			ctx,
+		).Warningf("A new version of scw is available (%s), beware that you are currently running %s\n", latestVersion, b.Version)
 	} else {
 		ExtractLogger(ctx).Debugf("version is up to date (%s)\n", b.Version)
 	}

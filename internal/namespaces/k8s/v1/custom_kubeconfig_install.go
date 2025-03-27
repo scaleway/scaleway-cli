@@ -188,5 +188,9 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interfac
 		return nil, err
 	}
 
-	return fmt.Sprintf("Kubeconfig for cluster %s successfully written at %s", request.ClusterID, kubeconfigPath), nil
+	return fmt.Sprintf(
+		"Kubeconfig for cluster %s successfully written at %s",
+		request.ClusterID,
+		kubeconfigPath,
+	), nil
 }

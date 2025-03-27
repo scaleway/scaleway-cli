@@ -11,8 +11,14 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("fip").Groups = []string{"baremetal"}
 
-	human.RegisterMarshalerFunc(fip.FlexibleIPStatus(""), human.EnumMarshalFunc(ipStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(fip.MACAddressStatus(""), human.EnumMarshalFunc(macAddressStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		fip.FlexibleIPStatus(""),
+		human.EnumMarshalFunc(ipStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		fip.MACAddressStatus(""),
+		human.EnumMarshalFunc(macAddressStatusMarshalSpecs),
+	)
 
 	cmds.MustFind("fip", "ip", "create").Override(createIPBuilder)
 

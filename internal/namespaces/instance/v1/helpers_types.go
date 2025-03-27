@@ -9,11 +9,16 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func completeServerType(ctx context.Context, prefix string, createReq any) core.AutocompleteSuggestions {
+func completeServerType(
+	ctx context.Context,
+	prefix string,
+	createReq any,
+) core.AutocompleteSuggestions {
 	req := createReq.(*instanceCreateServerRequest)
-	resp, err := instance.NewAPI(core.ExtractClient(ctx)).ListServersTypes(&instance.ListServersTypesRequest{
-		Zone: req.Zone,
-	}, scw.WithAllPages())
+	resp, err := instance.NewAPI(core.ExtractClient(ctx)).
+		ListServersTypes(&instance.ListServersTypesRequest{
+			Zone: req.Zone,
+		}, scw.WithAllPages())
 	if err != nil {
 		return nil
 	}

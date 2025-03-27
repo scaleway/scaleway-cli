@@ -7,7 +7,16 @@ import (
 )
 
 var nodeTypeStockMarshalSpecs = human.EnumMarshalSpecs{
-	mongodb.NodeTypeStockAvailable:  &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "available"},
-	mongodb.NodeTypeStockLowStock:   &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low stock"},
-	mongodb.NodeTypeStockOutOfStock: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "out of stock"},
+	mongodb.NodeTypeStockAvailable: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "available",
+	},
+	mongodb.NodeTypeStockLowStock: &human.EnumMarshalSpec{
+		Attribute: color.FgYellow,
+		Value:     "low stock",
+	},
+	mongodb.NodeTypeStockOutOfStock: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "out of stock",
+	},
 }

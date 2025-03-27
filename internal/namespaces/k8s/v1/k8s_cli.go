@@ -57,6 +57,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterTypeList(),
 	)
 }
+
 func k8sRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage Kubernetes Kapsule and Kosmos clusters`,
@@ -147,7 +148,18 @@ func k8sClusterList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc", "status_asc", "status_desc", "version_asc", "version_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+					"version_asc",
+					"version_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -162,7 +174,16 @@ func k8sClusterList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "creating", "ready", "deleting", "deleted", "updating", "locked", "pool_required"},
+				EnumValues: []string{
+					"unknown",
+					"creating",
+					"ready",
+					"deleting",
+					"deleted",
+					"updating",
+					"locked",
+					"pool_required",
+				},
 			},
 			{
 				Name:       "type",
@@ -185,7 +206,12 @@ func k8sClusterList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClustersRequest)
@@ -201,6 +227,7 @@ func k8sClusterList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Clusters, nil
 		},
 		Examples: []*core.Example{
@@ -311,7 +338,15 @@ func k8sClusterCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel", "kilo", "none"},
+				EnumValues: []string{
+					"unknown_cni",
+					"cilium",
+					"calico",
+					"weave",
+					"flannel",
+					"kilo",
+					"none",
+				},
 			},
 			{
 				Name:       "pools.{index}.name",
@@ -462,7 +497,14 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority", "price"},
+				EnumValues: []string{
+					"unknown_expander",
+					"random",
+					"most_pods",
+					"least_waste",
+					"priority",
+					"price",
+				},
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
@@ -526,7 +568,16 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"any", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"},
+				EnumValues: []string{
+					"any",
+					"monday",
+					"tuesday",
+					"wednesday",
+					"thursday",
+					"friday",
+					"saturday",
+					"sunday",
+				},
 			},
 			{
 				Name:       "feature-gates.{index}",
@@ -613,6 +664,7 @@ func k8sClusterCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.CreateCluster(request)
 		},
 		Examples: []*core.Example{
@@ -652,6 +704,7 @@ func k8sClusterGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.GetCluster(request)
 		},
 		Examples: []*core.Example{
@@ -729,7 +782,14 @@ func k8sClusterUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority", "price"},
+				EnumValues: []string{
+					"unknown_expander",
+					"random",
+					"most_pods",
+					"least_waste",
+					"priority",
+					"price",
+				},
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
@@ -793,7 +853,16 @@ func k8sClusterUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"any", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"},
+				EnumValues: []string{
+					"any",
+					"monday",
+					"tuesday",
+					"wednesday",
+					"thursday",
+					"friday",
+					"saturday",
+					"sunday",
+				},
 			},
 			{
 				Name:       "feature-gates.{index}",
@@ -872,6 +941,7 @@ func k8sClusterUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.UpdateCluster(request)
 		},
 		Examples: []*core.Example{
@@ -918,6 +988,7 @@ func k8sClusterDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.DeleteCluster(request)
 		},
 		Examples: []*core.Example{
@@ -971,6 +1042,7 @@ func k8sClusterUpgrade() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.UpgradeCluster(request)
 		},
 		Examples: []*core.Example{
@@ -1017,6 +1089,7 @@ func k8sClusterSetType() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.SetClusterType(request)
 		},
 		Examples: []*core.Example{
@@ -1052,6 +1125,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.ListClusterAvailableVersions(request)
 		},
 		Examples: []*core.Example{
@@ -1095,6 +1169,7 @@ func k8sClusterListAvailableTypes() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.ListClusterAvailableTypes(request)
 		},
 		Examples: []*core.Example{
@@ -1166,6 +1241,7 @@ func k8sClusterResetAdminToken() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "cluster",
 				Verb:     "reset-admin-token",
@@ -1205,6 +1281,7 @@ Make sure to have the necessary Quota before running this command.`,
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.MigrateClusterToSBSCSI(request)
 		},
 		Examples: []*core.Example{
@@ -1233,7 +1310,12 @@ func k8sACLList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClusterACLRulesRequest)
@@ -1249,6 +1331,7 @@ func k8sACLList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Rules, nil
 		},
 	}
@@ -1299,6 +1382,7 @@ func k8sACLAdd() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.AddClusterACLRules(request)
 		},
 	}
@@ -1349,6 +1433,7 @@ func k8sACLSet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.SetClusterACLRules(request)
 		},
 	}
@@ -1382,6 +1467,7 @@ func k8sACLDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "acl",
 				Verb:     "delete",
@@ -1413,7 +1499,18 @@ func k8sPoolList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc", "status_asc", "status_desc", "version_asc", "version_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+					"version_asc",
+					"version_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -1428,9 +1525,23 @@ func k8sPoolList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "ready", "deleting", "deleted", "scaling", "warning", "locked", "upgrading"},
+				EnumValues: []string{
+					"unknown",
+					"ready",
+					"deleting",
+					"deleted",
+					"scaling",
+					"warning",
+					"locked",
+					"upgrading",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListPoolsRequest)
@@ -1446,6 +1557,7 @@ func k8sPoolList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Pools, nil
 		},
 		Examples: []*core.Example{
@@ -1657,6 +1769,7 @@ func k8sPoolCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.CreatePool(request)
 		},
 		Examples: []*core.Example{
@@ -1700,6 +1813,7 @@ func k8sPoolGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.GetPool(request)
 		},
 		Examples: []*core.Example{
@@ -1743,6 +1857,7 @@ This will drain and replace the nodes in that pool.`,
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.UpgradePool(request)
 		},
 		Examples: []*core.Example{
@@ -1839,6 +1954,7 @@ func k8sPoolUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.UpdatePool(request)
 		},
 		Examples: []*core.Example{
@@ -1886,6 +2002,7 @@ func k8sPoolDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.DeletePool(request)
 		},
 		Examples: []*core.Example{
@@ -1927,7 +2044,18 @@ func k8sNodeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc", "status_asc", "status_desc", "version_asc", "version_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+					"version_asc",
+					"version_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -1942,9 +2070,27 @@ func k8sNodeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "creating", "not_ready", "ready", "deleting", "deleted", "locked", "rebooting", "creation_error", "upgrading", "starting", "registering"},
+				EnumValues: []string{
+					"unknown",
+					"creating",
+					"not_ready",
+					"ready",
+					"deleting",
+					"deleted",
+					"locked",
+					"rebooting",
+					"creation_error",
+					"upgrading",
+					"starting",
+					"registering",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListNodesRequest)
@@ -1960,6 +2106,7 @@ func k8sNodeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Nodes, nil
 		},
 		Examples: []*core.Example{
@@ -2029,6 +2176,7 @@ func k8sNodeGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.GetNode(request)
 		},
 		Examples: []*core.Example{
@@ -2064,6 +2212,7 @@ func k8sNodeReplace() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.ReplaceNode(request)
 		},
 		Examples: []*core.Example{
@@ -2099,6 +2248,7 @@ func k8sNodeReboot() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.RebootNode(request)
 		},
 		Examples: []*core.Example{
@@ -2148,6 +2298,7 @@ func k8sNodeDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.DeleteNode(request)
 		},
 		Examples: []*core.Example{
@@ -2184,6 +2335,7 @@ func k8sVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.ListVersions(request)
 		},
 		Examples: []*core.Example{
@@ -2239,6 +2391,7 @@ func k8sVersionGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.GetVersion(request)
 		},
 		Examples: []*core.Example{
@@ -2260,7 +2413,12 @@ func k8sClusterTypeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(k8s.ListClusterTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClusterTypesRequest)
@@ -2276,6 +2434,7 @@ func k8sClusterTypeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.ClusterTypes, nil
 		},
 	}

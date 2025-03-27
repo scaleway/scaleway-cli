@@ -21,11 +21,9 @@ import (
 	"testing"
 )
 
-var (
-	// one two "three four" "five \"six\"" seven#eight # nine # ten
-	// eleven 'twelve\'
-	testString = "one two \"three four\" \"five \\\"six\\\"\" seven#eight # nine # ten\n eleven 'twelve\\' thirteen=13 fourteen/14"
-)
+// one two "three four" "five \"six\"" seven#eight # nine # ten
+// eleven 'twelve\'
+var testString = "one two \"three four\" \"five \\\"six\\\"\" seven#eight # nine # ten\n eleven 'twelve\\' thirteen=13 fourteen/14"
 
 func TestClassifier(t *testing.T) {
 	classifier := newDefaultClassifier()
@@ -33,7 +31,8 @@ func TestClassifier(t *testing.T) {
 		' ':  spaceRuneClass,
 		'"':  escapingQuoteRuneClass,
 		'\'': nonEscapingQuoteRuneClass,
-		'#':  commentRuneClass}
+		'#':  commentRuneClass,
+	}
 	for runeChar, want := range tests {
 		got := classifier.ClassifyRune(runeChar)
 		if got != want {
@@ -45,16 +44,17 @@ func TestClassifier(t *testing.T) {
 func TestTokenizer(t *testing.T) {
 	testInput := strings.NewReader(testString)
 	expectedTokens := []*Token{
-		&Token{WordToken, "one"},
-		&Token{WordToken, "two"},
-		&Token{WordToken, "three four"},
-		&Token{WordToken, "five \"six\""},
-		&Token{WordToken, "seven#eight"},
-		&Token{CommentToken, " nine # ten"},
-		&Token{WordToken, "eleven"},
-		&Token{WordToken, "twelve\\"},
-		&Token{WordToken, "thirteen=13"},
-		&Token{WordToken, "fourteen/14"}}
+		{WordToken, "one"},
+		{WordToken, "two"},
+		{WordToken, "three four"},
+		{WordToken, "five \"six\""},
+		{WordToken, "seven#eight"},
+		{CommentToken, " nine # ten"},
+		{WordToken, "eleven"},
+		{WordToken, "twelve\\"},
+		{WordToken, "thirteen=13"},
+		{WordToken, "fourteen/14"},
+	}
 
 	tokenizer := NewTokenizer(testInput)
 	for i, want := range expectedTokens {
@@ -70,7 +70,17 @@ func TestTokenizer(t *testing.T) {
 
 func TestLexer(t *testing.T) {
 	testInput := strings.NewReader(testString)
-	expectedStrings := []string{"one", "two", "three four", "five \"six\"", "seven#eight", "eleven", "twelve\\", "thirteen=13", "fourteen/14"}
+	expectedStrings := []string{
+		"one",
+		"two",
+		"three four",
+		"five \"six\"",
+		"seven#eight",
+		"eleven",
+		"twelve\\",
+		"thirteen=13",
+		"fourteen/14",
+	}
 
 	lexer := NewLexer(testInput)
 	for i, want := range expectedStrings {
@@ -85,7 +95,17 @@ func TestLexer(t *testing.T) {
 }
 
 func TestSplit(t *testing.T) {
-	want := []string{"one", "two", "three four", "five \"six\"", "seven#eight", "eleven", "twelve\\", "thirteen=13", "fourteen/14"}
+	want := []string{
+		"one",
+		"two",
+		"three four",
+		"five \"six\"",
+		"seven#eight",
+		"eleven",
+		"twelve\\",
+		"thirteen=13",
+		"fourteen/14",
+	}
 	got, err := Split(testString)
 	if err != nil {
 		t.Error(err)

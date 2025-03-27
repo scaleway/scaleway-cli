@@ -107,8 +107,11 @@ It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 			}
 
 			configFilePath := sshconfig.ConfigFilePath(homeDir)
-			includePrompt := fmt.Sprintf(`Generated config file needs to be included in your default ssh config (%s)
-Do you want the include statement to be added at the beginning of your file ?`, sshconfig.DefaultConfigFilePath(homeDir))
+			includePrompt := fmt.Sprintf(
+				`Generated config file needs to be included in your default ssh config (%s)
+Do you want the include statement to be added at the beginning of your file ?`,
+				sshconfig.DefaultConfigFilePath(homeDir),
+			)
 
 			// Generated config needs an include statement in default config
 			included, err := sshconfig.ConfigIsIncluded(homeDir)
@@ -131,11 +134,13 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 				}, nil
 			}
 
-			shouldIncludeConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-				Ctx:          ctx,
-				Prompt:       includePrompt,
-				DefaultValue: true,
-			})
+			shouldIncludeConfig, err := interactive.PromptBoolWithConfig(
+				&interactive.PromptBoolConfig{
+					Ctx:          ctx,
+					Prompt:       includePrompt,
+					DefaultValue: true,
+				},
+			)
 			if err != nil {
 				logger.Warningf("Failed to prompt, skipping include\n")
 
@@ -159,7 +164,10 @@ Do you want the include statement to be added at the beginning of your file ?`, 
 	}
 }
 
-func sshConfigListServers(ctx context.Context, args *sshConfigInstallRequest) ([]sshConfigServer, error) {
+func sshConfigListServers(
+	ctx context.Context,
+	args *sshConfigInstallRequest,
+) ([]sshConfigServer, error) {
 	instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
 
 	reqOpts := []scw.RequestOption{scw.WithAllPages()}
@@ -199,7 +207,10 @@ func sshConfigListServers(ctx context.Context, args *sshConfigInstallRequest) ([
 	return servers, nil
 }
 
-func sshConfigListBaremetalServers(ctx context.Context, args *sshConfigInstallRequest) ([]sshConfigServer, error) {
+func sshConfigListBaremetalServers(
+	ctx context.Context,
+	args *sshConfigInstallRequest,
+) ([]sshConfigServer, error) {
 	baremetalAPI := baremetal.NewAPI(core.ExtractClient(ctx))
 	baremetalPNAPI := baremetal.NewPrivateNetworkAPI(core.ExtractClient(ctx))
 
@@ -220,9 +231,11 @@ func sshConfigListBaremetalServers(ctx context.Context, args *sshConfigInstallRe
 		// TODO: check permissions and print warning
 		return nil, err
 	}
-	listPNs, err := baremetalPNAPI.ListServerPrivateNetworks(&baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest{
-		Zone: args.Zone,
-	}, reqOpts...)
+	listPNs, err := baremetalPNAPI.ListServerPrivateNetworks(
+		&baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest{
+			Zone: args.Zone,
+		},
+		reqOpts...)
 	if err != nil {
 		// TODO: check permissions and print warning
 		return nil, err
@@ -253,7 +266,10 @@ func sshConfigListBaremetalServers(ctx context.Context, args *sshConfigInstallRe
 	return servers, nil
 }
 
-func sshConfigListAppleSiliconServers(ctx context.Context, args *sshConfigInstallRequest) ([]sshConfigServer, error) {
+func sshConfigListAppleSiliconServers(
+	ctx context.Context,
+	args *sshConfigInstallRequest,
+) ([]sshConfigServer, error) {
 	siliconAPI := applesilicon.NewAPI(core.ExtractClient(ctx))
 
 	reqOpts := []scw.RequestOption{scw.WithAllPages()}
@@ -286,7 +302,11 @@ func sshConfigListAppleSiliconServers(ctx context.Context, args *sshConfigInstal
 	return servers, nil
 }
 
-func sshConfigBastionHosts(ctx context.Context, args *sshConfigInstallRequest, servers []sshConfigServer) ([]sshconfig.Host, error) {
+func sshConfigBastionHosts(
+	ctx context.Context,
+	args *sshConfigInstallRequest,
+	servers []sshConfigServer,
+) ([]sshconfig.Host, error) {
 	gwAPI := vpcgw.NewAPI(core.ExtractClient(ctx))
 
 	reqOpts := []scw.RequestOption{scw.WithAllPages()}

@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
+	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -50,6 +50,7 @@ func GetGeneratedCommands() *core.Commands {
 		dnsTsigKeyDelete(),
 	)
 }
+
 func dnsRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your domains, DNS zones and records`,
@@ -126,7 +127,16 @@ func dnsZoneList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"domain_asc", "domain_desc", "subdomain_asc", "subdomain_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"domain_asc",
+					"domain_desc",
+					"subdomain_asc",
+					"subdomain_desc",
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "domain",
@@ -195,6 +205,7 @@ func dnsZoneList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.DNSZones, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -263,6 +274,7 @@ func dnsZoneCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.CreateDNSZone(request)
 		},
 	}
@@ -299,6 +311,7 @@ func dnsZoneUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.UpdateDNSZone(request)
 		},
 	}
@@ -348,6 +361,7 @@ func dnsZoneClone() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.CloneDNSZone(request)
 		},
 	}
@@ -377,6 +391,7 @@ func dnsZoneDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.DeleteDNSZone(request)
 		},
 	}
@@ -428,7 +443,30 @@ You can filter records by type and name.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR", "DNAME", "SVCB", "HTTPS"},
+				EnumValues: []string{
+					"unknown",
+					"A",
+					"AAAA",
+					"CNAME",
+					"TXT",
+					"SRV",
+					"TLSA",
+					"MX",
+					"NS",
+					"PTR",
+					"CAA",
+					"ALIAS",
+					"LOC",
+					"SSHFP",
+					"HINFO",
+					"RP",
+					"URI",
+					"DS",
+					"NAPTR",
+					"DNAME",
+					"SVCB",
+					"HTTPS",
+				},
 			},
 			{
 				Name:       "id",
@@ -448,6 +486,7 @@ You can filter records by type and name.`,
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Records, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -530,7 +569,30 @@ All edits will be versioned.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR", "DNAME", "SVCB", "HTTPS"},
+				EnumValues: []string{
+					"unknown",
+					"A",
+					"AAAA",
+					"CNAME",
+					"TXT",
+					"SRV",
+					"TLSA",
+					"MX",
+					"NS",
+					"PTR",
+					"CAA",
+					"ALIAS",
+					"LOC",
+					"SSHFP",
+					"HINFO",
+					"RP",
+					"URI",
+					"DS",
+					"NAPTR",
+					"DNAME",
+					"SVCB",
+					"HTTPS",
+				},
 			},
 			{
 				Name:       "changes.{index}.add.records.{index}.comment",
@@ -640,7 +702,30 @@ All edits will be versioned.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR", "DNAME", "SVCB", "HTTPS"},
+				EnumValues: []string{
+					"unknown",
+					"A",
+					"AAAA",
+					"CNAME",
+					"TXT",
+					"SRV",
+					"TLSA",
+					"MX",
+					"NS",
+					"PTR",
+					"CAA",
+					"ALIAS",
+					"LOC",
+					"SSHFP",
+					"HINFO",
+					"RP",
+					"URI",
+					"DS",
+					"NAPTR",
+					"DNAME",
+					"SVCB",
+					"HTTPS",
+				},
 			},
 			{
 				Name:       "changes.{index}.set.id-fields.data",
@@ -683,7 +768,30 @@ All edits will be versioned.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR", "DNAME", "SVCB", "HTTPS"},
+				EnumValues: []string{
+					"unknown",
+					"A",
+					"AAAA",
+					"CNAME",
+					"TXT",
+					"SRV",
+					"TLSA",
+					"MX",
+					"NS",
+					"PTR",
+					"CAA",
+					"ALIAS",
+					"LOC",
+					"SSHFP",
+					"HINFO",
+					"RP",
+					"URI",
+					"DS",
+					"NAPTR",
+					"DNAME",
+					"SVCB",
+					"HTTPS",
+				},
 			},
 			{
 				Name:       "changes.{index}.set.records.{index}.comment",
@@ -793,7 +901,30 @@ All edits will be versioned.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR", "DNAME", "SVCB", "HTTPS"},
+				EnumValues: []string{
+					"unknown",
+					"A",
+					"AAAA",
+					"CNAME",
+					"TXT",
+					"SRV",
+					"TLSA",
+					"MX",
+					"NS",
+					"PTR",
+					"CAA",
+					"ALIAS",
+					"LOC",
+					"SSHFP",
+					"HINFO",
+					"RP",
+					"URI",
+					"DS",
+					"NAPTR",
+					"DNAME",
+					"SVCB",
+					"HTTPS",
+				},
 			},
 			{
 				Name:       "changes.{index}.delete.id-fields.data",
@@ -834,6 +965,7 @@ All edits will be versioned.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.UpdateDNSZoneRecords(request)
 		},
 	}
@@ -869,6 +1001,7 @@ func dnsRecordListNameservers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.ListDNSZoneNameservers(request)
 		},
 	}
@@ -909,6 +1042,7 @@ func dnsRecordUpdateNameservers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.UpdateDNSZoneNameservers(request)
 		},
 	}
@@ -938,6 +1072,7 @@ All edits will be versioned.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.ClearDNSZoneRecords(request)
 		},
 	}
@@ -975,6 +1110,7 @@ func dnsZoneExport() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.ExportRawDNSZone(request)
 		},
 	}
@@ -1047,6 +1183,7 @@ func dnsZoneImport() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.ImportRawDNSZone(request)
 		},
 	}
@@ -1090,6 +1227,7 @@ You can recreate the given DNS zone and its sub DNS zone if needed.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.RefreshDNSZone(request)
 		},
 	}
@@ -1123,6 +1261,7 @@ The maximum version count is 100. If the count reaches this limit, the oldest ve
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Versions, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -1163,6 +1302,7 @@ func dnsVersionShow() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Records, nil
 		},
 	}
@@ -1190,6 +1330,7 @@ func dnsVersionDiff() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.GetDNSZoneVersionDiff(request)
 		},
 	}
@@ -1217,6 +1358,7 @@ func dnsVersionRestore() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.RestoreDNSZoneVersion(request)
 		},
 	}
@@ -1244,6 +1386,7 @@ func dnsCertificateGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.GetSSLCertificate(request)
 		},
 	}
@@ -1277,6 +1420,7 @@ func dnsCertificateCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.CreateSSLCertificate(request)
 		},
 	}
@@ -1315,6 +1459,7 @@ func dnsCertificateList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Certificates, nil
 		},
 	}
@@ -1342,6 +1487,7 @@ func dnsCertificateDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.DeleteSSLCertificate(request)
 		},
 	}
@@ -1369,6 +1515,7 @@ func dnsTsigKeyGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
+
 			return api.GetDNSZoneTsigKey(request)
 		},
 	}
@@ -1400,6 +1547,7 @@ func dnsTsigKeyDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "tsig-key",
 				Verb:     "delete",

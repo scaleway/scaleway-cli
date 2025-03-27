@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -57,6 +57,7 @@ func GetGeneratedCommands() *core.Commands {
 		containerTriggerDelete(),
 	)
 }
+
 func containerRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Serverless Containers`,
@@ -158,7 +159,12 @@ func containerNamespaceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*container.ListNamespacesRequest)
@@ -174,6 +180,7 @@ func containerNamespaceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Namespaces, nil
 		},
 	}
@@ -203,6 +210,7 @@ func containerNamespaceGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.GetNamespace(request)
 		},
 	}
@@ -267,6 +275,7 @@ func containerNamespaceCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.CreateNamespace(request)
 		},
 	}
@@ -329,6 +338,7 @@ func containerNamespaceUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.UpdateNamespace(request)
 		},
 	}
@@ -358,6 +368,7 @@ func containerNamespaceDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.DeleteNamespace(request)
 		},
 	}
@@ -409,7 +420,12 @@ func containerContainerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*container.ListContainersRequest)
@@ -425,6 +441,7 @@ func containerContainerList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Containers, nil
 		},
 	}
@@ -454,6 +471,7 @@ func containerContainerGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.GetContainer(request)
 		},
 	}
@@ -651,6 +669,7 @@ func containerContainerCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.CreateContainer(request)
 		},
 	}
@@ -845,6 +864,7 @@ func containerContainerUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.UpdateContainer(request)
 		},
 	}
@@ -874,6 +894,7 @@ func containerContainerDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.DeleteContainer(request)
 		},
 	}
@@ -903,6 +924,7 @@ func containerContainerDeploy() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.DeployContainer(request)
 		},
 	}
@@ -933,7 +955,12 @@ func containerCronList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*container.ListCronsRequest)
@@ -949,6 +976,7 @@ func containerCronList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Crons, nil
 		},
 	}
@@ -978,6 +1006,7 @@ func containerCronGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.GetCron(request)
 		},
 	}
@@ -1028,6 +1057,7 @@ func containerCronCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.CreateCron(request)
 		},
 	}
@@ -1085,6 +1115,7 @@ func containerCronUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.UpdateCron(request)
 		},
 	}
@@ -1114,6 +1145,7 @@ func containerCronDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.DeleteCron(request)
 		},
 	}
@@ -1135,7 +1167,12 @@ func containerDomainList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "hostname_asc", "hostname_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"hostname_asc",
+					"hostname_desc",
+				},
 			},
 			{
 				Name:       "container-id",
@@ -1144,7 +1181,12 @@ func containerDomainList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*container.ListDomainsRequest)
@@ -1160,6 +1202,7 @@ func containerDomainList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Domains, nil
 		},
 	}
@@ -1189,6 +1232,7 @@ func containerDomainGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.GetDomain(request)
 		},
 	}
@@ -1225,6 +1269,7 @@ func containerDomainCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.CreateDomain(request)
 		},
 	}
@@ -1254,6 +1299,7 @@ func containerDomainDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.DeleteDomain(request)
 		},
 	}
@@ -1304,6 +1350,7 @@ func containerTokenCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.CreateToken(request)
 		},
 	}
@@ -1333,6 +1380,7 @@ func containerTokenGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.GetToken(request)
 		},
 	}
@@ -1370,7 +1418,12 @@ func containerTokenList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*container.ListTokensRequest)
@@ -1386,6 +1439,7 @@ func containerTokenList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Tokens, nil
 		},
 	}
@@ -1415,6 +1469,7 @@ func containerTokenDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.DeleteToken(request)
 		},
 	}
@@ -1507,6 +1562,7 @@ func containerTriggerCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.CreateTrigger(request)
 		},
 	}
@@ -1536,6 +1592,7 @@ func containerTriggerGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.GetTrigger(request)
 		},
 	}
@@ -1574,7 +1631,12 @@ func containerTriggerList() *core.Command {
 				Positional: false,
 			},
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*container.ListTriggersRequest)
@@ -1590,6 +1652,7 @@ func containerTriggerList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Triggers, nil
 		},
 	}
@@ -1633,6 +1696,7 @@ func containerTriggerUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.UpdateTrigger(request)
 		},
 	}
@@ -1662,6 +1726,7 @@ func containerTriggerDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
+
 			return api.DeleteTrigger(request)
 		},
 	}

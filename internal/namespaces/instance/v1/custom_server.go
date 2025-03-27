@@ -34,8 +34,11 @@ const (
 // serverStateMarshalSpecs allows to override the displayed instance.ServerState.
 var (
 	serverStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ServerStateRunning:        &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ServerStateStopped:        &human.EnumMarshalSpec{Attribute: color.Faint, Value: "archived"},
+		instance.ServerStateRunning: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.ServerStateStopped: &human.EnumMarshalSpec{
+			Attribute: color.Faint,
+			Value:     "archived",
+		},
 		instance.ServerStateStoppedInPlace: &human.EnumMarshalSpec{Attribute: color.Faint},
 		instance.ServerStateStarting:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
 		instance.ServerStateStopping:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
@@ -159,19 +162,21 @@ func serverListBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customListServersRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customListServersRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customListServersRequest)
 
-		if args.ListServersRequest == nil {
-			args.ListServersRequest = &instance.ListServersRequest{}
-		}
+			if args.ListServersRequest == nil {
+				args.ListServersRequest = &instance.ListServersRequest{}
+			}
 
-		request := args.ListServersRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.ListServersRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
@@ -573,7 +578,10 @@ func serverAttachIPCommand() *core.Command {
 				}
 				ipID = res.IP.ID
 			default:
-				return nil, fmt.Errorf(`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`, args.IP)
+				return nil, fmt.Errorf(
+					`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`,
+					args.IP,
+				)
 			}
 
 			_, err = api.UpdateIP(&instance.UpdateIPRequest{
@@ -630,7 +638,9 @@ func serverDetachIPCommand() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			serverResponse, err := api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
+			serverResponse, err := api.GetServer(
+				&instance.GetServerRequest{ServerID: args.ServerID},
+			)
 			if err != nil {
 				return nil, err
 			}
@@ -684,12 +694,13 @@ func serverWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*serverWaitRequest)
 
-			return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-				Zone:          args.Zone,
-				ServerID:      args.ServerID,
-				Timeout:       scw.TimeDurationPtr(args.Timeout),
-				RetryInterval: core.DefaultRetryInterval,
-			})
+			return instance.NewAPI(core.ExtractClient(ctx)).
+				WaitForServer(&instance.WaitForServerRequest{
+					Zone:          args.Zone,
+					ServerID:      args.ServerID,
+					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					RetryInterval: core.DefaultRetryInterval,
+				})
 		},
 		ArgSpecs: core.ArgSpecs{
 			core.WaitTimeoutArgSpec(serverActionTimeout),

@@ -51,9 +51,17 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 	for _, argSpec := range cmd.ArgSpecs {
 		fieldName := strcase.ToPublicGoName(argSpec.Name)
-		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(
+			reflect.ValueOf(cmdArgs),
+			strings.Split(fieldName, "."),
+		)
 		if err != nil {
-			logger.Infof("could not validate arg value for '%v': invalid fieldName: %v: %v", argSpec.Name, fieldName, err.Error())
+			logger.Infof(
+				"could not validate arg value for '%v': invalid fieldName: %v: %v",
+				argSpec.Name,
+				fieldName,
+				err.Error(),
+			)
 
 			continue
 		}
@@ -83,9 +91,17 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 		}
 
 		fieldName := strcase.ToPublicGoName(arg.Name)
-		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(
+			reflect.ValueOf(cmdArgs),
+			strings.Split(fieldName, "."),
+		)
 		if err != nil {
-			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
+			validationErr := fmt.Errorf(
+				"could not validate arg value for '%v': invalid field name '%v': %v",
+				arg.Name,
+				fieldName,
+				err.Error(),
+			)
 			if !arg.Required {
 				logger.Infof(validationErr.Error())
 
@@ -100,7 +116,9 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 		// TODO handle required maps
 		for i := range fieldValues {
 			if !rawArgs.ExistsArgByName(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1)) {
-				return MissingRequiredArgumentError(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1))
+				return MissingRequiredArgumentError(
+					strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1),
+				)
 			}
 		}
 	}
@@ -139,13 +157,26 @@ func ValidateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
 }
 
 // validateDeprecated print a warning message if a deprecated argument is used
-func validateDeprecated(ctx context.Context, cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) {
+func validateDeprecated(
+	ctx context.Context,
+	cmd *Command,
+	cmdArgs interface{},
+	rawArgs args.RawArgs,
+) {
 	deprecatedArgs := cmd.ArgSpecs.GetDeprecated(true)
 	for _, arg := range deprecatedArgs {
 		fieldName := strcase.ToPublicGoName(arg.Name)
-		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(
+			reflect.ValueOf(cmdArgs),
+			strings.Split(fieldName, "."),
+		)
 		if err != nil {
-			validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", arg.Name, fieldName, err.Error())
+			validationErr := fmt.Errorf(
+				"could not validate arg value for '%v': invalid field name '%v': %v",
+				arg.Name,
+				fieldName,
+				err.Error(),
+			)
 			if !arg.Required {
 				logger.Infof(validationErr.Error())
 
@@ -157,7 +188,9 @@ func validateDeprecated(ctx context.Context, cmd *Command, cmdArgs interface{}, 
 		for i := range fieldValues {
 			if rawArgs.ExistsArgByName(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1)) {
 				helpCmd := cmd.GetCommandLine(extractMeta(ctx).BinaryName) + " --help"
-				ExtractLogger(ctx).Warningf("The argument '%s' is deprecated, more info with: %s\n", arg.Name, helpCmd)
+				ExtractLogger(
+					ctx,
+				).Warningf("The argument '%s' is deprecated, more info with: %s\n", arg.Name, helpCmd)
 			}
 		}
 	}
@@ -301,14 +334,25 @@ func NewOneOfGroupManager(cmd *Command) *OneOfGroupManager {
 	return manager
 }
 
-func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdArgs interface{}) error {
+func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(
+	rawArgs args.RawArgs,
+	cmdArgs interface{},
+) error {
 	for groupName, groupArgs := range m.Groups {
 		existingArg := ""
 		for _, argName := range groupArgs {
 			fieldName := strcase.ToPublicGoName(argName)
-			fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+			fieldValues, err := GetValuesForFieldByName(
+				reflect.ValueOf(cmdArgs),
+				strings.Split(fieldName, "."),
+			)
 			if err != nil {
-				validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", argName, fieldName, err.Error())
+				validationErr := fmt.Errorf(
+					"could not validate arg value for '%v': invalid field name '%v': %v",
+					argName,
+					fieldName,
+					err.Error(),
+				)
 				if m.RequiredGroups[groupName] {
 					logger.Infof(validationErr.Error())
 
@@ -320,7 +364,11 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdA
 				argNameWithIndex := strings.Replace(argName, "{index}", strconv.Itoa(i), 1)
 				if rawArgs.ExistsArgByName(argNameWithIndex) {
 					if existingArg != "" {
-						return fmt.Errorf("arguments '%s' and '%s' are mutually exclusive", existingArg, argNameWithIndex)
+						return fmt.Errorf(
+							"arguments '%s' and '%s' are mutually exclusive",
+							existingArg,
+							argNameWithIndex,
+						)
 					}
 					existingArg = argNameWithIndex
 				}
@@ -331,19 +379,32 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(rawArgs args.RawArgs, cmdA
 	return nil
 }
 
-func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(rawArgs args.RawArgs, cmdArgs interface{}) error {
+func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(
+	rawArgs args.RawArgs,
+	cmdArgs interface{},
+) error {
 	for group, required := range m.RequiredGroups {
 		if required {
 			found := false
 			for _, argName := range m.Groups[group] {
 				fieldName := strcase.ToPublicGoName(argName)
-				fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+				fieldValues, err := GetValuesForFieldByName(
+					reflect.ValueOf(cmdArgs),
+					strings.Split(fieldName, "."),
+				)
 				if err != nil {
-					validationErr := fmt.Errorf("could not validate arg value for '%v': invalid field name '%v': %v", argName, fieldName, err.Error())
+					validationErr := fmt.Errorf(
+						"could not validate arg value for '%v': invalid field name '%v': %v",
+						argName,
+						fieldName,
+						err.Error(),
+					)
 					panic(validationErr)
 				}
 				for i := range fieldValues {
-					if rawArgs.ExistsArgByName(strings.Replace(argName, "{index}", strconv.Itoa(i), 1)) {
+					if rawArgs.ExistsArgByName(
+						strings.Replace(argName, "{index}", strconv.Itoa(i), 1),
+					) {
 						found = true
 
 						break

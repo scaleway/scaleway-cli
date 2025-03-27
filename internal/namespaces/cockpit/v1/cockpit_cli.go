@@ -63,6 +63,7 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitTestAlertTrigger(),
 	)
 }
+
 func cockpitRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs`,
@@ -188,6 +189,7 @@ The output returned displays the URL to access your Cockpit's Grafana.`,
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
+
 			return api.GetGrafana(request)
 		},
 	}
@@ -214,6 +216,7 @@ func cockpitGrafanaSyncDataSources() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "grafana",
 				Verb:     "sync-data-sources",
@@ -255,6 +258,7 @@ Each Grafana user is associated with a role: viewer or editor. A viewer can only
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
+
 			return api.CreateGrafanaUser(request)
 		},
 	}
@@ -290,6 +294,7 @@ func cockpitGrafanaUserList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.GrafanaUsers, nil
 		},
 	}
@@ -323,6 +328,7 @@ func cockpitGrafanaUserDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "grafana-user",
 				Verb:     "delete",
@@ -356,6 +362,7 @@ A new password regenerates and only displays once. Make sure that you save it.`,
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
+
 			return api.ResetGrafanaUserPassword(request)
 		},
 	}
@@ -390,6 +397,7 @@ func cockpitProductDashboardsList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Dashboards, nil
 		},
 	}
@@ -419,6 +427,7 @@ func cockpitProductDashboardsGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
+
 			return api.GetGrafanaProductDashboard(request)
 		},
 	}
@@ -453,6 +462,7 @@ Deprecated, retention is now managed at the data source level.`,
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Plans, nil
 		},
 	}
@@ -484,6 +494,7 @@ Deprecated, retention is now managed at the data source level.`,
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
+
 			return api.SelectPlan(request)
 		},
 	}
@@ -507,6 +518,7 @@ Deprecated, retention is now managed at the data source level.`,
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
+
 			return api.GetCurrentPlan(request)
 		},
 	}
@@ -556,6 +568,7 @@ The name of the data source will then be used as reference to name the associate
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.CreateDataSource(request)
 		},
 	}
@@ -585,6 +598,7 @@ func cockpitDataSourceGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.GetDataSource(request)
 		},
 	}
@@ -618,6 +632,7 @@ func cockpitDataSourceDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "data-source",
 				Verb:     "delete",
@@ -643,7 +658,14 @@ You can list data sources by Project, type and origin.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "type_asc", "type_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"type_asc",
+					"type_desc",
+				},
 			},
 			core.ProjectIDArgSpec(),
 			{
@@ -662,7 +684,12 @@ You can list data sources by Project, type and origin.`,
 				Positional: false,
 				EnumValues: []string{"unknown_type", "metrics", "logs", "traces"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*cockpit.RegionalAPIListDataSourcesRequest)
@@ -678,6 +705,7 @@ You can list data sources by Project, type and origin.`,
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.DataSources, nil
 		},
 	}
@@ -721,6 +749,7 @@ func cockpitDataSourceUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.UpdateDataSource(request)
 		},
 	}
@@ -750,6 +779,7 @@ func cockpitUsageOverviewGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.GetUsageOverview(request)
 		},
 	}
@@ -780,7 +810,18 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_scope", "read_only_metrics", "write_only_metrics", "full_access_metrics_rules", "read_only_logs", "write_only_logs", "full_access_logs_rules", "full_access_alert_manager", "read_only_traces", "write_only_traces"},
+				EnumValues: []string{
+					"unknown_scope",
+					"read_only_metrics",
+					"write_only_metrics",
+					"full_access_metrics_rules",
+					"read_only_logs",
+					"write_only_logs",
+					"full_access_logs_rules",
+					"full_access_alert_manager",
+					"read_only_traces",
+					"write_only_traces",
+				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -789,6 +830,7 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.CreateToken(request)
 		},
 	}
@@ -820,9 +862,25 @@ You can filter tokens by Project ID and token scopes.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_scope", "read_only_metrics", "write_only_metrics", "full_access_metrics_rules", "read_only_logs", "write_only_logs", "full_access_logs_rules", "full_access_alert_manager", "read_only_traces", "write_only_traces"},
+				EnumValues: []string{
+					"unknown_scope",
+					"read_only_metrics",
+					"write_only_metrics",
+					"full_access_metrics_rules",
+					"read_only_logs",
+					"write_only_logs",
+					"full_access_logs_rules",
+					"full_access_alert_manager",
+					"read_only_traces",
+					"write_only_traces",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*cockpit.RegionalAPIListTokensRequest)
@@ -838,6 +896,7 @@ You can filter tokens by Project ID and token scopes.`,
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Tokens, nil
 		},
 	}
@@ -867,6 +926,7 @@ func cockpitTokenGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.GetToken(request)
 		},
 	}
@@ -900,6 +960,7 @@ func cockpitTokenDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "token",
 				Verb:     "delete",
@@ -927,6 +988,7 @@ The output returned displays a URL to access the Alert manager, and whether the 
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.GetAlertManager(request)
 		},
 	}
@@ -950,6 +1012,7 @@ func cockpitAlertManagerEnable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.EnableAlertManager(request)
 		},
 	}
@@ -973,6 +1036,7 @@ func cockpitAlertManagerDisable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.DisableAlertManager(request)
 		},
 	}
@@ -1011,6 +1075,7 @@ If you need to receive alerts for other receivers, you can create additional con
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.CreateContactPoint(request)
 		},
 	}
@@ -1027,7 +1092,12 @@ func cockpitContactPointList() *core.Command {
 		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListContactPointsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*cockpit.RegionalAPIListContactPointsRequest)
@@ -1043,6 +1113,7 @@ func cockpitContactPointList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.ContactPoints, nil
 		},
 	}
@@ -1076,6 +1147,7 @@ func cockpitContactPointDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "contact-point",
 				Verb:     "delete",
@@ -1102,6 +1174,7 @@ func cockpitManagedAlertsEnable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.EnableManagedAlerts(request)
 		},
 	}
@@ -1125,6 +1198,7 @@ func cockpitManagedAlertsDisable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
+
 			return api.DisableManagedAlerts(request)
 		},
 	}
@@ -1152,6 +1226,7 @@ func cockpitTestAlertTrigger() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "test-alert",
 				Verb:     "trigger",

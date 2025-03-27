@@ -25,7 +25,11 @@ func Test_Deploy(t *testing.T) {
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: commands,
-		Cmd:      fmt.Sprintf("scw function deploy name=%s runtime=go120 zip-file=%s", functionName, testZip),
+		Cmd: fmt.Sprintf(
+			"scw function deploy name=%s runtime=go120 zip-file=%s",
+			functionName,
+			testZip,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

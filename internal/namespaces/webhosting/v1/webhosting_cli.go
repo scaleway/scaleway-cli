@@ -62,6 +62,7 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingWebsiteList(),
 	)
 }
+
 func webhostingRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Web Hosting services`,
@@ -170,7 +171,12 @@ func webhostingControlPanelList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(webhosting.ControlPanelAPIListControlPanelsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.ControlPanelAPIListControlPanelsRequest)
@@ -186,6 +192,7 @@ func webhostingControlPanelList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.ControlPanels, nil
 		},
 	}
@@ -241,6 +248,7 @@ func webhostingDatabaseCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
+
 			return api.CreateDatabase(request)
 		},
 	}
@@ -271,7 +279,12 @@ func webhostingDatabaseList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"database_name_asc", "database_name_desc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.DatabaseAPIListDatabasesRequest)
@@ -287,6 +300,7 @@ func webhostingDatabaseList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Databases, nil
 		},
 	}
@@ -323,6 +337,7 @@ func webhostingDatabaseGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
+
 			return api.GetDatabase(request)
 		},
 	}
@@ -359,6 +374,7 @@ func webhostingDatabaseDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
+
 			return api.DeleteDatabase(request)
 		},
 	}
@@ -402,6 +418,7 @@ func webhostingDatabaseUserCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
+
 			return api.CreateDatabaseUser(request)
 		},
 	}
@@ -432,7 +449,12 @@ func webhostingDatabaseUserList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"username_asc", "username_desc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.DatabaseAPIListDatabaseUsersRequest)
@@ -448,6 +470,7 @@ func webhostingDatabaseUserList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Users, nil
 		},
 	}
@@ -484,6 +507,7 @@ func webhostingDatabaseUserGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
+
 			return api.GetDatabaseUser(request)
 		},
 	}
@@ -520,6 +544,7 @@ func webhostingDatabaseUserDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
+
 			return api.DeleteDatabaseUser(request)
 		},
 	}
@@ -563,6 +588,7 @@ func webhostingDatabaseUserChangePassword() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
+
 			return api.ChangeDatabaseUserPassword(request)
 		},
 	}
@@ -606,6 +632,7 @@ func webhostingDatabaseUserAssign() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
+
 			return api.AssignDatabaseUser(request)
 		},
 	}
@@ -649,6 +676,7 @@ func webhostingDatabaseUserUnassign() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
+
 			return api.UnassignDatabaseUser(request)
 		},
 	}
@@ -678,6 +706,7 @@ func webhostingDNSRecordsGetDNSRecords() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
+
 			return api.GetDomainDNSRecords(request)
 		},
 		Examples: []*core.Example{
@@ -714,6 +743,7 @@ func webhostingDomainCheckOwnership() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
+
 			return api.CheckUserOwnsDomain(request)
 		},
 	}
@@ -819,6 +849,7 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
+
 			return api.SyncDomainDNSRecords(request)
 		},
 	}
@@ -856,7 +887,12 @@ func webhostingOfferList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.OfferAPIListOffersRequest)
@@ -872,6 +908,7 @@ func webhostingOfferList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Offers, nil
 		},
 	}
@@ -1011,6 +1048,7 @@ func webhostingHostingCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
+
 			return api.CreateHosting(request)
 		},
 	}
@@ -1047,7 +1085,15 @@ func webhostingHostingList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_status", "delivering", "ready", "deleting", "error", "locked", "migrating"},
+				EnumValues: []string{
+					"unknown_status",
+					"delivering",
+					"ready",
+					"deleting",
+					"error",
+					"locked",
+					"migrating",
+				},
 			},
 			{
 				Name:       "domain",
@@ -1077,7 +1123,12 @@ func webhostingHostingList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.HostingAPIListHostingsRequest)
@@ -1093,6 +1144,7 @@ func webhostingHostingList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Hostings, nil
 		},
 		Examples: []*core.Example{
@@ -1128,6 +1180,7 @@ func webhostingHostingGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
+
 			return api.GetHosting(request)
 		},
 		Examples: []*core.Example{
@@ -1205,6 +1258,7 @@ func webhostingHostingUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
+
 			return api.UpdateHosting(request)
 		},
 		Examples: []*core.Example{
@@ -1244,6 +1298,7 @@ func webhostingHostingDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
+
 			return api.DeleteHosting(request)
 		},
 		Examples: []*core.Example{
@@ -1279,6 +1334,7 @@ func webhostingHostingCreateSession() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
+
 			return api.CreateSession(request)
 		},
 	}
@@ -1329,6 +1385,7 @@ func webhostingFtpAccountCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
+
 			return api.CreateFtpAccount(request)
 		},
 	}
@@ -1366,7 +1423,12 @@ func webhostingFtpAccountList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.FtpAccountAPIListFtpAccountsRequest)
@@ -1382,6 +1444,7 @@ func webhostingFtpAccountList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.FtpAccounts, nil
 		},
 	}
@@ -1418,6 +1481,7 @@ func webhostingFtpAccountDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
+
 			return api.RemoveFtpAccount(request)
 		},
 	}
@@ -1468,6 +1532,7 @@ func webhostingMailAccountCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
+
 			return api.CreateMailAccount(request)
 		},
 	}
@@ -1505,7 +1570,12 @@ func webhostingMailAccountList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.MailAccountAPIListMailAccountsRequest)
@@ -1521,6 +1591,7 @@ func webhostingMailAccountList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.MailAccounts, nil
 		},
 	}
@@ -1564,6 +1635,7 @@ func webhostingMailAccountDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
+
 			return api.RemoveMailAccount(request)
 		},
 	}
@@ -1614,6 +1686,7 @@ func webhostingMailAccountChangePassword() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
+
 			return api.ChangeMailAccountPassword(request)
 		},
 	}
@@ -1644,7 +1717,12 @@ func webhostingWebsiteList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"domain_asc", "domain_desc"},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*webhosting.WebsiteAPIListWebsitesRequest)
@@ -1660,6 +1738,7 @@ func webhostingWebsiteList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Websites, nil
 		},
 	}

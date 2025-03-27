@@ -116,11 +116,19 @@ type MissingIndicesInArrayError struct {
 }
 
 func (e *MissingIndicesInArrayError) Error() string {
-	switch {
-	case e.IndexToInsert-e.CurrentLength == 1:
-		return fmt.Sprintf("missing index %d, all indices prior to %d must be set as well", e.CurrentLength, e.IndexToInsert)
+	switch e.IndexToInsert - e.CurrentLength {
+	case 1:
+		return fmt.Sprintf(
+			"missing index %d, all indices prior to %d must be set as well",
+			e.CurrentLength,
+			e.IndexToInsert,
+		)
 	default:
-		return fmt.Sprintf("missing indices, %s all indices prior to %d must be set as well", missingIndices(e.IndexToInsert, e.CurrentLength), e.IndexToInsert)
+		return fmt.Sprintf(
+			"missing indices, %s all indices prior to %d must be set as well",
+			missingIndices(e.IndexToInsert, e.CurrentLength),
+			e.IndexToInsert,
+		)
 	}
 }
 
@@ -163,7 +171,11 @@ type ConflictArgError struct {
 }
 
 func (e *ConflictArgError) Error() string {
-	return fmt.Sprintf("arguments '%s' and '%s' cannot be used simultaneously", e.ArgName1, e.ArgName2)
+	return fmt.Sprintf(
+		"arguments '%s' and '%s' cannot be used simultaneously",
+		e.ArgName1,
+		e.ArgName2,
+	)
 }
 
 // missingIndices returns a string of all the missing indices between index and length.

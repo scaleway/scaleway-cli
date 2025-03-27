@@ -7,9 +7,12 @@ import (
 )
 
 var offerAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
-	baremetal.OfferStockEmpty:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "empty"},
-	baremetal.OfferStockLow:       &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low"},
-	baremetal.OfferStockAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "available"},
+	baremetal.OfferStockEmpty: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "empty"},
+	baremetal.OfferStockLow:   &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low"},
+	baremetal.OfferStockAvailable: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "available",
+	},
 }
 
 func listOfferMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
