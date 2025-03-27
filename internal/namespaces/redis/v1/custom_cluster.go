@@ -76,13 +76,16 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			if !customEndpoint.PrivateNetwork.EnableIpam {
 				ipamConfig = nil
 			}
-			createClusterRequest.Endpoints = append(createClusterRequest.Endpoints, &redis.EndpointSpec{
-				PrivateNetwork: &redis.EndpointSpecPrivateNetworkSpec{
-					ID:         customEndpoint.PrivateNetwork.ID,
-					ServiceIPs: customEndpoint.PrivateNetwork.ServiceIPs,
-					IpamConfig: ipamConfig,
+			createClusterRequest.Endpoints = append(
+				createClusterRequest.Endpoints,
+				&redis.EndpointSpec{
+					PrivateNetwork: &redis.EndpointSpecPrivateNetworkSpec{
+						ID:         customEndpoint.PrivateNetwork.ID,
+						ServiceIPs: customEndpoint.PrivateNetwork.ServiceIPs,
+						IpamConfig: ipamConfig,
+					},
 				},
-			})
+			)
 		}
 
 		cluster, err := api.CreateCluster(createClusterRequest)
@@ -109,7 +112,8 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 			// if we get a 404 here, it means the resource was successfully deleted
 			notFoundError := &scw.ResourceNotFoundError{}
 			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
+			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+				errors.As(err, &notFoundError) {
 				return cluster, nil
 			}
 
@@ -147,7 +151,14 @@ func clusterWaitCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 			core.WaitTimeoutArgSpec(redisActionTimeout),
 		},
 		Examples: []*core.Example{
@@ -160,15 +171,17 @@ func clusterWaitCommand() *core.Command {
 }
 
 func ACLAddListBuilder(c *core.Command) *core.Command {
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		originalResp, err := runner(ctx, argsI)
-		if err != nil {
-			return nil, err
-		}
-		ACLAddResponse := originalResp.(*redis.AddACLRulesResponse)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			originalResp, err := runner(ctx, argsI)
+			if err != nil {
+				return nil, err
+			}
+			ACLAddResponse := originalResp.(*redis.AddACLRulesResponse)
 
-		return ACLAddResponse.ACLRules, nil
-	})
+			return ACLAddResponse.ACLRules, nil
+		},
+	)
 
 	return c
 }
@@ -222,7 +235,11 @@ var completeClusterCache *redis.Cluster
 
 var completeClusterVersionCache *redis.ListClusterVersionsResponse
 
-func autoCompleteSettingsName(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autoCompleteSettingsName(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	suggestions := core.AutocompleteSuggestions(nil)
 	req := request.(*redis.AddClusterSettingsRequest)
 	client := core.ExtractClient(ctx)
@@ -262,7 +279,11 @@ func autoCompleteSettingsName(ctx context.Context, prefix string, request any) c
 
 var completeRedisNoteTypeCache *redis.ListNodeTypesResponse
 
-func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autoCompleteNodeType(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	suggestions := core.AutocompleteSuggestions(nil)
 	req := request.(*redis.MigrateClusterRequest)
 	client := core.ExtractClient(ctx)

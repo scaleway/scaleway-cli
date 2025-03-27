@@ -60,7 +60,10 @@ func deleteRunningInstance() core.AfterFunc {
 func createBackend(forwardPort int32) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Backend",
-		fmt.Sprintf("scw lb backend create lb-id={{ .LB.ID }} name=cli-test forward-protocol=tcp forward-port=%d forward-port-algorithm=roundrobin sticky-sessions=none health-check.port=8888 health-check.check-max-retries=5", forwardPort),
+		fmt.Sprintf(
+			"scw lb backend create lb-id={{ .LB.ID }} name=cli-test forward-protocol=tcp forward-port=%d forward-port-algorithm=roundrobin sticky-sessions=none health-check.port=8888 health-check.check-max-retries=5",
+			forwardPort,
+		),
 	)
 }
 
@@ -74,13 +77,23 @@ func addIP2Backend(ip string) core.BeforeFunc {
 func createFrontend(inboundPort int32) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Frontend",
-		fmt.Sprintf("scw lb frontend create lb-id={{ .LB.ID }} backend-id={{ .Backend.ID }} name=cli-test inbound-port=%d", inboundPort),
+		fmt.Sprintf(
+			"scw lb frontend create lb-id={{ .LB.ID }} backend-id={{ .Backend.ID }} name=cli-test inbound-port=%d",
+			inboundPort,
+		),
 	)
 }
 
-func createClusterAndWaitAndInstallKubeconfig(metaKey string, kubeconfigMetaKey string, version string) core.BeforeFunc {
+func createClusterAndWaitAndInstallKubeconfig(
+	metaKey string,
+	kubeconfigMetaKey string,
+	version string,
+) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", version)
+		cmd := fmt.Sprintf(
+			"scw k8s cluster create name=cli-test version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
+			version,
+		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
@@ -121,7 +134,8 @@ func retrieveLBID(metaKey string) core.BeforeFunc {
 		// We let enough time for kubeconfig to install
 		time.Sleep(5 * time.Second)
 
-		cmd, err := exec.Command("bash", "-c", "kubectl -n kube-system get service/traefik-ingress -o jsonpath='{.metadata.annotations.service\\.beta\\.kubernetes\\.io/scw-loadbalancer-id}'").Output()
+		cmd, err := exec.Command("bash", "-c", "kubectl -n kube-system get service/traefik-ingress -o jsonpath='{.metadata.annotations.service\\.beta\\.kubernetes\\.io/scw-loadbalancer-id}'").
+			Output()
 		if err != nil {
 			return err
 		}

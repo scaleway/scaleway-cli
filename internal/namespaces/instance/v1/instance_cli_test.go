@@ -89,57 +89,69 @@ func Test_ServerUpdate(t *testing.T) {
 		AfterFunc: deleteServer("Server"),
 	}))
 
-	t.Run(`No initial placement group & placement-group-id=<existing pg id>`, core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(
-			createPlacementGroup("PlacementGroup"),
-			createServer("Server"),
-		),
-		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup.ID }}`,
-		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				require.NoError(t, ctx.Err)
-				assert.Equal(t,
-					ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
-					ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID,
-				)
-			},
-			core.TestCheckExitCode(0),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			deleteServer("Server"),
-			deletePlacementGroup("PlacementGroup"),
-		),
-	}))
+	t.Run(
+		`No initial placement group & placement-group-id=<existing pg id>`,
+		core.Test(&core.TestConfig{
+			Commands: instance.GetCommands(),
+			BeforeFunc: core.BeforeFuncCombine(
+				createPlacementGroup("PlacementGroup"),
+				createServer("Server"),
+			),
+			Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup.ID }}`,
+			Check: core.TestCheckCombine(
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+					require.NoError(t, ctx.Err)
+					assert.Equal(t,
+						ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
+						ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID,
+					)
+				},
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServer("Server"),
+				deletePlacementGroup("PlacementGroup"),
+			),
+		}),
+	)
 
-	t.Run(`No initial placement group & placement-group-id=<valid, but non existing pg id>`, core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: createServer("Server"),
-		Cmd:        `scw instance server update {{ .Server.ID }} placement-group-id=11111111-1111-1111-1111-111111111111`,
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(1),
-			core.TestCheckGolden(),
-		),
-		AfterFunc: deleteServer("Server"),
-	}))
+	t.Run(
+		`No initial placement group & placement-group-id=<valid, but non existing pg id>`,
+		core.Test(&core.TestConfig{
+			Commands:   instance.GetCommands(),
+			BeforeFunc: createServer("Server"),
+			Cmd:        `scw instance server update {{ .Server.ID }} placement-group-id=11111111-1111-1111-1111-111111111111`,
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(1),
+				core.TestCheckGolden(),
+			),
+			AfterFunc: deleteServer("Server"),
+		}),
+	)
 
-	t.Run(`No initial placement group & placement-group-id=<invalid pg id>`, core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: createServer("Server"),
-		Cmd:        `scw instance server update {{ .Server.ID }} placement-group-id=1111111`,
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(1),
-			core.TestCheckGolden(),
-		),
-		AfterFunc: deleteServer("Server"),
-	}))
+	t.Run(
+		`No initial placement group & placement-group-id=<invalid pg id>`,
+		core.Test(&core.TestConfig{
+			Commands:   instance.GetCommands(),
+			BeforeFunc: createServer("Server"),
+			Cmd:        `scw instance server update {{ .Server.ID }} placement-group-id=1111111`,
+			Check: core.TestCheckCombine(
+				core.TestCheckExitCode(1),
+				core.TestCheckGolden(),
+			),
+			AfterFunc: deleteServer("Server"),
+		}),
+	)
 
 	t.Run(`Initial placement group & placement-group-id=none`, core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup"),
-			core.ExecStoreBeforeCmd("Server", testServerCommand("placement-group-id={{ .PlacementGroup.ID }} stopped=true")),
+			core.ExecStoreBeforeCmd(
+				"Server",
+				testServerCommand("placement-group-id={{ .PlacementGroup.ID }} stopped=true"),
+			),
 		),
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id=none`,
 		Check: core.TestCheckCombine(
@@ -156,36 +168,45 @@ func Test_ServerUpdate(t *testing.T) {
 		),
 	}))
 
-	t.Run(`Initial placement group & placement-group-id=<current pg id>`, core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(
-			createPlacementGroup("PlacementGroup"),
-			core.ExecStoreBeforeCmd("Server", testServerCommand("placement-group-id={{ .PlacementGroup.ID }} stopped=true")),
-		),
-		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup.ID }}`,
-		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				require.NoError(t, ctx.Err)
-				assert.Equal(t,
-					ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
-					ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID,
-				)
-			},
-			core.TestCheckExitCode(0),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			deleteServer("Server"),
-			deletePlacementGroup("PlacementGroup"),
-		),
-	}))
+	t.Run(
+		`Initial placement group & placement-group-id=<current pg id>`,
+		core.Test(&core.TestConfig{
+			Commands: instance.GetCommands(),
+			BeforeFunc: core.BeforeFuncCombine(
+				createPlacementGroup("PlacementGroup"),
+				core.ExecStoreBeforeCmd(
+					"Server",
+					testServerCommand("placement-group-id={{ .PlacementGroup.ID }} stopped=true"),
+				),
+			),
+			Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup.ID }}`,
+			Check: core.TestCheckCombine(
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+					require.NoError(t, ctx.Err)
+					assert.Equal(t,
+						ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
+						ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID,
+					)
+				},
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServer("Server"),
+				deletePlacementGroup("PlacementGroup"),
+			),
+		}),
+	)
 
 	t.Run(`Initial placement group & placement-group-id=<new pg id>`, core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup1"),
 			createPlacementGroup("PlacementGroup2"),
-			core.ExecStoreBeforeCmd("Server", testServerCommand("placement-group-id={{ .PlacementGroup1.ID }} stopped=true")),
+			core.ExecStoreBeforeCmd(
+				"Server",
+				testServerCommand("placement-group-id={{ .PlacementGroup1.ID }} stopped=true"),
+			),
 		),
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup2.ID }}`,
 		Check: core.TestCheckCombine(

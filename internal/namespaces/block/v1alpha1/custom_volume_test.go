@@ -14,7 +14,10 @@ func Test_VolumeWait(t *testing.T) {
 	t.Run("Wait command", core.Test(&core.TestConfig{
 		Commands: block.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Volume", "scw block volume create perf-iops=5000 from-empty.size=20GB"),
+			core.ExecStoreBeforeCmd(
+				"Volume",
+				"scw block volume create perf-iops=5000 from-empty.size=20GB",
+			),
 		),
 		Cmd: "scw block volume wait {{ .Volume.ID }}",
 		Check: core.TestCheckCombine(

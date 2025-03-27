@@ -10,9 +10,12 @@ import (
 
 func Test_AddACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb acl add 1.2.3.4 instance-id={{ .Instance.ID }} --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb acl add 1.2.3.4 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -24,9 +27,12 @@ func Test_AddACL(t *testing.T) {
 	}))
 
 	t.Run("Simple with description", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb acl add 1.2.3.4 instance-id={{ .Instance.ID }} description=some-unique-description --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb acl add 1.2.3.4 instance-id={{ .Instance.ID }} description=some-unique-description --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -38,28 +44,42 @@ func Test_AddACL(t *testing.T) {
 	}))
 
 	t.Run("Multiple", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb acl add 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb acl add 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				verifyACL(t, ctx, []string{"0.0.0.0/0", "1.2.3.4/32", "192.168.1.0/30", "10.10.10.10/32"})
+				verifyACL(
+					t,
+					ctx,
+					[]string{"0.0.0.0/0", "1.2.3.4/32", "192.168.1.0/30", "10.10.10.10/32"},
+				)
 			},
 		),
 		AfterFunc: deleteInstance(),
 	}))
 
 	t.Run("Multiple with description", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb acl add 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} description=some-unique-description --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb acl add 1.2.3.4 192.168.1.0/30 10.10.10.10 instance-id={{ .Instance.ID }} description=some-unique-description --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				verifyACL(t, ctx, []string{"0.0.0.0/0", "1.2.3.4/32", "192.168.1.0/30", "10.10.10.10/32"})
+				verifyACL(
+					t,
+					ctx,
+					[]string{"0.0.0.0/0", "1.2.3.4/32", "192.168.1.0/30", "10.10.10.10/32"},
+				)
 			},
 		),
 		AfterFunc: deleteInstance(),
@@ -68,9 +88,12 @@ func Test_AddACL(t *testing.T) {
 
 func Test_DeleteACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb acl delete 0.0.0.0/0 instance-id={{ .Instance.ID }} --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb acl delete 0.0.0.0/0 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -84,8 +107,11 @@ func Test_DeleteACL(t *testing.T) {
 	t.Run("Multiple when set", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
-			core.ExecBeforeCmd("scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+			core.ExecBeforeCmd(
+				"scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait",
+			),
 		),
 		Cmd: "scw rdb acl delete 1.2.3.4/32 192.168.1.0/32 10.10.10.10/32 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
@@ -101,8 +127,11 @@ func Test_DeleteACL(t *testing.T) {
 	t.Run("Multiple when not set", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
-			core.ExecBeforeCmd("scw rdb acl add 192.168.1.0/32 instance-id={{ .Instance.ID }} --wait"),
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+			core.ExecBeforeCmd(
+				"scw rdb acl add 192.168.1.0/32 instance-id={{ .Instance.ID }} --wait",
+			),
 		),
 		Cmd: "scw rdb acl delete 1.2.3.4/32 192.168.1.0/32 10.10.10.10/32 instance-id={{ .Instance.ID }} --wait",
 		Check: core.TestCheckCombine(
@@ -118,9 +147,12 @@ func Test_DeleteACL(t *testing.T) {
 
 func Test_SetACL(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb acl set 1.2.3.4 instance-id={{ .Instance.ID }} descriptions.0=something --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb acl set 1.2.3.4 instance-id={{ .Instance.ID }} descriptions.0=something --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -136,8 +168,11 @@ func Test_SetACL(t *testing.T) {
 	t.Run("Multiple", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
-			core.ExecBeforeCmd("scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait"),
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+			core.ExecBeforeCmd(
+				"scw rdb acl add 1.2.3.4 192.168.1.0/32 10.10.10.10 instance-id={{ .Instance.ID }} --wait",
+			),
 		),
 		Cmd: "scw rdb acl set 1.2.3.4 192.168.1.0/31 11.11.11.11 instance-id={{ .Instance.ID }} descriptions.0=first descriptions.1=second descriptions.2=third --wait",
 		Check: core.TestCheckCombine(

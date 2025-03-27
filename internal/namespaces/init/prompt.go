@@ -49,7 +49,13 @@ func promptManualProjectID(ctx context.Context, defaultProjectID string) (string
 	})
 }
 
-func promptProjectID(ctx context.Context, accessKey string, secretKey string, organizationID string, defaultProjectID string) (string, error) {
+func promptProjectID(
+	ctx context.Context,
+	accessKey string,
+	secretKey string,
+	organizationID string,
+	defaultProjectID string,
+) (string, error) {
 	if defaultProjectID == "" {
 		defaultProjectID = organizationID
 	}
@@ -225,7 +231,12 @@ func promptDefaultZone(ctx context.Context) (scw.Zone, error) {
 }
 
 // promptProfileOverride prompt user if profileName is getting override in config
-func promptProfileOverride(ctx context.Context, config *scw.Config, configPath string, profileName string) error {
+func promptProfileOverride(
+	ctx context.Context,
+	config *scw.Config,
+	configPath string,
+	profileName string,
+) error {
 	var profile *scw.Profile
 	var profileExists bool
 
@@ -242,7 +253,10 @@ func promptProfileOverride(ctx context.Context, config *scw.Config, configPath s
 					` + terminal.Style(fmt.Sprint(profile), color.Faint) + `
 				`)
 		overrideConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-			Prompt:       fmt.Sprintf("Do you want to override the current profile (%s) ?", profileName),
+			Prompt: fmt.Sprintf(
+				"Do you want to override the current profile (%s) ?",
+				profileName,
+			),
 			DefaultValue: true,
 			Ctx:          ctx,
 		})

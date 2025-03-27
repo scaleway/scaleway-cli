@@ -19,7 +19,7 @@ func TestResult(t *testing.T) {
 
 	humanOutput, err := result.MarshalHuman()
 	require.NoError(t, err)
-	assert.Equal(t, "", humanOutput)
+	assert.Empty(t, humanOutput)
 	jsonOutput, err := result.MarshalJSON()
 	require.NoError(t, err)
 	assert.JSONEq(t, "{}", string(jsonOutput))

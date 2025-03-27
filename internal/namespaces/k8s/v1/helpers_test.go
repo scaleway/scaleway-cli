@@ -21,17 +21,39 @@ const (
 
 // createCluster creates a basic cluster with "poolSize" dev1-m as nodes, the given version and
 // register it in the context Meta at metaKey.
-func createCluster(clusterNameSuffix string, metaKey string, version string, poolSize int, nodeType string) core.BeforeFunc {
+func createCluster(
+	clusterNameSuffix string,
+	metaKey string,
+	version string,
+	poolSize int,
+	nodeType string,
+) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		metaKey,
-		fmt.Sprintf("scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=%s pools.0.size=%d pools.0.name=default", clusterNameSuffix, version, nodeType, poolSize))
+		fmt.Sprintf(
+			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=%s pools.0.size=%d pools.0.name=default",
+			clusterNameSuffix,
+			version,
+			nodeType,
+			poolSize,
+		),
+	)
 }
 
 // createClusterAndWaitAndKubeconfig creates a basic cluster with 1 dev1-m as node, the given version and
 // register it in the context Meta at metaKey.
-func createClusterAndWaitAndKubeconfig(clusterNameSuffix string, metaKey string, kubeconfigMetaKey string, version string) core.BeforeFunc {
+func createClusterAndWaitAndKubeconfig(
+	clusterNameSuffix string,
+	metaKey string,
+	kubeconfigMetaKey string,
+	version string,
+) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", clusterNameSuffix, version)
+		cmd := fmt.Sprintf(
+			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
+			clusterNameSuffix,
+			version,
+		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
@@ -59,9 +81,18 @@ func createClusterAndWaitAndKubeconfig(clusterNameSuffix string, metaKey string,
 
 // createClusterAndWaitAndInstallKubeconfig creates a basic cluster with 1 dev1-m as node, the given version and
 // register it in the context Meta at metaKey. And install the kubeconfig
-func createClusterAndWaitAndInstallKubeconfig(clusterNameSuffix string, metaKey string, kubeconfigMetaKey string, version string) core.BeforeFunc {
+func createClusterAndWaitAndInstallKubeconfig(
+	clusterNameSuffix string,
+	metaKey string,
+	kubeconfigMetaKey string,
+	version string,
+) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", clusterNameSuffix, version)
+		cmd := fmt.Sprintf(
+			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
+			clusterNameSuffix,
+			version,
+		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
@@ -91,9 +122,20 @@ func createClusterAndWaitAndInstallKubeconfig(clusterNameSuffix string, metaKey 
 
 // createClusterAndWaitAndKubeconfigAndPopulateFile creates a basic cluster with 1 dev1-m as node, the given version and
 // register it in the context Meta at metaKey. It also populates the given file with the given content
-func createClusterAndWaitAndKubeconfigAndPopulateFile(clusterNameSuffix string, metaKey string, kubeconfigMetaKey string, version string, file string, content []byte) core.BeforeFunc {
+func createClusterAndWaitAndKubeconfigAndPopulateFile(
+	clusterNameSuffix string,
+	metaKey string,
+	kubeconfigMetaKey string,
+	version string,
+	file string,
+	content []byte,
+) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", clusterNameSuffix, version)
+		cmd := fmt.Sprintf(
+			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
+			clusterNameSuffix,
+			version,
+		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
@@ -122,9 +164,20 @@ func createClusterAndWaitAndKubeconfigAndPopulateFile(clusterNameSuffix string, 
 
 // createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall creates a basic cluster with 1 dev1-m as node, the given version and
 // register it in the context Meta at metaKey. It also populates the given file with the given content and install the new kubeconfig
-func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(clusterNameSuffix string, metaKey string, kubeconfigMetaKey string, version string, file string, content []byte) core.BeforeFunc {
+func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(
+	clusterNameSuffix string,
+	metaKey string,
+	kubeconfigMetaKey string,
+	version string,
+	file string,
+	content []byte,
+) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf("scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait", clusterNameSuffix, version)
+		cmd := fmt.Sprintf(
+			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
+			clusterNameSuffix,
+			version,
+		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
 		ctx.Meta[metaKey] = cluster
@@ -158,5 +211,7 @@ func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(clusterNameSuffi
 
 // deleteCluster deletes a cluster previously registered in the context Meta at metaKey.
 func deleteCluster(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw k8s cluster delete {{ ." + metaKey + ".ID }} with-additional-resources=true --wait")
+	return core.ExecAfterCmd(
+		"scw k8s cluster delete {{ ." + metaKey + ".ID }} with-additional-resources=true --wait",
+	)
 }

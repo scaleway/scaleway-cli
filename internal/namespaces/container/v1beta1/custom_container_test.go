@@ -28,7 +28,10 @@ func Test_Create(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createNamespace("Namespace"),
 		),
-		Cmd: fmt.Sprintf("scw container container create namespace-id={{ .Namespace.ID }} name=%s deploy=true", core.GetRandomName("test")),
+		Cmd: fmt.Sprintf(
+			"scw container container create namespace-id={{ .Namespace.ID }} name=%s deploy=true",
+			core.GetRandomName("test"),
+		),
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()

@@ -27,9 +27,13 @@ func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterc
 
 		previousInterceptor := combinedInterceptors
 		combinedInterceptors = func(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
-			return previousInterceptor(ctx, args, func(ctx context.Context, _ interface{}) (interface{}, error) {
-				return localInterceptor(ctx, args, runner)
-			})
+			return previousInterceptor(
+				ctx,
+				args,
+				func(ctx context.Context, _ interface{}) (interface{}, error) {
+					return localInterceptor(ctx, args, runner)
+				},
+			)
 		}
 	}
 
@@ -37,7 +41,11 @@ func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterc
 }
 
 // sdkStdErrorInterceptor is a command interceptor that will catch sdk standard error and return more friendly CLI error.
-func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
+func sdkStdErrorInterceptor(
+	ctx context.Context,
+	args interface{},
+	runner CommandRunner,
+) (interface{}, error) {
 	res, err := runner(ctx, args)
 	switch sdkError := err.(type) {
 	case *scw.ResourceNotFoundError:
@@ -120,7 +128,11 @@ func sdkStdErrorInterceptor(ctx context.Context, args interface{}, runner Comman
 }
 
 // sdkStdErrorInterceptor is a command interceptor that will catch sdk standard error and return more friendly CLI error.
-func sdkStdTypeInterceptor(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
+func sdkStdTypeInterceptor(
+	ctx context.Context,
+	args interface{},
+	runner CommandRunner,
+) (interface{}, error) {
 	res, err := runner(ctx, args)
 	if err != nil {
 		return res, err

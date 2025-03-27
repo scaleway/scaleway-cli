@@ -134,7 +134,9 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 
 		// If data is a stringers
 		case rType.Implements(reflect.TypeOf((*fmt.Stringer)(nil)).Elem()):
-			return [][]string{{strings.Join(keys, "."), value.Interface().(fmt.Stringer).String()}}, nil
+			return [][]string{
+				{strings.Join(keys, "."), value.Interface().(fmt.Stringer).String()},
+			}, nil
 
 		case rType.Kind() == reflect.Ptr:
 			// If type is a pointer we Marshal pointer.Elem()
@@ -182,7 +184,10 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			// We loop through all struct field
 			data := [][]string(nil)
 			for _, fieldIndex := range GetStructFieldsIndex(value.Type()) {
-				subData, err := marshal(value.FieldByIndex(fieldIndex), append(keys, value.Type().FieldByIndex(fieldIndex).Name))
+				subData, err := marshal(
+					value.FieldByIndex(fieldIndex),
+					append(keys, value.Type().FieldByIndex(fieldIndex).Name),
+				)
 				if err != nil {
 					return nil, err
 				}
@@ -317,7 +322,10 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		for _, fieldSpec := range opt.Fields {
 			v, err := gofields.GetValue(item.Interface(), fieldSpec.FieldName)
 			if err != nil {
-				logger.Debugf("invalid getFieldValue(): '%v' might not be exported", fieldSpec.FieldName)
+				logger.Debugf(
+					"invalid getFieldValue(): '%v' might not be exported",
+					fieldSpec.FieldName,
+				)
 				row = append(row, "")
 
 				continue
