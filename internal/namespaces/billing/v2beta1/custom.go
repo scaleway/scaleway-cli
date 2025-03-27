@@ -23,6 +23,7 @@ func GetCommands() *core.Commands {
 		billing.DownloadInvoiceRequestFileType("pdf"),
 		human.EnumMarshalFunc(invoiceTypeMarshalSpecs),
 	)
+
 	cmds.MustFind("billing", "invoice", "download").Override(invoiceDownloadBuilder)
 	cmds.MustFind("billing", "invoice", "export").Override(invoiceExportBuilder)
 
