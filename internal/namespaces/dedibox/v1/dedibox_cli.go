@@ -131,6 +131,7 @@ func GetGeneratedCommands() *core.Commands {
 		dediboxRpnV2DisableCompatibility(),
 	)
 }
+
 func dediboxRoot() *core.Command {
 	return &core.Command{
 		Short:     `Dedibox Phoenix API`,
@@ -306,7 +307,12 @@ func dediboxServerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*dedibox.ListServersRequest)
@@ -322,8 +328,8 @@ func dediboxServerList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Servers, nil
 
+			return resp.Servers, nil
 		},
 	}
 }
@@ -352,8 +358,8 @@ func dediboxServerGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetServer(request)
 
+			return api.GetServer(request)
 		},
 	}
 }
@@ -375,7 +381,12 @@ func dediboxServerListOptions() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*dedibox.ListSubscribableServerOptionsRequest)
@@ -391,8 +402,8 @@ func dediboxServerListOptions() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.ServerOptions, nil
 
+			return resp.ServerOptions, nil
 		},
 	}
 }
@@ -428,8 +439,8 @@ func dediboxServerSubscribeOption() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.SubscribeServerOption(request)
 
+			return api.SubscribeServerOption(request)
 		},
 	}
 }
@@ -473,8 +484,8 @@ func dediboxServerCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.CreateServer(request)
 
+			return api.CreateServer(request)
 		},
 	}
 }
@@ -510,8 +521,8 @@ func dediboxServerSubscribeStorage() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.SubscribeStorageOptions(request)
 
+			return api.SubscribeStorageOptions(request)
 		},
 	}
 }
@@ -554,8 +565,8 @@ func dediboxServerUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.UpdateServer(request)
 
+			return api.UpdateServer(request)
 		},
 	}
 }
@@ -588,6 +599,7 @@ func dediboxServerReboot() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "server",
 				Verb:     "reboot",
@@ -624,6 +636,7 @@ func dediboxServerStart() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "server",
 				Verb:     "start",
@@ -660,6 +673,7 @@ func dediboxServerStop() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "server",
 				Verb:     "stop",
@@ -696,6 +710,7 @@ func dediboxServerDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "server",
 				Verb:     "delete",
@@ -729,7 +744,12 @@ func dediboxServerListEvents() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*dedibox.ListServerEventsRequest)
@@ -745,8 +765,8 @@ func dediboxServerListEvents() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Events, nil
 
+			return resp.Events, nil
 		},
 	}
 }
@@ -776,7 +796,12 @@ func dediboxServerListDisks() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*dedibox.ListServerDisksRequest)
@@ -792,8 +817,8 @@ func dediboxServerListDisks() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Disks, nil
 
+			return resp.Disks, nil
 		},
 	}
 }
@@ -822,8 +847,8 @@ func dediboxServiceGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetService(request)
 
+			return api.GetService(request)
 		},
 	}
 }
@@ -852,8 +877,8 @@ func dediboxServiceDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.DeleteService(request)
 
+			return api.DeleteService(request)
 		},
 	}
 }
@@ -883,7 +908,12 @@ func dediboxServiceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*dedibox.ListServicesRequest)
@@ -899,8 +929,8 @@ func dediboxServiceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Services, nil
 
+			return resp.Services, nil
 		},
 	}
 }
@@ -970,7 +1000,18 @@ func dediboxServerInstall() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "efi", "swap", "ext4", "ext3", "ext2", "xfs", "ntfs", "fat32", "ufs"},
+				EnumValues: []string{
+					"unknown",
+					"efi",
+					"swap",
+					"ext4",
+					"ext3",
+					"ext2",
+					"xfs",
+					"ntfs",
+					"fat32",
+					"ufs",
+				},
 			},
 			{
 				Name:       "partitions.{index}.mount-point",
@@ -1029,8 +1070,8 @@ func dediboxServerInstall() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.InstallServer(request)
 
+			return api.InstallServer(request)
 		},
 	}
 }
@@ -1059,8 +1100,8 @@ func dediboxServerGetInstall() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetServerInstall(request)
 
+			return api.GetServerInstall(request)
 		},
 	}
 }
@@ -1093,6 +1134,7 @@ func dediboxServerCancelInstall() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "server",
 				Verb:     "cancel-install",
@@ -1132,8 +1174,8 @@ func dediboxServerGetPartitioning() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetServerDefaultPartitioning(request)
 
+			return api.GetServerDefaultPartitioning(request)
 		},
 	}
 }
@@ -1174,6 +1216,7 @@ The BMC (Baseboard Management Controller) access is available one hour after the
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "bmc",
 				Verb:     "start",
@@ -1206,8 +1249,8 @@ func dediboxBmcGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetBMCAccess(request)
 
+			return api.GetBMCAccess(request)
 		},
 	}
 }
@@ -1240,6 +1283,7 @@ func dediboxBmcStop() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "bmc",
 				Verb:     "stop",
@@ -1264,7 +1308,14 @@ func dediboxOfferList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "price_asc", "price_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"price_asc",
+					"price_desc",
+				},
 			},
 			{
 				Name:       "commercial-range",
@@ -1279,7 +1330,16 @@ func dediboxOfferList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"all", "default", "beta", "reseller", "premium", "volume", "admin", "inactive"},
+				EnumValues: []string{
+					"all",
+					"default",
+					"beta",
+					"reseller",
+					"premium",
+					"volume",
+					"admin",
+					"inactive",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -1323,7 +1383,12 @@ func dediboxOfferList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*dedibox.ListOffersRequest)
@@ -1339,8 +1404,8 @@ func dediboxOfferList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Offers, nil
 
+			return resp.Offers, nil
 		},
 	}
 }
@@ -1376,8 +1441,8 @@ func dediboxOfferGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetOffer(request)
 
+			return api.GetOffer(request)
 		},
 	}
 }
@@ -1398,7 +1463,12 @@ func dediboxOsList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "released_at_asc", "released_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"released_at_asc",
+					"released_at_desc",
+				},
 			},
 			{
 				Name:       "type",
@@ -1406,7 +1476,15 @@ func dediboxOsList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "server", "virtu", "panel", "desktop", "custom", "rescue"},
+				EnumValues: []string{
+					"unknown_type",
+					"server",
+					"virtu",
+					"panel",
+					"desktop",
+					"custom",
+					"rescue",
+				},
 			},
 			{
 				Name:       "server-id",
@@ -1422,7 +1500,12 @@ func dediboxOsList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*dedibox.ListOSRequest)
@@ -1438,8 +1521,8 @@ func dediboxOsList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Os, nil
 
+			return resp.Os, nil
 		},
 	}
 }
@@ -1482,8 +1565,8 @@ func dediboxOsGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetOS(request)
 
+			return api.GetOS(request)
 		},
 	}
 }
@@ -1519,8 +1602,8 @@ func dediboxReverseIPUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.UpdateReverse(request)
 
+			return api.UpdateReverse(request)
 		},
 	}
 }
@@ -1557,8 +1640,8 @@ func dediboxFipCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.CreateFailoverIPs(request)
 
+			return api.CreateFailoverIPs(request)
 		},
 	}
 }
@@ -1598,6 +1681,7 @@ func dediboxFipAttach() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "fip",
 				Verb:     "attach",
@@ -1634,6 +1718,7 @@ func dediboxFipDetach() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "fip",
 				Verb:     "detach",
@@ -1681,8 +1766,8 @@ func dediboxFipAttachMac() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.AttachFailoverIPToMacAddress(request)
 
+			return api.AttachFailoverIPToMacAddress(request)
 		},
 	}
 }
@@ -1711,8 +1796,8 @@ func dediboxFipDetachMac() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.DetachFailoverIPFromMacAddress(request)
 
+			return api.DetachFailoverIPFromMacAddress(request)
 		},
 	}
 }
@@ -1745,6 +1830,7 @@ func dediboxFipDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "fip",
 				Verb:     "delete",
@@ -1792,7 +1878,12 @@ func dediboxFipList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*dedibox.ListFailoverIPsRequest)
@@ -1808,8 +1899,8 @@ func dediboxFipList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.FailoverIPs, nil
 
+			return resp.FailoverIPs, nil
 		},
 	}
 }
@@ -1838,8 +1929,8 @@ func dediboxFipGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetFailoverIP(request)
 
+			return api.GetFailoverIP(request)
 		},
 	}
 }
@@ -1868,8 +1959,8 @@ func dediboxFipGetQuota() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetRemainingQuota(request)
 
+			return api.GetRemainingQuota(request)
 		},
 	}
 }
@@ -1898,8 +1989,8 @@ func dediboxRaidGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetRaid(request)
 
+			return api.GetRaid(request)
 		},
 	}
 }
@@ -1947,6 +2038,7 @@ func dediboxRaidUpdate() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "raid",
 				Verb:     "update",
@@ -1986,8 +2078,8 @@ func dediboxRescueStart() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.StartRescue(request)
 
+			return api.StartRescue(request)
 		},
 	}
 }
@@ -2016,8 +2108,8 @@ func dediboxRescueGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			return api.GetRescue(request)
 
+			return api.GetRescue(request)
 		},
 	}
 }
@@ -2050,6 +2142,7 @@ func dediboxRescueStop() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rescue",
 				Verb:     "stop",
@@ -2092,8 +2185,8 @@ func dediboxBillingListInvoice() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Invoices, nil
 
+			return resp.Invoices, nil
 		},
 	}
 }
@@ -2120,8 +2213,8 @@ func dediboxBillingGetInvoice() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
-			return api.GetInvoice(request)
 
+			return api.GetInvoice(request)
 		},
 	}
 }
@@ -2148,8 +2241,8 @@ func dediboxBillingDownloadInvoice() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
-			return api.DownloadInvoice(request)
 
+			return api.DownloadInvoice(request)
 		},
 	}
 }
@@ -2188,8 +2281,8 @@ func dediboxBillingListRefund() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Refunds, nil
 
+			return resp.Refunds, nil
 		},
 	}
 }
@@ -2216,8 +2309,8 @@ func dediboxBillingGetRefund() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
-			return api.GetRefund(request)
 
+			return api.GetRefund(request)
 		},
 	}
 }
@@ -2244,8 +2337,8 @@ func dediboxBillingDownloadRefund() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
-			return api.DownloadRefund(request)
 
+			return api.DownloadRefund(request)
 		},
 	}
 }
@@ -2267,8 +2360,8 @@ func dediboxBillingGetOrderCapacity() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
-			return api.CanOrder(request)
 
+			return api.CanOrder(request)
 		},
 	}
 }
@@ -2299,8 +2392,8 @@ func dediboxIPv6BlockGetQuota() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
-			return api.GetIPv6BlockQuotas(request)
 
+			return api.GetIPv6BlockQuotas(request)
 		},
 	}
 }
@@ -2328,8 +2421,8 @@ func dediboxIPv6BlockCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
-			return api.CreateIPv6Block(request)
 
+			return api.CreateIPv6Block(request)
 		},
 	}
 }
@@ -2357,8 +2450,8 @@ func dediboxIPv6BlockGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
-			return api.GetIPv6Block(request)
 
+			return api.GetIPv6Block(request)
 		},
 	}
 }
@@ -2394,8 +2487,8 @@ If DNS is used, minimum of 2 is necessary and maximum of 5 (no duplicate).`,
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
-			return api.UpdateIPv6Block(request)
 
+			return api.UpdateIPv6Block(request)
 		},
 	}
 }
@@ -2427,6 +2520,7 @@ func dediboxIPv6BlockDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "ipv6-block",
 				Verb:     "delete",
@@ -2474,8 +2568,8 @@ func dediboxIPv6BlockCreateSubnet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
-			return api.CreateIPv6BlockSubnet(request)
 
+			return api.CreateIPv6BlockSubnet(request)
 		},
 	}
 }
@@ -2503,8 +2597,8 @@ func dediboxIPv6BlockListSubnet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
-			return api.ListIPv6BlockSubnetsAvailable(request)
 
+			return api.ListIPv6BlockSubnetsAvailable(request)
 		},
 	}
 }
@@ -2545,8 +2639,8 @@ func dediboxRpnInfoList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Servers, nil
 
+			return resp.Servers, nil
 		},
 	}
 }
@@ -2588,8 +2682,8 @@ func dediboxRpnInfoGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnAPI(client)
-			return api.GetRpnStatus(request)
 
+			return api.GetRpnStatus(request)
 		},
 	}
 }
@@ -2630,8 +2724,8 @@ func dediboxSanList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.RpnSans, nil
 
+			return resp.RpnSans, nil
 		},
 	}
 }
@@ -2659,8 +2753,8 @@ func dediboxSanGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
-			return api.GetRpnSan(request)
 
+			return api.GetRpnSan(request)
 		},
 	}
 }
@@ -2692,6 +2786,7 @@ func dediboxSanDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "san",
 				Verb:     "delete",
@@ -2724,8 +2819,8 @@ func dediboxSanCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
-			return api.CreateRpnSan(request)
 
+			return api.CreateRpnSan(request)
 		},
 	}
 }
@@ -2761,8 +2856,8 @@ func dediboxSanListIPs() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
-			return api.ListIPs(request)
 
+			return api.ListIPs(request)
 		},
 	}
 }
@@ -2801,6 +2896,7 @@ func dediboxSanAddIP() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "san",
 				Verb:     "add-ip",
@@ -2843,6 +2939,7 @@ func dediboxSanRemoveIP() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "san",
 				Verb:     "remove-ip",
@@ -2882,8 +2979,8 @@ func dediboxSanListAvailableIPs() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
-			return api.ListAvailableIPs(request)
 
+			return api.ListAvailableIPs(request)
 		},
 	}
 }
@@ -2924,8 +3021,8 @@ func dediboxRpnV1List() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.RpnGroups, nil
 
+			return resp.RpnGroups, nil
 		},
 	}
 }
@@ -2953,8 +3050,8 @@ func dediboxRpnV1Get() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			return api.GetRpnGroup(request)
 
+			return api.GetRpnGroup(request)
 		},
 	}
 }
@@ -2997,8 +3094,8 @@ func dediboxRpnV1Create() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			return api.CreateRpnGroup(request)
 
+			return api.CreateRpnGroup(request)
 		},
 	}
 }
@@ -3030,6 +3127,7 @@ func dediboxRpnV1Delete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v1",
 				Verb:     "delete",
@@ -3068,8 +3166,8 @@ func dediboxRpnV1Update() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			return api.UpdateRpnGroupName(request)
 
+			return api.UpdateRpnGroupName(request)
 		},
 	}
 }
@@ -3117,8 +3215,8 @@ func dediboxRpnV1ListMembers() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Members, nil
 
+			return resp.Members, nil
 		},
 	}
 }
@@ -3158,6 +3256,7 @@ func dediboxRpnV1Invite() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v1",
 				Verb:     "invite",
@@ -3201,6 +3300,7 @@ func dediboxRpnV1Leave() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v1",
 				Verb:     "leave",
@@ -3246,8 +3346,8 @@ func dediboxRpnV1AddMembers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			return api.AddRpnGroupMembers(request)
 
+			return api.AddRpnGroupMembers(request)
 		},
 	}
 }
@@ -3282,8 +3382,8 @@ func dediboxRpnV1DeleteMembers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			return api.DeleteRpnGroupMembers(request)
 
+			return api.DeleteRpnGroupMembers(request)
 		},
 	}
 }
@@ -3324,8 +3424,8 @@ func dediboxRpnV1ListCapableServer() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Servers, nil
 
+			return resp.Servers, nil
 		},
 	}
 }
@@ -3366,8 +3466,8 @@ func dediboxRpnV1ListCapableSanServer() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.SanServers, nil
 
+			return resp.SanServers, nil
 		},
 	}
 }
@@ -3402,8 +3502,8 @@ func dediboxRpnV1ListInvites() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Members, nil
 
+			return resp.Members, nil
 		},
 	}
 }
@@ -3435,6 +3535,7 @@ func dediboxRpnV1AcceptInvite() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v1",
 				Verb:     "accept-invite",
@@ -3470,6 +3571,7 @@ func dediboxRpnV1RefuseInvite() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v1",
 				Verb:     "refuse-invite",
@@ -3514,8 +3616,8 @@ func dediboxRpnV2List() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.RpnGroups, nil
 
+			return resp.RpnGroups, nil
 		},
 	}
 }
@@ -3564,8 +3666,8 @@ func dediboxRpnV2ListMembers() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Members, nil
 
+			return resp.Members, nil
 		},
 	}
 }
@@ -3593,8 +3695,8 @@ func dediboxRpnV2Get() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			return api.GetRpnV2Group(request)
 
+			return api.GetRpnV2Group(request)
 		},
 	}
 }
@@ -3638,8 +3740,8 @@ func dediboxRpnV2Create() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			return api.CreateRpnV2Group(request)
 
+			return api.CreateRpnV2Group(request)
 		},
 	}
 }
@@ -3671,6 +3773,7 @@ func dediboxRpnV2Delete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v2",
 				Verb:     "delete",
@@ -3709,8 +3812,8 @@ func dediboxRpnV2Update() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			return api.UpdateRpnV2GroupName(request)
 
+			return api.UpdateRpnV2GroupName(request)
 		},
 	}
 }
@@ -3749,6 +3852,7 @@ func dediboxRpnV2AddMembers() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v2",
 				Verb:     "add-members",
@@ -3791,6 +3895,7 @@ func dediboxRpnV2DeleteMembers() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v2",
 				Verb:     "delete-members",
@@ -3835,8 +3940,8 @@ func dediboxRpnV2ListCapableResources() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Servers, nil
 
+			return resp.Servers, nil
 		},
 	}
 }
@@ -3877,8 +3982,8 @@ func dediboxRpnV2ListLogs() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Logs, nil
 
+			return resp.Logs, nil
 		},
 	}
 }
@@ -3924,6 +4029,7 @@ func dediboxRpnV2UpdateVlanMembers() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v2",
 				Verb:     "update-vlan-members",
@@ -3966,6 +4072,7 @@ func dediboxRpnV2EnableCompatibility() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v2",
 				Verb:     "enable-compatibility",
@@ -4001,6 +4108,7 @@ func dediboxRpnV2DisableCompatibility() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "rpn-v2",
 				Verb:     "disable-compatibility",

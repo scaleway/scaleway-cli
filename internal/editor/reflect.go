@@ -43,7 +43,12 @@ func hasTag(tags []string, actualTag string) bool {
 	return false
 }
 
-func valueMapperWithoutOpt(dest reflect.Value, src reflect.Value, includeFields []string, excludeFields []string) {
+func valueMapperWithoutOpt(
+	dest reflect.Value,
+	src reflect.Value,
+	includeFields []string,
+	excludeFields []string,
+) {
 	switch dest.Kind() {
 	case reflect.Struct:
 		for i := range dest.NumField() {

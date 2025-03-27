@@ -9,7 +9,10 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
-	human.RegisterMarshalerFunc(tem.DomainStatus(""), human.EnumMarshalFunc(domainStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		tem.DomainStatus(""),
+		human.EnumMarshalFunc(domainStatusMarshalSpecs),
+	)
 	human.RegisterMarshalerFunc(tem.EmailStatus(""), human.EnumMarshalFunc(emailStatusMarshalSpecs))
 
 	cmds.MustFind("tem", "domain", "get").Override(domainGetBuilder)

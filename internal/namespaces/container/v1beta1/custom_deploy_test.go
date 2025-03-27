@@ -32,7 +32,11 @@ var (
 	testDataBuildpackNodePackageLockJSON string
 )
 
-func loadTestdataBeforeFunc(path string, filename string, content string) func(ctx *core.BeforeFuncCtx) error {
+func loadTestdataBeforeFunc(
+	path string,
+	filename string,
+	content string,
+) func(ctx *core.BeforeFuncCtx) error {
 	return func(_ *core.BeforeFuncCtx) error {
 		err := os.WriteFile(filepath.Join(path, filename), []byte(content), 0o600)
 		if err != nil {
@@ -72,7 +76,11 @@ func Test_Deploy(t *testing.T) {
 			loadTestdataBeforeFunc(simplePath, "index.html", testdataDockerIndexHTML),
 			loadTestdataBeforeFunc(simplePath, "Dockerfile", testdataDockerDockerfile),
 		),
-		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=80", appName+"-s", simplePath),
+		Cmd: fmt.Sprintf(
+			"scw container deploy name=%s build-source=%s port=80",
+			appName+"-s",
+			simplePath,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -112,7 +120,11 @@ func Test_Deploy(t *testing.T) {
 			loadTestdataBeforeFunc(buildArgsPath, "index.html", testdataDockerIndexHTML),
 			loadTestdataBeforeFunc(buildArgsPath, "Dockerfile", testdataDockerDockerfileBuildArgs),
 		),
-		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest", appName+"-ba", buildArgsPath),
+		Cmd: fmt.Sprintf(
+			"scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest",
+			appName+"-ba",
+			buildArgsPath,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -131,9 +143,17 @@ func Test_Deploy(t *testing.T) {
 			mkdirAllBeforeFunc(buildpackPath),
 			loadTestdataBeforeFunc(buildpackPath, "index.js", testDataBuildpackNodeIndexJS),
 			loadTestdataBeforeFunc(buildpackPath, "package.json", testDataBuildpackNodePackageJSON),
-			loadTestdataBeforeFunc(buildpackPath, "package-lock.json", testDataBuildpackNodePackageLockJSON),
+			loadTestdataBeforeFunc(
+				buildpackPath,
+				"package-lock.json",
+				testDataBuildpackNodePackageLockJSON,
+			),
 		),
-		Cmd: fmt.Sprintf("scw container deploy name=%s build-source=%s port=3000", appName+"-bp", buildpackPath),
+		Cmd: fmt.Sprintf(
+			"scw container deploy name=%s build-source=%s port=3000",
+			appName+"-bp",
+			buildpackPath,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -170,7 +190,11 @@ func testDeleteContainersNamespaceAfter(appName string) func(*core.AfterFuncCtx)
 			return nil
 		}
 
-		return core.ExecAfterCmd(fmt.Sprintf("scw container namespace delete %s --wait", namespaceID))(ctx)
+		return core.ExecAfterCmd(
+			fmt.Sprintf("scw container namespace delete %s --wait", namespaceID),
+		)(
+			ctx,
+		)
 	}
 }
 

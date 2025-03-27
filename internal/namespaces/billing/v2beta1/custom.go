@@ -8,13 +8,19 @@ import (
 )
 
 var invoiceTypeMarshalSpecs = human.EnumMarshalSpecs{
-	billing.DownloadInvoiceRequestFileTypePdf: &human.EnumMarshalSpec{Attribute: color.FgHiBlue, Value: "pdf"},
+	billing.DownloadInvoiceRequestFileTypePdf: &human.EnumMarshalSpec{
+		Attribute: color.FgHiBlue,
+		Value:     "pdf",
+	},
 }
 
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
-	human.RegisterMarshalerFunc(billing.DownloadInvoiceRequestFileType("pdf"), human.EnumMarshalFunc(invoiceTypeMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		billing.DownloadInvoiceRequestFileType("pdf"),
+		human.EnumMarshalFunc(invoiceTypeMarshalSpecs),
+	)
 	cmds.MustFind("billing", "invoice", "download").Override(invoiceDownloadBuilder)
 	cmds.MustFind("billing", "invoice", "export").Override(invoiceExportBuilder)
 

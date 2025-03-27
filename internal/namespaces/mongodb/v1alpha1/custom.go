@@ -9,9 +9,18 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
-	human.RegisterMarshalerFunc(mongodb.SnapshotStatus(""), human.EnumMarshalFunc(snapshotStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(mongodb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(mongodb.NodeTypeStock(""), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		mongodb.SnapshotStatus(""),
+		human.EnumMarshalFunc(snapshotStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		mongodb.InstanceStatus(""),
+		human.EnumMarshalFunc(instanceStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		mongodb.NodeTypeStock(""),
+		human.EnumMarshalFunc(nodeTypeStockMarshalSpecs),
+	)
 
 	cmds.MustFind("mongodb", "instance", "create").Override(instanceCreateBuilder)
 

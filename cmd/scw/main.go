@@ -70,7 +70,9 @@ func main() {
 
 func mainNoExit() int {
 	buildInfo := &core.BuildInfo{
-		Version:         version.Must(version.NewSemver(buildVersion())), // panic when version does not respect semantic versioning
+		Version: version.Must(
+			version.NewSemver(buildVersion()),
+		), // panic when version does not respect semantic versioning
 		BuildDate:       BuildDate,
 		GoVersion:       GoVersion,
 		GitBranch:       GitBranch,

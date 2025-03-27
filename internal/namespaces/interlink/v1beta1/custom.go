@@ -9,8 +9,14 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
-	human.RegisterMarshalerFunc(interlink.BgpStatus(""), human.EnumMarshalFunc(bgpStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(interlink.LinkStatus(""), human.EnumMarshalFunc(linkStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		interlink.BgpStatus(""),
+		human.EnumMarshalFunc(bgpStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		interlink.LinkStatus(""),
+		human.EnumMarshalFunc(linkStatusMarshalSpecs),
+	)
 
 	return cmds
 }

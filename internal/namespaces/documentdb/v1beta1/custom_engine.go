@@ -32,25 +32,27 @@ func engineListBuilder(c *core.Command) *core.Command {
 		},
 	}
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		listEngineResp, err := runner(ctx, argsI)
-		if err != nil {
-			return listEngineResp, err
-		}
-		engineList := listEngineResp.([]*documentdb.DatabaseEngine)
-		var res []customEngine
-		for _, engine := range engineList {
-			for _, version := range engine.Versions {
-				res = append(res, customEngine{
-					Name:       version.Name,
-					EngineType: engine.Name,
-					EndOfLife:  version.EndOfLife,
-				})
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			listEngineResp, err := runner(ctx, argsI)
+			if err != nil {
+				return listEngineResp, err
 			}
-		}
+			engineList := listEngineResp.([]*documentdb.DatabaseEngine)
+			var res []customEngine
+			for _, engine := range engineList {
+				for _, version := range engine.Versions {
+					res = append(res, customEngine{
+						Name:       version.Name,
+						EngineType: engine.Name,
+						EndOfLife:  version.EndOfLife,
+					})
+				}
+			}
 
-		return res, nil
-	})
+			return res, nil
+		},
+	)
 
 	return c
 }

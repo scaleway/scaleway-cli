@@ -12,7 +12,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-func (p *Platform) CreateClient(httpClient *http.Client, configPath string, profileName string) (*scw.Client, error) {
+func (p *Platform) CreateClient(
+	httpClient *http.Client,
+	configPath string,
+	profileName string,
+) (*scw.Client, error) {
 	profile := scw.LoadEnvProfile()
 
 	// Default path is based on the following priority order:
@@ -123,7 +127,10 @@ func validateClient(client *scw.Client) error {
 
 	if !validation.IsAccessKey(accessKey) {
 		return &platform.ClientError{
-			Err: fmt.Errorf("invalid access key format '%s', expected SCWXXXXXXXXXXXXXXXXX format", accessKey),
+			Err: fmt.Errorf(
+				"invalid access key format '%s', expected SCWXXXXXXXXXXXXXXXXX format",
+				accessKey,
+			),
 		}
 	}
 
@@ -137,7 +144,10 @@ func validateClient(client *scw.Client) error {
 
 	if !validation.IsSecretKey(secretKey) {
 		return &platform.ClientError{
-			Err: fmt.Errorf("invalid secret key format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", secretKey),
+			Err: fmt.Errorf(
+				"invalid secret key format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+				secretKey,
+			),
 		}
 	}
 
@@ -151,7 +161,10 @@ func validateClient(client *scw.Client) error {
 
 	if !validation.IsOrganizationID(defaultOrganizationID) {
 		return &platform.ClientError{
-			Err: fmt.Errorf("invalid organization ID format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", defaultOrganizationID),
+			Err: fmt.Errorf(
+				"invalid organization ID format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+				defaultOrganizationID,
+			),
 		}
 	}
 
@@ -170,7 +183,11 @@ func validateClient(client *scw.Client) error {
 		}
 
 		return &platform.ClientError{
-			Err: fmt.Errorf("invalid default zone format '%s', available zones are: %s", defaultZone, strings.Join(zones, ", ")),
+			Err: fmt.Errorf(
+				"invalid default zone format '%s', available zones are: %s",
+				defaultZone,
+				strings.Join(zones, ", "),
+			),
 		}
 	}
 
@@ -189,7 +206,11 @@ func validateClient(client *scw.Client) error {
 		}
 
 		return &platform.ClientError{
-			Err: fmt.Errorf("invalid default region format '%s', available regions are: %s", defaultRegion, strings.Join(regions, ", ")),
+			Err: fmt.Errorf(
+				"invalid default region format '%s', available regions are: %s",
+				defaultRegion,
+				strings.Join(regions, ", "),
+			),
 		}
 	}
 

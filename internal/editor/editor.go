@@ -83,7 +83,11 @@ func edit(content []byte) ([]byte, error) {
 
 // updateResourceEditor takes a complete resource and a partial updateRequest
 // will return a copy of updateRequest that has been edited
-func updateResourceEditor(resource interface{}, updateRequest interface{}, cfg *Config) (interface{}, error) {
+func updateResourceEditor(
+	resource interface{},
+	updateRequest interface{},
+	cfg *Config,
+) (interface{}, error) {
 	// Create a copy of updateRequest completed with resource content
 	completeUpdateRequest := copyAndCompleteUpdateRequest(updateRequest, resource)
 
@@ -98,7 +102,11 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, cfg *
 	}
 
 	if len(cfg.IgnoreFields) > 0 {
-		updateRequestMarshaled, err = removeFields(updateRequestMarshaled, cfg.MarshalMode, cfg.IgnoreFields)
+		updateRequestMarshaled, err = removeFields(
+			updateRequestMarshaled,
+			cfg.MarshalMode,
+			cfg.IgnoreFields,
+		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to remove ignored fields: %w", err)
 		}
@@ -143,6 +151,10 @@ func updateResourceEditor(resource interface{}, updateRequest interface{}, cfg *
 // will return a copy of updateRequest that has been edited
 // Only edited fields will be present in returned updateRequest
 // If putRequest is true, all fields will be present, edited or not
-func UpdateResourceEditor(resource interface{}, updateRequest interface{}, cfg *Config) (interface{}, error) {
+func UpdateResourceEditor(
+	resource interface{},
+	updateRequest interface{},
+	cfg *Config,
+) (interface{}, error) {
 	return updateResourceEditor(resource, updateRequest, cfg)
 }

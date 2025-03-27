@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/interlink/v1beta1"
+	interlink "github.com/scaleway/scaleway-sdk-go/api/interlink/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -46,6 +46,7 @@ func GetGeneratedCommands() *core.Commands {
 		interlinkRoutingPolicyDelete(),
 	)
 }
+
 func interlinkRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your InterLink services`,
@@ -115,7 +116,12 @@ func interlinkPartnerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.ListPartnersRequest)
@@ -131,8 +137,8 @@ func interlinkPartnerList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Partners, nil
 
+			return resp.Partners, nil
 		},
 	}
 }
@@ -161,8 +167,8 @@ func interlinkPartnerGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.GetPartner(request)
 
+			return api.GetPartner(request)
 		},
 	}
 }
@@ -213,7 +219,12 @@ func interlinkPopList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.ListPopsRequest)
@@ -229,8 +240,8 @@ func interlinkPopList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Pops, nil
 
+			return resp.Pops, nil
 		},
 	}
 }
@@ -259,8 +270,8 @@ func interlinkPopGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.GetPop(request)
 
+			return api.GetPop(request)
 		},
 	}
 }
@@ -281,7 +292,14 @@ func interlinkLinkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -310,7 +328,21 @@ func interlinkLinkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_link_status", "configuring", "failed", "requested", "refused", "expired", "provisioning", "active", "limited_connectivity", "all_down", "deprovisioning", "deleted", "locked"},
+				EnumValues: []string{
+					"unknown_link_status",
+					"configuring",
+					"failed",
+					"requested",
+					"refused",
+					"expired",
+					"provisioning",
+					"active",
+					"limited_connectivity",
+					"all_down",
+					"deprovisioning",
+					"deleted",
+					"locked",
+				},
 			},
 			{
 				Name:       "bgp-v4-status",
@@ -377,7 +409,12 @@ func interlinkLinkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.ListLinksRequest)
@@ -393,8 +430,8 @@ func interlinkLinkList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Links, nil
 
+			return resp.Links, nil
 		},
 	}
 }
@@ -423,8 +460,8 @@ func interlinkLinkGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.GetLink(request)
 
+			return api.GetLink(request)
 		},
 	}
 }
@@ -432,7 +469,7 @@ func interlinkLinkGet() *core.Command {
 func interlinkLinkCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a link`,
-		Long:      `Create a link (InterLink connection) in a given PoP, specifying its various configuration details. For the moment only hosted links (faciliated by partners) are available, though in the future dedicated and shared links will also be possible.`,
+		Long:      `Create a link (InterLink connection) in a given PoP, specifying its various configuration details. For the moment only hosted links (facilitated by partners) are available, though in the future dedicated and shared links will also be possible.`,
 		Namespace: "interlink",
 		Resource:  "link",
 		Verb:      "create",
@@ -496,8 +533,8 @@ func interlinkLinkCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.CreateLink(request)
 
+			return api.CreateLink(request)
 		},
 	}
 }
@@ -540,8 +577,8 @@ func interlinkLinkUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.UpdateLink(request)
 
+			return api.UpdateLink(request)
 		},
 	}
 }
@@ -570,8 +607,8 @@ func interlinkLinkDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.DeleteLink(request)
 
+			return api.DeleteLink(request)
 		},
 	}
 }
@@ -607,8 +644,8 @@ func interlinkLinkAttachVpc() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.AttachVpc(request)
 
+			return api.AttachVpc(request)
 		},
 	}
 }
@@ -637,8 +674,8 @@ func interlinkLinkDetachVpc() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.DetachVpc(request)
 
+			return api.DetachVpc(request)
 		},
 	}
 }
@@ -674,8 +711,8 @@ func interlinkLinkAttachPolicy() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.AttachRoutingPolicy(request)
 
+			return api.AttachRoutingPolicy(request)
 		},
 	}
 }
@@ -704,8 +741,8 @@ func interlinkLinkDetachPolicy() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.DetachRoutingPolicy(request)
 
+			return api.DetachRoutingPolicy(request)
 		},
 	}
 }
@@ -734,8 +771,8 @@ func interlinkLinkEnablePropagation() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.EnableRoutePropagation(request)
 
+			return api.EnableRoutePropagation(request)
 		},
 	}
 }
@@ -764,8 +801,8 @@ func interlinkLinkDisablePropagation() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.DisableRoutePropagation(request)
 
+			return api.DisableRoutePropagation(request)
 		},
 	}
 }
@@ -816,7 +853,12 @@ func interlinkRoutingPolicyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.ListRoutingPoliciesRequest)
@@ -832,8 +874,8 @@ func interlinkRoutingPolicyList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.RoutingPolicies, nil
 
+			return resp.RoutingPolicies, nil
 		},
 	}
 }
@@ -862,8 +904,8 @@ func interlinkRoutingPolicyGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.GetRoutingPolicy(request)
 
+			return api.GetRoutingPolicy(request)
 		},
 	}
 }
@@ -914,8 +956,8 @@ func interlinkRoutingPolicyCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.CreateRoutingPolicy(request)
 
+			return api.CreateRoutingPolicy(request)
 		},
 	}
 }
@@ -972,8 +1014,8 @@ func interlinkRoutingPolicyUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			return api.UpdateRoutingPolicy(request)
 
+			return api.UpdateRoutingPolicy(request)
 		},
 	}
 }
@@ -1006,6 +1048,7 @@ func interlinkRoutingPolicyDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "routing-policy",
 				Verb:     "delete",

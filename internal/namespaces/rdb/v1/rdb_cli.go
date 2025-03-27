@@ -91,6 +91,7 @@ func GetGeneratedCommands() *core.Commands {
 		rdbEndpointMigrate(),
 	)
 }
+
 func rdbRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Managed Databases for PostgreSQL and MySQL`,
@@ -276,7 +277,12 @@ func rdbEngineList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabaseEnginesRequest)
@@ -292,8 +298,8 @@ func rdbEngineList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Engines, nil
 
+			return resp.Engines, nil
 		},
 	}
 }
@@ -315,7 +321,12 @@ func rdbNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListNodeTypesRequest)
@@ -331,8 +342,8 @@ func rdbNodeTypeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.NodeTypes, nil
 
+			return resp.NodeTypes, nil
 		},
 	}
 }
@@ -360,7 +371,14 @@ func rdbBackupList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "instance-id",
@@ -383,7 +401,12 @@ func rdbBackupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabaseBackupsRequest)
@@ -399,8 +422,8 @@ func rdbBackupList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.DatabaseBackups, nil
 
+			return resp.DatabaseBackups, nil
 		},
 	}
 }
@@ -451,8 +474,8 @@ func rdbBackupCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateDatabaseBackup(request)
 
+			return api.CreateDatabaseBackup(request)
 		},
 	}
 }
@@ -481,8 +504,8 @@ func rdbBackupGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetDatabaseBackup(request)
 
+			return api.GetDatabaseBackup(request)
 		},
 	}
 }
@@ -525,8 +548,8 @@ func rdbBackupUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpdateDatabaseBackup(request)
 
+			return api.UpdateDatabaseBackup(request)
 		},
 	}
 }
@@ -555,8 +578,8 @@ func rdbBackupDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteDatabaseBackup(request)
 
+			return api.DeleteDatabaseBackup(request)
 		},
 	}
 }
@@ -599,8 +622,8 @@ func rdbBackupRestore() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.RestoreDatabaseBackup(request)
 
+			return api.RestoreDatabaseBackup(request)
 		},
 	}
 }
@@ -629,8 +652,8 @@ func rdbBackupExport() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.ExportDatabaseBackup(request)
 
+			return api.ExportDatabaseBackup(request)
 		},
 	}
 }
@@ -716,8 +739,8 @@ func rdbInstanceUpgrade() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpgradeInstance(request)
 
+			return api.UpgradeInstance(request)
 		},
 	}
 }
@@ -752,7 +775,15 @@ func rdbInstanceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "region", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"region",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -768,7 +799,12 @@ func rdbInstanceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstancesRequest)
@@ -784,8 +820,8 @@ func rdbInstanceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Instances, nil
 
+			return resp.Instances, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -846,8 +882,8 @@ func rdbInstanceGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetInstance(request)
 
+			return api.GetInstance(request)
 		},
 	}
 }
@@ -982,8 +1018,8 @@ func rdbInstanceCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateInstance(request)
 
+			return api.CreateInstance(request)
 		},
 	}
 }
@@ -1075,8 +1111,8 @@ func rdbInstanceUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpdateInstance(request)
 
+			return api.UpdateInstance(request)
 		},
 	}
 }
@@ -1105,8 +1141,8 @@ func rdbInstanceDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteInstance(request)
 
+			return api.DeleteInstance(request)
 		},
 	}
 }
@@ -1149,8 +1185,8 @@ func rdbInstanceClone() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CloneInstance(request)
 
+			return api.CloneInstance(request)
 		},
 	}
 }
@@ -1179,8 +1215,8 @@ func rdbInstanceRestart() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.RestartInstance(request)
 
+			return api.RestartInstance(request)
 		},
 	}
 }
@@ -1209,8 +1245,8 @@ func rdbInstanceGetCertificate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetInstanceCertificate(request)
 
+			return api.GetInstanceCertificate(request)
 		},
 	}
 }
@@ -1243,6 +1279,7 @@ func rdbInstanceRenewCertificate() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "instance",
 				Verb:     "renew-certificate",
@@ -1296,8 +1333,8 @@ func rdbInstanceGetMetrics() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetInstanceMetrics(request)
 
+			return api.GetInstanceMetrics(request)
 		},
 	}
 }
@@ -1347,8 +1384,8 @@ func rdbReadReplicaCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateReadReplica(request)
 
+			return api.CreateReadReplica(request)
 		},
 	}
 }
@@ -1377,8 +1414,8 @@ func rdbReadReplicaGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetReadReplica(request)
 
+			return api.GetReadReplica(request)
 		},
 	}
 }
@@ -1407,8 +1444,8 @@ func rdbReadReplicaDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteReadReplica(request)
 
+			return api.DeleteReadReplica(request)
 		},
 	}
 }
@@ -1438,8 +1475,8 @@ The configured endpoints do not change.`,
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.ResetReadReplica(request)
 
+			return api.ResetReadReplica(request)
 		},
 	}
 }
@@ -1482,8 +1519,8 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateReadReplicaEndpoint(request)
 
+			return api.CreateReadReplicaEndpoint(request)
 		},
 	}
 }
@@ -1526,8 +1563,8 @@ func rdbLogPrepare() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.PrepareInstanceLogs(request)
 
+			return api.PrepareInstanceLogs(request)
 		},
 	}
 }
@@ -1564,8 +1601,8 @@ func rdbLogList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.ListInstanceLogs(request)
 
+			return api.ListInstanceLogs(request)
 		},
 	}
 }
@@ -1594,8 +1631,8 @@ func rdbLogGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetInstanceLog(request)
 
+			return api.GetInstanceLog(request)
 		},
 	}
 }
@@ -1635,6 +1672,7 @@ func rdbLogPurge() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "log",
 				Verb:     "purge",
@@ -1667,8 +1705,8 @@ func rdbLogListDetails() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.ListInstanceLogsDetails(request)
 
+			return api.ListInstanceLogsDetails(request)
 		},
 	}
 }
@@ -1709,8 +1747,8 @@ func rdbSettingAdd() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.AddInstanceSettings(request)
 
+			return api.AddInstanceSettings(request)
 		},
 	}
 }
@@ -1746,8 +1784,8 @@ func rdbSettingDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteInstanceSettings(request)
 
+			return api.DeleteInstanceSettings(request)
 		},
 	}
 }
@@ -1755,7 +1793,7 @@ func rdbSettingDelete() *core.Command {
 func rdbSettingSet() *core.Command {
 	return &core.Command{
 		Short:     `Set Database Instance advanced settings`,
-		Long:      `Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.`,
+		Long:      `Update an advanced setting for a Database Instance. Settings added upon database engine initialization can only be defined once, and cannot, therefore, be updated.`,
 		Namespace: "rdb",
 		Resource:  "setting",
 		Verb:      "set",
@@ -1788,8 +1826,8 @@ func rdbSettingSet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.SetInstanceSettings(request)
 
+			return api.SetInstanceSettings(request)
 		},
 	}
 }
@@ -1811,7 +1849,12 @@ func rdbACLList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstanceACLRulesRequest)
@@ -1827,8 +1870,8 @@ func rdbACLList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Rules, nil
 
+			return resp.Rules, nil
 		},
 	}
 }
@@ -1869,8 +1912,8 @@ func rdbACLAdd() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.AddInstanceACLRules(request)
 
+			return api.AddInstanceACLRules(request)
 		},
 	}
 }
@@ -1911,8 +1954,8 @@ func rdbACLSet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.SetInstanceACLRules(request)
 
+			return api.SetInstanceACLRules(request)
 		},
 	}
 }
@@ -1948,8 +1991,8 @@ func rdbACLDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteInstanceACLRules(request)
 
+			return api.DeleteInstanceACLRules(request)
 		},
 	}
 }
@@ -1986,7 +2029,12 @@ func rdbUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListUsersRequest)
@@ -2002,8 +2050,8 @@ func rdbUserList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Users, nil
 
+			return resp.Users, nil
 		},
 	}
 }
@@ -2053,8 +2101,8 @@ func rdbUserCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateUser(request)
 
+			return api.CreateUser(request)
 		},
 	}
 }
@@ -2104,8 +2152,8 @@ func rdbUserUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpdateUser(request)
 
+			return api.UpdateUser(request)
 		},
 	}
 }
@@ -2145,6 +2193,7 @@ func rdbUserDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "user",
 				Verb:     "delete",
@@ -2199,7 +2248,12 @@ func rdbDatabaseList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabasesRequest)
@@ -2215,8 +2269,8 @@ func rdbDatabaseList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Databases, nil
 
+			return resp.Databases, nil
 		},
 	}
 }
@@ -2252,8 +2306,8 @@ func rdbDatabaseCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateDatabase(request)
 
+			return api.CreateDatabase(request)
 		},
 	}
 }
@@ -2293,6 +2347,7 @@ func rdbDatabaseDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "database",
 				Verb:     "delete",
@@ -2317,7 +2372,12 @@ func rdbPrivilegeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"user_name_asc", "user_name_desc", "database_name_asc", "database_name_desc"},
+				EnumValues: []string{
+					"user_name_asc",
+					"user_name_desc",
+					"database_name_asc",
+					"database_name_desc",
+				},
 			},
 			{
 				Name:       "database-name",
@@ -2340,7 +2400,12 @@ func rdbPrivilegeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListPrivilegesRequest)
@@ -2356,8 +2421,8 @@ func rdbPrivilegeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Privileges, nil
 
+			return resp.Privileges, nil
 		},
 	}
 }
@@ -2408,8 +2473,8 @@ func rdbPrivilegeSet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.SetPrivilege(request)
 
+			return api.SetPrivilege(request)
 		},
 	}
 }
@@ -2437,7 +2502,14 @@ func rdbSnapshotList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "expires_at_asc", "expires_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"expires_at_asc",
+					"expires_at_desc",
+				},
 			},
 			{
 				Name:       "instance-id",
@@ -2460,7 +2532,12 @@ func rdbSnapshotList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListSnapshotsRequest)
@@ -2476,8 +2553,8 @@ func rdbSnapshotList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Snapshots, nil
 
+			return resp.Snapshots, nil
 		},
 	}
 }
@@ -2506,8 +2583,8 @@ func rdbSnapshotGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetSnapshot(request)
 
+			return api.GetSnapshot(request)
 		},
 	}
 }
@@ -2551,8 +2628,8 @@ func rdbSnapshotCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateSnapshot(request)
 
+			return api.CreateSnapshot(request)
 		},
 	}
 }
@@ -2595,8 +2672,8 @@ func rdbSnapshotUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpdateSnapshot(request)
 
+			return api.UpdateSnapshot(request)
 		},
 	}
 }
@@ -2625,8 +2702,8 @@ func rdbSnapshotDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteSnapshot(request)
 
+			return api.DeleteSnapshot(request)
 		},
 	}
 }
@@ -2676,8 +2753,8 @@ func rdbSnapshotRestore() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateInstanceFromSnapshot(request)
 
+			return api.CreateInstanceFromSnapshot(request)
 		},
 	}
 }
@@ -2720,8 +2797,8 @@ func rdbEndpointCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateEndpoint(request)
 
+			return api.CreateEndpoint(request)
 		},
 	}
 }
@@ -2754,6 +2831,7 @@ func rdbEndpointDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "endpoint",
 				Verb:     "delete",
@@ -2786,8 +2864,8 @@ func rdbEndpointGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetEndpoint(request)
 
+			return api.GetEndpoint(request)
 		},
 	}
 }
@@ -2823,8 +2901,8 @@ func rdbEndpointMigrate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.MigrateEndpoint(request)
 
+			return api.MigrateEndpoint(request)
 		},
 	}
 }

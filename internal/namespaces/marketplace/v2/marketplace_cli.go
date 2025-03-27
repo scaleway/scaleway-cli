@@ -34,6 +34,7 @@ func GetGeneratedCommands() *core.Commands {
 		marketplaceCategoryGet(),
 	)
 }
+
 func marketplaceRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to find available images for use when launching a Scaleway Instance`,
@@ -94,7 +95,14 @@ func marketplaceImageList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "arch",
@@ -128,8 +136,8 @@ func marketplaceImageList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Images, nil
 
+			return resp.Images, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -192,8 +200,8 @@ func marketplaceImageGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			return api.GetImage(request)
 
+			return api.GetImage(request)
 		},
 	}
 }
@@ -232,8 +240,8 @@ func marketplaceVersionList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Versions, nil
 
+			return resp.Versions, nil
 		},
 	}
 }
@@ -260,8 +268,8 @@ func marketplaceVersionGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			return api.GetVersion(request)
 
+			return api.GetVersion(request)
 		},
 	}
 }
@@ -331,8 +339,8 @@ func marketplaceLocalImageList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.LocalImages, nil
 
+			return resp.LocalImages, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -379,8 +387,8 @@ func marketplaceLocalImageGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			return api.GetLocalImage(request)
 
+			return api.GetLocalImage(request)
 		},
 	}
 }
@@ -405,8 +413,8 @@ func marketplaceCategoryList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Categories, nil
 
+			return resp.Categories, nil
 		},
 	}
 }
@@ -433,8 +441,8 @@ func marketplaceCategoryGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			return api.GetCategory(request)
 
+			return api.GetCategory(request)
 		},
 	}
 }

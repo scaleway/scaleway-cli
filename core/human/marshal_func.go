@@ -28,109 +28,142 @@ func init() {
 	marshalerFuncs.Store(reflect.TypeOf(uint32(0)), defaultMarshalerFunc)
 	marshalerFuncs.Store(reflect.TypeOf(uint64(0)), defaultMarshalerFunc)
 	marshalerFuncs.Store(reflect.TypeOf(string("")), defaultMarshalerFunc)
-	marshalerFuncs.Store(reflect.TypeOf(bool(false)), func(i interface{}, _ *MarshalOpt) (string, error) {
-		v := i.(bool)
-		if v {
-			return terminal.Style("true", color.FgGreen), nil
-		}
-
-		return terminal.Style("false", color.FgRed), nil
-	})
-	marshalerFuncs.Store(reflect.TypeOf(time.Time{}), func(i interface{}, _ *MarshalOpt) (string, error) {
-		return humanize.Time(i.(time.Time)), nil
-	})
-	marshalerFuncs.Store(reflect.TypeOf(&time.Time{}), func(i interface{}, _ *MarshalOpt) (string, error) {
-		t := i.(*time.Time)
-		if t == nil {
-			return Marshal(nil, nil)
-		}
-
-		return Marshal(*t, nil)
-	})
-	marshalerFuncs.Store(reflect.TypeOf(scw.Size(0)), func(i interface{}, _ *MarshalOpt) (string, error) {
-		size := uint64(i.(scw.Size))
-
-		if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
-			return humanize.IBytes(size), nil
-		}
-
-		return humanize.Bytes(size), nil
-	})
-	marshalerFuncs.Store(reflect.TypeOf(scw.SizePtr(0)), func(i interface{}, _ *MarshalOpt) (string, error) {
-		size := uint64(*i.(*scw.Size))
-
-		if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
-			return humanize.IBytes(size), nil
-		}
-
-		return humanize.Bytes(size), nil
-	})
-	marshalerFuncs.Store(reflect.TypeOf([]scw.Size{}), func(i interface{}, _ *MarshalOpt) (string, error) {
-		sizes := i.([]scw.Size)
-		strs := []string(nil)
-		for _, size := range sizes {
-			s, err := Marshal(size, nil)
-			if err != nil {
-				return "", err
+	marshalerFuncs.Store(
+		reflect.TypeOf(bool(false)),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			v := i.(bool)
+			if v {
+				return terminal.Style("true", color.FgGreen), nil
 			}
-			strs = append(strs, s)
-		}
 
-		return strings.Join(strs, ", "), nil
-	})
-	marshalerFuncs.Store(reflect.TypeOf(net.IP{}), func(i interface{}, _ *MarshalOpt) (string, error) {
-		return fmt.Sprintf("%v", i.(net.IP)), nil
-	})
-	marshalerFuncs.Store(reflect.TypeOf([]net.IP{}), func(i interface{}, _ *MarshalOpt) (string, error) {
-		return fmt.Sprintf("%v", i), nil
-	})
-	marshalerFuncs.Store(reflect.TypeOf(scw.IPNet{}), func(i interface{}, _ *MarshalOpt) (string, error) {
-		v := i.(scw.IPNet)
-		str := v.String()
-		if str == "<nil>" {
-			return "-", nil
-		}
+			return terminal.Style("false", color.FgRed), nil
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf(time.Time{}),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			return humanize.Time(i.(time.Time)), nil
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf(&time.Time{}),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			t := i.(*time.Time)
+			if t == nil {
+				return Marshal(nil, nil)
+			}
 
-		return str, nil
-	})
-	marshalerFuncs.Store(reflect.TypeOf(version.Version{}), func(i interface{}, _ *MarshalOpt) (string, error) {
-		v := i.(version.Version)
+			return Marshal(*t, nil)
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf(scw.Size(0)),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			size := uint64(i.(scw.Size))
 
-		return v.String(), nil
-	})
-	marshalerFuncs.Store(reflect.TypeOf(scw.Duration{}), func(i interface{}, _ *MarshalOpt) (string, error) {
-		v := i.(scw.Duration)
-		const (
-			minutes = int64(60)
-			hours   = 60 * minutes
-			days    = 24 * hours
-		)
-		d := v.Seconds / days
-		h := (v.Seconds - d*days) / hours
-		m := (v.Seconds - (d*days + h*hours)) / minutes
-		s := v.Seconds % 60
-		res := []string(nil)
-		if d != 0 {
-			res = append(res, fmt.Sprintf("%d days", d))
-		}
-		if h != 0 {
-			res = append(res, fmt.Sprintf("%d hours", h))
-		}
-		if m != 0 {
-			res = append(res, fmt.Sprintf("%d minutes", m))
-		}
-		if s != 0 {
-			res = append(res, fmt.Sprintf("%d seconds", s))
-		}
-		if v.Nanos != 0 {
-			res = append(res, fmt.Sprintf("%d nanoseconds", v.Nanos))
-		}
-		if len(res) == 0 {
-			return "0 seconds", nil
-		}
+			if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
+				return humanize.IBytes(size), nil
+			}
 
-		return strings.Join(res, " "), nil
-	})
+			return humanize.Bytes(size), nil
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf(scw.SizePtr(0)),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			size := uint64(*i.(*scw.Size))
+
+			if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
+				return humanize.IBytes(size), nil
+			}
+
+			return humanize.Bytes(size), nil
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf([]scw.Size{}),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			sizes := i.([]scw.Size)
+			strs := []string(nil)
+			for _, size := range sizes {
+				s, err := Marshal(size, nil)
+				if err != nil {
+					return "", err
+				}
+				strs = append(strs, s)
+			}
+
+			return strings.Join(strs, ", "), nil
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf(net.IP{}),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			return fmt.Sprintf("%v", i.(net.IP)), nil
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf([]net.IP{}),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			return fmt.Sprintf("%v", i), nil
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf(scw.IPNet{}),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			v := i.(scw.IPNet)
+			str := v.String()
+			if str == "<nil>" {
+				return "-", nil
+			}
+
+			return str, nil
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf(version.Version{}),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			v := i.(version.Version)
+
+			return v.String(), nil
+		},
+	)
+	marshalerFuncs.Store(
+		reflect.TypeOf(scw.Duration{}),
+		func(i interface{}, _ *MarshalOpt) (string, error) {
+			v := i.(scw.Duration)
+			const (
+				minutes = int64(60)
+				hours   = 60 * minutes
+				days    = 24 * hours
+			)
+			d := v.Seconds / days
+			h := (v.Seconds - d*days) / hours
+			m := (v.Seconds - (d*days + h*hours)) / minutes
+			s := v.Seconds % 60
+			res := []string(nil)
+			if d != 0 {
+				res = append(res, fmt.Sprintf("%d days", d))
+			}
+			if h != 0 {
+				res = append(res, fmt.Sprintf("%d hours", h))
+			}
+			if m != 0 {
+				res = append(res, fmt.Sprintf("%d minutes", m))
+			}
+			if s != 0 {
+				res = append(res, fmt.Sprintf("%d seconds", s))
+			}
+			if v.Nanos != 0 {
+				res = append(res, fmt.Sprintf("%d nanoseconds", v.Nanos))
+			}
+			if len(res) == 0 {
+				return "0 seconds", nil
+			}
+
+			return strings.Join(res, " "), nil
+		},
+	)
 	registerMarshaler(func(i scw.JSONObject, _ *MarshalOpt) (string, error) {
 		data, err := json.Marshal(i)
 		if err != nil {

@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
+	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -41,6 +41,7 @@ func GetGeneratedCommands() *core.Commands {
 		appleSiliconPrivateNetworkDelete(),
 	)
 }
+
 func appleSiliconRoot() *core.Command {
 	return &core.Command{
 		Short:     `Apple silicon API`,
@@ -107,8 +108,8 @@ func appleSiliconServerTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			return api.ListServerTypes(request)
 
+			return api.ListServerTypes(request)
 		},
 	}
 }
@@ -137,8 +138,8 @@ func appleSiliconServerTypeGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			return api.GetServerType(request)
 
+			return api.GetServerType(request)
 		},
 	}
 }
@@ -198,8 +199,8 @@ func appleSiliconServerCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			return api.CreateServer(request)
 
+			return api.CreateServer(request)
 		},
 	}
 }
@@ -252,8 +253,8 @@ func appleSiliconServerList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Servers, nil
 
+			return resp.Servers, nil
 		},
 	}
 }
@@ -298,8 +299,8 @@ func appleSiliconOsList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Os, nil
 
+			return resp.Os, nil
 		},
 	}
 }
@@ -328,8 +329,8 @@ func appleSiliconOsGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			return api.GetOS(request)
 
+			return api.GetOS(request)
 		},
 	}
 }
@@ -358,8 +359,8 @@ func appleSiliconServerGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			return api.GetServer(request)
 
+			return api.GetServer(request)
 		},
 	}
 }
@@ -416,8 +417,8 @@ func appleSiliconServerUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			return api.UpdateServer(request)
 
+			return api.UpdateServer(request)
 		},
 	}
 }
@@ -450,6 +451,7 @@ func appleSiliconServerDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "server",
 				Verb:     "delete",
@@ -482,8 +484,8 @@ func appleSiliconServerReboot() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			return api.RebootServer(request)
 
+			return api.RebootServer(request)
 		},
 	}
 }
@@ -519,8 +521,8 @@ func appleSiliconServerReinstall() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			return api.ReinstallServer(request)
 
+			return api.ReinstallServer(request)
 		},
 	}
 }
@@ -563,8 +565,8 @@ func appleSiliconPrivateNetworkAdd() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
-			return api.AddServerPrivateNetwork(request)
 
+			return api.AddServerPrivateNetwork(request)
 		},
 	}
 }
@@ -600,8 +602,8 @@ func appleSiliconPrivateNetworkSet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
-			return api.SetServerPrivateNetworks(request)
 
+			return api.SetServerPrivateNetworks(request)
 		},
 	}
 }
@@ -622,7 +624,12 @@ func appleSiliconPrivateNetworkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "server-id",
@@ -675,8 +682,8 @@ func appleSiliconPrivateNetworkList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.ServerPrivateNetworks, nil
 
+			return resp.ServerPrivateNetworks, nil
 		},
 	}
 }
@@ -716,6 +723,7 @@ func appleSiliconPrivateNetworkDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "private-network",
 				Verb:     "delete",

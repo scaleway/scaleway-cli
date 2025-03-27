@@ -24,7 +24,11 @@ func Test_UserGetURL(t *testing.T) {
 				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("postgresql://%s@%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
+				expected := fmt.Sprintf(
+					"postgresql://%s@%s",
+					user,
+					net.JoinHostPort(ip.String(), strconv.Itoa(int(port))),
+				)
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),
@@ -43,7 +47,11 @@ func Test_UserGetURL(t *testing.T) {
 				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("mysql://%s@%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
+				expected := fmt.Sprintf(
+					"mysql://%s@%s",
+					user,
+					net.JoinHostPort(ip.String(), strconv.Itoa(int(port))),
+				)
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),
@@ -57,8 +65,15 @@ func Test_UserGetURL(t *testing.T) {
 	t.Run("With custom user", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
-			core.ExecBeforeCmd(fmt.Sprintf("scw rdb user create instance-id={{ $.Instance.ID }} name=%s password=%s is-admin=false", customUserName, customUserPassword)),
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+			core.ExecBeforeCmd(
+				fmt.Sprintf(
+					"scw rdb user create instance-id={{ $.Instance.ID }} name=%s password=%s is-admin=false",
+					customUserName,
+					customUserPassword,
+				),
+			),
 		),
 		Cmd: "scw rdb user get-url {{ $.Instance.ID }} user=" + customUserName,
 		Check: core.TestCheckCombine(
@@ -67,7 +82,11 @@ func Test_UserGetURL(t *testing.T) {
 				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("postgresql://%s@%s", customUserName, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
+				expected := fmt.Sprintf(
+					"postgresql://%s@%s",
+					customUserName,
+					net.JoinHostPort(ip.String(), strconv.Itoa(int(port))),
+				)
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),
@@ -77,8 +96,11 @@ func Test_UserGetURL(t *testing.T) {
 	t.Run("With custom database", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}"),
-			core.ExecBeforeCmd("scw rdb database create instance-id={{ $.Instance.ID }} name="+customDBName),
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+			core.ExecBeforeCmd(
+				"scw rdb database create instance-id={{ $.Instance.ID }} name="+customDBName,
+			),
 		),
 		Cmd: "scw rdb user get-url {{ $.Instance.ID }} db=" + customDBName,
 		Check: core.TestCheckCombine(
@@ -87,7 +109,12 @@ func Test_UserGetURL(t *testing.T) {
 				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("postgresql://%s@%s/%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))), customDBName)
+				expected := fmt.Sprintf(
+					"postgresql://%s@%s/%s",
+					user,
+					net.JoinHostPort(ip.String(), strconv.Itoa(int(port))),
+					customDBName,
+				)
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),
@@ -108,7 +135,11 @@ func Test_DatabaseGetURL(t *testing.T) {
 				t.Helper()
 				ip := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].IP
 				port := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.Endpoints[0].Port
-				expected := fmt.Sprintf("postgresql://%s@%s", user, net.JoinHostPort(ip.String(), strconv.Itoa(int(port))))
+				expected := fmt.Sprintf(
+					"postgresql://%s@%s",
+					user,
+					net.JoinHostPort(ip.String(), strconv.Itoa(int(port))),
+				)
 				assert.Equal(t, expected, ctx.Result)
 			},
 		),

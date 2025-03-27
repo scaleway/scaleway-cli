@@ -13,7 +13,10 @@ import (
 
 var ipTypeOption = []string{"IPv4", "IPv6"}
 
-func promptIPFlexibleServer(ctx context.Context, req *serverAddFlexibleIPRequest) (*serverAddFlexibleIPRequest, error) {
+func promptIPFlexibleServer(
+	ctx context.Context,
+	req *serverAddFlexibleIPRequest,
+) (*serverAddFlexibleIPRequest, error) {
 	if !interactive.IsInteractive {
 		return nil, &core.CliError{
 			Err:  errors.New("failed to create and attach a new flexible IP"),

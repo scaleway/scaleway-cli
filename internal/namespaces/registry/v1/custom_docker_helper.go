@@ -88,7 +88,9 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 	helperScriptContent := buf.String()
 
 	// Warning
-	_, _ = interactive.Println("To enable the Docker credential helper we need to create the file " + helperScriptPath + " with the following lines:\n")
+	_, _ = interactive.Println(
+		"To enable the Docker credential helper we need to create the file " + helperScriptPath + " with the following lines:\n",
+	)
 	_, _ = interactive.Println(helperScriptContent)
 
 	// Early exit if user disagrees
@@ -123,8 +125,19 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 	_, _ = interactive.Println()
 	_, err = exec.LookPath("docker-credential-" + binaryName)
 	if err != nil {
-		_, _ = interactive.Println(fmt.Sprintf("docker-credential-%s is not present in your $PATH, you should add %s to your $PATH to make it work.", binaryName, path.Dir(helperScriptPath)))
-		_, _ = interactive.Println(fmt.Sprintf("You can add it by adding `export PATH=$PATH:%s` to your `.bashrc`, `.fishrc` or `.zshrc`", path.Dir(helperScriptPath)))
+		_, _ = interactive.Println(
+			fmt.Sprintf(
+				"docker-credential-%s is not present in your $PATH, you should add %s to your $PATH to make it work.",
+				binaryName,
+				path.Dir(helperScriptPath),
+			),
+		)
+		_, _ = interactive.Println(
+			fmt.Sprintf(
+				"You can add it by adding `export PATH=$PATH:%s` to your `.bashrc`, `.fishrc` or `.zshrc`",
+				path.Dir(helperScriptPath),
+			),
+		)
 	} else {
 		_, _ = interactive.PrintlnWithoutIndent("Docker credential helper successfully installed.")
 		_, _ = interactive.PrintlnWithoutIndent("The Docker credential helper will now take care of the authentication for you.")

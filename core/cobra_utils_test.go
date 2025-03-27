@@ -117,7 +117,9 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckError(&core.CliError{
-				Err:  errors.New("invalid argument 'name_id': arg name must only contain lowercase letters, numbers or dashes"),
+				Err: errors.New(
+					"invalid argument 'name_id': arg name must only contain lowercase letters, numbers or dashes",
+				),
 				Hint: "Valid arguments are: name-id",
 			}),
 		),
@@ -129,7 +131,9 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckError(&core.CliError{
-				Err:  errors.New("invalid argument 'ubuntu_focal': arg name must only contain lowercase letters, numbers or dashes"),
+				Err: errors.New(
+					"invalid argument 'ubuntu_focal': arg name must only contain lowercase letters, numbers or dashes",
+				),
 				Hint: "Valid arguments are: name-id",
 			}),
 		),

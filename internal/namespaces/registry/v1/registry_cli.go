@@ -37,6 +37,7 @@ func GetGeneratedCommands() *core.Commands {
 		registryTagDelete(),
 	)
 }
+
 func registryRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Container Registry resources`,
@@ -94,7 +95,14 @@ func registryNamespaceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "description_asc", "description_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"description_asc",
+					"description_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -117,7 +125,12 @@ func registryNamespaceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.ListNamespacesRequest)
@@ -133,8 +146,8 @@ func registryNamespaceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Namespaces, nil
 
+			return resp.Namespaces, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -207,8 +220,8 @@ func registryNamespaceGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			return api.GetNamespace(request)
 
+			return api.GetNamespace(request)
 		},
 	}
 }
@@ -254,8 +267,8 @@ func registryNamespaceCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			return api.CreateNamespace(request)
 
+			return api.CreateNamespace(request)
 		},
 	}
 }
@@ -298,8 +311,8 @@ func registryNamespaceUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			return api.UpdateNamespace(request)
 
+			return api.UpdateNamespace(request)
 		},
 	}
 }
@@ -328,8 +341,8 @@ func registryNamespaceDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			return api.DeleteNamespace(request)
 
+			return api.DeleteNamespace(request)
 		},
 	}
 }
@@ -380,7 +393,12 @@ func registryImageList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.ListImagesRequest)
@@ -396,8 +414,8 @@ func registryImageList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Images, nil
 
+			return resp.Images, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -458,8 +476,8 @@ func registryImageGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			return api.GetImage(request)
 
+			return api.GetImage(request)
 		},
 	}
 }
@@ -496,8 +514,8 @@ func registryImageUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			return api.UpdateImage(request)
 
+			return api.UpdateImage(request)
 		},
 	}
 }
@@ -526,8 +544,8 @@ func registryImageDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			return api.DeleteImage(request)
 
+			return api.DeleteImage(request)
 		},
 	}
 }
@@ -564,7 +582,12 @@ func registryTagList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*registry.ListTagsRequest)
@@ -580,8 +603,8 @@ func registryTagList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Tags, nil
 
+			return resp.Tags, nil
 		},
 	}
 }
@@ -610,8 +633,8 @@ func registryTagGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			return api.GetTag(request)
 
+			return api.GetTag(request)
 		},
 	}
 }
@@ -647,8 +670,8 @@ func registryTagDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			return api.DeleteTag(request)
 
+			return api.DeleteTag(request)
 		},
 	}
 }

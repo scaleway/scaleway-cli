@@ -46,6 +46,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcRouteList(),
 	)
 }
+
 func vpcRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks`,
@@ -164,7 +165,12 @@ func vpcVpcList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.ListVPCsRequest)
@@ -180,8 +186,8 @@ func vpcVpcList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Vpcs, nil
 
+			return resp.Vpcs, nil
 		},
 	}
 }
@@ -226,8 +232,8 @@ func vpcVpcCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.CreateVPC(request)
 
+			return api.CreateVPC(request)
 		},
 	}
 }
@@ -256,8 +262,8 @@ func vpcVpcGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.GetVPC(request)
 
+			return api.GetVPC(request)
 		},
 	}
 }
@@ -300,8 +306,8 @@ func vpcVpcUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.UpdateVPC(request)
 
+			return api.UpdateVPC(request)
 		},
 	}
 }
@@ -334,6 +340,7 @@ func vpcVpcDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "vpc",
 				Verb:     "delete",
@@ -409,7 +416,12 @@ func vpcPrivateNetworkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.ListPrivateNetworksRequest)
@@ -425,8 +437,8 @@ func vpcPrivateNetworkList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.PrivateNetworks, nil
 
+			return resp.PrivateNetworks, nil
 		},
 	}
 }
@@ -478,8 +490,8 @@ func vpcPrivateNetworkCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.CreatePrivateNetwork(request)
 
+			return api.CreatePrivateNetwork(request)
 		},
 	}
 }
@@ -508,8 +520,8 @@ func vpcPrivateNetworkGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.GetPrivateNetwork(request)
 
+			return api.GetPrivateNetwork(request)
 		},
 	}
 }
@@ -552,8 +564,8 @@ func vpcPrivateNetworkUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.UpdatePrivateNetwork(request)
 
+			return api.UpdatePrivateNetwork(request)
 		},
 	}
 }
@@ -586,6 +598,7 @@ func vpcPrivateNetworkDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "private-network",
 				Verb:     "delete",
@@ -618,8 +631,8 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.EnableDHCP(request)
 
+			return api.EnableDHCP(request)
 		},
 	}
 }
@@ -648,8 +661,8 @@ func vpcRouteEnableRouting() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.EnableRouting(request)
 
+			return api.EnableRouting(request)
 		},
 	}
 }
@@ -713,8 +726,8 @@ func vpcRouteCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.CreateRoute(request)
 
+			return api.CreateRoute(request)
 		},
 	}
 }
@@ -743,8 +756,8 @@ func vpcRouteGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.GetRoute(request)
 
+			return api.GetRoute(request)
 		},
 	}
 }
@@ -808,8 +821,8 @@ func vpcRouteUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.UpdateRoute(request)
 
+			return api.UpdateRoute(request)
 		},
 	}
 }
@@ -842,6 +855,7 @@ func vpcRouteDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "route",
 				Verb:     "delete",
@@ -881,8 +895,8 @@ func vpcRuleGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.GetACL(request)
 
+			return api.GetACL(request)
 		},
 	}
 }
@@ -991,8 +1005,8 @@ func vpcRuleSet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.SetACL(request)
 
+			return api.SetACL(request)
 		},
 	}
 }
@@ -1013,7 +1027,14 @@ func vpcRouteList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "destination_asc", "destination_desc", "prefix_len_asc", "prefix_len_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"destination_asc",
+					"destination_desc",
+					"prefix_len_asc",
+					"prefix_len_desc",
+				},
 			},
 			{
 				Name:       "vpc-id",
@@ -1042,7 +1063,13 @@ func vpcRouteList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "vpc_gateway_network", "instance_private_nic", "baremetal_private_nic", "apple_silicon_private_nic"},
+				EnumValues: []string{
+					"unknown_type",
+					"vpc_gateway_network",
+					"instance_private_nic",
+					"baremetal_private_nic",
+					"apple_silicon_private_nic",
+				},
 			},
 			{
 				Name:       "contains",
@@ -1077,8 +1104,8 @@ func vpcRouteList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Routes, nil
 
+			return resp.Routes, nil
 		},
 	}
 }

@@ -88,7 +88,10 @@ func Test_getValuesForFieldByName(t *testing.T) {
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
 				t.Helper()
-				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
+				values, err := core.GetValuesForFieldByName(
+					reflect.ValueOf(tc.cmdArgs),
+					strings.Split(tc.fieldName, "."),
+				)
 				if err != nil {
 					assert.Equal(t, tc.expectedError, err.Error())
 				} else if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
@@ -117,7 +120,10 @@ func Test_getValuesForFieldByName(t *testing.T) {
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
 				t.Helper()
-				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
+				values, err := core.GetValuesForFieldByName(
+					reflect.ValueOf(tc.cmdArgs),
+					strings.Split(tc.fieldName, "."),
+				)
 				if err != nil {
 					assert.Equal(t, tc.expectedError, err.Error())
 				} else if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
@@ -159,7 +165,10 @@ func Test_getValuesForFieldByName(t *testing.T) {
 			},
 			testFunc: func(t *testing.T, tc TestCase) {
 				t.Helper()
-				values, err := core.GetValuesForFieldByName(reflect.ValueOf(tc.cmdArgs), strings.Split(tc.fieldName, "."))
+				values, err := core.GetValuesForFieldByName(
+					reflect.ValueOf(tc.cmdArgs),
+					strings.Split(tc.fieldName, "."),
+				)
 				if err != nil {
 					assert.Nil(t, err.Error())
 				} else if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {

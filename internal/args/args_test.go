@@ -160,7 +160,11 @@ func TestRawArgs_GetAll(t *testing.T) {
 			"countries.FR.cities.nice.street.promenade=anglais",
 			"countries.RU.cities.moscow.street.kremelin=rouge",
 		}
-		assert.Equal(t, []string{"pouet", "tati", "anglais", "rouge"}, a.GetAll("countries.{key}.cities.{key}.street.{key}"))
+		assert.Equal(
+			t,
+			[]string{"pouet", "tati", "anglais", "rouge"},
+			a.GetAll("countries.{key}.cities.{key}.street.{key}"),
+		)
 	})
 }
 

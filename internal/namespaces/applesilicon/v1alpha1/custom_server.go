@@ -27,11 +27,26 @@ const (
 )
 
 var serverStatusMarshalSpecs = human.EnumMarshalSpecs{
-	applesilicon.ServerStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	applesilicon.ServerStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-	applesilicon.ServerStatusRebooting: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "rebooting"},
-	applesilicon.ServerStatusStarting:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "starting"},
-	applesilicon.ServerStatusUpdating:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "updating"},
+	applesilicon.ServerStatusError: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "error",
+	},
+	applesilicon.ServerStatusReady: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "ready",
+	},
+	applesilicon.ServerStatusRebooting: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "rebooting",
+	},
+	applesilicon.ServerStatusStarting: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "starting",
+	},
+	applesilicon.ServerStatusUpdating: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "updating",
+	},
 }
 
 func serverCreateBuilder(c *core.Command) *core.Command {
@@ -55,12 +70,13 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 
 func waitForServerFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
-		server, err := applesilicon.NewAPI(core.ExtractClient(ctx)).WaitForServer(&applesilicon.WaitForServerRequest{
-			Zone:          respI.(*applesilicon.Server).Zone,
-			ServerID:      respI.(*applesilicon.Server).ID,
-			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
-			RetryInterval: core.DefaultRetryInterval,
-		})
+		server, err := applesilicon.NewAPI(core.ExtractClient(ctx)).
+			WaitForServer(&applesilicon.WaitForServerRequest{
+				Zone:          respI.(*applesilicon.Server).Zone,
+				ServerID:      respI.(*applesilicon.Server).ID,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
 
 		switch action {
 		case serverActionCreate:
@@ -72,8 +88,13 @@ func waitForServerFunc(action int) core.WaitFunc {
 				// if we get a 404 here, it means the resource was successfully deleted
 				notFoundError := &scw.ResourceNotFoundError{}
 				responseError := &scw.ResponseError{}
-				if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
-					return fmt.Sprintf("Server %s successfully deleted.", respI.(*applesilicon.Server).ID), nil
+				if errors.As(err, &responseError) &&
+					responseError.StatusCode == http.StatusNotFound ||
+					errors.As(err, &notFoundError) {
+					return fmt.Sprintf(
+						"Server %s successfully deleted.",
+						respI.(*applesilicon.Server).ID,
+					), nil
 				}
 			}
 		}
@@ -132,7 +153,11 @@ func serverWaitCommand() *core.Command {
 
 var completeListTypeServerCache *applesilicon.ListServerTypesResponse
 
-func autocompleteServerType(ctx context.Context, prefix string, _ any) core.AutocompleteSuggestions {
+func autocompleteServerType(
+	ctx context.Context,
+	prefix string,
+	_ any,
+) core.AutocompleteSuggestions {
 	suggestions := core.AutocompleteSuggestions(nil)
 
 	client := core.ExtractClient(ctx)

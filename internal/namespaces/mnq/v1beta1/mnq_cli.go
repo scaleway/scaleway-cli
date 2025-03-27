@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
+	mnq "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -50,6 +50,7 @@ func GetGeneratedCommands() *core.Commands {
 		mnqSqsListCredentials(),
 	)
 }
+
 func mnqRoot() *core.Command {
 	return &core.Command{
 		Short:     `These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topics and Events services`,
@@ -111,8 +112,8 @@ func mnqNatsCreateAccount() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			return api.CreateNatsAccount(request)
 
+			return api.CreateNatsAccount(request)
 		},
 	}
 }
@@ -145,6 +146,7 @@ func mnqNatsDeleteAccount() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "nats",
 				Verb:     "delete-account",
@@ -184,8 +186,8 @@ func mnqNatsUpdateAccount() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			return api.UpdateNatsAccount(request)
 
+			return api.UpdateNatsAccount(request)
 		},
 	}
 }
@@ -214,8 +216,8 @@ func mnqNatsGetAccount() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			return api.GetNatsAccount(request)
 
+			return api.GetNatsAccount(request)
 		},
 	}
 }
@@ -243,7 +245,14 @@ func mnqNatsListAccounts() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
 		},
@@ -261,8 +270,8 @@ func mnqNatsListAccounts() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.NatsAccounts, nil
 
+			return resp.NatsAccounts, nil
 		},
 	}
 }
@@ -299,8 +308,8 @@ func mnqNatsCreateCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			return api.CreateNatsCredentials(request)
 
+			return api.CreateNatsCredentials(request)
 		},
 	}
 }
@@ -333,6 +342,7 @@ func mnqNatsDeleteCredentials() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "nats",
 				Verb:     "delete-credentials",
@@ -365,8 +375,8 @@ func mnqNatsGetCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			return api.GetNatsCredentials(request)
 
+			return api.GetNatsCredentials(request)
 		},
 	}
 }
@@ -401,7 +411,14 @@ func mnqNatsListCredentials() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
 		},
@@ -419,8 +436,8 @@ func mnqNatsListCredentials() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.NatsCredentials, nil
 
+			return resp.NatsCredentials, nil
 		},
 	}
 }
@@ -443,8 +460,8 @@ func mnqSnsActivate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			return api.ActivateSns(request)
 
+			return api.ActivateSns(request)
 		},
 	}
 }
@@ -467,8 +484,8 @@ func mnqSnsGetInfo() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			return api.GetSnsInfo(request)
 
+			return api.GetSnsInfo(request)
 		},
 	}
 }
@@ -491,8 +508,8 @@ func mnqSnsDeactivate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			return api.DeactivateSns(request)
 
+			return api.DeactivateSns(request)
 		},
 	}
 }
@@ -544,8 +561,8 @@ func mnqSnsCreateCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			return api.CreateSnsCredentials(request)
 
+			return api.CreateSnsCredentials(request)
 		},
 	}
 }
@@ -578,6 +595,7 @@ func mnqSnsDeleteCredentials() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "sns",
 				Verb:     "delete-credentials",
@@ -638,8 +656,8 @@ func mnqSnsUpdateCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			return api.UpdateSnsCredentials(request)
 
+			return api.UpdateSnsCredentials(request)
 		},
 	}
 }
@@ -668,8 +686,8 @@ func mnqSnsGetCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			return api.GetSnsCredentials(request)
 
+			return api.GetSnsCredentials(request)
 		},
 	}
 }
@@ -697,7 +715,14 @@ func mnqSnsListCredentials() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
 		},
@@ -715,8 +740,8 @@ func mnqSnsListCredentials() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.SnsCredentials, nil
 
+			return resp.SnsCredentials, nil
 		},
 	}
 }
@@ -739,8 +764,8 @@ func mnqSqsActivate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			return api.ActivateSqs(request)
 
+			return api.ActivateSqs(request)
 		},
 	}
 }
@@ -763,8 +788,8 @@ func mnqSqsGetInfo() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			return api.GetSqsInfo(request)
 
+			return api.GetSqsInfo(request)
 		},
 	}
 }
@@ -787,8 +812,8 @@ func mnqSqsDeactivate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			return api.DeactivateSqs(request)
 
+			return api.DeactivateSqs(request)
 		},
 	}
 }
@@ -840,8 +865,8 @@ func mnqSqsCreateCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			return api.CreateSqsCredentials(request)
 
+			return api.CreateSqsCredentials(request)
 		},
 	}
 }
@@ -874,6 +899,7 @@ func mnqSqsDeleteCredentials() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "sqs",
 				Verb:     "delete-credentials",
@@ -934,8 +960,8 @@ func mnqSqsUpdateCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			return api.UpdateSqsCredentials(request)
 
+			return api.UpdateSqsCredentials(request)
 		},
 	}
 }
@@ -964,8 +990,8 @@ func mnqSqsGetCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			return api.GetSqsCredentials(request)
 
+			return api.GetSqsCredentials(request)
 		},
 	}
 }
@@ -993,7 +1019,14 @@ func mnqSqsListCredentials() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.Region(core.AllLocalities)),
 		},
@@ -1011,8 +1044,8 @@ func mnqSqsListCredentials() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.SqsCredentials, nil
 
+			return resp.SqsCredentials, nil
 		},
 	}
 }
