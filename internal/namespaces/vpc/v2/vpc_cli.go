@@ -99,7 +99,7 @@ func vpcRoute() *core.Command {
 func vpcRule() *core.Command {
 	return &core.Command{
 		Short:     `Rule management command`,
-		Long:      `ACL Rules.`,
+		Long:      `Acl Rules.`,
 		Namespace: "vpc",
 		Resource:  "rule",
 	}
@@ -866,7 +866,7 @@ func vpcRouteDelete() *core.Command {
 
 func vpcRuleGet() *core.Command {
 	return &core.Command{
-		Short:     `Get ACL Rules for VPC`,
+		Short:     `Get Acl Rules for VPC`,
 		Long:      `Retrieve a list of ACL rules for a VPC, specified by its VPC ID.`,
 		Namespace: "vpc",
 		Resource:  "rule",
