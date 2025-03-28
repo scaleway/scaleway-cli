@@ -14,6 +14,8 @@ var invoiceTypeMarshalSpecs = human.EnumMarshalSpecs{
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("billing").Groups = []string{"cost"}
+
 	human.RegisterMarshalerFunc(billing.DownloadInvoiceRequestFileType("pdf"), human.EnumMarshalFunc(invoiceTypeMarshalSpecs))
 	cmds.MustFind("billing", "invoice", "download").Override(invoiceDownloadBuilder)
 	cmds.MustFind("billing", "invoice", "export").Override(invoiceExportBuilder)

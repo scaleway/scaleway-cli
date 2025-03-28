@@ -7,5 +7,7 @@ import (
 func GetCommands() *core.Commands {
 	commands := GetGeneratedCommands()
 
+	commands.MustFind("account").Groups = []string{"security"}
+
 	return commands
 }

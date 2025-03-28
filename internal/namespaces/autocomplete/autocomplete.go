@@ -41,6 +41,7 @@ func autocompleteRootCommand() *core.Command {
 		Short:     `Autocomplete related commands`,
 		Long:      ``,
 		Namespace: "autocomplete",
+		Groups:    []string{"utility"},
 	}
 }
 

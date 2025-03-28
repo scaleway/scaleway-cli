@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("redis").Groups = []string{"database"}
+
 	human.RegisterMarshalerFunc(redis.Cluster{}, redisClusterGetMarshalerFunc)
 
 	cmds.Merge(core.NewCommands(clusterWaitCommand()))

@@ -33,6 +33,8 @@ func GetCommands() *core.Commands {
 
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("lb").Groups = []string{"network"}
+
 	cmds.Add(
 		lbWaitCommand(),
 	)

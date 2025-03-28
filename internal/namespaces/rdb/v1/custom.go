@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("rdb").Groups = []string{"database"}
+
 	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 	human.RegisterMarshalerFunc(backupDownloadResult{}, backupResultMarshallerFunc)

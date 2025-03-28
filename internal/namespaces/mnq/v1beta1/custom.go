@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("mnq").Groups = []string{"integration"}
+
 	human.RegisterMarshalerFunc(mnq.SnsInfoStatus(""), human.EnumMarshalFunc(mnqSqsInfoStatusMarshalSpecs))
 
 	cmds.MustFind("mnq", "nats", "get-account").Override(mnqNatsGetAccountBuilder)

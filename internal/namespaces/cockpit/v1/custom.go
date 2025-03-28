@@ -7,6 +7,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("cockpit").Groups = []string{"monitoring"}
+
 	cmds.MustFind("cockpit", "token", "get").Override(cockpitTokenGetBuilder)
 
 	return cmds

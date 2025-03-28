@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("baremetal").Groups = []string{"baremetal"}
+
 	cmds.Merge(core.NewCommands(
 		serverWaitCommand(),
 		serverAddFlexibleIP(),

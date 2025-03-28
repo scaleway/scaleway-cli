@@ -20,6 +20,7 @@ func helpRoot() *core.Command {
 		Short:                "Get help about how the CLI works",
 		Namespace:            "help",
 		AllowAnonymousClient: true,
+		Groups:               []string{"utility"},
 	}
 }
 

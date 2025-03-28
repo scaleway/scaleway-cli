@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("mongodb").Groups = []string{"database"}
+
 	human.RegisterMarshalerFunc(mongodb.SnapshotStatus(""), human.EnumMarshalFunc(snapshotStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(mongodb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(mongodb.NodeTypeStock(""), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))

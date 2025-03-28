@@ -8,6 +8,9 @@ import (
 
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
+
+	cmds.MustFind("vpc-gw").Groups = []string{"network"}
+
 	for _, cmd := range cmds.GetAll() {
 		if cmd.Resource == "" || cmd.Verb == "" {
 			continue

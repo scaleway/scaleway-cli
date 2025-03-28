@@ -26,6 +26,8 @@ var logActionMarshalSpecs = human.EnumMarshalSpecs{
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("iam").Groups = []string{"security"}
+
 	human.RegisterMarshalerFunc(iam.LogAction(""), human.EnumMarshalFunc(logActionMarshalSpecs))
 
 	cmds.Merge(core.NewCommands(

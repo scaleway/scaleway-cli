@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("function").Groups = []string{"serverless"}
+
 	human.RegisterMarshalerFunc(function.NamespaceStatus(""), human.EnumMarshalFunc(namespaceStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(function.FunctionStatus(""), human.EnumMarshalFunc(functionStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(function.CronStatus(""), human.EnumMarshalFunc(cronStatusMarshalSpecs))
