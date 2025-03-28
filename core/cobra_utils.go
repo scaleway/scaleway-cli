@@ -41,8 +41,11 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 		positionalArgSpec := cmd.ArgSpecs.GetPositionalArg()
 
-		// If this command has no positional argument we execute the run
-		if positionalArgSpec == nil {
+		// If this command has no positional argument or the positional arg is already passed, we execute the run
+		if positionalArgSpec == nil || rawArgs.Has(positionalArgSpec.Name) {
+			if positionalArgSpec != nil && rawArgs.Has(positionalArgSpec.Name) {
+				rawArgs = rawArgs.RemoveAllPositional()
+			}
 			data, err := run(ctx, cobraCmd, cmd, rawArgs)
 			if err != nil {
 				return err
@@ -55,22 +58,11 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 		positionalArgs := rawArgs.GetPositionalArgs()
 
-		// Return an error if a positional argument was provide using `key=value` syntax.
-		value, exist := rawArgs.Get(positionalArgSpec.Name)
-		if exist {
-			otherArgs := rawArgs.Remove(positionalArgSpec.Name)
-
-			return &CliError{
-				Err:  errors.New("a positional argument is required for this command"),
-				Hint: positionalArgHint(meta.BinaryName, cmd, value, otherArgs, len(positionalArgs) > 0),
-			}
-		}
-
 		// If no positional arguments were provided, return an error
 		if len(positionalArgs) == 0 {
 			return &CliError{
 				Err:  errors.New("a positional argument is required for this command"),
-				Hint: positionalArgHint(meta.BinaryName, cmd, "<"+positionalArgSpec.Name+">", rawArgs, false),
+				Hint: positionalArgHint(meta.BinaryName, cmd, "<"+positionalArgSpec.Name+">", rawArgs.Remove(positionalArgSpec.Name), false),
 			}
 		}
 
