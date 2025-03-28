@@ -9,7 +9,6 @@ AI COMMANDS:
 BAREMETAL COMMANDS:
   apple-silicon Apple silicon API
   baremetal     Elastic Metal API
-  dedibox       Dedibox Phoenix API
   fip           This API allows you to manage your Elastic Metal servers' flexible public IP addresses
 
 COMPUTE COMMANDS:
