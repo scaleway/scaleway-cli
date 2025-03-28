@@ -45,6 +45,8 @@ var (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("block").Groups = []string{"storage"}
+
 	cmds.Add(volumeWaitCommand())
 	cmds.Add(snapshotWaitCommand())
 

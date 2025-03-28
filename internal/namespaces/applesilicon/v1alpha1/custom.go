@@ -14,6 +14,8 @@ func GetCommands() *core.Commands {
 		serverWaitCommand(),
 	))
 
+	cmds.MustFind("apple-silicon").Groups = []string{"baremetal"}
+
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeCPU{}, cpuMarshalerFunc)
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeDisk{}, diskMarshalerFunc)
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeMemory{}, memoryMarshalerFunc)

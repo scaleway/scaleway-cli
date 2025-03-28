@@ -45,5 +45,7 @@ func GetCommands() *core.Commands {
 		cmds.Add(cmdConfigInstall)
 	}
 
+	cmds.MustFind("object").Groups = []string{"storage"}
+
 	return cmds
 }
