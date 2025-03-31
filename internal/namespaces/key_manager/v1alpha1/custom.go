@@ -11,6 +11,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("keymanager").Groups = []string{"security"}
+
 	cmds.MustFind("keymanager", "key", "decrypt").Override(cipherDecrypt)
 	cmds.MustFind("keymanager", "key", "encrypt").Override(plaintextEncrypt)
 

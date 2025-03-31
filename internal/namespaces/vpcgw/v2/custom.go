@@ -16,6 +16,8 @@ func GetCommands() *core.Commands {
 		}
 	}
 
+	cmds.MustFind("vpc-gw").Groups = []string{"network"}
+
 	human.RegisterMarshalerFunc(vpcgw.GatewayNetworkStatus(""), human.EnumMarshalFunc(gatewayNetworkStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(vpcgw.GatewayStatus(""), human.EnumMarshalFunc(gatewayStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(vpcgw.Gateway{}, gatewayMarshalerFunc)

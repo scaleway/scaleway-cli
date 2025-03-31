@@ -19,6 +19,8 @@ const defaultTTL = "3600"
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("dns").Groups = []string{"Domain & WebHosting"}
+
 	cmds.Merge(core.NewCommands(
 		dnsRecordAddCommand(),
 		dnsRecordSetCommand(),

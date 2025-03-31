@@ -26,6 +26,8 @@ var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("document-db").Groups = []string{"database"}
+
 	human.RegisterMarshalerFunc(documentdb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
 
 	cmds.MustFind("document-db", "engine", "list").Override(engineListBuilder)
