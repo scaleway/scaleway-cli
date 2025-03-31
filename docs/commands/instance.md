@@ -87,6 +87,7 @@ This API allows you to manage your Instances.
   - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
 - [SSH Utilities](#ssh-utilities)
   - [Add a public key to a server](#add-a-public-key-to-a-server)
+  - [Fetch SSH keys from the console and install them on multiple servers](#fetch-ssh-keys-from-the-console-and-install-them-on-multiple-servers)
   - [Install a ssh config with all your servers as host
 It generate hosts for instance servers, baremetal, apple-silicon and bastions](#install-a-ssh-config-with-all-your-servers-as-host
 it-generate-hosts-for-instance-servers,-baremetal,-apple-silicon-and-bastions)
@@ -2769,6 +2770,29 @@ scw instance ssh add-key [arg=value ...]
 
 
 
+### Fetch SSH keys from the console and install them on multiple servers
+
+Keys registered via the Scaleway Console will be propagated to the selected servers.
+The command 'ssh <server-ip> -t -l root scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
+Keep in mind that you need to be able to connect to your server with another key than the one you want to add.
+Keep in mind that SSH keys are scoped by project.
+
+**Usage:**
+
+```
+scw instance ssh fetch-keys [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Fetch the keys on all servers in the given Project |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### Install a ssh config with all your servers as host
 It generate hosts for instance servers, baremetal, apple-silicon and bastions
 
@@ -2807,7 +2831,7 @@ scw instance ssh list-keys <server-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| server-id | Required | Server to add your key to |
+| server-id | Required | Server which keys are to be listed |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
