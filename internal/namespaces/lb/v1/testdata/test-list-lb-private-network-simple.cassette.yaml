@@ -287,7 +287,7 @@ interactions:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.4; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/7a0c3a08-e13a-46f8-b0a2-1423625bb0ef/private-networks/f6dd3849-441c-4dae-988a-93a673ad72d7/attach
+    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/7a0c3a08-e13a-46f8-b0a2-1423625bb0ef/attach-private-network
     method: POST
   response:
     body: '{"lb":{"id":"7a0c3a08-e13a-46f8-b0a2-1423625bb0ef", "name":"cli-test",
@@ -391,7 +391,7 @@ interactions:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.4; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/7a0c3a08-e13a-46f8-b0a2-1423625bb0ef/private-networks/f6dd3849-441c-4dae-988a-93a673ad72d7/detach
+    url: https://api.scaleway.com/lb/v1/zones/fr-par-1/lbs/7a0c3a08-e13a-46f8-b0a2-1423625bb0ef/detach-private-network
     method: POST
   response:
     body: ""
