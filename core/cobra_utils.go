@@ -45,8 +45,11 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 
 		positionalArgSpec := cmd.ArgSpecs.GetPositionalArg()
 
-		// If this command has no positional argument we execute the run
-		if positionalArgSpec == nil {
+		// If this command has no positional argument or the positional arg is already passed, we execute the run
+		if positionalArgSpec == nil || rawArgs.Has(positionalArgSpec.Name) {
+			if positionalArgSpec != nil && rawArgs.Has(positionalArgSpec.Name) {
+				rawArgs = rawArgs.RemoveAllPositional()
+			}
 			data, err := run(ctx, cobraCmd, cmd, rawArgs)
 			if err != nil {
 				return err
