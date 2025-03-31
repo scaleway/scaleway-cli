@@ -51,6 +51,8 @@ var (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("sdb-sql").Groups = []string{"database"}
+
 	human.RegisterMarshalerFunc(
 		serverless_sqldb.DatabaseStatus(""),
 		human.EnumMarshalFunc(sdbSQLDatabaseStatusMarshalSpecs),

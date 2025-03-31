@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("inference").Groups = []string{"ai"}
+
 	human.RegisterMarshalerFunc(
 		inference.DeploymentStatus(""),
 		human.EnumMarshalFunc(deployementStateMarshalSpecs),

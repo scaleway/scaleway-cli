@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("interlink").Groups = []string{"network"}
+
 	human.RegisterMarshalerFunc(
 		interlink.BgpStatus(""),
 		human.EnumMarshalFunc(bgpStatusMarshalSpecs),

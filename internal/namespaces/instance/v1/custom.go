@@ -47,6 +47,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
 	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
 
+	cmds.MustFind("instance").Groups = []string{"compute"}
+
 	cmds.MustFind("instance", "server", "list").Override(serverListBuilder)
 	cmds.MustFind("instance", "server", "update").Override(serverUpdateBuilder)
 	cmds.MustFind("instance", "server", "get").Override(serverGetBuilder)

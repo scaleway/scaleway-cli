@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("webhosting").Groups = []string{"Domain & WebHosting"}
+
 	human.RegisterMarshalerFunc(
 		webhosting.HostingStatus(""),
 		human.EnumMarshalFunc(hostingStatusMarshalSpecs),

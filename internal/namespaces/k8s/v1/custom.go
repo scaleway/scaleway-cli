@@ -14,6 +14,9 @@ import (
 // - Apply handwritten overrides (of Command.Run)
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
+
+	cmds.MustFind("k8s").Groups = []string{"container"}
+
 	cmds.Merge(core.NewCommands(
 		k8sExecCredentialCommand(),
 		k8sKubeconfigCommand(),

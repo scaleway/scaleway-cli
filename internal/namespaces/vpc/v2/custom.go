@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("vpc").Groups = []string{"network"}
+
 	cmds.Remove("vpc", "post")
 	cmds.MustFind("vpc", "private-network", "get").Override(privateNetworkGetBuilder)
 	human.RegisterMarshalerFunc(vpc.PrivateNetwork{}, privateNetworkMarshalerFunc)

@@ -14,6 +14,9 @@ import (
 // - Apply handwritten overrides (of Command.Run)
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
+
+	cmds.MustFind("registry").Groups = []string{"container", "storage"}
+
 	cmds.Merge(core.NewCommands(
 		registryLoginCommand(),
 		registryLogoutCommand(),

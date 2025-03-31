@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("fip").Groups = []string{"baremetal"}
+
 	human.RegisterMarshalerFunc(
 		fip.FlexibleIPStatus(""),
 		human.EnumMarshalFunc(ipStatusMarshalSpecs),
