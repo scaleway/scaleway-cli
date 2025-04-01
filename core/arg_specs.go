@@ -14,7 +14,8 @@ var AllLocalities = "all"
 
 type ArgSpecs []*ArgSpec
 
-// GetPositionalArg returns the last positional argument from the arg specs.
+// GetPositionalArg if exist returns the positional argument from the arg specs.
+// Panics when more than one positional arg is found.
 func (s ArgSpecs) GetPositionalArg() *ArgSpec {
 	var positionalArg *ArgSpec
 	for _, argSpec := range s {
