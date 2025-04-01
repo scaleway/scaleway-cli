@@ -6,7 +6,6 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"hash/crc32"
 	"os/exec"
 	"reflect"
@@ -14,6 +13,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -148,7 +148,7 @@ func sshFetchKeysCommand() *core.Command {
 		Groups:    []string{"utility"},
 		Short:     "Fetch SSH keys from the console and install them on multiple servers",
 		Long: `Keys registered via the Scaleway Console will be propagated to the selected servers.
-The command 'ssh <server-ip> -t -l root scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
+The command 'ssh <server-ip> -t -l <username> scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
 Keep in mind that you need to be able to connect to your server with another key than the one you want to add.
 Keep in mind that SSH keys are scoped by project.`,
 		ArgsType: reflect.TypeOf(sshFetchKeysRequest{}),

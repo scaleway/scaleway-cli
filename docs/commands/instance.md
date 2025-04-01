@@ -2772,8 +2772,8 @@ scw instance ssh add-key [arg=value ...]
 
 ### Fetch SSH keys from the console and install them on multiple servers
 
-Keys registered via the Scaleway console will be propagated to the selected servers.
-The command 'ssh <server-ip> -t -l root scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
+Keys registered via the Scaleway Console will be propagated to the selected servers.
+The command 'ssh <server-ip> -t -l <username> scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
 Keep in mind that you need to be able to connect to your server with another key than the one you want to add.
 Keep in mind that SSH keys are scoped by project.
 
@@ -2789,6 +2789,7 @@ scw instance ssh fetch-keys [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Fetch the keys on all servers in the given Project |
+| username | Default: `root` | Username used for the SSH connection |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
