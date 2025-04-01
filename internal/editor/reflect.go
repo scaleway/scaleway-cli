@@ -111,7 +111,7 @@ func MapWithTag(includeFields ...string) ValueMapperOpt {
 
 // MapWithTag will map only fields that don't have one of these tags as json tag
 //
-//nolint:deadcode,unused
+//nolint:unused
 func mapWithoutTag(excludeFields ...string) ValueMapperOpt {
 	return func(cfg *valueMapperConfig) {
 		cfg.excludeFields = append(cfg.excludeFields, excludeFields...)
