@@ -1,6 +1,6 @@
 module github.com/scaleway/scaleway-cli/v2
 
-go 1.24
+go 1.24.0
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.36.3
