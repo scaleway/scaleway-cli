@@ -2772,7 +2772,7 @@ scw instance ssh add-key [arg=value ...]
 
 ### Fetch SSH keys from the console and install them on multiple servers
 
-Keys registered via the Scaleway Console will be propagated to the selected servers.
+Keys registered via the Scaleway console will be propagated to the selected servers.
 The command 'ssh <server-ip> -t -l root scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
 Keep in mind that you need to be able to connect to your server with another key than the one you want to add.
 Keep in mind that SSH keys are scoped by project.
