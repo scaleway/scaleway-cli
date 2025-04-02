@@ -14,11 +14,15 @@ var AllLocalities = "all"
 
 type ArgSpecs []*ArgSpec
 
-// GetPositionalArg returns the last positional argument from the arg specs.
+// GetPositionalArg if exist returns the positional argument from the arg specs.
+// Panics when more than one positional arg is found.
 func (s ArgSpecs) GetPositionalArg() *ArgSpec {
 	var positionalArg *ArgSpec
 	for _, argSpec := range s {
 		if argSpec.Positional {
+			if positionalArg != nil {
+				panic(fmt.Errorf("more than one positional parameter detected: %s and %s are flagged as positional arg", positionalArg.Name, argSpec.Name))
+			}
 			positionalArg = argSpec
 		}
 	}
