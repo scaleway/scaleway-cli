@@ -441,10 +441,13 @@ func serverGetBuilder(c *core.Command) *core.Command {
 				customVol.State = blockVol.Status.String()
 				customVol.CreationDate = blockVol.CreatedAt
 				customVol.ModificationDate = blockVol.UpdatedAt
-				if *blockVol.Specs.PerfIops == 5000 {
-					customVol.IOPS = "5K"
-				} else {
-					customVol.IOPS = "15K"
+				if blockVol.Specs != nil && blockVol.Specs.PerfIops != nil {
+					switch *blockVol.Specs.PerfIops {
+					case 5000:
+						customVol.IOPS = "5K"
+					case 15000:
+						customVol.IOPS = "15K"
+					}
 				}
 			} else {
 				instanceVol, err := instance.NewAPI(client).GetVolume(&instance.GetVolumeRequest{
