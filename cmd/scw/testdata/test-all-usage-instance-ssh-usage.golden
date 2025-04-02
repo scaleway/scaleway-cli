@@ -9,6 +9,7 @@ USAGE:
 
 UTILITY COMMANDS:
   add-key        Add a public key to a server
+  fetch-keys     Fetch SSH keys from the console and install them on multiple servers
   list-keys      List manually added public keys
   remove-key     Remove a manually added public key from a server
 
