@@ -572,7 +572,7 @@ func iotDeviceList() *core.Command {
 			},
 			{
 				Name:       "allow-insecure",
-				Short:      `Defines wheter to filter the allow_insecure flag`,
+				Short:      `Defines whether to filter the allow_insecure flag`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

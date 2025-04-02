@@ -10,7 +10,7 @@ ARGS:
   [namespace-id]      UUID of the namespace the function belongs to
   [name]              Name of the function
   [project-id]        UUID of the Project the function belongs to
-  [organization-id]   UUID of the Organziation the function belongs to
+  [organization-id]   UUID of the Organization the function belongs to
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

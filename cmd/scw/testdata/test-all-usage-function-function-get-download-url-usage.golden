@@ -6,7 +6,7 @@ USAGE:
   scw function function get-download-url <function-id ...> [arg=value ...]
 
 ARGS:
-  function-id       UUID of the function to get the the download URL for
+  function-id       UUID of the function to get the download URL for
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

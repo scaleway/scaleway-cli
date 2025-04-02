@@ -1175,7 +1175,7 @@ func iamGroupCreate() *core.Command {
 func iamGroupGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a group`,
-		Long:      `Retrive information about a given group, specified by the ` + "`" + `group_id` + "`" + ` parameter. The group's full details, including ` + "`" + `user_ids` + "`" + ` and ` + "`" + `application_ids` + "`" + ` are returned in the response.`,
+		Long:      `Retrieve information about a given group, specified by the ` + "`" + `group_id` + "`" + ` parameter. The group's full details, including ` + "`" + `user_ids` + "`" + ` and ` + "`" + `application_ids` + "`" + ` are returned in the response.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "get",
@@ -1301,7 +1301,7 @@ func iamGroupSetMembers() *core.Command {
 func iamGroupAddMember() *core.Command {
 	return &core.Command{
 		Short:     `Add a user or an application to a group`,
-		Long:      `Add a user or an application to a group. You can specify a ` + "`" + `user_id` + "`" + ` and and ` + "`" + `application_id` + "`" + ` in the body of your request. Note that you can only add one of each per request.`,
+		Long:      `Add a user or an application to a group. You can specify a ` + "`" + `user_id` + "`" + ` and ` + "`" + `application_id` + "`" + ` in the body of your request. Note that you can only add one of each per request.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "add-member",
@@ -1385,7 +1385,7 @@ func iamGroupAddMembers() *core.Command {
 func iamGroupRemoveMember() *core.Command {
 	return &core.Command{
 		Short:     `Remove a user or an application from a group`,
-		Long:      `Remove a user or an application from a group. You can specify a ` + "`" + `user_id` + "`" + ` and and ` + "`" + `application_id` + "`" + ` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.`,
+		Long:      `Remove a user or an application from a group. You can specify a ` + "`" + `user_id` + "`" + ` and ` + "`" + `application_id` + "`" + ` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.`,
 		Namespace: "iam",
 		Resource:  "group",
 		Verb:      "remove-member",
@@ -2170,7 +2170,7 @@ func iamAPIKeyCreate() *core.Command {
 func iamAPIKeyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an API key`,
-		Long:      `Retrive information about an API key, specified by the ` + "`" + `access_key` + "`" + ` parameter. The API key's details, including either the ` + "`" + `user_id` + "`" + ` or ` + "`" + `application_id` + "`" + ` of its bearer are returned in the response. Note that the string value for the ` + "`" + `secret_key` + "`" + ` is nullable, and therefore is not displayed in the response. The ` + "`" + `secret_key` + "`" + ` value is only displayed upon API key creation.`,
+		Long:      `Retrieve information about an API key, specified by the ` + "`" + `access_key` + "`" + ` parameter. The API key's details, including either the ` + "`" + `user_id` + "`" + ` or ` + "`" + `application_id` + "`" + ` of its bearer are returned in the response. Note that the string value for the ` + "`" + `secret_key` + "`" + ` is nullable, and therefore is not displayed in the response. The ` + "`" + `secret_key` + "`" + ` value is only displayed upon API key creation.`,
 		Namespace: "iam",
 		Resource:  "api-key",
 		Verb:      "get",
