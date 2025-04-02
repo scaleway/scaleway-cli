@@ -385,27 +385,33 @@ func getBucketEndpoint(name, region string) (string, error) {
 }
 
 func countBucketObjects(ctx context.Context, client *s3.Client, name string) (nbObjects, nbParts int64, totalSize scw.Size, err error) {
-	var size int64
+	nbObjects = 0
+	nbParts = 0
+	totalSize = 0
 
-	// count full objects
-	objectsList, err := client.ListObjectsV2(ctx, &s3.ListObjectsV2Input{
+	paginator := s3.NewListObjectsV2Paginator(client, &s3.ListObjectsV2Input{
 		Bucket: &name,
 	})
-	if err != nil {
-		return nbObjects, nbParts, totalSize, fmt.Errorf("could not list objects: %w", err)
-	}
-	for _, object := range objectsList.Contents {
-		nbObjects++
-		size += *object.Size
+
+	for paginator.HasMorePages() {
+		page, err := paginator.NextPage(ctx)
+		if err != nil {
+			return nbObjects, nbParts, totalSize, fmt.Errorf("could not list objects: %w", err)
+		}
+
+		for _, object := range page.Contents {
+			nbObjects++
+			totalSize += scw.Size(*object.Size)
+		}
 	}
 
-	// count parts
 	multipartUploads, err := client.ListMultipartUploads(ctx, &s3.ListMultipartUploadsInput{
 		Bucket: &name,
 	})
 	if err != nil {
 		return nbObjects, nbParts, totalSize, fmt.Errorf("could not list multipart uploads: %w", err)
 	}
+
 	for _, upload := range multipartUploads.Uploads {
 		partsList, err := client.ListParts(ctx, &s3.ListPartsInput{
 			Bucket:   &name,
@@ -415,13 +421,14 @@ func countBucketObjects(ctx context.Context, client *s3.Client, name string) (nb
 		if err != nil {
 			return nbObjects, nbParts, totalSize, fmt.Errorf("could not list parts: %w", err)
 		}
+
 		for _, part := range partsList.Parts {
 			nbParts++
-			size += *part.Size
+			totalSize += scw.Size(*part.Size)
 		}
 	}
 
-	return nbObjects, nbParts, scw.Size(size), nil
+	return nbObjects, nbParts, totalSize, nil
 }
 
 func putBucketVersioning(ctx context.Context, client *s3.Client, name string, enabled bool) error {
