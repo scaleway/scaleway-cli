@@ -112,6 +112,7 @@ scw interlink link create [arg=value ...]
 | bandwidth-mbps | Required | Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection |
 | connection-id |  | If set, creates a self-hosted link using this dedicated physical connection. As the customer, specify the ID of the physical connection you already have for this link. |
 | partner-id |  | If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth. |
+| peer-asn |  | For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -289,6 +290,7 @@ scw interlink link update <link-id ...> [arg=value ...]
 | link-id | Required | ID of the link to update |
 | name |  | Name of the link |
 | tags.{index} |  | List of tags to apply to the link |
+| peer-asn |  | For self-hosted links, AS Number to establish BGP session. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
