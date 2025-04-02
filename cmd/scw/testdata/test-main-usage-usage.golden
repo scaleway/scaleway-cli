@@ -12,7 +12,7 @@ BAREMETAL COMMANDS:
   fip           This API allows you to manage your Elastic Metal servers' flexible public IP addresses
 
 COMPUTE COMMANDS:
-  instance      This API allows you to manage your Instances
+  instance      This API allows you to manage your CPU and GPU Instances
   marketplace   This API allows you to find available images for use when launching a Scaleway Instance
 
 CONFIGURATION COMMANDS:
