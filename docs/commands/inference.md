@@ -4,7 +4,7 @@ This API allows you to manage your Inference services.
   
 - [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
   - [Add new ACLs](#add-new-acls)
-  - [Delete an exising ACL](#delete-an-exising-acl)
+  - [Delete an existing ACL](#delete-an-existing-acl)
   - [List your ACLs](#list-your-acls)
   - [Set new ACL](#set-new-acl)
 - [Deployment commands](#deployment-commands)
@@ -52,9 +52,9 @@ scw inference acl add <deployment-id ...> [arg=value ...]
 
 
 
-### Delete an exising ACL
+### Delete an existing ACL
 
-Delete an exising ACL.
+Delete an existing ACL.
 
 **Usage:**
 

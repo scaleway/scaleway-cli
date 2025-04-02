@@ -458,7 +458,7 @@ func interlinkLinkGet() *core.Command {
 func interlinkLinkCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a link`,
-		Long:      `Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (faciliated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).`,
+		Long:      `Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (facilitated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).`,
 		Namespace: "interlink",
 		Resource:  "link",
 		Verb:      "create",
@@ -508,6 +508,13 @@ func interlinkLinkCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "peer-asn",
+				Short:      `For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -547,6 +554,13 @@ func interlinkLinkUpdate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `List of tags to apply to the link`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "peer-asn",
+				Short:      `For self-hosted links, AS Number to establish BGP session.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
