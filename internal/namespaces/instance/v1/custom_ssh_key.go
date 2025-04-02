@@ -7,11 +7,13 @@ import (
 	"errors"
 	"fmt"
 	"hash/crc32"
+	"os/exec"
 	"reflect"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -132,6 +134,103 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 	}
 }
 
+type sshFetchKeysRequest struct {
+	Zone      scw.Zone
+	ProjectID string
+	Username  string
+}
+
+func sshFetchKeysCommand() *core.Command {
+	return &core.Command{
+		Namespace: "instance",
+		Resource:  "ssh",
+		Verb:      "fetch-keys",
+		Groups:    []string{"utility"},
+		Short:     "Fetch SSH keys from the console and install them on multiple servers",
+		Long: `Keys registered via the Scaleway Console will be propagated to the selected servers.
+The command 'ssh <server-ip> -t -l <username> scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
+Keep in mind that you need to be able to connect to your server with another key than the one you want to add.
+Keep in mind that SSH keys are scoped by project.`,
+		ArgsType: reflect.TypeOf(sshFetchKeysRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "project-id",
+				Short:    "Fetch the keys on all servers in the given Project",
+				Required: false,
+			},
+			{
+				Name:    "username",
+				Short:   "Username used for the SSH connection",
+				Default: core.DefaultValueSetter("root"),
+			},
+			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			args := argsI.(*sshFetchKeysRequest)
+			api := instance.NewAPI(core.ExtractClient(ctx))
+
+			listServersRequest := &instance.ListServersRequest{
+				Zone: args.Zone,
+			}
+			if args.ProjectID != "" {
+				listServersRequest.Project = &args.ProjectID
+			}
+			servers, err := api.ListServers(listServersRequest, scw.WithAllPages(), scw.WithContext(ctx))
+			if err != nil {
+				return nil, fmt.Errorf("failed to fetch servers: %w", err)
+			}
+
+			for i, server := range servers.Servers {
+				msg := fmt.Sprintf("Loading SSH keys on server %q", server.Name)
+				if i == 0 {
+					_, _ = interactive.Println(">", msg)
+				} else {
+					_, _ = interactive.Println("\n>", msg)
+				}
+
+				if server.State != instance.ServerStateRunning {
+					_, _ = interactive.Printf("Failed: server %q is not running", server.Name)
+
+					continue
+				}
+
+				if len(server.PublicIPs) == 0 {
+					_, _ = interactive.Printf("Failed: server %q has no public IP", server.Name)
+
+					continue
+				}
+
+				for _, publicIP := range server.PublicIPs {
+					sshArgs := []string{
+						publicIP.Address.String(),
+						"-t",
+						"-l", args.Username,
+						"/usr/sbin/scw-fetch-ssh-keys",
+						"--upgrade",
+					}
+
+					sshCmd := exec.Command("ssh", sshArgs...)
+
+					_, _ = interactive.Println(sshCmd)
+
+					exitCode, err := core.ExecCmd(ctx, sshCmd)
+					if err != nil || exitCode != 0 {
+						if err != nil {
+							_, _ = interactive.Println("Failed:", err)
+						} else {
+							_, _ = interactive.Println("Failed: ssh command failed with exit code", exitCode)
+						}
+					} else {
+						_, _ = interactive.Println("Success")
+					}
+				}
+			}
+
+			return &core.SuccessResult{Empty: true}, nil
+		},
+	}
+}
+
 type sshListKeysRequest struct {
 	Zone     scw.Zone
 	ServerID string
@@ -151,7 +250,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
-				Short:      "Server to add your key to",
+				Short:      "Server which keys are to be listed",
 				Positional: true,
 				Required:   true,
 			},

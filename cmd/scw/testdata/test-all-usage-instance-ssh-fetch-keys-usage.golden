@@ -1,18 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List only keys added manually to a server using tags.
-The key comment is used as key name or generated
-Lookup /root/.ssh/authorized_keys on your server for more information
+Keys registered via the Scaleway Console will be propagated to the selected servers.
+The command 'ssh <server-ip> -t -l <username> scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
+Keep in mind that you need to be able to connect to your server with another key than the one you want to add.
+Keep in mind that SSH keys are scoped by project.
 
 USAGE:
-  scw instance ssh list-keys <server-id ...> [arg=value ...]
+  scw instance ssh fetch-keys [arg=value ...]
 
 ARGS:
-  server-id         Server which keys are to be listed
+  [project-id]      Fetch the keys on all servers in the given Project
+  [username=root]   Username used for the SSH connection
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
-  -h, --help   help for list-keys
+  -h, --help   help for fetch-keys
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
