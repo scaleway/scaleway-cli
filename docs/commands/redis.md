@@ -557,7 +557,7 @@ scw redis setting delete [arg=value ...]
 
 ### Set advanced settings
 
-Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
+Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initialization can only be defined once, and cannot, therefore, be updated.
 
 **Usage:**
 
