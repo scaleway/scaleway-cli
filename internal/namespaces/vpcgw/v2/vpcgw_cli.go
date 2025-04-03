@@ -51,6 +51,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcGwGatewayRefreshSSHKeys(),
 	)
 }
+
 func vpcGwRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Public Gateways`,
@@ -120,7 +121,16 @@ func vpcGwGatewayList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "type_asc", "type_desc", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"type_asc",
+					"type_desc",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -156,7 +166,17 @@ func vpcGwGatewayList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_status", "stopped", "allocating", "configuring", "running", "stopping", "failed", "deleting", "locked"},
+				EnumValues: []string{
+					"unknown_status",
+					"stopped",
+					"allocating",
+					"configuring",
+					"running",
+					"stopping",
+					"failed",
+					"deleting",
+					"locked",
+				},
 			},
 			{
 				Name:       "private-network-ids.{index}",
@@ -179,7 +199,16 @@ func vpcGwGatewayList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListGatewaysRequest)
@@ -195,6 +224,7 @@ func vpcGwGatewayList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Gateways, nil
 		},
 	}
@@ -217,13 +247,22 @@ func vpcGwGatewayGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.GetGateway(request)
 		},
 	}
@@ -291,13 +330,22 @@ func vpcGwGatewayCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreateGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.CreateGateway(request)
 		},
 	}
@@ -355,13 +403,22 @@ func vpcGwGatewayUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdateGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.UpdateGateway(request)
 		},
 	}
@@ -391,13 +448,22 @@ func vpcGwGatewayDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeleteGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.DeleteGateway(request)
 		},
 	}
@@ -427,13 +493,22 @@ func vpcGwGatewayUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpgradeGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.UpgradeGateway(request)
 		},
 	}
@@ -455,7 +530,12 @@ func vpcGwGatewayNetworkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "status.{index}",
@@ -463,7 +543,14 @@ func vpcGwGatewayNetworkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_status", "created", "attaching", "configuring", "ready", "detaching"},
+				EnumValues: []string{
+					"unknown_status",
+					"created",
+					"attaching",
+					"configuring",
+					"ready",
+					"detaching",
+				},
 			},
 			{
 				Name:       "gateway-ids.{index}",
@@ -486,7 +573,16 @@ func vpcGwGatewayNetworkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListGatewayNetworksRequest)
@@ -502,6 +598,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.GatewayNetworks, nil
 		},
 	}
@@ -524,13 +621,22 @@ func vpcGwGatewayNetworkGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.GetGatewayNetwork(request)
 		},
 	}
@@ -581,13 +687,22 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreateGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.CreateGatewayNetwork(request)
 		},
 	}
@@ -631,13 +746,22 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdateGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.UpdateGatewayNetwork(request)
 		},
 	}
@@ -660,13 +784,22 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeleteGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.DeleteGatewayNetwork(request)
 		},
 	}
@@ -688,7 +821,12 @@ func vpcGwPatRuleList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "public_port_asc", "public_port_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"public_port_asc",
+					"public_port_desc",
+				},
 			},
 			{
 				Name:       "gateway-ids.{index}",
@@ -712,7 +850,16 @@ func vpcGwPatRuleList() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_protocol", "both", "tcp", "udp"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListPatRulesRequest)
@@ -728,6 +875,7 @@ func vpcGwPatRuleList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.PatRules, nil
 		},
 	}
@@ -750,13 +898,22 @@ func vpcGwPatRuleGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetPatRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.GetPatRule(request)
 		},
 	}
@@ -808,13 +965,22 @@ func vpcGwPatRuleCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_protocol", "both", "tcp", "udp"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreatePatRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.CreatePatRule(request)
 		},
 	}
@@ -866,13 +1032,22 @@ func vpcGwPatRuleUpdate() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_protocol", "both", "tcp", "udp"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdatePatRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.UpdatePatRule(request)
 		},
 	}
@@ -924,13 +1099,22 @@ func vpcGwPatRuleSet() *core.Command {
 				Positional: false,
 				EnumValues: []string{"unknown_protocol", "both", "tcp", "udp"},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.SetPatRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.SetPatRules(request)
 		},
 	}
@@ -953,7 +1137,15 @@ func vpcGwPatRuleDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeletePatRuleRequest)
@@ -964,6 +1156,7 @@ func vpcGwPatRuleDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "pat-rule",
 				Verb:     "delete",
@@ -982,13 +1175,22 @@ func vpcGwGatewayTypeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(vpcgw.ListGatewayTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListGatewayTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.ListGatewayTypes(request)
 		},
 	}
@@ -1010,7 +1212,14 @@ func vpcGwIPList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "address_asc", "address_desc", "reverse_asc", "reverse_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"address_asc",
+					"address_desc",
+					"reverse_asc",
+					"reverse_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -1047,7 +1256,16 @@ func vpcGwIPList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.ListIPsRequest)
@@ -1063,6 +1281,7 @@ func vpcGwIPList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.IPs, nil
 		},
 	}
@@ -1085,13 +1304,23 @@ func vpcGwIPGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities)),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.GetIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.GetIP(request)
 		},
 	}
@@ -1115,13 +1344,22 @@ func vpcGwIPCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.CreateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.CreateIP(request)
 		},
 	}
@@ -1165,13 +1403,22 @@ func vpcGwIPUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.UpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.UpdateIP(request)
 		},
 	}
@@ -1194,7 +1441,15 @@ func vpcGwIPDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.DeleteIPRequest)
@@ -1205,6 +1460,7 @@ func vpcGwIPDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "ip",
 				Verb:     "delete",
@@ -1230,13 +1486,22 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpcgw.RefreshSSHKeysRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
+
 			return api.RefreshSSHKeys(request)
 		},
 	}
