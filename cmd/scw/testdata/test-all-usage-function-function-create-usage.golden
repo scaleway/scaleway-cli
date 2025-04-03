@@ -9,7 +9,7 @@ ARGS:
   [name=<generated>]                             Name of the function to create
   [namespace-id]                                 UUID of the namespace the function will be created in
   [environment-variables.{key}]                  Environment variables of the function
-  [min-scale]                                    Minumum number of instances to scale the function to
+  [min-scale]                                    Minimum number of instances to scale the function to
   [max-scale]                                    Maximum number of instances to scale the function to
   [runtime]                                      Runtime to use with the function (unknown_runtime | golang | python | python3 | node8 | node10 | node14 | node16 | node17 | python37 | python38 | python39 | python310 | go113 | go117 | go118 | node18 | rust165 | go119 | python311 | php82 | node19 | go120 | node20 | go121 | node22 | python312 | php83 | go122 | rust179 | go123 | go124 | python313 | rust185 | php84)
   [memory-limit]                                 Memory limit of the function in MB
