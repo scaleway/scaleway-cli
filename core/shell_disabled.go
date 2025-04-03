@@ -11,8 +11,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func RunShell(ctx context.Context, printer *Printer, meta *Meta, rootCmd *cobra.Command, args []string) {
-	err := printer.Print(fmt.Errorf("shell is currently disabled on %s/%s", runtime.GOARCH, runtime.GOOS), nil)
+func RunShell(
+	ctx context.Context,
+	printer *Printer,
+	meta *Meta,
+	rootCmd *cobra.Command,
+	args []string,
+) {
+	err := printer.Print(
+		fmt.Errorf("shell is currently disabled on %s/%s", runtime.GOARCH, runtime.GOOS),
+		nil,
+	)
 	if err != nil {
 		_, _ = fmt.Fprintln(os.Stderr, err)
 	}

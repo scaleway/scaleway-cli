@@ -19,7 +19,6 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("billing").Groups = []string{"cost"}
 
-	human.RegisterMarshalerFunc(billing.DownloadInvoiceRequestFileType("pdf"), human.EnumMarshalFunc(invoiceTypeMarshalSpecs))
 	human.RegisterMarshalerFunc(
 		billing.DownloadInvoiceRequestFileType("pdf"),
 		human.EnumMarshalFunc(invoiceTypeMarshalSpecs),

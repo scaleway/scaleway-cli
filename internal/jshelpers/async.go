@@ -5,6 +5,7 @@ package jshelpers
 import (
 	"fmt"
 	"runtime/debug"
+
 	"syscall/js"
 )
 

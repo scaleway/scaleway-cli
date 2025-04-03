@@ -34,7 +34,13 @@ type RunResponse struct {
 	ExitCode int    `js:"exitCode"`
 }
 
-func runCommand(buildInfo *core.BuildInfo, cfg *RunConfig, args []string, stdout io.Writer, stderr io.Writer) int {
+func runCommand(
+	buildInfo *core.BuildInfo,
+	cfg *RunConfig,
+	args []string,
+	stdout io.Writer,
+	stderr io.Writer,
+) int {
 	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
 		Args:      args,
 		Commands:  getCommands(),
@@ -72,7 +78,9 @@ func Run(buildInfo *core.BuildInfo, cfg *RunConfig, args []string) (*RunResponse
 	}, nil
 }
 
-func RunWithBuildInfo(buildInfo *core.BuildInfo) func(config *RunConfig, args []string) (*RunResponse, error) {
+func RunWithBuildInfo(
+	buildInfo *core.BuildInfo,
+) func(config *RunConfig, args []string) (*RunResponse, error) {
 	return func(config *RunConfig, args []string) (*RunResponse, error) {
 		return Run(buildInfo, config, args)
 	}

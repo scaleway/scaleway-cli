@@ -175,7 +175,11 @@ Keep in mind that SSH keys are scoped by project.`,
 			if args.ProjectID != "" {
 				listServersRequest.Project = &args.ProjectID
 			}
-			servers, err := api.ListServers(listServersRequest, scw.WithAllPages(), scw.WithContext(ctx))
+			servers, err := api.ListServers(
+				listServersRequest,
+				scw.WithAllPages(),
+				scw.WithContext(ctx),
+			)
 			if err != nil {
 				return nil, fmt.Errorf("failed to fetch servers: %w", err)
 			}

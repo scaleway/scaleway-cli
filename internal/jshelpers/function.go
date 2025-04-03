@@ -5,12 +5,11 @@ package jshelpers
 import (
 	"fmt"
 	"reflect"
+
 	"syscall/js"
 )
 
-var (
-	goErrorInterface = reflect.TypeOf((*error)(nil)).Elem()
-)
+var goErrorInterface = reflect.TypeOf((*error)(nil)).Elem()
 
 func jsValue(val any) js.Value {
 	valType := reflect.TypeOf(val)
@@ -56,14 +55,23 @@ func AsPromise(goFunc any) JsFunc {
 
 	return AsyncJsFunc(func(this js.Value, args []js.Value) (any, error) {
 		if len(args) != len(goFuncArgs) {
-			return nil, fmt.Errorf("invalid number of arguments, expected %d, got %d", len(goFuncArgs), len(args))
+			return nil, fmt.Errorf(
+				"invalid number of arguments, expected %d, got %d",
+				len(goFuncArgs),
+				len(args),
+			)
 		}
 
 		argValues := make([]reflect.Value, len(goFuncArgs))
 		for i, argType := range goFuncArgs {
 			arg, err := goValue(argType, args[i])
 			if err != nil {
-				return nil, fmt.Errorf("invalid argument at index %d, expected type %s: %w", i, argType.String(), err)
+				return nil, fmt.Errorf(
+					"invalid argument at index %d, expected type %s: %w",
+					i,
+					argType.String(),
+					err,
+				)
 			}
 			argValues[i] = reflect.ValueOf(arg)
 		}
