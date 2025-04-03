@@ -469,7 +469,7 @@ scw vpc vpc list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of the returned VPCs |
 | name |  | Name to filter for. Only VPCs with names containing this string will be returned |
-| tags.{index} |  | Tags to filter for. Only VPCs with one more more matching tags will be returned |
+| tags.{index} |  | Tags to filter for. Only VPCs with one or more matching tags will be returned |
 | project-id |  | Project ID to filter for. Only VPCs belonging to this Project will be returned |
 | is-default |  | Defines whether to filter only for VPCs which are the default one for their Project |
 | routing-enabled |  | Defines whether to filter only for VPCs which route traffic between their Private Networks |
