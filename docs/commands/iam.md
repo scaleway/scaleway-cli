@@ -58,8 +58,8 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
   - [Update a user](#update-a-user)
-  - [Update an user's password.](#update-an-user's-password.)
-  - [Update an user's username.](#update-an-user's-username.)
+  - [Update an user's password. Private Beta feature.](#update-an-user's-password.-private-beta-feature.)
+  - [Update an user's username. Private Beta feature.](#update-an-user's-username.-private-beta-feature.)
 
   
 ## API keys management commands
@@ -1045,7 +1045,7 @@ Users management commands.
 
 ### Create a new user
 
-Create a new user. You must define the `organization_id` in your request. If you are adding a member, enter the member's details. If you are adding a guest, you must define the `email` and not add the member attribute.
+Create a new user. You must define the `organization_id` and the `email` in your request.
 
 **Usage:**
 
@@ -1160,9 +1160,9 @@ scw iam user update <user-id ...> [arg=value ...]
 
 
 
-### Update an user's password.
+### Update an user's password. Private Beta feature.
 
-Update an user's password.
+Update an user's password. Private Beta feature.
 
 **Usage:**
 
@@ -1180,9 +1180,9 @@ scw iam user update-password <user-id ...> [arg=value ...]
 
 
 
-### Update an user's username.
+### Update an user's username. Private Beta feature.
 
-Update an user's username.
+Update an user's username. Private Beta feature.
 
 **Usage:**
 
