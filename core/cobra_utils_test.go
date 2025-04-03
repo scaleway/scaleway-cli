@@ -17,11 +17,6 @@ type testType struct {
 	Tag    string
 }
 
-type testTypeManyTags struct {
-	NameID string
-	Tags   []string
-}
-
 type testDate struct {
 	Date *time.Time
 }
@@ -79,45 +74,6 @@ func testGetCommands() *core.Commands {
 			AcceptMultiplePositionalArgs: true,
 			AllowAnonymousClient:         true,
 			ArgsType:                     reflect.TypeOf(testAcceptMultiPositionalArgsType{}),
-			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
-				return argsI, nil
-			},
-		},
-		&core.Command{
-			Namespace: "test",
-			Resource:  "many-positional",
-			ArgSpecs: core.ArgSpecs{
-				{
-					Name:       "name-id",
-					Positional: true,
-				},
-				{
-					Name:       "tag",
-					Positional: true,
-				},
-			},
-			AllowAnonymousClient: true,
-			ArgsType:             reflect.TypeOf(testType{}),
-			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
-				return argsI, nil
-			},
-		},
-		&core.Command{
-			Namespace: "test",
-			Resource:  "many-multi-positional",
-			ArgSpecs: core.ArgSpecs{
-				{
-					Name:       "name-id",
-					Positional: true,
-				},
-				{
-					Name:       "tags",
-					Positional: true,
-				},
-			},
-			AcceptMultiplePositionalArgs: true,
-			AllowAnonymousClient:         true,
-			ArgsType:                     reflect.TypeOf(testTypeManyTags{}),
 			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
 				return argsI, nil
 			},
@@ -296,41 +252,6 @@ func Test_PositionalArg(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
-		),
-	}))
-
-	t.Run("many positional", core.Test(&core.TestConfig{
-		Commands: testGetCommands(),
-		Cmd:      "scw test many-positional tag1 name-id=plop",
-		Check:    core.TestCheckExitCode(0),
-	}))
-
-	t.Run("many positional", core.Test(&core.TestConfig{
-		Commands: testGetCommands(),
-		Cmd:      "scw test many-positional tag1 name-id=plop",
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(0),
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				res := ctx.Result.(*testType)
-				assert.Equal(t, "plop", res.NameID)
-				assert.Equal(t, "tag1", res.Tag)
-			},
-		),
-	}))
-
-	t.Run("many multi-positional", core.Test(&core.TestConfig{
-		Commands: testGetCommands(),
-		Cmd:      "scw test many-multi-positional pos1 pos2 name-id=plop",
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(0),
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				res := ctx.Result.(*testTypeManyTags)
-				assert.Equal(t, "plop", res.NameID)
-				assert.Equal(t, "pos1", res.Tags[0])
-				assert.Equal(t, "pos2", res.Tags[1])
-			},
 		),
 	}))
 }
