@@ -92,7 +92,7 @@ scw interlink link attach_vpc <link-id ...> [arg=value ...]
 
 ### Create a link
 
-Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (faciliated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).
+Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (facilitated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).
 
 **Usage:**
 
