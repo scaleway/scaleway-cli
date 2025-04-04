@@ -14,19 +14,19 @@ import (
 )
 
 type Struct struct {
-	String      string
-	Int         int
-	Bool        bool
-	Strings     []string
-	Time        time.Time
-	Struct      *Struct
-	Nil         *Struct
-	Structs     []*Struct
-	Map         map[string]string
 	Stringer    Stringer
+	Time        time.Time
+	Nil         *Struct
+	Struct      *Struct
+	Map         map[string]string
 	StringerPtr *Stringer
 	Size        *scw.Size
+	String      string
+	Strings     []string
+	Structs     []*Struct
 	Bytes       []byte
+	Int         int
+	Bool        bool
 }
 
 type StructAny struct {
@@ -47,10 +47,10 @@ type Acquaintance struct {
 }
 
 type Human struct {
-	Name          string
-	Age           int
 	Address       *Address
+	Name          string
 	Acquaintances []*Acquaintance
+	Age           int
 }
 
 type NestedAnonymous struct {

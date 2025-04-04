@@ -15,13 +15,13 @@ func lbPrivateNetworksMarshalerFunc(i interface{}, opt *human.MarshalOpt) (strin
 	}
 
 	type customPrivateNetwork struct {
-		IpamIDs               []string                `json:"ipam_ids,omitempty"`
 		DHCPConfigIPID        *string                 `json:"dhcp_config_ip_id,omitempty"`
 		StaticConfigIPAddress *[]string               `json:"static_config_ip_address,omitempty"`
-		PrivateNetworkID      string                  `json:"private_network_id"`
-		Status                lb.PrivateNetworkStatus `json:"status"`
 		CreatedAt             *time.Time              `json:"created_at"`
 		UpdatedAt             *time.Time              `json:"updated_at"`
+		PrivateNetworkID      string                  `json:"private_network_id"`
+		Status                lb.PrivateNetworkStatus `json:"status"`
+		IpamIDs               []string                `json:"ipam_ids,omitempty"`
 	}
 
 	customPrivateNetworks := make([]customPrivateNetwork, 0, len(privateNetworks))

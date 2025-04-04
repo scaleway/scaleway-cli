@@ -70,18 +70,9 @@ func k8sExecCredentialRun(ctx context.Context, _ interface{}) (i interface{}, e 
 
 // ExecCredential is used by exec-based plugins to communicate credentials to HTTP transports.
 type ExecCredential struct {
-	// APIVersion defines the versioned schema of this representation of an object.
-	// Servers should convert recognized schemas to the latest internal value, and
-	// may reject unrecognized values.
-	APIVersion string `json:"apiVersion,omitempty"`
-
-	// Kind is a string value representing the REST resource this object represents.
-	// Servers may infer this from the endpoint the client submits requests to.
-	Kind string `json:"kind,omitempty"`
-
-	// Status is filled in by the plugin and holds the credentials that the transport
-	// should use to contact the API.
-	Status *ExecCredentialStatus `json:"status,omitempty"`
+	Status     *ExecCredentialStatus `json:"status,omitempty"`
+	APIVersion string                `json:"apiVersion,omitempty"`
+	Kind       string                `json:"kind,omitempty"`
 }
 
 // ExecCredentialStatus holds credentials for the transport to use.

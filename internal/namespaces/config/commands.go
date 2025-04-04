@@ -628,9 +628,9 @@ func configInfoCommand() *core.Command {
 			}
 
 			return struct {
+				Profile     map[string]any
 				ConfigPath  string
 				ProfileName string
-				Profile     map[string]any
 			}{
 				ConfigPath:  core.ExtractConfigPath(ctx),
 				ProfileName: core.ExtractProfileName(ctx),

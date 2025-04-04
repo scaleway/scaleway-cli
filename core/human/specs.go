@@ -8,15 +8,11 @@ import (
 
 // MarshalOpt is hydrated by core.View
 type MarshalOpt struct {
-	Title      string
-	Fields     []*MarshalFieldOpt
-	Sections   []*MarshalSection
-	SubOptions map[string]*MarshalOpt
-
-	// Is set to true if we are marshaling a table cell
-	TableCell bool
-
-	// DisableShrinking will disable columns shrinking based on terminal size
+	SubOptions       map[string]*MarshalOpt
+	Title            string
+	Fields           []*MarshalFieldOpt
+	Sections         []*MarshalSection
+	TableCell        bool
 	DisableShrinking bool
 }
 

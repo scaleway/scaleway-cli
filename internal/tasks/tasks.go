@@ -27,9 +27,8 @@ type Task struct {
 }
 
 type Tasks struct {
-	tasks []*Task
-
 	LoggerMode LoggerMode
+	tasks      []*Task
 }
 
 func Begin() *Tasks {

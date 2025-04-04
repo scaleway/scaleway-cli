@@ -38,8 +38,8 @@ type SpecialRequest struct {
 }
 
 type EndpointSpecPrivateNetwork struct {
-	PrivateNetworkID string
 	ServiceIP        *scw.IPNet
+	PrivateNetworkID string
 }
 
 type PrivateNetwork struct {
@@ -63,9 +63,9 @@ func Test_getValuesForFieldByName(t *testing.T) {
 	}
 
 	tests := []struct {
+		testFunc func(*testing.T, TestCase)
 		name     string
 		testCase TestCase
-		testFunc func(*testing.T, TestCase)
 	}{
 		{
 			name: "Simple test",

@@ -641,12 +641,12 @@ func instanceWaitCommand() *core.Command {
 }
 
 type instanceConnectArgs struct {
-	Region         scw.Region
-	PrivateNetwork bool
-	InstanceID     string
-	Username       string
 	Database       *string
 	CliDB          *string
+	Region         scw.Region
+	InstanceID     string
+	Username       string
+	PrivateNetwork bool
 }
 
 type engineFamily string

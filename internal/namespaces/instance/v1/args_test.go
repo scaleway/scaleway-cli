@@ -14,10 +14,10 @@ type NullableStringValueRequest struct {
 
 func TestNullableStringValueUnmarshal(t *testing.T) {
 	type testCase struct {
-		args           []string
 		data           interface{}
 		expectedStruct interface{}
 		expectedError  error
+		args           []string
 	}
 
 	run := func(tc *testCase) func(t *testing.T) {

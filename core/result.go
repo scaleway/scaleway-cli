@@ -13,13 +13,12 @@ import (
 )
 
 type SuccessResult struct {
-	Message  string
-	Details  string
-	Resource string
-	Verb     string
-	Empty    bool
-	// Used to pass resource to an AfterFunc on success
 	TargetResource any
+	Message        string
+	Details        string
+	Resource       string
+	Verb           string
+	Empty          bool
 }
 
 // This type can be return by a command that need to output specific content on stdout directly.

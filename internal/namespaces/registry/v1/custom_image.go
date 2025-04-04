@@ -26,9 +26,9 @@ var (
 )
 
 type customImage struct {
-	registry.Image
 	FullName           string
 	ExplicitVisibility string `json:"-"`
+	registry.Image
 }
 
 func imageGetBuilder(c *core.Command) *core.Command {

@@ -15,12 +15,11 @@ import (
 
 // WebCallback is a web server that will wait for a callback
 type WebCallback struct {
-	port int
-
+	listener  net.Listener
 	tokenChan chan string
 	errChan   chan error
 	srv       *http.Server
-	listener  net.Listener
+	port      int
 }
 
 func New(opts ...Options) *WebCallback {

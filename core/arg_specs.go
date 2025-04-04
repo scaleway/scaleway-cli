@@ -79,39 +79,17 @@ func (s *ArgSpecs) AddBefore(name string, argSpec *ArgSpec) {
 }
 
 type ArgSpec struct {
-	// Name of the argument.
-	Name string
-
-	// Short description.
-	Short string
-
-	// Required defines whether the argument is required.
-	Required bool
-
-	// Default is the argument default value.
-	Default DefaultFunc
-
-	// EnumValues contains all possible values of an enum.
-	EnumValues []string
-
-	// AutoCompleteFunc is used to autocomplete possible values for a given argument.
+	Default          DefaultFunc
 	AutoCompleteFunc AutoCompleteArgFunc
-
-	// ValidateFunc validates an argument.
-	ValidateFunc ArgSpecValidateFunc
-
-	// Positional defines whether the argument is a positional argument. NB: a positional argument is required.
-	Positional bool
-
-	// Only one argument of the same OneOfGroup could be specified
-	OneOfGroup string
-
-	// Deprecated is used to flag an argument as deprecated.
-	// Use the short field to indicate migration tips for users.
-	Deprecated bool
-
-	// CanLoadFile allow to use @ prefix to load a file as content
-	CanLoadFile bool
+	ValidateFunc     ArgSpecValidateFunc
+	Name             string
+	Short            string
+	OneOfGroup       string
+	EnumValues       []string
+	Required         bool
+	Positional       bool
+	Deprecated       bool
+	CanLoadFile      bool
 }
 
 func (a *ArgSpec) Prefix() string {

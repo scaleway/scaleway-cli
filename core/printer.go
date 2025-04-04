@@ -42,9 +42,9 @@ const (
 )
 
 type PrinterConfig struct {
-	OutputFlag string
 	Stdout     io.Writer
 	Stderr     io.Writer
+	OutputFlag string
 }
 
 // NewPrinter returns an initialized formatter corresponding to a given FormatterType.
@@ -133,18 +133,12 @@ func setupWidePrinter(printer *Printer, opts string) {
 }
 
 type Printer struct {
-	printerType PrinterType
 	stdout      io.Writer
 	stderr      io.Writer
-
-	// Enable pretty print on json output
-	jsonPretty bool
-
-	// go template to use on template output
-	template *template.Template
-
-	// Allow to select specifics column in a table with human printer
+	template    *template.Template
+	printerType PrinterType
 	humanFields []string
+	jsonPretty  bool
 }
 
 func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {

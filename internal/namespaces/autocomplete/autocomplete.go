@@ -46,9 +46,9 @@ func autocompleteRootCommand() *core.Command {
 }
 
 type autocompleteScript struct {
+	ShellConfigurationFile map[string]string
 	CompleteScript         string
 	CompleteFunc           string
-	ShellConfigurationFile map[string]string
 }
 
 // autocompleteScripts regroups the autocomplete scripts for the different shells

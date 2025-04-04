@@ -10,8 +10,8 @@ import (
 
 func volumeTypeListBuilder(cmd *core.Command) *core.Command {
 	type customVolumeType struct {
-		Type string `json:"type"`
 		instance.VolumeType
+		Type string `json:"type"`
 	}
 
 	cmd.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {

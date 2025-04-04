@@ -47,14 +47,9 @@ func (e *NotMarshalableTypeError) Error() string {
 //
 
 type UnmarshalArgError struct {
-	// ArgName is the name of the argument which causes the error.
-	ArgName string
-
-	// ArgValue is the value of the argument which causes the error.
+	Err      error
+	ArgName  string
 	ArgValue string
-
-	// Err is the wrapped error.
-	Err error
 }
 
 func (e *UnmarshalArgError) Error() string {
@@ -185,9 +180,9 @@ func missingIndices(index, length int) string {
 }
 
 type CannotParseDateError struct {
-	ArgValue               string
 	AbsoluteTimeParseError error
 	RelativeTimeParseError error
+	ArgValue               string
 }
 
 func (e *CannotParseDateError) Error() string {

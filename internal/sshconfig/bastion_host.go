@@ -5,9 +5,8 @@ import "fmt"
 type BastionHost struct {
 	Name    string
 	Address string
+	Hosts   []SimpleHost
 	Port    uint32
-
-	Hosts []SimpleHost
 }
 
 func (b BastionHost) Config() string {

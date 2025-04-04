@@ -11,9 +11,9 @@ import (
 )
 
 type dnsRecordSetRequest struct {
+	*domain.Record
 	DNSZone string
 	Values  []string
-	*domain.Record
 }
 
 func dnsRecordSetCommand() *core.Command {

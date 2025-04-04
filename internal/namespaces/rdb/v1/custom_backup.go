@@ -128,19 +128,19 @@ func backupRestoreBuilder(c *core.Command) *core.Command {
 
 func backupListBuilder(c *core.Command) *core.Command {
 	type customBackup struct {
-		ID           string                   `json:"ID"`
-		InstanceID   string                   `json:"instance_ID"`
-		DatabaseName string                   `json:"database_name"`
+		Size         *scw.Size                `json:"size"`
+		UpdatedAt    *time.Time               `json:"updated_at"`
+		CreatedAt    *time.Time               `json:"created_at"`
+		ExpiresAt    *time.Time               `json:"expires_at"`
 		Name         string                   `json:"name"`
 		Status       rdb.DatabaseBackupStatus `json:"status"`
-		Size         *scw.Size                `json:"size"`
-		ExpiresAt    *time.Time               `json:"expires_at"`
-		CreatedAt    *time.Time               `json:"created_at"`
-		UpdatedAt    *time.Time               `json:"updated_at"`
+		ID           string                   `json:"ID"`
+		DatabaseName string                   `json:"database_name"`
+		InstanceID   string                   `json:"instance_ID"`
 		InstanceName string                   `json:"instance_name"`
+		Region       scw.Region               `json:"region"`
 		IsExported   bool                     `json:"is_exported"`
 		URLExpired   bool                     `json:"url_expired"`
-		Region       scw.Region               `json:"region"`
 		SameRegion   bool                     `json:"same_region"`
 	}
 
@@ -258,8 +258,8 @@ func getDefaultFileName(rawURL string) (string, error) {
 }
 
 type backupDownloadResult struct {
-	Size     scw.Size `json:"size"`
 	FileName string   `json:"file_name"`
+	Size     scw.Size `json:"size"`
 }
 
 func backupResultMarshallerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {

@@ -67,9 +67,9 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 		lb.ZonedAPICreateBackendRequest
 		InstanceServerID          []string
 		BaremetalServerID         []string
-		UseInstanceServerPublicIP bool
 		InstanceServerTag         []string
 		BaremetalServerTag        []string
+		UseInstanceServerPublicIP bool
 	}
 
 	c.ArgsType = reflect.TypeOf(lbBackendCreateRequestCustom{})
@@ -263,9 +263,9 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 		lb.ZonedAPIAddBackendServersRequest
 		InstanceServerID          []string
 		BaremetalServerID         []string
-		UseInstanceServerPublicIP bool
 		InstanceServerTag         []string
 		BaremetalServerTag        []string
+		UseInstanceServerPublicIP bool
 	}
 
 	c.ArgsType = reflect.TypeOf(lbBackendAddBackendServersRequestCustom{})
@@ -432,9 +432,9 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 		lb.ZonedAPIRemoveBackendServersRequest
 		InstanceServerID          []string
 		BaremetalServerID         []string
-		UseInstanceServerPublicIP bool
 		InstanceServerTag         []string
 		BaremetalServerTag        []string
+		UseInstanceServerPublicIP bool
 	}
 
 	c.ArgsType = reflect.TypeOf(lbBackendRemoveBackendServersRequestCustom{})
@@ -601,9 +601,9 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 		lb.ZonedAPISetBackendServersRequest
 		InstanceServerID          []string
 		BaremetalServerID         []string
-		UseInstanceServerPublicIP bool
 		InstanceServerTag         []string
 		BaremetalServerTag        []string
+		UseInstanceServerPublicIP bool
 	}
 
 	c.ArgsType = reflect.TypeOf(lbBackendSetBackendServersRequestCustom{})

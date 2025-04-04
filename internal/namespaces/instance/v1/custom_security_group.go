@@ -83,17 +83,17 @@ func marshalSecurityGroupRules(i interface{}, _ *human.MarshalOpt) (out string, 
 // MarshalHuman marshals a customSecurityGroupResponse.
 func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	humanSecurityGroup := struct {
+		OrganizationDefault   *bool
+		CreationDate          *time.Time
+		ModificationDate      *time.Time
 		ID                    string
 		Name                  string
 		State                 instance.SecurityGroupState
 		Description           string
-		EnableDefaultSecurity bool
 		OrganizationID        string
 		ProjectID             string
-		OrganizationDefault   *bool
+		EnableDefaultSecurity bool
 		ProjectDefault        bool
-		CreationDate          *time.Time
-		ModificationDate      *time.Time
 		Stateful              bool
 	}{
 		ID:                    sg.ID,

@@ -18,34 +18,26 @@ import (
 )
 
 type instanceCreateServerRequest struct {
-	Zone              scw.Zone
-	ProjectID         *string
-	Image             string
-	Type              string
-	Name              string
-	RootVolume        string
-	AdditionalVolumes []string
-	IP                string
-	DynamicIPRequired *bool
-	Tags              []string
-	IPv6              bool
-	Stopped           bool
-	SecurityGroupID   string
-	PlacementGroupID  string
-
-	// Windows
+	DynamicIPRequired               *bool
+	ProjectID                       *string
+	OrganizationID                  *string
+	RoutedIPEnabled                 *bool
 	AdminPasswordEncryptionSSHKeyID *string
-
-	// IP Mobility
-	RoutedIPEnabled *bool
-
-	// Deprecated
-	BootscriptID string
-	CloudInit    string
-	BootType     string
-
-	// Deprecated: use project-id instead
-	OrganizationID *string
+	RootVolume                      string
+	Type                            string
+	IP                              string
+	Zone                            scw.Zone
+	Image                           string
+	BootType                        string
+	CloudInit                       string
+	SecurityGroupID                 string
+	PlacementGroupID                string
+	Name                            string
+	BootscriptID                    string
+	AdditionalVolumes               []string
+	Tags                            []string
+	Stopped                         bool
+	IPv6                            bool
 }
 
 func serverCreateCommand() *core.Command {

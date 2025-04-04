@@ -15,26 +15,23 @@ import (
 
 // Meta store globally available variables like sdk client or global Flags.
 type Meta struct {
-	BinaryName string
-
-	ProfileFlag    string
-	ConfigPathFlag string
-	Logger         *Logger
-
-	BuildInfo    *BuildInfo
-	Client       *scw.Client
-	Commands     *Commands
-	OverrideEnv  map[string]string
-	OverrideExec OverrideExecFunc
-	CliConfig    *cliConfig.Config
-	Platform     platform.Platform
-
-	command                     *Command
-	stdout                      io.Writer
-	stderr                      io.Writer
-	stdin                       io.Reader
+	Platform                    platform.Platform
 	result                      interface{}
+	stdin                       io.Reader
+	stderr                      io.Writer
+	stdout                      io.Writer
+	BuildInfo                   *BuildInfo
 	httpClient                  *http.Client
+	OverrideEnv                 map[string]string
+	OverrideExec                OverrideExecFunc
+	CliConfig                   *cliConfig.Config
+	Client                      *scw.Client
+	command                     *Command
+	Commands                    *Commands
+	Logger                      *Logger
+	BinaryName                  string
+	ProfileFlag                 string
+	ConfigPathFlag              string
 	isClientFromBootstrapConfig bool
 	BetaMode                    bool
 }

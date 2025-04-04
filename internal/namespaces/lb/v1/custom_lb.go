@@ -149,8 +149,8 @@ func lbGetBuilder(c *core.Command) *core.Command {
 func lbUpdateBuilder(c *core.Command) *core.Command {
 	type lbUpdateRequestCustom struct {
 		*lb.ZonedAPIUpdateLBRequest
-		AssignFlexibleIPv6 bool   `json:"assign_flexible_ipv6"`
 		IPID               string `json:"ip_id"`
+		AssignFlexibleIPv6 bool   `json:"assign_flexible_ipv6"`
 	}
 
 	c.ArgsType = reflect.TypeOf(lbUpdateRequestCustom{})

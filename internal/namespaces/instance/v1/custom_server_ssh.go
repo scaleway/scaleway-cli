@@ -17,8 +17,8 @@ type instanceSSHServerRequest struct {
 	Zone     scw.Zone
 	ServerID string
 	Username string
-	Port     uint64
 	Command  string
+	Port     uint64
 }
 
 func serverSSHCommand() *core.Command {

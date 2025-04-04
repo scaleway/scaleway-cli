@@ -17,8 +17,8 @@ type serverSSHConnectRequest struct {
 	Zone     scw.Zone
 	ServerID string
 	Username string
-	Port     uint
 	Command  string
+	Port     uint
 }
 
 func serverSSHCommand() *core.Command {

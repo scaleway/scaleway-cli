@@ -14,8 +14,8 @@ func Test_WebValidateTemplates(t *testing.T) {
 
 	// Test that web urls are valid templates
 	type failedTemplate struct {
-		Cmd string
 		Err error
+		Cmd string
 	}
 	errs := []any(nil)
 
@@ -41,8 +41,8 @@ func Test_WebValidateTemplatesVariables(t *testing.T) {
 
 	// Test that web urls are valid templates
 	type failedTemplate struct {
-		Cmd string
 		Err error
+		Cmd string
 	}
 	errs := []any(nil)
 

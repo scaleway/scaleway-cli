@@ -33,20 +33,16 @@ import (
 )
 
 type containerDeployRequest struct {
-	Region scw.Region
-
-	Name string
-
+	BuildArgs    map[string]*string
+	NamespaceID  *string
+	Region       scw.Region
+	Name         string
 	Builder      string
 	Dockerfile   string
+	BuildSource  string
+	Port         uint32
 	ForceBuilder bool
-
-	BuildSource string
-	Cache       bool
-	BuildArgs   map[string]*string
-
-	NamespaceID *string
-	Port        uint32
+	Cache        bool
 }
 
 func containerDeployCommand() *core.Command {
@@ -231,10 +227,10 @@ func DeployStepFetchOrCreateRegistry(t *tasks.Task, data *DeployStepCreateNamesp
 }
 
 type DeployStepPackImageResponse struct {
+	Tar io.Reader
 	*DeployStepData
 	Namespace        *container.Namespace
 	RegistryEndpoint string
-	Tar              io.Reader
 }
 
 func DeployStepDockerPackImage(_ *tasks.Task, data *DeployStepFetchOrCreateResponse) (*DeployStepPackImageResponse, error) {
@@ -252,10 +248,10 @@ func DeployStepDockerPackImage(_ *tasks.Task, data *DeployStepFetchOrCreateRespo
 }
 
 type DeployStepBuildImageResponse struct {
-	*DeployStepData
-	Namespace    *container.Namespace
-	Tag          string
 	DockerClient DockerClient
+	*DeployStepData
+	Namespace *container.Namespace
+	Tag       string
 }
 
 func DeployStepDockerBuildImage(t *tasks.Task, data *DeployStepPackImageResponse) (*DeployStepBuildImageResponse, error) {

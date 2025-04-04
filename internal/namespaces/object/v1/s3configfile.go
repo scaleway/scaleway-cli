@@ -32,11 +32,11 @@ func (s supportedTool) ToStringArray() []string {
 }
 
 type s3config struct {
+	ctx       context.Context
 	AccessKey string
 	SecretKey string
 	Region    scw.Region
 	Name      string
-	ctx       context.Context
 }
 
 const (
@@ -146,8 +146,8 @@ func (c s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
 			API       string `json:"api"`
 		}
 		m := struct {
-			Version string                `json:"version"`
 			Hosts   map[string]hostconfig `json:"hosts"`
+			Version string                `json:"version"`
 		}{
 			Version: "9",
 			Hosts: map[string]hostconfig{

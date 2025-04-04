@@ -19,9 +19,9 @@ import (
 type bucketConfigArgs struct {
 	Region           scw.Region
 	Name             string
+	ACL              string
 	Tags             []string
 	EnableVersioning bool `json:"enable-versioning"`
-	ACL              string
 }
 
 func bucketCreateCommand() *core.Command {

@@ -58,16 +58,15 @@ func GetCommands() *core.Commands {
 }
 
 type Args struct {
-	AccessKey      string
-	SecretKey      string
-	ProjectID      string
-	OrganizationID string
-
-	Region              scw.Region
-	Zone                scw.Zone
 	SendTelemetry       *bool
 	WithSSHKey          *bool
 	InstallAutocomplete *bool
+	AccessKey           string
+	SecretKey           string
+	ProjectID           string
+	OrganizationID      string
+	Region              scw.Region
+	Zone                scw.Zone
 }
 
 func Command() *core.Command {

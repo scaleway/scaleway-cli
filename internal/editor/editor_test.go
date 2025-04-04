@@ -34,8 +34,8 @@ func Test_updateResourceEditor_pointers(t *testing.T) {
 	editor.SkipEditor = true
 
 	type UpdateRequest struct {
-		ID   string
 		Name *string
+		ID   string
 	}
 	resource := &struct {
 		ID   string
@@ -62,12 +62,12 @@ func Test_updateResourceEditor_map(t *testing.T) {
 	editor.SkipEditor = true
 
 	type UpdateRequest struct {
-		ID  string             `json:"id"`
 		Env *map[string]string `json:"env"`
+		ID  string             `json:"id"`
 	}
 	resource := &struct {
-		ID  string            `json:"id"`
 		Env map[string]string `json:"env"`
+		ID  string            `json:"id"`
 	}{
 		"uuid",
 		map[string]string{
