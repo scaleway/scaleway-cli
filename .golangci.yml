@@ -103,6 +103,10 @@ linters-settings:
   gosec:
     excludes:
       - G115
+  govet:
+    enable:
+      - fieldalignment
+
 
 issues:
   exclude-dirs:

@@ -166,11 +166,11 @@ type customInstanceServer struct {
 	MacAddress string               `json:"mac"`
 }
 type customBaremetalServer struct {
+	Vlan               *uint32                `json:"vlan"`
 	ID                 string                 `json:"id"`
 	Name               string                 `json:"name"`
 	State              baremetal.ServerStatus `json:"state"`
 	BaremetalNetworkID string                 `json:"baremetal_network_id"`
-	Vlan               *uint32                `json:"vlan"`
 }
 type customK8sCluster struct {
 	ID    string            `json:"id"`

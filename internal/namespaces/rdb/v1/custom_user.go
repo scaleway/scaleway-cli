@@ -16,12 +16,12 @@ func userListBuilder(c *core.Command) *core.Command {
 	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
 		type customUser struct {
 			Name      string   `json:"name"`
-			IsAdmin   bool     `json:"is_admin"`
 			ReadOnly  []string `json:"readonly"`
 			ReadWrite []string `json:"readwrite"`
 			All       []string `json:"all"`
 			Custom    []string `json:"custom"`
 			None      []string `json:"none"`
+			IsAdmin   bool     `json:"is_admin"`
 		}
 
 		resI, err := runner(ctx, argsI)

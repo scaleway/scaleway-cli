@@ -13,8 +13,8 @@ import (
 )
 
 type rdbEndpointCustomResult struct {
-	Endpoints []*rdb.Endpoint
 	Success   core.SuccessResult
+	Endpoints []*rdb.Endpoint
 }
 
 func rdbEndpointCustomResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -48,8 +48,8 @@ type rdbEndpointSpecPrivateNetworkCustom struct {
 func endpointCreateBuilder(c *core.Command) *core.Command {
 	type rdbCreateEndpointRequestCustom struct {
 		*rdb.CreateEndpointRequest
-		LoadBalancer   bool                                 `json:"load-balancer"`
 		PrivateNetwork *rdbEndpointSpecPrivateNetworkCustom `json:"private-network"`
+		LoadBalancer   bool                                 `json:"load-balancer"`
 	}
 
 	c.ArgsType = reflect.TypeOf(rdbCreateEndpointRequestCustom{})

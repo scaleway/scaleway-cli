@@ -18,10 +18,10 @@ func init() {
 
 func TestUnmarshalStruct(t *testing.T) {
 	type TestCase struct {
-		args     []string
-		error    string
 		expected interface{}
 		data     interface{}
+		error    string
+		args     []string
 	}
 
 	stringPtr := "test"
@@ -536,8 +536,8 @@ func TestUnmarshalStruct(t *testing.T) {
 
 func TestIsUmarshalableValue(t *testing.T) {
 	type TestCase struct {
-		expected bool
 		data     interface{}
+		expected bool
 	}
 
 	run := func(testCase TestCase) func(t *testing.T) {

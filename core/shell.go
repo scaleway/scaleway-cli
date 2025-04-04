@@ -25,9 +25,9 @@ type Completer struct {
 }
 
 type ShellSuggestion struct {
-	Text string
 	Arg  *ArgSpec
 	Cmd  *Command
+	Text string
 }
 
 // lastArg returns last element of string or empty string

@@ -58,26 +58,26 @@ func serverLocationMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, er
 func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 	// humanServerInList is the custom Server type used for list view.
 	type humanServerInList struct {
-		ID                string
-		Name              string
-		Type              string
-		State             instance.ServerState
-		Zone              scw.Zone
-		PublicIP          net.IP
 		PrivateIP         *string
-		Tags              []string
-		ImageName         string
-		RoutedIPEnabled   *bool
-		PlacementGroup    *instance.PlacementGroup
-		ModificationDate  *time.Time
 		CreationDate      *time.Time
+		ModificationDate  *time.Time
+		PlacementGroup    *instance.PlacementGroup
+		RoutedIPEnabled   *bool
+		SecurityGroupName string
+		Name              string
+		ImageID           string
+		ImageName         string
+		Zone              scw.Zone
+		State             instance.ServerState
+		Type              string
+		Arch              instance.Arch
+		StateDetail       string
+		SecurityGroupID   string
+		ID                string
+		PublicIP          net.IP
+		Tags              []string
 		Volumes           int
 		Protected         bool
-		SecurityGroupName string
-		SecurityGroupID   string
-		StateDetail       string
-		Arch              instance.Arch
-		ImageID           string
 	}
 
 	servers := i.([]*instance.Server)

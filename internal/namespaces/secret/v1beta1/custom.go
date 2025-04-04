@@ -6,9 +6,9 @@ import (
 )
 
 type customAccessSecretVersionRequest struct {
-	secret.AccessSecretVersionRequest
 	Field *string
-	Raw   bool
+	secret.AccessSecretVersionRequest
+	Raw bool
 }
 
 func GetCommands() *core.Commands {

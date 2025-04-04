@@ -17,23 +17,11 @@ var (
 type (
 	GetResourceFunc func(interface{}) (interface{}, error)
 	Config          struct {
-		// PutRequest means that the request replace all fields
-		// If false, fields that were not edited will not be sent
-		// If true, all fields will be sent
-		PutRequest bool
-
-		MarshalMode MarshalMode
-
-		// Template is a template that will be shown before marshaled data in edited file
-		Template string
-
-		// IgnoreFields is a list of json tags that will be removed from marshaled data
-		// The content of these fields will be lost in edited data
-		IgnoreFields []string
-
-		// If not empty, this will replace edited text as if it was edited in the terminal
-		// Should be paired with global SkipEditor as true, useful for tests
+		MarshalMode    MarshalMode
+		Template       string
 		EditedResource string
+		IgnoreFields   []string
+		PutRequest     bool
 	}
 )
 

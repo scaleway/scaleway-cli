@@ -16,11 +16,10 @@ const (
 )
 
 type snapshotWaitRequest struct {
-	Zone       scw.Zone
-	SnapshotID string
-	Timeout    time.Duration
-
 	TerminalStatus *block.SnapshotStatus
+	Zone           scw.Zone
+	SnapshotID     string
+	Timeout        time.Duration
 }
 
 func snapshotWaitCommand() *core.Command {

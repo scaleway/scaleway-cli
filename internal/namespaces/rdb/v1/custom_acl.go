@@ -21,13 +21,13 @@ var aclRuleActionMarshalSpecs = human.EnumMarshalSpecs{
 type rdbACLCustomArgs struct {
 	Region      scw.Region
 	InstanceID  string
-	ACLRuleIPs  scw.IPNet
 	Description string
+	ACLRuleIPs  scw.IPNet
 }
 
 type CustomACLResult struct {
-	Rules   []*rdb.ACLRule
 	Success core.SuccessResult
+	Rules   []*rdb.ACLRule
 }
 
 func rdbACLCustomResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {

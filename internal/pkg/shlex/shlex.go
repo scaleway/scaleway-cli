@@ -20,22 +20,21 @@ shell-style rules for quoting and commenting.
 
 The basic use case uses the default ASCII lexer to split a string into sub-strings:
 
-  shlex.Split("one \"two three\" four") -> []string{"one", "two three", "four"}
+	shlex.Split("one \"two three\" four") -> []string{"one", "two three", "four"}
 
 To process a stream of strings:
 
-  l := NewLexer(os.Stdin)
-  for ; token, err := l.Next(); err != nil {
-  	// process token
-  }
+	l := NewLexer(os.Stdin)
+	for ; token, err := l.Next(); err != nil {
+		// process token
+	}
 
 To access the raw token stream (which includes tokens for comments):
 
-  t := NewTokenizer(os.Stdin)
-  for ; token, err := t.Next(); err != nil {
-	// process token
-  }
-
+	  t := NewTokenizer(os.Stdin)
+	  for ; token, err := t.Next(); err != nil {
+		// process token
+	  }
 */
 package shlex
 
@@ -57,8 +56,8 @@ type lexerState int
 
 // Token is a (type, value) pair representing a lexographical token.
 type Token struct {
-	tokenType TokenType
 	value     string
+	tokenType TokenType
 }
 
 // Equal reports whether tokens a, and b, are equal.
@@ -168,8 +167,8 @@ func (l *Lexer) Next() (string, error) {
 
 // Tokenizer turns an input stream into a sequence of typed tokens
 type Tokenizer struct {
-	input      bufio.Reader
 	classifier tokenClassifier
+	input      bufio.Reader
 }
 
 // NewTokenizer creates a new tokenizer from an input stream.

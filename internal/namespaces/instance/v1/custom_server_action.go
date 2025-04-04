@@ -242,8 +242,8 @@ Once your image is ready you will be able to create a new server based on this i
 type customTerminateServerRequest struct {
 	Zone      scw.Zone
 	ServerID  string
-	WithIP    bool
 	WithBlock withBlock
+	WithIP    bool
 }
 
 type withBlock string

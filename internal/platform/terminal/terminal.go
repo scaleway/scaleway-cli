@@ -6,9 +6,8 @@ import (
 )
 
 type Platform struct {
+	cfg       *scw.Config
 	UserAgent string
-
-	cfg *scw.Config
 }
 
 func (p *Platform) ScwConfig() *scw.Config {

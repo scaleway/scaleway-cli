@@ -14,17 +14,17 @@ import (
 )
 
 type Basic struct {
+	StringPtr *string
 	String    string
 	Int       int
-	Int16     int16
-	Int32     int32
 	Int64     int64
-	UInt16    uint16
-	UInt32    uint32
 	UInt64    uint64
-	Float32   float32
 	Float64   float64
-	StringPtr *string
+	Int32     int32
+	UInt32    uint32
+	Float32   float32
+	Int16     int16
+	UInt16    uint16
 	Bool      bool
 }
 
@@ -36,8 +36,8 @@ type Slice struct {
 }
 
 type WellKnownTypes struct {
-	Size scw.Size
 	Time time.Time
+	Size scw.Size
 }
 
 type Nested struct {
@@ -90,10 +90,10 @@ type Enum struct {
 }
 
 type RecursiveWithMapOfRecursive struct {
-	ID       int
+	Elements map[string]*RecursiveWithMapOfRecursive
 	Name     string
 	Short    string
-	Elements map[string]*RecursiveWithMapOfRecursive
+	ID       int
 }
 
 func (c *CustomStruct) UnmarshalArgs(value string) error {
@@ -168,8 +168,8 @@ func TestGetArgType(t *testing.T) {
 	type TestCase struct {
 		ArgType       reflect.Type
 		Name          string
-		ExpectedKind  reflect.Kind
 		expectedError string
+		ExpectedKind  reflect.Kind
 	}
 
 	run := func(tc *TestCase) func(*testing.T) {

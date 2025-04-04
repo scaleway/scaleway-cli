@@ -261,12 +261,12 @@ func clusterGetBuilder(c *core.Command) *core.Command {
 			Status      k8s.PoolStatus `json:"status"`
 			Version     string         `json:"version"`
 			NodeType    string         `json:"node_type"`
+			Zone        scw.Zone       `json:"zone"`
 			MinSize     uint32         `json:"min_size"`
 			Size        uint32         `json:"size"`
 			MaxSize     uint32         `json:"max_size"`
 			Autoscaling bool           `json:"autoscaling"`
 			Autohealing bool           `json:"autohealing"`
-			Zone        scw.Zone       `json:"zone"`
 		}
 
 		customPools := []customPool{}

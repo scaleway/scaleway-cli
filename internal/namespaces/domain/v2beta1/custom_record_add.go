@@ -10,8 +10,8 @@ import (
 )
 
 type dnsRecordAddRequest struct {
-	DNSZone string
 	*domain.Record
+	DNSZone string
 }
 
 func dnsRecordAddCommand() *core.Command {

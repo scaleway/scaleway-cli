@@ -63,10 +63,10 @@ func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
 
 type PromptStringConfig struct {
 	Ctx             context.Context
+	ValidateFunc    ValidateFunc
 	Prompt          string
 	DefaultValue    string
 	DefaultValueDoc string
-	ValidateFunc    ValidateFunc
 }
 
 func PromptStringWithConfig(config *PromptStringConfig) (string, error) {
@@ -102,11 +102,11 @@ func (h *ReadlineHandler) SetPrompt(prompt string) {
 
 type ReadlineConfig struct {
 	Ctx          context.Context
-	Prompt       string
 	PromptFunc   func(string) string
-	Password     bool
 	ValidateFunc ValidateFunc
+	Prompt       string
 	DefaultValue string
+	Password     bool
 }
 
 func Readline(config *ReadlineConfig) (string, error) {

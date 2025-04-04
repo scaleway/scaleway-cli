@@ -19,26 +19,15 @@ import (
 )
 
 type ServerBuilder struct {
-	// createdReq is the request being built
-	createReq *instance.CreateServerRequest
-	// createIPReqs is filled with requests if one or more IP are needed
-	createIPReqs []*instance.CreateIPRequest
-
-	// volumes is the list of requested volumes
-	volumes []*VolumeBuilder
-
-	// rootVolume is the builder for the root volume
-	rootVolume *VolumeBuilder
-
-	// All needed APIs
+	createReq      *instance.CreateServerRequest
+	rootVolume     *VolumeBuilder
 	apiMarketplace *marketplace.API
 	apiInstance    *instance.API
 	apiBlock       *block.API
-
-	// serverType is filled with the ServerType if CommercialType is found in the API.
-	serverType *instance.ServerType
-	// serverImage is filled with the Image if one is provided
-	serverImage *instance.Image
+	serverType     *instance.ServerType
+	serverImage    *instance.Image
+	createIPReqs   []*instance.CreateIPRequest
+	volumes        []*VolumeBuilder
 }
 
 // NewServerBuilder creates a new builder for a server with requested commercialType in given zone.
@@ -507,17 +496,12 @@ func (sb *ServerBuilder) BuildPostCreationSetup() PostServerCreationSetupFunc {
 }
 
 type VolumeBuilder struct {
+	SnapshotID *string
+	VolumeID   *string
+	Size       *scw.Size
+	IOPS       *uint32
 	Zone       scw.Zone
 	VolumeType instance.VolumeVolumeType
-
-	// SnapshotID is the ID of the snapshot the volume should be created from.
-	SnapshotID *string
-	// VolumeID is the ID of the volume if one should be imported.
-	VolumeID *string
-	// Size is the size of the created Volume. If used, the volume should be created from scratch.
-	Size *scw.Size
-	// IOPS is the io per second to be configured for a created volume.
-	IOPS *uint32
 }
 
 // NewVolumeBuilder creates a volume builder from a 'volumes' argument item.

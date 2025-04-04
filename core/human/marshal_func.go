@@ -207,11 +207,8 @@ func isMarshalable(t reflect.Type) bool {
 
 // EnumMarshalSpec contains specs used by EnumMarshalFunc.
 type EnumMarshalSpec struct {
-	// Attribute (mainly colors) to use.
+	Value     string
 	Attribute color.Attribute
-
-	// Value is the value that will be printed for the given value.
-	Value string
 }
 
 type EnumMarshalSpecs map[interface{}]*EnumMarshalSpec

@@ -16,8 +16,8 @@ type serverAddFlexibleIPRequest struct {
 	ServerID    string
 	Description string
 	IPType      string
-	Tags        []string
 	Zone        scw.Zone
+	Tags        []string
 }
 
 func serverAddFlexibleIP() *core.Command {

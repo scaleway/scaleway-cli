@@ -38,8 +38,8 @@ func (s sshConfigServer) InPrivateNetwork(id string) bool {
 }
 
 type sshConfigInstallRequest struct {
-	Zone      scw.Zone
 	ProjectID *string
+	Zone      scw.Zone
 }
 
 func sshConfigInstallCommand() *core.Command {

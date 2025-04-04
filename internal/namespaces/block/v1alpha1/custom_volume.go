@@ -16,11 +16,10 @@ const (
 )
 
 type volumeWaitRequest struct {
-	Zone     scw.Zone
-	VolumeID string
-	Timeout  time.Duration
-
 	TerminalStatus *block.VolumeStatus
+	Zone           scw.Zone
+	VolumeID       string
+	Timeout        time.Duration
 }
 
 func volumeWaitCommand() *core.Command {

@@ -22,8 +22,8 @@ type testDate struct {
 }
 
 type testAcceptMultiPositionalArgsType struct {
-	NameIDs []string
 	Tag     string
+	NameIDs []string
 }
 
 func testGetCommands() *core.Commands {

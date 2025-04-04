@@ -13,87 +13,32 @@ import (
 
 // Command represent a CLI command. From this higher level type we create Cobra command objects.
 type Command struct {
-	// Namespace is the top level entry point of a command. (e.g scw instance)
-	Namespace string
-
-	// Resource is the 2nd command level. Resources are nested in a namespace. (e.g scw instance server)
-	Resource string
-
-	// Verb is the 3rd command level. Verbs are nested in a resource. (e.g scw instance server list)
-	Verb string
-
-	// Short documentation.
-	Short string
-
-	// Long documentation.
-	Long string
-
-	// AllowAnonymousClient defines whether the SDK client can run the command without be authenticated.
-	AllowAnonymousClient bool
-
-	// DisableTelemetry disable telemetry for the command.
-	DisableTelemetry bool
-
-	// DisableAfterChecks disable checks that run after the command to avoid superfluous message
-	DisableAfterChecks bool
-
-	// Hidden hides the command form usage and auto-complete.
-	Hidden bool
-
-	// ArgsType defines the type of argument for this command.
-	ArgsType reflect.Type
-
-	// ArgSpecs defines specifications for arguments.
-	ArgSpecs ArgSpecs
-
-	// AcceptMultiplePositionalArgs defines whether the command can accept multiple positional arguments.
-	// If enabled, positional argument is expected to be a list.
+	ArgsType                     reflect.Type
+	Run                          CommandRunner
+	Interceptor                  CommandInterceptor
+	PreValidateFunc              CommandPreValidateFunc
+	View                         *View
+	ValidateFunc                 CommandValidateFunc
+	WaitFunc                     WaitFunc
+	WebURL                       string
+	WaitUsage                    string
+	Resource                     string
+	Namespace                    string
+	path                         string
+	Long                         string
+	Verb                         string
+	Short                        string
+	Aliases                      []string
+	Examples                     []*Example
+	ArgSpecs                     ArgSpecs
+	SeeAlsos                     []*SeeAlso
+	Groups                       []string
 	AcceptMultiplePositionalArgs bool
-
-	// View defines the View for this command.
-	// It is used to create the different options for the different Marshalers.
-	View *View
-
-	// Examples defines Examples for this command.
-	Examples []*Example
-
-	// SeeAlsos presents commands related to this command.
-	SeeAlsos []*SeeAlso
-
-	// PreValidateFunc allows to manipulate args before validation
-	PreValidateFunc CommandPreValidateFunc
-
-	// ValidateFunc validates a command.
-	// If nil, core.DefaultCommandValidateFunc is used by default.
-	ValidateFunc CommandValidateFunc
-
-	// Interceptor are middleware func that can intercept context and args before they are sent to Run
-	// You can combine multiple CommandInterceptor using AddInterceptors method.
-	Interceptor CommandInterceptor
-
-	// Run will be called to execute a command. It will receive a context and parsed argument.
-	// Non-nil values returned by this method will be printed out.
-	Run CommandRunner
-
-	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
-	WaitFunc WaitFunc
-
-	// WebURL will be used as url to open when the --web flag is passed
-	// Can contain template of values in request, ex: "url/{{ .Zone }}/{{ .ResourceID }}"
-	WebURL string
-
-	// WaitUsage override the usage for the -w (--wait) flag
-	WaitUsage string
-
-	// Aliases contains a list of aliases for a command
-	Aliases []string
-	// cache command path
-	path string
-
-	// Groups contains a list of groups IDs
-	Groups []string
-	//
-	Deprecated bool
+	Hidden                       bool
+	DisableAfterChecks           bool
+	DisableTelemetry             bool
+	AllowAnonymousClient         bool
+	Deprecated                   bool
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
@@ -203,8 +148,8 @@ func (c *Command) MatchAlias(alias alias.Alias) bool {
 
 // Commands represent a list of CLI commands, with a index to allow searching.
 type Commands struct {
-	commands     []*Command
 	commandIndex map[string]*Command
+	commands     []*Command
 }
 
 func NewCommands(cmds ...*Command) *Commands {

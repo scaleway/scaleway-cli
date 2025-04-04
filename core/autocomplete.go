@@ -45,16 +45,14 @@ type AutoCompleteNode struct {
 	Children map[string]*AutoCompleteNode
 	Command  *Command
 	ArgSpec  *ArgSpec
+	Name     string
 	Type     AutoCompleteNodeType
-
-	// Name of the current node. Useful for debugging.
-	Name string
 }
 
 type FlagSpec struct {
 	Name             string
-	HasVariableValue bool
 	EnumValues       []string
+	HasVariableValue bool
 }
 
 func (node *AutoCompleteNode) addFlags(flags []FlagSpec) {

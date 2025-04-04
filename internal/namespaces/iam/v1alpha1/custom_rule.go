@@ -11,8 +11,8 @@ import (
 )
 
 type iamRuleCreateCommandRequest struct {
-	PolicyID string
 	iam.RuleSpecs
+	PolicyID string
 }
 
 func iamRuleCreateCommand() *core.Command {

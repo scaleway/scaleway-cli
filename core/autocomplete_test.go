@@ -80,8 +80,8 @@ func testAutocompleteGetCommands() *core.Commands {
 
 type autoCompleteTestCase struct {
 	Suggestions         core.AutocompleteSuggestions
-	WordToCompleteIndex int
 	Words               []string
+	WordToCompleteIndex int
 }
 
 func runAutocompleteTest(ctx context.Context, tc *autoCompleteTestCase) func(*testing.T) {

@@ -12,9 +12,9 @@ import (
 
 func TestMarshal(t *testing.T) {
 	type TestCase struct {
+		data     interface{}
 		error    string
 		expected []string
-		data     interface{}
 	}
 
 	stringPtr := "test"
@@ -230,9 +230,9 @@ func TestMarshal(t *testing.T) {
 
 func TestMarshalValue(t *testing.T) {
 	type TestCase struct {
+		data     interface{}
 		error    string
 		expected string
-		data     interface{}
 	}
 
 	run := func(testCase TestCase) func(t *testing.T) {

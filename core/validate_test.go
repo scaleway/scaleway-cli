@@ -12,11 +12,11 @@ import (
 )
 
 type Element struct {
-	ID                 int
-	Name               string
 	ElementsMap        map[string]Element
-	ElementsSlice      []Element
 	FirstNestedElement *FirstNestedElement
+	Name               string
+	ElementsSlice      []Element
+	ID                 int
 }
 
 type FirstNestedElement struct {
@@ -296,9 +296,9 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 func Test_ValidateNoConflict(t *testing.T) {
 	type TestCase struct {
 		command *core.Command
-		rawArgs args.RawArgs
 		arg1    string
 		arg2    string
+		rawArgs args.RawArgs
 	}
 
 	runOK := func(testCase TestCase) func(t *testing.T) {
@@ -385,9 +385,9 @@ func TestNewOneOfGroupManager(t *testing.T) {
 	}
 
 	tests := []struct {
-		name     string
 		testCase TestCase
 		testFunc func(*testing.T, TestCase)
+		name     string
 	}{
 		{
 			name: "Basic OneOf Groups",
@@ -488,11 +488,11 @@ func TestNewOneOfGroupManager(t *testing.T) {
 
 func TestValidateRequiredOneOfGroups(t *testing.T) {
 	tests := []struct {
-		name          string
-		setupManager  func() *core.OneOfGroupManager
-		rawArgs       args.RawArgs
-		expectedError string
 		ArgsType      interface{}
+		setupManager  func() *core.OneOfGroupManager
+		name          string
+		expectedError string
+		rawArgs       args.RawArgs
 	}{
 		{
 			name: "Required group satisfied with first argument",
@@ -558,11 +558,11 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 
 func TestValidateUniqueOneOfGroups(t *testing.T) {
 	tests := []struct {
-		name          string
-		setupManager  func() *core.OneOfGroupManager
-		rawArgs       args.RawArgs
-		expectedError string
 		ArgsType      interface{}
+		setupManager  func() *core.OneOfGroupManager
+		name          string
+		expectedError string
+		rawArgs       args.RawArgs
 	}{
 		{
 			name: "Required group satisfied with first argument",

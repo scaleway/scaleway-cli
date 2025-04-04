@@ -50,34 +50,16 @@ var (
 
 // CheckFuncCtx contain the result of a command execution
 type CheckFuncCtx struct {
-	// Exit code return by the CLI
-	ExitCode int
-
-	// Content print on stdout
-	Stdout []byte
-
-	// Content print on stderr
-	Stderr []byte
-
-	// Error returned by the command
-	Err error
-
-	// Command result
-	Result interface{}
-
-	// Meta bag
-	Meta TestMetadata
-
-	// Scaleway client
-	Client *scw.Client
-
-	// OverrideEnv passed in the TestConfig
+	Err         error
+	Result      interface{}
+	Meta        TestMetadata
+	Client      *scw.Client
 	OverrideEnv map[string]string
-
-	Logger *Logger
-
-	// The content logged by the command
-	LogBuffer string
+	Logger      *Logger
+	LogBuffer   string
+	Stdout      []byte
+	Stderr      []byte
+	ExitCode    int
 }
 
 var testRenderHelpers = map[string]any{
@@ -142,70 +124,25 @@ type AfterFuncCtx struct {
 
 // TestConfig contain configuration that can be used with the Test function
 type TestConfig struct {
-	// Array of command to load (see main.go)
-	Commands *Commands
-
-	// If set to true the client will be initialize to use a e2e token.
-	UseE2EClient bool
-
-	// DefaultRegion to use with scw client (default: scw.RegionFrPar)
-	DefaultRegion scw.Region
-
-	// DefaultZone to use with scw client (default: scw.ZoneFrPar1)
-	DefaultZone scw.Zone
-
-	// BeforeFunc is a hook that will be called before test is run. You can use this function to bootstrap resources.
-	BeforeFunc BeforeFunc
-
-	// The command line you want to test
-	// The arguments in this command MUST have only one space between each others to be split successfully
-	// Conflict with Args
-	Cmd string
-
-	// Args represents a program arguments and should be used, when you cannot Cmd because your arguments include space characters
-	// Conflict with Cmd
-	Args []string
-
-	// A list of check function that will be run on result.
-	Check TestCheck
-
-	// AfterFunc is a hook that will be called after test is run. You can use this function to teardown resources.
-	AfterFunc AfterFunc
-
-	// Run tests in parallel.
-	DisableParallel bool
-
-	// Fake build info for this test.
-	BuildInfo *BuildInfo
-
-	// If set, it will create a temporary home directory during the tests.
-	// Get this folder with ExtractUserHomeDir()
-	// This will also use this temporary directory as a cache directory.
-	// Get this folder with ExtractCacheDir()
-	TmpHomeDir bool
-
-	// OverrideEnv contains environment variables that will be overridden during the test.
-	OverrideEnv map[string]string
-
-	// see BootstrapConfig.OverrideExec
-	OverrideExec OverrideExecTestFunc
-
-	// Custom client to use for test, if none are provided will create one automatically
-	Client *scw.Client
-
-	// Context that will be forwarded to Bootstrap
-	Ctx context.Context
-
-	// If this is specified this value will be passed to interactive.InjectMockResponseToContext ans will allow
-	// to mock response a user would have enter in a prompt.
-	// Warning: All prompts MUST be mocked or test will hang.
+	Ctx                 context.Context
+	Stdin               io.Reader
+	AfterFunc           AfterFunc
+	BuildInfo           *BuildInfo
+	BeforeFunc          BeforeFunc
+	Client              *scw.Client
+	OverrideExec        OverrideExecTestFunc
+	Check               TestCheck
+	Commands            *Commands
+	OverrideEnv         map[string]string
+	DefaultRegion       scw.Region
+	Cmd                 string
+	DefaultZone         scw.Zone
+	Args                []string
 	PromptResponseMocks []string
-
-	// Allow to mock stdin
-	Stdin io.Reader
-
-	// EnabledAliases enables aliases that are disabled in tests
-	EnableAliases bool
+	TmpHomeDir          bool
+	DisableParallel     bool
+	UseE2EClient        bool
+	EnableAliases       bool
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)

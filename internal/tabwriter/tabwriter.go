@@ -88,21 +88,18 @@ type cell struct {
 // of one line may depend on the cells in future lines. Clients must
 // call Flush when done calling Write.
 type Writer struct {
-	// configuration
 	output   io.Writer
+	buf      []byte
+	lines    [][]cell
+	widths   []int
+	cell     cell
 	minwidth int
 	tabwidth int
 	padding  int
-	padbytes [8]byte
 	flags    uint
-
-	// current state
-	buf     []byte   // collected text excluding tabs or line breaks
-	pos     int      // buffer position up to which cell.width of incomplete cell has been computed
-	cell    cell     // current incomplete cell; cell.width is up to buf[pos] excluding ignored sections
-	endChar byte     // terminating char of escaped sequence (Escape for escapes, '>', ';' for HTML tags/entities, or 0)
-	lines   [][]cell // list of lines; each line is a list of cells
-	widths  []int    // list of column widths in runes - re-used during formatting
+	pos      int
+	padbytes [8]byte
+	endChar  byte
 }
 
 // addLine adds a new line.

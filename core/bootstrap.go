@@ -18,60 +18,22 @@ import (
 )
 
 type BootstrapConfig struct {
-	// Args to use for the command. Usually os.Args
-	Args []string
-
-	// A list of all available commands
-	Commands *Commands
-
-	// BuildInfo contains information about cli build
-	BuildInfo *BuildInfo
-
-	// Stdout stream to use. Usually os.Stdout
-	Stdout io.Writer
-
-	// Stderr stream to use. Usually os.Stderr
-	Stderr io.Writer
-
-	// Stdin stream to use. Usually os.Stdin
-	Stdin io.Reader
-
-	// If provided this client will be passed to all commands.
-	// If not a client will be automatically created by the CLI using Config, Env and flags see createClient().
-	Client *scw.Client
-
-	// DisableTelemetry, if set to true this will disable telemetry report no matter what the config send_telemetry is set to.
-	// This is useful when running test to avoid sending meaningless telemetries.
+	Stdin            io.Reader
+	Platform         platform.Platform
+	Ctx              context.Context
+	Stdout           io.Writer
+	Stderr           io.Writer
+	Logger           *Logger
+	Client           *scw.Client
+	OverrideEnv      map[string]string
+	OverrideExec     OverrideExecFunc
+	BuildInfo        *BuildInfo
+	HTTPClient       *http.Client
+	Commands         *Commands
+	Args             []string
 	DisableTelemetry bool
-
-	// DisableAliases, if set to true this will disable aliases expanding
-	DisableAliases bool
-
-	// OverrideEnv overrides environment variables returned by core.ExtractEnv function.
-	// This is useful for tests as it allows overriding env without relying on global state.
-	OverrideEnv map[string]string
-
-	// OverrideExec allow to override exec.Cmd.Run method. In order for this to work
-	// your code must call le core.ExecCmd function to execute a given command.
-	// If this function is not defined the exec.Cmd.Run function will be called directly.
-	// This function is intended to be use for tests purposes.
-	OverrideExec OverrideExecFunc
-
-	// BaseContest is the base context that will be used across all function call from top to bottom.
-	Ctx context.Context
-
-	// Optional we use it if defined
-	Logger *Logger
-
-	// Default HTTPClient to use. If not provided it will use a basic http client with a simple retry policy
-	// This client will be used to create SDK client, account call, version checking and telemetry
-	HTTPClient *http.Client
-
-	// Enable beta functionalities
-	BetaMode bool
-
-	// The current platform, should probably be platform.Default
-	Platform platform.Platform
+	DisableAliases   bool
+	BetaMode         bool
 }
 
 // Bootstrap is the main entry point. It is directly called from main.

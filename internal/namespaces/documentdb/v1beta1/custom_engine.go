@@ -10,9 +10,9 @@ import (
 
 func engineListBuilder(c *core.Command) *core.Command {
 	type customEngine struct {
+		EndOfLife  *time.Time `json:"end_of_life"`
 		Name       string     `json:"name"`
 		EngineType string     `json:"engine_type"`
-		EndOfLife  *time.Time `json:"end_of_life"`
 	}
 
 	c.View = &core.View{

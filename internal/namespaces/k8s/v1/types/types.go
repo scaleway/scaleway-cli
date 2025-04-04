@@ -52,48 +52,20 @@ type Config struct {
 }
 
 type Preferences struct {
-	// +optional
-	Colors bool `json:"colors,omitempty"`
-	// Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields
-	// +optional
 	Extensions []NamedExtension `json:"extensions,omitempty"`
+	Colors     bool             `json:"colors,omitempty"`
 }
 
 // Cluster contains information about how to communicate with a kubernetes cluster
 type Cluster struct {
-	// Server is the address of the kubernetes cluster (https://hostname:port).
-	Server string `json:"server"`
-	// TLSServerName is used to check server certificate. If TLSServerName is empty, the hostname used to contact the server is used.
-	// +optional
-	TLSServerName string `json:"tls-server-name,omitempty"`
-	// InsecureSkipTLSVerify skips the validity check for the server's certificate. This will make your HTTPS connections insecure.
-	// +optional
-	InsecureSkipTLSVerify bool `json:"insecure-skip-tls-verify,omitempty"`
-	// CertificateAuthority is the path to a cert file for the certificate authority.
-	// +optional
-	CertificateAuthority string `json:"certificate-authority,omitempty"`
-	// CertificateAuthorityData contains PEM-encoded certificate authority certificates. Overrides CertificateAuthority
-	// +optional
-	CertificateAuthorityData []byte `json:"certificate-authority-data,omitempty"`
-	// ProxyURL is the URL to the proxy to be used for all requests made by this
-	// client. URLs with "http", "https", and "socks5" schemes are supported.  If
-	// this configuration is not provided or the empty string, the client
-	// attempts to construct a proxy configuration from http_proxy and
-	// https_proxy environment variables. If these environment variables are not
-	// set, the client does not attempt to proxy requests.
-	//
-	// socks5 proxying does not currently support spdy streaming endpoints (exec,
-	// attach, port forward).
-	// +optional
-	ProxyURL string `json:"proxy-url,omitempty"`
-	// DisableCompression allows client to opt-out of response compression for all requests to the server. This is useful
-	// to speed up requests (specifically lists) when client-server network bandwidth is ample, by saving time on
-	// compression (server-side) and decompression (client-side): https://github.com/kubernetes/kubernetes/issues/112296.
-	// +optional
-	DisableCompression bool `json:"disable-compression,omitempty"`
-	// Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields
-	// +optional
-	Extensions []NamedExtension `json:"extensions,omitempty"`
+	Server                   string           `json:"server"`
+	TLSServerName            string           `json:"tls-server-name,omitempty"`
+	CertificateAuthority     string           `json:"certificate-authority,omitempty"`
+	ProxyURL                 string           `json:"proxy-url,omitempty"`
+	CertificateAuthorityData []byte           `json:"certificate-authority-data,omitempty"`
+	Extensions               []NamedExtension `json:"extensions,omitempty"`
+	InsecureSkipTLSVerify    bool             `json:"insecure-skip-tls-verify,omitempty"`
+	DisableCompression       bool             `json:"disable-compression,omitempty"`
 }
 
 // AuthInfo contains information that describes identity information.  This is use to tell the kubernetes cluster who you are.
@@ -185,16 +157,14 @@ type NamedAuthInfo struct {
 
 // NamedExtension relates nicknames to extension information
 type NamedExtension struct {
-	// Name is the nickname for this Extension
-	Name string `json:"name"`
-	// Extension holds the extension information
 	Extension interface{} `json:"extension"`
+	Name      string      `json:"name"`
 }
 
 // AuthProviderConfig holds the configuration for a specified auth provider.
 type AuthProviderConfig struct {
-	Name   string            `json:"name"`
 	Config map[string]string `json:"config"`
+	Name   string            `json:"name"`
 }
 
 // ExecConfig specifies a command to provide client credentials. The command is exec'd
@@ -203,44 +173,13 @@ type AuthProviderConfig struct {
 // See the client.authentication.k8s.io API group for specifications of the exact input
 // and output format
 type ExecConfig struct {
-	// Command to execute.
-	Command string `json:"command"`
-	// Arguments to pass to the command when executing it.
-	// +optional
-	Args []string `json:"args"`
-	// Env defines additional environment variables to expose to the process. These
-	// are unioned with the host's environment, as well as variables client-go uses
-	// to pass argument to the plugin.
-	// +optional
-	Env []ExecEnvVar `json:"env"`
-
-	// Preferred input version of the ExecInfo. The returned ExecCredentials MUST use
-	// the same encoding version as the input.
-	APIVersion string `json:"apiVersion,omitempty"`
-
-	// This text is shown to the user when the executable doesn't seem to be
-	// present. For example, `brew install foo-cli` might be a good InstallHint for
-	// foo-cli on Mac OS systems.
-	InstallHint string `json:"installHint,omitempty"`
-
-	// ProvideClusterInfo determines whether or not to provide cluster information,
-	// which could potentially contain very large CA data, to this exec plugin as a
-	// part of the KUBERNETES_EXEC_INFO environment variable. By default, it is set
-	// to false. Package k8s.io/client-go/tools/auth/exec provides helper methods for
-	// reading this environment variable.
-	ProvideClusterInfo bool `json:"provideClusterInfo"`
-
-	// InteractiveMode determines this plugin's relationship with standard input. Valid
-	// values are "Never" (this exec plugin never uses standard input), "IfAvailable" (this
-	// exec plugin wants to use standard input if it is available), or "Always" (this exec
-	// plugin requires standard input to function). See ExecInteractiveMode values for more
-	// details.
-	//
-	// If APIVersion is client.authentication.k8s.io/v1alpha1 or
-	// client.authentication.k8s.io/v1beta1, then this field is optional and defaults
-	// to "IfAvailable" when unset. Otherwise, this field is required.
-	//+optional
-	InteractiveMode ExecInteractiveMode `json:"interactiveMode,omitempty"`
+	Command            string              `json:"command"`
+	APIVersion         string              `json:"apiVersion,omitempty"`
+	InstallHint        string              `json:"installHint,omitempty"`
+	InteractiveMode    ExecInteractiveMode `json:"interactiveMode,omitempty"`
+	Args               []string            `json:"args"`
+	Env                []ExecEnvVar        `json:"env"`
+	ProvideClusterInfo bool                `json:"provideClusterInfo"`
 }
 
 // ExecEnvVar is used for setting environment variables when executing an exec-based

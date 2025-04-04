@@ -12,21 +12,14 @@ import (
 
 func serverCreateBuilder(c *core.Command) *core.Command {
 	type baremetalCreateServerRequestCustom struct {
-		Zone scw.Zone `json:"-"`
-		// OrganizationID with which the server will be created
 		OrganizationID *string `json:"organization_id"`
-		// ProjectID with which the server will be created
-		ProjectID *string `json:"project_id"`
-		// Name of the server (≠hostname)
-		Name string `json:"name"`
-		// Description associated to the server, max 255 characters
-		Description string `json:"description"`
-		// Tags associated with the server
-		Tags []string `json:"tags"`
-		// Type of the server
-		Type string
-		// Installation configuration
-		Install *baremetal.CreateServerRequestInstall
+		ProjectID      *string `json:"project_id"`
+		Install        *baremetal.CreateServerRequestInstall
+		Zone           scw.Zone `json:"-"`
+		Name           string   `json:"name"`
+		Description    string   `json:"description"`
+		Type           string
+		Tags           []string `json:"tags"`
 	}
 
 	c.ArgsType = reflect.TypeOf(baremetalCreateServerRequestCustom{})

@@ -58,14 +58,14 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 
 	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
 		type customServerType struct {
-			Name               string                           `json:"name"`
 			HourlyPrice        *scw.Money                       `json:"hourly_price"`
-			LocalVolumeMaxSize scw.Size                         `json:"local_volume_max_size"`
-			CPU                uint32                           `json:"cpu"`
 			GPU                *uint64                          `json:"gpu"`
-			RAM                scw.Size                         `json:"ram"`
+			Name               string                           `json:"name"`
 			Arch               instance.Arch                    `json:"arch"`
 			Availability       instance.ServerTypesAvailability `json:"availability"`
+			LocalVolumeMaxSize scw.Size                         `json:"local_volume_max_size"`
+			RAM                scw.Size                         `json:"ram"`
+			CPU                uint32                           `json:"cpu"`
 		}
 
 		api := instance.NewAPI(core.ExtractClient(ctx))

@@ -34,19 +34,19 @@ var (
 
 func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	type humanImage struct {
-		ID               string
-		Name             string
-		State            instance.ImageState
-		Public           bool
+		CreationDate     *time.Time
+		ModificationDate *time.Time
+		OrganizationID   string
 		Zone             scw.Zone
-		Volumes          []scw.Size
 		ServerName       string
 		ServerID         string
 		Arch             instance.Arch
-		OrganizationID   string
+		ID               string
 		ProjectID        string
-		CreationDate     *time.Time
-		ModificationDate *time.Time
+		State            instance.ImageState
+		Name             string
+		Volumes          []scw.Size
+		Public           bool
 	}
 
 	images := i.([]*imageListItem)
@@ -98,10 +98,10 @@ func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 func imageCreateBuilder(c *core.Command) *core.Command {
 	type customCreateImageRequest struct {
 		*instance.CreateImageRequest
-		AdditionalVolumes []*instance.VolumeTemplate
-		SnapshotID        string
 		OrganizationID    *string
 		ProjectID         *string
+		SnapshotID        string
+		AdditionalVolumes []*instance.VolumeTemplate
 	}
 
 	c.ArgSpecs.GetByName("extra-volumes.{key}.id").Short = "UUID of the snapshot to add"

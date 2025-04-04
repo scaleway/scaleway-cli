@@ -42,10 +42,10 @@ type bucketInfo struct {
 	Region           scw.Region
 	APIEndpoint      string
 	BucketEndpoint   string
-	EnableVersioning bool
+	Owner            string
 	Tags             []types.Tag
 	ACL              []CustomS3ACLGrant
-	Owner            string
+	EnableVersioning bool
 }
 
 func bucketInfoMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {

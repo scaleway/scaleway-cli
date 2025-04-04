@@ -27,8 +27,8 @@ const (
 )
 
 type issue struct {
-	IssueTemplate issueTemplate
 	BuildInfo     *core.BuildInfo
+	IssueTemplate issueTemplate
 }
 
 const bugBodyTemplate = `

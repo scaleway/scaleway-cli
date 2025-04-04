@@ -30,17 +30,17 @@ type Address struct {
 }
 
 type User struct {
-	Name    string
 	Address *Address
-	Friends []*Friends
 	Pets    map[string]*Pet
+	Name    string
+	Friends []*Friends
 }
 
 func TestGetValue(t *testing.T) {
 	type TestCase struct {
 		Data     interface{}
-		Path     string
 		Expected interface{}
+		Path     string
 	}
 
 	run := func(tc *TestCase) func(*testing.T) {
@@ -149,8 +149,8 @@ func TestGetValue(t *testing.T) {
 func TestGetType(t *testing.T) {
 	type TestCase struct {
 		Data     reflect.Type
-		Path     string
 		Expected interface{}
+		Path     string
 	}
 
 	run := func(tc *TestCase) func(*testing.T) {
@@ -246,8 +246,8 @@ func TestListFields(t *testing.T) {
 func TestListFieldsWithFilter(t *testing.T) {
 	type TestCase struct {
 		Data     reflect.Type
-		Expected []string
 		Filter   gofields.ListFieldFilter
+		Expected []string
 	}
 
 	run := func(tc *TestCase) func(*testing.T) {
