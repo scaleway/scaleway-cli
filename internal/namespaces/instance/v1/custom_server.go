@@ -120,15 +120,28 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	return human.Marshal(humanServers, opt)
 }
 
+type customVolume struct {
+	ID               string     `json:"id"`
+	Name             string     `json:"name"`
+	Size             scw.Size   `json:"size"`
+	VolumeType       string     `json:"volume_type"`
+	IOPS             string     `json:"iops"`
+	State            string     `json:"state"`
+	CreationDate     *time.Time `json:"creation_date"`
+	ModificationDate *time.Time `json:"modification_date"`
+	Boot             bool       `json:"boot"`
+	Zone             string     `json:"zone"`
+}
+
 // orderVolumes return an ordered slice based on the volume map key "0", "1", "2",...
-func orderVolumes(v map[string]*instance.VolumeServer) []*instance.VolumeServer {
+func orderVolumes(v map[string]*customVolume) []*customVolume {
 	indexes := []string(nil)
 	for index := range v {
 		indexes = append(indexes, index)
 	}
 	sort.Strings(indexes)
 
-	orderedVolumes := make([]*instance.VolumeServer, 0, len(indexes))
+	orderedVolumes := make([]*customVolume, 0, len(indexes))
 	for _, index := range indexes {
 		orderedVolumes = append(orderedVolumes, v[index])
 	}
@@ -407,13 +420,61 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			})
 		}
 
+		volumes := map[string]*customVolume{}
+		blockAPI := block.NewAPI(client)
+
+		for _, volume := range getServerResp.Server.Volumes {
+			customVol := &customVolume{
+				ID:   volume.ID,
+				Zone: volume.Zone.String(),
+				Boot: volume.Boot,
+			}
+
+			blockVol, _ := blockAPI.GetVolume(&block.GetVolumeRequest{
+				VolumeID: volume.ID,
+				Zone:     volume.Zone,
+			})
+			if blockVol != nil {
+				customVol.Name = blockVol.Name
+				customVol.Size = blockVol.Size
+				customVol.VolumeType = blockVol.Type
+				customVol.State = blockVol.Status.String()
+				customVol.CreationDate = blockVol.CreatedAt
+				customVol.ModificationDate = blockVol.UpdatedAt
+				if blockVol.Specs != nil && blockVol.Specs.PerfIops != nil {
+					switch *blockVol.Specs.PerfIops {
+					case 5000:
+						customVol.IOPS = "5K"
+					case 15000:
+						customVol.IOPS = "15K"
+					}
+				}
+			} else {
+				instanceVol, err := instance.NewAPI(client).GetVolume(&instance.GetVolumeRequest{
+					VolumeID: volume.ID,
+					Zone:     volume.Zone,
+				})
+				if err != nil {
+					return nil, err
+				}
+				customVol.Name = instanceVol.Volume.Name
+				customVol.Size = instanceVol.Volume.Size
+				customVol.VolumeType = instanceVol.Volume.VolumeType.String()
+				customVol.State = instanceVol.Volume.State.String()
+				customVol.CreationDate = instanceVol.Volume.CreationDate
+				customVol.ModificationDate = instanceVol.Volume.ModificationDate
+			}
+
+			volumes[volume.ID] = customVol
+		}
+
 		return &struct {
 			*instance.Server
-			Volumes     []*instance.VolumeServer
+			Volumes     []*customVolume
 			PrivateNics []customNICs `json:"private_nics"`
 		}{
 			getServerResp.Server,
-			orderVolumes(getServerResp.Server.Volumes),
+			orderVolumes(volumes),
 			nics,
 		}, nil
 	}

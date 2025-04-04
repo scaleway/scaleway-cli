@@ -1,28 +1,28 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                  af997bcf-d360-4376-8085-e14dc81a2a54
-Name                cli-srv-strange-boyd
-Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID                  0e84c2aa-47a5-4197-8d67-e71640d5dde2
+Name                cli-srv-nice-goldberg
+Organization        fa1e3217-dc80-42ac-85c3-3f034b78b552
+Project             fa1e3217-dc80-42ac-85c3-3f034b78b552
 CommercialType      DEV1-S
 CreationDate        few seconds ago
 DynamicIPRequired   false
 RoutedIPEnabled     true
 EnableIPv6          false
-Hostname            cli-srv-strange-boyd
+Hostname            cli-srv-nice-goldberg
 Protected           false
-MacAddress          de:00:00:90:9e:85
+MacAddress          de:00:00:a1:df:63
 ModificationDate    few seconds ago
 State               archived
 BootType            local
-SecurityGroup.ID    0fe819c3-274d-472a-b3f5-ddb258d2d8bb
+SecurityGroup.ID    75cc2e54-0eb5-4d98-af0c-72c24c6b3173
 SecurityGroup.Name  Default security group
 StateDetail         -
 Arch                x86_64
 Zone                fr-par-1
 
 Server Image:
-ID                1fb9bfa4-68c3-4d6f-a362-8913a1af27b0
+ID                63d40353-5519-46d0-9172-ccf4885954e1
 Name              Ubuntu 22.04 Jammy Jellyfish
 Arch              x86_64
 CreationDate      few seconds ago
@@ -31,7 +31,7 @@ ExtraVolumes      0
 FromServer        -
 Organization      51b656e3-4865-41e8-adbc-0c45bdd780db
 Public            true
-RootVolume        4eb9437f-8993-444a-b564-f7654add2131
+RootVolume        905845fc-a6eb-4401-8e9d-5810071b7119
 State             available
 Project           51b656e3-4865-41e8-adbc-0c45bdd780db
 Zone              fr-par-1
@@ -40,8 +40,8 @@ Allowed Actions:
 [poweron backup]
 
 Volumes:
-ID                                    NAME  EXPORT URI  ORGANIZATION  SIZE  VOLUME TYPE  CREATION DATE  MODIFICATION DATE  STATE  PROJECT  BOOT   ZONE
-c9b13524-7f26-468b-94f2-a9c5adda7a7b  -     -           -             -     sbs_volume   -              -                  -      -        false  fr-par-1
+ID                                    NAME                                       SIZE   VOLUME TYPE  IOPS  STATE   CREATION DATE    MODIFICATION DATE  BOOT   ZONE
+7b8f71d4-d089-4ba4-a713-6916e7d91c6c  Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0  10 GB  sbs_5k       5K    in_use  few seconds ago  few seconds ago    false  fr-par-1
 
 Public IPs:
 ID   ADDRESS  GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  IPAM ID  STATE
@@ -53,10 +53,10 @@ Private NICs:
 ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "af997bcf-d360-4376-8085-e14dc81a2a54",
-  "name": "cli-srv-strange-boyd",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "0e84c2aa-47a5-4197-8d67-e71640d5dde2",
+  "name": "cli-srv-nice-goldberg",
+  "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
     "poweron",
     "backup"
@@ -67,9 +67,9 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-strange-boyd",
+  "hostname": "cli-srv-nice-goldberg",
   "image": {
-    "id": "1fb9bfa4-68c3-4d6f-a362-8913a1af27b0",
+    "id": "63d40353-5519-46d0-9172-ccf4885954e1",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -80,7 +80,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "4eb9437f-8993-444a-b564-f7654add2131",
+      "id": "905845fc-a6eb-4401-8e9d-5810071b7119",
       "name": "",
       "size": 0,
       "volume_type": "sbs_snapshot"
@@ -94,7 +94,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "private_ip": null,
   "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:90:9e:85",
+  "mac_address": "de:00:00:a1:df:63",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -102,7 +102,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "c9b13524-7f26-468b-94f2-a9c5adda7a7b",
+      "id": "7b8f71d4-d089-4ba4-a713-6916e7d91c6c",
       "name": null,
       "export_uri": null,
       "organization": null,
@@ -118,7 +118,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
     }
   },
   "security_group": {
-    "id": "0fe819c3-274d-472a-b3f5-ddb258d2d8bb",
+    "id": "75cc2e54-0eb5-4d98-af0c-72c24c6b3173",
     "name": "Default security group"
   },
   "maintenances": [],
@@ -130,17 +130,14 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "admin_password_encrypted_value": null,
   "Volumes": [
     {
-      "id": "c9b13524-7f26-468b-94f2-a9c5adda7a7b",
-      "name": null,
-      "export_uri": null,
-      "organization": null,
-      "server": null,
-      "size": null,
-      "volume_type": "sbs_volume",
-      "creation_date": null,
-      "modification_date": null,
-      "state": null,
-      "project": null,
+      "id": "7b8f71d4-d089-4ba4-a713-6916e7d91c6c",
+      "name": "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0",
+      "size": 10000000000,
+      "volume_type": "sbs_5k",
+      "iops": "5K",
+      "state": "in_use",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
       "boot": false,
       "zone": "fr-par-1"
     }
