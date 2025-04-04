@@ -71,15 +71,23 @@ func instanceServerSSHRun(ctx context.Context, argsI interface{}) (i interface{}
 
 	if serverResp.Server.State != instance.ServerStateRunning {
 		return nil, &core.CliError{
-			Err:  errors.New("server is not running"),
-			Hint: fmt.Sprintf("Start the instance with: %s instance server start %s --wait", core.ExtractBinaryName(ctx), serverResp.Server.ID),
+			Err: errors.New("server is not running"),
+			Hint: fmt.Sprintf(
+				"Start the instance with: %s instance server start %s --wait",
+				core.ExtractBinaryName(ctx),
+				serverResp.Server.ID,
+			),
 		}
 	}
 
 	if serverResp.Server.PublicIP == nil {
 		return nil, &core.CliError{
-			Err:  errors.New("server does not have a public IP to connect to"),
-			Hint: fmt.Sprintf("Add a public IP to the instance with: %s instance server update %s ip=<ip_id>", core.ExtractBinaryName(ctx), serverResp.Server.ID),
+			Err: errors.New("server does not have a public IP to connect to"),
+			Hint: fmt.Sprintf(
+				"Add a public IP to the instance with: %s instance server update %s ip=<ip_id>",
+				core.ExtractBinaryName(ctx),
+				serverResp.Server.ID,
+			),
 		}
 	}
 

@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
+	secret "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -41,6 +41,7 @@ func GetGeneratedCommands() *core.Commands {
 		secretVersionDisable(),
 	)
 }
+
 func secretRoot() *core.Command {
 	return &core.Command{
 		Short:     `Secret Manager API`,
@@ -105,7 +106,15 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "opaque", "certificate", "key_value", "basic_credentials", "database_credentials", "ssh_key"},
+				EnumValues: []string{
+					"unknown_type",
+					"opaque",
+					"certificate",
+					"key_value",
+					"basic_credentials",
+					"database_credentials",
+					"ssh_key",
+				},
 			},
 			{
 				Name:       "path",
@@ -150,6 +159,7 @@ func secretSecretCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.CreateSecret(request)
 		},
 		Examples: []*core.Example{
@@ -185,6 +195,7 @@ func secretSecretGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.GetSecret(request)
 		},
 	}
@@ -264,6 +275,7 @@ func secretSecretUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.UpdateSecret(request)
 		},
 	}
@@ -297,6 +309,7 @@ func secretSecretDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "secret",
 				Verb:     "delete",
@@ -333,7 +346,14 @@ func secretSecretList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "tags.{index}",
@@ -369,7 +389,15 @@ func secretSecretList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "opaque", "certificate", "key_value", "basic_credentials", "database_credentials", "ssh_key"},
+				EnumValues: []string{
+					"unknown_type",
+					"opaque",
+					"certificate",
+					"key_value",
+					"basic_credentials",
+					"database_credentials",
+					"ssh_key",
+				},
 			},
 			{
 				Name:       "scheduled-for-deletion",
@@ -385,7 +413,12 @@ func secretSecretList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.ListSecretsRequest)
@@ -401,6 +434,7 @@ func secretSecretList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Secrets, nil
 		},
 	}
@@ -430,6 +464,7 @@ func secretSecretProtect() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.ProtectSecret(request)
 		},
 		Examples: []*core.Example{
@@ -465,6 +500,7 @@ func secretSecretUnprotect() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.UnprotectSecret(request)
 		},
 		Examples: []*core.Example{
@@ -512,6 +548,7 @@ func secretSecretAddOwner() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "secret",
 				Verb:     "add-owner",
@@ -572,6 +609,7 @@ func secretVersionCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.CreateSecretVersion(request)
 		},
 	}
@@ -608,6 +646,7 @@ func secretVersionGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.GetSecretVersion(request)
 		},
 	}
@@ -673,6 +712,7 @@ func secretVersionUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.UpdateSecretVersion(request)
 		},
 	}
@@ -713,6 +753,7 @@ func secretVersionDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "version",
 				Verb:     "delete",
@@ -750,9 +791,20 @@ func secretVersionList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_status", "enabled", "disabled", "deleted", "scheduled_for_deletion"},
+				EnumValues: []string{
+					"unknown_status",
+					"enabled",
+					"disabled",
+					"deleted",
+					"scheduled_for_deletion",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.ListSecretVersionsRequest)
@@ -768,6 +820,7 @@ func secretVersionList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Versions, nil
 		},
 	}
@@ -804,6 +857,7 @@ func secretVersionAccess() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.AccessSecretVersion(request)
 		},
 	}
@@ -848,6 +902,7 @@ func secretVersionAccessByPath() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.AccessSecretVersionByPath(request)
 		},
 	}
@@ -884,6 +939,7 @@ func secretVersionEnable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.EnableSecretVersion(request)
 		},
 	}
@@ -920,6 +976,7 @@ func secretVersionDisable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
+
 			return api.DisableSecretVersion(request)
 		},
 	}

@@ -7,10 +7,25 @@ import (
 )
 
 var snapshotStatusMarshalSpecs = human.EnumMarshalSpecs{
-	mongodb.SnapshotStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "creating"},
-	mongodb.SnapshotStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
-	mongodb.SnapshotStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	mongodb.SnapshotStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-	mongodb.SnapshotStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-	mongodb.SnapshotStatusRestoring: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "restoring"},
+	mongodb.SnapshotStatusCreating: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "creating",
+	},
+	mongodb.SnapshotStatusDeleting: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "deleting",
+	},
+	mongodb.SnapshotStatusError: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+	mongodb.SnapshotStatusLocked: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "locked",
+	},
+	mongodb.SnapshotStatusReady: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "ready",
+	},
+	mongodb.SnapshotStatusRestoring: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "restoring",
+	},
 }

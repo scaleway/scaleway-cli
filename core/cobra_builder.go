@@ -80,7 +80,10 @@ func (b *cobraBuilder) build() *cobra.Command {
 		}
 
 		// Same as namespace but with verbs.
-		verbKey := strings.Join([]string{cmd.Namespace, cmd.Resource, cmd.Verb}, indexCommandSeparator)
+		verbKey := strings.Join(
+			[]string{cmd.Namespace, cmd.Resource, cmd.Verb},
+			indexCommandSeparator,
+		)
 		if _, verbExist := index[verbKey]; !verbExist {
 			cobraCmd := &cobra.Command{Use: cmd.Verb}
 			index[verbKey] = cobraCmd
@@ -101,7 +104,11 @@ func (b *cobraBuilder) build() *cobra.Command {
 // hydrateCobra hydrates a cobra command from a *Command.
 // Field like Short, Long will be copied over.
 // More complex field like PreRun or Run will also be generated if needed.
-func (b *cobraBuilder) hydrateCobra(cobraCmd *cobra.Command, cmd *Command, groups map[string]*cobra.Group) {
+func (b *cobraBuilder) hydrateCobra(
+	cobraCmd *cobra.Command,
+	cmd *Command,
+	groups map[string]*cobra.Group,
+) {
 	cobraCmd.Short = cmd.Short
 	cobraCmd.Long = cmd.Long
 	cobraCmd.Hidden = cmd.Hidden

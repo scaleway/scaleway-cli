@@ -113,8 +113,10 @@ func TestHumanUpdate(t *testing.T) {
 		Commands:        test.GetCommands(),
 		UseE2EClient:    true,
 		DisableParallel: true, // because e2e client is used
-		BeforeFunc:      core.ExecBeforeCmd("scw test human create height=170.5 shoe-size=35.1 altitude-in-meter=-12 altitude-in-millimeter=-12050 fingers-count=21 hair-count=9223372036854775808 is-happy=true eyes-color=amber organization-id=b3ba839a-dcf2-4b0a-ac81-fc32370052a0"),
-		Cmd:             "scw test human update 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 is-happy=false",
+		BeforeFunc: core.ExecBeforeCmd(
+			"scw test human create height=170.5 shoe-size=35.1 altitude-in-meter=-12 altitude-in-millimeter=-12050 fingers-count=21 hair-count=9223372036854775808 is-happy=true eyes-color=amber organization-id=b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
+		),
+		Cmd: "scw test human update 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8 is-happy=false",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -150,8 +152,10 @@ func TestHumanGet(t *testing.T) {
 		Commands:        test.GetCommands(),
 		UseE2EClient:    true,
 		DisableParallel: true, // because e2e client is used
-		BeforeFunc:      core.ExecBeforeCmd("scw test human create height=155.666 shoe-size=36.0 altitude-in-meter=2147483647 altitude-in-millimeter=2147483647285 fingers-count=20 hair-count=9223372036854775809 is-happy=true eyes-color=blue organization-id=b3ba839a-dcf2-4b0a-ac81-fc32370052a0"),
-		Cmd:             "scw test human get 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",
+		BeforeFunc: core.ExecBeforeCmd(
+			"scw test human create height=155.666 shoe-size=36.0 altitude-in-meter=2147483647 altitude-in-millimeter=2147483647285 fingers-count=20 hair-count=9223372036854775809 is-happy=true eyes-color=blue organization-id=b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
+		),
+		Cmd: "scw test human get 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -197,8 +201,10 @@ func TestHumanDelete(t *testing.T) {
 		Commands:        test.GetCommands(),
 		UseE2EClient:    true,
 		DisableParallel: true, // because e2e client is used
-		BeforeFunc:      core.ExecBeforeCmd("scw test human create height=155.666 shoe-size=36.0 altitude-in-meter=2147483647 altitude-in-millimeter=2147483647285 fingers-count=20 hair-count=9223372036854775809 is-happy=true eyes-color=blue organization-id=b3ba839a-dcf2-4b0a-ac81-fc32370052a0"),
-		Cmd:             "scw test human delete 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",
+		BeforeFunc: core.ExecBeforeCmd(
+			"scw test human create height=155.666 shoe-size=36.0 altitude-in-meter=2147483647 altitude-in-millimeter=2147483647285 fingers-count=20 hair-count=9223372036854775809 is-happy=true eyes-color=blue organization-id=b3ba839a-dcf2-4b0a-ac81-fc32370052a0",
+		),
+		Cmd: "scw test human delete 0194fdc2-fa2f-fcc0-41d3-ff12045b73c8",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),

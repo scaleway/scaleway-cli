@@ -35,7 +35,11 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 			dockerConfigPath := path.Join(ctx.Meta["HOME"].(string), ".docker", "config.json")
 			dockerConfigContent, err := os.ReadFile(dockerConfigPath)
 			require.NoError(t, err)
-			assert.JSONEq(t, "{\n  \"credHelpers\": {\n    \"rg.fr-par.scw.cloud\": \"scw\",\n    \"rg.nl-ams.scw.cloud\": \"scw\",\n    \"rg.pl-waw.scw.cloud\": \"scw\"\n  }\n}\n", string(dockerConfigContent))
+			assert.JSONEq(
+				t,
+				"{\n  \"credHelpers\": {\n    \"rg.fr-par.scw.cloud\": \"scw\",\n    \"rg.nl-ams.scw.cloud\": \"scw\",\n    \"rg.pl-waw.scw.cloud\": \"scw\"\n  }\n}\n",
+				string(dockerConfigContent),
+			)
 		},
 		AfterFunc:   nil,
 		TmpHomeDir:  true,
@@ -54,7 +58,11 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 			scriptPath := path.Join(ctx.Meta["HOME"].(string), "docker-credential-scw")
 			scriptContent, err := os.ReadFile(scriptPath)
 			require.NoError(t, err)
-			assert.Equal(t, "#!/bin/sh\nPROFILE_NAME=\"profile01\"\nif [[ ! -z \"$SCW_PROFILE\" ]]\nthen \n\tPROFILE_NAME=\"$SCW_PROFILE\"\nfi\nscw --profile $PROFILE_NAME registry docker-helper \"$@\"\n", string(scriptContent))
+			assert.Equal(
+				t,
+				"#!/bin/sh\nPROFILE_NAME=\"profile01\"\nif [[ ! -z \"$SCW_PROFILE\" ]]\nthen \n\tPROFILE_NAME=\"$SCW_PROFILE\"\nfi\nscw --profile $PROFILE_NAME registry docker-helper \"$@\"\n",
+				string(scriptContent),
+			)
 		},
 		AfterFunc:   nil,
 		TmpHomeDir:  true,

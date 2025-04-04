@@ -138,7 +138,10 @@ func (c *Command) getPath() string {
 }
 
 func (c *Command) GetCommandLine(binaryName string) string {
-	return strings.Trim(binaryName+" "+strings.ReplaceAll(c.getPath(), indexCommandSeparator, " "), " ")
+	return strings.Trim(
+		binaryName+" "+strings.ReplaceAll(c.getPath(), indexCommandSeparator, " "),
+		" ",
+	)
 }
 
 func (c *Command) GetUsage(binaryName string, commands *Commands) string {
@@ -268,7 +271,8 @@ func (c *Commands) Remove(namespace, verb string) {
 
 func (c *Commands) RemoveResource(namespace, resource string) {
 	for i := range c.commands {
-		if c.commands[i].Namespace == namespace && c.commands[i].Resource == resource && c.commands[i].Verb == "" {
+		if c.commands[i].Namespace == namespace && c.commands[i].Resource == resource &&
+			c.commands[i].Verb == "" {
 			c.commands = append(c.commands[:i], c.commands[i+1:]...)
 
 			return
@@ -326,7 +330,8 @@ func (c *Commands) HasSubCommands(cmd *Command) bool {
 		if cmd.Resource == "" && cmd.Namespace == command.Namespace {
 			return true
 		}
-		if cmd.Verb == "" && cmd.Namespace == command.Namespace && cmd.Resource == command.Resource {
+		if cmd.Verb == "" && cmd.Namespace == command.Namespace &&
+			cmd.Resource == command.Resource {
 			return true
 		}
 	}

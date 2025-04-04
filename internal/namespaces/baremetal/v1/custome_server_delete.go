@@ -12,16 +12,18 @@ import (
 
 func serverDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
-		server, err := baremetal.NewAPI(core.ExtractClient(ctx)).WaitForServer(&baremetal.WaitForServerRequest{
-			ServerID:      argsI.(*baremetal.DeleteServerRequest).ServerID,
-			Zone:          argsI.(*baremetal.DeleteServerRequest).Zone,
-			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
-			RetryInterval: core.DefaultRetryInterval,
-		})
+		server, err := baremetal.NewAPI(core.ExtractClient(ctx)).
+			WaitForServer(&baremetal.WaitForServerRequest{
+				ServerID:      argsI.(*baremetal.DeleteServerRequest).ServerID,
+				Zone:          argsI.(*baremetal.DeleteServerRequest).Zone,
+				Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
 		if err != nil {
 			notFoundError := &scw.ResourceNotFoundError{}
 			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
+			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+				errors.As(err, &notFoundError) {
 				return server, nil
 			}
 

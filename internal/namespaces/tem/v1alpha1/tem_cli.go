@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/tem/v1alpha1"
+	tem "github.com/scaleway/scaleway-sdk-go/api/tem/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -53,6 +53,7 @@ func GetGeneratedCommands() *core.Commands {
 		temProjectConsumptionGet(),
 	)
 }
+
 func temRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Transactional Email services`,
@@ -261,6 +262,7 @@ func temEmailCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.CreateEmail(request)
 		},
 	}
@@ -290,6 +292,7 @@ func temEmailGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.GetEmail(request)
 		},
 	}
@@ -389,7 +392,20 @@ func temEmailList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_desc", "created_at_asc", "updated_at_desc", "updated_at_asc", "status_desc", "status_asc", "mail_from_desc", "mail_from_asc", "mail_rcpt_desc", "mail_rcpt_asc", "subject_desc", "subject_asc"},
+				EnumValues: []string{
+					"created_at_desc",
+					"created_at_asc",
+					"updated_at_desc",
+					"updated_at_asc",
+					"status_desc",
+					"status_asc",
+					"mail_from_desc",
+					"mail_from_asc",
+					"mail_rcpt_desc",
+					"mail_rcpt_asc",
+					"subject_desc",
+					"subject_asc",
+				},
 			},
 			{
 				Name:       "flags.{index}",
@@ -397,7 +413,17 @@ func temEmailList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_flag", "soft_bounce", "hard_bounce", "spam", "mailbox_full", "mailbox_not_found", "greylisted", "send_before_expiration", "blocklisted"},
+				EnumValues: []string{
+					"unknown_flag",
+					"soft_bounce",
+					"hard_bounce",
+					"spam",
+					"mailbox_full",
+					"mailbox_not_found",
+					"greylisted",
+					"send_before_expiration",
+					"blocklisted",
+				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
 		},
@@ -415,6 +441,7 @@ func temEmailList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Emails, nil
 		},
 	}
@@ -472,6 +499,7 @@ func temEmailGetStatistics() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.GetStatistics(request)
 		},
 	}
@@ -501,6 +529,7 @@ func temEmailCancel() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.CancelEmail(request)
 		},
 	}
@@ -545,6 +574,7 @@ func temDomainCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.CreateDomain(request)
 		},
 	}
@@ -574,6 +604,7 @@ func temDomainGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.GetDomain(request)
 		},
 	}
@@ -602,7 +633,16 @@ func temDomainList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "checked", "unchecked", "invalid", "locked", "revoked", "pending", "autoconfiguring"},
+				EnumValues: []string{
+					"unknown",
+					"checked",
+					"unchecked",
+					"invalid",
+					"locked",
+					"revoked",
+					"pending",
+					"autoconfiguring",
+				},
 			},
 			{
 				Name:       "name",
@@ -634,6 +674,7 @@ func temDomainList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Domains, nil
 		},
 	}
@@ -663,6 +704,7 @@ func temDomainRevoke() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.RevokeDomain(request)
 		},
 	}
@@ -692,6 +734,7 @@ func temDomainCheck() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.CheckDomain(request)
 		},
 	}
@@ -721,6 +764,7 @@ func temDomainGetLastStatus() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.GetDomainLastStatus(request)
 		},
 	}
@@ -757,6 +801,7 @@ func temDomainUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.UpdateDomain(request)
 		},
 	}
@@ -793,7 +838,17 @@ func temWebhookCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found", "email_blocklisted", "blocklist_created"},
+				EnumValues: []string{
+					"unknown_type",
+					"email_queued",
+					"email_dropped",
+					"email_deferred",
+					"email_delivered",
+					"email_spam",
+					"email_mailbox_not_found",
+					"email_blocklisted",
+					"blocklist_created",
+				},
 			},
 			{
 				Name:       "sns-arn",
@@ -809,6 +864,7 @@ func temWebhookCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.CreateWebhook(request)
 		},
 	}
@@ -869,6 +925,7 @@ func temWebhookList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Webhooks, nil
 		},
 	}
@@ -898,6 +955,7 @@ func temWebhookGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.GetWebhook(request)
 		},
 	}
@@ -933,7 +991,17 @@ func temWebhookUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found", "email_blocklisted", "blocklist_created"},
+				EnumValues: []string{
+					"unknown_type",
+					"email_queued",
+					"email_dropped",
+					"email_deferred",
+					"email_delivered",
+					"email_spam",
+					"email_mailbox_not_found",
+					"email_blocklisted",
+					"blocklist_created",
+				},
 			},
 			{
 				Name:       "sns-arn",
@@ -949,6 +1017,7 @@ func temWebhookUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.UpdateWebhook(request)
 		},
 	}
@@ -982,6 +1051,7 @@ func temWebhookDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "webhook",
 				Verb:     "delete",
@@ -1028,7 +1098,17 @@ func temWebhookListEvents() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "email_queued", "email_dropped", "email_deferred", "email_delivered", "email_spam", "email_mailbox_not_found", "email_blocklisted", "blocklist_created"},
+				EnumValues: []string{
+					"unknown_type",
+					"email_queued",
+					"email_dropped",
+					"email_deferred",
+					"email_delivered",
+					"email_spam",
+					"email_mailbox_not_found",
+					"email_blocklisted",
+					"blocklist_created",
+				},
 			},
 			{
 				Name:       "statuses.{index}",
@@ -1075,6 +1155,7 @@ func temWebhookListEvents() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.WebhookEvents, nil
 		},
 	}
@@ -1096,7 +1177,12 @@ func temBlocklistsList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_desc", "created_at_asc", "ends_at_desc", "ends_at_asc"},
+				EnumValues: []string{
+					"created_at_desc",
+					"created_at_asc",
+					"ends_at_desc",
+					"ends_at_asc",
+				},
 			},
 			{
 				Name:       "domain-id",
@@ -1143,6 +1229,7 @@ func temBlocklistsList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Blocklists, nil
 		},
 	}
@@ -1194,6 +1281,7 @@ func temBlocklistsCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.BulkCreateBlocklists(request)
 		},
 	}
@@ -1227,6 +1315,7 @@ func temBlocklistsDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "blocklists",
 				Verb:     "delete",
@@ -1261,6 +1350,7 @@ func temOffersUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.UpdateOfferSubscription(request)
 		},
 	}
@@ -1283,6 +1373,7 @@ func temOffersList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.ListOffers(request)
 		},
 	}
@@ -1306,6 +1397,7 @@ func temProjectConsumptionGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
+
 			return api.GetProjectConsumption(request)
 		},
 	}

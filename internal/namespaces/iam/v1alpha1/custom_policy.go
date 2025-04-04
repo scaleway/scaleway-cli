@@ -46,28 +46,30 @@ func iamPolicyGetBuilder(c *core.Command) *core.Command {
 			},
 		},
 	}
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		args := argsI.(*iam.GetPolicyRequest)
-		api := iam.NewAPI(core.ExtractClient(ctx))
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			args := argsI.(*iam.GetPolicyRequest)
+			api := iam.NewAPI(core.ExtractClient(ctx))
 
-		respI, err := runner(ctx, argsI)
-		if err != nil {
-			return respI, err
-		}
-		resp := &PolicyGetInterceptorResponse{
-			Policy: respI.(*iam.Policy),
-		}
+			respI, err := runner(ctx, argsI)
+			if err != nil {
+				return respI, err
+			}
+			resp := &PolicyGetInterceptorResponse{
+				Policy: respI.(*iam.Policy),
+			}
 
-		rules, err := api.ListRules(&iam.ListRulesRequest{
-			PolicyID: args.PolicyID,
-		}, scw.WithContext(ctx), scw.WithAllPages())
-		if err != nil {
-			return nil, fmt.Errorf("failed to list rules for given policy: %w", err)
-		}
-		resp.Rules = rules.Rules
+			rules, err := api.ListRules(&iam.ListRulesRequest{
+				PolicyID: args.PolicyID,
+			}, scw.WithContext(ctx), scw.WithAllPages())
+			if err != nil {
+				return nil, fmt.Errorf("failed to list rules for given policy: %w", err)
+			}
+			resp.Rules = rules.Rules
 
-		return resp, nil
-	})
+			return resp, nil
+		},
+	)
 
 	return c
 }

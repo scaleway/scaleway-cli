@@ -209,7 +209,7 @@ scw iot device list [arg=value ...]
 | order-by | One of: `name_asc`, `name_desc`, `status_asc`, `status_desc`, `hub_id_asc`, `hub_id_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `allow_insecure_asc`, `allow_insecure_desc` | Ordering of requested devices |
 | name |  | Name to filter for, only devices with this name will be returned |
 | hub-id |  | Hub ID to filter for, only devices attached to this Hub will be returned |
-| allow-insecure |  | Defines wheter to filter the allow_insecure flag |
+| allow-insecure |  | Defines whether to filter the allow_insecure flag |
 | status | One of: `unknown`, `error`, `enabled`, `disabled` | Device status (enabled, disabled, etc.) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 

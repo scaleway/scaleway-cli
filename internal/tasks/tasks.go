@@ -42,7 +42,11 @@ func (ts *Tasks) SetLoggerMode(mode LoggerMode) {
 	ts.LoggerMode = mode
 }
 
-func Add[TaskArg any, TaskReturn any](ts *Tasks, name string, taskFunc TaskFunc[TaskArg, TaskReturn]) {
+func Add[TaskArg any, TaskReturn any](
+	ts *Tasks,
+	name string,
+	taskFunc TaskFunc[TaskArg, TaskReturn],
+) {
 	var argValue TaskArg
 	var returnValue TaskReturn
 	argType := reflect.TypeOf(argValue)
@@ -52,7 +56,13 @@ func Add[TaskArg any, TaskReturn any](ts *Tasks, name string, taskFunc TaskFunc[
 	if tasksAmount > 0 {
 		lastTask := ts.tasks[tasksAmount-1]
 		if argType != lastTask.returnType {
-			panic(fmt.Errorf("invalid task declared, wait for %s, previous task returns %s", argType.Name(), lastTask.returnType.Name()))
+			panic(
+				fmt.Errorf(
+					"invalid task declared, wait for %s, previous task returns %s",
+					argType.Name(),
+					lastTask.returnType.Name(),
+				),
+			)
 		}
 	}
 
@@ -101,7 +111,9 @@ func (ts *Tasks) Cleanup(ctx context.Context, logger *Logger, failed int) {
 		if len(task.cleanFunctions) != 0 {
 			var err error
 			for i, cleanUpFunc := range task.cleanFunctions {
-				loggerEntry := logger.AddEntry(fmt.Sprintf("Cleaning task %q %d/%d", task.Name, i+1, len(task.cleanFunctions)))
+				loggerEntry := logger.AddEntry(
+					fmt.Sprintf("Cleaning task %q %d/%d", task.Name, i+1, len(task.cleanFunctions)),
+				)
 				task.Logs = loggerEntry.Logs
 				loggerEntry.Start()
 

@@ -154,7 +154,10 @@ func newTemplate() *template.Template {
 				parts = append(parts, fmt.Sprintf("Default: `%s`", doc))
 			}
 			if len(arg.EnumValues) > 0 {
-				parts = append(parts, fmt.Sprintf("One of: `%s`", strings.Join(arg.EnumValues, "`, `")))
+				parts = append(
+					parts,
+					fmt.Sprintf("One of: `%s`", strings.Join(arg.EnumValues, "`, `")),
+				)
 			}
 
 			return strings.Join(parts, "<br />")

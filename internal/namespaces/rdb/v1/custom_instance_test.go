@@ -24,21 +24,27 @@ const (
 
 func Test_ListInstance(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb instance list",
-		Check:      core.TestCheckGolden(),
-		AfterFunc:  deleteInstance(),
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd:       "scw rdb instance list",
+		Check:     core.TestCheckGolden(),
+		AfterFunc: deleteInstance(),
 	}))
 }
 
 func Test_CloneInstance(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb instance clone {{ .Instance.ID }} node-type=DB-DEV-M name=foobar --wait",
-		Check:      core.TestCheckGolden(),
-		AfterFunc:  deleteInstance(),
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd:       "scw rdb instance clone {{ .Instance.ID }} node-type=DB-DEV-M name=foobar --wait",
+		Check:     core.TestCheckGolden(),
+		AfterFunc: deleteInstance(),
 	}))
 }
 
@@ -59,7 +65,12 @@ func Test_CreateInstance(t *testing.T) {
 
 	t.Run("With password generator", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
-		Cmd:      fmt.Sprintf(strings.Replace(baseCommand, "password=%s", "generate-password=true", 1), name, engine, user),
+		Cmd: fmt.Sprintf(
+			strings.Replace(baseCommand, "password=%s", "generate-password=true", 1),
+			name,
+			engine,
+			user,
+		),
 		// do not check the golden as the password generated locally and on CI will necessarily be different
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -98,13 +109,24 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 	t.Run("With public and static private endpoint", core.Test(&core.TestConfig{
 		Commands:   cmds,
 		BeforeFunc: createPN(),
-		Cmd:        fmt.Sprintf(baseCommand+privateNetworkStaticSpec+loadBalancerSpec, name, engine, user, password),
+		Cmd: fmt.Sprintf(
+			baseCommand+privateNetworkStaticSpec+loadBalancerSpec,
+			name,
+			engine,
+			user,
+			password,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				instance := ctx.Result.(rdb.CreateInstanceResult).Instance
-				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointStatic})
+				checkEndpoints(
+					t,
+					ctx.Client,
+					instance,
+					[]string{publicEndpoint, privateEndpointStatic},
+				)
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -134,13 +156,24 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 	t.Run("With public and IPAM private endpoint", core.Test(&core.TestConfig{
 		Commands:   cmds,
 		BeforeFunc: createPN(),
-		Cmd:        fmt.Sprintf(baseCommand+privateNetworkIpamSpec+loadBalancerSpec, name, engine, user, password),
+		Cmd: fmt.Sprintf(
+			baseCommand+privateNetworkIpamSpec+loadBalancerSpec,
+			name,
+			engine,
+			user,
+			password,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				instance := ctx.Result.(rdb.CreateInstanceResult).Instance
-				checkEndpoints(t, ctx.Client, instance, []string{publicEndpoint, privateEndpointIpam})
+				checkEndpoints(
+					t,
+					ctx.Client,
+					instance,
+					[]string{publicEndpoint, privateEndpointIpam},
+				)
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -152,29 +185,38 @@ func Test_CreateInstanceInitEndpoints(t *testing.T) {
 
 func Test_GetInstance(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb instance get {{ .Instance.ID }}",
-		Check:      core.TestCheckGolden(),
-		AfterFunc:  deleteInstance(),
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd:       "scw rdb instance get {{ .Instance.ID }}",
+		Check:     core.TestCheckGolden(),
+		AfterFunc: deleteInstance(),
 	}))
 }
 
 func Test_UpgradeInstance(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb instance upgrade {{ .Instance.ID }} node-type=DB-DEV-M --wait",
-		Check:      core.TestCheckGolden(),
-		AfterFunc:  deleteInstance(),
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd:       "scw rdb instance upgrade {{ .Instance.ID }} node-type=DB-DEV-M --wait",
+		Check:     core.TestCheckGolden(),
+		AfterFunc: deleteInstance(),
 	}))
 }
 
 func Test_UpdateInstance(t *testing.T) {
 	t.Run("Update instance name", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb instance update {{ .Instance.ID }} name=foo --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb instance update {{ .Instance.ID }} name=foo --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
@@ -187,9 +229,12 @@ func Test_UpdateInstance(t *testing.T) {
 	}))
 
 	t.Run("Update instance tags", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb instance update {{ .Instance.ID }} tags.0=a --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb instance update {{ .Instance.ID }} tags.0=a --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
@@ -202,9 +247,12 @@ func Test_UpdateInstance(t *testing.T) {
 	}))
 
 	t.Run("Set a timezone", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=timezone settings.0.value=UTC --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb instance update {{ .Instance.ID }} settings.0.name=timezone settings.0.value=UTC --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
@@ -218,9 +266,12 @@ func Test_UpdateInstance(t *testing.T) {
 	}))
 
 	t.Run("Modify default work_mem from 4 to 8 MB", core.Test(&core.TestConfig{
-		Commands:   rdb.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(fetchLatestEngine("PostgreSQL"), createInstance("{{.latestEngine}}")),
-		Cmd:        "scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=8 --wait",
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=8 --wait",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
@@ -238,10 +289,12 @@ func Test_UpdateInstance(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			fetchLatestEngine("PostgreSQL"),
 			createInstance("{{.latestEngine}}"),
-			core.ExecBeforeCmd("scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=8"+
-				" settings.1.name=max_connections settings.1.value=200"+
-				" settings.2.name=effective_cache_size settings.2.value=1000"+
-				" name=foo1 --wait"),
+			core.ExecBeforeCmd(
+				"scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=8"+
+					" settings.1.name=max_connections settings.1.value=200"+
+					" settings.2.name=effective_cache_size settings.2.value=1000"+
+					" name=foo1 --wait",
+			),
 		),
 		Cmd: "scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=16" +
 			" settings.1.name=max_connections settings.1.value=150" +
@@ -251,9 +304,17 @@ func Test_UpdateInstance(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(t, "effective_cache_size", ctx.Result.(*rdbSDK.Instance).Settings[0].Name)
+				assert.Equal(
+					t,
+					"effective_cache_size",
+					ctx.Result.(*rdbSDK.Instance).Settings[0].Name,
+				)
 				assert.Equal(t, "1200", ctx.Result.(*rdbSDK.Instance).Settings[0].Value)
-				assert.Equal(t, "maintenance_work_mem", ctx.Result.(*rdbSDK.Instance).Settings[1].Name)
+				assert.Equal(
+					t,
+					"maintenance_work_mem",
+					ctx.Result.(*rdbSDK.Instance).Settings[1].Name,
+				)
 				assert.Equal(t, "200", ctx.Result.(*rdbSDK.Instance).Settings[1].Value)
 				assert.Equal(t, "max_connections", ctx.Result.(*rdbSDK.Instance).Settings[2].Name)
 				assert.Equal(t, "150", ctx.Result.(*rdbSDK.Instance).Settings[2].Value)
@@ -281,8 +342,11 @@ func Test_Connect(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		OverrideExec: core.OverrideExecSimple("mysql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --database rdb --user {{ .username }}", 0),
-		AfterFunc:    deleteInstance(),
+		OverrideExec: core.OverrideExecSimple(
+			"mysql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --database rdb --user {{ .username }}",
+			0,
+		),
+		AfterFunc: deleteInstance(),
 	}))
 
 	t.Run("psql", core.Test(&core.TestConfig{
@@ -295,8 +359,11 @@ func Test_Connect(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		OverrideExec: core.OverrideExecSimple("psql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --username {{ .username }} --dbname rdb", 0),
-		AfterFunc:    deleteInstance(),
+		OverrideExec: core.OverrideExecSimple(
+			"psql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --username {{ .username }} --dbname rdb",
+			0,
+		),
+		AfterFunc: deleteInstance(),
 	}))
 	t.Run("psql", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
@@ -310,8 +377,11 @@ func Test_Connect(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		OverrideExec: core.OverrideExecSimple("psql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --username {{ .username }} --dbname rdb", 0),
-		AfterFunc:    deleteInstance(),
+		OverrideExec: core.OverrideExecSimple(
+			"psql --host {{ .Instance.Endpoint.IP }} --port {{ .Instance.Endpoint.Port }} --username {{ .username }} --dbname rdb",
+			0,
+		),
+		AfterFunc: deleteInstance(),
 	}))
 }
 

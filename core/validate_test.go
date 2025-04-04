@@ -40,7 +40,12 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 	run := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
-			err := core.DefaultCommandValidateFunc()(t.Context(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := core.DefaultCommandValidateFunc()(
+				t.Context(),
+				testCase.command,
+				testCase.parsedArguments,
+				testCase.rawArgs,
+			)
 			assert.Equal(t, errors.New("arg validation called"), err)
 		}
 	}
@@ -198,7 +203,12 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	runOK := func(testCase TestCase) func(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
-			err := core.DefaultCommandValidateFunc()(t.Context(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := core.DefaultCommandValidateFunc()(
+				t.Context(),
+				testCase.command,
+				testCase.parsedArguments,
+				testCase.rawArgs,
+			)
 			assert.NoError(t, err)
 		}
 	}
@@ -206,7 +216,12 @@ func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	runErr := func(testCase TestCase, argName string) func(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
-			err := core.DefaultCommandValidateFunc()(t.Context(), testCase.command, testCase.parsedArguments, testCase.rawArgs)
+			err := core.DefaultCommandValidateFunc()(
+				t.Context(),
+				testCase.command,
+				testCase.parsedArguments,
+				testCase.rawArgs,
+			)
 			assert.Equal(t, core.MissingRequiredArgumentError(argName), err)
 		}
 	}
@@ -371,7 +386,11 @@ func Test_ValidateDeprecated(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(t, "The argument 'a' is deprecated, more info with: scw plop --help\n", ctx.LogBuffer)
+				assert.Equal(
+					t,
+					"The argument 'a' is deprecated, more info with: scw plop --help\n",
+					ctx.LogBuffer,
+				)
 			},
 		),
 	}))
@@ -780,7 +799,9 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof c=yo",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(errors.New("at least one argument from the 'group1' group is required")),
+				core.TestCheckError(
+					errors.New("at least one argument from the 'group1' group is required"),
+				),
 			),
 		})(t)
 	})
@@ -878,7 +899,9 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof all-ssh-keys=true ssh-key.0=11111111-1111-1111-1111-111111111111",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(errors.New("arguments 'ssh-key.0' and 'all-ssh-keys' are mutually exclusive")),
+				core.TestCheckError(
+					errors.New("arguments 'ssh-key.0' and 'all-ssh-keys' are mutually exclusive"),
+				),
 			),
 		})(t)
 	})
@@ -1009,7 +1032,9 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof arg=true",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(errors.New("at least one argument from the 'ssh' group is required")),
+				core.TestCheckError(
+					errors.New("at least one argument from the 'ssh' group is required"),
+				),
 			),
 		})(t)
 	})

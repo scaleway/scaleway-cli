@@ -94,7 +94,12 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 			return nil
 		}
 
-		defaultFileName := fmt.Sprintf("%s-%s.%s", invoiceDefaultPrefix, time.Now().Format("2006-01"), args.FileType)
+		defaultFileName := fmt.Sprintf(
+			"%s-%s.%s",
+			invoiceDefaultPrefix,
+			time.Now().Format("2006-01"),
+			args.FileType,
+		)
 		// read only in the parent path
 		for _, e := range entries {
 			if e.IsDir() {
@@ -157,7 +162,11 @@ func billingExportRun(ctx context.Context, argsI interface{}) (interface{}, erro
 	if err == nil {
 		if fInfo.IsDir() {
 			// case when filepath is a directory: join default name with custom path
-			defaultFileName := fmt.Sprintf("%s-%s", invoiceDefaultPrefix, time.Now().Format("2006-01"))
+			defaultFileName := fmt.Sprintf(
+				"%s-%s",
+				invoiceDefaultPrefix,
+				time.Now().Format("2006-01"),
+			)
 			pathAbs, err := filepath.Abs(argsExport.FilePath)
 			if err != nil {
 				return nil, err

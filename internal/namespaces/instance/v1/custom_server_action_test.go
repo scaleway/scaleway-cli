@@ -20,9 +20,12 @@ func Test_ServerTerminate(t *testing.T) {
 	interactive.IsInteractive = true
 
 	t.Run("without IP", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy ip=new -w")),
-		Cmd:        `scw instance server terminate {{ .Server.ID }}`,
+		Commands: instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand("image=ubuntu-jammy ip=new -w"),
+		),
+		Cmd: `scw instance server terminate {{ .Server.ID }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -37,14 +40,19 @@ func Test_ServerTerminate(t *testing.T) {
 				assert.NoError(t, err)
 			},
 		),
-		AfterFunc:       core.ExecAfterCmd(`scw instance ip delete {{ index .Server.PublicIP.ID }}`),
+		AfterFunc: core.ExecAfterCmd(
+			`scw instance ip delete {{ index .Server.PublicIP.ID }}`,
+		),
 		DisableParallel: true,
 	}))
 
 	t.Run("with IP", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy ip=new -w")),
-		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true`,
+		Commands: instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand("image=ubuntu-jammy ip=new -w"),
+		),
+		Cmd: `scw instance server terminate {{ .Server.ID }} with-ip=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -68,23 +76,31 @@ func Test_ServerTerminate(t *testing.T) {
 			instance.GetCommands(),
 			block.GetCommands(),
 		),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy additional-volumes.0=block:10G -w")),
-		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=false`,
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand("image=ubuntu-jammy additional-volumes.0=block:10G -w"),
+		),
+		Cmd: `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=false`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd(`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`),
+			core.ExecAfterCmd(
+				`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`,
+			),
 			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
 		),
 		DisableParallel: true,
 	}))
 
 	t.Run("with block", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-jammy additional-volumes.0=block:10G -w")),
-		Cmd:        `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true -w`,
+		Commands: instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand("image=ubuntu-jammy additional-volumes.0=block:10G -w"),
+		),
+		Cmd: `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true -w`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -111,39 +127,58 @@ func Test_ServerTerminate(t *testing.T) {
 // since they are using the interactive print
 func Test_ServerBackup(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu-jammy")),
-		Cmd:        `scw instance server backup {{ .Server.ID }} name=backup`,
+		Commands: instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand("stopped=true image=ubuntu-jammy"),
+		),
+		Cmd: `scw instance server backup {{ .Server.ID }} name=backup`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd("scw instance image delete {{ .CmdResult.Image.ID }} with-snapshots=true"),
-			core.ExecAfterCmd("scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local"),
+			core.ExecAfterCmd(
+				"scw instance image delete {{ .CmdResult.Image.ID }} with-snapshots=true",
+			),
+			core.ExecAfterCmd(
+				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local",
+			),
 		),
 	}))
 
 	t.Run("With SBS volumes", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("root-volume=sbs:20G additional-volumes.0=sbs:10G additional-volumes.1=sbs:15G stopped=true image=ubuntu-jammy")),
-		Cmd:        `scw instance server backup {{ .Server.ID }} name=backup`,
+		Commands: instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand(
+				"root-volume=sbs:20G additional-volumes.0=sbs:10G additional-volumes.1=sbs:15G stopped=true image=ubuntu-jammy",
+			),
+		),
+		Cmd: `scw instance server backup {{ .Server.ID }} name=backup`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd("scw instance image delete {{ .CmdResult.Image.ID }} with-snapshots=true"),
-			core.ExecAfterCmd("scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local"),
+			core.ExecAfterCmd(
+				"scw instance image delete {{ .CmdResult.Image.ID }} with-snapshots=true",
+			),
+			core.ExecAfterCmd(
+				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local",
+			),
 		),
 	}))
 }
 
 func Test_ServerAction(t *testing.T) {
 	t.Run("manual poweron", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true image=ubuntu_jammy")),
-		Cmd:        `scw instance server action {{ .Server.ID }} action=poweron --wait`,
+		Commands: instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand("stopped=true image=ubuntu_jammy"),
+		),
+		Cmd: `scw instance server action {{ .Server.ID }} action=poweron --wait`,
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -160,7 +195,9 @@ func Test_ServerAction(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd("scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local force-shutdown=true"),
+			core.ExecAfterCmd(
+				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local force-shutdown=true",
+			),
 		),
 	}))
 }

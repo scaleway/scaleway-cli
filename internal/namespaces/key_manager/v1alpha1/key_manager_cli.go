@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
+	key_manager "github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -38,6 +38,7 @@ func GetGeneratedCommands() *core.Commands {
 		keymanagerKeyDeleteKeyMaterial(),
 	)
 }
+
 func keymanagerRoot() *core.Command {
 	return &core.Command{
 		Short:     `Key Manager API`,
@@ -131,6 +132,7 @@ func keymanagerKeyCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.CreateKey(request)
 		},
 	}
@@ -160,6 +162,7 @@ func keymanagerKeyGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.GetKey(request)
 		},
 	}
@@ -224,6 +227,7 @@ func keymanagerKeyUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.UpdateKey(request)
 		},
 	}
@@ -257,6 +261,7 @@ func keymanagerKeyDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "key",
 				Verb:     "delete",
@@ -289,6 +294,7 @@ func keymanagerKeyRotate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.RotateKey(request)
 		},
 	}
@@ -318,6 +324,7 @@ func keymanagerKeyProtect() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.ProtectKey(request)
 		},
 	}
@@ -347,6 +354,7 @@ func keymanagerKeyUnprotect() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.UnprotectKey(request)
 		},
 	}
@@ -376,6 +384,7 @@ func keymanagerKeyEnable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.EnableKey(request)
 		},
 	}
@@ -405,6 +414,7 @@ func keymanagerKeyDisable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.DisableKey(request)
 		},
 	}
@@ -432,7 +442,14 @@ func keymanagerKeyList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "tags.{index}",
@@ -455,7 +472,12 @@ func keymanagerKeyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.ListKeysRequest)
@@ -471,6 +493,7 @@ func keymanagerKeyList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Keys, nil
 		},
 	}
@@ -518,6 +541,7 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.GenerateDataKey(request)
 		},
 	}
@@ -561,6 +585,7 @@ func keymanagerKeyEncrypt() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.Encrypt(request)
 		},
 	}
@@ -604,6 +629,7 @@ func keymanagerKeyDecrypt() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.Decrypt(request)
 		},
 	}
@@ -647,6 +673,7 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.ImportKeyMaterial(request)
 		},
 	}
@@ -680,6 +707,7 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "key",
 				Verb:     "delete-key-material",

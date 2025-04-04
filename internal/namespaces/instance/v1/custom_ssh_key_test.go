@@ -41,7 +41,14 @@ func Test_SSHKey(t *testing.T) {
 	t.Run("Add key", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
 		BeforeFunc: createServer("Server"),
-		Args:       []string{"scw", "instance", "ssh", "add-key", "server-id={{.Server.ID}}", "public-key=" + sshKey},
+		Args: []string{
+			"scw",
+			"instance",
+			"ssh",
+			"add-key",
+			"server-id={{.Server.ID}}",
+			"public-key=" + sshKey,
+		},
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -85,7 +92,14 @@ func Test_SSHKey(t *testing.T) {
 			addSSHKey("Server", sshKey),
 			addSSHKey("Server", sshKey2),
 		),
-		Args: []string{"scw", "instance", "ssh", "remove-key", "server-id={{.Server.ID}}", "name=key2"},
+		Args: []string{
+			"scw",
+			"instance",
+			"ssh",
+			"remove-key",
+			"server-id={{.Server.ID}}",
+			"name=key2",
+		},
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

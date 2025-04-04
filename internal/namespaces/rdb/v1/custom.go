@@ -18,11 +18,26 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(CustomACLResult{}, rdbACLCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(rdbEndpointCustomResult{}, rdbEndpointCustomResultMarshalerFunc)
 
-	human.RegisterMarshalerFunc(rdb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(""), human.EnumMarshalFunc(backupStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.InstanceLogStatus(""), human.EnumMarshalFunc(logStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.NodeTypeStock(""), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.ACLRuleAction(""), human.EnumMarshalFunc(aclRuleActionMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		rdb.InstanceStatus(""),
+		human.EnumMarshalFunc(instanceStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		rdb.DatabaseBackupStatus(""),
+		human.EnumMarshalFunc(backupStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		rdb.InstanceLogStatus(""),
+		human.EnumMarshalFunc(logStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		rdb.NodeTypeStock(""),
+		human.EnumMarshalFunc(nodeTypeStockMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		rdb.ACLRuleAction(""),
+		human.EnumMarshalFunc(aclRuleActionMarshalSpecs),
+	)
 
 	cmds.Merge(core.NewCommands(
 		aclEditCommand(),

@@ -11,9 +11,18 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("container").Groups = []string{"serverless"}
 
-	human.RegisterMarshalerFunc(container.NamespaceStatus(""), human.EnumMarshalFunc(namespaceStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(container.ContainerStatus(""), human.EnumMarshalFunc(containerStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(container.CronStatus(""), human.EnumMarshalFunc(cronStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		container.NamespaceStatus(""),
+		human.EnumMarshalFunc(namespaceStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		container.ContainerStatus(""),
+		human.EnumMarshalFunc(containerStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		container.CronStatus(""),
+		human.EnumMarshalFunc(cronStatusMarshalSpecs),
+	)
 
 	cmds.MustFind("container", "container", "deploy").Override(containerContainerDeployBuilder)
 	cmds.MustFind("container", "container", "create").Override(containerContainerCreateBuilder)

@@ -39,10 +39,18 @@ const TestBucketNamePrefix = "cli-test-bucket"
 // You can create a binary of each test using "go test -c -o myBinary"
 var (
 	// UpdateGoldens will update all the golden files of a given test
-	UpdateGoldens = flag.Bool("goldens", os.Getenv("CLI_UPDATE_GOLDENS") == "true", "Record goldens")
+	UpdateGoldens = flag.Bool(
+		"goldens",
+		os.Getenv("CLI_UPDATE_GOLDENS") == "true",
+		"Record goldens",
+	)
 
 	// UpdateCassettes will update all cassettes of a given test
-	UpdateCassettes = flag.Bool("cassettes", os.Getenv("CLI_UPDATE_CASSETTES") == "true", "Record Cassettes")
+	UpdateCassettes = flag.Bool(
+		"cassettes",
+		os.Getenv("CLI_UPDATE_CASSETTES") == "true",
+		"Record Cassettes",
+	)
 
 	// Debug set the log level to LogLevelDebug
 	Debug = flag.Bool("debug", os.Getenv("SCW_DEBUG") == "true", "Enable Debug Mode")
@@ -82,7 +90,10 @@ type CheckFuncCtx struct {
 
 var testRenderHelpers = map[string]any{
 	"randint": func() string {
-		return strconv.FormatUint(rand.Uint64(), 10) //nolint:gosec // Use weak random for a non-important use
+		return strconv.FormatUint(
+			rand.Uint64(),
+			10,
+		)
 	},
 }
 
@@ -93,7 +104,11 @@ type TestMetadata map[string]interface{}
 func (meta TestMetadata) Render(strTpl string) string {
 	t := meta["t"].(*testing.T)
 	buf := &bytes.Buffer{}
-	require.NoError(t, template.Must(template.New("tpl").Funcs(testRenderHelpers).Parse(strTpl)).Execute(buf, meta))
+	require.NoError(
+		t,
+		template.Must(template.New("tpl").Funcs(testRenderHelpers).Parse(strTpl)).
+			Execute(buf, meta),
+	)
 
 	return buf.String()
 }
@@ -224,7 +239,11 @@ func getTestFilePath(t *testing.T, suffix string) string {
 	return filepath.Join(".", "testdata", fileName)
 }
 
-func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Client) (client *scw.Client) {
+func createTestClient(
+	t *testing.T,
+	testConfig *TestConfig,
+	httpClient *http.Client,
+) (client *scw.Client) {
 	t.Helper()
 	var err error
 
@@ -274,7 +293,8 @@ func createTestClient(t *testing.T, testConfig *TestConfig, httpClient *http.Cli
 		res, err := test.NewAPI(client).Register(&test.RegisterRequest{Username: "sidi"})
 		require.NoError(t, err)
 
-		client, err = scw.NewClient(append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
+		client, err = scw.NewClient(
+			append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
 		require.NoError(t, err)
 	}
 
@@ -308,9 +328,12 @@ func Test(config *TestConfig) func(t *testing.T) {
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
 		// Here we return a constant string. We may need to find a better place to put this.
-		human.RegisterMarshalerFunc(time.Time{}, func(_ interface{}, _ *human.MarshalOpt) (string, error) {
-			return "few seconds ago", nil
-		})
+		human.RegisterMarshalerFunc(
+			time.Time{},
+			func(_ interface{}, _ *human.MarshalOpt) (string, error) {
+				return "few seconds ago", nil
+			},
+		)
 
 		if !*UpdateCassettes {
 			tmp := 0 * time.Second
@@ -402,7 +425,14 @@ func Test(config *TestConfig) func(t *testing.T) {
 				HTTPClient:       httpClient,
 				Platform:         terminal.NewPlatform(buildInfo.GetUserAgent()),
 			})
-			require.NoError(t, err, "error executing cmd (%s)\nstdout: %s\nstderr: %s", args, stdoutBuffer.String(), stderrBuffer.String())
+			require.NoError(
+				t,
+				err,
+				"error executing cmd (%s)\nstdout: %s\nstderr: %s",
+				args,
+				stdoutBuffer.String(),
+				stderrBuffer.String(),
+			)
 
 			return result
 		}
@@ -716,7 +746,10 @@ func TestCheckS3Golden() TestCheck {
 		// In order to avoid diff in goldens we set all timestamp to the same date
 		if *UpdateGoldens {
 			require.NoError(t, os.MkdirAll(path.Dir(goldenPath), 0o755))
-			require.NoError(t, os.WriteFile(goldenPath, []byte(normalizedActual), 0o644)) //nolint:gosec
+			require.NoError(
+				t,
+				os.WriteFile(goldenPath, []byte(normalizedActual), 0o644),
+			)
 		}
 
 		expected, err := os.ReadFile(goldenPath)
@@ -809,25 +842,38 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	}
 
 	buffer := bytes.Buffer{}
-	buffer.WriteString(fmt.Sprintf("\U0001F3B2\U0001F3B2\U0001F3B2 EXIT CODE: %d \U0001F3B2\U0001F3B2\U0001F3B2\n", ctx.ExitCode))
+	buffer.WriteString(
+		fmt.Sprintf(
+			"\U0001F3B2\U0001F3B2\U0001F3B2 EXIT CODE: %d \U0001F3B2\U0001F3B2\U0001F3B2\n",
+			ctx.ExitCode,
+		),
+	)
 
 	if len(ctx.Stdout) > 0 {
-		buffer.WriteString("\U0001F7E9\U0001F7E9\U0001F7E9 STDOUT️ \U0001F7E9\U0001F7E9\U0001F7E9️\n")
+		buffer.WriteString(
+			"\U0001F7E9\U0001F7E9\U0001F7E9 STDOUT️ \U0001F7E9\U0001F7E9\U0001F7E9️\n",
+		)
 		buffer.Write(ctx.Stdout)
 	}
 
 	if len(ctx.Stderr) > 0 {
-		buffer.WriteString("\U0001F7E5\U0001F7E5\U0001F7E5 STDERR️️ \U0001F7E5\U0001F7E5\U0001F7E5️\n")
+		buffer.WriteString(
+			"\U0001F7E5\U0001F7E5\U0001F7E5 STDERR️️ \U0001F7E5\U0001F7E5\U0001F7E5️\n",
+		)
 		buffer.Write(ctx.Stderr)
 	}
 
 	if jsonStdout.Len() > 0 {
-		buffer.WriteString("\U0001F7E9\U0001F7E9\U0001F7E9 JSON STDOUT \U0001F7E9\U0001F7E9\U0001F7E9\n")
+		buffer.WriteString(
+			"\U0001F7E9\U0001F7E9\U0001F7E9 JSON STDOUT \U0001F7E9\U0001F7E9\U0001F7E9\n",
+		)
 		buffer.Write(jsonStdout.Bytes())
 	}
 
 	if jsonStderr.Len() > 0 {
-		buffer.WriteString("\U0001F7E5\U0001F7E5\U0001F7E5 JSON STDERR \U0001F7E5\U0001F7E5\U0001F7E5\n")
+		buffer.WriteString(
+			"\U0001F7E5\U0001F7E5\U0001F7E5 JSON STDERR \U0001F7E5\U0001F7E5\U0001F7E5\n",
+		)
 		buffer.Write(jsonStderr.Bytes())
 	}
 

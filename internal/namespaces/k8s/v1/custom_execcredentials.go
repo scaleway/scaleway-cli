@@ -43,14 +43,17 @@ func k8sExecCredentialRun(ctx context.Context, _ interface{}) (i interface{}, e 
 	case config.Profiles[profileName] != nil && config.Profiles[profileName].SecretKey != nil:
 		token = *config.Profiles[profileName].SecretKey
 	// Default config
-	case config.Profile.SecretKey != nil:
-		token = *config.Profile.SecretKey
+	case config.SecretKey != nil:
+		token = *config.SecretKey
 	default:
 		return nil, errors.New("unable to find secret key")
 	}
 
 	if !validation.IsSecretKey(token) {
-		return nil, fmt.Errorf("invalid secret key format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", token)
+		return nil, fmt.Errorf(
+			"invalid secret key format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+			token,
+		)
 	}
 
 	execCreds := ExecCredential{

@@ -2,8 +2,18 @@
 # Golang CI pipeline configuration
 #
 # To execute linters in local the ./scripts/lint.sh script can be used.
+version: "2"
+
+formatters:
+  enable:
+    - gci # Gci controls golang package import order and makes it always deterministic. [fast: true, auto-fix: false]
+    - gofmt # Gofmt checks whether code was gofmt-ed. By default this tool runs with -s option to check for code simplification [fast: true, auto-fix: true]
+    - gofumpt # Gofumpt checks whether code was gofumpt-ed. [fast: true, auto-fix: true]
+    - goimports # In addition to fixing imports, goimports also formats your code in the same style as gofmt. [fast: true, auto-fix: true]
+    - golines
 
 linters:
+  default: none
   # Run golangci-lint linters to see the list of all linters
   # Please keep them sorted alphabetically
   enable:
@@ -16,25 +26,18 @@ linters:
     - decorder # check declaration order and count of types, constants, variables and functions [fast: true, auto-fix: false]
     - dogsled # Checks assignments with too many blank identifiers (e.g. x, _, _, _, := f()) [fast: true, auto-fix: false]
     - durationcheck # check for two durations multiplied together [fast: false, auto-fix: false]
-    - errcheck # Errcheck is a program for checking for unchecked errors in go programs. These unchecked errors can be critical bugs in some cases [fast: false, auto-fix: false]
     - errchkjson # Checks types passed to the json encoding functions. Reports unsupported types and optionally reports occasions, where the check for the returned error can be omitted. [fast: false, auto-fix: false]
     - errname # Checks that sentinel errors are prefixed with the `Err` and error types are suffixed with the `Error`. [fast: false, auto-fix: false]
     - exptostd # Detects functions from golang.org/x/exp/ that can be replaced by std functions. [auto-fix]
-    - gci # Gci controls golang package import order and makes it always deterministic. [fast: true, auto-fix: false]
     - gocheckcompilerdirectives # Checks that go compiler directive comments (//go:) are valid. [fast: true, auto-fix: false]
     - gochecksumtype # Run exhaustiveness checks on Go "sum types" [fast: false, auto-fix: false]
     - goconst # Finds repeated strings that could be replaced by a constant [fast: true, auto-fix: false]
     - gocritic # Provides diagnostics that check for bugs, performance and style issues. [fast: false, auto-fix: false]
     - gocyclo # Computes and checks the cyclomatic complexity of functions [fast: true, auto-fix: false]
-    - gofmt # Gofmt checks whether code was gofmt-ed. By default this tool runs with -s option to check for code simplification [fast: true, auto-fix: true]
-    - gofumpt # Gofumpt checks whether code was gofumpt-ed. [fast: true, auto-fix: true]
     - goheader # Checks is file header matches to pattern [fast: true, auto-fix: false]
-    - goimports # In addition to fixing imports, goimports also formats your code in the same style as gofmt. [fast: true, auto-fix: true]
     - gomoddirectives # Manage the use of 'replace', 'retract', and 'excludes' directives in go.mod. [fast: true, auto-fix: false]
     - gomodguard # Allow and block list linter for direct Go module dependencies. This is different from depguard where there are different block types for example version constraints and module recommendations. [fast: true, auto-fix: false]
     - goprintffuncname # Checks that printf-like functions are named with `f` at the end [fast: true, auto-fix: false]
-    - gosec #(gas): Inspects source code for security problems [fast: false, auto-fix: false]
-    - gosimple #(megacheck): Linter for Go source code that specializes in simplifying a code [fast: false, auto-fix: false]
     - govet #(vet, vetshadow): Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string [fast: false, auto-fix: false]
     - grouper # An analyzer to analyze expression groups. [fast: true, auto-fix: false]
     - importas # Enforces consistent import aliases [fast: false, auto-fix: false]
@@ -59,14 +62,11 @@ linters:
     - revive # Fast, configurable, extensible, flexible, and beautiful linter for Go. Drop-in replacement of golint. [fast: false, auto-fix: false]
     - rowserrcheck # checks whether Err of rows is checked successfully [fast: false, auto-fix: false]
     - sloglint # ensure consistent code style when using log/slog [fast: false, auto-fix: false]
-    - staticcheck
-    - stylecheck # Stylecheck is a replacement for golint [fast: false, auto-fix: false]
     - tagalign # check that struct tags are well aligned [fast: true, auto-fix: true]
     - testifylint # Checks usage of github.com/stretchr/testify. [fast: false, auto-fix: false]
     - testpackage # linter that makes you use a separate _test package [fast: true, auto-fix: false]
     - thelper # thelper detects golang test helpers without t.Helper() call and checks the consistency of test helpers [fast: false, auto-fix: false]
     - tparallel # tparallel detects inappropriate usage of t.Parallel() method in your Go test codes [fast: false, auto-fix: false]
-    - typecheck # Like the front-end of a Go compiler, parses and type-checks Go code [fast: false, auto-fix: false]
     - unconvert # Remove unnecessary type conversions [fast: false, auto-fix: false]
     - unparam # Reports unused function parameters [fast: false, auto-fix: false]
     - unused #(megacheck): Checks Go code for unused constants, variables, functions and types [fast: false, auto-fix: false]
@@ -76,42 +76,22 @@ linters:
     - whitespace # Tool for detection of leading and trailing whitespace [fast: true, auto-fix: true]
     - zerologlint # Detects the wrong usage of `zerolog` that a user forgets to dispatch with `Send` or `Msg` [fast: false, auto-fix: false]
 
-  disable:
-    - cyclop # checks function and package cyclomatic complexity [fast: false, auto-fix: false]
-    - depguard # Go linter that checks if package imports are in a list of acceptable packages [fast: true, auto-fix: false]
-    - dupl # Tool for code clone detection [fast: true, auto-fix: false]
-    - errorlint # errorlint is a linter for that can be used to find code that will cause problems with the error wrapping scheme introduced in Go 1.13. [fast: false, auto-fix: false]
-    - exhaustive # check exhaustiveness of enum switch statements [fast: false, auto-fix: false]
-    - forcetypeassert # finds forced type assertions [fast: true, auto-fix: false]
-    - funlen # Tool for detection of long functions [fast: true, auto-fix: false]
-    - gochecknoglobals # check that no global variables exist [fast: true, auto-fix: false]
-    - gochecknoinits # Checks that no init functions are present in Go code [fast: true, auto-fix: false]
-    - gocognit # Computes and checks the cognitive complexity of functions [fast: true, auto-fix: false]
-    - godot # Check if comments end in a period [fast: true, auto-fix: true]
-    - godox # Tool for detection of FIXME, TODO and other comment keywords [fast: true, auto-fix: false]
-    - err113 # Golang linter to check the errors handling expressions [fast: false, auto-fix: false]
-    - lll # Reports long lines [fast: true, auto-fix: false]
-    - maintidx # maintidx measures the maintainability index of each function. [fast: true, auto-fix: false]
-    - nestif # Reports deeply nested if statements [fast: true, auto-fix: false]
-    - nilnil # Checks that there is no simultaneous return of `nil` error and an invalid value. [fast: false, auto-fix: false]
-    - varnamelen # checks that the length of a variable's name matches its scope [fast: false, auto-fix: false]
-    - wsl # Whitespace Linter - Forces you to use empty lines! [fast: true, auto-fix: false]
+  settings:
+    goconst:
+      min-len: 5
+    gosec:
+      excludes:
+        - G115
+    revive:
+      rules:
+        - name: exported
+          disabled: true
 
-linters-settings:
-  goconst:
-    min-len: 5
-  gosec:
-    excludes:
-      - G115
+  exclusions:
+    paths:
+      - internal/pkg
 
-issues:
-  exclude-dirs:
-    - internal/pkg
-
-  max-issues-per-linter: 0
-  max-same-issues: 0
-
-  exclude-rules:
+    rules:
     - path: _test\.go
       linters:
         - stylecheck
@@ -156,3 +136,7 @@ issues:
     - path: internal/namespaces/k8s/v1/types/types.go
       linters:
         - tagalign
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

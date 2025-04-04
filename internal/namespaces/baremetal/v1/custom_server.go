@@ -20,9 +20,18 @@ const (
 )
 
 var serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
-	baremetal.ServerPingStatusPingStatusDown:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "down"},
-	baremetal.ServerPingStatusPingStatusUp:      &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "up"},
-	baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	baremetal.ServerPingStatusPingStatusDown: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "down",
+	},
+	baremetal.ServerPingStatusPingStatusUp: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "up",
+	},
+	baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{
+		Attribute: color.Faint,
+		Value:     "unknown",
+	},
 }
 
 func serverWaitCommand() *core.Command {
@@ -64,7 +73,9 @@ func serverWaitCommand() *core.Command {
 				return server, nil
 			}
 
-			logger.Debugf("server reached a stable delivery status. Will now starting to wait for server to reach a stable installation status")
+			logger.Debugf(
+				"server reached a stable delivery status. Will now starting to wait for server to reach a stable installation status",
+			)
 			server, err = api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
 				ServerID:      args.ServerID,
 				Zone:          args.Zone,
@@ -76,7 +87,10 @@ func serverWaitCommand() *core.Command {
 			}
 			if server.Install.Status != baremetal.ServerInstallStatusCompleted {
 				return nil, &core.CliError{
-					Err:     fmt.Errorf("server %s did not reach a stable installation status", server.ID),
+					Err: fmt.Errorf(
+						"server %s did not reach a stable installation status",
+						server.ID,
+					),
 					Details: fmt.Sprintf("server %s is in %s status", server.ID, server.Status),
 				}
 			}

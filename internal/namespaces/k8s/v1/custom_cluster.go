@@ -92,16 +92,18 @@ func clusterAvailableTypesListMarshalerFunc(i interface{}, opt *human.MarshalOpt
 }
 
 func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		originalRes, err := runner(ctx, argsI)
-		if err != nil {
-			return nil, err
-		}
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			originalRes, err := runner(ctx, argsI)
+			if err != nil {
+				return nil, err
+			}
 
-		listClusterAvailableVersionsResponse := originalRes.(*k8s.ListClusterAvailableVersionsResponse)
+			listClusterAvailableVersionsResponse := originalRes.(*k8s.ListClusterAvailableVersionsResponse)
 
-		return listClusterAvailableVersionsResponse.Versions, nil
-	})
+			return listClusterAvailableVersionsResponse.Versions, nil
+		},
+	)
 
 	return c
 }
@@ -159,7 +161,11 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 				}
 			}
 			if !validType {
-				return nil, fmt.Errorf("invalid cluster type %q, must be one of %v", request.Type, validTypes)
+				return nil, fmt.Errorf(
+					"invalid cluster type %q, must be one of %v",
+					request.Type,
+					validTypes,
+				)
 			}
 		}
 
@@ -349,12 +355,13 @@ func waitForClusterFunc(action int) core.WaitFunc {
 		} else {
 			clusterResponse = respI.(*k8s.Cluster)
 		}
-		cluster, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForCluster(&k8s.WaitForClusterRequest{
-			Region:        clusterResponse.Region,
-			ClusterID:     clusterResponse.ID,
-			Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
-			RetryInterval: core.DefaultRetryInterval,
-		})
+		cluster, err := k8s.NewAPI(core.ExtractClient(ctx)).
+			WaitForCluster(&k8s.WaitForClusterRequest{
+				Region:        clusterResponse.Region,
+				ClusterID:     clusterResponse.ID,
+				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
 		switch action {
 		case clusterActionCreate:
 			return cluster, err
@@ -367,7 +374,9 @@ func waitForClusterFunc(action int) core.WaitFunc {
 				// if we get a 404 here, it means the resource was successfully deleted
 				notFoundError := &scw.ResourceNotFoundError{}
 				responseError := &scw.ResponseError{}
-				if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
+				if errors.As(err, &responseError) &&
+					responseError.StatusCode == http.StatusNotFound ||
+					errors.As(err, &notFoundError) {
 					return fmt.Sprintf("Cluster %s successfully deleted.", clusterResponse.ID), nil
 				}
 			}
@@ -454,7 +463,11 @@ func k8sClusterWaitCommand() *core.Command {
 // Caching ListClusterTypes response for shell completion
 var completeListClusterTypesCache *k8s.ListClusterTypesResponse
 
-func autocompleteClusterType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autocompleteClusterType(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	req := request.(*k8s.CreateClusterRequest)
 	suggestions := core.AutocompleteSuggestions(nil)
 
@@ -483,7 +496,11 @@ func autocompleteClusterType(ctx context.Context, prefix string, request any) co
 // Caching ListK8SVersions response for shell completion
 var completeListK8SVersionsCache *k8s.ListVersionsResponse
 
-func autocompleteK8SVersion(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autocompleteK8SVersion(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	req := request.(*k8s.CreateClusterRequest)
 	suggestions := core.AutocompleteSuggestions(nil)
 

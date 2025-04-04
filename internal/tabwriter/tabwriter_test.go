@@ -46,7 +46,13 @@ func write(t *testing.T, testname string, w *tabwriter.Writer, src string) {
 		t.Errorf("--- test: %s\n--- src:\n%q\n--- write error: %v\n", testname, src, err)
 	}
 	if written != len(src) {
-		t.Errorf("--- test: %s\n--- src:\n%q\n--- written = %d, len(src) = %d\n", testname, src, written, len(src))
+		t.Errorf(
+			"--- test: %s\n--- src:\n%q\n--- written = %d, len(src) = %d\n",
+			testname,
+			src,
+			written,
+			len(src),
+		)
 	}
 }
 
@@ -59,11 +65,24 @@ func verify(t *testing.T, testname string, w *tabwriter.Writer, b *buffer, src, 
 
 	res := b.String()
 	if res != expected {
-		t.Errorf("--- test: %s\n--- src:\n%q\n--- found:\n%q\n--- expected:\n%q\n", testname, src, res, expected)
+		t.Errorf(
+			"--- test: %s\n--- src:\n%q\n--- found:\n%q\n--- expected:\n%q\n",
+			testname,
+			src,
+			res,
+			expected,
+		)
 	}
 }
 
-func check(t *testing.T, testname string, minwidth, tabwidth, padding int, padchar byte, flags uint, src, expected string) {
+func check(
+	t *testing.T,
+	testname string,
+	minwidth, tabwidth, padding int,
+	padchar byte,
+	flags uint,
+	src, expected string,
+) {
 	t.Helper()
 	var b buffer
 	b.init(1000)
@@ -650,7 +669,17 @@ var tests = []struct {
 
 func Test(t *testing.T) {
 	for _, e := range tests {
-		check(t, e.testname, e.minwidth, e.tabwidth, e.padding, e.padchar, e.flags, e.src, e.expected)
+		check(
+			t,
+			e.testname,
+			e.minwidth,
+			e.tabwidth,
+			e.padding,
+			e.padchar,
+			e.flags,
+			e.src,
+			e.expected,
+		)
 	}
 }
 
@@ -702,7 +731,14 @@ func BenchmarkTable(b *testing.B) {
 				b.Run("new", func(b *testing.B) {
 					b.ReportAllocs()
 					for range b.N {
-						w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+						w := tabwriter.NewWriter(
+							io.Discard,
+							4,
+							4,
+							1,
+							' ',
+							0,
+						) // no particular reason for these settings
 						// Write the line h times.
 						for range h {
 							w.Write(line)
@@ -713,7 +749,14 @@ func BenchmarkTable(b *testing.B) {
 
 				b.Run("reuse", func(b *testing.B) {
 					b.ReportAllocs()
-					w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+					w := tabwriter.NewWriter(
+						io.Discard,
+						4,
+						4,
+						1,
+						' ',
+						0,
+					) // no particular reason for these settings
 					for range b.N {
 						// Write the line h times.
 						for range h {
@@ -734,7 +777,14 @@ func BenchmarkPyramid(b *testing.B) {
 		b.Run(strconv.Itoa(x), func(b *testing.B) {
 			b.ReportAllocs()
 			for range b.N {
-				w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+				w := tabwriter.NewWriter(
+					io.Discard,
+					4,
+					4,
+					1,
+					' ',
+					0,
+				) // no particular reason for these settings
 				// Write increasing prefixes of that line.
 				for j := range x {
 					w.Write(line[:j*2])
@@ -756,7 +806,14 @@ func BenchmarkRagged(b *testing.B) {
 		b.Run(strconv.Itoa(h), func(b *testing.B) {
 			b.ReportAllocs()
 			for range b.N {
-				w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+				w := tabwriter.NewWriter(
+					io.Discard,
+					4,
+					4,
+					1,
+					' ',
+					0,
+				) // no particular reason for these settings
 				// Write the lines in turn h times.
 				for j := range h {
 					w.Write(lines[j%len(lines)])
@@ -784,7 +841,14 @@ lines
 func BenchmarkCode(b *testing.B) {
 	b.ReportAllocs()
 	for range b.N {
-		w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0) // no particular reason for these settings
+		w := tabwriter.NewWriter(
+			io.Discard,
+			4,
+			4,
+			1,
+			' ',
+			0,
+		) // no particular reason for these settings
 		// The code is small, so it's reasonable for the tabwriter user
 		// to write it all at once, or buffer the writes.
 		w.Write([]byte(codeSnippet))

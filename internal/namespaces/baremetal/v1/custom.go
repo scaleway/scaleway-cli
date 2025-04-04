@@ -16,8 +16,14 @@ func GetCommands() *core.Commands {
 		serverAddFlexibleIP(),
 	))
 
-	human.RegisterMarshalerFunc(baremetal.ServerPingStatus(""), human.EnumMarshalFunc(serverPingStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(baremetal.OfferStock(""), human.EnumMarshalFunc(offerAvailabilityMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		baremetal.ServerPingStatus(""),
+		human.EnumMarshalFunc(serverPingStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		baremetal.OfferStock(""),
+		human.EnumMarshalFunc(offerAvailabilityMarshalSpecs),
+	)
 	human.RegisterMarshalerFunc(baremetal.Server{}, serverMarshalerFunc)
 
 	human.RegisterMarshalerFunc(baremetal.Offer{}, listOfferMarshalerFunc)

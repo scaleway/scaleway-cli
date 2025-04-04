@@ -66,6 +66,12 @@ func (e *Example) GetCommandLine(binaryName string, cmd *Command) string {
 
 		return strings.Join(commandParts, " ")
 	default:
-		panic(fmt.Errorf("in command '%s' invalid example '%s', it should either have a ArgsJSON or a Raw", cmd.getPath(), cmd.Short))
+		panic(
+			fmt.Errorf(
+				"in command '%s' invalid example '%s', it should either have a ArgsJSON or a Raw",
+				cmd.getPath(),
+				cmd.Short,
+			),
+		)
 	}
 }

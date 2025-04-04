@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/serverless_sqldb/v1alpha1"
+	serverless_sqldb "github.com/scaleway/scaleway-sdk-go/api/serverless_sqldb/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -33,6 +33,7 @@ func GetGeneratedCommands() *core.Commands {
 		sdbSQLBackupExport(),
 	)
 }
+
 func sdbSQLRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Serverless SQL Databases`,
@@ -105,6 +106,7 @@ func sdbSQLDatabaseCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
+
 			return api.CreateDatabase(request)
 		},
 	}
@@ -134,6 +136,7 @@ func sdbSQLDatabaseGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
+
 			return api.GetDatabase(request)
 		},
 	}
@@ -163,6 +166,7 @@ func sdbSQLDatabaseDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
+
 			return api.DeleteDatabase(request)
 		},
 	}
@@ -217,6 +221,7 @@ func sdbSQLDatabaseList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Databases, nil
 		},
 	}
@@ -260,6 +265,7 @@ func sdbSQLDatabaseUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
+
 			return api.UpdateDatabase(request)
 		},
 	}
@@ -296,6 +302,7 @@ func sdbSQLDatabaseRestore() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
+
 			return api.RestoreDatabaseFromBackup(request)
 		},
 	}
@@ -325,6 +332,7 @@ func sdbSQLBackupGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
+
 			return api.GetDatabaseBackup(request)
 		},
 	}
@@ -385,6 +393,7 @@ func sdbSQLBackupList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Backups, nil
 		},
 	}
@@ -414,6 +423,7 @@ func sdbSQLBackupExport() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
+
 			return api.ExportDatabaseBackup(request)
 		},
 	}

@@ -11,7 +11,11 @@ func MissingRequiredArgumentError(argumentName string) *CliError {
 	}
 }
 
-func InvalidValueForEnumError(argSpecName string, argSpecEnumValues []string, value string) *CliError {
+func InvalidValueForEnumError(
+	argSpecName string,
+	argSpecEnumValues []string,
+	value string,
+) *CliError {
 	return &CliError{
 		Err:  fmt.Errorf("invalid value '%v' for arg '%v'", value, argSpecName),
 		Hint: fmt.Sprintf("Accepted values for '%v' are %v", argSpecName, argSpecEnumValues),
@@ -69,7 +73,11 @@ func InvalidAPIURLError(value string) *CliError {
 
 func ArgumentConflictError(arg1 string, arg2 string) *CliError {
 	return &CliError{
-		Err: fmt.Errorf("only one of those two arguments '%s' and '%s' can be specified in the same time", arg1, arg2),
+		Err: fmt.Errorf(
+			"only one of those two arguments '%s' and '%s' can be specified in the same time",
+			arg1,
+			arg2,
+		),
 	}
 }
 

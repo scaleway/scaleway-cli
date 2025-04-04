@@ -36,21 +36,23 @@ func userDataSetBuilder(c *core.Command) *core.Command {
 }
 
 func userDataGetBuilder(c *core.Command) *core.Command {
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		req := argsI.(*instance.GetServerUserDataRequest)
-		res, err := runner(ctx, argsI)
-		if err != nil {
-			if resErr, ok := err.(*scw.ResponseError); ok {
-				if resErr.StatusCode == http.StatusNotFound {
-					return nil, fmt.Errorf("'%s' key does not exist", req.Key)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			req := argsI.(*instance.GetServerUserDataRequest)
+			res, err := runner(ctx, argsI)
+			if err != nil {
+				if resErr, ok := err.(*scw.ResponseError); ok {
+					if resErr.StatusCode == http.StatusNotFound {
+						return nil, fmt.Errorf("'%s' key does not exist", req.Key)
+					}
 				}
+
+				return nil, err
 			}
 
-			return nil, err
-		}
-
-		return res, nil
-	})
+			return res, nil
+		},
+	)
 
 	return c
 }
@@ -60,35 +62,37 @@ func userDataListBuilder(c *core.Command) *core.Command {
 		Key   string `json:"key"`
 		Value string `json:"value"`
 	}
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, _ core.CommandRunner) (interface{}, error) {
-		client := core.ExtractClient(ctx)
-		api := instance.NewAPI(client)
-		args := argsI.(*instance.ListServerUserDataRequest)
-		res, err := api.GetAllServerUserData(&instance.GetAllServerUserDataRequest{
-			Zone:     args.Zone,
-			ServerID: args.ServerID,
-		})
-		if err != nil {
-			return nil, err
-		}
-		var r []userDataRow
-		for a, v := range res.UserData {
-			buf := new(strings.Builder)
-			_, err := io.Copy(buf, v)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, _ core.CommandRunner) (interface{}, error) {
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+			args := argsI.(*instance.ListServerUserDataRequest)
+			res, err := api.GetAllServerUserData(&instance.GetAllServerUserDataRequest{
+				Zone:     args.Zone,
+				ServerID: args.ServerID,
+			})
 			if err != nil {
 				return nil, err
 			}
-			r = append(r, userDataRow{
-				Key:   a,
-				Value: buf.String(),
+			var r []userDataRow
+			for a, v := range res.UserData {
+				buf := new(strings.Builder)
+				_, err := io.Copy(buf, v)
+				if err != nil {
+					return nil, err
+				}
+				r = append(r, userDataRow{
+					Key:   a,
+					Value: buf.String(),
+				})
+			}
+			sort.Slice(r, func(i, j int) bool {
+				return r[i].Key < r[j].Key
 			})
-		}
-		sort.Slice(r, func(i, j int) bool {
-			return r[i].Key < r[j].Key
-		})
 
-		return r, nil
-	})
+			return r, nil
+		},
+	)
 
 	return c
 }

@@ -79,11 +79,15 @@ y7JHcXauRKI7bxgOugSep2d0lhYxJl65CPOCllawcu70Ds34MKi3XkCe20I=
 			{
 				Name: "test",
 				AuthInfo: api.AuthInfo{
-					Token:                 "qotGxuOfD74ajgWir18tMMPicxLIizKg3nt5PKHGbsbNDbGfqNojIdXI",
-					Username:              "test",
-					Password:              "test",
-					ClientCertificateData: []byte("LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvekNDQWVlZ0F3SUJBZ0lJZERQak80Umphdzh3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TURBek1qTXdPRFEyTkRoYUZ3MHlNVEF6TWpNd09EUTJORGhhTUVFeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1TWXdKQVlEVlFRREV4MXJkV0psTFdGd2FYTmxjblpsCmNpMXJkV0psYkdWMExXTnNhV1Z1ZERDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUIKQU54VjByQ0lBemNsdXIyV1VNb3NqOW1LQmlkclYzcnB5RmNwdnltMmtFVjZaOVo2TTBSRXpyTHo1c3BaWndCTwo1bHZrbEdzL2RJVndFK2pBd2tNWWNRRWlOaTQ2bHU4UFNSei9HVTFkek5mOEF2TXpnRWZER0xUY2x3eUs4di9kCklLenhTUnVOUFFseDZoTUw1bFpDeVBBZ3hqejNEdDZGWmUxUnVUdURWTUhnOWZIaHNwOFZTYnVCbWFYTTU2T0IKLzNZQXJLMXZOTlY0enRlQ3libFZnVUd3QUdKQ09zTlE0d0l4R0xSdjN5TVhtK3V3YVpGeTFxSEh6ZlpXclRpQQpKQ2lQNFVCbDV3bnUzeEhNaFZaemI0RnNCLzBmVEl1WHQ0ZjQ5L201KzdpM01vMEdrMjJNMjAvQldzNURZVmo1CnptSVVxcU9kK09UekdkcjgvcTRsdnQ4Q0F3RUFBYU1uTUNVd0RnWURWUjBQQVFIL0JBUURBZ1dnTUJNR0ExVWQKSlFRTU1Bb0dDQ3NHQVFVRkJ3TUNNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNuVFFCWlhsbm1aVWpDNEdscwpKdTZWWEYxN040ckpzWkNVOVR3SEhETlpZNGo5YlZHbG8wZzAva3JTajBId3hNNVU1NXl2WUJDaWNpZzVkSS96Cnd2ZENUQm5FQWIxRWtuZVR1ZkVPYzFtNzBtSzg0dnd3WWZtRVNkY1NXMmJieHBuUFNpak5BdnlTekZTTmZZZDEKMy9FZlRlQjQ0VFNGRGZQVk83YnpKYXBpYVJCTlZocVJQSncwc0lJWGM1Q0hiQzFEMHU5Mk4zRnhCa3JKcFN2UAp1QXBQT2dyNUgwUk5rOEk2TTBjd0FBc1RqdUkxd2Z4MjhJU0FWcmZLUjU4d1Eza1NsZzlUTTQrN01VMFA4eUZHClJXRkIrVFZiMTExYTRDc2RSbWMzQnZtcnFEbjZ2Ny9LOTJ4c0hNeDdBd3FObk1XUDQ4QStoVFNFVFh3U1Btb3cKL040RAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="),
-					ClientKeyData:         []byte("LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBM0ZYU3NJZ0ROeVc2dlpaUXlpeVAyWW9HSjJ0WGV1bklWeW0vS2JhUVJYcG4xbm96ClJFVE9zdlBteWxsbkFFN21XK1NVYXo5MGhYQVQ2TURDUXhoeEFTSTJManFXN3c5SkhQOFpUVjNNMS93Qzh6T0EKUjhNWXROeVhESXJ5LzkwZ3JQRkpHNDA5Q1hIcUV3dm1Wa0xJOENER1BQY08zb1ZsN1ZHNU80TlV3ZUQxOGVHeQpueFZKdTRHWnBjem5vNEgvZGdDc3JXODAxWGpPMTRMSnVWV0JRYkFBWWtJNncxRGpBakVZdEcvZkl4ZWI2N0JwCmtYTFdvY2ZOOWxhdE9JQWtLSS9oUUdYbkNlN2ZFY3lGVm5OdmdXd0gvUjlNaTVlM2gvajMrYm43dUxjeWpRYVQKYll6YlQ4RmF6a05oV1BuT1loU3FvNTM0NVBNWjJ2eityaVcrM3dJREFRQUJBb0lCQVFESDRsdldwaTAwbEZmSwpzbGpzY0d5M2p3MXlLV0VkTW9UNi9mWmNJekRTdHU4SWxhZDRvV3RhMFFWb1FKNittdFZFUENPZy85bjNTK3ZqCjFTcm1yMytrNWFKOVljMlhaaWlQMDZUaW1OdkNmTzg0TGxxTHY2UGtQOUlRSU9XOTFKOVdCVGFyZGdBUFYzWmcKZlFVaThFZFdBSVdXdlJLU01EWjlpd3dkdjFEZTZFUmt4Z0Y2R0NTSXQ2Ri80RS81Uk1VbkJObU1ycjZHWHR5NgorK0cxWExCcWxRdExYVm1yRDAyVW05Y1Yyb2QwOEczTzdUM3VqUWl6ZjR6emx4LzVWWGk0ZTFkVEViY05PRU53Cnlwd3lSajBCdFh2TXVwUXZvdUZRM3I5UmVQL0g5dmp1Q3NiZGF3T1pGQkFDb3J0UVJxcnFodENZMERRK2tiM1AKQWV1SjNnb0JBb0dCQU56QU0rbzBqckhKWGZJVFppSWEwZkV4QkIyNHBpTE5NTmoxaHIxSEJFWjI2eXFucFg5UApTSkRIbXhWREo2UXROZFQxZ3Y5L1MwelF3S2ZzYVZ5M2VYNW9OcU5hVEZERGhPSEoxWDZZUElwREZGTUgwNGV2CnRXV1ZNd21MVU9mdmhQR3NYOW5rdFRlVmxueTlnSUZOK0dkWFRTSlgyOEVIaHE2NGg4ay9IVXFCQW9HQkFQK0UKb2pVcUN3RWJ0UTIzcGRwYjNGRnNwdXZWM0F1aENiNnNmcUlxQ1ovVDRlUXJSSWtPU2luYmlva042ZFR5MVhuNQp6cGlJTEhOQ20wYkl2cVpJZmhkdERsUlcwcGQxbmlGZ2R3c3FacjdFUlFlN29XSHZkbVRwa1NaQ2p1M04zb1NjCjRPSmUwVmxBdWdwMjRsbms2bisxb01ySjJRUjNqQkxQVGUvZ3dKbGZBb0dCQUtBcUhBQ3J6WFNWQThLbDdJNkcKSXhqNlZXQXpIdWRWTlVIVk1zT1dDVFlQQmlWV3FhOHJHUjFpbGRUaGVwdVY2ZDd2bXZKQnE2SzZPMjRiQzM4bgo1OUNkVURkSlJ1RzZXbWx3QmFUcVU5S0ZSUFBSVTlxNDA4WTJjR2RXVzRkTXM0cWRaSlkxYUg1QjNJUDVBb25PCnhwSkVOMFRadGluaGlnaXUvbVkza3NzQkFvR0JBUFZDb0ZnYmhQaUpXZDVTMnRXZnV2aEZMR3ZPbVNwb1p1d28Kc2x5QnNUOUNwOTdWVVRHbEQ3Ymh6allEcnVFQ1BicVk5NThkaGwwVUgrdHZvT0FIVVZDM0V6d05JcExUQ1BmTQptamVUZVkrKzRPdXRSQmkzTzVOZFJqL05QMWd2ZFZraEpCTGxKRmxoY2JHOXIwTE9JZkIzckdFNkloN1JpUmc4CjkvZzZhV1JOQW9HQWJSSG94d1B4MUVlRnRxVDlUdXowZWZUR3RwQTB0bkhDZTN2b2x1L201eEZ6N3BwS29HeUQKRkNPVm5jMmZ3LzQwYUFGTGdHYlFLMFBqTzFCbWZ3cjFvb09aT1hZYnExUXo3Q1cvN3A1OUFkR0VrWXFzdWZZcAp6OXlMd1dBUEdybm9jVjBVQXZ2SHcvbC9OK29NZEdpdmVTdDhRb3RHclgzdm9PTmVsWThCZDRNPQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo="),
+					Token:    "qotGxuOfD74ajgWir18tMMPicxLIizKg3nt5PKHGbsbNDbGfqNojIdXI",
+					Username: "test",
+					Password: "test",
+					ClientCertificateData: []byte(
+						"LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvekNDQWVlZ0F3SUJBZ0lJZERQak80Umphdzh3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TURBek1qTXdPRFEyTkRoYUZ3MHlNVEF6TWpNd09EUTJORGhhTUVFeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1TWXdKQVlEVlFRREV4MXJkV0psTFdGd2FYTmxjblpsCmNpMXJkV0psYkdWMExXTnNhV1Z1ZERDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUIKQU54VjByQ0lBemNsdXIyV1VNb3NqOW1LQmlkclYzcnB5RmNwdnltMmtFVjZaOVo2TTBSRXpyTHo1c3BaWndCTwo1bHZrbEdzL2RJVndFK2pBd2tNWWNRRWlOaTQ2bHU4UFNSei9HVTFkek5mOEF2TXpnRWZER0xUY2x3eUs4di9kCklLenhTUnVOUFFseDZoTUw1bFpDeVBBZ3hqejNEdDZGWmUxUnVUdURWTUhnOWZIaHNwOFZTYnVCbWFYTTU2T0IKLzNZQXJLMXZOTlY0enRlQ3libFZnVUd3QUdKQ09zTlE0d0l4R0xSdjN5TVhtK3V3YVpGeTFxSEh6ZlpXclRpQQpKQ2lQNFVCbDV3bnUzeEhNaFZaemI0RnNCLzBmVEl1WHQ0ZjQ5L201KzdpM01vMEdrMjJNMjAvQldzNURZVmo1CnptSVVxcU9kK09UekdkcjgvcTRsdnQ4Q0F3RUFBYU1uTUNVd0RnWURWUjBQQVFIL0JBUURBZ1dnTUJNR0ExVWQKSlFRTU1Bb0dDQ3NHQVFVRkJ3TUNNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNuVFFCWlhsbm1aVWpDNEdscwpKdTZWWEYxN040ckpzWkNVOVR3SEhETlpZNGo5YlZHbG8wZzAva3JTajBId3hNNVU1NXl2WUJDaWNpZzVkSS96Cnd2ZENUQm5FQWIxRWtuZVR1ZkVPYzFtNzBtSzg0dnd3WWZtRVNkY1NXMmJieHBuUFNpak5BdnlTekZTTmZZZDEKMy9FZlRlQjQ0VFNGRGZQVk83YnpKYXBpYVJCTlZocVJQSncwc0lJWGM1Q0hiQzFEMHU5Mk4zRnhCa3JKcFN2UAp1QXBQT2dyNUgwUk5rOEk2TTBjd0FBc1RqdUkxd2Z4MjhJU0FWcmZLUjU4d1Eza1NsZzlUTTQrN01VMFA4eUZHClJXRkIrVFZiMTExYTRDc2RSbWMzQnZtcnFEbjZ2Ny9LOTJ4c0hNeDdBd3FObk1XUDQ4QStoVFNFVFh3U1Btb3cKL040RAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+					),
+					ClientKeyData: []byte(
+						"LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBM0ZYU3NJZ0ROeVc2dlpaUXlpeVAyWW9HSjJ0WGV1bklWeW0vS2JhUVJYcG4xbm96ClJFVE9zdlBteWxsbkFFN21XK1NVYXo5MGhYQVQ2TURDUXhoeEFTSTJManFXN3c5SkhQOFpUVjNNMS93Qzh6T0EKUjhNWXROeVhESXJ5LzkwZ3JQRkpHNDA5Q1hIcUV3dm1Wa0xJOENER1BQY08zb1ZsN1ZHNU80TlV3ZUQxOGVHeQpueFZKdTRHWnBjem5vNEgvZGdDc3JXODAxWGpPMTRMSnVWV0JRYkFBWWtJNncxRGpBakVZdEcvZkl4ZWI2N0JwCmtYTFdvY2ZOOWxhdE9JQWtLSS9oUUdYbkNlN2ZFY3lGVm5OdmdXd0gvUjlNaTVlM2gvajMrYm43dUxjeWpRYVQKYll6YlQ4RmF6a05oV1BuT1loU3FvNTM0NVBNWjJ2eityaVcrM3dJREFRQUJBb0lCQVFESDRsdldwaTAwbEZmSwpzbGpzY0d5M2p3MXlLV0VkTW9UNi9mWmNJekRTdHU4SWxhZDRvV3RhMFFWb1FKNittdFZFUENPZy85bjNTK3ZqCjFTcm1yMytrNWFKOVljMlhaaWlQMDZUaW1OdkNmTzg0TGxxTHY2UGtQOUlRSU9XOTFKOVdCVGFyZGdBUFYzWmcKZlFVaThFZFdBSVdXdlJLU01EWjlpd3dkdjFEZTZFUmt4Z0Y2R0NTSXQ2Ri80RS81Uk1VbkJObU1ycjZHWHR5NgorK0cxWExCcWxRdExYVm1yRDAyVW05Y1Yyb2QwOEczTzdUM3VqUWl6ZjR6emx4LzVWWGk0ZTFkVEViY05PRU53Cnlwd3lSajBCdFh2TXVwUXZvdUZRM3I5UmVQL0g5dmp1Q3NiZGF3T1pGQkFDb3J0UVJxcnFodENZMERRK2tiM1AKQWV1SjNnb0JBb0dCQU56QU0rbzBqckhKWGZJVFppSWEwZkV4QkIyNHBpTE5NTmoxaHIxSEJFWjI2eXFucFg5UApTSkRIbXhWREo2UXROZFQxZ3Y5L1MwelF3S2ZzYVZ5M2VYNW9OcU5hVEZERGhPSEoxWDZZUElwREZGTUgwNGV2CnRXV1ZNd21MVU9mdmhQR3NYOW5rdFRlVmxueTlnSUZOK0dkWFRTSlgyOEVIaHE2NGg4ay9IVXFCQW9HQkFQK0UKb2pVcUN3RWJ0UTIzcGRwYjNGRnNwdXZWM0F1aENiNnNmcUlxQ1ovVDRlUXJSSWtPU2luYmlva042ZFR5MVhuNQp6cGlJTEhOQ20wYkl2cVpJZmhkdERsUlcwcGQxbmlGZ2R3c3FacjdFUlFlN29XSHZkbVRwa1NaQ2p1M04zb1NjCjRPSmUwVmxBdWdwMjRsbms2bisxb01ySjJRUjNqQkxQVGUvZ3dKbGZBb0dCQUtBcUhBQ3J6WFNWQThLbDdJNkcKSXhqNlZXQXpIdWRWTlVIVk1zT1dDVFlQQmlWV3FhOHJHUjFpbGRUaGVwdVY2ZDd2bXZKQnE2SzZPMjRiQzM4bgo1OUNkVURkSlJ1RzZXbWx3QmFUcVU5S0ZSUFBSVTlxNDA4WTJjR2RXVzRkTXM0cWRaSlkxYUg1QjNJUDVBb25PCnhwSkVOMFRadGluaGlnaXUvbVkza3NzQkFvR0JBUFZDb0ZnYmhQaUpXZDVTMnRXZnV2aEZMR3ZPbVNwb1p1d28Kc2x5QnNUOUNwOTdWVVRHbEQ3Ymh6allEcnVFQ1BicVk5NThkaGwwVUgrdHZvT0FIVVZDM0V6d05JcExUQ1BmTQptamVUZVkrKzRPdXRSQmkzTzVOZFJqL05QMWd2ZFZraEpCTGxKRmxoY2JHOXIwTE9JZkIzckdFNkloN1JpUmc4CjkvZzZhV1JOQW9HQWJSSG94d1B4MUVlRnRxVDlUdXowZWZUR3RwQTB0bkhDZTN2b2x1L201eEZ6N3BwS29HeUQKRkNPVm5jMmZ3LzQwYUFGTGdHYlFLMFBqTzFCbWZ3cjFvb09aT1hZYnExUXo3Q1cvN3A1OUFkR0VrWXFzdWZZcAp6OXlMd1dBUEdybm9jVjBVQXZ2SHcvbC9OK29NZEdpdmVTdDhRb3RHclgzdm9PTmVsWThCZDRNPQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=",
+					),
 				},
 			},
 		},
@@ -107,7 +111,11 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 			// t.Log(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
 			// panic(string(cluster.Cluster.CertificateAuthorityData))
 			// panic(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
-			assert.Equal(t, string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData), string(cluster.Cluster.CertificateAuthorityData))
+			assert.Equal(
+				t,
+				string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData),
+				string(cluster.Cluster.CertificateAuthorityData),
+			)
 			assert.Equal(t, kubeconfig.Clusters[0].Cluster.Server, cluster.Cluster.Server)
 			found = true
 
@@ -120,7 +128,11 @@ func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeco
 	for _, context := range existingKubeconfig.Contexts {
 		if context.Name == kubeconfig.Contexts[0].Name+suffix {
 			assert.Equal(t, kubeconfig.Contexts[0].Context.Cluster+suffix, context.Context.Cluster)
-			assert.Equal(t, kubeconfig.Contexts[0].Context.AuthInfo+suffix, context.Context.AuthInfo)
+			assert.Equal(
+				t,
+				kubeconfig.Contexts[0].Context.AuthInfo+suffix,
+				context.Context.AuthInfo,
+			)
 			assert.Equal(t, kubeconfig.Contexts[0].Context.Namespace, context.Context.Namespace)
 			found = true
 
@@ -146,14 +158,24 @@ func Test_InstallKubeconfig(t *testing.T) {
 	// Simple use cases
 	////
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands:   k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig("install-kubeconfig-simple", "Cluster", "Kubeconfig", kapsuleVersion),
-		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
+		Commands: k8s.GetCommands(),
+		BeforeFunc: createClusterAndWaitAndKubeconfig(
+			"install-kubeconfig-simple",
+			"Cluster",
+			"Kubeconfig",
+			kapsuleVersion,
+		),
+		Cmd: "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
+				testIfKubeconfigInFile(
+					t,
+					path.Join(os.TempDir(), "cli-test"),
+					"-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID,
+					ctx.Meta["Kubeconfig"].(api.Config),
+				)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -164,15 +186,32 @@ func Test_InstallKubeconfig(t *testing.T) {
 	}))
 
 	t.Run("merge", core.Test(&core.TestConfig{
-		Commands:   k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile("install-kubeconfig-merge", "Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-merge-test"), []byte(existingKubeconfig)),
-		Cmd:        "scw k8s kubeconfig install {{ .Cluster.ID }}",
+		Commands: k8s.GetCommands(),
+		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile(
+			"install-kubeconfig-merge",
+			"Cluster",
+			"Kubeconfig",
+			kapsuleVersion,
+			path.Join(os.TempDir(), "cli-merge-test"),
+			[]byte(existingKubeconfig),
+		),
+		Cmd: "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
-				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "", testKubeconfig)
+				testIfKubeconfigInFile(
+					t,
+					path.Join(os.TempDir(), "cli-merge-test"),
+					"-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID,
+					ctx.Meta["Kubeconfig"].(api.Config),
+				)
+				testIfKubeconfigInFile(
+					t,
+					path.Join(os.TempDir(), "cli-merge-test"),
+					"",
+					testKubeconfig,
+				)
 			},
 			core.TestCheckExitCode(0),
 		),

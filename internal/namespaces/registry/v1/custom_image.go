@@ -123,12 +123,19 @@ func imageListBuilder(c *core.Command) *core.Command {
 		var customRes []customImage
 		for _, image := range listImage {
 			img := customImage{
-				Image:    *image,
-				FullName: fmt.Sprintf("%s/%s", namespaceEndpointByID[image.NamespaceID], image.Name),
+				Image: *image,
+				FullName: fmt.Sprintf(
+					"%s/%s",
+					namespaceEndpointByID[image.NamespaceID],
+					image.Name,
+				),
 			}
 
 			if image.Visibility == registry.ImageVisibilityInherit {
-				img.ExplicitVisibility = fmt.Sprintf("%s (inherit)", namespaceVisibilityByID[image.NamespaceID])
+				img.ExplicitVisibility = fmt.Sprintf(
+					"%s (inherit)",
+					namespaceVisibilityByID[image.NamespaceID],
+				)
 			} else {
 				img.ExplicitVisibility = image.Visibility.String()
 			}

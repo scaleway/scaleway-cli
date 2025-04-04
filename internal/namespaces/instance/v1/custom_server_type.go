@@ -18,8 +18,14 @@ import (
 
 var serverTypesAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
 	instance.ServerTypesAvailabilityAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	instance.ServerTypesAvailabilityScarce:    &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low stock"},
-	instance.ServerTypesAvailabilityShortage:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "out of stock"},
+	instance.ServerTypesAvailabilityScarce: &human.EnumMarshalSpec{
+		Attribute: color.FgYellow,
+		Value:     "low stock",
+	},
+	instance.ServerTypesAvailabilityShortage: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "out of stock",
+	},
 }
 
 //
@@ -79,9 +85,12 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		serverTypes := []*customServerType(nil)
 
 		// Get server availabilities.
-		availabilitiesResponse, err := api.GetServerTypesAvailability(&instance.GetServerTypesAvailabilityRequest{
-			Zone: request.Zone,
-		}, scw.WithAllPages())
+		availabilitiesResponse, err := api.GetServerTypesAvailability(
+			&instance.GetServerTypesAvailabilityRequest{
+				Zone: request.Zone,
+			},
+			scw.WithAllPages(),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -99,8 +108,12 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			}
 
 			serverTypes = append(serverTypes, &customServerType{
-				Name:               name,
-				HourlyPrice:        scw.NewMoneyFromFloat(float64(serverType.HourlyPrice), "EUR", 3),
+				Name: name,
+				HourlyPrice: scw.NewMoneyFromFloat(
+					float64(serverType.HourlyPrice),
+					"EUR",
+					3,
+				),
 				LocalVolumeMaxSize: serverType.VolumesConstraint.MaxSize,
 				CPU:                serverType.Ncpus,
 				GPU:                serverType.Gpu,

@@ -148,8 +148,8 @@ func defaultRegion(ctx context.Context, config *scw.Config, profileName string) 
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 		setting.Value = *config.Profiles[profileName].DefaultRegion
 	// Default config
-	case config.Profile.DefaultRegion != nil:
-		setting.Value = *config.Profile.DefaultRegion
+	case config.DefaultRegion != nil:
+		setting.Value = *config.DefaultRegion
 		setting.Origin = defaultProfileOrigin
 	default:
 		setting.Origin = defaultOrigin
@@ -178,8 +178,8 @@ func defaultZone(ctx context.Context, config *scw.Config, profileName string) *s
 		setting.Value = *config.Profiles[profileName].DefaultZone
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 	// Default config
-	case config.Profile.DefaultZone != nil:
-		setting.Value = *config.Profile.DefaultZone
+	case config.DefaultZone != nil:
+		setting.Value = *config.DefaultZone
 		setting.Origin = defaultProfileOrigin
 	default:
 		setting.Origin = defaultOrigin
@@ -203,8 +203,8 @@ func defaultOrganizationID(ctx context.Context, config *scw.Config, profileName 
 		setting.Value = *config.Profiles[profileName].DefaultOrganizationID
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 	// Default config
-	case config.Profile.DefaultOrganizationID != nil:
-		setting.Value = *config.Profile.DefaultOrganizationID
+	case config.DefaultOrganizationID != nil:
+		setting.Value = *config.DefaultOrganizationID
 		setting.Origin = defaultProfileOrigin
 	default:
 		setting.Origin = unknownOrigin
@@ -228,8 +228,8 @@ func defaultProjectID(ctx context.Context, config *scw.Config, profileName strin
 		setting.Value = *config.Profiles[profileName].DefaultProjectID
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 	// Default config
-	case config.Profile.DefaultProjectID != nil:
-		setting.Value = *config.Profile.DefaultProjectID
+	case config.DefaultProjectID != nil:
+		setting.Value = *config.DefaultProjectID
 		setting.Origin = defaultProfileOrigin
 	default:
 		setting.Origin = unknownOrigin
@@ -253,8 +253,8 @@ func accessKey(ctx context.Context, config *scw.Config, profileName string) *set
 		setting.Value = *config.Profiles[profileName].AccessKey
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 	// Default config
-	case config.Profile.AccessKey != nil:
-		setting.Value = *config.Profile.AccessKey
+	case config.AccessKey != nil:
+		setting.Value = *config.AccessKey
 		setting.Origin = defaultProfileOrigin
 	default:
 		setting.Origin = unknownOrigin
@@ -274,7 +274,12 @@ func hideSecretKey(k string) string {
 	}
 }
 
-func secretKey(ctx context.Context, config *scw.Config, profileName string, showSecret bool) *setting {
+func secretKey(
+	ctx context.Context,
+	config *scw.Config,
+	profileName string,
+	showSecret bool,
+) *setting {
 	setting := &setting{Key: "secret_key"}
 	switch {
 	// Environment variable check
@@ -289,8 +294,8 @@ func secretKey(ctx context.Context, config *scw.Config, profileName string, show
 		setting.Value = *config.Profiles[profileName].SecretKey
 		setting.Origin = fmt.Sprintf("profile (%s)", profileName)
 	// Default config
-	case config.Profile.SecretKey != nil:
-		setting.Value = *config.Profile.SecretKey
+	case config.SecretKey != nil:
+		setting.Value = *config.SecretKey
 		setting.Origin = defaultProfileOrigin
 	default:
 		setting.Origin = unknownOrigin

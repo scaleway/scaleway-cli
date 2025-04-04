@@ -78,7 +78,8 @@ func userListBuilder(c *core.Command) *core.Command {
 			case rdb.PermissionReadwrite:
 				user.ReadWrite = append(user.ReadWrite, privilege.DatabaseName)
 			default:
-				core.ExtractLogger(ctx).Errorf("unsupported permission value %s", privilege.Permission)
+				core.ExtractLogger(ctx).
+					Errorf("unsupported permission value %s", privilege.Permission)
 			}
 		}
 
