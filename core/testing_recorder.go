@@ -18,12 +18,14 @@ import (
 func cassetteRequestFilter(i *cassette.Interaction) error {
 	delete(i.Request.Headers, "x-auth-token")
 	delete(i.Request.Headers, "X-Auth-Token")
-	i.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").
-		ReplaceAllString(i.URL, "organization_id=11111111-1111-1111-1111-111111111111")
-	i.URL = regexp.MustCompile(`api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}`).
-		ReplaceAllString(i.URL, "api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
-	i.URL = regexp.MustCompile(`^api\.scaleway\.com/iam/v1alpha1/api-keys/SCW[0-9A-Z]{17}`).
-		ReplaceAllString(i.URL, "api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX")
+
+	orgIDRegex := regexp.MustCompile("organization_id=[0-9a-f-]{36}")
+	tokenRegex := regexp.MustCompile(`api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}`)
+	apiKeyRegex := regexp.MustCompile(`^api\.scaleway\.com/iam/v1alpha1/api-keys/SCW[0-9A-Z]{17}`)
+
+	i.URL = orgIDRegex.ReplaceAllString(i.URL, "organization_id=11111111-1111-1111-1111-111111111111")
+	i.URL = tokenRegex.ReplaceAllString(i.URL, "api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
+	i.URL = apiKeyRegex.ReplaceAllString(i.URL, "api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX")
 
 	return nil
 }
