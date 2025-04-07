@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [order-by]        Sort order for the tokens (created_at_asc | created_at_desc)
-  [function-id]     UUID of the function the token is assoicated with
+  [function-id]     UUID of the function the token is associated with
   [namespace-id]    UUID of the namespace the token is associated with
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 

@@ -264,7 +264,7 @@ scw function domain list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `hostname_asc`, `hostname_desc` | Order of the domains |
-| function-id |  | UUID of the function the domain is assoicated with |
+| function-id |  | UUID of the function the domain is associated with |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -292,7 +292,7 @@ scw function function create [arg=value ...]
 | name | Default: `<generated>` | Name of the function to create |
 | namespace-id |  | UUID of the namespace the function will be created in |
 | environment-variables.{key} |  | Environment variables of the function |
-| min-scale |  | Minumum number of instances to scale the function to |
+| min-scale |  | Minimum number of instances to scale the function to |
 | max-scale |  | Maximum number of instances to scale the function to |
 | runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84` | Runtime to use with the function |
 | memory-limit |  | Memory limit of the function in MB |
@@ -383,7 +383,7 @@ scw function function get-download-url <function-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id | Required | UUID of the function to get the the download URL for |
+| function-id | Required | UUID of the function to get the download URL for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -428,7 +428,7 @@ scw function function list [arg=value ...]
 | namespace-id |  | UUID of the namespace the function belongs to |
 | name |  | Name of the function |
 | project-id |  | UUID of the Project the function belongs to |
-| organization-id |  | UUID of the Organziation the function belongs to |
+| organization-id |  | UUID of the Organization the function belongs to |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -450,7 +450,7 @@ scw function function update <function-id ...> [arg=value ...]
 |------|---|-------------|
 | function-id | Required | UUID of the function to update |
 | environment-variables.{key} |  | Environment variables of the function to update |
-| min-scale |  | Minumum number of instances to scale the function to |
+| min-scale |  | Minimum number of instances to scale the function to |
 | max-scale |  | Maximum number of instances to scale the function to |
 | runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84` | Runtime to use with the function |
 | memory-limit |  | Memory limit of the function in MB |
@@ -694,7 +694,7 @@ scw function token list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` | Sort order for the tokens |
-| function-id |  | UUID of the function the token is assoicated with |
+| function-id |  | UUID of the function the token is associated with |
 | namespace-id |  | UUID of the namespace the token is associated with |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
