@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage your CPU and GPU Instances.
+This API allows you to manage your Instances.
 
 USAGE:
   scw instance <command>
