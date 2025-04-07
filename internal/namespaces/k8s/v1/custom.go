@@ -26,6 +26,7 @@ func GetCommands() *core.Commands {
 		k8sClusterWaitCommand(),
 		k8sNodeWaitCommand(),
 		k8sPoolWaitCommand(),
+		k8sPoolAddExternalNodeCommand(),
 	))
 
 	human.RegisterMarshalerFunc(k8s.Version{}, versionMarshalerFunc)
