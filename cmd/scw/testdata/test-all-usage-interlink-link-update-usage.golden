@@ -9,6 +9,7 @@ ARGS:
   link-id           ID of the link to update
   [name]            Name of the link
   [tags.{index}]    List of tags to apply to the link
+  [peer-asn]        For self-hosted links, AS Number to establish BGP session.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
