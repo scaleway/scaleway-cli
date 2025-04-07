@@ -197,6 +197,7 @@ func GetCommands() *core.Commands {
 		instanceSSH(),
 		sshAddKeyCommand(),
 		sshConfigInstallCommand(),
+		sshFetchKeysCommand(),
 		sshListKeysCommand(),
 		sshRemoveKeyCommand(),
 		instanceServerGetRdpPassword(),

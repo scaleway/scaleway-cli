@@ -96,8 +96,8 @@ func GetGeneratedCommands() *core.Commands {
 }
 func instanceRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your Instances`,
-		Long:      `This API allows you to manage your Instances.`,
+		Short:     `This API allows you to manage your CPU and GPU Instances`,
+		Long:      `This API allows you to manage your CPU and GPU Instances.`,
 		Namespace: "instance",
 	}
 }
