@@ -383,7 +383,7 @@ scw function function get-download-url <function-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| function-id | Required | UUID of the function to get the download URL for |
+| function-id | Required | UUID of the function to get the the download URL for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
