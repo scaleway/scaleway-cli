@@ -28,6 +28,7 @@ func GetGeneratedCommands() *core.Commands {
 		accountProjectUpdate(),
 	)
 }
+
 func accountRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Scaleway Projects`,
@@ -77,6 +78,7 @@ func accountProjectCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
+
 			return api.CreateProject(request)
 		},
 	}
@@ -105,7 +107,12 @@ func accountProjectList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "project-ids.{index}",
@@ -126,6 +133,7 @@ func accountProjectList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Projects, nil
 		},
 	}
@@ -148,6 +156,7 @@ func accountProjectGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
+
 			return api.GetProject(request)
 		},
 	}
@@ -174,6 +183,7 @@ func accountProjectDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "project",
 				Verb:     "delete",
@@ -213,6 +223,7 @@ func accountProjectUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
+
 			return api.UpdateProject(request)
 		},
 	}

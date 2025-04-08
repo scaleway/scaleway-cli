@@ -51,6 +51,7 @@ func GetGeneratedCommands() *core.Commands {
 		redisEndpointUpdate(),
 	)
 }
+
 func redisRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Managed Databases for Redis™`,
@@ -225,13 +226,21 @@ func redisClusterCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.CreateClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.CreateCluster(request)
 		},
 	}
@@ -282,13 +291,21 @@ func redisClusterUpdate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.UpdateClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.UpdateCluster(request)
 		},
 	}
@@ -311,13 +328,21 @@ func redisClusterGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.GetClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.GetCluster(request)
 		},
 	}
@@ -353,7 +378,12 @@ func redisClusterList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -376,7 +406,15 @@ func redisClusterList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.ListClustersRequest)
@@ -392,6 +430,7 @@ func redisClusterList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Clusters, nil
 		},
 	}
@@ -435,13 +474,21 @@ func redisClusterMigrate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.MigrateClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.MigrateCluster(request)
 		},
 	}
@@ -464,13 +511,21 @@ func redisClusterDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.DeleteClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.DeleteCluster(request)
 		},
 	}
@@ -514,13 +569,21 @@ func redisClusterMetrics() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.GetClusterMetricsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.GetClusterMetrics(request)
 		},
 	}
@@ -543,7 +606,15 @@ func redisNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.ListNodeTypesRequest)
@@ -559,6 +630,7 @@ func redisNodeTypeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.NodeTypes, nil
 		},
 	}
@@ -602,7 +674,15 @@ func redisVersionList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.ListClusterVersionsRequest)
@@ -618,6 +698,7 @@ func redisVersionList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Versions, nil
 		},
 	}
@@ -640,13 +721,21 @@ func redisClusterGetCertificate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.GetClusterCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.GetClusterCertificate(request)
 		},
 	}
@@ -669,13 +758,21 @@ func redisClusterRenewCertificate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.RenewClusterCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.RenewClusterCertificate(request)
 		},
 	}
@@ -712,13 +809,21 @@ func redisSettingAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.AddClusterSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.AddClusterSettings(request)
 		},
 	}
@@ -748,13 +853,21 @@ func redisSettingDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.DeleteClusterSettingRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.DeleteClusterSetting(request)
 		},
 	}
@@ -791,13 +904,21 @@ func redisSettingSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.SetClusterSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.SetClusterSettings(request)
 		},
 	}
@@ -834,13 +955,21 @@ func redisACLSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.SetACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.SetACLRules(request)
 		},
 	}
@@ -877,13 +1006,21 @@ func redisACLAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.AddACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.AddACLRules(request)
 		},
 	}
@@ -906,13 +1043,21 @@ func redisACLDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.DeleteACLRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.DeleteACLRule(request)
 		},
 	}
@@ -935,13 +1080,21 @@ func redisACLGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.GetACLRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.GetACLRule(request)
 		},
 	}
@@ -978,13 +1131,21 @@ func redisEndpointSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.SetEndpointsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.SetEndpoints(request)
 		},
 	}
@@ -1021,13 +1182,21 @@ func redisEndpointAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.AddEndpointsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.AddEndpoints(request)
 		},
 	}
@@ -1050,13 +1219,21 @@ func redisEndpointDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.DeleteEndpoint(request)
 		},
 	}
@@ -1079,13 +1256,21 @@ func redisEndpointGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.GetEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.GetEndpoint(request)
 		},
 	}
@@ -1122,13 +1307,21 @@ func redisEndpointUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw1, scw.ZonePlWaw2),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*redis.UpdateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
+
 			return api.UpdateEndpoint(request)
 		},
 	}
