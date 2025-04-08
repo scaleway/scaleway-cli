@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [order-by]        Order of the domains (created_at_asc | created_at_desc | hostname_asc | hostname_desc)
-  [function-id]     UUID of the function the domain is assoicated with
+  [function-id]     UUID of the function the domain is associated with
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

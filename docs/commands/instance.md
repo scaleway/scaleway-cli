@@ -2301,7 +2301,7 @@ scw instance server update <server-id ...> [arg=value ...]
 | ~~routed-ip-enabled~~ | Deprecated | True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False) |
 | public-ips.{index} |  | A list of reserved IP IDs to attach to the Instance |
 | ~~enable-ipv6~~ | Deprecated |  |
-| protected |  |  |
+| protected |  | True to activate server protection option |
 | security-group-id |  |  |
 | volume-ids.{index} |  | Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes) |
 | placement-group-id |  | Placement group ID if Instance must be part of a placement group |

@@ -39,6 +39,7 @@ Server.SecurityGroup.Name      Default security group
 Server.StateDetail             -
 Server.Arch                    x86_64
 Server.Zone                    fr-par-1
+Server.EndOfService            false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "server": {
@@ -117,6 +118,7 @@ Server.Zone                    fr-par-1
     "private_nics": [],
     "zone": "fr-par-1",
     "admin_password_encryption_ssh_key_id": null,
-    "admin_password_encrypted_value": null
+    "admin_password_encrypted_value": null,
+    "end_of_service": false
   }
 }

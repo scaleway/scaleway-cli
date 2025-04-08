@@ -43,6 +43,7 @@ SecurityGroup.Name      Default security group
 StateDetail             booting kernel
 Arch                    x86_64
 Zone                    fr-par-1
+EndOfService            false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "5c79fa34-9760-4cf7-94a8-ae28003c2353",
@@ -129,5 +130,6 @@ Zone                    fr-par-1
   "private_nics": [],
   "zone": "fr-par-1",
   "admin_password_encryption_ssh_key_id": null,
-  "admin_password_encrypted_value": null
+  "admin_password_encrypted_value": null,
+  "end_of_service": false
 }
