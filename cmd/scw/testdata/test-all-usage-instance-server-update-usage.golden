@@ -34,7 +34,7 @@ ARGS:
   [volumes.{key}.organization]             Organization ID of the volume
   [dynamic-ip-required]                    
   [public-ips.{index}]                     A list of reserved IP IDs to attach to the Instance
-  [protected]                              
+  [protected]                              True to activate server protection option
   [security-group-id]                      
   [volume-ids.{index}]                     Will update ALL volume IDs at once, including the root volume of the server (use volume-ids=none to detach all volumes)
   [placement-group-id]                     Placement group ID if Instance must be part of a placement group

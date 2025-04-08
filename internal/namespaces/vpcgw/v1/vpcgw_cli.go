@@ -144,7 +144,7 @@ func vpcGwGatewayList() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.ListGatewaysRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -268,7 +268,7 @@ func vpcGwGatewayGet() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "get",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.GetGatewayRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -297,7 +297,7 @@ func vpcGwGatewayCreate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.CreateGatewayRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -378,7 +378,7 @@ func vpcGwGatewayUpdate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "update",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.UpdateGatewayRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -449,7 +449,7 @@ func vpcGwGatewayDelete() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "delete",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.DeleteGatewayRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -492,7 +492,7 @@ func vpcGwGatewayUpgrade() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "upgrade",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.UpgradeGatewayRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -528,7 +528,7 @@ func vpcGwGatewayEnableIPMobility() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "enable-ip-mobility",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.EnableIPMobilityRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -564,7 +564,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.ListGatewayNetworksRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -674,7 +674,7 @@ func vpcGwGatewayNetworkGet() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "get",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.GetGatewayNetworkRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -703,7 +703,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.CreateGatewayNetworkRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -743,7 +743,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			},
 			{
 				Name:       "address",
-				Short:      `Static IP address in CIDR format to to use without DHCP`,
+				Short:      `Static IP address in CIDR format to use without DHCP`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -781,7 +781,7 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "update",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.UpdateGatewayNetworkRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -852,7 +852,7 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway-network",
 		Verb:      "delete",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.DeleteGatewayNetworkRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -895,7 +895,7 @@ func vpcGwDHCPList() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.ListDHCPsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1021,7 +1021,7 @@ func vpcGwDHCPGet() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "get",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.GetDHCPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1050,7 +1050,7 @@ func vpcGwDHCPCreate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.CreateDHCPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -1164,7 +1164,7 @@ func vpcGwDHCPUpdate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "update",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.UpdateDHCPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1284,7 +1284,7 @@ func vpcGwDHCPDelete() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp",
 		Verb:      "delete",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.DeleteDHCPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1320,7 +1320,7 @@ func vpcGwDHCPEntryList() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.ListDHCPEntriesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1424,7 +1424,7 @@ func vpcGwDHCPEntryGet() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "get",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.GetDHCPEntryRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1453,7 +1453,7 @@ func vpcGwDHCPEntryCreate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.CreateDHCPEntryRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1496,7 +1496,7 @@ func vpcGwDHCPEntryUpdate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "update",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.UpdateDHCPEntryRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1532,7 +1532,7 @@ func vpcGwDHCPEntrySet() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "set",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.SetDHCPEntriesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1575,7 +1575,7 @@ func vpcGwDHCPEntryDelete() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "dhcp-entry",
 		Verb:      "delete",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.DeleteDHCPEntryRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1611,7 +1611,7 @@ func vpcGwPatRuleList() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.ListPATRulesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1701,7 +1701,7 @@ func vpcGwPatRuleGet() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "get",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.GetPATRuleRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1730,7 +1730,7 @@ func vpcGwPatRuleCreate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.CreatePATRuleRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1788,7 +1788,7 @@ func vpcGwPatRuleUpdate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "update",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.UpdatePATRuleRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1846,7 +1846,7 @@ func vpcGwPatRuleSet() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "set",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.SetPATRulesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1904,7 +1904,7 @@ func vpcGwPatRuleDelete() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "delete",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.DeletePATRuleRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1940,7 +1940,7 @@ func vpcGwGatewayTypeList() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway-type",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.ListGatewayTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
@@ -1962,7 +1962,7 @@ func vpcGwIPList() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.ListIPsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -2065,7 +2065,7 @@ func vpcGwIPGet() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "get",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.GetIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -2094,7 +2094,7 @@ func vpcGwIPCreate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.CreateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -2124,7 +2124,7 @@ func vpcGwIPUpdate() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "update",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.UpdateIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -2174,7 +2174,7 @@ func vpcGwIPDelete() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "ip",
 		Verb:      "delete",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.DeleteIPRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -2210,7 +2210,7 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "refresh-ssh-keys",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.RefreshSSHKeysRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -2239,7 +2239,7 @@ func vpcGwGatewayMigrateToV2() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "gateway",
 		Verb:      "migrate-to-v2",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(vpcgw.MigrateToV2Request{}),
 		ArgSpecs: core.ArgSpecs{
 			{

@@ -1725,7 +1725,7 @@ func rdbSettingDelete() *core.Command {
 func rdbSettingSet() *core.Command {
 	return &core.Command{
 		Short:     `Set Database Instance advanced settings`,
-		Long:      `Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.`,
+		Long:      `Update an advanced setting for a Database Instance. Settings added upon database engine initialization can only be defined once, and cannot, therefore, be updated.`,
 		Namespace: "rdb",
 		Resource:  "setting",
 		Verb:      "set",

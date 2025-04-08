@@ -458,7 +458,7 @@ func interlinkLinkGet() *core.Command {
 func interlinkLinkCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a link`,
-		Long:      `Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (faciliated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).`,
+		Long:      `Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (facilitated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).`,
 		Namespace: "interlink",
 		Resource:  "link",
 		Verb:      "create",
