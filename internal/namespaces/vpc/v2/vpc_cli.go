@@ -131,7 +131,7 @@ func vpcVpcList() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags to filter for. Only VPCs with one more more matching tags will be returned`,
+				Short:      `Tags to filter for. Only VPCs with one or more matching tags will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
