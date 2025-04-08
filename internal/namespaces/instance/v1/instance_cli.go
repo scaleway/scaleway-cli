@@ -675,6 +675,7 @@ func instanceServerUpdate() *core.Command {
 			},
 			{
 				Name:       "protected",
+				Short:      `True to activate server protection option`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

@@ -7,7 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   add         Add new ACLs
-  delete      Delete an exising ACL
+  delete      Delete an existing ACL
   list        List your ACLs
   set         Set new ACL
 
