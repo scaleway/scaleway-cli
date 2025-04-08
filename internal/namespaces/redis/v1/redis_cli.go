@@ -763,7 +763,7 @@ func redisSettingDelete() *core.Command {
 func redisSettingSet() *core.Command {
 	return &core.Command{
 		Short:     `Set advanced settings`,
-		Long:      `Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.`,
+		Long:      `Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initialization can only be defined once, and cannot, therefore, be updated.`,
 		Namespace: "redis",
 		Resource:  "setting",
 		Verb:      "set",
