@@ -451,7 +451,7 @@ func functionFunctionList() *core.Command {
 			},
 			{
 				Name:       "organization-id",
-				Short:      `UUID of the Organziation the function belongs to`,
+				Short:      `UUID of the Organization the function belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -540,7 +540,7 @@ func functionFunctionCreate() *core.Command {
 			},
 			{
 				Name:       "min-scale",
-				Short:      `Minumum number of instances to scale the function to`,
+				Short:      `Minimum number of instances to scale the function to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -663,7 +663,7 @@ func functionFunctionUpdate() *core.Command {
 			},
 			{
 				Name:       "min-scale",
-				Short:      `Minumum number of instances to scale the function to`,
+				Short:      `Minimum number of instances to scale the function to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -894,7 +894,7 @@ func functionFunctionGetDownloadURL() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
-				Short:      `UUID of the function to get the the download URL for`,
+				Short:      `UUID of the function to get the download URL for`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -1142,7 +1142,7 @@ func functionDomainList() *core.Command {
 			},
 			{
 				Name:       "function-id",
-				Short:      `UUID of the function the domain is assoicated with`,
+				Short:      `UUID of the function the domain is associated with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1361,7 +1361,7 @@ func functionTokenList() *core.Command {
 			},
 			{
 				Name:       "function-id",
-				Short:      `UUID of the function the token is assoicated with`,
+				Short:      `UUID of the function the token is associated with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

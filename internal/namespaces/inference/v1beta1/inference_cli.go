@@ -637,8 +637,8 @@ func inferenceACLSet() *core.Command {
 
 func inferenceACLDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an exising ACL`,
-		Long:      `Delete an exising ACL.`,
+		Short:     `Delete an existing ACL`,
+		Long:      `Delete an existing ACL.`,
 		Namespace: "inference",
 		Resource:  "acl",
 		Verb:      "delete",
