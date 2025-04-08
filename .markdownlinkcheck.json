@@ -4,7 +4,7 @@
       "pattern": "^https://github.com/[^/]+/[^/]+/(issues|labels|pull)"
     },
     {
-      "pattern": "^http://169.254.42.42/[^/])"
+      "pattern": "^http://169.254.42.42/[^/]"
     },
     {
       "pattern": "^https://api.scaleway.com/account/v1"
