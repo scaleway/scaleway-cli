@@ -2,7 +2,6 @@ package k8s
 
 import (
 	"context"
-	_ "embed"
 	"errors"
 	"fmt"
 	"net/http"
@@ -220,6 +219,7 @@ Keep in mind that your external node needs to have wget in order to download the
 		},
 	}
 }
+
 func execSSHCommand(ctx context.Context, args []string, printSeparator bool) error {
 	remoteCmd := exec.Command("ssh", args...)
 	_, _ = interactive.Println(remoteCmd)
@@ -234,6 +234,7 @@ func execSSHCommand(ctx context.Context, args []string, printSeparator bool) err
 	if printSeparator {
 		_, _ = interactive.Println("-----")
 	}
+
 	return nil
 }
 
