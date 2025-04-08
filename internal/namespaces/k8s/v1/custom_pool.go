@@ -5,7 +5,6 @@ import (
 	_ "embed"
 	"errors"
 	"fmt"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/scripts"
 	"net/http"
 	"os/exec"
 	"reflect"
@@ -151,16 +150,14 @@ type k8sPoolAddExternalNodeRequest struct {
 func k8sPoolAddExternalNodeCommand() *core.Command {
 	return &core.Command{
 		Short: `Add an external node to a Kosmos pool`,
-		// TODO: finish writing long description
 		Long: `Add an external node to a Kosmos pool. 
-This will connect via SSH to the node as root, download the multicloud configuration script and run it.
-Keep in mind that you need SSH root access to the external node in order to be able to run this command.
-Your external node needs to have bash and wget`,
+This will connect via SSH to the node, download the multicloud configuration script and run it with sudo privileges.
+Keep in mind that your external node needs to have wget in order to download the script.`,
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "add-external-node",
-		//Groups:    []string{"workflow"}, // TODO: what group ?
-		ArgsType: reflect.TypeOf(k8sPoolAddExternalNodeRequest{}),
+		Groups:    []string{"utility"},
+		ArgsType:  reflect.TypeOf(k8sPoolAddExternalNodeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "node-ip",
@@ -181,87 +178,41 @@ Your external node needs to have bash and wget`,
 		},
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*k8sPoolAddExternalNodeRequest)
-			client := core.ExtractClient(ctx)
-			secretKey, _ := client.GetSecretKey()
-
-			// Generate the script with the environment variables set
-			//type KosmosInstallEnvVars struct {
-			//	PoolID     string
-			//	PoolRegion string
-			//	SecretKey  string
-			//}
-			//envVars := KosmosInstallEnvVars{
-			//	PoolID:     args.PoolID,
-			//	PoolRegion: args.Region.String(),
-			//	SecretKey:  secretKey,
-			//}
-			//tmpl, err := template.New("kosmos-node-init").Parse(scripts.KosmosNodeInitScript)
-			//if err != nil {
-			//	return nil, fmt.Errorf("failed to parse template: %w", err)
-			//}
-			//renderedScript, err := os.Create(kosmosNodeInitScriptPath + "kosmos_node_init.sh")
-			//if err != nil {
-			//	return nil, fmt.Errorf("failed to create script: %w", err)
-			//}
-			//err = tmpl.Execute(renderedScript, envVars)
-			//if err != nil {
-			//	return nil, fmt.Errorf("failed to execute template: %w", err)
-			//}
-
 			sshCommonArgs := []string{
 				args.NodeIP,
+				"-t",
 				"-l", args.Username,
 			}
 
-			// Copy the script to the node
+			// Set POOL_ID and REGION in the node init script and copy it to the remote
 			homeDir := "/root"
 			if args.Username != "root" {
 				homeDir = "/home/" + args.Username
 			}
-			//scpArgs := []string{
-			//	scripts.KosmosNodeInitScript,
-			//	fmt.Sprintf("%s@%s:%s/", args.Username, args.NodeIP, homeDir),
-			//}
-			//if err = execRemoteCommand(ctx, "scp", scpArgs); err != nil {
-			//	return nil, err
-			//}
-
+			nodeInitScript := buildNodeInitScript(args.PoolID, args.Region)
 			copyScriptArgs := []string{
 				"cat", "<<", "EOF",
-				">", homeDir + "/kosmos_node_init.sh",
+				">", homeDir + "/init_kosmos_node.sh",
 				"\n",
 			}
-			copyScriptArgs = append(copyScriptArgs, strings.Split(scripts.KosmosNodeInitScript, " \n")...)
-			copyScriptArgs = append(copyScriptArgs, "\nEOF")
-			if err = execRemoteCommand(ctx, "ssh", append(sshCommonArgs, copyScriptArgs...)); err != nil {
+			copyScriptArgs = append(copyScriptArgs, strings.Split(nodeInitScript, " \n")...)
+			if err = execSSHCommand(ctx, append(sshCommonArgs, copyScriptArgs...), true); err != nil {
 				return nil, err
 			}
-			// Replace the POOL_ID and POOL_REGION variables in the script on the node
-			replaceVarsArgs := []string{
-				"sed", "-i",
-				"-e", fmt.Sprintf("'s/<pool-region>/%s/'", args.Region.String()),
-				"-e", fmt.Sprintf("'s/<pool-id>/%s/'", args.PoolID),
-				"-e", fmt.Sprintf("'s/<secret-key>/$SCW_SECRET_KEY/'"),
-				"kosmos_node_init.sh",
-			}
-			if err = execRemoteCommand(ctx, "ssh", append(sshCommonArgs, replaceVarsArgs...)); err != nil {
+			chmodArgs := []string{"chmod", "+x", homeDir + "/init_kosmos_node.sh"}
+			if err = execSSHCommand(ctx, append(sshCommonArgs, chmodArgs...), true); err != nil {
 				return nil, err
 			}
 
-			chmodArgs := []string{
-				"chmod", "+x", "kosmos_node_init.sh",
-			}
-			if err = execRemoteCommand(ctx, "ssh", append(sshCommonArgs, chmodArgs...)); err != nil {
-				return nil, err
-			}
-
-			// Execute the script on the node
+			// Execute the script with SCW_SECRET_KEY set
+			client := core.ExtractClient(ctx)
+			secretKey, _ := client.GetSecretKey()
 			execScriptArgs := []string{
 				"",
 				"SCW_SECRET_KEY=" + secretKey,
-				"./kosmos_node_init.sh",
+				"./init_kosmos_node.sh",
 			}
-			if err = execRemoteCommand(ctx, "ssh", append(sshCommonArgs, execScriptArgs...)); err != nil {
+			if err = execSSHCommand(ctx, append(sshCommonArgs, execScriptArgs...), false); err != nil {
 				return nil, err
 			}
 
@@ -269,9 +220,8 @@ Your external node needs to have bash and wget`,
 		},
 	}
 }
-func execRemoteCommand(ctx context.Context, cmd string, args []string) error {
-	remoteCmd := exec.Command(cmd, args...)
-
+func execSSHCommand(ctx context.Context, args []string, printSeparator bool) error {
+	remoteCmd := exec.Command("ssh", args...)
 	_, _ = interactive.Println(remoteCmd)
 
 	exitCode, err := core.ExecCmd(ctx, remoteCmd)
@@ -279,7 +229,21 @@ func execRemoteCommand(ctx context.Context, cmd string, args []string) error {
 		return err
 	}
 	if exitCode != 0 {
-		return fmt.Errorf("%s command failed with exit code %d", cmd, exitCode)
+		return fmt.Errorf("ssh command failed with exit code %d", exitCode)
+	}
+	if printSeparator {
+		_, _ = interactive.Println("-----")
 	}
 	return nil
+}
+
+func buildNodeInitScript(poolID string, region scw.Region) string {
+	return fmt.Sprintf(`#!/usr/bin/env sh
+
+set -e
+wget https://scwcontainermulticloud.s3.fr-par.scw.cloud/node-agent_linux_amd64 --no-verbose
+chmod +x node-agent_linux_amd64
+export POOL_ID=%s  POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
+sudo -E ./node-agent_linux_amd64 -loglevel 0 -no-controller
+EOF`, poolID, region.String())
 }
