@@ -27,6 +27,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalPrivateNetworkDelete(),
 	)
 }
+
 func baremetalRoot() *core.Command {
 	return &core.Command{
 		Short:     `Elastic Metal - Private Networks API`,
@@ -82,13 +83,21 @@ func baremetalPrivateNetworkAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.PrivateNetworkAPIAddServerPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
+
 			return api.AddServerPrivateNetwork(request)
 		},
 	}
@@ -118,13 +127,21 @@ func baremetalPrivateNetworkSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.PrivateNetworkAPISetServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
+
 			return api.SetServerPrivateNetworks(request)
 		},
 	}
@@ -146,7 +163,12 @@ func baremetalPrivateNetworkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "server-id",
@@ -183,7 +205,15 @@ func baremetalPrivateNetworkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest)
@@ -199,6 +229,7 @@ func baremetalPrivateNetworkList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.ServerPrivateNetworks, nil
 		},
 	}
@@ -228,7 +259,14 @@ func baremetalPrivateNetworkDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*baremetal.PrivateNetworkAPIDeleteServerPrivateNetworkRequest)
@@ -239,6 +277,7 @@ func baremetalPrivateNetworkDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "private-network",
 				Verb:     "delete",
