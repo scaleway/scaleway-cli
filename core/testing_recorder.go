@@ -21,7 +21,9 @@ func cassetteRequestFilter(i *cassette.Interaction) error {
 
 	orgIDRegex := regexp.MustCompile(`^organization_id=[0-9a-f-]{36}$`)
 	tokenRegex := regexp.MustCompile(`^https://api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}$`)
-	apiKeyRegex := regexp.MustCompile(`^https://api\.scaleway\.com/iam/v1alpha1/api-keys/SCW[0-9A-Z]{17}$`)
+	apiKeyRegex := regexp.MustCompile(
+		`^https://api\.scaleway\.com/iam/v1alpha1/api-keys/SCW[0-9A-Z]{17}$`,
+	)
 
 	i.URL = orgIDRegex.ReplaceAllString(
 		i.URL,
