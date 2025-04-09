@@ -6,6 +6,7 @@ USAGE:
   scw vpc rule <command>
 
 AVAILABLE COMMANDS:
+  edit        Edit all ACL rules of a VPC
   get         Get ACL Rules for VPC
   set         Set VPC ACL rules
 

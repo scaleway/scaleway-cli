@@ -15,5 +15,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("vpc", "private-network", "get").Override(privateNetworkGetBuilder)
 	human.RegisterMarshalerFunc(vpc.PrivateNetwork{}, privateNetworkMarshalerFunc)
 
+	cmds.Merge(core.NewCommands(
+		vpcACLEditCommand(),
+	))
+
 	return cmds
 }

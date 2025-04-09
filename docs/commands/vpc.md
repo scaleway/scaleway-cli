@@ -17,6 +17,7 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
   - [Update Route](#update-route)
 - [Rule management command](#rule-management-command)
+  - [Edit all ACL rules of a VPC](#edit-all-acl-rules-of-a-vpc)
   - [Get ACL Rules for VPC](#get-acl-rules-for-vpc)
   - [Set VPC ACL rules](#set-vpc-acl-rules)
 - [Subnet management command](#subnet-management-command)
@@ -314,6 +315,30 @@ scw vpc route update <route-id ...> [arg=value ...]
 ## Rule management command
 
 ACL Rules.
+
+
+### Edit all ACL rules of a VPC
+
+This command starts your default editor to edit a marshaled version of your resource
+Default editor will be taken from $VISUAL, then $EDITOR or an editor based on your system
+
+**Usage:**
+
+```
+scw vpc rule edit [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | ID of the Network ACL's VPC |
+| is-ipv6 |  | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type |
+| default-policy |  | Action to take for packets which do not match any rules |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
 
 
 ### Get ACL Rules for VPC
