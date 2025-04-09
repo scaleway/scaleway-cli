@@ -1,14 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the parameters of an existing pipeline, specified by its `pipeline_id`. Parameters which can be updated include the `name`, `description` and `dns_stage_id`.
+Update the parameters of an existing route stage, specified by its `route_stage_id`.
 
 USAGE:
-  scw edge-services pipeline update <pipeline-id ...> [arg=value ...]
+  scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
 
 ARGS:
-  pipeline-id     ID of the pipeline to update
-  [name]          Name of the pipeline
-  [description]   Description of the pipeline
+  route-stage-id   ID of the route stage to update
+  [waf-stage-id]   ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
 
 FLAGS:
   -h, --help   help for update

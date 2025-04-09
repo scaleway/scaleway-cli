@@ -6,9 +6,8 @@ USAGE:
   scw edge-services cache-stage list [arg=value ...]
 
 ARGS:
-  [order-by]      Sort order of cache stages in the response (created_at_asc | created_at_desc)
-  [pipeline-id]   Pipeline ID to filter for, only cache stages from this pipeline will be returned
-  [project-id]    Project ID to filter for, only cache stages from this Project will be returned
+  [order-by]    Sort order of cache stages in the response (created_at_asc | created_at_desc)
+  pipeline-id   Pipeline ID to filter for. Only cache stages from this pipeline will be returned
 
 FLAGS:
   -h, --help   help for list

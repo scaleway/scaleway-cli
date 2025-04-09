@@ -11,7 +11,10 @@ AVAILABLE COMMANDS:
   dns-stage     DNS-stage management commands
   pipeline      Pipeline management commands
   purge-request Purge-request management commands
+  route-rules   Route-rules management commands
+  route-stage   Route-stage management commands
   tls-stage     TLS-stage management commands
+  waf-stage     WAF-stage management commands
 
 FLAGS:
   -h, --help   help for edge-services

@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Route-rules management commands.
+
+USAGE:
+  scw edge-services route-rules <command>
+
+AVAILABLE COMMANDS:
+  add         Add route rules
+  list        List route rules
+  set         Set route rules
+
+FLAGS:
+  -h, --help   help for route-rules
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw edge-services route-rules [command] --help" for more information about a command.
