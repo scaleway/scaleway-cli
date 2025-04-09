@@ -670,7 +670,7 @@ func iamUserDelete() *core.Command {
 func iamUserCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new user`,
-		Long:      `Create a new user. You must define the ` + "`" + `organization_id` + "`" + ` and the ` + "`" + `email` + "`" + ` in your request.`,
+		Long:      `Create a new user. You must define the ` + "`" + `organization_id` + "`" + ` in your request. If you are adding a member, enter the member's details. If you are adding a guest, you must define the ` + "`" + `email` + "`" + ` and not add the member attribute.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "create",
@@ -769,8 +769,8 @@ func iamUserCreate() *core.Command {
 
 func iamUserUpdateUsername() *core.Command {
 	return &core.Command{
-		Short:     `Update an user's username. Private Beta feature.`,
-		Long:      `Update an user's username. Private Beta feature.`,
+		Short:     `Update an user's username.`,
+		Long:      `Update an user's username.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "update-username",
@@ -805,8 +805,8 @@ func iamUserUpdateUsername() *core.Command {
 
 func iamUserUpdatePassword() *core.Command {
 	return &core.Command{
-		Short:     `Update an user's password. Private Beta feature.`,
-		Long:      `Update an user's password. Private Beta feature.`,
+		Short:     `Update an user's password.`,
+		Long:      `Update an user's password.`,
 		Namespace: "iam",
 		Resource:  "user",
 		Verb:      "update-password",

@@ -17,7 +17,7 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
   - [Update Route](#update-route)
 - [Rule management command](#rule-management-command)
-  - [Get Acl Rules for VPC](#get-acl-rules-for-vpc)
+  - [Get ACL Rules for VPC](#get-acl-rules-for-vpc)
   - [Set VPC ACL rules](#set-vpc-acl-rules)
 - [Subnet management command](#subnet-management-command)
 - [VPC management command](#vpc-management-command)
@@ -313,10 +313,10 @@ scw vpc route update <route-id ...> [arg=value ...]
 
 ## Rule management command
 
-Acl Rules.
+ACL Rules.
 
 
-### Get Acl Rules for VPC
+### Get ACL Rules for VPC
 
 Retrieve a list of ACL rules for a VPC, specified by its VPC ID.
 
