@@ -412,6 +412,7 @@ func listCustomGateways(client *scw.Client, pn *vpc.PrivateNetwork) ([]customGat
 
 	var customGateways []customGateway
 	for _, zone := range zones {
+		//nolint: staticcheck
 		listGateways, err := vpcgwAPI.ListGateways(&vpcgw.ListGatewaysRequest{
 			Zone: zone,
 		}, scw.WithAllPages())
