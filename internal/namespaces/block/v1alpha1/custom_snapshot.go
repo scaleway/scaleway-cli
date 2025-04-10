@@ -41,14 +41,15 @@ func snapshotWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*snapshotWaitRequest)
 
-			return block.NewAPI(core.ExtractClient(ctx)).WaitForSnapshot(&block.WaitForSnapshotRequest{
-				Zone:          args.Zone,
-				SnapshotID:    args.SnapshotID,
-				Timeout:       scw.TimeDurationPtr(args.Timeout),
-				RetryInterval: core.DefaultRetryInterval,
+			return block.NewAPI(core.ExtractClient(ctx)).
+				WaitForSnapshot(&block.WaitForSnapshotRequest{
+					Zone:          args.Zone,
+					SnapshotID:    args.SnapshotID,
+					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					RetryInterval: core.DefaultRetryInterval,
 
-				TerminalStatus: args.TerminalStatus,
-			})
+					TerminalStatus: args.TerminalStatus,
+				})
 		},
 		ArgSpecs: core.ArgSpecs{
 			core.WaitTimeoutArgSpec(snapshotActionTimeout),

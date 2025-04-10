@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
+	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -43,6 +43,7 @@ func GetGeneratedCommands() *core.Commands {
 		inferenceNodeTypeList(),
 	)
 }
+
 func inferenceRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Inference services`,
@@ -112,7 +113,12 @@ func inferenceDeploymentList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_desc", "created_at_asc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_desc",
+					"created_at_asc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -142,7 +148,10 @@ func inferenceDeploymentList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*inference.ListDeploymentsRequest)
@@ -158,6 +167,7 @@ func inferenceDeploymentList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Deployments, nil
 		},
 	}
@@ -187,6 +197,7 @@ func inferenceDeploymentGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.GetDeployment(request)
 		},
 	}
@@ -275,6 +286,7 @@ func inferenceDeploymentCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.CreateDeployment(request)
 		},
 	}
@@ -332,6 +344,7 @@ func inferenceDeploymentUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.UpdateDeployment(request)
 		},
 	}
@@ -361,6 +374,7 @@ func inferenceDeploymentDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.DeleteDeployment(request)
 		},
 	}
@@ -390,6 +404,7 @@ The CA certificate will be returned as a PEM file.`,
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.GetDeploymentCertificate(request)
 		},
 	}
@@ -434,6 +449,7 @@ func inferenceEndpointCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.CreateEndpoint(request)
 		},
 	}
@@ -470,6 +486,7 @@ func inferenceEndpointUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.UpdateEndpoint(request)
 		},
 	}
@@ -503,6 +520,7 @@ func inferenceEndpointDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "endpoint",
 				Verb:     "delete",
@@ -528,7 +546,10 @@ func inferenceACLList() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*inference.ListDeploymentACLRulesRequest)
@@ -544,6 +565,7 @@ func inferenceACLList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Rules, nil
 		},
 	}
@@ -587,6 +609,7 @@ func inferenceACLAdd() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.AddDeploymentACLRules(request)
 		},
 	}
@@ -630,6 +653,7 @@ func inferenceACLSet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.SetDeploymentACLRules(request)
 		},
 	}
@@ -663,6 +687,7 @@ func inferenceACLDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "acl",
 				Verb:     "delete",
@@ -687,7 +712,13 @@ func inferenceModelList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"display_rank_asc", "created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"display_rank_asc",
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -710,7 +741,10 @@ func inferenceModelList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*inference.ListModelsRequest)
@@ -726,6 +760,7 @@ func inferenceModelList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Models, nil
 		},
 	}
@@ -755,6 +790,7 @@ func inferenceModelGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
+
 			return api.GetModel(request)
 		},
 	}
@@ -777,7 +813,10 @@ func inferenceNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*inference.ListNodeTypesRequest)
@@ -793,6 +832,7 @@ func inferenceNodeTypeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.NodeTypes, nil
 		},
 	}

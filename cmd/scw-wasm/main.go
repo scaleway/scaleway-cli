@@ -5,12 +5,12 @@ package main
 import (
 	"runtime"
 	"runtime/debug"
-	"syscall/js"
 
 	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
 	"github.com/scaleway/scaleway-cli/v2/internal/wasm"
+	"syscall/js"
 )
 
 var (
@@ -62,7 +62,10 @@ func main() {
 	if args.targetObject != "" {
 		cliPackage := js.ValueOf(map[string]any{})
 		cliPackage.Set("run", js.FuncOf(jshelpers.AsPromise(wasm.RunWithBuildInfo(buildInfo))))
-		cliPackage.Set("complete", js.FuncOf(jshelpers.AsPromise(wasm.AutocompleteWithBuildInfo(buildInfo))))
+		cliPackage.Set(
+			"complete",
+			js.FuncOf(jshelpers.AsPromise(wasm.AutocompleteWithBuildInfo(buildInfo))),
+		)
 		cliPackage.Set("configureOutput", js.FuncOf(jshelpers.AsPromise(wasm.ConfigureOutput)))
 		cliPackage.Set("stop", js.FuncOf(jshelpers.AsyncJsFunc(stop)))
 		js.Global().Set(args.targetObject, cliPackage)

@@ -87,7 +87,13 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
 	flags.StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
 	flags.StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
-	flags.StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human")
+	flags.StringVarP(
+		&outputFlag,
+		"output",
+		"o",
+		cliConfig.DefaultOutput,
+		"Output format: json or human",
+	)
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
@@ -135,7 +141,9 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 		return 1, nil, err
 	}
-	interactive.SetOutputWriter(config.Stderr) // set printer for interactive function (always stderr).
+	interactive.SetOutputWriter(
+		config.Stderr,
+	) // set printer for interactive function (always stderr).
 
 	httpClient := config.HTTPClient
 	if httpClient == nil {
@@ -259,9 +267,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 
 	// These flag are already handle at the beginning of this function but we keep this
 	// declaration in order for them to be shown in the cobra usage documentation.
-	rootCmd.PersistentFlags().StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
-	rootCmd.PersistentFlags().StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
-	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human, see 'scw help output' for more info")
+	rootCmd.PersistentFlags().
+		StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
+	rootCmd.PersistentFlags().
+		StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
+	rootCmd.PersistentFlags().
+		StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})

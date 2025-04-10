@@ -78,12 +78,30 @@ func functionDeploy() *core.Command {
 			ts := tasks.Begin()
 
 			if args.NamespaceID != "" {
-				tasks.Add(ts, "Fetching namespace", DeployStepFetchNamespace(api, args.Region, args.NamespaceID))
+				tasks.Add(
+					ts,
+					"Fetching namespace",
+					DeployStepFetchNamespace(api, args.Region, args.NamespaceID),
+				)
 			} else {
 				tasks.Add(ts, "Creating or fetching namespace", DeployStepCreateNamespace(api, args.Region, args.Name))
 			}
-			tasks.Add(ts, "Creating or fetching function", DeployStepCreateFunction(api, args.Name, args.Runtime))
-			tasks.Add(ts, "Uploading function", DeployStepFunctionUpload(httpClient, scwClient, api, args.ZipFile, zipFileStat.Size()))
+			tasks.Add(
+				ts,
+				"Creating or fetching function",
+				DeployStepCreateFunction(api, args.Name, args.Runtime),
+			)
+			tasks.Add(
+				ts,
+				"Uploading function",
+				DeployStepFunctionUpload(
+					httpClient,
+					scwClient,
+					api,
+					args.ZipFile,
+					zipFileStat.Size(),
+				),
+			)
 			tasks.Add(ts, "Deploying function", DeployStepFunctionDeploy(api, args.Runtime))
 
 			return ts.Execute(ctx, nil)
@@ -109,7 +127,11 @@ func validateRuntime(api *function.API, region scw.Region, runtime function.Func
 	return fmt.Errorf("invalid runtime %q", runtimeName)
 }
 
-func DeployStepCreateNamespace(api *function.API, region scw.Region, functionName string) tasks.TaskFunc[any, *function.Namespace] {
+func DeployStepCreateNamespace(
+	api *function.API,
+	region scw.Region,
+	functionName string,
+) tasks.TaskFunc[any, *function.Namespace] {
 	return func(t *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
 		namespaceName := functionName
 
@@ -155,7 +177,11 @@ func DeployStepCreateNamespace(api *function.API, region scw.Region, functionNam
 	}
 }
 
-func DeployStepFetchNamespace(api *function.API, region scw.Region, namespaceID string) tasks.TaskFunc[any, *function.Namespace] {
+func DeployStepFetchNamespace(
+	api *function.API,
+	region scw.Region,
+	namespaceID string,
+) tasks.TaskFunc[any, *function.Namespace] {
 	return func(_ *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
 		namespace, err := api.WaitForNamespace(&function.WaitForNamespaceRequest{
 			NamespaceID: namespaceID,
@@ -169,7 +195,11 @@ func DeployStepFetchNamespace(api *function.API, region scw.Region, namespaceID 
 	}
 }
 
-func DeployStepCreateFunction(api *function.API, functionName string, runtime function.FunctionRuntime) tasks.TaskFunc[*function.Namespace, *function.Function] {
+func DeployStepCreateFunction(
+	api *function.API,
+	functionName string,
+	runtime function.FunctionRuntime,
+) tasks.TaskFunc[*function.Namespace, *function.Function] {
 	return func(t *tasks.Task, namespace *function.Namespace) (*function.Function, error) {
 		functions, err := api.ListFunctions(&function.ListFunctionsRequest{
 			Name:        &functionName,
@@ -208,7 +238,13 @@ func DeployStepCreateFunction(api *function.API, functionName string, runtime fu
 	}
 }
 
-func DeployStepFunctionUpload(httpClient *http.Client, scwClient *scw.Client, api *function.API, zipPath string, zipSize int64) tasks.TaskFunc[*function.Function, *function.Function] {
+func DeployStepFunctionUpload(
+	httpClient *http.Client,
+	scwClient *scw.Client,
+	api *function.API,
+	zipPath string,
+	zipSize int64,
+) tasks.TaskFunc[*function.Function, *function.Function] {
 	return func(t *tasks.Task, fc *function.Function) (nextArgs *function.Function, err error) {
 		uploadURL, err := api.GetFunctionUploadURL(&function.GetFunctionUploadURLRequest{
 			Region:        fc.Region,
@@ -255,7 +291,10 @@ func DeployStepFunctionUpload(httpClient *http.Client, scwClient *scw.Client, ap
 	}
 }
 
-func DeployStepFunctionDeploy(api *function.API, runtime function.FunctionRuntime) tasks.TaskFunc[*function.Function, *function.Function] {
+func DeployStepFunctionDeploy(
+	api *function.API,
+	runtime function.FunctionRuntime,
+) tasks.TaskFunc[*function.Function, *function.Function] {
 	return func(_ *tasks.Task, fc *function.Function) (*function.Function, error) {
 		fc, err := api.UpdateFunction(&function.UpdateFunctionRequest{
 			Region:     fc.Region,

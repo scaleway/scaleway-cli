@@ -30,7 +30,10 @@ func testArgSpecInvalidError(commands *core.Commands) []error {
 		for _, arg := range command.ArgSpecs {
 			_, err := args.GetArgType(command.ArgsType, arg.Name)
 			if err != nil {
-				errors = append(errors, &ArgSpecInvalidError{Command: command, argSpec: arg, innerError: err})
+				errors = append(
+					errors,
+					&ArgSpecInvalidError{Command: command, argSpec: arg, innerError: err},
+				)
 
 				continue
 			}
@@ -66,7 +69,10 @@ func testArgSpecMissingError(commands *core.Commands) []error {
 
 		for _, argSpecName := range supposedArgSpecs {
 			if command.ArgSpecs.GetByName(argSpecName) == nil {
-				errors = append(errors, &ArgSpecMissingError{Command: command, argName: argSpecName})
+				errors = append(
+					errors,
+					&ArgSpecMissingError{Command: command, argName: argSpecName},
+				)
 			}
 		}
 	}

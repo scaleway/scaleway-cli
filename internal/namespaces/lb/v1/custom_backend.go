@@ -18,17 +18,44 @@ import (
 
 var (
 	backendServerStatsHealthCheckStatusMarshalSpecs = human.EnumMarshalSpecs{
-		lb.BackendServerStatsHealthCheckStatusPassed:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "passed"},
-		lb.BackendServerStatsHealthCheckStatusFailed:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "failed"},
-		lb.BackendServerStatsHealthCheckStatusUnknown:  &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-		lb.BackendServerStatsHealthCheckStatusNeutral:  &human.EnumMarshalSpec{Attribute: color.Faint, Value: "neutral"},
-		lb.BackendServerStatsHealthCheckStatusCondpass: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "condition passed"},
+		lb.BackendServerStatsHealthCheckStatusPassed: &human.EnumMarshalSpec{
+			Attribute: color.FgGreen,
+			Value:     "passed",
+		},
+		lb.BackendServerStatsHealthCheckStatusFailed: &human.EnumMarshalSpec{
+			Attribute: color.FgRed,
+			Value:     "failed",
+		},
+		lb.BackendServerStatsHealthCheckStatusUnknown: &human.EnumMarshalSpec{
+			Attribute: color.Faint,
+			Value:     "unknown",
+		},
+		lb.BackendServerStatsHealthCheckStatusNeutral: &human.EnumMarshalSpec{
+			Attribute: color.Faint,
+			Value:     "neutral",
+		},
+		lb.BackendServerStatsHealthCheckStatusCondpass: &human.EnumMarshalSpec{
+			Attribute: color.FgBlue,
+			Value:     "condition passed",
+		},
 	}
 	backendServerStatsServerStateMarshalSpecs = human.EnumMarshalSpecs{
-		lb.BackendServerStatsServerStateStopped:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "stopped"},
-		lb.BackendServerStatsServerStateStarting: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "starting"},
-		lb.BackendServerStatsServerStateRunning:  &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "running"},
-		lb.BackendServerStatsServerStateStopping: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "stopping"},
+		lb.BackendServerStatsServerStateStopped: &human.EnumMarshalSpec{
+			Attribute: color.FgRed,
+			Value:     "stopped",
+		},
+		lb.BackendServerStatsServerStateStarting: &human.EnumMarshalSpec{
+			Attribute: color.FgBlue,
+			Value:     "starting",
+		},
+		lb.BackendServerStatsServerStateRunning: &human.EnumMarshalSpec{
+			Attribute: color.FgGreen,
+			Value:     "running",
+		},
+		lb.BackendServerStatsServerStateStopping: &human.EnumMarshalSpec{
+			Attribute: color.FgBlue,
+			Value:     "stopping",
+		},
 	}
 )
 
@@ -145,7 +172,11 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 				if tmpRequest.UseInstanceServerPublicIP {
 					if server.Server.PublicIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.Server.ID, server.Server.Name),
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a public ip",
+								server.Server.ID,
+								server.Server.Name,
+							),
 						}
 					}
 					serverIPs = append(serverIPs, server.Server.PublicIP.Address.String())
@@ -193,7 +224,10 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
-					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+					Err: fmt.Errorf(
+						"there is no server with tag(s) '%v'",
+						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
+					),
 				}
 			}
 
@@ -201,7 +235,11 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 				if tmpRequest.UseInstanceServerPublicIP {
 					if server.PublicIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.ID, server.Name),
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a public ip",
+								server.ID,
+								server.Name,
+							),
 						}
 					}
 					serverIPs = append(serverIPs, server.PublicIP.Address.String())
@@ -229,7 +267,10 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
-					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+					Err: fmt.Errorf(
+						"there is no server with tag(s) '%v'",
+						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
+					),
 				}
 			}
 
@@ -326,7 +367,11 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 				if tmpRequest.UseInstanceServerPublicIP {
 					if server.Server.PublicIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.Server.ID, server.Server.Name),
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a public ip",
+								server.Server.ID,
+								server.Server.Name,
+							),
 						}
 					}
 					serverIPs = append(serverIPs, server.Server.PublicIP.Address.String())
@@ -374,7 +419,10 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
-					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+					Err: fmt.Errorf(
+						"there is no server with tag(s) '%v'",
+						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
+					),
 				}
 			}
 
@@ -382,7 +430,11 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 				if tmpRequest.UseInstanceServerPublicIP {
 					if server.PublicIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.ID, server.Name),
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a public ip",
+								server.ID,
+								server.Name,
+							),
 						}
 					}
 					serverIPs = append(serverIPs, server.PublicIP.Address.String())
@@ -410,7 +462,10 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
-					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+					Err: fmt.Errorf(
+						"there is no server with tag(s) '%v'",
+						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
+					),
 				}
 			}
 
@@ -495,7 +550,11 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 				if tmpRequest.UseInstanceServerPublicIP {
 					if server.Server.PublicIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.Server.ID, server.Server.Name),
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a public ip",
+								server.Server.ID,
+								server.Server.Name,
+							),
 						}
 					}
 					serverIPs = append(serverIPs, server.Server.PublicIP.Address.String())
@@ -543,7 +602,10 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
-					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+					Err: fmt.Errorf(
+						"there is no server with tag(s) '%v'",
+						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
+					),
 				}
 			}
 
@@ -551,7 +613,11 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 				if tmpRequest.UseInstanceServerPublicIP {
 					if server.PublicIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.ID, server.Name),
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a public ip",
+								server.ID,
+								server.Name,
+							),
 						}
 					}
 					serverIPs = append(serverIPs, server.PublicIP.Address.String())
@@ -579,7 +645,10 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
-					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+					Err: fmt.Errorf(
+						"there is no server with tag(s) '%v'",
+						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
+					),
 				}
 			}
 
@@ -664,7 +733,11 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 				if tmpRequest.UseInstanceServerPublicIP {
 					if server.Server.PublicIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.Server.ID, server.Server.Name),
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a public ip",
+								server.Server.ID,
+								server.Server.Name,
+							),
 						}
 					}
 					serverIPs = append(serverIPs, server.Server.PublicIP.Address.String())
@@ -712,7 +785,10 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
-					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+					Err: fmt.Errorf(
+						"there is no server with tag(s) '%v'",
+						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
+					),
 				}
 			}
 
@@ -720,7 +796,11 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 				if tmpRequest.UseInstanceServerPublicIP {
 					if server.PublicIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a public ip", server.ID, server.Name),
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a public ip",
+								server.ID,
+								server.Name,
+							),
 						}
 					}
 					serverIPs = append(serverIPs, server.PublicIP.Address.String())
@@ -748,7 +828,10 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
-					Err: fmt.Errorf("there is no server with tag(s) '%v'", strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]")),
+					Err: fmt.Errorf(
+						"there is no server with tag(s) '%v'",
+						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
+					),
 				}
 			}
 
@@ -793,7 +876,9 @@ func interceptBackend() core.CommandInterceptor {
 						}
 					case "CheckMaxRetries":
 						return nil, &core.CliError{
-							Err: errors.New("missing or invalid 'health-check.check-max-retries' argument"),
+							Err: errors.New(
+								"missing or invalid 'health-check.check-max-retries' argument",
+							),
 						}
 					}
 				}

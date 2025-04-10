@@ -14,8 +14,14 @@ func Test_SnapshotWait(t *testing.T) {
 	t.Run("Wait command", core.Test(&core.TestConfig{
 		Commands: block.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Volume", "scw block volume create perf-iops=5000 from-empty.size=20GB -w"),
-			core.ExecStoreBeforeCmd("Snapshot", "scw block snapshot create volume-id={{ .Volume.ID }}"),
+			core.ExecStoreBeforeCmd(
+				"Volume",
+				"scw block volume create perf-iops=5000 from-empty.size=20GB -w",
+			),
+			core.ExecStoreBeforeCmd(
+				"Snapshot",
+				"scw block snapshot create volume-id={{ .Volume.ID }}",
+			),
 		),
 		Cmd: "scw block snapshot wait {{ .Snapshot.ID }}",
 		Check: core.TestCheckCombine(
@@ -29,9 +35,12 @@ func Test_SnapshotWait(t *testing.T) {
 	}))
 
 	t.Run("Wait flag", core.Test(&core.TestConfig{
-		Commands:   block.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Volume", "scw block volume create perf-iops=5000 from-empty.size=20GB -w"),
-		Cmd:        "scw block snapshot create volume-id={{ .Volume.ID }} -w",
+		Commands: block.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Volume",
+			"scw block volume create perf-iops=5000 from-empty.size=20GB -w",
+		),
+		Cmd: "scw block snapshot create volume-id={{ .Volume.ID }} -w",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()

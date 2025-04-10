@@ -202,7 +202,8 @@ func sortOptions(meta *Meta, args []string, toSuggest string, suggestions []stri
 	}
 
 	sort.Slice(argSpecs, func(i, j int) bool {
-		if argSpecs[i].Arg != nil && argSpecs[j].Arg != nil && argSpecs[i].Arg.Required != argSpecs[j].Arg.Required {
+		if argSpecs[i].Arg != nil && argSpecs[j].Arg != nil &&
+			argSpecs[i].Arg.Required != argSpecs[j].Arg.Required {
 			return argSpecs[i].Arg.Required
 		}
 
@@ -227,7 +228,9 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 
 	meta := extractMeta(c.ctx)
 
-	argsBeforeCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextBeforeCursor(), " "))
+	argsBeforeCursor := meta.CliConfig.Alias.ResolveAliases(
+		strings.Split(d.TextBeforeCursor(), " "),
+	)
 	argsAfterCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextAfterCursor(), " "))
 	currentArg := lastArg(argsBeforeCursor) + firstArg(argsAfterCursor)
 
@@ -316,7 +319,13 @@ func getShellCommand(rootCmd *cobra.Command) *cobra.Command {
 }
 
 // RunShell will run an interactive shell that runs cobra commands
-func RunShell(ctx context.Context, printer *Printer, meta *Meta, rootCmd *cobra.Command, args []string) {
+func RunShell(
+	ctx context.Context,
+	printer *Printer,
+	meta *Meta,
+	rootCmd *cobra.Command,
+	args []string,
+) {
 	autoCompleteCache = cache.New()
 	completer := NewShellCompleter(ctx)
 

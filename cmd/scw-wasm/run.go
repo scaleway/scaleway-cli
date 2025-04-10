@@ -4,11 +4,11 @@ package main
 
 import (
 	"fmt"
-	"syscall/js"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
 	"github.com/scaleway/scaleway-cli/v2/internal/wasm"
+	"syscall/js"
 )
 
 func wasmRun(this js.Value, args []js.Value) (any, error) {

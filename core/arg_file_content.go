@@ -19,7 +19,10 @@ func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
 		}
 
 		fieldName := strcase.ToPublicGoName(argSpec.Name)
-		fieldValues, err := GetValuesForFieldByName(reflect.ValueOf(cmdArgs), strings.Split(fieldName, "."))
+		fieldValues, err := GetValuesForFieldByName(
+			reflect.ValueOf(cmdArgs),
+			strings.Split(fieldName, "."),
+		)
 		if err != nil {
 			continue
 		}

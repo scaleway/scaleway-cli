@@ -11,8 +11,14 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("interlink").Groups = []string{"network"}
 
-	human.RegisterMarshalerFunc(interlink.BgpStatus(""), human.EnumMarshalFunc(bgpStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(interlink.LinkStatus(""), human.EnumMarshalFunc(linkStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		interlink.BgpStatus(""),
+		human.EnumMarshalFunc(bgpStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		interlink.LinkStatus(""),
+		human.EnumMarshalFunc(linkStatusMarshalSpecs),
+	)
 
 	return cmds
 }

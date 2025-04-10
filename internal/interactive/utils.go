@@ -38,7 +38,8 @@ func SetOutputWriter(w io.Writer) {
 // we should expect both Stdin and Stderr to enable interactive mode
 func isInteractive() bool {
 	return isatty.IsTerminal(os.Stdin.Fd()) && isatty.IsTerminal(os.Stderr.Fd()) ||
-		isatty.IsCygwinTerminal(os.Stdin.Fd()) && isatty.IsCygwinTerminal(os.Stderr.Fd()) // windows cygwin terminal
+		isatty.IsCygwinTerminal(os.Stdin.Fd()) &&
+			isatty.IsCygwinTerminal(os.Stderr.Fd()) // windows cygwin terminal
 }
 
 func ValidateOrganizationID() ValidateFunc {

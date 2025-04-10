@@ -200,7 +200,11 @@ func ExtractCliConfigPath(ctx context.Context) string {
 func ReloadClient(ctx context.Context) error {
 	var err error
 	meta := extractMeta(ctx)
-	meta.Client, err = meta.Platform.CreateClient(meta.httpClient, ExtractConfigPath(ctx), ExtractProfileName(ctx))
+	meta.Client, err = meta.Platform.CreateClient(
+		meta.httpClient,
+		ExtractConfigPath(ctx),
+		ExtractProfileName(ctx),
+	)
 
 	return err
 }

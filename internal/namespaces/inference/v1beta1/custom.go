@@ -11,7 +11,10 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("inference").Groups = []string{"ai"}
 
-	human.RegisterMarshalerFunc(inference.DeploymentStatus(""), human.EnumMarshalFunc(deployementStateMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		inference.DeploymentStatus(""),
+		human.EnumMarshalFunc(deployementStateMarshalSpecs),
+	)
 
 	human.RegisterMarshalerFunc(inference.Deployment{}, DeploymentMarshalerFunc)
 	human.RegisterMarshalerFunc([]*inference.Model{}, ListModelMarshalerFunc)
