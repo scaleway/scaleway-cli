@@ -7,9 +7,9 @@ USAGE:
 
 ARGS:
   [order-by]          Sort order of purge requests in the response (created_at_asc | created_at_desc)
-  [project-id]        Project ID to filter for, only purge requests from this Project will be returned
-  [pipeline-id]       Pipeline ID to filter for, only purge requests from this pipeline will be returned
-  [organization-id]   Organization ID to filter for, only purge requests from this Project will be returned
+  [project-id]        Project ID to filter for. Only purge requests from this Project will be returned
+  [pipeline-id]       Pipeline ID to filter for. Only purge requests from this pipeline will be returned
+  [organization-id]   Organization ID to filter for. Only purge requests from this Project will be returned
 
 FLAGS:
   -h, --help   help for list

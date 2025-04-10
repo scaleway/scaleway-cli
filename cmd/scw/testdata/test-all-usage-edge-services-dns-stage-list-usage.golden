@@ -6,10 +6,9 @@ USAGE:
   scw edge-services dns-stage list [arg=value ...]
 
 ARGS:
-  [order-by]      Sort order of DNS stages in the response (created_at_asc | created_at_desc)
-  [pipeline-id]   Pipeline ID to filter for, only DNS stages from this pipeline will be returned
-  [project-id]    Project ID to filter for, only DNS stages from this Project will be returned
-  [fqdn]          Fully Qualified Domain Name to filter for (in the format subdomain.example.com), only DNS stages with this FQDN will be returned
+  [order-by]    Sort order of DNS stages in the response (created_at_asc | created_at_desc)
+  pipeline-id   Pipeline ID to filter for. Only DNS stages from this pipeline will be returned
+  [fqdn]        Fully Qualified Domain Name to filter for (in the format subdomain.example.com). Only DNS stages with this FQDN will be returned
 
 FLAGS:
   -h, --help   help for list

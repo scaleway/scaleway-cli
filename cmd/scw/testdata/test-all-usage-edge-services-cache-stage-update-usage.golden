@@ -9,6 +9,8 @@ ARGS:
   cache-stage-id       ID of the cache stage to update
   [fallback-ttl]       Time To Live (TTL) in seconds. Defines how long content is cached
   [backend-stage-id]   Backend stage ID the cache stage will be linked to
+  [waf-stage-id]       
+  [route-stage-id]     
 
 FLAGS:
   -h, --help   help for update

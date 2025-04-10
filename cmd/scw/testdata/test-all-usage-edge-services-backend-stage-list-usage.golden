@@ -7,11 +7,10 @@ USAGE:
 
 ARGS:
   [order-by]        Sort order of backend stages in the response (created_at_asc | created_at_desc)
-  [pipeline-id]     Pipeline ID to filter for, only backend stages from this pipeline will be returned
-  [project-id]      Project ID to filter for, only backend stages from this Project will be returned
-  [bucket-name]     Bucket name to filter for, only backend stages from this Bucket will be returned
-  [bucket-region]   Bucket region to filter for, only backend stages with buckets in this region will be returned
-  [lb-id]           Load Balancer ID to filter for, only backend stages with this Load Balancer will be returned
+  pipeline-id       Pipeline ID to filter for. Only backend stages from this pipeline will be returned
+  [bucket-name]     Bucket name to filter for. Only backend stages from this Bucket will be returned
+  [bucket-region]   Bucket region to filter for. Only backend stages with buckets in this region will be returned
+  [lb-id]           Load Balancer ID to filter for. Only backend stages with this Load Balancer will be returned
 
 FLAGS:
   -h, --help   help for list
