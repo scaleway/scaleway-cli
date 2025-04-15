@@ -106,6 +106,17 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 }
 
 func setupTemplatePrinter(printer *Printer, opts string) error {
+	funcMap := template.FuncMap{
+		"json": func(v interface{}) string {
+			b, err := json.Marshal(v)
+			if err != nil {
+				return fmt.Sprintf("Error: %s", err)
+			}
+
+			return string(b)
+		},
+	}
+
 	printer.printerType = PrinterTypeTemplate
 	if opts == "" {
 		return &CliError{
@@ -115,7 +126,7 @@ func setupTemplatePrinter(printer *Printer, opts string) error {
 		}
 	}
 
-	t, err := template.New("OutputFormat").Parse(opts)
+	t, err := template.New("OutputFormat").Funcs(funcMap).Parse(opts)
 	if err != nil {
 		return err
 	}
