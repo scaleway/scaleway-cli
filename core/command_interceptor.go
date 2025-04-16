@@ -86,7 +86,7 @@ func sdkStdErrorInterceptor(
 		invalidArgs := make([]string, len(sdkError.Details))
 		resources := make([]string, len(sdkError.Details))
 		for i, d := range sdkError.Details {
-			invalidArgs[i] = fmt.Sprintf("- %s has reached its quota (%d/%d)", d.Resource, d.Current, d.Current)
+			invalidArgs[i] = fmt.Sprintf("- %s has reached its quota (%d/%d)", d.Resource, d.Current, d.Quota)
 			resources[i] = fmt.Sprintf("'%v'", d.Resource)
 		}
 
