@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	secret "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -152,6 +152,13 @@ func secretSecretCreate() *core.Command {
 			{
 				Name:       "protected",
 				Short:      `Returns ` + "`" + `true` + "`" + ` if secret protection is enabled on a given secret`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "key-id",
+				Short:      `The Scaleway's Key Manager key ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
