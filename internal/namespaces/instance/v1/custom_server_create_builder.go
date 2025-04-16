@@ -565,6 +565,8 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 			vb.VolumeType = instance.VolumeVolumeTypeLSSD
 		case "sbs", "b", "block":
 			vb.VolumeType = instance.VolumeVolumeTypeSbsVolume
+		case "b_ssd":
+			vb.VolumeType = instance.VolumeVolumeTypeBSSD
 		case "s", "scratch":
 			vb.VolumeType = instance.VolumeVolumeTypeScratch
 
