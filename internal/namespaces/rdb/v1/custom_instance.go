@@ -17,6 +17,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -30,6 +31,12 @@ const (
 	errorMessagePrivateEndpointNotFound = "private endpoint not found"
 	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
+
+type rdbInstanceSettingsEditArgs struct {
+	Region     scw.Region
+	InstanceID string
+	Mode       editor.MarshalMode
+}
 
 var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
 	rdbSDK.InstanceStatusUnknown: &human.EnumMarshalSpec{
@@ -922,6 +929,89 @@ func instanceConnectCommand() *core.Command {
 			return &core.SuccessResult{
 				Empty: true, // the program will output the success message
 			}, nil
+		},
+	}
+}
+
+func instanceSettingsEditCommand() *core.Command {
+
+	type settingsEditArgs struct {
+		InstanceID string     `arg:"positional,required"`
+		Region     scw.Region `arg:"required"`
+		Mode       editor.MarshalMode
+	}
+
+	return &core.Command{
+		Namespace: "rdb",
+		Resource:  "instance",
+		Verb:      "settings-edit",
+		Short:     "Edit instance settings in your default editor",
+		Long: `This command opens the current settings of your RDB instance in your $EDITOR.
+You can modify the values and save the file to apply the new configuration.`,
+		ArgsType: reflect.TypeOf(settingsEditArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      "ID of the instance",
+				Required:   true,
+				Positional: true,
+			},
+			editor.MarshalModeArgSpec(), // --mode=yaml|json
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Edit instance settings in YAML",
+				Raw:   "scw rdb instance settings-edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=yaml",
+			},
+			{
+				Short: "Edit instance settings in JSON",
+				Raw:   "scw rdb instance settings-edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json",
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			args := argsI.(*settingsEditArgs)
+
+			client := core.ExtractClient(ctx)
+			api := rdbSDK.NewAPI(client)
+
+			instance, err := api.GetInstance(&rdbSDK.GetInstanceRequest{
+				InstanceID: args.InstanceID,
+				Region:     args.Region,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			initialRequest := &rdbSDK.SetInstanceSettingsRequest{
+				Region:     args.Region,
+				InstanceID: args.InstanceID,
+				Settings:   instance.Settings,
+			}
+
+			editedRequestRaw, err := editor.UpdateResourceEditor(initialRequest, &rdbSDK.SetInstanceSettingsRequest{
+				Region:     args.Region,
+				InstanceID: args.InstanceID,
+			}, &editor.Config{
+				PutRequest:  true,
+				MarshalMode: args.Mode,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			editedRequest := editedRequestRaw.(*rdbSDK.SetInstanceSettingsRequest)
+
+			if reflect.DeepEqual(initialRequest.Settings, editedRequest.Settings) {
+				return &core.SuccessResult{Message: "No changes detected."}, nil
+			}
+
+			_, err = api.SetInstanceSettings(editedRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			return &core.SuccessResult{Message: "Settings successfully updated."}, nil
 		},
 	}
 }
