@@ -43,10 +43,10 @@ scw autocomplete script [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| shell | Default: `/bin/zsh` |  |
-| basename | Default: `` |  |
+| Name |                      | Description |
+|------|----------------------|-------------|
+| shell | Default: `/bin/bash` |  |
+| basename | Default: ``          |  |
 
 
 
