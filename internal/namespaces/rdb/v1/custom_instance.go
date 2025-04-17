@@ -32,12 +32,6 @@ const (
 	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
 
-type rdbInstanceSettingsEditArgs struct {
-	Region     scw.Region
-	InstanceID string
-	Mode       editor.MarshalMode
-}
-
 var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
 	rdbSDK.InstanceStatusUnknown: &human.EnumMarshalSpec{
 		Attribute: color.Faint,
@@ -934,7 +928,6 @@ func instanceConnectCommand() *core.Command {
 }
 
 func instanceSettingsEditCommand() *core.Command {
-
 	type settingsEditArgs struct {
 		InstanceID string     `arg:"positional,required"`
 		Region     scw.Region `arg:"required"`
