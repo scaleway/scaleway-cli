@@ -14,13 +14,13 @@ AVAILABLE COMMANDS:
   connect           Connect to an instance using locally installed CLI
   create            Create a Database Instance
   delete            Delete a Database Instance
+  edit-settings     Edit instance settings in your default editor
   get               Get a Database Instance
   get-certificate   Get the TLS certificate of a Database Instance
   get-metrics       Get Database Instance metrics
   list              List Database Instances
   renew-certificate Renew the TLS certificate of a Database Instance
   restart           Restart Database Instance
-  settings-edit     Edit instance settings in your default editor
   update            Update an instance
   upgrade           Upgrade a Database Instance
 

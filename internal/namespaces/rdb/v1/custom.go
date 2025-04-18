@@ -49,7 +49,7 @@ func GetCommands() *core.Commands {
 		instanceConnectCommand(),
 		instanceWaitCommand(),
 		userGetURLCommand(),
-		instanceSettingsEditCommand(),
+		instanceEditSettingsCommand(),
 	))
 	cmds.MustFind("rdb", "acl", "add").Override(aclAddBuilder)
 	cmds.MustFind("rdb", "acl", "delete").Override(aclDeleteBuilder)

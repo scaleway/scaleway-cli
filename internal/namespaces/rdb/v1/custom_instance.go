@@ -927,8 +927,8 @@ func instanceConnectCommand() *core.Command {
 	}
 }
 
-func instanceSettingsEditCommand() *core.Command {
-	type settingsEditArgs struct {
+func instanceEditSettingsCommand() *core.Command {
+	type editSettingsArgs struct {
 		InstanceID string     `arg:"positional,required"`
 		Region     scw.Region `arg:"required"`
 		Mode       editor.MarshalMode
@@ -937,11 +937,11 @@ func instanceSettingsEditCommand() *core.Command {
 	return &core.Command{
 		Namespace: "rdb",
 		Resource:  "instance",
-		Verb:      "settings-edit",
+		Verb:      "edit-settings",
 		Short:     "Edit instance settings in your default editor",
 		Long: `This command opens the current settings of your RDB instance in your $EDITOR.
 You can modify the values and save the file to apply the new configuration.`,
-		ArgsType: reflect.TypeOf(settingsEditArgs{}),
+		ArgsType: reflect.TypeOf(editSettingsArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -963,7 +963,7 @@ You can modify the values and save the file to apply the new configuration.`,
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
-			args := argsI.(*settingsEditArgs)
+			args := argsI.(*editSettingsArgs)
 
 			client := core.ExtractClient(ctx)
 			api := rdbSDK.NewAPI(client)
