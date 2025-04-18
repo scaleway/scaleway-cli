@@ -290,7 +290,12 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
-				return nil, err
+				if strings.Contains(err.Error(), "no such file or directory") {
+					fmt.Fprintln(os.Stdout, "config file not found, will attempt to create it")
+					config = &scw.Config{}
+				} else {
+					return nil, err
+				}
 			}
 
 			// send_telemetry is the only key that is not in a profile but in the config object directly
@@ -316,7 +321,6 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					profileValue.Field(i).Set(field)
 				}
 			}
-
 			// Save
 			err = config.SaveTo(configPath)
 			if err != nil {
