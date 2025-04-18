@@ -5,12 +5,15 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os/exec"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -136,4 +139,113 @@ func k8sPoolWaitCommand() *core.Command {
 			},
 		},
 	}
+}
+
+type k8sPoolAddExternalNodeRequest struct {
+	NodeIP   string
+	PoolID   string
+	Username string
+	Region   scw.Region
+}
+
+func k8sPoolAddExternalNodeCommand() *core.Command {
+	return &core.Command{
+		Short: `Add an external node to a Kosmos Pool`,
+		Long: `Add an external node to a Kosmos Pool. 
+This will connect via SSH to the node, download the multicloud configuration script and run it with sudo privileges.
+Keep in mind that your external node needs to have wget in order to download the script.`,
+		Namespace: "k8s",
+		Resource:  "pool",
+		Verb:      "add-external-node",
+		ArgsType:  reflect.TypeOf(k8sPoolAddExternalNodeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "node-ip",
+				Short:    `IP address of the external node`,
+				Required: true,
+			},
+			{
+				Name:     "pool-id",
+				Short:    `ID of the Pool the node should be added to`,
+				Required: true,
+			},
+			{
+				Name:    "username",
+				Short:   "Username used for the SSH connection",
+				Default: core.DefaultValueSetter("root"),
+			},
+			core.RegionArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+			args := argsI.(*k8sPoolAddExternalNodeRequest)
+			sshCommonArgs := []string{
+				args.NodeIP,
+				"-t",
+				"-l", args.Username,
+			}
+
+			// Set POOL_ID and REGION in the node init script and copy it to the remote
+			homeDir := "/root"
+			if args.Username != "root" {
+				homeDir = "/home/" + args.Username
+			}
+			nodeInitScript := buildNodeInitScript(args.PoolID, args.Region)
+			copyScriptArgs := []string{
+				"cat", "<<", "EOF",
+				">", homeDir + "/init_kosmos_node.sh",
+				"\n",
+			}
+			copyScriptArgs = append(copyScriptArgs, strings.Split(nodeInitScript, " \n")...)
+			if err = execSSHCommand(ctx, append(sshCommonArgs, copyScriptArgs...), true); err != nil {
+				return nil, err
+			}
+			chmodArgs := []string{"chmod", "+x", homeDir + "/init_kosmos_node.sh"}
+			if err = execSSHCommand(ctx, append(sshCommonArgs, chmodArgs...), true); err != nil {
+				return nil, err
+			}
+
+			// Execute the script with SCW_SECRET_KEY set
+			client := core.ExtractClient(ctx)
+			secretKey, _ := client.GetSecretKey()
+			execScriptArgs := []string{
+				"", // Adding a space to prevent the command from being logged in history as it shows the secret key
+				"SCW_SECRET_KEY=" + secretKey,
+				"./init_kosmos_node.sh",
+			}
+			if err = execSSHCommand(ctx, append(sshCommonArgs, execScriptArgs...), false); err != nil {
+				return nil, err
+			}
+
+			return &core.SuccessResult{Empty: true}, nil
+		},
+	}
+}
+
+func execSSHCommand(ctx context.Context, args []string, printSeparator bool) error {
+	remoteCmd := exec.Command("ssh", args...)
+	_, _ = interactive.Println(remoteCmd)
+
+	exitCode, err := core.ExecCmd(ctx, remoteCmd)
+	if err != nil {
+		return err
+	}
+	if exitCode != 0 {
+		return fmt.Errorf("ssh command failed with exit code %d", exitCode)
+	}
+	if printSeparator {
+		_, _ = interactive.Println("-----")
+	}
+
+	return nil
+}
+
+func buildNodeInitScript(poolID string, region scw.Region) string {
+	return fmt.Sprintf(`#!/usr/bin/env sh
+
+set -e
+wget https://scwcontainermulticloud.s3.fr-par.scw.cloud/node-agent_linux_amd64 --no-verbose
+chmod +x node-agent_linux_amd64
+export POOL_ID=%s  POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
+sudo -E ./node-agent_linux_amd64 -loglevel 0 -no-controller
+EOF`, poolID, region.String())
 }

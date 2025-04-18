@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Add an external node to a Kosmos Pool. 
+This will connect via SSH to the node, download the multicloud configuration script and run it with sudo privileges.
+Keep in mind that your external node needs to have wget in order to download the script.
+
+USAGE:
+  scw k8s pool add-external-node [arg=value ...]
+
+ARGS:
+  node-ip           IP address of the external node
+  pool-id           ID of the Pool the node should be added to
+  [username=root]   Username used for the SSH connection
+  [region=fr-par]   Region to target. If none is passed will use default region from the config
+
+FLAGS:
+  -h, --help   help for add-external-node
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
