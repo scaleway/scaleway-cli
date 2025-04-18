@@ -37,6 +37,7 @@ This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
   - [Connect to an instance using locally installed CLI](#connect-to-an-instance-using-locally-installed-cli)
   - [Create a Database Instance](#create-a-database-instance)
   - [Delete a Database Instance](#delete-a-database-instance)
+  - [Edit instance settings in your default editor](#edit-instance-settings-in-your-default-editor)
   - [Get a Database Instance](#get-a-database-instance)
   - [Get the TLS certificate of a Database Instance](#get-the-tls-certificate-of-a-database-instance)
   - [Get Database Instance metrics](#get-database-instance-metrics)
@@ -789,6 +790,43 @@ scw rdb instance delete <instance-id ...> [arg=value ...]
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Edit instance settings in your default editor
+
+This command opens the current settings of your RDB instance in your $EDITOR.
+You can modify the values and save the file to apply the new configuration.
+
+**Usage:**
+
+```
+scw rdb instance edit-settings <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | ID of the instance |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Edit instance settings in YAML
+```
+scw rdb instance edit-settings 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=yaml
+```
+
+Edit instance settings in JSON
+```
+scw rdb instance edit-settings 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json
+```
+
 
 
 
