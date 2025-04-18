@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	jobs "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
