@@ -20,6 +20,7 @@ AVAILABLE COMMANDS:
   list              List Database Instances
   renew-certificate Renew the TLS certificate of a Database Instance
   restart           Restart Database Instance
+  settings-edit     Edit instance settings in your default editor
   update            Update an instance
   upgrade           Upgrade a Database Instance
 

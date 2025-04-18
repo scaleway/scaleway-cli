@@ -982,13 +982,17 @@ You can modify the values and save the file to apply the new configuration.`,
 				Settings:   instance.Settings,
 			}
 
-			editedRequestRaw, err := editor.UpdateResourceEditor(initialRequest, &rdbSDK.SetInstanceSettingsRequest{
-				Region:     args.Region,
-				InstanceID: args.InstanceID,
-			}, &editor.Config{
-				PutRequest:  true,
-				MarshalMode: args.Mode,
-			})
+			editedRequestRaw, err := editor.UpdateResourceEditor(
+				initialRequest,
+				&rdbSDK.SetInstanceSettingsRequest{
+					Region:     args.Region,
+					InstanceID: args.InstanceID,
+				},
+				&editor.Config{
+					PutRequest:  true,
+					MarshalMode: args.Mode,
+				},
+			)
 			if err != nil {
 				return nil, err
 			}
