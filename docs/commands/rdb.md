@@ -43,7 +43,6 @@ This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
   - [List Database Instances](#list-database-instances)
   - [Renew the TLS certificate of a Database Instance](#renew-the-tls-certificate-of-a-database-instance)
   - [Restart Database Instance](#restart-database-instance)
-  - [Edit instance settings in your default editor](#edit-instance-settings-in-your-default-editor)
   - [Update an instance](#update-an-instance)
   - [Upgrade a Database Instance](#upgrade-a-database-instance)
   - [Wait for an instance to reach a stable state](#wait-for-an-instance-to-reach-a-stable-state)
@@ -920,43 +919,6 @@ scw rdb instance restart <instance-id ...> [arg=value ...]
 
 
 
-### Edit instance settings in your default editor
-
-This command opens the current settings of your RDB instance in your $EDITOR.
-You can modify the values and save the file to apply the new configuration.
-
-**Usage:**
-
-```
-scw rdb instance settings-edit <instance-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | ID of the instance |
-| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-**Examples:**
-
-
-Edit instance settings in YAML
-```
-scw rdb instance settings-edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=yaml
-```
-
-Edit instance settings in JSON
-```
-scw rdb instance settings-edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json
-```
-
-
-
-
 ### Update an instance
 
 Update an instance.
@@ -1438,7 +1400,7 @@ scw rdb setting delete [arg=value ...]
 
 ### Set Database Instance advanced settings
 
-Update an advanced setting for a Database Instance. Settings added upon database engine initialization can only be defined once, and cannot, therefore, be updated.
+Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
 
 **Usage:**
 
