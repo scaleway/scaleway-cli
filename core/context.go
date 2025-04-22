@@ -176,18 +176,8 @@ func ExtractHTTPClient(ctx context.Context) *http.Client {
 func ExtractConfigPath(ctx context.Context) string {
 	meta := extractMeta(ctx)
 	if meta.ConfigPathFlag != "" {
-		return extractMeta(ctx).ConfigPathFlag
+		return meta.ConfigPathFlag
 	}
-	// This is only useful for test when we override home environment variable
-	if home := meta.OverrideEnv["HOME"]; home != "" {
-		return path.Join(home, ".config", "scw", "config.yaml")
-	}
-
-	return scw.GetConfigPath()
-}
-
-func ExtractCliConfigPath(ctx context.Context) string {
-	meta := extractMeta(ctx)
 	// This is only useful for test when we override home environment variable
 	if home := meta.OverrideEnv["HOME"]; home != "" {
 		return path.Join(home, ".config", "scw", cliConfig.DefaultConfigFileName)
