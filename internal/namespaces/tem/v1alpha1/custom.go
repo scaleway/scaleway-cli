@@ -11,8 +11,13 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("tem").Groups = []string{"Domain & WebHosting"}
 
-	human.RegisterMarshalerFunc(tem.DomainStatus(""), human.EnumMarshalFunc(domainStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(tem.EmailStatus(""), human.EnumMarshalFunc(emailStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		tem.DomainStatus(""),
+		human.EnumMarshalFunc(domainStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		tem.EmailStatus(""),
+		human.EnumMarshalFunc(emailStatusMarshalSpecs))
 
 	cmds.MustFind("tem", "domain", "get").Override(domainGetBuilder)
 

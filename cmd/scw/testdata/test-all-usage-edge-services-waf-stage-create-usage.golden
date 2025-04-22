@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a new WAF stage. You must specify the `mode` and `paranoia_level` fields to customize the WAF.
+
+USAGE:
+  scw edge-services waf-stage create [arg=value ...]
+
+ARGS:
+  pipeline-id          Pipeline ID the WAF stage belongs to
+  [mode]               Mode defining WAF behavior (`disable`/`log_only`/`enable`) (unknown_mode | disable | log_only | enable)
+  [paranoia-level]     Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
+  [backend-stage-id]   ID of the backend stage to forward requests to after the WAF stage
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

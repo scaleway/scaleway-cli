@@ -201,7 +201,10 @@ type customGateway struct {
 	GatewayNetworkID string              `json:"gateway_network_id"`
 }
 
-func listCustomInstanceServers(client *scw.Client, pn *vpc.PrivateNetwork) ([]customInstanceServer, error) {
+func listCustomInstanceServers(
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customInstanceServer, error) {
 	instanceAPI := instance.NewAPI(client)
 
 	regionZones := pn.Region.GetZones()
@@ -235,7 +238,10 @@ func listCustomInstanceServers(client *scw.Client, pn *vpc.PrivateNetwork) ([]cu
 	return customInstanceServers, nil
 }
 
-func listCustomBaremetalServers(client *scw.Client, pn *vpc.PrivateNetwork) ([]customBaremetalServer, error) {
+func listCustomBaremetalServers(
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customBaremetalServer, error) {
 	baremetalPNAPI := baremetal.NewPrivateNetworkAPI(client)
 	baremetalAPI := baremetal.NewAPI(client)
 
@@ -245,10 +251,13 @@ func listCustomBaremetalServers(client *scw.Client, pn *vpc.PrivateNetwork) ([]c
 
 	var customBaremetalServers []customBaremetalServer
 	for _, zone := range zones {
-		listBaremetalServers, err := baremetalPNAPI.ListServerPrivateNetworks(&baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest{
-			Zone:             zone,
-			PrivateNetworkID: &pn.ID,
-		}, scw.WithAllPages())
+		listBaremetalServers, err := baremetalPNAPI.ListServerPrivateNetworks(
+			&baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest{
+				Zone:             zone,
+				PrivateNetworkID: &pn.ID,
+			},
+			scw.WithAllPages(),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -412,6 +421,7 @@ func listCustomGateways(client *scw.Client, pn *vpc.PrivateNetwork) ([]customGat
 
 	var customGateways []customGateway
 	for _, zone := range zones {
+		//nolint: staticcheck
 		listGateways, err := vpcgwAPI.ListGateways(&vpcgw.ListGatewaysRequest{
 			Zone: zone,
 		}, scw.WithAllPages())

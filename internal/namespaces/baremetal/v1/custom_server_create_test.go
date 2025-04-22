@@ -33,7 +33,9 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=" + region),
+			AfterFunc: core.ExecAfterCmd(
+				"scw baremetal server delete {{ .CmdResult.ID }} zone=" + region,
+			),
 		},
 		))
 
@@ -55,11 +57,17 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
-					assert.Equal(t, "test-create-server-with-name", ctx.Result.(*baremetalSDK.Server).Name)
+					assert.Equal(
+						t,
+						"test-create-server-with-name",
+						ctx.Result.(*baremetalSDK.Server).Name,
+					)
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=" + region),
+			AfterFunc: core.ExecAfterCmd(
+				"scw baremetal server delete {{ .CmdResult.ID }} zone=" + region,
+			),
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
@@ -85,7 +93,9 @@ func Test_CreateServer(t *testing.T) {
 				},
 				core.TestCheckExitCode(0),
 			),
-			AfterFunc: core.ExecAfterCmd("scw baremetal server delete {{ .CmdResult.ID }} zone=" + region),
+			AfterFunc: core.ExecAfterCmd(
+				"scw baremetal server delete {{ .CmdResult.ID }} zone=" + region,
+			),
 		}))
 	})
 }

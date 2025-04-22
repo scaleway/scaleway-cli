@@ -21,7 +21,13 @@ func (s ArgSpecs) GetPositionalArg() *ArgSpec {
 	for _, argSpec := range s {
 		if argSpec.Positional {
 			if positionalArg != nil {
-				panic(fmt.Errorf("more than one positional parameter detected: %s and %s are flagged as positional arg", positionalArg.Name, argSpec.Name))
+				panic(
+					fmt.Errorf(
+						"more than one positional parameter detected: %s and %s are flagged as positional arg",
+						positionalArg.Name,
+						argSpec.Name,
+					),
+				)
 			}
 			positionalArg = argSpec
 		}

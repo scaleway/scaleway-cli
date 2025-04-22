@@ -18,7 +18,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
 	documentdb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/documentdb/v1beta1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
-	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1alpha1"
+	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"

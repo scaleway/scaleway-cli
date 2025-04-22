@@ -231,7 +231,11 @@ func errorDeletingResource(err error) error {
 	}
 }
 
-func serverDeleteVolume(volume *instance.VolumeServer, instanceAPI *instance.API, blockAPI *block.API) error {
+func serverDeleteVolume(
+	volume *instance.VolumeServer,
+	instanceAPI *instance.API,
+	blockAPI *block.API,
+) error {
 	var err error
 
 	if volume.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {

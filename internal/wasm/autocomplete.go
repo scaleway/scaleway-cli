@@ -23,7 +23,13 @@ func Autocomplete(buildInfo *core.BuildInfo, cfg *AutoCompleteConfig) ([]string,
 	words := append(cfg.LeftWords, cfg.SelectedWord)
 	words = append(words, cfg.RightWords...)
 
-	completeCommand := []string{"autocomplete", "complete", "zsh", strconv.FormatInt(indexToComplete, 10), "scw"}
+	completeCommand := []string{
+		"autocomplete",
+		"complete",
+		"zsh",
+		strconv.FormatInt(indexToComplete, 10),
+		"scw",
+	}
 
 	completeCommand = append(completeCommand, words...)
 
@@ -43,7 +49,9 @@ func Autocomplete(buildInfo *core.BuildInfo, cfg *AutoCompleteConfig) ([]string,
 	return suggestions, nil
 }
 
-func AutocompleteWithBuildInfo(buildInfo *core.BuildInfo) func(cfg *AutoCompleteConfig) ([]string, error) {
+func AutocompleteWithBuildInfo(
+	buildInfo *core.BuildInfo,
+) func(cfg *AutoCompleteConfig) ([]string, error) {
 	return func(cfg *AutoCompleteConfig) ([]string, error) {
 		return Autocomplete(buildInfo, cfg)
 	}

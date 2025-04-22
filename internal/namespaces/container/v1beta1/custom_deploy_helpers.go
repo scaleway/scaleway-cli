@@ -31,7 +31,11 @@ type CustomDockerClient struct {
 }
 
 func NewCustomDockerClient(httpClient *http.Client) (*CustomDockerClient, error) {
-	dockerClient, err := docker.NewClientWithOpts(docker.FromEnv, docker.WithAPIVersionNegotiation(), docker.WithHTTPClient(httpClient))
+	dockerClient, err := docker.NewClientWithOpts(
+		docker.FromEnv,
+		docker.WithAPIVersionNegotiation(),
+		docker.WithHTTPClient(httpClient),
+	)
 	if err != nil {
 		return nil, fmt.Errorf("could not connect to Docker: %w", err)
 	}
@@ -42,7 +46,11 @@ func NewCustomDockerClient(httpClient *http.Client) (*CustomDockerClient, error)
 	}, nil
 }
 
-func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string, options container.AttachOptions) (dockertypes.HijackedResponse, error) {
+func (c *CustomDockerClient) ContainerAttach(
+	_ context.Context,
+	container string,
+	options container.AttachOptions,
+) (dockertypes.HijackedResponse, error) {
 	query := url.Values{}
 	if options.Stream {
 		query.Set("stream", "1")
@@ -65,7 +73,7 @@ func (c *CustomDockerClient) ContainerAttach(_ context.Context, container string
 
 	requestURL := &url.URL{
 		Scheme:   "http",
-		Host:     strings.TrimPrefix(c.Client.DaemonHost(), "unix://"),
+		Host:     strings.TrimPrefix(c.DaemonHost(), "unix://"),
 		Path:     fmt.Sprintf("/containers/%s/attach", container),
 		RawQuery: query.Encode(),
 	}

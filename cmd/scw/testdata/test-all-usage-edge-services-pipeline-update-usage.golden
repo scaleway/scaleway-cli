@@ -6,10 +6,9 @@ USAGE:
   scw edge-services pipeline update <pipeline-id ...> [arg=value ...]
 
 ARGS:
-  pipeline-id      ID of the pipeline to update
-  [name]           Name of the pipeline
-  [description]    Description of the pipeline
-  [dns-stage-id]   DNS stage ID the pipeline will be attached to
+  pipeline-id     ID of the pipeline to update
+  [name]          Name of the pipeline
+  [description]   Description of the pipeline
 
 FLAGS:
   -h, --help   help for update

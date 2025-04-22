@@ -15,6 +15,7 @@ ARGS:
   [scaleway-lb.lbs.{index}.frontend-id]   ID of the frontend linked to the Load Balancer
   [scaleway-lb.lbs.{index}.is-ssl]        Defines whether the Load Balancer's frontend handles SSL connections
   [scaleway-lb.lbs.{index}.domain-name]   Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer
+  [pipeline-id]                           Pipeline ID the Backend stage belongs to
 
 FLAGS:
   -h, --help   help for update

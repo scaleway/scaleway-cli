@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/edge_services/v1alpha1"
+	edge_services "github.com/scaleway/scaleway-sdk-go/api/edge_services/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -24,6 +24,9 @@ func GetGeneratedCommands() *core.Commands {
 		edgeServicesDNSStage(),
 		edgeServicesTLSStage(),
 		edgeServicesCacheStage(),
+		edgeServicesWafStage(),
+		edgeServicesRouteStage(),
+		edgeServicesRouteRules(),
 		edgeServicesBackendStage(),
 		edgeServicesPurgeRequest(),
 		edgeServicesPipelineList(),
@@ -51,11 +54,25 @@ func GetGeneratedCommands() *core.Commands {
 		edgeServicesBackendStageGet(),
 		edgeServicesBackendStageUpdate(),
 		edgeServicesBackendStageDelete(),
+		edgeServicesWafStageList(),
+		edgeServicesWafStageCreate(),
+		edgeServicesWafStageGet(),
+		edgeServicesWafStageUpdate(),
+		edgeServicesWafStageDelete(),
+		edgeServicesRouteStageList(),
+		edgeServicesRouteStageCreate(),
+		edgeServicesRouteStageGet(),
+		edgeServicesRouteStageUpdate(),
+		edgeServicesRouteStageDelete(),
+		edgeServicesRouteRulesList(),
+		edgeServicesRouteRulesSet(),
+		edgeServicesRouteRulesAdd(),
 		edgeServicesPurgeRequestList(),
 		edgeServicesPurgeRequestCreate(),
 		edgeServicesPurgeRequestGet(),
 	)
 }
+
 func edgeServicesRoot() *core.Command {
 	return &core.Command{
 		Short:     `Edge Services API`,
@@ -100,6 +117,33 @@ func edgeServicesCacheStage() *core.Command {
 	}
 }
 
+func edgeServicesWafStage() *core.Command {
+	return &core.Command{
+		Short:     `WAF-stage management commands`,
+		Long:      `WAF-stage management commands.`,
+		Namespace: "edge-services",
+		Resource:  "waf-stage",
+	}
+}
+
+func edgeServicesRouteStage() *core.Command {
+	return &core.Command{
+		Short:     `Route-stage management commands`,
+		Long:      `Route-stage management commands.`,
+		Namespace: "edge-services",
+		Resource:  "route-stage",
+	}
+}
+
+func edgeServicesRouteRules() *core.Command {
+	return &core.Command{
+		Short:     `Route-rules management commands`,
+		Long:      `Route-rules management commands.`,
+		Namespace: "edge-services",
+		Resource:  "route-rules",
+	}
+}
+
 func edgeServicesBackendStage() *core.Command {
 	return &core.Command{
 		Short:     `Backend-stage management commands`,
@@ -134,32 +178,37 @@ func edgeServicesPipelineList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "name",
-				Short:      `Pipeline name to filter for, only pipelines with this string within their name will be returned`,
+				Short:      `Pipeline name to filter for. Only pipelines with this string within their name will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "project-id",
-				Short:      `Project ID to filter for, only pipelines from this Project will be returned`,
+				Short:      `Project ID to filter for. Only pipelines from this Project will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "has-backend-stage-lb",
-				Short:      `Filter on backend stage, only pipelines with a Load Balancer origin will be returned`,
+				Short:      `Filter on backend stage. Only pipelines with a Load Balancer origin will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Organization ID to filter for, only pipelines from this Organization will be returned`,
+				Short:      `Organization ID to filter for. Only pipelines from this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -175,8 +224,8 @@ func edgeServicesPipelineList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Pipelines, nil
 
+			return resp.Pipelines, nil
 		},
 	}
 }
@@ -206,21 +255,14 @@ func edgeServicesPipelineCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "dns-stage-id",
-				Short:      `DNS stage ID the pipeline will be attached to`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*edge_services.CreatePipelineRequest)
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.CreatePipeline(request)
 
+			return api.CreatePipeline(request)
 		},
 	}
 }
@@ -248,8 +290,8 @@ func edgeServicesPipelineGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.GetPipeline(request)
 
+			return api.GetPipeline(request)
 		},
 	}
 }
@@ -285,21 +327,14 @@ func edgeServicesPipelineUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "dns-stage-id",
-				Short:      `DNS stage ID the pipeline will be attached to`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*edge_services.UpdatePipelineRequest)
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.UpdatePipeline(request)
 
+			return api.UpdatePipeline(request)
 		},
 	}
 }
@@ -331,6 +366,7 @@ func edgeServicesPipelineDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "pipeline",
 				Verb:     "delete",
@@ -355,25 +391,21 @@ func edgeServicesDNSStageList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "pipeline-id",
-				Short:      `Pipeline ID to filter for, only DNS stages from this pipeline will be returned`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "project-id",
-				Short:      `Project ID to filter for, only DNS stages from this Project will be returned`,
-				Required:   false,
+				Short:      `Pipeline ID to filter for. Only DNS stages from this pipeline will be returned`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "fqdn",
-				Short:      `Fully Qualified Domain Name to filter for (in the format subdomain.example.com), only DNS stages with this FQDN will be returned`,
+				Short:      `Fully Qualified Domain Name to filter for (in the format subdomain.example.com). Only DNS stages with this FQDN will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -389,8 +421,8 @@ func edgeServicesDNSStageList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Stages, nil
 
+			return resp.Stages, nil
 		},
 	}
 }
@@ -405,7 +437,6 @@ func edgeServicesDNSStageCreate() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(edge_services.CreateDNSStageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
 			{
 				Name:       "fqdns.{index}",
 				Short:      `Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage`,
@@ -434,14 +465,21 @@ func edgeServicesDNSStageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "pipeline-id",
+				Short:      `Pipeline ID the DNS stage belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*edge_services.CreateDNSStageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.CreateDNSStage(request)
 
+			return api.CreateDNSStage(request)
 		},
 	}
 }
@@ -469,8 +507,8 @@ func edgeServicesDNSStageGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.GetDNSStage(request)
 
+			return api.GetDNSStage(request)
 		},
 	}
 }
@@ -526,8 +564,8 @@ func edgeServicesDNSStageUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.UpdateDNSStage(request)
 
+			return api.UpdateDNSStage(request)
 		},
 	}
 }
@@ -559,6 +597,7 @@ func edgeServicesDNSStageDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "dns-stage",
 				Verb:     "delete",
@@ -583,32 +622,28 @@ func edgeServicesTLSStageList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "pipeline-id",
-				Short:      `Pipeline ID to filter for, only TLS stages from this pipeline will be returned`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "project-id",
-				Short:      `Project ID to filter for, only TLS stages from this Project will be returned`,
-				Required:   false,
+				Short:      `Pipeline ID to filter for. Only TLS stages from this pipeline will be returned`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "secret-id",
-				Short:      `Secret ID to filter for, only TLS stages with this Secret ID will be returned`,
+				Short:      `Secret ID to filter for. Only TLS stages with this Secret ID will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "secret-region",
-				Short:      `Secret region to filter for, only TLS stages with a Secret in this region will be returned`,
+				Short:      `Secret region to filter for. Only TLS stages with a Secret in this region will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -624,8 +659,8 @@ func edgeServicesTLSStageList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Stages, nil
 
+			return resp.Stages, nil
 		},
 	}
 }
@@ -640,7 +675,6 @@ func edgeServicesTLSStageCreate() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(edge_services.CreateTLSStageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
 			{
 				Name:       "secrets.{index}.secret-id",
 				Short:      `ID of the Secret`,
@@ -676,14 +710,33 @@ func edgeServicesTLSStageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "pipeline-id",
+				Short:      `Pipeline ID the TLS stage belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "route-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "waf-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*edge_services.CreateTLSStageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.CreateTLSStage(request)
 
+			return api.CreateTLSStage(request)
 		},
 	}
 }
@@ -711,8 +764,8 @@ func edgeServicesTLSStageGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.GetTLSStage(request)
 
+			return api.GetTLSStage(request)
 		},
 	}
 }
@@ -769,14 +822,26 @@ func edgeServicesTLSStageUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "route-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "waf-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*edge_services.UpdateTLSStageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.UpdateTLSStage(request)
 
+			return api.UpdateTLSStage(request)
 		},
 	}
 }
@@ -808,6 +873,7 @@ func edgeServicesTLSStageDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "tls-stage",
 				Verb:     "delete",
@@ -832,19 +898,15 @@ func edgeServicesCacheStageList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "pipeline-id",
-				Short:      `Pipeline ID to filter for, only cache stages from this pipeline will be returned`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "project-id",
-				Short:      `Project ID to filter for, only cache stages from this Project will be returned`,
-				Required:   false,
+				Short:      `Pipeline ID to filter for. Only cache stages from this pipeline will be returned`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -859,8 +921,8 @@ func edgeServicesCacheStageList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Stages, nil
 
+			return resp.Stages, nil
 		},
 	}
 }
@@ -875,7 +937,6 @@ func edgeServicesCacheStageCreate() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(edge_services.CreateCacheStageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
 			{
 				Name:       "fallback-ttl",
 				Short:      `Time To Live (TTL) in seconds. Defines how long content is cached`,
@@ -891,14 +952,33 @@ func edgeServicesCacheStageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "pipeline-id",
+				Short:      `Pipeline ID the Cache stage belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "waf-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "route-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*edge_services.CreateCacheStageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.CreateCacheStage(request)
 
+			return api.CreateCacheStage(request)
 		},
 	}
 }
@@ -926,8 +1006,8 @@ func edgeServicesCacheStageGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.GetCacheStage(request)
 
+			return api.GetCacheStage(request)
 		},
 	}
 }
@@ -963,14 +1043,26 @@ func edgeServicesCacheStageUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "waf-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "route-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*edge_services.UpdateCacheStageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.UpdateCacheStage(request)
 
+			return api.UpdateCacheStage(request)
 		},
 	}
 }
@@ -1002,6 +1094,7 @@ func edgeServicesCacheStageDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "cache-stage",
 				Verb:     "delete",
@@ -1026,39 +1119,35 @@ func edgeServicesBackendStageList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "pipeline-id",
-				Short:      `Pipeline ID to filter for, only backend stages from this pipeline will be returned`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "project-id",
-				Short:      `Project ID to filter for, only backend stages from this Project will be returned`,
-				Required:   false,
+				Short:      `Pipeline ID to filter for. Only backend stages from this pipeline will be returned`,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "bucket-name",
-				Short:      `Bucket name to filter for, only backend stages from this Bucket will be returned`,
+				Short:      `Bucket name to filter for. Only backend stages from this Bucket will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "bucket-region",
-				Short:      `Bucket region to filter for, only backend stages with buckets in this region will be returned`,
+				Short:      `Bucket region to filter for. Only backend stages with buckets in this region will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "lb-id",
-				Short:      `Load Balancer ID to filter for, only backend stages with this Load Balancer will be returned`,
+				Short:      `Load Balancer ID to filter for. Only backend stages with this Load Balancer will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1074,8 +1163,8 @@ func edgeServicesBackendStageList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Stages, nil
 
+			return resp.Stages, nil
 		},
 	}
 }
@@ -1090,7 +1179,6 @@ func edgeServicesBackendStageCreate() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(edge_services.CreateBackendStageRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
 			{
 				Name:       "scaleway-s3.bucket-name",
 				Short:      `Name of the Bucket`,
@@ -1147,14 +1235,21 @@ func edgeServicesBackendStageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "pipeline-id",
+				Short:      `Pipeline ID the Backend stage belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*edge_services.CreateBackendStageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.CreateBackendStage(request)
 
+			return api.CreateBackendStage(request)
 		},
 	}
 }
@@ -1182,8 +1277,8 @@ func edgeServicesBackendStageGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.GetBackendStage(request)
 
+			return api.GetBackendStage(request)
 		},
 	}
 }
@@ -1261,14 +1356,21 @@ func edgeServicesBackendStageUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "pipeline-id",
+				Short:      `Pipeline ID the Backend stage belongs to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*edge_services.UpdateBackendStageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.UpdateBackendStage(request)
 
+			return api.UpdateBackendStage(request)
 		},
 	}
 }
@@ -1300,10 +1402,600 @@ func edgeServicesBackendStageDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "backend-stage",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func edgeServicesWafStageList() *core.Command {
+	return &core.Command{
+		Short:     `List WAF stages`,
+		Long:      `List all WAF stages, for a Scaleway Organization or Scaleway Project. By default, the WAF stages returned in the list are ordered by creation date in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
+		Namespace: "edge-services",
+		Resource:  "waf-stage",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.ListWafStagesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of WAF stages in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
+			},
+			{
+				Name:       "pipeline-id",
+				Short:      `Pipeline ID to filter for. Only WAF stages from this pipeline will be returned`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.ListWafStagesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListWafStages(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Stages, nil
+		},
+	}
+}
+
+func edgeServicesWafStageCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create WAF stage`,
+		Long:      `Create a new WAF stage. You must specify the ` + "`" + `mode` + "`" + ` and ` + "`" + `paranoia_level` + "`" + ` fields to customize the WAF.`,
+		Namespace: "edge-services",
+		Resource:  "waf-stage",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.CreateWafStageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "pipeline-id",
+				Short:      `Pipeline ID the WAF stage belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "mode",
+				Short:      `Mode defining WAF behavior (` + "`" + `disable` + "`" + `/` + "`" + `log_only` + "`" + `/` + "`" + `enable` + "`" + `)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_mode",
+					"disable",
+					"log_only",
+					"enable",
+				},
+			},
+			{
+				Name:       "paranoia-level",
+				Short:      `Sensitivity level (` + "`" + `1` + "`" + `,` + "`" + `2` + "`" + `,` + "`" + `3` + "`" + `,` + "`" + `4` + "`" + `) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backend-stage-id",
+				Short:      `ID of the backend stage to forward requests to after the WAF stage`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.CreateWafStageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.CreateWafStage(request)
+		},
+	}
+}
+
+func edgeServicesWafStageGet() *core.Command {
+	return &core.Command{
+		Short:     `Get WAF stage`,
+		Long:      `Retrieve information about an existing WAF stage, specified by its ` + "`" + `waf_stage_id` + "`" + `. Its full details are returned in the response object.`,
+		Namespace: "edge-services",
+		Resource:  "waf-stage",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.GetWafStageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "waf-stage-id",
+				Short:      `ID of the requested WAF stage`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.GetWafStageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.GetWafStage(request)
+		},
+	}
+}
+
+func edgeServicesWafStageUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update WAF stage`,
+		Long:      `Update the parameters of an existing WAF stage, specified by its ` + "`" + `waf_stage_id` + "`" + `. Both ` + "`" + `mode` + "`" + ` and ` + "`" + `paranoia_level` + "`" + ` parameters can be updated.`,
+		Namespace: "edge-services",
+		Resource:  "waf-stage",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.UpdateWafStageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "waf-stage-id",
+				Short:      `ID of the WAF stage to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "mode",
+				Short:      `Mode defining WAF behavior (` + "`" + `disable` + "`" + `/` + "`" + `log_only` + "`" + `/` + "`" + `enable` + "`" + `)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_mode",
+					"disable",
+					"log_only",
+					"enable",
+				},
+			},
+			{
+				Name:       "paranoia-level",
+				Short:      `Sensitivity level (` + "`" + `1` + "`" + `,` + "`" + `2` + "`" + `,` + "`" + `3` + "`" + `,` + "`" + `4` + "`" + `) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backend-stage-id",
+				Short:      `ID of the backend stage to forward requests to after the WAF stage`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.UpdateWafStageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.UpdateWafStage(request)
+		},
+	}
+}
+
+func edgeServicesWafStageDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete WAF stage`,
+		Long:      `Delete an existing WAF stage, specified by its ` + "`" + `waf_stage_id` + "`" + `. Deleting a WAF stage is permanent, and cannot be undone.`,
+		Namespace: "edge-services",
+		Resource:  "waf-stage",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.DeleteWafStageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "waf-stage-id",
+				Short:      `ID of the WAF stage to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.DeleteWafStageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+			e = api.DeleteWafStage(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "waf-stage",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func edgeServicesRouteStageList() *core.Command {
+	return &core.Command{
+		Short:     `List route stages`,
+		Long:      `List all route stages, for a given pipeline. By default, the route stages returned in the list are ordered by creation date in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
+		Namespace: "edge-services",
+		Resource:  "route-stage",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.ListRouteStagesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of route stages in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
+			},
+			{
+				Name:       "pipeline-id",
+				Short:      `Pipeline ID to filter for. Only route stages from this pipeline will be returned`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.ListRouteStagesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListRouteStages(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Stages, nil
+		},
+	}
+}
+
+func edgeServicesRouteStageCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create route stage`,
+		Long:      `Create a new route stage. You must specify the ` + "`" + `waf_stage_id` + "`" + ` field to customize the route.`,
+		Namespace: "edge-services",
+		Resource:  "route-stage",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.CreateRouteStageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "pipeline-id",
+				Short:      `Pipeline ID the route stage belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "waf-stage-id",
+				Short:      `ID of the WAF stage HTTP requests should be forwarded to when no rules are matched`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.CreateRouteStageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.CreateRouteStage(request)
+		},
+	}
+}
+
+func edgeServicesRouteStageGet() *core.Command {
+	return &core.Command{
+		Short:     `Get route stage`,
+		Long:      `Retrieve information about an existing route stage, specified by its ` + "`" + `route_stage_id` + "`" + `. The summary of the route stage (without route rules) is returned in the response object.`,
+		Namespace: "edge-services",
+		Resource:  "route-stage",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.GetRouteStageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-stage-id",
+				Short:      `ID of the requested route stage`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.GetRouteStageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.GetRouteStage(request)
+		},
+	}
+}
+
+func edgeServicesRouteStageUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update route stage`,
+		Long:      `Update the parameters of an existing route stage, specified by its ` + "`" + `route_stage_id` + "`" + `.`,
+		Namespace: "edge-services",
+		Resource:  "route-stage",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.UpdateRouteStageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-stage-id",
+				Short:      `ID of the route stage to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "waf-stage-id",
+				Short:      `ID of the WAF stage HTTP requests should be forwarded to when no rules are matched`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.UpdateRouteStageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.UpdateRouteStage(request)
+		},
+	}
+}
+
+func edgeServicesRouteStageDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete route stage`,
+		Long:      `Delete an existing route stage, specified by its ` + "`" + `route_stage_id` + "`" + `. Deleting a route stage is permanent, and cannot be undone.`,
+		Namespace: "edge-services",
+		Resource:  "route-stage",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.DeleteRouteStageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-stage-id",
+				Short:      `ID of the route stage to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.DeleteRouteStageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+			e = api.DeleteRouteStage(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "route-stage",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func edgeServicesRouteRulesList() *core.Command {
+	return &core.Command{
+		Short:     `List route rules`,
+		Long:      `List all route rules of an existing route stage, specified by its ` + "`" + `route_stage_id` + "`" + `.`,
+		Namespace: "edge-services",
+		Resource:  "route-rules",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.ListRouteRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-stage-id",
+				Short:      `Route stage ID to filter for. Only route rules from this route stage will be returned`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.ListRouteRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.ListRouteRules(request)
+		},
+	}
+}
+
+func edgeServicesRouteRulesSet() *core.Command {
+	return &core.Command{
+		Short:     `Set route rules`,
+		Long:      `Set the rules of an existing route stage, specified by its ` + "`" + `route_stage_id` + "`" + `.`,
+		Namespace: "edge-services",
+		Resource:  "route-rules",
+		Verb:      "set",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.SetRouteRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-stage-id",
+				Short:      `ID of the route stage to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.method-filters.{index}",
+				Short:      `HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are ` + "`" + `get` + "`" + `, ` + "`" + `post` + "`" + `, ` + "`" + `put` + "`" + `, ` + "`" + `patch` + "`" + `, ` + "`" + `delete` + "`" + `, ` + "`" + `head` + "`" + `, ` + "`" + `options` + "`" + `. All methods will match if none is provided`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_method_filter",
+					"get",
+					"post",
+					"put",
+					"patch",
+					"delete",
+					"head",
+					"options",
+				},
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.path-filter.path-filter-type",
+				Short:      `Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the ` + "`" + `regex` + "`" + ` type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_path_filter",
+					"regex",
+				},
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.path-filter.value",
+				Short:      `Value to be matched for the HTTP URL path`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "route-rules.{index}.backend-stage-id",
+				Short:      `ID of the backend stage that requests matching the rule should be forwarded to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.SetRouteRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.SetRouteRules(request)
+		},
+	}
+}
+
+func edgeServicesRouteRulesAdd() *core.Command {
+	return &core.Command{
+		Short:     `Add route rules`,
+		Long:      `Add route rules to an existing route stage, specified by its ` + "`" + `route_stage_id` + "`" + `.`,
+		Namespace: "edge-services",
+		Resource:  "route-rules",
+		Verb:      "add",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.AddRouteRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "route-stage-id",
+				Short:      `ID of the route stage to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.method-filters.{index}",
+				Short:      `HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are ` + "`" + `get` + "`" + `, ` + "`" + `post` + "`" + `, ` + "`" + `put` + "`" + `, ` + "`" + `patch` + "`" + `, ` + "`" + `delete` + "`" + `, ` + "`" + `head` + "`" + `, ` + "`" + `options` + "`" + `. All methods will match if none is provided`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_method_filter",
+					"get",
+					"post",
+					"put",
+					"patch",
+					"delete",
+					"head",
+					"options",
+				},
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.path-filter.path-filter-type",
+				Short:      `Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the ` + "`" + `regex` + "`" + ` type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_path_filter",
+					"regex",
+				},
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.path-filter.value",
+				Short:      `Value to be matched for the HTTP URL path`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "route-rules.{index}.backend-stage-id",
+				Short:      `ID of the backend stage that requests matching the rule should be forwarded to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "after-position",
+				Short:      `Add rules after the given position`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "before-position",
+				Short:      `Add rules before the given position`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*edge_services.AddRouteRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.AddRouteRules(request)
 		},
 	}
 }
@@ -1324,25 +2016,28 @@ func edgeServicesPurgeRequestList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "project-id",
-				Short:      `Project ID to filter for, only purge requests from this Project will be returned`,
+				Short:      `Project ID to filter for. Only purge requests from this Project will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pipeline-id",
-				Short:      `Pipeline ID to filter for, only purge requests from this pipeline will be returned`,
+				Short:      `Pipeline ID to filter for. Only purge requests from this pipeline will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Organization ID to filter for, only purge requests from this Project will be returned`,
+				Short:      `Organization ID to filter for. Only purge requests from this Project will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1358,8 +2053,8 @@ func edgeServicesPurgeRequestList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.PurgeRequests, nil
 
+			return resp.PurgeRequests, nil
 		},
 	}
 }
@@ -1401,8 +2096,8 @@ func edgeServicesPurgeRequestCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.CreatePurgeRequest(request)
 
+			return api.CreatePurgeRequest(request)
 		},
 	}
 }
@@ -1430,8 +2125,8 @@ func edgeServicesPurgeRequestGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			return api.GetPurgeRequest(request)
 
+			return api.GetPurgeRequest(request)
 		},
 	}
 }

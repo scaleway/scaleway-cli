@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
+	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -77,6 +77,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamLogGet(),
 	)
 }
+
 func iamRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources`,
@@ -192,7 +193,14 @@ func iamSSHKeyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -233,6 +241,7 @@ func iamSSHKeyList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.SSHKeys, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -290,6 +299,7 @@ func iamSSHKeyCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.CreateSSHKey(request)
 		},
 		Examples: []*core.Example{
@@ -334,6 +344,7 @@ func iamSSHKeyGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.GetSSHKey(request)
 		},
 	}
@@ -375,6 +386,7 @@ func iamSSHKeyUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.UpdateSSHKey(request)
 		},
 	}
@@ -406,6 +418,7 @@ func iamSSHKeyDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "ssh-key",
 				Verb:     "delete",
@@ -447,7 +460,18 @@ func iamUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "email_asc", "email_desc", "last_login_asc", "last_login_desc", "username_asc", "username_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"email_asc",
+					"email_desc",
+					"last_login_asc",
+					"last_login_desc",
+					"username_asc",
+					"username_desc",
+				},
 			},
 			{
 				Name:       "user-ids.{index}",
@@ -476,7 +500,12 @@ func iamUserList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "guest", "owner", "member"},
+				EnumValues: []string{
+					"unknown_type",
+					"guest",
+					"owner",
+					"member",
+				},
 			},
 			{
 				Name:       "organization-id",
@@ -496,6 +525,7 @@ func iamUserList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Users, nil
 		},
 	}
@@ -524,6 +554,7 @@ func iamUserGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.GetUser(request)
 		},
 	}
@@ -594,6 +625,7 @@ func iamUserUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.UpdateUser(request)
 		},
 	}
@@ -626,6 +658,7 @@ func iamUserDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "user",
 				Verb:     "delete",
@@ -728,6 +761,7 @@ func iamUserCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.CreateUser(request)
 		},
 	}
@@ -763,6 +797,7 @@ func iamUserUpdateUsername() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.UpdateUserUsername(request)
 		},
 	}
@@ -798,6 +833,7 @@ func iamUserUpdatePassword() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.UpdateUserPassword(request)
 		},
 	}
@@ -820,7 +856,14 @@ func iamApplicationList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -862,6 +905,7 @@ func iamApplicationList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Applications, nil
 		},
 	}
@@ -906,6 +950,7 @@ func iamApplicationCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.CreateApplication(request)
 		},
 	}
@@ -934,6 +979,7 @@ func iamApplicationGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.GetApplication(request)
 		},
 	}
@@ -983,6 +1029,7 @@ func iamApplicationUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.UpdateApplication(request)
 		},
 	}
@@ -1015,6 +1062,7 @@ func iamApplicationDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "application",
 				Verb:     "delete",
@@ -1040,7 +1088,14 @@ func iamGroupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -1089,6 +1144,7 @@ func iamGroupList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Groups, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -1147,6 +1203,7 @@ func iamGroupCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.CreateGroup(request)
 		},
 		Examples: []*core.Example{
@@ -1195,6 +1252,7 @@ func iamGroupGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.GetGroup(request)
 		},
 	}
@@ -1244,6 +1302,7 @@ func iamGroupUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.UpdateGroup(request)
 		},
 	}
@@ -1283,6 +1342,7 @@ func iamGroupSetMembers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.SetGroupMembers(request)
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -1335,6 +1395,7 @@ func iamGroupAddMember() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.AddGroupMember(request)
 		},
 	}
@@ -1377,6 +1438,7 @@ func iamGroupAddMembers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.AddGroupMembers(request)
 		},
 	}
@@ -1419,6 +1481,7 @@ func iamGroupRemoveMember() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.RemoveGroupMember(request)
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -1461,6 +1524,7 @@ func iamGroupDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "group",
 				Verb:     "delete",
@@ -1502,7 +1566,12 @@ func iamPolicyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"policy_name_asc", "policy_name_desc", "created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"policy_name_asc",
+					"policy_name_desc",
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "editable",
@@ -1572,6 +1641,7 @@ func iamPolicyList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Policies, nil
 		},
 	}
@@ -1672,6 +1742,7 @@ func iamPolicyCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.CreatePolicy(request)
 		},
 		Examples: []*core.Example{
@@ -1706,6 +1777,7 @@ func iamPolicyGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.GetPolicy(request)
 		},
 	}
@@ -1783,6 +1855,7 @@ func iamPolicyUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.UpdatePolicy(request)
 		},
 	}
@@ -1815,6 +1888,7 @@ func iamPolicyDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "policy",
 				Verb:     "delete",
@@ -1845,6 +1919,7 @@ func iamPolicyClone() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.ClonePolicy(request)
 		},
 	}
@@ -1901,6 +1976,7 @@ func iamRuleUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.SetRules(request)
 		},
 	}
@@ -1934,6 +2010,7 @@ func iamRuleList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Rules, nil
 		},
 	}
@@ -1956,7 +2033,12 @@ func iamPermissionSetList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			core.OrganizationIDArgSpec(),
 		},
@@ -1970,6 +2052,7 @@ func iamPermissionSetList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.PermissionSets, nil
 		},
 	}
@@ -1992,7 +2075,16 @@ func iamAPIKeyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "expires_at_asc", "expires_at_desc", "access_key_asc", "access_key_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"expires_at_asc",
+					"expires_at_desc",
+					"access_key_asc",
+					"access_key_desc",
+				},
 			},
 			{
 				Name:       "application-id",
@@ -2049,7 +2141,11 @@ func iamAPIKeyList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_bearer_type", "user", "application"},
+				EnumValues: []string{
+					"unknown_bearer_type",
+					"user",
+					"application",
+				},
 			},
 			{
 				Name:       "access-keys.{index}",
@@ -2076,6 +2172,7 @@ func iamAPIKeyList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.APIKeys, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -2152,6 +2249,7 @@ func iamAPIKeyCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.CreateAPIKey(request)
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -2190,6 +2288,7 @@ func iamAPIKeyGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.GetAPIKey(request)
 		},
 	}
@@ -2232,6 +2331,7 @@ func iamAPIKeyUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.UpdateAPIKey(request)
 		},
 	}
@@ -2264,6 +2364,7 @@ func iamAPIKeyDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "api-key",
 				Verb:     "delete",
@@ -2305,7 +2406,12 @@ func iamJwtList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "audience-id",
@@ -2332,6 +2438,7 @@ func iamJwtList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Jwts, nil
 		},
 	}
@@ -2360,6 +2467,7 @@ func iamJwtGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.GetJWT(request)
 		},
 	}
@@ -2392,6 +2500,7 @@ func iamJwtDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "jwt",
 				Verb:     "delete",
@@ -2417,7 +2526,10 @@ func iamLogList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("created_at_asc"),
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "created-after",
@@ -2439,7 +2551,12 @@ func iamLogList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_action", "created", "updated", "deleted"},
+				EnumValues: []string{
+					"unknown_action",
+					"created",
+					"updated",
+					"deleted",
+				},
 			},
 			{
 				Name:       "resource-type",
@@ -2447,7 +2564,14 @@ func iamLogList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_resource_type", "api_key", "user", "application", "group", "policy"},
+				EnumValues: []string{
+					"unknown_resource_type",
+					"api_key",
+					"user",
+					"application",
+					"group",
+					"policy",
+				},
 			},
 			{
 				Name:       "search",
@@ -2468,6 +2592,7 @@ func iamLogList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Logs, nil
 		},
 	}
@@ -2496,6 +2621,7 @@ func iamLogGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
+
 			return api.GetLog(request)
 		},
 	}

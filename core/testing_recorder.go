@@ -18,22 +18,40 @@ import (
 func cassetteRequestFilter(i *cassette.Interaction) error {
 	delete(i.Request.Headers, "x-auth-token")
 	delete(i.Request.Headers, "X-Auth-Token")
-	i.Request.URL = regexp.MustCompile("organization_id=[0-9a-f-]{36}").ReplaceAllString(i.Request.URL, "organization_id=11111111-1111-1111-1111-111111111111")
-	i.Request.URL = regexp.MustCompile(`api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}`).ReplaceAllString(i.Request.URL, "api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
-	i.Request.URL = regexp.MustCompile(`^api\.scaleway\.com/iam/v1alpha1/api-keys/SCW[0-9A-Z]{17}`).ReplaceAllString(i.Request.URL, "api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX")
+
+	orgIDRegex := regexp.MustCompile(`^organization_id=[0-9a-f-]{36}$`)
+	tokenRegex := regexp.MustCompile(`^https://api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}$`)
+	apiKeyRegex := regexp.MustCompile(
+		`^https://api\.scaleway\.com/iam/v1alpha1/api-keys/SCW[0-9A-Z]{17}$`,
+	)
+
+	i.URL = orgIDRegex.ReplaceAllString(
+		i.URL,
+		"organization_id=11111111-1111-1111-1111-111111111111")
+	i.URL = tokenRegex.ReplaceAllString(
+		i.URL,
+		"api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
+	i.URL = apiKeyRegex.ReplaceAllString(
+		i.URL,
+		"api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX")
 
 	return nil
 }
 
 func cassetteResponseFilter(i *cassette.Interaction) error {
-	i.Response.Body = regexp.MustCompile(`"secret_key":"[0-9a-f-]{36}"`).ReplaceAllString(i.Response.Body, `"secret_key":"11111111-1111-1111-1111-111111111111"`)
+	i.Response.Body = regexp.MustCompile(`"secret_key":"[0-9a-f-]{36}"`).
+		ReplaceAllString(i.Response.Body, `"secret_key":"11111111-1111-1111-1111-111111111111"`)
 
 	// Buildpacks
-	i.Request.URL = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).ReplaceAllString(i.Request.URL, "pack.local%2Fbuilder%2F11111111111111111111")
-	i.Request.URL = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).ReplaceAllString(i.Request.URL, "pack.local/builder/11111111111111111111")
+	i.URL = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).
+		ReplaceAllString(i.URL, "pack.local%2Fbuilder%2F11111111111111111111")
+	i.URL = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
+		ReplaceAllString(i.URL, "pack.local/builder/11111111111111111111")
 
-	i.Request.Body = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).ReplaceAllString(i.Response.Body, "pack.local/builder/11111111111111111111")
-	i.Response.Body = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).ReplaceAllString(i.Response.Body, "pack.local/builder/11111111111111111111")
+	i.Request.Body = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
+		ReplaceAllString(i.Response.Body, "pack.local/builder/11111111111111111111")
+	i.Response.Body = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
+		ReplaceAllString(i.Response.Body, "pack.local/builder/11111111111111111111")
 
 	return nil
 }
@@ -49,8 +67,10 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 		r.URL.Host = unixDockerEngine
 	}
 
-	r.URL.RawQuery = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).ReplaceAllString(r.URL.RawQuery, "pack.local%2Fbuilder%2F11111111111111111111")
-	r.URL.Path = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).ReplaceAllString(r.URL.Path, "pack.local/builder/11111111111111111111")
+	r.URL.RawQuery = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).
+		ReplaceAllString(r.URL.RawQuery, "pack.local%2Fbuilder%2F11111111111111111111")
+	r.URL.Path = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
+		ReplaceAllString(r.URL.Path, "pack.local/builder/11111111111111111111")
 
 	// Read body
 	if r.Body != nil && r.Body != http.NoBody {
@@ -121,7 +141,11 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	}
 
 	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(getTestFilePath(t, ".cassette"), recorderMode, &SocketPassthroughTransport{})
+	r, err := recorder.NewAsMode(
+		getTestFilePath(t, ".cassette"),
+		recorderMode,
+		&SocketPassthroughTransport{},
+	)
 	if err != nil {
 		return nil, nil, err
 	}

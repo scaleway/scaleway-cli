@@ -21,8 +21,14 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(applesilicon.ServerTypeMemory{}, memoryMarshalerFunc)
 	human.RegisterMarshalerFunc(applesilicon.OS{}, OSMarshalerFunc)
 
-	human.RegisterMarshalerFunc(applesilicon.ServerStatus(""), human.EnumMarshalFunc(serverStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(applesilicon.ServerTypeStock(""), human.EnumMarshalFunc(serverTypeStockMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		applesilicon.ServerStatus(""),
+		human.EnumMarshalFunc(serverStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		applesilicon.ServerTypeStock(""),
+		human.EnumMarshalFunc(serverTypeStockMarshalSpecs),
+	)
 
 	cmds.MustFind("apple-silicon", "server", "create").Override(serverCreateBuilder)
 	cmds.MustFind("apple-silicon", "server", "reboot").Override(serverRebootBuilder)

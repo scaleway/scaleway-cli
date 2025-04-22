@@ -1,0 +1,44 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"access_key":"SCWBDFF054RNNE8204AJ", "secret_key":null, "description":"my-key",
+      "created_at":"2022-06-10T08:39:27.845066Z", "updated_at":"2022-07-05T15:12:12.987880Z",
+      "expires_at":null, "default_project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.46.153",
+      "application_id":"531f5518-a0a5-44c2-b790-a9975505c89d"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.33.0.20250402123125-11d6084394b9 (go1.24.0; darwin;
+        amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWBDFF054RNNE8204AJ
+    method: GET
+  response:
+    body: '{"access_key":"SCWBDFF054RNNE8204AJ", "secret_key":null, "description":"my-key",
+      "created_at":"2022-06-10T08:39:27.845066Z", "updated_at":"2022-07-05T15:12:12.987880Z",
+      "expires_at":null, "default_project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.46.153",
+      "application_id":"531f5518-a0a5-44c2-b790-a9975505c89d"}'
+    headers:
+      Content-Length:
+      - "388"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 08 Apr 2025 12:59:43 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 129d6879-2522-484a-bcac-e1bb2aeabb78
+    status: 200 OK
+    code: 200
+    duration: ""

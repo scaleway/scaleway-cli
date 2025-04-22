@@ -238,8 +238,14 @@ func TestListFields(t *testing.T) {
 	}
 
 	t.Run("Simple", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
-		Expected: []string{"Name", "Address.Zip", "Friends.<index>.Name", "Pets.<key>.Species", "Pets.<key>.Name"},
+		Data: reflect.TypeOf(&User{}),
+		Expected: []string{
+			"Name",
+			"Address.Zip",
+			"Friends.<index>.Name",
+			"Pets.<key>.Species",
+			"Pets.<key>.Name",
+		},
 	}))
 }
 

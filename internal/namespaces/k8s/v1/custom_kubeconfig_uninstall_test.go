@@ -16,7 +16,12 @@ import (
 
 // testIfKubeconfigNotInFile checks if the given kubeconfig is not in the given file
 // it tests if the user, cluster and context of the kubeconfig file are not in the given file
-func testIfKubeconfigNotInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
+func testIfKubeconfigNotInFile(
+	t *testing.T,
+	filePath string,
+	suffix string,
+	kubeconfig api.Config,
+) {
 	t.Helper()
 	kubeconfigBytes, err := os.ReadFile(filePath)
 	require.NoError(t, err)
@@ -60,14 +65,24 @@ func Test_UninstallKubeconfig(t *testing.T) {
 	// Simple use cases
 	////
 	t.Run("uninstall", core.Test(&core.TestConfig{
-		Commands:   k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndInstallKubeconfig("uninstall-kubeconfig", "Cluster", "Kubeconfig", kapsuleVersion),
-		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
+		Commands: k8s.GetCommands(),
+		BeforeFunc: createClusterAndWaitAndInstallKubeconfig(
+			"uninstall-kubeconfig",
+			"Cluster",
+			"Kubeconfig",
+			kapsuleVersion,
+		),
+		Cmd: "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
+				testIfKubeconfigNotInFile(
+					t,
+					path.Join(os.TempDir(), "cli-uninstall-test"),
+					"-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID,
+					ctx.Meta["Kubeconfig"].(api.Config),
+				)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -77,9 +92,14 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		},
 	}))
 	t.Run("empty file", core.Test(&core.TestConfig{
-		Commands:   k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig("uninstall-kubeconfig-empty", "EmptyCluster", "Kubeconfig", kapsuleVersion),
-		Cmd:        "scw k8s kubeconfig uninstall {{ .EmptyCluster.ID }}",
+		Commands: k8s.GetCommands(),
+		BeforeFunc: createClusterAndWaitAndKubeconfig(
+			"uninstall-kubeconfig-empty",
+			"EmptyCluster",
+			"Kubeconfig",
+			kapsuleVersion,
+		),
+		Cmd: "scw k8s kubeconfig uninstall {{ .EmptyCluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, _ *core.CheckFuncCtx) {
@@ -95,15 +115,32 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		},
 	}))
 	t.Run("uninstall-merge", core.Test(&core.TestConfig{
-		Commands:   k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall("uninstall-kubeconfig-merge", "Cluster", "Kubeconfig", kapsuleVersion, path.Join(os.TempDir(), "cli-uninstall-merge-test"), []byte(existingKubeconfig)),
-		Cmd:        "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
+		Commands: k8s.GetCommands(),
+		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(
+			"uninstall-kubeconfig-merge",
+			"Cluster",
+			"Kubeconfig",
+			kapsuleVersion,
+			path.Join(os.TempDir(), "cli-uninstall-merge-test"),
+			[]byte(existingKubeconfig),
+		),
+		Cmd: "scw k8s kubeconfig uninstall {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				testIfKubeconfigNotInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
-				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-uninstall-merge-test"), "", testKubeconfig)
+				testIfKubeconfigNotInFile(
+					t,
+					path.Join(os.TempDir(), "cli-uninstall-merge-test"),
+					"-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID,
+					ctx.Meta["Kubeconfig"].(api.Config),
+				)
+				testIfKubeconfigInFile(
+					t,
+					path.Join(os.TempDir(), "cli-uninstall-merge-test"),
+					"",
+					testKubeconfig,
+				)
 			},
 			core.TestCheckExitCode(0),
 		),

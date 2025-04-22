@@ -173,8 +173,8 @@ func dnsRecordSetRun(ctx context.Context, argsI interface{}) (i interface{}, e e
 			{
 				Set: &domain.RecordChangeSet{
 					IDFields: &domain.RecordIdentifier{
-						Name: request.Record.Name,
-						Type: request.Record.Type,
+						Name: request.Name,
+						Type: request.Type,
 					},
 				},
 			},
@@ -188,7 +188,10 @@ func dnsRecordSetRun(ctx context.Context, argsI interface{}) (i interface{}, e e
 	for _, data := range request.Values {
 		record := *request.Record
 		record.Data = data
-		dnsRecordSetReq.Changes[0].Set.Records = append(dnsRecordSetReq.Changes[0].Set.Records, &record)
+		dnsRecordSetReq.Changes[0].Set.Records = append(
+			dnsRecordSetReq.Changes[0].Set.Records,
+			&record,
+		)
 	}
 
 	client := core.ExtractClient(ctx)

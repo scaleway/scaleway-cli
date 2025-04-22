@@ -335,10 +335,18 @@ func Test_ConfigImportCommand(t *testing.T) {
 					assert.Equal(t, "22222222-2222-2222-2222-222222222222", *config.SecretKey)
 					assert.Equal(t, "nl-ams", *config.DefaultRegion)
 					// modified p1
-					assert.Equal(t, "99999999-9999-9999-9999-999999999999", *config.Profiles["p1"].SecretKey)
+					assert.Equal(
+						t,
+						"99999999-9999-9999-9999-999999999999",
+						*config.Profiles["p1"].SecretKey,
+					)
 					assert.Equal(t, "nl-ams", *config.Profiles["p1"].DefaultRegion)
 					// new p3
-					assert.Equal(t, "33333333-3333-3333-3333-333333333333", *config.Profiles["p3"].SecretKey)
+					assert.Equal(
+						t,
+						"33333333-3333-3333-3333-333333333333",
+						*config.Profiles["p3"].SecretKey,
+					)
 					assert.Equal(t, "fr-par", *config.Profiles["p3"].DefaultRegion)
 				}),
 			),

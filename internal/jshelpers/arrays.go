@@ -5,12 +5,11 @@ package jshelpers
 import (
 	"fmt"
 	"reflect"
+
 	"syscall/js"
 )
 
-var (
-	jsArray = js.Global().Get("Array")
-)
+var jsArray = js.Global().Get("Array")
 
 func asSlice(typ reflect.Type, value js.Value) (any, error) {
 	if !value.InstanceOf(jsArray) {

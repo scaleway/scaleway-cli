@@ -7,10 +7,9 @@ USAGE:
 
 ARGS:
   [order-by]        Sort order of TLS stages in the response (created_at_asc | created_at_desc)
-  [pipeline-id]     Pipeline ID to filter for, only TLS stages from this pipeline will be returned
-  [project-id]      Project ID to filter for, only TLS stages from this Project will be returned
-  [secret-id]       Secret ID to filter for, only TLS stages with this Secret ID will be returned
-  [secret-region]   Secret region to filter for, only TLS stages with a Secret in this region will be returned
+  pipeline-id       Pipeline ID to filter for. Only TLS stages from this pipeline will be returned
+  [secret-id]       Secret ID to filter for. Only TLS stages with this Secret ID will be returned
+  [secret-region]   Secret region to filter for. Only TLS stages with a Secret in this region will be returned
 
 FLAGS:
   -h, --help   help for list

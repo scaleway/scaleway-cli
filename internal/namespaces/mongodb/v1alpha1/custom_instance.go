@@ -12,14 +12,38 @@ import (
 )
 
 var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
-	mongodb.InstanceStatusConfiguring:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "configuring"},
-	mongodb.InstanceStatusDeleting:     &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
-	mongodb.InstanceStatusError:        &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	mongodb.InstanceStatusInitializing: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "initializing"},
-	mongodb.InstanceStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-	mongodb.InstanceStatusProvisioning: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "provisioning"},
-	mongodb.InstanceStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-	mongodb.InstanceStatusSnapshotting: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "snapshotting"},
+	mongodb.InstanceStatusConfiguring: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "configuring",
+	},
+	mongodb.InstanceStatusDeleting: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "deleting",
+	},
+	mongodb.InstanceStatusError: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "error",
+	},
+	mongodb.InstanceStatusInitializing: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "initializing",
+	},
+	mongodb.InstanceStatusLocked: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "locked",
+	},
+	mongodb.InstanceStatusProvisioning: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "provisioning",
+	},
+	mongodb.InstanceStatusReady: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "ready",
+	},
+	mongodb.InstanceStatusSnapshotting: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "snapshotting",
+	},
 }
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
@@ -45,7 +69,11 @@ func fetchLatestEngine(ctx context.Context) (string, string) {
 
 var completeListNodeTypeCache *mongodb.ListNodeTypesResponse
 
-func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autoCompleteNodeType(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	region := scw.Region("")
 	switch req := request.(type) {
 	case *mongodb.CreateInstanceRequest:
