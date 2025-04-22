@@ -14,7 +14,6 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [List Clusters](#list-clusters)
   - [List available cluster types for a cluster](#list-available-cluster-types-for-a-cluster)
   - [List available versions for a Cluster](#list-available-versions-for-a-cluster)
-  - [Migrate a cluster to SBS CSI](#migrate-a-cluster-to-sbs-csi)
   - [Reset the admin token of a Cluster](#reset-the-admin-token-of-a-cluster)
   - [Change the Cluster type](#change-the-cluster-type)
   - [Update a Cluster](#update-a-cluster)
@@ -394,37 +393,6 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 List all versions that a cluster can upgrade to
 ```
 scw k8s cluster list-available-versions 11111111-1111-1111-1111-111111111111
-```
-
-
-
-
-### Migrate a cluster to SBS CSI
-
-Enable the latest CSI compatible with Scaleway Block Storage (SBS) and migrate all existing PersistentVolumes/VolumeSnapshotContents to SBS.
-Make sure to have the necessary Quota before running this command.
-
-**Usage:**
-
-```
-scw k8s cluster migrate-to-sbs-csi <cluster-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID for which the latest CSI compatible with Scaleway Block Storage will be enabled |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-**Examples:**
-
-
-Migrate a cluster to SBS CSI
-```
-scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-1111-111111111111
 ```
 
 
