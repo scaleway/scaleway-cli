@@ -11,7 +11,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var vpcACLEditYamlExample = `default_policy: accept
+var vpcACLEditYamlExample = `default_policy: drop
 is_ipv6: false
 rules: [
 - protocol: TCP
