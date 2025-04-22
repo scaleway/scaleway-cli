@@ -12,8 +12,7 @@ type ConfigureOutputConfig struct {
 	Color bool `js:"color"`
 }
 
-type ConfigureOutputResponse struct {
-}
+type ConfigureOutputResponse struct{}
 
 func ConfigureOutput(cfg *ConfigureOutputConfig) (*ConfigureOutputResponse, error) {
 	terminal.Width = cfg.Width

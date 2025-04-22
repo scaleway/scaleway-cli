@@ -95,7 +95,9 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 			PrivateNetwork: args.PrivateNetwork,
 			LoadBalancer:   args.LoadBalancer,
 		}
-		endpointRequest, err := endpointRequestFromCustom([]*rdbEndpointSpecCustom{customEndpointSpec})
+		endpointRequest, err := endpointRequestFromCustom(
+			[]*rdbEndpointSpecCustom{customEndpointSpec},
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -250,13 +252,16 @@ func endpointListCommand() *core.Command {
 	}
 }
 
-func endpointRequestFromCustom(customEndpoints []*rdbEndpointSpecCustom) ([]*rdb.EndpointSpec, error) {
+func endpointRequestFromCustom(
+	customEndpoints []*rdbEndpointSpecCustom,
+) ([]*rdb.EndpointSpec, error) {
 	endpoints := []*rdb.EndpointSpec(nil)
 	for _, customEndpoint := range customEndpoints {
 		switch {
 		case customEndpoint.PrivateNetwork != nil && customEndpoint.PrivateNetwork.EndpointSpecPrivateNetwork != nil:
 			ipamConfig := &rdb.EndpointSpecPrivateNetworkIpamConfig{}
-			if !customEndpoint.PrivateNetwork.EnableIpam || customEndpoint.PrivateNetwork.ServiceIP != nil {
+			if !customEndpoint.PrivateNetwork.EnableIpam ||
+				customEndpoint.PrivateNetwork.ServiceIP != nil {
 				ipamConfig = nil
 			}
 			endpoints = append(endpoints, &rdb.EndpointSpec{

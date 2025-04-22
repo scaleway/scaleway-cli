@@ -34,6 +34,7 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [Replace a Node in a Cluster](#replace-a-node-in-a-cluster)
   - [Wait for a node to reach a stable state](#wait-for-a-node-to-reach-a-stable-state)
 - [Kapsule pool management commands](#kapsule-pool-management-commands)
+  - [Add an external node to a Kosmos Pool](#add-an-external-node-to-a-kosmos-pool)
   - [Create a new Pool in a Cluster](#create-a-new-pool-in-a-cluster)
   - [Delete a Pool in a Cluster](#delete-a-pool-in-a-cluster)
   - [Get a Pool in a Cluster](#get-a-pool-in-a-cluster)
@@ -959,6 +960,30 @@ scw k8s node wait 11111111-1111-1111-1111-111111111111
 
 A pool is a set of identical nodes
 A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled.
+
+
+### Add an external node to a Kosmos Pool
+
+Add an external node to a Kosmos Pool. 
+This will connect via SSH to the node, download the multicloud configuration script and run it with sudo privileges.
+Keep in mind that your external node needs to have wget in order to download the script.
+
+**Usage:**
+
+```
+scw k8s pool add-external-node [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| node-ip | Required | IP address of the external node |
+| pool-id | Required | ID of the Pool the node should be added to |
+| username | Default: `root` | Username used for the SSH connection |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
 
 
 ### Create a new Pool in a Cluster

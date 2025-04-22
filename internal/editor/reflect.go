@@ -43,7 +43,12 @@ func hasTag(tags []string, actualTag string) bool {
 	return false
 }
 
-func valueMapperWithoutOpt(dest reflect.Value, src reflect.Value, includeFields []string, excludeFields []string) {
+func valueMapperWithoutOpt(
+	dest reflect.Value,
+	src reflect.Value,
+	includeFields []string,
+	excludeFields []string,
+) {
 	switch dest.Kind() {
 	case reflect.Struct:
 		for i := range dest.NumField() {
@@ -106,7 +111,7 @@ func MapWithTag(includeFields ...string) ValueMapperOpt {
 
 // MapWithTag will map only fields that don't have one of these tags as json tag
 //
-//nolint:deadcode,unused
+//nolint:unused
 func mapWithoutTag(excludeFields ...string) ValueMapperOpt {
 	return func(cfg *valueMapperConfig) {
 		cfg.excludeFields = append(cfg.excludeFields, excludeFields...)

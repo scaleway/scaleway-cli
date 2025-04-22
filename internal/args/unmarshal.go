@@ -271,7 +271,8 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// - value == none
 		// slice ptr was allocated
 		// we allocate the empty slice and return
-		if dest.Elem().Kind() == reflect.Slice && len(argNameWords) == 0 && value == emptySliceValue {
+		if dest.Elem().Kind() == reflect.Slice && len(argNameWords) == 0 &&
+			value == emptySliceValue {
 			sliceDest := dest.Elem()
 			sliceDest.Set(reflect.MakeSlice(sliceDest.Type(), 0, 0))
 

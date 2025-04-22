@@ -134,13 +134,15 @@ func Readline(config *ReadlineConfig) (string, error) {
 			ctx:           config.Ctx,
 			defaultReader: os.Stdin,
 		},
-		Listener: readline.FuncListener(func(line []rune, _ int, _ rune) (newLine []rune, newPos int, ok bool) {
-			value := string(line)
-			promptHandler.SetPrompt(promptFunc(value))
-			promptHandler.rl.Refresh()
+		Listener: readline.FuncListener(
+			func(line []rune, _ int, _ rune) (newLine []rune, newPos int, ok bool) {
+				value := string(line)
+				promptHandler.SetPrompt(promptFunc(value))
+				promptHandler.rl.Refresh()
 
-			return nil, 0, false
-		}),
+				return nil, 0, false
+			},
+		),
 	})
 	if err != nil {
 		return "", err

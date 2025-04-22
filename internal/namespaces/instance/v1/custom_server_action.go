@@ -365,7 +365,11 @@ func serverTerminateCommand() *core.Command {
 				return nil, err
 			}
 
-			deleteBlockVolumes, err := shouldDeleteBlockVolumes(ctx, server, terminateServerArgs.WithBlock)
+			deleteBlockVolumes, err := shouldDeleteBlockVolumes(
+				ctx,
+				server,
+				terminateServerArgs.WithBlock,
+			)
 			if err != nil {
 				return nil, err
 			}
@@ -400,7 +404,8 @@ func serverTerminateCommand() *core.Command {
 				return nil, err
 			}
 
-			if terminateServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
+			if terminateServerArgs.WithIP && server.Server.PublicIP != nil &&
+				!server.Server.PublicIP.Dynamic {
 				err = api.DeleteIP(&instance.DeleteIPRequest{
 					Zone: terminateServerArgs.Zone,
 					IP:   server.Server.PublicIP.ID,
@@ -408,7 +413,10 @@ func serverTerminateCommand() *core.Command {
 				if err != nil {
 					return nil, err
 				}
-				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
+				_, _ = interactive.Printf(
+					"successfully deleted ip %s\n",
+					server.Server.PublicIP.Address.String(),
+				)
 			}
 
 			return &core.SuccessResult{
@@ -418,7 +426,11 @@ func serverTerminateCommand() *core.Command {
 	}
 }
 
-func shouldDeleteBlockVolumes(ctx context.Context, server *instance.GetServerResponse, terminateWithBlock withBlock) (bool, error) {
+func shouldDeleteBlockVolumes(
+	ctx context.Context,
+	server *instance.GetServerResponse,
+	terminateWithBlock withBlock,
+) (bool, error) {
 	switch terminateWithBlock {
 	case withBlockTrue:
 		return true, nil
@@ -472,18 +484,21 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 			Action:   action,
 		})
 
-		return &core.SuccessResult{Message: fmt.Sprintf("%s successfully started for the server", action)}, err
+		return &core.SuccessResult{
+			Message: fmt.Sprintf("%s successfully started for the server", action),
+		}, err
 	}
 }
 
 func waitForServerFunc() core.WaitFunc {
 	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
-		return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-			Zone:          argsI.(*instanceUniqueActionRequest).Zone,
-			ServerID:      argsI.(*instanceUniqueActionRequest).ServerID,
-			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
-			RetryInterval: core.DefaultRetryInterval,
-		})
+		return instance.NewAPI(core.ExtractClient(ctx)).
+			WaitForServer(&instance.WaitForServerRequest{
+				Zone:          argsI.(*instanceUniqueActionRequest).Zone,
+				ServerID:      argsI.(*instanceUniqueActionRequest).ServerID,
+				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
 	}
 }
 
@@ -510,18 +525,24 @@ func serverActionCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
 			args := argsI.(*instanceActionRequest)
 
-			return getRunServerAction(instance.ServerAction(args.Action))(ctx, &instanceUniqueActionRequest{
-				Zone:     args.Zone,
-				ServerID: args.ServerID,
-			})
+			return getRunServerAction(
+				instance.ServerAction(args.Action),
+			)(
+				ctx,
+				&instanceUniqueActionRequest{
+					Zone:     args.Zone,
+					ServerID: args.ServerID,
+				},
+			)
 		},
 		WaitFunc: func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
-			return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-				Zone:          argsI.(*instanceActionRequest).Zone,
-				ServerID:      argsI.(*instanceActionRequest).ServerID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
-				RetryInterval: core.DefaultRetryInterval,
-			})
+			return instance.NewAPI(core.ExtractClient(ctx)).
+				WaitForServer(&instance.WaitForServerRequest{
+					Zone:          argsI.(*instanceActionRequest).Zone,
+					ServerID:      argsI.(*instanceActionRequest).ServerID,
+					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+					RetryInterval: core.DefaultRetryInterval,
+				})
 		},
 		ArgSpecs: argSpecs,
 		Examples: []*core.Example{

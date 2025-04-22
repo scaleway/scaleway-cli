@@ -95,13 +95,28 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 		printer.jsonPretty = true
 	case "":
 	default:
-		return fmt.Errorf("invalid option %s for json outout. Valid options are: %s", opts, PrinterOptJSONPretty)
+		return fmt.Errorf(
+			"invalid option %s for json outout. Valid options are: %s",
+			opts,
+			PrinterOptJSONPretty,
+		)
 	}
 
 	return nil
 }
 
 func setupTemplatePrinter(printer *Printer, opts string) error {
+	funcMap := template.FuncMap{
+		"json": func(v interface{}) string {
+			b, err := json.Marshal(v)
+			if err != nil {
+				return fmt.Sprintf("Error: %s", err)
+			}
+
+			return string(b)
+		},
+	}
+
 	printer.printerType = PrinterTypeTemplate
 	if opts == "" {
 		return &CliError{
@@ -111,7 +126,7 @@ func setupTemplatePrinter(printer *Printer, opts string) error {
 		}
 	}
 
-	t, err := template.New("OutputFormat").Parse(opts)
+	t, err := template.New("OutputFormat").Funcs(funcMap).Parse(opts)
 	if err != nil {
 		return err
 	}
@@ -190,7 +205,12 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 		}
 
 		if len(p.humanFields) > 0 && reflect.TypeOf(data).Kind() != reflect.Slice {
-			return p.printHuman(errors.New("list of fields for human output is only supported for commands that return a list"), nil)
+			return p.printHuman(
+				errors.New(
+					"list of fields for human output is only supported for commands that return a list",
+				),
+				nil,
+			)
 		}
 
 		if len(p.humanFields) > 0 {
@@ -307,7 +327,10 @@ func (p *Printer) printTemplate(data interface{}) error {
 				return p.printHuman(&CliError{
 					Err:     err,
 					Message: "templating error",
-					Hint:    "Acceptable values are:\n  - " + strings.Join(gofields.ListFields(elemValue.Type()), "\n  - "),
+					Hint: "Acceptable values are:\n  - " + strings.Join(
+						gofields.ListFields(elemValue.Type()),
+						"\n  - ",
+					),
 				}, nil)
 			}
 			_, err = writer.Write([]byte{'\n'})

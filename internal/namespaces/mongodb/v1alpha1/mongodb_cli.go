@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1"
+	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -45,6 +45,7 @@ func GetGeneratedCommands() *core.Commands {
 		mongodbUserUpdate(),
 	)
 }
+
 func mongodbRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Managed Databases for MongoDB®`,
@@ -127,7 +128,10 @@ func mongodbNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListNodeTypesRequest)
@@ -143,6 +147,7 @@ func mongodbNodeTypeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.NodeTypes, nil
 		},
 	}
@@ -164,7 +169,10 @@ func mongodbVersionList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListVersionsRequest)
@@ -180,6 +188,7 @@ func mongodbVersionList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Versions, nil
 		},
 	}
@@ -215,7 +224,14 @@ func mongodbInstanceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -231,7 +247,10 @@ func mongodbInstanceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListInstancesRequest)
@@ -247,6 +266,7 @@ func mongodbInstanceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Instances, nil
 		},
 	}
@@ -276,6 +296,7 @@ func mongodbInstanceGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.GetInstance(request)
 		},
 	}
@@ -355,7 +376,11 @@ func mongodbInstanceCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "sbs_5k", "sbs_15k"},
+				EnumValues: []string{
+					"unknown_type",
+					"sbs_5k",
+					"sbs_15k",
+				},
 			},
 			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
@@ -371,6 +396,7 @@ func mongodbInstanceCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.CreateInstance(request)
 		},
 	}
@@ -414,6 +440,7 @@ func mongodbInstanceUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.UpdateInstance(request)
 		},
 	}
@@ -443,6 +470,7 @@ func mongodbInstanceDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.DeleteInstance(request)
 		},
 	}
@@ -479,6 +507,7 @@ func mongodbInstanceUpgrade() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.UpgradeInstance(request)
 		},
 	}
@@ -508,6 +537,7 @@ func mongodbInstanceGetCertificate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.GetInstanceCertificate(request)
 		},
 	}
@@ -551,6 +581,7 @@ func mongodbSnapshotCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.CreateSnapshot(request)
 		},
 	}
@@ -580,6 +611,7 @@ func mongodbSnapshotGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.GetSnapshot(request)
 		},
 	}
@@ -623,6 +655,7 @@ func mongodbSnapshotUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.UpdateSnapshot(request)
 		},
 	}
@@ -672,7 +705,11 @@ func mongodbSnapshotRestore() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "sbs_5k", "sbs_15k"},
+				EnumValues: []string{
+					"unknown_type",
+					"sbs_5k",
+					"sbs_15k",
+				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -681,6 +718,7 @@ func mongodbSnapshotRestore() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.RestoreSnapshot(request)
 		},
 	}
@@ -716,7 +754,14 @@ func mongodbSnapshotList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "expires_at_asc", "expires_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"expires_at_asc",
+					"expires_at_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -732,7 +777,10 @@ func mongodbSnapshotList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListSnapshotsRequest)
@@ -748,6 +796,7 @@ func mongodbSnapshotList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Snapshots, nil
 		},
 	}
@@ -777,6 +826,7 @@ func mongodbSnapshotDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.DeleteSnapshot(request)
 		},
 	}
@@ -805,7 +855,10 @@ func mongodbUserList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "instance-id",
@@ -814,7 +867,10 @@ func mongodbUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListUsersRequest)
@@ -830,6 +886,7 @@ func mongodbUserList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Users, nil
 		},
 	}
@@ -873,6 +930,7 @@ func mongodbUserUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
+
 			return api.UpdateUser(request)
 		},
 	}

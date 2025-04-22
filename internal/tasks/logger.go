@@ -43,7 +43,11 @@ func NewTasksLogger(ctx context.Context, mode LoggerMode) (*Logger, error) {
 		status: make(chan *buildkit.SolveStatus),
 		done:   doneChan,
 	}
-	display, err := progressui.NewDisplay(writer, progressui.DefaultMode, progressui.WithDesc("Running workflow", ""))
+	display, err := progressui.NewDisplay(
+		writer,
+		progressui.DefaultMode,
+		progressui.WithDesc("Running workflow", ""),
+	)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create display: %w", err)
 	}

@@ -97,7 +97,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 				publicEndpoint = nil
 			}
 			privateNetwork := &inference.EndpointSpecPrivateNetwork{}
-			if endpoint.EndpointSpec.PrivateNetwork == nil {
+			if endpoint.PrivateNetwork == nil {
 				privateNetwork = nil
 			} else {
 				privateNetwork.PrivateNetworkID = endpoint.PrivateNetwork.PrivateNetworkID
@@ -129,7 +129,8 @@ func deploymentDeleteBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			notFoundError := &scw.ResourceNotFoundError{}
 			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
+			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+				errors.As(err, &notFoundError) {
 				return &core.SuccessResult{
 					Resource: "deployment",
 					Verb:     "delete",
@@ -147,7 +148,11 @@ func deploymentDeleteBuilder(c *core.Command) *core.Command {
 
 var completeListNodeTypesCache *inference.ListNodeTypesResponse
 
-func autocompleteDeploymentNodeType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autocompleteDeploymentNodeType(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	req := request.(*inference.CreateDeploymentRequest)
 	suggestions := core.AutocompleteSuggestions(nil)
 

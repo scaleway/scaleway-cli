@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1"
+	flexibleip "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -35,6 +35,7 @@ func GetGeneratedCommands() *core.Commands {
 		fipMacDelete(),
 	)
 }
+
 func fipRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Elastic Metal servers' flexible public IP addresses`,
@@ -108,13 +109,21 @@ func fipIPCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.CreateFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
+
 			return api.CreateFlexibleIP(request)
 		},
 	}
@@ -137,13 +146,21 @@ func fipIPGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.GetFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
+
 			return api.GetFlexibleIP(request)
 		},
 	}
@@ -165,7 +182,10 @@ func fipIPList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "tags.{index}",
@@ -180,7 +200,15 @@ func fipIPList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "ready", "updating", "attached", "error", "detaching", "locked"},
+				EnumValues: []string{
+					"unknown",
+					"ready",
+					"updating",
+					"attached",
+					"error",
+					"detaching",
+					"locked",
+				},
 			},
 			{
 				Name:       "server-ids.{index}",
@@ -203,7 +231,15 @@ func fipIPList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.ListFlexibleIPsRequest)
@@ -219,6 +255,7 @@ func fipIPList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.FlexibleIPs, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -297,13 +334,21 @@ func fipIPUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.UpdateFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
+
 			return api.UpdateFlexibleIP(request)
 		},
 	}
@@ -326,7 +371,14 @@ func fipIPDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.DeleteFlexibleIPRequest)
@@ -337,6 +389,7 @@ func fipIPDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "ip",
 				Verb:     "delete",
@@ -369,13 +422,21 @@ func fipIPAttach() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.AttachFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
+
 			return api.AttachFlexibleIP(request)
 		},
 	}
@@ -398,13 +459,21 @@ func fipIPDetach() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.DetachFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
+
 			return api.DetachFlexibleIP(request)
 		},
 	}
@@ -433,15 +502,28 @@ func fipMacCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "vmware", "xen", "kvm"},
+				EnumValues: []string{
+					"unknown_type",
+					"vmware",
+					"xen",
+					"kvm",
+				},
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.GenerateMACAddrRequest)
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
+
 			return api.GenerateMACAddr(request)
 		},
 	}
@@ -471,13 +553,21 @@ func fipMacDuplicate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.DuplicateMACAddrRequest)
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
+
 			return api.DuplicateMACAddr(request)
 		},
 	}
@@ -505,13 +595,21 @@ func fipMacMove() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.MoveMACAddrRequest)
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
+
 			return api.MoveMACAddr(request)
 		},
 	}
@@ -534,7 +632,14 @@ func fipMacDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*flexibleip.DeleteMACAddrRequest)
@@ -545,6 +650,7 @@ func fipMacDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "mac",
 				Verb:     "delete",

@@ -20,10 +20,19 @@ func warningKapsuleTaggedMessageView() string {
 func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(lb.LBTypeStock(""), human.EnumMarshalFunc(lbTypeStockMarshalSpecs))
 	human.RegisterMarshalerFunc(lb.LBStatus(""), human.EnumMarshalFunc(lbStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(lb.CertificateStatus(""), human.EnumMarshalFunc(certificateStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		lb.CertificateStatus(""),
+		human.EnumMarshalFunc(certificateStatusMarshalSpecs),
+	)
 	human.RegisterMarshalerFunc(lb.ACLActionType(""), human.EnumMarshalFunc(aclMarshalSpecs))
-	human.RegisterMarshalerFunc(lb.BackendServerStatsHealthCheckStatus(""), human.EnumMarshalFunc(backendServerStatsHealthCheckStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(lb.BackendServerStatsServerState(""), human.EnumMarshalFunc(backendServerStatsServerStateMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		lb.BackendServerStatsHealthCheckStatus(""),
+		human.EnumMarshalFunc(backendServerStatsHealthCheckStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		lb.BackendServerStatsServerState(""),
+		human.EnumMarshalFunc(backendServerStatsServerStateMarshalSpecs),
+	)
 	human.RegisterMarshalerFunc(lb.LB{}, lbMarshalerFunc)
 	human.RegisterMarshalerFunc(lb.Backend{}, lbBackendMarshalerFunc)
 	human.RegisterMarshalerFunc(lb.Frontend{}, lbFrontendMarshalerFunc)

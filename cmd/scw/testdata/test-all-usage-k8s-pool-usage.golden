@@ -7,15 +7,16 @@ USAGE:
   scw k8s pool <command>
 
 AVAILABLE COMMANDS:
-  create      Create a new Pool in a Cluster
-  delete      Delete a Pool in a Cluster
-  get         Get a Pool in a Cluster
-  list        List Pools in a Cluster
-  update      Update a Pool in a Cluster
-  upgrade     Upgrade a Pool in a Cluster
+  add-external-node Add an external node to a Kosmos Pool
+  create            Create a new Pool in a Cluster
+  delete            Delete a Pool in a Cluster
+  get               Get a Pool in a Cluster
+  list              List Pools in a Cluster
+  update            Update a Pool in a Cluster
+  upgrade           Upgrade a Pool in a Cluster
 
 WORKFLOW COMMANDS:
-  wait        Wait for a pool to reach a stable state
+  wait              Wait for a pool to reach a stable state
 
 FLAGS:
   -h, --help   help for pool

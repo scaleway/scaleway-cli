@@ -125,10 +125,12 @@ func filterStackFrames(event *sentry.Event) {
 			if frame.Module == "main" && strings.HasPrefix(frame.Function, "cleanup") {
 				continue
 			}
-			if frame.Module == "github.com/scaleway/scaleway-cli/v2/internal/sentry" && strings.HasPrefix(frame.Function, "RecoverPanicAndSendReport") {
+			if frame.Module == "github.com/scaleway/scaleway-cli/v2/internal/sentry" &&
+				strings.HasPrefix(frame.Function, "RecoverPanicAndSendReport") {
 				continue
 			}
-			if frame.Module == "github.com/scaleway/scaleway-cli/v2/internal/sentry" && strings.HasPrefix(frame.Function, "logAndSentry") {
+			if frame.Module == "github.com/scaleway/scaleway-cli/v2/internal/sentry" &&
+				strings.HasPrefix(frame.Function, "logAndSentry") {
 				continue
 			}
 			frames = append(frames, frame)

@@ -66,11 +66,13 @@ func instanceServerGetRdpPassword() *core.Command {
 
 			args := argsI.(*instanceServerGetRdpPasswordRequest)
 			apiInstance := instance.NewAPI(core.ExtractClient(ctx))
-			_, err := apiInstance.WaitForServerRDPPassword(&instance.WaitForServerRDPPasswordRequest{
-				Zone:          args.Zone,
-				ServerID:      args.ServerID,
-				RetryInterval: core.DefaultRetryInterval,
-			})
+			_, err := apiInstance.WaitForServerRDPPassword(
+				&instance.WaitForServerRDPPasswordRequest{
+					Zone:          args.Zone,
+					ServerID:      args.ServerID,
+					RetryInterval: core.DefaultRetryInterval,
+				},
+			)
 			if err != nil {
 				return nil, err
 			}
@@ -81,7 +83,10 @@ func instanceServerGetRdpPassword() *core.Command {
 	}
 }
 
-func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func instanceServerGetRdpPasswordRun(
+	ctx context.Context,
+	argsI interface{},
+) (i interface{}, e error) {
 	args := argsI.(*instanceServerGetRdpPasswordRequest)
 
 	if strings.HasPrefix(args.Key, "~") {
@@ -100,7 +105,10 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 
 	rsaKey, isRSA := privateKey.(*rsa.PrivateKey)
 	if !isRSA {
-		return nil, fmt.Errorf("expected rsa private key, got %s", reflect.TypeOf(privateKey).String())
+		return nil, fmt.Errorf(
+			"expected rsa private key, got %s",
+			reflect.TypeOf(privateKey).String(),
+		)
 	}
 
 	client := core.ExtractClient(ctx)
@@ -112,7 +120,8 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 	if err != nil {
 		return nil, err
 	}
-	if resp.Server.AdminPasswordEncryptedValue == nil || *resp.Server.AdminPasswordEncryptedValue == "" {
+	if resp.Server.AdminPasswordEncryptedValue == nil ||
+		*resp.Server.AdminPasswordEncryptedValue == "" {
 		return &core.CliError{
 			Err:     errors.New("rdp password is empty"),
 			Message: "RDP password is nil or empty in api response",
@@ -122,7 +131,9 @@ func instanceServerGetRdpPasswordRun(ctx context.Context, argsI interface{}) (i 
 		}, nil
 	}
 
-	encryptedRdpPassword, err := base64.StdEncoding.DecodeString(*resp.Server.AdminPasswordEncryptedValue)
+	encryptedRdpPassword, err := base64.StdEncoding.DecodeString(
+		*resp.Server.AdminPasswordEncryptedValue,
+	)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode base64 encoded rdp password: %w", err)
 	}
@@ -179,7 +190,8 @@ func parsePrivateKey(ctx context.Context, key []byte) (any, error) {
 }
 
 func completeSSHKeyID(ctx context.Context, prefix string, _ any) core.AutocompleteSuggestions {
-	resp, err := iam.NewAPI(core.ExtractClient(ctx)).ListSSHKeys(&iam.ListSSHKeysRequest{}, scw.WithAllPages())
+	resp, err := iam.NewAPI(core.ExtractClient(ctx)).
+		ListSSHKeys(&iam.ListSSHKeysRequest{}, scw.WithAllPages())
 	if err != nil {
 		return nil
 	}
