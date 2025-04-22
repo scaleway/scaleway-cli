@@ -955,11 +955,11 @@ You can modify the values and save the file to apply the new configuration.`,
 		Examples: []*core.Example{
 			{
 				Short: "Edit instance settings in YAML",
-				Raw:   "scw rdb instance settings-edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=yaml",
+				Raw:   "scw rdb instance edit-settings 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=yaml",
 			},
 			{
 				Short: "Edit instance settings in JSON",
-				Raw:   "scw rdb instance settings-edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json",
+				Raw:   "scw rdb instance edit-settings 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json",
 			},
 		},
 		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
