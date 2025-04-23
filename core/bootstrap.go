@@ -209,7 +209,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err e
 	ctx = InjectMeta(ctx, meta)
 
 	// Load CLI config
-	cliCfg, err := cliConfig.LoadConfig(ExtractCliConfigPath(ctx))
+	cliCfg, err := cliConfig.LoadConfig(ExtractConfigPath(ctx))
 	if err != nil {
 		printErr := printer.Print(err, nil)
 		if printErr != nil {

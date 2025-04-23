@@ -151,14 +151,14 @@ func secretSecretCreate() *core.Command {
 			},
 			{
 				Name:       "protected",
-				Short:      `Returns ` + "`" + `true` + "`" + ` if secret protection is enabled on a given secret`,
+				Short:      `Returns ` + "`" + `true` + "`" + ` if secret protection is applied to a given secret`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "key-id",
-				Short:      `The Scaleway's Key Manager key ID`,
+				Short:      `ID of the Scaleway Key Manager key`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
