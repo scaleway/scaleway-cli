@@ -66,7 +66,7 @@ This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
 - [Setting management](#setting-management)
   - [Add Database Instance advanced settings](#add-database-instance-advanced-settings)
   - [Delete Database Instance advanced settings](#delete-database-instance-advanced-settings)
-  - [Edit instance settings in your default editor](#edit-instance-settings-in-your-default-editor)
+  - [Edit Database Instance settings in your default editor](#edit-database-instance-settings-in-your-default-editor)
   - [Set Database Instance advanced settings](#set-database-instance-advanced-settings)
 - [Block snapshot management](#block-snapshot-management)
   - [Create a Database Instance snapshot](#create-a-database-instance-snapshot)
@@ -1399,7 +1399,7 @@ scw rdb setting delete [arg=value ...]
 
 
 
-### Edit instance settings in your default editor
+### Edit Database Instance settings in your default editor
 
 This command opens the current settings of your RDB instance in your $EDITOR.
 You can modify the values and save the file to apply the new configuration.
