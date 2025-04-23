@@ -87,6 +87,11 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
 
 	//
+	// Get-Compatible-Types
+	//
+	cmds.MustFind("instance", "server", "get-compatible-types").Override(getCompatibleTypesBuilder)
+
+	//
 	// IP
 	//
 	human.RegisterMarshalerFunc(instance.CreateIPResponse{}, marshallNestedField("IP"))
