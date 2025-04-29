@@ -9,7 +9,8 @@ import (
 )
 
 func Test_createEndpoint(t *testing.T) {
-	t.Skip("No stock to run test")
+	t.Skip("Can not run tests at the moment")
+
 	cmds := inference.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 

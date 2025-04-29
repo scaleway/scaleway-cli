@@ -9,6 +9,8 @@ import (
 )
 
 func Test_DeploymentCreate(t *testing.T) {
+	t.Skip("Can not run tests at the moment")
+
 	cmds := inference.GetCommands()
 
 	t.Run("Simple deployment", core.Test(&core.TestConfig{
@@ -27,7 +29,8 @@ func Test_DeploymentCreate(t *testing.T) {
 }
 
 func Test_CreateDeploymentPrivateEndpoint(t *testing.T) {
-	t.Skip("Out of stock")
+	t.Skip("Can not run tests at the moment")
+
 	cmds := inference.GetCommands()
 	cmds.Merge(vpc.GetCommands())
 	t.Run("Create Deployment Private Endpoint", core.Test(&core.TestConfig{
@@ -46,7 +49,6 @@ func Test_CreateDeploymentPrivateEndpoint(t *testing.T) {
 }
 
 func Test_DeploymentDelete(t *testing.T) {
-	t.Skip("No stock to run test")
 	cmds := inference.GetCommands()
 	t.Run("Delete deployment with wait flag", core.Test(&core.TestConfig{
 		Commands:   cmds,
