@@ -1,6 +1,7 @@
 package commands
 
 import (
+	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
 	"os"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -112,6 +113,7 @@ func GetCommands() *core.Commands {
 		mongodb.GetCommands(),
 		audit_trail.GetCommands(),
 		interlink.GetCommands(),
+		file.GetCommands(),
 	)
 
 	if beta {
