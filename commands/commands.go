@@ -1,7 +1,6 @@
 package commands
 
 import (
-	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
 	"os"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -21,6 +20,7 @@ import (
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
 	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
+	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/help"
@@ -113,11 +113,13 @@ func GetCommands() *core.Commands {
 		mongodb.GetCommands(),
 		audit_trail.GetCommands(),
 		interlink.GetCommands(),
-		file.GetCommands(),
 	)
 
 	if beta {
-		commands.Merge(dedibox.GetCommands())
+		commands.MergeAll(
+			dedibox.GetCommands(),
+			file.GetCommands(),
+		)
 	}
 
 	return commands
