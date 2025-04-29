@@ -184,7 +184,9 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		}
 
 		if !customRequest.GeneratePassword && customRequest.Password == nil {
-			return nil, fmt.Errorf("you must provide a password when generate-password is set to false")
+			return nil, fmt.Errorf(
+				"you must provide a password when generate-password is set to false",
+			)
 		}
 
 		user, err := api.UpdateUser(updateUserRequest)
