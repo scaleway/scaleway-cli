@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	file "github.com/scaleway/scaleway-sdk-go/api/file/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/file/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -310,9 +310,8 @@ func fileFilesystemDelete() *core.Command {
 
 func fileFilesystemUpdate() *core.Command {
 	return &core.Command{
-		Short: `Update filesystem properties`,
-		Long: `Update the technical details of a filesystem, such as its name, tags or its new size.
-You can only resize a filesystem to a larger size.`,
+		Short:     `Update filesystem properties`,
+		Long:      `Update the technical details of a filesystem, such as its name, tags or its new size.`,
 		Namespace: "file",
 		Resource:  "filesystem",
 		Verb:      "update",
