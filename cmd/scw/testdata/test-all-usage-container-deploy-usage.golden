@@ -6,16 +6,16 @@ USAGE:
   scw container deploy [arg=value ...]
 
 ARGS:
-  [name]                                    Name of the application (defaults to build-source's directory name)
-  [builder=paketobuildpacks/builder:base]   Builder image to use
-  [dockerfile=Dockerfile]                   Path to the Dockerfile
-  [force-builder=false]                     Force the use of the builder image (even if a Dockerfile is present)
-  [build-source=.]                          Path to the build context
-  [cache=true]                              Use cache when building the image
-  [build-args.{key}]                        Build-time variables
-  [port=8080]                               Port to expose
-  [namespace-id]                            Container Namespace ID to deploy to
-  [region=fr-par]                           Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [name]                                                 Name of the application (defaults to build-source's directory name)
+  [builder=paketobuildpacks/builder-jammy-base:latest]   Builder image to use
+  [dockerfile=Dockerfile]                                Path to the Dockerfile
+  [force-builder=false]                                  Force the use of the builder image (even if a Dockerfile is present)
+  [build-source=.]                                       Path to the build context
+  [cache=true]                                           Use cache when building the image
+  [build-args.{key}]                                     Build-time variables
+  [port=8080]                                            Port to expose
+  [namespace-id]                                         Container Namespace ID to deploy to
+  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for deploy

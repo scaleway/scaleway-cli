@@ -2,6 +2,7 @@ package rdb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -181,6 +182,12 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			}
 			fmt.Printf("Your generated password is %v \n", *updateUserRequest.Password)
 			fmt.Printf("\n")
+		}
+
+		if !customRequest.GeneratePassword && customRequest.Password == nil {
+			return nil, errors.New(
+				"you must provide a password when generate-password is set to false",
+			)
 		}
 
 		user, err := api.UpdateUser(updateUserRequest)
