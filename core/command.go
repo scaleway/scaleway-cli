@@ -291,6 +291,12 @@ func (c *Commands) Merge(cmds *Commands) {
 	}
 }
 
+func (c *Commands) MergeAll(cmds ...*Commands) {
+	for _, command := range cmds {
+		c.Merge(command)
+	}
+}
+
 func (c *Commands) GetAll() []*Command {
 	return c.commands
 }
