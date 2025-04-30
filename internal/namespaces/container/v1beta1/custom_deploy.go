@@ -65,7 +65,7 @@ func containerDeployCommand() *core.Command {
 			{
 				Name:    "builder",
 				Short:   "Builder image to use",
-				Default: core.DefaultValueSetter("paketobuildpacks/builder:base"),
+				Default: core.DefaultValueSetter("paketobuildpacks/builder-jammy-base:latest"),
 			},
 			{
 				Name:    "dockerfile",
