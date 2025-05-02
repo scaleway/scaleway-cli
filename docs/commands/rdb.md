@@ -66,6 +66,7 @@ This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
 - [Setting management](#setting-management)
   - [Add Database Instance advanced settings](#add-database-instance-advanced-settings)
   - [Delete Database Instance advanced settings](#delete-database-instance-advanced-settings)
+  - [Edit Database Instance settings in your default editor](#edit-database-instance-settings-in-your-default-editor)
   - [Set Database Instance advanced settings](#set-database-instance-advanced-settings)
 - [Block snapshot management](#block-snapshot-management)
   - [Create a Database Instance snapshot](#create-a-database-instance-snapshot)
@@ -1395,6 +1396,43 @@ scw rdb setting delete [arg=value ...]
 | instance-id | Required | UUID of the Database Instance to delete settings from |
 | setting-names.{index} | Required | Settings names to delete |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Edit Database Instance settings in your default editor
+
+This command opens the current settings of your RDB instance in your $EDITOR.
+You can modify the values and save the file to apply the new configuration.
+
+**Usage:**
+
+```
+scw rdb setting edit <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | ID of the instance |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Edit instance settings in YAML
+```
+scw rdb setting edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=yaml
+```
+
+Edit instance settings in JSON
+```
+scw rdb setting edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json
+```
+
 
 
 

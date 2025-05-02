@@ -12,6 +12,7 @@ USAGE:
 AVAILABLE COMMANDS:
   add         Add Database Instance advanced settings
   delete      Delete Database Instance advanced settings
+  edit        Edit Database Instance settings in your default editor
   set         Set Database Instance advanced settings
 
 FLAGS:
