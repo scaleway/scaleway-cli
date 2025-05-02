@@ -85,6 +85,7 @@ scw container container create [arg=value ...]
 | health-check.http.path |  | Path to use for the HTTP health check. |
 | health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
 | health-check.interval |  | Period between health checks. |
+| tags.{index} |  | Tags of the Serverless Container |
 | deploy | Default: `true` | Deploy container after creation |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -214,6 +215,7 @@ scw container container update <container-id ...> [arg=value ...]
 | health-check.http.path |  | Path to use for the HTTP health check. |
 | health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
 | health-check.interval |  | Period between health checks. |
+| tags.{index} |  | Tags of the Serverless Container |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -474,7 +476,7 @@ scw container namespace create [arg=value ...]
 | description |  | Description of the namespace to create |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
-| tags.{index} |  | [ALPHA] Tags of the Serverless Container Namespace |
+| tags.{index} |  | Tags of the Serverless Container Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -562,7 +564,7 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 | description |  | Description of the namespace to update |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
-| tags.{index} |  | [ALPHA] Tags of the Serverless Container Namespace |
+| tags.{index} |  | Tags of the Serverless Container Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
