@@ -49,6 +49,5 @@ Region             fr-par
   "created_at": null,
   "updated_at": null,
   "ready_at": null,
-  "region": "fr-par",
-  "tags": null
+  "region": "fr-par"
 }
