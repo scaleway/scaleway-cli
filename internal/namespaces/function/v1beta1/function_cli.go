@@ -319,7 +319,7 @@ func functionNamespaceCreate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `[ALPHA] Tags of the Serverless Function Namespace`,
+				Short:      `Tags of the Serverless Function Namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -386,7 +386,7 @@ func functionNamespaceUpdate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `[ALPHA] Tags of the Serverless Function Namespace`,
+				Short:      `Tags of the Serverless Function Namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -721,6 +721,13 @@ func functionFunctionCreate() *core.Command {
 					"v2",
 				},
 			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the Serverless Function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -902,6 +909,13 @@ func functionFunctionUpdate() *core.Command {
 					"v1",
 					"v2",
 				},
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the Serverless Function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,

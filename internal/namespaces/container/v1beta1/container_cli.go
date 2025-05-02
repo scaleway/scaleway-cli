@@ -272,7 +272,7 @@ func containerNamespaceCreate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `[ALPHA] Tags of the Serverless Container Namespace`,
+				Short:      `Tags of the Serverless Container Namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -339,7 +339,7 @@ func containerNamespaceUpdate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `[ALPHA] Tags of the Serverless Container Namespace`,
+				Short:      `Tags of the Serverless Container Namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -708,6 +708,13 @@ func containerContainerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the Serverless Container`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -919,6 +926,13 @@ func containerContainerUpdate() *core.Command {
 			{
 				Name:       "health-check.interval",
 				Short:      `Period between health checks.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the Serverless Container`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
