@@ -17,7 +17,6 @@ UpdatedAt         few seconds ago
 UpgradeAvailable  true
 PrivateNetworkID  99b960e4-e830-4979-baab-40184b9b8209
 CommitmentEndsAt  few seconds ago
-SbsCsiEnabled     true
 IamNodesGroupID   -
 
 Autoscaler configuration:
@@ -94,6 +93,5 @@ GroupsPrefix    -
   "apiserver_cert_sans": [],
   "private_network_id": "99b960e4-e830-4979-baab-40184b9b8209",
   "commitment_ends_at": "1970-01-01T00:00:00.0Z",
-  "sbs_csi_enabled": true,
   "iam_nodes_group_id": ""
 }
