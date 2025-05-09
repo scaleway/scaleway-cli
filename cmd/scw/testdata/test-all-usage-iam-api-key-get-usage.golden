@@ -6,7 +6,8 @@ USAGE:
   scw iam api-key get <access-key ...> [arg=value ...]
 
 ARGS:
-  access-key   Access key to search for
+  access-key             Access key to search for
+  [with-policies=true]   Display the set of policies associated with the API key
 
 FLAGS:
   -h, --help   help for get

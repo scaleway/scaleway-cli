@@ -14,19 +14,20 @@ import (
 )
 
 type Struct struct {
-	String      string
-	Int         int
-	Bool        bool
-	Strings     []string
-	Time        time.Time
-	Struct      *Struct
-	Nil         *Struct
-	Structs     []*Struct
-	Map         map[string]string
-	Stringer    Stringer
-	StringerPtr *Stringer
-	Size        *scw.Size
-	Bytes       []byte
+	String        string
+	Int           int
+	Bool          bool
+	Strings       []string
+	Time          time.Time
+	Struct        *Struct
+	Nil           *Struct
+	Structs       []*Struct
+	Map           map[string]string
+	Stringer      Stringer
+	StringerPtr   *Stringer
+	Size          *scw.Size
+	Bytes         []byte
+	MapStringList map[string][]string
 }
 
 type StructAny struct {
@@ -112,34 +113,107 @@ func TestMarshal(t *testing.T) {
 				"key1": "v1",
 				"key2": "v2",
 			},
+			MapStringList: map[string][]string{
+				"key1": {"v1", "v2"},
+				"key2": {"v3", "v4"},
+			},
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
 			Size:        scw.SizePtr(13200),
 			Bytes:       []byte{0, 1},
 		},
 		result: `
-			String              This is a string
-			Int                 42
-			Bool                true
-			Strings.0           s1
-			Strings.1           s2
-			Time                ` + humanDate + `
-			Struct.String       -
-			Struct.Int          0
-			Struct.Bool         false
-			Struct.Time         a long while ago
-			Struct.Stringer     a stringer
-			Structs.0.String    Nested string
-			Structs.0.Int       0
-			Structs.0.Bool      false
-			Structs.0.Time      a long while ago
-			Structs.0.Stringer  a stringer
-			Map.key1            v1
-			Map.key2            v2
-			Stringer            a stringer
-			StringerPtr         a stringer
-			Size                13 kB
-			Bytes               AAE=
+			String                This is a string
+			Int                   42
+			Bool                  true
+			Strings.0             s1
+			Strings.1             s2
+			Time                  ` + humanDate + `
+			Struct.String         -
+			Struct.Int            0
+			Struct.Bool           false
+			Struct.Time           a long while ago
+			Struct.Stringer       a stringer
+			Structs.0.String      Nested string
+			Structs.0.Int         0
+			Structs.0.Bool        false
+			Structs.0.Time        a long while ago
+			Structs.0.Stringer    a stringer
+			Map.key1              v1
+			Map.key2              v2
+			Stringer              a stringer
+			StringerPtr           a stringer
+			Size                  13 kB
+			Bytes                 AAE=
+			MapStringList.key1.0  v1
+			MapStringList.key1.1  v2
+			MapStringList.key2.0  v3
+			MapStringList.key2.1  v4
+		`,
+	}))
+
+	t.Run("structWithTitle", run(&testCase{
+		opt: &human.MarshalOpt{
+			Sections: []*human.MarshalSection{
+				{
+					Title:     "MapStringList",
+					FieldName: "MapStringList",
+				},
+			},
+		},
+		data: &Struct{
+			String:  "This is a string",
+			Int:     42,
+			Bool:    true,
+			Strings: []string{"s1", "s2"},
+			Time:    date,
+			Struct:  &Struct{},
+			Nil:     nil,
+			Structs: []*Struct{
+				{
+					String: "Nested string",
+				},
+			},
+			Map: map[string]string{
+				"key1": "v1",
+				"key2": "v2",
+			},
+			MapStringList: map[string][]string{
+				"key1": {"v1", "v2"},
+				"key2": {"v3", "v4"},
+			},
+			Stringer:    Stringer{},
+			StringerPtr: &Stringer{},
+			Size:        scw.SizePtr(13200),
+			Bytes:       []byte{0, 1},
+		},
+		result: `
+			String                This is a string
+			Int                   42
+			Bool                  true
+			Strings.0             s1
+			Strings.1             s2
+			Time                  ` + humanDate + `
+			Struct.String         -
+			Struct.Int            0
+			Struct.Bool           false
+			Struct.Time           a long while ago
+			Struct.Stringer       a stringer
+			Structs.0.String      Nested string
+			Structs.0.Int         0
+			Structs.0.Bool        false
+			Structs.0.Time        a long while ago
+			Structs.0.Stringer    a stringer
+			Map.key1              v1
+			Map.key2              v2
+			Stringer              a stringer
+			StringerPtr           a stringer
+			Size                  13 kB
+			Bytes                 AAE=
+
+			MapStringList:
+			key1  v1 v2
+			key2  v3 v4
 		`,
 	}))
 
@@ -338,7 +412,7 @@ func Test_getStructFieldsIndex(t *testing.T) {
 				},
 				),
 			},
-			want: [][]int{{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}},
+			want: [][]int{{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}},
 		},
 	}
 	for _, tt := range tests {
