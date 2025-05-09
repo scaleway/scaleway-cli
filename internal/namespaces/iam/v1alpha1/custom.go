@@ -52,6 +52,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("iam", "policy", "create").Override(iamPolicyCreateBuilder)
 	cmds.MustFind("iam", "policy", "get").Override(iamPolicyGetBuilder)
 
+	cmds.MustFind("iam", "api-key", "get").Override(iamAPIKeyGetBuilder)
+
 	return cmds
 }
 
