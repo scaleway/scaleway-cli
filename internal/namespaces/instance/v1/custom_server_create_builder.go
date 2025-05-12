@@ -749,6 +749,7 @@ func (vb *VolumeBuilder) ExecutePostCreationSetup(
 		_, err := apiBlock.UpdateVolume(&block.UpdateVolumeRequest{
 			VolumeID: volumeID,
 			PerfIops: vb.IOPS,
+			Zone:     vb.Zone,
 		},
 			scw.WithContext(ctx),
 		)
