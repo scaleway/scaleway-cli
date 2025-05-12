@@ -43,6 +43,8 @@ scw keymanager key create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | (Optional) Name of the key |
 | usage.symmetric-encryption | One of: `unknown_symmetric_encryption`, `aes_256_gcm` | Algorithm used to encrypt and decrypt arbitrary payloads. |
+| usage.asymmetric-encryption | One of: `unknown_asymmetric_encryption`, `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256` |  |
+| usage.asymmetric-signing | One of: `unknown_asymmetric_signing`, `ec_p256_sha256`, `ec_p384_sha384`, `rsa_pss_2048_sha256`, `rsa_pss_3072_sha256`, `rsa_pss_4096_sha256`, `rsa_pkcs1_2048_sha256`, `rsa_pkcs1_3072_sha256`, `rsa_pkcs1_4096_sha256` |  |
 | description |  | (Optional) Description of the key |
 | tags.{index} |  | (Optional) List of the key's tags |
 | rotation-policy.rotation-period |  | Rotation period |
@@ -68,7 +70,7 @@ scw keymanager key decrypt <key-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| key-id | Required | ID of the key to decrypt |
+| key-id | Required | ID of the key to decrypt with |
 | ciphertext | Required | Base64 Ciphertext data to decrypt |
 | associated-data |  | (Optional) Additional authenticated data |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -170,7 +172,7 @@ scw keymanager key encrypt <key-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| key-id | Required | ID of the key to encrypt |
+| key-id | Required | ID of the key to use for encryption |
 | plaintext | Required | Base64 Plaintext data to encrypt |
 | associated-data |  | (Optional) Additional authenticated data |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |

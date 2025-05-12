@@ -9,6 +9,8 @@ ARGS:
   [project-id]                         Project ID to use. If none is passed the default project ID will be used
   [name]                               (Optional) Name of the key
   [usage.symmetric-encryption]         Algorithm used to encrypt and decrypt arbitrary payloads. (unknown_symmetric_encryption | aes_256_gcm)
+  [usage.asymmetric-encryption]         (unknown_asymmetric_encryption | rsa_oaep_2048_sha256 | rsa_oaep_3072_sha256 | rsa_oaep_4096_sha256)
+  [usage.asymmetric-signing]            (unknown_asymmetric_signing | ec_p256_sha256 | ec_p384_sha384 | rsa_pss_2048_sha256 | rsa_pss_3072_sha256 | rsa_pss_4096_sha256 | rsa_pkcs1_2048_sha256 | rsa_pkcs1_3072_sha256 | rsa_pkcs1_4096_sha256)
   [description]                        (Optional) Description of the key
   [tags.{index}]                       (Optional) List of the key's tags
   [rotation-policy.rotation-period]    Rotation period
