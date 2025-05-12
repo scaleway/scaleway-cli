@@ -6,7 +6,7 @@ USAGE:
   scw keymanager key encrypt <key-id ...> [arg=value ...]
 
 ARGS:
-  key-id              ID of the key to encrypt
+  key-id              ID of the key to use for encryption
   plaintext           Base64 Plaintext data to encrypt (Support file loading with @/path/to/file)
   [associated-data]   (Optional) Additional authenticated data
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)

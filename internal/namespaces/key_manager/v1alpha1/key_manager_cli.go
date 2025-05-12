@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	key_manager "github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -83,6 +83,35 @@ func keymanagerKeyCreate() *core.Command {
 				EnumValues: []string{
 					"unknown_symmetric_encryption",
 					"aes_256_gcm",
+				},
+			},
+			{
+				Name:       "usage.asymmetric-encryption",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_asymmetric_encryption",
+					"rsa_oaep_2048_sha256",
+					"rsa_oaep_3072_sha256",
+					"rsa_oaep_4096_sha256",
+				},
+			},
+			{
+				Name:       "usage.asymmetric-signing",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_asymmetric_signing",
+					"ec_p256_sha256",
+					"ec_p384_sha384",
+					"rsa_pss_2048_sha256",
+					"rsa_pss_3072_sha256",
+					"rsa_pss_4096_sha256",
+					"rsa_pkcs1_2048_sha256",
+					"rsa_pkcs1_3072_sha256",
+					"rsa_pkcs1_4096_sha256",
 				},
 			},
 			{
@@ -609,7 +638,7 @@ func keymanagerKeyEncrypt() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
-				Short:      `ID of the key to encrypt`,
+				Short:      `ID of the key to use for encryption`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -657,7 +686,7 @@ func keymanagerKeyDecrypt() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
-				Short:      `ID of the key to decrypt`,
+				Short:      `ID of the key to decrypt with`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
