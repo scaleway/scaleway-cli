@@ -538,6 +538,19 @@ func keymanagerKeyList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "usage",
+				Short:      `(Optional) Filter keys by usage.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_usage",
+					"symmetric_encryption",
+					"asymmetric_encryption",
+					"asymmetric_signing",
+				},
+			},
+			{
 				Name:       "organization-id",
 				Short:      `(Optional) Filter by Organization ID`,
 				Required:   false,
