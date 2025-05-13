@@ -152,12 +152,14 @@ func TestMarshal(t *testing.T) {
 		`,
 	}))
 
-	t.Run("structWithTitle", run(&testCase{
+	t.Run("structWithMapsInSection", run(&testCase{
 		opt: &human.MarshalOpt{
 			Sections: []*human.MarshalSection{
 				{
-					Title:     "MapStringList",
 					FieldName: "MapStringList",
+				},
+				{
+					FieldName: "Map",
 				},
 			},
 		},
@@ -188,32 +190,34 @@ func TestMarshal(t *testing.T) {
 			Bytes:       []byte{0, 1},
 		},
 		result: `
-			String                This is a string
-			Int                   42
-			Bool                  true
-			Strings.0             s1
-			Strings.1             s2
-			Time                  ` + humanDate + `
-			Struct.String         -
-			Struct.Int            0
-			Struct.Bool           false
-			Struct.Time           a long while ago
-			Struct.Stringer       a stringer
-			Structs.0.String      Nested string
-			Structs.0.Int         0
-			Structs.0.Bool        false
-			Structs.0.Time        a long while ago
-			Structs.0.Stringer    a stringer
-			Map.key1              v1
-			Map.key2              v2
-			Stringer              a stringer
-			StringerPtr           a stringer
-			Size                  13 kB
-			Bytes                 AAE=
+			String              This is a string
+			Int                 42
+			Bool                true
+			Strings.0           s1
+			Strings.1           s2
+			Time                34 years ago
+			Struct.String       -
+			Struct.Int          0
+			Struct.Bool         false
+			Struct.Time         a long while ago
+			Struct.Stringer     a stringer
+			Structs.0.String    Nested string
+			Structs.0.Int       0
+			Structs.0.Bool      false
+			Structs.0.Time      a long while ago
+			Structs.0.Stringer  a stringer
+			Stringer            a stringer
+			StringerPtr         a stringer
+			Size                13 kB
+			Bytes               AAE=
 
-			MapStringList:
+			Map String List:
 			key1  v1 v2
 			key2  v3 v4
+
+			Map:
+			key1  v1
+			key2  v2
 		`,
 	}))
 

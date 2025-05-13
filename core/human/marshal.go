@@ -45,7 +45,6 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 	}
 
 	rType := rValue.Type()
-
 	// safely get the marshalerFunc
 	marshalerFunc, _ := getMarshalerFunc(rType)
 	isNil := isInterfaceNil(data)
@@ -83,6 +82,9 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 	// If data is a struct uses marshalStruct
 	case rType.Kind() == reflect.Struct:
 		return marshalStruct(rValue, opt)
+
+	case rType.Kind() == reflect.Map:
+		return MarshalMap(rValue, opt)
 
 	// by default we use defaultMarshalerFunc
 	default:
@@ -480,4 +482,41 @@ func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 	}
 
 	return results
+}
+
+func MarshalMap(m reflect.Value, opt *MarshalOpt) (string, error) {
+	buffer := bytes.Buffer{}
+
+	w := tabwriter.NewWriter(&buffer, 5, 1, colPadding, ' ', tabwriter.ANSIGraphicsRendition)
+
+	mapKeys := m.MapKeys()
+	sort.Slice(mapKeys, func(i, j int) bool {
+		return mapKeys[i].String() < mapKeys[j].String()
+	})
+
+	for _, mapKey := range mapKeys {
+		mapValue := m.MapIndex(mapKey)
+
+		if mapValue.Type().Kind() == reflect.Slice {
+			sort.Slice(mapValue.Interface(), func(i, j int) bool {
+				return mapValue.Index(i).String() < mapValue.Index(j).String()
+			})
+			sliceLen := mapValue.Len()
+			values := make([]string, sliceLen)
+			for i := range sliceLen {
+				values[i] = fmt.Sprint(mapValue.Index(i).Interface())
+			}
+			fmt.Fprintf(w, "%s\t%s\n", mapKey.String(), strings.Join(values, " "))
+		} else {
+			content, err := Marshal(mapValue.Interface(), opt)
+			if err != nil {
+				return "", err
+			}
+			fmt.Fprintf(w, "%s\t%s\n", mapKey.String(), content)
+		}
+	}
+
+	w.Flush()
+
+	return strings.TrimSpace(buffer.String()), nil
 }
