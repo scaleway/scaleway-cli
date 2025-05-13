@@ -2304,6 +2304,13 @@ func lbRouteCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "match.path-begin",
+				Short:      `Path begin value to match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -2406,6 +2413,13 @@ func lbRouteUpdate() *core.Command {
 			{
 				Name:       "match.match-subdomains",
 				Short:      `If true, all subdomains will match`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "match.path-begin",
+				Short:      `Path begin value to match`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
