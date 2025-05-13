@@ -428,6 +428,7 @@ func ipamIPList() *core.Command {
 					"serverless_container",
 					"serverless_function",
 					"vpn_gateway",
+					"ddl_datalab",
 				},
 			},
 			{
@@ -459,6 +460,7 @@ func ipamIPList() *core.Command {
 					"serverless_container",
 					"serverless_function",
 					"vpn_gateway",
+					"ddl_datalab",
 				},
 			},
 			{
