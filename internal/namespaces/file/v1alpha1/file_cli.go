@@ -89,9 +89,8 @@ func fileFilesystemGet() *core.Command {
 
 func fileFilesystemList() *core.Command {
 	return &core.Command{
-		Short: `List all filesystems`,
-		Long: `Retrieve all filesystems in the specified region. Results are ordered by creation date in ascending order by default.
-Use the order_by parameter to modify the sorting behavior.`,
+		Short:     `List all filesystems`,
+		Long:      `Retrieve all filesystems in the specified region. By default, the filesystems listed are ordered by creation date in ascending order. This can be modified using the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "file",
 		Resource:  "filesystem",
 		Verb:      "list",
@@ -120,7 +119,7 @@ Use the order_by parameter to modify the sorting behavior.`,
 			},
 			{
 				Name:       "name",
-				Short:      `Filter the return filesystems by their names`,
+				Short:      `Filter the returned filesystems by their names`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -161,8 +160,7 @@ func fileAttachmentList() *core.Command {
 	return &core.Command{
 		Short: `List filesystems attachments`,
 		Long: `List all existing attachments in a specified region.
-By default, the attachments listed are ordered by creation date in ascending order.
-This can be modified using the ` + "`" + `order_by` + "`" + ` field.`,
+By default, the attachments listed are ordered by creation date in ascending order. This can be modified using the ` + "`" + `order_by` + "`" + ` field.`,
 		Namespace: "file",
 		Resource:  "attachment",
 		Verb:      "list",
@@ -229,7 +227,7 @@ This can be modified using the ` + "`" + `order_by` + "`" + ` field.`,
 func fileFilesystemCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new filesystem`,
-		Long:      `To create a new filesystem, you need to provide a name, a size, and a project ID.`,
+		Long:      `To create a new filesystem, you must specify a name, a size, and a project ID.`,
 		Namespace: "file",
 		Resource:  "filesystem",
 		Verb:      "create",
