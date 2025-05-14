@@ -264,6 +264,7 @@ scw keymanager key list [arg=value ...]
 | order-by | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |  |
 | tags.{index} |  | (Optional) List of tags to filter on |
 | name |  | (Optional) Filter by key name |
+| usage | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing` | (Optional) Filter keys by usage. |
 | organization-id |  | (Optional) Filter by Organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
