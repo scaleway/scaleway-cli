@@ -57,6 +57,7 @@ scw vpc private-network create [arg=value ...]
 | tags.{index} |  | Tags for the Private Network |
 | subnets.{index} |  | Private Network subnets CIDR |
 | vpc-id |  | VPC in which to create the Private Network |
+| default-route-propagation-enabled |  | Defines whether default v4 and v6 routes are propagated for this Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -166,6 +167,7 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 | private-network-id | Required | Private Network ID |
 | name |  | Name for the Private Network |
 | tags.{index} |  | Tags for the Private Network |
+| default-route-propagation-enabled |  | Defines whether default v4 and v6 routes are propagated for this Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

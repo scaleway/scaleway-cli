@@ -509,6 +509,13 @@ func vpcPrivateNetworkCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "default-route-propagation-enabled",
+				Short:      `Defines whether default v4 and v6 routes are propagated for this Private Network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -587,6 +594,13 @@ func vpcPrivateNetworkUpdate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags for the Private Network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "default-route-propagation-enabled",
+				Short:      `Defines whether default v4 and v6 routes are propagated for this Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
