@@ -173,15 +173,16 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		updateUserRequest := customRequest.UpdateUserRequest
 
 		var err error
-		
+
 		if customRequest.GeneratePassword || customRequest.Password != nil {
 			switch {
 			case customRequest.GeneratePassword && customRequest.Password == nil:
 				updateUserRequest.Password = new(string)
-				*updateUserRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+				pwd, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
 				if err != nil {
 					return nil, err
 				}
+				*updateUserRequest.Password = pwd
 				fmt.Printf("Your generated password is %v\n\n", *updateUserRequest.Password)
 
 			case !customRequest.GeneratePassword && customRequest.Password == nil:
