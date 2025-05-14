@@ -170,24 +170,28 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		api := rdb.NewAPI(client)
 
 		customRequest := argsI.(*rdbUpdateUserRequestCustom)
-
 		updateUserRequest := customRequest.UpdateUserRequest
 
 		var err error
-		if customRequest.GeneratePassword && customRequest.Password == nil {
-			updateUserRequest.Password = new(string)
-			*updateUserRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
-			fmt.Printf("Your generated password is %v \n", *updateUserRequest.Password)
-			fmt.Printf("\n")
-		}
+		
+		if customRequest.GeneratePassword || customRequest.Password != nil {
+			switch {
+			case customRequest.GeneratePassword && customRequest.Password == nil:
+				updateUserRequest.Password = new(string)
+				*updateUserRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+				if err != nil {
+					return nil, err
+				}
+				fmt.Printf("Your generated password is %v\n\n", *updateUserRequest.Password)
 
-		if !customRequest.GeneratePassword && customRequest.Password == nil {
-			return nil, errors.New(
-				"you must provide a password when generate-password is set to false",
-			)
+			case !customRequest.GeneratePassword && customRequest.Password == nil:
+				return nil, errors.New(
+					"you must provide a password when generate-password is set to false",
+				)
+
+			default:
+				updateUserRequest.Password = customRequest.Password
+			}
 		}
 
 		user, err := api.UpdateUser(updateUserRequest)
@@ -195,9 +199,14 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
+		respPwd := ""
+		if updateUserRequest.Password != nil {
+			respPwd = *updateUserRequest.Password
+		}
+
 		result := rdbUpdateUserResponseCustom{
 			User:     user,
-			Password: *updateUserRequest.Password,
+			Password: respPwd,
 		}
 
 		return result, nil
