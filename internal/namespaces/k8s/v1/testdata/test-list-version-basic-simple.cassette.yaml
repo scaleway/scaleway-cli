@@ -2,34 +2,94 @@
 version: 1
 interactions:
 - request:
-    body: '{"versions":[{"region":"fr-par","name":"1.27.2","label":"Kubernetes 1.27.2","available_cnis":["cilium","calico","kilo"],"available_ingresses":["none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","GRPCContainerProbe","ReadWriteOncePod"],"available_admission_plugins":["PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.26.5","label":"Kubernetes
-      1.26.5","available_cnis":["cilium","calico","kilo"],"available_ingresses":["none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","GRPCContainerProbe","ReadWriteOncePod"],"available_admission_plugins":["PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.25.10","label":"Kubernetes
-      1.25.10","available_cnis":["cilium","calico","kilo"],"available_ingresses":["none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","KubeletCredentialProviders","GRPCContainerProbe","ReadWriteOncePod"],"available_admission_plugins":["PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.24.14","label":"Kubernetes
-      1.24.14","available_cnis":["cilium","calico","weave","flannel","kilo"],"available_ingresses":["none"],"available_container_runtimes":["containerd","crio"],"available_feature_gates":["HPAScaleToZero","EphemeralContainers","KubeletCredentialProviders","GRPCContainerProbe","ReadWriteOncePod"],"available_admission_plugins":["PodSecurityPolicy","PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.23.17","label":"Kubernetes
-      1.23.17","available_cnis":["cilium","calico","weave","flannel","kilo"],"available_ingresses":["none","nginx","traefik2"],"available_container_runtimes":["containerd","crio","docker"],"available_feature_gates":["HPAScaleToZero","EphemeralContainers","KubeletCredentialProviders","GRPCContainerProbe"],"available_admission_plugins":["PodSecurityPolicy","PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.22.17","label":"Kubernetes
-      1.22.17","available_cnis":["cilium","calico","weave","flannel","kilo"],"available_ingresses":["none","nginx","traefik2"],"available_container_runtimes":["containerd","crio","docker"],"available_feature_gates":["TTLAfterFinished","HPAScaleToZero","EphemeralContainers","KubeletCredentialProviders"],"available_admission_plugins":["PodSecurityPolicy","PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}}]}'
+    body: '{"versions":[{"region":"fr-par", "name":"1.32.3", "label":"Kubernetes 1.32.3",
+      "available_cnis":["cilium", "calico", "kilo", "none"], "available_container_runtimes":["containerd"],
+      "available_feature_gates":["HPAScaleToZero", "InPlacePodVerticalScaling", "SidecarContainers",
+      "DRAAdminAccess", "DRAResourceClaimDeviceStatus", "DynamicResourceAllocation"],
+      "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector", "PodTolerationRestriction"],
+      "available_kubelet_args":{"containerLogMaxFiles":"uint16", "containerLogMaxSize":"quantity",
+      "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration", "cpuManagerPolicy":"enum:none|static",
+      "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
+      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
+      "registryPullQPS":"int32", "serializeImagePulls":"bool"}}, {"region":"fr-par",
+      "name":"1.31.7", "label":"Kubernetes 1.31.7", "available_cnis":["cilium", "calico",
+      "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
+      "InPlacePodVerticalScaling", "SidecarContainers"], "available_admission_plugins":["AlwaysPullImages",
+      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
+      "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
+      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
+      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
+      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}},
+      {"region":"fr-par", "name":"1.30.11", "label":"Kubernetes 1.30.11", "available_cnis":["cilium",
+      "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
+      "SidecarContainers", "InPlacePodVerticalScaling"], "available_admission_plugins":["AlwaysPullImages",
+      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
+      "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
+      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
+      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
+      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}},
+      {"region":"fr-par", "name":"1.29.15", "label":"Kubernetes 1.29.15", "available_cnis":["cilium",
+      "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
+      "SidecarContainers", "ValidatingAdmissionPolicy", "InPlacePodVerticalScaling"],
+      "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector", "PodTolerationRestriction"],
+      "available_kubelet_args":{"containerLogMaxFiles":"uint16", "containerLogMaxSize":"quantity",
+      "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration", "cpuManagerPolicy":"enum:none|static",
+      "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
+      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
+      "registryPullQPS":"int32", "serializeImagePulls":"bool"}}]}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; arm64) cli-e2e-test
     url: https://api.scaleway.com/k8s/v1/regions/fr-par/versions
     method: GET
   response:
-    body: '{"versions":[{"region":"fr-par","name":"1.27.2","label":"Kubernetes 1.27.2","available_cnis":["cilium","calico","kilo"],"available_ingresses":["none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","GRPCContainerProbe","ReadWriteOncePod"],"available_admission_plugins":["PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.26.5","label":"Kubernetes
-      1.26.5","available_cnis":["cilium","calico","kilo"],"available_ingresses":["none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","GRPCContainerProbe","ReadWriteOncePod"],"available_admission_plugins":["PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.25.10","label":"Kubernetes
-      1.25.10","available_cnis":["cilium","calico","kilo"],"available_ingresses":["none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","KubeletCredentialProviders","GRPCContainerProbe","ReadWriteOncePod"],"available_admission_plugins":["PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.24.14","label":"Kubernetes
-      1.24.14","available_cnis":["cilium","calico","weave","flannel","kilo"],"available_ingresses":["none"],"available_container_runtimes":["containerd","crio"],"available_feature_gates":["HPAScaleToZero","EphemeralContainers","KubeletCredentialProviders","GRPCContainerProbe","ReadWriteOncePod"],"available_admission_plugins":["PodSecurityPolicy","PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.23.17","label":"Kubernetes
-      1.23.17","available_cnis":["cilium","calico","weave","flannel","kilo"],"available_ingresses":["none","nginx","traefik2"],"available_container_runtimes":["containerd","crio","docker"],"available_feature_gates":["HPAScaleToZero","EphemeralContainers","KubeletCredentialProviders","GRPCContainerProbe"],"available_admission_plugins":["PodSecurityPolicy","PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}},{"region":"fr-par","name":"1.22.17","label":"Kubernetes
-      1.22.17","available_cnis":["cilium","calico","weave","flannel","kilo"],"available_ingresses":["none","nginx","traefik2"],"available_container_runtimes":["containerd","crio","docker"],"available_feature_gates":["TTLAfterFinished","HPAScaleToZero","EphemeralContainers","KubeletCredentialProviders"],"available_admission_plugins":["PodSecurityPolicy","PodNodeSelector","AlwaysPullImages","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","enableDebuggingHandlers":"bool","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxPods":"uint16"}}]}'
+    body: '{"versions":[{"region":"fr-par", "name":"1.32.3", "label":"Kubernetes 1.32.3",
+      "available_cnis":["cilium", "calico", "kilo", "none"], "available_container_runtimes":["containerd"],
+      "available_feature_gates":["HPAScaleToZero", "InPlacePodVerticalScaling", "SidecarContainers",
+      "DRAAdminAccess", "DRAResourceClaimDeviceStatus", "DynamicResourceAllocation"],
+      "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector", "PodTolerationRestriction"],
+      "available_kubelet_args":{"containerLogMaxFiles":"uint16", "containerLogMaxSize":"quantity",
+      "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration", "cpuManagerPolicy":"enum:none|static",
+      "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
+      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
+      "registryPullQPS":"int32", "serializeImagePulls":"bool"}}, {"region":"fr-par",
+      "name":"1.31.7", "label":"Kubernetes 1.31.7", "available_cnis":["cilium", "calico",
+      "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
+      "InPlacePodVerticalScaling", "SidecarContainers"], "available_admission_plugins":["AlwaysPullImages",
+      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
+      "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
+      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
+      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
+      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}},
+      {"region":"fr-par", "name":"1.30.11", "label":"Kubernetes 1.30.11", "available_cnis":["cilium",
+      "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
+      "SidecarContainers", "InPlacePodVerticalScaling"], "available_admission_plugins":["AlwaysPullImages",
+      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
+      "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
+      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
+      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
+      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}},
+      {"region":"fr-par", "name":"1.29.15", "label":"Kubernetes 1.29.15", "available_cnis":["cilium",
+      "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
+      "SidecarContainers", "ValidatingAdmissionPolicy", "InPlacePodVerticalScaling"],
+      "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector", "PodTolerationRestriction"],
+      "available_kubelet_args":{"containerLogMaxFiles":"uint16", "containerLogMaxSize":"quantity",
+      "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration", "cpuManagerPolicy":"enum:none|static",
+      "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
+      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
+      "registryPullQPS":"int32", "serializeImagePulls":"bool"}}]}'
     headers:
+      Content-Length:
+      - "3321"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 14 Jun 2023 12:34:00 GMT
+      - Wed, 14 May 2025 12:01:24 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -37,7 +97,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 6b429e22-8e2d-4121-972b-e13d42451db6
+      - 191b11ef-6ef0-4cc2-9408-56e09f07f982
     status: 200 OK
     code: 200
     duration: ""
