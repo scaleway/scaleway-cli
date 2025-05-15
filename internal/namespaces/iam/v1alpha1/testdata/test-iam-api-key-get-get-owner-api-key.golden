@@ -1,0 +1,35 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+User Type:
+owner (owner has all permissions over the organization)
+
+Api Key:
+AccessKey         SCWEBEM4J7VT79C0T0GA
+UserID            3153ad6d-2866-4471-b0b3-6728cf875a1c
+Description       -
+CreatedAt         few seconds ago
+UpdatedAt         few seconds ago
+DefaultProjectID  6867048b-fe12-4e96-835e-41c79a39604b
+Editable          true
+Deletable         true
+Managed           false
+CreationIP        51.159.73.9
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "APIKey": {
+    "access_key": "SCWEBEM4J7VT79C0T0GA",
+    "secret_key": null,
+    "user_id": "3153ad6d-2866-4471-b0b3-6728cf875a1c",
+    "description": "",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "expires_at": null,
+    "default_project_id": "6867048b-fe12-4e96-835e-41c79a39604b",
+    "editable": true,
+    "deletable": true,
+    "managed": false,
+    "creation_ip": "51.159.73.9"
+  },
+  "user_type": "owner (owner has all permissions over the organization)",
+  "policies": null
+}

@@ -69,7 +69,7 @@ You can use the CLI as you would run any Docker image:
 docker run -i --rm scaleway/cli:latest
 ```
 
-See more in-depth information about running the CLI in Docker [here](/docs/docker.md)
+See more in-depth information about running the CLI in Docker [here](https://github.com/scaleway/scaleway-cli/blob/master/docs/docker.md).
 
 # Getting Started
 
@@ -100,14 +100,14 @@ scw k8s cluster create name=foo version=1.17.4 pools.0.size=3 pools.0.node-type=
 
 You can configure your config or enable functionalities with environment variables.
 
-Variables to override config are describe in [config documentation](/docs/commands/config.md).
+Variables to override config are describe in [config documentation](https://cli.scaleway.com/config/).
 To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 
 ## Build it yourself
 
 ### Build Locally
 
-If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](/.github/CONTRIBUTING.md).
+If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](https://github.com/scaleway/scaleway-cli/blob/master/.github/CONTRIBUTING.md).
 Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
 
 ```bash
@@ -130,12 +130,12 @@ Once built, you can then use the CLI as you would run any image:
 docker run -i --rm scaleway/cli
 ```
 
-See more in-depth information about running the CLI in Docker [here](/docs/docker.md)
+See more in-depth information about running the CLI in Docker [here](https://github.com/scaleway/scaleway-cli/blob/master/docs/docker.md)
 
 # Development
 
 This repository is at its early stage and is still in active development.
-If you are looking for a way to contribute please read [CONTRIBUTING.md](/.github/CONTRIBUTING.md).
+If you are looking for a way to contribute please read [CONTRIBUTING.md](https://github.com/scaleway/scaleway-cli/blob/master/.github/CONTRIBUTING.md).
 
 # Reach Us
 

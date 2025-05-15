@@ -52,6 +52,12 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("iam", "policy", "create").Override(iamPolicyCreateBuilder)
 	cmds.MustFind("iam", "policy", "get").Override(iamPolicyGetBuilder)
 
+	iamCmd := cmds.MustFind("iam", "api-key", "get")
+	iamCmd.ArgsType = iamApiKeyCustomBuilder.argType
+	iamCmd.ArgSpecs = iamApiKeyCustomBuilder.argSpecs
+	iamCmd.Run = iamApiKeyCustomBuilder.run
+	human.RegisterMarshalerFunc(apiKeyResponse{}, apiKeyMarshalerFunc)
+
 	return cmds
 }
 

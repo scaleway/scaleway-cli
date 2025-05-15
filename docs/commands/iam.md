@@ -135,6 +135,7 @@ scw iam api-key get <access-key ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | access-key | Required | Access key to search for |
+| with-policies | Default: `true` | Display the set of policies associated with the API key |
 
 
 
