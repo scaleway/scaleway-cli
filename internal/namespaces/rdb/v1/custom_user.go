@@ -184,7 +184,8 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 					return nil, err
 				}
 				*updateUserRequest.Password = pwd
-				_, err = interactive.Println("Your generated password is", *updateUserRequest.Password)
+				
+				_, err = interactive.Println("Your generated password is", pwd)
 				if err != nil {
 					return nil, err
 				}
