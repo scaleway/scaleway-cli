@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -30,6 +30,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamPermissionSet(),
 		iamJwt(),
 		iamLog(),
+		iamOrganization(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -173,6 +174,15 @@ func iamLog() *core.Command {
 		Long:      `Log management commands.`,
 		Namespace: "iam",
 		Resource:  "log",
+	}
+}
+
+func iamOrganization() *core.Command {
+	return &core.Command{
+		Short:     `Organization-wide management commands`,
+		Long:      `Organization-wide management commands.`,
+		Namespace: "iam",
+		Resource:  "organization",
 	}
 }
 
