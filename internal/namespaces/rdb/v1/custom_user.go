@@ -7,6 +7,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -183,8 +184,11 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 					return nil, err
 				}
 				*updateUserRequest.Password = pwd
-				fmt.Printf("Your generated password is %v\n\n", *updateUserRequest.Password)
-
+				_, err = interactive.Println("Your generated password is %v\n\n", *updateUserRequest.Password)
+				if err != nil {
+					return nil, err
+				}
+				
 			case !customRequest.GeneratePassword && customRequest.Password == nil:
 				return nil, errors.New(
 					"you must provide a password when generate-password is set to false",
