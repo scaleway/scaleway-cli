@@ -6,12 +6,13 @@ USAGE:
   scw vpc private-network create [arg=value ...]
 
 ARGS:
-  name=<generated>    Name for the Private Network
-  [project-id]        Project ID to use. If none is passed the default project ID will be used
-  [tags.{index}]      Tags for the Private Network
-  [subnets.{index}]   Private Network subnets CIDR
-  [vpc-id]            VPC in which to create the Private Network
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  name=<generated>                      Name for the Private Network
+  [project-id]                          Project ID to use. If none is passed the default project ID will be used
+  [tags.{index}]                        Tags for the Private Network
+  [subnets.{index}]                     Private Network subnets CIDR
+  [vpc-id]                              VPC in which to create the Private Network
+  [default-route-propagation-enabled]   Defines whether default v4 and v6 routes are propagated for this Private Network
+  [region=fr-par]                       Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create
