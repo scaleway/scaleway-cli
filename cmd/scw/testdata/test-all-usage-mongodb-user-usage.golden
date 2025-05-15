@@ -6,7 +6,9 @@ USAGE:
   scw mongodb user <command>
 
 AVAILABLE COMMANDS:
+  delete      Delete a user on a Database Instance
   list        List users of a Database Instance
+  set-role    Apply user roles
   update      Update a user on a Database Instance
 
 FLAGS:
