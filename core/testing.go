@@ -590,6 +590,19 @@ func ExecStoreBeforeCmd(metaKey, cmd string) BeforeFunc {
 	}
 }
 
+// ExecStoreBeforeCmdWithResulter executes the given before command and register the result
+// in the context Meta at metaKey. The result is transformed by the resulter function.
+func ExecStoreBeforeCmdWithResulter(metaKey, cmd string, resulter func(any) any) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		args := cmdToArgs(ctx.Meta, cmd)
+		ctx.Logger.Debugf("ExecStoreBeforeCmd: metaKey=%s args=%s\n", metaKey, args)
+		result := ctx.ExecuteCmd(args)
+		ctx.Meta[metaKey] = resulter(result)
+
+		return nil
+	}
+}
+
 func BeforeFuncOsExec(cmd string, args ...string) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		ctx.Logger.Debugf("BeforeFuncOsExec: cmd=%s args=%s\n", cmd, args)
