@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	audit_trail "github.com/scaleway/scaleway-sdk-go/api/audit_trail/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/audit_trail/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -95,6 +95,8 @@ func auditTrailEventList() *core.Command {
 					"secret_manager_secret",
 					"secret_manager_version",
 					"key_manager_key",
+					"account_user",
+					"account_organization",
 				},
 			},
 			{
