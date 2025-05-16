@@ -1,15 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              82e2935f-1e06-46cb-83a9-ad664aedd289
-Name                            cli-pn-exciting-keldysh
-OrganizationID                  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-ProjectID                       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Region                          fr-par
-CreatedAt                       few seconds ago
-UpdatedAt                       few seconds ago
-VpcID                           53e50f63-f6c0-44f7-8576-d6edcb965d9c
-DHCPEnabled                     true
-DefaultRoutePropagationEnabled  false
+ID              82e2935f-1e06-46cb-83a9-ad664aedd289
+Name            cli-pn-exciting-keldysh
+OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Region          fr-par
+CreatedAt       few seconds ago
+UpdatedAt       few seconds ago
+VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
+DHCPEnabled     true
 
 Instance Servers:
 ID                                    NAME                   STATE     NIC ID                                MAC ADDRESS
@@ -59,7 +58,6 @@ dd08a119-9d52-4afa-af50-0c990aa63d61  few seconds ago  few seconds ago  fd4a:c18
   ],
   "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c",
   "dhcp_enabled": true,
-  "default_route_propagation_enabled": false,
   "instance_servers": [
     {
       "id": "d5ea776f-d30a-4e93-9ec9-d293dfd84104",
