@@ -31,6 +31,7 @@ This API allows you to manage Identity and Access Management (IAM) across your S
 - [Log management commands](#log-management-commands)
   - [Get a log](#get-a-log)
   - [List logs](#list-logs)
+- [Organization-wide management commands](#organization-wide-management-commands)
 - [Permission sets management commands](#permission-sets-management-commands)
   - [List permission sets](#list-permission-sets)
 - [Policies management commands](#policies-management-commands)
@@ -626,6 +627,20 @@ scw iam log list [arg=value ...]
 | resource-type | One of: `unknown_resource_type`, `api_key`, `user`, `application`, `group`, `policy` | Defined whether or not to filter out by a specific type of resource |
 | search |  | Defined whether or not to filter out log by bearer ID or resource ID |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
+## Organization-wide management commands
+
+Organization-wide management commands.
+
+Organization-wide management commands.
+
+**Usage:**
+
+```
+scw iam organization
+```
 
 
 
