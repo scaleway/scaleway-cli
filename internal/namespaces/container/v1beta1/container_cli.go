@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -273,6 +273,12 @@ func containerNamespaceCreate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags of the Serverless Container Namespace`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "activate-vpc-integration",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -715,6 +721,12 @@ func containerContainerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "private-network-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -933,6 +945,12 @@ func containerContainerUpdate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags of the Serverless Container`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
