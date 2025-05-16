@@ -31,6 +31,7 @@ ARGS:
   [health-check.failure-threshold]                 Number of consecutive health check failures before considering the container unhealthy.
   [health-check.interval]                          Period between health checks.
   [tags.{index}]                                   Tags of the Serverless Container
+  [private-network-id]                             
   [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:
