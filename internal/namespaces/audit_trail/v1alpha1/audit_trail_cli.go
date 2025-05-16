@@ -95,6 +95,8 @@ func auditTrailEventList() *core.Command {
 					"secret_manager_secret",
 					"secret_manager_version",
 					"key_manager_key",
+					"account_user",
+					"account_organization",
 				},
 			},
 			{

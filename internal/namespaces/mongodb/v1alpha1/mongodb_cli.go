@@ -43,6 +43,8 @@ func GetGeneratedCommands() *core.Commands {
 		mongodbSnapshotDelete(),
 		mongodbUserList(),
 		mongodbUserUpdate(),
+		mongodbUserDelete(),
+		mongodbUserSetRole(),
 	)
 }
 
@@ -932,6 +934,115 @@ func mongodbUserUpdate() *core.Command {
 			api := mongodb.NewAPI(client)
 
 			return api.UpdateUser(request)
+		},
+	}
+}
+
+func mongodbUserDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a user on a Database Instance`,
+		Long:      `Delete an existing user on a Database Instance.`,
+		Namespace: "mongodb",
+		Resource:  "user",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(mongodb.DeleteUserRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance the user belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the database user`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*mongodb.DeleteUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+			e = api.DeleteUser(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "user",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func mongodbUserSetRole() *core.Command {
+	return &core.Command{
+		Short:     `Apply user roles`,
+		Long:      `Apply preset roles for a user in a Database Instance.`,
+		Namespace: "mongodb",
+		Resource:  "user",
+		Verb:      "set-role",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(mongodb.SetUserRoleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance the user belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "user-name",
+				Short:      `Name of the database user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "roles.{index}.role",
+				Short:      `Name of the preset role`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_role",
+					"read",
+					"read_write",
+					"db_admin",
+					"sync",
+				},
+			},
+			{
+				Name:       "roles.{index}.database",
+				Short:      `Name of the database on which the preset role will be used`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "roles.{index}.any-database",
+				Short:      `Flag to enable the preset role in all databases`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*mongodb.SetUserRoleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+
+			return api.SetUserRole(request)
 		},
 	}
 }
