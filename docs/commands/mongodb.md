@@ -21,7 +21,9 @@ This API allows you to manage your Managed Databases for MongoDB®.
   - [Restore a Database Instance snapshot](#restore-a-database-instance-snapshot)
   - [Update a Database Instance snapshot](#update-a-database-instance-snapshot)
 - [User management commands](#user-management-commands)
+  - [Delete a user on a Database Instance](#delete-a-user-on-a-database-instance)
   - [List users of a Database Instance](#list-users-of-a-database-instance)
+  - [Apply user roles](#apply-user-roles)
   - [Update a user on a Database Instance](#update-a-user-on-a-database-instance)
 - [MongoDB® version management commands](#mongodb®-version-management-commands)
   - [List available MongoDB® versions](#list-available-mongodb®-versions)
@@ -373,6 +375,27 @@ scw mongodb snapshot update <snapshot-id ...> [arg=value ...]
 Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage.
 
 
+### Delete a user on a Database Instance
+
+Delete an existing user on a Database Instance.
+
+**Usage:**
+
+```
+scw mongodb user delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance the user belongs to |
+| name | Required | Name of the database user |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### List users of a Database Instance
 
 List all users of a given Database Instance.
@@ -392,6 +415,30 @@ scw mongodb user list [arg=value ...]
 | order-by | One of: `name_asc`, `name_desc` | Criteria to use when requesting user listing |
 | instance-id | Required | UUID of the Database Instance |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Apply user roles
+
+Apply preset roles for a user in a Database Instance.
+
+**Usage:**
+
+```
+scw mongodb user set-role [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance the user belongs to |
+| user-name |  | Name of the database user |
+| roles.{index}.role | One of: `unknown_role`, `read`, `read_write`, `db_admin`, `sync` | Name of the preset role |
+| roles.{index}.database |  | Name of the database on which the preset role will be used |
+| roles.{index}.any-database |  | Flag to enable the preset role in all databases |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
