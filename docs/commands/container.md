@@ -86,6 +86,7 @@ scw container container create [arg=value ...]
 | health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
 | health-check.interval |  | Period between health checks. |
 | tags.{index} |  | Tags of the Serverless Container |
+| private-network-id |  |  |
 | deploy | Default: `true` | Deploy container after creation |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -216,6 +217,7 @@ scw container container update <container-id ...> [arg=value ...]
 | health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
 | health-check.interval |  | Period between health checks. |
 | tags.{index} |  | Tags of the Serverless Container |
+| private-network-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -477,6 +479,7 @@ scw container namespace create [arg=value ...]
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | tags.{index} |  | Tags of the Serverless Container Namespace |
+| activate-vpc-integration |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

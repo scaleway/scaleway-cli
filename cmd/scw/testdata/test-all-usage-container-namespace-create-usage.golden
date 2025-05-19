@@ -13,6 +13,7 @@ ARGS:
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
   [tags.{index}]                                 Tags of the Serverless Container Namespace
+  [activate-vpc-integration]                     
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
