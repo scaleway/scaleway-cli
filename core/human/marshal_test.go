@@ -195,7 +195,7 @@ func TestMarshal(t *testing.T) {
 			Bool                true
 			Strings.0           s1
 			Strings.1           s2
-			Time                34 years ago
+			Time                35 years ago
 			Struct.String       -
 			Struct.Int          0
 			Struct.Bool         false
