@@ -1,15 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a
-Name                            cli-pn-sweet-leavitt
-OrganizationID                  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-ProjectID                       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Region                          fr-par
-CreatedAt                       few seconds ago
-UpdatedAt                       few seconds ago
-VpcID                           53e50f63-f6c0-44f7-8576-d6edcb965d9c
-DHCPEnabled                     true
-DefaultRoutePropagationEnabled  false
+ID              d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a
+Name            cli-pn-sweet-leavitt
+OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Region          fr-par
+CreatedAt       few seconds ago
+UpdatedAt       few seconds ago
+VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
+DHCPEnabled     true
 
 Instance Servers:
 ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
@@ -51,7 +50,6 @@ a12e8798-e136-45a9-9c5b-1b43b2bc41db  few seconds ago  few seconds ago  172.16.1
   ],
   "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c",
   "dhcp_enabled": true,
-  "default_route_propagation_enabled": false,
   "instance_servers": [
     {
       "id": "9381ff81-3722-4a29-b00d-f39e05f808ff",

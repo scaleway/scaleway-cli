@@ -30,7 +30,6 @@ func GetGeneratedCommands() *core.Commands {
 		iamPermissionSet(),
 		iamJwt(),
 		iamLog(),
-		iamOrganization(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -174,15 +173,6 @@ func iamLog() *core.Command {
 		Long:      `Log management commands.`,
 		Namespace: "iam",
 		Resource:  "log",
-	}
-}
-
-func iamOrganization() *core.Command {
-	return &core.Command{
-		Short:     `Organization-wide management commands`,
-		Long:      `Organization-wide management commands.`,
-		Namespace: "iam",
-		Resource:  "organization",
 	}
 }
 

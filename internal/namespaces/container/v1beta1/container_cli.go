@@ -277,12 +277,6 @@ func containerNamespaceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "activate-vpc-integration",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -721,12 +715,6 @@ func containerContainerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "private-network-id",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -945,12 +933,6 @@ func containerContainerUpdate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags of the Serverless Container`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "private-network-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
