@@ -12,6 +12,8 @@ ARGS:
   [managed-certificate]                                True when Scaleway generates and manages a Let's Encrypt certificate for the TLS stage/custom endpoint
   [cache-stage-id]                                     Cache stage ID the TLS stage will be linked to
   [backend-stage-id]                                   Backend stage ID the TLS stage will be linked to
+  [route-stage-id]                                     
+  [waf-stage-id]                                       
 
 FLAGS:
   -h, --help   help for update

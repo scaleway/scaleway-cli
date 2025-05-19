@@ -2,10 +2,12 @@ package rdb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -78,7 +80,8 @@ func userListBuilder(c *core.Command) *core.Command {
 			case rdb.PermissionReadwrite:
 				user.ReadWrite = append(user.ReadWrite, privilege.DatabaseName)
 			default:
-				core.ExtractLogger(ctx).Errorf("unsupported permission value %s", privilege.Permission)
+				core.ExtractLogger(ctx).
+					Errorf("unsupported permission value %s", privilege.Permission)
 			}
 		}
 
@@ -168,18 +171,33 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		api := rdb.NewAPI(client)
 
 		customRequest := argsI.(*rdbUpdateUserRequestCustom)
-
 		updateUserRequest := customRequest.UpdateUserRequest
 
 		var err error
-		if customRequest.GeneratePassword && customRequest.Password == nil {
-			updateUserRequest.Password = new(string)
-			*updateUserRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
+
+		if customRequest.GeneratePassword || customRequest.Password != nil {
+			switch {
+			case customRequest.GeneratePassword && customRequest.Password == nil:
+				updateUserRequest.Password = new(string)
+				pwd, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+				if err != nil {
+					return nil, err
+				}
+				*updateUserRequest.Password = pwd
+
+				_, err = interactive.Println("Your generated password is", pwd)
+				if err != nil {
+					return nil, err
+				}
+
+			case !customRequest.GeneratePassword && customRequest.Password == nil:
+				return nil, errors.New(
+					"you must provide a password when generate-password is set to false",
+				)
+
+			default:
+				updateUserRequest.Password = customRequest.Password
 			}
-			fmt.Printf("Your generated password is %v \n", *updateUserRequest.Password)
-			fmt.Printf("\n")
 		}
 
 		user, err := api.UpdateUser(updateUserRequest)
@@ -187,9 +205,14 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
+		respPwd := ""
+		if updateUserRequest.Password != nil {
+			respPwd = *updateUserRequest.Password
+		}
+
 		result := rdbUpdateUserResponseCustom{
 			User:     user,
-			Password: *updateUserRequest.Password,
+			Password: respPwd,
 		}
 
 		return result, nil

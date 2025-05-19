@@ -6,7 +6,7 @@ USAGE:
   scw keymanager key decrypt <key-id ...> [arg=value ...]
 
 ARGS:
-  key-id              ID of the key to decrypt
+  key-id              ID of the key to decrypt with
   ciphertext          Base64 Ciphertext data to decrypt (Support file loading with @/path/to/file)
   [associated-data]   (Optional) Additional authenticated data
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)

@@ -22,7 +22,11 @@ func mnqSnsGetCredentialsBuilder(c *core.Command) *core.Command {
 
 var completeSnsInfoCache *mnq.SnsInfo
 
-func autocompleteSnsProjectID(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autocompleteSnsProjectID(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	_ = prefix
 	req := request.(*mnq.SnsAPIListSnsCredentialsRequest)
 	suggestions := core.AutocompleteSuggestions(nil)
@@ -47,7 +51,11 @@ func autocompleteSnsProjectID(ctx context.Context, prefix string, request any) c
 
 var completeSnsListCredentials *mnq.ListSnsCredentialsResponse
 
-func autocompleteSnsCredentialsID(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autocompleteSnsCredentialsID(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	req := request.(*mnq.SnsAPIGetSnsCredentialsRequest)
 
 	suggestions := core.AutocompleteSuggestions(nil)

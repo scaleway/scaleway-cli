@@ -6,11 +6,11 @@ USAGE:
   scw edge-services dns-stage create [arg=value ...]
 
 ARGS:
-  [project-id]         Project ID to use. If none is passed the default project ID will be used
   [fqdns.{index}]      Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage
   [tls-stage-id]       TLS stage ID the DNS stage will be linked to
   [cache-stage-id]     Cache stage ID the DNS stage will be linked to
   [backend-stage-id]   Backend stage ID the DNS stage will be linked to
+  pipeline-id          Pipeline ID the DNS stage belongs to
 
 FLAGS:
   -h, --help   help for create

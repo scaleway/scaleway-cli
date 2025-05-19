@@ -14,9 +14,9 @@ import (
 	"io"
 	"net/http"
 	"strconv"
-	"syscall/js"
-
 	_ "unsafe"
+
+	"syscall/js"
 )
 
 var uint8Array = js.Global().Get("Uint8Array")
@@ -171,12 +171,10 @@ func (r *arrayReader) Close() error {
 	return nil
 }
 
-type Transport struct {
-}
+type Transport struct{}
 
 // RoundTrip implements the RoundTripper interface using the WHATWG Fetch API.
 func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
-
 	ac := js.Global().Get("AbortController")
 	if !ac.IsUndefined() {
 		// Some browsers that support WASM don't necessarily support

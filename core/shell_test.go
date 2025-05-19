@@ -45,6 +45,12 @@ func TestShell_isOption(t *testing.T) {
 		},
 	}
 	for _, test := range tt {
-		assert.Equal(t, core.ArgIsOption(test.Arg), test.IsOption, "%s option value is wrong", test.Arg)
+		assert.Equal(
+			t,
+			core.ArgIsOption(test.Arg),
+			test.IsOption,
+			"%s option value is wrong",
+			test.Arg,
+		)
 	}
 }

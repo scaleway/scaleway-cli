@@ -17,6 +17,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -32,17 +33,50 @@ const (
 )
 
 var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
-	rdbSDK.InstanceStatusUnknown:      &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-	rdbSDK.InstanceStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-	rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "provisioning"},
-	rdbSDK.InstanceStatusConfiguring:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "configuring"},
-	rdbSDK.InstanceStatusDeleting:     &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "deleting"},
-	rdbSDK.InstanceStatusError:        &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	rdbSDK.InstanceStatusAutohealing:  &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "auto-healing"},
-	rdbSDK.InstanceStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-	rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "initialized"},
-	rdbSDK.InstanceStatusDiskFull:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "disk_full"},
-	rdbSDK.InstanceStatusBackuping:    &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "backuping"},
+	rdbSDK.InstanceStatusUnknown: &human.EnumMarshalSpec{
+		Attribute: color.Faint,
+		Value:     "unknown",
+	},
+	rdbSDK.InstanceStatusReady: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "ready",
+	},
+	rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "provisioning",
+	},
+	rdbSDK.InstanceStatusConfiguring: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "configuring",
+	},
+	rdbSDK.InstanceStatusDeleting: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "deleting",
+	},
+	rdbSDK.InstanceStatusError: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "error",
+	},
+	rdbSDK.InstanceStatusAutohealing: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "auto-healing",
+	},
+	rdbSDK.InstanceStatusLocked: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "locked",
+	},
+	rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "initialized",
+	},
+	rdbSDK.InstanceStatusDiskFull: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "disk_full",
+	},
+	rdbSDK.InstanceStatusBackuping: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "backuping",
+	},
 }
 
 type serverWaitRequest struct {
@@ -177,7 +211,11 @@ var completeListNodeTypeCache *rdbSDK.ListNodeTypesResponse
 
 var completeListEngineCache *rdbSDK.ListDatabaseEnginesResponse
 
-func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autoCompleteNodeType(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	region := scw.Region("")
 	switch req := request.(type) {
 	case *rdbSDK.CreateInstanceRequest:
@@ -210,7 +248,11 @@ func autoCompleteNodeType(ctx context.Context, prefix string, request any) core.
 	return suggestions
 }
 
-func autoCompleteDatabaseEngines(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autoCompleteDatabaseEngines(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	req := request.(rdbCreateInstanceRequestCustom)
 	suggestion := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
@@ -266,8 +308,8 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-			InstanceID:    respI.(CreateInstanceResult).Instance.ID,
-			Region:        respI.(CreateInstanceResult).Instance.Region,
+			InstanceID:    respI.(CreateInstanceResult).ID,
+			Region:        respI.(CreateInstanceResult).Region,
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -301,7 +343,9 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 			fmt.Printf("\n")
 		}
 
-		createInstanceRequest.InitEndpoints, err = endpointRequestFromCustom(customRequest.InitEndpoints)
+		createInstanceRequest.InitEndpoints, err = endpointRequestFromCustom(
+			customRequest.InitEndpoints,
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -340,10 +384,11 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 
 		args := argsI.(*rdbSDK.GetInstanceRequest)
 
-		acls, err := rdbSDK.NewAPI(core.ExtractClient(ctx)).ListInstanceACLRules(&rdbSDK.ListInstanceACLRulesRequest{
-			Region:     args.Region,
-			InstanceID: args.InstanceID,
-		}, scw.WithAllPages())
+		acls, err := rdbSDK.NewAPI(core.ExtractClient(ctx)).
+			ListInstanceACLRules(&rdbSDK.ListInstanceACLRulesRequest{
+				Region:     args.Region,
+				InstanceID: args.InstanceID,
+			}, scw.WithAllPages())
 		if err != nil {
 			return nil, err
 		}
@@ -589,7 +634,8 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 			// if we get a 404 here, it means the resource was successfully deleted
 			notFoundError := &scw.ResourceNotFoundError{}
 			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound || errors.As(err, &notFoundError) {
+			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+				errors.As(err, &notFoundError) {
 				return instance, nil
 			}
 
@@ -669,7 +715,12 @@ func passwordFileExist(ctx context.Context, family engineFamily) bool {
 	case PostgreSQL:
 		switch runtime.GOOS {
 		case "windows":
-			passwordFilePath = path.Join(core.ExtractUserHomeDir(ctx), core.ExtractEnv(ctx, "APPDATA"), "postgresql", "pgpass.conf")
+			passwordFilePath = path.Join(
+				core.ExtractUserHomeDir(ctx),
+				core.ExtractEnv(ctx, "APPDATA"),
+				"postgresql",
+				"pgpass.conf",
+			)
 		default:
 			passwordFilePath = path.Join(core.ExtractUserHomeDir(ctx), ".pgpass")
 		}
@@ -731,7 +782,11 @@ func getPrivateEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) 
 	return nil, fmt.Errorf("%s", errorMessagePrivateEndpointNotFound)
 }
 
-func createConnectCommandLineArgs(endpoint *rdbSDK.Endpoint, family engineFamily, args *instanceConnectArgs) ([]string, error) {
+func createConnectCommandLineArgs(
+	endpoint *rdbSDK.Endpoint,
+	family engineFamily,
+	args *instanceConnectArgs,
+) ([]string, error) {
 	database := "rdb"
 	if args.Database != nil {
 		database = *args.Database
@@ -868,6 +923,92 @@ func instanceConnectCommand() *core.Command {
 			return &core.SuccessResult{
 				Empty: true, // the program will output the success message
 			}, nil
+		},
+	}
+}
+
+func instanceEditSettingsCommand() *core.Command {
+	type editSettingsArgs struct {
+		InstanceID string     `arg:"positional,required"`
+		Region     scw.Region `arg:"required"`
+		Mode       editor.MarshalMode
+	}
+
+	return &core.Command{
+		Namespace: "rdb",
+		Resource:  "setting",
+		Verb:      "edit",
+		Short:     "Edit Database Instance settings in your default editor",
+		Long: `This command opens the current settings of your RDB instance in your $EDITOR.
+You can modify the values and save the file to apply the new configuration.`,
+		ArgsType: reflect.TypeOf(editSettingsArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      "ID of the instance",
+				Required:   true,
+				Positional: true,
+			},
+			editor.MarshalModeArgSpec(), // --mode=yaml|json
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Edit instance settings in YAML",
+				Raw:   "scw rdb setting edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=yaml",
+			},
+			{
+				Short: "Edit instance settings in JSON",
+				Raw:   "scw rdb setting edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json",
+			},
+		},
+		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+			args := argsI.(*editSettingsArgs)
+
+			client := core.ExtractClient(ctx)
+			api := rdbSDK.NewAPI(client)
+
+			instance, err := api.GetInstance(&rdbSDK.GetInstanceRequest{
+				InstanceID: args.InstanceID,
+				Region:     args.Region,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			initialRequest := &rdbSDK.SetInstanceSettingsRequest{
+				Region:     args.Region,
+				InstanceID: args.InstanceID,
+				Settings:   instance.Settings,
+			}
+
+			editedRequestRaw, err := editor.UpdateResourceEditor(
+				initialRequest,
+				&rdbSDK.SetInstanceSettingsRequest{
+					Region:     args.Region,
+					InstanceID: args.InstanceID,
+				},
+				&editor.Config{
+					PutRequest:  true,
+					MarshalMode: args.Mode,
+				},
+			)
+			if err != nil {
+				return nil, err
+			}
+
+			editedRequest := editedRequestRaw.(*rdbSDK.SetInstanceSettingsRequest)
+
+			if reflect.DeepEqual(initialRequest.Settings, editedRequest.Settings) {
+				return &core.SuccessResult{Message: "No changes detected."}, nil
+			}
+
+			_, err = api.SetInstanceSettings(editedRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			return &core.SuccessResult{Message: "Settings successfully updated."}, nil
 		},
 	}
 }

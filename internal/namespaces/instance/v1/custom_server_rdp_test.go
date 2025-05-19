@@ -33,7 +33,10 @@ func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
 		if err != nil {
 			return nil, fmt.Errorf("failed to generate key: %w", err)
 		}
-		privatePEM, err := ssh.MarshalPrivateKey(privateKey, "test-cli-instance-server-get-rdp-password")
+		privatePEM, err := ssh.MarshalPrivateKey(
+			privateKey,
+			"test-cli-instance-server-get-rdp-password",
+		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to marshal private key: %w", err)
 		}
@@ -53,7 +56,10 @@ func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
 
 	privateKey, ok := key.(*rsa.PrivateKey)
 	if !ok {
-		return nil, fmt.Errorf("failed to assert private key type, expected *rsa.PrivateKey, got: %v", reflect.TypeOf(privateKey))
+		return nil, fmt.Errorf(
+			"failed to assert private key type, expected *rsa.PrivateKey, got: %v",
+			reflect.TypeOf(privateKey),
+		)
 	}
 
 	return privateKey, nil
@@ -67,7 +73,10 @@ func generateRSASSHKey(metaKey string) func(beforeFunc *core.BeforeFuncCtx) erro
 		if err != nil {
 			return fmt.Errorf("failed to load private key: %w", err)
 		}
-		privatePEM, err := ssh.MarshalPrivateKey(privateKey, "test-cli-instance-server-get-rdp-password")
+		privatePEM, err := ssh.MarshalPrivateKey(
+			privateKey,
+			"test-cli-instance-server-get-rdp-password",
+		)
 		if err != nil {
 			return fmt.Errorf("failed to marshal private key: %w", err)
 		}
@@ -120,7 +129,10 @@ func Test_ServerGetRdpPassword(t *testing.T) {
 		),
 		BeforeFunc: core.BeforeFuncCombine(
 			generateRSASSHKey("SSHKey"),
-			core.ExecStoreBeforeCmd("Server", "scw instance server create type=POP2-2C-8G-WIN image=windows_server_2022 admin-password-encryption-ssh-key-id={{.SSHKey.ID}}"),
+			core.ExecStoreBeforeCmd(
+				"Server",
+				"scw instance server create type=POP2-2C-8G-WIN image=windows_server_2022 admin-password-encryption-ssh-key-id={{.SSHKey.ID}}",
+			),
 		),
 		Cmd: "scw instance server get-rdp-password {{.Server.ID}} --wait",
 		Check: core.TestCheckCombine(

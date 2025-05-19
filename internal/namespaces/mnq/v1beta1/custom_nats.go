@@ -86,8 +86,12 @@ Credentials and context file are saved in your nats context folder with 0600 per
 			}
 
 			return &core.SuccessResult{
-				Message:  "Nats context successfully created",
-				Details:  fmt.Sprintf("%s nats credentials was created\nSelect context using `nats context select %s`", credentials.Name, natsAccount.Name),
+				Message: "Nats context successfully created",
+				Details: fmt.Sprintf(
+					"%s nats credentials was created\nSelect context using `nats context select %s`",
+					credentials.Name,
+					natsAccount.Name,
+				),
 				Resource: contextPath,
 			}, nil
 		},
@@ -108,7 +112,11 @@ func mnqNatsListCredentialsBuilder(c *core.Command) *core.Command {
 
 var completeListNatsAccountIDCache *mnq.ListNatsAccountsResponse
 
-func autocompleteNatsAccountID(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autocompleteNatsAccountID(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	region := scw.Region("")
 	switch req := request.(type) {
 	case *mnq.NatsAPIGetNatsAccountRequest:

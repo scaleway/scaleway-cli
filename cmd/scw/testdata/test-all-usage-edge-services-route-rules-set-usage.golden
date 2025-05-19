@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Set the rules of an existing route stage, specified by its `route_stage_id`.
+
+USAGE:
+  scw edge-services route-rules set <route-stage-id ...> [arg=value ...]
+
+ARGS:
+  route-stage-id                                                       ID of the route stage to update
+  [route-rules.{index}.rule-http-match.method-filters.{index}]         HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are `get`, `post`, `put`, `patch`, `delete`, `head`, `options`. All methods will match if none is provided (unknown_method_filter | get | post | put | patch | delete | head | options)
+  [route-rules.{index}.rule-http-match.path-filter.path-filter-type]   Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the `regex` type (unknown_path_filter | regex)
+  [route-rules.{index}.rule-http-match.path-filter.value]              Value to be matched for the HTTP URL path
+  [route-rules.{index}.backend-stage-id]                               ID of the backend stage that requests matching the rule should be forwarded to
+
+FLAGS:
+  -h, --help   help for set
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

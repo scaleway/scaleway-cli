@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/interlink/v1beta1"
+	interlink "github.com/scaleway/scaleway-sdk-go/api/interlink/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -47,6 +47,7 @@ func GetGeneratedCommands() *core.Commands {
 		interlinkRoutingPolicyDelete(),
 	)
 }
+
 func interlinkRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your InterLink services`,
@@ -116,7 +117,10 @@ func interlinkPartnerList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "pop-ids.{index}",
@@ -125,7 +129,12 @@ func interlinkPartnerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.ListPartnersRequest)
@@ -141,6 +150,7 @@ func interlinkPartnerList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Partners, nil
 		},
 	}
@@ -163,13 +173,18 @@ func interlinkPartnerGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.GetPartnerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.GetPartner(request)
 		},
 	}
@@ -191,7 +206,10 @@ func interlinkPopList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -228,7 +246,12 @@ func interlinkPopList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.ListPopsRequest)
@@ -244,6 +267,7 @@ func interlinkPopList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Pops, nil
 		},
 	}
@@ -266,13 +290,18 @@ func interlinkPopGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.GetPopRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.GetPop(request)
 		},
 	}
@@ -294,7 +323,14 @@ func interlinkLinkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -323,7 +359,21 @@ func interlinkLinkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_link_status", "configuring", "failed", "requested", "refused", "expired", "provisioning", "active", "limited_connectivity", "all_down", "deprovisioning", "deleted", "locked"},
+				EnumValues: []string{
+					"unknown_link_status",
+					"configuring",
+					"failed",
+					"requested",
+					"refused",
+					"expired",
+					"provisioning",
+					"active",
+					"limited_connectivity",
+					"all_down",
+					"deprovisioning",
+					"deleted",
+					"locked",
+				},
 			},
 			{
 				Name:       "bgp-v4-status",
@@ -331,7 +381,11 @@ func interlinkLinkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_bgp_status", "up", "down"},
+				EnumValues: []string{
+					"unknown_bgp_status",
+					"up",
+					"down",
+				},
 			},
 			{
 				Name:       "bgp-v6-status",
@@ -339,7 +393,11 @@ func interlinkLinkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_bgp_status", "up", "down"},
+				EnumValues: []string{
+					"unknown_bgp_status",
+					"up",
+					"down",
+				},
 			},
 			{
 				Name:       "pop-id",
@@ -389,7 +447,10 @@ func interlinkLinkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"hosted", "self_hosted"},
+				EnumValues: []string{
+					"hosted",
+					"self_hosted",
+				},
 			},
 			{
 				Name:       "connection-id",
@@ -405,7 +466,12 @@ func interlinkLinkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.ListLinksRequest)
@@ -421,6 +487,7 @@ func interlinkLinkList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Links, nil
 		},
 	}
@@ -443,13 +510,18 @@ func interlinkLinkGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.GetLinkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.GetLink(request)
 		},
 	}
@@ -458,7 +530,7 @@ func interlinkLinkGet() *core.Command {
 func interlinkLinkCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a link`,
-		Long:      `Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (faciliated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).`,
+		Long:      `Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (facilitated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).`,
 		Namespace: "interlink",
 		Resource:  "link",
 		Verb:      "create",
@@ -508,13 +580,25 @@ func interlinkLinkCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			{
+				Name:       "peer-asn",
+				Short:      `For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.CreateLinkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.CreateLink(request)
 		},
 	}
@@ -551,13 +635,25 @@ func interlinkLinkUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			{
+				Name:       "peer-asn",
+				Short:      `For self-hosted links, AS Number to establish BGP session.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.UpdateLinkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.UpdateLink(request)
 		},
 	}
@@ -580,13 +676,18 @@ func interlinkLinkDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.DeleteLinkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.DeleteLink(request)
 		},
 	}
@@ -616,13 +717,18 @@ func interlinkLinkAttachVpc() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.AttachVpcRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.AttachVpc(request)
 		},
 	}
@@ -645,13 +751,18 @@ func interlinkLinkDetachVpc() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.DetachVpcRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.DetachVpc(request)
 		},
 	}
@@ -681,13 +792,18 @@ func interlinkLinkAttachPolicy() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.AttachRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.AttachRoutingPolicy(request)
 		},
 	}
@@ -710,13 +826,18 @@ func interlinkLinkDetachPolicy() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.DetachRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.DetachRoutingPolicy(request)
 		},
 	}
@@ -739,13 +860,18 @@ func interlinkLinkEnablePropagation() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.EnableRoutePropagationRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.EnableRoutePropagation(request)
 		},
 	}
@@ -768,13 +894,18 @@ func interlinkLinkDisablePropagation() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.DisableRoutePropagationRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.DisableRoutePropagation(request)
 		},
 	}
@@ -796,7 +927,12 @@ func interlinkRoutingPolicyList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -826,7 +962,12 @@ func interlinkRoutingPolicyList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.ListRoutingPoliciesRequest)
@@ -842,6 +983,7 @@ func interlinkRoutingPolicyList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.RoutingPolicies, nil
 		},
 	}
@@ -864,13 +1006,18 @@ func interlinkRoutingPolicyGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.GetRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.GetRoutingPolicy(request)
 		},
 	}
@@ -915,13 +1062,18 @@ func interlinkRoutingPolicyCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.CreateRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.CreateRoutingPolicy(request)
 		},
 	}
@@ -972,13 +1124,18 @@ func interlinkRoutingPolicyUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.UpdateRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
+
 			return api.UpdateRoutingPolicy(request)
 		},
 	}
@@ -1001,7 +1158,11 @@ func interlinkRoutingPolicyDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*interlink.DeleteRoutingPolicyRequest)
@@ -1012,6 +1173,7 @@ func interlinkRoutingPolicyDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "routing-policy",
 				Verb:     "delete",

@@ -25,37 +25,49 @@ func Test_CreateContext(t *testing.T) {
 					Replacement: "credential-placeholder",
 				},
 				core.GoldenReplacement{
-					Pattern:     regexp.MustCompile("(Select context using `nats context select )cli[\\w-]*`"),
+					Pattern: regexp.MustCompile(
+						"(Select context using `nats context select )cli[\\w-]*`",
+					),
 					Replacement: "Select context using `nats context select context-placeholder`",
 				},
 			),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				result, isSuccessResult := ctx.Result.(*core.SuccessResult)
-				assert.True(t, isSuccessResult, "Expected result to be of type *core.SuccessResult, got %s", reflect.TypeOf(result).String())
+				assert.True(
+					t,
+					isSuccessResult,
+					"Expected result to be of type *core.SuccessResult, got %s",
+					reflect.TypeOf(result).String(),
+				)
 				assert.NotNil(t, result)
 				expectedContextFile := result.Resource
 				if !mnq.FileExists(expectedContextFile) {
-					t.Errorf("Expected credentials file not found expected [%s] ", expectedContextFile)
+					t.Errorf(
+						"Expected credentials file not found expected [%s] ",
+						expectedContextFile,
+					)
 				} else {
 					ctx.Meta["deleteFiles"] = []string{expectedContextFile}
 				}
 			},
 		),
-		AfterFunc: core.AfterFuncCombine(deleteNATSAccount("NATS"), func(ctx *core.AfterFuncCtx) error {
-			if ctx.Meta["deleteFiles"] == nil {
-				return nil
-			}
-			filesToDelete := ctx.Meta["deleteFiles"].([]string)
-			for _, file := range filesToDelete {
-				err := os.Remove(file)
-				if err != nil {
-					t.Errorf("Failed to delete the file : %s", err)
+		AfterFunc: core.AfterFuncCombine(
+			deleteNATSAccount("NATS"),
+			func(ctx *core.AfterFuncCtx) error {
+				if ctx.Meta["deleteFiles"] == nil {
+					return nil
 				}
-			}
+				filesToDelete := ctx.Meta["deleteFiles"].([]string)
+				for _, file := range filesToDelete {
+					err := os.Remove(file)
+					if err != nil {
+						t.Errorf("Failed to delete the file : %s", err)
+					}
+				}
 
-			return nil
-		},
+				return nil
+			},
 		),
 	}))
 }

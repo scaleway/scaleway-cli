@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
+	key_manager "github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -38,6 +38,7 @@ func GetGeneratedCommands() *core.Commands {
 		keymanagerKeyDeleteKeyMaterial(),
 	)
 }
+
 func keymanagerRoot() *core.Command {
 	return &core.Command{
 		Short:     `Key Manager API`,
@@ -79,7 +80,39 @@ func keymanagerKeyCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_symmetric_encryption", "aes_256_gcm"},
+				EnumValues: []string{
+					"unknown_symmetric_encryption",
+					"aes_256_gcm",
+				},
+			},
+			{
+				Name:       "usage.asymmetric-encryption",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_asymmetric_encryption",
+					"rsa_oaep_2048_sha256",
+					"rsa_oaep_3072_sha256",
+					"rsa_oaep_4096_sha256",
+				},
+			},
+			{
+				Name:       "usage.asymmetric-signing",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_asymmetric_signing",
+					"ec_p256_sha256",
+					"ec_p384_sha384",
+					"rsa_pss_2048_sha256",
+					"rsa_pss_3072_sha256",
+					"rsa_pss_4096_sha256",
+					"rsa_pkcs1_2048_sha256",
+					"rsa_pkcs1_3072_sha256",
+					"rsa_pkcs1_4096_sha256",
+				},
 			},
 			{
 				Name:       "description",
@@ -122,15 +155,24 @@ func keymanagerKeyCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_origin", "scaleway_kms", "external"},
+				EnumValues: []string{
+					"unknown_origin",
+					"scaleway_kms",
+					"external",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.CreateKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.CreateKey(request)
 		},
 	}
@@ -153,13 +195,18 @@ func keymanagerKeyGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.GetKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.GetKey(request)
 		},
 	}
@@ -217,13 +264,18 @@ func keymanagerKeyUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.UpdateKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.UpdateKey(request)
 		},
 	}
@@ -246,7 +298,11 @@ func keymanagerKeyDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.DeleteKeyRequest)
@@ -257,6 +313,7 @@ func keymanagerKeyDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "key",
 				Verb:     "delete",
@@ -282,13 +339,18 @@ func keymanagerKeyRotate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.RotateKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.RotateKey(request)
 		},
 	}
@@ -311,13 +373,18 @@ func keymanagerKeyProtect() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.ProtectKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.ProtectKey(request)
 		},
 	}
@@ -340,13 +407,18 @@ func keymanagerKeyUnprotect() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.UnprotectKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.UnprotectKey(request)
 		},
 	}
@@ -369,13 +441,18 @@ func keymanagerKeyEnable() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.EnableKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.EnableKey(request)
 		},
 	}
@@ -398,13 +475,18 @@ func keymanagerKeyDisable() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.DisableKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.DisableKey(request)
 		},
 	}
@@ -432,7 +514,14 @@ func keymanagerKeyList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "tags.{index}",
@@ -449,13 +538,31 @@ func keymanagerKeyList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "usage",
+				Short:      `(Optional) Filter keys by usage.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_usage",
+					"symmetric_encryption",
+					"asymmetric_encryption",
+					"asymmetric_signing",
+				},
+			},
+			{
 				Name:       "organization-id",
 				Short:      `(Optional) Filter by Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.ListKeysRequest)
@@ -471,6 +578,7 @@ func keymanagerKeyList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Keys, nil
 		},
 	}
@@ -502,7 +610,10 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("aes_256_gcm"),
-				EnumValues: []string{"unknown_symmetric_encryption", "aes_256_gcm"},
+				EnumValues: []string{
+					"unknown_symmetric_encryption",
+					"aes_256_gcm",
+				},
 			},
 			{
 				Name:       "without-plaintext",
@@ -511,13 +622,18 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.GenerateDataKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.GenerateDataKey(request)
 		},
 	}
@@ -535,7 +651,7 @@ func keymanagerKeyEncrypt() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
-				Short:      `ID of the key to encrypt`,
+				Short:      `ID of the key to use for encryption`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -554,13 +670,18 @@ func keymanagerKeyEncrypt() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.EncryptRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.Encrypt(request)
 		},
 	}
@@ -578,7 +699,7 @@ func keymanagerKeyDecrypt() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
-				Short:      `ID of the key to decrypt`,
+				Short:      `ID of the key to decrypt with`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
@@ -597,13 +718,18 @@ func keymanagerKeyDecrypt() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.DecryptRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.Decrypt(request)
 		},
 	}
@@ -640,13 +766,18 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.ImportKeyMaterialRequest)
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
+
 			return api.ImportKeyMaterial(request)
 		},
 	}
@@ -669,7 +800,11 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*key_manager.DeleteKeyMaterialRequest)
@@ -680,6 +815,7 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "key",
 				Verb:     "delete-key-material",

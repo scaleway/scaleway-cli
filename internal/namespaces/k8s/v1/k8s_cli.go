@@ -36,7 +36,6 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterListAvailableVersions(),
 		k8sClusterListAvailableTypes(),
 		k8sClusterResetAdminToken(),
-		k8sClusterMigrateToSbsCsi(),
 		k8sACLList(),
 		k8sACLAdd(),
 		k8sACLSet(),
@@ -57,6 +56,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterTypeList(),
 	)
 }
+
 func k8sRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage Kubernetes Kapsule and Kosmos clusters`,
@@ -147,7 +147,18 @@ func k8sClusterList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc", "status_asc", "status_desc", "version_asc", "version_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+					"version_asc",
+					"version_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -162,7 +173,16 @@ func k8sClusterList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "creating", "ready", "deleting", "deleted", "updating", "locked", "pool_required"},
+				EnumValues: []string{
+					"unknown",
+					"creating",
+					"ready",
+					"deleting",
+					"deleted",
+					"updating",
+					"locked",
+					"pool_required",
+				},
 			},
 			{
 				Name:       "type",
@@ -185,7 +205,12 @@ func k8sClusterList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClustersRequest)
@@ -201,6 +226,7 @@ func k8sClusterList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Clusters, nil
 		},
 		Examples: []*core.Example{
@@ -311,7 +337,15 @@ func k8sClusterCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_cni", "cilium", "calico", "weave", "flannel", "kilo", "none"},
+				EnumValues: []string{
+					"unknown_cni",
+					"cilium",
+					"calico",
+					"weave",
+					"flannel",
+					"kilo",
+					"none",
+				},
 			},
 			{
 				Name:       "pools.{index}.name",
@@ -368,7 +402,12 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "docker", "containerd", "crio"},
+				EnumValues: []string{
+					"unknown_runtime",
+					"docker",
+					"containerd",
+					"crio",
+				},
 			},
 			{
 				Name:       "pools.{index}.autohealing",
@@ -418,7 +457,13 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd", "sbs_5k", "sbs_15k"},
+				EnumValues: []string{
+					"default_volume_type",
+					"l_ssd",
+					"b_ssd",
+					"sbs_5k",
+					"sbs_15k",
+				},
 			},
 			{
 				Name:       "pools.{index}.root-volume-size",
@@ -454,7 +499,10 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_estimator", "binpacking"},
+				EnumValues: []string{
+					"unknown_estimator",
+					"binpacking",
+				},
 			},
 			{
 				Name:       "autoscaler-config.expander",
@@ -462,7 +510,14 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority", "price"},
+				EnumValues: []string{
+					"unknown_expander",
+					"random",
+					"most_pods",
+					"least_waste",
+					"priority",
+					"price",
+				},
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
@@ -526,7 +581,16 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"any", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"},
+				EnumValues: []string{
+					"any",
+					"monday",
+					"tuesday",
+					"wednesday",
+					"thursday",
+					"friday",
+					"saturday",
+					"sunday",
+				},
 			},
 			{
 				Name:       "feature-gates.{index}",
@@ -606,13 +670,18 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.CreateClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.CreateCluster(request)
 		},
 		Examples: []*core.Example{
@@ -645,13 +714,18 @@ func k8sClusterGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.GetCluster(request)
 		},
 		Examples: []*core.Example{
@@ -721,7 +795,10 @@ func k8sClusterUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_estimator", "binpacking"},
+				EnumValues: []string{
+					"unknown_estimator",
+					"binpacking",
+				},
 			},
 			{
 				Name:       "autoscaler-config.expander",
@@ -729,7 +806,14 @@ func k8sClusterUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_expander", "random", "most_pods", "least_waste", "priority", "price"},
+				EnumValues: []string{
+					"unknown_expander",
+					"random",
+					"most_pods",
+					"least_waste",
+					"priority",
+					"price",
+				},
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
@@ -793,7 +877,16 @@ func k8sClusterUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"any", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"},
+				EnumValues: []string{
+					"any",
+					"monday",
+					"tuesday",
+					"wednesday",
+					"thursday",
+					"friday",
+					"saturday",
+					"sunday",
+				},
 			},
 			{
 				Name:       "feature-gates.{index}",
@@ -865,13 +958,18 @@ func k8sClusterUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpdateClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.UpdateCluster(request)
 		},
 		Examples: []*core.Example{
@@ -911,13 +1009,18 @@ func k8sClusterDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.DeleteClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.DeleteCluster(request)
 		},
 		Examples: []*core.Example{
@@ -964,13 +1067,18 @@ func k8sClusterUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpgradeClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.UpgradeCluster(request)
 		},
 		Examples: []*core.Example{
@@ -1010,13 +1118,18 @@ func k8sClusterSetType() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.SetClusterTypeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.SetClusterType(request)
 		},
 		Examples: []*core.Example{
@@ -1045,13 +1158,18 @@ func k8sClusterListAvailableVersions() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClusterAvailableVersionsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.ListClusterAvailableVersions(request)
 		},
 		Examples: []*core.Example{
@@ -1088,13 +1206,18 @@ func k8sClusterListAvailableTypes() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClusterAvailableTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.ListClusterAvailableTypes(request)
 		},
 		Examples: []*core.Example{
@@ -1155,7 +1278,11 @@ func k8sClusterResetAdminToken() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ResetClusterAdminTokenRequest)
@@ -1166,6 +1293,7 @@ func k8sClusterResetAdminToken() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "cluster",
 				Verb:     "reset-admin-token",
@@ -1175,42 +1303,6 @@ func k8sClusterResetAdminToken() *core.Command {
 			{
 				Short: "Reset the admin token for a cluster",
 				Raw:   `scw k8s cluster reset-admin-token 11111111-1111-1111-1111-111111111111`,
-			},
-		},
-	}
-}
-
-func k8sClusterMigrateToSbsCsi() *core.Command {
-	return &core.Command{
-		Short: `Migrate a cluster to SBS CSI`,
-		Long: `Enable the latest CSI compatible with Scaleway Block Storage (SBS) and migrate all existing PersistentVolumes/VolumeSnapshotContents to SBS.
-Make sure to have the necessary Quota before running this command.`,
-		Namespace: "k8s",
-		Resource:  "cluster",
-		Verb:      "migrate-to-sbs-csi",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.MigrateClusterToSBSCSIRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "cluster-id",
-				Short:      `Cluster ID for which the latest CSI compatible with Scaleway Block Storage will be enabled`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*k8s.MigrateClusterToSBSCSIRequest)
-
-			client := core.ExtractClient(ctx)
-			api := k8s.NewAPI(client)
-			return api.MigrateClusterToSBSCSI(request)
-		},
-		Examples: []*core.Example{
-			{
-				Short: "Migrate a cluster to SBS CSI",
-				Raw:   `scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-1111-111111111111`,
 			},
 		},
 	}
@@ -1233,7 +1325,12 @@ func k8sACLList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClusterACLRulesRequest)
@@ -1249,6 +1346,7 @@ func k8sACLList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Rules, nil
 		},
 	}
@@ -1292,13 +1390,18 @@ func k8sACLAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.AddClusterACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.AddClusterACLRules(request)
 		},
 	}
@@ -1342,13 +1445,18 @@ func k8sACLSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.SetClusterACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.SetClusterACLRules(request)
 		},
 	}
@@ -1371,7 +1479,11 @@ func k8sACLDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.DeleteACLRuleRequest)
@@ -1382,6 +1494,7 @@ func k8sACLDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "acl",
 				Verb:     "delete",
@@ -1413,7 +1526,18 @@ func k8sPoolList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc", "status_asc", "status_desc", "version_asc", "version_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+					"version_asc",
+					"version_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -1428,9 +1552,23 @@ func k8sPoolList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "ready", "deleting", "deleted", "scaling", "warning", "locked", "upgrading"},
+				EnumValues: []string{
+					"unknown",
+					"ready",
+					"deleting",
+					"deleted",
+					"scaling",
+					"warning",
+					"locked",
+					"upgrading",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListPoolsRequest)
@@ -1446,6 +1584,7 @@ func k8sPoolList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Pools, nil
 		},
 		Examples: []*core.Example{
@@ -1586,7 +1725,12 @@ func k8sPoolCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "docker", "containerd", "crio"},
+				EnumValues: []string{
+					"unknown_runtime",
+					"docker",
+					"containerd",
+					"crio",
+				},
 			},
 			{
 				Name:       "autohealing",
@@ -1634,7 +1778,13 @@ func k8sPoolCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd", "sbs_5k", "sbs_15k"},
+				EnumValues: []string{
+					"default_volume_type",
+					"l_ssd",
+					"b_ssd",
+					"sbs_5k",
+					"sbs_15k",
+				},
 			},
 			{
 				Name:       "root-volume-size",
@@ -1650,13 +1800,18 @@ func k8sPoolCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.CreatePoolRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.CreatePool(request)
 		},
 		Examples: []*core.Example{
@@ -1693,13 +1848,18 @@ func k8sPoolGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetPoolRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.GetPool(request)
 		},
 		Examples: []*core.Example{
@@ -1736,13 +1896,18 @@ This will drain and replace the nodes in that pool.`,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpgradePoolRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.UpgradePool(request)
 		},
 		Examples: []*core.Example{
@@ -1832,13 +1997,18 @@ func k8sPoolUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.UpdatePoolRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.UpdatePool(request)
 		},
 		Examples: []*core.Example{
@@ -1879,13 +2049,18 @@ func k8sPoolDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.DeletePoolRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.DeletePool(request)
 		},
 		Examples: []*core.Example{
@@ -1927,7 +2102,18 @@ func k8sNodeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "name_asc", "name_desc", "status_asc", "status_desc", "version_asc", "version_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+					"version_asc",
+					"version_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -1942,9 +2128,27 @@ func k8sNodeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "creating", "not_ready", "ready", "deleting", "deleted", "locked", "rebooting", "creation_error", "upgrading", "starting", "registering"},
+				EnumValues: []string{
+					"unknown",
+					"creating",
+					"not_ready",
+					"ready",
+					"deleting",
+					"deleted",
+					"locked",
+					"rebooting",
+					"creation_error",
+					"upgrading",
+					"starting",
+					"registering",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListNodesRequest)
@@ -1960,6 +2164,7 @@ func k8sNodeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.Nodes, nil
 		},
 		Examples: []*core.Example{
@@ -2022,13 +2227,18 @@ func k8sNodeGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetNodeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.GetNode(request)
 		},
 		Examples: []*core.Example{
@@ -2057,13 +2267,18 @@ func k8sNodeReplace() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ReplaceNodeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.ReplaceNode(request)
 		},
 		Examples: []*core.Example{
@@ -2092,13 +2307,18 @@ func k8sNodeReboot() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.RebootNodeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.RebootNode(request)
 		},
 		Examples: []*core.Example{
@@ -2141,13 +2361,18 @@ func k8sNodeDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.DeleteNodeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.DeleteNode(request)
 		},
 		Examples: []*core.Example{
@@ -2177,13 +2402,18 @@ func k8sVersionList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(k8s.ListVersionsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListVersionsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.ListVersions(request)
 		},
 		Examples: []*core.Example{
@@ -2232,13 +2462,18 @@ func k8sVersionGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.GetVersionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
+
 			return api.GetVersion(request)
 		},
 		Examples: []*core.Example{
@@ -2260,7 +2495,12 @@ func k8sClusterTypeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(k8s.ListClusterTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*k8s.ListClusterTypesRequest)
@@ -2276,6 +2516,7 @@ func k8sClusterTypeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
+
 			return resp.ClusterTypes, nil
 		},
 	}

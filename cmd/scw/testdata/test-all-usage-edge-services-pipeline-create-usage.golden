@@ -6,10 +6,9 @@ USAGE:
   scw edge-services pipeline create [arg=value ...]
 
 ARGS:
-  [project-id]     Project ID to use. If none is passed the default project ID will be used
-  name             Name of the pipeline
-  description      Description of the pipeline
-  [dns-stage-id]   DNS stage ID the pipeline will be attached to
+  [project-id]   Project ID to use. If none is passed the default project ID will be used
+  name           Name of the pipeline
+  description    Description of the pipeline
 
 FLAGS:
   -h, --help   help for create

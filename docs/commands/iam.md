@@ -121,7 +121,7 @@ scw iam api-key delete SCW00000000000
 
 ### Get an API key
 
-Retrive information about an API key, specified by the `access_key` parameter. The API key's details, including either the `user_id` or `application_id` of its bearer are returned in the response. Note that the string value for the `secret_key` is nullable, and therefore is not displayed in the response. The `secret_key` value is only displayed upon API key creation.
+Retrieve information about an API key, specified by the `access_key` parameter. The API key's details, including either the `user_id` or `application_id` of its bearer are returned in the response. Note that the string value for the `secret_key` is nullable, and therefore is not displayed in the response. The `secret_key` value is only displayed upon API key creation.
 
 **Usage:**
 
@@ -135,6 +135,7 @@ scw iam api-key get <access-key ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | access-key | Required | Access key to search for |
+| with-policies | Default: `true` | Display the set of policies associated with the API key |
 
 
 
@@ -306,7 +307,7 @@ Groups management commands.
 
 ### Add a user or an application to a group
 
-Add a user or an application to a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only add one of each per request.
+Add a user or an application to a group. You can specify a `user_id` and `application_id` in the body of your request. Note that you can only add one of each per request.
 
 **Usage:**
 
@@ -409,7 +410,7 @@ scw iam group delete 11111111-1111-1111-1111-111111111111
 
 ### Get a group
 
-Retrive information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response.
+Retrieve information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response.
 
 **Usage:**
 
@@ -453,7 +454,7 @@ scw iam group list [arg=value ...]
 
 ### Remove a user or an application from a group
 
-Remove a user or an application from a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
+Remove a user or an application from a group. You can specify a `user_id` and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
 
 **Usage:**
 

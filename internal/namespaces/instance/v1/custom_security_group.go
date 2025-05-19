@@ -151,13 +151,25 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	if err != nil {
 		return "", err
 	}
-	inboundRulesView := b("Inbound Rules (default policy ") + b(defaultInboundPolicy) + b("):\n") + inboundRulesContent
+	inboundRulesView := b(
+		"Inbound Rules (default policy ",
+	) + b(
+		defaultInboundPolicy,
+	) + b(
+		"):\n",
+	) + inboundRulesContent
 
 	outboundRulesContent, err := human.Marshal(outboundRules, nil)
 	if err != nil {
 		return "", err
 	}
-	outboundRulesView := b("Outbound Rules (default policy ") + b(defaultOutboundPolicy) + b("):\n") + outboundRulesContent
+	outboundRulesView := b(
+		"Outbound Rules (default policy ",
+	) + b(
+		defaultOutboundPolicy,
+	) + b(
+		"):\n",
+	) + outboundRulesContent
 
 	serversContent, err := human.Marshal(sg.Servers, nil)
 	if err != nil {
@@ -195,19 +207,21 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customCreateSecurityGroupRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customCreateSecurityGroupRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customCreateSecurityGroupRequest)
 
-		if args.CreateSecurityGroupRequest == nil {
-			args.CreateSecurityGroupRequest = &instance.CreateSecurityGroupRequest{}
-		}
+			if args.CreateSecurityGroupRequest == nil {
+				args.CreateSecurityGroupRequest = &instance.CreateSecurityGroupRequest{}
+			}
 
-		request := args.CreateSecurityGroupRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.CreateSecurityGroupRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
@@ -223,10 +237,13 @@ func securityGroupGetBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		securityGroupRules, err := api.ListSecurityGroupRules(&instance.ListSecurityGroupRulesRequest{
-			Zone:            req.Zone,
-			SecurityGroupID: securityGroup.SecurityGroup.ID,
-		}, scw.WithAllPages())
+		securityGroupRules, err := api.ListSecurityGroupRules(
+			&instance.ListSecurityGroupRulesRequest{
+				Zone:            req.Zone,
+				SecurityGroupID: securityGroup.SecurityGroup.ID,
+			},
+			scw.WithAllPages(),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -252,60 +269,64 @@ func securityGroupListBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customListSecurityGroupsRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customListSecurityGroupsRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customListSecurityGroupsRequest)
 
-		if args.ListSecurityGroupsRequest == nil {
-			args.ListSecurityGroupsRequest = &instance.ListSecurityGroupsRequest{}
-		}
+			if args.ListSecurityGroupsRequest == nil {
+				args.ListSecurityGroupsRequest = &instance.ListSecurityGroupsRequest{}
+			}
 
-		request := args.ListSecurityGroupsRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.ListSecurityGroupsRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
 
 func securityGroupDeleteBuilder(c *core.Command) *core.Command {
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		res, originalErr := runner(ctx, argsI)
-		if originalErr == nil {
-			return res, nil
-		}
-
-		if strings.HasSuffix(originalErr.Error(), "group is in use. you cannot delete it.") {
-			req := argsI.(*instance.DeleteSecurityGroupRequest)
-			api := instance.NewAPI(core.ExtractClient(ctx))
-
-			newError := &core.CliError{
-				Err: errors.New("cannot delete security-group currently in use"),
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			res, originalErr := runner(ctx, argsI)
+			if originalErr == nil {
+				return res, nil
 			}
 
-			// Get security-group.
-			sg, err := api.GetSecurityGroup(&instance.GetSecurityGroupRequest{
-				SecurityGroupID: req.SecurityGroupID,
-			})
-			if err != nil {
-				// Ignore API error and return a minimal error.
+			if strings.HasSuffix(originalErr.Error(), "group is in use. you cannot delete it.") {
+				req := argsI.(*instance.DeleteSecurityGroupRequest)
+				api := instance.NewAPI(core.ExtractClient(ctx))
+
+				newError := &core.CliError{
+					Err: errors.New("cannot delete security-group currently in use"),
+				}
+
+				// Get security-group.
+				sg, err := api.GetSecurityGroup(&instance.GetSecurityGroupRequest{
+					SecurityGroupID: req.SecurityGroupID,
+				})
+				if err != nil {
+					// Ignore API error and return a minimal error.
+					return nil, newError
+				}
+
+				// Create detail message.
+				hint := "Attach all these instances to another security-group before deleting this one:"
+				for _, s := range sg.SecurityGroup.Servers {
+					hint += "\nscw instance server update " + s.ID + " security-group.id=$NEW_SECURITY_GROUP_ID"
+				}
+
+				newError.Hint = hint
+
 				return nil, newError
 			}
 
-			// Create detail message.
-			hint := "Attach all these instances to another security-group before deleting this one:"
-			for _, s := range sg.SecurityGroup.Servers {
-				hint += "\nscw instance server update " + s.ID + " security-group.id=$NEW_SECURITY_GROUP_ID"
-			}
-
-			newError.Hint = hint
-
-			return nil, newError
-		}
-
-		return nil, originalErr
-	})
+			return nil, originalErr
+		},
+	)
 
 	return c
 }

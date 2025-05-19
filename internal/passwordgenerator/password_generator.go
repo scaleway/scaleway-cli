@@ -17,7 +17,9 @@ const (
 
 func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (string, error) {
 	if length < (minNumbers + minLower + minUpper + minSymbol) {
-		return "", errors.New("length is less than the sum of minNumbers, minLower, minUpper, and minSymbol")
+		return "", errors.New(
+			"length is less than the sum of minNumbers, minLower, minUpper, and minSymbol",
+		)
 	}
 
 	var password strings.Builder

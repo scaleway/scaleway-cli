@@ -17,6 +17,7 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
   - [Update Route](#update-route)
 - [Rule management command](#rule-management-command)
+  - [Edit all ACL rules of a VPC](#edit-all-acl-rules-of-a-vpc)
   - [Get ACL Rules for VPC](#get-acl-rules-for-vpc)
   - [Set VPC ACL rules](#set-vpc-acl-rules)
 - [Subnet management command](#subnet-management-command)
@@ -56,6 +57,7 @@ scw vpc private-network create [arg=value ...]
 | tags.{index} |  | Tags for the Private Network |
 | subnets.{index} |  | Private Network subnets CIDR |
 | vpc-id |  | VPC in which to create the Private Network |
+| default-route-propagation-enabled |  | Defines whether default v4 and v6 routes are propagated for this Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -165,6 +167,7 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 | private-network-id | Required | Private Network ID |
 | name |  | Name for the Private Network |
 | tags.{index} |  | Tags for the Private Network |
+| default-route-propagation-enabled |  | Defines whether default v4 and v6 routes are propagated for this Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -314,6 +317,30 @@ scw vpc route update <route-id ...> [arg=value ...]
 ## Rule management command
 
 ACL Rules.
+
+
+### Edit all ACL rules of a VPC
+
+This command starts your default editor to edit a marshaled version of your resource
+Default editor will be taken from $VISUAL, then $EDITOR or an editor based on your system
+
+**Usage:**
+
+```
+scw vpc rule edit [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | ID of the Network ACL's VPC |
+| is-ipv6 |  | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type |
+| default-policy |  | Action to take for packets which do not match any rules |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
 
 
 ### Get ACL Rules for VPC
@@ -469,7 +496,7 @@ scw vpc vpc list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of the returned VPCs |
 | name |  | Name to filter for. Only VPCs with names containing this string will be returned |
-| tags.{index} |  | Tags to filter for. Only VPCs with one more more matching tags will be returned |
+| tags.{index} |  | Tags to filter for. Only VPCs with one or more matching tags will be returned |
 | project-id |  | Project ID to filter for. Only VPCs belonging to this Project will be returned |
 | is-default |  | Defines whether to filter only for VPCs which are the default one for their Project |
 | routing-enabled |  | Defines whether to filter only for VPCs which route traffic between their Private Networks |

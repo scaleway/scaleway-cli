@@ -3,9 +3,8 @@
 package main
 
 import (
-	"syscall/js"
-
 	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
+	"syscall/js"
 )
 
 type jsFunction func(js.Value, []js.Value) any

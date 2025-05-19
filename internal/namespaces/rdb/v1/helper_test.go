@@ -48,7 +48,13 @@ func createInstanceWithPrivateNetwork() core.BeforeFunc {
 func createInstanceWithPrivateNetworkAndLoadBalancer() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		fmt.Sprintf(baseCommand+privateNetworkStaticSpec+loadBalancerSpec, name, engine, user, password),
+		fmt.Sprintf(
+			baseCommand+privateNetworkStaticSpec+loadBalancerSpec,
+			name,
+			engine,
+			user,
+			password,
+		),
 	)
 }
 

@@ -6,9 +6,11 @@ USAGE:
   scw edge-services cache-stage create [arg=value ...]
 
 ARGS:
-  [project-id]           Project ID to use. If none is passed the default project ID will be used
   [fallback-ttl=3600s]   Time To Live (TTL) in seconds. Defines how long content is cached
   [backend-stage-id]     Backend stage ID the cache stage will be linked to
+  pipeline-id            Pipeline ID the Cache stage belongs to
+  [waf-stage-id]         
+  [route-stage-id]       
 
 FLAGS:
   -h, --help   help for create
