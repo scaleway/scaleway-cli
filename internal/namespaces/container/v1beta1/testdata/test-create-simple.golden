@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         75fa8f1e-aacd-497d-935c-8d95f8110bd3
-Name                                       cli-test-hungry-gould
-NamespaceID                                dd6cb597-6885-4da9-b8c1-effbd4641489
+ID                                         a2844e21-3cf0-42a3-bab0-194ff3ddcae4
+Name                                       cli-test-quirky-northcutt
+NamespaceID                                213fb58c-6b93-4713-94db-f747a8b2e400
 Status                                     pending
 MinScale                                   0
 MaxScale                                   5
@@ -11,9 +11,9 @@ CPULimit                                   1000
 Timeout                                    5 minutes
 Privacy                                    public
 Description                                -
-RegistryImage                              rg.fr-par.scw.cloud/funcscwclicnsbravehypatiaqxvrhdir/cli-test-hungry-gould:latest
+RegistryImage                              rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest
 MaxConcurrency                             50
-DomainName                                 clicnsbravehypatiaqxvrhdir-cli-test-hungry-gould.functions.fnc.fr-par.scw.cloud
+DomainName                                 clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud
 Protocol                                   http1
 Port                                       8080
 HTTPOption                                 enabled
@@ -27,9 +27,9 @@ UpdatedAt                                  few seconds ago
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "75fa8f1e-aacd-497d-935c-8d95f8110bd3",
-  "name": "cli-test-hungry-gould",
-  "namespace_id": "dd6cb597-6885-4da9-b8c1-effbd4641489",
+  "id": "a2844e21-3cf0-42a3-bab0-194ff3ddcae4",
+  "name": "cli-test-quirky-northcutt",
+  "namespace_id": "213fb58c-6b93-4713-94db-f747a8b2e400",
   "status": "pending",
   "environment_variables": {},
   "min_scale": 0,
@@ -40,9 +40,9 @@ Region                                     fr-par
   "error_message": null,
   "privacy": "public",
   "description": "",
-  "registry_image": "rg.fr-par.scw.cloud/funcscwclicnsbravehypatiaqxvrhdir/cli-test-hungry-gould:latest",
+  "registry_image": "rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest",
   "max_concurrency": 50,
-  "domain_name": "clicnsbravehypatiaqxvrhdir-cli-test-hungry-gould.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud",
   "protocol": "http1",
   "port": 8080,
   "secret_environment_variables": [],
@@ -60,5 +60,7 @@ Region                                     fr-par
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "ready_at": null,
-  "region": "fr-par"
+  "region": "fr-par",
+  "tags": [],
+  "private_network_id": null
 }
