@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   group          Groups management commands
   jwt            JWTs management commands
   log            Log management commands
+  organization   Organization-wide management commands
   permission-set Permission sets management commands
   policy         Policies management commands
   rule           Rules management commands
