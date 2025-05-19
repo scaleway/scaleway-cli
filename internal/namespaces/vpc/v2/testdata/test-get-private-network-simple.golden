@@ -1,62 +1,64 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              32be1c44-07ab-4332-9339-9d683a52a4cb
-Name            cli-pn-hungry-agnesi
-OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
-ProjectID       951df375-e094-4d26-97c1-ba548eeb9c42
-Region          fr-par
-CreatedAt       few seconds ago
-UpdatedAt       few seconds ago
-VpcID           4c837446-e418-4326-af43-4a445ea0aab8
-DHCPEnabled     true
+ID                              b4305a2c-7d52-4977-b923-9212ce7bb408
+Name                            cli-pn-sweet-margulis
+OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Region                          fr-par
+CreatedAt                       few seconds ago
+UpdatedAt                       few seconds ago
+VpcID                           086a5171-f7ab-4667-a231-840a81203f19
+DHCPEnabled                     true
+DefaultRoutePropagationEnabled  false
 
 Instance Servers:
-ID                                    NAME                 STATE     NIC ID                                MAC ADDRESS
-9c717a0c-1c7f-401f-b6ed-0165dee6d47d  cli-srv-busy-curran  archived  e31368e4-456a-4977-bf99-dae2ff7ecb1d  02:00:00:13:20:7b
+ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
+42195acf-1a09-47c8-8332-48031efdc984  cli-srv-awesome-poitras  archived  c8f2a003-8476-428b-8bef-70b07b64083d  02:00:00:10:5b:44
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-c8f3fada-fe3a-496e-a4c5-207fa83662c6  few seconds ago  few seconds ago  172.16.20.0/22            951df375-e094-4d26-97c1-ba548eeb9c42  32be1c44-07ab-4332-9339-9d683a52a4cb  4c837446-e418-4326-af43-4a445ea0aab8
-880ec06d-2ee5-4427-a53f-bdbfd1f58743  few seconds ago  few seconds ago  fd49:821a:a311:c9f2::/64  951df375-e094-4d26-97c1-ba548eeb9c42  32be1c44-07ab-4332-9339-9d683a52a4cb  4c837446-e418-4326-af43-4a445ea0aab8
+625801e0-4a6b-4f21-97be-157d0a5b79d6  few seconds ago  few seconds ago  172.16.0.0/22             564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b4305a2c-7d52-4977-b923-9212ce7bb408  086a5171-f7ab-4667-a231-840a81203f19
+95c00a18-e803-48b9-803f-ec002f7020b3  few seconds ago  few seconds ago  fd46:78ab:30b8:afec::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b4305a2c-7d52-4977-b923-9212ce7bb408  086a5171-f7ab-4667-a231-840a81203f19
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "32be1c44-07ab-4332-9339-9d683a52a4cb",
-  "name": "cli-pn-hungry-agnesi",
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "id": "b4305a2c-7d52-4977-b923-9212ce7bb408",
+  "name": "cli-pn-sweet-margulis",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "c8f3fada-fe3a-496e-a4c5-207fa83662c6",
+      "id": "625801e0-4a6b-4f21-97be-157d0a5b79d6",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.20.0/22",
-      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "private_network_id": "32be1c44-07ab-4332-9339-9d683a52a4cb",
-      "vpc_id": "4c837446-e418-4326-af43-4a445ea0aab8"
+      "subnet": "172.16.0.0/22",
+      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "private_network_id": "b4305a2c-7d52-4977-b923-9212ce7bb408",
+      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     },
     {
-      "id": "880ec06d-2ee5-4427-a53f-bdbfd1f58743",
+      "id": "95c00a18-e803-48b9-803f-ec002f7020b3",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd49:821a:a311:c9f2::/64",
-      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "private_network_id": "32be1c44-07ab-4332-9339-9d683a52a4cb",
-      "vpc_id": "4c837446-e418-4326-af43-4a445ea0aab8"
+      "subnet": "fd46:78ab:30b8:afec::/64",
+      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "private_network_id": "b4305a2c-7d52-4977-b923-9212ce7bb408",
+      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     }
   ],
-  "vpc_id": "4c837446-e418-4326-af43-4a445ea0aab8",
+  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
   "dhcp_enabled": true,
+  "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "9c717a0c-1c7f-401f-b6ed-0165dee6d47d",
-      "name": "cli-srv-busy-curran",
+      "id": "42195acf-1a09-47c8-8332-48031efdc984",
+      "name": "cli-srv-awesome-poitras",
       "state": "stopped",
-      "nic_id": "e31368e4-456a-4977-bf99-dae2ff7ecb1d",
-      "mac": "02:00:00:13:20:7b"
+      "nic_id": "c8f2a003-8476-428b-8bef-70b07b64083d",
+      "mac": "02:00:00:10:5b:44"
     }
   ]
 }
