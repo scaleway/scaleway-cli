@@ -1,62 +1,62 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a
-Name            cli-pn-sweet-leavitt
-OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID              8019ae27-25cc-4ffc-b14c-3f332771fbd1
+Name            cli-pn-intelligent-hugle
+OrganizationID  951df375-e094-4d26-97c1-ba548eeb9c42
+ProjectID       951df375-e094-4d26-97c1-ba548eeb9c42
 Region          fr-par
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
+VpcID           4c837446-e418-4326-af43-4a445ea0aab8
 DHCPEnabled     true
 
 Instance Servers:
-ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
-9381ff81-3722-4a29-b00d-f39e05f808ff  cli-srv-recursing-bose  archived  f098b0ba-a307-428a-a4e4-70e65268aa70  02:00:00:1f:ab:bf
+ID                                    NAME                  STATE     NIC ID                                MAC ADDRESS
+f69f5a7f-4136-4fa0-8692-c94aa408c164  cli-srv-keen-dewdney  archived  f692806a-fc21-4a6b-bd48-9f8eb4d7a33b  02:00:00:19:60:02
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-a12e8798-e136-45a9-9c5b-1b43b2bc41db  few seconds ago  few seconds ago  172.16.12.0/22            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a  53e50f63-f6c0-44f7-8576-d6edcb965d9c
-3586380c-af46-457f-a907-b852fc21428c  few seconds ago  few seconds ago  fd4a:c18e:554d:fc9b::/64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a  53e50f63-f6c0-44f7-8576-d6edcb965d9c
+13bbc6b2-5129-4596-aa0a-6a9cc1ce48cd  few seconds ago  few seconds ago  172.16.4.0/22             951df375-e094-4d26-97c1-ba548eeb9c42  8019ae27-25cc-4ffc-b14c-3f332771fbd1  4c837446-e418-4326-af43-4a445ea0aab8
+eb0bcc4b-0c36-458c-94e6-b2f2269b9c8f  few seconds ago  few seconds ago  fd49:821a:a311:541c::/64  951df375-e094-4d26-97c1-ba548eeb9c42  8019ae27-25cc-4ffc-b14c-3f332771fbd1  4c837446-e418-4326-af43-4a445ea0aab8
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a",
-  "name": "cli-pn-sweet-leavitt",
-  "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "8019ae27-25cc-4ffc-b14c-3f332771fbd1",
+  "name": "cli-pn-intelligent-hugle",
+  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "a12e8798-e136-45a9-9c5b-1b43b2bc41db",
+      "id": "13bbc6b2-5129-4596-aa0a-6a9cc1ce48cd",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.12.0/22",
-      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "private_network_id": "d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a",
-      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
+      "subnet": "172.16.4.0/22",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "private_network_id": "8019ae27-25cc-4ffc-b14c-3f332771fbd1",
+      "vpc_id": "4c837446-e418-4326-af43-4a445ea0aab8"
     },
     {
-      "id": "3586380c-af46-457f-a907-b852fc21428c",
+      "id": "eb0bcc4b-0c36-458c-94e6-b2f2269b9c8f",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd4a:c18e:554d:fc9b::/64",
-      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "private_network_id": "d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a",
-      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
+      "subnet": "fd49:821a:a311:541c::/64",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "private_network_id": "8019ae27-25cc-4ffc-b14c-3f332771fbd1",
+      "vpc_id": "4c837446-e418-4326-af43-4a445ea0aab8"
     }
   ],
-  "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c",
+  "vpc_id": "4c837446-e418-4326-af43-4a445ea0aab8",
   "dhcp_enabled": true,
   "instance_servers": [
     {
-      "id": "9381ff81-3722-4a29-b00d-f39e05f808ff",
-      "name": "cli-srv-recursing-bose",
+      "id": "f69f5a7f-4136-4fa0-8692-c94aa408c164",
+      "name": "cli-srv-keen-dewdney",
       "state": "stopped",
-      "nic_id": "f098b0ba-a307-428a-a4e4-70e65268aa70",
-      "mac": "02:00:00:1f:ab:bf"
+      "nic_id": "f692806a-fc21-4a6b-bd48-9f8eb4d7a33b",
+      "mac": "02:00:00:19:60:02"
     }
   ]
 }
