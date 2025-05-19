@@ -1,62 +1,64 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a
-Name            cli-pn-sweet-leavitt
-OrganizationID  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Region          fr-par
-CreatedAt       few seconds ago
-UpdatedAt       few seconds ago
-VpcID           53e50f63-f6c0-44f7-8576-d6edcb965d9c
-DHCPEnabled     true
+ID                              b4305a2c-7d52-4977-b923-9212ce7bb408
+Name                            cli-pn-sweet-margulis
+OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Region                          fr-par
+CreatedAt                       few seconds ago
+UpdatedAt                       few seconds ago
+VpcID                           086a5171-f7ab-4667-a231-840a81203f19
+DHCPEnabled                     true
+DefaultRoutePropagationEnabled  false
 
 Instance Servers:
-ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
-9381ff81-3722-4a29-b00d-f39e05f808ff  cli-srv-recursing-bose  archived  f098b0ba-a307-428a-a4e4-70e65268aa70  02:00:00:1f:ab:bf
+ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
+42195acf-1a09-47c8-8332-48031efdc984  cli-srv-awesome-poitras  archived  c8f2a003-8476-428b-8bef-70b07b64083d  02:00:00:10:5b:44
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-a12e8798-e136-45a9-9c5b-1b43b2bc41db  few seconds ago  few seconds ago  172.16.12.0/22            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a  53e50f63-f6c0-44f7-8576-d6edcb965d9c
-3586380c-af46-457f-a907-b852fc21428c  few seconds ago  few seconds ago  fd4a:c18e:554d:fc9b::/64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a  53e50f63-f6c0-44f7-8576-d6edcb965d9c
+625801e0-4a6b-4f21-97be-157d0a5b79d6  few seconds ago  few seconds ago  172.16.0.0/22             564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b4305a2c-7d52-4977-b923-9212ce7bb408  086a5171-f7ab-4667-a231-840a81203f19
+95c00a18-e803-48b9-803f-ec002f7020b3  few seconds ago  few seconds ago  fd46:78ab:30b8:afec::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b4305a2c-7d52-4977-b923-9212ce7bb408  086a5171-f7ab-4667-a231-840a81203f19
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a",
-  "name": "cli-pn-sweet-leavitt",
-  "organization_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "b4305a2c-7d52-4977-b923-9212ce7bb408",
+  "name": "cli-pn-sweet-margulis",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "a12e8798-e136-45a9-9c5b-1b43b2bc41db",
+      "id": "625801e0-4a6b-4f21-97be-157d0a5b79d6",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.12.0/22",
-      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "private_network_id": "d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a",
-      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
+      "subnet": "172.16.0.0/22",
+      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "private_network_id": "b4305a2c-7d52-4977-b923-9212ce7bb408",
+      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     },
     {
-      "id": "3586380c-af46-457f-a907-b852fc21428c",
+      "id": "95c00a18-e803-48b9-803f-ec002f7020b3",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd4a:c18e:554d:fc9b::/64",
-      "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-      "private_network_id": "d886a4f4-ed9f-4fa5-bfd4-8f6b57bb665a",
-      "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c"
+      "subnet": "fd46:78ab:30b8:afec::/64",
+      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "private_network_id": "b4305a2c-7d52-4977-b923-9212ce7bb408",
+      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     }
   ],
-  "vpc_id": "53e50f63-f6c0-44f7-8576-d6edcb965d9c",
+  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
   "dhcp_enabled": true,
+  "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "9381ff81-3722-4a29-b00d-f39e05f808ff",
-      "name": "cli-srv-recursing-bose",
+      "id": "42195acf-1a09-47c8-8332-48031efdc984",
+      "name": "cli-srv-awesome-poitras",
       "state": "stopped",
-      "nic_id": "f098b0ba-a307-428a-a4e4-70e65268aa70",
-      "mac": "02:00:00:1f:ab:bf"
+      "nic_id": "c8f2a003-8476-428b-8bef-70b07b64083d",
+      "mac": "02:00:00:10:5b:44"
     }
   ]
 }

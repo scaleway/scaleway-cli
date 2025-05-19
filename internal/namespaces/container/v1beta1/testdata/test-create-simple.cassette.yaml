@@ -2,28 +2,38 @@
 version: 1
 interactions:
 - request:
-    body: '{"id":"550f7065-ee73-4399-a32b-49b179950b57","name":"cli-cns-silly-shirley","environment_variables":{},"organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","status":"pending","registry_namespace_id":"","error_message":null,"registry_endpoint":"","description":"","secret_environment_variables":[],"region":"fr-par"}'
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968411Z", "updated_at":"2025-05-19T14:36:25.677968411Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces
     method: POST
   response:
-    body: '{"id":"550f7065-ee73-4399-a32b-49b179950b57","name":"cli-cns-silly-shirley","environment_variables":{},"organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","status":"pending","registry_namespace_id":"","error_message":null,"registry_endpoint":"","description":"","secret_environment_variables":[],"region":"fr-par"}'
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968411Z", "updated_at":"2025-05-19T14:36:25.677968411Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
     headers:
       Content-Length:
-      - "371"
+      - "522"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 13 Jun 2023 13:04:17 GMT
+      - Mon, 19 May 2025 14:36:25 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -31,31 +41,41 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - deffd039-a6a2-4f09-ace8-0ffd84edd7e9
+      - 86be6ad2-31f7-43da-a1fd-91fd4e4f6a9b
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"550f7065-ee73-4399-a32b-49b179950b57","name":"cli-cns-silly-shirley","environment_variables":{},"organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","status":"pending","registry_namespace_id":"","error_message":null,"registry_endpoint":"","description":"","secret_environment_variables":[],"region":"fr-par"}'
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/550f7065-ee73-4399-a32b-49b179950b57
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/213fb58c-6b93-4713-94db-f747a8b2e400
     method: GET
   response:
-    body: '{"id":"550f7065-ee73-4399-a32b-49b179950b57","name":"cli-cns-silly-shirley","environment_variables":{},"organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","status":"pending","registry_namespace_id":"","error_message":null,"registry_endpoint":"","description":"","secret_environment_variables":[],"region":"fr-par"}'
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
     headers:
       Content-Length:
-      - "371"
+      - "516"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 13 Jun 2023 13:04:17 GMT
+      - Mon, 19 May 2025 14:36:25 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -63,31 +83,41 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0a4495de-a6a4-4758-a1d1-4e719ad70440
+      - a52313ac-524a-4851-aba0-51291c094f04
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"550f7065-ee73-4399-a32b-49b179950b57","name":"cli-cns-silly-shirley","environment_variables":{},"organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","status":"ready","registry_namespace_id":"27885dea-fa5e-455b-b90b-2c67553a344b","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3","description":"","secret_environment_variables":[],"region":"fr-par"}'
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/550f7065-ee73-4399-a32b-49b179950b57
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/213fb58c-6b93-4713-94db-f747a8b2e400
     method: GET
   response:
-    body: '{"id":"550f7065-ee73-4399-a32b-49b179950b57","name":"cli-cns-silly-shirley","environment_variables":{},"organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","status":"ready","registry_namespace_id":"27885dea-fa5e-455b-b90b-2c67553a344b","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3","description":"","secret_environment_variables":[],"region":"fr-par"}'
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
     headers:
       Content-Length:
-      - "458"
+      - "516"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 13 Jun 2023 13:04:23 GMT
+      - Mon, 19 May 2025 14:36:30 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -95,33 +125,221 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 989d3d6a-2cd2-4ac9-843c-7935b5b90cef
+      - c343b0e0-dedb-4b7e-bb7e-e2ed50bbbc31
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"eff8830f-5f3b-4e42-a2f0-8e4a77ec4cb0","name":"cli-test-kind-herschel","namespace_id":"550f7065-ee73-4399-a32b-49b179950b57","status":"created","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3/cli-test-kind-herschel:latest","max_concurrency":50,"domain_name":"clicnssillyshirleyusnp0hk3-cli-test-kind-herschel.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":8080,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/213fb58c-6b93-4713-94db-f747a8b2e400
+    method: GET
+  response:
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "516"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 19 May 2025 14:36:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f81327ea-0563-4431-b4bd-e837de4e8f2f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/213fb58c-6b93-4713-94db-f747a8b2e400
+    method: GET
+  response:
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "516"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 19 May 2025 14:36:40 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d75c094c-af60-4cc1-bf62-357101bd875a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/213fb58c-6b93-4713-94db-f747a8b2e400
+    method: GET
+  response:
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-05-19T14:36:25.677968Z", "updated_at":"2025-05-19T14:36:25.677968Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "516"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 19 May 2025 14:36:45 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4fa51cd6-9bb8-48e9-9a90-6d9284adb410
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"ready", "registry_namespace_id":"ef73f459-75fd-4b71-8b2f-7a7f480928e9",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-05-19T14:36:25.677968Z",
+      "updated_at":"2025-05-19T14:36:50.452676Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/213fb58c-6b93-4713-94db-f747a8b2e400
+    method: GET
+  response:
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"ready", "registry_namespace_id":"ef73f459-75fd-4b71-8b2f-7a7f480928e9",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-05-19T14:36:25.677968Z",
+      "updated_at":"2025-05-19T14:36:50.452676Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "603"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 19 May 2025 14:36:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 051b4871-6ed5-46fd-9841-69811e84a142
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"a2844e21-3cf0-42a3-bab0-194ff3ddcae4", "name":"cli-test-quirky-northcutt",
+      "namespace_id":"213fb58c-6b93-4713-94db-f747a8b2e400", "status":"created", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest",
+      "max_concurrency":50, "domain_name":"clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-05-19T14:36:51.224081657Z", "updated_at":"2025-05-19T14:36:51.224081657Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "region":"fr-par"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers
     method: POST
   response:
-    body: '{"id":"eff8830f-5f3b-4e42-a2f0-8e4a77ec4cb0","name":"cli-test-kind-herschel","namespace_id":"550f7065-ee73-4399-a32b-49b179950b57","status":"created","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3/cli-test-kind-herschel:latest","max_concurrency":50,"domain_name":"clicnssillyshirleyusnp0hk3-cli-test-kind-herschel.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":8080,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
+    body: '{"id":"a2844e21-3cf0-42a3-bab0-194ff3ddcae4", "name":"cli-test-quirky-northcutt",
+      "namespace_id":"213fb58c-6b93-4713-94db-f747a8b2e400", "status":"created", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest",
+      "max_concurrency":50, "domain_name":"clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-05-19T14:36:51.224081657Z", "updated_at":"2025-05-19T14:36:51.224081657Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "region":"fr-par"}'
     headers:
       Content-Length:
-      - "642"
+      - "990"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 13 Jun 2023 13:04:23 GMT
+      - Mon, 19 May 2025 14:36:51 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -129,33 +347,51 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 7eb50852-2517-423d-adb5-5ed6f925945e
+      - be9febb1-66d3-447f-a82e-3beec1c99bbd
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"eff8830f-5f3b-4e42-a2f0-8e4a77ec4cb0","name":"cli-test-kind-herschel","namespace_id":"550f7065-ee73-4399-a32b-49b179950b57","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3/cli-test-kind-herschel:latest","max_concurrency":50,"domain_name":"clicnssillyshirleyusnp0hk3-cli-test-kind-herschel.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":8080,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
+    body: '{"id":"a2844e21-3cf0-42a3-bab0-194ff3ddcae4", "name":"cli-test-quirky-northcutt",
+      "namespace_id":"213fb58c-6b93-4713-94db-f747a8b2e400", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest",
+      "max_concurrency":50, "domain_name":"clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-05-19T14:36:51.224082Z", "updated_at":"2025-05-19T14:36:51.331319986Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "region":"fr-par"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/eff8830f-5f3b-4e42-a2f0-8e4a77ec4cb0/deploy
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/a2844e21-3cf0-42a3-bab0-194ff3ddcae4/deploy
     method: POST
   response:
-    body: '{"id":"eff8830f-5f3b-4e42-a2f0-8e4a77ec4cb0","name":"cli-test-kind-herschel","namespace_id":"550f7065-ee73-4399-a32b-49b179950b57","status":"pending","environment_variables":{},"min_scale":0,"max_scale":5,"memory_limit":256,"cpu_limit":140,"timeout":"300s","error_message":null,"privacy":"public","description":"","registry_image":"rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3/cli-test-kind-herschel:latest","max_concurrency":50,"domain_name":"clicnssillyshirleyusnp0hk3-cli-test-kind-herschel.functions.fnc.fr-par.scw.cloud","protocol":"http1","port":8080,"secret_environment_variables":[],"http_option":"enabled","region":"fr-par"}'
+    body: '{"id":"a2844e21-3cf0-42a3-bab0-194ff3ddcae4", "name":"cli-test-quirky-northcutt",
+      "namespace_id":"213fb58c-6b93-4713-94db-f747a8b2e400", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest",
+      "max_concurrency":50, "domain_name":"clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-05-19T14:36:51.224082Z", "updated_at":"2025-05-19T14:36:51.331319986Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "region":"fr-par"}'
     headers:
       Content-Length:
-      - "642"
+      - "987"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 13 Jun 2023 13:04:23 GMT
+      - Mon, 19 May 2025 14:36:51 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -163,31 +399,43 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 46c4743b-6f0b-4e4f-8ce6-e96863efce7e
+      - 46498170-c73f-40ce-8766-61bed8445518
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"550f7065-ee73-4399-a32b-49b179950b57","name":"cli-cns-silly-shirley","environment_variables":{},"organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","status":"deleting","registry_namespace_id":"27885dea-fa5e-455b-b90b-2c67553a344b","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3","description":"","secret_environment_variables":[],"region":"fr-par"}'
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"deleting", "registry_namespace_id":"ef73f459-75fd-4b71-8b2f-7a7f480928e9",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-05-19T14:36:25.677968Z",
+      "updated_at":"2025-05-19T14:36:51.417017921Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/550f7065-ee73-4399-a32b-49b179950b57
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/213fb58c-6b93-4713-94db-f747a8b2e400
     method: DELETE
   response:
-    body: '{"id":"550f7065-ee73-4399-a32b-49b179950b57","name":"cli-cns-silly-shirley","environment_variables":{},"organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","status":"deleting","registry_namespace_id":"27885dea-fa5e-455b-b90b-2c67553a344b","error_message":null,"registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnssillyshirleyusnp0hk3","description":"","secret_environment_variables":[],"region":"fr-par"}'
+    body: '{"id":"213fb58c-6b93-4713-94db-f747a8b2e400", "name":"cli-cns-gifted-darwin",
+      "environment_variables":{}, "organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+      "project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5", "status":"deleting", "registry_namespace_id":"ef73f459-75fd-4b71-8b2f-7a7f480928e9",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-05-19T14:36:25.677968Z",
+      "updated_at":"2025-05-19T14:36:51.417017921Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
     headers:
       Content-Length:
-      - "461"
+      - "609"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 13 Jun 2023 13:04:23 GMT
+      - Mon, 19 May 2025 14:36:51 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -195,7 +443,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0beec01d-efd0-4ce3-ae32-2ffa2692bf26
+      - 203f30f3-874c-4f5b-99b7-c4d128b863b4
     status: 200 OK
     code: 200
     duration: ""
