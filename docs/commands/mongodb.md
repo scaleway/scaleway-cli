@@ -3,6 +3,8 @@
 This API allows you to manage your Managed Databases for MongoDB®.
   
 - [Endpoint management commands](#endpoint-management-commands)
+  - [Create a new Instance endpoint](#create-a-new-instance-endpoint)
+  - [Delete a Database Instance endpoint](#delete-a-database-instance-endpoint)
 - [Instance management commands](#instance-management-commands)
   - [Create a MongoDB® Database Instance](#create-a-mongodb®-database-instance)
   - [Delete a MongoDB® Database Instance](#delete-a-mongodb®-database-instance)
@@ -21,6 +23,7 @@ This API allows you to manage your Managed Databases for MongoDB®.
   - [Restore a Database Instance snapshot](#restore-a-database-instance-snapshot)
   - [Update a Database Instance snapshot](#update-a-database-instance-snapshot)
 - [User management commands](#user-management-commands)
+  - [Create an user on a Database Instance](#create-an-user-on-a-database-instance)
   - [Delete a user on a Database Instance](#delete-a-user-on-a-database-instance)
   - [List users of a Database Instance](#list-users-of-a-database-instance)
   - [Apply user roles](#apply-user-roles)
@@ -33,13 +36,45 @@ This API allows you to manage your Managed Databases for MongoDB®.
 
 Instance endpoints enable connection to your instance.
 
-Instance endpoints enable connection to your instance.
+
+### Create a new Instance endpoint
+
+Create a new endpoint for a MongoDB® Database Instance. You can add `public_network` or `private_network` specifications to the body of the request.
 
 **Usage:**
 
 ```
-scw mongodb endpoint
+scw mongodb endpoint create <instance-id ...> [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance |
+| endpoint.private-network.private-network-id |  | UUID of the Private Network |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a Database Instance endpoint
+
+Delete the endpoint of a Database Instance. You must specify the `endpoint_id` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
+
+**Usage:**
+
+```
+scw mongodb endpoint delete <endpoint-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| endpoint-id | Required | UUID of the Endpoint to delete |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -373,6 +408,28 @@ scw mongodb snapshot update <snapshot-id ...> [arg=value ...]
 ## User management commands
 
 Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage.
+
+
+### Create an user on a Database Instance
+
+Create an user on a Database Instance. You must define the `name`, `password` of the user and `instance_id` parameters in the request.
+
+**Usage:**
+
+```
+scw mongodb user create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance the user belongs to |
+| name |  | Name of the database user |
+| password |  | Password of the database user |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
 
 
 ### Delete a user on a Database Instance
