@@ -618,7 +618,10 @@ func listCustomIPAMIPs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customIPAM
 	return customIPAMIPs, nil
 }
 
-func listCustomInferenceDeployments(client *scw.Client, pn *vpc.PrivateNetwork) ([]customInferenceDeployment, error) {
+func listCustomInferenceDeployments(
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customInferenceDeployment, error) {
 	inferenceAPI := inference.NewAPI(client)
 
 	listDeployments, err := inferenceAPI.ListDeployments(&inference.ListDeploymentsRequest{
