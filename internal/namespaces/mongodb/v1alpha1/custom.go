@@ -26,5 +26,9 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("mongodb", "instance", "create").Override(instanceCreateBuilder)
 
+	cmds.Merge(core.NewCommands(
+		instanceWaitCommand(),
+	))
+
 	return cmds
 }
