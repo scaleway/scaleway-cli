@@ -6,7 +6,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
+	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"

@@ -516,7 +516,10 @@ func listCustomGateways(client *scw.Client, pn *vpc.PrivateNetwork) ([]customGat
 	return customGateways, nil
 }
 
-func listCustomAppleSiliconServers(client *scw.Client, pn *vpc.PrivateNetwork) ([]customAppleSiliconServer, error) {
+func listCustomAppleSiliconServers(
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customAppleSiliconServer, error) {
 	appleSiliconAPI := applesilicon.NewAPI(client)
 	appleSiliconPrivateNetworkAPI := applesilicon.NewPrivateNetworkAPI(client)
 
@@ -527,31 +530,39 @@ func listCustomAppleSiliconServers(client *scw.Client, pn *vpc.PrivateNetwork) (
 	var customAppleSiliconServers []customAppleSiliconServer
 
 	for _, zone := range zones {
-		listAppleSiliconServers, err := appleSiliconPrivateNetworkAPI.ListServerPrivateNetworks(&applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest{
-			Zone:             zone,
-			PrivateNetworkID: &pn.ID,
-		}, scw.WithAllPages())
+		listAppleSiliconServers, err := appleSiliconPrivateNetworkAPI.ListServerPrivateNetworks(
+			&applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest{
+				Zone:             zone,
+				PrivateNetworkID: &pn.ID,
+			},
+			scw.WithAllPages(),
+		)
 		if err != nil {
 			return nil, err
 		}
 
 		for _, server := range listAppleSiliconServers.ServerPrivateNetworks {
 			if server.PrivateNetworkID == pn.ID {
-				getAppleSiliconServer, err := appleSiliconAPI.GetServer(&applesilicon.GetServerRequest{
-					Zone:     zone,
-					ServerID: server.ServerID,
-				})
+				getAppleSiliconServer, err := appleSiliconAPI.GetServer(
+					&applesilicon.GetServerRequest{
+						Zone:     zone,
+						ServerID: server.ServerID,
+					},
+				)
 				if err != nil {
 					return nil, err
 				}
 
-				customAppleSiliconServers = append(customAppleSiliconServers, customAppleSiliconServer{
-					ID:        getAppleSiliconServer.ID,
-					Name:      getAppleSiliconServer.Name,
-					State:     getAppleSiliconServer.Status,
-					Vlan:      server.Vlan,
-					MappingId: server.ID,
-				})
+				customAppleSiliconServers = append(
+					customAppleSiliconServers,
+					customAppleSiliconServer{
+						ID:        getAppleSiliconServer.ID,
+						Name:      getAppleSiliconServer.Name,
+						State:     getAppleSiliconServer.Status,
+						Vlan:      server.Vlan,
+						MappingId: server.ID,
+					},
+				)
 			}
 		}
 	}
@@ -595,7 +606,8 @@ func listCustomIPAMIPs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customIPAM
 	if err != nil {
 		return nil, err
 	}
-	var customIPAMIPs []customIPAMIP
+
+	customIPAMIPs := make([]customIPAMIP, 0, len(listIPAMIPs.IPs))
 	for _, ip := range listIPAMIPs.IPs {
 		customIPAMIPs = append(customIPAMIPs, customIPAMIP{
 			ID:      ip.ID,

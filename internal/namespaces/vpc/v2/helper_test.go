@@ -78,6 +78,7 @@ func createRdbInstance(metaKey, engineName string) core.BeforeFunc {
 func createMongoDBInstance(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := "scw mongodb instance create node-type=MGDB-PLAY2-NANO name=mongo-cli-test user-name=foobar password={4xdl*#QOoP+&3XRkGA)] endpoints.0.private-network.private-network-id={{ .PN.ID }} --wait"
+
 		return core.ExecStoreBeforeCmd(metaKey, cmd)(ctx)
 	}
 }
