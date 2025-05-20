@@ -1,36 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              984439e9-a11a-40ce-89cc-c57d668610a1
-Name                            cli-pn-pensive-bhabha
-OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-Region                          fr-par
-CreatedAt                       few seconds ago
-UpdatedAt                       few seconds ago
-VpcID                           086a5171-f7ab-4667-a231-840a81203f19
-DHCPEnabled                     true
-DefaultRoutePropagationEnabled  false
-
-Instance Servers:
-ID                                    NAME                         STATE     NIC ID                                MAC ADDRESS
-46a98202-0088-4895-b327-acf09b7aea58  cli-srv-interesting-hermann  archived  d5843661-7189-472e-84b7-6a20ebfe43ba  02:00:00:16:a8:81
-
-Load-Balancers:
-ID                                    NAME      STATE
-d3d6ada8-5b04-4ca6-9bb5-bf29b58202fe  cli-test  ready
-
-Rdb Instances:
-ID                                    NAME      STATE  ENDPOINT ID
-bf0faf46-1c73-4571-931d-258a526d3073  cli-test  ready  a0285ba4-9539-4cfc-8614-850e89095acc
-
-Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-dc976231-392c-4a76-8cd0-be370839ca67  few seconds ago  few seconds ago  172.16.56.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  984439e9-a11a-40ce-89cc-c57d668610a1  086a5171-f7ab-4667-a231-840a81203f19
-6371caaa-1c0f-4368-96a7-b17374ba1905  few seconds ago  few seconds ago  fd46:78ab:30b8:9bf7::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  984439e9-a11a-40ce-89cc-c57d668610a1  086a5171-f7ab-4667-a231-840a81203f19
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+field InferenceDeployments does not exist in $
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "984439e9-a11a-40ce-89cc-c57d668610a1",
-  "name": "cli-pn-pensive-bhabha",
+  "id": "29c4c380-d2e1-4ca8-8849-92e68090ba8e",
+  "name": "cli-pn-sweet-swirles",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "region": "fr-par",
@@ -39,21 +13,21 @@ dc976231-392c-4a76-8cd0-be370839ca67  few seconds ago  few seconds ago  172.16.5
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "dc976231-392c-4a76-8cd0-be370839ca67",
+      "id": "c9f14d8b-e28d-4ce7-a81b-98ba87f75c06",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.56.0/22",
+      "subnet": "172.16.48.0/22",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "984439e9-a11a-40ce-89cc-c57d668610a1",
+      "private_network_id": "29c4c380-d2e1-4ca8-8849-92e68090ba8e",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     },
     {
-      "id": "6371caaa-1c0f-4368-96a7-b17374ba1905",
+      "id": "6ae505b9-46b2-402f-bc01-b9b8c2e8b6a2",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:9bf7::/64",
+      "subnet": "fd46:78ab:30b8:3b3a::/64",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "984439e9-a11a-40ce-89cc-c57d668610a1",
+      "private_network_id": "29c4c380-d2e1-4ca8-8849-92e68090ba8e",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     }
   ],
@@ -62,26 +36,60 @@ dc976231-392c-4a76-8cd0-be370839ca67  few seconds ago  few seconds ago  172.16.5
   "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "46a98202-0088-4895-b327-acf09b7aea58",
-      "name": "cli-srv-interesting-hermann",
+      "id": "d1379ef5-5473-49f3-9a01-ea41d3bc574b",
+      "name": "cli-srv-stupefied-kirch",
       "state": "stopped",
-      "nic_id": "d5843661-7189-472e-84b7-6a20ebfe43ba",
-      "mac": "02:00:00:16:a8:81"
+      "nic_id": "73680c22-0585-4151-ac0c-9198a7a6a4f2",
+      "mac": "02:00:00:1a:e4:d1"
     }
   ],
   "lbs": [
     {
-      "id": "d3d6ada8-5b04-4ca6-9bb5-bf29b58202fe",
+      "id": "38f30a00-4841-401b-be24-3ddf513b65bf",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "bf0faf46-1c73-4571-931d-258a526d3073",
+      "id": "4ab26227-5a87-4327-bc25-7e58652af222",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "a0285ba4-9539-4cfc-8614-850e89095acc"
+      "endpoint_id": "2836dad9-7f8a-4c9f-9a87-e2f18f920b12"
+    }
+  ],
+  "mongodb_instances": [
+    {
+      "id": "0cec1189-9ba3-4ba5-aaa8-f98832fb718f",
+      "name": "mongo-cli-test",
+      "state": "ready",
+      "endpoint_id": "64a4e9fc-8bdc-4d0b-9f40-e6b4a4f7f097"
+    }
+  ],
+  "ipam_ips": [
+    {
+      "id": "05b7b927-3fdc-4567-8d13-5752b539176d",
+      "address": "172.16.48.5/22"
+    },
+    {
+      "id": "831bec7d-97db-4efd-a739-42bb1726fdf0",
+      "address": "fd46:78ab:30b8:3b3a:22ad:3124:b7e4:ac2d/64"
+    },
+    {
+      "id": "de4035ce-7165-406a-abef-757558343c1e",
+      "address": "172.16.48.4/22"
+    },
+    {
+      "id": "629c533c-ff4b-45eb-8647-6d4511c460ad",
+      "address": "172.16.48.3/22"
+    },
+    {
+      "id": "76dc8d8d-bcab-49a0-8fb5-1f5f448d8147",
+      "address": "fd46:78ab:30b8:3b3a:a48a:6891:5181:6201/64"
+    },
+    {
+      "id": "4a20bef4-7ea5-4c5c-9d6b-d7f7fea7d968",
+      "address": "172.16.48.2/22"
     }
   ]
 }
