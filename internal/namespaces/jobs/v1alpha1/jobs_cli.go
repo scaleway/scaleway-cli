@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	jobs "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -822,6 +822,22 @@ func jobsRunList() *core.Command {
 			},
 			{
 				Name:       "state",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_state",
+					"queued",
+					"scheduled",
+					"running",
+					"succeeded",
+					"failed",
+					"canceled",
+					"internal_error",
+				},
+			},
+			{
+				Name:       "states.{index}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

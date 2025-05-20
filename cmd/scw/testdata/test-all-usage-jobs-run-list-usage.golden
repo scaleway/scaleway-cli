@@ -10,6 +10,7 @@ ARGS:
   [job-definition-id]   
   [project-id]          
   [state]                (unknown_state | queued | scheduled | running | succeeded | failed | canceled | internal_error)
+  [states.{index}]       (unknown_state | queued | scheduled | running | succeeded | failed | canceled | internal_error)
   [organization-id]     
   [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
