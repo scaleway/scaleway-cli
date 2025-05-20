@@ -1,10 +1,49 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-field InferenceDeployments does not exist in $
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                              7c8b3dfe-09b3-4808-bcce-207359bb4b5e
+Name                            cli-pn-gracious-dubinsky
+OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Region                          fr-par
+CreatedAt                       few seconds ago
+UpdatedAt                       few seconds ago
+VpcID                           086a5171-f7ab-4667-a231-840a81203f19
+DHCPEnabled                     true
+DefaultRoutePropagationEnabled  false
+
+Instance Servers:
+ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
+5332d773-09ef-45d2-9f7d-a7df735fcdc0  cli-srv-hopeful-edison  archived  3133b27e-6ed4-4751-b42a-8ec35fbafe82  02:00:00:10:b7:63
+
+Load-Balancers:
+ID                                    NAME      STATE
+538db5d8-81f8-4759-92df-708a2c89799b  cli-test  ready
+
+Rdb Instances:
+ID                                    NAME      STATE  ENDPOINT ID
+c0bca8a1-3d8d-4e68-8583-a466b165d225  cli-test  ready  316fad5b-6234-4abd-8b4f-daa81b2b6438
+
+Subnets:
+ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
+462ffc2e-0d44-4ed9-8e43-cad864e937ff  few seconds ago  few seconds ago  172.16.32.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  7c8b3dfe-09b3-4808-bcce-207359bb4b5e  086a5171-f7ab-4667-a231-840a81203f19
+caa87efd-3bc6-4e70-a3ca-c6fdf1435f1a  few seconds ago  few seconds ago  fd46:78ab:30b8:e551::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  7c8b3dfe-09b3-4808-bcce-207359bb4b5e  086a5171-f7ab-4667-a231-840a81203f19
+
+MongoDB Instances:
+ID                                    NAME            STATE  ENDPOINT ID
+4e4e8d03-a645-4ad0-86cf-8bfbbb208be3  mongo-cli-test  ready  7898e0fc-c606-4442-a726-524fb8d3ae00
+
+IPAM IPs:
+ID                                    ADDRESS
+d93711fe-1670-49d7-abdd-5a883e655985  172.16.32.5/22
+b7d166a1-72a9-49c0-ba18-661ead1410bd  fd46:78ab:30b8:e551:33aa:8d21:e968:71d3/64
+49b42496-4268-4838-8003-17a0654e89db  172.16.32.4/22
+9b5e8d76-0dba-4d8e-b73c-6070406daa11  172.16.32.3/22
+89816863-1830-4188-85c1-51c5b6c5f2e5  fd46:78ab:30b8:e551:c76:b167:16a3:f0fb/64
+09f3a590-ac44-44e7-9d31-c7db5da362c0  172.16.32.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "29c4c380-d2e1-4ca8-8849-92e68090ba8e",
-  "name": "cli-pn-sweet-swirles",
+  "id": "7c8b3dfe-09b3-4808-bcce-207359bb4b5e",
+  "name": "cli-pn-gracious-dubinsky",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "region": "fr-par",
@@ -13,21 +52,21 @@ field InferenceDeployments does not exist in $
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "c9f14d8b-e28d-4ce7-a81b-98ba87f75c06",
+      "id": "462ffc2e-0d44-4ed9-8e43-cad864e937ff",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.48.0/22",
+      "subnet": "172.16.32.0/22",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "29c4c380-d2e1-4ca8-8849-92e68090ba8e",
+      "private_network_id": "7c8b3dfe-09b3-4808-bcce-207359bb4b5e",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     },
     {
-      "id": "6ae505b9-46b2-402f-bc01-b9b8c2e8b6a2",
+      "id": "caa87efd-3bc6-4e70-a3ca-c6fdf1435f1a",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:3b3a::/64",
+      "subnet": "fd46:78ab:30b8:e551::/64",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "29c4c380-d2e1-4ca8-8849-92e68090ba8e",
+      "private_network_id": "7c8b3dfe-09b3-4808-bcce-207359bb4b5e",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     }
   ],
@@ -36,60 +75,60 @@ field InferenceDeployments does not exist in $
   "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "d1379ef5-5473-49f3-9a01-ea41d3bc574b",
-      "name": "cli-srv-stupefied-kirch",
+      "id": "5332d773-09ef-45d2-9f7d-a7df735fcdc0",
+      "name": "cli-srv-hopeful-edison",
       "state": "stopped",
-      "nic_id": "73680c22-0585-4151-ac0c-9198a7a6a4f2",
-      "mac": "02:00:00:1a:e4:d1"
+      "nic_id": "3133b27e-6ed4-4751-b42a-8ec35fbafe82",
+      "mac": "02:00:00:10:b7:63"
     }
   ],
   "lbs": [
     {
-      "id": "38f30a00-4841-401b-be24-3ddf513b65bf",
+      "id": "538db5d8-81f8-4759-92df-708a2c89799b",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "4ab26227-5a87-4327-bc25-7e58652af222",
+      "id": "c0bca8a1-3d8d-4e68-8583-a466b165d225",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "2836dad9-7f8a-4c9f-9a87-e2f18f920b12"
+      "endpoint_id": "316fad5b-6234-4abd-8b4f-daa81b2b6438"
     }
   ],
   "mongodb_instances": [
     {
-      "id": "0cec1189-9ba3-4ba5-aaa8-f98832fb718f",
+      "id": "4e4e8d03-a645-4ad0-86cf-8bfbbb208be3",
       "name": "mongo-cli-test",
       "state": "ready",
-      "endpoint_id": "64a4e9fc-8bdc-4d0b-9f40-e6b4a4f7f097"
+      "endpoint_id": "7898e0fc-c606-4442-a726-524fb8d3ae00"
     }
   ],
   "ipam_ips": [
     {
-      "id": "05b7b927-3fdc-4567-8d13-5752b539176d",
-      "address": "172.16.48.5/22"
+      "id": "d93711fe-1670-49d7-abdd-5a883e655985",
+      "address": "172.16.32.5/22"
     },
     {
-      "id": "831bec7d-97db-4efd-a739-42bb1726fdf0",
-      "address": "fd46:78ab:30b8:3b3a:22ad:3124:b7e4:ac2d/64"
+      "id": "b7d166a1-72a9-49c0-ba18-661ead1410bd",
+      "address": "fd46:78ab:30b8:e551:33aa:8d21:e968:71d3/64"
     },
     {
-      "id": "de4035ce-7165-406a-abef-757558343c1e",
-      "address": "172.16.48.4/22"
+      "id": "49b42496-4268-4838-8003-17a0654e89db",
+      "address": "172.16.32.4/22"
     },
     {
-      "id": "629c533c-ff4b-45eb-8647-6d4511c460ad",
-      "address": "172.16.48.3/22"
+      "id": "9b5e8d76-0dba-4d8e-b73c-6070406daa11",
+      "address": "172.16.32.3/22"
     },
     {
-      "id": "76dc8d8d-bcab-49a0-8fb5-1f5f448d8147",
-      "address": "fd46:78ab:30b8:3b3a:a48a:6891:5181:6201/64"
+      "id": "89816863-1830-4188-85c1-51c5b6c5f2e5",
+      "address": "fd46:78ab:30b8:e551:c76:b167:16a3:f0fb/64"
     },
     {
-      "id": "4a20bef4-7ea5-4c5c-9d6b-d7f7fea7d968",
-      "address": "172.16.48.2/22"
+      "id": "09f3a590-ac44-44e7-9d31-c7db5da362c0",
+      "address": "172.16.32.2/22"
     }
   ]
 }

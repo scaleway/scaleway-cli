@@ -101,24 +101,24 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		listDeployments, err := listCustomDeployments(client, pn)
+		listInferenceDeployments, err := listCustomInferenceDeployments(client, pn)
 		if err != nil {
 			return nil, err
 		}
 
 		return &struct {
 			*vpc.PrivateNetwork
-			InstanceServers     []customInstanceServer     `json:"instance_servers,omitempty"`
-			BaremetalServers    []customBaremetalServer    `json:"baremetal_servers,omitempty"`
-			K8sClusters         []customK8sCluster         `json:"K8s_clusters,omitempty"`
-			LBs                 []customLB                 `json:"lbs,omitempty"`
-			RdbInstances        []customRdb                `json:"rdb_instances,omitempty"`
-			RedisClusters       []customRedis              `json:"redis_clusters,omitempty"`
-			Gateways            []customGateway            `json:"gateways,omitempty"`
-			AppleSiliconServers []customAppleSiliconServer `json:"apple_silicon_servers,omitempty"`
-			MongoDBInstances    []customMongoDB            `json:"mongodb_instances,omitempty"`
-			IPAMIPs             []customIPAMIP             `json:"ipam_ips,omitempty"`
-			Deployments         []customDeployment         `json:"deployments,omitempty"`
+			InstanceServers      []customInstanceServer      `json:"instance_servers,omitempty"`
+			BaremetalServers     []customBaremetalServer     `json:"baremetal_servers,omitempty"`
+			K8sClusters          []customK8sCluster          `json:"K8s_clusters,omitempty"`
+			LBs                  []customLB                  `json:"lbs,omitempty"`
+			RdbInstances         []customRdb                 `json:"rdb_instances,omitempty"`
+			RedisClusters        []customRedis               `json:"redis_clusters,omitempty"`
+			Gateways             []customGateway             `json:"gateways,omitempty"`
+			AppleSiliconServers  []customAppleSiliconServer  `json:"apple_silicon_servers,omitempty"`
+			MongoDBInstances     []customMongoDB             `json:"mongodb_instances,omitempty"`
+			IPAMIPs              []customIPAMIP              `json:"ipam_ips,omitempty"`
+			InferenceDeployments []customInferenceDeployment `json:"inference_deployments,omitempty"`
 		}{
 			pn,
 			listInstanceServers,
@@ -131,7 +131,7 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 			listAppleSiliconServers,
 			listMongoDBInstances,
 			listIPAMIPs,
-			listDeployments,
+			listInferenceDeployments,
 		}, nil
 	}
 
@@ -266,7 +266,7 @@ type customIPAMIP struct {
 	Address string `json:"address"`
 }
 
-type customDeployment struct {
+type customInferenceDeployment struct {
 	ID         string                     `json:"id"`
 	Name       string                     `json:"name"`
 	State      inference.DeploymentStatus `json:"state"`
@@ -618,7 +618,7 @@ func listCustomIPAMIPs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customIPAM
 	return customIPAMIPs, nil
 }
 
-func listCustomDeployments(client *scw.Client, pn *vpc.PrivateNetwork) ([]customDeployment, error) {
+func listCustomInferenceDeployments(client *scw.Client, pn *vpc.PrivateNetwork) ([]customInferenceDeployment, error) {
 	inferenceAPI := inference.NewAPI(client)
 
 	listDeployments, err := inferenceAPI.ListDeployments(&inference.ListDeploymentsRequest{
@@ -627,11 +627,11 @@ func listCustomDeployments(client *scw.Client, pn *vpc.PrivateNetwork) ([]custom
 	if err != nil {
 		return nil, err
 	}
-	var customDeployments []customDeployment
+	var customDeployments []customInferenceDeployment
 	for _, deployment := range listDeployments.Deployments {
 		for _, endpoint := range deployment.Endpoints {
 			if endpoint.PrivateNetwork != nil && endpoint.PrivateNetwork.PrivateNetworkID == pn.ID {
-				customDeployments = append(customDeployments, customDeployment{
+				customDeployments = append(customDeployments, customInferenceDeployment{
 					EndpointID: endpoint.ID,
 					ID:         deployment.ID,
 					Name:       deployment.Name,
