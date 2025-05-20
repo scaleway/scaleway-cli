@@ -62,6 +62,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		getResp := respI.(*mongodb.Instance)
 		api := mongodb.NewAPI(core.ExtractClient(ctx))
+
 		return api.WaitForInstance(&mongodb.WaitForInstanceRequest{
 			InstanceID:    getResp.ID,
 			Region:        getResp.Region,
