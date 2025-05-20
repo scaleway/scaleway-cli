@@ -35,7 +35,7 @@ func Test_GetPrivateNetwork(t *testing.T) {
 		),
 	}))
 
-	/*	t.Run("Multiple", core.Test(&core.TestConfig{
+	t.Run("Multiple", core.Test(&core.TestConfig{
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
@@ -60,5 +60,5 @@ func Test_GetPrivateNetwork(t *testing.T) {
 			deleteMongoDBInstance(),
 			deletePN(),
 		),
-	}))*/
+	}))
 }
