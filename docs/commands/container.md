@@ -87,6 +87,8 @@ scw container container create [arg=value ...]
 | health-check.interval |  | Period between health checks. |
 | tags.{index} |  | Tags of the Serverless Container |
 | private-network-id |  |  |
+| command.{index} |  | Container command |
+| args.{index} |  | Container arguments |
 | deploy | Default: `true` | Deploy container after creation |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -218,6 +220,8 @@ scw container container update <container-id ...> [arg=value ...]
 | health-check.interval |  | Period between health checks. |
 | tags.{index} |  | Tags of the Serverless Container |
 | private-network-id |  |  |
+| command.{index} |  | Container command |
+| args.{index} |  | Container arguments |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
