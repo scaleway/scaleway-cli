@@ -349,7 +349,30 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return updateServerResponse, nil
+		// Display warning if server-type is deprecated
+		warnings := []string(nil)
+		server := updateServerResponse.Server
+		if server.EndOfService {
+			warnings = warningServerTypeDeprecated(ctx, client, server)
+		}
+
+		return &struct {
+			*instance.Server
+			Warnings []string
+		}{
+			server,
+			warnings,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName:   "Warnings",
+				Title:       "Warnings",
+				HideIfEmpty: true,
+			},
+		},
 	}
 
 	return c
@@ -392,6 +415,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			return rawResp, err
 		}
 		getServerResp := rawResp.(*instance.GetServerResponse)
+		server := getServerResp.Server
 
 		client := core.ExtractClient(ctx)
 		vpcAPI := vpc.NewAPI(client)
@@ -405,8 +429,8 @@ func serverGetBuilder(c *core.Command) *core.Command {
 
 		nics := []customNICs{}
 
-		for _, nic := range getServerResp.Server.PrivateNics {
-			region, err := getServerResp.Server.Zone.Region()
+		for _, nic := range server.PrivateNics {
+			region, err := server.Zone.Region()
 			if err != nil {
 				return nil, err
 			}
@@ -428,7 +452,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		volumes := map[string]*customVolume{}
 		blockAPI := block.NewAPI(client)
 
-		for _, volume := range getServerResp.Server.Volumes {
+		for _, volume := range server.Volumes {
 			customVol := &customVolume{
 				ID:   volume.ID,
 				Zone: volume.Zone.String(),
@@ -473,14 +497,22 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			volumes[volume.ID] = customVol
 		}
 
+		// Display warning if server-type is deprecated
+		warnings := []string(nil)
+		if server.EndOfService {
+			warnings = warningServerTypeDeprecated(ctx, client, server)
+		}
+
 		return &struct {
 			*instance.Server
 			Volumes     []*customVolume
 			PrivateNics []customNICs `json:"private_nics"`
+			Warnings    []string     `json:"warnings"`
 		}{
-			getServerResp.Server,
+			server,
 			orderVolumes(volumes),
 			nics,
+			warnings,
 		}, nil
 	}
 
@@ -509,6 +541,11 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			{
 				FieldName: "PrivateNics",
 				Title:     "Private NICs",
+			},
+			{
+				FieldName:   "Warnings",
+				Title:       "Warnings",
+				HideIfEmpty: true,
 			},
 		},
 	}
