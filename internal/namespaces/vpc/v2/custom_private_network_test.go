@@ -20,7 +20,7 @@ func Test_GetPrivateNetwork(t *testing.T) {
 	cmds.Merge(redis.GetCommands())
 	cmds.Merge(mongodb.GetCommands())
 
-	/*	t.Run("Simple", core.Test(&core.TestConfig{
+	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPN(),
@@ -33,7 +33,7 @@ func Test_GetPrivateNetwork(t *testing.T) {
 			deleteInstance(),
 			deletePN(),
 		),
-	}))*/
+	}))
 
 	t.Run("Multiple", core.Test(&core.TestConfig{
 		Commands: cmds,
