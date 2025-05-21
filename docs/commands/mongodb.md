@@ -13,6 +13,7 @@ This API allows you to manage your Managed Databases for MongoDB®.
   - [List MongoDB® Database Instances](#list-mongodb®-database-instances)
   - [Update a MongoDB® Database Instance](#update-a-mongodb®-database-instance)
   - [Upgrade a Database Instance](#upgrade-a-database-instance)
+  - [Wait for an instance to reach a stable state](#wait-for-an-instance-to-reach-a-stable-state)
 - [Node types management commands](#node-types-management-commands)
   - [List available node types](#list-available-node-types)
 - [Snapshot management commands](#snapshot-management-commands)
@@ -237,6 +238,37 @@ scw mongodb instance upgrade <instance-id ...> [arg=value ...]
 | instance-id | Required | UUID of the Database Instance you want to upgrade |
 | volume-size |  | Increase your Block Storage volume size |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Wait for an instance to reach a stable state
+
+Wait for an instance to reach a stable state. This is similar to using --wait flag.
+
+**Usage:**
+
+```
+scw mongodb instance wait <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | ID of the instance you want to wait for. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| timeout | Default: `20m0s` | Timeout of the wait |
+
+
+**Examples:**
+
+
+Wait for an instance to reach a stable state
+```
+scw mongodb instance wait 11111111-1111-1111-1111-111111111111
+```
+
 
 
 

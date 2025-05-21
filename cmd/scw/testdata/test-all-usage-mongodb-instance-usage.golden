@@ -14,6 +14,9 @@ AVAILABLE COMMANDS:
   update          Update a MongoDB® Database Instance
   upgrade         Upgrade a Database Instance
 
+WORKFLOW COMMANDS:
+  wait            Wait for an instance to reach a stable state
+
 FLAGS:
   -h, --help   help for instance
 

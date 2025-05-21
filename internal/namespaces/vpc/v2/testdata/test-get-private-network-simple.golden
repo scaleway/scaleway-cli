@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              b4305a2c-7d52-4977-b923-9212ce7bb408
-Name                            cli-pn-sweet-margulis
+ID                              d8062887-e437-4815-ae65-3b9ca3154012
+Name                            cli-pn-focused-roentgen
 OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 Region                          fr-par
@@ -12,17 +12,22 @@ DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 
 Instance Servers:
-ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
-42195acf-1a09-47c8-8332-48031efdc984  cli-srv-awesome-poitras  archived  c8f2a003-8476-428b-8bef-70b07b64083d  02:00:00:10:5b:44
+ID                                    NAME                  STATE     NIC ID                                MAC ADDRESS
+0cea3627-8042-43c1-b103-591d0b13f09e  cli-srv-keen-ptolemy  archived  33a50d04-6f35-4999-94f7-3be3cd021082  02:00:00:14:cd:45
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-625801e0-4a6b-4f21-97be-157d0a5b79d6  few seconds ago  few seconds ago  172.16.0.0/22             564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b4305a2c-7d52-4977-b923-9212ce7bb408  086a5171-f7ab-4667-a231-840a81203f19
-95c00a18-e803-48b9-803f-ec002f7020b3  few seconds ago  few seconds ago  fd46:78ab:30b8:afec::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b4305a2c-7d52-4977-b923-9212ce7bb408  086a5171-f7ab-4667-a231-840a81203f19
+52befe78-3676-459a-bb8d-d48657a375d9  few seconds ago  few seconds ago  172.16.12.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  d8062887-e437-4815-ae65-3b9ca3154012  086a5171-f7ab-4667-a231-840a81203f19
+c7a195d3-a507-4102-8a79-28295d72b3f0  few seconds ago  few seconds ago  fd46:78ab:30b8:1478::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  d8062887-e437-4815-ae65-3b9ca3154012  086a5171-f7ab-4667-a231-840a81203f19
+
+IPAM IPs:
+ID                                    ADDRESS
+77f223e5-24bc-4ccc-9a46-b5e518b45b36  fd46:78ab:30b8:1478:8c25:c126:3f8e:2664/64
+676ffb07-9ddb-499f-a340-c3ca18e70a98  172.16.12.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "b4305a2c-7d52-4977-b923-9212ce7bb408",
-  "name": "cli-pn-sweet-margulis",
+  "id": "d8062887-e437-4815-ae65-3b9ca3154012",
+  "name": "cli-pn-focused-roentgen",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "region": "fr-par",
@@ -31,21 +36,21 @@ ID                                    CREATED AT       UPDATED AT       SUBNET  
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "625801e0-4a6b-4f21-97be-157d0a5b79d6",
+      "id": "52befe78-3676-459a-bb8d-d48657a375d9",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.0.0/22",
+      "subnet": "172.16.12.0/22",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "b4305a2c-7d52-4977-b923-9212ce7bb408",
+      "private_network_id": "d8062887-e437-4815-ae65-3b9ca3154012",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     },
     {
-      "id": "95c00a18-e803-48b9-803f-ec002f7020b3",
+      "id": "c7a195d3-a507-4102-8a79-28295d72b3f0",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:afec::/64",
+      "subnet": "fd46:78ab:30b8:1478::/64",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "b4305a2c-7d52-4977-b923-9212ce7bb408",
+      "private_network_id": "d8062887-e437-4815-ae65-3b9ca3154012",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     }
   ],
@@ -54,11 +59,21 @@ ID                                    CREATED AT       UPDATED AT       SUBNET  
   "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "42195acf-1a09-47c8-8332-48031efdc984",
-      "name": "cli-srv-awesome-poitras",
+      "id": "0cea3627-8042-43c1-b103-591d0b13f09e",
+      "name": "cli-srv-keen-ptolemy",
       "state": "stopped",
-      "nic_id": "c8f2a003-8476-428b-8bef-70b07b64083d",
-      "mac": "02:00:00:10:5b:44"
+      "nic_id": "33a50d04-6f35-4999-94f7-3be3cd021082",
+      "mac": "02:00:00:14:cd:45"
+    }
+  ],
+  "ipam_ips": [
+    {
+      "id": "77f223e5-24bc-4ccc-9a46-b5e518b45b36",
+      "address": "fd46:78ab:30b8:1478:8c25:c126:3f8e:2664/64"
+    },
+    {
+      "id": "676ffb07-9ddb-499f-a340-c3ca18e70a98",
+      "address": "172.16.12.2/22"
     }
   ]
 }
