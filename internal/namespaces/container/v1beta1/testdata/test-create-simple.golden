@@ -62,5 +62,7 @@ Region                                     fr-par
   "ready_at": null,
   "region": "fr-par",
   "tags": [],
-  "private_network_id": null
+  "private_network_id": null,
+  "command": null,
+  "args": null
 }
