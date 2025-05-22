@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              b48cc2ad-8cf5-4d0f-950b-b764f6e402fa
-Name                            cli-pn-dazzling-archimedes
+ID                              4715b0f1-7db9-47e1-a857-c2d25c6734df
+Name                            cli-pn-elastic-jepsen
 OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 Region                          fr-par
@@ -13,37 +13,37 @@ DefaultRoutePropagationEnabled  false
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-a85d3b28-b6b8-4f05-9eb8-5c138c9f0a13  few seconds ago  few seconds ago  172.16.12.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b48cc2ad-8cf5-4d0f-950b-b764f6e402fa  086a5171-f7ab-4667-a231-840a81203f19
-664d20e4-2e66-463e-a118-62169f80bb64  few seconds ago  few seconds ago  fd46:78ab:30b8:cb85::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b48cc2ad-8cf5-4d0f-950b-b764f6e402fa  086a5171-f7ab-4667-a231-840a81203f19
+6f92b461-bd15-4766-a4d0-98431e2070e1  few seconds ago  few seconds ago  172.16.40.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  4715b0f1-7db9-47e1-a857-c2d25c6734df  086a5171-f7ab-4667-a231-840a81203f19
+8ff8ba73-6cef-4745-9226-effcfed300e6  few seconds ago  few seconds ago  fd46:78ab:30b8:e2da::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  4715b0f1-7db9-47e1-a857-c2d25c6734df  086a5171-f7ab-4667-a231-840a81203f19
 
 Instance Servers:
-ID                                    NAME                      STATE     NIC ID                                MAC ADDRESS
-1c20243e-1663-41a2-a59d-220fe4f368f3  cli-srv-sleepy-northcutt  archived  14d708bd-f641-42a0-ac3d-e7bab45bde27  02:00:00:17:ac:85
+ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
+32ac2c08-28d6-4fbc-89ff-b196b3b6cdba  cli-srv-ecstatic-lamarr  archived  cad0684d-a799-4299-ab04-03af461ff4e2  02:00:00:1f:88:aa
 
 Load-Balancers:
 ID                                    NAME      STATE
-6246fe77-2b89-4419-a6ed-9f607294df25  cli-test  ready
+687d73cc-64af-4dfe-ac3a-1038d13f2182  cli-test  ready
 
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
-38f2f9a9-374f-442d-913c-c8b78baa6cad  cli-test  ready  876d4dae-2c53-436d-abc4-76b3d3baf6f4
+584f11f5-73e1-4699-a609-3fc0e2ae8d42  cli-test  ready  a06df612-6a9f-4d27-9ac0-351afcbb5700
 
 MongoDB Instances:
 ID                                    NAME            STATE  ENDPOINT ID
-1d049d1d-4cac-4acb-84bf-e9ab8e019c5e  mongo-cli-test  ready  fb5f69b6-f10e-4b55-b857-9277d7f71204
+fe898c1a-5b18-4191-b0c2-7595b7de07fc  mongo-cli-test  ready  2b95ba69-cdb1-4b3e-a1a6-db215c596304
 
 IPAM IPs:
 ID                                    ADDRESS
-a0951d63-46e1-4b53-8c15-ea1178869306  172.16.12.5/22
-5f7048cd-20e8-438e-b8ab-13a97e264bc1  fd46:78ab:30b8:cb85:728e:5470:61a9:a958/64
-d0bf5e04-226e-43bf-a559-c15a1bd3bc31  172.16.12.4/22
-33c516f0-74a7-46f5-a87a-b4feb441fc32  172.16.12.3/22
-1ae28551-9eaa-477c-bc18-536af3d95dcc  fd46:78ab:30b8:cb85:27ed:474:8b26:a870/64
-6b572515-224b-4066-856d-49d89ca8af38  172.16.12.2/22
+dee76fae-cf05-4d12-9bb3-2018a0300697  172.16.40.5/22
+0db22feb-c537-4899-b0a3-4799580e3e6a  fd46:78ab:30b8:e2da:c844:9a1:e8c:c2a9/64
+8b430281-103d-4b32-90e1-6919b8aeab31  172.16.40.4/22
+bbaeb533-56f9-4c69-9318-239e96c56e60  172.16.40.3/22
+f546daa5-be42-4c48-a6c3-54771576a628  fd46:78ab:30b8:e2da:deca:54ba:ba68:5d10/64
+7e2baf00-2989-451e-a8c5-aaa1031b8b70  172.16.40.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "b48cc2ad-8cf5-4d0f-950b-b764f6e402fa",
-  "name": "cli-pn-dazzling-archimedes",
+  "id": "4715b0f1-7db9-47e1-a857-c2d25c6734df",
+  "name": "cli-pn-elastic-jepsen",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "region": "fr-par",
@@ -52,21 +52,21 @@ d0bf5e04-226e-43bf-a559-c15a1bd3bc31  172.16.12.4/22
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "a85d3b28-b6b8-4f05-9eb8-5c138c9f0a13",
+      "id": "6f92b461-bd15-4766-a4d0-98431e2070e1",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.12.0/22",
+      "subnet": "172.16.40.0/22",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "b48cc2ad-8cf5-4d0f-950b-b764f6e402fa",
+      "private_network_id": "4715b0f1-7db9-47e1-a857-c2d25c6734df",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     },
     {
-      "id": "664d20e4-2e66-463e-a118-62169f80bb64",
+      "id": "8ff8ba73-6cef-4745-9226-effcfed300e6",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:cb85::/64",
+      "subnet": "fd46:78ab:30b8:e2da::/64",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "b48cc2ad-8cf5-4d0f-950b-b764f6e402fa",
+      "private_network_id": "4715b0f1-7db9-47e1-a857-c2d25c6734df",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     }
   ],
@@ -75,60 +75,60 @@ d0bf5e04-226e-43bf-a559-c15a1bd3bc31  172.16.12.4/22
   "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "1c20243e-1663-41a2-a59d-220fe4f368f3",
-      "name": "cli-srv-sleepy-northcutt",
+      "id": "32ac2c08-28d6-4fbc-89ff-b196b3b6cdba",
+      "name": "cli-srv-ecstatic-lamarr",
       "state": "stopped",
-      "nic_id": "14d708bd-f641-42a0-ac3d-e7bab45bde27",
-      "mac": "02:00:00:17:ac:85"
+      "nic_id": "cad0684d-a799-4299-ab04-03af461ff4e2",
+      "mac": "02:00:00:1f:88:aa"
     }
   ],
   "lbs": [
     {
-      "id": "6246fe77-2b89-4419-a6ed-9f607294df25",
+      "id": "687d73cc-64af-4dfe-ac3a-1038d13f2182",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "38f2f9a9-374f-442d-913c-c8b78baa6cad",
+      "id": "584f11f5-73e1-4699-a609-3fc0e2ae8d42",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "876d4dae-2c53-436d-abc4-76b3d3baf6f4"
+      "endpoint_id": "a06df612-6a9f-4d27-9ac0-351afcbb5700"
     }
   ],
   "mongodb_instances": [
     {
-      "id": "1d049d1d-4cac-4acb-84bf-e9ab8e019c5e",
+      "id": "fe898c1a-5b18-4191-b0c2-7595b7de07fc",
       "name": "mongo-cli-test",
       "state": "ready",
-      "endpoint_id": "fb5f69b6-f10e-4b55-b857-9277d7f71204"
+      "endpoint_id": "2b95ba69-cdb1-4b3e-a1a6-db215c596304"
     }
   ],
   "ipam_ips": [
     {
-      "id": "a0951d63-46e1-4b53-8c15-ea1178869306",
-      "address": "172.16.12.5/22"
+      "id": "dee76fae-cf05-4d12-9bb3-2018a0300697",
+      "address": "172.16.40.5/22"
     },
     {
-      "id": "5f7048cd-20e8-438e-b8ab-13a97e264bc1",
-      "address": "fd46:78ab:30b8:cb85:728e:5470:61a9:a958/64"
+      "id": "0db22feb-c537-4899-b0a3-4799580e3e6a",
+      "address": "fd46:78ab:30b8:e2da:c844:9a1:e8c:c2a9/64"
     },
     {
-      "id": "d0bf5e04-226e-43bf-a559-c15a1bd3bc31",
-      "address": "172.16.12.4/22"
+      "id": "8b430281-103d-4b32-90e1-6919b8aeab31",
+      "address": "172.16.40.4/22"
     },
     {
-      "id": "33c516f0-74a7-46f5-a87a-b4feb441fc32",
-      "address": "172.16.12.3/22"
+      "id": "bbaeb533-56f9-4c69-9318-239e96c56e60",
+      "address": "172.16.40.3/22"
     },
     {
-      "id": "1ae28551-9eaa-477c-bc18-536af3d95dcc",
-      "address": "fd46:78ab:30b8:cb85:27ed:474:8b26:a870/64"
+      "id": "f546daa5-be42-4c48-a6c3-54771576a628",
+      "address": "fd46:78ab:30b8:e2da:deca:54ba:ba68:5d10/64"
     },
     {
-      "id": "6b572515-224b-4066-856d-49d89ca8af38",
-      "address": "172.16.12.2/22"
+      "id": "7e2baf00-2989-451e-a8c5-aaa1031b8b70",
+      "address": "172.16.40.2/22"
     }
   ]
 }
