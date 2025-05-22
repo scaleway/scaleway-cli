@@ -1,12 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID             65efd103-17fb-4452-9ba3-5cf18db5a147
-Name           cli-test
-InboundPort    8888
-TimeoutClient  5m0s
-CreatedAt      few seconds ago
-UpdatedAt      few seconds ago
-EnableHTTP3    false
+ID                65efd103-17fb-4452-9ba3-5cf18db5a147
+Name              cli-test
+InboundPort       8888
+TimeoutClient     5m0s
+CreatedAt         few seconds ago
+UpdatedAt         few seconds ago
+EnableHTTP3       false
+EnableAccessLogs  false
 
 Lb:
 ID                     7deaefe5-7389-46a4-abf6-94002a62ffef
@@ -198,5 +199,6 @@ ID   STATUS  IP ADDRESS  CREATED AT  UPDATED AT  REGION  ZONE
   "updated_at": "1970-01-01T00:00:00.0Z",
   "enable_http3": false,
   "connection_rate_limit": null,
+  "enable_access_logs": false,
   "timeout_client": 300000
 }
