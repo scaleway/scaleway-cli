@@ -32,6 +32,8 @@ ARGS:
   [health-check.interval]                          Period between health checks.
   [tags.{index}]                                   Tags of the Serverless Container
   [private-network-id]                             
+  [command.{index}]                                Container command
+  [args.{index}]                                   Container arguments
   [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:

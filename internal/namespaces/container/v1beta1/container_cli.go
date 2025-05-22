@@ -727,6 +727,20 @@ func containerContainerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "command.{index}",
+				Short:      `Container command`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "args.{index}",
+				Short:      `Container arguments`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -951,6 +965,20 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "command.{index}",
+				Short:      `Container command`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "args.{index}",
+				Short:      `Container arguments`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
