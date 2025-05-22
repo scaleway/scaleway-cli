@@ -200,10 +200,7 @@ scw instance server create image=ubuntu_focal ip=$ip`,
 
 func instanceWaitServerCreateRun() core.WaitFunc {
 	return func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		resp := respI.(*struct {
-			*instance.Server
-			Warnings []string
-		})
+		resp := respI.(*ServerWithWarningsResponse)
 		serverID := resp.Server.ID
 
 		waitServer, err := instance.NewAPI(core.ExtractClient(ctx)).
@@ -214,10 +211,7 @@ func instanceWaitServerCreateRun() core.WaitFunc {
 				RetryInterval: core.DefaultRetryInterval,
 			})
 
-		return &struct {
-			*instance.Server
-			Warnings []string
-		}{
+		return &ServerWithWarningsResponse{
 			waitServer,
 			resp.Warnings,
 		}, err
@@ -368,10 +362,7 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		warnings = warningServerTypeDeprecated(ctx, client, server)
 	}
 
-	return &struct {
-		*instance.Server
-		Warnings []string
-	}{
+	return &ServerWithWarningsResponse{
 		server,
 		warnings,
 	}, nil

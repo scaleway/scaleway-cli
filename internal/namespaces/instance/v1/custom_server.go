@@ -152,6 +152,11 @@ func orderVolumes(v map[string]*customVolume) []*customVolume {
 	return orderedVolumes
 }
 
+type ServerWithWarningsResponse struct {
+	*instance.Server
+	Warnings []string
+}
+
 // serversMarshalerFunc marshals a BootscriptID.
 func bootscriptMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	bootscript := i.(instance.Bootscript)
@@ -356,10 +361,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 			warnings = warningServerTypeDeprecated(ctx, client, server)
 		}
 
-		return &struct {
-			*instance.Server
-			Warnings []string
-		}{
+		return &ServerWithWarningsResponse{
 			server,
 			warnings,
 		}, nil

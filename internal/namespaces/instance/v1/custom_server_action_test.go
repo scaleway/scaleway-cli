@@ -32,7 +32,11 @@ func Test_ServerTerminate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
-				server := testhelpers.MapValue[*instanceSDK.Server](t, ctx.Meta, "Server")
+				server := testhelpers.MapValue[*instance.ServerWithWarningsResponse](
+					t,
+					ctx.Meta,
+					"Server",
+				).Server
 				assert.NotNil(t, server.PublicIP)
 				_, err := api.GetIP(&instanceSDK.GetIPRequest{
 					IP: server.PublicIP.ID,
@@ -59,7 +63,11 @@ func Test_ServerTerminate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
-				server := testhelpers.MapValue[*instanceSDK.Server](t, ctx.Meta, "Server")
+				server := testhelpers.MapValue[*instance.ServerWithWarningsResponse](
+					t,
+					ctx.Meta,
+					"Server",
+				).Server
 				assert.NotNil(t, server.PublicIP)
 
 				_, err := api.GetIP(&instanceSDK.GetIPRequest{
@@ -107,7 +115,11 @@ func Test_ServerTerminate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
-				server := testhelpers.MapValue[*instanceSDK.Server](t, ctx.Meta, "Server")
+				server := testhelpers.MapValue[*instance.ServerWithWarningsResponse](
+					t,
+					ctx.Meta,
+					"Server",
+				).Server
 				volume := testhelpers.MapTValue(t, server.Volumes, "0")
 
 				_, err := api.GetVolume(&instanceSDK.GetVolumeRequest{
@@ -183,7 +195,11 @@ func Test_ServerAction(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				storedServer := testhelpers.MapValue[*instanceSDK.Server](t, ctx.Meta, "Server")
+				storedServer := testhelpers.MapValue[*instance.ServerWithWarningsResponse](
+					t,
+					ctx.Meta,
+					"Server",
+				).Server
 				api := instanceSDK.NewAPI(ctx.Client)
 				resp, err := api.GetServer(&instanceSDK.GetServerRequest{
 					Zone:     storedServer.Zone,

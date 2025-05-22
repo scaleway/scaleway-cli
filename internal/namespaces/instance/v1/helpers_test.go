@@ -6,9 +6,10 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
@@ -45,14 +46,25 @@ func startServer(metaKey string) core.BeforeFunc {
 		".ID }}")
 }
 
+func getServerFromMeta(meta core.TestMetadata, metaKey string) *instanceSDK.Server {
+	switch resp := meta[metaKey].(type) {
+	case *instanceSDK.Server:
+		return resp
+	case *instance.ServerWithWarningsResponse:
+		return resp.Server
+	default:
+		return nil
+	}
+}
+
 // deleteServer deletes a server and its attached IP and volumes
 // previously registered in the context Meta at metaKey.
 //
 //nolint:unparam
 func deleteServer(metaKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
-		server := ctx.Meta[metaKey].(*instance.Server)
-		if server.State == instance.ServerStateRunning {
+		server := getServerFromMeta(ctx.Meta, metaKey)
+		if server.State == instanceSDK.ServerStateRunning {
 			err := core.ExecAfterCmd("scw instance server stop -w {{ ." + metaKey + ".ID }}")(ctx)
 			if err != nil {
 				return err
@@ -78,7 +90,7 @@ func deleteServer(metaKey string) core.AfterFunc {
 func createVolume(
 	metaKey string,
 	sizeInGb int,
-	volumeType instance.VolumeVolumeType,
+	volumeType instanceSDK.VolumeVolumeType,
 ) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf(
@@ -87,7 +99,7 @@ func createVolume(
 			volumeType,
 		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
-		createVolumeResponse := res.(*instance.CreateVolumeResponse)
+		createVolumeResponse := res.(*instanceSDK.CreateVolumeResponse)
 		ctx.Meta[metaKey] = createVolumeResponse.Volume
 
 		return nil
@@ -126,7 +138,7 @@ func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 func createIP(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		res := ctx.ExecuteCmd(strings.Split("scw instance ip create", " "))
-		createIPResponse := res.(*instance.CreateIPResponse)
+		createIPResponse := res.(*instanceSDK.CreateIPResponse)
 		ctx.Meta[metaKey] = createIPResponse.IP
 
 		return nil
@@ -147,7 +159,7 @@ func deleteIP(metaKey string) core.AfterFunc {
 func createPlacementGroup(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		res := ctx.ExecuteCmd([]string{"scw", "instance", "placement-group", "create"})
-		createPlacementGroupResponse := res.(*instance.CreatePlacementGroupResponse)
+		createPlacementGroupResponse := res.(*instanceSDK.CreatePlacementGroupResponse)
 		ctx.Meta[metaKey] = createPlacementGroupResponse.PlacementGroup
 
 		return nil
@@ -169,7 +181,7 @@ func deletePlacementGroup(metaKey string) core.AfterFunc {
 func createSecurityGroup(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		res := ctx.ExecuteCmd([]string{"scw", "instance", "security-group", "create"})
-		createSecurityGroupResponse := res.(*instance.CreateSecurityGroupResponse)
+		createSecurityGroupResponse := res.(*instanceSDK.CreateSecurityGroupResponse)
 		ctx.Meta[metaKey] = createSecurityGroupResponse.SecurityGroup
 
 		return nil
@@ -215,7 +227,7 @@ func createNIC() core.BeforeFunc {
 func testServerFetcherSBSVolumeSize(
 	volumeKey string,
 	sizeInGB int,
-	serverFetcher func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server,
+	serverFetcher func(t *testing.T, ctx *core.CheckFuncCtx) *instanceSDK.Server,
 ) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		t.Helper()
@@ -244,10 +256,10 @@ func testServerSBSVolumeSize(volumeKey string, sizeInGB int) core.TestCheck {
 	return testServerFetcherSBSVolumeSize(
 		volumeKey,
 		sizeInGB,
-		func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		func(t *testing.T, ctx *core.CheckFuncCtx) *instanceSDK.Server {
 			t.Helper()
 
-			return testhelpers.Value[*instance.Server](t, ctx.Result)
+			return testhelpers.Value[*instance.ServerWithWarningsResponse](t, ctx.Result).Server
 		},
 	)
 }
@@ -257,10 +269,10 @@ func testAttachVolumeServerSBSVolumeSize(volumeKey string, sizeInGB int) core.Te
 	return testServerFetcherSBSVolumeSize(
 		volumeKey,
 		sizeInGB,
-		func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		func(t *testing.T, ctx *core.CheckFuncCtx) *instanceSDK.Server {
 			t.Helper()
 
-			return testhelpers.Value[*instance.AttachVolumeResponse](t, ctx.Result).Server
+			return testhelpers.Value[*instanceSDK.AttachVolumeResponse](t, ctx.Result).Server
 		},
 	)
 }
@@ -269,10 +281,10 @@ func testServerUpdateServerSBSVolumeSize(volumeKey string, sizeInGB int) core.Te
 	return testServerFetcherSBSVolumeSize(
 		volumeKey,
 		sizeInGB,
-		func(t *testing.T, ctx *core.CheckFuncCtx) *instance.Server {
+		func(t *testing.T, ctx *core.CheckFuncCtx) *instanceSDK.Server {
 			t.Helper()
 
-			return testhelpers.Value[*instance.UpdateServerResponse](t, ctx.Result).Server
+			return testhelpers.Value[*instance.ServerWithWarningsResponse](t, ctx.Result).Server
 		},
 	)
 }

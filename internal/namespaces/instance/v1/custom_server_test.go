@@ -137,7 +137,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				resp := testhelpers.Value[*instanceSDK.UpdateServerResponse](t, ctx.Result)
+				resp := testhelpers.Value[*instance.ServerWithWarningsResponse](t, ctx.Result)
 				assert.Equal(t, (*instanceSDK.ServerIP)(nil), resp.Server.PublicIP)
 			},
 			core.TestCheckExitCode(0),
@@ -156,7 +156,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				ip := testhelpers.MapValue[*instanceSDK.IP](t, ctx.Meta, "IP")
-				resp := testhelpers.Value[*instanceSDK.UpdateServerResponse](t, ctx.Result)
+				resp := testhelpers.Value[*instance.ServerWithWarningsResponse](t, ctx.Result)
 
 				assert.NotNil(t, resp.Server)
 				assert.NotNil(t, resp.Server.PublicIP)
@@ -188,12 +188,12 @@ func Test_ServerUpdateCustom(t *testing.T) {
 				assert.Equal(
 					t,
 					ctx.Meta["IP1"].(*instanceSDK.IP).Address,
-					ctx.Meta["UpdatedServer"].(*instanceSDK.UpdateServerResponse).Server.PublicIP.Address,
+					ctx.Meta["UpdatedServer"].(*instance.ServerWithWarningsResponse).Server.PublicIP.Address,
 				)
 				// Test that the Server IS attached to IP2.
 				assert.Equal(t,
 					ctx.Meta["IP2"].(*instanceSDK.IP).Address,
-					ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PublicIP.Address)
+					ctx.Result.(*instance.ServerWithWarningsResponse).Server.PublicIP.Address)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -225,7 +225,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 					t.Helper()
 					assert.Equal(t,
 						ctx.Meta["PlacementGroup2"].(*instanceSDK.PlacementGroup).ID,
-						ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID)
+						ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -258,7 +258,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 					t.Helper()
 					assert.Equal(t,
 						ctx.Meta["SecurityGroup2"].(*instanceSDK.SecurityGroup).ID,
-						ctx.Result.(*instanceSDK.UpdateServerResponse).Server.SecurityGroup.ID)
+						ctx.Result.(*instance.ServerWithWarningsResponse).Server.SecurityGroup.ID)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -301,7 +301,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Empty(t, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.Volumes)
+				assert.Empty(t, ctx.Result.(*instance.ServerWithWarningsResponse).Server.Volumes)
 			},
 			AfterFunc: core.AfterFuncCombine(
 				core.ExecAfterCmd(
@@ -393,7 +393,7 @@ func Test_ServerDelete(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				api := instanceSDK.NewAPI(ctx.Client)
-				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				server := ctx.Meta["Server"].(*instance.ServerWithWarningsResponse).Server
 				_, err := api.GetVolume(&instanceSDK.GetVolumeRequest{
 					VolumeID: server.Volumes["0"].ID,
 				})
@@ -451,7 +451,7 @@ func Test_ServerDelete(t *testing.T) {
 				t.Helper()
 
 				require.NotNil(t, ctx.Meta["Server"])
-				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				server := ctx.Meta["Server"].(*instance.ServerWithWarningsResponse).Server
 				assert.Len(t, server.PublicIPs, 2)
 				api := instanceSDK.NewAPI(ctx.Client)
 				for _, ip := range server.PublicIPs {

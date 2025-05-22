@@ -15,7 +15,7 @@ import (
 //nolint:unparam
 func addSSHKey(serverKey string, sshKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		server := ctx.Meta[serverKey].(*instanceSDK.Server)
+		server := getServerFromMeta(ctx.Meta, serverKey)
 		tags := server.Tags
 		tags = append(tags, instance.FormatSSHKeyToTag(sshKey))
 
@@ -54,7 +54,7 @@ func Test_SSHKey(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				server := ctx.Meta["Server"].(*instance.ServerWithWarningsResponse).Server
 				resp, err := instanceSDK.NewAPI(ctx.Client).GetServer(&instanceSDK.GetServerRequest{
 					Zone:     server.Zone,
 					ServerID: server.ID,
@@ -105,7 +105,7 @@ func Test_SSHKey(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				server := ctx.Meta["Server"].(*instanceSDK.Server)
+				server := getServerFromMeta(ctx.Meta, "Server")
 				resp, err := instanceSDK.NewAPI(ctx.Client).GetServer(&instanceSDK.GetServerRequest{
 					Zone:     server.Zone,
 					ServerID: server.ID,
