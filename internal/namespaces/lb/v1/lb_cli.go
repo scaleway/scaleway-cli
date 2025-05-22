@@ -2733,6 +2733,13 @@ func lbACLCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "match.ips-edge-services",
+				Short:      `Defines whether Edge Services IPs should be matched`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "match.http-filter",
 				Short:      `Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends`,
 				Required:   false,
@@ -2911,6 +2918,13 @@ func lbACLUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "match.ips-edge-services",
+				Short:      `Defines whether Edge Services IPs should be matched`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "match.http-filter",
 				Short:      `Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends`,
 				Required:   false,
@@ -3084,6 +3098,13 @@ func lbACLSet() *core.Command {
 			{
 				Name:       "acls.{index}.match.ip-subnet.{index}",
 				Short:      `List of IPs or CIDR v4/v6 addresses to filter for from the client side`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "acls.{index}.match.ips-edge-services",
+				Short:      `Defines whether Edge Services IPs should be matched`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
