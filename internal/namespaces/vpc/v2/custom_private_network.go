@@ -2,6 +2,7 @@ package vpc
 
 import (
 	"context"
+	"golang.org/x/sync/errgroup"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
@@ -51,58 +52,68 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 
 		client := core.ExtractClient(ctx)
 
-		listInstanceServers, err := listCustomInstanceServers(client, pn)
-		if err != nil {
-			return nil, err
-		}
+		var (
+			instanceServers      []customInstanceServer
+			baremetalServers     []customBaremetalServer
+			k8sClusters          []customK8sCluster
+			lbs                  []customLB
+			rdbs                 []customRdb
+			redisClusters        []customRedis
+			gateways             []customGateway
+			appleSiliconServers  []customAppleSiliconServer
+			mongoDBs             []customMongoDB
+			ipamIPs              []customIPAMIP
+			inferenceDeployments []customInferenceDeployment
+		)
 
-		listBaremetalServers, err := listCustomBaremetalServers(client, pn)
-		if err != nil {
-			return nil, err
-		}
+		g, ctx := errgroup.WithContext(ctx)
 
-		listK8sClusters, err := listCustomK8sClusters(client, pn)
-		if err != nil {
-			return nil, err
-		}
+		g.Go(func() (err error) {
+			instanceServers, err = listCustomInstanceServers(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			baremetalServers, err = listCustomBaremetalServers(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			k8sClusters, err = listCustomK8sClusters(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			lbs, err = listCustomLBs(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			rdbs, err = listCustomRdbs(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			redisClusters, err = listCustomRedisClusters(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			gateways, err = listCustomGateways(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			appleSiliconServers, err = listCustomAppleSiliconServers(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			mongoDBs, err = listCustomMongoDBs(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			ipamIPs, err = listCustomIPAMIPs(client, pn)
+			return
+		})
+		g.Go(func() (err error) {
+			inferenceDeployments, err = listCustomInferenceDeployments(client, pn)
+			return
+		})
 
-		listLBs, err := listCustomLBs(client, pn)
-		if err != nil {
-			return nil, err
-		}
-
-		listRdbInstances, err := listCustomRdbs(client, pn)
-		if err != nil {
-			return nil, err
-		}
-
-		listRedisClusters, err := listCustomRedisClusters(client, pn)
-		if err != nil {
-			return nil, err
-		}
-
-		listGateways, err := listCustomGateways(client, pn)
-		if err != nil {
-			return nil, err
-		}
-
-		listAppleSiliconServers, err := listCustomAppleSiliconServers(client, pn)
-		if err != nil {
-			return nil, err
-		}
-
-		listMongoDBInstances, err := listCustomMongoDBs(client, pn)
-		if err != nil {
-			return nil, err
-		}
-
-		listIPAMIPs, err := listCustomIPAMIPs(client, pn)
-		if err != nil {
-			return nil, err
-		}
-
-		listInferenceDeployments, err := listCustomInferenceDeployments(client, pn)
-		if err != nil {
+		if err = g.Wait(); err != nil {
 			return nil, err
 		}
 
@@ -121,22 +132,27 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 			InferenceDeployments []customInferenceDeployment `json:"inference_deployments,omitempty"`
 		}{
 			pn,
-			listInstanceServers,
-			listBaremetalServers,
-			listK8sClusters,
-			listLBs,
-			listRdbInstances,
-			listRedisClusters,
-			listGateways,
-			listAppleSiliconServers,
-			listMongoDBInstances,
-			listIPAMIPs,
-			listInferenceDeployments,
+			instanceServers,
+			baremetalServers,
+			k8sClusters,
+			lbs,
+			rdbs,
+			redisClusters,
+			gateways,
+			appleSiliconServers,
+			mongoDBs,
+			ipamIPs,
+			inferenceDeployments,
 		}, nil
 	}
 
 	c.View = &core.View{
 		Sections: []*core.ViewSection{
+			{
+				FieldName:   "Subnets",
+				Title:       "Subnets",
+				HideIfEmpty: true,
+			},
 			{
 				FieldName:   "InstanceServers",
 				Title:       "Instance Servers",
@@ -170,11 +186,6 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 			{
 				FieldName:   "Gateways",
 				Title:       "Public Gateways",
-				HideIfEmpty: true,
-			},
-			{
-				FieldName:   "Subnets",
-				Title:       "Subnets",
 				HideIfEmpty: true,
 			},
 			{

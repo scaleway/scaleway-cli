@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              7c8b3dfe-09b3-4808-bcce-207359bb4b5e
-Name                            cli-pn-gracious-dubinsky
+ID                              b48cc2ad-8cf5-4d0f-950b-b764f6e402fa
+Name                            cli-pn-dazzling-archimedes
 OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 Region                          fr-par
@@ -11,39 +11,39 @@ VpcID                           086a5171-f7ab-4667-a231-840a81203f19
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 
+Subnets:
+ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
+a85d3b28-b6b8-4f05-9eb8-5c138c9f0a13  few seconds ago  few seconds ago  172.16.12.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b48cc2ad-8cf5-4d0f-950b-b764f6e402fa  086a5171-f7ab-4667-a231-840a81203f19
+664d20e4-2e66-463e-a118-62169f80bb64  few seconds ago  few seconds ago  fd46:78ab:30b8:cb85::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  b48cc2ad-8cf5-4d0f-950b-b764f6e402fa  086a5171-f7ab-4667-a231-840a81203f19
+
 Instance Servers:
-ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
-5332d773-09ef-45d2-9f7d-a7df735fcdc0  cli-srv-hopeful-edison  archived  3133b27e-6ed4-4751-b42a-8ec35fbafe82  02:00:00:10:b7:63
+ID                                    NAME                      STATE     NIC ID                                MAC ADDRESS
+1c20243e-1663-41a2-a59d-220fe4f368f3  cli-srv-sleepy-northcutt  archived  14d708bd-f641-42a0-ac3d-e7bab45bde27  02:00:00:17:ac:85
 
 Load-Balancers:
 ID                                    NAME      STATE
-538db5d8-81f8-4759-92df-708a2c89799b  cli-test  ready
+6246fe77-2b89-4419-a6ed-9f607294df25  cli-test  ready
 
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
-c0bca8a1-3d8d-4e68-8583-a466b165d225  cli-test  ready  316fad5b-6234-4abd-8b4f-daa81b2b6438
-
-Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-462ffc2e-0d44-4ed9-8e43-cad864e937ff  few seconds ago  few seconds ago  172.16.32.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  7c8b3dfe-09b3-4808-bcce-207359bb4b5e  086a5171-f7ab-4667-a231-840a81203f19
-caa87efd-3bc6-4e70-a3ca-c6fdf1435f1a  few seconds ago  few seconds ago  fd46:78ab:30b8:e551::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  7c8b3dfe-09b3-4808-bcce-207359bb4b5e  086a5171-f7ab-4667-a231-840a81203f19
+38f2f9a9-374f-442d-913c-c8b78baa6cad  cli-test  ready  876d4dae-2c53-436d-abc4-76b3d3baf6f4
 
 MongoDB Instances:
 ID                                    NAME            STATE  ENDPOINT ID
-4e4e8d03-a645-4ad0-86cf-8bfbbb208be3  mongo-cli-test  ready  7898e0fc-c606-4442-a726-524fb8d3ae00
+1d049d1d-4cac-4acb-84bf-e9ab8e019c5e  mongo-cli-test  ready  fb5f69b6-f10e-4b55-b857-9277d7f71204
 
 IPAM IPs:
 ID                                    ADDRESS
-d93711fe-1670-49d7-abdd-5a883e655985  172.16.32.5/22
-b7d166a1-72a9-49c0-ba18-661ead1410bd  fd46:78ab:30b8:e551:33aa:8d21:e968:71d3/64
-49b42496-4268-4838-8003-17a0654e89db  172.16.32.4/22
-9b5e8d76-0dba-4d8e-b73c-6070406daa11  172.16.32.3/22
-89816863-1830-4188-85c1-51c5b6c5f2e5  fd46:78ab:30b8:e551:c76:b167:16a3:f0fb/64
-09f3a590-ac44-44e7-9d31-c7db5da362c0  172.16.32.2/22
+a0951d63-46e1-4b53-8c15-ea1178869306  172.16.12.5/22
+5f7048cd-20e8-438e-b8ab-13a97e264bc1  fd46:78ab:30b8:cb85:728e:5470:61a9:a958/64
+d0bf5e04-226e-43bf-a559-c15a1bd3bc31  172.16.12.4/22
+33c516f0-74a7-46f5-a87a-b4feb441fc32  172.16.12.3/22
+1ae28551-9eaa-477c-bc18-536af3d95dcc  fd46:78ab:30b8:cb85:27ed:474:8b26:a870/64
+6b572515-224b-4066-856d-49d89ca8af38  172.16.12.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "7c8b3dfe-09b3-4808-bcce-207359bb4b5e",
-  "name": "cli-pn-gracious-dubinsky",
+  "id": "b48cc2ad-8cf5-4d0f-950b-b764f6e402fa",
+  "name": "cli-pn-dazzling-archimedes",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "region": "fr-par",
@@ -52,21 +52,21 @@ b7d166a1-72a9-49c0-ba18-661ead1410bd  fd46:78ab:30b8:e551:33aa:8d21:e968:71d3/64
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "462ffc2e-0d44-4ed9-8e43-cad864e937ff",
+      "id": "a85d3b28-b6b8-4f05-9eb8-5c138c9f0a13",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.32.0/22",
+      "subnet": "172.16.12.0/22",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "7c8b3dfe-09b3-4808-bcce-207359bb4b5e",
+      "private_network_id": "b48cc2ad-8cf5-4d0f-950b-b764f6e402fa",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     },
     {
-      "id": "caa87efd-3bc6-4e70-a3ca-c6fdf1435f1a",
+      "id": "664d20e4-2e66-463e-a118-62169f80bb64",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:e551::/64",
+      "subnet": "fd46:78ab:30b8:cb85::/64",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "7c8b3dfe-09b3-4808-bcce-207359bb4b5e",
+      "private_network_id": "b48cc2ad-8cf5-4d0f-950b-b764f6e402fa",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     }
   ],
@@ -75,60 +75,60 @@ b7d166a1-72a9-49c0-ba18-661ead1410bd  fd46:78ab:30b8:e551:33aa:8d21:e968:71d3/64
   "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "5332d773-09ef-45d2-9f7d-a7df735fcdc0",
-      "name": "cli-srv-hopeful-edison",
+      "id": "1c20243e-1663-41a2-a59d-220fe4f368f3",
+      "name": "cli-srv-sleepy-northcutt",
       "state": "stopped",
-      "nic_id": "3133b27e-6ed4-4751-b42a-8ec35fbafe82",
-      "mac": "02:00:00:10:b7:63"
+      "nic_id": "14d708bd-f641-42a0-ac3d-e7bab45bde27",
+      "mac": "02:00:00:17:ac:85"
     }
   ],
   "lbs": [
     {
-      "id": "538db5d8-81f8-4759-92df-708a2c89799b",
+      "id": "6246fe77-2b89-4419-a6ed-9f607294df25",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "c0bca8a1-3d8d-4e68-8583-a466b165d225",
+      "id": "38f2f9a9-374f-442d-913c-c8b78baa6cad",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "316fad5b-6234-4abd-8b4f-daa81b2b6438"
+      "endpoint_id": "876d4dae-2c53-436d-abc4-76b3d3baf6f4"
     }
   ],
   "mongodb_instances": [
     {
-      "id": "4e4e8d03-a645-4ad0-86cf-8bfbbb208be3",
+      "id": "1d049d1d-4cac-4acb-84bf-e9ab8e019c5e",
       "name": "mongo-cli-test",
       "state": "ready",
-      "endpoint_id": "7898e0fc-c606-4442-a726-524fb8d3ae00"
+      "endpoint_id": "fb5f69b6-f10e-4b55-b857-9277d7f71204"
     }
   ],
   "ipam_ips": [
     {
-      "id": "d93711fe-1670-49d7-abdd-5a883e655985",
-      "address": "172.16.32.5/22"
+      "id": "a0951d63-46e1-4b53-8c15-ea1178869306",
+      "address": "172.16.12.5/22"
     },
     {
-      "id": "b7d166a1-72a9-49c0-ba18-661ead1410bd",
-      "address": "fd46:78ab:30b8:e551:33aa:8d21:e968:71d3/64"
+      "id": "5f7048cd-20e8-438e-b8ab-13a97e264bc1",
+      "address": "fd46:78ab:30b8:cb85:728e:5470:61a9:a958/64"
     },
     {
-      "id": "49b42496-4268-4838-8003-17a0654e89db",
-      "address": "172.16.32.4/22"
+      "id": "d0bf5e04-226e-43bf-a559-c15a1bd3bc31",
+      "address": "172.16.12.4/22"
     },
     {
-      "id": "9b5e8d76-0dba-4d8e-b73c-6070406daa11",
-      "address": "172.16.32.3/22"
+      "id": "33c516f0-74a7-46f5-a87a-b4feb441fc32",
+      "address": "172.16.12.3/22"
     },
     {
-      "id": "89816863-1830-4188-85c1-51c5b6c5f2e5",
-      "address": "fd46:78ab:30b8:e551:c76:b167:16a3:f0fb/64"
+      "id": "1ae28551-9eaa-477c-bc18-536af3d95dcc",
+      "address": "fd46:78ab:30b8:cb85:27ed:474:8b26:a870/64"
     },
     {
-      "id": "09f3a590-ac44-44e7-9d31-c7db5da362c0",
-      "address": "172.16.32.2/22"
+      "id": "6b572515-224b-4066-856d-49d89ca8af38",
+      "address": "172.16.12.2/22"
     }
   ]
 }
