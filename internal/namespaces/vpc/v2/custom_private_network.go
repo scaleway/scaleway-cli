@@ -2,7 +2,6 @@ package vpc
 
 import (
 	"context"
-	"golang.org/x/sync/errgroup"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
@@ -19,6 +18,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"golang.org/x/sync/errgroup"
 )
 
 func privateNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
@@ -66,50 +66,61 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 			inferenceDeployments []customInferenceDeployment
 		)
 
-		g, ctx := errgroup.WithContext(ctx)
+		g, groupCtx := errgroup.WithContext(ctx)
 
 		g.Go(func() (err error) {
-			instanceServers, err = listCustomInstanceServers(client, pn)
+			instanceServers, err = listCustomInstanceServers(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			baremetalServers, err = listCustomBaremetalServers(client, pn)
+			baremetalServers, err = listCustomBaremetalServers(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			k8sClusters, err = listCustomK8sClusters(client, pn)
+			k8sClusters, err = listCustomK8sClusters(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			lbs, err = listCustomLBs(client, pn)
+			lbs, err = listCustomLBs(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			rdbs, err = listCustomRdbs(client, pn)
+			rdbs, err = listCustomRdbs(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			redisClusters, err = listCustomRedisClusters(client, pn)
+			redisClusters, err = listCustomRedisClusters(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			gateways, err = listCustomGateways(client, pn)
+			gateways, err = listCustomGateways(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			appleSiliconServers, err = listCustomAppleSiliconServers(client, pn)
+			appleSiliconServers, err = listCustomAppleSiliconServers(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			mongoDBs, err = listCustomMongoDBs(client, pn)
+			mongoDBs, err = listCustomMongoDBs(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			ipamIPs, err = listCustomIPAMIPs(client, pn)
+			ipamIPs, err = listCustomIPAMIPs(groupCtx, client, pn)
+
 			return
 		})
 		g.Go(func() (err error) {
-			inferenceDeployments, err = listCustomInferenceDeployments(client, pn)
+			inferenceDeployments, err = listCustomInferenceDeployments(groupCtx, client, pn)
+
 			return
 		})
 
@@ -285,6 +296,7 @@ type customInferenceDeployment struct {
 }
 
 func listCustomInstanceServers(
+	ctx context.Context,
 	client *scw.Client,
 	pn *vpc.PrivateNetwork,
 ) ([]customInstanceServer, error) {
@@ -299,7 +311,7 @@ func listCustomInstanceServers(
 		listInstanceServers, err := instanceAPI.ListServers(&instance.ListServersRequest{
 			PrivateNetwork: &pn.ID,
 			Zone:           zone,
-		}, scw.WithAllPages())
+		}, scw.WithContext(ctx), scw.WithAllPages())
 		if err != nil {
 			return nil, err
 		}
@@ -322,6 +334,7 @@ func listCustomInstanceServers(
 }
 
 func listCustomBaremetalServers(
+	ctx context.Context,
 	client *scw.Client,
 	pn *vpc.PrivateNetwork,
 ) ([]customBaremetalServer, error) {
@@ -338,8 +351,7 @@ func listCustomBaremetalServers(
 			&baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest{
 				Zone:             zone,
 				PrivateNetworkID: &pn.ID,
-			},
-			scw.WithAllPages(),
+			}, scw.WithContext(ctx), scw.WithAllPages(),
 		)
 		if err != nil {
 			return nil, err
@@ -350,7 +362,7 @@ func listCustomBaremetalServers(
 				getBaremetalServer, err := baremetalAPI.GetServer(&baremetal.GetServerRequest{
 					Zone:     zone,
 					ServerID: server.ServerID,
-				})
+				}, scw.WithContext(ctx))
 				if err != nil {
 					return nil, err
 				}
@@ -368,12 +380,16 @@ func listCustomBaremetalServers(
 	return customBaremetalServers, nil
 }
 
-func listCustomK8sClusters(client *scw.Client, pn *vpc.PrivateNetwork) ([]customK8sCluster, error) {
+func listCustomK8sClusters(
+	ctx context.Context,
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customK8sCluster, error) {
 	k8sAPI := k8s.NewAPI(client)
 
 	listK8sClusters, err := k8sAPI.ListClusters(&k8s.ListClustersRequest{
 		Region: pn.Region,
-	}, scw.WithAllPages())
+	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
@@ -391,7 +407,11 @@ func listCustomK8sClusters(client *scw.Client, pn *vpc.PrivateNetwork) ([]custom
 	return customK8sClusters, nil
 }
 
-func listCustomLBs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customLB, error) {
+func listCustomLBs(
+	ctx context.Context,
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customLB, error) {
 	LBAPI := lb.NewZonedAPI(client)
 
 	regionZones := pn.Region.GetZones()
@@ -402,7 +422,7 @@ func listCustomLBs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customLB, erro
 	for _, zone := range zones {
 		listLbs, err := LBAPI.ListLBs(&lb.ZonedAPIListLBsRequest{
 			Zone: zone,
-		})
+		}, scw.WithContext(ctx), scw.WithAllPages())
 		if err != nil {
 			return nil, err
 		}
@@ -418,7 +438,7 @@ func listCustomLBs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customLB, erro
 			listLBpns, err := LBAPI.ListLBPrivateNetworks(&lb.ZonedAPIListLBPrivateNetworksRequest{
 				Zone: zone,
 				LBID: loadbalancer.ID,
-			}, scw.WithAllPages())
+			}, scw.WithContext(ctx), scw.WithAllPages())
 			if err != nil {
 				return nil, err
 			}
@@ -437,12 +457,16 @@ func listCustomLBs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customLB, erro
 	return customLBs, nil
 }
 
-func listCustomRdbs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customRdb, error) {
+func listCustomRdbs(
+	ctx context.Context,
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customRdb, error) {
 	rdbAPI := rdb.NewAPI(client)
 
 	listDBs, err := rdbAPI.ListInstances(&rdb.ListInstancesRequest{
 		Region: pn.Region,
-	}, scw.WithAllPages())
+	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
@@ -463,7 +487,11 @@ func listCustomRdbs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customRdb, er
 	return customRdbs, nil
 }
 
-func listCustomRedisClusters(client *scw.Client, pn *vpc.PrivateNetwork) ([]customRedis, error) {
+func listCustomRedisClusters(
+	ctx context.Context,
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customRedis, error) {
 	redisAPI := redis.NewAPI(client)
 
 	regionZones := pn.Region.GetZones()
@@ -474,7 +502,7 @@ func listCustomRedisClusters(client *scw.Client, pn *vpc.PrivateNetwork) ([]cust
 	for _, zone := range zones {
 		listRedisClusters, err := redisAPI.ListClusters(&redis.ListClustersRequest{
 			Zone: zone,
-		}, scw.WithAllPages())
+		}, scw.WithContext(ctx), scw.WithAllPages())
 		if err != nil {
 			return nil, err
 		}
@@ -495,7 +523,11 @@ func listCustomRedisClusters(client *scw.Client, pn *vpc.PrivateNetwork) ([]cust
 	return customClusters, nil
 }
 
-func listCustomGateways(client *scw.Client, pn *vpc.PrivateNetwork) ([]customGateway, error) {
+func listCustomGateways(
+	ctx context.Context,
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customGateway, error) {
 	vpcgwAPI := vpcgw.NewAPI(client)
 
 	regionZones := pn.Region.GetZones()
@@ -506,7 +538,7 @@ func listCustomGateways(client *scw.Client, pn *vpc.PrivateNetwork) ([]customGat
 	for _, zone := range zones {
 		listGateways, err := vpcgwAPI.ListGateways(&vpcgw.ListGatewaysRequest{
 			Zone: zone,
-		}, scw.WithAllPages())
+		}, scw.WithContext(ctx), scw.WithAllPages())
 		if err != nil {
 			return nil, err
 		}
@@ -528,6 +560,7 @@ func listCustomGateways(client *scw.Client, pn *vpc.PrivateNetwork) ([]customGat
 }
 
 func listCustomAppleSiliconServers(
+	ctx context.Context,
 	client *scw.Client,
 	pn *vpc.PrivateNetwork,
 ) ([]customAppleSiliconServer, error) {
@@ -545,8 +578,7 @@ func listCustomAppleSiliconServers(
 			&applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest{
 				Zone:             zone,
 				PrivateNetworkID: &pn.ID,
-			},
-			scw.WithAllPages(),
+			}, scw.WithContext(ctx), scw.WithAllPages(),
 		)
 		if err != nil {
 			return nil, err
@@ -558,7 +590,7 @@ func listCustomAppleSiliconServers(
 					&applesilicon.GetServerRequest{
 						Zone:     zone,
 						ServerID: server.ServerID,
-					},
+					}, scw.WithContext(ctx),
 				)
 				if err != nil {
 					return nil, err
@@ -581,12 +613,16 @@ func listCustomAppleSiliconServers(
 	return customAppleSiliconServers, nil
 }
 
-func listCustomMongoDBs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customMongoDB, error) {
+func listCustomMongoDBs(
+	ctx context.Context,
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customMongoDB, error) {
 	mongoAPI := mongodb.NewAPI(client)
 
 	listDBs, err := mongoAPI.ListInstances(&mongodb.ListInstancesRequest{
 		Region: pn.Region,
-	}, scw.WithAllPages())
+	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
@@ -607,13 +643,17 @@ func listCustomMongoDBs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customMon
 	return customDBs, nil
 }
 
-func listCustomIPAMIPs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customIPAMIP, error) {
+func listCustomIPAMIPs(
+	ctx context.Context,
+	client *scw.Client,
+	pn *vpc.PrivateNetwork,
+) ([]customIPAMIP, error) {
 	ipamAPI := ipam.NewAPI(client)
 
 	listIPAMIPs, err := ipamAPI.ListIPs(&ipam.ListIPsRequest{
 		Region:           pn.Region,
 		PrivateNetworkID: &pn.ID,
-	}, scw.WithAllPages())
+	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
@@ -630,6 +670,7 @@ func listCustomIPAMIPs(client *scw.Client, pn *vpc.PrivateNetwork) ([]customIPAM
 }
 
 func listCustomInferenceDeployments(
+	ctx context.Context,
 	client *scw.Client,
 	pn *vpc.PrivateNetwork,
 ) ([]customInferenceDeployment, error) {
@@ -637,7 +678,7 @@ func listCustomInferenceDeployments(
 
 	listDeployments, err := inferenceAPI.ListDeployments(&inference.ListDeploymentsRequest{
 		Region: pn.Region,
-	}, scw.WithAllPages())
+	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
 		return nil, err
 	}
