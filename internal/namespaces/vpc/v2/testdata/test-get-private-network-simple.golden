@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              d8062887-e437-4815-ae65-3b9ca3154012
-Name                            cli-pn-focused-roentgen
+ID                              3f26c4fe-061a-4b86-8b3b-07ab95c768c9
+Name                            cli-pn-serene-mendeleev
 OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 Region                          fr-par
@@ -11,23 +11,23 @@ VpcID                           086a5171-f7ab-4667-a231-840a81203f19
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 
-Instance Servers:
-ID                                    NAME                  STATE     NIC ID                                MAC ADDRESS
-0cea3627-8042-43c1-b103-591d0b13f09e  cli-srv-keen-ptolemy  archived  33a50d04-6f35-4999-94f7-3be3cd021082  02:00:00:14:cd:45
-
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-52befe78-3676-459a-bb8d-d48657a375d9  few seconds ago  few seconds ago  172.16.12.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  d8062887-e437-4815-ae65-3b9ca3154012  086a5171-f7ab-4667-a231-840a81203f19
-c7a195d3-a507-4102-8a79-28295d72b3f0  few seconds ago  few seconds ago  fd46:78ab:30b8:1478::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  d8062887-e437-4815-ae65-3b9ca3154012  086a5171-f7ab-4667-a231-840a81203f19
+2575fda0-e06c-4149-bcd1-274c76c7dcd8  few seconds ago  few seconds ago  172.16.52.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3f26c4fe-061a-4b86-8b3b-07ab95c768c9  086a5171-f7ab-4667-a231-840a81203f19
+5398d0ef-54a7-4037-81e0-a2835618fd37  few seconds ago  few seconds ago  fd46:78ab:30b8:83ca::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3f26c4fe-061a-4b86-8b3b-07ab95c768c9  086a5171-f7ab-4667-a231-840a81203f19
+
+Instance Servers:
+ID                                    NAME                       STATE     NIC ID                                MAC ADDRESS
+11d289ea-9848-4c72-b3da-eaba461d1828  cli-srv-wizardly-sinoussi  archived  bee0e62c-32ff-4efb-baec-5aca70dbfdba  02:00:00:11:07:cb
 
 IPAM IPs:
 ID                                    ADDRESS
-77f223e5-24bc-4ccc-9a46-b5e518b45b36  fd46:78ab:30b8:1478:8c25:c126:3f8e:2664/64
-676ffb07-9ddb-499f-a340-c3ca18e70a98  172.16.12.2/22
+e8eee783-12e1-4753-83b9-a961add1cc33  fd46:78ab:30b8:83ca:5ec9:85b2:db69:4e78/64
+8347d6f5-f42d-44da-97ad-72f16d466e7e  172.16.52.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d8062887-e437-4815-ae65-3b9ca3154012",
-  "name": "cli-pn-focused-roentgen",
+  "id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
+  "name": "cli-pn-serene-mendeleev",
   "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
   "region": "fr-par",
@@ -36,21 +36,21 @@ ID                                    ADDRESS
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "52befe78-3676-459a-bb8d-d48657a375d9",
+      "id": "2575fda0-e06c-4149-bcd1-274c76c7dcd8",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.12.0/22",
+      "subnet": "172.16.52.0/22",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "d8062887-e437-4815-ae65-3b9ca3154012",
+      "private_network_id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     },
     {
-      "id": "c7a195d3-a507-4102-8a79-28295d72b3f0",
+      "id": "5398d0ef-54a7-4037-81e0-a2835618fd37",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:1478::/64",
+      "subnet": "fd46:78ab:30b8:83ca::/64",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "d8062887-e437-4815-ae65-3b9ca3154012",
+      "private_network_id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
       "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
     }
   ],
@@ -59,21 +59,21 @@ ID                                    ADDRESS
   "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "0cea3627-8042-43c1-b103-591d0b13f09e",
-      "name": "cli-srv-keen-ptolemy",
+      "id": "11d289ea-9848-4c72-b3da-eaba461d1828",
+      "name": "cli-srv-wizardly-sinoussi",
       "state": "stopped",
-      "nic_id": "33a50d04-6f35-4999-94f7-3be3cd021082",
-      "mac": "02:00:00:14:cd:45"
+      "nic_id": "bee0e62c-32ff-4efb-baec-5aca70dbfdba",
+      "mac": "02:00:00:11:07:cb"
     }
   ],
   "ipam_ips": [
     {
-      "id": "77f223e5-24bc-4ccc-9a46-b5e518b45b36",
-      "address": "fd46:78ab:30b8:1478:8c25:c126:3f8e:2664/64"
+      "id": "e8eee783-12e1-4753-83b9-a961add1cc33",
+      "address": "fd46:78ab:30b8:83ca:5ec9:85b2:db69:4e78/64"
     },
     {
-      "id": "676ffb07-9ddb-499f-a340-c3ca18e70a98",
-      "address": "172.16.12.2/22"
+      "id": "8347d6f5-f42d-44da-97ad-72f16d466e7e",
+      "address": "172.16.52.2/22"
     }
   ]
 }
