@@ -2,9 +2,12 @@ package instance
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -44,4 +47,46 @@ func SizeValue(s *scw.Size) scw.Size {
 	}
 
 	return 0
+}
+
+func warningServerTypeDeprecated(
+	ctx context.Context,
+	client *scw.Client,
+	server *instance.Server,
+) []string {
+	warning := []string{
+		terminal.Style(
+			fmt.Sprintf(
+				"Warning: server type %q will soon reach EndOfService",
+				server.CommercialType,
+			),
+			color.Bold,
+			color.FgYellow,
+		),
+	}
+
+	compatibleTypes, err := instance.NewAPI(client).
+		GetServerCompatibleTypes(&instance.GetServerCompatibleTypesRequest{
+			Zone:     server.Zone,
+			ServerID: server.ID,
+		}, scw.WithContext(ctx))
+	if err != nil {
+		return warning
+	}
+
+	mostRelevantTypes := compatibleTypes.CompatibleTypes[:5]
+	details := fmt.Sprintf(`
+	Your Instance will soon reach End of Service. You can check the exact date on the Scaleway console. We recommend that you migrate your Instance before that.
+	Here are the %d best options for %q, ordered by relevance: [%s]
+	You can check the full list of compatible server types:
+		- on the Scaleway console
+		- using the CLI command 'scw instance server get-compatible-types %s zone=%s'`,
+		len(mostRelevantTypes),
+		server.CommercialType,
+		strings.Join(mostRelevantTypes, ", "),
+		server.ID,
+		server.Zone,
+	)
+
+	return append(warning, details)
 }

@@ -82,7 +82,10 @@ func Test_ServerUpdate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Nil(t, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup)
+				assert.Nil(
+					t,
+					ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup,
+				)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -104,7 +107,7 @@ func Test_ServerUpdate(t *testing.T) {
 					require.NoError(t, ctx.Err)
 					assert.Equal(t,
 						ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
-						ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID,
+						ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID,
 					)
 				},
 				core.TestCheckExitCode(0),
@@ -158,7 +161,10 @@ func Test_ServerUpdate(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Nil(t, ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup)
+				assert.Nil(
+					t,
+					ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup,
+				)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -186,7 +192,7 @@ func Test_ServerUpdate(t *testing.T) {
 					require.NoError(t, ctx.Err)
 					assert.Equal(t,
 						ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
-						ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID,
+						ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID,
 					)
 				},
 				core.TestCheckExitCode(0),
@@ -215,7 +221,7 @@ func Test_ServerUpdate(t *testing.T) {
 				require.NoError(t, ctx.Err)
 				assert.Equal(t,
 					ctx.Meta["PlacementGroup2"].(*instanceSDK.PlacementGroup).ID,
-					ctx.Result.(*instanceSDK.UpdateServerResponse).Server.PlacementGroup.ID,
+					ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID,
 				)
 			},
 			core.TestCheckExitCode(0),

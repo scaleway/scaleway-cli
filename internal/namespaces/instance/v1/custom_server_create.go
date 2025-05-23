@@ -186,18 +186,35 @@ func serverCreateCommand() *core.Command {
 scw instance server create image=ubuntu_focal ip=$ip`,
 			},
 		},
+		View: &core.View{
+			Sections: []*core.ViewSection{
+				{
+					FieldName:   "Warnings",
+					Title:       "Warnings",
+					HideIfEmpty: true,
+				},
+			},
+		},
 	}
 }
 
 func instanceWaitServerCreateRun() core.WaitFunc {
 	return func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
-		return instance.NewAPI(core.ExtractClient(ctx)).
+		resp := respI.(*ServerWithWarningsResponse)
+		serverID := resp.Server.ID
+
+		waitServer, err := instance.NewAPI(core.ExtractClient(ctx)).
 			WaitForServer(&instance.WaitForServerRequest{
 				Zone:          argsI.(*instanceCreateServerRequest).Zone,
-				ServerID:      respI.(*instance.Server).ID,
+				ServerID:      serverID,
 				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
+
+		return &ServerWithWarningsResponse{
+			waitServer,
+			resp.Warnings,
+		}, err
 	}
 }
 
@@ -339,7 +356,16 @@ func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interfac
 		}
 	}
 
-	return server, nil
+	// Display warning if server-type is deprecated
+	warnings := []string(nil)
+	if server.EndOfService {
+		warnings = warningServerTypeDeprecated(ctx, client, server)
+	}
+
+	return &ServerWithWarningsResponse{
+		server,
+		warnings,
+	}, nil
 }
 
 func addDefaultVolumes(

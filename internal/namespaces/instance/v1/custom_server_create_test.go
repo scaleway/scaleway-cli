@@ -35,11 +35,12 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(
 						t,
 						"Ubuntu 22.04 Jammy Jellyfish",
-						ctx.Result.(*instanceSDK.Server).Image.Name,
+						server.Image.Name,
 					)
 				},
 				core.TestCheckExitCode(0),
@@ -54,8 +55,9 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "GP1-XS", ctx.Result.(*instanceSDK.Server).CommercialType)
+					assert.Equal(t, "GP1-XS", server.CommercialType)
 				},
 			),
 			AfterFunc: deleteServerAfterFunc(),
@@ -68,8 +70,9 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "yo", ctx.Result.(*instanceSDK.Server).Name)
+					assert.Equal(t, "yo", server.Name)
 				},
 			),
 			AfterFunc: deleteServerAfterFunc(),
@@ -82,11 +85,12 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(
 						t,
 						instanceSDK.ServerStateRunning,
-						ctx.Result.(*instanceSDK.Server).State,
+						server.State,
 					)
 				},
 			),
@@ -99,11 +103,12 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
 					assert.Equal(
 						t,
 						"Ubuntu Bionic Beaver",
-						ctx.Result.(*instanceSDK.Server).Image.Name,
+						server.Image.Name,
 					)
 				},
 				core.TestCheckExitCode(0),
@@ -118,9 +123,10 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "prod", ctx.Result.(*instanceSDK.Server).Tags[0])
-					assert.Equal(t, "blue", ctx.Result.(*instanceSDK.Server).Tags[1])
+					assert.Equal(t, "prod", server.Tags[0])
+					assert.Equal(t, "blue", server.Tags[1])
 				},
 			),
 			AfterFunc: deleteServerAfterFunc(),
@@ -138,7 +144,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					size := volume.Size
 					assert.Equal(
@@ -173,7 +182,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					size := volume.Size
 					assert.Equal(
@@ -211,7 +223,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					size := volume.Size
 					assert.Equal(
@@ -238,7 +253,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					size0 := testhelpers.MapTValue(t, server.Volumes, "0").Size
 					size1 := testhelpers.MapTValue(t, server.Volumes, "1").Size
 					assert.Equal(
@@ -318,7 +336,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "1")
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
@@ -340,7 +361,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "1")
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
@@ -364,7 +388,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
@@ -385,7 +412,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
@@ -408,7 +438,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 
 					rootVolume, rootVolumeExists := server.Volumes["0"]
 					assert.True(t, rootVolumeExists)
@@ -445,7 +478,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
 					assert.False(t, server.PublicIP.Dynamic)
@@ -463,7 +499,10 @@ func Test_CreateServer(t *testing.T) {
 					t.Helper()
 					require.NoError(t, ctx.Err)
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
 					assert.True(t, server.DynamicIPRequired)
@@ -481,7 +520,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
 					assert.False(t, server.PublicIP.Dynamic)
@@ -499,7 +541,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
 					assert.False(t, server.PublicIP.Dynamic)
@@ -518,7 +563,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					require.NotNil(t, ctx.Result, "Server is nil")
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.Len(t, server.PublicIPs, 1)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet6, server.PublicIPs[0].Family)
 				},
@@ -537,7 +585,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result, "server is nil")
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.Len(t, server.PublicIPs, 2)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet, server.PublicIPs[0].Family)
 					assert.True(t, server.PublicIPs[0].Dynamic)
@@ -555,7 +606,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result, "server is nil")
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.Len(t, server.PublicIPs, 2)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet, server.PublicIPs[0].Family)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet6, server.PublicIPs[1].Family)
@@ -831,10 +885,11 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				server, isServer := ctx.Result.(*instanceSDK.Server)
-				if !isServer {
+				serverResponse, isServerResponse := ctx.Result.(*instance.ServerWithWarningsResponse)
+				if !isServerResponse {
 					t.Fatalf("Result is not a server")
 				}
+				server := serverResponse.Server
 				additionalVolume, exist := server.Volumes["1"]
 				if !exist {
 					t.Fatalf("Expected an additional scratch volume, found none")

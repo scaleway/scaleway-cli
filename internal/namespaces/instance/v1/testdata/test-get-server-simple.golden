@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                  0e84c2aa-47a5-4197-8d67-e71640d5dde2
-Name                cli-srv-nice-goldberg
+ID                  1def9ced-d905-4b74-a7c9-a1eef1c457c3
+Name                cli-srv-naughty-tharp
 Organization        fa1e3217-dc80-42ac-85c3-3f034b78b552
 Project             fa1e3217-dc80-42ac-85c3-3f034b78b552
 CommercialType      DEV1-S
@@ -9,13 +9,13 @@ CreationDate        few seconds ago
 DynamicIPRequired   false
 RoutedIPEnabled     true
 EnableIPv6          false
-Hostname            cli-srv-nice-goldberg
+Hostname            cli-srv-naughty-tharp
 Protected           false
-MacAddress          de:00:00:a1:df:63
+MacAddress          de:00:00:b0:1a:67
 ModificationDate    few seconds ago
 State               archived
 BootType            local
-SecurityGroup.ID    75cc2e54-0eb5-4d98-af0c-72c24c6b3173
+SecurityGroup.ID    dccbeacb-b588-4c47-8eaf-b05d1469d3cb
 SecurityGroup.Name  Default security group
 StateDetail         -
 Arch                x86_64
@@ -42,7 +42,7 @@ Allowed Actions:
 
 Volumes:
 ID                                    NAME                                       SIZE   VOLUME TYPE  IOPS  STATE   CREATION DATE    MODIFICATION DATE  BOOT   ZONE
-7b8f71d4-d089-4ba4-a713-6916e7d91c6c  Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0  10 GB  sbs_5k       5K    in_use  few seconds ago  few seconds ago    false  fr-par-1
+2ba3c2be-c029-4c2b-9e0e-9287ed6dc012  Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0  10 GB  sbs_5k       5K    in_use  few seconds ago  few seconds ago    false  fr-par-1
 
 Public IPs:
 ID   ADDRESS  GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  IPAM ID  STATE
@@ -54,8 +54,8 @@ Private NICs:
 ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "0e84c2aa-47a5-4197-8d67-e71640d5dde2",
-  "name": "cli-srv-nice-goldberg",
+  "id": "1def9ced-d905-4b74-a7c9-a1eef1c457c3",
+  "name": "cli-srv-naughty-tharp",
   "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
@@ -68,7 +68,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-nice-goldberg",
+  "hostname": "cli-srv-naughty-tharp",
   "image": {
     "id": "63d40353-5519-46d0-9172-ccf4885954e1",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
@@ -95,7 +95,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "private_ip": null,
   "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:a1:df:63",
+  "mac_address": "de:00:00:b0:1a:67",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -103,7 +103,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "7b8f71d4-d089-4ba4-a713-6916e7d91c6c",
+      "id": "2ba3c2be-c029-4c2b-9e0e-9287ed6dc012",
       "name": null,
       "export_uri": null,
       "organization": null,
@@ -119,7 +119,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
     }
   },
   "security_group": {
-    "id": "75cc2e54-0eb5-4d98-af0c-72c24c6b3173",
+    "id": "dccbeacb-b588-4c47-8eaf-b05d1469d3cb",
     "name": "Default security group"
   },
   "maintenances": [],
@@ -132,7 +132,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "end_of_service": false,
   "Volumes": [
     {
-      "id": "7b8f71d4-d089-4ba4-a713-6916e7d91c6c",
+      "id": "2ba3c2be-c029-4c2b-9e0e-9287ed6dc012",
       "name": "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0",
       "size": 10000000000,
       "volume_type": "sbs_5k",
@@ -144,5 +144,6 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
       "zone": "fr-par-1"
     }
   ],
-  "private_nics": []
+  "private_nics": [],
+  "warnings": null
 }

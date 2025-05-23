@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                            9851b09c-1c2b-4fef-bc06-7ce31ff3188a
-Name                          cli-srv-affectionate-hodgkin
-Organization                  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project                       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID                            ce7ee10c-e95f-4b82-834e-ab24b65c427d
+Name                          cli-srv-practical-hellman
+Organization                  fa1e3217-dc80-42ac-85c3-3f034b78b552
+Project                       fa1e3217-dc80-42ac-85c3-3f034b78b552
 AllowedActions.0              poweron
 AllowedActions.1              backup
 CommercialType                H100-1-80G
@@ -11,8 +11,8 @@ CreationDate                  few seconds ago
 DynamicIPRequired             true
 RoutedIPEnabled               true
 EnableIPv6                    false
-Hostname                      cli-srv-affectionate-hodgkin
-Image.ID                      b8165ecb-c7a2-4e73-a976-45dc36233f29
+Hostname                      cli-srv-practical-hellman
+Image.ID                      19714912-ac22-40a6-8dd1-27cd53fd15b0
 Image.Name                    Ubuntu Jammy GPU OS 12 passthrough
 Image.Arch                    x86_64
 Image.CreationDate            few seconds ago
@@ -21,51 +21,51 @@ Image.ExtraVolumes            0
 Image.FromServer              -
 Image.Organization            51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Public                  true
-Image.RootVolume              82faa277-6b1b-4af8-a094-0faabd1456cd
+Image.RootVolume              ca415be5-cb15-4433-b385-432836fb3aaa
 Image.State                   available
 Image.Project                 51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone                    fr-par-2
 Protected                     false
-PublicIP.ID                   785f873f-c983-496c-a31b-d2fcbf81a61e
-PublicIP.Address              51.159.131.203
+PublicIP.ID                   05e01d7d-9e80-4ab4-a020-3ffbee31f1bb
+PublicIP.Address              51.159.188.208
 PublicIP.Gateway              62.210.0.1
 PublicIP.Netmask              32
 PublicIP.Family               inet
 PublicIP.Dynamic              false
 PublicIP.ProvisioningMode     dhcp
-PublicIP.IpamID               417d9c72-531f-44b3-a6fe-9fd5ec26cc8a
+PublicIP.IpamID               5f027cbe-2fff-4a89-b30e-e7bd0de832a9
 PublicIP.State                attached
-PublicIPs.0.ID                785f873f-c983-496c-a31b-d2fcbf81a61e
-PublicIPs.0.Address           51.159.131.203
+PublicIPs.0.ID                05e01d7d-9e80-4ab4-a020-3ffbee31f1bb
+PublicIPs.0.Address           51.159.188.208
 PublicIPs.0.Gateway           62.210.0.1
 PublicIPs.0.Netmask           32
 PublicIPs.0.Family            inet
 PublicIPs.0.Dynamic           false
 PublicIPs.0.ProvisioningMode  dhcp
-PublicIPs.0.IpamID            417d9c72-531f-44b3-a6fe-9fd5ec26cc8a
+PublicIPs.0.IpamID            5f027cbe-2fff-4a89-b30e-e7bd0de832a9
 PublicIPs.0.State             attached
-MacAddress                    de:00:00:69:2f:ad
+MacAddress                    de:00:00:78:9e:13
 ModificationDate              few seconds ago
 State                         archived
 BootType                      local
-Volumes.0.ID                  172709c7-50ec-4e5a-8312-c9030b703d9c
+Volumes.0.ID                  3897febc-66eb-4ef9-b8c3-5d04a4896425
 Volumes.0.VolumeType          sbs_volume
 Volumes.0.Boot                false
 Volumes.0.Zone                fr-par-2
-Volumes.1.ID                  33986061-d909-4885-aa69-02c9a83e80c4
-Volumes.1.Name                cli-srv-affectionate-hodgkin-1
-Volumes.1.Organization        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Volumes.1.Server.ID           9851b09c-1c2b-4fef-bc06-7ce31ff3188a
-Volumes.1.Server.Name         cli-srv-affectionate-hodgkin
+Volumes.1.ID                  34e1f7fa-7c94-494a-a14d-32e684d8476e
+Volumes.1.Name                cli-srv-practical-hellman-1
+Volumes.1.Organization        fa1e3217-dc80-42ac-85c3-3f034b78b552
+Volumes.1.Server.ID           ce7ee10c-e95f-4b82-834e-ab24b65c427d
+Volumes.1.Server.Name         cli-srv-practical-hellman
 Volumes.1.Size                3.0 TB
 Volumes.1.VolumeType          scratch
 Volumes.1.CreationDate        few seconds ago
 Volumes.1.ModificationDate    few seconds ago
 Volumes.1.State               available
-Volumes.1.Project             ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+Volumes.1.Project             fa1e3217-dc80-42ac-85c3-3f034b78b552
 Volumes.1.Boot                false
 Volumes.1.Zone                fr-par-2
-SecurityGroup.ID              07a1e012-3e68-44ec-9b41-cbe87504b716
+SecurityGroup.ID              38c2964c-b7f1-4586-acca-4b2d33231b6c
 SecurityGroup.Name            Default security group
 StateDetail                   -
 Arch                          x86_64
@@ -73,10 +73,10 @@ Zone                          fr-par-2
 EndOfService                  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "9851b09c-1c2b-4fef-bc06-7ce31ff3188a",
-  "name": "cli-srv-affectionate-hodgkin",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "ce7ee10c-e95f-4b82-834e-ab24b65c427d",
+  "name": "cli-srv-practical-hellman",
+  "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
     "poweron",
     "backup"
@@ -87,9 +87,9 @@ EndOfService                  false
   "dynamic_ip_required": true,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-affectionate-hodgkin",
+  "hostname": "cli-srv-practical-hellman",
   "image": {
-    "id": "b8165ecb-c7a2-4e73-a976-45dc36233f29",
+    "id": "19714912-ac22-40a6-8dd1-27cd53fd15b0",
     "name": "Ubuntu Jammy GPU OS 12 passthrough",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -100,7 +100,7 @@ EndOfService                  false
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "82faa277-6b1b-4af8-a094-0faabd1456cd",
+      "id": "ca415be5-cb15-4433-b385-432836fb3aaa",
       "name": "",
       "size": 0,
       "volume_type": "sbs_snapshot"
@@ -113,32 +113,32 @@ EndOfService                  false
   "protected": false,
   "private_ip": null,
   "public_ip": {
-    "id": "785f873f-c983-496c-a31b-d2fcbf81a61e",
-    "address": "51.159.131.203",
+    "id": "05e01d7d-9e80-4ab4-a020-3ffbee31f1bb",
+    "address": "51.159.188.208",
     "gateway": "62.210.0.1",
     "netmask": "32",
     "family": "inet",
     "dynamic": false,
     "provisioning_mode": "dhcp",
     "tags": [],
-    "ipam_id": "417d9c72-531f-44b3-a6fe-9fd5ec26cc8a",
+    "ipam_id": "5f027cbe-2fff-4a89-b30e-e7bd0de832a9",
     "state": "attached"
   },
   "public_ips": [
     {
-      "id": "785f873f-c983-496c-a31b-d2fcbf81a61e",
-      "address": "51.159.131.203",
+      "id": "05e01d7d-9e80-4ab4-a020-3ffbee31f1bb",
+      "address": "51.159.188.208",
       "gateway": "62.210.0.1",
       "netmask": "32",
       "family": "inet",
       "dynamic": false,
       "provisioning_mode": "dhcp",
       "tags": [],
-      "ipam_id": "417d9c72-531f-44b3-a6fe-9fd5ec26cc8a",
+      "ipam_id": "5f027cbe-2fff-4a89-b30e-e7bd0de832a9",
       "state": "attached"
     }
   ],
-  "mac_address": "de:00:00:69:2f:ad",
+  "mac_address": "de:00:00:78:9e:13",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -146,7 +146,7 @@ EndOfService                  false
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "172709c7-50ec-4e5a-8312-c9030b703d9c",
+      "id": "3897febc-66eb-4ef9-b8c3-5d04a4896425",
       "name": null,
       "export_uri": null,
       "organization": null,
@@ -161,26 +161,26 @@ EndOfService                  false
       "zone": "fr-par-2"
     },
     "1": {
-      "id": "33986061-d909-4885-aa69-02c9a83e80c4",
-      "name": "cli-srv-affectionate-hodgkin-1",
+      "id": "34e1f7fa-7c94-494a-a14d-32e684d8476e",
+      "name": "cli-srv-practical-hellman-1",
       "export_uri": null,
-      "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "server": {
-        "id": "9851b09c-1c2b-4fef-bc06-7ce31ff3188a",
-        "name": "cli-srv-affectionate-hodgkin"
+        "id": "ce7ee10c-e95f-4b82-834e-ab24b65c427d",
+        "name": "cli-srv-practical-hellman"
       },
       "size": 3000000000000,
       "volume_type": "scratch",
       "creation_date": "1970-01-01T00:00:00.0Z",
       "modification_date": "1970-01-01T00:00:00.0Z",
       "state": "available",
-      "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "boot": false,
       "zone": "fr-par-2"
     }
   },
   "security_group": {
-    "id": "07a1e012-3e68-44ec-9b41-cbe87504b716",
+    "id": "38c2964c-b7f1-4586-acca-4b2d33231b6c",
     "name": "Default security group"
   },
   "maintenances": [],
@@ -191,5 +191,6 @@ EndOfService                  false
   "zone": "fr-par-2",
   "admin_password_encryption_ssh_key_id": null,
   "admin_password_encrypted_value": null,
-  "end_of_service": false
+  "end_of_service": false,
+  "Warnings": null
 }
