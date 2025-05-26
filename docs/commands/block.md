@@ -35,7 +35,7 @@ If your volume is in a transient state, you need to wait until the end of the cu
 **Usage:**
 
 ```
-scw block snapshot create [arg=value ...]
+scw block snapshot create <volume-id ...> [arg=value ...]
 ```
 
 
@@ -43,7 +43,7 @@ scw block snapshot create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id |  | UUID of the volume to snapshot |
+| volume-id | Required | UUID of the volume to snapshot |
 | name | Default: `<generated>` | Name of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | List of tags assigned to the snapshot |
