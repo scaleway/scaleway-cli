@@ -40,5 +40,6 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("baremetal", "server", "reboot").Override(serverRebootBuilder)
 
 	cmds.MergeAll(baremetalV3.GetCommands())
+
 	return cmds
 }
