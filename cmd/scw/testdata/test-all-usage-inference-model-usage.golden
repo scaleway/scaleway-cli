@@ -6,7 +6,9 @@ USAGE:
   scw inference model <command>
 
 AVAILABLE COMMANDS:
+  delete      Delete a model
   get         Get a model
+  import      Import a model
   list        List models
 
 FLAGS:

@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete an existing inference deployment.
+Delete an existing model from your model library.
 
 USAGE:
-  scw inference deployment delete <deployment-id ...> [arg=value ...]
+  scw inference model delete <model-id ...> [arg=value ...]
 
 ARGS:
-  deployment-id     ID of the deployment to delete
+  model-id          ID of the model to delete
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
