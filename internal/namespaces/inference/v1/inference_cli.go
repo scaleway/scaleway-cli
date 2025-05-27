@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/inference/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -23,7 +23,6 @@ func GetGeneratedCommands() *core.Commands {
 		inferenceModel(),
 		inferenceDeployment(),
 		inferenceNodeType(),
-		inferenceACL(),
 		inferenceEndpoint(),
 		inferenceDeploymentList(),
 		inferenceDeploymentGet(),
@@ -34,20 +33,18 @@ func GetGeneratedCommands() *core.Commands {
 		inferenceEndpointCreate(),
 		inferenceEndpointUpdate(),
 		inferenceEndpointDelete(),
-		inferenceACLList(),
-		inferenceACLAdd(),
-		inferenceACLSet(),
-		inferenceACLDelete(),
 		inferenceModelList(),
 		inferenceModelGet(),
+		inferenceModelImport(),
+		inferenceModelDelete(),
 		inferenceNodeTypeList(),
 	)
 }
 
 func inferenceRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your Inference services`,
-		Long:      `This API allows you to manage your Inference services.`,
+		Short:     `This API allows you to handle your Managed Inference services`,
+		Long:      `This API allows you to handle your Managed Inference services.`,
 		Namespace: "inference",
 	}
 }
@@ -76,15 +73,6 @@ func inferenceNodeType() *core.Command {
 		Long:      `Node types management commands.`,
 		Namespace: "inference",
 		Resource:  "node-type",
-	}
-}
-
-func inferenceACL() *core.Command {
-	return &core.Command{
-		Short:     `Access Control List (ACL) management commands`,
-		Long:      `Access Control List (ACL) management commands.`,
-		Namespace: "inference",
-		Resource:  "acl",
 	}
 }
 
@@ -223,8 +211,8 @@ func inferenceDeploymentCreate() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 			{
-				Name:       "model-name",
-				Short:      `Name of the model to use`,
+				Name:       "model-id",
+				Short:      `ID of the model to use`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -237,7 +225,7 @@ func inferenceDeploymentCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "node-type",
+				Name:       "node-type-name",
 				Short:      `Name of the node type to use`,
 				Required:   true,
 				Deprecated: false,
@@ -266,7 +254,6 @@ func inferenceDeploymentCreate() *core.Command {
 			},
 			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
-				Short:      `ID of the Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -278,6 +265,13 @@ func inferenceDeploymentCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("false"),
+			},
+			{
+				Name:       "quantization.bits",
+				Short:      `The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -333,6 +327,20 @@ func inferenceDeploymentUpdate() *core.Command {
 			{
 				Name:       "max-size",
 				Short:      `Defines the new maximum size of the pool`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "model-id",
+				Short:      `Id of the model to set to the deployment`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "quantization.bits",
+				Short:      `The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -429,7 +437,6 @@ func inferenceEndpointCreate() *core.Command {
 			},
 			{
 				Name:       "endpoint.private-network.private-network-id",
-				Short:      `ID of the Private Network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -523,173 +530,6 @@ func inferenceEndpointDelete() *core.Command {
 
 			return &core.SuccessResult{
 				Resource: "endpoint",
-				Verb:     "delete",
-			}, nil
-		},
-	}
-}
-
-func inferenceACLList() *core.Command {
-	return &core.Command{
-		Short:     `List your ACLs`,
-		Long:      `List ACLs for a specific deployment.`,
-		Namespace: "inference",
-		Resource:  "acl",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.ListDeploymentACLRulesRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "deployment-id",
-				Short:      `ID of the deployment to list ACL rules for`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.Region(core.AllLocalities),
-			),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*inference.ListDeploymentACLRulesRequest)
-
-			client := core.ExtractClient(ctx)
-			api := inference.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
-			if request.Region == scw.Region(core.AllLocalities) {
-				opts = append(opts, scw.WithRegions(api.Regions()...))
-				request.Region = ""
-			}
-			resp, err := api.ListDeploymentACLRules(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-
-			return resp.Rules, nil
-		},
-	}
-}
-
-func inferenceACLAdd() *core.Command {
-	return &core.Command{
-		Short:     `Add new ACLs`,
-		Long:      `Add new ACL rules for a specific deployment.`,
-		Namespace: "inference",
-		Resource:  "acl",
-		Verb:      "add",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.AddDeploymentACLRulesRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "deployment-id",
-				Short:      `ID of the deployment to add ACL rules to`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
-				Name:       "acls.{index}.ip",
-				Short:      `IP address to be allowed`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "acls.{index}.description",
-				Short:      `Description of the ACL rule`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*inference.AddDeploymentACLRulesRequest)
-
-			client := core.ExtractClient(ctx)
-			api := inference.NewAPI(client)
-
-			return api.AddDeploymentACLRules(request)
-		},
-	}
-}
-
-func inferenceACLSet() *core.Command {
-	return &core.Command{
-		Short:     `Set new ACL`,
-		Long:      `Set new ACL rules for a specific deployment.`,
-		Namespace: "inference",
-		Resource:  "acl",
-		Verb:      "set",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.SetDeploymentACLRulesRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "deployment-id",
-				Short:      `ID of the deployment to set ACL rules for`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			{
-				Name:       "acls.{index}.ip",
-				Short:      `IP address to be allowed`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "acls.{index}.description",
-				Short:      `Description of the ACL rule`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*inference.SetDeploymentACLRulesRequest)
-
-			client := core.ExtractClient(ctx)
-			api := inference.NewAPI(client)
-
-			return api.SetDeploymentACLRules(request)
-		},
-	}
-}
-
-func inferenceACLDelete() *core.Command {
-	return &core.Command{
-		Short:     `Delete an existing ACL`,
-		Long:      `Delete an existing ACL.`,
-		Namespace: "inference",
-		Resource:  "acl",
-		Verb:      "delete",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.DeleteDeploymentACLRuleRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "acl-id",
-				Short:      `ID of the ACL rule to delete`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*inference.DeleteDeploymentACLRuleRequest)
-
-			client := core.ExtractClient(ctx)
-			api := inference.NewAPI(client)
-			e = api.DeleteDeploymentACLRule(request)
-			if e != nil {
-				return nil, e
-			}
-
-			return &core.SuccessResult{
-				Resource: "acl",
 				Verb:     "delete",
 			}, nil
 		},
@@ -792,6 +632,87 @@ func inferenceModelGet() *core.Command {
 			api := inference.NewAPI(client)
 
 			return api.GetModel(request)
+		},
+	}
+}
+
+func inferenceModelImport() *core.Command {
+	return &core.Command{
+		Short:     `Import a model`,
+		Long:      `Import a new model to your model library.`,
+		Namespace: "inference",
+		Resource:  "model",
+		Verb:      "import",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(inference.CreateModelRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Short:      `Name of the model`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.RandomValueGenerator("model"),
+			},
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "source.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "source.secret",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*inference.CreateModelRequest)
+
+			client := core.ExtractClient(ctx)
+			api := inference.NewAPI(client)
+
+			return api.CreateModel(request)
+		},
+	}
+}
+
+func inferenceModelDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a model`,
+		Long:      `Delete an existing model from your model library.`,
+		Namespace: "inference",
+		Resource:  "model",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(inference.DeleteModelRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "model-id",
+				Short:      `ID of the model to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*inference.DeleteModelRequest)
+
+			client := core.ExtractClient(ctx)
+			api := inference.NewAPI(client)
+			e = api.DeleteModel(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "model",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
