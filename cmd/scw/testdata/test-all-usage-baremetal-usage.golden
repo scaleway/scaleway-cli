@@ -11,7 +11,6 @@ AVAILABLE COMMANDS:
   options              Server options management commands
   os                   Operating System (OS) management commands
   partitioning-schemas Partitioning-schemas management commands
-  private-network      Private Network management command
   server               Server management commands
   settings             Settings management commands
 
