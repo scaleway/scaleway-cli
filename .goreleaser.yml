@@ -30,7 +30,8 @@ builds:
       - -X main.GitCommit={{ .ShortCommit }}
 
 archives:
-  - format: binary
+  - formats:
+      - binary
 
 checksum:
   name_template: 'SHA256SUMS'
@@ -73,3 +74,12 @@ release:
   prerelease: auto
   draft: true
   name_template: "{{ .Tag }}"
+
+winget:
+  - name: Cli
+    publisher: Scaleway
+    short_description: Command Line Interface for Scaleway
+    license: apache-2.0
+    repository:
+      owner: microsoft
+      name: winget-pkgs
