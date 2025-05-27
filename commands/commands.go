@@ -10,7 +10,6 @@ import (
 	audit_trail "github.com/scaleway/scaleway-cli/v2/internal/namespaces/audit_trail/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
-	baremetalV3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v3"
 	billing "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
@@ -70,7 +69,6 @@ func GetCommands() *core.Commands {
 		iam.GetCommands(),
 		instance.GetCommands(),
 		baremetal.GetCommands(),
-		baremetalV3.GetCommands(),
 		cockpit.GetCommands(),
 		k8s.GetCommands(),
 		marketplace.GetCommands(),
