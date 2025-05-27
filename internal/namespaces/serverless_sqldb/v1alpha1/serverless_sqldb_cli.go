@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	serverless_sqldb "github.com/scaleway/scaleway-sdk-go/api/serverless_sqldb/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/serverless_sqldb/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
