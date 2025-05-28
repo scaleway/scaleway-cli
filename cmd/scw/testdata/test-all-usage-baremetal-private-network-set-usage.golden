@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Set multiple Private Networks on a server.
+Configure multiple Private Networks on an Elastic Metal server.
 
 USAGE:
   scw baremetal private-network set [arg=value ...]
 
 ARGS:
-  server-id                     The ID of the server
-  private-network-ids.{index}   The IDs of the Private Networks
-  [zone=fr-par-1]               Zone to target. If none is passed will use default zone from the config (fr-par-2)
+  server-id                               UUID of the server
+  per-private-network-ipam-ip-ids.{key}   Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
+  [zone=fr-par-1]                         Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for set
