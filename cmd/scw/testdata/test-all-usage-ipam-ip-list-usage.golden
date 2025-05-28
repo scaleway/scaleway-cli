@@ -22,6 +22,7 @@ ARGS:
   [tags.{index}]             Tags to filter for, only IPs with one or more matching tags will be returned
   [is-ipv6]                  Defines whether to filter only for IPv4s or IPv6s
   [ip-ids.{index}]           IP IDs to filter for. Only IPs with these UUIDs will be returned
+  [source-vpc-id]            
   [organization-id]          Organization ID to filter for. Only IPs belonging to this Organization will be returned
   [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 

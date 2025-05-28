@@ -36,6 +36,7 @@ scw ipam ip create [arg=value ...]
 | source.zonal |  | Zone the IP lives in if the IP is a public zoned IP. |
 | source.private-network-id |  | Private Network the IP lives in if the IP is a private IP. |
 | source.subnet-id |  | Private Network subnet the IP lives in if the IP is a private IP in a Private Network. |
+| source.vpc-id |  |  |
 | is-ipv6 |  | Request an IPv6 instead of an IPv4 |
 | address |  | Request this specific IP address in the specified source pool |
 | tags.{index} |  | Tags for the IP |
@@ -116,6 +117,7 @@ scw ipam ip list [arg=value ...]
 | tags.{index} |  | Tags to filter for, only IPs with one or more matching tags will be returned |
 | is-ipv6 |  | Defines whether to filter only for IPv4s or IPv6s |
 | ip-ids.{index} |  | IP IDs to filter for. Only IPs with these UUIDs will be returned |
+| source-vpc-id |  |  |
 | organization-id |  | Organization ID to filter for. Only IPs belonging to this Organization will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 

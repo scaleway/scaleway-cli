@@ -90,6 +90,12 @@ func ipamIPCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "source.vpc-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "is-ipv6",
 				Short:      `Request an IPv6 instead of an IPv4`,
 				Required:   false,
@@ -487,6 +493,12 @@ func ipamIPList() *core.Command {
 			{
 				Name:       "ip-ids.{index}",
 				Short:      `IP IDs to filter for. Only IPs with these UUIDs will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "source-vpc-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
