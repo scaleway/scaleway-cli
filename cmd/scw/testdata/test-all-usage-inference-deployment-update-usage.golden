@@ -6,12 +6,14 @@ USAGE:
   scw inference deployment update <deployment-id ...> [arg=value ...]
 
 ARGS:
-  deployment-id     ID of the deployment to update
-  [name]            Name of the deployment
-  [tags.{index}]    List of tags to apply to the deployment
-  [min-size]        Defines the new minimum size of the pool
-  [max-size]        Defines the new maximum size of the pool
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  deployment-id         ID of the deployment to update
+  [name]                Name of the deployment
+  [tags.{index}]        List of tags to apply to the deployment
+  [min-size]            Defines the new minimum size of the pool
+  [max-size]            Defines the new maximum size of the pool
+  [model-id]            Id of the model to set to the deployment
+  [quantization.bits]   The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value.
+  [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for update

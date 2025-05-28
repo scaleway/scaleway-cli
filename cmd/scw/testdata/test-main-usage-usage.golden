@@ -3,8 +3,8 @@
 USAGE:
   scw <command>
 
-AI COMMANDS:
-  inference     This API allows you to manage your Inference services
+AVAILABLE COMMANDS:
+  inference     This API allows you to handle your Managed Inference services
 
 BAREMETAL COMMANDS:
   apple-silicon Apple silicon API
