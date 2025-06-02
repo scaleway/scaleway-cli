@@ -132,6 +132,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `lb`           | Load Balancer API                       | [CLI](./docs/commands/lb.md) / [API](https://www.scaleway.com/en/developers/api/load-balancer/zoned-api/)         |
 | `marketplace`  | Marketplace API                         | [CLI](./docs/commands/marketplace.md)                                                                             |
 | `mnq`          | Messaging and Queueing API              | [CLI](./docs/commands/mnq.md) / [API](https://www.scaleway.com/en/developers/api/messaging-and-queuing/sqs-api/)  |
+| `mongodb`      | Managed db Mongodb API                  | [CLI](./docs/commands/mongodb.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-mongodb/)   |
 | `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) / [API](https://www.scaleway.com/en/docs/object-storage-feature/)                |
 | `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-postgre-mysql/) |
 | `redis`        | Redis API                               | [CLI](./docs/commands/redis.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-redis// )     |
