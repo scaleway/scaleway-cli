@@ -1,12 +1,11 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage your Inference services.
+This API allows you to handle your Managed Inference services.
 
 USAGE:
   scw inference <command>
 
 AVAILABLE COMMANDS:
-  acl         Access Control List (ACL) management commands
   deployment  Deployment commands
   endpoint    Endpoint management commands
   model       Models commands

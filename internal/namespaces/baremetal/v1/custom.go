@@ -3,6 +3,7 @@ package baremetal
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	baremetalV3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v3"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
 
@@ -37,6 +38,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("baremetal", "server", "start").Override(serverStartBuilder)
 	cmds.MustFind("baremetal", "server", "stop").Override(serverStopBuilder)
 	cmds.MustFind("baremetal", "server", "reboot").Override(serverRebootBuilder)
+
+	cmds.MergeAll(baremetalV3.GetCommands())
 
 	return cmds
 }
