@@ -4,10 +4,10 @@ To create a snapshot, the volume must be in the `in_use` or the `available` stat
 If your volume is in a transient state, you need to wait until the end of the current operation.
 
 USAGE:
-  scw block snapshot create [arg=value ...]
+  scw block snapshot create <volume-id ...> [arg=value ...]
 
 ARGS:
-  [volume-id]          UUID of the volume to snapshot
+  volume-id            UUID of the volume to snapshot
   [name=<generated>]   Name of the snapshot
   [project-id]         Project ID to use. If none is passed the default project ID will be used
   [tags.{index}]       List of tags assigned to the snapshot
