@@ -37,6 +37,7 @@ ARGS:
   [pools.{index}.root-volume-type]                       Defines the system volume disk type. Several types of volume (`volume_type`) are provided: (default_volume_type | l_ssd | b_ssd | sbs_5k | sbs_15k)
   [pools.{index}.root-volume-size]                       System volume disk size
   [pools.{index}.public-ip-disabled]                     Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway
+  [pools.{index}.security-group-id]                      Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone
   [autoscaler-config.scale-down-disabled]                Disable the cluster autoscaler
   [autoscaler-config.scale-down-delay-after-add]         How long after scale up the scale down evaluation resumes
   [autoscaler-config.estimator]                          Type of resource estimator to be used in scale up (unknown_estimator | binpacking)
