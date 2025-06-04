@@ -30,6 +30,7 @@ func exceptionsCassettesCases() map[string]struct{} {
 		"../namespaces/registry/v1/testdata/test-registry-install-docker-helper-command-simple.cassette.yaml":                              {},
 		"../namespaces/registry/v1/testdata/test-registry-install-docker-helper-command-with-profile.cassette.yaml":                        {},
 		"../namespaces/config/testdata/test-config-delete-profile-command-simple.cassette.yaml":                                            {},
+		"../namespaces/alias/testdata/test-alias-list-aliases.cassette.yaml":                                                               {},
 	}
 }
 
