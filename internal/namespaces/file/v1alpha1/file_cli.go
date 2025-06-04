@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	file "github.com/scaleway/scaleway-sdk-go/api/file/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/file/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -127,6 +127,13 @@ func fileFilesystemList() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Filter by tags. Only filesystems with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter by organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
