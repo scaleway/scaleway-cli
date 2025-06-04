@@ -29,6 +29,7 @@ func exceptionsCassettesCases() map[string]struct{} {
 		"../namespaces/redis/v1/testdata/test-endpoints-edge-cases-private-endpoint-with-none-set.cassette.yaml":                           {},
 		"../namespaces/registry/v1/testdata/test-registry-install-docker-helper-command-simple.cassette.yaml":                              {},
 		"../namespaces/registry/v1/testdata/test-registry-install-docker-helper-command-with-profile.cassette.yaml":                        {},
+		"../namespaces/config/testdata/test-config-delete-profile-command-simple.cassette.yaml":                                            {},
 	}
 }
 
@@ -46,6 +47,7 @@ func getTestFiles() (map[string]struct{}, error) {
 		if isCassette && !isException {
 			filesMap[fileNameWithoutExtSuffix(path)] = struct{}{}
 		}
+
 		return nil
 	})
 	if err != nil {
@@ -67,8 +69,10 @@ func checkErrCodeExcept(i *cassette.Interaction, c *cassette.Cassette, codes ...
 				return true
 			}
 		}
+
 		return false
 	}
+
 	return true
 }
 
@@ -97,9 +101,24 @@ func isTransientStateError(i *cassette.Interaction) bool {
 
 func checkErrorCode(c *cassette.Cassette) error {
 	for _, i := range c.Interactions {
-		if !checkErrCodeExcept(i, c, http.StatusNotFound, http.StatusTooManyRequests, http.StatusForbidden, http.StatusGone) &&
+		if !checkErrCodeExcept(
+			i,
+			c,
+			http.StatusNotFound,
+			http.StatusTooManyRequests,
+			http.StatusForbidden,
+			http.StatusGone,
+		) &&
 			!isTransientStateError(i) {
-			return fmt.Errorf("status: %v found on %s. method: %s, url %s\nrequest body = %v\nresponse body = %v", i.Response.Code, c.Name, i.Request.Method, i.Request.URL, i.Request.Body, i.Response.Body)
+			return fmt.Errorf(
+				"status: %v found on %s. method: %s, url %s\nrequest body = %v\nresponse body = %v",
+				i.Response.Code,
+				c.Name,
+				i.Request.Method,
+				i.Request.URL,
+				i.Request.Body,
+				i.Response.Body,
+			)
 		}
 	}
 
