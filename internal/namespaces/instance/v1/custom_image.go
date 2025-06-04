@@ -191,6 +191,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 		req.Public = scw.BoolPtr(false)
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
+		blockAPI := block.NewAPI(client)
 
 		opts := []scw.RequestOption{scw.WithAllPages()}
 		if req.Zone == scw.Zone(core.AllLocalities) {
@@ -210,6 +211,33 @@ func imageListBuilder(c *core.Command) *core.Command {
 			newCustomImage := &imageListItem{
 				Image: image,
 			}
+
+			if image.RootVolume.VolumeType == instance.VolumeVolumeTypeSbsSnapshot {
+				blockVolume, err := blockAPI.GetSnapshot(&block.GetSnapshotRequest{
+					SnapshotID: image.RootVolume.ID,
+					Zone:       image.Zone,
+				}, scw.WithContext(ctx))
+				if err != nil {
+					return nil, err
+				}
+
+				newCustomImage.Image.RootVolume.Size = blockVolume.Size
+			}
+
+			for index, volume := range image.ExtraVolumes {
+				if volume.VolumeType == instance.VolumeVolumeTypeSbsSnapshot {
+					blockVolume, err := blockAPI.GetSnapshot(&block.GetSnapshotRequest{
+						SnapshotID: volume.ID,
+						Zone:       volume.Zone,
+					}, scw.WithContext(ctx))
+					if err != nil {
+						return nil, err
+					}
+
+					newCustomImage.Image.ExtraVolumes[index].Size = blockVolume.Size
+				}
+			}
+
 			customImages = append(customImages, newCustomImage)
 
 			if image.FromServer == "" {

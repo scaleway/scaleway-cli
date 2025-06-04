@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -111,6 +112,50 @@ func createImage(metaKey string) core.BeforeFunc {
 	)
 }
 
+func createImageWithSBSRootVolume(metaKey string) core.BeforeFunc {
+	return core.BeforeFuncCombine(
+		core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand("stopped=true image=ubuntu-jammy root-volume=sbs:20G:5000 --wait"),
+		),
+		core.ExecStoreBeforeCmd(
+			"Snapshot",
+			`scw block snapshot create volume-id={{ (index .Server.Volumes "0").ID }} --wait`,
+		),
+		core.ExecStoreBeforeCmd(
+			metaKey,
+			`scw instance image create snapshot-id={{ .Snapshot.ID }} arch=x86_64`,
+		),
+	)
+}
+
+func createImageWithSBSAdditionalVolumes(metaKey string) core.BeforeFunc {
+	return core.BeforeFuncCombine(
+		core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand(
+				"stopped=true image=ubuntu-jammy root-volume=local:20G additional-volumes.0=sbs:10GB:5000 additional-volumes.1=sbs:15GB:15000 --wait",
+			),
+		),
+		core.ExecStoreBeforeCmd(
+			"SnapshotRoot",
+			`scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }} --wait`,
+		),
+		core.ExecStoreBeforeCmd(
+			"SnapshotAdditional1",
+			`scw block snapshot create volume-id={{ (index .Server.Volumes "1").ID }} --wait`,
+		),
+		core.ExecStoreBeforeCmd(
+			"SnapshotAdditional2",
+			`scw block snapshot create volume-id={{ (index .Server.Volumes "2").ID }} --wait`,
+		),
+		core.ExecStoreBeforeCmd(
+			metaKey,
+			`scw instance image create snapshot-id={{ .SnapshotRoot.ID }} additional-volumes.0.id={{ .SnapshotAdditional1.ID }} additional-volumes.1.id={{ .SnapshotAdditional2.ID }} arch=x86_64`,
+		),
+	)
+}
+
 func deleteImage(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd(
 		`scw instance image delete {{ .` + metaKey + `.Image.ID }} with-snapshots=true`,
@@ -127,6 +172,34 @@ func Test_ImageList(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteImage("Image"),
+	}))
+
+	t.Run("With SBS root volume", core.Test(&core.TestConfig{
+		BeforeFunc: createImageWithSBSRootVolume("ImageSBSRoot"),
+		Commands: core.NewCommandsMerge(
+			instance.GetCommands(),
+			block.GetCommands(),
+		),
+		Cmd: "scw instance image list",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteImage("ImageSBSRoot"),
+	}))
+
+	t.Run("With SBS additional volumes", core.Test(&core.TestConfig{
+		BeforeFunc: createImageWithSBSAdditionalVolumes("ImageSBSAdditional"),
+		Commands: core.NewCommandsMerge(
+			instance.GetCommands(),
+			block.GetCommands(),
+		),
+		Cmd: "scw instance image list",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteImage("ImageSBSAdditional"),
 	}))
 }
 
