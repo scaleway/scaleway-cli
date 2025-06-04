@@ -135,7 +135,7 @@ scw cockpit contact-point create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | email.to |  |  |
-| receive-resolved-notifications |  | Send an email notification when an alert is marked as resolved |
+| send-resolved-notifications |  | Send an email notification when an alert is marked as resolved |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -484,7 +484,7 @@ Pricing plans management commands.
 ### Get current plan
 
 Retrieve a pricing plan for the given Project, specified by the ID of the Project.
-Deprecated, retention is now managed at the data source level.
+Deprecated: retention is now managed at the data source level.
 
 **Usage:**
 
@@ -504,7 +504,7 @@ scw cockpit plan get [arg=value ...]
 ### List plan types
 
 Retrieve a list of available pricing plan types.
-Deprecated, retention is now managed at the data source level.
+Deprecated: retention is now managed at the data source level.
 
 **Usage:**
 
@@ -524,7 +524,7 @@ scw cockpit plan list [arg=value ...]
 ### Apply a pricing plan
 
 Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
-Deprecated, retention is now managed at the data source level.
+Deprecated: retention is now managed at the data source level.
 
 **Usage:**
 

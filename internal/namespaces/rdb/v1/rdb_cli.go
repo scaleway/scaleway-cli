@@ -91,6 +91,7 @@ func GetGeneratedCommands() *core.Commands {
 		rdbEndpointMigrate(),
 	)
 }
+
 func rdbRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Managed Databases for PostgreSQL and MySQL`,
@@ -276,7 +277,12 @@ func rdbEngineList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabaseEnginesRequest)
@@ -292,8 +298,8 @@ func rdbEngineList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Engines, nil
 
+			return resp.Engines, nil
 		},
 	}
 }
@@ -315,7 +321,12 @@ func rdbNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListNodeTypesRequest)
@@ -331,8 +342,8 @@ func rdbNodeTypeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.NodeTypes, nil
 
+			return resp.NodeTypes, nil
 		},
 	}
 }
@@ -360,7 +371,14 @@ func rdbBackupList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "instance-id",
@@ -383,7 +401,12 @@ func rdbBackupList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabaseBackupsRequest)
@@ -399,8 +422,8 @@ func rdbBackupList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.DatabaseBackups, nil
 
+			return resp.DatabaseBackups, nil
 		},
 	}
 }
@@ -444,15 +467,19 @@ func rdbBackupCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateDatabaseBackup(request)
 
+			return api.CreateDatabaseBackup(request)
 		},
 	}
 }
@@ -474,15 +501,19 @@ func rdbBackupGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetDatabaseBackup(request)
 
+			return api.GetDatabaseBackup(request)
 		},
 	}
 }
@@ -518,15 +549,19 @@ func rdbBackupUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.UpdateDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpdateDatabaseBackup(request)
 
+			return api.UpdateDatabaseBackup(request)
 		},
 	}
 }
@@ -548,15 +583,19 @@ func rdbBackupDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteDatabaseBackup(request)
 
+			return api.DeleteDatabaseBackup(request)
 		},
 	}
 }
@@ -592,15 +631,19 @@ func rdbBackupRestore() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.RestoreDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.RestoreDatabaseBackup(request)
 
+			return api.RestoreDatabaseBackup(request)
 		},
 	}
 }
@@ -622,15 +665,19 @@ func rdbBackupExport() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ExportDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.ExportDatabaseBackup(request)
 
+			return api.ExportDatabaseBackup(request)
 		},
 	}
 }
@@ -679,7 +726,12 @@ func rdbInstanceUpgrade() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"lssd", "bssd", "sbs_5k", "sbs_15k"},
+				EnumValues: []string{
+					"lssd",
+					"bssd",
+					"sbs_5k",
+					"sbs_15k",
+				},
 			},
 			{
 				Name:       "upgradable-version-id",
@@ -709,15 +761,19 @@ func rdbInstanceUpgrade() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.UpgradeInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpgradeInstance(request)
 
+			return api.UpgradeInstance(request)
 		},
 	}
 }
@@ -752,7 +808,15 @@ func rdbInstanceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "region", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"region",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -768,7 +832,12 @@ func rdbInstanceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstancesRequest)
@@ -784,8 +853,8 @@ func rdbInstanceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Instances, nil
 
+			return resp.Instances, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -839,15 +908,19 @@ func rdbInstanceGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetInstance(request)
 
+			return api.GetInstance(request)
 		},
 	}
 }
@@ -938,7 +1011,12 @@ func rdbInstanceCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"lssd", "bssd", "sbs_5k", "sbs_15k"},
+				EnumValues: []string{
+					"lssd",
+					"bssd",
+					"sbs_5k",
+					"sbs_15k",
+				},
 			},
 			{
 				Name:       "volume-size",
@@ -975,15 +1053,19 @@ func rdbInstanceCreate() *core.Command {
 				Positional: false,
 			},
 			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateInstance(request)
 
+			return api.CreateInstance(request)
 		},
 	}
 }
@@ -1068,15 +1150,19 @@ func rdbInstanceUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.UpdateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpdateInstance(request)
 
+			return api.UpdateInstance(request)
 		},
 	}
 }
@@ -1098,15 +1184,19 @@ func rdbInstanceDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteInstance(request)
 
+			return api.DeleteInstance(request)
 		},
 	}
 }
@@ -1142,15 +1232,19 @@ func rdbInstanceClone() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CloneInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CloneInstance(request)
 
+			return api.CloneInstance(request)
 		},
 	}
 }
@@ -1172,15 +1266,19 @@ func rdbInstanceRestart() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.RestartInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.RestartInstance(request)
 
+			return api.RestartInstance(request)
 		},
 	}
 }
@@ -1202,15 +1300,19 @@ func rdbInstanceGetCertificate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetInstanceCertificate(request)
 
+			return api.GetInstanceCertificate(request)
 		},
 	}
 }
@@ -1232,7 +1334,11 @@ func rdbInstanceRenewCertificate() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.RenewInstanceCertificateRequest)
@@ -1243,6 +1349,7 @@ func rdbInstanceRenewCertificate() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "instance",
 				Verb:     "renew-certificate",
@@ -1289,15 +1396,19 @@ func rdbInstanceGetMetrics() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetInstanceMetricsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetInstanceMetrics(request)
 
+			return api.GetInstanceMetrics(request)
 		},
 	}
 }
@@ -1340,15 +1451,19 @@ func rdbReadReplicaCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateReadReplica(request)
 
+			return api.CreateReadReplica(request)
 		},
 	}
 }
@@ -1370,15 +1485,19 @@ func rdbReadReplicaGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetReadReplica(request)
 
+			return api.GetReadReplica(request)
 		},
 	}
 }
@@ -1400,15 +1519,19 @@ func rdbReadReplicaDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteReadReplica(request)
 
+			return api.DeleteReadReplica(request)
 		},
 	}
 }
@@ -1431,15 +1554,19 @@ The configured endpoints do not change.`,
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ResetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.ResetReadReplica(request)
 
+			return api.ResetReadReplica(request)
 		},
 	}
 }
@@ -1475,15 +1602,19 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateReadReplicaEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateReadReplicaEndpoint(request)
 
+			return api.CreateReadReplicaEndpoint(request)
 		},
 	}
 }
@@ -1519,15 +1650,19 @@ func rdbLogPrepare() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.PrepareInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.PrepareInstanceLogs(request)
 
+			return api.PrepareInstanceLogs(request)
 		},
 	}
 }
@@ -1555,17 +1690,24 @@ func rdbLogList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.ListInstanceLogs(request)
 
+			return api.ListInstanceLogs(request)
 		},
 	}
 }
@@ -1587,15 +1729,19 @@ func rdbLogGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetInstanceLogRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetInstanceLog(request)
 
+			return api.GetInstanceLog(request)
 		},
 	}
 }
@@ -1624,7 +1770,11 @@ func rdbLogPurge() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.PurgeInstanceLogsRequest)
@@ -1635,6 +1785,7 @@ func rdbLogPurge() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "log",
 				Verb:     "purge",
@@ -1660,15 +1811,19 @@ func rdbLogListDetails() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstanceLogsDetailsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.ListInstanceLogsDetails(request)
 
+			return api.ListInstanceLogsDetails(request)
 		},
 	}
 }
@@ -1702,15 +1857,19 @@ func rdbSettingAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.AddInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.AddInstanceSettings(request)
 
+			return api.AddInstanceSettings(request)
 		},
 	}
 }
@@ -1739,15 +1898,19 @@ func rdbSettingDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteInstanceSettings(request)
 
+			return api.DeleteInstanceSettings(request)
 		},
 	}
 }
@@ -1755,7 +1918,7 @@ func rdbSettingDelete() *core.Command {
 func rdbSettingSet() *core.Command {
 	return &core.Command{
 		Short:     `Set Database Instance advanced settings`,
-		Long:      `Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.`,
+		Long:      `Update an advanced setting for a Database Instance. Settings added upon database engine initialization can only be defined once, and cannot, therefore, be updated.`,
 		Namespace: "rdb",
 		Resource:  "setting",
 		Verb:      "set",
@@ -1781,15 +1944,19 @@ func rdbSettingSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.SetInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.SetInstanceSettings(request)
 
+			return api.SetInstanceSettings(request)
 		},
 	}
 }
@@ -1811,7 +1978,12 @@ func rdbACLList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListInstanceACLRulesRequest)
@@ -1827,8 +1999,8 @@ func rdbACLList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Rules, nil
 
+			return resp.Rules, nil
 		},
 	}
 }
@@ -1862,15 +2034,19 @@ func rdbACLAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.AddInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.AddInstanceACLRules(request)
 
+			return api.AddInstanceACLRules(request)
 		},
 	}
 }
@@ -1904,15 +2080,19 @@ func rdbACLSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.SetInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.SetInstanceACLRules(request)
 
+			return api.SetInstanceACLRules(request)
 		},
 	}
 }
@@ -1941,15 +2121,19 @@ func rdbACLDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteInstanceACLRules(request)
 
+			return api.DeleteInstanceACLRules(request)
 		},
 	}
 }
@@ -1977,7 +2161,12 @@ func rdbUserList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "is_admin_asc", "is_admin_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"is_admin_asc",
+					"is_admin_desc",
+				},
 			},
 			{
 				Name:       "instance-id",
@@ -1986,7 +2175,12 @@ func rdbUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListUsersRequest)
@@ -2002,8 +2196,8 @@ func rdbUserList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Users, nil
 
+			return resp.Users, nil
 		},
 	}
 }
@@ -2046,15 +2240,19 @@ func rdbUserCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateUser(request)
 
+			return api.CreateUser(request)
 		},
 	}
 }
@@ -2097,15 +2295,19 @@ func rdbUserUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.UpdateUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpdateUser(request)
 
+			return api.UpdateUser(request)
 		},
 	}
 }
@@ -2134,7 +2336,11 @@ func rdbUserDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteUserRequest)
@@ -2145,6 +2351,7 @@ func rdbUserDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "user",
 				Verb:     "delete",
@@ -2190,7 +2397,12 @@ func rdbDatabaseList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "size_asc", "size_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"size_asc",
+					"size_desc",
+				},
 			},
 			{
 				Name:       "instance-id",
@@ -2199,7 +2411,12 @@ func rdbDatabaseList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListDatabasesRequest)
@@ -2215,8 +2432,8 @@ func rdbDatabaseList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Databases, nil
 
+			return resp.Databases, nil
 		},
 	}
 }
@@ -2245,15 +2462,19 @@ func rdbDatabaseCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateDatabase(request)
 
+			return api.CreateDatabase(request)
 		},
 	}
 }
@@ -2282,7 +2503,11 @@ func rdbDatabaseDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteDatabaseRequest)
@@ -2293,6 +2518,7 @@ func rdbDatabaseDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "database",
 				Verb:     "delete",
@@ -2317,7 +2543,12 @@ func rdbPrivilegeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"user_name_asc", "user_name_desc", "database_name_asc", "database_name_desc"},
+				EnumValues: []string{
+					"user_name_asc",
+					"user_name_desc",
+					"database_name_asc",
+					"database_name_desc",
+				},
 			},
 			{
 				Name:       "database-name",
@@ -2340,7 +2571,12 @@ func rdbPrivilegeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListPrivilegesRequest)
@@ -2356,8 +2592,8 @@ func rdbPrivilegeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Privileges, nil
 
+			return resp.Privileges, nil
 		},
 	}
 }
@@ -2399,17 +2635,27 @@ func rdbPrivilegeSet() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"readonly", "readwrite", "all", "custom", "none"},
+				EnumValues: []string{
+					"readonly",
+					"readwrite",
+					"all",
+					"custom",
+					"none",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.SetPrivilegeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.SetPrivilege(request)
 
+			return api.SetPrivilege(request)
 		},
 	}
 }
@@ -2437,7 +2683,14 @@ func rdbSnapshotList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "expires_at_asc", "expires_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"expires_at_asc",
+					"expires_at_desc",
+				},
 			},
 			{
 				Name:       "instance-id",
@@ -2460,7 +2713,12 @@ func rdbSnapshotList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.ListSnapshotsRequest)
@@ -2476,8 +2734,8 @@ func rdbSnapshotList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Snapshots, nil
 
+			return resp.Snapshots, nil
 		},
 	}
 }
@@ -2499,15 +2757,19 @@ func rdbSnapshotGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetSnapshot(request)
 
+			return api.GetSnapshot(request)
 		},
 	}
 }
@@ -2544,15 +2806,19 @@ func rdbSnapshotCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateSnapshot(request)
 
+			return api.CreateSnapshot(request)
 		},
 	}
 }
@@ -2588,15 +2854,19 @@ func rdbSnapshotUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.UpdateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.UpdateSnapshot(request)
 
+			return api.UpdateSnapshot(request)
 		},
 	}
 }
@@ -2618,15 +2888,19 @@ func rdbSnapshotDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.DeleteSnapshot(request)
 
+			return api.DeleteSnapshot(request)
 		},
 	}
 }
@@ -2669,15 +2943,19 @@ func rdbSnapshotRestore() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateInstanceFromSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateInstanceFromSnapshot(request)
 
+			return api.CreateInstanceFromSnapshot(request)
 		},
 	}
 }
@@ -2713,15 +2991,19 @@ func rdbEndpointCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.CreateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.CreateEndpoint(request)
 
+			return api.CreateEndpoint(request)
 		},
 	}
 }
@@ -2743,7 +3025,11 @@ func rdbEndpointDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.DeleteEndpointRequest)
@@ -2754,6 +3040,7 @@ func rdbEndpointDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "endpoint",
 				Verb:     "delete",
@@ -2779,15 +3066,19 @@ func rdbEndpointGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.GetEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.GetEndpoint(request)
 
+			return api.GetEndpoint(request)
 		},
 	}
 }
@@ -2816,15 +3107,19 @@ func rdbEndpointMigrate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*rdb.MigrateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			return api.MigrateEndpoint(request)
 
+			return api.MigrateEndpoint(request)
 		},
 	}
 }

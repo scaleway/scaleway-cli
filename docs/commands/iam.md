@@ -31,6 +31,7 @@ This API allows you to manage Identity and Access Management (IAM) across your S
 - [Log management commands](#log-management-commands)
   - [Get a log](#get-a-log)
   - [List logs](#list-logs)
+- [Organization-wide management commands](#organization-wide-management-commands)
 - [Permission sets management commands](#permission-sets-management-commands)
   - [List permission sets](#list-permission-sets)
 - [Policies management commands](#policies-management-commands)
@@ -58,8 +59,8 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
   - [Update a user](#update-a-user)
-  - [Update an user's password. Private Beta feature.](#update-an-user's-password.-private-beta-feature.)
-  - [Update an user's username. Private Beta feature.](#update-an-user's-username.-private-beta-feature.)
+  - [Update an user's password.](#update-an-user's-password.)
+  - [Update an user's username.](#update-an-user's-username.)
 
   
 ## API keys management commands
@@ -121,7 +122,7 @@ scw iam api-key delete SCW00000000000
 
 ### Get an API key
 
-Retrive information about an API key, specified by the `access_key` parameter. The API key's details, including either the `user_id` or `application_id` of its bearer are returned in the response. Note that the string value for the `secret_key` is nullable, and therefore is not displayed in the response. The `secret_key` value is only displayed upon API key creation.
+Retrieve information about an API key, specified by the `access_key` parameter. The API key's details, including either the `user_id` or `application_id` of its bearer are returned in the response. Note that the string value for the `secret_key` is nullable, and therefore is not displayed in the response. The `secret_key` value is only displayed upon API key creation.
 
 **Usage:**
 
@@ -135,6 +136,7 @@ scw iam api-key get <access-key ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | access-key | Required | Access key to search for |
+| with-policies | Default: `true` | Display the set of policies associated with the API key |
 
 
 
@@ -306,7 +308,7 @@ Groups management commands.
 
 ### Add a user or an application to a group
 
-Add a user or an application to a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only add one of each per request.
+Add a user or an application to a group. You can specify a `user_id` and `application_id` in the body of your request. Note that you can only add one of each per request.
 
 **Usage:**
 
@@ -409,7 +411,7 @@ scw iam group delete 11111111-1111-1111-1111-111111111111
 
 ### Get a group
 
-Retrive information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response.
+Retrieve information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response.
 
 **Usage:**
 
@@ -453,7 +455,7 @@ scw iam group list [arg=value ...]
 
 ### Remove a user or an application from a group
 
-Remove a user or an application from a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
+Remove a user or an application from a group. You can specify a `user_id` and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
 
 **Usage:**
 
@@ -625,6 +627,20 @@ scw iam log list [arg=value ...]
 | resource-type | One of: `unknown_resource_type`, `api_key`, `user`, `application`, `group`, `policy` | Defined whether or not to filter out by a specific type of resource |
 | search |  | Defined whether or not to filter out log by bearer ID or resource ID |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
+## Organization-wide management commands
+
+Organization-wide management commands.
+
+Organization-wide management commands.
+
+**Usage:**
+
+```
+scw iam organization
+```
 
 
 
@@ -1045,7 +1061,7 @@ Users management commands.
 
 ### Create a new user
 
-Create a new user. You must define the `organization_id` and the `email` in your request.
+Create a new user. You must define the `organization_id` in your request. If you are adding a member, enter the member's details. If you are adding a guest, you must define the `email` and not add the member attribute.
 
 **Usage:**
 
@@ -1065,6 +1081,10 @@ scw iam user create [arg=value ...]
 | member.send-welcome-email |  | Whether or not to send a welcome email that includes onboarding information. |
 | member.username |  | The member's username |
 | member.password |  | The member's password |
+| member.first-name |  | The member's first name |
+| member.last-name |  | The member's last name |
+| member.phone-number |  | The member's phone number |
+| member.locale |  | The member's locale |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
@@ -1126,6 +1146,7 @@ scw iam user list [arg=value ...]
 | user-ids.{index} |  | Filter by list of IDs |
 | mfa |  | Filter by MFA status |
 | tag |  | Filter by tags containing a given string |
+| type | One of: `unknown_type`, `guest`, `owner`, `member` | Filter by user type |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
 
@@ -1148,12 +1169,16 @@ scw iam user update <user-id ...> [arg=value ...]
 | user-id | Required | ID of the user to update |
 | tags.{index} |  | New tags for the user (maximum of 10 tags) |
 | email |  | IAM member email |
+| first-name |  | IAM member first name |
+| last-name |  | IAM member last name |
+| phone-number |  | IAM member phone number |
+| locale |  | IAM member locale |
 
 
 
-### Update an user's password. Private Beta feature.
+### Update an user's password.
 
-Update an user's password. Private Beta feature.
+Update an user's password.
 
 **Usage:**
 
@@ -1171,9 +1196,9 @@ scw iam user update-password <user-id ...> [arg=value ...]
 
 
 
-### Update an user's username. Private Beta feature.
+### Update an user's username.
 
-Update an user's username. Private Beta feature.
+Update an user's username.
 
 **Usage:**
 

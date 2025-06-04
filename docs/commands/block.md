@@ -35,7 +35,7 @@ If your volume is in a transient state, you need to wait until the end of the cu
 **Usage:**
 
 ```
-scw block snapshot create [arg=value ...]
+scw block snapshot create <volume-id ...> [arg=value ...]
 ```
 
 
@@ -43,7 +43,7 @@ scw block snapshot create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| volume-id |  | UUID of the volume to snapshot |
+| volume-id | Required | UUID of the volume to snapshot |
 | name | Default: `<generated>` | Name of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | List of tags assigned to the snapshot |
@@ -159,6 +159,7 @@ scw block snapshot list [arg=value ...]
 | project-id |  | Filter by Project ID |
 | volume-id |  | Filter snapshots by the ID of the original volume |
 | name |  | Filter snapshots by their names |
+| tags.{index} |  | Filter by tags. Only snapshots with one or more matching tags will be returned |
 | organization-id |  | Filter by Organization ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 

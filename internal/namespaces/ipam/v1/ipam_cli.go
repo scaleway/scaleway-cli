@@ -30,6 +30,7 @@ func GetGeneratedCommands() *core.Commands {
 		ipamIPList(),
 	)
 }
+
 func ipamRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Scaleway IP addresses with our IP Address Management tool`,
@@ -89,6 +90,12 @@ func ipamIPCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "source.vpc-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "is-ipv6",
 				Short:      `Request an IPv6 instead of an IPv4`,
 				Required:   false,
@@ -123,15 +130,19 @@ func ipamIPCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*ipam.BookIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			return api.BookIP(request)
 
+			return api.BookIP(request)
 		},
 	}
 }
@@ -153,7 +164,11 @@ func ipamIPDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*ipam.ReleaseIPRequest)
@@ -164,6 +179,7 @@ func ipamIPDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "ip",
 				Verb:     "delete",
@@ -188,7 +204,11 @@ func ipamIPSetRelease() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*ipam.ReleaseIPSetRequest)
@@ -199,6 +219,7 @@ func ipamIPSetRelease() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "ip-set",
 				Verb:     "release",
@@ -224,15 +245,19 @@ func ipamIPGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*ipam.GetIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			return api.GetIP(request)
 
+			return api.GetIP(request)
 		},
 	}
 }
@@ -275,15 +300,19 @@ func ipamIPUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*ipam.UpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			return api.UpdateIP(request)
 
+			return api.UpdateIP(request)
 		},
 	}
 }
@@ -304,7 +333,14 @@ func ipamIPList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_desc", "created_at_asc", "updated_at_desc", "updated_at_asc", "attached_at_desc", "attached_at_asc"},
+				EnumValues: []string{
+					"created_at_desc",
+					"created_at_asc",
+					"updated_at_desc",
+					"updated_at_asc",
+					"attached_at_desc",
+					"attached_at_asc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -375,7 +411,31 @@ func ipamIPList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "custom", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment", "mgdb_instance", "apple_silicon_server", "apple_silicon_private_nic", "serverless_container", "serverless_function"},
+				EnumValues: []string{
+					"unknown_type",
+					"custom",
+					"instance_server",
+					"instance_ip",
+					"instance_private_nic",
+					"lb_server",
+					"fip_ip",
+					"vpc_gateway",
+					"vpc_gateway_network",
+					"k8s_node",
+					"k8s_cluster",
+					"rdb_instance",
+					"redis_cluster",
+					"baremetal_server",
+					"baremetal_private_nic",
+					"llm_deployment",
+					"mgdb_instance",
+					"apple_silicon_server",
+					"apple_silicon_private_nic",
+					"serverless_container",
+					"serverless_function",
+					"vpn_gateway",
+					"ddl_datalab",
+				},
 			},
 			{
 				Name:       "resource-types.{index}",
@@ -383,7 +443,31 @@ func ipamIPList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "custom", "instance_server", "instance_ip", "instance_private_nic", "lb_server", "fip_ip", "vpc_gateway", "vpc_gateway_network", "k8s_node", "k8s_cluster", "rdb_instance", "redis_cluster", "baremetal_server", "baremetal_private_nic", "llm_deployment", "mgdb_instance", "apple_silicon_server", "apple_silicon_private_nic", "serverless_container", "serverless_function"},
+				EnumValues: []string{
+					"unknown_type",
+					"custom",
+					"instance_server",
+					"instance_ip",
+					"instance_private_nic",
+					"lb_server",
+					"fip_ip",
+					"vpc_gateway",
+					"vpc_gateway_network",
+					"k8s_node",
+					"k8s_cluster",
+					"rdb_instance",
+					"redis_cluster",
+					"baremetal_server",
+					"baremetal_private_nic",
+					"llm_deployment",
+					"mgdb_instance",
+					"apple_silicon_server",
+					"apple_silicon_private_nic",
+					"serverless_container",
+					"serverless_function",
+					"vpn_gateway",
+					"ddl_datalab",
+				},
 			},
 			{
 				Name:       "mac-address",
@@ -414,13 +498,24 @@ func ipamIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "source-vpc-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for. Only IPs belonging to this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*ipam.ListIPsRequest)
@@ -436,8 +531,8 @@ func ipamIPList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.IPs, nil
 
+			return resp.IPs, nil
 		},
 	}
 }

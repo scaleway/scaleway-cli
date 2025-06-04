@@ -32,15 +32,21 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 		createEndpointCustomRequest := argsI.(*createEndpointRequestCustom)
 		createEndpointreq := createEndpointCustomRequest.CreateEndpointRequest
 		endpoint := createEndpointCustomRequest.Endpoint
+		endpointToCreate := inference.EndpointSpec{
+			Public:         nil,
+			PrivateNetwork: nil,
+			DisableAuth:    endpoint.DisableAuth,
+		}
 		if endpoint.IsPublic {
 			publicEndpoint := &inference.EndpointSpecPublic{}
-			endpointToCreate := inference.EndpointSpec{
-				Public:         publicEndpoint,
-				PrivateNetwork: nil,
-				DisableAuth:    endpoint.DisableAuth,
-			}
-			createEndpointreq.Endpoint = &endpointToCreate
+			endpointToCreate.Public = publicEndpoint
 		}
+		if endpoint.PrivateNetwork != nil && endpoint.PrivateNetwork.PrivateNetworkID != "" {
+			endpointToCreate.PrivateNetwork = &inference.EndpointSpecPrivateNetwork{
+				PrivateNetworkID: endpoint.PrivateNetwork.PrivateNetworkID,
+			}
+		}
+		createEndpointreq.Endpoint = &endpointToCreate
 
 		return runner(ctx, createEndpointreq)
 	}

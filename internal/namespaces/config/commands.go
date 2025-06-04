@@ -54,7 +54,15 @@ func configRoot() *core.Command {
 		{"|", scw.ScwInsecureEnv, "|", "Set this to true to enable the insecure mode", "|"},
 		{"|", scw.ScwActiveProfileEnv, "|", "Set the config profile to use", "|"},
 	} {
-		fmt.Fprintf(w, "  %s%s%s%s%s\n", envVar[0], terminal.Style(envVar[1], color.Bold, color.FgBlue), envVar[2], envVar[3], envVar[4])
+		fmt.Fprintf(
+			w,
+			"  %s%s%s%s%s\n",
+			envVar[0],
+			terminal.Style(envVar[1], color.Bold, color.FgBlue),
+			envVar[2],
+			envVar[3],
+			envVar[4],
+		)
 	}
 	w.Flush()
 
@@ -184,7 +192,8 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 				Name:  "access-key",
 				Short: "A Scaleway access key",
 				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
-					if !reflect.ValueOf(value).IsNil() && !validation.IsAccessKey(*value.(*string)) {
+					if !reflect.ValueOf(value).IsNil() &&
+						!validation.IsAccessKey(*value.(*string)) {
 						return core.InvalidAccessKeyError(*value.(*string))
 					}
 
@@ -195,7 +204,8 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 				Name:  "secret-key",
 				Short: "A Scaleway secret key",
 				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
-					if !reflect.ValueOf(value).IsNil() && !validation.IsSecretKey(*value.(*string)) {
+					if !reflect.ValueOf(value).IsNil() &&
+						!validation.IsSecretKey(*value.(*string)) {
 						return core.InvalidSecretKeyError(*value.(*string))
 					}
 
@@ -221,7 +231,8 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 				Name:  "default-organization-id",
 				Short: "A default Scaleway organization id",
 				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
-					if !reflect.ValueOf(value).IsNil() && !validation.IsOrganizationID(*value.(*string)) {
+					if !reflect.ValueOf(value).IsNil() &&
+						!validation.IsOrganizationID(*value.(*string)) {
 						return core.InvalidOrganizationIDError(*value.(*string))
 					}
 
@@ -232,7 +243,8 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 				Name:  "default-project-id",
 				Short: "A default Scaleway project id",
 				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
-					if !reflect.ValueOf(value).IsNil() && !validation.IsProjectID(*value.(*string)) {
+					if !reflect.ValueOf(value).IsNil() &&
+						!validation.IsProjectID(*value.(*string)) {
 						return core.InvalidProjectIDError(*value.(*string))
 					}
 
@@ -278,7 +290,12 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
-				return nil, err
+				if strings.Contains(err.Error(), "no such file or directory") {
+					fmt.Fprintln(os.Stdout, "config file not found, will attempt to create it")
+					config = &scw.Config{}
+				} else {
+					return nil, err
+				}
 			}
 
 			// send_telemetry is the only key that is not in a profile but in the config object directly
@@ -304,7 +321,6 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					profileValue.Field(i).Set(field)
 				}
 			}
-
 			// Save
 			err = config.SaveTo(configPath)
 			if err != nil {
@@ -623,7 +639,10 @@ func configInfoCommand() *core.Command {
 			}
 
 			if len(overridedVariables) > 0 {
-				msg := "Some variables are overridden by the environment: " + strings.Join(overridedVariables, ", ")
+				msg := "Some variables are overridden by the environment: " + strings.Join(
+					overridedVariables,
+					", ",
+				)
 				fmt.Println(terminal.Style(msg, color.FgRed))
 			}
 
@@ -688,7 +707,10 @@ func configImportCommand() *core.Command {
 			for profileName, profile := range importedConfig.Profiles {
 				existingProfile, exists := currentConfig.Profiles[profileName]
 				if exists {
-					currentConfig.Profiles[profileName] = scw.MergeProfiles(existingProfile, profile)
+					currentConfig.Profiles[profileName] = scw.MergeProfiles(
+						existingProfile,
+						profile,
+					)
 				} else {
 					currentConfig.Profiles[profileName] = profile
 				}

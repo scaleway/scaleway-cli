@@ -27,7 +27,7 @@ jobs:
         id: announce_slack
         run: |
           readarray -td' ' URL_LIST <<<$SLACK_WEBHOOKS; 
-          for WEBHOOK_URL in ${URL_LIST[@]};
+          for WEBHOOK_URL in "${URL_LIST[@]}";
           do curl -X POST -H 'Content-type: application/json' \
           --data '{
           	"blocks": [

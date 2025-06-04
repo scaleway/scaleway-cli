@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/function/v1beta1"
+	function "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -61,6 +61,7 @@ func GetGeneratedCommands() *core.Commands {
 		functionTriggerDelete(),
 	)
 }
+
 func functionRoot() *core.Command {
 	return &core.Command{
 		Short:     `Function as a Service API`,
@@ -148,7 +149,12 @@ func functionNamespaceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -171,7 +177,12 @@ func functionNamespaceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListNamespacesRequest)
@@ -187,8 +198,8 @@ func functionNamespaceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Namespaces, nil
 
+			return resp.Namespaces, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -245,15 +256,19 @@ func functionNamespaceGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.GetNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.GetNamespace(request)
 
+			return api.GetNamespace(request)
 		},
 	}
 }
@@ -304,20 +319,24 @@ func functionNamespaceCreate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `[ALPHA] Tags of the Serverless Function Namespace`,
+				Short:      `Tags of the Serverless Function Namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.CreateNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.CreateNamespace(request)
 
+			return api.CreateNamespace(request)
 		},
 	}
 }
@@ -367,20 +386,24 @@ func functionNamespaceUpdate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `[ALPHA] Tags of the Serverless Function Namespace`,
+				Short:      `Tags of the Serverless Function Namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.UpdateNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.UpdateNamespace(request)
 
+			return api.UpdateNamespace(request)
 		},
 	}
 }
@@ -402,15 +425,19 @@ func functionNamespaceDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.DeleteNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.DeleteNamespace(request)
 
+			return api.DeleteNamespace(request)
 		},
 	}
 }
@@ -431,7 +458,12 @@ func functionFunctionList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "namespace-id",
@@ -456,12 +488,17 @@ func functionFunctionList() *core.Command {
 			},
 			{
 				Name:       "organization-id",
-				Short:      `UUID of the Organziation the function belongs to`,
+				Short:      `UUID of the Organization the function belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListFunctionsRequest)
@@ -477,8 +514,8 @@ func functionFunctionList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Functions, nil
 
+			return resp.Functions, nil
 		},
 	}
 }
@@ -500,15 +537,19 @@ func functionFunctionGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.GetFunctionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.GetFunction(request)
 
+			return api.GetFunction(request)
 		},
 	}
 }
@@ -547,7 +588,7 @@ func functionFunctionCreate() *core.Command {
 			},
 			{
 				Name:       "min-scale",
-				Short:      `Minumum number of instances to scale the function to`,
+				Short:      `Minimum number of instances to scale the function to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -565,7 +606,43 @@ func functionFunctionCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121", "node22", "python312", "php83", "go122", "rust179"},
+				EnumValues: []string{
+					"unknown_runtime",
+					"golang",
+					"python",
+					"python3",
+					"node8",
+					"node10",
+					"node14",
+					"node16",
+					"node17",
+					"python37",
+					"python38",
+					"python39",
+					"python310",
+					"go113",
+					"go117",
+					"go118",
+					"node18",
+					"rust165",
+					"go119",
+					"python311",
+					"php82",
+					"node19",
+					"go120",
+					"node20",
+					"go121",
+					"node22",
+					"python312",
+					"php83",
+					"go122",
+					"rust179",
+					"go123",
+					"go124",
+					"python313",
+					"rust185",
+					"php84",
+				},
 			},
 			{
 				Name:       "memory-limit",
@@ -594,7 +671,11 @@ func functionFunctionCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_privacy", "public", "private"},
+				EnumValues: []string{
+					"unknown_privacy",
+					"public",
+					"private",
+				},
 			},
 			{
 				Name:       "description",
@@ -622,7 +703,11 @@ func functionFunctionCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("enabled"),
-				EnumValues: []string{"unknown_http_option", "enabled", "redirected"},
+				EnumValues: []string{
+					"unknown_http_option",
+					"enabled",
+					"redirected",
+				},
 			},
 			{
 				Name:       "sandbox",
@@ -630,17 +715,32 @@ func functionFunctionCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_sandbox", "v1", "v2"},
+				EnumValues: []string{
+					"unknown_sandbox",
+					"v1",
+					"v2",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the Serverless Function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.CreateFunctionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.CreateFunction(request)
 
+			return api.CreateFunction(request)
 		},
 	}
 }
@@ -671,7 +771,7 @@ func functionFunctionUpdate() *core.Command {
 			},
 			{
 				Name:       "min-scale",
-				Short:      `Minumum number of instances to scale the function to`,
+				Short:      `Minimum number of instances to scale the function to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -689,7 +789,43 @@ func functionFunctionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_runtime", "golang", "python", "python3", "node8", "node10", "node14", "node16", "node17", "python37", "python38", "python39", "python310", "go113", "go117", "go118", "node18", "rust165", "go119", "python311", "php82", "node19", "go120", "node20", "go121", "node22", "python312", "php83", "go122", "rust179"},
+				EnumValues: []string{
+					"unknown_runtime",
+					"golang",
+					"python",
+					"python3",
+					"node8",
+					"node10",
+					"node14",
+					"node16",
+					"node17",
+					"python37",
+					"python38",
+					"python39",
+					"python310",
+					"go113",
+					"go117",
+					"go118",
+					"node18",
+					"rust165",
+					"go119",
+					"python311",
+					"php82",
+					"node19",
+					"go120",
+					"node20",
+					"go121",
+					"node22",
+					"python312",
+					"php83",
+					"go122",
+					"rust179",
+					"go123",
+					"go124",
+					"python313",
+					"rust185",
+					"php84",
+				},
 			},
 			{
 				Name:       "memory-limit",
@@ -725,7 +861,11 @@ func functionFunctionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_privacy", "public", "private"},
+				EnumValues: []string{
+					"unknown_privacy",
+					"public",
+					"private",
+				},
 			},
 			{
 				Name:       "description",
@@ -752,7 +892,11 @@ func functionFunctionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_http_option", "enabled", "redirected"},
+				EnumValues: []string{
+					"unknown_http_option",
+					"enabled",
+					"redirected",
+				},
 			},
 			{
 				Name:       "sandbox",
@@ -760,17 +904,32 @@ func functionFunctionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_sandbox", "v1", "v2"},
+				EnumValues: []string{
+					"unknown_sandbox",
+					"v1",
+					"v2",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags of the Serverless Function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.UpdateFunctionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.UpdateFunction(request)
 
+			return api.UpdateFunction(request)
 		},
 	}
 }
@@ -792,15 +951,19 @@ func functionFunctionDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.DeleteFunctionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.DeleteFunction(request)
 
+			return api.DeleteFunction(request)
 		},
 	}
 }
@@ -822,15 +985,19 @@ func functionFunctionDeploy() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.DeployFunctionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.DeployFunction(request)
 
+			return api.DeployFunction(request)
 		},
 	}
 }
@@ -845,15 +1012,19 @@ func functionRuntimeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(function.ListFunctionRuntimesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListFunctionRuntimesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.ListFunctionRuntimes(request)
 
+			return api.ListFunctionRuntimes(request)
 		},
 	}
 }
@@ -882,15 +1053,19 @@ func functionFunctionGetUploadURL() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.GetFunctionUploadURLRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.GetFunctionUploadURL(request)
 
+			return api.GetFunctionUploadURL(request)
 		},
 	}
 }
@@ -907,20 +1082,24 @@ func functionFunctionGetDownloadURL() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
-				Short:      `UUID of the function to get the the download URL for`,
+				Short:      `UUID of the function to get the download URL for`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.GetFunctionDownloadURLRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.GetFunctionDownloadURL(request)
 
+			return api.GetFunctionDownloadURL(request)
 		},
 	}
 }
@@ -941,7 +1120,10 @@ func functionCronList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "function-id",
@@ -950,7 +1132,12 @@ func functionCronList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListCronsRequest)
@@ -966,8 +1153,8 @@ func functionCronList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Crons, nil
 
+			return resp.Crons, nil
 		},
 	}
 }
@@ -989,15 +1176,19 @@ func functionCronGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.GetCronRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.GetCron(request)
 
+			return api.GetCron(request)
 		},
 	}
 }
@@ -1040,15 +1231,19 @@ func functionCronCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.CreateCronRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.CreateCron(request)
 
+			return api.CreateCron(request)
 		},
 	}
 }
@@ -1098,15 +1293,19 @@ func functionCronUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.UpdateCronRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.UpdateCron(request)
 
+			return api.UpdateCron(request)
 		},
 	}
 }
@@ -1128,15 +1327,19 @@ func functionCronDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.DeleteCronRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.DeleteCron(request)
 
+			return api.DeleteCron(request)
 		},
 	}
 }
@@ -1157,16 +1360,26 @@ func functionDomainList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "hostname_asc", "hostname_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"hostname_asc",
+					"hostname_desc",
+				},
 			},
 			{
 				Name:       "function-id",
-				Short:      `UUID of the function the domain is assoicated with`,
+				Short:      `UUID of the function the domain is associated with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListDomainsRequest)
@@ -1182,8 +1395,8 @@ func functionDomainList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Domains, nil
 
+			return resp.Domains, nil
 		},
 	}
 }
@@ -1205,15 +1418,19 @@ func functionDomainGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.GetDomainRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.GetDomain(request)
 
+			return api.GetDomain(request)
 		},
 	}
 }
@@ -1242,15 +1459,19 @@ func functionDomainCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.CreateDomainRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.CreateDomain(request)
 
+			return api.CreateDomain(request)
 		},
 	}
 }
@@ -1272,15 +1493,19 @@ func functionDomainDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.DeleteDomainRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.DeleteDomain(request)
 
+			return api.DeleteDomain(request)
 		},
 	}
 }
@@ -1323,15 +1548,19 @@ func functionTokenCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.CreateTokenRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.CreateToken(request)
 
+			return api.CreateToken(request)
 		},
 	}
 }
@@ -1353,15 +1582,19 @@ func functionTokenGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.GetTokenRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.GetToken(request)
 
+			return api.GetToken(request)
 		},
 	}
 }
@@ -1382,11 +1615,14 @@ func functionTokenList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "function-id",
-				Short:      `UUID of the function the token is assoicated with`,
+				Short:      `UUID of the function the token is associated with`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1398,7 +1634,12 @@ func functionTokenList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListTokensRequest)
@@ -1414,8 +1655,8 @@ func functionTokenList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Tokens, nil
 
+			return resp.Tokens, nil
 		},
 	}
 }
@@ -1437,15 +1678,19 @@ func functionTokenDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.DeleteTokenRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.DeleteToken(request)
 
+			return api.DeleteToken(request)
 		},
 	}
 }
@@ -1530,15 +1775,19 @@ func functionTriggerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.CreateTriggerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.CreateTrigger(request)
 
+			return api.CreateTrigger(request)
 		},
 	}
 }
@@ -1560,15 +1809,19 @@ func functionTriggerGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.GetTriggerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.GetTrigger(request)
 
+			return api.GetTrigger(request)
 		},
 	}
 }
@@ -1589,7 +1842,10 @@ func functionTriggerList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "function-id",
@@ -1606,7 +1862,12 @@ func functionTriggerList() *core.Command {
 				Positional: false,
 			},
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.ListTriggersRequest)
@@ -1622,8 +1883,8 @@ func functionTriggerList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Triggers, nil
 
+			return resp.Triggers, nil
 		},
 	}
 }
@@ -1659,15 +1920,19 @@ func functionTriggerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.UpdateTriggerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.UpdateTrigger(request)
 
+			return api.UpdateTrigger(request)
 		},
 	}
 }
@@ -1689,15 +1954,19 @@ func functionTriggerDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*function.DeleteTriggerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			return api.DeleteTrigger(request)
 
+			return api.DeleteTrigger(request)
 		},
 	}
 }

@@ -55,19 +55,21 @@ func volumeCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customCreateVolumeRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customCreateVolumeRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customCreateVolumeRequest)
 
-		if args.CreateVolumeRequest == nil {
-			args.CreateVolumeRequest = &instance.CreateVolumeRequest{}
-		}
+			if args.CreateVolumeRequest == nil {
+				args.CreateVolumeRequest = &instance.CreateVolumeRequest{}
+			}
 
-		request := args.CreateVolumeRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.CreateVolumeRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
@@ -84,19 +86,21 @@ func volumeListBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customListVolumesRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customListVolumesRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customListVolumesRequest)
 
-		if args.ListVolumesRequest == nil {
-			args.ListVolumesRequest = &instance.ListVolumesRequest{}
-		}
+			if args.ListVolumesRequest == nil {
+				args.ListVolumesRequest = &instance.ListVolumesRequest{}
+			}
 
-		request := args.ListVolumesRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.ListVolumesRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
@@ -119,12 +123,13 @@ func volumeWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*volumeWaitRequest)
 
-			return instance.NewAPI(core.ExtractClient(ctx)).WaitForVolume(&instance.WaitForVolumeRequest{
-				Zone:          args.Zone,
-				VolumeID:      args.VolumeID,
-				Timeout:       scw.TimeDurationPtr(args.Timeout),
-				RetryInterval: core.DefaultRetryInterval,
-			})
+			return instance.NewAPI(core.ExtractClient(ctx)).
+				WaitForVolume(&instance.WaitForVolumeRequest{
+					Zone:          args.Zone,
+					VolumeID:      args.VolumeID,
+					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					RetryInterval: core.DefaultRetryInterval,
+				})
 		},
 		ArgSpecs: core.ArgSpecs{
 			core.WaitTimeoutArgSpec(serverActionTimeout),

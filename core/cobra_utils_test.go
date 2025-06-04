@@ -117,7 +117,9 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckError(&core.CliError{
-				Err:  errors.New("invalid argument 'name_id': arg name must only contain lowercase letters, numbers or dashes"),
+				Err: errors.New(
+					"invalid argument 'name_id': arg name must only contain lowercase letters, numbers or dashes",
+				),
 				Hint: "Valid arguments are: name-id",
 			}),
 		),
@@ -129,7 +131,9 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckError(&core.CliError{
-				Err:  errors.New("invalid argument 'ubuntu_focal': arg name must only contain lowercase letters, numbers or dashes"),
+				Err: errors.New(
+					"invalid argument 'ubuntu_focal': arg name must only contain lowercase letters, numbers or dashes",
+				),
 				Hint: "Valid arguments are: name-id",
 			}),
 		),
@@ -196,47 +200,29 @@ func Test_PositionalArg(t *testing.T) {
 				}),
 			),
 		}))
-
-		t.Run("Invalid1", core.Test(&core.TestConfig{
-			Commands: testGetCommands(),
-			Cmd:      "scw test positional name-id=plop tag=world",
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(1),
-				core.TestCheckError(&core.CliError{
-					Err:  errors.New("a positional argument is required for this command"),
-					Hint: "Try running: scw test positional plop tag=world",
-				}),
-			),
-		}))
-
-		t.Run("Invalid2", core.Test(&core.TestConfig{
-			Commands: testGetCommands(),
-			Cmd:      "scw test positional tag=world name-id=plop",
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(1),
-				core.TestCheckError(&core.CliError{
-					Err:  errors.New("a positional argument is required for this command"),
-					Hint: "Try running: scw test positional plop tag=world",
-				}),
-			),
-		}))
-
-		t.Run("Invalid3", core.Test(&core.TestConfig{
-			Commands: testGetCommands(),
-			Cmd:      "scw test positional plop name-id=plop",
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(1),
-				core.TestCheckError(&core.CliError{
-					Err:  errors.New("a positional argument is required for this command"),
-					Hint: "Try running: scw test positional plop",
-				}),
-			),
-		}))
 	})
 
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: testGetCommands(),
 		Cmd:      "scw test positional plop",
+		Check:    core.TestCheckExitCode(0),
+	}))
+
+	t.Run("simple2", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional name-id=plop tag=world",
+		Check:    core.TestCheckExitCode(0),
+	}))
+
+	t.Run("simple3", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional tag=world name-id=plop",
+		Check:    core.TestCheckExitCode(0),
+	}))
+
+	t.Run("simple4", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test positional plop name-id=plop",
 		Check:    core.TestCheckExitCode(0),
 	}))
 

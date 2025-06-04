@@ -160,6 +160,10 @@ Visit https://golang.org/pkg/text/template/ to learn more about Go template form
 	foo||11111111-1111-1111-1111-111111111111
 	bar||22222222-2222-2222-2222-222222222222
 
+In case the command returns data that is not correctly converted, for instance a []byte, you can use the json function to marshal the data as json and print it as is.
+
+       scw instance server list -o template="{{ json . }}"
+
 
 Output formatting in the CLI
 
@@ -236,6 +240,10 @@ Visit https://golang.org/pkg/text/template/ to learn more about Go template form
 
 	foo||11111111-1111-1111-1111-111111111111
 	bar||22222222-2222-2222-2222-222222222222
+
+In case the command returns data that is not correctly converted, for instance a []byte, you can use the json function to marshal the data as json and print it as is.
+
+       scw instance server list -o template="{{ json . }}"
 
 
 **Usage:**

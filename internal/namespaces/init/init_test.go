@@ -13,7 +13,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func checkConfig(check func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config)) core.TestCheck {
+func checkConfig(
+	check func(t *testing.T, ctx *core.CheckFuncCtx, config *scw.Config),
+) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		t.Helper()
 		homeDir := ctx.OverrideEnv["HOME"]
@@ -71,7 +73,10 @@ func TestInit(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			baseBeforeFunc(),
 			func(ctx *core.BeforeFuncCtx) error {
-				ctx.Meta["CONFIG_PATH"] = path.Join(ctx.Meta["HOME"].(string), "new_config_path.yml")
+				ctx.Meta["CONFIG_PATH"] = path.Join(
+					ctx.Meta["HOME"].(string),
+					"new_config_path.yml",
+				)
 
 				return nil
 			},
@@ -176,7 +181,11 @@ func TestInit(t *testing.T) {
 				core.TestCheckGolden(),
 				checkConfig(func(t *testing.T, _ *core.CheckFuncCtx, config *scw.Config) {
 					t.Helper()
-					assert.NotNil(t, config.Profiles["test2"], "new profile should have been created")
+					assert.NotNil(
+						t,
+						config.Profiles["test2"],
+						"new profile should have been created",
+					)
 				}),
 			),
 			TmpHomeDir: true,
@@ -251,12 +260,16 @@ func TestInit_Prompt(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGoldenAndReplacePatterns(
 				core.GoldenReplacement{
-					Pattern:       regexp.MustCompile("\\s\\sExcept for autocomplete: unsupported OS 'windows'\n"),
+					Pattern: regexp.MustCompile(
+						"\\s\\sExcept for autocomplete: unsupported OS 'windows'\n",
+					),
 					Replacement:   "",
 					OptionalMatch: true,
 				},
 				core.GoldenReplacement{
-					Pattern:       regexp.MustCompile(`Except for autocomplete: unsupported OS 'windows'\\n`),
+					Pattern: regexp.MustCompile(
+						`Except for autocomplete: unsupported OS 'windows'\\n`,
+					),
 					Replacement:   "",
 					OptionalMatch: true,
 				},

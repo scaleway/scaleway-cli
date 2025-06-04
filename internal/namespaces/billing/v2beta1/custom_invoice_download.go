@@ -98,7 +98,13 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 		}
 
 		// check default name
-		defaultFileName := fmt.Sprintf("%s-%s-%s.%s", invoiceDefaultPrefix, date, args.InvoiceID, args.FileType)
+		defaultFileName := fmt.Sprintf(
+			"%s-%s-%s.%s",
+			invoiceDefaultPrefix,
+			date,
+			args.InvoiceID,
+			args.FileType,
+		)
 		// read only in the parent path
 		for _, e := range entries {
 			if e.IsDir() {
@@ -175,7 +181,12 @@ func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, er
 				return nil, errors.New("parse date on file name")
 			}
 
-			defaultFileName := fmt.Sprintf("%s-%s-%s", invoiceDefaultPrefix, date, argsDownload.InvoiceID)
+			defaultFileName := fmt.Sprintf(
+				"%s-%s-%s",
+				invoiceDefaultPrefix,
+				date,
+				argsDownload.InvoiceID,
+			)
 			pathAbs, err := filepath.Abs(argsDownload.FilePath)
 			if err != nil {
 				return nil, err

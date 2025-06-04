@@ -14,6 +14,8 @@ type customAccessSecretVersionRequest struct {
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("secret").Groups = []string{"security"}
+
 	cmds.MustFind("secret", "version", "create").Override(secretVersionCreateBuilder)
 	cmds.MustFind("secret", "version", "access").Override(secretVersionAccessBuilder)
 

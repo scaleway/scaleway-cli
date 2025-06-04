@@ -130,24 +130,26 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customCreateImageRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customCreateImageRequest)
 
-		request := args.CreateImageRequest
-		request.RootVolume = args.SnapshotID
-		request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.CreateImageRequest
+			request.RootVolume = args.SnapshotID
+			request.ExtraVolumes = make(map[string]*instance.VolumeTemplate)
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		// Extra volumes need to start at volumeIndex 1.
-		volumeIndex := 1
-		for _, volume := range args.AdditionalVolumes {
-			request.ExtraVolumes[strconv.Itoa(volumeIndex)] = volume
-			volumeIndex++
-		}
+			// Extra volumes need to start at volumeIndex 1.
+			volumeIndex := 1
+			for _, volume := range args.AdditionalVolumes {
+				request.ExtraVolumes[strconv.Itoa(volumeIndex)] = volume
+				volumeIndex++
+			}
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
@@ -189,6 +191,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 		req.Public = scw.BoolPtr(false)
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
+		blockAPI := block.NewAPI(client)
 
 		opts := []scw.RequestOption{scw.WithAllPages()}
 		if req.Zone == scw.Zone(core.AllLocalities) {
@@ -208,6 +211,33 @@ func imageListBuilder(c *core.Command) *core.Command {
 			newCustomImage := &imageListItem{
 				Image: image,
 			}
+
+			if image.RootVolume.VolumeType == instance.VolumeVolumeTypeSbsSnapshot {
+				blockVolume, err := blockAPI.GetSnapshot(&block.GetSnapshotRequest{
+					SnapshotID: image.RootVolume.ID,
+					Zone:       image.Zone,
+				}, scw.WithContext(ctx))
+				if err != nil {
+					return nil, err
+				}
+
+				newCustomImage.Image.RootVolume.Size = blockVolume.Size
+			}
+
+			for index, volume := range image.ExtraVolumes {
+				if volume.VolumeType == instance.VolumeVolumeTypeSbsSnapshot {
+					blockVolume, err := blockAPI.GetSnapshot(&block.GetSnapshotRequest{
+						SnapshotID: volume.ID,
+						Zone:       volume.Zone,
+					}, scw.WithContext(ctx))
+					if err != nil {
+						return nil, err
+					}
+
+					newCustomImage.Image.ExtraVolumes[index].Size = blockVolume.Size
+				}
+			}
+
 			customImages = append(customImages, newCustomImage)
 
 			if image.FromServer == "" {
@@ -252,82 +282,84 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 		Short: "Delete the snapshots attached to this image",
 	})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customDeleteImageRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customDeleteImageRequest)
 
-		api := instance.NewAPI(core.ExtractClient(ctx))
-		blockAPI := block.NewAPI(core.ExtractClient(ctx))
+			api := instance.NewAPI(core.ExtractClient(ctx))
+			blockAPI := block.NewAPI(core.ExtractClient(ctx))
 
-		// If we want to delete snapshot we must GET image before we delete it
-		image := (*instance.Image)(nil)
-		if args.WithSnapshots {
-			res, err := api.GetImage(&instance.GetImageRequest{
-				Zone:    args.Zone,
-				ImageID: args.ImageID,
-			})
+			// If we want to delete snapshot we must GET image before we delete it
+			image := (*instance.Image)(nil)
+			if args.WithSnapshots {
+				res, err := api.GetImage(&instance.GetImageRequest{
+					Zone:    args.Zone,
+					ImageID: args.ImageID,
+				})
+				if err != nil {
+					return nil, err
+				}
+				image = res.Image
+			}
+
+			// Call the generated delete
+			runnerRes, err := runner(ctx, args.DeleteImageRequest)
 			if err != nil {
 				return nil, err
 			}
-			image = res.Image
-		}
 
-		// Call the generated delete
-		runnerRes, err := runner(ctx, args.DeleteImageRequest)
-		if err != nil {
-			return nil, err
-		}
-
-		type UnknownSnapshot struct {
-			ID   string
-			Type instance.VolumeVolumeType
-		}
-
-		// Once the image is deleted we can delete snapshots.
-		if args.WithSnapshots {
-			snapshots := []UnknownSnapshot{
-				{
-					ID:   image.RootVolume.ID,
-					Type: image.RootVolume.VolumeType,
-				},
+			type UnknownSnapshot struct {
+				ID   string
+				Type instance.VolumeVolumeType
 			}
-			for _, extraVolume := range image.ExtraVolumes {
-				snapshots = append(snapshots, UnknownSnapshot{
-					ID:   extraVolume.ID,
-					Type: extraVolume.VolumeType,
-				})
-			}
-			for _, snapshot := range snapshots {
-				if snapshot.Type == instance.VolumeVolumeTypeSbsSnapshot {
-					terminalStatus := block.SnapshotStatusAvailable
-					_, err := blockAPI.WaitForSnapshot(&block.WaitForSnapshotRequest{
-						SnapshotID:     snapshot.ID,
-						Zone:           args.Zone,
-						TerminalStatus: &terminalStatus,
+
+			// Once the image is deleted we can delete snapshots.
+			if args.WithSnapshots {
+				snapshots := []UnknownSnapshot{
+					{
+						ID:   image.RootVolume.ID,
+						Type: image.RootVolume.VolumeType,
+					},
+				}
+				for _, extraVolume := range image.ExtraVolumes {
+					snapshots = append(snapshots, UnknownSnapshot{
+						ID:   extraVolume.ID,
+						Type: extraVolume.VolumeType,
 					})
-					if err != nil {
-						return nil, err
-					}
-					err = blockAPI.DeleteSnapshot(&block.DeleteSnapshotRequest{
-						Zone:       args.Zone,
-						SnapshotID: snapshot.ID,
-					})
-					if err != nil {
-						return nil, err
-					}
-				} else {
-					err := api.DeleteSnapshot(&instance.DeleteSnapshotRequest{
-						Zone:       args.Zone,
-						SnapshotID: snapshot.ID,
-					})
-					if err != nil {
-						return nil, err
+				}
+				for _, snapshot := range snapshots {
+					if snapshot.Type == instance.VolumeVolumeTypeSbsSnapshot {
+						terminalStatus := block.SnapshotStatusAvailable
+						_, err := blockAPI.WaitForSnapshot(&block.WaitForSnapshotRequest{
+							SnapshotID:     snapshot.ID,
+							Zone:           args.Zone,
+							TerminalStatus: &terminalStatus,
+						})
+						if err != nil {
+							return nil, err
+						}
+						err = blockAPI.DeleteSnapshot(&block.DeleteSnapshotRequest{
+							Zone:       args.Zone,
+							SnapshotID: snapshot.ID,
+						})
+						if err != nil {
+							return nil, err
+						}
+					} else {
+						err := api.DeleteSnapshot(&instance.DeleteSnapshotRequest{
+							Zone:       args.Zone,
+							SnapshotID: snapshot.ID,
+						})
+						if err != nil {
+							return nil, err
+						}
 					}
 				}
 			}
-		}
 
-		return runnerRes, nil
-	})
+			return runnerRes, nil
+		},
+	)
 
 	return c
 }

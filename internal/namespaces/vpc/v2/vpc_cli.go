@@ -41,9 +41,12 @@ func GetGeneratedCommands() *core.Commands {
 		vpcRouteGet(),
 		vpcRouteUpdate(),
 		vpcRouteDelete(),
+		vpcRuleGet(),
+		vpcRuleSet(),
 		vpcRouteList(),
 	)
 }
+
 func vpcRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks`,
@@ -96,7 +99,7 @@ func vpcRoute() *core.Command {
 func vpcRule() *core.Command {
 	return &core.Command{
 		Short:     `Rule management command`,
-		Long:      `Acl Rules.`,
+		Long:      `ACL Rules.`,
 		Namespace: "vpc",
 		Resource:  "rule",
 	}
@@ -118,7 +121,12 @@ func vpcVpcList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -129,7 +137,7 @@ func vpcVpcList() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags to filter for. Only VPCs with one more more matching tags will be returned`,
+				Short:      `Tags to filter for. Only VPCs with one or more matching tags will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -162,7 +170,12 @@ func vpcVpcList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.ListVPCsRequest)
@@ -178,8 +191,8 @@ func vpcVpcList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Vpcs, nil
 
+			return resp.Vpcs, nil
 		},
 	}
 }
@@ -217,15 +230,19 @@ func vpcVpcCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.CreateVPCRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.CreateVPC(request)
 
+			return api.CreateVPC(request)
 		},
 	}
 }
@@ -247,15 +264,19 @@ func vpcVpcGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.GetVPCRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.GetVPC(request)
 
+			return api.GetVPC(request)
 		},
 	}
 }
@@ -291,15 +312,19 @@ func vpcVpcUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.UpdateVPCRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.UpdateVPC(request)
 
+			return api.UpdateVPC(request)
 		},
 	}
 }
@@ -321,7 +346,11 @@ func vpcVpcDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.DeleteVPCRequest)
@@ -332,6 +361,7 @@ func vpcVpcDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "vpc",
 				Verb:     "delete",
@@ -356,7 +386,12 @@ func vpcPrivateNetworkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -407,7 +442,12 @@ func vpcPrivateNetworkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.ListPrivateNetworksRequest)
@@ -423,8 +463,8 @@ func vpcPrivateNetworkList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.PrivateNetworks, nil
 
+			return resp.PrivateNetworks, nil
 		},
 	}
 }
@@ -469,15 +509,26 @@ func vpcPrivateNetworkCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			{
+				Name:       "default-route-propagation-enabled",
+				Short:      `Defines whether default v4 and v6 routes are propagated for this Private Network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.CreatePrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.CreatePrivateNetwork(request)
 
+			return api.CreatePrivateNetwork(request)
 		},
 	}
 }
@@ -499,15 +550,19 @@ func vpcPrivateNetworkGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.GetPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.GetPrivateNetwork(request)
 
+			return api.GetPrivateNetwork(request)
 		},
 	}
 }
@@ -543,15 +598,26 @@ func vpcPrivateNetworkUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			{
+				Name:       "default-route-propagation-enabled",
+				Short:      `Defines whether default v4 and v6 routes are propagated for this Private Network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.UpdatePrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.UpdatePrivateNetwork(request)
 
+			return api.UpdatePrivateNetwork(request)
 		},
 	}
 }
@@ -573,7 +639,11 @@ func vpcPrivateNetworkDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.DeletePrivateNetworkRequest)
@@ -584,6 +654,7 @@ func vpcPrivateNetworkDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "private-network",
 				Verb:     "delete",
@@ -609,15 +680,19 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.EnableDHCPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.EnableDHCP(request)
 
+			return api.EnableDHCP(request)
 		},
 	}
 }
@@ -639,15 +714,19 @@ func vpcRouteEnableRouting() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.EnableRoutingRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.EnableRouting(request)
 
+			return api.EnableRouting(request)
 		},
 	}
 }
@@ -704,15 +783,19 @@ func vpcRouteCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.CreateRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.CreateRoute(request)
 
+			return api.CreateRoute(request)
 		},
 	}
 }
@@ -734,15 +817,19 @@ func vpcRouteGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.GetRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.GetRoute(request)
 
+			return api.GetRoute(request)
 		},
 	}
 }
@@ -799,15 +886,19 @@ func vpcRouteUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.UpdateRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			return api.UpdateRoute(request)
 
+			return api.UpdateRoute(request)
 		},
 	}
 }
@@ -829,7 +920,11 @@ func vpcRouteDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*vpc.DeleteRouteRequest)
@@ -840,10 +935,179 @@ func vpcRouteDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "route",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func vpcRuleGet() *core.Command {
+	return &core.Command{
+		Short:     `Get ACL Rules for VPC`,
+		Long:      `Retrieve a list of ACL rules for a VPC, specified by its VPC ID.`,
+		Namespace: "vpc",
+		Resource:  "rule",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.GetACLRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-id",
+				Short:      `ID of the Network ACL's VPC`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-ipv6",
+				Short:      `Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.GetACLRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.GetACL(request)
+		},
+	}
+}
+
+func vpcRuleSet() *core.Command {
+	return &core.Command{
+		Short:     `Set VPC ACL rules`,
+		Long:      `Set the list of ACL rules and the default routing policy for a VPC.`,
+		Namespace: "vpc",
+		Resource:  "rule",
+		Verb:      "set",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.SetACLRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-id",
+				Short:      `ID of the Network ACL's VPC`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.protocol",
+				Short:      `Protocol to which this rule applies`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"ANY",
+					"TCP",
+					"UDP",
+					"ICMP",
+				},
+			},
+			{
+				Name:       "rules.{index}.source",
+				Short:      `Source IP range to which this rule applies (CIDR notation with subnet mask)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.src-port-low",
+				Short:      `Starting port of the source port range to which this rule applies (inclusive)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.src-port-high",
+				Short:      `Ending port of the source port range to which this rule applies (inclusive)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.destination",
+				Short:      `Destination IP range to which this rule applies (CIDR notation with subnet mask)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.dst-port-low",
+				Short:      `Starting port of the destination port range to which this rule applies (inclusive)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.dst-port-high",
+				Short:      `Ending port of the destination port range to which this rule applies (inclusive)`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.action",
+				Short:      `Policy to apply to the packet`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_action",
+					"accept",
+					"drop",
+				},
+			},
+			{
+				Name:       "rules.{index}.description",
+				Short:      `Rule description`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-ipv6",
+				Short:      `Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "default-policy",
+				Short:      `Action to take for packets which do not match any rules`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_action",
+					"accept",
+					"drop",
+				},
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*vpc.SetACLRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.SetACL(request)
 		},
 	}
 }
@@ -864,7 +1128,14 @@ func vpcRouteList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "destination_asc", "destination_desc", "prefix_len_asc", "prefix_len_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"destination_asc",
+					"destination_desc",
+					"prefix_len_asc",
+					"prefix_len_desc",
+				},
 			},
 			{
 				Name:       "vpc-id",
@@ -893,7 +1164,13 @@ func vpcRouteList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "vpc_gateway_network", "instance_private_nic", "baremetal_private_nic"},
+				EnumValues: []string{
+					"unknown_type",
+					"vpc_gateway_network",
+					"instance_private_nic",
+					"baremetal_private_nic",
+					"apple_silicon_private_nic",
+				},
 			},
 			{
 				Name:       "contains",
@@ -928,8 +1205,8 @@ func vpcRouteList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Routes, nil
 
+			return resp.Routes, nil
 		},
 	}
 }

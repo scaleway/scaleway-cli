@@ -9,9 +9,20 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
-	human.RegisterMarshalerFunc(function.NamespaceStatus(""), human.EnumMarshalFunc(namespaceStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(function.FunctionStatus(""), human.EnumMarshalFunc(functionStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(function.CronStatus(""), human.EnumMarshalFunc(cronStatusMarshalSpecs))
+	cmds.MustFind("function").Groups = []string{"serverless"}
+
+	human.RegisterMarshalerFunc(
+		function.NamespaceStatus(""),
+		human.EnumMarshalFunc(namespaceStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		function.FunctionStatus(""),
+		human.EnumMarshalFunc(functionStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		function.CronStatus(""),
+		human.EnumMarshalFunc(cronStatusMarshalSpecs),
+	)
 
 	if cmdDeploy := functionDeploy(); cmdDeploy != nil {
 		cmds.Add(cmdDeploy)

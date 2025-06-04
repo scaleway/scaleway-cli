@@ -17,7 +17,7 @@ ARGS:
   [project-id]               Project ID to filter for, only Web Hosting plans from this Project will be returned
   [control-panels.{index}]   Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned
   [organization-id]          Organization ID to filter for, only Web Hosting plans from this Organization will be returned
-  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | all)
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

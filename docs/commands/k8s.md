@@ -14,7 +14,6 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [List Clusters](#list-clusters)
   - [List available cluster types for a cluster](#list-available-cluster-types-for-a-cluster)
   - [List available versions for a Cluster](#list-available-versions-for-a-cluster)
-  - [Migrate a cluster to SBS CSI](#migrate-a-cluster-to-sbs-csi)
   - [Reset the admin token of a Cluster](#reset-the-admin-token-of-a-cluster)
   - [Change the Cluster type](#change-the-cluster-type)
   - [Update a Cluster](#update-a-cluster)
@@ -34,6 +33,7 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [Replace a Node in a Cluster](#replace-a-node-in-a-cluster)
   - [Wait for a node to reach a stable state](#wait-for-a-node-to-reach-a-stable-state)
 - [Kapsule pool management commands](#kapsule-pool-management-commands)
+  - [Add an external node to a Kosmos Pool](#add-an-external-node-to-a-kosmos-pool)
   - [Create a new Pool in a Cluster](#create-a-new-pool-in-a-cluster)
   - [Delete a Pool in a Cluster](#delete-a-pool-in-a-cluster)
   - [Get a Pool in a Cluster](#get-a-pool-in-a-cluster)
@@ -182,6 +182,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
 | pools.{index}.root-volume-size |  | System volume disk size |
 | pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
+| pools.{index}.security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
@@ -393,37 +394,6 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 List all versions that a cluster can upgrade to
 ```
 scw k8s cluster list-available-versions 11111111-1111-1111-1111-111111111111
-```
-
-
-
-
-### Migrate a cluster to SBS CSI
-
-Enable the latest CSI compatible with Scaleway Block Storage (SBS) and migrate all existing PersistentVolumes/VolumeSnapshotContents to SBS.
-Make sure to have the necessary Quota before running this command.
-
-**Usage:**
-
-```
-scw k8s cluster migrate-to-sbs-csi <cluster-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID for which the latest CSI compatible with Scaleway Block Storage will be enabled |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-**Examples:**
-
-
-Migrate a cluster to SBS CSI
-```
-scw k8s cluster migrate-to-sbs-csi 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -961,6 +931,30 @@ A pool is a set of identical nodes
 A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled.
 
 
+### Add an external node to a Kosmos Pool
+
+Add an external node to a Kosmos Pool. 
+This will connect via SSH to the node, download the multicloud configuration script and run it with sudo privileges.
+Keep in mind that your external node needs to have wget in order to download the script.
+
+**Usage:**
+
+```
+scw k8s pool add-external-node [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| node-ip | Required | IP address of the external node |
+| pool-id | Required | ID of the Pool the node should be added to |
+| username | Default: `root` | Username used for the SSH connection |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Create a new Pool in a Cluster
 
 Create a new pool in a specific Kubernetes cluster.
@@ -994,6 +988,7 @@ scw k8s pool create [arg=value ...]
 | root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
 | root-volume-size |  | System volume disk size |
 | public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
+| security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

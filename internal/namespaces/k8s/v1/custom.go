@@ -14,6 +14,9 @@ import (
 // - Apply handwritten overrides (of Command.Run)
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
+
+	cmds.MustFind("k8s").Groups = []string{"container"}
+
 	cmds.Merge(core.NewCommands(
 		k8sExecCredentialCommand(),
 		k8sKubeconfigCommand(),
@@ -23,16 +26,24 @@ func GetCommands() *core.Commands {
 		k8sClusterWaitCommand(),
 		k8sNodeWaitCommand(),
 		k8sPoolWaitCommand(),
+		k8sPoolAddExternalNodeCommand(),
 	))
 
 	human.RegisterMarshalerFunc(k8s.Version{}, versionMarshalerFunc)
 	human.RegisterMarshalerFunc(k8s.Cluster{}, clusterMarshalerFunc)
-	human.RegisterMarshalerFunc(k8s.ClusterStatus(""), human.EnumMarshalFunc(clusterStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		k8s.ClusterStatus(""),
+		human.EnumMarshalFunc(clusterStatusMarshalSpecs),
+	)
 	human.RegisterMarshalerFunc(k8s.PoolStatus(""), human.EnumMarshalFunc(poolStatusMarshalSpecs))
 	human.RegisterMarshalerFunc(k8s.NodeStatus(""), human.EnumMarshalFunc(nodeStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(k8s.ListClusterAvailableTypesResponse{}, clusterAvailableTypesListMarshalerFunc)
+	human.RegisterMarshalerFunc(
+		k8s.ListClusterAvailableTypesResponse{},
+		clusterAvailableTypesListMarshalerFunc,
+	)
 
-	cmds.MustFind("k8s", "cluster", "list-available-versions").Override(clusterAvailableVersionsListBuilder)
+	cmds.MustFind("k8s", "cluster", "list-available-versions").
+		Override(clusterAvailableVersionsListBuilder)
 	cmds.MustFind("k8s", "cluster", "create").Override(clusterCreateBuilder)
 	cmds.MustFind("k8s", "cluster", "get").Override(clusterGetBuilder)
 	cmds.MustFind("k8s", "cluster", "update").Override(clusterUpdateBuilder)

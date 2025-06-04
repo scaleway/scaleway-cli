@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("rdb").Groups = []string{"database"}
+
 	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 	human.RegisterMarshalerFunc(backupDownloadResult{}, backupResultMarshallerFunc)
@@ -16,11 +18,26 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(CustomACLResult{}, rdbACLCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(rdbEndpointCustomResult{}, rdbEndpointCustomResultMarshalerFunc)
 
-	human.RegisterMarshalerFunc(rdb.InstanceStatus(""), human.EnumMarshalFunc(instanceStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.DatabaseBackupStatus(""), human.EnumMarshalFunc(backupStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.InstanceLogStatus(""), human.EnumMarshalFunc(logStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.NodeTypeStock(""), human.EnumMarshalFunc(nodeTypeStockMarshalSpecs))
-	human.RegisterMarshalerFunc(rdb.ACLRuleAction(""), human.EnumMarshalFunc(aclRuleActionMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		rdb.InstanceStatus(""),
+		human.EnumMarshalFunc(instanceStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		rdb.DatabaseBackupStatus(""),
+		human.EnumMarshalFunc(backupStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		rdb.InstanceLogStatus(""),
+		human.EnumMarshalFunc(logStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		rdb.NodeTypeStock(""),
+		human.EnumMarshalFunc(nodeTypeStockMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		rdb.ACLRuleAction(""),
+		human.EnumMarshalFunc(aclRuleActionMarshalSpecs),
+	)
 
 	cmds.Merge(core.NewCommands(
 		aclEditCommand(),
@@ -32,6 +49,7 @@ func GetCommands() *core.Commands {
 		instanceConnectCommand(),
 		instanceWaitCommand(),
 		userGetURLCommand(),
+		instanceEditSettingsCommand(),
 	))
 	cmds.MustFind("rdb", "acl", "add").Override(aclAddBuilder)
 	cmds.MustFind("rdb", "acl", "delete").Override(aclDeleteBuilder)

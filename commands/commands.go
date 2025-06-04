@@ -18,16 +18,18 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
 	documentdb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/documentdb/v1beta1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
-	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1alpha1"
+	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
+	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/help"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
-	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1beta1"
+	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	interlink "github.com/scaleway/scaleway-cli/v2/internal/namespaces/interlink/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
 	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha1"
@@ -49,7 +51,8 @@ import (
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
-	webhosting "github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1alpha1"
+	vpcgwV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -90,6 +93,7 @@ func GetCommands() *core.Commands {
 		container.GetCommands(),
 		function.GetCommands(),
 		vpcgw.GetCommands(),
+		vpcgwV2.GetCommands(),
 		redis.GetCommands(),
 		secret.GetCommands(),
 		keymanager.GetCommands(),
@@ -108,10 +112,14 @@ func GetCommands() *core.Commands {
 		login.GetCommands(),
 		mongodb.GetCommands(),
 		audit_trail.GetCommands(),
+		interlink.GetCommands(),
 	)
 
 	if beta {
-		commands.Merge(dedibox.GetCommands())
+		commands.MergeAll(
+			dedibox.GetCommands(),
+			file.GetCommands(),
+		)
 	}
 
 	return commands

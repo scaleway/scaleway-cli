@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1"
+	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -42,9 +42,15 @@ func GetGeneratedCommands() *core.Commands {
 		mongodbSnapshotList(),
 		mongodbSnapshotDelete(),
 		mongodbUserList(),
+		mongodbUserCreate(),
 		mongodbUserUpdate(),
+		mongodbUserDelete(),
+		mongodbUserSetRole(),
+		mongodbEndpointDelete(),
+		mongodbEndpointCreate(),
 	)
 }
+
 func mongodbRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Managed Databases for MongoDB®`,
@@ -127,7 +133,10 @@ func mongodbNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListNodeTypesRequest)
@@ -143,8 +152,8 @@ func mongodbNodeTypeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.NodeTypes, nil
 
+			return resp.NodeTypes, nil
 		},
 	}
 }
@@ -165,7 +174,10 @@ func mongodbVersionList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListVersionsRequest)
@@ -181,8 +193,8 @@ func mongodbVersionList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Versions, nil
 
+			return resp.Versions, nil
 		},
 	}
 }
@@ -217,7 +229,14 @@ func mongodbInstanceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "status_asc", "status_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -233,7 +252,10 @@ func mongodbInstanceList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListInstancesRequest)
@@ -249,8 +271,8 @@ func mongodbInstanceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Instances, nil
 
+			return resp.Instances, nil
 		},
 	}
 }
@@ -279,8 +301,8 @@ func mongodbInstanceGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.GetInstance(request)
 
+			return api.GetInstance(request)
 		},
 	}
 }
@@ -359,7 +381,11 @@ func mongodbInstanceCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "sbs_5k", "sbs_15k"},
+				EnumValues: []string{
+					"unknown_type",
+					"sbs_5k",
+					"sbs_15k",
+				},
 			},
 			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
@@ -375,8 +401,8 @@ func mongodbInstanceCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.CreateInstance(request)
 
+			return api.CreateInstance(request)
 		},
 	}
 }
@@ -419,8 +445,8 @@ func mongodbInstanceUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.UpdateInstance(request)
 
+			return api.UpdateInstance(request)
 		},
 	}
 }
@@ -449,8 +475,8 @@ func mongodbInstanceDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.DeleteInstance(request)
 
+			return api.DeleteInstance(request)
 		},
 	}
 }
@@ -486,8 +512,8 @@ func mongodbInstanceUpgrade() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.UpgradeInstance(request)
 
+			return api.UpgradeInstance(request)
 		},
 	}
 }
@@ -516,8 +542,8 @@ func mongodbInstanceGetCertificate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.GetInstanceCertificate(request)
 
+			return api.GetInstanceCertificate(request)
 		},
 	}
 }
@@ -560,8 +586,8 @@ func mongodbSnapshotCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.CreateSnapshot(request)
 
+			return api.CreateSnapshot(request)
 		},
 	}
 }
@@ -590,8 +616,8 @@ func mongodbSnapshotGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.GetSnapshot(request)
 
+			return api.GetSnapshot(request)
 		},
 	}
 }
@@ -634,8 +660,8 @@ func mongodbSnapshotUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.UpdateSnapshot(request)
 
+			return api.UpdateSnapshot(request)
 		},
 	}
 }
@@ -684,7 +710,11 @@ func mongodbSnapshotRestore() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "sbs_5k", "sbs_15k"},
+				EnumValues: []string{
+					"unknown_type",
+					"sbs_5k",
+					"sbs_15k",
+				},
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -693,8 +723,8 @@ func mongodbSnapshotRestore() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.RestoreSnapshot(request)
 
+			return api.RestoreSnapshot(request)
 		},
 	}
 }
@@ -729,7 +759,14 @@ func mongodbSnapshotList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc", "expires_at_asc", "expires_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"expires_at_asc",
+					"expires_at_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -745,7 +782,10 @@ func mongodbSnapshotList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListSnapshotsRequest)
@@ -761,8 +801,8 @@ func mongodbSnapshotList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Snapshots, nil
 
+			return resp.Snapshots, nil
 		},
 	}
 }
@@ -791,8 +831,8 @@ func mongodbSnapshotDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.DeleteSnapshot(request)
 
+			return api.DeleteSnapshot(request)
 		},
 	}
 }
@@ -820,7 +860,10 @@ func mongodbUserList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "instance-id",
@@ -829,7 +872,10 @@ func mongodbUserList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*mongodb.ListUsersRequest)
@@ -845,8 +891,52 @@ func mongodbUserList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Users, nil
 
+			return resp.Users, nil
+		},
+	}
+}
+
+func mongodbUserCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create an user on a Database Instance`,
+		Long:      `Create an user on a Database Instance. You must define the ` + "`" + `name` + "`" + `, ` + "`" + `password` + "`" + ` of the user and ` + "`" + `instance_id` + "`" + ` parameters in the request.`,
+		Namespace: "mongodb",
+		Resource:  "user",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(mongodb.CreateUserRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance the user belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the database user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "password",
+				Short:      `Password of the database user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*mongodb.CreateUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+
+			return api.CreateUser(request)
 		},
 	}
 }
@@ -889,8 +979,191 @@ func mongodbUserUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			return api.UpdateUser(request)
 
+			return api.UpdateUser(request)
+		},
+	}
+}
+
+func mongodbUserDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a user on a Database Instance`,
+		Long:      `Delete an existing user on a Database Instance.`,
+		Namespace: "mongodb",
+		Resource:  "user",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(mongodb.DeleteUserRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance the user belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the database user`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*mongodb.DeleteUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+			e = api.DeleteUser(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "user",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func mongodbUserSetRole() *core.Command {
+	return &core.Command{
+		Short:     `Apply user roles`,
+		Long:      `Apply preset roles for a user in a Database Instance.`,
+		Namespace: "mongodb",
+		Resource:  "user",
+		Verb:      "set-role",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(mongodb.SetUserRoleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance the user belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "user-name",
+				Short:      `Name of the database user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "roles.{index}.role",
+				Short:      `Name of the preset role`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_role",
+					"read",
+					"read_write",
+					"db_admin",
+					"sync",
+				},
+			},
+			{
+				Name:       "roles.{index}.database",
+				Short:      `Name of the database on which the preset role will be used`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "roles.{index}.any-database",
+				Short:      `Flag to enable the preset role in all databases`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*mongodb.SetUserRoleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+
+			return api.SetUserRole(request)
+		},
+	}
+}
+
+func mongodbEndpointDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a Database Instance endpoint`,
+		Long:      `Delete the endpoint of a Database Instance. You must specify the ` + "`" + `endpoint_id` + "`" + ` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.`,
+		Namespace: "mongodb",
+		Resource:  "endpoint",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(mongodb.DeleteEndpointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "endpoint-id",
+				Short:      `UUID of the Endpoint to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*mongodb.DeleteEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+			e = api.DeleteEndpoint(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "endpoint",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func mongodbEndpointCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new Instance endpoint`,
+		Long:      `Create a new endpoint for a MongoDB® Database Instance. You can add ` + "`" + `public_network` + "`" + ` or ` + "`" + `private_network` + "`" + ` specifications to the body of the request.`,
+		Namespace: "mongodb",
+		Resource:  "endpoint",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(mongodb.CreateEndpointRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "endpoint.private-network.private-network-id",
+				Short:      `UUID of the Private Network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*mongodb.CreateEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+
+			return api.CreateEndpoint(request)
 		},
 	}
 }

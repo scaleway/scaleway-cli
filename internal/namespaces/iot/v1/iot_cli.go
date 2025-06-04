@@ -55,6 +55,7 @@ func GetGeneratedCommands() *core.Commands {
 		iotNetworkDelete(),
 	)
 }
+
 func iotRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your IoT hubs and devices`,
@@ -115,7 +116,18 @@ func iotHubList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "status_asc", "status_desc", "product_plan_asc", "product_plan_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+					"product_plan_asc",
+					"product_plan_desc",
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -138,7 +150,10 @@ func iotHubList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iot.ListHubsRequest)
@@ -154,8 +169,8 @@ func iotHubList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Hubs, nil
 
+			return resp.Hubs, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -233,7 +248,12 @@ func iotHubCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("plan_shared"),
-				EnumValues: []string{"plan_unknown", "plan_shared", "plan_dedicated", "plan_ha"},
+				EnumValues: []string{
+					"plan_unknown",
+					"plan_shared",
+					"plan_dedicated",
+					"plan_ha",
+				},
 			},
 			{
 				Name:       "disable-events",
@@ -262,8 +282,8 @@ func iotHubCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.CreateHub(request)
 
+			return api.CreateHub(request)
 		},
 	}
 }
@@ -292,8 +312,8 @@ func iotHubGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.GetHub(request)
 
+			return api.GetHub(request)
 		},
 	}
 }
@@ -328,7 +348,12 @@ func iotHubUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"plan_unknown", "plan_shared", "plan_dedicated", "plan_ha"},
+				EnumValues: []string{
+					"plan_unknown",
+					"plan_shared",
+					"plan_dedicated",
+					"plan_ha",
+				},
 			},
 			{
 				Name:       "disable-events",
@@ -364,8 +389,8 @@ func iotHubUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.UpdateHub(request)
 
+			return api.UpdateHub(request)
 		},
 	}
 }
@@ -394,8 +419,8 @@ func iotHubEnable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.EnableHub(request)
 
+			return api.EnableHub(request)
 		},
 	}
 }
@@ -424,8 +449,8 @@ func iotHubDisable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.DisableHub(request)
 
+			return api.DisableHub(request)
 		},
 	}
 }
@@ -465,6 +490,7 @@ func iotHubDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "hub",
 				Verb:     "delete",
@@ -511,8 +537,8 @@ func iotHubSetCa() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.SetHubCA(request)
 
+			return api.SetHubCA(request)
 		},
 	}
 }
@@ -540,8 +566,8 @@ func iotHubGetCa() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.GetHubCA(request)
 
+			return api.GetHubCA(request)
 		},
 	}
 }
@@ -562,7 +588,20 @@ func iotDeviceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "status_asc", "status_desc", "hub_id_asc", "hub_id_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc", "allow_insecure_asc", "allow_insecure_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+					"hub_id_asc",
+					"hub_id_desc",
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"allow_insecure_asc",
+					"allow_insecure_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -580,7 +619,7 @@ func iotDeviceList() *core.Command {
 			},
 			{
 				Name:       "allow-insecure",
-				Short:      `Defines wheter to filter the allow_insecure flag`,
+				Short:      `Defines whether to filter the allow_insecure flag`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -591,9 +630,17 @@ func iotDeviceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "error", "enabled", "disabled"},
+				EnumValues: []string{
+					"unknown",
+					"error",
+					"enabled",
+					"disabled",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iot.ListDevicesRequest)
@@ -609,8 +656,8 @@ func iotDeviceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Devices, nil
 
+			return resp.Devices, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -698,7 +745,11 @@ func iotDeviceCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "accept", "reject"},
+				EnumValues: []string{
+					"unknown",
+					"accept",
+					"reject",
+				},
 			},
 			{
 				Name:       "message-filters.publish.topics.{index}",
@@ -713,7 +764,11 @@ func iotDeviceCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "accept", "reject"},
+				EnumValues: []string{
+					"unknown",
+					"accept",
+					"reject",
+				},
 			},
 			{
 				Name:       "message-filters.subscribe.topics.{index}",
@@ -736,8 +791,8 @@ func iotDeviceCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.CreateDevice(request)
 
+			return api.CreateDevice(request)
 		},
 	}
 }
@@ -766,8 +821,8 @@ func iotDeviceGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.GetDevice(request)
 
+			return api.GetDevice(request)
 		},
 	}
 }
@@ -816,7 +871,11 @@ func iotDeviceUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "accept", "reject"},
+				EnumValues: []string{
+					"unknown",
+					"accept",
+					"reject",
+				},
 			},
 			{
 				Name:       "message-filters.publish.topics.{index}",
@@ -831,7 +890,11 @@ func iotDeviceUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "accept", "reject"},
+				EnumValues: []string{
+					"unknown",
+					"accept",
+					"reject",
+				},
 			},
 			{
 				Name:       "message-filters.subscribe.topics.{index}",
@@ -854,8 +917,8 @@ func iotDeviceUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.UpdateDevice(request)
 
+			return api.UpdateDevice(request)
 		},
 	}
 }
@@ -884,8 +947,8 @@ func iotDeviceEnable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.EnableDevice(request)
 
+			return api.EnableDevice(request)
 		},
 	}
 }
@@ -914,8 +977,8 @@ func iotDeviceDisable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.DisableDevice(request)
 
+			return api.DisableDevice(request)
 		},
 	}
 }
@@ -944,8 +1007,8 @@ func iotDeviceRenewCertificate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.RenewDeviceCertificate(request)
 
+			return api.RenewDeviceCertificate(request)
 		},
 	}
 }
@@ -981,8 +1044,8 @@ func iotDeviceSetCertificate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.SetDeviceCertificate(request)
 
+			return api.SetDeviceCertificate(request)
 		},
 	}
 }
@@ -1011,8 +1074,8 @@ func iotDeviceGetCertificate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.GetDeviceCertificate(request)
 
+			return api.GetDeviceCertificate(request)
 		},
 	}
 }
@@ -1045,6 +1108,7 @@ func iotDeviceDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "device",
 				Verb:     "delete",
@@ -1084,8 +1148,8 @@ func iotDeviceGetMetrics() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.GetDeviceMetrics(request)
 
+			return api.GetDeviceMetrics(request)
 		},
 	}
 }
@@ -1106,7 +1170,16 @@ func iotRouteList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "hub_id_asc", "hub_id_desc", "type_asc", "type_desc", "created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"hub_id_asc",
+					"hub_id_desc",
+					"type_asc",
+					"type_desc",
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "hub-id",
@@ -1122,7 +1195,10 @@ func iotRouteList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iot.ListRoutesRequest)
@@ -1138,8 +1214,8 @@ func iotRouteList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Routes, nil
 
+			return resp.Routes, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1228,7 +1304,11 @@ func iotRouteCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "per_topic", "per_message"},
+				EnumValues: []string{
+					"unknown",
+					"per_topic",
+					"per_message",
+				},
 			},
 			{
 				Name:       "db-config.host",
@@ -1271,14 +1351,25 @@ func iotRouteCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "postgresql", "mysql"},
+				EnumValues: []string{
+					"unknown",
+					"postgresql",
+					"mysql",
+				},
 			},
 			{
 				Name:       "rest-config.verb",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "get", "post", "put", "patch", "delete"},
+				EnumValues: []string{
+					"unknown",
+					"get",
+					"post",
+					"put",
+					"patch",
+					"delete",
+				},
 			},
 			{
 				Name:       "rest-config.uri",
@@ -1299,8 +1390,8 @@ func iotRouteCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.CreateRoute(request)
 
+			return api.CreateRoute(request)
 		},
 	}
 }
@@ -1359,7 +1450,11 @@ func iotRouteUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "per_topic", "per_message"},
+				EnumValues: []string{
+					"unknown",
+					"per_topic",
+					"per_message",
+				},
 			},
 			{
 				Name:       "db-config.host",
@@ -1402,14 +1497,25 @@ func iotRouteUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "postgresql", "mysql"},
+				EnumValues: []string{
+					"unknown",
+					"postgresql",
+					"mysql",
+				},
 			},
 			{
 				Name:       "rest-config.verb",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "get", "post", "put", "patch", "delete"},
+				EnumValues: []string{
+					"unknown",
+					"get",
+					"post",
+					"put",
+					"patch",
+					"delete",
+				},
 			},
 			{
 				Name:       "rest-config.uri",
@@ -1430,8 +1536,8 @@ func iotRouteUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.UpdateRoute(request)
 
+			return api.UpdateRoute(request)
 		},
 	}
 }
@@ -1460,8 +1566,8 @@ func iotRouteGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.GetRoute(request)
 
+			return api.GetRoute(request)
 		},
 	}
 }
@@ -1494,6 +1600,7 @@ func iotRouteDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "route",
 				Verb:     "delete",
@@ -1518,7 +1625,14 @@ func iotNetworkList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "type_asc", "type_desc", "created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"type_asc",
+					"type_desc",
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "name",
@@ -1541,7 +1655,10 @@ func iotNetworkList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*iot.ListNetworksRequest)
@@ -1557,8 +1674,8 @@ func iotNetworkList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Networks, nil
 
+			return resp.Networks, nil
 		},
 		View: &core.View{Fields: []*core.ViewField{
 			{
@@ -1610,7 +1727,11 @@ func iotNetworkCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown", "sigfox", "rest"},
+				EnumValues: []string{
+					"unknown",
+					"sigfox",
+					"rest",
+				},
 			},
 			{
 				Name:       "hub-id",
@@ -1633,8 +1754,8 @@ func iotNetworkCreate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.CreateNetwork(request)
 
+			return api.CreateNetwork(request)
 		},
 	}
 }
@@ -1663,8 +1784,8 @@ func iotNetworkGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			return api.GetNetwork(request)
 
+			return api.GetNetwork(request)
 		},
 	}
 }
@@ -1697,6 +1818,7 @@ func iotNetworkDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "network",
 				Verb:     "delete",

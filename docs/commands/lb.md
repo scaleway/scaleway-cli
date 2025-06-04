@@ -96,6 +96,7 @@ scw lb acl create [arg=value ...]
 | action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\} |
 | action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
 | match.ip-subnet.{index} |  | List of IPs or CIDR v4/v6 addresses to filter for from the client side |
+| match.ips-edge-services |  | Defines whether Edge Services IPs should be matched |
 | match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends |
 | match.http-filter-value.{index} |  | List of values to filter for |
 | match.http-filter-option |  | Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter` |
@@ -189,6 +190,7 @@ scw lb acl set [arg=value ...]
 | acls.{index}.action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\} |
 | acls.{index}.action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
 | acls.{index}.match.ip-subnet.{index} |  | List of IPs or CIDR v4/v6 addresses to filter for from the client side |
+| acls.{index}.match.ips-edge-services |  | Defines whether Edge Services IPs should be matched |
 | acls.{index}.match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends |
 | acls.{index}.match.http-filter-value.{index} |  | List of values to filter for |
 | acls.{index}.match.http-filter-option |  | Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter` |
@@ -222,6 +224,7 @@ scw lb acl update <acl-id ...> [arg=value ...]
 | action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\} |
 | action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
 | match.ip-subnet.{index} |  | List of IPs or CIDR v4/v6 addresses to filter for from the client side |
+| match.ips-edge-services |  | Defines whether Edge Services IPs should be matched |
 | match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends |
 | match.http-filter-value.{index} |  | List of values to filter for |
 | match.http-filter-option |  | Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter` |
@@ -291,11 +294,11 @@ scw lb backend create [arg=value ...]
 | health-check.check-max-retries |  | Number of consecutive unsuccessful health checks after which the server will be considered dead |
 | health-check.mysql-config.user |  | MySQL user to use for the health check |
 | health-check.pgsql-config.user |  | PostgreSQL user to use for the health check |
-| health-check.http-config.uri |  | HTTP URI used for the health check |
+| health-check.http-config.uri |  | HTTP path used for the health check |
 | health-check.http-config.method |  | HTTP method used for the health check |
 | health-check.http-config.code |  | HTTP response code expected for a successful health check |
 | health-check.http-config.host-header |  | HTTP host header used for the health check |
-| health-check.https-config.uri |  | HTTP URI used for the health check |
+| health-check.https-config.uri |  | HTTP path used for the health check |
 | health-check.https-config.method |  | HTTP method used for the health check |
 | health-check.https-config.code |  | HTTP response code expected for a successful health check |
 | health-check.https-config.host-header |  | HTTP host header used for the health check |
@@ -522,11 +525,11 @@ scw lb backend update-healthcheck [arg=value ...]
 | check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
 | mysql-config.user |  | MySQL user to use for the health check |
 | pgsql-config.user |  | PostgreSQL user to use for the health check |
-| http-config.uri |  | HTTP URI used for the health check |
+| http-config.uri |  | HTTP path used for the health check |
 | http-config.method |  | HTTP method used for the health check |
 | http-config.code |  | HTTP response code expected for a successful health check |
 | http-config.host-header |  | HTTP host header used for the health check |
-| https-config.uri |  | HTTP URI used for the health check |
+| https-config.uri |  | HTTP path used for the health check |
 | https-config.method |  | HTTP method used for the health check |
 | https-config.code |  | HTTP response code expected for a successful health check |
 | https-config.host-header |  | HTTP host header used for the health check |
@@ -676,6 +679,7 @@ scw lb frontend create [arg=value ...]
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array |
 | certificate-ids.{index} |  | List of SSL/TLS certificate IDs to bind to the frontend |
 | enable-http3 |  | Defines whether to enable HTTP/3 protocol on the frontend |
+| connection-rate-limit |  | Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -765,6 +769,7 @@ scw lb frontend update <frontend-id ...> [arg=value ...]
 | ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array |
 | certificate-ids.{index} |  | List of SSL/TLS certificate IDs to bind to the frontend |
 | enable-http3 |  | Defines whether to enable HTTP/3 protocol on the frontend |
+| connection-rate-limit |  | Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1201,6 +1206,8 @@ scw lb route create [arg=value ...]
 | backend-id |  | ID of the target backend for the route |
 | match.sni |  | Server Name Indication (SNI) value to match |
 | match.host-header |  | HTTP host header to match |
+| match.match-subdomains |  | If true, all subdomains will match |
+| match.path-begin |  | Path begin value to match |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -1285,6 +1292,8 @@ scw lb route update <route-id ...> [arg=value ...]
 | backend-id |  | ID of the target backend for the route |
 | match.sni |  | Server Name Indication (SNI) value to match |
 | match.host-header |  | HTTP host header to match |
+| match.match-subdomains |  | If true, all subdomains will match |
+| match.path-begin |  | Path begin value to match |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 

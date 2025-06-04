@@ -6,12 +6,14 @@ USAGE:
   scw edge-services tls-stage create [arg=value ...]
 
 ARGS:
-  [project-id]                  Project ID to use. If none is passed the default project ID will be used
   [secrets.{index}.secret-id]   ID of the Secret
   [secrets.{index}.region]      Region of the Secret
   [managed-certificate]         True when Scaleway generates and manages a Let's Encrypt certificate for the TLS stage/custom endpoint
   [cache-stage-id]              Cache stage ID the TLS stage will be linked to
   [backend-stage-id]            Backend stage ID the TLS stage will be linked to
+  pipeline-id                   Pipeline ID the TLS stage belongs to
+  [route-stage-id]              
+  [waf-stage-id]                
 
 FLAGS:
   -h, --help   help for create

@@ -73,6 +73,19 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 		resource.Verbs[c.Verb] = c
 	}
 
+	// Fallback: if a resource has no Cmd defined, pick one verb as the fallback
+	for _, ns := range data.Namespaces {
+		for _, res := range ns.Resources {
+			if res.Cmd == nil && len(res.Verbs) > 0 {
+				for _, cmd := range res.Verbs {
+					res.Cmd = cmd
+
+					break
+				}
+			}
+		}
+	}
+
 	for name, namespace := range data.Namespaces {
 		fmt.Println("Generating namespace", name)
 		namespaceDoc, err := renderNamespace(namespace)
@@ -141,7 +154,10 @@ func newTemplate() *template.Template {
 				parts = append(parts, fmt.Sprintf("Default: `%s`", doc))
 			}
 			if len(arg.EnumValues) > 0 {
-				parts = append(parts, fmt.Sprintf("One of: `%s`", strings.Join(arg.EnumValues, "`, `")))
+				parts = append(
+					parts,
+					fmt.Sprintf("One of: `%s`", strings.Join(arg.EnumValues, "`, `")),
+				)
 			}
 
 			return strings.Join(parts, "<br />")

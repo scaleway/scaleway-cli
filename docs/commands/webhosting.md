@@ -4,17 +4,44 @@ This API allows you to manage your Web Hosting services.
   
 - [Control Panels](#control-panels)
   - ["List the control panels type: cpanel or plesk."](#"list-the-control-panels-type:-cpanel-or-plesk.")
+- [Database](#database)
+  - ["Create a new database within your hosting plan"](#"create-a-new-database-within-your-hosting-plan")
+  - ["Delete a database within your hosting plan"](#"delete-a-database-within-your-hosting-plan")
+  - ["Get details of a database within your hosting plan"](#"get-details-of-a-database-within-your-hosting-plan")
+  - ["List all databases within your hosting plan"](#"list-all-databases-within-your-hosting-plan")
+- [Database User](#database-user)
+  - ["Assign a database user to a database"](#"assign-a-database-user-to-a-database")
+  - ["Change the password of a database user"](#"change-the-password-of-a-database-user")
+  - ["Create a new database user"](#"create-a-new-database-user")
+  - ["Delete a database user"](#"delete-a-database-user")
+  - ["Get details of a database user"](#"get-details-of-a-database-user")
+  - ["List all database users"](#"list-all-database-users")
+  - ["Unassign a database user from a database"](#"unassign-a-database-user-from-a-database")
+- [Domain information commands](#domain-information-commands)
+  - [Get DNS records](#get-dns-records)
+- [Domain information commands](#domain-information-commands)
+  - [Check whether you own this domain or not.](#check-whether-you-own-this-domain-or-not.)
+  - [Synchronize your DNS records on the Elements Console and on cPanel.](#synchronize-your-dns-records-on-the-elements-console-and-on-cpanel.)
+- [FTP Account](#ftp-account)
+  - [Create a new FTP account within your hosting plan.](#create-a-new-ftp-account-within-your-hosting-plan.)
+  - [Delete a specific FTP account within your hosting plan.](#delete-a-specific-ftp-account-within-your-hosting-plan.)
+  - [List all FTP accounts within your hosting plan.](#list-all-ftp-accounts-within-your-hosting-plan.)
 - [Hosting management commands](#hosting-management-commands)
   - [Order a Web Hosting plan](#order-a-web-hosting-plan)
   - [Create a user session](#create-a-user-session)
   - [Delete a Web Hosting plan](#delete-a-web-hosting-plan)
   - [Get a Web Hosting plan](#get-a-web-hosting-plan)
-  - [Get DNS records](#get-dns-records)
   - [List all Web Hosting plans](#list-all-web-hosting-plans)
-  - [Restore a Web Hosting plan](#restore-a-web-hosting-plan)
   - [Update a Web Hosting plan](#update-a-web-hosting-plan)
-- [Offer management commands](#offer-management-commands)
-  - [List all offers](#list-all-offers)
+- [Mail Account](#mail-account)
+  - [Update the password of a mail account within your hosting plan.](#update-the-password-of-a-mail-account-within-your-hosting-plan.)
+  - [Create a new mail account within your hosting plan.](#create-a-new-mail-account-within-your-hosting-plan.)
+  - [Delete a mail account within your hosting plan.](#delete-a-mail-account-within-your-hosting-plan.)
+  - [List all mail accounts within your hosting plan.](#list-all-mail-accounts-within-your-hosting-plan.)
+- [Offer](#offer)
+  - [List all available hosting offers along with their specific options.](#list-all-available-hosting-offers-along-with-their-specific-options.)
+- [Website](#website)
+  - [List all websites for a specific hosting.](#list-all-websites-for-a-specific-hosting.)
 
   
 ## Control Panels
@@ -37,7 +64,418 @@ scw webhosting control-panel list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Database
+
+Databases represent the databases you can create and manage within your Web Hosting plan. Supported types are MySQL and PostgreSQL.
+
+
+### "Create a new database within your hosting plan"
+
+"Create a new database within your hosting plan".
+
+**Usage:**
+
+```
+scw webhosting database create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan where the database will be created |
+| database-name |  | Name of the database to be created |
+| new-user.username |  |  |
+| new-user.password |  |  |
+| existing-username |  | (Optional) Username to link an existing user to the database |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### "Delete a database within your hosting plan"
+
+"Delete a database within your hosting plan".
+
+**Usage:**
+
+```
+scw webhosting database delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| database-name | Required | Name of the database to delete |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### "Get details of a database within your hosting plan"
+
+"Get details of a database within your hosting plan".
+
+**Usage:**
+
+```
+scw webhosting database get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| database-name | Required | Name of the database |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### "List all databases within your hosting plan"
+
+"List all databases within your hosting plan".
+
+**Usage:**
+
+```
+scw webhosting database list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| order-by | One of: `database_name_asc`, `database_name_desc` | Sort order of databases in the response |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Database User
+
+Database users represent the users that can access and manage the databases in your Web Hosting plan.
+
+
+### "Assign a database user to a database"
+
+"Assign a database user to a database".
+
+**Usage:**
+
+```
+scw webhosting database-user assign [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| username |  | Name of the user to assign |
+| database-name | Required | Name of the database to be assigned |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### "Change the password of a database user"
+
+"Change the password of a database user".
+
+**Usage:**
+
+```
+scw webhosting database-user change-password [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| username | Required | Name of the user to update |
+| password |  | New password |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### "Create a new database user"
+
+"Create a new database user".
+
+**Usage:**
+
+```
+scw webhosting database-user create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| username |  | Name of the user to create |
+| password |  | Password of the user to create |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### "Delete a database user"
+
+"Delete a database user".
+
+**Usage:**
+
+```
+scw webhosting database-user delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| username | Required | Name of the database user to delete |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### "Get details of a database user"
+
+"Get details of a database user".
+
+**Usage:**
+
+```
+scw webhosting database-user get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| username | Required | Name of the database user to retrieve details |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### "List all database users"
+
+"List all database users".
+
+**Usage:**
+
+```
+scw webhosting database-user list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| order-by | One of: `username_asc`, `username_desc` | Sort order of database users in the response |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### "Unassign a database user from a database"
+
+"Unassign a database user from a database".
+
+**Usage:**
+
+```
+scw webhosting database-user unassign [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| username |  | Name of the user to unassign |
+| database-name | Required | Name of the database to be unassigned |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Domain information commands
+
+With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Get dns records status and check if you own the domain with these calls.
+
+
+### Get DNS records
+
+Get the set of DNS records of a specified domain associated with a Web Hosting plan's domain.
+
+**Usage:**
+
+```
+scw webhosting dns-records get-dns-records [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required | Domain associated with the DNS records |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Get DNS records associated to the given domain
+```
+scw webhosting dns-records get-dns-records domain=foo.com
+```
+
+
+
+
+## Domain information commands
+
+With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Get dns records status and check if you own the domain with these calls.
+
+
+### Check whether you own this domain or not.
+
+Check whether you own this domain or not.
+
+**Usage:**
+
+```
+scw webhosting domain check-ownership [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| domain | Required | Domain for which ownership is to be verified. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Synchronize your DNS records on the Elements Console and on cPanel.
+
+Synchronize your DNS records on the Elements Console and on cPanel.
+
+**Usage:**
+
+```
+scw webhosting domain sync-dns-records [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required | Domain for which the DNS records will be synchronized. |
+| ~~update-web-records~~ | Deprecated | Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns). |
+| ~~update-mail-records~~ | Deprecated | Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns). |
+| ~~update-all-records~~ | Deprecated | Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns). |
+| ~~update-nameservers~~ | Deprecated | Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns). |
+| custom-records.{index}.name |  |  |
+| custom-records.{index}.type | One of: `unknown_type`, `a`, `cname`, `mx`, `txt`, `ns`, `aaaa` |  |
+| auto-config-domain-dns.nameservers |  | Whether or not to synchronize domain nameservers. |
+| auto-config-domain-dns.web-records |  | Whether or not to synchronize web records. |
+| auto-config-domain-dns.mail-records |  | Whether or not to synchronize mail records. |
+| auto-config-domain-dns.all-records |  | Whether or not to synchronize all types of records. Takes priority over the other fields. |
+| auto-config-domain-dns.none |  | No automatic domain configuration. Users must configure their domain for the Web Hosting to work. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## FTP Account
+
+FTP accounts represent the access credentials for FTP (File Transfer Protocol) used to manage files on your web hosting plan.
+
+
+### Create a new FTP account within your hosting plan.
+
+Create a new FTP account within your hosting plan.
+
+**Usage:**
+
+```
+scw webhosting ftp-account create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| username |  | Username for the new FTP account |
+| path |  | Path for the new FTP account |
+| password |  | Password for the new FTP account |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a specific FTP account within your hosting plan.
+
+Delete a specific FTP account within your hosting plan.
+
+**Usage:**
+
+```
+scw webhosting ftp-account delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| username | Required | Username of the FTP account to be deleted |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all FTP accounts within your hosting plan.
+
+List all FTP accounts within your hosting plan.
+
+**Usage:**
+
+```
+scw webhosting ftp-account list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `username_asc`, `username_desc` | Sort order of FTP accounts in the response |
+| hosting-id | Required | UUID of the hosting plan |
+| domain |  | Domain to filter the FTP accounts |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -66,13 +504,20 @@ scw webhosting hosting create [arg=value ...]
 | email |  | Contact email for the Web Hosting client |
 | tags.{index} |  | List of tags for the Web Hosting plan |
 | domain |  | Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand |
-| option-ids.{index} |  | IDs of any selected additional options for the Web Hosting plan |
+| offer-options.{index}.id |  | Offer option ID |
+| offer-options.{index}.quantity |  | The option requested quantity to set for the Web Hosting plan |
 | language | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` | Default language for the control panel interface |
 | domain-configuration.update-nameservers |  |  |
 | domain-configuration.update-web-record |  |  |
 | domain-configuration.update-mail-record |  |  |
 | domain-configuration.update-all-records |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| skip-welcome-email |  | Indicates whether to skip a welcome email to the contact email containing hosting info. |
+| auto-config-domain-dns.nameservers |  | Whether or not to synchronize domain nameservers. |
+| auto-config-domain-dns.web-records |  | Whether or not to synchronize web records. |
+| auto-config-domain-dns.mail-records |  | Whether or not to synchronize mail records. |
+| auto-config-domain-dns.all-records |  | Whether or not to synchronize all types of records. Takes priority over the other fields. |
+| auto-config-domain-dns.none |  | No automatic domain configuration. Users must configure their domain for the Web Hosting to work. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -92,7 +537,7 @@ scw webhosting hosting create-session [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | hosting-id | Required | Hosting ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -112,7 +557,7 @@ scw webhosting hosting delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | hosting-id | Required | Hosting ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -142,7 +587,7 @@ scw webhosting hosting get [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | hosting-id | Required | Hosting ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -151,36 +596,6 @@ scw webhosting hosting get [arg=value ...]
 Get a Hosting with the given ID
 ```
 scw webhosting hosting get hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
-```
-
-
-
-
-### Get DNS records
-
-Get the set of DNS records of a specified domain associated with a Web Hosting plan.
-
-**Usage:**
-
-```
-scw webhosting hosting get-dns-records [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| domain | Required | Domain associated with the DNS records |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
-
-
-**Examples:**
-
-
-Get DNS records associated to the given domain
-```
-scw webhosting hosting get-dns-records domain=foo.com
 ```
 
 
@@ -208,7 +623,7 @@ scw webhosting hosting list [arg=value ...]
 | project-id |  | Project ID to filter for, only Web Hosting plans from this Project will be returned |
 | control-panels.{index} |  | Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned |
 | organization-id |  | Organization ID to filter for, only Web Hosting plans from this Organization will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -217,36 +632,6 @@ scw webhosting hosting list [arg=value ...]
 List all hostings of a given project ID
 ```
 scw webhosting hosting list project-id=a3244331-5d32-4e36-9bf9-b60233e201c7 organization-id=a3244331-5d32-4e36-9bf9-b60233e201c7
-```
-
-
-
-
-### Restore a Web Hosting plan
-
-When you [delete a Web Hosting plan](#path-hostings-delete-a-hosting), definitive deletion does not take place until the end of the calendar month. In the time between initiating the deletion, and definitive deletion at the end of the month, you can choose to **restore** the Web Hosting plan, using this endpoint and specifying its `hosting_id`.
-
-**Usage:**
-
-```
-scw webhosting hosting restore [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| hosting-id | Required | Hosting ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
-
-
-**Examples:**
-
-
-Restore a Hosting with the given ID
-```
-scw webhosting hosting restore hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
 ```
 
 
@@ -270,10 +655,11 @@ scw webhosting hosting update [arg=value ...]
 | hosting-id | Required | Hosting ID |
 | email |  | New contact email for the Web Hosting plan |
 | tags.{index} |  | New tags for the Web Hosting plan |
-| option-ids.{index} |  | IDs of the new options for the Web Hosting plan |
+| offer-options.{index}.id |  | Offer option ID |
+| offer-options.{index}.quantity |  | The option requested quantity to set for the Web Hosting plan |
 | offer-id |  | ID of the new offer for the Web Hosting plan |
 | protected |  | Whether the hosting is protected or not |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -289,22 +675,112 @@ Overwrite tags of a given hosting
 scw webhosting hosting update hosting-id=11111111-1111-1111-1111-111111111111 tags.0=foo tags.1=bar
 ```
 
-Overwrite options of a given hosting
+
+
+
+## Mail Account
+
+Mail accounts represent the email addresses you can create and manage within your Web Hosting plan.
+
+
+### Update the password of a mail account within your hosting plan.
+
+Update the password of a mail account within your hosting plan.
+
+**Usage:**
+
 ```
-scw webhosting hosting update hosting-id=11111111-1111-1111-1111-111111111111 option-ids.0=22222222-2222-2222-2222-222222222222 option-ids.1=33333333-3333-3333-3333-333333333333
+scw webhosting mail-account change-password [arg=value ...]
 ```
 
 
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| domain |  | Domain part of the mail account address |
+| username |  | Username part of the mail account address |
+| password |  | New password for the mail account |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
-## Offer management commands
 
-Web Hosting offers represent the different types of Web Hosting plan available to order at Scaleway.
+### Create a new mail account within your hosting plan.
+
+Create a new mail account within your hosting plan.
+
+**Usage:**
+
+```
+scw webhosting mail-account create [arg=value ...]
+```
 
 
-### List all offers
+**Args:**
 
-List the different Web Hosting offers, and their options, available to order from Scaleway.
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| domain |  | Domain part of the mail account address |
+| username |  | Username part address of the mail account address |
+| password |  | Password for the new mail account |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a mail account within your hosting plan.
+
+Delete a mail account within your hosting plan.
+
+**Usage:**
+
+```
+scw webhosting mail-account delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| domain |  | Domain part of the mail account address |
+| username |  | Username part of the mail account address |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all mail accounts within your hosting plan.
+
+List all mail accounts within your hosting plan.
+
+**Usage:**
+
+```
+scw webhosting mail-account list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `username_asc`, `username_desc`, `domain_asc`, `domain_desc` | Sort order of mail accounts in the response |
+| hosting-id | Required | UUID of the hosting plan |
+| domain |  | Domain to filter the mail accounts |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Offer
+
+Offers represent the available Web Hosting plans and their associated options.
+
+
+### List all available hosting offers along with their specific options.
+
+List all available hosting offers along with their specific options.
 
 **Usage:**
 
@@ -317,32 +793,36 @@ scw webhosting offer list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `price_asc` | Sort order of offers in the response |
-| without-options |  | Defines whether the response should consist of offers only, without options |
-| only-options |  | Defines whether the response should consist of options only, without offers |
-| hosting-id |  | ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan) |
-| control-panels.{index} |  | Name of the control panel to filter for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| order-by | One of: `price_asc` | Sort order for Web Hosting offers in the response |
+| hosting-id |  | UUID of the hosting plan |
+| control-panels.{index} |  | Name of the control panel(s) to filter for |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
-**Examples:**
+
+## Website
+
+Websites represent the domains and paths hosted within your Web Hosting plan.
 
 
-List all offers available for purchase
+### List all websites for a specific hosting.
+
+List all websites for a specific hosting.
+
+**Usage:**
+
 ```
-scw webhosting offer list hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
-```
-
-List only offers, no options
-```
-scw webhosting offer list without-options=true
-```
-
-List only options
-```
-scw webhosting offer list only-options=true
+scw webhosting website list [arg=value ...]
 ```
 
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| hosting-id | Required | UUID of the hosting plan |
+| order-by | One of: `domain_asc`, `domain_desc` | Sort order for Web Hosting websites in the response |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

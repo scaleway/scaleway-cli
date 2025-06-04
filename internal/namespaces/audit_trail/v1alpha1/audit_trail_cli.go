@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/audit_trail/v1alpha1"
+	audit_trail "github.com/scaleway/scaleway-sdk-go/api/audit_trail/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -26,6 +26,7 @@ func GetGeneratedCommands() *core.Commands {
 		auditTrailProductList(),
 	)
 }
+
 func auditTrailRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to ensure accountability and security by recording events and changes performed within your Scaleway Organization.`,
@@ -75,11 +76,32 @@ func auditTrailEventList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "secm_secret", "secm_secret_version", "kube_cluster", "kube_pool", "kube_node", "kube_acl", "keym_key"},
+				EnumValues: []string{
+					"unknown_type",
+					"secm_secret",
+					"secm_secret_version",
+					"kube_cluster",
+					"kube_pool",
+					"kube_node",
+					"kube_acl",
+					"keym_key",
+					"iam_user",
+					"iam_application",
+					"iam_group",
+					"iam_policy",
+					"iam_api_key",
+					"iam_ssh_key",
+					"iam_rule",
+					"secret_manager_secret",
+					"secret_manager_version",
+					"key_manager_key",
+					"account_user",
+					"account_organization",
+				},
 			},
 			{
 				Name:       "method-name",
-				Short:      `(Optional) Name of the method or the API call performed`,
+				Short:      `(Optional) Name of the method of the API call performed`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -110,7 +132,10 @@ func auditTrailEventList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"recorded_at_desc", "recorded_at_asc"},
+				EnumValues: []string{
+					"recorded_at_desc",
+					"recorded_at_asc",
+				},
 			},
 			{
 				Name:       "page-size",
@@ -131,16 +156,26 @@ func auditTrailEventList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "service-name",
+				Short:      `(Optional) Name of the service of the API call performed`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*audit_trail.ListEventsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
-			return api.ListEvents(request)
 
+			return api.ListEvents(request)
 		},
 	}
 }
@@ -155,15 +190,19 @@ func auditTrailProductList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(audit_trail.ListProductsRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.OrganizationIDArgSpec(),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*audit_trail.ListProductsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
-			return api.ListProducts(request)
 
+			return api.ListProducts(request)
 		},
 	}
 }

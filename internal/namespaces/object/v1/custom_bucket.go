@@ -384,7 +384,11 @@ func getBucketEndpoint(name, region string) (string, error) {
 	return fmt.Sprintf("https://%s.s3.%s.scw.cloud", name, region), nil
 }
 
-func countBucketObjects(ctx context.Context, client *s3.Client, name string) (nbObjects, nbParts int64, totalSize scw.Size, err error) {
+func countBucketObjects(
+	ctx context.Context,
+	client *s3.Client,
+	name string,
+) (nbObjects, nbParts int64, totalSize scw.Size, err error) {
 	var size int64
 
 	// count full objects
@@ -404,7 +408,10 @@ func countBucketObjects(ctx context.Context, client *s3.Client, name string) (nb
 		Bucket: &name,
 	})
 	if err != nil {
-		return nbObjects, nbParts, totalSize, fmt.Errorf("could not list multipart uploads: %w", err)
+		return nbObjects, nbParts, totalSize, fmt.Errorf(
+			"could not list multipart uploads: %w",
+			err,
+		)
 	}
 	for _, upload := range multipartUploads.Uploads {
 		partsList, err := client.ListParts(ctx, &s3.ListPartsInput{
@@ -484,7 +491,11 @@ func putBucketACL(ctx context.Context, client *s3.Client, name string, acl strin
 // Caching ListBuckets response for shell completion
 var completeListBucketsCache []types.Bucket
 
-func autocompleteBucketName(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+func autocompleteBucketName(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
 	var region scw.Region
 	switch t := request.(type) {
 	case bucketConfigArgs:

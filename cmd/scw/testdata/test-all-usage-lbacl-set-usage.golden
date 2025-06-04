@@ -12,6 +12,7 @@ ARGS:
   [acls.{index}.action.redirect.target]            Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}
   [acls.{index}.action.redirect.code]              HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302
   [acls.{index}.match.ip-subnet.{index}]           List of IPs or CIDR v4/v6 addresses to filter for from the client side
+  [acls.{index}.match.ips-edge-services]           Defines whether Edge Services IPs should be matched
   [acls.{index}.match.http-filter]                 Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends (acl_http_filter_none | path_begin | path_end | regex | http_header_match)
   [acls.{index}.match.http-filter-value.{index}]   List of values to filter for
   [acls.{index}.match.http-filter-option]          Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`

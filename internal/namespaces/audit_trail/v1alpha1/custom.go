@@ -7,5 +7,9 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("audit-trail").Groups = []string{"security", "monitoring"}
+
+	cmds.MustFind("audit-trail", "event", "list").Override(eventListBuilder)
+
 	return cmds
 }

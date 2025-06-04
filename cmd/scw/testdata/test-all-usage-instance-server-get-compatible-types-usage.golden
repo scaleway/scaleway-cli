@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Get compatible commercial types that can be used to update the Instance. The compatibility of an Instance offer is based on:
+* the CPU architecture
+* the OS type
+* the required l_ssd storage size
+* the required scratch storage size
+If the specified Instance offer is flagged as end of service, the best compatible offer is the first returned.
+
+USAGE:
+  scw instance server get-compatible-types <server-id ...> [arg=value ...]
+
+ARGS:
+  server-id         UUID of the Instance you want to get
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
+
+FLAGS:
+  -h, --help   help for get-compatible-types
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+      --web              open console page for the current ressource

@@ -9,9 +9,17 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("iot").Groups = []string{"integration"}
+
 	human.RegisterMarshalerFunc(iot.HubStatus(""), human.EnumMarshalFunc(hubStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(iot.DeviceMessageFiltersRulePolicy(""), human.EnumMarshalFunc(deviceMessageFiltersRulePolicyMarshalSpecs))
-	human.RegisterMarshalerFunc(iot.DeviceStatus(""), human.EnumMarshalFunc(deviceStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		iot.DeviceMessageFiltersRulePolicy(""),
+		human.EnumMarshalFunc(deviceMessageFiltersRulePolicyMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		iot.DeviceStatus(""),
+		human.EnumMarshalFunc(deviceStatusMarshalSpecs),
+	)
 	human.RegisterMarshalerFunc(iot.CreateNetworkResponse{}, iotNetworkCreateResponsedMarshalerFunc)
 	human.RegisterMarshalerFunc(iot.CreateDeviceResponse{}, iotDeviceCreateResponsedMarshalerFunc)
 

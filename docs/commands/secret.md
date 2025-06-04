@@ -73,7 +73,8 @@ scw secret secret create [arg=value ...]
 | ephemeral-policy.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
 | ephemeral-policy.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
 | ephemeral-policy.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
-| protected |  | Returns `true` if secret protection is enabled on a given secret |
+| protected |  | Returns `true` if secret protection is applied to a given secret |
+| key-id |  | ID of the Scaleway Key Manager key |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -160,6 +161,7 @@ scw secret secret list [arg=value ...]
 | path |  | Filter by exact path (optional) |
 | ephemeral |  | Filter by ephemeral / not ephemeral (optional) |
 | type | One of: `unknown_type`, `opaque`, `certificate`, `key_value`, `basic_credentials`, `database_credentials`, `ssh_key` | Filter by secret type (optional) |
+| scheduled-for-deletion |  | Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets. |
 | organization-id |  | Filter by Organization ID (optional) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
@@ -457,7 +459,7 @@ scw secret version list <secret-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| status.{index} | One of: `unknown_status`, `enabled`, `disabled`, `deleted` | Filter results by status |
+| status.{index} | One of: `unknown_status`, `enabled`, `disabled`, `deleted`, `scheduled_for_deletion` | Filter results by status |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 

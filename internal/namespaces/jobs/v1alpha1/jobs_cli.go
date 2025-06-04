@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha1"
+	jobs "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -39,6 +39,7 @@ func GetGeneratedCommands() *core.Commands {
 		jobsRunList(),
 	)
 }
+
 func jobsRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Serverless Jobs`,
@@ -161,15 +162,19 @@ func jobsDefinitionCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.CreateJobDefinitionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.CreateJobDefinition(request)
 
+			return api.CreateJobDefinition(request)
 		},
 	}
 }
@@ -191,15 +196,19 @@ func jobsDefinitionGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.GetJobDefinitionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.GetJobDefinition(request)
 
+			return api.GetJobDefinition(request)
 		},
 	}
 }
@@ -219,7 +228,10 @@ func jobsDefinitionList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -233,7 +245,12 @@ func jobsDefinitionList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.ListJobDefinitionsRequest)
@@ -249,8 +266,8 @@ func jobsDefinitionList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.JobDefinitions, nil
 
+			return resp.JobDefinitions, nil
 		},
 	}
 }
@@ -347,15 +364,19 @@ func jobsDefinitionUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.UpdateJobDefinitionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.UpdateJobDefinition(request)
 
+			return api.UpdateJobDefinition(request)
 		},
 	}
 }
@@ -377,7 +398,11 @@ func jobsDefinitionDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.DeleteJobDefinitionRequest)
@@ -388,6 +413,7 @@ func jobsDefinitionDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "definition",
 				Verb:     "delete",
@@ -434,15 +460,19 @@ func jobsDefinitionStart() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.StartJobDefinitionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.StartJobDefinition(request)
 
+			return api.StartJobDefinition(request)
 		},
 	}
 }
@@ -488,15 +518,19 @@ func jobsSecretCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.CreateJobDefinitionSecretsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.CreateJobDefinitionSecrets(request)
 
+			return api.CreateJobDefinitionSecrets(request)
 		},
 	}
 }
@@ -525,15 +559,19 @@ func jobsSecretGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.GetJobDefinitionSecretRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.GetJobDefinitionSecret(request)
 
+			return api.GetJobDefinitionSecret(request)
 		},
 	}
 }
@@ -555,15 +593,19 @@ func jobsSecretList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.ListJobDefinitionSecretsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.ListJobDefinitionSecrets(request)
 
+			return api.ListJobDefinitionSecrets(request)
 		},
 	}
 }
@@ -613,15 +655,19 @@ func jobsSecretUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.UpdateJobDefinitionSecretRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.UpdateJobDefinitionSecret(request)
 
+			return api.UpdateJobDefinitionSecret(request)
 		},
 	}
 }
@@ -650,7 +696,11 @@ func jobsSecretDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.DeleteJobDefinitionSecretRequest)
@@ -661,6 +711,7 @@ func jobsSecretDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "secret",
 				Verb:     "delete",
@@ -686,15 +737,19 @@ func jobsRunGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.GetJobRunRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.GetJobRun(request)
 
+			return api.GetJobRun(request)
 		},
 	}
 }
@@ -716,15 +771,19 @@ func jobsRunStop() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.StopJobRunRequest)
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			return api.StopJobRun(request)
 
+			return api.StopJobRun(request)
 		},
 	}
 }
@@ -744,7 +803,10 @@ func jobsRunList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
 			},
 			{
 				Name:       "job-definition-id",
@@ -763,7 +825,32 @@ func jobsRunList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_state", "queued", "scheduled", "running", "succeeded", "failed", "canceled", "internal_error"},
+				EnumValues: []string{
+					"unknown_state",
+					"queued",
+					"scheduled",
+					"running",
+					"succeeded",
+					"failed",
+					"canceled",
+					"internal_error",
+				},
+			},
+			{
+				Name:       "states.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_state",
+					"queued",
+					"scheduled",
+					"running",
+					"succeeded",
+					"failed",
+					"canceled",
+					"internal_error",
+				},
 			},
 			{
 				Name:       "organization-id",
@@ -771,7 +858,12 @@ func jobsRunList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*jobs.ListJobRunsRequest)
@@ -787,8 +879,8 @@ func jobsRunList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.JobRuns, nil
 
+			return resp.JobRuns, nil
 		},
 	}
 }

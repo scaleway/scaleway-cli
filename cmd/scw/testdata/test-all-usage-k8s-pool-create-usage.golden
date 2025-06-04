@@ -34,6 +34,7 @@ ARGS:
   [root-volume-type]                 Defines the system volume disk type. Several types of volume (`volume_type`) are provided: (default_volume_type | l_ssd | b_ssd | sbs_5k | sbs_15k)
   [root-volume-size]                 System volume disk size
   [public-ip-disabled]               Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway
+  [security-group-id]                Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

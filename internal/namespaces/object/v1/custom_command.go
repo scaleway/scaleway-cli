@@ -8,6 +8,7 @@ func objectRoot() *core.Command {
 	return &core.Command{
 		Short:     `Object-storage utils`,
 		Namespace: "object",
+		Groups:    []string{"storage"},
 	}
 }
 

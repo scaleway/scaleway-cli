@@ -6,14 +6,12 @@ USAGE:
   scw webhosting hosting <command>
 
 AVAILABLE COMMANDS:
-  create          Order a Web Hosting plan
-  create-session  Create a user session
-  delete          Delete a Web Hosting plan
-  get             Get a Web Hosting plan
-  get-dns-records Get DNS records
-  list            List all Web Hosting plans
-  restore         Restore a Web Hosting plan
-  update          Update a Web Hosting plan
+  create         Order a Web Hosting plan
+  create-session Create a user session
+  delete         Delete a Web Hosting plan
+  get            Get a Web Hosting plan
+  list           List all Web Hosting plans
+  update         Update a Web Hosting plan
 
 FLAGS:
   -h, --help   help for hosting

@@ -17,7 +17,9 @@ import (
 
 // deleteServerAfterFunc deletes the created server and its attached volumes and IPs.
 func deleteServerAfterFunc() core.AfterFunc {
-	return core.ExecAfterCmd("scw instance server delete {{ .CmdResult.ID }} with-volumes=all with-ip=true force-shutdown=true")
+	return core.ExecAfterCmd(
+		"scw instance server delete {{ .CmdResult.ID }} with-volumes=all with-ip=true force-shutdown=true",
+	)
 }
 
 // All test below should succeed to create an instance.
@@ -33,8 +35,13 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckGolden(),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "Ubuntu 22.04 Jammy Jellyfish", ctx.Result.(*instanceSDK.Server).Image.Name)
+					assert.Equal(
+						t,
+						"Ubuntu 22.04 Jammy Jellyfish",
+						server.Image.Name,
+					)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -48,8 +55,9 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "GP1-XS", ctx.Result.(*instanceSDK.Server).CommercialType)
+					assert.Equal(t, "GP1-XS", server.CommercialType)
 				},
 			),
 			AfterFunc: deleteServerAfterFunc(),
@@ -62,8 +70,9 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "yo", ctx.Result.(*instanceSDK.Server).Name)
+					assert.Equal(t, "yo", server.Name)
 				},
 			),
 			AfterFunc: deleteServerAfterFunc(),
@@ -76,8 +85,13 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, instanceSDK.ServerStateRunning, ctx.Result.(*instanceSDK.Server).State)
+					assert.Equal(
+						t,
+						instanceSDK.ServerStateRunning,
+						server.State,
+					)
 				},
 			),
 			AfterFunc: deleteServerAfterFunc(),
@@ -89,8 +103,13 @@ func Test_CreateServer(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "Ubuntu Bionic Beaver", ctx.Result.(*instanceSDK.Server).Image.Name)
+					assert.Equal(
+						t,
+						"Ubuntu Bionic Beaver",
+						server.Image.Name,
+					)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -104,9 +123,10 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
+					server := ctx.Result.(*instance.ServerWithWarningsResponse).Server
 					assert.NotNil(t, ctx.Result)
-					assert.Equal(t, "prod", ctx.Result.(*instanceSDK.Server).Tags[0])
-					assert.Equal(t, "blue", ctx.Result.(*instanceSDK.Server).Tags[1])
+					assert.Equal(t, "prod", server.Tags[0])
+					assert.Equal(t, "blue", server.Tags[1])
 				},
 			),
 			AfterFunc: deleteServerAfterFunc(),
@@ -124,10 +144,18 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					size := volume.Size
-					assert.Equal(t, 20*scw.GB, instance.SizeValue(size), "Size of volume should be 20 GB")
+					assert.Equal(
+						t,
+						20*scw.GB,
+						instance.SizeValue(size),
+						"Size of volume should be 20 GB",
+					)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -137,19 +165,35 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("valid single local snapshot", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu_bionic root-volume=local:20GB stopped=true")),
-				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
+				core.ExecStoreBeforeCmd(
+					"Server",
+					testServerCommand("image=ubuntu_bionic root-volume=local:20GB stopped=true"),
+				),
+				core.ExecStoreBeforeCmd(
+					"Snapshot",
+					`scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`,
+				),
 			),
-			Cmd: testServerCommand("image=ubuntu_bionic root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true"),
+			Cmd: testServerCommand(
+				"image=ubuntu_bionic root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+			),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					size := volume.Size
-					assert.Equal(t, 20*scw.GB, instance.SizeValue(size), "Size of volume should be 20 GB")
+					assert.Equal(
+						t,
+						20*scw.GB,
+						instance.SizeValue(size),
+						"Size of volume should be 20 GB",
+					)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -162,19 +206,35 @@ func Test_CreateServer(t *testing.T) {
 		t.Run("valid single local snapshot without image", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu_bionic root-volume=local:20GB stopped=true")),
-				core.ExecStoreBeforeCmd("Snapshot", `scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`),
+				core.ExecStoreBeforeCmd(
+					"Server",
+					testServerCommand("image=ubuntu_bionic root-volume=local:20GB stopped=true"),
+				),
+				core.ExecStoreBeforeCmd(
+					"Snapshot",
+					`scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`,
+				),
 			),
-			Cmd: testServerCommand("image=none root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true"),
+			Cmd: testServerCommand(
+				"image=none root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+			),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					size := volume.Size
-					assert.Equal(t, 20*scw.GB, instance.SizeValue(size), "Size of volume should be 20 GB")
+					assert.Equal(
+						t,
+						20*scw.GB,
+						instance.SizeValue(size),
+						"Size of volume should be 20 GB",
+					)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -186,16 +246,31 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("valid double local volumes", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=l:10G stopped=true"),
+			Cmd: testServerCommand(
+				"image=ubuntu_bionic root-volume=local:10GB additional-volumes.0=l:10G stopped=true",
+			),
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					size0 := testhelpers.MapTValue(t, server.Volumes, "0").Size
 					size1 := testhelpers.MapTValue(t, server.Volumes, "1").Size
-					assert.Equal(t, 10*scw.GB, instance.SizeValue(size0), "Size of volume should be 10 GB")
-					assert.Equal(t, 10*scw.GB, instance.SizeValue(size1), "Size of volume should be 10 GB")
+					assert.Equal(
+						t,
+						10*scw.GB,
+						instance.SizeValue(size0),
+						"Size of volume should be 10 GB",
+					)
+					assert.Equal(
+						t,
+						10*scw.GB,
+						instance.SizeValue(size1),
+						"Size of volume should be 10 GB",
+					)
 				},
 				core.TestCheckExitCode(0),
 			),
@@ -208,10 +283,18 @@ func Test_CreateServer(t *testing.T) {
 				block.GetCommands(),
 			),
 			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu_jammy root-volume=block:20GB stopped=true")),
-				core.ExecStoreBeforeCmd("Snapshot", `scw block snapshot create volume-id={{ (index .Server.Volumes "0").ID }} -w`),
+				core.ExecStoreBeforeCmd(
+					"Server",
+					testServerCommand("image=ubuntu_jammy root-volume=block:20GB stopped=true"),
+				),
+				core.ExecStoreBeforeCmd(
+					"Snapshot",
+					`scw block snapshot create volume-id={{ (index .Server.Volumes "0").ID }} -w`,
+				),
 			),
-			Cmd: testServerCommand("image=ubuntu_jammy root-volume=block:{{ .Snapshot.ID }} additional-volumes.0=block:{{ .Snapshot.ID }} stopped=true"),
+			Cmd: testServerCommand(
+				"image=ubuntu_jammy root-volume=block:{{ .Snapshot.ID }} additional-volumes.0=block:{{ .Snapshot.ID }} stopped=true",
+			),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				testServerSBSVolumeSize("0", 20),
@@ -226,7 +309,9 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("valid additional block volumes", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("image=ubuntu_jammy additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true"),
+			Cmd: testServerCommand(
+				"image=ubuntu_jammy additional-volumes.0=b:1G additional-volumes.1=b:5G additional-volumes.2=b:10G stopped=true",
+			),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				testServerSBSVolumeSize("1", 1),
@@ -244,12 +329,17 @@ func Test_CreateServer(t *testing.T) {
 			BeforeFunc: core.BeforeFuncCombine(
 				createSbsVolume("Volume", 20),
 			),
-			Cmd: testServerCommand("image=ubuntu_jammy additional-volumes.0={{.Volume.ID}} stopped=true"),
+			Cmd: testServerCommand(
+				"image=ubuntu_jammy additional-volumes.0={{.Volume.ID}} stopped=true",
+			),
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "1")
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
@@ -271,7 +361,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "1")
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
@@ -295,7 +388,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
@@ -316,7 +412,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					volume := testhelpers.MapTValue(t, server.Volumes, "0")
 					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, volume.VolumeType)
 				},
@@ -331,17 +430,26 @@ func Test_CreateServer(t *testing.T) {
 				instance.GetCommands(),
 				block.GetCommands(),
 			),
-			Cmd: testServerCommand("image=ubuntu_jammy root-volume=sbs:20GB:15000 stopped=true --debug"),
+			Cmd: testServerCommand(
+				"image=ubuntu_jammy root-volume=sbs:20GB:15000 stopped=true --debug",
+			),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 
 					rootVolume, rootVolumeExists := server.Volumes["0"]
 					assert.True(t, rootVolumeExists)
-					assert.Equal(t, instanceSDK.VolumeServerVolumeTypeSbsVolume, rootVolume.VolumeType)
+					assert.Equal(
+						t,
+						instanceSDK.VolumeServerVolumeTypeSbsVolume,
+						rootVolume.VolumeType,
+					)
 
 					api := blockSDK.NewAPI(ctx.Client)
 					vol, err := api.WaitForVolume(&blockSDK.WaitForVolumeRequest{
@@ -370,7 +478,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
 					assert.False(t, server.PublicIP.Dynamic)
@@ -388,7 +499,10 @@ func Test_CreateServer(t *testing.T) {
 					t.Helper()
 					require.NoError(t, ctx.Err)
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
 					assert.True(t, server.DynamicIPRequired)
@@ -406,7 +520,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
 					assert.False(t, server.PublicIP.Dynamic)
@@ -424,7 +541,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result)
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.NotNil(t, server.PublicIP)
 					assert.NotEmpty(t, server.PublicIP.Address)
 					assert.False(t, server.PublicIP.Dynamic)
@@ -436,12 +556,17 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("ip=ipv6 dynamic-ip-required=false -w"), // IPv6 is created at runtime
+			Cmd: testServerCommand(
+				"ip=ipv6 dynamic-ip-required=false -w",
+			), // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					require.NotNil(t, ctx.Result, "Server is nil")
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.Len(t, server.PublicIPs, 1)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet6, server.PublicIPs[0].Family)
 				},
@@ -452,13 +577,18 @@ func Test_CreateServer(t *testing.T) {
 
 		t.Run("with ipv6 and dynamic ip", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
-			Cmd:      testServerCommand("dynamic-ip-required=true ip=ipv6 -w"), // IPv6 is created at runtime
+			Cmd: testServerCommand(
+				"dynamic-ip-required=true ip=ipv6 -w",
+			), // IPv6 is created at runtime
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result, "server is nil")
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.Len(t, server.PublicIPs, 2)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet, server.PublicIPs[0].Family)
 					assert.True(t, server.PublicIPs[0].Dynamic)
@@ -476,7 +606,10 @@ func Test_CreateServer(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.NotNil(t, ctx.Result, "server is nil")
-					server := testhelpers.Value[*instanceSDK.Server](t, ctx.Result)
+					server := testhelpers.Value[*instance.ServerWithWarningsResponse](
+						t,
+						ctx.Result,
+					).Server
 					assert.Len(t, server.PublicIPs, 2)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet, server.PublicIPs[0].Family)
 					assert.Equal(t, instanceSDK.ServerIPIPFamilyInet6, server.PublicIPs[1].Family)
@@ -542,7 +675,9 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too low 2", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      testServerCommand("image=ubuntu_jammy root-volume=l:5GB additional-volumes.0=block:10GB"),
+		Cmd: testServerCommand(
+			"image=ubuntu_jammy root-volume=l:5GB additional-volumes.0=block:10GB",
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -563,7 +698,9 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too high 1", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      testServerCommand("image=ubuntu_jammy root-volume=local:10GB additional-volumes.0=local:20GB"),
+		Cmd: testServerCommand(
+			"image=ubuntu_jammy root-volume=local:10GB additional-volumes.0=local:20GB",
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -584,7 +721,9 @@ func Test_CreateServerErrors(t *testing.T) {
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
 		BeforeFunc: createVolume("Volume", 20, instanceSDK.VolumeVolumeTypeLSSD),
-		Cmd:        testServerCommand("image=ubuntu_jammy root-volume={{ .Volume.ID }} additional-volumes.0=local:10GB"),
+		Cmd: testServerCommand(
+			"image=ubuntu_jammy root-volume={{ .Volume.ID }} additional-volumes.0=local:10GB",
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -595,7 +734,9 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid root volume size", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      testServerCommand("image=ubuntu_jammy root-volume=local:2GB additional-volumes.0=local:18GB"),
+		Cmd: testServerCommand(
+			"image=ubuntu_jammy root-volume=local:2GB additional-volumes.0=local:18GB",
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -617,7 +758,9 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid root volume ID", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      testServerCommand("image=ubuntu_jammy root-volume=29da9ad9-e759-4a56-82c8-f0607f93055c"),
+		Cmd: testServerCommand(
+			"image=ubuntu_jammy root-volume=29da9ad9-e759-4a56-82c8-f0607f93055c",
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -626,9 +769,16 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: already attached additional volume ID", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("name=cli-test image=ubuntu_jammy root-volume=l:10G additional-volumes.0=l:10G stopped=true")),
-		Cmd:        testServerCommand(`image=ubuntu_jammy root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }} stopped=true`),
+		Commands: instance.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Server",
+			testServerCommand(
+				"name=cli-test image=ubuntu_jammy root-volume=l:10G additional-volumes.0=l:10G stopped=true",
+			),
+		),
+		Cmd: testServerCommand(
+			`image=ubuntu_jammy root-volume=l:10G additional-volumes.0={{ (index .Server.Volumes "1").ID }} stopped=true`,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -649,7 +799,9 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid root volume snapshot ID", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      testServerCommand("image=ubuntu_jammy root-volume=local:29da9ad9-e759-4a56-82c8-f0607f93055c"),
+		Cmd: testServerCommand(
+			"image=ubuntu_jammy root-volume=local:29da9ad9-e759-4a56-82c8-f0607f93055c",
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -659,7 +811,9 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid additional volume snapshot ID", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      testServerCommand("image=ubuntu_jammy additional-volumes.0=block:29da9ad9-e759-4a56-82c8-f0607f93055c"),
+		Cmd: testServerCommand(
+			"image=ubuntu_jammy additional-volumes.0=block:29da9ad9-e759-4a56-82c8-f0607f93055c",
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -731,18 +885,25 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				server, isServer := ctx.Result.(*instanceSDK.Server)
-				if !isServer {
+				serverResponse, isServerResponse := ctx.Result.(*instance.ServerWithWarningsResponse)
+				if !isServerResponse {
 					t.Fatalf("Result is not a server")
 				}
+				server := serverResponse.Server
 				additionalVolume, exist := server.Volumes["1"]
 				if !exist {
 					t.Fatalf("Expected an additional scratch volume, found none")
 				}
-				assert.Equal(t, instanceSDK.VolumeServerVolumeTypeScratch, additionalVolume.VolumeType)
+				assert.Equal(
+					t,
+					instanceSDK.VolumeServerVolumeTypeScratch,
+					additionalVolume.VolumeType,
+				)
 			},
 		),
-		AfterFunc:       core.ExecAfterCmd("scw instance server delete {{ .CmdResult.ID }} zone=fr-par-2 with-volumes=all with-ip=true force-shutdown=true"),
+		AfterFunc: core.ExecAfterCmd(
+			"scw instance server delete {{ .CmdResult.ID }} zone=fr-par-2 with-volumes=all with-ip=true force-shutdown=true",
+		),
 		DisableParallel: true,
 	}))
 }

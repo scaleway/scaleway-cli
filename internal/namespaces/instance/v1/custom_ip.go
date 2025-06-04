@@ -27,18 +27,20 @@ func ipCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customCreateIPRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customCreateIPRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customCreateIPRequest)
 
-		if args.CreateIPRequest == nil {
-			args.CreateIPRequest = &instance.CreateIPRequest{}
-		}
-		request := args.CreateIPRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			if args.CreateIPRequest == nil {
+				args.CreateIPRequest = &instance.CreateIPRequest{}
+			}
+			request := args.CreateIPRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
@@ -55,18 +57,20 @@ func ipListBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customListIPsRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customListIPsRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customListIPsRequest)
 
-		if args.ListIPsRequest == nil {
-			args.ListIPsRequest = &instance.ListIPsRequest{}
-		}
-		request := args.ListIPsRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			if args.ListIPsRequest == nil {
+				args.ListIPsRequest = &instance.ListIPsRequest{}
+			}
+			request := args.ListIPsRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
@@ -158,7 +162,10 @@ func ipDetachCommand() *core.Command {
 				}
 				ipID = res.IP.ID
 			default:
-				return nil, fmt.Errorf(`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`, args.IP)
+				return nil, fmt.Errorf(
+					`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`,
+					args.IP,
+				)
 			}
 
 			return api.UpdateIP(&instance.UpdateIPRequest{

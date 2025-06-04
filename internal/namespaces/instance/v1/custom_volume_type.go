@@ -14,27 +14,29 @@ func volumeTypeListBuilder(cmd *core.Command) *core.Command {
 		instance.VolumeType
 	}
 
-	cmd.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		res, err := runner(ctx, argsI)
-		if err != nil {
-			return res, err
-		}
+	cmd.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			res, err := runner(ctx, argsI)
+			if err != nil {
+				return res, err
+			}
 
-		volumeTypes := []*customVolumeType(nil)
-		for typeName, volumeType := range res.(*instance.ListVolumesTypesResponse).Volumes {
-			volumeTypes = append(volumeTypes, &customVolumeType{
-				Type:       typeName,
-				VolumeType: *volumeType,
+			volumeTypes := []*customVolumeType(nil)
+			for typeName, volumeType := range res.(*instance.ListVolumesTypesResponse).Volumes {
+				volumeTypes = append(volumeTypes, &customVolumeType{
+					Type:       typeName,
+					VolumeType: *volumeType,
+				})
+			}
+
+			// sort for consistent order output
+			sort.Slice(volumeTypes, func(i, j int) bool {
+				return volumeTypes[i].Type < volumeTypes[j].Type
 			})
-		}
 
-		// sort for consistent order output
-		sort.Slice(volumeTypes, func(i, j int) bool {
-			return volumeTypes[i].Type < volumeTypes[j].Type
-		})
-
-		return volumeTypes, nil
-	})
+			return volumeTypes, nil
+		},
+	)
 
 	cmd.AllowAnonymousClient = true
 

@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+WAF-stage management commands.
+
+USAGE:
+  scw edge-services waf-stage <command>
+
+AVAILABLE COMMANDS:
+  create      Create WAF stage
+  delete      Delete WAF stage
+  get         Get WAF stage
+  list        List WAF stages
+  update      Update WAF stage
+
+FLAGS:
+  -h, --help   help for waf-stage
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw edge-services waf-stage [command] --help" for more information about a command.

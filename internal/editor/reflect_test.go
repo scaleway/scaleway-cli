@@ -53,7 +53,7 @@ func Test_valueMapperDifferentFields(t *testing.T) {
 	}{}
 
 	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
-	assert.Zero(t, dest.Arg3)
+	assert.Empty(t, dest.Arg3)
 	assert.Zero(t, dest.Arg4)
 }
 
@@ -69,9 +69,9 @@ func Test_valueMapperPointers(t *testing.T) {
 
 	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Arg1)
-	assert.EqualValues(t, src.Arg1, *dest.Arg1)
+	assert.Equal(t, src.Arg1, *dest.Arg1)
 	assert.NotNil(t, dest.Arg2)
-	assert.EqualValues(t, src.Arg2, *dest.Arg2)
+	assert.Equal(t, src.Arg2, *dest.Arg2)
 }
 
 func Test_valueMapperPointersWithPointers(t *testing.T) {
@@ -86,9 +86,9 @@ func Test_valueMapperPointersWithPointers(t *testing.T) {
 
 	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Arg1)
-	assert.EqualValues(t, src.Arg1, dest.Arg1)
+	assert.Equal(t, src.Arg1, dest.Arg1)
 	assert.NotNil(t, dest.Arg2)
-	assert.EqualValues(t, src.Arg2, dest.Arg2)
+	assert.Equal(t, src.Arg2, dest.Arg2)
 }
 
 func Test_valueMapperSlice(t *testing.T) {
@@ -106,9 +106,9 @@ func Test_valueMapperSlice(t *testing.T) {
 
 	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Arg1)
-	assert.EqualValues(t, src.Arg1, dest.Arg1)
+	assert.Equal(t, src.Arg1, dest.Arg1)
 	assert.NotNil(t, dest.Arg2)
-	assert.EqualValues(t, src.Arg2, dest.Arg2)
+	assert.Equal(t, src.Arg2, dest.Arg2)
 }
 
 func Test_valueMapperSliceOfPointers(t *testing.T) {
@@ -126,14 +126,14 @@ func Test_valueMapperSliceOfPointers(t *testing.T) {
 
 	editor.ValueMapper(reflect.ValueOf(&dest), reflect.ValueOf(&src))
 	assert.NotNil(t, dest.Arg1)
-	assert.Equal(t, len(src.Arg1), len(dest.Arg1))
+	assert.Len(t, dest.Arg1, len(src.Arg1))
 	for i := range src.Arg1 {
 		assert.NotNil(t, dest.Arg1[i])
 		assert.Equal(t, src.Arg1[i], *dest.Arg1[i])
 	}
 
 	assert.NotNil(t, dest.Arg2)
-	assert.Equal(t, len(src.Arg2), len(dest.Arg2))
+	assert.Len(t, dest.Arg2, len(src.Arg2))
 	for i := range src.Arg2 {
 		assert.NotNil(t, dest.Arg2[i])
 		assert.Equal(t, src.Arg2[i], *dest.Arg2[i])

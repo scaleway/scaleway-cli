@@ -1,7 +1,6 @@
 package core_test
 
 import (
-	"context"
 	"reflect"
 	"testing"
 
@@ -41,7 +40,7 @@ func Test_buildUsageArgs(t *testing.T) {
   [root-volume.name]                  Root volume name
   [additional-volumes.{index}.name]   Additional volume name`
 
-	got := core.BuildUsageArgs(context.Background(), &core.Command{
+	got := core.BuildUsageArgs(t.Context(), &core.Command{
 		ArgsType: reflect.TypeOf(instanceListServerArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -59,10 +58,15 @@ func Test_buildUsageArgs(t *testing.T) {
 				Default: core.DefaultValueSetter("1"),
 			},
 			{
-				Name:       "color",
-				Short:      "Filter by color",
-				Default:    core.DefaultValueSetter(ServerColorRed),
-				EnumValues: []string{ServerColorBlue, ServerColorRed, ServerColorPink, ServerColorGreen},
+				Name:    "color",
+				Short:   "Filter by color",
+				Default: core.DefaultValueSetter(ServerColorRed),
+				EnumValues: []string{
+					ServerColorBlue,
+					ServerColorRed,
+					ServerColorPink,
+					ServerColorGreen,
+				},
 			},
 			{
 				Name:  "multi-word-arg",

@@ -56,7 +56,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.22
+          go-version: 1.24
       - name: Run Acceptance Tests
         run: go test -v ./internal/namespaces/${{ matrix.products }}/... -timeout=4h
         env:
@@ -101,7 +101,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.22
+          go-version: 1.24
       - name: Run Sweepers
         run: go run -v ./cmd/scw-sweeper
         env:
@@ -110,3 +110,21 @@ jobs:
           SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
           SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
           SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
+      - name: Ping on failure
+        if: ${{ failure() }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{
+          	"blocks": [
+              {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "'"Scaleway CLI sweepers in Nightly workflow failed: <https://github.com/scaleway/scaleway-cli/actions/runs/${GITHUB_RUN_ID}>"'"
+                  }
+              }
+            ]
+          }' \
+          ${SLACK_WEBHOOK_NIGHTLY};
+        env:
+          SLACK_WEBHOOK_NIGHTLY: ${{ secrets.SLACK_WEBHOOK_NIGHTLY }}

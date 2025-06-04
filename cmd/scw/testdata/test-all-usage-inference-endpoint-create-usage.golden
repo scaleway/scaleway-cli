@@ -7,8 +7,7 @@ USAGE:
 
 ARGS:
   deployment-id                                   ID of the deployment to create the endpoint for
-  [endpoint.is-public=false]                      Will configure your public endpoint if true
-  [endpoint.private-network.private-network-id]   ID of the Private Network
+  [endpoint.private-network.private-network-id]   
   [endpoint.disable-auth=false]                   Disable the authentication on the endpoint.
   [region=fr-par]                                 Region to target. If none is passed will use default region from the config (fr-par)
 

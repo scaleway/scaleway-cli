@@ -1,6 +1,6 @@
 #/bin/env bash
 
-MAX_BINARY_SIZE=50000000
+MAX_BINARY_SIZE=52000000
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 

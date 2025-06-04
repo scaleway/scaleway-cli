@@ -21,6 +21,10 @@ This API allows you to manage your Transactional Email services.
   - [Email statuses](#email-statuses)
   - [List emails](#list-emails)
 - [Project offers management commands](#project-offers-management-commands)
+  - [List the available offers.](#list-the-available-offers.)
+  - [Update a subscribed offer](#update-a-subscribed-offer)
+- [Project consumption management commands](#project-consumption-management-commands)
+  - [Get project resource consumption.](#get-project-resource-consumption.)
 - [Project settings management commands](#project-settings-management-commands)
 - [Webhook management commands](#webhook-management-commands)
   - [Create a Webhook](#create-a-webhook)
@@ -145,7 +149,7 @@ scw tem domain create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | domain-name |  | Fully qualified domain dame |
-| accept-tos |  | Accept Scaleway's Terms of Service |
+| ~~accept-tos~~ | Deprecated | Deprecated. Accept Scaleway's Terms of Service |
 | autoconfig |  | Activate auto-configuration of the domain's DNS zone |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
@@ -382,7 +386,7 @@ scw tem email list [arg=value ...]
 | since |  | (Optional) List emails created after this date |
 | until |  | (Optional) List emails created before this date |
 | mail-from |  | (Optional) List emails sent with this sender's email address |
-| ~~mail-to~~ | Deprecated | List emails sent to this recipient's email address |
+| ~~mail-to~~ | Deprecated | Deprecated. List emails sent to this recipient's email address |
 | mail-rcpt |  | (Optional) List emails sent to this recipient's email address |
 | statuses.{index} | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled` | (Optional) List emails with any of these statuses |
 | subject |  | (Optional) List emails with this subject |
@@ -397,13 +401,69 @@ scw tem email list [arg=value ...]
 
 This section allows you to manage and get get subscribed information about your project email offer.
 
-This section allows you to manage and get get subscribed information about your project email offer.
+
+### List the available offers.
+
+Retrieve the list of the available and free-of-charge offers you can subscribe to.
 
 **Usage:**
 
 ```
-scw tem offers
+scw tem offers list [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update a subscribed offer
+
+Update a subscribed offer.
+
+**Usage:**
+
+```
+scw tem offers update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| name | One of: `unknown_name`, `essential`, `scale` | Name of the offer-subscription |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Project consumption management commands
+
+Project consumption allow you to see your project consumption.
+
+
+### Get project resource consumption.
+
+Get project resource consumption.
+
+**Usage:**
+
+```
+scw tem project-consumption get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 

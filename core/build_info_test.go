@@ -35,7 +35,11 @@ func Test_CheckVersion(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(t, "A new version of scw is available (2.5.4), beware that you are currently running 1.20.0\n", ctx.LogBuffer)
+				assert.Equal(
+					t,
+					"A new version of scw is available (2.5.4), beware that you are currently running 1.20.0\n",
+					ctx.LogBuffer,
+				)
 			},
 		),
 		TmpHomeDir: true,
@@ -62,13 +66,19 @@ func Test_CheckVersion(t *testing.T) {
 			Version: version.Must(version.NewSemver("v1.0")),
 		},
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			return core.CreateAndCloseFile(core.GetLatestVersionUpdateFilePath(ctx.OverrideEnv[scw.ScwCacheDirEnv]))
+			return core.CreateAndCloseFile(
+				core.GetLatestVersionUpdateFilePath(ctx.OverrideEnv[scw.ScwCacheDirEnv]),
+			)
 		},
 		Cmd: "scw plop -D",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Contains(t, ctx.LogBuffer, "version was already checked during past 24 hours\n")
+				assert.Contains(
+					t,
+					ctx.LogBuffer,
+					"version was already checked during past 24 hours\n",
+				)
 			},
 		),
 		TmpHomeDir: true,
@@ -91,7 +101,11 @@ func Test_CheckVersion(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Contains(t, ctx.LogBuffer, "A new version of scw is available (2.5.4), beware that you are currently running 1.0.0\n")
+				assert.Contains(
+					t,
+					ctx.LogBuffer,
+					"A new version of scw is available (2.5.4), beware that you are currently running 1.0.0\n",
+				)
 			},
 		),
 		TmpHomeDir: true,

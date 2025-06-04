@@ -44,5 +44,6 @@ Sandbox         unknown_sandbox
   "sandbox": "unknown_sandbox",
   "created_at": null,
   "updated_at": null,
-  "ready_at": null
+  "ready_at": null,
+  "tags": null
 }

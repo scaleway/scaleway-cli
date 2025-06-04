@@ -1,0 +1,30 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Set the list of ACL rules and the default routing policy for a VPC.
+
+USAGE:
+  scw vpc rule set [arg=value ...]
+
+ARGS:
+  vpc-id                        ID of the Network ACL's VPC
+  rules.{index}.protocol        Protocol to which this rule applies (ANY | TCP | UDP | ICMP)
+  rules.{index}.source          Source IP range to which this rule applies (CIDR notation with subnet mask)
+  rules.{index}.src-port-low    Starting port of the source port range to which this rule applies (inclusive)
+  rules.{index}.src-port-high   Ending port of the source port range to which this rule applies (inclusive)
+  rules.{index}.destination     Destination IP range to which this rule applies (CIDR notation with subnet mask)
+  rules.{index}.dst-port-low    Starting port of the destination port range to which this rule applies (inclusive)
+  rules.{index}.dst-port-high   Ending port of the destination port range to which this rule applies (inclusive)
+  rules.{index}.action          Policy to apply to the packet (unknown_action | accept | drop)
+  rules.{index}.description     Rule description
+  is-ipv6                       Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.
+  default-policy                Action to take for packets which do not match any rules (unknown_action | accept | drop)
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for set
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

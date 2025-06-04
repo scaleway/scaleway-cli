@@ -34,8 +34,11 @@ const (
 // serverStateMarshalSpecs allows to override the displayed instance.ServerState.
 var (
 	serverStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ServerStateRunning:        &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ServerStateStopped:        &human.EnumMarshalSpec{Attribute: color.Faint, Value: "archived"},
+		instance.ServerStateRunning: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		instance.ServerStateStopped: &human.EnumMarshalSpec{
+			Attribute: color.Faint,
+			Value:     "archived",
+		},
 		instance.ServerStateStoppedInPlace: &human.EnumMarshalSpec{Attribute: color.Faint},
 		instance.ServerStateStarting:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
 		instance.ServerStateStopping:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
@@ -120,20 +123,38 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	return human.Marshal(humanServers, opt)
 }
 
+type customVolume struct {
+	ID               string     `json:"id"`
+	Name             string     `json:"name"`
+	Size             scw.Size   `json:"size"`
+	VolumeType       string     `json:"volume_type"`
+	IOPS             string     `json:"iops"`
+	State            string     `json:"state"`
+	CreationDate     *time.Time `json:"creation_date"`
+	ModificationDate *time.Time `json:"modification_date"`
+	Boot             bool       `json:"boot"`
+	Zone             string     `json:"zone"`
+}
+
 // orderVolumes return an ordered slice based on the volume map key "0", "1", "2",...
-func orderVolumes(v map[string]*instance.VolumeServer) []*instance.VolumeServer {
+func orderVolumes(v map[string]*customVolume) []*customVolume {
 	indexes := []string(nil)
 	for index := range v {
 		indexes = append(indexes, index)
 	}
 	sort.Strings(indexes)
 
-	orderedVolumes := make([]*instance.VolumeServer, 0, len(indexes))
+	orderedVolumes := make([]*customVolume, 0, len(indexes))
 	for _, index := range indexes {
 		orderedVolumes = append(orderedVolumes, v[index])
 	}
 
 	return orderedVolumes
+}
+
+type ServerWithWarningsResponse struct {
+	*instance.Server
+	Warnings []string
 }
 
 // serversMarshalerFunc marshals a BootscriptID.
@@ -159,19 +180,21 @@ func serverListBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customListServersRequest{})
 
-	c.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
-		args := argsI.(*customListServersRequest)
+	c.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+			args := argsI.(*customListServersRequest)
 
-		if args.ListServersRequest == nil {
-			args.ListServersRequest = &instance.ListServersRequest{}
-		}
+			if args.ListServersRequest == nil {
+				args.ListServersRequest = &instance.ListServersRequest{}
+			}
 
-		request := args.ListServersRequest
-		request.Organization = args.OrganizationID
-		request.Project = args.ProjectID
+			request := args.ListServersRequest
+			request.Organization = args.OrganizationID
+			request.Project = args.ProjectID
 
-		return runner(ctx, request)
-	})
+			return runner(ctx, request)
+		},
+	)
 
 	return c
 }
@@ -331,7 +354,27 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return updateServerResponse, nil
+		// Display warning if server-type is deprecated
+		warnings := []string(nil)
+		server := updateServerResponse.Server
+		if server.EndOfService {
+			warnings = warningServerTypeDeprecated(ctx, client, server)
+		}
+
+		return &ServerWithWarningsResponse{
+			server,
+			warnings,
+		}, nil
+	}
+
+	c.View = &core.View{
+		Sections: []*core.ViewSection{
+			{
+				FieldName:   "Warnings",
+				Title:       "Warnings",
+				HideIfEmpty: true,
+			},
+		},
 	}
 
 	return c
@@ -374,6 +417,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			return rawResp, err
 		}
 		getServerResp := rawResp.(*instance.GetServerResponse)
+		server := getServerResp.Server
 
 		client := core.ExtractClient(ctx)
 		vpcAPI := vpc.NewAPI(client)
@@ -387,8 +431,8 @@ func serverGetBuilder(c *core.Command) *core.Command {
 
 		nics := []customNICs{}
 
-		for _, nic := range getServerResp.Server.PrivateNics {
-			region, err := getServerResp.Server.Zone.Region()
+		for _, nic := range server.PrivateNics {
+			region, err := server.Zone.Region()
 			if err != nil {
 				return nil, err
 			}
@@ -407,14 +451,70 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			})
 		}
 
+		volumes := map[string]*customVolume{}
+		blockAPI := block.NewAPI(client)
+
+		for _, volume := range server.Volumes {
+			customVol := &customVolume{
+				ID:   volume.ID,
+				Zone: volume.Zone.String(),
+				Boot: volume.Boot,
+			}
+
+			blockVol, _ := blockAPI.GetVolume(&block.GetVolumeRequest{
+				VolumeID: volume.ID,
+				Zone:     volume.Zone,
+			})
+			if blockVol != nil {
+				customVol.Name = blockVol.Name
+				customVol.Size = blockVol.Size
+				customVol.VolumeType = blockVol.Type
+				customVol.State = blockVol.Status.String()
+				customVol.CreationDate = blockVol.CreatedAt
+				customVol.ModificationDate = blockVol.UpdatedAt
+				if blockVol.Specs != nil && blockVol.Specs.PerfIops != nil {
+					switch *blockVol.Specs.PerfIops {
+					case 5000:
+						customVol.IOPS = "5K"
+					case 15000:
+						customVol.IOPS = "15K"
+					}
+				}
+			} else {
+				instanceVol, err := instance.NewAPI(client).GetVolume(&instance.GetVolumeRequest{
+					VolumeID: volume.ID,
+					Zone:     volume.Zone,
+				})
+				if err != nil {
+					return nil, err
+				}
+				customVol.Name = instanceVol.Volume.Name
+				customVol.Size = instanceVol.Volume.Size
+				customVol.VolumeType = instanceVol.Volume.VolumeType.String()
+				customVol.State = instanceVol.Volume.State.String()
+				customVol.CreationDate = instanceVol.Volume.CreationDate
+				customVol.ModificationDate = instanceVol.Volume.ModificationDate
+			}
+
+			volumes[volume.ID] = customVol
+		}
+
+		// Display warning if server-type is deprecated
+		warnings := []string(nil)
+		if server.EndOfService {
+			warnings = warningServerTypeDeprecated(ctx, client, server)
+		}
+
 		return &struct {
 			*instance.Server
-			Volumes     []*instance.VolumeServer
+			Volumes     []*customVolume
 			PrivateNics []customNICs `json:"private_nics"`
+			Warnings    []string     `json:"warnings"`
 		}{
-			getServerResp.Server,
-			orderVolumes(getServerResp.Server.Volumes),
+			server,
+			orderVolumes(volumes),
 			nics,
+			warnings,
 		}, nil
 	}
 
@@ -443,6 +543,11 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			{
 				FieldName: "PrivateNics",
 				Title:     "Private NICs",
+			},
+			{
+				FieldName:   "Warnings",
+				Title:       "Warnings",
+				HideIfEmpty: true,
 			},
 		},
 	}
@@ -573,7 +678,10 @@ func serverAttachIPCommand() *core.Command {
 				}
 				ipID = res.IP.ID
 			default:
-				return nil, fmt.Errorf(`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`, args.IP)
+				return nil, fmt.Errorf(
+					`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`,
+					args.IP,
+				)
 			}
 
 			_, err = api.UpdateIP(&instance.UpdateIPRequest{
@@ -630,7 +738,9 @@ func serverDetachIPCommand() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			serverResponse, err := api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
+			serverResponse, err := api.GetServer(
+				&instance.GetServerRequest{ServerID: args.ServerID},
+			)
 			if err != nil {
 				return nil, err
 			}
@@ -684,12 +794,13 @@ func serverWaitCommand() *core.Command {
 		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
 			args := argsI.(*serverWaitRequest)
 
-			return instance.NewAPI(core.ExtractClient(ctx)).WaitForServer(&instance.WaitForServerRequest{
-				Zone:          args.Zone,
-				ServerID:      args.ServerID,
-				Timeout:       scw.TimeDurationPtr(args.Timeout),
-				RetryInterval: core.DefaultRetryInterval,
-			})
+			return instance.NewAPI(core.ExtractClient(ctx)).
+				WaitForServer(&instance.WaitForServerRequest{
+					Zone:          args.Zone,
+					ServerID:      args.ServerID,
+					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					RetryInterval: core.DefaultRetryInterval,
+				})
 		},
 		ArgSpecs: core.ArgSpecs{
 			core.WaitTimeoutArgSpec(serverActionTimeout),

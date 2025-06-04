@@ -15,7 +15,10 @@ func Test_UpdateSnapshot(t *testing.T) {
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				createVolume("Volume", 10, instanceSDK.VolumeVolumeTypeBSSD),
-				core.ExecStoreBeforeCmd("CreateSnapshot", "scw instance snapshot create volume-id={{ .Volume.ID }} name=cli-test-snapshot-update-tags tags.0=foo tags.1=bar"),
+				core.ExecStoreBeforeCmd(
+					"CreateSnapshot",
+					"scw instance snapshot create volume-id={{ .Volume.ID }} name=cli-test-snapshot-update-tags tags.0=foo tags.1=bar",
+				),
 			),
 			Cmd: "scw instance snapshot update -w {{ .CreateSnapshot.Snapshot.ID }} tags.0=bar tags.1=foo",
 			Check: core.TestCheckCombine(
@@ -40,7 +43,10 @@ func Test_UpdateSnapshot(t *testing.T) {
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				createVolume("Volume", 10, instanceSDK.VolumeVolumeTypeBSSD),
-				core.ExecStoreBeforeCmd("CreateSnapshot", "scw instance snapshot create volume-id={{ .Volume.ID }} name=cli-test-snapshot-update-name tags.0=foo tags.1=bar"),
+				core.ExecStoreBeforeCmd(
+					"CreateSnapshot",
+					"scw instance snapshot create volume-id={{ .Volume.ID }} name=cli-test-snapshot-update-name tags.0=foo tags.1=bar",
+				),
 			),
 			Cmd: "scw instance snapshot update -w {{ .CreateSnapshot.Snapshot.ID }} name=cli-test-snapshot-update-name-updated",
 			Check: core.TestCheckCombine(

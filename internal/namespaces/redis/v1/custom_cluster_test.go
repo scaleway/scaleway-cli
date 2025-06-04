@@ -87,10 +87,16 @@ func Test_Endpoints(t *testing.T) {
 				},
 			),
 		),
-		Cmd: fmt.Sprintf("scw redis cluster create --wait name=%s version=7.0.5 node-type=RED1-micro user-name=admin password=P@sSw0Rd --wait "+
-			"endpoints.0.private-network.id={{ .%s.ID }} endpoints.0.private-network.service-ips.0=%s "+
-			"endpoints.1.private-network.id={{ .%s.ID }} endpoints.1.private-network.service-ips.0=%s",
-			"2-static-priv-endpoints", metaNamePNA, serviceIPsA, metaNamePNB, serviceIPsB),
+		Cmd: fmt.Sprintf(
+			"scw redis cluster create --wait name=%s version=7.0.5 node-type=RED1-micro user-name=admin password=P@sSw0Rd --wait "+
+				"endpoints.0.private-network.id={{ .%s.ID }} endpoints.0.private-network.service-ips.0=%s "+
+				"endpoints.1.private-network.id={{ .%s.ID }} endpoints.1.private-network.service-ips.0=%s",
+			"2-static-priv-endpoints",
+			metaNamePNA,
+			serviceIPsA,
+			metaNamePNB,
+			serviceIPsB,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -275,7 +281,11 @@ func deletePrivateNetwork(metaName string) core.AfterFunc {
 	return core.ExecAfterCmd(fmt.Sprintf("scw vpc private-network delete {{ .%s.ID }}", metaName))
 }
 
-func checkEndpoints(t *testing.T, endpoints []*redisSDK.Endpoint, nbExpectedPub, nbExpectedPrivStatic, nbExpectedPrivIpam int) {
+func checkEndpoints(
+	t *testing.T,
+	endpoints []*redisSDK.Endpoint,
+	nbExpectedPub, nbExpectedPrivStatic, nbExpectedPrivIpam int,
+) {
 	t.Helper()
 	expectedEndpoints := map[string]int{
 		"public":         nbExpectedPub,
@@ -304,7 +314,15 @@ func checkEndpoints(t *testing.T, endpoints []*redisSDK.Endpoint, nbExpectedPub,
 		nbActualPub := nbExpectedPub - expectedEndpoints["public"]
 		nbActualPrivStatic := nbExpectedPrivStatic - expectedEndpoints["private-static"]
 		nbActualPrivIpam := nbExpectedPrivIpam - expectedEndpoints["private-ipam"]
-		t.Errorf("expected %d public endpoint(s), %d static private endpoint(s) and %d IPAM private endpoint(s), "+
-			"got respectively %d, %d and %d", nbExpectedPub, nbExpectedPrivStatic, nbExpectedPrivIpam, nbActualPub, nbActualPrivStatic, nbActualPrivIpam)
+		t.Errorf(
+			"expected %d public endpoint(s), %d static private endpoint(s) and %d IPAM private endpoint(s), "+
+				"got respectively %d, %d and %d",
+			nbExpectedPub,
+			nbExpectedPrivStatic,
+			nbExpectedPrivIpam,
+			nbActualPub,
+			nbActualPrivStatic,
+			nbActualPrivIpam,
+		)
 	}
 }

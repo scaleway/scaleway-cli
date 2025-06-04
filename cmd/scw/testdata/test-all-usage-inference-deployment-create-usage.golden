@@ -8,20 +8,19 @@ USAGE:
 ARGS:
   name=<generated>                                         Name of the deployment
   [project-id]                                             Project ID to use. If none is passed the default project ID will be used
-  model-name                                               Name of the model to use
+  model-id                                                 ID of the model to use
   [accept-eula]                                            Accept the model's End User License Agreement (EULA).
-  node-type                                                Name of the node type to use
+  node-type-name                                           Name of the node type to use
   [tags.{index}]                                           List of tags to apply to the deployment
   [min-size]                                               Defines the minimum size of the pool
   [max-size]                                               Defines the maximum size of the pool
-  [endpoints.{index}.is-public=false]                      Will configure your public endpoint if true
-  [endpoints.{index}.private-network.private-network-id]   ID of the Private Network
+  [endpoints.{index}.private-network.private-network-id]   
   [endpoints.{index}.disable-auth=false]                   Disable the authentication on the endpoint.
+  [quantization.bits]                                      The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value.
   [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help   help for create
-  -w, --wait   wait until the deployment is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

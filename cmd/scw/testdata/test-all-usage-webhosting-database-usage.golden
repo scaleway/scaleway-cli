@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Databases represent the databases you can create and manage within your Web Hosting plan. Supported types are MySQL and PostgreSQL.
+
+USAGE:
+  scw webhosting database <command>
+
+AVAILABLE COMMANDS:
+  create      "Create a new database within your hosting plan"
+  delete      "Delete a database within your hosting plan"
+  get         "Get details of a database within your hosting plan"
+  list        "List all databases within your hosting plan"
+
+FLAGS:
+  -h, --help   help for database
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw webhosting database [command] --help" for more information about a command.

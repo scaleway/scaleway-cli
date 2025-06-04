@@ -11,13 +11,20 @@ ARGS:
   [email]                                     Contact email for the Web Hosting client
   [tags.{index}]                              List of tags for the Web Hosting plan
   [domain]                                    Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand
-  [option-ids.{index}]                        IDs of any selected additional options for the Web Hosting plan
+  [offer-options.{index}.id]                  Offer option ID
+  [offer-options.{index}.quantity]            The option requested quantity to set for the Web Hosting plan
   [language]                                  Default language for the control panel interface (unknown_language_code | en_US | fr_FR | de_DE)
   [domain-configuration.update-nameservers]   
   [domain-configuration.update-web-record]    
   [domain-configuration.update-mail-record]   
   [domain-configuration.update-all-records]   
-  [region=fr-par]                             Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [skip-welcome-email]                        Indicates whether to skip a welcome email to the contact email containing hosting info.
+  [auto-config-domain-dns.nameservers]        Whether or not to synchronize domain nameservers.
+  [auto-config-domain-dns.web-records]        Whether or not to synchronize web records.
+  [auto-config-domain-dns.mail-records]       Whether or not to synchronize mail records.
+  [auto-config-domain-dns.all-records]        Whether or not to synchronize all types of records. Takes priority over the other fields.
+  [auto-config-domain-dns.none]               No automatic domain configuration. Users must configure their domain for the Web Hosting to work.
+  [region=fr-par]                             Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create

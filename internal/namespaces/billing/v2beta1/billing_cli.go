@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
+	billing "github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -32,6 +32,7 @@ func GetGeneratedCommands() *core.Commands {
 		billingDiscountList(),
 	)
 }
+
 func billingRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage and query your Scaleway billing and consumption`,
@@ -83,7 +84,12 @@ func billingConsumptionList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"updated_at_desc", "updated_at_asc", "category_name_desc", "category_name_asc"},
+				EnumValues: []string{
+					"updated_at_desc",
+					"updated_at_asc",
+					"category_name_desc",
+					"category_name_asc",
+				},
 			},
 			core.ProjectIDArgSpec(),
 			{
@@ -112,8 +118,8 @@ func billingConsumptionList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Consumptions, nil
 
+			return resp.Consumptions, nil
 		},
 	}
 }
@@ -134,7 +140,12 @@ func billingConsumptionListTaxes() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"updated_at_desc", "updated_at_asc", "category_name_desc", "category_name_asc"},
+				EnumValues: []string{
+					"updated_at_desc",
+					"updated_at_asc",
+					"category_name_desc",
+					"category_name_asc",
+				},
 			},
 			{
 				Name:       "billing-period",
@@ -155,8 +166,8 @@ func billingConsumptionListTaxes() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Taxes, nil
 
+			return resp.Taxes, nil
 		},
 	}
 }
@@ -191,7 +202,11 @@ func billingInvoiceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "periodic", "purchase"},
+				EnumValues: []string{
+					"unknown_type",
+					"periodic",
+					"purchase",
+				},
 			},
 			{
 				Name:       "order-by",
@@ -199,7 +214,22 @@ func billingInvoiceList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"invoice_number_desc", "invoice_number_asc", "start_date_desc", "start_date_asc", "issued_date_desc", "issued_date_asc", "due_date_desc", "due_date_asc", "total_untaxed_desc", "total_untaxed_asc", "total_taxed_desc", "total_taxed_asc", "invoice_type_desc", "invoice_type_asc"},
+				EnumValues: []string{
+					"invoice_number_desc",
+					"invoice_number_asc",
+					"start_date_desc",
+					"start_date_asc",
+					"issued_date_desc",
+					"issued_date_asc",
+					"due_date_desc",
+					"due_date_asc",
+					"total_untaxed_desc",
+					"total_untaxed_asc",
+					"total_taxed_desc",
+					"total_taxed_asc",
+					"invoice_type_desc",
+					"invoice_type_asc",
+				},
 			},
 			{
 				Name:       "organization-id",
@@ -219,8 +249,8 @@ func billingInvoiceList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Invoices, nil
 
+			return resp.Invoices, nil
 		},
 	}
 }
@@ -255,7 +285,11 @@ func billingInvoiceExport() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "periodic", "purchase"},
+				EnumValues: []string{
+					"unknown_type",
+					"periodic",
+					"purchase",
+				},
 			},
 			{
 				Name:       "page",
@@ -278,7 +312,22 @@ func billingInvoiceExport() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"invoice_number_desc", "invoice_number_asc", "start_date_desc", "start_date_asc", "issued_date_desc", "issued_date_asc", "due_date_desc", "due_date_asc", "total_untaxed_desc", "total_untaxed_asc", "total_taxed_desc", "total_taxed_asc", "invoice_type_desc", "invoice_type_asc"},
+				EnumValues: []string{
+					"invoice_number_desc",
+					"invoice_number_asc",
+					"start_date_desc",
+					"start_date_asc",
+					"issued_date_desc",
+					"issued_date_asc",
+					"due_date_desc",
+					"due_date_asc",
+					"total_untaxed_desc",
+					"total_untaxed_asc",
+					"total_taxed_desc",
+					"total_taxed_asc",
+					"invoice_type_desc",
+					"invoice_type_asc",
+				},
 			},
 			{
 				Name:       "file-type",
@@ -287,7 +336,9 @@ func billingInvoiceExport() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("CSV"),
-				EnumValues: []string{"csv"},
+				EnumValues: []string{
+					"csv",
+				},
 			},
 			{
 				Name:       "organization-id",
@@ -302,8 +353,8 @@ func billingInvoiceExport() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			return api.ExportInvoices(request)
 
+			return api.ExportInvoices(request)
 		},
 	}
 }
@@ -331,8 +382,8 @@ func billingInvoiceGet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			return api.GetInvoice(request)
 
+			return api.GetInvoice(request)
 		},
 	}
 }
@@ -360,7 +411,9 @@ func billingInvoiceDownload() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"pdf"},
+				EnumValues: []string{
+					"pdf",
+				},
 			},
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -368,16 +421,19 @@ func billingInvoiceDownload() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			return api.DownloadInvoice(request)
 
+			return api.DownloadInvoice(request)
 		},
 	}
 }
 
 func billingDiscountList() *core.Command {
 	return &core.Command{
-		Short:     `List discounts`,
-		Long:      `List all discounts for your organization and usable categories, products, offers, references, regions and zones where the discount can be applied.`,
+		Short: `List discounts`,
+		Long: `List all discounts for your Organization and usable categories, products, offers, references, regions and zones where the discount can be applied. As a reseller:
+- If you do not specify an ` + "`" + `organization_id` + "`" + ` you will list the discounts applied to your own Organization and your customers
+- If you indicate your ` + "`" + `organization_id` + "`" + ` you will list only the discounts applied to your Organization
+- If you indicate ` + "`" + `the organization_id` + "`" + ` of one of your customers, you will list the discounts applied to their Organization.`,
 		Namespace: "billing",
 		Resource:  "discount",
 		Verb:      "list",
@@ -390,7 +446,14 @@ func billingDiscountList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"creation_date_desc", "creation_date_asc", "start_date_desc", "start_date_asc", "stop_date_desc", "stop_date_asc"},
+				EnumValues: []string{
+					"creation_date_desc",
+					"creation_date_asc",
+					"start_date_desc",
+					"start_date_asc",
+					"stop_date_desc",
+					"stop_date_asc",
+				},
 			},
 			{
 				Name:       "organization-id",
@@ -410,8 +473,8 @@ func billingDiscountList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Discounts, nil
 
+			return resp.Discounts, nil
 		},
 	}
 }

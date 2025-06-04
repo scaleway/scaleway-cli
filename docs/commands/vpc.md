@@ -17,6 +17,9 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
   - [Update Route](#update-route)
 - [Rule management command](#rule-management-command)
+  - [Edit all ACL rules of a VPC](#edit-all-acl-rules-of-a-vpc)
+  - [Get ACL Rules for VPC](#get-acl-rules-for-vpc)
+  - [Set VPC ACL rules](#set-vpc-acl-rules)
 - [Subnet management command](#subnet-management-command)
 - [VPC management command](#vpc-management-command)
   - [Create a VPC](#create-a-vpc)
@@ -54,6 +57,7 @@ scw vpc private-network create [arg=value ...]
 | tags.{index} |  | Tags for the Private Network |
 | subnets.{index} |  | Private Network subnets CIDR |
 | vpc-id |  | VPC in which to create the Private Network |
+| default-route-propagation-enabled |  | Defines whether default v4 and v6 routes are propagated for this Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -163,6 +167,7 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 | private-network-id | Required | Private Network ID |
 | name |  | Name for the Private Network |
 | tags.{index} |  | Tags for the Private Network |
+| default-route-propagation-enabled |  | Defines whether default v4 and v6 routes are propagated for this Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -276,7 +281,7 @@ scw vpc route list [arg=value ...]
 | vpc-id |  | VPC to filter for. Only routes within this VPC will be returned |
 | nexthop-resource-id |  | Next hop resource ID to filter for. Only routes with a matching next hop resource ID will be returned |
 | nexthop-private-network-id |  | Next hop private network ID to filter for. Only routes with a matching next hop private network ID will be returned |
-| nexthop-resource-type | One of: `unknown_type`, `vpc_gateway_network`, `instance_private_nic`, `baremetal_private_nic` | Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned |
+| nexthop-resource-type | One of: `unknown_type`, `vpc_gateway_network`, `instance_private_nic`, `baremetal_private_nic`, `apple_silicon_private_nic` | Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned |
 | contains |  | Only routes whose destination is contained in this subnet will be returned |
 | tags.{index} |  | Tags to filter for, only routes with one or more matching tags will be returned |
 | is-ipv6 |  | Only routes with an IPv6 destination will be returned |
@@ -311,15 +316,82 @@ scw vpc route update <route-id ...> [arg=value ...]
 
 ## Rule management command
 
-Acl Rules.
+ACL Rules.
 
-Acl Rules.
+
+### Edit all ACL rules of a VPC
+
+This command starts your default editor to edit a marshaled version of your resource
+Default editor will be taken from $VISUAL, then $EDITOR or an editor based on your system
 
 **Usage:**
 
 ```
-scw vpc rule
+scw vpc rule edit [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | ID of the Network ACL's VPC |
+| is-ipv6 |  | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type |
+| default-policy |  | Action to take for packets which do not match any rules |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get ACL Rules for VPC
+
+Retrieve a list of ACL rules for a VPC, specified by its VPC ID.
+
+**Usage:**
+
+```
+scw vpc rule get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | ID of the Network ACL's VPC |
+| is-ipv6 | Required | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Set VPC ACL rules
+
+Set the list of ACL rules and the default routing policy for a VPC.
+
+**Usage:**
+
+```
+scw vpc rule set [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-id | Required | ID of the Network ACL's VPC |
+| rules.{index}.protocol | Required<br />One of: `ANY`, `TCP`, `UDP`, `ICMP` | Protocol to which this rule applies |
+| rules.{index}.source | Required | Source IP range to which this rule applies (CIDR notation with subnet mask) |
+| rules.{index}.src-port-low | Required | Starting port of the source port range to which this rule applies (inclusive) |
+| rules.{index}.src-port-high | Required | Ending port of the source port range to which this rule applies (inclusive) |
+| rules.{index}.destination | Required | Destination IP range to which this rule applies (CIDR notation with subnet mask) |
+| rules.{index}.dst-port-low | Required | Starting port of the destination port range to which this rule applies (inclusive) |
+| rules.{index}.dst-port-high | Required | Ending port of the destination port range to which this rule applies (inclusive) |
+| rules.{index}.action | Required<br />One of: `unknown_action`, `accept`, `drop` | Policy to apply to the packet |
+| rules.{index}.description | Required | Rule description |
+| is-ipv6 | Required | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. |
+| default-policy | Required<br />One of: `unknown_action`, `accept`, `drop` | Action to take for packets which do not match any rules |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -424,7 +496,7 @@ scw vpc vpc list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of the returned VPCs |
 | name |  | Name to filter for. Only VPCs with names containing this string will be returned |
-| tags.{index} |  | Tags to filter for. Only VPCs with one more more matching tags will be returned |
+| tags.{index} |  | Tags to filter for. Only VPCs with one or more matching tags will be returned |
 | project-id |  | Project ID to filter for. Only VPCs belonging to this Project will be returned |
 | is-default |  | Defines whether to filter only for VPCs which are the default one for their Project |
 | routing-enabled |  | Defines whether to filter only for VPCs which route traffic between their Private Networks |

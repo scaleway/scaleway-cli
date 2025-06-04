@@ -6,7 +6,8 @@ USAGE:
   scw audit-trail product list [arg=value ...]
 
 ARGS:
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
   -h, --help   help for list

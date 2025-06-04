@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new user. You must define the `organization_id` and the `email` in your request.
+Create a new user. You must define the `organization_id` in your request. If you are adding a member, enter the member's details. If you are adding a guest, you must define the `email` and not add the member attribute.
 
 USAGE:
   scw iam user create [arg=value ...]
@@ -13,6 +13,10 @@ ARGS:
   [member.send-welcome-email]    Whether or not to send a welcome email that includes onboarding information.
   [member.username]              The member's username
   [member.password]              The member's password
+  [member.first-name]            The member's first name
+  [member.last-name]             The member's last name
+  [member.phone-number]          The member's phone number
+  [member.locale]                The member's locale
   [organization-id]              Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:

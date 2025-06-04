@@ -63,21 +63,23 @@ func containerContainerCreateBuilder(command *core.Command) *core.Command {
 
 	command.ArgsType = reflect.TypeOf(CustomCreateContainerRequest{})
 
-	command.AddInterceptors(func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
-		args := argsI.(*CustomCreateContainerRequest)
-		resI, err := runner(ctx, args.CreateContainerRequest)
-		if err != nil {
-			return resI, err
-		}
+	command.AddInterceptors(
+		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+			args := argsI.(*CustomCreateContainerRequest)
+			resI, err := runner(ctx, args.CreateContainerRequest)
+			if err != nil {
+				return resI, err
+			}
 
-		c := resI.(*container.Container)
-		containerAPI := container.NewAPI(core.ExtractClient(ctx))
+			c := resI.(*container.Container)
+			containerAPI := container.NewAPI(core.ExtractClient(ctx))
 
-		return containerAPI.DeployContainer(&container.DeployContainerRequest{
-			Region:      c.Region,
-			ContainerID: c.ID,
-		}, scw.WithContext(ctx))
-	})
+			return containerAPI.DeployContainer(&container.DeployContainerRequest{
+				Region:      c.Region,
+				ContainerID: c.ID,
+			}, scw.WithContext(ctx))
+		},
+	)
 
 	command.WaitFunc = waitForContainer
 

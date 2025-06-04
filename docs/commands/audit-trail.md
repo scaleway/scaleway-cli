@@ -29,8 +29,8 @@ scw audit-trail event list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | (Optional) ID of the Project containing the Audit Trail events |
-| resource-type | One of: `unknown_type`, `secm_secret`, `secm_secret_version`, `kube_cluster`, `kube_pool`, `kube_node`, `kube_acl`, `keym_key` | (Optional) Returns a paginated list of Scaleway resources' features |
-| method-name |  | (Optional) Name of the method or the API call performed |
+| resource-type | One of: `unknown_type`, `secm_secret`, `secm_secret_version`, `kube_cluster`, `kube_pool`, `kube_node`, `kube_acl`, `keym_key`, `iam_user`, `iam_application`, `iam_group`, `iam_policy`, `iam_api_key`, `iam_ssh_key`, `iam_rule`, `secret_manager_secret`, `secret_manager_version`, `key_manager_key`, `account_user`, `account_organization` | (Optional) Returns a paginated list of Scaleway resources' features |
+| method-name |  | (Optional) Name of the method of the API call performed |
 | status |  | (Optional) HTTP status code of the request. Returns either `200` if the request was successful or `403` if the permission was denied |
 | recorded-after |  | (Optional) The `recorded_after` parameter defines the earliest timestamp from which Audit Trail events are retrieved. Returns `one hour ago` by default |
 | recorded-before |  | (Optional) The `recorded_before` parameter defines the latest timestamp up to which Audit Trail events are retrieved. Returns `now` by default |
@@ -38,6 +38,7 @@ scw audit-trail event list [arg=value ...]
 | page-size |  |  |
 | page-token |  |  |
 | product-name |  | (Optional) Name of the Scaleway resource in a hyphenated format |
+| service-name |  | (Optional) Name of the service of the API call performed |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
@@ -63,6 +64,7 @@ scw audit-trail product list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 

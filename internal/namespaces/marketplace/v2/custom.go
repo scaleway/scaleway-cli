@@ -16,5 +16,7 @@ func GetCommands() *core.Commands {
 	// Update commands with custom implementation of fields
 	updateCommands(marketplaceCommands)
 
+	marketplaceCommands.MustFind("marketplace").Groups = []string{"compute"}
+
 	return marketplaceCommands
 }

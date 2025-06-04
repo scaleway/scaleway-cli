@@ -7,8 +7,15 @@ USAGE:
 
 AVAILABLE COMMANDS:
   control-panel Control Panels
+  database      Database
+  database-user Database User
+  dns-records   Domain information commands
+  domain        Domain information commands
+  ftp-account   FTP Account
   hosting       Hosting management commands
-  offer         Offer management commands
+  mail-account  Mail Account
+  offer         Offer
+  website       Website
 
 FLAGS:
   -h, --help   help for webhosting

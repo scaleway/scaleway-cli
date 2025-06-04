@@ -1,7 +1,6 @@
 package core_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -19,7 +18,7 @@ func Test_ApplyDefaultValues(t *testing.T) {
 	run := func(tc *testCase) func(t *testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
-			result := core.ApplyDefaultValues(context.Background(), tc.argSpecs, tc.rawArgs)
+			result := core.ApplyDefaultValues(t.Context(), tc.argSpecs, tc.rawArgs)
 			assert.Equal(t, tc.expected, result)
 		}
 	}
@@ -49,8 +48,14 @@ func Test_ApplyDefaultValues(t *testing.T) {
 			{Name: "friends.{index}.name", Default: core.DefaultValueSetter("bob")},
 			{Name: "friends.{index}.age", Default: core.DefaultValueSetter("42")},
 		},
-		rawArgs:  args.RawArgs{"name=paul", "friends.0.name=bob", "friends.1.name=alice"},
-		expected: args.RawArgs{"name=paul", "friends.0.name=bob", "friends.1.name=alice", "friends.0.age=42", "friends.1.age=42"},
+		rawArgs: args.RawArgs{"name=paul", "friends.0.name=bob", "friends.1.name=alice"},
+		expected: args.RawArgs{
+			"name=paul",
+			"friends.0.name=bob",
+			"friends.1.name=alice",
+			"friends.0.age=42",
+			"friends.1.age=42",
+		},
 	}))
 
 	t.Run("Map", run(&testCase{
@@ -59,8 +64,14 @@ func Test_ApplyDefaultValues(t *testing.T) {
 			{Name: "friends.{key}.age", Default: core.DefaultValueSetter("42")},
 			{Name: "friends.{key}.weight", Default: core.DefaultValueSetter("80")},
 		},
-		rawArgs:  args.RawArgs{"name=paul", "friends.bob.weight=75", "friends.alice.age=21"},
-		expected: args.RawArgs{"name=paul", "friends.bob.weight=75", "friends.alice.age=21", "friends.bob.age=42", "friends.alice.weight=80"},
+		rawArgs: args.RawArgs{"name=paul", "friends.bob.weight=75", "friends.alice.age=21"},
+		expected: args.RawArgs{
+			"name=paul",
+			"friends.bob.weight=75",
+			"friends.alice.age=21",
+			"friends.bob.age=42",
+			"friends.alice.weight=80",
+		},
 	}))
 
 	t.Run("Map of slice", run(&testCase{

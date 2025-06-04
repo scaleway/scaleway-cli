@@ -41,6 +41,7 @@ func autocompleteRootCommand() *core.Command {
 		Short:     `Autocomplete related commands`,
 		Long:      ``,
 		Namespace: "autocomplete",
+		Groups:    []string{"utility"},
 	}
 }
 
@@ -167,7 +168,9 @@ func autocompleteInstallCommand() *core.Command {
 
 func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
 	// Warning
-	_, _ = interactive.Println("To enable autocomplete, scw needs to update your shell configuration.")
+	_, _ = interactive.Println(
+		"To enable autocomplete, scw needs to update your shell configuration.",
+	)
 
 	// If `shell=` is empty, ask for a value for `shell=`.
 	shellArg := argsI.(*InstallArgs).Shell
@@ -210,7 +213,11 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 		defer f.Close()
 	}
 	if err != nil {
-		return nil, installationNotFound(shellName, shellConfigurationFilePath, script.CompleteScript)
+		return nil, installationNotFound(
+			shellName,
+			shellConfigurationFilePath,
+			script.CompleteScript,
+		)
 	}
 
 	// Early exit if eval line is already present in the shell configuration.
@@ -220,7 +227,9 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	}
 	if strings.Contains(string(shellConfigurationFileContent), script.CompleteScript) {
 		_, _ = interactive.Println()
-		_, _ = interactive.Println("Autocomplete looks already installed. If it does not work properly, try to open a new shell.")
+		_, _ = interactive.Println(
+			"Autocomplete looks already installed. If it does not work properly, try to open a new shell.",
+		)
 
 		return "", nil
 	}
@@ -230,7 +239,9 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 
 	// Warning
 	_, _ = interactive.Println()
-	_, _ = interactive.PrintlnWithoutIndent("To enable autocomplete we need to append to " + shellConfigurationFilePath + " the following lines:")
+	_, _ = interactive.PrintlnWithoutIndent(
+		"To enable autocomplete we need to append to " + shellConfigurationFilePath + " the following lines:",
+	)
 	_, _ = interactive.Println(strings.ReplaceAll(autoCompleteScript, "\n", "\n\t"))
 
 	// Early exit if user disagrees
@@ -255,7 +266,11 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 
 	// Ack
 	return &core.SuccessResult{
-		Message: fmt.Sprintf("Autocomplete has been successfully installed for your %v shell.\nUpdated %v.", shellName, shellConfigurationFilePath),
+		Message: fmt.Sprintf(
+			"Autocomplete has been successfully installed for your %v shell.\nUpdated %v.",
+			shellName,
+			shellConfigurationFilePath,
+		),
 	}, nil
 }
 

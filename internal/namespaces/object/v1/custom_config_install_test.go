@@ -30,7 +30,12 @@ func Test_ConfigInstall(t *testing.T) {
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
-					filePath := path.Join(ctx.OverrideEnv["HOME"], ".config", "rclone", "rclone.conf")
+					filePath := path.Join(
+						ctx.OverrideEnv["HOME"],
+						".config",
+						"rclone",
+						"rclone.conf",
+					)
 					assert.FileExists(t, filePath)
 				},
 				core.TestCheckExitCode(0),

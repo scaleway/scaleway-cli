@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
+	secret "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -41,6 +41,7 @@ func GetGeneratedCommands() *core.Commands {
 		secretVersionDisable(),
 	)
 }
+
 func secretRoot() *core.Command {
 	return &core.Command{
 		Short:     `Secret Manager API`,
@@ -105,7 +106,15 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "opaque", "certificate", "key_value", "basic_credentials", "database_credentials", "ssh_key"},
+				EnumValues: []string{
+					"unknown_type",
+					"opaque",
+					"certificate",
+					"key_value",
+					"basic_credentials",
+					"database_credentials",
+					"ssh_key",
+				},
 			},
 			{
 				Name:       "path",
@@ -134,24 +143,39 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_action", "delete", "disable"},
+				EnumValues: []string{
+					"unknown_action",
+					"delete",
+					"disable",
+				},
 			},
 			{
 				Name:       "protected",
-				Short:      `Returns ` + "`" + `true` + "`" + ` if secret protection is enabled on a given secret`,
+				Short:      `Returns ` + "`" + `true` + "`" + ` if secret protection is applied to a given secret`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			{
+				Name:       "key-id",
+				Short:      `ID of the Scaleway Key Manager key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.CreateSecretRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.CreateSecret(request)
 
+			return api.CreateSecret(request)
 		},
 		Examples: []*core.Example{
 			{
@@ -179,15 +203,19 @@ func secretSecretGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.GetSecretRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.GetSecret(request)
 
+			return api.GetSecret(request)
 		},
 	}
 }
@@ -257,17 +285,25 @@ func secretSecretUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_action", "delete", "disable"},
+				EnumValues: []string{
+					"unknown_action",
+					"delete",
+					"disable",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.UpdateSecretRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.UpdateSecret(request)
 
+			return api.UpdateSecret(request)
 		},
 	}
 }
@@ -289,7 +325,11 @@ func secretSecretDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.DeleteSecretRequest)
@@ -300,6 +340,7 @@ func secretSecretDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "secret",
 				Verb:     "delete",
@@ -336,7 +377,14 @@ func secretSecretList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"name_asc", "name_desc", "created_at_asc", "created_at_desc", "updated_at_asc", "updated_at_desc"},
+				EnumValues: []string{
+					"name_asc",
+					"name_desc",
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+				},
 			},
 			{
 				Name:       "tags.{index}",
@@ -372,7 +420,22 @@ func secretSecretList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "opaque", "certificate", "key_value", "basic_credentials", "database_credentials", "ssh_key"},
+				EnumValues: []string{
+					"unknown_type",
+					"opaque",
+					"certificate",
+					"key_value",
+					"basic_credentials",
+					"database_credentials",
+					"ssh_key",
+				},
+			},
+			{
+				Name:       "scheduled-for-deletion",
+				Short:      `Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "organization-id",
@@ -381,7 +444,12 @@ func secretSecretList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.ListSecretsRequest)
@@ -397,8 +465,8 @@ func secretSecretList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Secrets, nil
 
+			return resp.Secrets, nil
 		},
 	}
 }
@@ -420,15 +488,19 @@ func secretSecretProtect() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.ProtectSecretRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.ProtectSecret(request)
 
+			return api.ProtectSecret(request)
 		},
 		Examples: []*core.Example{
 			{
@@ -456,15 +528,19 @@ func secretSecretUnprotect() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.UnprotectSecretRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.UnprotectSecret(request)
 
+			return api.UnprotectSecret(request)
 		},
 		Examples: []*core.Example{
 			{
@@ -498,9 +574,16 @@ func secretSecretAddOwner() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_product", "edge_services"},
+				EnumValues: []string{
+					"unknown_product",
+					"edge_services",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.AddSecretOwnerRequest)
@@ -511,6 +594,7 @@ func secretSecretAddOwner() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "secret",
 				Verb:     "add-owner",
@@ -564,15 +648,19 @@ func secretVersionCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.CreateSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.CreateSecretVersion(request)
 
+			return api.CreateSecretVersion(request)
 		},
 	}
 }
@@ -601,15 +689,19 @@ func secretVersionGet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.GetSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.GetSecretVersion(request)
 
+			return api.GetSecretVersion(request)
 		},
 	}
 }
@@ -665,17 +757,25 @@ func secretVersionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_action", "delete", "disable"},
+				EnumValues: []string{
+					"unknown_action",
+					"delete",
+					"disable",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.UpdateSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.UpdateSecretVersion(request)
 
+			return api.UpdateSecretVersion(request)
 		},
 	}
 }
@@ -704,7 +804,11 @@ func secretVersionDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.DeleteSecretVersionRequest)
@@ -715,6 +819,7 @@ func secretVersionDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "version",
 				Verb:     "delete",
@@ -752,9 +857,20 @@ func secretVersionList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_status", "enabled", "disabled", "deleted"},
+				EnumValues: []string{
+					"unknown_status",
+					"enabled",
+					"disabled",
+					"deleted",
+					"scheduled_for_deletion",
+				},
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.ListSecretVersionsRequest)
@@ -770,8 +886,8 @@ func secretVersionList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Versions, nil
 
+			return resp.Versions, nil
 		},
 	}
 }
@@ -800,15 +916,19 @@ func secretVersionAccess() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.AccessSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.AccessSecretVersion(request)
 
+			return api.AccessSecretVersion(request)
 		},
 	}
 }
@@ -845,15 +965,19 @@ func secretVersionAccessByPath() *core.Command {
 				Positional: false,
 			},
 			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.AccessSecretVersionByPathRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.AccessSecretVersionByPath(request)
 
+			return api.AccessSecretVersionByPath(request)
 		},
 	}
 }
@@ -882,15 +1006,19 @@ func secretVersionEnable() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.EnableSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.EnableSecretVersion(request)
 
+			return api.EnableSecretVersion(request)
 		},
 	}
 }
@@ -919,15 +1047,19 @@ func secretVersionDisable() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*secret.DisableSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			return api.DisableSecretVersion(request)
 
+			return api.DisableSecretVersion(request)
 		},
 	}
 }

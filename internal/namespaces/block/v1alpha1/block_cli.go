@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -38,6 +38,7 @@ func GetGeneratedCommands() *core.Commands {
 		blockSnapshotUpdate(),
 	)
 }
+
 func blockRoot() *core.Command {
 	return &core.Command{
 		Short:     `This API allows you to manage your Block Storage volumes`,
@@ -83,7 +84,18 @@ func blockVolumeTypeList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(block.ListVolumeTypesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.ListVolumeTypesRequest)
@@ -99,8 +111,8 @@ func blockVolumeTypeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.VolumeTypes, nil
 
+			return resp.VolumeTypes, nil
 		},
 	}
 }
@@ -121,7 +133,12 @@ func blockVolumeList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -158,7 +175,18 @@ func blockVolumeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.ListVolumesRequest)
@@ -174,8 +202,8 @@ func blockVolumeList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Volumes, nil
 
+			return resp.Volumes, nil
 		},
 	}
 }
@@ -235,15 +263,25 @@ To create a volume from an existing snapshot, specify ` + "`" + `from_snapshot` 
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.CreateVolumeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			return api.CreateVolume(request)
 
+			return api.CreateVolume(request)
 		},
 	}
 }
@@ -265,15 +303,25 @@ func blockVolumeGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.GetVolumeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			return api.GetVolume(request)
 
+			return api.GetVolume(request)
 		},
 	}
 }
@@ -295,7 +343,17 @@ func blockVolumeDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.DeleteVolumeRequest)
@@ -306,6 +364,7 @@ func blockVolumeDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "volume",
 				Verb:     "delete",
@@ -360,15 +419,25 @@ You can only resize a volume to a larger size. It is currently not possible to c
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.UpdateVolumeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			return api.UpdateVolume(request)
 
+			return api.UpdateVolume(request)
 		},
 	}
 }
@@ -389,7 +458,12 @@ func blockSnapshotList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"created_at_asc", "created_at_desc", "name_asc", "name_desc"},
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
 			},
 			{
 				Name:       "project-id",
@@ -413,13 +487,31 @@ func blockSnapshotList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "tags.{index}",
+				Short:      `Filter by tags. Only snapshots with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Filter by Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3, scw.Zone(core.AllLocalities)),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.Zone(core.AllLocalities),
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.ListSnapshotsRequest)
@@ -435,8 +527,8 @@ func blockSnapshotList() *core.Command {
 			if err != nil {
 				return nil, err
 			}
-			return resp.Snapshots, nil
 
+			return resp.Snapshots, nil
 		},
 	}
 }
@@ -458,15 +550,25 @@ func blockSnapshotGet() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			return api.GetSnapshot(request)
 
+			return api.GetSnapshot(request)
 		},
 	}
 }
@@ -485,9 +587,9 @@ If your volume is in a transient state, you need to wait until the end of the cu
 			{
 				Name:       "volume-id",
 				Short:      `UUID of the volume to snapshot`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -505,15 +607,25 @@ If your volume is in a transient state, you need to wait until the end of the cu
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			return api.CreateSnapshot(request)
 
+			return api.CreateSnapshot(request)
 		},
 	}
 }
@@ -565,15 +677,25 @@ The bucket can be imported into any Availability Zone as long as it is in the sa
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.ImportSnapshotFromObjectStorageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			return api.ImportSnapshotFromObjectStorage(request)
 
+			return api.ImportSnapshotFromObjectStorage(request)
 		},
 	}
 }
@@ -610,15 +732,25 @@ The snapshot must not be in transient state.`,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.ExportSnapshotToObjectStorageRequest)
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			return api.ExportSnapshotToObjectStorage(request)
 
+			return api.ExportSnapshotToObjectStorage(request)
 		},
 	}
 }
@@ -640,7 +772,17 @@ func blockSnapshotDelete() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.DeleteSnapshotRequest)
@@ -651,6 +793,7 @@ func blockSnapshotDelete() *core.Command {
 			if e != nil {
 				return nil, e
 			}
+
 			return &core.SuccessResult{
 				Resource: "snapshot",
 				Verb:     "delete",
@@ -690,15 +833,25 @@ func blockSnapshotUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3),
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
 			request := args.(*block.UpdateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			return api.UpdateSnapshot(request)
 
+			return api.UpdateSnapshot(request)
 		},
 	}
 }

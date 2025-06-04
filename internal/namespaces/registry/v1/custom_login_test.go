@@ -21,7 +21,11 @@ func Test_Login(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
-			assert.Equal(t, "docker login -u scaleway --password-stdin rg.fr-par.scw.cloud", strings.Join(cmd.Args, " "))
+			assert.Equal(
+				t,
+				"docker login -u scaleway --password-stdin rg.fr-par.scw.cloud",
+				strings.Join(cmd.Args, " "),
+			)
 			stdin, err := io.ReadAll(cmd.Stdin)
 			secret, _ := ctx.Client.GetSecretKey()
 			require.NoError(t, err)
@@ -38,7 +42,11 @@ func Test_Login(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
-			assert.Equal(t, "podman login -u scaleway --password-stdin rg.fr-par.scw.cloud", strings.Join(cmd.Args, " "))
+			assert.Equal(
+				t,
+				"podman login -u scaleway --password-stdin rg.fr-par.scw.cloud",
+				strings.Join(cmd.Args, " "),
+			)
 			stdin, err := io.ReadAll(cmd.Stdin)
 			secret, _ := ctx.Client.GetSecretKey()
 			require.NoError(t, err)

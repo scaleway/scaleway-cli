@@ -6,7 +6,26 @@ import (
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
-var domainTypes = []string{"A", "AAAA", "CNAME", "TXT", "SRV", "TLSA", "MX", "NS", "PTR", "CAA", "ALIAS", "LOC", "SSHFP", "HINFO", "RP", "URI", "DS", "NAPTR"}
+var domainTypes = []string{
+	"A",
+	"AAAA",
+	"CNAME",
+	"TXT",
+	"SRV",
+	"TLSA",
+	"MX",
+	"NS",
+	"PTR",
+	"CAA",
+	"ALIAS",
+	"LOC",
+	"SSHFP",
+	"HINFO",
+	"RP",
+	"URI",
+	"DS",
+	"NAPTR",
+}
 
 const defaultTTL = "3600"
 
@@ -19,6 +38,8 @@ const defaultTTL = "3600"
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("dns").Groups = []string{"Domain & WebHosting"}
+
 	cmds.Merge(core.NewCommands(
 		dnsRecordAddCommand(),
 		dnsRecordSetCommand(),
@@ -27,8 +48,14 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("dns", "zone", "import").ArgSpecs.GetByName("bind-source.content").CanLoadFile = true
 
-	human.RegisterMarshalerFunc(domain.DNSZoneStatus(""), human.EnumMarshalFunc(zoneStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(domain.SSLCertificateStatus(""), human.EnumMarshalFunc(certificateStatusMarshalSpecs))
+	human.RegisterMarshalerFunc(
+		domain.DNSZoneStatus(""),
+		human.EnumMarshalFunc(zoneStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		domain.SSLCertificateStatus(""),
+		human.EnumMarshalFunc(certificateStatusMarshalSpecs),
+	)
 
 	return cmds
 }

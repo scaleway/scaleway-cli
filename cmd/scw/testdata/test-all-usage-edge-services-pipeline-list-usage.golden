@@ -7,10 +7,10 @@ USAGE:
 
 ARGS:
   [order-by]               Sort order of pipelines in the response (created_at_asc | created_at_desc | name_asc | name_desc)
-  [name]                   Pipeline name to filter for, only pipelines with this string within their name will be returned
-  [project-id]             Project ID to filter for, only pipelines from this Project will be returned
-  [has-backend-stage-lb]   Filter on backend stage, only pipelines with a Load Balancer origin will be returned
-  [organization-id]        Organization ID to filter for, only pipelines from this Organization will be returned
+  [name]                   Pipeline name to filter for. Only pipelines with this string within their name will be returned
+  [project-id]             Project ID to filter for. Only pipelines from this Project will be returned
+  [has-backend-stage-lb]   Filter on backend stage. Only pipelines with a Load Balancer origin will be returned
+  [organization-id]        Organization ID to filter for. Only pipelines from this Organization will be returned
 
 FLAGS:
   -h, --help   help for list
