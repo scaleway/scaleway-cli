@@ -10,6 +10,7 @@ ARGS:
   [source.zonal]                Zone the IP lives in if the IP is a public zoned IP.
   [source.private-network-id]   Private Network the IP lives in if the IP is a private IP.
   [source.subnet-id]            Private Network subnet the IP lives in if the IP is a private IP in a Private Network.
+  [source.vpc-id]               
   [is-ipv6]                     Request an IPv6 instead of an IPv4
   [address]                     Request this specific IP address in the specified source pool
   [tags.{index}]                Tags for the IP

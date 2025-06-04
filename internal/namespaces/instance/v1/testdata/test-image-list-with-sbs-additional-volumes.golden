@@ -1,0 +1,62 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    NAME                       STATE      PUBLIC  ZONE      VOLUMES              SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
+54092d38-1e6a-4c1c-85bc-601b0bab6f47  cli-img-optimistic-joliot  available  false   fr-par-1  20 GB, 10 GB, 15 GB  -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "54092d38-1e6a-4c1c-85bc-601b0bab6f47",
+    "name": "cli-img-optimistic-joliot",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {
+      "1": {
+        "id": "908ce9c6-6c9f-4d74-be35-4371dd67f48a",
+        "name": "",
+        "export_uri": null,
+        "size": 10000000000,
+        "volume_type": "sbs_snapshot",
+        "creation_date": null,
+        "modification_date": null,
+        "organization": "",
+        "project": "",
+        "tags": null,
+        "server": null,
+        "state": "available",
+        "zone": ""
+      },
+      "2": {
+        "id": "08af1e24-3935-460d-a252-63bee7693554",
+        "name": "",
+        "export_uri": null,
+        "size": 15000000000,
+        "volume_type": "sbs_snapshot",
+        "creation_date": null,
+        "modification_date": null,
+        "organization": "",
+        "project": "",
+        "tags": null,
+        "server": null,
+        "state": "available",
+        "zone": ""
+      }
+    },
+    "from_server": "",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": false,
+    "root_volume": {
+      "id": "80418a4a-46f8-4e0c-8a1a-870c04552d86",
+      "name": "cli-snp-blissful-clarke",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  }
+]
