@@ -182,6 +182,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
 | pools.{index}.root-volume-size |  | System volume disk size |
 | pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
+| pools.{index}.security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
@@ -987,6 +988,7 @@ scw k8s pool create [arg=value ...]
 | root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
 | root-volume-size |  | System volume disk size |
 | public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
+| security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

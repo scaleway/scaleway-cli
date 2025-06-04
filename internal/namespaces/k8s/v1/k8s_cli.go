@@ -480,6 +480,13 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "pools.{index}.security-group-id",
+				Short:      `Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "autoscaler-config.scale-down-disabled",
 				Short:      `Disable the cluster autoscaler`,
 				Required:   false,
@@ -1796,6 +1803,13 @@ func k8sPoolCreate() *core.Command {
 			{
 				Name:       "public-ip-disabled",
 				Short:      `Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "security-group-id",
+				Short:      `Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
