@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -195,6 +195,13 @@ func appleSiliconServerCreate() *core.Command {
 					"renewed_monthly",
 					"none",
 				},
+			},
+			{
+				Name:       "public-bandwidth-bps",
+				Short:      `Public bandwidth to configure for this server. Expressed in bits per second.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
@@ -426,6 +433,13 @@ func appleSiliconServerUpdate() *core.Command {
 					"renewed_monthly",
 					"none",
 				},
+			},
+			{
+				Name:       "public-bandwidth-bps",
+				Short:      `Public bandwidth configured for this server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
