@@ -196,6 +196,13 @@ func appleSiliconServerCreate() *core.Command {
 					"none",
 				},
 			},
+			{
+				Name:       "public-bandwidth-bps",
+				Short:      `Public bandwidth to configure for this server. Expressed in bits per second.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -426,6 +433,13 @@ func appleSiliconServerUpdate() *core.Command {
 					"renewed_monthly",
 					"none",
 				},
+			},
+			{
+				Name:       "public-bandwidth-bps",
+				Short:      `Public bandwidth configured for this server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
