@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -279,6 +279,7 @@ func containerNamespaceCreate() *core.Command {
 			},
 			{
 				Name:       "activate-vpc-integration",
+				Short:      `Activate VPC integration for the namespace.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -723,6 +724,7 @@ func containerContainerCreate() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
+				Short:      `ID of the Private Network the container is connected to.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -859,6 +861,7 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "protocol",
+				Short:      `Protocol the container uses`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -870,6 +873,7 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "port",
+				Short:      `Port the container listens on`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -965,6 +969,7 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
+				Short:      `ID of the Private Network the container is connected to.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
