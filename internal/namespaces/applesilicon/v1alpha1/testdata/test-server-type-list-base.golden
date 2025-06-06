@@ -26,7 +26,8 @@ M2-L  Apple M2 Pro (10 cores)  16 GB   512 GB  high stock  1 days
       "count": 10
     },
     "network": {
-      "public_bandwidth_bps": 1000000000
+      "public_bandwidth_bps": 1000000000,
+      "supported_bandwidth": null
     },
     "default_os": {
       "id": "e08d1e5d-b4b9-402a-9f9a-97732d17e374",
@@ -65,7 +66,8 @@ M2-L  Apple M2 Pro (10 cores)  16 GB   512 GB  high stock  1 days
       "count": 16
     },
     "network": {
-      "public_bandwidth_bps": 1000000000
+      "public_bandwidth_bps": 1000000000,
+      "supported_bandwidth": null
     },
     "default_os": {
       "id": "e08d1e5d-b4b9-402a-9f9a-97732d17e374",
