@@ -131,6 +131,13 @@ func fileFilesystemList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter by organization ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.Region(core.AllLocalities),
