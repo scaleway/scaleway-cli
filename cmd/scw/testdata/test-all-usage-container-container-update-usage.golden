@@ -17,8 +17,8 @@ ARGS:
   [privacy]                                        Privacy settings of the container (unknown_privacy | public | private)
   [description]                                    Description of the container
   [registry-image]                                 Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
-  [protocol]                                        (unknown_protocol | http1 | h2c)
-  [port]                                           
+  [protocol]                                       Protocol the container uses (unknown_protocol | http1 | h2c)
+  [port]                                           Port the container listens on
   [secret-environment-variables.{index}.key]       
   [secret-environment-variables.{index}.value]     
   [http-option]                                    Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
@@ -31,7 +31,7 @@ ARGS:
   [health-check.failure-threshold]                 Number of consecutive health check failures before considering the container unhealthy.
   [health-check.interval]                          Period between health checks.
   [tags.{index}]                                   Tags of the Serverless Container
-  [private-network-id]                             
+  [private-network-id]                             ID of the Private Network the container is connected to.
   [command.{index}]                                Container command
   [args.{index}]                                   Container arguments
   [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
