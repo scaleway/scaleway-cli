@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	function "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/function/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -320,6 +320,13 @@ func functionNamespaceCreate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags of the Serverless Function Namespace`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "activate-vpc-integration",
+				Short:      `Activate VPC integration for the namespace.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -728,6 +735,13 @@ func functionFunctionCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "private-network-id",
+				Short:      `ID of the Private Network the function is connected to.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -913,6 +927,13 @@ func functionFunctionUpdate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags of the Serverless Function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `ID of the Private Network the function is connected to.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
