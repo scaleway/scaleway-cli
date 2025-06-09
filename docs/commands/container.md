@@ -86,7 +86,7 @@ scw container container create [arg=value ...]
 | health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
 | health-check.interval |  | Period between health checks. |
 | tags.{index} |  | Tags of the Serverless Container |
-| private-network-id |  |  |
+| private-network-id |  | ID of the Private Network the container is connected to. |
 | command.{index} |  | Container command |
 | args.{index} |  | Container arguments |
 | deploy | Default: `true` | Deploy container after creation |
@@ -205,8 +205,8 @@ scw container container update <container-id ...> [arg=value ...]
 | description |  | Description of the container |
 | registry-image |  | Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag"). |
 | ~~max-concurrency~~ | Deprecated | Number of maximum concurrent executions of the container |
-| protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
-| port |  |  |
+| protocol | One of: `unknown_protocol`, `http1`, `h2c` | Protocol the container uses |
+| port |  | Port the container listens on |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | http-option | One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
@@ -219,7 +219,7 @@ scw container container update <container-id ...> [arg=value ...]
 | health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
 | health-check.interval |  | Period between health checks. |
 | tags.{index} |  | Tags of the Serverless Container |
-| private-network-id |  |  |
+| private-network-id |  | ID of the Private Network the container is connected to. |
 | command.{index} |  | Container command |
 | args.{index} |  | Container arguments |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -483,7 +483,7 @@ scw container namespace create [arg=value ...]
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | tags.{index} |  | Tags of the Serverless Container Namespace |
-| activate-vpc-integration |  |  |
+| activate-vpc-integration |  | Activate VPC integration for the namespace. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
