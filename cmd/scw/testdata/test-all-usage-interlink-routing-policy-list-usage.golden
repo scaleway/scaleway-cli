@@ -10,6 +10,7 @@ ARGS:
   [project-id]        Project ID to filter for
   [name]              Routing policy name to filter for
   [tags.{index}]      Tags to filter for
+  [ipv6]              Filter for the routing policies based on IP prefixes version
   [organization-id]   Organization ID to filter for
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
