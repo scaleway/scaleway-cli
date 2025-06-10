@@ -45,5 +45,6 @@ Sandbox         unknown_sandbox
   "created_at": null,
   "updated_at": null,
   "ready_at": null,
-  "tags": null
+  "tags": null,
+  "private_network_id": null
 }
