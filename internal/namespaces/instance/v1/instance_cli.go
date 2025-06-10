@@ -43,6 +43,8 @@ func GetGeneratedCommands() *core.Commands {
 		instanceUserDataSet(),
 		instanceUserDataGet(),
 		instanceServerGetCompatibleTypes(),
+		instanceServerAttachFilesystem(),
+		instanceServerDetachFilesystem(),
 		instanceImageList(),
 		instanceImageGet(),
 		instanceImageCreate(),
@@ -1138,6 +1140,96 @@ If the specified Instance offer is flagged as end of service, the best compatibl
 			api := instance.NewAPI(client)
 
 			return api.GetServerCompatibleTypes(request)
+		},
+	}
+}
+
+func instanceServerAttachFilesystem() *core.Command {
+	return &core.Command{
+		Short:     `Attach a filesystem volume to an Instance`,
+		Long:      `Attach a filesystem volume to an Instance.`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "attach-filesystem",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.AttachServerFileSystemRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "filesystem-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.AttachServerFileSystemRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			return api.AttachServerFileSystem(request)
+		},
+	}
+}
+
+func instanceServerDetachFilesystem() *core.Command {
+	return &core.Command{
+		Short:     `Detach a filesystem volume to an Instance`,
+		Long:      `Detach a filesystem volume to an Instance.`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "detach-filesystem",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.DetachServerFileSystemRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "filesystem-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*instance.DetachServerFileSystemRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			return api.DetachServerFileSystem(request)
 		},
 	}
 }
