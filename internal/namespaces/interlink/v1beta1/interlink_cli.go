@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	interlink "github.com/scaleway/scaleway-sdk-go/api/interlink/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/interlink/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -826,6 +826,13 @@ func interlinkLinkDetachPolicy() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			{
+				Name:       "routing-policy-id",
+				Short:      `ID of the routing policy to be detached`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -956,6 +963,13 @@ func interlinkRoutingPolicyList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "ipv6",
+				Short:      `Filter for the routing policies based on IP prefixes version`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for`,
 				Required:   false,
@@ -1058,6 +1072,13 @@ func interlinkRoutingPolicyCreate() *core.Command {
 			{
 				Name:       "prefix-filter-out.{index}",
 				Short:      `IP prefix filters to advertise to the peer (ranges of routes to advertise)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-ipv6",
+				Short:      `IP prefixes version of the routing policy`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
