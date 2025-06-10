@@ -48,8 +48,8 @@ func gatewayMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	vpcgtw := tmp(i.(vpcgw.Gateway))
 	opt.Sections = []*human.MarshalSection{
 		{
-			FieldName: "IP",
-			Title:     "IP",
+			FieldName: "IPv4",
+			Title:     "IPv4",
 		},
 		{
 			FieldName: "GatewayNetworks",
