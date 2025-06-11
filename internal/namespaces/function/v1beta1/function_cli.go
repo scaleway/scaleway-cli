@@ -324,6 +324,13 @@ func functionNamespaceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "activate-vpc-integration",
+				Short:      `Activate VPC integration for the namespace.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -728,6 +735,13 @@ func functionFunctionCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "private-network-id",
+				Short:      `ID of the Private Network the function is connected to.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -913,6 +927,13 @@ func functionFunctionUpdate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags of the Serverless Function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `ID of the Private Network the function is connected to.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
