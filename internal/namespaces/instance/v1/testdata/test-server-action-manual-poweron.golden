@@ -131,5 +131,6 @@ EndOfService            false
   "zone": "fr-par-1",
   "admin_password_encryption_ssh_key_id": null,
   "admin_password_encrypted_value": null,
+  "filesystems": null,
   "end_of_service": false
 }
