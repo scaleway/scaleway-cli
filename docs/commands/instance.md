@@ -50,12 +50,14 @@ This API allows you to manage your CPU and GPU Instances.
   - [Update security group rule](#update-security-group-rule)
 - [Instance management commands](#instance-management-commands)
   - [Perform a raw API action on a server](#perform-a-raw-api-action-on-a-server)
+  - [Attach a filesystem volume to an Instance](#attach-a-filesystem-volume-to-an-instance)
   - [Attach an IP to a server](#attach-an-ip-to-a-server)
   - [Attach a volume to a server](#attach-a-volume-to-a-server)
   - [Backup server](#backup-server)
   - [Connect to the serial console of an instance](#connect-to-the-serial-console-of-an-instance)
   - [Create server](#create-server)
   - [Delete server](#delete-server)
+  - [Detach a filesystem volume to an Instance](#detach-a-filesystem-volume-to-an-instance)
   - [Detach an IP from a server](#detach-an-ip-from-a-server)
   - [Detach a volume from its server](#detach-a-volume-from-its-server)
   - [Migrate server to IP mobility](#migrate-server-to-ip-mobility)
@@ -1569,6 +1571,27 @@ scw instance server action 11111111-1111-1111-1111-111111111111 action=poweron
 
 
 
+### Attach a filesystem volume to an Instance
+
+Attach a filesystem volume to an Instance.
+
+**Usage:**
+
+```
+scw instance server attach-filesystem [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required |  |
+| filesystem-id |  |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### Attach an IP to a server
 
 
@@ -1817,6 +1840,27 @@ Delete a server in fr-par-1 zone with a given id
 scw instance server delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
 
+
+
+
+### Detach a filesystem volume to an Instance
+
+Detach a filesystem volume to an Instance.
+
+**Usage:**
+
+```
+scw instance server detach-filesystem [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required |  |
+| filesystem-id |  |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 

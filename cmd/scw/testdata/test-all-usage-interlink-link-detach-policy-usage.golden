@@ -6,8 +6,9 @@ USAGE:
   scw interlink link detach_policy <link-id ...> [arg=value ...]
 
 ARGS:
-  link-id           ID of the link to detach a routing policy from
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  link-id             ID of the link to detach a routing policy from
+  routing-policy-id   ID of the routing policy to be detached
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for detach_policy

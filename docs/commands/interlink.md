@@ -153,6 +153,7 @@ scw interlink link detach_policy <link-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | link-id | Required | ID of the link to detach a routing policy from |
+| routing-policy-id | Required | ID of the routing policy to be detached |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -416,6 +417,7 @@ scw interlink routing-policy create [arg=value ...]
 | tags.{index} |  | List of tags to apply to the routing policy |
 | prefix-filter-in.{index} |  | IP prefixes to accept from the peer (ranges of route announcements to accept) |
 | prefix-filter-out.{index} |  | IP prefix filters to advertise to the peer (ranges of routes to advertise) |
+| is-ipv6 |  | IP prefixes version of the routing policy |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -479,6 +481,7 @@ scw interlink routing-policy list [arg=value ...]
 | project-id |  | Project ID to filter for |
 | name |  | Routing policy name to filter for |
 | tags.{index} |  | Tags to filter for |
+| ipv6 |  | Filter for the routing policies based on IP prefixes version |
 | organization-id |  | Organization ID to filter for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
