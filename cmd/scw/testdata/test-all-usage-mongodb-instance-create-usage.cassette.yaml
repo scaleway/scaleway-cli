@@ -7,8 +7,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.33.0.20250516160029-3f13aad4f58a (go1.24.2; darwin;
-        amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.33.0.20250610132304-0ea56270b666 (go1.24.1; darwin;
+        arm64) cli-e2e-test
     url: https://api.scaleway.com/mongodb/v1alpha1/regions/fr-par/versions
     method: GET
   response:
@@ -22,9 +22,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 May 2025 22:36:36 GMT
+      - Wed, 11 Jun 2025 09:26:36 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -32,7 +32,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - aaaacbf5-1f08-4d9c-8a96-c7519a551691
+      - 743f2163-b8bd-4cf3-af66-76456162b326
     status: 200 OK
     code: 200
     duration: ""

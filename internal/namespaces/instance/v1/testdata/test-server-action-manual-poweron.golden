@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                      5c79fa34-9760-4cf7-94a8-ae28003c2353
-Name                    cli-srv-elegant-boyd
-Organization            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project                 ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID                      8990ab38-22e5-4307-bc4a-b0f18eac981f
+Name                    cli-srv-funny-cerf
+Organization            d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Project                 d3520a52-2c75-4ba0-bda8-82dd087f07f2
 AllowedActions.0        poweroff
 AllowedActions.1        terminate
 AllowedActions.2        reboot
@@ -14,8 +14,8 @@ CreationDate            few seconds ago
 DynamicIPRequired       false
 RoutedIPEnabled         true
 EnableIPv6              false
-Hostname                cli-srv-elegant-boyd
-Image.ID                1fb9bfa4-68c3-4d6f-a362-8913a1af27b0
+Hostname                cli-srv-funny-cerf
+Image.ID                63d40353-5519-46d0-9172-ccf4885954e1
 Image.Name              Ubuntu 22.04 Jammy Jellyfish
 Image.Arch              x86_64
 Image.CreationDate      few seconds ago
@@ -24,21 +24,21 @@ Image.ExtraVolumes      0
 Image.FromServer        -
 Image.Organization      51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Public            true
-Image.RootVolume        4eb9437f-8993-444a-b564-f7654add2131
+Image.RootVolume        905845fc-a6eb-4401-8e9d-5810071b7119
 Image.State             available
 Image.Project           51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone              fr-par-1
 Protected               false
-MacAddress              de:00:00:90:7f:49
+MacAddress              de:00:00:b5:34:a1
 ModificationDate        few seconds ago
 State                   running
 Location                fr-par-1
 BootType                local
-Volumes.0.ID            72e38bf8-7612-43ab-b8b3-ae56733ace0e
+Volumes.0.ID            f168fcac-9fab-4ea9-bb78-d59c4259bf19
 Volumes.0.VolumeType    sbs_volume
 Volumes.0.Boot          false
 Volumes.0.Zone          fr-par-1
-SecurityGroup.ID        0fe819c3-274d-472a-b3f5-ddb258d2d8bb
+SecurityGroup.ID        1c1fc99f-b2de-408d-9eb0-da801a3e2744
 SecurityGroup.Name      Default security group
 StateDetail             booting kernel
 Arch                    x86_64
@@ -46,10 +46,10 @@ Zone                    fr-par-1
 EndOfService            false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "5c79fa34-9760-4cf7-94a8-ae28003c2353",
-  "name": "cli-srv-elegant-boyd",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "8990ab38-22e5-4307-bc4a-b0f18eac981f",
+  "name": "cli-srv-funny-cerf",
+  "organization": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "project": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "allowed_actions": [
     "poweroff",
     "terminate",
@@ -63,9 +63,9 @@ EndOfService            false
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-elegant-boyd",
+  "hostname": "cli-srv-funny-cerf",
   "image": {
-    "id": "1fb9bfa4-68c3-4d6f-a362-8913a1af27b0",
+    "id": "63d40353-5519-46d0-9172-ccf4885954e1",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -76,7 +76,7 @@ EndOfService            false
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "4eb9437f-8993-444a-b564-f7654add2131",
+      "id": "905845fc-a6eb-4401-8e9d-5810071b7119",
       "name": "",
       "size": 0,
       "volume_type": "sbs_snapshot"
@@ -90,13 +90,13 @@ EndOfService            false
   "private_ip": null,
   "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:90:7f:49",
+  "mac_address": "de:00:00:b5:34:a1",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "running",
   "location": {
-    "cluster_id": "34",
-    "hypervisor_id": "502",
-    "node_id": "1",
+    "cluster_id": "42",
+    "hypervisor_id": "304",
+    "node_id": "24",
     "platform_id": "14",
     "zone_id": "fr-par-1"
   },
@@ -104,7 +104,7 @@ EndOfService            false
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "72e38bf8-7612-43ab-b8b3-ae56733ace0e",
+      "id": "f168fcac-9fab-4ea9-bb78-d59c4259bf19",
       "name": null,
       "export_uri": null,
       "organization": null,
@@ -120,7 +120,7 @@ EndOfService            false
     }
   },
   "security_group": {
-    "id": "0fe819c3-274d-472a-b3f5-ddb258d2d8bb",
+    "id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744",
     "name": "Default security group"
   },
   "maintenances": [],
@@ -131,6 +131,6 @@ EndOfService            false
   "zone": "fr-par-1",
   "admin_password_encryption_ssh_key_id": null,
   "admin_password_encrypted_value": null,
-  "filesystems": null,
+  "filesystems": [],
   "end_of_service": false
 }

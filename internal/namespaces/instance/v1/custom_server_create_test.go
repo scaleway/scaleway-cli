@@ -6,6 +6,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
@@ -903,6 +904,40 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 		),
 		AfterFunc: core.ExecAfterCmd(
 			"scw instance server delete {{ .CmdResult.ID }} zone=fr-par-2 with-volumes=all with-ip=true force-shutdown=true",
+		),
+		DisableParallel: true,
+	}))
+}
+
+func Test_AttachFilesystem(t *testing.T) {
+	t.Run("attach filesystem", core.Test(&core.TestConfig{
+		Commands: core.NewCommandsMerge(
+			instance.GetCommands(),
+			file.GetCommands(),
+		),
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmd(
+				"FileSystem",
+				"scw file filesystem create name=instance-fs-cli size=100000000000",
+			),
+			core.ExecStoreBeforeCmd(
+				"Server",
+				testServerCommand("stopped=true image=ubuntu-jammy type=POP2-2C-8G"),
+			),
+		),
+		Cmd: "scw instance server attach-filesystem server-id={{ .Server.ID }} filesystem-id={{ .FileSystem.ID }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd(
+				"scw instance server detach-filesystem server-id={{ .Server.ID }} filesystem-id={{ .FileSystem.ID }}",
+			),
+			deleteServer("Server"),
+			core.ExecAfterCmd(
+				"scw file filesystem delete {{ .FileSystem.ID }}",
+			),
 		),
 		DisableParallel: true,
 	}))
