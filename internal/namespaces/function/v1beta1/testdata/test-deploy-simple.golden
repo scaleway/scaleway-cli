@@ -1,33 +1,36 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              4446ab71-78d6-4a19-b210-d7d96d2c4ed1
+ID              79a27f04-2519-49e1-9fe7-e40d77ab0089
 Name            cli-test-function-deploy
-NamespaceID     24360d69-3355-4708-84f8-1f71131cd23b
+NamespaceID     20e20ab3-5c55-443b-b892-d34eab9e0d29
 Status          ready
 MinScale        0
 MaxScale        5
-Runtime         go120
+Runtime         go124
 MemoryLimit     256
 CPULimit        140
 Timeout         5 minutes
 Handler         Handle
 Privacy         public
 Description     -
-DomainName      clitestfunctiondeploeqj6jxof-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
+DomainName      clitestfunctiondeplozfc2btoz-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
 Region          fr-par
 HTTPOption      enabled
 RuntimeMessage  -
-Sandbox         unknown_sandbox
+Sandbox         v2
+CreatedAt       few seconds ago
+UpdatedAt       few seconds ago
+ReadyAt         few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "4446ab71-78d6-4a19-b210-d7d96d2c4ed1",
+  "id": "79a27f04-2519-49e1-9fe7-e40d77ab0089",
   "name": "cli-test-function-deploy",
-  "namespace_id": "24360d69-3355-4708-84f8-1f71131cd23b",
+  "namespace_id": "20e20ab3-5c55-443b-b892-d34eab9e0d29",
   "status": "ready",
   "environment_variables": {},
   "min_scale": 0,
   "max_scale": 5,
-  "runtime": "go120",
+  "runtime": "go124",
   "memory_limit": 256,
   "cpu_limit": 140,
   "timeout": "300.000000000s",
@@ -36,14 +39,14 @@ Sandbox         unknown_sandbox
   "build_message": null,
   "privacy": "public",
   "description": "",
-  "domain_name": "clitestfunctiondeploeqj6jxof-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clitestfunctiondeplozfc2btoz-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
   "secret_environment_variables": [],
   "region": "fr-par",
   "http_option": "enabled",
   "runtime_message": "",
-  "sandbox": "unknown_sandbox",
-  "created_at": null,
-  "updated_at": null,
-  "ready_at": null,
-  "tags": null
+  "sandbox": "v2",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "ready_at": "1970-01-01T00:00:00.0Z",
+  "tags": []
 }
