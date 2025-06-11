@@ -48,5 +48,6 @@ ReadyAt         few seconds ago
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "ready_at": "1970-01-01T00:00:00.0Z",
-  "tags": []
+  "tags": [],
+  "private_network_id": null
 }
