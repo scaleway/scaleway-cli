@@ -26,7 +26,7 @@ func Test_Deploy(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: commands,
 		Cmd: fmt.Sprintf(
-			"scw function deploy name=%s runtime=go120 zip-file=%s",
+			"scw function deploy name=%s runtime=go124 zip-file=%s",
 			functionName,
 			testZip,
 		),

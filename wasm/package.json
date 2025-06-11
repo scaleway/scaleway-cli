@@ -13,7 +13,7 @@
   "author": "Scaleway",
   "devDependencies": {
     "@vitest/browser": "^0.34.4",
-    "prettier": "3.0.3",
+    "prettier": "3.5.3",
     "typescript": "^5.0.4",
     "vitest": "^0.34.4"
   },
