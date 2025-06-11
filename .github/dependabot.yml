@@ -22,3 +22,8 @@ updates:
       directory: "/"
       schedule:
         interval: monthly
+
+    - package-ecosystem: npm
+      directory: "/wasm"
+      schedule:
+        interval: monthly
