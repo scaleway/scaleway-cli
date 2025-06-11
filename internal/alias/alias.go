@@ -12,6 +12,14 @@ type Alias struct {
 	args []string
 }
 
+func (a *Alias) Args() []string {
+	if a.args == nil {
+		a.computeArgs()
+	}
+
+	return a.args
+}
+
 func (a *Alias) computeArgs() {
 	a.args = []string{}
 	for _, cmd := range a.Command {
@@ -20,12 +28,4 @@ func (a *Alias) computeArgs() {
 			a.args = append(a.args, cmd[:argSplitterIndex])
 		}
 	}
-}
-
-func (a *Alias) Args() []string {
-	if a.args == nil {
-		a.computeArgs()
-	}
-
-	return a.args
 }

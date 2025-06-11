@@ -172,17 +172,6 @@ func (a RawArgs) Remove(argName string) RawArgs {
 	})
 }
 
-func (a RawArgs) filter(test func(string) bool) RawArgs {
-	argsCopy := RawArgs{}
-	for _, arg := range a {
-		if test(arg) {
-			argsCopy = append(argsCopy, arg)
-		}
-	}
-
-	return argsCopy
-}
-
 func (a RawArgs) GetSliceOrMapKeys(prefix string) []string {
 	keys := []string(nil)
 	for _, arg := range a {
@@ -196,6 +185,17 @@ func (a RawArgs) GetSliceOrMapKeys(prefix string) []string {
 	}
 
 	return keys
+}
+
+func (a RawArgs) filter(test func(string) bool) RawArgs {
+	argsCopy := RawArgs{}
+	for _, arg := range a {
+		if test(arg) {
+			argsCopy = append(argsCopy, arg)
+		}
+	}
+
+	return argsCopy
 }
 
 func splitArg(arg string) (name string, value string) {

@@ -47,6 +47,21 @@ type PrinterConfig struct {
 	Stderr     io.Writer
 }
 
+type Printer struct {
+	printerType PrinterType
+	stdout      io.Writer
+	stderr      io.Writer
+
+	// Enable pretty print on json output
+	jsonPretty bool
+
+	// go template to use on template output
+	template *template.Template
+
+	// Allow to select specifics column in a table with human printer
+	humanFields []string
+}
+
 // NewPrinter returns an initialized formatter corresponding to a given FormatterType.
 func NewPrinter(config *PrinterConfig) (*Printer, error) {
 	printer := &Printer{
@@ -145,21 +160,6 @@ func setupHumanPrinter(printer *Printer, opts string) {
 func setupWidePrinter(printer *Printer, opts string) {
 	setupHumanPrinter(printer, opts)
 	printer.printerType = PrinterTypeWide
-}
-
-type Printer struct {
-	printerType PrinterType
-	stdout      io.Writer
-	stderr      io.Writer
-
-	// Enable pretty print on json output
-	jsonPretty bool
-
-	// go template to use on template output
-	template *template.Template
-
-	// Allow to select specifics column in a table with human printer
-	humanFields []string
 }
 
 func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
