@@ -1,36 +1,36 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              79a27f04-2519-49e1-9fe7-e40d77ab0089
+ID              bfcaf2b1-a965-4a1b-b801-4e1d6fb265c9
 Name            cli-test-function-deploy
-NamespaceID     20e20ab3-5c55-443b-b892-d34eab9e0d29
+NamespaceID     fa165c5a-8b1e-433b-87e9-d404d2c8a4a0
 Status          ready
 MinScale        0
 MaxScale        5
-Runtime         go124
+Runtime         go120
 MemoryLimit     256
 CPULimit        140
 Timeout         5 minutes
 Handler         Handle
 Privacy         public
 Description     -
-DomainName      clitestfunctiondeplozfc2btoz-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
+DomainName      clitestfunctiondeplorfh8yuyn-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
 Region          fr-par
 HTTPOption      enabled
-RuntimeMessage  -
+RuntimeMessage  Go 1.20 has reached end of support, please upgrade to Go >= 1.22
 Sandbox         v2
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
 ReadyAt         few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "79a27f04-2519-49e1-9fe7-e40d77ab0089",
+  "id": "bfcaf2b1-a965-4a1b-b801-4e1d6fb265c9",
   "name": "cli-test-function-deploy",
-  "namespace_id": "20e20ab3-5c55-443b-b892-d34eab9e0d29",
+  "namespace_id": "fa165c5a-8b1e-433b-87e9-d404d2c8a4a0",
   "status": "ready",
   "environment_variables": {},
   "min_scale": 0,
   "max_scale": 5,
-  "runtime": "go124",
+  "runtime": "go120",
   "memory_limit": 256,
   "cpu_limit": 140,
   "timeout": "300.000000000s",
@@ -39,11 +39,11 @@ ReadyAt         few seconds ago
   "build_message": null,
   "privacy": "public",
   "description": "",
-  "domain_name": "clitestfunctiondeplozfc2btoz-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clitestfunctiondeplorfh8yuyn-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
   "secret_environment_variables": [],
   "region": "fr-par",
   "http_option": "enabled",
-  "runtime_message": "",
+  "runtime_message": "Go 1.20 has reached end of support, please upgrade to Go \u003e= 1.22",
   "sandbox": "v2",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",

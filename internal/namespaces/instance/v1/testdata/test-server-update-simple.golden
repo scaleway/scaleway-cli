@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                      8cc75a90-d79d-42f7-8f8e-e476028ab850
-Name                    cli-srv-quirky-mcclintock
-Organization            fa1e3217-dc80-42ac-85c3-3f034b78b552
-Project                 fa1e3217-dc80-42ac-85c3-3f034b78b552
+ID                      c65b6958-e02f-4557-b85d-7e12a7795657
+Name                    cli-srv-exciting-ritchie
+Organization            d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Project                 d3520a52-2c75-4ba0-bda8-82dd087f07f2
 AllowedActions.0        poweron
 AllowedActions.1        backup
 CommercialType          DEV1-S
@@ -11,7 +11,7 @@ CreationDate            few seconds ago
 DynamicIPRequired       false
 RoutedIPEnabled         true
 EnableIPv6              false
-Hostname                cli-srv-quirky-mcclintock
+Hostname                cli-srv-exciting-ritchie
 Image.ID                63d40353-5519-46d0-9172-ccf4885954e1
 Image.Name              Ubuntu 22.04 Jammy Jellyfish
 Image.Arch              x86_64
@@ -26,15 +26,15 @@ Image.State             available
 Image.Project           51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone              fr-par-1
 Protected               false
-MacAddress              de:00:00:b0:1a:65
+MacAddress              de:00:00:b5:4d:79
 ModificationDate        few seconds ago
 State                   archived
 BootType                local
-Volumes.0.ID            450eaa78-f12e-46cf-a65e-2ef4952cfa12
+Volumes.0.ID            e57090f4-6452-436e-8da3-081268588590
 Volumes.0.VolumeType    sbs_volume
 Volumes.0.Boot          false
 Volumes.0.Zone          fr-par-1
-SecurityGroup.ID        dccbeacb-b588-4c47-8eaf-b05d1469d3cb
+SecurityGroup.ID        1c1fc99f-b2de-408d-9eb0-da801a3e2744
 SecurityGroup.Name      Default security group
 StateDetail             -
 Arch                    x86_64
@@ -42,10 +42,10 @@ Zone                    fr-par-1
 EndOfService            false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "8cc75a90-d79d-42f7-8f8e-e476028ab850",
-  "name": "cli-srv-quirky-mcclintock",
-  "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "id": "c65b6958-e02f-4557-b85d-7e12a7795657",
+  "name": "cli-srv-exciting-ritchie",
+  "organization": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "project": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "allowed_actions": [
     "poweron",
     "backup"
@@ -56,7 +56,7 @@ EndOfService            false
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-quirky-mcclintock",
+  "hostname": "cli-srv-exciting-ritchie",
   "image": {
     "id": "63d40353-5519-46d0-9172-ccf4885954e1",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
@@ -83,7 +83,7 @@ EndOfService            false
   "private_ip": null,
   "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:b0:1a:65",
+  "mac_address": "de:00:00:b5:4d:79",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -91,7 +91,7 @@ EndOfService            false
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "450eaa78-f12e-46cf-a65e-2ef4952cfa12",
+      "id": "e57090f4-6452-436e-8da3-081268588590",
       "name": null,
       "export_uri": null,
       "organization": null,
@@ -107,7 +107,7 @@ EndOfService            false
     }
   },
   "security_group": {
-    "id": "dccbeacb-b588-4c47-8eaf-b05d1469d3cb",
+    "id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744",
     "name": "Default security group"
   },
   "maintenances": [],
