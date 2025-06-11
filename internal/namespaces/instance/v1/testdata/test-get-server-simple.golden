@@ -129,6 +129,7 @@ ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
   "zone": "fr-par-1",
   "admin_password_encryption_ssh_key_id": null,
   "admin_password_encrypted_value": null,
+  "filesystems": [],
   "end_of_service": false,
   "Volumes": [
     {
