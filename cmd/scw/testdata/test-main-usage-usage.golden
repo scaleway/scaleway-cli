@@ -71,6 +71,7 @@ SERVERLESS COMMANDS:
 
 STORAGE COMMANDS:
   block         This API allows you to manage your Block Storage volumes
+  file          This API allows you to manage your File Storage resources
   object        Object-storage utils
   registry      This API allows you to manage your Container Registry resources
 

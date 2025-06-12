@@ -549,6 +549,10 @@ func serverGetBuilder(c *core.Command) *core.Command {
 				Title:       "Warnings",
 				HideIfEmpty: true,
 			},
+			{
+				FieldName: "Filesystems",
+				Title:     "Server Filesystems",
+			},
 		},
 	}
 

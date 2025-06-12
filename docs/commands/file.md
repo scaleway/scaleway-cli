@@ -20,8 +20,7 @@ Attachment management.
 ### List filesystems attachments
 
 List all existing attachments in a specified region.
-By default, the attachments listed are ordered by creation date in ascending order.
-This can be modified using the `order_by` field.
+By default, the attachments listed are ordered by creation date in ascending order. This can be modified using the `order_by` field.
 
 **Usage:**
 
@@ -49,7 +48,7 @@ Filesystem management.
 
 ### Create a new filesystem
 
-To create a new filesystem, you need to provide a name, a size, and a project ID.
+To create a new filesystem, you must specify a name, a size, and a project ID.
 
 **Usage:**
 
@@ -112,8 +111,7 @@ scw file filesystem get <filesystem-id ...> [arg=value ...]
 
 ### List all filesystems
 
-Retrieve all filesystems in the specified region. Results are ordered by creation date in ascending order by default.
-Use the order_by parameter to modify the sorting behavior.
+Retrieve all filesystems in the specified region. By default, the filesystems listed are ordered by creation date in ascending order. This can be modified using the `order_by` field.
 
 **Usage:**
 
@@ -128,8 +126,9 @@ scw file filesystem list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering the list |
 | project-id |  | Filter by project ID |
-| name |  | Filter the return filesystems by their names |
+| name |  | Filter the returned filesystems by their names |
 | tags.{index} |  | Filter by tags. Only filesystems with one or more matching tags will be returned |
+| organization-id |  | Filter by organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -137,7 +136,6 @@ scw file filesystem list [arg=value ...]
 ### Update filesystem properties
 
 Update the technical details of a filesystem, such as its name, tags or its new size.
-You can only resize a filesystem to a larger size.
 
 **Usage:**
 
