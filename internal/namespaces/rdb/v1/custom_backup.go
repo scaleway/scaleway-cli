@@ -101,6 +101,22 @@ func backupWaitCommand() *core.Command {
 
 func backupCreateBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
+	c.ArgSpecs = core.ArgSpecs{
+		{
+			Name:       "instance-id",
+			Short:      `UUID of the Database Instance`,
+			Required:   true,
+			Deprecated: false,
+			Positional: false,
+		},
+		{
+			Name:       "database-name",
+			Short:      `Name of the database you want to back up`,
+			Required:   true,
+			Deprecated: false,
+			Positional: false,
+		},
+	}
 	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 

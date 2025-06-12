@@ -253,7 +253,7 @@ func autoCompleteDatabaseEngines(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	req := request.(rdbCreateInstanceRequestCustom)
+	req := request.(*rdbCreateInstanceRequestCustom)
 	suggestion := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
