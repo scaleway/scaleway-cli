@@ -52,6 +52,9 @@ IPv6:
 
 Private NICs:
 ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
+
+Server Filesystems:
+FILESYSTEM ID  STATE
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "1def9ced-d905-4b74-a7c9-a1eef1c457c3",
