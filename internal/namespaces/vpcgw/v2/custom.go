@@ -33,5 +33,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("vpc-gw", "gateway-network", "create").Override(gatewayNetworkCreateBuilder)
 	cmds.MustFind("vpc-gw", "gateway-network", "delete").Override(gatewayNetworkDeleteBuilder)
 
+	cmds.Merge(core.NewCommands(
+		vpcgwPATRulesEditCommand(),
+	))
+
 	return cmds
 }
