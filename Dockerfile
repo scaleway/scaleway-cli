@@ -1,6 +1,6 @@
 FROM golang:1.24-alpine3.21 AS builder
 
-ENV BUILD_IN_DOCKER true
+ENV BUILD_IN_DOCKER=true
 ARG VERSION
 
 # ca-certificates is needed to add the certificates on the next image
