@@ -16,7 +16,6 @@ import (
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
-	documentdb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/documentdb/v1beta1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
 	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
@@ -103,7 +102,6 @@ func GetCommands() *core.Commands {
 		alias.GetCommands(),
 		webhosting.GetCommands(),
 		billing.GetCommands(),
-		documentdb.GetCommands(),
 		mnq.GetCommands(),
 		block.GetCommands(),
 		ipam.GetCommands(),

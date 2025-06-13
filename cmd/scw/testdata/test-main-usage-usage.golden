@@ -30,7 +30,6 @@ COST COMMANDS:
   billing       This API allows you to manage and query your Scaleway billing and consumption
 
 DATABASE COMMANDS:
-  document-db   This API allows you to manage your Document Databases
   mongodb       This API allows you to manage your Managed Databases for MongoDB®
   rdb           This API allows you to manage your Managed Databases for PostgreSQL and MySQL
   redis         This API allows you to manage your Managed Databases for Redis™
