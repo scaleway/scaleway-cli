@@ -4,6 +4,16 @@ on:
   merge_group:
 
 jobs:
+  actionlint:
+    name: Github Actions lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check workflow files
+        uses: docker://rhysd/actionlint:latest
+        with:
+          args: -color -ignore SC2086
+
   dockerlint:
     name: dockerfile-lint
     runs-on: ubuntu-latest
