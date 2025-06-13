@@ -210,7 +210,6 @@ have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
 snapshot strategies on both volumes.
 
-A snapshot's volume type is its original volume's type (` + "`" + `l_ssd` + "`" + ` or ` + "`" + `b_ssd` + "`" + `).
 Volumes can be created from snapshots of their own type.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
@@ -243,13 +242,9 @@ func instanceVolume() *core.Command {
 appears as a block device on Linux that you can use to create
 a filesystem and mount it.
 
-Two different types of volume (` + "`" + `volume_type` + "`" + `) are available:
-  - ` + "`" + `l_ssd` + "`" + ` is a local block storage: your data is downloaded on
-    the hypervisor and you need to power off your Instance to attach
-    or detach a volume.
-  - ` + "`" + `b_ssd` + "`" + ` is a remote block storage: your data is stored on a
-    centralized cluster. You can plug and unplug a volume while
-    your Instance is running.
+The Instance API only supports local (` + "`" + `l_ssd` + "`" + `) and ` + "`" + `scratch` + "`" + ` volume types.
+Block storage volumes can also be attached to Instances, these volumes are
+managed by the SBS API (https://www.scaleway.com/en/developers/api/block/).
 
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone ` + "`" + `/products/volumes` + "`" + ` API endpoint. _I.e_ for:
@@ -259,10 +254,6 @@ from the zone ` + "`" + `/products/volumes` + "`" + ` API endpoint. _I.e_ for:
 Each type of volume is also subject to a global quota for the sum of all the
 volumes. This quota depends of the level of support and may be
 changed on demand.
-
-Be wary that when terminating an Instance, if you want to keep
-your block storage volume, **you must** detach it before you
-issue the ` + "`" + `terminate` + "`" + ` call.
 
 When using multiple block devices, it's advised to mount them by
 using their UUID instead of their device name. A device name is
@@ -1837,7 +1828,7 @@ func instanceSnapshotCreate() *core.Command {
 			},
 			{
 				Short:    "Import a QCOW file as an Instance snapshot",
-				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","name":"my-imported-snapshot","volume_type":"b_ssd","zone":"fr-par-1"}`,
+				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","name":"my-imported-snapshot","volume_type":"l_ssd","zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -2153,20 +2144,8 @@ func instanceVolumeList() *core.Command {
 				ArgsJSON: `null`,
 			},
 			{
-				Short:    "List all block storage volumes",
-				ArgsJSON: `{"volume_type":"b_ssd"}`,
-			},
-			{
-				Short:    "List all local storage volumes",
-				ArgsJSON: `{"volume_type":"l_ssd"}`,
-			},
-			{
 				Short:    "List all volumes that match a name",
 				ArgsJSON: `{"name":"foobar"}`,
-			},
-			{
-				Short:    "List all block storage volumes that match a name",
-				ArgsJSON: `{"name":"foobar","volume_type":"b_ssd"}`,
 			},
 		},
 		View: &core.View{Fields: []*core.ViewField{
@@ -2348,7 +2327,7 @@ func instanceVolumeGet() *core.Command {
 func instanceVolumeUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a volume`,
-		Long:      `Replace the name and/or size properties of a volume specified by its ID, with the specified value(s). Any volume name can be changed, however only ` + "`" + `b_ssd` + "`" + ` volumes can currently be increased in size.`,
+		Long:      `Replace the name and/or size properties of a volume specified by its ID, with the specified value(s).`,
 		Namespace: "instance",
 		Resource:  "volume",
 		Verb:      "update",

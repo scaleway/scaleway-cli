@@ -9,7 +9,6 @@ have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
 snapshot strategies on both volumes.
 
-A snapshot's volume type is its original volume's type (`l_ssd` or `b_ssd`).
 Volumes can be created from snapshots of their own type.
 
 USAGE:
