@@ -41,6 +41,7 @@ This API allows you to manage your Public Gateways.
 - [PAT rules management](#pat-rules-management)
   - [Create a PAT rule](#create-a-pat-rule)
   - [Delete a PAT rule](#delete-a-pat-rule)
+  - [Edit all PAT rules of a Public Gateway](#edit-all-pat-rules-of-a-public-gateway)
   - [Get a PAT rule](#get-a-pat-rule)
   - [List PAT rules](#list-pat-rules)
   - [Set all PAT rules](#set-all-pat-rules)
@@ -804,6 +805,28 @@ scw vpc-gw pat-rule delete <pat-rule-id ...> [arg=value ...]
 |------|---|-------------|
 | pat-rule-id | Required | ID of the PAT rule to delete |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Edit all PAT rules of a Public Gateway
+
+This command starts your default editor to edit a marshaled version of your resource
+Default editor will be taken from $VISUAL, then $EDITOR or an editor based on your system
+
+**Usage:**
+
+```
+scw vpc-gw pat-rule edit <gateway-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| gateway-id | Required | ID of the PAT rules' Public Gateway |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
+| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
