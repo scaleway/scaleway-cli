@@ -64,20 +64,6 @@ func (c *Config) DeleteAlias(name string) bool {
 	return exists
 }
 
-func (c *Config) fillAliasByFirstWord() {
-	c.aliasesByFirstWord = make(map[string][]Alias, len(c.Aliases))
-	for alias, cmd := range c.Aliases {
-		if len(cmd) == 0 {
-			continue
-		}
-		path := cmd[0]
-		c.aliasesByFirstWord[path] = append(c.aliasesByFirstWord[path], Alias{
-			Name:    alias,
-			Command: cmd,
-		})
-	}
-}
-
 // ResolveAliasesByFirstWord return list of aliases that start with given first word
 // firstWord: instance
 // may return
@@ -90,4 +76,18 @@ func (c *Config) ResolveAliasesByFirstWord(firstWord string) ([]Alias, bool) {
 	alias, ok := c.aliasesByFirstWord[firstWord]
 
 	return alias, ok
+}
+
+func (c *Config) fillAliasByFirstWord() {
+	c.aliasesByFirstWord = make(map[string][]Alias, len(c.Aliases))
+	for alias, cmd := range c.Aliases {
+		if len(cmd) == 0 {
+			continue
+		}
+		path := cmd[0]
+		c.aliasesByFirstWord[path] = append(c.aliasesByFirstWord[path], Alias{
+			Name:    alias,
+			Command: cmd,
+		})
+	}
 }

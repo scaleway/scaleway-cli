@@ -29,13 +29,6 @@ jobs:
         run: |
           docker pull squidfunk/mkdocs-material
           docker run --rm -i -v ${PWD}/docs:/docs squidfunk/mkdocs-material build
-      - name: Download and set up AWS CLI
-        run: |
-          sudo apt update
-          sudo apt install curl unzip -y
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.22.20.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          ./aws/install
 
       - name: Set up AWS credentials
         env:
