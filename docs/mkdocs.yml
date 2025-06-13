@@ -71,7 +71,7 @@ nav:
     - PostgreSQL and MySQL: rdb
     - Redis™: redis
     - MongoDB®: mongodb
-    - SQL Databases: sdb-sql
+    - Serverless SQL: sdb-sql
   - Data & Analytics:
     - NATS: mnq#mnq-nats-commands
   - Domains & Web Hosting:
