@@ -27,7 +27,7 @@ func k8sExecCredentialCommand() *core.Command {
 	}
 }
 
-func k8sExecCredentialRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
+func k8sExecCredentialRun(ctx context.Context, _ any) (i any, e error) {
 	config, _ := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 	profileName := core.ExtractProfileName(ctx)
 

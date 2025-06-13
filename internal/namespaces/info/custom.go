@@ -69,7 +69,7 @@ func infosRoot() *core.Command {
 				Default:  core.DefaultValueSetter("false"),
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			req := argsI.(*infoArgs)
 			config, _ := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 			profileName := core.ExtractProfileName(ctx)

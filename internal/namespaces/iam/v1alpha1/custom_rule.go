@@ -52,7 +52,7 @@ func iamRuleCreateCommand() *core.Command {
 		},
 		Examples: nil,
 		SeeAlsos: nil,
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*iamRuleCreateCommandRequest)
 			api := iam.NewAPI(core.ExtractClient(ctx))
 
@@ -113,7 +113,7 @@ func iamRuleDeleteCommand() *core.Command {
 		},
 		Examples: nil,
 		SeeAlsos: nil,
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*iamRuleDeleteCommandRequest)
 			api := iam.NewAPI(core.ExtractClient(ctx))
 

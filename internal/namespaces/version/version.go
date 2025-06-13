@@ -19,7 +19,7 @@ func versionCommand() *core.Command {
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(struct{}{}),
 		ArgSpecs:             core.ArgSpecs{},
-		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ any) (i any, e error) {
 			return core.ExtractBuildInfo(ctx), nil
 		},
 	}

@@ -28,14 +28,14 @@ var volumeStateMarshalSpecs = human.EnumMarshalSpecs{
 }
 
 // serversMarshalerFunc marshals a VolumeSummary.
-func volumeSummaryMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func volumeSummaryMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	volumeSummary := i.(instance.VolumeSummary)
 
 	return human.Marshal(volumeSummary.ID, opt)
 }
 
 // volumeMapMarshalerFunc returns the length of the map.
-func volumeMapMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func volumeMapMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	volumes := i.(map[string]*instance.Volume)
 
 	return strconv.Itoa(len(volumes)), nil
@@ -56,7 +56,7 @@ func volumeCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customCreateVolumeRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customCreateVolumeRequest)
 
 			if args.CreateVolumeRequest == nil {
@@ -87,7 +87,7 @@ func volumeListBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customListVolumesRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customListVolumesRequest)
 
 			if args.ListVolumesRequest == nil {
@@ -120,7 +120,7 @@ func volumeWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(volumeWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*volumeWaitRequest)
 
 			return instance.NewAPI(core.ExtractClient(ctx)).

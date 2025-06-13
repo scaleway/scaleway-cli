@@ -50,7 +50,7 @@ Once you connected to Scaleway, the profile should be configured.
 				Command: "scw init",
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*loginArgs)
 
 			opts := []webcallback.Options(nil)

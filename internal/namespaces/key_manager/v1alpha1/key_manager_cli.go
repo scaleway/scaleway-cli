@@ -167,7 +167,7 @@ func keymanagerKeyCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.CreateKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -201,7 +201,7 @@ func keymanagerKeyGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.GetKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -270,7 +270,7 @@ func keymanagerKeyUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.UpdateKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -304,7 +304,7 @@ func keymanagerKeyDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.DeleteKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -345,7 +345,7 @@ func keymanagerKeyRotate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.RotateKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -379,7 +379,7 @@ func keymanagerKeyProtect() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.ProtectKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -413,7 +413,7 @@ func keymanagerKeyUnprotect() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.UnprotectKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -447,7 +447,7 @@ func keymanagerKeyEnable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.EnableKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -481,7 +481,7 @@ func keymanagerKeyDisable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.DisableKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -564,7 +564,7 @@ func keymanagerKeyList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.ListKeysRequest)
 
 			client := core.ExtractClient(ctx)
@@ -628,7 +628,7 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.GenerateDataKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -676,7 +676,7 @@ func keymanagerKeyEncrypt() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.EncryptRequest)
 
 			client := core.ExtractClient(ctx)
@@ -724,7 +724,7 @@ func keymanagerKeyDecrypt() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.DecryptRequest)
 
 			client := core.ExtractClient(ctx)
@@ -772,7 +772,7 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.ImportKeyMaterialRequest)
 
 			client := core.ExtractClient(ctx)
@@ -806,7 +806,7 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*key_manager.DeleteKeyMaterialRequest)
 
 			client := core.ExtractClient(ctx)

@@ -64,7 +64,7 @@ func configInstallCommand() *core.Command {
 				Command: "scw object config get",
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*installArgs)
 
 			config, err := newS3Config(ctx, args.Region, args.Name)

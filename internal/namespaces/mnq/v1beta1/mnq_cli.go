@@ -110,7 +110,7 @@ func mnqNatsCreateAccount() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.NatsAPICreateNatsAccountRequest)
 
 			client := core.ExtractClient(ctx)
@@ -143,7 +143,7 @@ func mnqNatsDeleteAccount() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.NatsAPIDeleteNatsAccountRequest)
 
 			client := core.ExtractClient(ctx)
@@ -190,7 +190,7 @@ func mnqNatsUpdateAccount() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.NatsAPIUpdateNatsAccountRequest)
 
 			client := core.ExtractClient(ctx)
@@ -223,7 +223,7 @@ func mnqNatsGetAccount() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.NatsAPIGetNatsAccountRequest)
 
 			client := core.ExtractClient(ctx)
@@ -272,7 +272,7 @@ func mnqNatsListAccounts() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.NatsAPIListNatsAccountsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -322,7 +322,7 @@ func mnqNatsCreateCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.NatsAPICreateNatsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -355,7 +355,7 @@ func mnqNatsDeleteCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.NatsAPIDeleteNatsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -395,7 +395,7 @@ func mnqNatsGetCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.NatsAPIGetNatsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -451,7 +451,7 @@ func mnqNatsListCredentials() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.NatsAPIListNatsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -487,7 +487,7 @@ func mnqSnsActivate() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SnsAPIActivateSnsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -514,7 +514,7 @@ func mnqSnsGetInfo() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SnsAPIGetSnsInfoRequest)
 
 			client := core.ExtractClient(ctx)
@@ -541,7 +541,7 @@ func mnqSnsDeactivate() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SnsAPIDeactivateSnsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -597,7 +597,7 @@ func mnqSnsCreateCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SnsAPICreateSnsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -630,7 +630,7 @@ func mnqSnsDeleteCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SnsAPIDeleteSnsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -698,7 +698,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SnsAPIUpdateSnsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -731,7 +731,7 @@ func mnqSnsGetCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SnsAPIGetSnsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -780,7 +780,7 @@ func mnqSnsListCredentials() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SnsAPIListSnsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -816,7 +816,7 @@ func mnqSqsActivate() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SqsAPIActivateSqsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -843,7 +843,7 @@ func mnqSqsGetInfo() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SqsAPIGetSqsInfoRequest)
 
 			client := core.ExtractClient(ctx)
@@ -870,7 +870,7 @@ func mnqSqsDeactivate() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SqsAPIDeactivateSqsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -926,7 +926,7 @@ func mnqSqsCreateCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SqsAPICreateSqsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -959,7 +959,7 @@ func mnqSqsDeleteCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SqsAPIDeleteSqsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1027,7 +1027,7 @@ func mnqSqsUpdateCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SqsAPIUpdateSqsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1060,7 +1060,7 @@ func mnqSqsGetCredentials() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SqsAPIGetSqsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1109,7 +1109,7 @@ func mnqSqsListCredentials() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mnq.SqsAPIListSqsCredentialsRequest)
 
 			client := core.ExtractClient(ctx)

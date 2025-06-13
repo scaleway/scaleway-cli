@@ -19,7 +19,7 @@ var fakeCommand = &core.Command{
 	Namespace:            "plop",
 	ArgsType:             reflect.TypeOf(args.RawArgs{}),
 	AllowAnonymousClient: true,
-	Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+	Run: func(_ context.Context, _ any) (i any, e error) {
 		return &core.SuccessResult{}, nil
 	},
 }

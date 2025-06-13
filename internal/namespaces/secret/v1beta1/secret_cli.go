@@ -169,7 +169,7 @@ func secretSecretCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.CreateSecretRequest)
 
 			client := core.ExtractClient(ctx)
@@ -209,7 +209,7 @@ func secretSecretGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.GetSecretRequest)
 
 			client := core.ExtractClient(ctx)
@@ -297,7 +297,7 @@ func secretSecretUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.UpdateSecretRequest)
 
 			client := core.ExtractClient(ctx)
@@ -331,7 +331,7 @@ func secretSecretDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.DeleteSecretRequest)
 
 			client := core.ExtractClient(ctx)
@@ -451,7 +451,7 @@ func secretSecretList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.ListSecretsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -494,7 +494,7 @@ func secretSecretProtect() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.ProtectSecretRequest)
 
 			client := core.ExtractClient(ctx)
@@ -534,7 +534,7 @@ func secretSecretUnprotect() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.UnprotectSecretRequest)
 
 			client := core.ExtractClient(ctx)
@@ -585,7 +585,7 @@ func secretSecretAddOwner() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.AddSecretOwnerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -654,7 +654,7 @@ func secretVersionCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.CreateSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -695,7 +695,7 @@ func secretVersionGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.GetSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -769,7 +769,7 @@ func secretVersionUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.UpdateSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -810,7 +810,7 @@ func secretVersionDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.DeleteSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -872,7 +872,7 @@ func secretVersionList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.ListSecretVersionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -922,7 +922,7 @@ func secretVersionAccess() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.AccessSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -971,7 +971,7 @@ func secretVersionAccessByPath() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.AccessSecretVersionByPathRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1012,7 +1012,7 @@ func secretVersionEnable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.EnableSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1053,7 +1053,7 @@ func secretVersionDisable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*secret.DisableSecretVersionRequest)
 
 			client := core.ExtractClient(ctx)

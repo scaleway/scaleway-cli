@@ -155,7 +155,7 @@ func iotHubList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.ListHubsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -277,7 +277,7 @@ func iotHubCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.CreateHubRequest)
 
 			client := core.ExtractClient(ctx)
@@ -307,7 +307,7 @@ func iotHubGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetHubRequest)
 
 			client := core.ExtractClient(ctx)
@@ -384,7 +384,7 @@ func iotHubUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.UpdateHubRequest)
 
 			client := core.ExtractClient(ctx)
@@ -414,7 +414,7 @@ func iotHubEnable() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.EnableHubRequest)
 
 			client := core.ExtractClient(ctx)
@@ -444,7 +444,7 @@ func iotHubDisable() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DisableHubRequest)
 
 			client := core.ExtractClient(ctx)
@@ -481,7 +481,7 @@ func iotHubDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DeleteHubRequest)
 
 			client := core.ExtractClient(ctx)
@@ -532,7 +532,7 @@ func iotHubSetCa() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.SetHubCARequest)
 
 			client := core.ExtractClient(ctx)
@@ -561,7 +561,7 @@ func iotHubGetCa() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetHubCARequest)
 
 			client := core.ExtractClient(ctx)
@@ -642,7 +642,7 @@ func iotDeviceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.ListDevicesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -786,7 +786,7 @@ func iotDeviceCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.CreateDeviceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -816,7 +816,7 @@ func iotDeviceGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetDeviceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -912,7 +912,7 @@ func iotDeviceUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.UpdateDeviceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -942,7 +942,7 @@ func iotDeviceEnable() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.EnableDeviceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -972,7 +972,7 @@ func iotDeviceDisable() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DisableDeviceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1002,7 +1002,7 @@ func iotDeviceRenewCertificate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.RenewDeviceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1039,7 +1039,7 @@ func iotDeviceSetCertificate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.SetDeviceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1069,7 +1069,7 @@ func iotDeviceGetCertificate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetDeviceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1099,7 +1099,7 @@ func iotDeviceDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DeleteDeviceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1143,7 +1143,7 @@ func iotDeviceGetMetrics() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetDeviceMetricsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1200,7 +1200,7 @@ func iotRouteList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.ListRoutesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1385,7 +1385,7 @@ func iotRouteCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.CreateRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1531,7 +1531,7 @@ func iotRouteUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.UpdateRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1561,7 +1561,7 @@ func iotRouteGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1591,7 +1591,7 @@ func iotRouteDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DeleteRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1660,7 +1660,7 @@ func iotNetworkList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.ListNetworksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1749,7 +1749,7 @@ func iotNetworkCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.CreateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1779,7 +1779,7 @@ func iotNetworkGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1809,7 +1809,7 @@ func iotNetworkDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DeleteNetworkRequest)
 
 			client := core.ExtractClient(ctx)

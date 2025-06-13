@@ -28,7 +28,7 @@ var (
 	}
 )
 
-func lbMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func lbMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.LB
 	loadbalancer := tmp(i.(lb.LB))
 
@@ -72,7 +72,7 @@ func lbWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(lb.ZonedAPIWaitForLBRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := lb.NewZonedAPI(core.ExtractClient(ctx))
 			args := argsI.(*lb.ZonedAPIWaitForLBRequest)
 
@@ -105,12 +105,12 @@ func lbWaitCommand() *core.Command {
 func lbCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("type").EnumValues = typesList
 	c.ArgSpecs.GetByName("type").Default = core.DefaultValueSetter("LB-S")
-	c.ArgSpecs.GetByName("type").ValidateFunc = func(_ *core.ArgSpec, _ interface{}) error {
+	c.ArgSpecs.GetByName("type").ValidateFunc = func(_ *core.ArgSpec, _ any) error {
 		// Allow all lb types
 		return nil
 	}
 
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := lb.NewZonedAPI(core.ExtractClient(ctx))
 
 		return api.WaitForLb(&lb.ZonedAPIWaitForLBRequest{
@@ -131,7 +131,7 @@ var typesList = []string{
 
 func lbMigrateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("type").EnumValues = typesList
-	c.ArgSpecs.GetByName("type").ValidateFunc = func(_ *core.ArgSpec, _ interface{}) error {
+	c.ArgSpecs.GetByName("type").ValidateFunc = func(_ *core.ArgSpec, _ any) error {
 		// Allow all lb types
 		return nil
 	}
@@ -166,7 +166,7 @@ func lbUpdateBuilder(c *core.Command) *core.Command {
 		OneOfGroup: "ip",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		request := argsI.(*lbUpdateRequestCustom)
 		client := core.ExtractClient(ctx)
 		lbAPI := lb.NewZonedAPI(client)
@@ -232,7 +232,7 @@ func lbUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func lbDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI interface{}, _ interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI any, _ any) (any, error) {
 		api := lb.NewZonedAPI(core.ExtractClient(ctx))
 		waitForLb, err := api.WaitForLb(&lb.ZonedAPIWaitForLBRequest{
 			LBID:          argsI.(*lb.ZonedAPIDeleteLBRequest).LBID,
@@ -274,7 +274,7 @@ func lbGetStatsBuilder(c *core.Command) *core.Command {
 }
 
 func interceptLB() core.CommandInterceptor {
-	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	return func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		var getLB *lb.LB
 		var err error
 

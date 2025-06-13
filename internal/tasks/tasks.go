@@ -70,7 +70,7 @@ func Add[TaskArg any, TaskReturn any](
 		Name:       name,
 		argType:    argType,
 		returnType: returnType,
-		taskFunction: func(t *Task, i interface{}) (passedData interface{}, err error) {
+		taskFunction: func(t *Task, i any) (passedData any, err error) {
 			if i == nil {
 				var zero TaskArg
 				passedData, err = taskFunc(t, zero)
@@ -131,7 +131,7 @@ func (ts *Tasks) Cleanup(ctx context.Context, logger *Logger, failed int) {
 }
 
 // Execute tasks with interactive display and cleanup on fail
-func (ts *Tasks) Execute(ctx context.Context, data interface{}) (interface{}, error) {
+func (ts *Tasks) Execute(ctx context.Context, data any) (any, error) {
 	cancelableCtx, cleanCtx := setupContext(ctx)
 	defer cleanCtx()
 

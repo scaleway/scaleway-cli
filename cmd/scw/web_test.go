@@ -54,7 +54,7 @@ func Test_WebValidateTemplatesVariables(t *testing.T) {
 		if err != nil {
 			continue
 		}
-		var args interface{}
+		var args any
 		if cmd.ArgsType != nil {
 			args = reflect.New(cmd.ArgsType).Interface()
 		}

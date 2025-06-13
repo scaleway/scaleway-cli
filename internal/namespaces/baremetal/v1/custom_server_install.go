@@ -27,7 +27,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("ssh-key-ids.{index}").OneOfGroup = "ssh"
 	c.ArgSpecs.GetByName("ssh-key-ids.{index}").Short = "SSH key IDs authorized on the server (cannot be used with all-ssh-keys)"
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		tmpRequest := argsI.(*baremetalInstallServerRequestCustom)
 
 		// SSH keys management
@@ -51,7 +51,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 		return runner(ctx, &tmpRequest.InstallServerRequest)
 	}
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{

@@ -49,7 +49,7 @@ type PrivateNetwork struct {
 
 func Test_getValuesForFieldByName(t *testing.T) {
 	type TestCase struct {
-		cmdArgs        interface{}
+		cmdArgs        any
 		fieldName      string
 		expectedError  string
 		expectedValues []reflect.Value

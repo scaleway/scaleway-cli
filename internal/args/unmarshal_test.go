@@ -20,8 +20,8 @@ func TestUnmarshalStruct(t *testing.T) {
 	type TestCase struct {
 		args     []string
 		error    string
-		expected interface{}
-		data     interface{}
+		expected any
+		data     any
 	}
 
 	stringPtr := "test"
@@ -321,7 +321,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		args: []string{
 			"map.key1.key2.basic.string=test",
 		},
-		expected: func() interface{} {
+		expected: func() any {
 			n1 := &Nested{Basic: Basic{String: "test"}}
 			m1 := &map[string]**Nested{"key2": &n1}
 			m2 := map[string]**map[string]**Nested{"key1": &m1}
@@ -537,7 +537,7 @@ func TestUnmarshalStruct(t *testing.T) {
 func TestIsUmarshalableValue(t *testing.T) {
 	type TestCase struct {
 		expected bool
-		data     interface{}
+		data     any
 	}
 
 	run := func(testCase TestCase) func(t *testing.T) {

@@ -62,7 +62,7 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 	}
 	defer f.Close()
 
-	dockerConfig := map[string]interface{}{}
+	dockerConfig := map[string]any{}
 
 	dockerConfigRaw, err := io.ReadAll(f)
 	if err != nil {
@@ -78,9 +78,9 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 		return err
 	}
 
-	credHelpers := map[string]interface{}{}
+	credHelpers := map[string]any{}
 	if ch, ok := dockerConfig[dockerCredHelpersKey]; ok {
-		credHelpers = ch.(map[string]interface{})
+		credHelpers = ch.(map[string]any)
 	}
 
 	for _, reg := range registries {

@@ -59,7 +59,7 @@ var (
 	}
 )
 
-func lbBackendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func lbBackendMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.Backend
 	backend := tmp(i.(lb.Backend))
 
@@ -126,7 +126,7 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 		Short: "Tag of the baremetal server.",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -336,7 +336,7 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 		Short: "Tag of the baremetal server.",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -519,7 +519,7 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 		Short: "Tag of the baremetal server.",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -702,7 +702,7 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 		Short: "Tag of the baremetal server.",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -855,7 +855,7 @@ func backendUpdateHealthcheckBuilder(c *core.Command) *core.Command {
 }
 
 func interceptBackend() core.CommandInterceptor {
-	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	return func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -898,7 +898,7 @@ func interceptBackend() core.CommandInterceptor {
 	}
 }
 
-func getBackendBeforeAction(api *lb.ZonedAPI, argsI interface{}) (*lb.Backend, error) {
+func getBackendBeforeAction(api *lb.ZonedAPI, argsI any) (*lb.Backend, error) {
 	switch args := argsI.(type) {
 	case *lb.ZonedAPIDeleteBackendRequest:
 		return api.GetBackend(&lb.ZonedAPIGetBackendRequest{

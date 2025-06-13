@@ -214,7 +214,7 @@ func edgeServicesPipelineList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.ListPipelinesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -256,7 +256,7 @@ func edgeServicesPipelineCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreatePipelineRequest)
 
 			client := core.ExtractClient(ctx)
@@ -285,7 +285,7 @@ func edgeServicesPipelineGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.GetPipelineRequest)
 
 			client := core.ExtractClient(ctx)
@@ -328,7 +328,7 @@ func edgeServicesPipelineUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.UpdatePipelineRequest)
 
 			client := core.ExtractClient(ctx)
@@ -357,7 +357,7 @@ func edgeServicesPipelineDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.DeletePipelineRequest)
 
 			client := core.ExtractClient(ctx)
@@ -411,7 +411,7 @@ func edgeServicesDNSStageList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.ListDNSStagesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -473,7 +473,7 @@ func edgeServicesDNSStageCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateDNSStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -502,7 +502,7 @@ func edgeServicesDNSStageGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.GetDNSStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -559,7 +559,7 @@ func edgeServicesDNSStageUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.UpdateDNSStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -588,7 +588,7 @@ func edgeServicesDNSStageDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.DeleteDNSStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -649,7 +649,7 @@ func edgeServicesTLSStageList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.ListTLSStagesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -730,7 +730,7 @@ func edgeServicesTLSStageCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateTLSStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -759,7 +759,7 @@ func edgeServicesTLSStageGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.GetTLSStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -835,7 +835,7 @@ func edgeServicesTLSStageUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.UpdateTLSStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -864,7 +864,7 @@ func edgeServicesTLSStageDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.DeleteTLSStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -911,7 +911,7 @@ func edgeServicesCacheStageList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.ListCacheStagesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -972,7 +972,7 @@ func edgeServicesCacheStageCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateCacheStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1001,7 +1001,7 @@ func edgeServicesCacheStageGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.GetCacheStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1056,7 +1056,7 @@ func edgeServicesCacheStageUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.UpdateCacheStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1085,7 +1085,7 @@ func edgeServicesCacheStageDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.DeleteCacheStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1153,7 +1153,7 @@ func edgeServicesBackendStageList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.ListBackendStagesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1243,7 +1243,7 @@ func edgeServicesBackendStageCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateBackendStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1272,7 +1272,7 @@ func edgeServicesBackendStageGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.GetBackendStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1364,7 +1364,7 @@ func edgeServicesBackendStageUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.UpdateBackendStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1393,7 +1393,7 @@ func edgeServicesBackendStageDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.DeleteBackendStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1440,7 +1440,7 @@ func edgeServicesWafStageList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.ListWafStagesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1501,7 +1501,7 @@ func edgeServicesWafStageCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateWafStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1530,7 +1530,7 @@ func edgeServicesWafStageGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.GetWafStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1586,7 +1586,7 @@ func edgeServicesWafStageUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.UpdateWafStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1615,7 +1615,7 @@ func edgeServicesWafStageDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.DeleteWafStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1662,7 +1662,7 @@ func edgeServicesRouteStageList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.ListRouteStagesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1703,7 +1703,7 @@ func edgeServicesRouteStageCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateRouteStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1732,7 +1732,7 @@ func edgeServicesRouteStageGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.GetRouteStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1768,7 +1768,7 @@ func edgeServicesRouteStageUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.UpdateRouteStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1797,7 +1797,7 @@ func edgeServicesRouteStageDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.DeleteRouteStageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1833,7 +1833,7 @@ func edgeServicesRouteRulesList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.ListRouteRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1904,7 +1904,7 @@ func edgeServicesRouteRulesSet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.SetRouteRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1989,7 +1989,7 @@ func edgeServicesRouteRulesAdd() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.AddRouteRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2043,7 +2043,7 @@ func edgeServicesPurgeRequestList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.ListPurgeRequestsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2091,7 +2091,7 @@ func edgeServicesPurgeRequestCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreatePurgeRequestRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2120,7 +2120,7 @@ func edgeServicesPurgeRequestGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.GetPurgeRequestRequest)
 
 			client := core.ExtractClient(ctx)

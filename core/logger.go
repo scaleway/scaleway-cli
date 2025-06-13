@@ -12,49 +12,49 @@ type Logger struct {
 	level  logger.LogLevel
 }
 
-func (l *Logger) Debugf(format string, args ...interface{}) {
+func (l *Logger) Debugf(format string, args ...any) {
 	if l.ShouldLog(logger.LogLevelDebug) {
 		_, _ = fmt.Fprintf(l.writer, format, args...)
 	}
 }
 
-func (l *Logger) Infof(format string, args ...interface{}) {
+func (l *Logger) Infof(format string, args ...any) {
 	if l.ShouldLog(logger.LogLevelInfo) {
 		_, _ = fmt.Fprintf(l.writer, format, args...)
 	}
 }
 
-func (l *Logger) Warningf(format string, args ...interface{}) {
+func (l *Logger) Warningf(format string, args ...any) {
 	if l.ShouldLog(logger.LogLevelWarning) {
 		_, _ = fmt.Fprintf(l.writer, format, args...)
 	}
 }
 
-func (l *Logger) Errorf(format string, args ...interface{}) {
+func (l *Logger) Errorf(format string, args ...any) {
 	if l.ShouldLog(logger.LogLevelError) {
 		_, _ = fmt.Fprintf(l.writer, format, args...)
 	}
 }
 
-func (l *Logger) Debug(args ...interface{}) {
+func (l *Logger) Debug(args ...any) {
 	if l.ShouldLog(logger.LogLevelDebug) {
 		_, _ = fmt.Fprintln(l.writer, args...)
 	}
 }
 
-func (l *Logger) Info(args ...interface{}) {
+func (l *Logger) Info(args ...any) {
 	if l.ShouldLog(logger.LogLevelInfo) {
 		_, _ = fmt.Fprintln(l.writer, args...)
 	}
 }
 
-func (l *Logger) Warning(args ...interface{}) {
+func (l *Logger) Warning(args ...any) {
 	if l.ShouldLog(logger.LogLevelWarning) {
 		_, _ = fmt.Fprintln(l.writer, args...)
 	}
 }
 
-func (l *Logger) Error(args ...interface{}) {
+func (l *Logger) Error(args ...any) {
 	if l.ShouldLog(logger.LogLevelError) {
 		_, _ = fmt.Fprintln(l.writer, args...)
 	}

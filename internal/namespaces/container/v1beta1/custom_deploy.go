@@ -112,7 +112,7 @@ func containerDeployCommand() *core.Command {
 	}
 }
 
-func containerDeployRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func containerDeployRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*containerDeployRequest)
 	buildSource, err := filepath.Abs(args.BuildSource)
 	if err != nil {

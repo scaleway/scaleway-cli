@@ -72,7 +72,7 @@ func poolUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func waitForPoolFunc(action int) core.WaitFunc {
-	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	return func(ctx context.Context, _, respI any) (any, error) {
 		pool, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForPool(&k8s.WaitForPoolRequest{
 			Region:        respI.(*k8s.Pool).Region,
 			PoolID:        respI.(*k8s.Pool).ID,
@@ -112,7 +112,7 @@ func k8sPoolWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(k8s.WaitForPoolRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForPool(&k8s.WaitForPoolRequest{
@@ -176,7 +176,7 @@ Keep in mind that your external node needs to have wget in order to download the
 			},
 			core.RegionArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*k8sPoolAddExternalNodeRequest)
 			sshCommonArgs := []string{
 				args.NodeIP,

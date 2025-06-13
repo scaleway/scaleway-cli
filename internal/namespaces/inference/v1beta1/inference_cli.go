@@ -153,7 +153,7 @@ func inferenceDeploymentList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.ListDeploymentsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -192,7 +192,7 @@ func inferenceDeploymentGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.GetDeploymentRequest)
 
 			client := core.ExtractClient(ctx)
@@ -281,7 +281,7 @@ func inferenceDeploymentCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.CreateDeploymentRequest)
 
 			client := core.ExtractClient(ctx)
@@ -339,7 +339,7 @@ func inferenceDeploymentUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.UpdateDeploymentRequest)
 
 			client := core.ExtractClient(ctx)
@@ -369,7 +369,7 @@ func inferenceDeploymentDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.DeleteDeploymentRequest)
 
 			client := core.ExtractClient(ctx)
@@ -399,7 +399,7 @@ The CA certificate will be returned as a PEM file.`,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.GetDeploymentCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -444,7 +444,7 @@ func inferenceEndpointCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.CreateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -481,7 +481,7 @@ func inferenceEndpointUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.UpdateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -511,7 +511,7 @@ func inferenceEndpointDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -551,7 +551,7 @@ func inferenceACLList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.ListDeploymentACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -604,7 +604,7 @@ func inferenceACLAdd() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.AddDeploymentACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -648,7 +648,7 @@ func inferenceACLSet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.SetDeploymentACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -678,7 +678,7 @@ func inferenceACLDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.DeleteDeploymentACLRuleRequest)
 
 			client := core.ExtractClient(ctx)
@@ -746,7 +746,7 @@ func inferenceModelList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.ListModelsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -785,7 +785,7 @@ func inferenceModelGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.GetModelRequest)
 
 			client := core.ExtractClient(ctx)
@@ -818,7 +818,7 @@ func inferenceNodeTypeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*inference.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)

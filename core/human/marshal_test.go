@@ -31,10 +31,10 @@ type Struct struct {
 }
 
 type StructAny struct {
-	String    interface{}
-	StringPtr interface{}
-	Map       map[string]interface{}
-	MapPtr    map[string]interface{}
+	String    any
+	StringPtr any
+	Map       map[string]any
+	MapPtr    map[string]any
 }
 
 type Address struct {
@@ -71,7 +71,7 @@ func (s Stringer) String() string {
 
 func TestMarshal(t *testing.T) {
 	type testCase struct {
-		data   interface{}
+		data   any
 		opt    *human.MarshalOpt
 		result string
 	}
@@ -370,10 +370,10 @@ func TestMarshal(t *testing.T) {
 		data: &StructAny{
 			String:    testAnyString,
 			StringPtr: &testAnyString,
-			Map: map[string]interface{}{
+			Map: map[string]any{
 				"String": testAnyString,
 			},
-			MapPtr: map[string]interface{}{
+			MapPtr: map[string]any{
 				"String": &testAnyString,
 			},
 		},

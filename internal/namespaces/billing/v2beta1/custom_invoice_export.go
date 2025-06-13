@@ -73,7 +73,7 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 		},
 	}
 	command.Run = billingExportRun
-	command.PreValidateFunc = func(ctx context.Context, argsI interface{}) error {
+	command.PreValidateFunc = func(ctx context.Context, argsI any) error {
 		args := argsI.(*billingExportRequest)
 		askPrompt := false
 
@@ -138,7 +138,7 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 	return command
 }
 
-func billingExportRun(ctx context.Context, argsI interface{}) (interface{}, error) {
+func billingExportRun(ctx context.Context, argsI any) (any, error) {
 	argsExport := argsI.(*billingExportRequest)
 
 	request := &billing.ExportInvoicesRequest{

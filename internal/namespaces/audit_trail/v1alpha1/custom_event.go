@@ -82,7 +82,7 @@ func eventListBuilder(c *core.Command) *core.Command {
 	}
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			originalRes, err := runner(ctx, argsI)
 			if err != nil {
 				return nil, err

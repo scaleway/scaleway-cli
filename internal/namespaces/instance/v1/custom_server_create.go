@@ -68,7 +68,7 @@ func serverCreateCommand() *core.Command {
 				Name:     "type",
 				Short:    "Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/)",
 				Required: true,
-				ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, _ any) error {
 					// Allow all commercial types
 					return nil
 				},
@@ -199,7 +199,7 @@ scw instance server create image=ubuntu_focal ip=$ip`,
 }
 
 func instanceWaitServerCreateRun() core.WaitFunc {
-	return func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	return func(ctx context.Context, argsI, respI any) (any, error) {
 		resp := respI.(*ServerWithWarningsResponse)
 		serverID := resp.Server.ID
 
@@ -218,7 +218,7 @@ func instanceWaitServerCreateRun() core.WaitFunc {
 	}
 }
 
-func instanceServerCreateRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 	var err error
 	args := argsI.(*instanceCreateServerRequest)
 

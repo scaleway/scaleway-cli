@@ -18,7 +18,7 @@ func Test_CorePrinter(t *testing.T) {
 		&core.Command{
 			Namespace: "get",
 			ArgsType:  reflect.TypeOf(struct{}{}),
-			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+			Run: func(_ context.Context, _ any) (any, error) {
 				return Human{
 					ID:   "111111111-111111111",
 					Name: "David Copperfield",
@@ -28,7 +28,7 @@ func Test_CorePrinter(t *testing.T) {
 		&core.Command{
 			Namespace: "list",
 			ArgsType:  reflect.TypeOf(struct{}{}),
-			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+			Run: func(_ context.Context, _ any) (any, error) {
 				return []*Human{
 					{ID: "111111111-111111111", Name: "David Copperfield"},
 					{ID: "222222222-222222222", Name: "Xavier Niel"},
@@ -78,7 +78,7 @@ func Test_YamlPrinter(t *testing.T) {
 		&core.Command{
 			Namespace: "get",
 			ArgsType:  reflect.TypeOf(struct{}{}),
-			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+			Run: func(_ context.Context, _ any) (any, error) {
 				return Human{
 					ID:   "111111111-111111111",
 					Name: "David Copperfield",
@@ -88,7 +88,7 @@ func Test_YamlPrinter(t *testing.T) {
 		&core.Command{
 			Namespace: "list",
 			ArgsType:  reflect.TypeOf(struct{}{}),
-			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+			Run: func(_ context.Context, _ any) (any, error) {
 				return []*Human{
 					{ID: "111111111-111111111", Name: "David Copperfield"},
 					{ID: "222222222-222222222", Name: "Xavier Niel"},
@@ -98,7 +98,7 @@ func Test_YamlPrinter(t *testing.T) {
 		&core.Command{
 			Namespace: "NilSlice",
 			ArgsType:  reflect.TypeOf(struct{}{}),
-			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+			Run: func(_ context.Context, _ any) (any, error) {
 				return []Human{}, nil
 			},
 		},
@@ -151,7 +151,7 @@ func Test_TemplatePrinter(t *testing.T) {
 		&core.Command{
 			Namespace: "get",
 			ArgsType:  reflect.TypeOf(struct{}{}),
-			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+			Run: func(_ context.Context, _ any) (any, error) {
 				return Human{
 					ID:   "111111111-111111111",
 					Name: "David Copperfield",
@@ -161,7 +161,7 @@ func Test_TemplatePrinter(t *testing.T) {
 		&core.Command{
 			Namespace: "list",
 			ArgsType:  reflect.TypeOf(struct{}{}),
-			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+			Run: func(_ context.Context, _ any) (any, error) {
 				return []*Human{
 					{ID: "111111111-111111111", Name: "David Copperfield"},
 					{ID: "222222222-222222222", Name: "Xavier Niel"},
@@ -171,7 +171,7 @@ func Test_TemplatePrinter(t *testing.T) {
 		&core.Command{
 			Namespace: "NilSlice",
 			ArgsType:  reflect.TypeOf(struct{}{}),
-			Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+			Run: func(_ context.Context, _ any) (any, error) {
 				return []Human{}, nil
 			},
 		},

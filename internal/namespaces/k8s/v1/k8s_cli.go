@@ -212,7 +212,7 @@ func k8sClusterList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ListClustersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -683,7 +683,7 @@ func k8sClusterCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.CreateClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -727,7 +727,7 @@ func k8sClusterGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.GetClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -971,7 +971,7 @@ func k8sClusterUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.UpdateClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1022,7 +1022,7 @@ func k8sClusterDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.DeleteClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1080,7 +1080,7 @@ func k8sClusterUpgrade() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.UpgradeClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1131,7 +1131,7 @@ func k8sClusterSetType() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.SetClusterTypeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1171,7 +1171,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ListClusterAvailableVersionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1219,7 +1219,7 @@ func k8sClusterListAvailableTypes() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ListClusterAvailableTypesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1291,7 +1291,7 @@ func k8sClusterResetAdminToken() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ResetClusterAdminTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1339,7 +1339,7 @@ func k8sACLList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ListClusterACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1403,7 +1403,7 @@ func k8sACLAdd() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.AddClusterACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1458,7 +1458,7 @@ func k8sACLSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.SetClusterACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1492,7 +1492,7 @@ func k8sACLDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.DeleteACLRuleRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1577,7 +1577,7 @@ func k8sPoolList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ListPoolsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1820,7 +1820,7 @@ func k8sPoolCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.CreatePoolRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1868,7 +1868,7 @@ func k8sPoolGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.GetPoolRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1916,7 +1916,7 @@ This will drain and replace the nodes in that pool.`,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.UpgradePoolRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2017,7 +2017,7 @@ func k8sPoolUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.UpdatePoolRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2069,7 +2069,7 @@ func k8sPoolDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.DeletePoolRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2164,7 +2164,7 @@ func k8sNodeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ListNodesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2247,7 +2247,7 @@ func k8sNodeGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.GetNodeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2287,7 +2287,7 @@ func k8sNodeReplace() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ReplaceNodeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2327,7 +2327,7 @@ func k8sNodeReboot() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.RebootNodeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2381,7 +2381,7 @@ func k8sNodeDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.DeleteNodeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2422,7 +2422,7 @@ func k8sVersionList() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ListVersionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2482,7 +2482,7 @@ func k8sVersionGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.GetVersionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2516,7 +2516,7 @@ func k8sClusterTypeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*k8s.ListClusterTypesRequest)
 
 			client := core.ExtractClient(ctx)

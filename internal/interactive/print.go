@@ -9,7 +9,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
-func Print(a ...interface{}) (int, error) {
+func Print(a ...any) (int, error) {
 	if IsInteractive {
 		return fmt.Fprint(outputWriter, a...)
 	}
@@ -17,7 +17,7 @@ func Print(a ...interface{}) (int, error) {
 	return 0, nil
 }
 
-func Println(a ...interface{}) (int, error) {
+func Println(a ...any) (int, error) {
 	if IsInteractive {
 		return fmt.Fprintln(outputWriter, a...)
 	}
@@ -33,7 +33,7 @@ func PrintlnWithoutIndent(a string) (int, error) {
 	return 0, nil
 }
 
-func Printf(format string, a ...interface{}) (int, error) {
+func Printf(format string, a ...any) (int, error) {
 	if IsInteractive {
 		return fmt.Fprintf(outputWriter, format, a...)
 	}

@@ -5,7 +5,7 @@ import (
 	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
 )
 
-func ListNodeTypeMarshaler(i interface{}, opt *human.MarshalOpt) (string, error) {
+func ListNodeTypeMarshaler(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp []*inference.NodeType
 	node := tmp(i.([]*inference.NodeType))
 

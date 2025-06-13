@@ -32,7 +32,7 @@ type customImage struct {
 }
 
 func imageGetBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		getImageResp, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -94,7 +94,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 		},
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		listImageResp, err := runner(ctx, argsI)
 		if err != nil {
 			return listImageResp, err

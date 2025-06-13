@@ -63,7 +63,7 @@ func bucketCreateCommand() *core.Command {
 			},
 			core.RegionArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
 			client := newS3Client(ctx, args.Region)
 
@@ -131,7 +131,7 @@ func bucketDeleteCommand() *core.Command {
 			},
 			core.RegionArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketDeleteArgs)
 			client := newS3Client(ctx, args.Region)
 
@@ -175,7 +175,7 @@ func bucketGetCommand() *core.Command {
 			},
 			core.RegionArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketGetArgs)
 			client := newS3Client(ctx, args.Region)
 
@@ -223,7 +223,7 @@ func bucketListCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketListArgs)
 			client := newS3Client(ctx, args.Region)
 
@@ -276,7 +276,7 @@ func bucketUpdateCommand() *core.Command {
 			},
 			core.RegionArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
 			client := newS3Client(ctx, args.Region)
 

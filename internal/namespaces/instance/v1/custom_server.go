@@ -47,7 +47,7 @@ var (
 )
 
 // serverLocationMarshalerFunc marshals a instance.ServerLocation.
-func serverLocationMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func serverLocationMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	location := i.(instance.ServerLocation)
 	zone, err := scw.ParseZone(location.ZoneID)
 	if err != nil {
@@ -58,7 +58,7 @@ func serverLocationMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, er
 }
 
 // serversMarshalerFunc marshals a Server.
-func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	// humanServerInList is the custom Server type used for list view.
 	type humanServerInList struct {
 		ID                string
@@ -158,7 +158,7 @@ type ServerWithWarningsResponse struct {
 }
 
 // serversMarshalerFunc marshals a BootscriptID.
-func bootscriptMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func bootscriptMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	bootscript := i.(instance.Bootscript)
 
 	return bootscript.Title, nil
@@ -181,7 +181,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customListServersRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customListServersRequest)
 
 			if args.ListServersRequest == nil {
@@ -240,7 +240,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		CanLoadFile: true,
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
 
 		updateServerRequest := customRequest.UpdateServerRequest
@@ -411,7 +411,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		return suggestion
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		rawResp, err := runner(ctx, argsI)
 		if err != nil {
 			return rawResp, err
@@ -583,7 +583,7 @@ func serverAttachVolumeCommand() *core.Command {
 			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			request := argsI.(*instance.AttachVolumeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -615,7 +615,7 @@ func serverDetachVolumeCommand() *core.Command {
 			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			request := argsI.(*instance.DetachVolumeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -662,7 +662,7 @@ func serverAttachIPCommand() *core.Command {
 			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			args := argsI.(*customIPAttachRequest)
 
@@ -737,7 +737,7 @@ func serverDetachIPCommand() *core.Command {
 			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*customIPDetachRequest)
 
 			client := core.ExtractClient(ctx)
@@ -795,7 +795,7 @@ func serverWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*serverWaitRequest)
 
 			return instance.NewAPI(core.ExtractClient(ctx)).

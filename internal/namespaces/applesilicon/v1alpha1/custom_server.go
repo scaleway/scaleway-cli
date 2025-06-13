@@ -69,7 +69,7 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 }
 
 func waitForServerFunc(action int) core.WaitFunc {
-	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	return func(ctx context.Context, _, respI any) (any, error) {
 		server, err := applesilicon.NewAPI(core.ExtractClient(ctx)).
 			WaitForServer(&applesilicon.WaitForServerRequest{
 				Zone:          respI.(*applesilicon.Server).Zone,
@@ -116,7 +116,7 @@ func serverWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(customServerWaitArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*customServerWaitArgs)
 
 			api := applesilicon.NewAPI(core.ExtractClient(ctx))

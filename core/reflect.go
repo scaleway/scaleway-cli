@@ -13,7 +13,7 @@ import (
 // newObjectWithForcedJSONTags returns a new object of the given Type with enforced JSON tag on every field.
 // E.g.:   struct{FieldName string `json:"-"`}
 // becomes struct{FieldName string `json:"field_name"`}
-func newObjectWithForcedJSONTags(t reflect.Type) interface{} {
+func newObjectWithForcedJSONTags(t reflect.Type) any {
 	structFieldsCopy := []reflect.StructField(nil)
 	for i := range t.NumField() {
 		fieldCopy := t.Field(i)

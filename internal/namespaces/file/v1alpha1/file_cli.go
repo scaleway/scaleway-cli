@@ -76,7 +76,7 @@ func fileFilesystemGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*file.GetFileSystemRequest)
 
 			client := core.ExtractClient(ctx)
@@ -143,7 +143,7 @@ func fileFilesystemList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*file.ListFileSystemsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -211,7 +211,7 @@ By default, the attachments listed are ordered by creation date in ascending ord
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*file.ListAttachmentsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -265,7 +265,7 @@ func fileFilesystemCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*file.CreateFileSystemRequest)
 
 			client := core.ExtractClient(ctx)
@@ -295,7 +295,7 @@ func fileFilesystemDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*file.DeleteFileSystemRequest)
 
 			client := core.ExtractClient(ctx)
@@ -353,7 +353,7 @@ func fileFilesystemUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*file.UpdateFileSystemRequest)
 
 			client := core.ExtractClient(ctx)

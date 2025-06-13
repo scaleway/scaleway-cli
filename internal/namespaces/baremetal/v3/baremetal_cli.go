@@ -92,7 +92,7 @@ func baremetalPrivateNetworkAdd() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.PrivateNetworkAPIAddServerPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -136,7 +136,7 @@ func baremetalPrivateNetworkSet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.PrivateNetworkAPISetServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -215,7 +215,7 @@ func baremetalPrivateNetworkList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -268,7 +268,7 @@ func baremetalPrivateNetworkDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.PrivateNetworkAPIDeleteServerPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)

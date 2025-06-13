@@ -21,7 +21,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-func privateNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func privateNetworkMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp vpc.PrivateNetwork
 	pn := tmp(i.(vpc.PrivateNetwork))
 
@@ -43,7 +43,7 @@ func privateNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 }
 
 func privateNetworkGetBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		getPNResp, err := runner(ctx, argsI)
 		if err != nil {
 			return getPNResp, err

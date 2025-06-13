@@ -21,7 +21,7 @@ func TestCheckAPIKey(t *testing.T) {
 			Namespace: "test",
 			ArgSpecs:  core.ArgSpecs{},
 			ArgsType:  reflect.TypeOf(testType{}),
-			Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
+			Run: func(ctx context.Context, _ any) (i any, e error) {
 				// Test command reload the client so the profile used is the edited one
 				return "", core.ReloadClient(ctx)
 			},

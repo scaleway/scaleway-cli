@@ -15,10 +15,10 @@ import (
 
 // CommandValidateFunc validates en entire command.
 // Used in core.cobraRun().
-type CommandValidateFunc func(ctx context.Context, cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error
+type CommandValidateFunc func(ctx context.Context, cmd *Command, cmdArgs any, rawArgs args.RawArgs) error
 
 // ArgSpecValidateFunc validates one argument of a command.
-type ArgSpecValidateFunc func(argSpec *ArgSpec, value interface{}) error
+type ArgSpecValidateFunc func(argSpec *ArgSpec, value any) error
 
 type OneOfGroupManager struct {
 	Groups         map[string][]string
@@ -27,7 +27,7 @@ type OneOfGroupManager struct {
 
 // DefaultCommandValidateFunc is the default validation function for commands.
 func DefaultCommandValidateFunc() CommandValidateFunc {
-	return func(ctx context.Context, cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
+	return func(ctx context.Context, cmd *Command, cmdArgs any, rawArgs args.RawArgs) error {
 		err := validateArgValues(cmd, cmdArgs)
 		if err != nil {
 			return err
@@ -48,7 +48,7 @@ func DefaultCommandValidateFunc() CommandValidateFunc {
 }
 
 // validateArgValues validates values passed to the different args of a Command.
-func validateArgValues(cmd *Command, cmdArgs interface{}) error {
+func validateArgValues(cmd *Command, cmdArgs any) error {
 	for _, argSpec := range cmd.ArgSpecs {
 		fieldName := strcase.ToPublicGoName(argSpec.Name)
 		fieldValues, err := GetValuesForFieldByName(
@@ -84,7 +84,7 @@ func validateArgValues(cmd *Command, cmdArgs interface{}) error {
 // Returns an error for the first missing required arg.
 // Returns nil otherwise.
 // TODO refactor this method which uses a mix of reflect and string arrays
-func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArgs) error {
+func validateRequiredArgs(cmd *Command, cmdArgs any, rawArgs args.RawArgs) error {
 	for _, arg := range cmd.ArgSpecs {
 		if !arg.Required || arg.OneOfGroup != "" {
 			continue
@@ -129,7 +129,7 @@ func validateRequiredArgs(cmd *Command, cmdArgs interface{}, rawArgs args.RawArg
 	return nil
 }
 
-func validateOneOfRequiredArgs(cmd *Command, rawArgs args.RawArgs, cmdArgs interface{}) error {
+func validateOneOfRequiredArgs(cmd *Command, rawArgs args.RawArgs, cmdArgs any) error {
 	oneOfManager := NewOneOfGroupManager(cmd)
 	if err := oneOfManager.ValidateUniqueOneOfGroups(rawArgs, cmdArgs); err != nil {
 		return err
@@ -160,7 +160,7 @@ func ValidateNoConflict(cmd *Command, rawArgs args.RawArgs) error {
 func validateDeprecated(
 	ctx context.Context,
 	cmd *Command,
-	cmdArgs interface{},
+	cmdArgs any,
 	rawArgs args.RawArgs,
 ) {
 	deprecatedArgs := cmd.ArgSpecs.GetDeprecated(true)
@@ -199,7 +199,7 @@ func validateDeprecated(
 // DefaultArgSpecValidateFunc validates a value passed for an ArgSpec
 // Uses ArgSpec.EnumValues
 func DefaultArgSpecValidateFunc() ArgSpecValidateFunc {
-	return func(argSpec *ArgSpec, value interface{}) error {
+	return func(argSpec *ArgSpec, value any) error {
 		if len(argSpec.EnumValues) < 1 {
 			return nil
 		}
@@ -236,7 +236,7 @@ func stringExists(strs []string, s string) bool {
 
 // ValidateSecretKey validates a secret key ID.
 func ValidateSecretKey() ArgSpecValidateFunc {
-	return func(argSpec *ArgSpec, valueI interface{}) error {
+	return func(argSpec *ArgSpec, valueI any) error {
 		value := valueI.(string)
 		if value == "" && !argSpec.Required {
 			return nil
@@ -255,7 +255,7 @@ func ValidateSecretKey() ArgSpecValidateFunc {
 
 // ValidateAccessKey validates an access key ID.
 func ValidateAccessKey() ArgSpecValidateFunc {
-	return func(argSpec *ArgSpec, valueI interface{}) error {
+	return func(argSpec *ArgSpec, valueI any) error {
 		value := valueI.(string)
 		if value == "" && !argSpec.Required {
 			return nil
@@ -276,7 +276,7 @@ func ValidateAccessKey() ArgSpecValidateFunc {
 // By default, for most command, the organization ID is not required.
 // In that case, we allow the empty-string value "".
 func ValidateOrganizationID() ArgSpecValidateFunc {
-	return func(argSpec *ArgSpec, valueI interface{}) error {
+	return func(argSpec *ArgSpec, valueI any) error {
 		value, isStr := valueI.(string)
 		valuePtr, isPtr := valueI.(*string)
 		if !isStr && isPtr && valuePtr != nil {
@@ -298,7 +298,7 @@ func ValidateOrganizationID() ArgSpecValidateFunc {
 // By default, for most command, the project ID is not required.
 // In that case, we allow the empty-string value "".
 func ValidateProjectID() ArgSpecValidateFunc {
-	return func(argSpec *ArgSpec, valueI interface{}) error {
+	return func(argSpec *ArgSpec, valueI any) error {
 		value, isStr := valueI.(string)
 		valuePtr, isPtr := valueI.(*string)
 		if !isStr && isPtr && valuePtr != nil {
@@ -336,7 +336,7 @@ func NewOneOfGroupManager(cmd *Command) *OneOfGroupManager {
 
 func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(
 	rawArgs args.RawArgs,
-	cmdArgs interface{},
+	cmdArgs any,
 ) error {
 	for groupName, groupArgs := range m.Groups {
 		existingArg := ""
@@ -381,7 +381,7 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(
 
 func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(
 	rawArgs args.RawArgs,
-	cmdArgs interface{},
+	cmdArgs any,
 ) error {
 	for group, required := range m.RequiredGroups {
 		if required {

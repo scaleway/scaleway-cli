@@ -12,7 +12,7 @@ import (
 
 func definitionStartBuilder(c *core.Command) *core.Command {
 	c.WaitUsage = "Wait until the job reach a stable state, use job definition timeout"
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		api := jobs.NewAPI(core.ExtractClient(ctx))
 		args := argsI.(*jobs.StartJobDefinitionRequest)
 		resp := respI.(*jobs.StartJobDefinitionResponse)

@@ -122,7 +122,7 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 
 func setupTemplatePrinter(printer *Printer, opts string) error {
 	funcMap := template.FuncMap{
-		"json": func(v interface{}) string {
+		"json": func(v any) string {
 			b, err := json.Marshal(v)
 			if err != nil {
 				return fmt.Sprintf("Error: %s", err)
@@ -162,7 +162,7 @@ func setupWidePrinter(printer *Printer, opts string) {
 	printer.printerType = PrinterTypeWide
 }
 
-func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
+func (p *Printer) Print(data any, opt *human.MarshalOpt) error {
 	// No matter the printer type if data is a RawResult we should print it as is.
 	if rawResult, isRawResult := data.(RawResult); isRawResult {
 		_, err := p.stdout.Write(rawResult)
@@ -196,7 +196,7 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 	return nil
 }
 
-func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
+func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
 	_, isError := data.(error)
 
 	if !isError {
@@ -250,7 +250,7 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 	return err
 }
 
-func (p *Printer) printWide(data interface{}, opt *human.MarshalOpt) error {
+func (p *Printer) printWide(data any, opt *human.MarshalOpt) error {
 	if opt != nil {
 		opt.DisableShrinking = true
 	} else {
@@ -262,7 +262,7 @@ func (p *Printer) printWide(data interface{}, opt *human.MarshalOpt) error {
 	return p.printHuman(data, opt)
 }
 
-func (p *Printer) printJSON(data interface{}) error {
+func (p *Printer) printJSON(data any) error {
 	_, implementMarshaler := data.(json.Marshaler)
 	err, isError := data.(error)
 
@@ -291,7 +291,7 @@ func (p *Printer) printJSON(data interface{}) error {
 	return encoder.Encode(data)
 }
 
-func (p *Printer) printYAML(data interface{}) error {
+func (p *Printer) printYAML(data any) error {
 	_, implementMarshaler := data.(yaml.Marshaler)
 	err, isError := data.(error)
 
@@ -310,7 +310,7 @@ func (p *Printer) printYAML(data interface{}) error {
 	return encoder.Encode(data)
 }
 
-func (p *Printer) printTemplate(data interface{}) error {
+func (p *Printer) printTemplate(data any) error {
 	writer := p.stdout
 	if _, isError := data.(error); isError {
 		return p.printHuman(data, nil)

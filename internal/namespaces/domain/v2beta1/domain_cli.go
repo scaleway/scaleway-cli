@@ -195,7 +195,7 @@ func dnsZoneList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.ListDNSZonesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -269,7 +269,7 @@ func dnsZoneCreate() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.CreateDNSZoneRequest)
 
 			client := core.ExtractClient(ctx)
@@ -306,7 +306,7 @@ func dnsZoneUpdate() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.UpdateDNSZoneRequest)
 
 			client := core.ExtractClient(ctx)
@@ -356,7 +356,7 @@ func dnsZoneClone() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.CloneDNSZoneRequest)
 
 			client := core.ExtractClient(ctx)
@@ -386,7 +386,7 @@ func dnsZoneDelete() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.DeleteDNSZoneRequest)
 
 			client := core.ExtractClient(ctx)
@@ -479,7 +479,7 @@ You can filter records by type and name.`,
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.ListDNSZoneRecordsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -971,7 +971,7 @@ All edits will be versioned.`,
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.UpdateDNSZoneRecordsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1007,7 +1007,7 @@ func dnsRecordListNameservers() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.ListDNSZoneNameserversRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1048,7 +1048,7 @@ func dnsRecordUpdateNameservers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.UpdateDNSZoneNameserversRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1078,7 +1078,7 @@ All edits will be versioned.`,
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.ClearDNSZoneRecordsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1119,7 +1119,7 @@ func dnsZoneExport() *core.Command {
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.ExportRawDNSZoneRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1195,7 +1195,7 @@ func dnsZoneImport() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.ImportRawDNSZoneRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1239,7 +1239,7 @@ You can recreate the given DNS zone and its sub DNS zone if needed.`,
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.RefreshDNSZoneRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1268,7 +1268,7 @@ The maximum version count is 100. If the count reaches this limit, the oldest ve
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.ListDNSZoneVersionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1309,7 +1309,7 @@ func dnsVersionShow() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.ListDNSZoneVersionRecordsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1342,7 +1342,7 @@ func dnsVersionDiff() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.GetDNSZoneVersionDiffRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1370,7 +1370,7 @@ func dnsVersionRestore() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.RestoreDNSZoneVersionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1398,7 +1398,7 @@ func dnsCertificateGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.GetSSLCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1432,7 +1432,7 @@ func dnsCertificateCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.CreateSSLCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1466,7 +1466,7 @@ func dnsCertificateList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.ListSSLCertificatesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1499,7 +1499,7 @@ func dnsCertificateDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.DeleteSSLCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1527,7 +1527,7 @@ func dnsTsigKeyGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.GetDNSZoneTsigKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1555,7 +1555,7 @@ func dnsTsigKeyDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.DeleteDNSZoneTsigKeyRequest)
 
 			client := core.ExtractClient(ctx)

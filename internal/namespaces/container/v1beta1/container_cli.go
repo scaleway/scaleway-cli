@@ -171,7 +171,7 @@ func containerNamespaceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.ListNamespacesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -214,7 +214,7 @@ func containerNamespaceGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.GetNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -290,7 +290,7 @@ func containerNamespaceCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.CreateNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -357,7 +357,7 @@ func containerNamespaceUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.UpdateNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -391,7 +391,7 @@ func containerNamespaceDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.DeleteNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -460,7 +460,7 @@ func containerContainerList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.ListContainersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -503,7 +503,7 @@ func containerContainerGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.GetContainerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -749,7 +749,7 @@ func containerContainerCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.CreateContainerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -994,7 +994,7 @@ func containerContainerUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.UpdateContainerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1028,7 +1028,7 @@ func containerContainerDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.DeleteContainerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1062,7 +1062,7 @@ func containerContainerDeploy() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.DeployContainerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1108,7 +1108,7 @@ func containerCronList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.ListCronsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1151,7 +1151,7 @@ func containerCronGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.GetCronRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1206,7 +1206,7 @@ func containerCronCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.CreateCronRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1268,7 +1268,7 @@ func containerCronUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.UpdateCronRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1302,7 +1302,7 @@ func containerCronDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.DeleteCronRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1350,7 +1350,7 @@ func containerDomainList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.ListDomainsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1393,7 +1393,7 @@ func containerDomainGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.GetDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1434,7 +1434,7 @@ func containerDomainCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.CreateDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1468,7 +1468,7 @@ func containerDomainDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.DeleteDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1523,7 +1523,7 @@ func containerTokenCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.CreateTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1557,7 +1557,7 @@ func containerTokenGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.GetTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1610,7 +1610,7 @@ func containerTokenList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.ListTokensRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1653,7 +1653,7 @@ func containerTokenDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.DeleteTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1750,7 +1750,7 @@ func containerTriggerCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.CreateTriggerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1784,7 +1784,7 @@ func containerTriggerGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.GetTriggerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1838,7 +1838,7 @@ func containerTriggerList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.ListTriggersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1895,7 +1895,7 @@ func containerTriggerUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.UpdateTriggerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1929,7 +1929,7 @@ func containerTriggerDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*container.DeleteTriggerRequest)
 
 			client := core.ExtractClient(ctx)

@@ -41,7 +41,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		Short: "Server commercial type",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		client := core.ExtractClient(ctx)
 		api := baremetal.NewAPI(client)
 
@@ -95,7 +95,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		},
 	}
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForServer(&baremetal.WaitForServerRequest{

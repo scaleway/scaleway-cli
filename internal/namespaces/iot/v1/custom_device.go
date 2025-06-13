@@ -31,7 +31,7 @@ var (
 	}
 )
 
-func iotDeviceCreateResponsedMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func iotDeviceCreateResponsedMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp iot.CreateDeviceResponse
 	deviceCreateResponse := tmp(i.(iot.CreateDeviceResponse))
 

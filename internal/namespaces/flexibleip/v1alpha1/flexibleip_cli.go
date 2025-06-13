@@ -118,7 +118,7 @@ func fipIPCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.CreateFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -155,7 +155,7 @@ func fipIPGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.GetFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -241,7 +241,7 @@ func fipIPList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.ListFlexibleIPsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -343,7 +343,7 @@ func fipIPUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.UpdateFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -380,7 +380,7 @@ func fipIPDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.DeleteFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -431,7 +431,7 @@ func fipIPAttach() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.AttachFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -468,7 +468,7 @@ func fipIPDetach() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.DetachFlexibleIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -518,7 +518,7 @@ func fipMacCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.GenerateMACAddrRequest)
 
 			client := core.ExtractClient(ctx)
@@ -562,7 +562,7 @@ func fipMacDuplicate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.DuplicateMACAddrRequest)
 
 			client := core.ExtractClient(ctx)
@@ -604,7 +604,7 @@ func fipMacMove() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.MoveMACAddrRequest)
 
 			client := core.ExtractClient(ctx)
@@ -641,7 +641,7 @@ func fipMacDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*flexibleip.DeleteMACAddrRequest)
 
 			client := core.ExtractClient(ctx)

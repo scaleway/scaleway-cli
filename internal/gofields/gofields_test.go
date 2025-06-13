@@ -38,9 +38,9 @@ type User struct {
 
 func TestGetValue(t *testing.T) {
 	type TestCase struct {
-		Data     interface{}
+		Data     any
 		Path     string
-		Expected interface{}
+		Expected any
 	}
 
 	run := func(tc *TestCase) func(*testing.T) {
@@ -150,7 +150,7 @@ func TestGetType(t *testing.T) {
 	type TestCase struct {
 		Data     reflect.Type
 		Path     string
-		Expected interface{}
+		Expected any
 	}
 
 	run := func(tc *TestCase) func(*testing.T) {

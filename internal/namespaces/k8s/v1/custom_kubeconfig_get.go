@@ -49,7 +49,7 @@ func k8sKubeconfigGetCommand() *core.Command {
 	}
 }
 
-func k8sKubeconfigGetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func k8sKubeconfigGetRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*k8sKubeconfigGetRequest)
 
 	kubeconfigRequest := &k8s.GetClusterKubeConfigRequest{

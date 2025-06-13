@@ -188,7 +188,7 @@ type NamedExtension struct {
 	// Name is the nickname for this Extension
 	Name string `json:"name"`
 	// Extension holds the extension information
-	Extension interface{} `json:"extension"`
+	Extension any `json:"extension"`
 }
 
 // AuthProviderConfig holds the configuration for a specified auth provider.

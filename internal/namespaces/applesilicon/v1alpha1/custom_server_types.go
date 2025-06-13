@@ -25,13 +25,13 @@ var serverTypeStockMarshalSpecs = human.EnumMarshalSpecs{
 	},
 }
 
-func cpuMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func cpuMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	cpu := i.(applesilicon.ServerTypeCPU)
 
 	return fmt.Sprintf("%s (%d cores)", cpu.Name, cpu.CoreCount), nil
 }
 
-func diskMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func diskMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	disk := i.(applesilicon.ServerTypeDisk)
 	capacityStr, err := human.Marshal(disk.Capacity, nil)
 	if err != nil {
@@ -41,7 +41,7 @@ func diskMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	return capacityStr, nil
 }
 
-func memoryMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func memoryMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	memory := i.(applesilicon.ServerTypeMemory)
 	capacityStr, err := human.Marshal(memory.Capacity, nil)
 	if err != nil {
@@ -82,7 +82,7 @@ func serverTypeBuilder(c *core.Command) *core.Command {
 	}
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			originalRes, err := runner(ctx, argsI)
 			if err != nil {
 				return nil, err

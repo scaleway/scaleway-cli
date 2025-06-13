@@ -129,7 +129,7 @@ func ValueMapper(dest reflect.Value, src reflect.Value, opts ...ValueMapperOpt) 
 	valueMapperWithoutOpt(dest, src, cfg.includeFields, cfg.excludeFields)
 }
 
-func deleteRecursiveMap(m map[string]interface{}, keys ...string) {
+func deleteRecursiveMap(m map[string]any, keys ...string) {
 	for _, key := range keys {
 		delete(m, key)
 	}
@@ -139,12 +139,12 @@ func deleteRecursiveMap(m map[string]interface{}, keys ...string) {
 	}
 }
 
-func DeleteRecursive(elem interface{}, keys ...string) {
+func DeleteRecursive(elem any, keys ...string) {
 	value := reflect.ValueOf(elem)
 
 	switch value.Kind() {
 	case reflect.Map:
-		deleteRecursiveMap(elem.(map[string]interface{}), keys...)
+		deleteRecursiveMap(elem.(map[string]any), keys...)
 	case reflect.Slice:
 		for i := range value.Len() {
 			DeleteRecursive(value.Index(i).Interface(), keys...)

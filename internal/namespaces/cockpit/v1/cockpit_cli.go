@@ -184,7 +184,7 @@ The output returned displays the URL to access your Cockpit's Grafana.`,
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIGetGrafanaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -207,7 +207,7 @@ func cockpitGrafanaSyncDataSources() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPISyncGrafanaDataSourcesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -257,7 +257,7 @@ Each Grafana user is associated with a role: viewer or editor. A viewer can only
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPICreateGrafanaUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -291,7 +291,7 @@ func cockpitGrafanaUserList() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIListGrafanaUsersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -326,7 +326,7 @@ func cockpitGrafanaUserDelete() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIDeleteGrafanaUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -364,7 +364,7 @@ A new password regenerates and only displays once. Make sure that you save it.`,
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIResetGrafanaUserPasswordRequest)
 
 			client := core.ExtractClient(ctx)
@@ -394,7 +394,7 @@ func cockpitProductDashboardsList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIListGrafanaProductDashboardsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -429,7 +429,7 @@ func cockpitProductDashboardsGet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIGetGrafanaProductDashboardRequest)
 
 			client := core.ExtractClient(ctx)
@@ -462,7 +462,7 @@ Deprecated: retention is now managed at the data source level.`,
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIListPlansRequest)
 
 			client := core.ExtractClient(ctx)
@@ -504,7 +504,7 @@ Deprecated: retention is now managed at the data source level.`,
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPISelectPlanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -528,7 +528,7 @@ Deprecated: retention is now managed at the data source level.`,
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIGetCurrentPlanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -587,7 +587,7 @@ The name of the data source will then be used as reference to name the associate
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPICreateDataSourceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -621,7 +621,7 @@ func cockpitDataSourceGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIGetDataSourceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -655,7 +655,7 @@ func cockpitDataSourceDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIDeleteDataSourceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -733,7 +733,7 @@ You can list data sources by Project, type and origin.`,
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIListDataSourcesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -790,7 +790,7 @@ func cockpitDataSourceUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIUpdateDataSourceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -824,7 +824,7 @@ func cockpitUsageOverviewGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIGetUsageOverviewRequest)
 
 			client := core.ExtractClient(ctx)
@@ -879,7 +879,7 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPICreateTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -941,7 +941,7 @@ You can filter tokens by Project ID and token scopes.`,
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIListTokensRequest)
 
 			client := core.ExtractClient(ctx)
@@ -984,7 +984,7 @@ func cockpitTokenGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIGetTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1018,7 +1018,7 @@ func cockpitTokenDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIDeleteTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1054,7 +1054,7 @@ The output returned displays a URL to access the Alert manager, and whether the 
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIGetAlertManagerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1082,7 +1082,7 @@ func cockpitAlertManagerEnable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIEnableAlertManagerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1110,7 +1110,7 @@ func cockpitAlertManagerDisable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIDisableAlertManagerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1153,7 +1153,7 @@ If you need to receive alerts for other receivers, you can create additional con
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPICreateContactPointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1182,7 +1182,7 @@ func cockpitContactPointList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIListContactPointsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1225,7 +1225,7 @@ func cockpitContactPointDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIDeleteContactPointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1260,7 +1260,7 @@ func cockpitManagedAlertsEnable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIEnableManagedAlertsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1288,7 +1288,7 @@ func cockpitManagedAlertsDisable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIDisableManagedAlertsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1316,7 +1316,7 @@ func cockpitTestAlertTrigger() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPITriggerTestAlertRequest)
 
 			client := core.ExtractClient(ctx)

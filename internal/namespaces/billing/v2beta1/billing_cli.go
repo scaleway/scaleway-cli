@@ -108,7 +108,7 @@ func billingConsumptionList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ListConsumptionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -156,7 +156,7 @@ func billingConsumptionListTaxes() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ListTaxesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -239,7 +239,7 @@ func billingInvoiceList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ListInvoicesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -348,7 +348,7 @@ func billingInvoiceExport() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ExportInvoicesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -377,7 +377,7 @@ func billingInvoiceGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.GetInvoiceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -416,7 +416,7 @@ func billingInvoiceDownload() *core.Command {
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.DownloadInvoiceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -463,7 +463,7 @@ func billingDiscountList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ListDiscountsRequest)
 
 			client := core.ExtractClient(ctx)

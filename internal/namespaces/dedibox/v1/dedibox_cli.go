@@ -317,7 +317,7 @@ func dediboxServerList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.ListServersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -360,7 +360,7 @@ func dediboxServerGet() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -395,7 +395,7 @@ func dediboxServerListOptions() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.ListSubscribableServerOptionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -445,7 +445,7 @@ func dediboxServerSubscribeOption() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.SubscribeServerOptionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -494,7 +494,7 @@ func dediboxServerCreate() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.CreateServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -535,7 +535,7 @@ func dediboxServerSubscribeStorage() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.SubscribeStorageOptionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -583,7 +583,7 @@ func dediboxServerUpdate() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.UpdateServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -617,7 +617,7 @@ func dediboxServerReboot() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RebootServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -658,7 +658,7 @@ func dediboxServerStart() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.StartServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -699,7 +699,7 @@ func dediboxServerStop() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.StopServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -740,7 +740,7 @@ func dediboxServerDelete() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.DeleteServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -793,7 +793,7 @@ func dediboxServerListEvents() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.ListServerEventsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -848,7 +848,7 @@ func dediboxServerListDisks() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.ListServerDisksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -891,7 +891,7 @@ func dediboxServiceGet() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetServiceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -925,7 +925,7 @@ func dediboxServiceDelete() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.DeleteServiceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -971,7 +971,7 @@ func dediboxServiceList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.ListServicesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1132,7 +1132,7 @@ func dediboxServerInstall() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.InstallServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1166,7 +1166,7 @@ func dediboxServerGetInstall() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetServerInstallRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1200,7 +1200,7 @@ func dediboxServerCancelInstall() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.CancelServerInstallRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1248,7 +1248,7 @@ func dediboxServerGetPartitioning() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetServerDefaultPartitioningRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1290,7 +1290,7 @@ The BMC (Baseboard Management Controller) access is available one hour after the
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.StartBMCAccessRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1331,7 +1331,7 @@ func dediboxBmcGet() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetBMCAccessRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1365,7 +1365,7 @@ func dediboxBmcStop() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.StopBMCAccessRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1481,7 +1481,7 @@ func dediboxOfferList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.ListOffersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1531,7 +1531,7 @@ func dediboxOfferGet() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetOfferRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1602,7 +1602,7 @@ func dediboxOsList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.ListOSRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1659,7 +1659,7 @@ func dediboxOsGet() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetOSRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1700,7 +1700,7 @@ func dediboxReverseIPUpdate() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.UpdateReverseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1742,7 +1742,7 @@ func dediboxFipCreate() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.CreateFailoverIPsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1783,7 +1783,7 @@ func dediboxFipAttach() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.AttachFailoverIPsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1824,7 +1824,7 @@ func dediboxFipDetach() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.DetachFailoverIPsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1885,7 +1885,7 @@ func dediboxFipAttachMac() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.AttachFailoverIPToMacAddressRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1919,7 +1919,7 @@ func dediboxFipDetachMac() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.DetachFailoverIPFromMacAddressRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1953,7 +1953,7 @@ func dediboxFipDelete() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.DeleteFailoverIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2020,7 +2020,7 @@ func dediboxFipList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.ListFailoverIPsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2063,7 +2063,7 @@ func dediboxFipGet() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetFailoverIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2097,7 +2097,7 @@ func dediboxFipGetQuota() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetRemainingQuotaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2131,7 +2131,7 @@ func dediboxRaidGet() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetRaidRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2187,7 +2187,7 @@ func dediboxRaidUpdate() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.UpdateRaidRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2235,7 +2235,7 @@ func dediboxRescueStart() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.StartRescueRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2269,7 +2269,7 @@ func dediboxRescueGet() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.GetRescueRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2303,7 +2303,7 @@ func dediboxRescueStop() *core.Command {
 				scw.ZoneNlAms1,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.StopRescueRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2348,7 +2348,7 @@ func dediboxBillingListInvoice() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.BillingAPIListInvoicesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2381,7 +2381,7 @@ func dediboxBillingGetInvoice() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.BillingAPIGetInvoiceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2409,7 +2409,7 @@ func dediboxBillingDownloadInvoice() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.BillingAPIDownloadInvoiceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2447,7 +2447,7 @@ func dediboxBillingListRefund() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.BillingAPIListRefundsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2480,7 +2480,7 @@ func dediboxBillingGetRefund() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.BillingAPIGetRefundRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2508,7 +2508,7 @@ func dediboxBillingDownloadRefund() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.BillingAPIDownloadRefundRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2531,7 +2531,7 @@ func dediboxBillingGetOrderCapacity() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.BillingAPICanOrderRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2563,7 +2563,7 @@ func dediboxIPv6BlockGetQuota() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.IPv6BlockAPIGetIPv6BlockQuotasRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2592,7 +2592,7 @@ func dediboxIPv6BlockCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.IPv6BlockAPICreateIPv6BlockRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2621,7 +2621,7 @@ func dediboxIPv6BlockGet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.IPv6BlockAPIGetIPv6BlockRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2658,7 +2658,7 @@ If DNS is used, minimum of 2 is necessary and maximum of 5 (no duplicate).`,
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.IPv6BlockAPIUpdateIPv6BlockRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2687,7 +2687,7 @@ func dediboxIPv6BlockDelete() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.IPv6BlockAPIDeleteIPv6BlockRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2739,7 +2739,7 @@ func dediboxIPv6BlockCreateSubnet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.IPv6BlockAPICreateIPv6BlockSubnetRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2768,7 +2768,7 @@ func dediboxIPv6BlockListSubnet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.IPv6BlockAPIListIPv6BlockSubnetsAvailableRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2808,7 +2808,7 @@ func dediboxRpnInfoList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnAPIListRpnServerCapabilitiesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2856,7 +2856,7 @@ func dediboxRpnInfoGet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnAPIGetRpnStatusRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2896,7 +2896,7 @@ func dediboxSanList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnSanAPIListRpnSansRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2930,7 +2930,7 @@ func dediboxSanGet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnSanAPIGetRpnSanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2959,7 +2959,7 @@ func dediboxSanDelete() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnSanAPIDeleteRpnSanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2996,7 +2996,7 @@ func dediboxSanCreate() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnSanAPICreateRpnSanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3037,7 +3037,7 @@ func dediboxSanListIPs() *core.Command {
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnSanAPIListIPsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3073,7 +3073,7 @@ func dediboxSanAddIP() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnSanAPIAddIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3116,7 +3116,7 @@ func dediboxSanRemoveIP() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnSanAPIRemoveIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3164,7 +3164,7 @@ func dediboxSanListAvailableIPs() *core.Command {
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnSanAPIListAvailableIPsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3204,7 +3204,7 @@ func dediboxRpnV1List() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiListRpnGroupsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3238,7 +3238,7 @@ func dediboxRpnV1Get() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiGetRpnGroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3282,7 +3282,7 @@ func dediboxRpnV1Create() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiCreateRpnGroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3311,7 +3311,7 @@ func dediboxRpnV1Delete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiDeleteRpnGroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3354,7 +3354,7 @@ func dediboxRpnV1Update() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiUpdateRpnGroupNameRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3401,7 +3401,7 @@ func dediboxRpnV1ListMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiListRpnGroupMembersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3443,7 +3443,7 @@ func dediboxRpnV1Invite() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiRpnGroupInviteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3487,7 +3487,7 @@ func dediboxRpnV1Leave() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiLeaveRpnGroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3537,7 +3537,7 @@ func dediboxRpnV1AddMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiAddRpnGroupMembersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3573,7 +3573,7 @@ func dediboxRpnV1DeleteMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiDeleteRpnGroupMembersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3613,7 +3613,7 @@ func dediboxRpnV1ListCapableServer() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiListRpnCapableServersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3658,7 +3658,7 @@ func dediboxRpnV1ListCapableSanServer() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiListRpnCapableSanServersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3697,7 +3697,7 @@ func dediboxRpnV1ListInvites() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiListRpnInvitesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3731,7 +3731,7 @@ func dediboxRpnV1AcceptInvite() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiAcceptRpnInviteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3767,7 +3767,7 @@ func dediboxRpnV1RefuseInvite() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV1ApiRefuseRpnInviteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3814,7 +3814,7 @@ func dediboxRpnV2List() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiListRpnV2GroupsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3871,7 +3871,7 @@ func dediboxRpnV2ListMembers() *core.Command {
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiListRpnV2MembersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3905,7 +3905,7 @@ func dediboxRpnV2Get() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiGetRpnV2GroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3954,7 +3954,7 @@ func dediboxRpnV2Create() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiCreateRpnV2GroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3983,7 +3983,7 @@ func dediboxRpnV2Delete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiDeleteRpnV2GroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -4026,7 +4026,7 @@ func dediboxRpnV2Update() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiUpdateRpnV2GroupNameRequest)
 
 			client := core.ExtractClient(ctx)
@@ -4062,7 +4062,7 @@ func dediboxRpnV2AddMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiAddRpnV2MembersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -4105,7 +4105,7 @@ func dediboxRpnV2DeleteMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiDeleteRpnV2MembersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -4152,7 +4152,7 @@ func dediboxRpnV2ListCapableResources() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiListRpnV2CapableResourcesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -4197,7 +4197,7 @@ func dediboxRpnV2ListLogs() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiListRpnV2GroupLogsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -4245,7 +4245,7 @@ func dediboxRpnV2UpdateVlanMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiUpdateRpnV2VlanForMembersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -4288,7 +4288,7 @@ func dediboxRpnV2EnableCompatibility() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiEnableRpnV2GroupCompatibilityRequest)
 
 			client := core.ExtractClient(ctx)
@@ -4324,7 +4324,7 @@ func dediboxRpnV2DisableCompatibility() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*dedibox.RpnV2ApiDisableRpnV2GroupCompatibilityRequest)
 
 			client := core.ExtractClient(ctx)

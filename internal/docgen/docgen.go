@@ -114,15 +114,15 @@ func renderNamespace(data *tplNamespace) (string, error) {
 
 func newTemplate() *template.Template {
 	tpl := template.New("index")
-	tpl = tpl.Funcs(map[string]interface{}{
+	tpl = tpl.Funcs(map[string]any{
 		"bq": func(_ ...int) string {
 			return "`"
 		},
 		"bbq": func(_ ...int) string {
 			return "```"
 		},
-		"map": func(args ...interface{}) map[string]interface{} {
-			res := map[string]interface{}{}
+		"map": func(args ...any) map[string]any {
+			res := map[string]any{}
 			for i := 0; i < len(args); i += 2 {
 				res[args[i].(string)] = args[i+1]
 			}
