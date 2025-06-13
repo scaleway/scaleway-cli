@@ -18,10 +18,6 @@ type buffer struct {
 	a []byte
 }
 
-func (b *buffer) init(n int) { b.a = make([]byte, 0, n) }
-
-func (b *buffer) clear() { b.a = b.a[0:0] }
-
 func (b *buffer) Write(buf []byte) (written int, err error) {
 	n := len(b.a)
 	m := len(buf)
@@ -38,6 +34,10 @@ func (b *buffer) Write(buf []byte) (written int, err error) {
 }
 
 func (b *buffer) String() string { return string(b.a) }
+
+func (b *buffer) init(n int) { b.a = make([]byte, 0, n) }
+
+func (b *buffer) clear() { b.a = b.a[0:0] }
 
 func write(t *testing.T, testname string, w *tabwriter.Writer, src string) {
 	t.Helper()

@@ -57,13 +57,6 @@ type FlagSpec struct {
 	EnumValues       []string
 }
 
-func (node *AutoCompleteNode) addFlags(flags []FlagSpec) {
-	for i := range flags {
-		flag := &flags[i]
-		node.Children[flag.Name] = NewAutoCompleteFlagNode(node, flag)
-	}
-}
-
 // newAutoCompleteResponse builds a new AutocompleteResponse
 func newAutoCompleteResponse(suggestions []string) *AutocompleteResponse {
 	sort.Strings(suggestions)
@@ -174,6 +167,13 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 	}
 
 	return nil, false
+}
+
+func (node *AutoCompleteNode) addFlags(flags []FlagSpec) {
+	for i := range flags {
+		flag := &flags[i]
+		node.Children[flag.Name] = NewAutoCompleteFlagNode(node, flag)
+	}
 }
 
 // isLeafCommand returns true only if n is a node with no child command (namespace, verb, resource) or a positional arg.
