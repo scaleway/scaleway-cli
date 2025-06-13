@@ -132,7 +132,7 @@ func registryNamespaceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.ListNamespacesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -219,7 +219,7 @@ func registryNamespaceGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.GetNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -270,7 +270,7 @@ func registryNamespaceCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.CreateNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -318,7 +318,7 @@ func registryNamespaceUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.UpdateNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -352,7 +352,7 @@ func registryNamespaceDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.DeleteNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -421,7 +421,7 @@ func registryImageList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.ListImagesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -496,7 +496,7 @@ func registryImageGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.GetImageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -543,7 +543,7 @@ func registryImageUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.UpdateImageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -577,7 +577,7 @@ func registryImageDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.DeleteImageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -632,7 +632,7 @@ func registryTagList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.ListTagsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -675,7 +675,7 @@ func registryTagGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.GetTagRequest)
 
 			client := core.ExtractClient(ctx)
@@ -716,7 +716,7 @@ func registryTagDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*registry.DeleteTagRequest)
 
 			client := core.ExtractClient(ctx)

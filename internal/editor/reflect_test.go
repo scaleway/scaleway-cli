@@ -205,7 +205,7 @@ func Test_valueMapperTags(t *testing.T) {
 }
 
 func Test_deleteRecursive(t *testing.T) {
-	m := map[string]interface{}{
+	m := map[string]any{
 		"delete":   "1",
 		"nodelete": 1,
 	}
@@ -220,8 +220,8 @@ func Test_deleteRecursive(t *testing.T) {
 }
 
 func Test_deleteRecursiveSlice(t *testing.T) {
-	m := map[string]interface{}{
-		"slice": []map[string]interface{}{
+	m := map[string]any{
+		"slice": []map[string]any{
 			{
 				"delete":   "1",
 				"nodelete": 1,
@@ -231,7 +231,7 @@ func Test_deleteRecursiveSlice(t *testing.T) {
 
 	editor.DeleteRecursive(m, "delete")
 
-	slice := m["slice"].([]map[string]interface{})
+	slice := m["slice"].([]map[string]any)
 	_, deleteExists := slice[0]["delete"]
 	_, nodeleteExists := slice[0]["nodelete"]
 

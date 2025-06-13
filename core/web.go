@@ -12,7 +12,7 @@ func commandHasWeb(cmd *Command) bool {
 	return cmd.WebURL != ""
 }
 
-func runWeb(cmd *Command, respI interface{}) (interface{}, error) {
+func runWeb(cmd *Command, respI any) (any, error) {
 	url := cmd.WebURL
 
 	if respI != nil {

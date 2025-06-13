@@ -71,7 +71,7 @@ type CheckFuncCtx struct {
 	Err error
 
 	// Command result
-	Result interface{}
+	Result any
 
 	// Meta bag
 	Meta TestMetadata
@@ -98,7 +98,7 @@ var testRenderHelpers = map[string]any{
 }
 
 // TestMetadata contains arbitrary data that can be passed along a test lifecycle.
-type TestMetadata map[string]interface{}
+type TestMetadata map[string]any
 
 // Render renders a go template using where content of Meta can be used
 func (meta TestMetadata) Render(strTpl string) string {
@@ -113,7 +113,7 @@ func (meta TestMetadata) Render(strTpl string) string {
 	return buf.String()
 }
 
-func BeforeFuncStoreInMeta(key string, value interface{}) BeforeFunc {
+func BeforeFuncStoreInMeta(key string, value any) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		ctx.Meta[key] = value
 
@@ -139,7 +139,7 @@ type OverrideExecTestFunc func(ctx *ExecFuncCtx, cmd *exec.Cmd) (exitCode int, e
 type BeforeFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
-	ExecuteCmd  func(args []string) interface{}
+	ExecuteCmd  func(args []string) any
 	Meta        TestMetadata
 	OverrideEnv map[string]string
 	Logger      *Logger
@@ -148,9 +148,9 @@ type BeforeFuncCtx struct {
 type AfterFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
-	ExecuteCmd  func(args []string) interface{}
+	ExecuteCmd  func(args []string) any
 	Meta        TestMetadata
-	CmdResult   interface{}
+	CmdResult   any
 	OverrideEnv map[string]string
 	Logger      *Logger
 }
@@ -330,7 +330,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		// Here we return a constant string. We may need to find a better place to put this.
 		human.RegisterMarshalerFunc(
 			time.Time{},
-			func(_ interface{}, _ *human.MarshalOpt) (string, error) {
+			func(_ any, _ *human.MarshalOpt) (string, error) {
 				return "few seconds ago", nil
 			},
 		)
@@ -406,7 +406,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			}
 		}
 
-		executeCmd := func(args []string) interface{} {
+		executeCmd := func(args []string) any {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
 			_, result, err := Bootstrap(&BootstrapConfig{
@@ -452,7 +452,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// Run config.Cmd
-		var result interface{}
+		var result any
 		var exitCode int
 		renderedArgs := []string(nil)
 		rawArgs := config.Args
@@ -818,7 +818,7 @@ func uniformTimestamps(input string) string {
 
 func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {
 	t.Helper()
-	var jsonInterface interface{}
+	var jsonInterface any
 	if jsonStdout.Len() > 0 {
 		err := json.Unmarshal(jsonStdout.Bytes(), &jsonInterface)
 		require.NoError(t, err, "json stdout is invalid (%s)", getTestFilePath(t, ".cassette"))

@@ -33,7 +33,7 @@ func newHelpCommand(resource string, short string, long string) *core.Command {
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(struct{}{}),
 		ArgSpecs:             core.ArgSpecs{},
-		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+		Run: func(_ context.Context, _ any) (any, error) {
 			return long, nil
 		},
 	}

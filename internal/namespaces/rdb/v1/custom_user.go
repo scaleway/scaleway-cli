@@ -15,7 +15,7 @@ import (
 
 // userListBuilder creates a table visualization of user's permission across different database in a given RDB instance
 func userListBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		type customUser struct {
 			Name      string   `json:"name"`
 			IsAdmin   bool     `json:"is_admin"`
@@ -112,7 +112,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 	})
 	c.ArgsType = reflect.TypeOf(rdbCreateUserRequestCustom{})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 
@@ -166,7 +166,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 	})
 	c.ArgsType = reflect.TypeOf(rdbUpdateUserRequestCustom{})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 

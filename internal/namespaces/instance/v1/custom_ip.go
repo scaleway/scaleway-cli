@@ -28,7 +28,7 @@ func ipCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customCreateIPRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customCreateIPRequest)
 
 			if args.CreateIPRequest == nil {
@@ -58,7 +58,7 @@ func ipListBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customListIPsRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customListIPsRequest)
 
 			if args.ListIPsRequest == nil {
@@ -92,7 +92,7 @@ func ipAttachCommand() *core.Command {
 		Resource:  "ip",
 		Verb:      "attach",
 		ArgsType:  reflect.TypeOf(customIPAttachRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			args := argsI.(*customIPAttachRequest)
 
@@ -142,7 +142,7 @@ func ipDetachCommand() *core.Command {
 		Resource:  "ip",
 		Verb:      "detach",
 		ArgsType:  reflect.TypeOf(customIPDetachRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*customIPDetachRequest)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 

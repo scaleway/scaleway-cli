@@ -136,7 +136,7 @@ func interlinkPartnerList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.ListPartnersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -179,7 +179,7 @@ func interlinkPartnerGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.GetPartnerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -253,7 +253,7 @@ func interlinkPopList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.ListPopsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -296,7 +296,7 @@ func interlinkPopGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.GetPopRequest)
 
 			client := core.ExtractClient(ctx)
@@ -473,7 +473,7 @@ func interlinkLinkList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.ListLinksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -516,7 +516,7 @@ func interlinkLinkGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.GetLinkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -593,7 +593,7 @@ func interlinkLinkCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.CreateLinkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -648,7 +648,7 @@ func interlinkLinkUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.UpdateLinkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -682,7 +682,7 @@ func interlinkLinkDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.DeleteLinkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -723,7 +723,7 @@ func interlinkLinkAttachVpc() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.AttachVpcRequest)
 
 			client := core.ExtractClient(ctx)
@@ -757,7 +757,7 @@ func interlinkLinkDetachVpc() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.DetachVpcRequest)
 
 			client := core.ExtractClient(ctx)
@@ -798,7 +798,7 @@ func interlinkLinkAttachPolicy() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.AttachRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -839,7 +839,7 @@ func interlinkLinkDetachPolicy() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.DetachRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -873,7 +873,7 @@ func interlinkLinkEnablePropagation() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.EnableRoutePropagationRequest)
 
 			client := core.ExtractClient(ctx)
@@ -907,7 +907,7 @@ func interlinkLinkDisablePropagation() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.DisableRoutePropagationRequest)
 
 			client := core.ExtractClient(ctx)
@@ -983,7 +983,7 @@ func interlinkRoutingPolicyList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.ListRoutingPoliciesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1026,7 +1026,7 @@ func interlinkRoutingPolicyGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.GetRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1089,7 +1089,7 @@ func interlinkRoutingPolicyCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.CreateRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1151,7 +1151,7 @@ func interlinkRoutingPolicyUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.UpdateRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1185,7 +1185,7 @@ func interlinkRoutingPolicyDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*interlink.DeleteRoutingPolicyRequest)
 
 			client := core.ExtractClient(ctx)

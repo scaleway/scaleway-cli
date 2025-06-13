@@ -103,7 +103,7 @@ func appleSiliconServerTypeList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.ListServerTypesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -133,7 +133,7 @@ func appleSiliconServerTypeGet() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.GetServerTypeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -205,7 +205,7 @@ func appleSiliconServerCreate() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.CreateServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -256,7 +256,7 @@ func appleSiliconServerList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.ListServersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -305,7 +305,7 @@ func appleSiliconOsList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.ListOSRequest)
 
 			client := core.ExtractClient(ctx)
@@ -344,7 +344,7 @@ func appleSiliconOsGet() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.GetOSRequest)
 
 			client := core.ExtractClient(ctx)
@@ -374,7 +374,7 @@ func appleSiliconServerGet() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.GetServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -443,7 +443,7 @@ func appleSiliconServerUpdate() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.UpdateServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -473,7 +473,7 @@ func appleSiliconServerDelete() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.DeleteServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -510,7 +510,7 @@ func appleSiliconServerReboot() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.RebootServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -547,7 +547,7 @@ func appleSiliconServerReinstall() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.ReinstallServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -594,7 +594,7 @@ func appleSiliconPrivateNetworkAdd() *core.Command {
 				scw.ZoneFrPar3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.PrivateNetworkAPIAddServerPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -634,7 +634,7 @@ func appleSiliconPrivateNetworkSet() *core.Command {
 				scw.ZoneFrPar3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.PrivateNetworkAPISetServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -709,7 +709,7 @@ func appleSiliconPrivateNetworkList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -758,7 +758,7 @@ func appleSiliconPrivateNetworkDelete() *core.Command {
 				scw.ZoneFrPar3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.PrivateNetworkAPIDeleteServerPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)

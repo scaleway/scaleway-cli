@@ -184,7 +184,7 @@ func functionNamespaceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.ListNamespacesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -262,7 +262,7 @@ func functionNamespaceGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.GetNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -337,7 +337,7 @@ func functionNamespaceCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.CreateNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -404,7 +404,7 @@ func functionNamespaceUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.UpdateNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -438,7 +438,7 @@ func functionNamespaceDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.DeleteNamespaceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -507,7 +507,7 @@ func functionFunctionList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.ListFunctionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -550,7 +550,7 @@ func functionFunctionGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.GetFunctionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -748,7 +748,7 @@ func functionFunctionCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.CreateFunctionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -944,7 +944,7 @@ func functionFunctionUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.UpdateFunctionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -978,7 +978,7 @@ func functionFunctionDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.DeleteFunctionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1012,7 +1012,7 @@ func functionFunctionDeploy() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.DeployFunctionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1039,7 +1039,7 @@ func functionRuntimeList() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.ListFunctionRuntimesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1080,7 +1080,7 @@ func functionFunctionGetUploadURL() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.GetFunctionUploadURLRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1114,7 +1114,7 @@ func functionFunctionGetDownloadURL() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.GetFunctionDownloadURLRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1160,7 +1160,7 @@ func functionCronList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.ListCronsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1203,7 +1203,7 @@ func functionCronGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.GetCronRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1258,7 +1258,7 @@ func functionCronCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.CreateCronRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1320,7 +1320,7 @@ func functionCronUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.UpdateCronRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1354,7 +1354,7 @@ func functionCronDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.DeleteCronRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1402,7 +1402,7 @@ func functionDomainList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.ListDomainsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1445,7 +1445,7 @@ func functionDomainGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.GetDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1486,7 +1486,7 @@ func functionDomainCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.CreateDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1520,7 +1520,7 @@ func functionDomainDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.DeleteDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1575,7 +1575,7 @@ func functionTokenCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.CreateTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1609,7 +1609,7 @@ func functionTokenGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.GetTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1662,7 +1662,7 @@ func functionTokenList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.ListTokensRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1705,7 +1705,7 @@ func functionTokenDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.DeleteTokenRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1802,7 +1802,7 @@ func functionTriggerCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.CreateTriggerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1836,7 +1836,7 @@ func functionTriggerGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.GetTriggerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1890,7 +1890,7 @@ func functionTriggerList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.ListTriggersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1947,7 +1947,7 @@ func functionTriggerUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.UpdateTriggerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1981,7 +1981,7 @@ func functionTriggerDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*function.DeleteTriggerRequest)
 
 			client := core.ExtractClient(ctx)

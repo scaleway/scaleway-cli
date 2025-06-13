@@ -28,7 +28,7 @@ var deployementStateMarshalSpecs = human.EnumMarshalSpecs{
 	inference.DeploymentStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
 }
 
-func DeploymentMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func DeploymentMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp inference.Deployment
 	deployment := tmp(i.(inference.Deployment))
 	opt.Sections = []*human.MarshalSection{
@@ -66,7 +66,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(llmInferenceCreateDeploymentRequestCustom{})
 
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := inference.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForDeployment(&inference.WaitForDeploymentRequest{
@@ -77,7 +77,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		deploymentCreateCustomRequest := argsI.(*llmInferenceCreateDeploymentRequestCustom)
 		deploymentRequest := deploymentCreateCustomRequest.CreateDeploymentRequest
 		if deploymentCreateCustomRequest.Endpoints == nil {
@@ -117,7 +117,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 }
 
 func deploymentDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := inference.NewAPI(core.ExtractClient(ctx))
 		deployment, err := api.WaitForDeployment(&inference.WaitForDeploymentRequest{
 			DeploymentID:  respI.(*inference.Deployment).ID,

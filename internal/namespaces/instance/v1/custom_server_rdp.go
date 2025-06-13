@@ -58,7 +58,7 @@ func instanceServerGetRdpPassword() *core.Command {
 			core.ZoneArgSpec(),
 		},
 		Run: instanceServerGetRdpPasswordRun,
-		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, argsI, respI any) (any, error) {
 			// Wait only if response does not contain a password
 			if _, isPasswd := respI.(*ServerGetRdpPasswordResponse); isPasswd {
 				return respI, nil
@@ -85,8 +85,8 @@ func instanceServerGetRdpPassword() *core.Command {
 
 func instanceServerGetRdpPasswordRun(
 	ctx context.Context,
-	argsI interface{},
-) (i interface{}, e error) {
+	argsI any,
+) (i any, e error) {
 	args := argsI.(*instanceServerGetRdpPasswordRequest)
 
 	if strings.HasPrefix(args.Key, "~") {

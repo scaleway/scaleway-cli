@@ -96,7 +96,7 @@ type rdbCreateInstanceRequestCustom struct {
 	GeneratePassword bool
 }
 
-func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func createInstanceResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	instanceResult := i.(CreateInstanceResult)
 
 	opt.Sections = []*human.MarshalSection{
@@ -125,7 +125,7 @@ func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (st
 	}, "\n\n"), nil
 }
 
-func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func instanceMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	// To avoid recursion of human.Marshal we create a dummy type
 	type tmp rdbSDK.Instance
 	instance := tmp(i.(rdbSDK.Instance))
@@ -154,7 +154,7 @@ func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error)
 	return str, nil
 }
 
-func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func backupScheduleMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	backupSchedule := i.(rdbSDK.BackupSchedule)
 
 	if opt.TableCell {
@@ -192,7 +192,7 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 }
 
 func instanceCloneBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
@@ -305,7 +305,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(rdbCreateInstanceRequestCustom{})
 
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(CreateInstanceResult).ID,
@@ -325,7 +325,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		return result, nil
 	}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := rdbSDK.NewAPI(client)
 
@@ -364,7 +364,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	}
 
 	// Waiting for API to accept uppercase node-type
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		args := argsI.(*rdbCreateInstanceRequestCustom)
 		args.NodeType = strings.ToLower(args.NodeType)
 
@@ -375,7 +375,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 }
 
 func instanceGetBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -435,7 +435,7 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
@@ -542,7 +542,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			customRequest := args.(*rdbUpdateInstanceRequestCustom)
 
 			updateInstanceRequest := customRequest.UpdateInstanceRequest
@@ -594,7 +594,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 
 			return updateInstanceResponse, nil
 		},
-		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, _, respI any) (any, error) {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
@@ -622,7 +622,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 }
 
 func instanceDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
@@ -657,7 +657,7 @@ func instanceWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
@@ -863,7 +863,7 @@ func instanceConnectCommand() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*instanceConnectArgs)
 
 			client := core.ExtractClient(ctx)
@@ -962,7 +962,7 @@ You can modify the values and save the file to apply the new configuration.`,
 				Raw:   "scw rdb setting edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json",
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*editSettingsArgs)
 
 			client := core.ExtractClient(ctx)

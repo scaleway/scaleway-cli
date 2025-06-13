@@ -11,7 +11,7 @@ import (
 )
 
 func serverDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, _ any) (any, error) {
 		server, err := baremetal.NewAPI(core.ExtractClient(ctx)).
 			WaitForServer(&baremetal.WaitForServerRequest{
 				ServerID:      argsI.(*baremetal.DeleteServerRequest).ServerID,

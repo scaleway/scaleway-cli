@@ -20,7 +20,7 @@ Give us as many details as possible so we can reproduce the error and fix it.
 
 // RecoverPanicAndSendReport is to be called after recover.
 // It expects tags returned by core.BuildInfo and the recovered error
-func RecoverPanicAndSendReport(tags map[string]string, version string, e interface{}) {
+func RecoverPanicAndSendReport(tags map[string]string, version string, e any) {
 	sentryHub, err := sentryHub(tags, version)
 	if err != nil {
 		logger.Debugf("cannot get sentry hub: %s", err)
@@ -78,7 +78,7 @@ func configureSentryScope(tags map[string]string) {
 // AddCommandContext is used to pass executed command
 func AddCommandContext(line string) {
 	sentry.ConfigureScope(func(scope *sentry.Scope) {
-		scope.SetContext("command", map[string]interface{}{
+		scope.SetContext("command", map[string]any{
 			"line": line,
 		})
 	})
@@ -86,7 +86,7 @@ func AddCommandContext(line string) {
 
 func AddArgumentsContext(args [][2]string) {
 	sentry.ConfigureScope(func(scope *sentry.Scope) {
-		argMap := map[string]interface{}{}
+		argMap := map[string]any{}
 
 		for _, arg := range args {
 			argMap[arg[0]] = len(arg[1])

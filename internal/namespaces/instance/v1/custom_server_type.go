@@ -43,6 +43,7 @@ type customServerType struct {
 	RAM                scw.Size                         `json:"ram"`
 	Arch               instance.Arch                    `json:"arch"`
 	Availability       instance.ServerTypesAvailability `json:"availability"`
+	MaxFileSystems     uint32                           `json:"max_file_systems"`
 }
 
 // serverTypeListBuilder transforms the server map into a list to display a
@@ -75,7 +76,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		"ARM64-128GB": {},
 	}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		api := instance.NewAPI(core.ExtractClient(ctx))
 
 		// Get server types.
@@ -122,6 +123,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 				RAM:                scw.Size(serverType.RAM),
 				Arch:               serverType.Arch,
 				Availability:       serverTypeAvailability,
+				MaxFileSystems:     serverType.Capabilities.MaxFileSystems,
 			})
 		}
 
@@ -146,7 +148,7 @@ func serverTypeCategory(serverTypeName string) (category string) {
 }
 
 func getCompatibleTypesBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		rawResp, err := runner(ctx, argsI)
 		if err != nil {
 			return rawResp, err

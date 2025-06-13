@@ -78,7 +78,7 @@ func (s *SuccessResult) getMessage() string {
 	return "Success"
 }
 
-type MultiResults []interface{}
+type MultiResults []any
 
 func (mr MultiResults) MarshalHuman() (string, error) {
 	strs := []string(nil)

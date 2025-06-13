@@ -129,13 +129,13 @@ type CustomArgs struct {
 
 type height int
 
-func marshalHeight(src interface{}) (string, error) {
+func marshalHeight(src any) (string, error) {
 	h := src.(*height)
 
 	return fmt.Sprintf("%dcm", *h), nil
 }
 
-func unmarshalHeight(value string, dest interface{}) error {
+func unmarshalHeight(value string, dest any) error {
 	h := dest.(*height)
 	_, err := fmt.Sscanf(value, "%dcm", h)
 

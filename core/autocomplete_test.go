@@ -44,7 +44,7 @@ func testAutocompleteGetCommands() *core.Commands {
 					EnumValues: []string{"S", "M", "L", "XL", "XXL"},
 				},
 			},
-			WaitFunc: func(_ context.Context, _, _ interface{}) (interface{}, error) {
+			WaitFunc: func(_ context.Context, _, _ any) (any, error) {
 				return nil, nil
 			},
 		},
@@ -573,7 +573,7 @@ func TestAutocompleteArgs(t *testing.T) {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(struct{}{}),
 		ArgSpecs:  core.ArgSpecs{},
-		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+		Run: func(_ context.Context, _ any) (any, error) {
 			return []*struct {
 				Name string
 			}{
@@ -592,7 +592,7 @@ func TestAutocompleteArgs(t *testing.T) {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(struct{}{}),
 		ArgSpecs:  core.ArgSpecs{},
-		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+		Run: func(_ context.Context, _ any) (any, error) {
 			return []*struct {
 				Name string
 			}{

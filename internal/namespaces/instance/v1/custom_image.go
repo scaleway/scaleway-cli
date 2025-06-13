@@ -32,7 +32,7 @@ var (
 	}
 )
 
-func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func imagesMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	type humanImage struct {
 		ID               string
 		Name             string
@@ -131,7 +131,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customCreateImageRequest)
 
 			request := args.CreateImageRequest
@@ -177,7 +177,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(customListImageRequest{})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		// Get images
 		args := argsI.(*customListImageRequest)
 
@@ -283,7 +283,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 	})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customDeleteImageRequest)
 
 			api := instance.NewAPI(core.ExtractClient(ctx))
@@ -377,7 +377,7 @@ func imageWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(instance.WaitForImageRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForImage(&instance.WaitForImageRequest{

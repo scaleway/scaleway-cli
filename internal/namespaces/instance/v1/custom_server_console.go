@@ -42,7 +42,7 @@ func serverConsoleCommand() *core.Command {
 	}
 }
 
-func instanceServerConsoleRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func instanceServerConsoleRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*instanceConsoleServerArgs)
 
 	client := core.ExtractClient(ctx)

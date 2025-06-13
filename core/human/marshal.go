@@ -26,7 +26,7 @@ type Marshaler interface {
 	MarshalHuman() (string, error)
 }
 
-func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
+func Marshal(data any, opt *MarshalOpt) (string, error) {
 	if opt == nil {
 		opt = &MarshalOpt{}
 	}

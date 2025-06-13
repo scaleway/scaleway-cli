@@ -30,7 +30,7 @@ func updateMarketplaceGetImage(c *core.Command) {
 			Required: true,
 		},
 	}
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		args := argsI.(*getImagesArgs)
 		req := &marketplace.ListImagesRequest{}
 		req.PageSize = scw.Uint32Ptr(100)

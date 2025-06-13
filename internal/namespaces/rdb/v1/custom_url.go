@@ -52,7 +52,7 @@ func databaseGetURLCommand() *core.Command {
 	}
 }
 
-func generateURL(ctx context.Context, argsI interface{}) (interface{}, error) {
+func generateURL(ctx context.Context, argsI any) (any, error) {
 	// var u url.URL
 	u := &url.URL{}
 	client := core.ExtractClient(ctx)

@@ -77,7 +77,7 @@ type BootstrapConfig struct {
 // Bootstrap is the main entry point. It is directly called from main.
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
-func Bootstrap(config *BootstrapConfig) (exitCode int, result interface{}, err error) {
+func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	// Handles Flags
 	var debug bool
 	var profileFlag string

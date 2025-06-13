@@ -37,7 +37,7 @@ func nodeRebootBuilder(c *core.Command) *core.Command {
 }
 
 func waitForNodeFunc(action int) core.WaitFunc {
-	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	return func(ctx context.Context, _, respI any) (any, error) {
 		node, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForNode(&k8s.WaitForNodeRequest{
 			Region:        respI.(*k8s.Node).Region,
 			NodeID:        respI.(*k8s.Node).ID,
@@ -61,7 +61,7 @@ func k8sNodeWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(k8s.WaitForNodeRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForNode(&k8s.WaitForNodeRequest{

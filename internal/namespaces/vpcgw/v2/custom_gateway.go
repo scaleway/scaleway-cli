@@ -28,7 +28,7 @@ var gatewayStatusMarshalSpecs = human.EnumMarshalSpecs{
 }
 
 func gatewayCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		getResp := respI.(*vpcgw.Gateway)
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
 
@@ -43,7 +43,7 @@ func gatewayCreateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func gatewayMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func gatewayMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp vpcgw.Gateway
 	vpcgtw := tmp(i.(vpcgw.Gateway))
 	opt.Sections = []*human.MarshalSection{

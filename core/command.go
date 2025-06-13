@@ -95,17 +95,17 @@ type Command struct {
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
-type CommandPreValidateFunc func(ctx context.Context, argsI interface{}) error
+type CommandPreValidateFunc func(ctx context.Context, argsI any) error
 
 // CommandInterceptor allow to intercept and manipulate a runner arguments and return value.
 // It can for example be used to change arguments type or catch runner errors.
-type CommandInterceptor func(ctx context.Context, argsI interface{}, runner CommandRunner) (interface{}, error)
+type CommandInterceptor func(ctx context.Context, argsI any, runner CommandRunner) (any, error)
 
 // CommandRunner returns the command response or an error.
-type CommandRunner func(ctx context.Context, argsI interface{}) (interface{}, error)
+type CommandRunner func(ctx context.Context, argsI any) (any, error)
 
 // WaitFunc returns the updated response (respI if unchanged) or an error.
-type WaitFunc func(ctx context.Context, argsI, respI interface{}) (interface{}, error)
+type WaitFunc func(ctx context.Context, argsI, respI any) (any, error)
 
 const indexCommandSeparator = "."
 

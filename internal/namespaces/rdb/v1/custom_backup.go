@@ -70,7 +70,7 @@ func backupWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(backupWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
@@ -101,7 +101,7 @@ func backupWaitCommand() *core.Command {
 
 func backupCreateBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
@@ -117,7 +117,7 @@ func backupCreateBuilder(c *core.Command) *core.Command {
 
 func backupExportBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
@@ -133,7 +133,7 @@ func backupExportBuilder(c *core.Command) *core.Command {
 
 func backupRestoreBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
@@ -223,7 +223,7 @@ func backupListBuilder(c *core.Command) *core.Command {
 	}
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			listBackupResp, err := runner(ctx, argsI)
 			if err != nil {
 				return listBackupResp, err
@@ -285,7 +285,7 @@ type backupDownloadResult struct {
 	FileName string   `json:"file_name"`
 }
 
-func backupResultMarshallerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func backupResultMarshallerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	backupResult := i.(backupDownloadResult)
 	sizeStr, err := human.Marshal(backupResult.Size, nil)
 	if err != nil {
@@ -313,7 +313,7 @@ func backupDownloadCommand() *core.Command {
 		Resource:  "backup",
 		Verb:      "download",
 		ArgsType:  reflect.TypeOf(backupDownloadArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*backupDownloadArgs)
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 			backupRequest := &rdb.WaitForDatabaseBackupRequest{

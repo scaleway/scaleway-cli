@@ -126,7 +126,7 @@ func marketplaceImageList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.ListImagesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -195,7 +195,7 @@ func marketplaceImageGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.GetImageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -233,7 +233,7 @@ func marketplaceVersionList() *core.Command {
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.ListVersionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -266,7 +266,7 @@ func marketplaceVersionGet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.GetVersionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -341,7 +341,7 @@ func marketplaceLocalImageList() *core.Command {
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.ListLocalImagesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -394,7 +394,7 @@ func marketplaceLocalImageGet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.GetLocalImageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -415,7 +415,7 @@ func marketplaceCategoryList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(marketplace.ListCategoriesRequest{}),
 		ArgSpecs: core.ArgSpecs{},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.ListCategoriesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -448,7 +448,7 @@ func marketplaceCategoryGet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.GetCategoryRequest)
 
 			client := core.ExtractClient(ctx)

@@ -27,7 +27,7 @@ func jobsRunWait() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.WaitForJobRunRequest)
 
 			client := core.ExtractClient(ctx)

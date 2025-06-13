@@ -61,7 +61,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 		},
 	}
 	command.Run = billingDownloadRun
-	command.PreValidateFunc = func(ctx context.Context, argsI interface{}) error {
+	command.PreValidateFunc = func(ctx context.Context, argsI any) error {
 		args := argsI.(*billingDownloadRequest)
 		askPrompt := false
 		request := &billing.DownloadInvoiceRequest{
@@ -155,7 +155,7 @@ func checkDownloadInvoiceExt(ext string) bool {
 	return ext == ".pdf"
 }
 
-func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, error) {
+func billingDownloadRun(ctx context.Context, argsI any) (any, error) {
 	argsDownload := argsI.(*billingDownloadRequest)
 
 	request := &billing.DownloadInvoiceRequest{

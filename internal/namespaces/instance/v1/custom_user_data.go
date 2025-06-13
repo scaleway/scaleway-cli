@@ -37,7 +37,7 @@ func userDataSetBuilder(c *core.Command) *core.Command {
 
 func userDataGetBuilder(c *core.Command) *core.Command {
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			req := argsI.(*instance.GetServerUserDataRequest)
 			res, err := runner(ctx, argsI)
 			if err != nil {
@@ -63,7 +63,7 @@ func userDataListBuilder(c *core.Command) *core.Command {
 		Value string `json:"value"`
 	}
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, _ core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, _ core.CommandRunner) (any, error) {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 			args := argsI.(*instance.ListServerUserDataRequest)

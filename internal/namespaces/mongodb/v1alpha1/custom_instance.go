@@ -59,7 +59,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("volume.volume-type").Default = core.DefaultValueSetter("sbs_5k")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		getResp := respI.(*mongodb.Instance)
 		api := mongodb.NewAPI(core.ExtractClient(ctx))
 
@@ -139,7 +139,7 @@ func instanceWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := mongodb.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&mongodb.WaitForInstanceRequest{

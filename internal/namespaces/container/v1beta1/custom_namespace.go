@@ -25,7 +25,7 @@ var (
 	}
 )
 
-func waitForContainerNamespace(ctx context.Context, _, respI interface{}) (interface{}, error) {
+func waitForContainerNamespace(ctx context.Context, _, respI any) (any, error) {
 	ns := respI.(*container.Namespace)
 
 	client := core.ExtractClient(ctx)
@@ -52,7 +52,7 @@ func containerNamespaceUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func containerNamespaceDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, _ any) (any, error) {
 		req := argsI.(*container.DeleteNamespaceRequest)
 
 		client := core.ExtractClient(ctx)

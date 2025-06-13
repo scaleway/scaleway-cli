@@ -30,7 +30,7 @@ type CustomACLResult struct {
 	Success core.SuccessResult
 }
 
-func rdbACLCustomResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func rdbACLCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	result := i.(CustomACLResult)
 	messageStr, err := result.Success.MarshalHuman()
 	if err != nil {
@@ -68,7 +68,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		core.RegionArgSpec(),
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		respI, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -77,7 +77,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		return respI.(*CustomACLResult), nil
 	}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		args := argsI.(*rdbACLCustomArgs)
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
@@ -109,7 +109,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		}, nil
 	}
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		args := argsI.(*rdbACLCustomArgs)
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
@@ -147,7 +147,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		core.RegionArgSpec(),
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		respI, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -168,7 +168,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		return resp, nil
 	}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		args := argsI.(*rdbACLCustomArgs)
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
@@ -212,7 +212,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		}, nil
 	}
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		args := argsI.(*rdbACLCustomArgs)
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
@@ -264,7 +264,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 	}
 	c.AcceptMultiplePositionalArgs = true
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		args := argsI.(*rdbACLSetCustomArgs)
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
@@ -298,7 +298,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 		}, nil
 	}
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		args := argsI.(*rdbACLSetCustomArgs)
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
@@ -347,7 +347,7 @@ func aclEditCommand() *core.Command {
 			editor.MarshalModeArgSpec(),
 			core.RegionArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			args := argsI.(*rdbACLEditArgs)
 
 			client := core.ExtractClient(ctx)

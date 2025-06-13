@@ -136,7 +136,7 @@ func ipamIPCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.BookIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -170,7 +170,7 @@ func ipamIPDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.ReleaseIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -210,7 +210,7 @@ func ipamIPSetRelease() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.ReleaseIPSetRequest)
 
 			client := core.ExtractClient(ctx)
@@ -251,7 +251,7 @@ func ipamIPGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.GetIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -306,7 +306,7 @@ func ipamIPUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.UpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -517,7 +517,7 @@ func ipamIPList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.ListIPsRequest)
 
 			client := core.ExtractClient(ctx)

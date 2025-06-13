@@ -21,17 +21,17 @@ type Marshaler interface {
 	MarshalArgs() (string, error)
 }
 
-type MarshalFunc func(src interface{}) (string, error)
+type MarshalFunc func(src any) (string, error)
 
 var marshalFuncs = map[reflect.Type]MarshalFunc{
-	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(src interface{}) (s string, e error) {
+	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(src any) (s string, e error) {
 		v := src.(*scw.Size)
 		value := humanize.Bytes(uint64(*v))
 		value = strings.ReplaceAll(value, " ", "")
 
 		return value, nil
 	},
-	reflect.TypeOf((*time.Time)(nil)).Elem(): func(src interface{}) (string, error) {
+	reflect.TypeOf((*time.Time)(nil)).Elem(): func(src any) (string, error) {
 		v := src.(*time.Time)
 
 		return v.Format(time.RFC3339), nil
@@ -42,7 +42,7 @@ var marshalFuncs = map[reflect.Type]MarshalFunc{
 // This function only marshal struct.
 // If you wish to unmarshal a single value ( the part on the right of the `=` in arg notation )
 // you should use MarshalValue instead.
-func MarshalStruct(data interface{}) (args []string, err error) {
+func MarshalStruct(data any) (args []string, err error) {
 	// First check if data is just a []string
 	if raw, ok := data.(*RawArgs); ok {
 		return *raw, nil
@@ -59,7 +59,7 @@ func MarshalStruct(data interface{}) (args []string, err error) {
 
 // MarshalValue marshals a single value. While MarshalStruct will convert a go struct to an argument list like ["arg1=1", "arg2=2"],
 // MarshalValue will only marshal a single argument an return the arg value ( right part of the `=` )
-func MarshalValue(data interface{}) (string, error) {
+func MarshalValue(data any) (string, error) {
 	if isInterfaceNil(data) {
 		return "", nil
 	}
@@ -88,7 +88,7 @@ func MarshalValue(data interface{}) (string, error) {
 
 // RegisterMarshalFunc registers a MarshalFunc for a given interface.
 // i must be a pointer.
-func RegisterMarshalFunc(i interface{}, marshalFunc MarshalFunc) {
+func RegisterMarshalFunc(i any, marshalFunc MarshalFunc) {
 	marshalFuncs[reflect.TypeOf(i).Elem()] = marshalFunc
 }
 
@@ -244,7 +244,7 @@ func marshalValue(src reflect.Value) (string, error) {
 // marshalKeyValue transforms a list of nested keys and the corresponding value
 // into a string representation of that key-value pair
 // such as "key.sub_key=value"
-func marshalKeyValue(keys []string, value interface{}) string {
+func marshalKeyValue(keys []string, value any) string {
 	key := strings.Join(keys, ".")
 	valueStr := fmt.Sprint(value)
 	if key != "" {
@@ -281,7 +281,7 @@ func isDefaultValue(value reflect.Value) (bool, error) {
 	}
 }
 
-func isInterfaceNil(data interface{}) bool {
+func isInterfaceNil(data any) bool {
 	if data == nil {
 		return true
 	}

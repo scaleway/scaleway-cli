@@ -73,7 +73,7 @@ func accountProjectCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPICreateProjectRequest)
 
 			client := core.ExtractClient(ctx)
@@ -123,7 +123,7 @@ func accountProjectList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPIListProjectsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -151,7 +151,7 @@ func accountProjectGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPIGetProjectRequest)
 
 			client := core.ExtractClient(ctx)
@@ -174,7 +174,7 @@ func accountProjectDelete() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPIDeleteProjectRequest)
 
 			client := core.ExtractClient(ctx)
@@ -218,7 +218,7 @@ func accountProjectUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPIUpdateProjectRequest)
 
 			client := core.ExtractClient(ctx)

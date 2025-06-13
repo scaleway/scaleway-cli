@@ -145,7 +145,7 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 		Name:       "zone",
 		Short:      "Zone to target. If none is passed will use default zone from the config",
 		EnumValues: enumValues,
-		ValidateFunc: func(_ *ArgSpec, value interface{}) error {
+		ValidateFunc: func(_ *ArgSpec, value any) error {
 			for _, zone := range zones {
 				if value.(scw.Zone) == zone {
 					return nil
@@ -179,7 +179,7 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 		Name:       "region",
 		Short:      "Region to target. If none is passed will use default region from the config",
 		EnumValues: enumValues,
-		ValidateFunc: func(_ *ArgSpec, value interface{}) error {
+		ValidateFunc: func(_ *ArgSpec, value any) error {
 			for _, region := range regions {
 				if value.(scw.Region) == region {
 					return nil

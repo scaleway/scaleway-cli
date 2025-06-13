@@ -16,7 +16,7 @@ func init() {
 }
 
 // imagesMarshalerFunc marshals marketplace.Image.
-func imageMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func imageMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	// Image
 	image := i.(marketplace.Image)
 	humanImage := struct {

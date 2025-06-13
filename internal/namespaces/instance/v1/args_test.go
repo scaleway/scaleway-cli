@@ -15,8 +15,8 @@ type NullableStringValueRequest struct {
 func TestNullableStringValueUnmarshal(t *testing.T) {
 	type testCase struct {
 		args           []string
-		data           interface{}
-		expectedStruct interface{}
+		data           any
+		expectedStruct any
 		expectedError  error
 	}
 
@@ -66,8 +66,8 @@ func TestNullableStringValueUnmarshal(t *testing.T) {
 
 func TestNullableStringValueMarshal(t *testing.T) {
 	type testCase struct {
-		data           interface{}
-		expectedStruct interface{}
+		data           any
+		expectedStruct any
 		expectedError  error
 	}
 

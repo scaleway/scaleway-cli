@@ -97,7 +97,7 @@ func blockVolumeTypeList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.ListVolumeTypesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -188,7 +188,7 @@ func blockVolumeList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.ListVolumesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -275,7 +275,7 @@ To create a volume from an existing snapshot, specify ` + "`" + `from_snapshot` 
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.CreateVolumeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -315,7 +315,7 @@ func blockVolumeGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.GetVolumeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -355,7 +355,7 @@ func blockVolumeDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.DeleteVolumeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -431,7 +431,7 @@ You can only resize a volume to a larger size. It is currently not possible to c
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.UpdateVolumeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -513,7 +513,7 @@ func blockSnapshotList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -562,7 +562,7 @@ func blockSnapshotGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -619,7 +619,7 @@ If your volume is in a transient state, you need to wait until the end of the cu
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -689,7 +689,7 @@ The bucket can be imported into any Availability Zone as long as it is in the sa
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.ImportSnapshotFromObjectStorageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -744,7 +744,7 @@ The snapshot must not be in transient state.`,
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.ExportSnapshotToObjectStorageRequest)
 
 			client := core.ExtractClient(ctx)
@@ -784,7 +784,7 @@ func blockSnapshotDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.DeleteSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -845,7 +845,7 @@ func blockSnapshotUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*block.UpdateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)

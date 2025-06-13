@@ -169,7 +169,7 @@ func auditTrailEventList() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*audit_trail.ListEventsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -196,7 +196,7 @@ func auditTrailProductList() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*audit_trail.ListProductsRequest)
 
 			client := core.ExtractClient(ctx)

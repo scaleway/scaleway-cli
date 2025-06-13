@@ -26,7 +26,7 @@ const (
 )
 
 func createIPBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		getResp := respI.(*flexibleip.FlexibleIP)
 		api := flexibleip.NewAPI(core.ExtractClient(ctx))
 

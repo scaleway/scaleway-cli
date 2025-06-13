@@ -204,7 +204,7 @@ func baremetalServerList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListServersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -256,7 +256,7 @@ func baremetalServerGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -509,7 +509,7 @@ func baremetalServerCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.CreateServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -573,7 +573,7 @@ func baremetalServerUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.UpdateServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -790,7 +790,7 @@ func baremetalServerInstall() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.InstallServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -847,7 +847,7 @@ func baremetalServerGetMetrics() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetServerMetricsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -884,7 +884,7 @@ func baremetalServerDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.DeleteServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -939,7 +939,7 @@ func baremetalServerReboot() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.RebootServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -998,7 +998,7 @@ func baremetalServerStart() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.StartServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1045,7 +1045,7 @@ func baremetalServerStop() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.StopServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1100,7 +1100,7 @@ func baremetalServerListEvents() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListServerEventsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1156,7 +1156,7 @@ After adding the BMC option, you need to Get Remote Access to get the login/pass
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.StartBMCAccessRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1193,7 +1193,7 @@ func baremetalBmcGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetBMCAccessRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1230,7 +1230,7 @@ func baremetalBmcStop() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.StopBMCAccessRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1288,7 +1288,7 @@ func baremetalServerUpdateIP() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.UpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1339,7 +1339,7 @@ func baremetalOptionsAdd() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.AddOptionServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1389,7 +1389,7 @@ func baremetalOptionsDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.DeleteOptionServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1445,7 +1445,7 @@ func baremetalOfferList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListOffersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1501,7 +1501,7 @@ func baremetalOfferGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetOfferRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1544,7 +1544,7 @@ func baremetalOptionsGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetOptionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1595,7 +1595,7 @@ func baremetalOptionsList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListOptionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1663,7 +1663,7 @@ func baremetalSettingsList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListSettingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1716,7 +1716,7 @@ func baremetalSettingsUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.UpdateSettingRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1754,7 +1754,7 @@ func baremetalOsList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListOSRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1800,7 +1800,7 @@ func baremetalOsGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetOSRequest)
 
 			client := core.ExtractClient(ctx)

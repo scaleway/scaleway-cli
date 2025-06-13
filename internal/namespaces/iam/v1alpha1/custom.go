@@ -85,7 +85,7 @@ func setOrganizationDefaultValue(c *core.Command) *core.Command {
 	return c
 }
 
-func InitWithSSHKeyRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
+func InitWithSSHKeyRun(ctx context.Context, _ any) (i any, e error) {
 	// Get default local SSH key
 	var shortenedFilename string
 	var err error

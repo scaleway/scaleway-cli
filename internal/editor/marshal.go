@@ -20,7 +20,7 @@ var (
 	MarshalModeEnum    = []MarshalMode{MarshalModeYAML, MarshalModeJSON}
 )
 
-func marshal(i interface{}, mode MarshalMode) ([]byte, error) {
+func marshal(i any, mode MarshalMode) ([]byte, error) {
 	if mode == "" {
 		mode = MarshalModeDefault
 	}
@@ -44,7 +44,7 @@ func marshal(i interface{}, mode MarshalMode) ([]byte, error) {
 	return nil, fmt.Errorf("unknown marshal mode %q", mode)
 }
 
-func unmarshal(data []byte, i interface{}, mode MarshalMode) error {
+func unmarshal(data []byte, i any, mode MarshalMode) error {
 	if mode == "" {
 		mode = MarshalModeDefault
 	}
@@ -61,7 +61,7 @@ func unmarshal(data []byte, i interface{}, mode MarshalMode) error {
 
 // removeFields remove some fields from marshaled data
 func removeFields(data []byte, mode MarshalMode, fields []string) ([]byte, error) {
-	i := map[string]interface{}{}
+	i := map[string]any{}
 	err := unmarshal(data, &i, mode)
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshal: %w", err)

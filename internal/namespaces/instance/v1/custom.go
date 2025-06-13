@@ -250,7 +250,7 @@ func GetCommands() *core.Commands {
 
 // marshallNestedField will marshal only the given field of a struct.
 func marshallNestedField(nestedKey string) human.MarshalerFunc {
-	return func(i interface{}, opt *human.MarshalOpt) (s string, err error) {
+	return func(i any, opt *human.MarshalOpt) (s string, err error) {
 		if reflect.TypeOf(i).Kind() != reflect.Struct {
 			return "", fmt.Errorf("%T must be a struct", i)
 		}

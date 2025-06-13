@@ -28,7 +28,7 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(createEndpointRequestCustom{})
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		createEndpointCustomRequest := argsI.(*createEndpointRequestCustom)
 		createEndpointreq := createEndpointCustomRequest.CreateEndpointRequest
 		endpoint := createEndpointCustomRequest.Endpoint

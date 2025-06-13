@@ -138,7 +138,7 @@ func mongodbNodeTypeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -179,7 +179,7 @@ func mongodbVersionList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListVersionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -257,7 +257,7 @@ func mongodbInstanceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListInstancesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -296,7 +296,7 @@ func mongodbInstanceGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.GetInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -396,7 +396,7 @@ func mongodbInstanceCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.CreateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -440,7 +440,7 @@ func mongodbInstanceUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.UpdateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -470,7 +470,7 @@ func mongodbInstanceDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.DeleteInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -507,7 +507,7 @@ func mongodbInstanceUpgrade() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.UpgradeInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -537,7 +537,7 @@ func mongodbInstanceGetCertificate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.GetInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -581,7 +581,7 @@ func mongodbSnapshotCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -611,7 +611,7 @@ func mongodbSnapshotGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -655,7 +655,7 @@ func mongodbSnapshotUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.UpdateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -718,7 +718,7 @@ func mongodbSnapshotRestore() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.RestoreSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -787,7 +787,7 @@ func mongodbSnapshotList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -826,7 +826,7 @@ func mongodbSnapshotDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.DeleteSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -877,7 +877,7 @@ func mongodbUserList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListUsersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -930,7 +930,7 @@ func mongodbUserCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.CreateUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -974,7 +974,7 @@ func mongodbUserUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.UpdateUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1011,7 +1011,7 @@ func mongodbUserDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.DeleteUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1083,7 +1083,7 @@ func mongodbUserSetRole() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.SetUserRoleRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1113,7 +1113,7 @@ func mongodbEndpointDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1157,7 +1157,7 @@ func mongodbEndpointCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.CreateEndpointRequest)
 
 			client := core.ExtractClient(ctx)

@@ -73,7 +73,7 @@ func vpcACLEditCommand() *core.Command {
 			editor.MarshalModeArgSpec(),
 			core.RegionArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			args := argsI.(*vpcACLEditArgs)
 
 			client := core.ExtractClient(ctx)
