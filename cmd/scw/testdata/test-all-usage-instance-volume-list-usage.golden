@@ -9,17 +9,8 @@ EXAMPLES:
   List all volumes
     scw instance volume list
 
-  List all block storage volumes
-    scw instance volume list volume-type=b_ssd
-
-  List all local storage volumes
-    scw instance volume list volume-type=l_ssd
-
   List all volumes that match a name
     scw instance volume list name=foobar
-
-  List all block storage volumes that match a name
-    scw instance volume list volume-type=b_ssd name=foobar
 
 ARGS:
   [volume-type]       Filter by volume type (l_ssd | b_ssd | unified | scratch | sbs_volume | sbs_snapshot)

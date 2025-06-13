@@ -2487,7 +2487,6 @@ have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
 snapshot strategies on both volumes.
 
-A snapshot's volume type is its original volume's type (`l_ssd` or `b_ssd`).
 Volumes can be created from snapshots of their own type.
 
 
@@ -2559,7 +2558,7 @@ scw instance snapshot create name=foobar volume-id=11111111-1111-1111-1111-11111
 
 Import a QCOW file as an Instance snapshot
 ```
-scw instance snapshot create zone=fr-par-1 name=my-imported-snapshot volume-type=b_ssd bucket=my-bucket key=my-qcow2-file-name
+scw instance snapshot create zone=fr-par-1 name=my-imported-snapshot volume-type=l_ssd bucket=my-bucket key=my-qcow2-file-name
 ```
 
 
@@ -3010,13 +3009,9 @@ A volume is where you store your data inside your Instance. It
 appears as a block device on Linux that you can use to create
 a filesystem and mount it.
 
-Two different types of volume (`volume_type`) are available:
-  - `l_ssd` is a local block storage: your data is downloaded on
-    the hypervisor and you need to power off your Instance to attach
-    or detach a volume.
-  - `b_ssd` is a remote block storage: your data is stored on a
-    centralized cluster. You can plug and unplug a volume while
-    your Instance is running.
+The Instance API only supports local (`l_ssd`) and `scratch` volume types.
+Block storage volumes can also be attached to Instances, these volumes are
+managed by the SBS API (https://www.scaleway.com/en/developers/api/block/).
 
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone `/products/volumes` API endpoint. _I.e_ for:
@@ -3026,10 +3021,6 @@ from the zone `/products/volumes` API endpoint. _I.e_ for:
 Each type of volume is also subject to a global quota for the sum of all the
 volumes. This quota depends of the level of support and may be
 changed on demand.
-
-Be wary that when terminating an Instance, if you want to keep
-your block storage volume, **you must** detach it before you
-issue the `terminate` call.
 
 When using multiple block devices, it's advised to mount them by
 using their UUID instead of their device name. A device name is
@@ -3190,24 +3181,9 @@ List all volumes
 scw instance volume list
 ```
 
-List all block storage volumes
-```
-scw instance volume list volume-type=b_ssd
-```
-
-List all local storage volumes
-```
-scw instance volume list volume-type=l_ssd
-```
-
 List all volumes that match a name
 ```
 scw instance volume list name=foobar
-```
-
-List all block storage volumes that match a name
-```
-scw instance volume list volume-type=b_ssd name=foobar
 ```
 
 
@@ -3239,7 +3215,7 @@ scw instance volume plan-migration <volume-id ...> [arg=value ...]
 
 ### Update a volume
 
-Replace the name and/or size properties of a volume specified by its ID, with the specified value(s). Any volume name can be changed, however only `b_ssd` volumes can currently be increased in size.
+Replace the name and/or size properties of a volume specified by its ID, with the specified value(s).
 
 **Usage:**
 
