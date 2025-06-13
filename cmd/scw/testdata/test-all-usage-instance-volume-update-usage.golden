@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Replace the name and/or size properties of a volume specified by its ID, with the specified value(s). Any volume name can be changed, however only `b_ssd` volumes can currently be increased in size.
+Replace the name and/or size properties of a volume specified by its ID, with the specified value(s).
 
 USAGE:
   scw instance volume update <volume-id ...> [arg=value ...]
