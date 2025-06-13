@@ -4,13 +4,9 @@ A volume is where you store your data inside your Instance. It
 appears as a block device on Linux that you can use to create
 a filesystem and mount it.
 
-Two different types of volume (`volume_type`) are available:
-  - `l_ssd` is a local block storage: your data is downloaded on
-    the hypervisor and you need to power off your Instance to attach
-    or detach a volume.
-  - `b_ssd` is a remote block storage: your data is stored on a
-    centralized cluster. You can plug and unplug a volume while
-    your Instance is running.
+The Instance API only supports local (`l_ssd`) and `scratch` volume types.
+Block storage volumes can also be attached to Instances, these volumes are
+managed by the SBS API (https://www.scaleway.com/en/developers/api/block/).
 
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone `/products/volumes` API endpoint. _I.e_ for:
@@ -20,10 +16,6 @@ from the zone `/products/volumes` API endpoint. _I.e_ for:
 Each type of volume is also subject to a global quota for the sum of all the
 volumes. This quota depends of the level of support and may be
 changed on demand.
-
-Be wary that when terminating an Instance, if you want to keep
-your block storage volume, **you must** detach it before you
-issue the `terminate` call.
 
 When using multiple block devices, it's advised to mount them by
 using their UUID instead of their device name. A device name is
