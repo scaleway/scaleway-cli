@@ -6,7 +6,7 @@ extra_css:
 # GitHub integration configuration
 repo_url: https://github.com/scaleway/scaleway-cli
 repo_name: scaleway/scaleway-cli
-edit_uri: edit/master/&/commands/
+edit_uri: edit/master/docs/commands/
 
 # Theme configuration
 theme:
