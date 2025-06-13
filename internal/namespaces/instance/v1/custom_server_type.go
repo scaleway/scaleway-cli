@@ -43,6 +43,7 @@ type customServerType struct {
 	RAM                scw.Size                         `json:"ram"`
 	Arch               instance.Arch                    `json:"arch"`
 	Availability       instance.ServerTypesAvailability `json:"availability"`
+	MaxFileSystems     uint32                           `json:"max_file_systems"`
 }
 
 // serverTypeListBuilder transforms the server map into a list to display a
@@ -122,6 +123,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 				RAM:                scw.Size(serverType.RAM),
 				Arch:               serverType.Arch,
 				Availability:       serverTypeAvailability,
+				MaxFileSystems:     serverType.Capabilities.MaxFileSystems,
 			})
 		}
 
