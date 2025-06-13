@@ -1,4 +1,4 @@
-site_name: Scaleway Command Line Interface Documentation
+site_name: Scaleway CLI Documentation
 site_url: https://cli.scaleway.com/
 extra_css:
   - stylesheets/extra.css
@@ -62,6 +62,7 @@ nav:
     - Elastic Metal: baremetal
     - Apple Silicon: apple-silicon
     - Dedibox: dedibox
+    - Flexible IP: fip
   - Compute:
     - Instances: instance
   - Containers:
