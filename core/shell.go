@@ -24,6 +24,12 @@ type Completer struct {
 	ctx context.Context
 }
 
+func NewShellCompleter(ctx context.Context) *Completer {
+	return &Completer{
+		ctx: ctx,
+	}
+}
+
 type ShellSuggestion struct {
 	Text string
 	Arg  *ArgSpec
@@ -260,12 +266,6 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 	}
 
 	return prompt.FilterHasPrefix(suggestions, currentArg, true)
-}
-
-func NewShellCompleter(ctx context.Context) *Completer {
-	return &Completer{
-		ctx: ctx,
-	}
 }
 
 // shellExecutor returns the function that will execute command entered in shell
