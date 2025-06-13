@@ -56,7 +56,7 @@ func functionDeploy() *core.Command {
 			},
 			core.RegionArgSpec((&function.API{}).Regions()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*functionDeployRequest)
 			scwClient := core.ExtractClient(ctx)
 			httpClient := core.ExtractHTTPClient(ctx)

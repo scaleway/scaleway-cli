@@ -22,7 +22,7 @@ func Capitalize(s string) string {
 }
 
 // isInterfaceNil return true if data is nil no matter it's type
-func isInterfaceNil(data interface{}) bool {
+func isInterfaceNil(data any) bool {
 	if data == nil {
 		return true
 	}

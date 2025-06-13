@@ -153,7 +153,7 @@ func AutocompleteGetArg(
 	}
 
 	if listCmd.Interceptor == nil {
-		listCmd.Interceptor = func(ctx context.Context, argsI interface{}, runner CommandRunner) (interface{}, error) {
+		listCmd.Interceptor = func(ctx context.Context, argsI any, runner CommandRunner) (any, error) {
 			return runner(ctx, argsI)
 		}
 	}

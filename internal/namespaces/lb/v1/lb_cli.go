@@ -248,7 +248,7 @@ func lbLBList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListLBsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -363,7 +363,7 @@ func lbLBCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateLBRequest)
 
 			client := core.ExtractClient(ctx)
@@ -402,7 +402,7 @@ func lbLBGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetLBRequest)
 
 			client := core.ExtractClient(ctx)
@@ -475,7 +475,7 @@ func lbLBUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateLBRequest)
 
 			client := core.ExtractClient(ctx)
@@ -521,7 +521,7 @@ func lbLBDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteLBRequest)
 
 			client := core.ExtractClient(ctx)
@@ -574,7 +574,7 @@ func lbLBMigrate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIMigrateLBRequest)
 
 			client := core.ExtractClient(ctx)
@@ -647,7 +647,7 @@ func lbIPList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListIPsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -711,7 +711,7 @@ func lbIPCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -750,7 +750,7 @@ func lbIPGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -789,7 +789,7 @@ func lbIPDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIReleaseIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -856,7 +856,7 @@ func lbIPUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -916,7 +916,7 @@ func lbBackendList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListBackendsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1258,7 +1258,7 @@ func lbBackendCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateBackendRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1297,7 +1297,7 @@ func lbBackendGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetBackendRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1498,7 +1498,7 @@ func lbBackendUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateBackendRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1537,7 +1537,7 @@ func lbBackendDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteBackendRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1590,7 +1590,7 @@ func lbBackendAddServers() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIAddBackendServersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1636,7 +1636,7 @@ func lbBackendRemoveServers() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIRemoveBackendServersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1682,7 +1682,7 @@ func lbBackendSetServers() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPISetBackendServersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1841,7 +1841,7 @@ func lbBackendUpdateHealthcheck() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateHealthCheckRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1901,7 +1901,7 @@ func lbFrontendList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListFrontendsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2007,7 +2007,7 @@ func lbFrontendCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateFrontendRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2046,7 +2046,7 @@ func lbFrontendGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetFrontendRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2142,7 +2142,7 @@ func lbFrontendUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateFrontendRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2181,7 +2181,7 @@ func lbFrontendDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteFrontendRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2239,7 +2239,7 @@ func lbRouteList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListRoutesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2322,7 +2322,7 @@ func lbRouteCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2361,7 +2361,7 @@ func lbRouteGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2435,7 +2435,7 @@ func lbRouteUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2474,7 +2474,7 @@ func lbRouteDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2527,7 +2527,7 @@ func lbLBGetStats() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetLBStatsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2574,7 +2574,7 @@ func lbBackendListStatistics() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListBackendStatsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2643,7 +2643,7 @@ func lbACLList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListACLsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2799,7 +2799,7 @@ func lbACLCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateACLRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2838,7 +2838,7 @@ func lbACLGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetACLRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2984,7 +2984,7 @@ func lbACLUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateACLRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3023,7 +3023,7 @@ func lbACLDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteACLRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3176,7 +3176,7 @@ func lbACLSet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPISetACLsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3244,7 +3244,7 @@ func lbCertificateCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3304,7 +3304,7 @@ func lbCertificateList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListCertificatesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3390,7 +3390,7 @@ func lbCertificateGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3436,7 +3436,7 @@ func lbCertificateUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3475,7 +3475,7 @@ func lbCertificateDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3515,7 +3515,7 @@ func lbLBTypesList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListLBTypesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3579,7 +3579,7 @@ func lbSubscriberCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3618,7 +3618,7 @@ func lbSubscriberGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3685,7 +3685,7 @@ func lbSubscriberList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3754,7 +3754,7 @@ func lbSubscriberUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3793,7 +3793,7 @@ func lbSubscriberDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3846,7 +3846,7 @@ func lbSubscriberSubscribe() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPISubscribeToLBRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3885,7 +3885,7 @@ func lbSubscriberUnsubscribe() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUnsubscribeFromLBRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3936,7 +3936,7 @@ func lbPrivateNetworkList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListLBPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3998,7 +3998,7 @@ func lbPrivateNetworkAttach() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIAttachPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -4044,7 +4044,7 @@ func lbPrivateNetworkDetach() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDetachPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)

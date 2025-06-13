@@ -33,7 +33,7 @@ type Meta struct {
 	stdout                      io.Writer
 	stderr                      io.Writer
 	stdin                       io.Reader
-	result                      interface{}
+	result                      any
 	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
 	BetaMode                    bool

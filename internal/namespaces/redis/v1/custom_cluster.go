@@ -46,7 +46,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(redisCreateClusterRequestCustom{})
 
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
 			ClusterID:     respI.(*redis.Cluster).ID,
@@ -61,7 +61,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		return cluster, nil
 	}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := redis.NewAPI(client)
 
@@ -100,7 +100,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 }
 
 func clusterDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
 			ClusterID:     respI.(*redis.Cluster).ID,
@@ -134,7 +134,7 @@ func clusterWaitCommand() *core.Command {
 		Resource:  "cluster",
 		Verb:      "wait",
 		ArgsType:  reflect.TypeOf(redis.WaitForClusterRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := redis.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForCluster(&redis.WaitForClusterRequest{
@@ -172,7 +172,7 @@ func clusterWaitCommand() *core.Command {
 
 func ACLAddListBuilder(c *core.Command) *core.Command {
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			originalResp, err := runner(ctx, argsI)
 			if err != nil {
 				return nil, err
@@ -192,7 +192,7 @@ func redisSettingAddBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func redisClusterGetMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func redisClusterGetMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp redis.Cluster
 	redisClusterResponse := tmp(i.(redis.Cluster))
 	opt.Sections = []*human.MarshalSection{

@@ -23,7 +23,7 @@ var gatewayNetworkStatusMarshalSpecs = human.EnumMarshalSpecs{
 }
 
 func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		getResp := respI.(*vpcgw.GatewayNetwork)
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
 
@@ -39,7 +39,7 @@ func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {
 }
 
 func gatewayNetworkDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, _ any) (any, error) {
 		getResp := argsI.(*vpcgw.DeleteGatewayNetworkRequest)
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
 		gwNetwork, err := api.WaitForGatewayNetwork(&vpcgw.WaitForGatewayNetworkRequest{
@@ -68,7 +68,7 @@ func gatewayNetworkDeleteBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func gatewayNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func gatewayNetworkMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp vpcgw.GatewayNetwork
 	vpcgwNetwork := tmp(i.(vpcgw.GatewayNetwork))
 	opt.Sections = []*human.MarshalSection{

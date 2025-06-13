@@ -177,7 +177,7 @@ func vpcVpcList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.ListVPCsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -236,7 +236,7 @@ func vpcVpcCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.CreateVPCRequest)
 
 			client := core.ExtractClient(ctx)
@@ -270,7 +270,7 @@ func vpcVpcGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.GetVPCRequest)
 
 			client := core.ExtractClient(ctx)
@@ -318,7 +318,7 @@ func vpcVpcUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.UpdateVPCRequest)
 
 			client := core.ExtractClient(ctx)
@@ -352,7 +352,7 @@ func vpcVpcDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.DeleteVPCRequest)
 
 			client := core.ExtractClient(ctx)
@@ -449,7 +449,7 @@ func vpcPrivateNetworkList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.ListPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -522,7 +522,7 @@ func vpcPrivateNetworkCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.CreatePrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -556,7 +556,7 @@ func vpcPrivateNetworkGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.GetPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -611,7 +611,7 @@ func vpcPrivateNetworkUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.UpdatePrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -645,7 +645,7 @@ func vpcPrivateNetworkDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.DeletePrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -686,7 +686,7 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.EnableDHCPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -720,7 +720,7 @@ func vpcRouteEnableRouting() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.EnableRoutingRequest)
 
 			client := core.ExtractClient(ctx)
@@ -789,7 +789,7 @@ func vpcRouteCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.CreateRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -823,7 +823,7 @@ func vpcRouteGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.GetRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -892,7 +892,7 @@ func vpcRouteUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.UpdateRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -926,7 +926,7 @@ func vpcRouteDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.DeleteRouteRequest)
 
 			client := core.ExtractClient(ctx)
@@ -974,7 +974,7 @@ func vpcRuleGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.GetACLRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1101,7 +1101,7 @@ func vpcRuleSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.SetACLRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1195,7 +1195,7 @@ func vpcRouteList() *core.Command {
 			},
 			core.RegionArgSpec(scw.Region(core.AllLocalities)),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpc.RoutesWithNexthopAPIListRoutesWithNexthopRequest)
 
 			client := core.ExtractClient(ctx)

@@ -101,7 +101,7 @@ func sdbSQLDatabaseCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*serverless_sqldb.CreateDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -131,7 +131,7 @@ func sdbSQLDatabaseGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*serverless_sqldb.GetDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -161,7 +161,7 @@ func sdbSQLDatabaseDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*serverless_sqldb.DeleteDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -215,7 +215,7 @@ func sdbSQLDatabaseList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*serverless_sqldb.ListDatabasesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -268,7 +268,7 @@ func sdbSQLDatabaseUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*serverless_sqldb.UpdateDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -305,7 +305,7 @@ func sdbSQLDatabaseRestore() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*serverless_sqldb.RestoreDatabaseFromBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -335,7 +335,7 @@ func sdbSQLBackupGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*serverless_sqldb.GetDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -393,7 +393,7 @@ func sdbSQLBackupList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*serverless_sqldb.ListDatabaseBackupsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -432,7 +432,7 @@ func sdbSQLBackupExport() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*serverless_sqldb.ExportDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)

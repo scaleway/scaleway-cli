@@ -166,7 +166,7 @@ func autocompleteInstallCommand() *core.Command {
 	}
 }
 
-func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func InstallCommandRun(ctx context.Context, argsI any) (i any, e error) {
 	// Warning
 	_, _ = interactive.Println(
 		"To enable autocomplete, scw needs to update your shell configuration.",
@@ -286,7 +286,7 @@ func autocompleteCompleteBashCommand() *core.Command {
 		Hidden:               true,
 		DisableTelemetry:     true,
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 3 {
 				return nil, errors.New("not enough arguments")
@@ -333,7 +333,7 @@ func autocompleteCompleteFishCommand() *core.Command {
 		Hidden:               true,
 		DisableTelemetry:     true,
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 4 {
 				return nil, errors.New("not enough arguments")
@@ -371,7 +371,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 		Hidden:               true,
 		DisableTelemetry:     true,
 		ArgsType:             reflect.TypeOf(args.RawArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 2 {
 				return nil, errors.New("not enough arguments")
@@ -435,7 +435,7 @@ func autocompleteScriptCommand() *core.Command {
 			},
 		},
 		ArgsType: reflect.TypeOf(autocompleteShowArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			shell := filepath.Base(argsI.(*autocompleteShowArgs).Shell)
 			basename := argsI.(*autocompleteShowArgs).Basename
 			script, exists := autocompleteScripts(ctx, basename)[shell]

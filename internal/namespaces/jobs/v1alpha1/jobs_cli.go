@@ -168,7 +168,7 @@ func jobsDefinitionCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.CreateJobDefinitionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -202,7 +202,7 @@ func jobsDefinitionGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.GetJobDefinitionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -252,7 +252,7 @@ func jobsDefinitionList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.ListJobDefinitionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -370,7 +370,7 @@ func jobsDefinitionUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.UpdateJobDefinitionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -404,7 +404,7 @@ func jobsDefinitionDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.DeleteJobDefinitionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -466,7 +466,7 @@ func jobsDefinitionStart() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.StartJobDefinitionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -524,7 +524,7 @@ func jobsSecretCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.CreateJobDefinitionSecretsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -565,7 +565,7 @@ func jobsSecretGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.GetJobDefinitionSecretRequest)
 
 			client := core.ExtractClient(ctx)
@@ -599,7 +599,7 @@ func jobsSecretList() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.ListJobDefinitionSecretsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -661,7 +661,7 @@ func jobsSecretUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.UpdateJobDefinitionSecretRequest)
 
 			client := core.ExtractClient(ctx)
@@ -702,7 +702,7 @@ func jobsSecretDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.DeleteJobDefinitionSecretRequest)
 
 			client := core.ExtractClient(ctx)
@@ -743,7 +743,7 @@ func jobsRunGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.GetJobRunRequest)
 
 			client := core.ExtractClient(ctx)
@@ -777,7 +777,7 @@ func jobsRunStop() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.StopJobRunRequest)
 
 			client := core.ExtractClient(ctx)
@@ -865,7 +865,7 @@ func jobsRunList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*jobs.ListJobRunsRequest)
 
 			client := core.ExtractClient(ctx)

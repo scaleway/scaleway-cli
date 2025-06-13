@@ -27,7 +27,7 @@ var (
 	}
 )
 
-func waitForContainer(ctx context.Context, _, respI interface{}) (interface{}, error) {
+func waitForContainer(ctx context.Context, _, respI any) (any, error) {
 	c := respI.(*container.Container)
 
 	client := core.ExtractClient(ctx)
@@ -64,7 +64,7 @@ func containerContainerCreateBuilder(command *core.Command) *core.Command {
 	command.ArgsType = reflect.TypeOf(CustomCreateContainerRequest{})
 
 	command.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			args := argsI.(*CustomCreateContainerRequest)
 			resI, err := runner(ctx, args.CreateContainerRequest)
 			if err != nil {

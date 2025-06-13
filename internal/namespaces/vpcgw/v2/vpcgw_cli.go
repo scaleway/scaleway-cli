@@ -211,7 +211,7 @@ func vpcGwGatewayList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListGatewaysRequest)
 
 			client := core.ExtractClient(ctx)
@@ -259,7 +259,7 @@ func vpcGwGatewayGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.GetGatewayRequest)
 
 			client := core.ExtractClient(ctx)
@@ -343,7 +343,7 @@ func vpcGwGatewayCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.CreateGatewayRequest)
 
 			client := core.ExtractClient(ctx)
@@ -417,7 +417,7 @@ func vpcGwGatewayUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpdateGatewayRequest)
 
 			client := core.ExtractClient(ctx)
@@ -463,7 +463,7 @@ func vpcGwGatewayDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.DeleteGatewayRequest)
 
 			client := core.ExtractClient(ctx)
@@ -509,7 +509,7 @@ func vpcGwGatewayUpgrade() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpgradeGatewayRequest)
 
 			client := core.ExtractClient(ctx)
@@ -591,7 +591,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListGatewayNetworksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -639,7 +639,7 @@ func vpcGwGatewayNetworkGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.GetGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -706,7 +706,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.CreateGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -766,7 +766,7 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpdateGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -805,7 +805,7 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.DeleteGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
@@ -878,7 +878,7 @@ func vpcGwPatRuleList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListPatRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -926,7 +926,7 @@ func vpcGwPatRuleGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.GetPatRuleRequest)
 
 			client := core.ExtractClient(ctx)
@@ -999,7 +999,7 @@ func vpcGwPatRuleCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.CreatePatRuleRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1072,7 +1072,7 @@ func vpcGwPatRuleUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpdatePatRuleRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1145,7 +1145,7 @@ func vpcGwPatRuleSet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.SetPatRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1184,7 +1184,7 @@ func vpcGwPatRuleDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.DeletePatRuleRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1223,7 +1223,7 @@ func vpcGwGatewayTypeList() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListGatewayTypesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1306,7 +1306,7 @@ func vpcGwIPList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListIPsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1354,7 +1354,7 @@ func vpcGwIPGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.GetIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1394,7 +1394,7 @@ func vpcGwIPCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.CreateIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1454,7 +1454,7 @@ func vpcGwIPUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1493,7 +1493,7 @@ func vpcGwIPDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.DeleteIPRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1539,7 +1539,7 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.RefreshSSHKeysRequest)
 
 			client := core.ExtractClient(ctx)

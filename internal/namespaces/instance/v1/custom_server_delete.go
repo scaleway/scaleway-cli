@@ -91,7 +91,7 @@ func serverDeleteCommand() *core.Command {
 			},
 		},
 		WaitUsage: "wait until the server and its resources are deleted",
-		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, _, respI any) (any, error) {
 			server := respI.(*core.SuccessResult).TargetResource.(*instance.Server)
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
@@ -113,7 +113,7 @@ func serverDeleteCommand() *core.Command {
 
 			return respI, nil
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			deleteServerArgs := argsI.(*customDeleteServerRequest)
 
 			client := core.ExtractClient(ctx)

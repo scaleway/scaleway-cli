@@ -241,7 +241,7 @@ func iamSSHKeyList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListSSHKeysRequest)
 
 			client := core.ExtractClient(ctx)
@@ -304,7 +304,7 @@ func iamSSHKeyCreate() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateSSHKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -349,7 +349,7 @@ func iamSSHKeyGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetSSHKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -391,7 +391,7 @@ func iamSSHKeyUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateSSHKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -419,7 +419,7 @@ func iamSSHKeyDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteSSHKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -525,7 +525,7 @@ func iamUserList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListUsersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -559,7 +559,7 @@ func iamUserGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -630,7 +630,7 @@ func iamUserUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -659,7 +659,7 @@ func iamUserDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -766,7 +766,7 @@ func iamUserCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -802,7 +802,7 @@ func iamUserUpdateUsername() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateUserUsernameRequest)
 
 			client := core.ExtractClient(ctx)
@@ -838,7 +838,7 @@ func iamUserUpdatePassword() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateUserPasswordRequest)
 
 			client := core.ExtractClient(ctx)
@@ -905,7 +905,7 @@ func iamApplicationList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListApplicationsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -955,7 +955,7 @@ func iamApplicationCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateApplicationRequest)
 
 			client := core.ExtractClient(ctx)
@@ -984,7 +984,7 @@ func iamApplicationGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetApplicationRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1034,7 +1034,7 @@ func iamApplicationUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateApplicationRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1063,7 +1063,7 @@ func iamApplicationDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteApplicationRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1144,7 +1144,7 @@ func iamGroupList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListGroupsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1208,7 +1208,7 @@ func iamGroupCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateGroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1257,7 +1257,7 @@ func iamGroupGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetGroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1307,7 +1307,7 @@ func iamGroupUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateGroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1347,7 +1347,7 @@ func iamGroupSetMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.SetGroupMembersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1400,7 +1400,7 @@ func iamGroupAddMember() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.AddGroupMemberRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1443,7 +1443,7 @@ func iamGroupAddMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.AddGroupMembersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1486,7 +1486,7 @@ func iamGroupRemoveMember() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.RemoveGroupMemberRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1525,7 +1525,7 @@ func iamGroupDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteGroupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1641,7 +1641,7 @@ func iamPolicyList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListPoliciesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1747,7 +1747,7 @@ func iamPolicyCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreatePolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1782,7 +1782,7 @@ func iamPolicyGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetPolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1860,7 +1860,7 @@ func iamPolicyUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdatePolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1889,7 +1889,7 @@ func iamPolicyDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeletePolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1924,7 +1924,7 @@ func iamPolicyClone() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ClonePolicyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1981,7 +1981,7 @@ func iamRuleUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.SetRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2010,7 +2010,7 @@ func iamRuleList() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2052,7 +2052,7 @@ func iamPermissionSetList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListPermissionSetsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2172,7 +2172,7 @@ func iamAPIKeyList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListAPIKeysRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2254,7 +2254,7 @@ func iamAPIKeyCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateAPIKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2293,7 +2293,7 @@ func iamAPIKeyGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetAPIKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2336,7 +2336,7 @@ func iamAPIKeyUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateAPIKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2365,7 +2365,7 @@ func iamAPIKeyDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteAPIKeyRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2438,7 +2438,7 @@ func iamJwtList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListJWTsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2472,7 +2472,7 @@ func iamJwtGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetJWTRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2501,7 +2501,7 @@ func iamJwtDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteJWTRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2592,7 +2592,7 @@ func iamLogList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListLogsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2626,7 +2626,7 @@ func iamLogGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetLogRequest)
 
 			client := core.ExtractClient(ctx)

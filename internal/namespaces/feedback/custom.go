@@ -36,7 +36,7 @@ func feedbackBugCommand() *core.Command {
 		ArgSpecs:             core.ArgSpecs{},
 		AllowAnonymousClient: true,
 
-		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ any) (i any, e error) {
 			issue := issue{
 				IssueTemplate: bug,
 				BuildInfo:     core.ExtractBuildInfo(ctx),
@@ -64,7 +64,7 @@ func feedbackFeatureRequestCommand() *core.Command {
 		ArgsType:             reflect.TypeOf(struct{}{}),
 		ArgSpecs:             core.ArgSpecs{},
 		AllowAnonymousClient: true,
-		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ any) (i any, e error) {
 			issue := issue{
 				IssueTemplate: feature,
 				BuildInfo:     core.ExtractBuildInfo(ctx),

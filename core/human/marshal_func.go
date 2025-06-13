@@ -16,7 +16,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type MarshalerFunc func(interface{}, *MarshalOpt) (string, error)
+type MarshalerFunc func(any, *MarshalOpt) (string, error)
 
 // marshalerFuncs is the register of all marshal func bindings
 var marshalerFuncs sync.Map
@@ -30,7 +30,7 @@ func init() {
 	marshalerFuncs.Store(reflect.TypeOf(string("")), defaultMarshalerFunc)
 	marshalerFuncs.Store(
 		reflect.TypeOf(bool(false)),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			v := i.(bool)
 			if v {
 				return terminal.Style("true", color.FgGreen), nil
@@ -41,13 +41,13 @@ func init() {
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf(time.Time{}),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			return humanize.Time(i.(time.Time)), nil
 		},
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf(&time.Time{}),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			t := i.(*time.Time)
 			if t == nil {
 				return Marshal(nil, nil)
@@ -58,7 +58,7 @@ func init() {
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf(scw.Size(0)),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			size := uint64(i.(scw.Size))
 
 			if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
@@ -70,7 +70,7 @@ func init() {
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf(scw.SizePtr(0)),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			size := uint64(*i.(*scw.Size))
 
 			if isIECNotation := size%1024 == 0 && size%1000 != 0; isIECNotation {
@@ -82,7 +82,7 @@ func init() {
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf([]scw.Size{}),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			sizes := i.([]scw.Size)
 			strs := []string(nil)
 			for _, size := range sizes {
@@ -98,19 +98,19 @@ func init() {
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf(net.IP{}),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			return fmt.Sprintf("%v", i.(net.IP)), nil
 		},
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf([]net.IP{}),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			return fmt.Sprintf("%v", i), nil
 		},
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf(scw.IPNet{}),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			v := i.(scw.IPNet)
 			str := v.String()
 			if str == "<nil>" {
@@ -122,7 +122,7 @@ func init() {
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf(version.Version{}),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			v := i.(version.Version)
 
 			return v.String(), nil
@@ -130,7 +130,7 @@ func init() {
 	)
 	marshalerFuncs.Store(
 		reflect.TypeOf(scw.Duration{}),
-		func(i interface{}, _ *MarshalOpt) (string, error) {
+		func(i any, _ *MarshalOpt) (string, error) {
 			v := i.(scw.Duration)
 			const (
 				minutes = int64(60)
@@ -184,20 +184,20 @@ func init() {
 
 func registerMarshaler[T any](marshalFunc func(i T, opt *MarshalOpt) (string, error)) {
 	var val T
-	marshalerFuncs.Store(reflect.TypeOf(val), func(i interface{}, opt *MarshalOpt) (string, error) {
+	marshalerFuncs.Store(reflect.TypeOf(val), func(i any, opt *MarshalOpt) (string, error) {
 		return marshalFunc(i.(T), opt)
 	})
 }
 
 // TODO: implement the same logic as args.RegisterMarshalFunc(), where i must be a pointer
 // RegisterMarshalerFunc bind the given type of i with the given MarshalerFunc
-func RegisterMarshalerFunc(i interface{}, f MarshalerFunc) {
+func RegisterMarshalerFunc(i any, f MarshalerFunc) {
 	marshalerFuncs.Store(reflect.TypeOf(i), f)
 }
 
 func getMarshalerFunc(key reflect.Type) (MarshalerFunc, bool) {
 	value, _ := marshalerFuncs.Load(key)
-	if f, ok := value.(func(interface{}, *MarshalOpt) (string, error)); ok {
+	if f, ok := value.(func(any, *MarshalOpt) (string, error)); ok {
 		return MarshalerFunc(f), true
 	}
 	if mf, ok := value.(MarshalerFunc); ok {
@@ -208,7 +208,7 @@ func getMarshalerFunc(key reflect.Type) (MarshalerFunc, bool) {
 }
 
 // DefaultMarshalerFunc is used by default for all non-registered type
-func defaultMarshalerFunc(i interface{}, _ *MarshalOpt) (string, error) {
+func defaultMarshalerFunc(i any, _ *MarshalOpt) (string, error) {
 	if i == nil {
 		i = "-"
 	}
@@ -247,11 +247,11 @@ type EnumMarshalSpec struct {
 	Value string
 }
 
-type EnumMarshalSpecs map[interface{}]*EnumMarshalSpec
+type EnumMarshalSpecs map[any]*EnumMarshalSpec
 
 // EnumMarshalFunc returns a marshal func to marshal an enum.
 func EnumMarshalFunc(specs EnumMarshalSpecs) MarshalerFunc {
-	return func(i interface{}, opt *MarshalOpt) (s string, e error) {
+	return func(i any, opt *MarshalOpt) (s string, e error) {
 		value, _ := defaultMarshalerFunc(i, opt)
 		spec, exist := specs[i]
 		if exist {

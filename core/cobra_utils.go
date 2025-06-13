@@ -142,7 +142,7 @@ func run(
 	cobraCmd *cobra.Command,
 	cmd *Command,
 	rawArgs []string,
-) (interface{}, error) {
+) (any, error) {
 	var err error
 
 	// create a new Args interface{}
@@ -202,7 +202,7 @@ func run(
 	data, err := interceptor(
 		ctx,
 		cmdArgs,
-		func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		func(ctx context.Context, argsI any) (i any, err error) {
 			return cmd.Run(ctx, argsI)
 		},
 	)

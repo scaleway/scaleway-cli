@@ -15,7 +15,7 @@ var (
 )
 
 type (
-	GetResourceFunc func(interface{}) (interface{}, error)
+	GetResourceFunc func(any) (any, error)
 	Config          struct {
 		// PutRequest means that the request replace all fields
 		// If false, fields that were not edited will not be sent
@@ -84,10 +84,10 @@ func edit(content []byte) ([]byte, error) {
 // updateResourceEditor takes a complete resource and a partial updateRequest
 // will return a copy of updateRequest that has been edited
 func updateResourceEditor(
-	resource interface{},
-	updateRequest interface{},
+	resource any,
+	updateRequest any,
 	cfg *Config,
-) (interface{}, error) {
+) (any, error) {
 	// Create a copy of updateRequest completed with resource content
 	completeUpdateRequest := copyAndCompleteUpdateRequest(updateRequest, resource)
 
@@ -152,9 +152,9 @@ func updateResourceEditor(
 // Only edited fields will be present in returned updateRequest
 // If putRequest is true, all fields will be present, edited or not
 func UpdateResourceEditor(
-	resource interface{},
-	updateRequest interface{},
+	resource any,
+	updateRequest any,
 	cfg *Config,
-) (interface{}, error) {
+) (any, error) {
 	return updateResourceEditor(resource, updateRequest, cfg)
 }

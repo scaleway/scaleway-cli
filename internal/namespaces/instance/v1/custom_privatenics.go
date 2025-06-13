@@ -19,7 +19,7 @@ var privateNICStateMarshalSpecs = human.EnumMarshalSpecs{
 func privateNicGetBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("private-nic-id").Short = "The private NIC unique ID or MAC address"
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		tmpRequest := argsI.(*instance.GetPrivateNICRequest)
 
 		if isMacAddress(tmpRequest.PrivateNicID) {

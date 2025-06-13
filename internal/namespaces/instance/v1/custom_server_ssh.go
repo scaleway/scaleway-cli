@@ -56,7 +56,7 @@ func serverSSHCommand() *core.Command {
 	}
 }
 
-func instanceServerSSHRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func instanceServerSSHRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*instanceSSHServerRequest)
 
 	client := core.ExtractClient(ctx)

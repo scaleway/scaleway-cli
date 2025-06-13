@@ -73,7 +73,7 @@ func TestCleanup(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 1",
-		func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		func(task *tasks.Task, _ any) (nextArgs any, err error) {
 			task.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
@@ -86,7 +86,7 @@ func TestCleanup(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 2",
-		func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		func(task *tasks.Task, _ any) (nextArgs any, err error) {
 			task.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
@@ -99,7 +99,7 @@ func TestCleanup(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 3",
-		func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		func(task *tasks.Task, _ any) (nextArgs any, err error) {
 			task.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
@@ -127,7 +127,7 @@ func TestCleanupOnContext(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 1",
-		func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		func(task *tasks.Task, _ any) (nextArgs any, err error) {
 			task.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
@@ -140,7 +140,7 @@ func TestCleanupOnContext(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 2",
-		func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		func(task *tasks.Task, _ any) (nextArgs any, err error) {
 			task.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
@@ -153,7 +153,7 @@ func TestCleanupOnContext(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 3",
-		func(task *tasks.Task, _ interface{}) (nextArgs interface{}, err error) {
+		func(task *tasks.Task, _ any) (nextArgs any, err error) {
 			task.AddToCleanUp(func(_ context.Context) error {
 				clean++
 

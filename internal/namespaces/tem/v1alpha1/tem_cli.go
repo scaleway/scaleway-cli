@@ -257,7 +257,7 @@ func temEmailCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.CreateEmailRequest)
 
 			client := core.ExtractClient(ctx)
@@ -287,7 +287,7 @@ func temEmailGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.GetEmailRequest)
 
 			client := core.ExtractClient(ctx)
@@ -437,7 +437,7 @@ func temEmailList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.ListEmailsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -504,7 +504,7 @@ func temEmailGetStatistics() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.GetStatisticsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -534,7 +534,7 @@ func temEmailCancel() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.CancelEmailRequest)
 
 			client := core.ExtractClient(ctx)
@@ -579,7 +579,7 @@ func temDomainCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.CreateDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -609,7 +609,7 @@ func temDomainGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.GetDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -673,7 +673,7 @@ func temDomainList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.ListDomainsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -712,7 +712,7 @@ func temDomainRevoke() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.RevokeDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -742,7 +742,7 @@ func temDomainCheck() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.CheckDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -772,7 +772,7 @@ func temDomainGetLastStatus() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.GetDomainLastStatusRequest)
 
 			client := core.ExtractClient(ctx)
@@ -809,7 +809,7 @@ func temDomainUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.UpdateDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -872,7 +872,7 @@ func temWebhookCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.CreateWebhookRequest)
 
 			client := core.ExtractClient(ctx)
@@ -930,7 +930,7 @@ func temWebhookList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.ListWebhooksRequest)
 
 			client := core.ExtractClient(ctx)
@@ -969,7 +969,7 @@ func temWebhookGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.GetWebhookRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1031,7 +1031,7 @@ func temWebhookUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.UpdateWebhookRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1061,7 +1061,7 @@ func temWebhookDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.DeleteWebhookRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1171,7 +1171,7 @@ func temWebhookListEvents() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.ListWebhookEventsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1252,7 +1252,7 @@ func temBlocklistsList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.ListBlocklistsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1317,7 +1317,7 @@ func temBlocklistsCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.BulkCreateBlocklistsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1347,7 +1347,7 @@ func temBlocklistsDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.DeleteBlocklistRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1390,7 +1390,7 @@ func temOffersUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.UpdateOfferSubscriptionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1413,7 +1413,7 @@ func temOffersList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.ListOffersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1437,7 +1437,7 @@ func temProjectConsumptionGet() *core.Command {
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*tem.GetProjectConsumptionRequest)
 
 			client := core.ExtractClient(ctx)

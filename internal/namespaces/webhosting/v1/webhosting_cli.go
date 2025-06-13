@@ -178,7 +178,7 @@ func webhostingControlPanelList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.ControlPanelAPIListControlPanelsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -247,7 +247,7 @@ func webhostingDatabaseCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPICreateDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -293,7 +293,7 @@ func webhostingDatabaseList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIListDatabasesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -343,7 +343,7 @@ func webhostingDatabaseGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIGetDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -384,7 +384,7 @@ func webhostingDatabaseDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIDeleteDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -432,7 +432,7 @@ func webhostingDatabaseUserCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPICreateDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -478,7 +478,7 @@ func webhostingDatabaseUserList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIListDatabaseUsersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -528,7 +528,7 @@ func webhostingDatabaseUserGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIGetDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -569,7 +569,7 @@ func webhostingDatabaseUserDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIDeleteDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -617,7 +617,7 @@ func webhostingDatabaseUserChangePassword() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIChangeDatabaseUserPasswordRequest)
 
 			client := core.ExtractClient(ctx)
@@ -665,7 +665,7 @@ func webhostingDatabaseUserAssign() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIAssignDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -713,7 +713,7 @@ func webhostingDatabaseUserUnassign() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIUnassignDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -747,7 +747,7 @@ func webhostingDNSRecordsGetDNSRecords() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DNSAPIGetDomainDNSRecordsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -788,7 +788,7 @@ func webhostingDomainCheckOwnership() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DNSAPICheckUserOwnsDomainRequest)
 
 			client := core.ExtractClient(ctx)
@@ -906,7 +906,7 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DNSAPISyncDomainDNSRecordsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -958,7 +958,7 @@ func webhostingOfferList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.OfferAPIListOffersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1116,7 +1116,7 @@ func webhostingHostingCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPICreateHostingRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1206,7 +1206,7 @@ func webhostingHostingList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPIListHostingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1255,7 +1255,7 @@ func webhostingHostingGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPIGetHostingRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1337,7 +1337,7 @@ func webhostingHostingUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPIUpdateHostingRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1381,7 +1381,7 @@ func webhostingHostingDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPIDeleteHostingRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1421,7 +1421,7 @@ func webhostingHostingCreateSession() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPICreateSessionRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1476,7 +1476,7 @@ func webhostingFtpAccountCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.FtpAccountAPICreateFtpAccountRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1529,7 +1529,7 @@ func webhostingFtpAccountList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.FtpAccountAPIListFtpAccountsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1579,7 +1579,7 @@ func webhostingFtpAccountDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.FtpAccountAPIRemoveFtpAccountRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1634,7 +1634,7 @@ func webhostingMailAccountCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.MailAccountAPICreateMailAccountRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1689,7 +1689,7 @@ func webhostingMailAccountList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.MailAccountAPIListMailAccountsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1746,7 +1746,7 @@ func webhostingMailAccountDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.MailAccountAPIRemoveMailAccountRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1801,7 +1801,7 @@ func webhostingMailAccountChangePassword() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.MailAccountAPIChangeMailAccountPasswordRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1847,7 +1847,7 @@ func webhostingWebsiteList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.WebsiteAPIListWebsitesRequest)
 
 			client := core.ExtractClient(ctx)

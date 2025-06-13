@@ -68,7 +68,7 @@ func SplitRaw(rawArgs []string) [][2]string {
 	return keyValue
 }
 
-func getInterfaceFromReflectValue(reflectValue reflect.Value) interface{} {
+func getInterfaceFromReflectValue(reflectValue reflect.Value) any {
 	i := reflectValue.Interface()
 	if reflectValue.CanAddr() {
 		i = reflectValue.Addr().Interface()

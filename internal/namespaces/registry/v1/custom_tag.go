@@ -31,7 +31,7 @@ type customTag struct {
 }
 
 func tagGetBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		getTagResp, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -88,7 +88,7 @@ func tagListBuilder(c *core.Command) *core.Command {
 		},
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		listTagResp, err := runner(ctx, argsI)
 		if err != nil {
 			return listTagResp, err

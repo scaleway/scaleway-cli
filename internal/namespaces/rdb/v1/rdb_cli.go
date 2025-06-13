@@ -284,7 +284,7 @@ func rdbEngineList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListDatabaseEnginesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -328,7 +328,7 @@ func rdbNodeTypeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -408,7 +408,7 @@ func rdbBackupList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListDatabaseBackupsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -473,7 +473,7 @@ func rdbBackupCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -507,7 +507,7 @@ func rdbBackupGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -555,7 +555,7 @@ func rdbBackupUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpdateDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -589,7 +589,7 @@ func rdbBackupDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -637,7 +637,7 @@ func rdbBackupRestore() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.RestoreDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -671,7 +671,7 @@ func rdbBackupExport() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ExportDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -767,7 +767,7 @@ func rdbInstanceUpgrade() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpgradeInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -839,7 +839,7 @@ func rdbInstanceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListInstancesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -914,7 +914,7 @@ func rdbInstanceGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1059,7 +1059,7 @@ func rdbInstanceCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1156,7 +1156,7 @@ func rdbInstanceUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpdateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1190,7 +1190,7 @@ func rdbInstanceDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1238,7 +1238,7 @@ func rdbInstanceClone() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CloneInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1272,7 +1272,7 @@ func rdbInstanceRestart() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.RestartInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1306,7 +1306,7 @@ func rdbInstanceGetCertificate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1340,7 +1340,7 @@ func rdbInstanceRenewCertificate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.RenewInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1402,7 +1402,7 @@ func rdbInstanceGetMetrics() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetInstanceMetricsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1457,7 +1457,7 @@ func rdbReadReplicaCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1491,7 +1491,7 @@ func rdbReadReplicaGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1525,7 +1525,7 @@ func rdbReadReplicaDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1560,7 +1560,7 @@ The configured endpoints do not change.`,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ResetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1608,7 +1608,7 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateReadReplicaEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1656,7 +1656,7 @@ func rdbLogPrepare() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.PrepareInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1701,7 +1701,7 @@ func rdbLogList() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1735,7 +1735,7 @@ func rdbLogGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetInstanceLogRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1776,7 +1776,7 @@ func rdbLogPurge() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.PurgeInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1817,7 +1817,7 @@ func rdbLogListDetails() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListInstanceLogsDetailsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1863,7 +1863,7 @@ func rdbSettingAdd() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.AddInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1904,7 +1904,7 @@ func rdbSettingDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1950,7 +1950,7 @@ func rdbSettingSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.SetInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1985,7 +1985,7 @@ func rdbACLList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2040,7 +2040,7 @@ func rdbACLAdd() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.AddInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2086,7 +2086,7 @@ func rdbACLSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.SetInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2127,7 +2127,7 @@ func rdbACLDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2182,7 +2182,7 @@ func rdbUserList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListUsersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2246,7 +2246,7 @@ func rdbUserCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2301,7 +2301,7 @@ func rdbUserUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpdateUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2342,7 +2342,7 @@ func rdbUserDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2418,7 +2418,7 @@ func rdbDatabaseList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListDatabasesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2468,7 +2468,7 @@ func rdbDatabaseCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2509,7 +2509,7 @@ func rdbDatabaseDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2578,7 +2578,7 @@ func rdbPrivilegeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListPrivilegesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2649,7 +2649,7 @@ func rdbPrivilegeSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.SetPrivilegeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2720,7 +2720,7 @@ func rdbSnapshotList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2763,7 +2763,7 @@ func rdbSnapshotGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2812,7 +2812,7 @@ func rdbSnapshotCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2860,7 +2860,7 @@ func rdbSnapshotUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpdateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2894,7 +2894,7 @@ func rdbSnapshotDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2949,7 +2949,7 @@ func rdbSnapshotRestore() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateInstanceFromSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2997,7 +2997,7 @@ func rdbEndpointCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3031,7 +3031,7 @@ func rdbEndpointDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3072,7 +3072,7 @@ func rdbEndpointGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -3113,7 +3113,7 @@ func rdbEndpointMigrate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.MigrateEndpointRequest)
 
 			client := core.ExtractClient(ctx)

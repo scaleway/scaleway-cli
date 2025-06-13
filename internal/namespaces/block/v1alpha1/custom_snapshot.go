@@ -38,7 +38,7 @@ func snapshotWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(snapshotWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*snapshotWaitRequest)
 
 			return block.NewAPI(core.ExtractClient(ctx)).
@@ -76,7 +76,7 @@ func snapshotWaitCommand() *core.Command {
 }
 
 func blockSnapshotCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		resp := respI.(*block.Snapshot)
 
 		return block.NewAPI(core.ExtractClient(ctx)).WaitForSnapshot(&block.WaitForSnapshotRequest{

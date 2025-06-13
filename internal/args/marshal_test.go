@@ -14,7 +14,7 @@ func TestMarshal(t *testing.T) {
 	type TestCase struct {
 		error    string
 		expected []string
-		data     interface{}
+		data     any
 	}
 
 	stringPtr := "test"
@@ -170,7 +170,7 @@ func TestMarshal(t *testing.T) {
 	}))
 
 	t.Run("insane", run(TestCase{
-		data: func() interface{} {
+		data: func() any {
 			n1 := &Nested{Basic: Basic{String: "test"}}
 			m1 := &map[string]**Nested{"key2": &n1}
 			m2 := map[string]**map[string]**Nested{"key1": &m1}
@@ -232,7 +232,7 @@ func TestMarshalValue(t *testing.T) {
 	type TestCase struct {
 		error    string
 		expected string
-		data     interface{}
+		data     any
 	}
 
 	run := func(testCase TestCase) func(t *testing.T) {

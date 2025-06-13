@@ -150,7 +150,7 @@ Once your image is ready you will be able to create a new server based on this i
 		Resource:  "server",
 		Verb:      "backup",
 		ArgsType:  reflect.TypeOf(instanceBackupRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*instanceBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -201,7 +201,7 @@ Once your image is ready you will be able to create a new server based on this i
 
 			return api.GetImage(&instance.GetImageRequest{Zone: args.Zone, ImageID: tmp[2]})
 		},
-		WaitFunc: func(ctx context.Context, _, respI interface{}) (i interface{}, err error) {
+		WaitFunc: func(ctx context.Context, _, respI any) (i any, err error) {
 			resp := respI.(*instance.GetImageResponse)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
@@ -309,7 +309,7 @@ func serverTerminateCommand() *core.Command {
 			},
 		},
 		WaitUsage: "wait until the server and its resources are deleted",
-		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, argsI, respI any) (any, error) {
 			terminateServerArgs := argsI.(*customTerminateServerRequest)
 			server := respI.(*core.SuccessResult).TargetResource.(*instance.Server)
 			client := core.ExtractClient(ctx)
@@ -351,7 +351,7 @@ func serverTerminateCommand() *core.Command {
 
 			return respI, nil
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			terminateServerArgs := argsI.(*customTerminateServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -472,7 +472,7 @@ var serverActionArgSpecs = core.ArgSpecs{
 }
 
 func getRunServerAction(action instance.ServerAction) core.CommandRunner {
-	return func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	return func(ctx context.Context, argsI any) (i any, e error) {
 		args := argsI.(*instanceUniqueActionRequest)
 
 		client := core.ExtractClient(ctx)
@@ -491,7 +491,7 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 }
 
 func waitForServerFunc() core.WaitFunc {
-	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+	return func(ctx context.Context, argsI, _ any) (any, error) {
 		return instance.NewAPI(core.ExtractClient(ctx)).
 			WaitForServer(&instance.WaitForServerRequest{
 				Zone:          argsI.(*instanceUniqueActionRequest).Zone,
@@ -522,7 +522,7 @@ func serverActionCommand() *core.Command {
 		Resource:  "server",
 		Verb:      "action",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*instanceActionRequest)
 
 			return getRunServerAction(
@@ -535,7 +535,7 @@ func serverActionCommand() *core.Command {
 				},
 			)
 		},
-		WaitFunc: func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, argsI, _ any) (any, error) {
 			return instance.NewAPI(core.ExtractClient(ctx)).
 				WaitForServer(&instance.WaitForServerRequest{
 					Zone:          argsI.(*instanceActionRequest).Zone,

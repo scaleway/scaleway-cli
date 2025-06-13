@@ -49,7 +49,7 @@ func serverWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*serverWaitRequest)
 
 			api := baremetal.NewAPI(core.ExtractClient(ctx))
@@ -119,7 +119,7 @@ func serverWaitCommand() *core.Command {
 
 // serverStartBuilder overrides the baremetalServerStart command
 func serverStartBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
@@ -135,7 +135,7 @@ func serverStartBuilder(c *core.Command) *core.Command {
 
 // serverStopBuilder overrides the baremetalServerStop command
 func serverStopBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
@@ -153,7 +153,7 @@ func serverStopBuilder(c *core.Command) *core.Command {
 func serverRebootBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("boot-type").Default = core.DefaultValueSetter("normal")
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
@@ -203,7 +203,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 	}
 
 	// We add the server type to the list sent to the user
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		listServerResp, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -236,7 +236,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func serverMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func serverMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp baremetal.Server
 	baremetalServer := tmp(i.(baremetal.Server))
 	opt.Sections = []*human.MarshalSection{

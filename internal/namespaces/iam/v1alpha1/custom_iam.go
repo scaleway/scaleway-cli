@@ -101,7 +101,7 @@ func getApiKey(
 	return response, nil
 }
 
-func apiKeyMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func apiKeyMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp apiKeyResponse
 	resp := tmp(i.(apiKeyResponse))
 
@@ -124,7 +124,7 @@ func apiKeyMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
 var iamApiKeyCustomBuilder = struct {
 	argSpecs core.ArgSpecs
 	argType  reflect.Type
-	run      func(ctx context.Context, args interface{}) (i interface{}, e error)
+	run      func(ctx context.Context, args any) (i any, e error)
 }{
 	argSpecs: core.ArgSpecs{
 		{
@@ -144,7 +144,7 @@ var iamApiKeyCustomBuilder = struct {
 		},
 	},
 	argType: reflect.TypeOf(iamGetAPIKeyArgs{}),
-	run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+	run: func(ctx context.Context, args any) (i any, e error) {
 		arguments := args.(*iamGetAPIKeyArgs)
 
 		client := core.ExtractClient(ctx)

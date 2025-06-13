@@ -235,7 +235,7 @@ func redisClusterCreate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.CreateClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -300,7 +300,7 @@ func redisClusterUpdate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.UpdateClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -337,7 +337,7 @@ func redisClusterGet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -416,7 +416,7 @@ func redisClusterList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.ListClustersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -483,7 +483,7 @@ func redisClusterMigrate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.MigrateClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -520,7 +520,7 @@ func redisClusterDelete() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.DeleteClusterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -578,7 +578,7 @@ func redisClusterMetrics() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetClusterMetricsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -616,7 +616,7 @@ func redisNodeTypeList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -684,7 +684,7 @@ func redisVersionList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.ListClusterVersionsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -730,7 +730,7 @@ func redisClusterGetCertificate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetClusterCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -767,7 +767,7 @@ func redisClusterRenewCertificate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.RenewClusterCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -818,7 +818,7 @@ func redisSettingAdd() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.AddClusterSettingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -862,7 +862,7 @@ func redisSettingDelete() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.DeleteClusterSettingRequest)
 
 			client := core.ExtractClient(ctx)
@@ -913,7 +913,7 @@ func redisSettingSet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.SetClusterSettingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -964,7 +964,7 @@ func redisACLSet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.SetACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1015,7 +1015,7 @@ func redisACLAdd() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.AddACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1052,7 +1052,7 @@ func redisACLDelete() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.DeleteACLRuleRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1089,7 +1089,7 @@ func redisACLGet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetACLRuleRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1140,7 +1140,7 @@ func redisEndpointSet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.SetEndpointsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1191,7 +1191,7 @@ func redisEndpointAdd() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.AddEndpointsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1228,7 +1228,7 @@ func redisEndpointDelete() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1265,7 +1265,7 @@ func redisEndpointGet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1316,7 +1316,7 @@ func redisEndpointUpdate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.UpdateEndpointRequest)
 
 			client := core.ExtractClient(ctx)

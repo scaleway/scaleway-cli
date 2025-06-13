@@ -64,7 +64,7 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 	}
 }
 
-func k8sKubeconfigInstallRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*k8sKubeconfigInstallRequest)
 
 	kubeconfigRequest := &k8s.GetClusterKubeConfigRequest{

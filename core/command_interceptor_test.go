@@ -9,12 +9,12 @@ import (
 )
 
 func Test_CombineCommandInterceptor(t *testing.T) {
-	runner := func(context.Context, interface{}) (interface{}, error) {
+	runner := func(context.Context, any) (any, error) {
 		return []string{"runner"}, nil
 	}
 
 	newInterceptor := func(name string) core.CommandInterceptor {
-		return func(ctx context.Context, args interface{}, runner core.CommandRunner) (interface{}, error) {
+		return func(ctx context.Context, args any, runner core.CommandRunner) (any, error) {
 			res, _ := runner(ctx, args)
 
 			return append([]string{name}, res.([]string)...), nil

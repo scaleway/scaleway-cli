@@ -51,7 +51,7 @@ func serverAddFlexibleIP() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: ipTypeOption,
-				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					if value == "IPv4" || value == "IPv6" || value == "" {
 						return nil
 					}
@@ -71,7 +71,7 @@ func serverAddFlexibleIP() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneNlAms1),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			request := argsI.(*serverAddFlexibleIPRequest)
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)

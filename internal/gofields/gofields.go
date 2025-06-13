@@ -21,7 +21,7 @@ func (e *NilValueError) Error() string {
 
 // GetValue will extract the value at the given path from the data Go struct
 // E.g data = { Friends: []Friend{ { Name: "John" } }, path = "Friends.0.Name"  will return "John"
-func GetValue(data interface{}, path string) (interface{}, error) {
+func GetValue(data any, path string) (any, error) {
 	value := reflect.ValueOf(data)
 	v, err := getValue(value, []string{"$"}, strings.Split(path, "."))
 	if err != nil {

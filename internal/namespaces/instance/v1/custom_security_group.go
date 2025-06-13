@@ -41,7 +41,7 @@ var (
 	}
 )
 
-func marshalSecurityGroupRules(i interface{}, _ *human.MarshalOpt) (out string, err error) {
+func marshalSecurityGroupRules(i any, _ *human.MarshalOpt) (out string, err error) {
 	rules := i.([]*instance.SecurityGroupRule)
 
 	type humanRule struct {
@@ -208,7 +208,7 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customCreateSecurityGroupRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customCreateSecurityGroupRequest)
 
 			if args.CreateSecurityGroupRequest == nil {
@@ -227,7 +227,7 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 }
 
 func securityGroupGetBuilder(c *core.Command) *core.Command {
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		req := argsI.(*instance.GetSecurityGroupRequest)
 
 		client := core.ExtractClient(ctx)
@@ -270,7 +270,7 @@ func securityGroupListBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customListSecurityGroupsRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customListSecurityGroupsRequest)
 
 			if args.ListSecurityGroupsRequest == nil {
@@ -290,7 +290,7 @@ func securityGroupListBuilder(c *core.Command) *core.Command {
 
 func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			res, originalErr := runner(ctx, argsI)
 			if originalErr == nil {
 				return res, nil
@@ -353,7 +353,7 @@ func securityGroupClearCommand() *core.Command {
 				ArgsJSON: `{"security_group_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			args := argsI.(*instanceResetSecurityGroupArgs)
 
 			client := core.ExtractClient(ctx)
@@ -436,7 +436,7 @@ func securityGroupEditCommand() *core.Command {
 			editor.MarshalModeArgSpec(),
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			args := argsI.(*instanceSecurityGroupEditArgs)
 
 			client := core.ExtractClient(ctx)

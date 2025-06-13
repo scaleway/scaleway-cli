@@ -15,7 +15,7 @@ var offerAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
 	},
 }
 
-func listOfferMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func listOfferMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp baremetal.Offer
 	baremetalOffer := tmp(i.(baremetal.Offer))
 	opt.Sections = []*human.MarshalSection{

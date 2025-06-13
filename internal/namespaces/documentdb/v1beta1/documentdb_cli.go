@@ -266,7 +266,7 @@ func documentDbEngineList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListDatabaseEnginesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -310,7 +310,7 @@ func documentDbNodeTypeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -408,7 +408,7 @@ func documentDbInstanceUpgrade() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.UpgradeInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -480,7 +480,7 @@ func documentDbInstanceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListInstancesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -555,7 +555,7 @@ func documentDbInstanceGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.GetInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -694,7 +694,7 @@ func documentDbInstanceCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.CreateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -791,7 +791,7 @@ func documentDbInstanceUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.UpdateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -825,7 +825,7 @@ func documentDbInstanceDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.DeleteInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -873,7 +873,7 @@ func documentDbInstanceClone() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.CloneInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -907,7 +907,7 @@ func documentDbInstanceRestart() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.RestartInstanceRequest)
 
 			client := core.ExtractClient(ctx)
@@ -941,7 +941,7 @@ func documentDbInstanceGetCertificate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.GetInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -975,7 +975,7 @@ func documentDbInstanceRenewCertificate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.RenewInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1037,7 +1037,7 @@ func documentDbInstanceGetMetrics() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.GetInstanceMetricsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1092,7 +1092,7 @@ func documentDbReadReplicaCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.CreateReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1126,7 +1126,7 @@ func documentDbReadReplicaGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.GetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1160,7 +1160,7 @@ func documentDbReadReplicaDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.DeleteReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1195,7 +1195,7 @@ The configured endpoints do not change.`,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ResetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1243,7 +1243,7 @@ func documentDbReadReplicaCreateEndpoint() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.CreateReadReplicaEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1288,7 +1288,7 @@ func documentDbLogList() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1322,7 +1322,7 @@ func documentDbLogGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.GetInstanceLogRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1363,7 +1363,7 @@ func documentDbLogPurge() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.PurgeInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1404,7 +1404,7 @@ func documentDbLogListDetails() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListInstanceLogsDetailsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1450,7 +1450,7 @@ func documentDbSettingAdd() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.AddInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1491,7 +1491,7 @@ func documentDbSettingDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.DeleteInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1537,7 +1537,7 @@ func documentDbSettingSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.SetInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1572,7 +1572,7 @@ func documentDbACLList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1627,7 +1627,7 @@ func documentDbACLAdd() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.AddInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1673,7 +1673,7 @@ func documentDbACLSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.SetInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1714,7 +1714,7 @@ func documentDbACLDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.DeleteInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1769,7 +1769,7 @@ func documentDbUserList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListUsersRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1833,7 +1833,7 @@ func documentDbUserCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.CreateUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1888,7 +1888,7 @@ func documentDbUserUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.UpdateUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -1929,7 +1929,7 @@ func documentDbUserDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.DeleteUserRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2005,7 +2005,7 @@ func documentDbDatabaseList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListDatabasesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2055,7 +2055,7 @@ func documentDbDatabaseCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.CreateDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2096,7 +2096,7 @@ func documentDbDatabaseDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.DeleteDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2165,7 +2165,7 @@ func documentDbPrivilegeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListPrivilegesRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2236,7 +2236,7 @@ func documentDbPrivilegeSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.SetPrivilegeRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2307,7 +2307,7 @@ func documentDbSnapshotList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2350,7 +2350,7 @@ func documentDbSnapshotGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2399,7 +2399,7 @@ func documentDbSnapshotCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2447,7 +2447,7 @@ func documentDbSnapshotUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.UpdateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2481,7 +2481,7 @@ func documentDbSnapshotDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.DeleteSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2536,7 +2536,7 @@ func documentDbSnapshotRestore() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.CreateInstanceFromSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2584,7 +2584,7 @@ func documentDbEndpointCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.CreateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2618,7 +2618,7 @@ func documentDbEndpointDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2659,7 +2659,7 @@ func documentDbEndpointGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.GetEndpointRequest)
 
 			client := core.ExtractClient(ctx)
@@ -2700,7 +2700,7 @@ func documentDbEndpointMigrate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*documentdb.MigrateEndpointRequest)
 
 			client := core.ExtractClient(ctx)

@@ -5,7 +5,7 @@ import (
 	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
 )
 
-func ListModelMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func ListModelMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp []*inference.Model
 	model := tmp(i.([]*inference.Model))
 	opt.Fields = []*human.MarshalFieldOpt{

@@ -75,7 +75,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		"ARM64-128GB": {},
 	}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		api := instance.NewAPI(core.ExtractClient(ctx))
 
 		// Get server types.
@@ -146,7 +146,7 @@ func serverTypeCategory(serverTypeName string) (category string) {
 }
 
 func getCompatibleTypesBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		rawResp, err := runner(ctx, argsI)
 		if err != nil {
 			return rawResp, err

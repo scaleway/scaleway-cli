@@ -14,7 +14,7 @@ var aclMarshalSpecs = human.EnumMarshalSpecs{
 	lb.ACLActionTypeDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
 }
 
-func lbACLMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func lbACLMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.ACL
 	acl := tmp(i.(lb.ACL))
 
@@ -57,7 +57,7 @@ func ACLDeleteBuilder(c *core.Command) *core.Command {
 }
 
 func interceptACL() core.CommandInterceptor {
-	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	return func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		var getACL *lb.ACL
 		var err error
 

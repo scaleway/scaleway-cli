@@ -47,7 +47,7 @@ func iamPolicyGetBuilder(c *core.Command) *core.Command {
 		},
 	}
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			args := argsI.(*iam.GetPolicyRequest)
 			api := iam.NewAPI(core.ExtractClient(ctx))
 

@@ -58,7 +58,7 @@ It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(availableZones...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshConfigInstallRequest)
 			homeDir := core.ExtractUserHomeDir(ctx)
 

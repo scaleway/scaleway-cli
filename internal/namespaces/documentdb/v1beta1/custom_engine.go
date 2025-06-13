@@ -33,7 +33,7 @@ func engineListBuilder(c *core.Command) *core.Command {
 	}
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			listEngineResp, err := runner(ctx, argsI)
 			if err != nil {
 				return listEngineResp, err

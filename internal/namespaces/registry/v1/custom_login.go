@@ -37,7 +37,7 @@ You will need to have the chosen binary installed on your system and in your PAT
 	}
 }
 
-func registryLoginRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func registryLoginRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*registryLoginArgs)
 	client := core.ExtractClient(ctx)
 

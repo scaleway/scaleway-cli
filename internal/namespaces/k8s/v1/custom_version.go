@@ -13,7 +13,7 @@ import (
 
 func versionListBuilder(c *core.Command) *core.Command {
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			originalRes, err := runner(ctx, argsI)
 			if err != nil {
 				return nil, err
@@ -28,7 +28,7 @@ func versionListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func versionMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func versionMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp k8s.Version
 	version := tmp(i.(k8s.Version))
 

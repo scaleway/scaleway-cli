@@ -88,7 +88,7 @@ func aliasCreateCommand() *core.Command {
 			},
 		},
 		ArgsType: reflect.TypeOf(CreateRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*CreateRequest)
 			cfg := core.ExtractCliConfig(ctx)
 
@@ -181,7 +181,7 @@ func aliasListCommand() *core.Command {
 			},
 		},
 		ArgsType: reflect.TypeOf(ListRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*ListRequest)
 			aliasCfg := core.ExtractAliases(ctx)
 			aliases := make(aliasListResponse, 0, len(aliasCfg.Aliases))
@@ -233,7 +233,7 @@ func aliasDeleteCommand() *core.Command {
 			},
 		},
 		ArgsType: reflect.TypeOf(DeleteRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*DeleteRequest)
 			cfg := core.ExtractCliConfig(ctx)
 
