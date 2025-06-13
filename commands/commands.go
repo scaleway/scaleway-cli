@@ -90,6 +90,7 @@ func GetCommands() *core.Commands {
 		domain.GetCommands(),
 		applesilicon.GetCommands(),
 		flexibleip.GetCommands(),
+		file.GetCommands(),
 		container.GetCommands(),
 		function.GetCommands(),
 		vpcgw.GetCommands(),
@@ -116,9 +117,8 @@ func GetCommands() *core.Commands {
 	)
 
 	if beta {
-		commands.MergeAll(
+		commands.Merge(
 			dedibox.GetCommands(),
-			file.GetCommands(),
 		)
 	}
 

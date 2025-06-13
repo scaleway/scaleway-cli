@@ -28,12 +28,15 @@ func createServer(metaKey string) core.BeforeFunc {
 
 // testServerCommand creates returns a create server command with the instance type and the given arguments
 func testServerCommand(params string) string {
-	baseCommand := "scw instance server create type=DEV1-S "
+	baseCommand := "scw instance server create "
 	if !strings.Contains(params, "ip=") {
 		baseCommand += "ip=none "
 	}
 	if !strings.Contains(params, "image=") {
 		baseCommand += "image=ubuntu_jammy "
+	}
+	if !strings.Contains(params, "type=") {
+		baseCommand += "type=DEV1-S "
 	}
 
 	return baseCommand + params

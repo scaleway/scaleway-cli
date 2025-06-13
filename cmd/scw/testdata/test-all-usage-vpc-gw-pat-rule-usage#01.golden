@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   create-v2   Create a PAT rule
   delete-v2   Delete a PAT rule
+  edit        Edit all PAT rules of a Public Gateway
   get-v2      Get a PAT rule
   list-v2     List PAT rules
   set-v2      Set all PAT rules
