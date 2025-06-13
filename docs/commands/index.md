@@ -2,7 +2,7 @@
 
 # Scaleway CLI v2 Documentation
 
-<p align="center"><img width="50%" src="../static_files/cli-artwork.png" /></p>
+<p align="center"><img width="50%" src="cli-artwork.png" /></p>
 
 <p align="center">
   <a href="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2"><img src="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2.svg?style=shield" alt="CircleCI" /></a>

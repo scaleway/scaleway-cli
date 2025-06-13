@@ -1,35 +1,12 @@
-site_name: Scaleway Command Line Interface Documentation
-site_url: https://mydomain.org/scaleway-cli-documentation
+site_name: Scaleway CLI Documentation
+site_url: https://cli.scaleway.com/
 extra_css:
   - stylesheets/extra.css
-extra:
-  version:
-    provider: mike
-
-    # Analytics and feedback system (placeholders)
-  analytics:
-    provider: google
-    property: G-XXXXXXXXXX
-    feedback:
-      title: Was this page helpful?
-      ratings:
-        - icon: material/emoticon-happy-outline
-          name: This page was helpful
-          data: 1
-          note: >-
-            Thanks for your feedback!
-        - icon: material/emoticon-sad-outline
-          name: This page could be improved
-          data: 0
-          note: >- 
-            Thanks for your feedback! Help us improve this page by
-            referring to the <a href="/scaleway-cli-documentation/feedback/" target="_blank" rel="noopener">feedback page</a>.
 
 # GitHub integration configuration
 repo_url: https://github.com/scaleway/scaleway-cli
 repo_name: scaleway/scaleway-cli
 edit_uri: edit/master/docs/commands/
-
 
 # Theme configuration
 theme:
@@ -71,58 +48,65 @@ markdown_extensions:
   - pymdownx.superfences
   
 nav:
-  - Platform:
-    - Account: account.md
-    - Billing: billing.md
-    - IAM: iam.md
-    - Secret Manager: secret.md
-    - Marketplace: marketplace.md
-  - AI & Data:
-    - Managed Inference: inference.md
+  - Home: /
+  - Management & Governance:
+    - Account: account
+    - Billing: billing
+    - IAM: iam
+    - Secret Manager: secret
+    - Marketplace: marketplace
+  - AI:
+    - Managed Inference: inference
   - Bare Metal:
-    - Elastic Metal: baremetal.md
-    - Apple Silicon: apple-silicon.md
-    - Flexible IP: fip.md
+    - Elastic Metal: baremetal
+    - Apple Silicon: apple-silicon
+    - Dedibox: dedibox
+    - Flexible IP: fip
   - Compute:
-    - Instances: instance.md
+    - Instances: instance
   - Containers:
-    - Container Registry: registry.md
-    - Kubernetes: k8s.md
-  - Labs:
-    - IPFS Pinning: ipfs.md
-    - IPFS Naming: ipns.md
-  - Managed Databases:
-    - PostgreSQL and MySQL: rdb.md
-    - Redis™: redis.md
-    - Document Databases: document-db.md
-  - Managed Services:
-    - IOT Hub: iot.md
-    - Transactional Email: tem.md
-    - Web Hosting: webhosting.md
+    - Container Registry: registry
+    - Kubernetes: k8s
+  - Databases:
+    - PostgreSQL and MySQL: rdb
+    - Redis™: redis
+    - MongoDB®: mongodb
+    - Serverless SQL: sdb-sql
+  - Data & Analytics:
+    - NATS: mnq#mnq-nats-commands
+  - Domains & Web Hosting:
+    - Transactional Email: tem
+    - Web Hosting: webhosting
+    - Domains and DNS: dns
   - Network:
-    - VPC: vpc.md
-    - Public Gateway: vpc-gw.md
-    - IPAM: ipam.md
-    - Load Balancer: lb.md
-    - Domains and DNS: dns.md
-  - Observability:
-    - Cockpit: cockpit.md
+    - VPC: vpc
+    - Public Gateway: vpc-gw
+    - IPAM: ipam
+    - Load Balancer: lb
+    - Edge Services: edge-services
+    - InterLink: interlink 
+  - Monitoring:
+    - Audit Trail: audit-trail
+    - Cockpit: cockpit
   - Serverless:
-    - Functions: function.md
-    - Containers: container.md
-    - Jobs: jobs.md
-    - SQL Databases: sdb-sql.md
-    - Messaging and Queuing: mnq.md
+    - Functions: function
+    - Containers: container
+    - Jobs: jobs
+  - Integration services:
+    - Topics & Events: mnq#mnq-topics-and-events-commands
+    - Queues : mnq#mnq-queues-commands
+    - IOT Hub: iot
   - Storage:
-    - Block Storage: block.md
-    - Object Storage: object.md
+    - Block Storage: block
+    - Object Storage: object
+    - File Storage: file
   - CLI configuration:
-    - Alias: alias.md
-    - Autocompletion: autocomplete.md
-    - Configuration: config.md
-    - Feedback: feedback.md
-    - Help: help.md
-    - Info: info.md
-    - Initialization: init.md
-    - Shell: shell.md
-    - Version: version.md
+    - Alias: alias
+    - Autocompletion: autocomplete
+    - Configuration: config
+    - Feedback: feedback
+    - Help: help
+    - Info: info
+    - Initialization: init
+    - Shell: shell
+    - Version: version
