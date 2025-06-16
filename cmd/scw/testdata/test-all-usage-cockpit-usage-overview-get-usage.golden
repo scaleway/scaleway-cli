@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve the data source usage overview per type for the specified Project.
+Retrieve the volume of data ingested for each of your data sources in the specified project and region.
 
 USAGE:
   scw cockpit usage-overview get [arg=value ...]

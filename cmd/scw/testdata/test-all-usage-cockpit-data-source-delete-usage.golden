@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete a given data source, specified by the data source ID. Note that deleting a data source is irreversible, and cannot be undone.
+Delete a given data source. Note that this action will permanently delete this data source and any data associated with it.
 
 USAGE:
   scw cockpit data-source delete [arg=value ...]

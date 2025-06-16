@@ -542,10 +542,7 @@ Deprecated: retention is now managed at the data source level.`,
 func cockpitDataSourceCreate() *core.Command {
 	return &core.Command{
 		Short: `Create a data source`,
-		Long: `You must specify the data source type upon creation. Available data source types include:
-  - metrics
-  - logs
-  - traces
+		Long: `You must specify the data source name and type (metrics, logs, traces) upon creation.
 The name of the data source will then be used as reference to name the associated Grafana data source.`,
 		Namespace: "cockpit",
 		Resource:  "data-source",
@@ -576,7 +573,7 @@ The name of the data source will then be used as reference to name the associate
 			},
 			{
 				Name:       "retention-days",
-				Short:      `BETA - Duration for which the data will be retained in the data source`,
+				Short:      `Duration for which the data will be retained in the data source`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -635,7 +632,7 @@ func cockpitDataSourceGet() *core.Command {
 func cockpitDataSourceDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a data source`,
-		Long:      `Delete a given data source, specified by the data source ID. Note that deleting a data source is irreversible, and cannot be undone.`,
+		Long:      `Delete a given data source. Note that this action will permanently delete this data source and any data associated with it.`,
 		Namespace: "cockpit",
 		Resource:  "data-source",
 		Verb:      "delete",
@@ -675,9 +672,8 @@ func cockpitDataSourceDelete() *core.Command {
 
 func cockpitDataSourceList() *core.Command {
 	return &core.Command{
-		Short: `List data sources`,
-		Long: `Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
-You can list data sources by Project, type and origin.`,
+		Short:     `List data sources`,
+		Long:      `Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.`,
 		Namespace: "cockpit",
 		Resource:  "data-source",
 		Verb:      "list",
@@ -702,7 +698,7 @@ You can list data sources by Project, type and origin.`,
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "origin",
-				Short:      `Origin to filter for, only data sources with matching origin will be returned`,
+				Short:      `Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -715,7 +711,7 @@ You can list data sources by Project, type and origin.`,
 			},
 			{
 				Name:       "types.{index}",
-				Short:      `Types to filter for, only data sources with matching types will be returned`,
+				Short:      `Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -756,7 +752,7 @@ You can list data sources by Project, type and origin.`,
 func cockpitDataSourceUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a data source`,
-		Long:      `Update a given data source name, specified by the data source ID.`,
+		Long:      `Update a given data source attributes (name and/or retention_days).`,
 		Namespace: "cockpit",
 		Resource:  "data-source",
 		Verb:      "update",
@@ -779,7 +775,7 @@ func cockpitDataSourceUpdate() *core.Command {
 			},
 			{
 				Name:       "retention-days",
-				Short:      `BETA - Duration for which the data will be retained in the data source`,
+				Short:      `Duration for which the data will be retained in the data source`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -804,7 +800,7 @@ func cockpitDataSourceUpdate() *core.Command {
 func cockpitUsageOverviewGet() *core.Command {
 	return &core.Command{
 		Short:     `Get data source usage overview`,
-		Long:      `Retrieve the data source usage overview per type for the specified Project.`,
+		Long:      `Retrieve the volume of data ingested for each of your data sources in the specified project and region.`,
 		Namespace: "cockpit",
 		Resource:  "usage-overview",
 		Verb:      "get",
