@@ -1,7 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
-You can list data sources by Project, type and origin.
 
 USAGE:
   scw cockpit data-source list [arg=value ...]
@@ -9,8 +8,8 @@ USAGE:
 ARGS:
   [order-by]        Sort order for data sources in the response (created_at_asc | created_at_desc | name_asc | name_desc | type_asc | type_desc)
   [project-id]      Project ID to use. If none is passed the default project ID will be used
-  [origin]          Origin to filter for, only data sources with matching origin will be returned (unknown_origin | scaleway | external | custom)
-  [types.{index}]   Types to filter for, only data sources with matching types will be returned (unknown_type | metrics | logs | traces)
+  [origin]          Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned (unknown_origin | scaleway | external | custom)
+  [types.{index}]   Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned (unknown_type | metrics | logs | traces)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

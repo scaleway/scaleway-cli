@@ -188,10 +188,7 @@ Datasource management commands.
 
 ### Create a data source
 
-You must specify the data source type upon creation. Available data source types include:
-  - metrics
-  - logs
-  - traces
+You must specify the data source name and type (metrics, logs, traces) upon creation.
 The name of the data source will then be used as reference to name the associated Grafana data source.
 
 **Usage:**
@@ -208,14 +205,14 @@ scw cockpit data-source create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | Data source name |
 | type | One of: `unknown_type`, `metrics`, `logs`, `traces` | Data source type |
-| retention-days |  | BETA - Duration for which the data will be retained in the data source |
+| retention-days |  | Duration for which the data will be retained in the data source |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Delete a data source
 
-Delete a given data source, specified by the data source ID. Note that deleting a data source is irreversible, and cannot be undone.
+Delete a given data source. Note that this action will permanently delete this data source and any data associated with it.
 
 **Usage:**
 
@@ -256,7 +253,6 @@ scw cockpit data-source get [arg=value ...]
 ### List data sources
 
 Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
-You can list data sources by Project, type and origin.
 
 **Usage:**
 
@@ -271,15 +267,15 @@ scw cockpit data-source list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order for data sources in the response |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| origin | One of: `unknown_origin`, `scaleway`, `external`, `custom` | Origin to filter for, only data sources with matching origin will be returned |
-| types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces` | Types to filter for, only data sources with matching types will be returned |
+| origin | One of: `unknown_origin`, `scaleway`, `external`, `custom` | Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned |
+| types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces` | Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
 ### Update a data source
 
-Update a given data source name, specified by the data source ID.
+Update a given data source attributes (name and/or retention_days).
 
 **Usage:**
 
@@ -294,7 +290,7 @@ scw cockpit data-source update [arg=value ...]
 |------|---|-------------|
 | data-source-id | Required | ID of the data source to update |
 | name |  | Updated name of the data source |
-| retention-days |  | BETA - Duration for which the data will be retained in the data source |
+| retention-days |  | Duration for which the data will be retained in the data source |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -710,7 +706,7 @@ Usage overview management commands.
 
 ### Get data source usage overview
 
-Retrieve the data source usage overview per type for the specified Project.
+Retrieve the volume of data ingested for each of your data sources in the specified project and region.
 
 **Usage:**
 
