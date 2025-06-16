@@ -441,14 +441,14 @@ func rdbBackupCreate() *core.Command {
 			{
 				Name:       "instance-id",
 				Short:      `UUID of the Database Instance`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "database-name",
 				Short:      `Name of the database you want to back up`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
