@@ -265,6 +265,7 @@ scw keymanager key list [arg=value ...]
 | tags.{index} |  | (Optional) List of tags to filter on |
 | name |  | (Optional) Filter by key name |
 | usage | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing` | (Optional) Filter keys by usage. |
+| scheduled-for-deletion |  | Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output. |
 | organization-id |  | (Optional) Filter by Organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
