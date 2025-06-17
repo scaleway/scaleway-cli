@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	key_manager "github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -549,6 +549,13 @@ func keymanagerKeyList() *core.Command {
 					"asymmetric_encryption",
 					"asymmetric_signing",
 				},
+			},
+			{
+				Name:       "scheduled-for-deletion",
+				Short:      `Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "organization-id",
