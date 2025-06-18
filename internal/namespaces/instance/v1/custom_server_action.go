@@ -9,6 +9,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -394,6 +395,41 @@ func serverTerminateCommand() *core.Command {
 					}
 					_, _ = interactive.Printf("successfully detached volume %s\n", volumeName)
 				}
+			} else {
+				for _, volume := range server.Server.Volumes {
+					if volume.VolumeType != instance.VolumeServerVolumeTypeSbsVolume {
+						continue
+					}
+
+					_, err = api.DetachVolume(&instance.DetachVolumeRequest{
+						VolumeID: volume.ID,
+						Zone:     volume.Zone,
+					}, scw.WithContext(ctx))
+					if err != nil {
+						return nil, fmt.Errorf("failed to detach block volume %s: %w", volume.ID, err)
+					}
+
+					blockAPI := block.NewAPI(client)
+					terminalStatus := block.VolumeStatusAvailable
+
+					blockVolume, err := blockAPI.WaitForVolume(&block.WaitForVolumeRequest{
+						VolumeID:       volume.ID,
+						Zone:           volume.Zone,
+						TerminalStatus: &terminalStatus,
+					})
+					if err != nil {
+						return nil, fmt.Errorf("failed to wait for block volume %s: %w", volume.ID, err)
+					}
+
+					err = blockAPI.DeleteVolume(&block.DeleteVolumeRequest{
+						VolumeID: blockVolume.ID,
+						Zone:     blockVolume.Zone,
+					}, scw.WithContext(ctx))
+					if err != nil {
+						return nil, fmt.Errorf("failed to delete block volume %s: %w", blockVolume.Name, err)
+					}
+					_, _ = interactive.Printf("successfully deleted block volume %q\n", blockVolume.Name)
+				}
 			}
 
 			if _, err := api.ServerAction(&instance.ServerActionRequest{
@@ -439,7 +475,8 @@ func shouldDeleteBlockVolumes(
 	case withBlockPrompt:
 		// Only prompt user if at least one block volume is attached to the instance
 		for _, volume := range server.Server.Volumes {
-			if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD {
+			if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD &&
+				volume.VolumeType != instance.VolumeServerVolumeTypeSbsVolume {
 				continue
 			}
 
