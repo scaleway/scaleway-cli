@@ -1,9 +1,16 @@
 package baremetal
 
 import (
+	"context"
+	"errors"
+	"fmt"
+	"strings"
+
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	product_catalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 )
 
 var offerAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
@@ -52,4 +59,79 @@ func listOfferMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	}
 
 	return str, nil
+}
+
+type customOffer struct {
+	baremetal.Offer
+	KgCo2Equivalent *float32 `json:"kg_co2_equivalent"`
+	M3WaterUsage    *float32 `json:"m3_water_usage"`
+}
+
+func serverOfferListBuilder(c *core.Command) *core.Command {
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{Label: "Disks", FieldName: "Disks"},
+			{Label: "CPUs", FieldName: "CPUs"},
+			{Label: "Memories", FieldName: "Memories"},
+			{Label: "Options", FieldName: "Options"},
+			{Label: "Bandwidth", FieldName: "Bandwidth"},
+			{Label: "PrivateBandwidth", FieldName: "PrivateBandwidth"},
+			{Label: "CO2 (kg)", FieldName: "KgCo2Equivalent"},
+			{Label: "Water (m³)", FieldName: "M3WaterUsage"},
+		},
+	}
+
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		rawResp, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+
+		offers, ok := rawResp.([]*baremetal.Offer)
+		for _, offer := range offers {
+			fmt.Printf("Print value of offer name: %s\n", offer.Name)
+		}
+
+		if !ok {
+			return nil, errors.New("unexpected type for offer response")
+		}
+
+		client := core.ExtractClient(ctx)
+		productAPI := product_catalog.NewPublicCatalogAPI(client)
+		environmentalImpact, _ := productAPI.ListPublicCatalogProducts(
+			&product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest{
+				ProductTypes: []product_catalog.ListPublicCatalogProductsRequestProductType{
+					product_catalog.ListPublicCatalogProductsRequestProductTypeElasticMetal,
+				},
+			},
+		)
+
+		impactMap := make(map[string]*product_catalog.PublicCatalogProduct)
+		for _, impact := range environmentalImpact.Products {
+			if impact != nil {
+				key := strings.TrimSpace(strings.TrimPrefix(impact.Product, "Elastic Metal "))
+				impactMap[key] = impact
+			}
+		}
+
+		var customOfferRes []customOffer
+		for _, offer := range offers {
+			fmt.Printf("Print value of offer: %s\n", offer.Name)
+			impact, ok := impactMap[offer.Name]
+			if !ok || impact == nil {
+				fmt.Printf("No environmental impact data found for offer: %s\n", offer.Name)
+
+				continue
+			}
+			customOfferRes = append(customOfferRes, customOffer{
+				Offer:           *offer,
+				KgCo2Equivalent: impact.EnvironmentalImpactEstimation.KgCo2Equivalent,
+				M3WaterUsage:    impact.EnvironmentalImpactEstimation.M3WaterUsage,
+			})
+		}
+
+		return customOfferRes, nil
+	}
+
+	return c
 }
