@@ -875,6 +875,7 @@ scw rdb instance list [arg=value ...]
 | name |  | Lists Database Instances that match a name pattern |
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc`, `status_desc` | Criteria to use when ordering Database Instance listings |
 | project-id |  | Project ID to list the Database Instance of |
+| has-maintenances |  | Filter to only list instances with a scheduled maintenance |
 | organization-id |  | Please use project_id instead |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 

@@ -826,6 +826,13 @@ func rdbInstanceList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "has-maintenances",
+				Short:      `Filter to only list instances with a scheduled maintenance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Please use project_id instead`,
 				Required:   false,
