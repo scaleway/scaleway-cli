@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -396,7 +397,9 @@ func serverTerminateCommand() *core.Command {
 					_, _ = interactive.Printf("successfully detached volume %s\n", volumeName)
 				}
 			} else {
-				for _, volume := range server.Server.Volumes {
+				successMessages := make(map[string]string)
+
+				for index, volume := range server.Server.Volumes {
 					if volume.VolumeType != instance.VolumeServerVolumeTypeSbsVolume {
 						continue
 					}
@@ -428,8 +431,11 @@ func serverTerminateCommand() *core.Command {
 					if err != nil {
 						return nil, fmt.Errorf("failed to delete block volume %s: %w", blockVolume.Name, err)
 					}
-					_, _ = interactive.Printf("successfully deleted block volume %q\n", blockVolume.Name)
+
+					successMessages[index] = fmt.Sprintf("successfully deleted block volume %q", blockVolume.Name)
 				}
+
+				printSuccessMessagesInOrder(successMessages)
 			}
 
 			if _, err := api.ServerAction(&instance.ServerActionRequest{
@@ -490,6 +496,19 @@ func shouldDeleteBlockVolumes(
 		return false, nil
 	default:
 		return false, fmt.Errorf("unsupported with-block value %v", terminateWithBlock)
+	}
+}
+
+// printSuccessMessagesInOrder prints volume deletion messages ordered by volume map key "0", "1", "2",...
+func printSuccessMessagesInOrder(messages map[string]string) {
+	indexes := []string(nil)
+	for index := range messages {
+		indexes = append(indexes, index)
+	}
+	sort.Strings(indexes)
+
+	for _, index := range indexes {
+		_, _ = interactive.Println(messages[index])
 	}
 }
 
