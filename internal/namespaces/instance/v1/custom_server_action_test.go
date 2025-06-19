@@ -8,6 +8,7 @@ import (
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
+	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
@@ -25,7 +26,7 @@ func Test_ServerTerminate(t *testing.T) {
 			"Server",
 			testServerCommand("image=ubuntu-jammy ip=new -w"),
 		),
-		Cmd: `scw instance server terminate {{ .Server.ID }}`,
+		Cmd: `scw instance server terminate {{ .Server.ID }} with-block=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -56,7 +57,7 @@ func Test_ServerTerminate(t *testing.T) {
 			"Server",
 			testServerCommand("image=ubuntu-jammy ip=new -w"),
 		),
-		Cmd: `scw instance server terminate {{ .Server.ID }} with-ip=true`,
+		Cmd: `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -98,6 +99,10 @@ func Test_ServerTerminate(t *testing.T) {
 				`scw block volume wait terminal-status=available {{ (index .Server.Volumes "1").ID }}`,
 			),
 			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
+			core.ExecAfterCmd(
+				`scw block volume wait terminal-status=available {{ (index .Server.Volumes "0").ID }}`,
+			),
+			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "0").ID }}`),
 		),
 		DisableParallel: true,
 	}))
@@ -114,16 +119,23 @@ func Test_ServerTerminate(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				api := instanceSDK.NewAPI(ctx.Client)
+				api := blockSDK.NewAPI(ctx.Client)
 				server := testhelpers.MapValue[*instance.ServerWithWarningsResponse](
 					t,
 					ctx.Meta,
 					"Server",
 				).Server
-				volume := testhelpers.MapTValue(t, server.Volumes, "0")
+				rootVolume := testhelpers.MapTValue(t, server.Volumes, "0")
 
-				_, err := api.GetVolume(&instanceSDK.GetVolumeRequest{
-					VolumeID: volume.ID,
+				_, err := api.GetVolume(&blockSDK.GetVolumeRequest{
+					VolumeID: rootVolume.ID,
+					Zone:     server.Zone,
+				})
+				require.IsType(t, &scw.ResourceNotFoundError{}, err)
+
+				additionalVolume := testhelpers.MapTValue(t, server.Volumes, "1")
+				_, err = api.GetVolume(&blockSDK.GetVolumeRequest{
+					VolumeID: additionalVolume.ID,
 					Zone:     server.Zone,
 				})
 				require.IsType(t, &scw.ResourceNotFoundError{}, err)
