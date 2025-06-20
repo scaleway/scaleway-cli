@@ -2,6 +2,7 @@ package iam
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -12,9 +13,9 @@ import (
 )
 
 type apiKeyResponse struct {
-	APIKey   *iam.APIKey
-	UserType string              `json:"user_type"`
-	Policies map[string][]string `json:"policies"`
+	APIKey     *iam.APIKey
+	EntityType string              `json:"entity_type"`
+	Policies   map[string][]string `json:"policies"`
 }
 type iamGetAPIKeyArgs struct {
 	AccessKey    string
@@ -31,6 +32,76 @@ func WithPolicies(withPolicies bool) apiKeyOptions {
 	}
 }
 
+type userEntity struct {
+	UserID string
+}
+
+type applicationEntity struct {
+	ApplicationID string
+}
+
+type entity interface {
+	entityType(ctx context.Context, api *iam.API) (string, error)
+	getPolicies(ctx context.Context, api *iam.API) ([]*iam.Policy, error)
+}
+
+func (u userEntity) entityType(ctx context.Context, api *iam.API) (string, error) {
+	user, err := api.GetUser(&iam.GetUserRequest{
+		UserID: u.UserID,
+	}, scw.WithContext(ctx))
+	if err != nil {
+		return "", err
+	}
+
+	return string(user.Type), nil
+}
+
+func (a applicationEntity) entityType(ctx context.Context, api *iam.API) (string, error) {
+	return "application", nil
+}
+
+func buildEntity(apiKey *iam.APIKey) (entity, error) {
+	if apiKey == nil {
+		return nil, errors.New("invalid API key")
+	}
+	if apiKey.UserID != nil {
+		return userEntity{UserID: *apiKey.UserID}, nil
+	}
+	if apiKey.ApplicationID != nil {
+		return applicationEntity{ApplicationID: *apiKey.ApplicationID}, nil
+	}
+
+	return nil, errors.New("invalid API key")
+}
+
+func (u userEntity) getPolicies(ctx context.Context, api *iam.API) ([]*iam.Policy, error) {
+	policies, err := api.ListPolicies(&iam.ListPoliciesRequest{
+		UserIDs: []string{u.UserID},
+	}, scw.WithContext(ctx), scw.WithAllPages())
+	if err != nil {
+		return nil, err
+	}
+	if policies == nil {
+		return nil, errors.New("no policies found")
+	}
+
+	return policies.Policies, nil
+}
+
+func (a applicationEntity) getPolicies(ctx context.Context, api *iam.API) ([]*iam.Policy, error) {
+	policies, err := api.ListPolicies(&iam.ListPoliciesRequest{
+		ApplicationIDs: []string{a.ApplicationID},
+	}, scw.WithContext(ctx), scw.WithAllPages())
+	if err != nil {
+		return nil, err
+	}
+	if policies == nil {
+		return nil, errors.New("no policies found")
+	}
+
+	return policies.Policies, nil
+}
+
 func getApiKey(
 	ctx context.Context,
 	api *iam.API,
@@ -45,40 +116,34 @@ func getApiKey(
 		return response, err
 	}
 
-	user, err := api.GetUser(&iam.GetUserRequest{
-		UserID: *apiKey.UserID,
-	}, scw.WithContext(ctx))
+	entity, err := buildEntity(apiKey)
+	if err != nil {
+		return response, err
+	}
+
+	entityType, err := entity.entityType(ctx, api)
 	if err != nil {
 		return response, err
 	}
 
 	response.APIKey = apiKey
-	response.UserType = string(user.Type)
+	response.EntityType = entityType
 
-	if user.Type == iam.UserTypeOwner {
-		response.UserType = fmt.Sprintf(
-			"%s (owner has all permissions over the organization)",
-			user.Type,
-		)
+	if entityType == string(iam.UserTypeOwner) {
+		response.EntityType = entityType + " (owner has all permissions over the organization)"
 
 		return response, nil
 	}
 
 	if options.WithPolicies {
-		listPolicyRequest := &iam.ListPoliciesRequest{
-			UserIDs: []string{*apiKey.UserID},
-		}
-		policies, err := api.ListPolicies(
-			listPolicyRequest,
-			scw.WithAllPages(),
-			scw.WithContext(ctx),
-		)
+		policies, err := entity.getPolicies(ctx, api)
 		if err != nil {
 			return response, err
 		}
+
 		// Build a map of policies -> [rules...]
 		policyMap := map[string][]string{}
-		for _, policy := range policies.Policies {
+		for _, policy := range policies {
 			rules, err := api.ListRules(
 				&iam.ListRulesRequest{
 					PolicyID: policy.ID,
@@ -107,7 +172,7 @@ func apiKeyMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 
 	opt.Sections = []*human.MarshalSection{
 		{
-			FieldName: "UserType",
+			FieldName: "EntityType",
 		},
 		{
 			FieldName: "APIKey",
