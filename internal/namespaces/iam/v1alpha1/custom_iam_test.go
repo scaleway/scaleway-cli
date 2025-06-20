@@ -1,6 +1,7 @@
 package iam_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -10,6 +11,10 @@ import (
 )
 
 func Test_iamAPIKeyGet(t *testing.T) {
+	if isNightly := os.Getenv("SLACK_WEBHOOK_NIGHTLY"); isNightly != "" {
+		t.Skip()
+	}
+
 	commands := iam.GetCommands()
 	commands.Merge(account.GetCommands())
 
