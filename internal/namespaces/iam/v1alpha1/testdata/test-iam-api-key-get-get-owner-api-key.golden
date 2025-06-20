@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-User Type:
+Entity Type:
 owner (owner has all permissions over the organization)
 
 Api Key:
@@ -30,6 +30,6 @@ CreationIP        51.159.73.9
     "managed": false,
     "creation_ip": "51.159.73.9"
   },
-  "user_type": "owner (owner has all permissions over the organization)",
+  "entity_type": "owner (owner has all permissions over the organization)",
   "policies": null
 }
