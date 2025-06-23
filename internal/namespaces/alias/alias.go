@@ -25,12 +25,12 @@ func aliasRootCommand() *core.Command {
 		Groups: []string{"config"},
 		Short:  "Alias related commands",
 		Long: `This namespace allows you to manage your aliases
-Aliases are stored in cli config file, Default path for this configuration file is based on the following priority order:
+Aliases are store in cli config file, Default path for this configuration file is based on the following priority order:
 
 - $SCW_CLI_CONFIG_PATH
-- $XDG_CONFIG_HOME/scw/config.yaml
-- $HOME/.config/scw/config.yaml
-- $USERPROFILE/.config/scw/config.yaml
+- $XDG_CONFIG_HOME/scw/cli.yaml
+- $HOME/.config/scw/cli.yaml
+- $USERPROFILE/.config/scw/cli.yaml
 
 You can use multiple aliases in one command
 aliases in your commands are evaluated and you get completion
