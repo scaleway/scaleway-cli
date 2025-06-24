@@ -30,7 +30,7 @@ builds:
       - -X main.GitCommit={{ .ShortCommit }}
 
 archives:
-  - format: binary
+  - formats: [binary]
 
 checksum:
   name_template: 'SHA256SUMS'
