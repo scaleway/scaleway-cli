@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   delete      Delete an ACL rule for a cluster
   get         Get an ACL rule
   set         Set ACL rules for a cluster
+  update      Update an ACL rule for a Redis™ Database Instance (network rule)
 
 FLAGS:
   -h, --help   help for acl
