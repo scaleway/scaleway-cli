@@ -143,7 +143,7 @@ scw redis acl update <acl-id ...> [arg=value ...]
 | acl-id | Required | UUID of the ACL rule to update |
 | ip-cidr |  | New IPv4 network address of the rule (optional, defaults to current) |
 | description |  | New description of the rule (optional, defaults to current) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| zone | Required | Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2) |
 
 
 
