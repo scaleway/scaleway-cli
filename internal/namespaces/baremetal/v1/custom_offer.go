@@ -2,8 +2,6 @@ package baremetal
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/fatih/color"
@@ -70,6 +68,9 @@ type customOffer struct {
 func serverOfferListBuilder(c *core.Command) *core.Command {
 	c.View = &core.View{
 		Fields: []*core.ViewField{
+			{Label: "ID", FieldName: "ID"},
+			{Label: "Name", FieldName: "Name"},
+			{Label: "Stock", FieldName: "Stock"},
 			{Label: "Disks", FieldName: "Disks"},
 			{Label: "CPUs", FieldName: "CPUs"},
 			{Label: "Memories", FieldName: "Memories"},
@@ -82,33 +83,33 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 	}
 
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		req := argsI.(*baremetal.ListOffersRequest)
 		rawResp, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
 		}
 
-		offers, ok := rawResp.([]*baremetal.Offer)
-		for _, offer := range offers {
-			fmt.Printf("Print value of offer name: %s\n", offer.Name)
-		}
-
-		if !ok {
-			return nil, errors.New("unexpected type for offer response")
-		}
-
+		offers, _ := rawResp.([]*baremetal.Offer)
 		client := core.ExtractClient(ctx)
+
 		productAPI := product_catalog.NewPublicCatalogAPI(client)
 		environmentalImpact, _ := productAPI.ListPublicCatalogProducts(
 			&product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest{
 				ProductTypes: []product_catalog.ListPublicCatalogProductsRequestProductType{
 					product_catalog.ListPublicCatalogProductsRequestProductTypeElasticMetal,
 				},
+				Zone: &req.Zone,
 			},
 		)
 
+		unitOfMeasure := product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitMonth
+		if req.SubscriptionPeriod == "hour" {
+			unitOfMeasure = product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitHour
+		}
+
 		impactMap := make(map[string]*product_catalog.PublicCatalogProduct)
 		for _, impact := range environmentalImpact.Products {
-			if impact != nil {
+			if impact != nil && impact.UnitOfMeasure.Unit == unitOfMeasure {
 				key := strings.TrimSpace(strings.TrimPrefix(impact.Product, "Elastic Metal "))
 				impactMap[key] = impact
 			}
@@ -116,11 +117,8 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 
 		var customOfferRes []customOffer
 		for _, offer := range offers {
-			fmt.Printf("Print value of offer: %s\n", offer.Name)
 			impact, ok := impactMap[offer.Name]
 			if !ok || impact == nil {
-				fmt.Printf("No environmental impact data found for offer: %s\n", offer.Name)
-
 				continue
 			}
 			customOfferRes = append(customOfferRes, customOffer{
