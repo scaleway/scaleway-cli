@@ -253,7 +253,15 @@ func autoCompleteDatabaseEngines(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	req := request.(rdbCreateInstanceRequestCustom)
+	var req *rdbCreateInstanceRequestCustom
+	switch v := request.(type) {
+	case rdbCreateInstanceRequestCustom:
+		req = &v
+	case *rdbCreateInstanceRequestCustom:
+		req = v
+	default:
+		return nil
+	}
 	suggestion := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
