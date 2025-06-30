@@ -22,5 +22,4 @@ func Test_baremetalListOffer(t *testing.T) {
 		Cmd:      "scw baremetal offer list",
 		Check:    core.TestCheckGolden(),
 	}))
-
 }

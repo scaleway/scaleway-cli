@@ -60,7 +60,7 @@ func listOfferMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 }
 
 type customOffer struct {
-	baremetal.Offer
+	*baremetal.Offer
 	KgCo2Equivalent *float32 `json:"kg_co2_equivalent"`
 	M3WaterUsage    *float32 `json:"m3_water_usage"`
 }
@@ -122,7 +122,7 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 				continue
 			}
 			customOfferRes = append(customOfferRes, customOffer{
-				Offer:           *offer,
+				Offer:           offer,
 				KgCo2Equivalent: impact.EnvironmentalImpactEstimation.KgCo2Equivalent,
 				M3WaterUsage:    impact.EnvironmentalImpactEstimation.M3WaterUsage,
 			})
