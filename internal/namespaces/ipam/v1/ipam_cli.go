@@ -435,6 +435,8 @@ func ipamIPList() *core.Command {
 					"serverless_function",
 					"vpn_gateway",
 					"ddl_datalab",
+					"kafka_cluster",
+					"bgp_endpoint",
 				},
 			},
 			{
@@ -467,6 +469,8 @@ func ipamIPList() *core.Command {
 					"serverless_function",
 					"vpn_gateway",
 					"ddl_datalab",
+					"kafka_cluster",
+					"bgp_endpoint",
 				},
 			},
 			{

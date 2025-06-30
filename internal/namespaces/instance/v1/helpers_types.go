@@ -4,11 +4,13 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	product_catalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -65,6 +67,11 @@ func warningServerTypeDeprecated(
 		),
 	}
 
+	eosDate, err := getEndOfServiceDate(ctx, client, server.Zone, server.CommercialType)
+	if err != nil {
+		return warning
+	}
+
 	compatibleTypes, err := instance.NewAPI(client).
 		GetServerCompatibleTypes(&instance.GetServerCompatibleTypesRequest{
 			Zone:     server.Zone,
@@ -76,11 +83,12 @@ func warningServerTypeDeprecated(
 
 	mostRelevantTypes := compatibleTypes.CompatibleTypes[:5]
 	details := fmt.Sprintf(`
-	Your Instance will soon reach End of Service. You can check the exact date on the Scaleway console. We recommend that you migrate your Instance before that.
+	Your Instance will reach End of Service by %s. You can check the exact date on the Scaleway console. We recommend that you migrate your Instance before that.
 	Here are the %d best options for %q, ordered by relevance: [%s]
 	You can check the full list of compatible server types:
 		- on the Scaleway console
 		- using the CLI command 'scw instance server get-compatible-types %s zone=%s'`,
+		eosDate,
 		len(mostRelevantTypes),
 		server.CommercialType,
 		strings.Join(mostRelevantTypes, ", "),
@@ -89,4 +97,36 @@ func warningServerTypeDeprecated(
 	)
 
 	return append(warning, details)
+}
+
+func getEndOfServiceDate(
+	ctx context.Context,
+	client *scw.Client,
+	zone scw.Zone,
+	commercialType string,
+) (string, error) {
+	api := product_catalog.NewPublicCatalogAPI(client)
+
+	products, err := api.ListPublicCatalogProducts(
+		&product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest{
+			ProductTypes: []product_catalog.ListPublicCatalogProductsRequestProductType{
+				product_catalog.ListPublicCatalogProductsRequestProductTypeInstance,
+			},
+		},
+		scw.WithAllPages(),
+		scw.WithContext(ctx),
+	)
+	if err != nil {
+		return "", fmt.Errorf("could not list product catalog entries: %w", err)
+	}
+
+	for _, product := range products.Products {
+		if strings.HasPrefix(product.Product, commercialType) {
+			if product.Locality.Zone != nil && *product.Locality.Zone == zone {
+				return product.EndOfLifeAt.Format(time.DateOnly), nil
+			}
+		}
+	}
+
+	return "", fmt.Errorf("could not find product catalog entry for %q in %s", commercialType, zone)
 }

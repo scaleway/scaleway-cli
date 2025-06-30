@@ -1,6 +1,7 @@
 package iam_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -10,6 +11,10 @@ import (
 )
 
 func Test_iamAPIKeyGet(t *testing.T) {
+	if isNightly := os.Getenv("SLACK_WEBHOOK_NIGHTLY"); isNightly != "" {
+		t.Skip()
+	}
+
 	commands := iam.GetCommands()
 	commands.Merge(account.GetCommands())
 
@@ -50,6 +55,18 @@ func Test_iamAPIKeyGet(t *testing.T) {
 		return apiKeys[0].AccessKey
 	}
 
+	applicationResulter := func(result any) any {
+		applications := result.([]*iamSdk.Application)
+		if applications == nil {
+			panic("applications is nil")
+		}
+		if len(applications) == 0 {
+			panic("no application found")
+		}
+
+		return applications[0].ID
+	}
+
 	t.Run("GetOwnerAPIKey", core.Test(&core.TestConfig{
 		Commands: commands,
 		BeforeFunc: core.BeforeFuncCombine(
@@ -87,6 +104,27 @@ func Test_iamAPIKeyGet(t *testing.T) {
 			),
 		),
 		Cmd: `scw iam api-key get {{ .memberAPIKey }}`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+	}))
+
+	t.Run("GetApplicationAPIKey", core.Test(&core.TestConfig{
+		Commands: commands,
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmdWithResulter(
+				"application",
+				"scw iam application list",
+				applicationResulter,
+			),
+			core.ExecStoreBeforeCmdWithResulter(
+				"applicationAPIKey",
+				"scw iam api-key list bearer-id={{ .application }}",
+				apiKeyResulter,
+			),
+		),
+		Cmd: `scw iam api-key get {{ .applicationAPIKey }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

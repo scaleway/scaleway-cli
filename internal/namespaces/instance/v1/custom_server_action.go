@@ -5,10 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -394,6 +396,46 @@ func serverTerminateCommand() *core.Command {
 					}
 					_, _ = interactive.Printf("successfully detached volume %s\n", volumeName)
 				}
+			} else {
+				successMessages := make(map[string]string)
+
+				for index, volume := range server.Server.Volumes {
+					if volume.VolumeType != instance.VolumeServerVolumeTypeSbsVolume {
+						continue
+					}
+
+					_, err = api.DetachVolume(&instance.DetachVolumeRequest{
+						VolumeID: volume.ID,
+						Zone:     volume.Zone,
+					}, scw.WithContext(ctx))
+					if err != nil {
+						return nil, fmt.Errorf("failed to detach block volume %s: %w", volume.ID, err)
+					}
+
+					blockAPI := block.NewAPI(client)
+					terminalStatus := block.VolumeStatusAvailable
+
+					blockVolume, err := blockAPI.WaitForVolume(&block.WaitForVolumeRequest{
+						VolumeID:       volume.ID,
+						Zone:           volume.Zone,
+						TerminalStatus: &terminalStatus,
+					})
+					if err != nil {
+						return nil, fmt.Errorf("failed to wait for block volume %s: %w", volume.ID, err)
+					}
+
+					err = blockAPI.DeleteVolume(&block.DeleteVolumeRequest{
+						VolumeID: blockVolume.ID,
+						Zone:     blockVolume.Zone,
+					}, scw.WithContext(ctx))
+					if err != nil {
+						return nil, fmt.Errorf("failed to delete block volume %s: %w", blockVolume.Name, err)
+					}
+
+					successMessages[index] = fmt.Sprintf("successfully deleted block volume %q", blockVolume.Name)
+				}
+
+				printSuccessMessagesInOrder(successMessages)
 			}
 
 			if _, err := api.ServerAction(&instance.ServerActionRequest{
@@ -439,7 +481,8 @@ func shouldDeleteBlockVolumes(
 	case withBlockPrompt:
 		// Only prompt user if at least one block volume is attached to the instance
 		for _, volume := range server.Server.Volumes {
-			if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD {
+			if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD &&
+				volume.VolumeType != instance.VolumeServerVolumeTypeSbsVolume {
 				continue
 			}
 
@@ -453,6 +496,19 @@ func shouldDeleteBlockVolumes(
 		return false, nil
 	default:
 		return false, fmt.Errorf("unsupported with-block value %v", terminateWithBlock)
+	}
+}
+
+// printSuccessMessagesInOrder prints volume deletion messages ordered by volume map key "0", "1", "2",...
+func printSuccessMessagesInOrder(messages map[string]string) {
+	indexes := []string(nil)
+	for index := range messages {
+		indexes = append(indexes, index)
+	}
+	sort.Strings(indexes)
+
+	for _, index := range indexes {
+		_, _ = interactive.Println(messages[index])
 	}
 }
 

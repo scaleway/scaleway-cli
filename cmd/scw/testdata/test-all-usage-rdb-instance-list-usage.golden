@@ -6,12 +6,13 @@ USAGE:
   scw rdb instance list [arg=value ...]
 
 ARGS:
-  [tags.{index}]      List Database Instances that have a given tag
-  [name]              Lists Database Instances that match a name pattern
-  [order-by]          Criteria to use when ordering Database Instance listings (created_at_asc | created_at_desc | name_asc | name_desc | region | status_asc | status_desc)
-  [project-id]        Project ID to list the Database Instance of
-  [organization-id]   Please use project_id instead
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [tags.{index}]       List Database Instances that have a given tag
+  [name]               Lists Database Instances that match a name pattern
+  [order-by]           Criteria to use when ordering Database Instance listings (created_at_asc | created_at_desc | name_asc | name_desc | region | status_asc | status_desc)
+  [project-id]         Project ID to list the Database Instance of
+  [has-maintenances]   Filter to only list instances with a scheduled maintenance
+  [organization-id]    Please use project_id instead
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

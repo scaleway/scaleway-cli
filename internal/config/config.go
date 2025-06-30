@@ -16,7 +16,7 @@ import (
 const (
 	ScwConfigPathEnv = "SCW_CLI_CONFIG_PATH"
 
-	DefaultConfigFileName   = "config.yaml"
+	DefaultConfigFileName   = "cli.yaml"
 	defaultConfigPermission = 0o644
 
 	DefaultOutput      = "human"
