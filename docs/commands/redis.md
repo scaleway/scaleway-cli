@@ -7,6 +7,7 @@ This API allows you to manage your Managed Databases for Redis™.
   - [Delete an ACL rule for a cluster](#delete-an-acl-rule-for-a-cluster)
   - [Get an ACL rule](#get-an-acl-rule)
   - [Set ACL rules for a cluster](#set-acl-rules-for-a-cluster)
+  - [Update an ACL rule for a Redis™ Database Instance (network rule)](#update-an-acl-rule-for-a-redis™-database-instance-(network-rule))
 - [Cluster management commands](#cluster-management-commands)
   - [Create a Redis™ Database Instance](#create-a-redis™-database-instance)
   - [Delete a Redis™ Database Instance](#delete-a-redis™-database-instance)
@@ -120,6 +121,29 @@ scw redis acl set [arg=value ...]
 | acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
 | acl-rules.{index}.description |  | Description of the rule |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Update an ACL rule for a Redis™ Database Instance (network rule)
+
+Update an ACL rule (IP/description) for a Redis™ Database Instance (Redis™ cluster). This command simulates an update by fetching, deleting, and re-adding the rule.
+
+**Usage:**
+
+```
+scw redis acl update <acl-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required | UUID of the Redis cluster |
+| acl-id | Required | UUID of the ACL rule to update |
+| ip-cidr |  | New IPv4 network address of the rule (optional, defaults to current) |
+| description |  | New description of the rule (optional, defaults to current) |
+| zone | Required | Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2) |
 
 
 
