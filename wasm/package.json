@@ -12,10 +12,10 @@
   "keywords": [],
   "author": "Scaleway",
   "devDependencies": {
-    "@vitest/browser": "^0.34.4",
+    "@vitest/browser": "^3.2.4",
     "prettier": "3.6.2",
-    "typescript": "^5.0.4",
-    "vitest": "^0.34.4"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "files": [
     "cli.wasm",
