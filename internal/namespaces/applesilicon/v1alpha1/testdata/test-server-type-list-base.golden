@@ -1,10 +1,116 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name  CPU                      Memory  Disk    Stock       Minimum Lease Duration
-M2-M  Apple M2 (8 cores)       16 GB   256 GB  high stock  1 days
-M2-L  Apple M2 Pro (10 cores)  16 GB   512 GB  high stock  1 days
+Name  CPU                  Memory  Disk    Stock       Minimum Lease Duration  CO2 (kg/day)  Water (m³/day)
+M4-S  Apple M4 (10 cores)  16 GB   256 GB  high stock  1 days                  0.014174113   1.343836e-06
+M4-M  Apple M4 (10 cores)  32 GB   1.0 TB  high stock  1 days                  0.015239562   1.343836e-06
+M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0.013518465   1.240464e-06
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
+  {
+    "cpu": {
+      "name": "Apple M4",
+      "core_count": 10,
+      "frequency": 4400000000
+    },
+    "disk": {
+      "capacity": 256000000000,
+      "type": "SSD"
+    },
+    "name": "M4-S",
+    "memory": {
+      "capacity": 16000000000,
+      "type": "LPDDR5X"
+    },
+    "stock": "high_stock",
+    "minimum_lease_duration": "86400.000000000s",
+    "gpu": {
+      "count": 10
+    },
+    "network": {
+      "public_bandwidth_bps": 1000000000,
+      "supported_bandwidth": [
+        1000000000
+      ]
+    },
+    "default_os": {
+      "id": "87135053-e968-4a38-8735-86901accc6f5",
+      "name": "macos-sequoia-15.3.1",
+      "label": "macOS Sequoia 15.3.1",
+      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family": "Sequoia",
+      "is_beta": false,
+      "version": "15.3.1",
+      "xcode_version": "16",
+      "compatible_server_types": [
+        "M1-M",
+        "M2-M",
+        "M2-L",
+        "M4-L",
+        "M4-XL",
+        "M4-M",
+        "M4-S"
+      ]
+    },
+    "kg_co2_equivalent": 0.014174113,
+    "m3_water_usage": 0.000001343836
+  },
+  {
+    "cpu": {
+      "name": "Apple M4",
+      "core_count": 10,
+      "frequency": 4400000000
+    },
+    "disk": {
+      "capacity": 1024000000000,
+      "type": "SSD"
+    },
+    "name": "M4-M",
+    "memory": {
+      "capacity": 32000000000,
+      "type": "LPDDR5X"
+    },
+    "stock": "high_stock",
+    "minimum_lease_duration": "86400.000000000s",
+    "gpu": {
+      "count": 10
+    },
+    "network": {
+      "public_bandwidth_bps": 10000000000,
+      "supported_bandwidth": [
+        1000000000,
+        2000000000,
+        3000000000,
+        4000000000,
+        5000000000,
+        6000000000,
+        7000000000,
+        8000000000,
+        9000000000,
+        10000000000
+      ]
+    },
+    "default_os": {
+      "id": "87135053-e968-4a38-8735-86901accc6f5",
+      "name": "macos-sequoia-15.3.1",
+      "label": "macOS Sequoia 15.3.1",
+      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family": "Sequoia",
+      "is_beta": false,
+      "version": "15.3.1",
+      "xcode_version": "16",
+      "compatible_server_types": [
+        "M1-M",
+        "M2-M",
+        "M2-L",
+        "M4-L",
+        "M4-XL",
+        "M4-M",
+        "M4-S"
+      ]
+    },
+    "kg_co2_equivalent": 0.015239562,
+    "m3_water_usage": 0.000001343836
+  },
   {
     "cpu": {
       "name": "Apple M2",
@@ -27,62 +133,27 @@ M2-L  Apple M2 Pro (10 cores)  16 GB   512 GB  high stock  1 days
     },
     "network": {
       "public_bandwidth_bps": 1000000000,
-      "supported_bandwidth": null
+      "supported_bandwidth": [
+        1000000000
+      ]
     },
     "default_os": {
-      "id": "e08d1e5d-b4b9-402a-9f9a-97732d17e374",
-      "name": "macos-sonoma-14.4",
-      "label": "macOS Sonoma 14.4",
-      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png",
-      "family": "Sonoma",
+      "id": "367b9c18-d57f-4c9a-bcea-9e1fda66fc70",
+      "name": "macos-sequoia-15.2",
+      "label": "macOS Sequoia 15.2",
+      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family": "Sequoia",
       "is_beta": false,
-      "version": "14.4",
-      "xcode_version": "15",
+      "version": "15.2",
+      "xcode_version": "16",
       "compatible_server_types": [
         "M1-M",
         "M2-M",
-        "M2-L"
+        "M2-L",
+        "M4-S"
       ]
-    }
-  },
-  {
-    "cpu": {
-      "name": "Apple M2 Pro",
-      "core_count": 10,
-      "frequency": 3500000000
     },
-    "disk": {
-      "capacity": 512000000000,
-      "type": "SSD"
-    },
-    "name": "M2-L",
-    "memory": {
-      "capacity": 16000000000,
-      "type": "LPDDR5"
-    },
-    "stock": "high_stock",
-    "minimum_lease_duration": "86400.000000000s",
-    "gpu": {
-      "count": 16
-    },
-    "network": {
-      "public_bandwidth_bps": 1000000000,
-      "supported_bandwidth": null
-    },
-    "default_os": {
-      "id": "e08d1e5d-b4b9-402a-9f9a-97732d17e374",
-      "name": "macos-sonoma-14.4",
-      "label": "macOS Sonoma 14.4",
-      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png",
-      "family": "Sonoma",
-      "is_beta": false,
-      "version": "14.4",
-      "xcode_version": "15",
-      "compatible_server_types": [
-        "M1-M",
-        "M2-M",
-        "M2-L"
-      ]
-    }
+    "kg_co2_equivalent": 0.013518465,
+    "m3_water_usage": 0.000001240464
   }
 ]

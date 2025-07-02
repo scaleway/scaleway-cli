@@ -3,11 +3,13 @@ package applesilicon
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
+	productcatalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 )
 
 var serverTypeStockMarshalSpecs = human.EnumMarshalSpecs{
@@ -51,6 +53,12 @@ func memoryMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	return capacityStr, nil
 }
 
+type customServerType struct {
+	*applesilicon.ServerType
+	KgCo2Equivalent *float32 `json:"kg_co2_equivalent"`
+	M3WaterUsage    *float32 `json:"m3_water_usage"`
+}
+
 func serverTypeBuilder(c *core.Command) *core.Command {
 	c.View = &core.View{
 		Fields: []*core.ViewField{
@@ -78,6 +86,14 @@ func serverTypeBuilder(c *core.Command) *core.Command {
 				Label:     "Minimum Lease Duration",
 				FieldName: "MinimumLeaseDuration",
 			},
+			{
+				Label:     "CO2 (kg/day)",
+				FieldName: "KgCo2Equivalent",
+			},
+			{
+				Label:     "Water (m³/day)",
+				FieldName: "M3WaterUsage",
+			},
 		},
 	}
 
@@ -88,9 +104,47 @@ func serverTypeBuilder(c *core.Command) *core.Command {
 				return nil, err
 			}
 
-			versionsResponse := originalRes.(*applesilicon.ListServerTypesResponse)
+			client := core.ExtractClient(ctx)
 
-			return versionsResponse.ServerTypes, nil
+			req := argsI.(*applesilicon.ListServerTypesRequest)
+			serverTypes := originalRes.(*applesilicon.ListServerTypesResponse).ServerTypes
+
+			productAPI := productcatalog.NewPublicCatalogAPI(client)
+			environmentalImpact, err := productAPI.ListPublicCatalogProducts(
+				&productcatalog.PublicCatalogAPIListPublicCatalogProductsRequest{
+					ProductTypes: []productcatalog.ListPublicCatalogProductsRequestProductType{
+						productcatalog.ListPublicCatalogProductsRequestProductTypeAppleSilicon,
+					},
+					Zone: &req.Zone,
+				},
+			)
+			if err != nil {
+				return nil, err
+			}
+
+			impactMap := make(map[string]*productcatalog.PublicCatalogProduct)
+			for _, impact := range environmentalImpact.Products {
+				if impact != nil {
+					key := strings.TrimSpace(strings.TrimPrefix(impact.Product, "Mac Mini "))
+					key = strings.ReplaceAll(key, " - ", "-")
+					impactMap[key] = impact
+				}
+			}
+
+			var customServerTypeList []customServerType
+			for _, severType := range serverTypes {
+				impact, ok := impactMap[severType.Name]
+				if !ok {
+					continue
+				}
+				customServerTypeList = append(customServerTypeList, customServerType{
+					ServerType:      severType,
+					KgCo2Equivalent: impact.EnvironmentalImpactEstimation.KgCo2Equivalent,
+					M3WaterUsage:    impact.EnvironmentalImpactEstimation.M3WaterUsage,
+				})
+			}
+
+			return customServerTypeList, nil
 		},
 	)
 
