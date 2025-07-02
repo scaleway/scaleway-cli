@@ -1,0 +1,1916 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    Name           Stock      Disks  CPUs  Memories  Options  Bandwidth   PrivateBandwidth  CO2 (kg)   Water (m³)
+f7241870-c383-4fa2-bbca-5189600df5c4  EM-A115X-SSD   available  2      1     1         7        500000000   1000000000        11.918127  0.0009655551
+bd757ca3-a71b-4158-9ef5-39436b6db2a4  EM-L101X-SATA  available  2      1     1         7        1000000000  1000000000        14.568569  0.0011991571
+6ec5bbb2-8267-41cd-aaf6-d43ea1b59372  EM-A315X-SSD   available  2      1     1         2        1000000000  1000000000        14.701281  0.001261451
+5a505e81-5f6a-42bd-acec-0b290be92697  EM-A410X-SSD   empty      2      1     1         8        1000000000  1000000000        13.850215  0.0010901429
+c5853302-63e4-40c7-a711-4a91629565c8  EM-L105X-SATA  available  4      1     1         7        1000000000  1000000000        15.709769  0.0012458775
+8c2cf291-a3d3-4dc5-967f-f498a088411d  EM-B111X-SATA  available  2      2     1         6        1000000000  1000000000        21.451233  0.0018220958
+a5065ba4-dde2-45f3-adec-1ebbb27b766b  EM-B112X-SSD   available  2      2     1         9        1000000000  1000000000        21.59012   0.0018220958
+c753f736-fbb4-4689-ae93-623f9d08dce5  EM-B211X-SATA  empty      2      2     1         9        1000000000  1000000000        21.982878  0.0017130816
+ddaf8ba6-b2b2-4279-8af3-51930fb602f8  EM-B212X-SSD   available  2      2     1         9        1000000000  1000000000        24.590876  0.002024551
+a204136d-656b-44b7-9735-88ca2f62cb1f  EM-L110X-SATA  available  4      1     1         7        1000000000  1000000000        15.709769  0.0012458775
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "f7241870-c383-4fa2-bbca-5189600df5c4",
+    "name": "EM-A115X-SSD",
+    "stock": "available",
+    "bandwidth": 500000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "aluminium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 91000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 1024209543168,
+        "type": "SSD"
+      },
+      {
+        "capacity": 1024209543168,
+        "type": "SSD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E3 1220 or equivalent",
+        "core_count": 4,
+        "thread_count": 4,
+        "frequency": 3100,
+        "benchmark": "3895"
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 32000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_A115X_SSD",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "bf705b90-1548-4368-98ca-d17dbd8dd860",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "7e865c16-1a63-4dc7-8181-dabc020fc21b",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "a5c00c1b-95b1-4c08-8a33-79cc079f9dac",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
+    ],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+        }
+      },
+      {
+        "id": "9ce714f1-ed03-4e3b-8c69-d46957ab0ebb",
+        "name": "Public Bandwidth 1Gbps",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 28000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "public_bandwidth": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [
+      "install-system-v2"
+    ],
+    "gpus": [],
+    "monthly_offer_id": "f1322af3-53dd-473b-8749-83661fbb73d8",
+    "kg_co2_equivalent": 11.918127,
+    "m3_water_usage": 0.0009655551
+  },
+  {
+    "id": "bd757ca3-a71b-4158-9ef5-39436b6db2a4",
+    "name": "EM-L101X-SATA",
+    "stock": "available",
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "lithium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 122000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 6001175126016,
+        "type": "HDD"
+      },
+      {
+        "capacity": 6001175126016,
+        "type": "HDD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E5 1410 v2",
+        "core_count": 4,
+        "thread_count": 8,
+        "frequency": 2800,
+        "benchmark": "5715"
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 96000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_L101X_SATA",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+    ],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+        }
+      },
+      {
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 15,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "certification": {}
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [],
+    "gpus": [],
+    "monthly_offer_id": "1b067ec1-e383-4756-bbc2-d2ba5a76aa08",
+    "kg_co2_equivalent": 14.568569,
+    "m3_water_usage": 0.0011991571
+  },
+  {
+    "id": "6ec5bbb2-8267-41cd-aaf6-d43ea1b59372",
+    "name": "EM-A315X-SSD",
+    "stock": "available",
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "aluminium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 153000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 1024209543168,
+        "type": "SSD"
+      },
+      {
+        "capacity": 1024209543168,
+        "type": "SSD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E5 1410 v2",
+        "core_count": 4,
+        "thread_count": 8,
+        "frequency": 2800,
+        "benchmark": "5715"
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 64000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_A315X_SSD",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [
+      "a5c00c1b-95b1-4c08-8a33-79cc079f9dac",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "3ea52186-1e57-499e-8146-ab38051a5c10",
+      "7e865c16-1a63-4dc7-8181-dabc020fc21b",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "bf705b90-1548-4368-98ca-d17dbd8dd860",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966"
+    ],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [],
+    "gpus": [],
+    "monthly_offer_id": "6b91e989-5251-4d89-b366-0f5565339fdc",
+    "kg_co2_equivalent": 14.701281,
+    "m3_water_usage": 0.001261451
+  },
+  {
+    "id": "5a505e81-5f6a-42bd-acec-0b290be92697",
+    "name": "EM-A410X-SSD",
+    "stock": "empty",
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "aluminium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 153000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 1024209543168,
+        "type": "SSD"
+      },
+      {
+        "capacity": 1024209543168,
+        "type": "SSD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E5 1650",
+        "core_count": 6,
+        "thread_count": 12,
+        "frequency": 3200,
+        "benchmark": "8086"
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 64000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_A410X_SSD",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [
+      "a5c00c1b-95b1-4c08-8a33-79cc079f9dac",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "bf705b90-1548-4368-98ca-d17dbd8dd860",
+      "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "7e865c16-1a63-4dc7-8181-dabc020fc21b"
+    ],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
+        "name": "Windows 2025 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+        "license": {
+          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+        }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
+        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
+        "name": "Windows 2025 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+        "license": {
+          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
+        }
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+        }
+      },
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [],
+    "gpus": [],
+    "monthly_offer_id": "7adc4a66-da70-40e3-856b-7b952b77fbf9",
+    "kg_co2_equivalent": 13.850215,
+    "m3_water_usage": 0.0010901429
+  },
+  {
+    "id": "c5853302-63e4-40c7-a711-4a91629565c8",
+    "name": "EM-L105X-SATA",
+    "stock": "available",
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "lithium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 213000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 6001175126016,
+        "type": "HDD"
+      },
+      {
+        "capacity": 6001175126016,
+        "type": "HDD"
+      },
+      {
+        "capacity": 6001175126016,
+        "type": "HDD"
+      },
+      {
+        "capacity": 6001175126016,
+        "type": "HDD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E5 1410 v2",
+        "core_count": 4,
+        "thread_count": 8,
+        "frequency": 2800,
+        "benchmark": "5715"
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 96000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_L105X_SATA",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+    ],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 15,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "certification": {}
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+        }
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [],
+    "gpus": [],
+    "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c",
+    "kg_co2_equivalent": 15.709769,
+    "m3_water_usage": 0.0012458775
+  },
+  {
+    "id": "8c2cf291-a3d3-4dc5-967f-f498a088411d",
+    "name": "EM-B111X-SATA",
+    "stock": "available",
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "beryllium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 263000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 8000000000000,
+        "type": "HDD"
+      },
+      {
+        "capacity": 8000000000000,
+        "type": "HDD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E5 2620 or equivalent",
+        "core_count": 6,
+        "thread_count": 12,
+        "frequency": 2000,
+        "benchmark": ""
+      },
+      {
+        "name": "Intel Xeon E5 2620 or equivalent",
+        "core_count": 6,
+        "thread_count": 12,
+        "frequency": 2000,
+        "benchmark": ""
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 192000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_B111X_SATA",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 286,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 44,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 44,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+        }
+      },
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 286,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [],
+    "gpus": [],
+    "monthly_offer_id": null,
+    "kg_co2_equivalent": 21.451233,
+    "m3_water_usage": 0.0018220958
+  },
+  {
+    "id": "a5065ba4-dde2-45f3-adec-1ebbb27b766b",
+    "name": "EM-B112X-SSD",
+    "stock": "available",
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "beryllium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 263000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 1000204886016,
+        "type": "SSD"
+      },
+      {
+        "capacity": 1000204886016,
+        "type": "SSD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E5 2600 or equivalent",
+        "core_count": 6,
+        "thread_count": 12,
+        "frequency": 2000,
+        "benchmark": "5295"
+      },
+      {
+        "name": "Intel Xeon E5 2600 or equivalent",
+        "core_count": 6,
+        "thread_count": 12,
+        "frequency": 2000,
+        "benchmark": "5295"
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 192000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_B112X_SSD",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [
+      "7e865c16-1a63-4dc7-8181-dabc020fc21b",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "bf705b90-1548-4368-98ca-d17dbd8dd860",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "fa29896b-6b49-468d-a787-966559a55c12"
+    ],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
+        "name": "Windows 2025 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+        "license": {
+          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 15,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "certification": {}
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+        }
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
+        "name": "Windows 2025 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+        "license": {
+          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+        }
+      },
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [],
+    "gpus": [],
+    "monthly_offer_id": null,
+    "kg_co2_equivalent": 21.59012,
+    "m3_water_usage": 0.0018220958
+  },
+  {
+    "id": "c753f736-fbb4-4689-ae93-623f9d08dce5",
+    "name": "EM-B211X-SATA",
+    "stock": "empty",
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "beryllium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 321000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 8000000000000,
+        "type": "HDD"
+      },
+      {
+        "capacity": 8000000000000,
+        "type": "HDD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E5 2600 or equivalent",
+        "core_count": 8,
+        "thread_count": 16,
+        "frequency": 2600,
+        "benchmark": "5295"
+      },
+      {
+        "name": "Intel Xeon E5 2600 or equivalent",
+        "core_count": 8,
+        "thread_count": 16,
+        "frequency": 2600,
+        "benchmark": "5295"
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 256000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_B211X_SATA",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12"
+    ],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 15,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "certification": {}
+      },
+      {
+        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
+        "name": "Windows 2025 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+        "license": {
+          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+        }
+      },
+      {
+        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
+        "name": "Windows 2025 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+        "license": {
+          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
+        }
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+        }
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [],
+    "gpus": [],
+    "monthly_offer_id": null,
+    "kg_co2_equivalent": 21.982878,
+    "m3_water_usage": 0.0017130816
+  },
+  {
+    "id": "ddaf8ba6-b2b2-4279-8af3-51930fb602f8",
+    "name": "EM-B212X-SSD",
+    "stock": "available",
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "beryllium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 321000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 1024209543168,
+        "type": "SSD"
+      },
+      {
+        "capacity": 1024209543168,
+        "type": "SSD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E5 2600 or equivalent",
+        "core_count": 8,
+        "thread_count": 16,
+        "frequency": 2600,
+        "benchmark": "5295"
+      },
+      {
+        "name": "Intel Xeon E5 2600 or equivalent",
+        "core_count": 8,
+        "thread_count": 16,
+        "frequency": 2600,
+        "benchmark": "5295"
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 256000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_B212X_SSD",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12"
+    ],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
+        "name": "Windows 2025 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+        "license": {
+          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
+        }
+      },
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
+        "name": "Windows 2025 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+        "license": {
+          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+        }
+      },
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 15,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "certification": {}
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+        }
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [],
+    "gpus": [],
+    "monthly_offer_id": null,
+    "kg_co2_equivalent": 24.590876,
+    "m3_water_usage": 0.002024551
+  },
+  {
+    "id": "a204136d-656b-44b7-9735-88ca2f62cb1f",
+    "name": "EM-L110X-SATA",
+    "stock": "available",
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "commercial_range": "lithium",
+    "price_per_hour": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 366000000
+    },
+    "price_per_month": null,
+    "disks": [
+      {
+        "capacity": 12000138625024,
+        "type": "HDD"
+      },
+      {
+        "capacity": 12000138625024,
+        "type": "HDD"
+      },
+      {
+        "capacity": 12000138625024,
+        "type": "HDD"
+      },
+      {
+        "capacity": 12000138625024,
+        "type": "HDD"
+      }
+    ],
+    "enable": true,
+    "cpus": [
+      {
+        "name": "Intel Xeon E5 1410 v2",
+        "core_count": 4,
+        "thread_count": 8,
+        "frequency": 2800,
+        "benchmark": "5715"
+      }
+    ],
+    "memories": [
+      {
+        "capacity": 96000000000,
+        "type": "DDR3",
+        "frequency": 1600,
+        "is_ecc": true
+      }
+    ],
+    "quota_name": "EM_L110X_SATA",
+    "persistent_memories": [],
+    "raid_controllers": [],
+    "incompatible_os_ids": [
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db"
+    ],
+    "subscription_period": "hourly",
+    "operation_path": "",
+    "fee": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 0
+    },
+    "options": [
+      {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 15,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "certification": {}
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      }
+    ],
+    "private_bandwidth": 1000000000,
+    "shared_bandwidth": true,
+    "tags": [],
+    "gpus": [],
+    "monthly_offer_id": "0ca85e34-d35a-494b-9077-70589cf7a6c8",
+    "kg_co2_equivalent": 15.709769,
+    "m3_water_usage": 0.0012458775
+  }
+]
