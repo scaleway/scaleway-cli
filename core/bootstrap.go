@@ -232,6 +232,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 			return 1, nil, err
 		}
 	}
+	checkIfMultipleVariableSources(ctx)
 
 	// Run checks after command has been executed
 	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
