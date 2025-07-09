@@ -236,7 +236,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	// Run checks after command has been executed
 	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
 		// Check CLI new version and api key expiration date
-		runAfterCommandChecks(ctx, config.BuildInfo.checkVersion, checkAPIKey)
+		runAfterCommandChecks(
+			ctx,
+			config.BuildInfo.checkVersion,
+			checkAPIKey,
+			checkIfMultipleVariableSources,
+		)
 	}()
 
 	if !config.DisableAliases {
