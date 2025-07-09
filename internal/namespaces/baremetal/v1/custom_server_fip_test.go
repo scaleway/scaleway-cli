@@ -24,8 +24,8 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 			func(ctx *core.BeforeFuncCtx) error {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: offerName,
-					Zone:      region,
+					OfferName: offerNameNVME,
+					Zone:      zone,
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
@@ -33,15 +33,15 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 
 				return nil
 			},
-			createServerAndWaitDefault("Server"),
+			createServerAndWait("Server"),
 		),
-		Cmd: "scw baremetal server add-flexible-ip {{ .Server.ID }}",
+		Cmd: "scw baremetal server add-flexible-ip {{ .Server.ID }} zone=" + zone,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			deleteServerDefault("Server"),
-			core.ExecAfterCmd("scw fip ip delete {{ .CmdResult.ID }}"),
+			deleteServer("Server"),
+			core.ExecAfterCmd("scw fip ip delete {{ .CmdResult.ID }} zone="+zone),
 		),
 		PromptResponseMocks: promptResponse,
 	}))
@@ -57,8 +57,8 @@ func Test_CreateFlexibleIP(t *testing.T) {
 			func(ctx *core.BeforeFuncCtx) error {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: offerName,
-					Zone:      region,
+					OfferName: offerNameNVME,
+					Zone:      zone,
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
@@ -66,15 +66,15 @@ func Test_CreateFlexibleIP(t *testing.T) {
 
 				return nil
 			},
-			createServerAndWaitDefault("Server"),
+			createServerAndWait("Server"),
 		),
-		Cmd: "scw baremetal server add-flexible-ip {{ .Server.ID }} ip-type=IPv4",
+		Cmd: "scw baremetal server add-flexible-ip {{ .Server.ID }} ip-type=IPv4 zone=" + zone,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			deleteServerDefault("Server"),
-			core.ExecAfterCmd("scw fip ip delete {{ .CmdResult.ID }}"),
+			deleteServer("Server"),
+			core.ExecAfterCmd("scw fip ip delete {{ .CmdResult.ID }} zone="+zone),
 		),
 	}))
 }

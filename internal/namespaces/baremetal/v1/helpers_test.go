@@ -11,19 +11,12 @@ import (
 func createServerAndWait(metaKey string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		metaKey,
-		"scw baremetal server create zone="+region+" type="+offerName+" -w",
+		"scw baremetal server create type="+offerNameNVME+" zone="+zone+" -w",
 	)
 }
 
-func createServerAndWaitDefault(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create type="+offerName+" -w")
-}
-
-func createServer(metaKey string, offerType string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(
-		metaKey,
-		"scw baremetal server create zone="+region+" type="+offerType,
-	)
+func createServer(metaKey string, offer string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(metaKey, "scw baremetal server create zone="+zone+" type="+offer)
 }
 
 // deleteServer deletes a server
@@ -32,12 +25,8 @@ func createServer(metaKey string, offerType string) core.BeforeFunc {
 //nolint:unparam
 func deleteServer(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd(
-		fmt.Sprintf("scw baremetal server delete zone="+region+" {{ .%s.ID }}", metaKey),
+		fmt.Sprintf("scw baremetal server delete {{ .%s.ID }} zone=%s", metaKey, zone),
 	)
-}
-
-func deleteServerDefault(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd(fmt.Sprintf("scw baremetal server delete {{ .%s.ID }}", metaKey))
 }
 
 // add an ssh key with a given meta key

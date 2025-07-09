@@ -1,52 +1,52 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              d0d70fb8-fb6c-494e-9276-56eb036ff022
-OrganizationID  5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID       5ebc0159-7cb7-406c-9521-9347d1987fb2
-Name            cli-bm-quizzical-banzai
+ID              9e24dc31-c616-489c-a48e-8067acbdca45
+OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Name            cli-bm-vigilant-shirley
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
-OfferID         206ea234-9097-4ae1-af68-6d2be09f47ed
-OfferName       EM-B220E-NVME
+OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
+OfferName       EM-I215E-NVME
 Domain          -
 BootType        normal
-Zone            fr-par-1
+Zone            fr-par-2
 PingStatus      unknown
 
 IPs:
-ID                                    ADDRESS                               REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-0124c7c5-2ddf-442a-92d6-c7ec6af4c0f2  2001:bc8:701:701:3eec:efff:feff:185e  -        IPv6     unknown         -
-5f7da813-3c76-490f-8816-10cc01977ef5  62.210.158.69                         -        IPv4     unknown         -
+ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
+2f4bedc6-86ce-4546-9f10-b4830cfccd1f  2001:bc8:1201:a22:b683:51ff:fe0f:6d94  -        IPv6     unknown         -
+7b489497-8cb2-489b-a5d6-6b571f471cca  195.154.100.187                        -        IPv4     unknown         -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d0d70fb8-fb6c-494e-9276-56eb036ff022",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "name": "cli-bm-quizzical-banzai",
+  "id": "9e24dc31-c616-489c-a48e-8067acbdca45",
+  "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "name": "cli-bm-vigilant-shirley",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "206ea234-9097-4ae1-af68-6d2be09f47ed",
-  "offer_name": "EM-B220E-NVME",
+  "offer_id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
+  "offer_name": "EM-I215E-NVME",
   "tags": [],
   "ips": [
     {
-      "id": "0124c7c5-2ddf-442a-92d6-c7ec6af4c0f2",
-      "address": "2001:bc8:701:701:3eec:efff:feff:185e",
+      "id": "2f4bedc6-86ce-4546-9f10-b4830cfccd1f",
+      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6d94",
       "reverse": "",
       "version": "IPv6",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     },
     {
-      "id": "5f7da813-3c76-490f-8816-10cc01977ef5",
-      "address": "62.210.158.69",
+      "id": "7b489497-8cb2-489b-a5d6-6b571f471cca",
+      "address": "195.154.100.187",
       "reverse": "",
       "version": "IPv4",
       "reverse_status": "unknown",
@@ -55,7 +55,7 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
   ],
   "domain": "",
   "boot_type": "normal",
-  "zone": "fr-par-1",
+  "zone": "fr-par-2",
   "install": null,
   "ping_status": "ping_status_unknown",
   "options": [],

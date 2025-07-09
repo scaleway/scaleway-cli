@@ -24,8 +24,8 @@ func Test_InstallServer(t *testing.T) {
 				func(ctx *core.BeforeFuncCtx) error {
 					api := baremetalSDK.NewAPI(ctx.Client)
 					server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-						OfferName: offerName,
-						Zone:      region,
+						OfferName: offerNameNVME,
+						Zone:      zone,
 					})
 					if server.Stock != baremetalSDK.OfferStockAvailable {
 						err := errors.New("offer out of stock")
@@ -39,7 +39,7 @@ func Test_InstallServer(t *testing.T) {
 				createServerAndWait("Server"),
 			),
 			Commands: cmds,
-			Cmd:      "scw baremetal server install {{ .Server.ID }} zone=" + region + " hostname=test-install-server ssh-key-ids.0={{ .key.ID }} os-id=" + osID + " -w",
+			Cmd:      "scw baremetal server install {{ .Server.ID }} zone=" + zone + " hostname=test-install-server ssh-key-ids.0={{ .key.ID }} os-id=" + osID + " -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
@@ -56,8 +56,8 @@ func Test_InstallServer(t *testing.T) {
 				func(ctx *core.BeforeFuncCtx) error {
 					api := baremetalSDK.NewAPI(ctx.Client)
 					server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-						OfferName: offerName,
-						Zone:      region,
+						OfferName: offerNameNVME,
+						Zone:      zone,
 					})
 					if server.Stock != baremetalSDK.OfferStockAvailable {
 						return errors.New("offer out of stock")
@@ -68,7 +68,7 @@ func Test_InstallServer(t *testing.T) {
 				addSSH("key", sshKey),
 				createServerAndWait("Server"),
 			),
-			Cmd: "scw baremetal server install {{ .Server.ID }} zone=" + region + " hostname=test-install-server all-ssh-keys=true os-id=" + osID + " -w",
+			Cmd: "scw baremetal server install {{ .Server.ID }} zone=" + zone + " hostname=test-install-server all-ssh-keys=true os-id=" + osID + " -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
