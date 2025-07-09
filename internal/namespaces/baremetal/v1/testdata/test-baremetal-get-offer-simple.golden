@@ -22,6 +22,7 @@ SubscriptionPeriod   hourly
 OperationPath        -
 Fee                  € 0.00
 SharedBandwidth      true
+MonthlyOfferID       3b36516b-34e5-4ab1-8b05-0cda2adbc84c
 
 Disks:
 CAPACITY  TYPE
@@ -238,5 +239,6 @@ PrivateBandwidth(Mbit/s):
   "private_bandwidth": 1000000000,
   "shared_bandwidth": true,
   "tags": [],
-  "gpus": []
+  "gpus": [],
+  "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c"
 }
