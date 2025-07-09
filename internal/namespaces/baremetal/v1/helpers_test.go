@@ -8,9 +8,9 @@ import (
 
 // createServerAndWait creates a baremetal instance
 // register it in the context Meta at metaKey.
-func createServerAndWait(metaKey string) core.BeforeFunc {
+func createServerAndWait() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
-		metaKey,
+		"Server",
 		"scw baremetal server create type="+offerNameNVME+" zone="+zone+" -w",
 	)
 }

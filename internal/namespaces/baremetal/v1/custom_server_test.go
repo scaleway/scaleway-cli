@@ -66,7 +66,7 @@ func Test_StopServerErrors(t *testing.T) {
 
 				return nil
 			},
-			createServer("Server", "EM-B111X-SATA"),
+			createServer("Server", offerNameSATA),
 		),
 		Commands: baremetal.GetCommands(),
 		Cmd:      "scw baremetal server stop zone=" + zone + " {{ .Server.ID }}",

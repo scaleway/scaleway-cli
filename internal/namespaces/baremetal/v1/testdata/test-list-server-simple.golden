@@ -103,22 +103,26 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
               {
                 "label": "uefi",
                 "number": 1,
-                "size": 536870912
+                "size": 536870912,
+                "use_all_available_space": false
               },
               {
                 "label": "swap",
                 "number": 2,
-                "size": 4294967296
+                "size": 4294967296,
+                "use_all_available_space": false
               },
               {
                 "label": "boot",
                 "number": 3,
-                "size": 536870912
+                "size": 536870912,
+                "use_all_available_space": false
               },
               {
                 "label": "root",
                 "number": 4,
-                "size": 1915003863040
+                "size": 1915003863040,
+                "use_all_available_space": false
               }
             ]
           },
@@ -128,17 +132,20 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
               {
                 "label": "swap",
                 "number": 1,
-                "size": 4294967296
+                "size": 4294967296,
+                "use_all_available_space": false
               },
               {
                 "label": "boot",
                 "number": 2,
-                "size": 536870912
+                "size": 536870912,
+                "use_all_available_space": false
               },
               {
                 "label": "root",
                 "number": 3,
-                "size": 1915003863040
+                "size": 1915003863040,
+                "use_all_available_space": false
               }
             ]
           }
@@ -238,22 +245,26 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
               {
                 "label": "uefi",
                 "number": 1,
-                "size": 536870912
+                "size": 536870912,
+                "use_all_available_space": false
               },
               {
                 "label": "swap",
                 "number": 2,
-                "size": 4294967296
+                "size": 4294967296,
+                "use_all_available_space": false
               },
               {
                 "label": "boot",
                 "number": 3,
-                "size": 536870912
+                "size": 536870912,
+                "use_all_available_space": false
               },
               {
                 "label": "root",
                 "number": 4,
-                "size": 1915003863040
+                "size": 1915003863040,
+                "use_all_available_space": false
               }
             ]
           },
@@ -263,17 +274,20 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
               {
                 "label": "swap",
                 "number": 1,
-                "size": 4294967296
+                "size": 4294967296,
+                "use_all_available_space": false
               },
               {
                 "label": "boot",
                 "number": 2,
-                "size": 536870912
+                "size": 536870912,
+                "use_all_available_space": false
               },
               {
                 "label": "root",
                 "number": 3,
-                "size": 1915003863040
+                "size": 1915003863040,
+                "use_all_available_space": false
               }
             ]
           }

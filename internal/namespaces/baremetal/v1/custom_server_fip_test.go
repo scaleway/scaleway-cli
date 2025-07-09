@@ -33,7 +33,7 @@ func Test_CreateFlexibleIPInteractive(t *testing.T) {
 
 				return nil
 			},
-			createServerAndWait("Server"),
+			createServerAndWait(),
 		),
 		Cmd: "scw baremetal server add-flexible-ip {{ .Server.ID }} zone=" + zone,
 		Check: core.TestCheckCombine(
@@ -66,7 +66,7 @@ func Test_CreateFlexibleIP(t *testing.T) {
 
 				return nil
 			},
-			createServerAndWait("Server"),
+			createServerAndWait(),
 		),
 		Cmd: "scw baremetal server add-flexible-ip {{ .Server.ID }} ip-type=IPv4 zone=" + zone,
 		Check: core.TestCheckCombine(
