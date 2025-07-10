@@ -1,19 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              4d5d9678-b71e-4124-ac84-e56661e632b2
+ID              c82767ea-29be-451a-971b-840730e9c4ab
 OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
 ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          attached
-IPAddress       62.210.100.14/32
-ServerID        9762fe1e-47db-4bef-911f-cc792957343d
-Reverse         62-210-100-14.rev.poneytelecom.eu.
+IPAddress       62.210.101.135/32
+ServerID        994945b6-036d-4f46-8be4-7b0f1c119582
+Reverse         62-210-101-135.rev.poneytelecom.eu.
 Zone            fr-par-2
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "4d5d9678-b71e-4124-ac84-e56661e632b2",
+  "id": "c82767ea-29be-451a-971b-840730e9c4ab",
   "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "description": "",
@@ -21,9 +21,9 @@ Zone            fr-par-2
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "attached",
-  "ip_address": "62.210.100.14/32",
+  "ip_address": "62.210.101.135/32",
   "mac_address": null,
-  "server_id": "9762fe1e-47db-4bef-911f-cc792957343d",
-  "reverse": "62-210-100-14.rev.poneytelecom.eu.",
+  "server_id": "994945b6-036d-4f46-8be4-7b0f1c119582",
+  "reverse": "62-210-101-135.rev.poneytelecom.eu.",
   "zone": "fr-par-2"
 }

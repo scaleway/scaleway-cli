@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              9e24dc31-c616-489c-a48e-8067acbdca45
+ID              4797a996-30cb-403c-b207-60f2fd4c05ee
 OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
 ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
-Name            cli-bm-vigilant-shirley
+Name            cli-bm-cranky-fermat
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
@@ -17,17 +17,17 @@ PingStatus      unknown
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-2f4bedc6-86ce-4546-9f10-b4830cfccd1f  2001:bc8:1201:a22:b683:51ff:fe0f:6d94  -        IPv6     unknown         -
-7b489497-8cb2-489b-a5d6-6b571f471cca  195.154.100.187                        -        IPv4     unknown         -
+72e69560-10a8-4bab-bbe0-fd7945be1c4e  195.154.100.174                        -        IPv4     unknown         -
+d193aad4-3c84-4085-85fe-648bdba2e0ad  2001:bc8:1201:a22:b683:51ff:fe0f:6d68  -        IPv6     unknown         -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "9e24dc31-c616-489c-a48e-8067acbdca45",
+  "id": "4797a996-30cb-403c-b207-60f2fd4c05ee",
   "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "name": "cli-bm-vigilant-shirley",
+  "name": "cli-bm-cranky-fermat",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -37,18 +37,18 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
   "tags": [],
   "ips": [
     {
-      "id": "2f4bedc6-86ce-4546-9f10-b4830cfccd1f",
-      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6d94",
+      "id": "72e69560-10a8-4bab-bbe0-fd7945be1c4e",
+      "address": "195.154.100.174",
       "reverse": "",
-      "version": "IPv6",
+      "version": "IPv4",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     },
     {
-      "id": "7b489497-8cb2-489b-a5d6-6b571f471cca",
-      "address": "195.154.100.187",
+      "id": "d193aad4-3c84-4085-85fe-648bdba2e0ad",
+      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6d68",
       "reverse": "",
-      "version": "IPv4",
+      "version": "IPv6",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     }

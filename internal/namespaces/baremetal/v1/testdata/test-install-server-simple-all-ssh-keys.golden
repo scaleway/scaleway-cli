@@ -1,93 +1,104 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              e4259b0b-872d-4f1a-b0da-477135dadc9c
+ID              94f3192e-3a74-4a78-8d78-33047c5aa28c
 OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
 ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
-Name            cli-bm-laughing-shirley
+Name            cli-bm-upbeat-sammet
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
 OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
 OfferName       EM-I215E-NVME
-Domain          e4259b0b-872d-4f1a-b0da-477135dadc9c.fr-par-2.baremetal.scw.cloud
+Domain          94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud
 BootType        normal
 Zone            fr-par-2
 PingStatus      unknown
 
 IPs:
 ID                                    ADDRESS                                REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-40700020-e927-463d-85ba-4e7b412e312b  2001:bc8:1201:a22:b683:51ff:fe0f:60c8  e4259b0b-872d-4f1a-b0da-477135dadc9c.fr-par-2.baremetal.scw.cloud  IPv6     active          -
-c131d509-032d-42d4-afb6-21be2c067720  195.154.100.211                        e4259b0b-872d-4f1a-b0da-477135dadc9c.fr-par-2.baremetal.scw.cloud  IPv4     active          -
+aa2b0972-e43f-44ad-b828-fc5353413bec  195.154.100.23                         94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud  IPv4     active          -
+becd9b42-26b6-436c-a923-ee1c80b68e2b  2001:bc8:1201:a17:b683:51ff:fe0f:6e00  94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud  IPv6     active          -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 
 Install:
-OsID                                            03b7f4ba-a6a1-4305-984e-b54fafbf1681
-Hostname                                        test-install-server
-SSHKeyIDs.0                                     1b61e6be-872a-43f1-9b38-750895c3d986
-SSHKeyIDs.1                                     17dda325-fd6c-4b71-9d71-9e29b9577b7a
-SSHKeyIDs.2                                     c2527c40-9b02-4b5e-8682-99ebcdb60abf
-SSHKeyIDs.3                                     dc7ae0fd-96aa-4e83-83e1-374f16239ab9
-SSHKeyIDs.4                                     6a5f22bf-c7d7-459a-919f-131b625d8ef6
-SSHKeyIDs.5                                     96f53bad-3d06-4510-861a-d15840a80424
-SSHKeyIDs.6                                     7a36e7d9-4bc1-4d68-97e4-164639e6b2dd
-SSHKeyIDs.7                                     857bf0f1-55b8-46ca-8a96-546bf35c3e09
-SSHKeyIDs.8                                     e0514ba5-2853-4270-9eaa-97654c9a1f03
-SSHKeyIDs.9                                     76bec1e4-9a53-4962-8308-8b02765d8a53
-SSHKeyIDs.10                                    a16d5422-10d6-4681-b25c-6ba75369b88e
-SSHKeyIDs.11                                    d4f81225-9d36-4cb8-b872-25557a51a929
-Status                                          completed
-User                                            ubuntu
-ServiceUser                                     -
-ServiceURL                                      -
-PartitioningSchema.Disks.0.Device               /dev/nvme0n1
-PartitioningSchema.Disks.0.Partitions.0.Label   uefi
-PartitioningSchema.Disks.0.Partitions.0.Number  1
-PartitioningSchema.Disks.0.Partitions.0.Size    512 MiB
-PartitioningSchema.Disks.0.Partitions.1.Label   swap
-PartitioningSchema.Disks.0.Partitions.1.Number  2
-PartitioningSchema.Disks.0.Partitions.1.Size    4.0 GiB
-PartitioningSchema.Disks.0.Partitions.2.Label   boot
-PartitioningSchema.Disks.0.Partitions.2.Number  3
-PartitioningSchema.Disks.0.Partitions.2.Size    512 MiB
-PartitioningSchema.Disks.0.Partitions.3.Label   root
-PartitioningSchema.Disks.0.Partitions.3.Number  4
-PartitioningSchema.Disks.0.Partitions.3.Size    1.7 TiB
-PartitioningSchema.Disks.1.Device               /dev/nvme1n1
-PartitioningSchema.Disks.1.Partitions.0.Label   swap
-PartitioningSchema.Disks.1.Partitions.0.Number  1
-PartitioningSchema.Disks.1.Partitions.0.Size    4.0 GiB
-PartitioningSchema.Disks.1.Partitions.1.Label   boot
-PartitioningSchema.Disks.1.Partitions.1.Number  2
-PartitioningSchema.Disks.1.Partitions.1.Size    512 MiB
-PartitioningSchema.Disks.1.Partitions.2.Label   root
-PartitioningSchema.Disks.1.Partitions.2.Number  3
-PartitioningSchema.Disks.1.Partitions.2.Size    1.7 TiB
-PartitioningSchema.Raids.0.Name                 /dev/md0
-PartitioningSchema.Raids.0.Level                raid_level_1
-PartitioningSchema.Raids.0.Devices.0            /dev/nvme0n1p3
-PartitioningSchema.Raids.0.Devices.1            /dev/nvme1n1p2
-PartitioningSchema.Raids.1.Name                 /dev/md1
-PartitioningSchema.Raids.1.Level                raid_level_1
-PartitioningSchema.Raids.1.Devices.0            /dev/nvme0n1p4
-PartitioningSchema.Raids.1.Devices.1            /dev/nvme1n1p3
-PartitioningSchema.Filesystems.0.Device         /dev/nvme0n1p1
-PartitioningSchema.Filesystems.0.Format         fat32
-PartitioningSchema.Filesystems.0.Mountpoint     /boot/efi
-PartitioningSchema.Filesystems.1.Device         /dev/md0
-PartitioningSchema.Filesystems.1.Format         ext4
-PartitioningSchema.Filesystems.1.Mountpoint     /boot
-PartitioningSchema.Filesystems.2.Device         /dev/md1
-PartitioningSchema.Filesystems.2.Format         ext4
-PartitioningSchema.Filesystems.2.Mountpoint     /
+OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
+Hostname                                                      test-install-server
+SSHKeyIDs.0                                                   1b61e6be-872a-43f1-9b38-750895c3d986
+SSHKeyIDs.1                                                   17dda325-fd6c-4b71-9d71-9e29b9577b7a
+SSHKeyIDs.2                                                   c2527c40-9b02-4b5e-8682-99ebcdb60abf
+SSHKeyIDs.3                                                   dc7ae0fd-96aa-4e83-83e1-374f16239ab9
+SSHKeyIDs.4                                                   6a5f22bf-c7d7-459a-919f-131b625d8ef6
+SSHKeyIDs.5                                                   96f53bad-3d06-4510-861a-d15840a80424
+SSHKeyIDs.6                                                   7a36e7d9-4bc1-4d68-97e4-164639e6b2dd
+SSHKeyIDs.7                                                   857bf0f1-55b8-46ca-8a96-546bf35c3e09
+SSHKeyIDs.8                                                   e0514ba5-2853-4270-9eaa-97654c9a1f03
+SSHKeyIDs.9                                                   76bec1e4-9a53-4962-8308-8b02765d8a53
+SSHKeyIDs.10                                                  af8cd214-8fdd-4183-aeda-1b28fa537f5d
+SSHKeyIDs.11                                                  b5f74e14-7ede-420e-b3e4-203db50b7210
+SSHKeyIDs.12                                                  efc3932d-fb91-44d5-9b2a-f9a1476c11cb
+SSHKeyIDs.13                                                  64a411eb-5a18-42fd-ad68-7e06dfced66b
+SSHKeyIDs.14                                                  736ffc7e-8e4a-443b-98a8-08afe5f6ce51
+SSHKeyIDs.15                                                  54ba9d3d-732f-455f-b316-5b88afb7caab
+Status                                                        completed
+User                                                          ubuntu
+ServiceUser                                                   -
+ServiceURL                                                    -
+PartitioningSchema.Disks.0.Device                             /dev/nvme0n1
+PartitioningSchema.Disks.0.Partitions.0.Label                 uefi
+PartitioningSchema.Disks.0.Partitions.0.Number                1
+PartitioningSchema.Disks.0.Partitions.0.Size                  512 MiB
+PartitioningSchema.Disks.0.Partitions.0.UseAllAvailableSpace  false
+PartitioningSchema.Disks.0.Partitions.1.Label                 swap
+PartitioningSchema.Disks.0.Partitions.1.Number                2
+PartitioningSchema.Disks.0.Partitions.1.Size                  4.0 GiB
+PartitioningSchema.Disks.0.Partitions.1.UseAllAvailableSpace  false
+PartitioningSchema.Disks.0.Partitions.2.Label                 boot
+PartitioningSchema.Disks.0.Partitions.2.Number                3
+PartitioningSchema.Disks.0.Partitions.2.Size                  512 MiB
+PartitioningSchema.Disks.0.Partitions.2.UseAllAvailableSpace  false
+PartitioningSchema.Disks.0.Partitions.3.Label                 root
+PartitioningSchema.Disks.0.Partitions.3.Number                4
+PartitioningSchema.Disks.0.Partitions.3.Size                  1.7 TiB
+PartitioningSchema.Disks.0.Partitions.3.UseAllAvailableSpace  false
+PartitioningSchema.Disks.1.Device                             /dev/nvme1n1
+PartitioningSchema.Disks.1.Partitions.0.Label                 swap
+PartitioningSchema.Disks.1.Partitions.0.Number                1
+PartitioningSchema.Disks.1.Partitions.0.Size                  4.0 GiB
+PartitioningSchema.Disks.1.Partitions.0.UseAllAvailableSpace  false
+PartitioningSchema.Disks.1.Partitions.1.Label                 boot
+PartitioningSchema.Disks.1.Partitions.1.Number                2
+PartitioningSchema.Disks.1.Partitions.1.Size                  512 MiB
+PartitioningSchema.Disks.1.Partitions.1.UseAllAvailableSpace  false
+PartitioningSchema.Disks.1.Partitions.2.Label                 root
+PartitioningSchema.Disks.1.Partitions.2.Number                3
+PartitioningSchema.Disks.1.Partitions.2.Size                  1.7 TiB
+PartitioningSchema.Disks.1.Partitions.2.UseAllAvailableSpace  false
+PartitioningSchema.Raids.0.Name                               /dev/md0
+PartitioningSchema.Raids.0.Level                              raid_level_1
+PartitioningSchema.Raids.0.Devices.0                          /dev/nvme0n1p3
+PartitioningSchema.Raids.0.Devices.1                          /dev/nvme1n1p2
+PartitioningSchema.Raids.1.Name                               /dev/md1
+PartitioningSchema.Raids.1.Level                              raid_level_1
+PartitioningSchema.Raids.1.Devices.0                          /dev/nvme0n1p4
+PartitioningSchema.Raids.1.Devices.1                          /dev/nvme1n1p3
+PartitioningSchema.Filesystems.0.Device                       /dev/nvme0n1p1
+PartitioningSchema.Filesystems.0.Format                       fat32
+PartitioningSchema.Filesystems.0.Mountpoint                   /boot/efi
+PartitioningSchema.Filesystems.1.Device                       /dev/md0
+PartitioningSchema.Filesystems.1.Format                       ext4
+PartitioningSchema.Filesystems.1.Mountpoint                   /boot
+PartitioningSchema.Filesystems.2.Device                       /dev/md1
+PartitioningSchema.Filesystems.2.Format                       ext4
+PartitioningSchema.Filesystems.2.Mountpoint                   /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "e4259b0b-872d-4f1a-b0da-477135dadc9c",
+  "id": "94f3192e-3a74-4a78-8d78-33047c5aa28c",
   "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "name": "cli-bm-laughing-shirley",
+  "name": "cli-bm-upbeat-sammet",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -97,23 +108,23 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
   "tags": [],
   "ips": [
     {
-      "id": "40700020-e927-463d-85ba-4e7b412e312b",
-      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:60c8",
-      "reverse": "e4259b0b-872d-4f1a-b0da-477135dadc9c.fr-par-2.baremetal.scw.cloud",
-      "version": "IPv6",
+      "id": "aa2b0972-e43f-44ad-b828-fc5353413bec",
+      "address": "195.154.100.23",
+      "reverse": "94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud",
+      "version": "IPv4",
       "reverse_status": "active",
       "reverse_status_message": ""
     },
     {
-      "id": "c131d509-032d-42d4-afb6-21be2c067720",
-      "address": "195.154.100.211",
-      "reverse": "e4259b0b-872d-4f1a-b0da-477135dadc9c.fr-par-2.baremetal.scw.cloud",
-      "version": "IPv4",
+      "id": "becd9b42-26b6-436c-a923-ee1c80b68e2b",
+      "address": "2001:bc8:1201:a17:b683:51ff:fe0f:6e00",
+      "reverse": "94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud",
+      "version": "IPv6",
       "reverse_status": "active",
       "reverse_status_message": ""
     }
   ],
-  "domain": "e4259b0b-872d-4f1a-b0da-477135dadc9c.fr-par-2.baremetal.scw.cloud",
+  "domain": "94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": {
@@ -130,8 +141,12 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
       "857bf0f1-55b8-46ca-8a96-546bf35c3e09",
       "e0514ba5-2853-4270-9eaa-97654c9a1f03",
       "76bec1e4-9a53-4962-8308-8b02765d8a53",
-      "a16d5422-10d6-4681-b25c-6ba75369b88e",
-      "d4f81225-9d36-4cb8-b872-25557a51a929"
+      "af8cd214-8fdd-4183-aeda-1b28fa537f5d",
+      "b5f74e14-7ede-420e-b3e4-203db50b7210",
+      "efc3932d-fb91-44d5-9b2a-f9a1476c11cb",
+      "64a411eb-5a18-42fd-ad68-7e06dfced66b",
+      "736ffc7e-8e4a-443b-98a8-08afe5f6ce51",
+      "54ba9d3d-732f-455f-b316-5b88afb7caab"
     ],
     "status": "completed",
     "user": "ubuntu",
@@ -145,22 +160,26 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
             {
               "label": "uefi",
               "number": 1,
-              "size": 536870912
+              "size": 536870912,
+              "use_all_available_space": false
             },
             {
               "label": "swap",
               "number": 2,
-              "size": 4294967296
+              "size": 4294967296,
+              "use_all_available_space": false
             },
             {
               "label": "boot",
               "number": 3,
-              "size": 536870912
+              "size": 536870912,
+              "use_all_available_space": false
             },
             {
               "label": "root",
               "number": 4,
-              "size": 1915003863040
+              "size": 1915003863040,
+              "use_all_available_space": false
             }
           ]
         },
@@ -170,17 +189,20 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
             {
               "label": "swap",
               "number": 1,
-              "size": 4294967296
+              "size": 4294967296,
+              "use_all_available_space": false
             },
             {
               "label": "boot",
               "number": 2,
-              "size": 536870912
+              "size": 536870912,
+              "use_all_available_space": false
             },
             {
               "label": "root",
               "number": 3,
-              "size": 1915003863040
+              "size": 1915003863040,
+              "use_all_available_space": false
             }
           ]
         }

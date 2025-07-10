@@ -1,82 +1,89 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              63172846-e370-467d-ba7a-a4ddc2298a6d
+ID              4741beac-6994-4ae2-8ced-bb8a05790a06
 OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
 ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
-Name            cli-bm-confident-darwin
+Name            cli-bm-frosty-sinoussi
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
 OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
 OfferName       EM-I215E-NVME
-Domain          63172846-e370-467d-ba7a-a4ddc2298a6d.fr-par-2.baremetal.scw.cloud
+Domain          4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud
 BootType        normal
 Zone            fr-par-2
 PingStatus      unknown
 
 IPs:
 ID                                    ADDRESS                                REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-7ff1c9d6-e20d-4fbe-96b4-24f6a9c68772  2001:bc8:1201:a22:b683:51ff:fe0f:6190  63172846-e370-467d-ba7a-a4ddc2298a6d.fr-par-2.baremetal.scw.cloud  IPv6     active          -
-8d53f58e-9235-484e-8e07-698b9380d85c  195.154.100.180                        63172846-e370-467d-ba7a-a4ddc2298a6d.fr-par-2.baremetal.scw.cloud  IPv4     active          -
+4df480c5-5b28-4aef-b0c0-a28a5373647e  2001:bc8:1201:a22:b683:51ff:fe0f:6d68  4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud  IPv6     active          -
+8de17f5b-c819-4ff8-8b49-4a58122a748b  195.154.100.174                        4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud  IPv4     active          -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 
 Install:
-OsID                                            03b7f4ba-a6a1-4305-984e-b54fafbf1681
-Hostname                                        test-install-server
-SSHKeyIDs.0                                     a16d5422-10d6-4681-b25c-6ba75369b88e
-Status                                          completed
-User                                            ubuntu
-ServiceUser                                     -
-ServiceURL                                      -
-PartitioningSchema.Disks.0.Device               /dev/nvme0n1
-PartitioningSchema.Disks.0.Partitions.0.Label   uefi
-PartitioningSchema.Disks.0.Partitions.0.Number  1
-PartitioningSchema.Disks.0.Partitions.0.Size    512 MiB
-PartitioningSchema.Disks.0.Partitions.1.Label   swap
-PartitioningSchema.Disks.0.Partitions.1.Number  2
-PartitioningSchema.Disks.0.Partitions.1.Size    4.0 GiB
-PartitioningSchema.Disks.0.Partitions.2.Label   boot
-PartitioningSchema.Disks.0.Partitions.2.Number  3
-PartitioningSchema.Disks.0.Partitions.2.Size    512 MiB
-PartitioningSchema.Disks.0.Partitions.3.Label   root
-PartitioningSchema.Disks.0.Partitions.3.Number  4
-PartitioningSchema.Disks.0.Partitions.3.Size    1.7 TiB
-PartitioningSchema.Disks.1.Device               /dev/nvme1n1
-PartitioningSchema.Disks.1.Partitions.0.Label   swap
-PartitioningSchema.Disks.1.Partitions.0.Number  1
-PartitioningSchema.Disks.1.Partitions.0.Size    4.0 GiB
-PartitioningSchema.Disks.1.Partitions.1.Label   boot
-PartitioningSchema.Disks.1.Partitions.1.Number  2
-PartitioningSchema.Disks.1.Partitions.1.Size    512 MiB
-PartitioningSchema.Disks.1.Partitions.2.Label   root
-PartitioningSchema.Disks.1.Partitions.2.Number  3
-PartitioningSchema.Disks.1.Partitions.2.Size    1.7 TiB
-PartitioningSchema.Raids.0.Name                 /dev/md0
-PartitioningSchema.Raids.0.Level                raid_level_1
-PartitioningSchema.Raids.0.Devices.0            /dev/nvme0n1p3
-PartitioningSchema.Raids.0.Devices.1            /dev/nvme1n1p2
-PartitioningSchema.Raids.1.Name                 /dev/md1
-PartitioningSchema.Raids.1.Level                raid_level_1
-PartitioningSchema.Raids.1.Devices.0            /dev/nvme0n1p4
-PartitioningSchema.Raids.1.Devices.1            /dev/nvme1n1p3
-PartitioningSchema.Filesystems.0.Device         /dev/nvme0n1p1
-PartitioningSchema.Filesystems.0.Format         fat32
-PartitioningSchema.Filesystems.0.Mountpoint     /boot/efi
-PartitioningSchema.Filesystems.1.Device         /dev/md0
-PartitioningSchema.Filesystems.1.Format         ext4
-PartitioningSchema.Filesystems.1.Mountpoint     /boot
-PartitioningSchema.Filesystems.2.Device         /dev/md1
-PartitioningSchema.Filesystems.2.Format         ext4
-PartitioningSchema.Filesystems.2.Mountpoint     /
+OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
+Hostname                                                      test-install-server
+SSHKeyIDs.0                                                   54ba9d3d-732f-455f-b316-5b88afb7caab
+Status                                                        completed
+User                                                          ubuntu
+ServiceUser                                                   -
+ServiceURL                                                    -
+PartitioningSchema.Disks.0.Device                             /dev/nvme0n1
+PartitioningSchema.Disks.0.Partitions.0.Label                 uefi
+PartitioningSchema.Disks.0.Partitions.0.Number                1
+PartitioningSchema.Disks.0.Partitions.0.Size                  512 MiB
+PartitioningSchema.Disks.0.Partitions.0.UseAllAvailableSpace  false
+PartitioningSchema.Disks.0.Partitions.1.Label                 swap
+PartitioningSchema.Disks.0.Partitions.1.Number                2
+PartitioningSchema.Disks.0.Partitions.1.Size                  4.0 GiB
+PartitioningSchema.Disks.0.Partitions.1.UseAllAvailableSpace  false
+PartitioningSchema.Disks.0.Partitions.2.Label                 boot
+PartitioningSchema.Disks.0.Partitions.2.Number                3
+PartitioningSchema.Disks.0.Partitions.2.Size                  512 MiB
+PartitioningSchema.Disks.0.Partitions.2.UseAllAvailableSpace  false
+PartitioningSchema.Disks.0.Partitions.3.Label                 root
+PartitioningSchema.Disks.0.Partitions.3.Number                4
+PartitioningSchema.Disks.0.Partitions.3.Size                  1.7 TiB
+PartitioningSchema.Disks.0.Partitions.3.UseAllAvailableSpace  false
+PartitioningSchema.Disks.1.Device                             /dev/nvme1n1
+PartitioningSchema.Disks.1.Partitions.0.Label                 swap
+PartitioningSchema.Disks.1.Partitions.0.Number                1
+PartitioningSchema.Disks.1.Partitions.0.Size                  4.0 GiB
+PartitioningSchema.Disks.1.Partitions.0.UseAllAvailableSpace  false
+PartitioningSchema.Disks.1.Partitions.1.Label                 boot
+PartitioningSchema.Disks.1.Partitions.1.Number                2
+PartitioningSchema.Disks.1.Partitions.1.Size                  512 MiB
+PartitioningSchema.Disks.1.Partitions.1.UseAllAvailableSpace  false
+PartitioningSchema.Disks.1.Partitions.2.Label                 root
+PartitioningSchema.Disks.1.Partitions.2.Number                3
+PartitioningSchema.Disks.1.Partitions.2.Size                  1.7 TiB
+PartitioningSchema.Disks.1.Partitions.2.UseAllAvailableSpace  false
+PartitioningSchema.Raids.0.Name                               /dev/md0
+PartitioningSchema.Raids.0.Level                              raid_level_1
+PartitioningSchema.Raids.0.Devices.0                          /dev/nvme0n1p3
+PartitioningSchema.Raids.0.Devices.1                          /dev/nvme1n1p2
+PartitioningSchema.Raids.1.Name                               /dev/md1
+PartitioningSchema.Raids.1.Level                              raid_level_1
+PartitioningSchema.Raids.1.Devices.0                          /dev/nvme0n1p4
+PartitioningSchema.Raids.1.Devices.1                          /dev/nvme1n1p3
+PartitioningSchema.Filesystems.0.Device                       /dev/nvme0n1p1
+PartitioningSchema.Filesystems.0.Format                       fat32
+PartitioningSchema.Filesystems.0.Mountpoint                   /boot/efi
+PartitioningSchema.Filesystems.1.Device                       /dev/md0
+PartitioningSchema.Filesystems.1.Format                       ext4
+PartitioningSchema.Filesystems.1.Mountpoint                   /boot
+PartitioningSchema.Filesystems.2.Device                       /dev/md1
+PartitioningSchema.Filesystems.2.Format                       ext4
+PartitioningSchema.Filesystems.2.Mountpoint                   /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "63172846-e370-467d-ba7a-a4ddc2298a6d",
+  "id": "4741beac-6994-4ae2-8ced-bb8a05790a06",
   "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "name": "cli-bm-confident-darwin",
+  "name": "cli-bm-frosty-sinoussi",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -86,30 +93,30 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
   "tags": [],
   "ips": [
     {
-      "id": "7ff1c9d6-e20d-4fbe-96b4-24f6a9c68772",
-      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6190",
-      "reverse": "63172846-e370-467d-ba7a-a4ddc2298a6d.fr-par-2.baremetal.scw.cloud",
+      "id": "4df480c5-5b28-4aef-b0c0-a28a5373647e",
+      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6d68",
+      "reverse": "4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud",
       "version": "IPv6",
       "reverse_status": "active",
       "reverse_status_message": ""
     },
     {
-      "id": "8d53f58e-9235-484e-8e07-698b9380d85c",
-      "address": "195.154.100.180",
-      "reverse": "63172846-e370-467d-ba7a-a4ddc2298a6d.fr-par-2.baremetal.scw.cloud",
+      "id": "8de17f5b-c819-4ff8-8b49-4a58122a748b",
+      "address": "195.154.100.174",
+      "reverse": "4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud",
       "version": "IPv4",
       "reverse_status": "active",
       "reverse_status_message": ""
     }
   ],
-  "domain": "63172846-e370-467d-ba7a-a4ddc2298a6d.fr-par-2.baremetal.scw.cloud",
+  "domain": "4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": {
     "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "a16d5422-10d6-4681-b25c-6ba75369b88e"
+      "54ba9d3d-732f-455f-b316-5b88afb7caab"
     ],
     "status": "completed",
     "user": "ubuntu",
@@ -123,22 +130,26 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
             {
               "label": "uefi",
               "number": 1,
-              "size": 536870912
+              "size": 536870912,
+              "use_all_available_space": false
             },
             {
               "label": "swap",
               "number": 2,
-              "size": 4294967296
+              "size": 4294967296,
+              "use_all_available_space": false
             },
             {
               "label": "boot",
               "number": 3,
-              "size": 536870912
+              "size": 536870912,
+              "use_all_available_space": false
             },
             {
               "label": "root",
               "number": 4,
-              "size": 1915003863040
+              "size": 1915003863040,
+              "use_all_available_space": false
             }
           ]
         },
@@ -148,17 +159,20 @@ PartitioningSchema.Filesystems.2.Mountpoint     /
             {
               "label": "swap",
               "number": 1,
-              "size": 4294967296
+              "size": 4294967296,
+              "use_all_available_space": false
             },
             {
               "label": "boot",
               "number": 2,
-              "size": 536870912
+              "size": 536870912,
+              "use_all_available_space": false
             },
             {
               "label": "root",
               "number": 3,
-              "size": 1915003863040
+              "size": 1915003863040,
+              "use_all_available_space": false
             }
           ]
         }
