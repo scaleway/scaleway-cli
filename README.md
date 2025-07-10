@@ -116,7 +116,6 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `cockpit`      | Cockpit API                             | [CLI](./docs/commands/cockpit.md) / [API](https://www.scaleway.com/en/developers/api/cockpit/)                    |
 | `config`       | Config file management                  | [CLI](./docs/commands/config.md)                                                                                  |
 | `container`    | Serverless Container API                | [CLI](./docs/commands/container.md) / [API](https://www.scaleway.com/en/developers/api/serverless-containers/)    |
-| `documentdb`   | DocumentDB API                          | [CLI](./docs/commands/document-db.md)                                                                             |
 | `dns`          | DNS API                                 | [CLI](./docs/commands/dns.md) / [API](https://www.scaleway.com/en/developers/api/domains-and-dns/)                |
 | `feedback`     | Send feedback to the Scaleway CLI Team! | [CLI](./docs/commands/feedback.md)                                                                                |
 | `flexibleip`   | Flexible IP API                         | [CLI](./docs/commands/fip.md) / [API](https://www.scaleway.com/en/developers/api/elastic-metal-flexible-ip/)      |
