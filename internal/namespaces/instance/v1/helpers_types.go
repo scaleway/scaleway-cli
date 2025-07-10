@@ -121,10 +121,9 @@ func getEndOfServiceDate(
 	}
 
 	for _, product := range products.Products {
-		if strings.HasPrefix(product.Product, commercialType) {
-			if product.Locality.Zone != nil && *product.Locality.Zone == zone {
-				return product.EndOfLifeAt.Format(time.DateOnly), nil
-			}
+		if product.Properties != nil && product.Properties.Instance != nil &&
+			product.Properties.Instance.OfferID == commercialType {
+			return product.EndOfLifeAt.Format(time.DateOnly), nil
 		}
 	}
 
