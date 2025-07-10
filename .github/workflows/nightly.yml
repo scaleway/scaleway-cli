@@ -19,7 +19,6 @@ jobs:
           - cockpit
           - container
           - dedibox
-          - documentdb
           - domain
           - edge_services
           - flexibleip
