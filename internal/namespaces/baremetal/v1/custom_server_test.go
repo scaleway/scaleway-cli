@@ -17,7 +17,7 @@ func Test_StartServerErrors(t *testing.T) {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
 					OfferName: offerNameSATA,
-					Zone:      zone,
+					Zone:      scw.Zone(zone),
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
@@ -58,7 +58,7 @@ func Test_StopServerErrors(t *testing.T) {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
 					OfferName: offerNameSATA,
-					Zone:      zone,
+					Zone:      scw.Zone(zone),
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
@@ -99,7 +99,7 @@ func Test_RebootServerErrors(t *testing.T) {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
 					OfferName: offerNameSATA,
-					Zone:      zone,
+					Zone:      scw.Zone(zone),
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")

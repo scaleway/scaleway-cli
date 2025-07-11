@@ -2,9 +2,19 @@ package baremetal_test
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
+
+func getenv(key, fallback string) string {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return fallback
+	}
+
+	return value
+}
 
 // createServerAndWait creates a baremetal instance
 // register it in the context Meta at metaKey.

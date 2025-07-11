@@ -7,13 +7,14 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 )
 
-const (
-	offerNameNVME = "EM-I215E-NVME"
-	offerNameSATA = "EM-B111X-SATA"
-	zone          = "fr-par-2"
+var (
+	offerNameNVME = getenv("OFFER_NAME_NVME", "EM-I215E-NVME")
+	offerNameSATA = getenv("OFFER_NAME_SATA", "EM-B111X-SATA")
+	zone          = getenv("zone", "fr-par-2")
 )
 
 // All test below should succeed to create an instance.
@@ -26,7 +27,7 @@ func Test_CreateServer(t *testing.T) {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
 					OfferName: offerNameNVME,
-					Zone:      zone,
+					Zone:      scw.Zone(zone),
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
@@ -51,7 +52,7 @@ func Test_CreateServer(t *testing.T) {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
 					OfferName: offerNameNVME,
-					Zone:      zone,
+					Zone:      scw.Zone(zone),
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
@@ -82,7 +83,7 @@ func Test_CreateServer(t *testing.T) {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
 					OfferName: offerNameNVME,
-					Zone:      zone,
+					Zone:      scw.Zone(zone),
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
