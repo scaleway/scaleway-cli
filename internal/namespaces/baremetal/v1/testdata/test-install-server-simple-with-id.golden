@@ -1,24 +1,24 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              ef1059dc-42ba-463e-ae14-e480548f07d4
-OrganizationID  5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID       5ebc0159-7cb7-406c-9521-9347d1987fb2
-Name            cli-bm-focused-gagarin
+ID              4741beac-6994-4ae2-8ced-bb8a05790a06
+OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Name            cli-bm-frosty-sinoussi
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
-OfferID         206ea234-9097-4ae1-af68-6d2be09f47ed
-OfferName       EM-B220E-NVME
-Domain          ef1059dc-42ba-463e-ae14-e480548f07d4.fr-par-1.baremetal.scw.cloud
+OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
+OfferName       EM-I215E-NVME
+Domain          4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud
 BootType        normal
-Zone            fr-par-1
-PingStatus      up
+Zone            fr-par-2
+PingStatus      unknown
 
 IPs:
-ID                                    ADDRESS                              REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-48b20f99-5073-464f-8ca2-8ac094e71cb3  2001:bc8:701:702:3eec:efff:feff:aca  ef1059dc-42ba-463e-ae14-e480548f07d4.fr-par-1.baremetal.scw.cloud  IPv6     active          -
-a7894ed2-2239-4841-83b1-56e41b77fc93  62.210.158.135                       ef1059dc-42ba-463e-ae14-e480548f07d4.fr-par-1.baremetal.scw.cloud  IPv4     active          -
+ID                                    ADDRESS                                REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
+4df480c5-5b28-4aef-b0c0-a28a5373647e  2001:bc8:1201:a22:b683:51ff:fe0f:6d68  4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud  IPv6     active          -
+8de17f5b-c819-4ff8-8b49-4a58122a748b  195.154.100.174                        4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud  IPv4     active          -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
@@ -26,7 +26,7 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 Install:
 OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
 Hostname                                                      test-install-server
-SSHKeyIDs.0                                                   054babb2-9689-45d4-8d24-7dced70e37b5
+SSHKeyIDs.0                                                   54ba9d3d-732f-455f-b316-5b88afb7caab
 Status                                                        completed
 User                                                          ubuntu
 ServiceUser                                                   -
@@ -46,7 +46,7 @@ PartitioningSchema.Disks.0.Partitions.2.Size                  512 MiB
 PartitioningSchema.Disks.0.Partitions.2.UseAllAvailableSpace  false
 PartitioningSchema.Disks.0.Partitions.3.Label                 root
 PartitioningSchema.Disks.0.Partitions.3.Number                4
-PartitioningSchema.Disks.0.Partitions.3.Size                  949 GiB
+PartitioningSchema.Disks.0.Partitions.3.Size                  1.7 TiB
 PartitioningSchema.Disks.0.Partitions.3.UseAllAvailableSpace  false
 PartitioningSchema.Disks.1.Device                             /dev/nvme1n1
 PartitioningSchema.Disks.1.Partitions.0.Label                 swap
@@ -59,7 +59,7 @@ PartitioningSchema.Disks.1.Partitions.1.Size                  512 MiB
 PartitioningSchema.Disks.1.Partitions.1.UseAllAvailableSpace  false
 PartitioningSchema.Disks.1.Partitions.2.Label                 root
 PartitioningSchema.Disks.1.Partitions.2.Number                3
-PartitioningSchema.Disks.1.Partitions.2.Size                  949 GiB
+PartitioningSchema.Disks.1.Partitions.2.Size                  1.7 TiB
 PartitioningSchema.Disks.1.Partitions.2.UseAllAvailableSpace  false
 PartitioningSchema.Raids.0.Name                               /dev/md0
 PartitioningSchema.Raids.0.Level                              raid_level_1
@@ -80,43 +80,43 @@ PartitioningSchema.Filesystems.2.Format                       ext4
 PartitioningSchema.Filesystems.2.Mountpoint                   /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "ef1059dc-42ba-463e-ae14-e480548f07d4",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "name": "cli-bm-focused-gagarin",
+  "id": "4741beac-6994-4ae2-8ced-bb8a05790a06",
+  "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "name": "cli-bm-frosty-sinoussi",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "206ea234-9097-4ae1-af68-6d2be09f47ed",
-  "offer_name": "EM-B220E-NVME",
+  "offer_id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
+  "offer_name": "EM-I215E-NVME",
   "tags": [],
   "ips": [
     {
-      "id": "48b20f99-5073-464f-8ca2-8ac094e71cb3",
-      "address": "2001:bc8:701:702:3eec:efff:feff:aca",
-      "reverse": "ef1059dc-42ba-463e-ae14-e480548f07d4.fr-par-1.baremetal.scw.cloud",
+      "id": "4df480c5-5b28-4aef-b0c0-a28a5373647e",
+      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6d68",
+      "reverse": "4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud",
       "version": "IPv6",
       "reverse_status": "active",
       "reverse_status_message": ""
     },
     {
-      "id": "a7894ed2-2239-4841-83b1-56e41b77fc93",
-      "address": "62.210.158.135",
-      "reverse": "ef1059dc-42ba-463e-ae14-e480548f07d4.fr-par-1.baremetal.scw.cloud",
+      "id": "8de17f5b-c819-4ff8-8b49-4a58122a748b",
+      "address": "195.154.100.174",
+      "reverse": "4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud",
       "version": "IPv4",
       "reverse_status": "active",
       "reverse_status_message": ""
     }
   ],
-  "domain": "ef1059dc-42ba-463e-ae14-e480548f07d4.fr-par-1.baremetal.scw.cloud",
+  "domain": "4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
-  "zone": "fr-par-1",
+  "zone": "fr-par-2",
   "install": {
     "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "054babb2-9689-45d4-8d24-7dced70e37b5"
+      "54ba9d3d-732f-455f-b316-5b88afb7caab"
     ],
     "status": "completed",
     "user": "ubuntu",
@@ -148,7 +148,7 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
             {
               "label": "root",
               "number": 4,
-              "size": 1018839433216,
+              "size": 1915003863040,
               "use_all_available_space": false
             }
           ]
@@ -171,7 +171,7 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
             {
               "label": "root",
               "number": 3,
-              "size": 1018839433216,
+              "size": 1915003863040,
               "use_all_available_space": false
             }
           ]
@@ -217,7 +217,7 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
       }
     }
   },
-  "ping_status": "ping_status_up",
+  "ping_status": "ping_status_unknown",
   "options": [],
   "rescue_server": null
 }

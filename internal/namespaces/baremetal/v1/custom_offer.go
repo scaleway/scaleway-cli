@@ -8,7 +8,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
-	product_catalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
+	productcatalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var offerAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
@@ -84,30 +85,28 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		req := argsI.(*baremetal.ListOffersRequest)
-		rawResp, err := runner(ctx, argsI)
-		if err != nil {
-			return nil, err
-		}
 
-		offers, _ := rawResp.([]*baremetal.Offer)
 		client := core.ExtractClient(ctx)
+		baremetalAPI := baremetal.NewAPI(client)
+		offers, _ := baremetalAPI.ListOffers(req, scw.WithAllPages())
 
-		productAPI := product_catalog.NewPublicCatalogAPI(client)
+		productAPI := productcatalog.NewPublicCatalogAPI(client)
 		environmentalImpact, _ := productAPI.ListPublicCatalogProducts(
-			&product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest{
-				ProductTypes: []product_catalog.ListPublicCatalogProductsRequestProductType{
-					product_catalog.ListPublicCatalogProductsRequestProductTypeElasticMetal,
+			&productcatalog.PublicCatalogAPIListPublicCatalogProductsRequest{
+				ProductTypes: []productcatalog.ListPublicCatalogProductsRequestProductType{
+					productcatalog.ListPublicCatalogProductsRequestProductTypeElasticMetal,
 				},
 				Zone: &req.Zone,
 			},
+			scw.WithAllPages(),
 		)
 
-		unitOfMeasure := product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitMonth
-		if req.SubscriptionPeriod == "hour" {
-			unitOfMeasure = product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitHour
+		unitOfMeasure := productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitHour
+		if req.SubscriptionPeriod == "month" {
+			unitOfMeasure = productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitMonth
 		}
 
-		impactMap := make(map[string]*product_catalog.PublicCatalogProduct)
+		impactMap := make(map[string]*productcatalog.PublicCatalogProduct)
 		for _, impact := range environmentalImpact.Products {
 			if impact != nil && impact.UnitOfMeasure.Unit == unitOfMeasure {
 				key := strings.TrimSpace(strings.TrimPrefix(impact.Product, "Elastic Metal "))
@@ -116,9 +115,15 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 		}
 
 		var customOfferRes []customOffer
-		for _, offer := range offers {
+		for _, offer := range offers.Offers {
 			impact, ok := impactMap[offer.Name]
-			if !ok || impact == nil {
+			if !ok {
+				customOfferRes = append(customOfferRes, customOffer{
+					Offer:           offer,
+					KgCo2Equivalent: nil,
+					M3WaterUsage:    nil,
+				})
+
 				continue
 			}
 			customOfferRes = append(customOfferRes, customOffer{

@@ -8,18 +8,21 @@ CommercialRange      lithium
 PricePerHour         € 0.213
 Enable               true
 QuotaName            EM_L105X_SATA
-IncompatibleOsIDs.0  2e06fa49-4677-4bd7-8bf5-b1c490d8a966
-IncompatibleOsIDs.1  fa29896b-6b49-468d-a787-966559a55c12
-IncompatibleOsIDs.2  847bb37a-dc13-4536-9f07-023d38dba98d
-IncompatibleOsIDs.3  1c376d8a-f237-438d-9cd9-47902050ffd3
-IncompatibleOsIDs.4  69e740ab-9f0e-4107-8516-16470000729c
-IncompatibleOsIDs.5  93fb3e11-e02e-47d9-aa3a-f77a2f7a7129
-IncompatibleOsIDs.6  fd771862-4b75-46a7-ab42-73c46c0ac2db
-IncompatibleOsIDs.7  6aa3f876-1c83-4434-8cc4-a2dbc94216db
+IncompatibleOsIDs.0  69e740ab-9f0e-4107-8516-16470000729c
+IncompatibleOsIDs.1  bc7e4ca2-bf32-407f-a04b-72ad6455beb2
+IncompatibleOsIDs.2  2e06fa49-4677-4bd7-8bf5-b1c490d8a966
+IncompatibleOsIDs.3  fa29896b-6b49-468d-a787-966559a55c12
+IncompatibleOsIDs.4  a5cec64e-d7b0-4c6e-a819-60139d30a76c
+IncompatibleOsIDs.5  847bb37a-dc13-4536-9f07-023d38dba98d
+IncompatibleOsIDs.6  1c376d8a-f237-438d-9cd9-47902050ffd3
+IncompatibleOsIDs.7  93fb3e11-e02e-47d9-aa3a-f77a2f7a7129
+IncompatibleOsIDs.8  fd771862-4b75-46a7-ab42-73c46c0ac2db
+IncompatibleOsIDs.9  6aa3f876-1c83-4434-8cc4-a2dbc94216db
 SubscriptionPeriod   hourly
 OperationPath        -
 Fee                  € 0.00
 SharedBandwidth      true
+MonthlyOfferID       3b36516b-34e5-4ab1-8b05-0cda2adbc84c
 
 Disks:
 CAPACITY  TYPE
@@ -30,7 +33,7 @@ CAPACITY  TYPE
 
 CPUs:
 NAME                   CORE COUNT  THREAD COUNT  FREQUENCY  BENCHMARK
-Intel Xeon E5 1410 v2  4           8             2800       -
+Intel Xeon E5 1410 v2  4           8             2800       5715
 
 Memories:
 CAPACITY  TYPE  FREQUENCY  IS ECC
@@ -39,12 +42,12 @@ CAPACITY  TYPE  FREQUENCY  IS ECC
 Options:
 ID                                    NAME                     ENABLED  SUBSCRIPTION PERIOD  PRICE     MANAGEABLE  OS ID
 31f78309-e6e0-4005-99b3-b3de3958ca7d  HDS                      false    monthly              € 15.00   false       00000000-0000-0000-0000-000000000000
-c498071f-4f8d-49f3-bc52-afc219a48fe0  Windows 2022 datacenter  false    monthly              € 143.00  false       3422ae02-d6d7-4980-8a00-eb38c262fb41
+c498071f-4f8d-49f3-bc52-afc219a48fe0  Windows 2022 datacenter  false    monthly              € 168.00  false       3422ae02-d6d7-4980-8a00-eb38c262fb41
 931df052-d713-4674-8b58-96a63244c8e2  Remote Access            false    hourly               € 0.99    true        00000000-0000-0000-0000-000000000000
 cd4158d7-2d65-49be-8803-c4b8ab6f760c  Private Network          false    hourly               € 0.03    true        00000000-0000-0000-0000-000000000000
-f42a040b-6c91-4b11-beb0-b0b21e641fda  Windows 2019 standard    false    monthly              € 22.00   false       7c70ff80-dbfa-4e07-be73-1de0e60fe175
-f74a6322-070e-41dd-a13f-8165ea63aca8  Windows 2019 datacenter  false    monthly              € 143.00  false       e04414b9-16d4-4ffb-8ba1-6b80704c7d2a
-83a8fb91-47b4-4c20-82f9-84c31d79bfd8  Windows 2022 standard    false    monthly              € 22.00   false       bf705b90-1548-4368-98ca-d17dbd8dd860
+f42a040b-6c91-4b11-beb0-b0b21e641fda  Windows 2019 standard    false    monthly              € 25.20   false       7c70ff80-dbfa-4e07-be73-1de0e60fe175
+f74a6322-070e-41dd-a13f-8165ea63aca8  Windows 2019 datacenter  false    monthly              € 168.00  false       e04414b9-16d4-4ffb-8ba1-6b80704c7d2a
+83a8fb91-47b4-4c20-82f9-84c31d79bfd8  Windows 2022 standard    false    monthly              € 25.20   false       bf705b90-1548-4368-98ca-d17dbd8dd860
 
 Bandwidth(Mbit/s):
 1000
@@ -90,7 +93,7 @@ PrivateBandwidth(Mbit/s):
       "core_count": 4,
       "thread_count": 8,
       "frequency": 2800,
-      "benchmark": ""
+      "benchmark": "5715"
     }
   ],
   "memories": [
@@ -105,11 +108,13 @@ PrivateBandwidth(Mbit/s):
   "persistent_memories": [],
   "raid_controllers": [],
   "incompatible_os_ids": [
+    "69e740ab-9f0e-4107-8516-16470000729c",
+    "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
     "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
     "fa29896b-6b49-468d-a787-966559a55c12",
+    "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
     "847bb37a-dc13-4536-9f07-023d38dba98d",
     "1c376d8a-f237-438d-9cd9-47902050ffd3",
-    "69e740ab-9f0e-4107-8516-16470000729c",
     "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
     "fd771862-4b75-46a7-ab42-73c46c0ac2db",
     "6aa3f876-1c83-4434-8cc4-a2dbc94216db"
@@ -143,7 +148,7 @@ PrivateBandwidth(Mbit/s):
       "subscription_period": "monthly",
       "price": {
         "currency_code": "EUR",
-        "units": 143,
+        "units": 168,
         "nanos": 0
       },
       "manageable": false,
@@ -189,8 +194,8 @@ PrivateBandwidth(Mbit/s):
       "subscription_period": "monthly",
       "price": {
         "currency_code": "EUR",
-        "units": 22,
-        "nanos": 0
+        "units": 25,
+        "nanos": 200000000
       },
       "manageable": false,
       "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
@@ -205,7 +210,7 @@ PrivateBandwidth(Mbit/s):
       "subscription_period": "monthly",
       "price": {
         "currency_code": "EUR",
-        "units": 143,
+        "units": 168,
         "nanos": 0
       },
       "manageable": false,
@@ -221,8 +226,8 @@ PrivateBandwidth(Mbit/s):
       "subscription_period": "monthly",
       "price": {
         "currency_code": "EUR",
-        "units": 22,
-        "nanos": 0
+        "units": 25,
+        "nanos": 200000000
       },
       "manageable": false,
       "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
@@ -235,5 +240,5 @@ PrivateBandwidth(Mbit/s):
   "shared_bandwidth": true,
   "tags": [],
   "gpus": [],
-  "monthly_offer_id": null
+  "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c"
 }
