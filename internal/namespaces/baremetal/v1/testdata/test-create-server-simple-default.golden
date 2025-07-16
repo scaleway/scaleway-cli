@@ -1,61 +1,61 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              d0d70fb8-fb6c-494e-9276-56eb036ff022
-OrganizationID  5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID       5ebc0159-7cb7-406c-9521-9347d1987fb2
-Name            cli-bm-quizzical-banzai
+ID              4797a996-30cb-403c-b207-60f2fd4c05ee
+OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Name            cli-bm-cranky-fermat
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
-OfferID         206ea234-9097-4ae1-af68-6d2be09f47ed
-OfferName       EM-B220E-NVME
+OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
+OfferName       EM-I215E-NVME
 Domain          -
 BootType        normal
-Zone            fr-par-1
+Zone            fr-par-2
 PingStatus      unknown
 
 IPs:
-ID                                    ADDRESS                               REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-0124c7c5-2ddf-442a-92d6-c7ec6af4c0f2  2001:bc8:701:701:3eec:efff:feff:185e  -        IPv6     unknown         -
-5f7da813-3c76-490f-8816-10cc01977ef5  62.210.158.69                         -        IPv4     unknown         -
+ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
+72e69560-10a8-4bab-bbe0-fd7945be1c4e  195.154.100.174                        -        IPv4     unknown         -
+d193aad4-3c84-4085-85fe-648bdba2e0ad  2001:bc8:1201:a22:b683:51ff:fe0f:6d68  -        IPv6     unknown         -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d0d70fb8-fb6c-494e-9276-56eb036ff022",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "name": "cli-bm-quizzical-banzai",
+  "id": "4797a996-30cb-403c-b207-60f2fd4c05ee",
+  "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "name": "cli-bm-cranky-fermat",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "206ea234-9097-4ae1-af68-6d2be09f47ed",
-  "offer_name": "EM-B220E-NVME",
+  "offer_id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
+  "offer_name": "EM-I215E-NVME",
   "tags": [],
   "ips": [
     {
-      "id": "0124c7c5-2ddf-442a-92d6-c7ec6af4c0f2",
-      "address": "2001:bc8:701:701:3eec:efff:feff:185e",
+      "id": "72e69560-10a8-4bab-bbe0-fd7945be1c4e",
+      "address": "195.154.100.174",
       "reverse": "",
-      "version": "IPv6",
+      "version": "IPv4",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     },
     {
-      "id": "5f7da813-3c76-490f-8816-10cc01977ef5",
-      "address": "62.210.158.69",
+      "id": "d193aad4-3c84-4085-85fe-648bdba2e0ad",
+      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6d68",
       "reverse": "",
-      "version": "IPv4",
+      "version": "IPv6",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     }
   ],
   "domain": "",
   "boot_type": "normal",
-  "zone": "fr-par-1",
+  "zone": "fr-par-2",
   "install": null,
   "ping_status": "ping_status_unknown",
   "options": [],

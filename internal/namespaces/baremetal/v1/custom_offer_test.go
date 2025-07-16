@@ -17,7 +17,7 @@ func Test_baremetalGetOffer(t *testing.T) {
 }
 
 func Test_baremetalListOffer(t *testing.T) {
-	t.Run("Monthly", core.Test(&core.TestConfig{
+	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: baremetal.GetCommands(),
 		Cmd:      "scw baremetal offer list",
 		Check:    core.TestCheckGolden(),
