@@ -564,6 +564,7 @@ scw baremetal server create [arg=value ...]
 | install.partitioning-schema.zfs.pools.{index}.options.{index} |  |  |
 | install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index} |  |  |
 | option-ids.{index} |  | IDs of options to enable on server |
+| protected |  | If enabled, the server can not be deleted |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -874,7 +875,7 @@ scw baremetal server stop 11111111-1111-1111-1111-111111111111
 
 ### Update an Elastic Metal server
 
-Update the server associated with the ID. You can update parameters such as the server's name, tags and description. Any parameters left null in the request body are not updated.
+Update the server associated with the ID. You can update parameters such as the server's name, tags, description and protection flag. Any parameters left null in the request body are not updated.
 
 **Usage:**
 
@@ -891,6 +892,7 @@ scw baremetal server update <server-id ...> [arg=value ...]
 | name |  | Name of the server (≠hostname), not updated if null |
 | description |  | Description associated with the server, max 255 characters, not updated if null |
 | tags.{index} |  | Tags associated with the server, not updated if null |
+| protected |  | If enabled, the server can not be deleted |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 

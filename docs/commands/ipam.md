@@ -101,7 +101,7 @@ scw ipam ip list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `attached_at_desc`, `attached_at_asc` | Sort order of the returned IPs |
+| order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `attached_at_desc`, `attached_at_asc`, `ip_address_desc`, `ip_address_asc`, `mac_address_desc`, `mac_address_asc` | Sort order of the returned IPs |
 | project-id |  | Project ID to filter for. Only IPs belonging to this Project will be returned |
 | zonal |  | Zone to filter for. Only IPs that are zonal, and in this zone, will be returned |
 | private-network-id |  | Private Network to filter for. |

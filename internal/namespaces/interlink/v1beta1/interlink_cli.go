@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	interlink "github.com/scaleway/scaleway-sdk-go/api/interlink/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/interlink/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -583,6 +583,13 @@ func interlinkLinkCreate() *core.Command {
 			{
 				Name:       "peer-asn",
 				Short:      `For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "vlan",
+				Short:      `For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
