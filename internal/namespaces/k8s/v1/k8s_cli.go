@@ -46,6 +46,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sPoolUpgrade(),
 		k8sPoolUpdate(),
 		k8sPoolDelete(),
+		k8sPoolMigrateToNewImages(),
 		k8sNodeList(),
 		k8sNodeGet(),
 		k8sNodeReplace(),
@@ -2081,6 +2082,62 @@ func k8sPoolDelete() *core.Command {
 			{
 				Short: "Delete a specific pool",
 				Raw:   `scw k8s pool delete 11111111-1111-1111-1111-111111111111`,
+			},
+		},
+	}
+}
+
+func k8sPoolMigrateToNewImages() *core.Command {
+	return &core.Command{
+		Short:     `Migrate specific pools or all pools of a cluster to new images.`,
+		Long:      `If no pool is specified, all pools of the cluster will be migrated to new images.`,
+		Namespace: "k8s",
+		Resource:  "pool",
+		Verb:      "migrate-to-new-images",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(k8s.MigratePoolsToNewImagesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pool-ids.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*k8s.MigratePoolsToNewImagesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+			e = api.MigratePoolsToNewImages(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "pool",
+				Verb:     "migrate-to-new-images",
+			}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Migrate all pools of a cluster to new images",
+				Raw:   `scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111`,
+			},
+			{
+				Short: "Migrate a specific pool of a cluster to new images",
+				Raw:   `scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111 pools.0=22222222-2222-2222-2222-222222222222`,
 			},
 		},
 	}
