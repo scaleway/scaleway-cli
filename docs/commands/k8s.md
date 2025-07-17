@@ -38,6 +38,7 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [Delete a Pool in a Cluster](#delete-a-pool-in-a-cluster)
   - [Get a Pool in a Cluster](#get-a-pool-in-a-cluster)
   - [List Pools in a Cluster](#list-pools-in-a-cluster)
+  - [Migrate specific pools or all pools of a cluster to new images.](#migrate-specific-pools-or-all-pools-of-a-cluster-to-new-images.)
   - [Update a Pool in a Cluster](#update-a-pool-in-a-cluster)
   - [Upgrade a Pool in a Cluster](#upgrade-a-pool-in-a-cluster)
   - [Wait for a pool to reach a stable state](#wait-for-a-pool-to-reach-a-stable-state)
@@ -1116,6 +1117,42 @@ scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 name=foo
 List all pools for a cluster and order them by ascending creation date
 ```
 scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 order-by=created_at_asc
+```
+
+
+
+
+### Migrate specific pools or all pools of a cluster to new images.
+
+If no pool is specified, all pools of the cluster will be migrated to new images.
+
+**Usage:**
+
+```
+scw k8s pool migrate-to-new-images [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| cluster-id | Required |  |
+| pool-ids.{index} |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Migrate all pools of a cluster to new images
+```
+scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111
+```
+
+Migrate a specific pool of a cluster to new images
+```
+scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111 pools.0=22222222-2222-2222-2222-222222222222
 ```
 
 
