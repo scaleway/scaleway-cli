@@ -42,6 +42,7 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
     "ping_status": "ping_status_up",
     "options": [],
     "rescue_server": null,
+    "protected": false,
     "offer_name": "EM-I215E-NVME"
   },
   {
@@ -193,6 +194,7 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
     "ping_status": "ping_status_unknown",
     "options": [],
     "rescue_server": null,
+    "protected": false,
     "offer_name": "EM-I215E-NVME"
   },
   {
@@ -335,6 +337,7 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
     "ping_status": "ping_status_unknown",
     "options": [],
     "rescue_server": null,
+    "protected": false,
     "offer_name": "EM-I215E-NVME"
   }
 ]
