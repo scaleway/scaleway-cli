@@ -946,6 +946,13 @@ func edgeServicesCacheStageCreate() *core.Command {
 				Default:    core.DefaultValueSetter("3600s"),
 			},
 			{
+				Name:       "include-cookies",
+				Short:      `Defines whether responses to requests with cookies must be stored in the cache`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "backend-stage-id",
 				Short:      `Backend stage ID the cache stage will be linked to`,
 				Required:   false,
@@ -1015,7 +1022,7 @@ func edgeServicesCacheStageGet() *core.Command {
 func edgeServicesCacheStageUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update cache stage`,
-		Long:      `Update the parameters of an existing cache stage, specified by its ` + "`" + `cache_stage_id` + "`" + `. Parameters which can be updated include the ` + "`" + `fallback_ttl` + "`" + ` and ` + "`" + `backend_stage_id` + "`" + `.`,
+		Long:      `Update the parameters of an existing cache stage, specified by its ` + "`" + `cache_stage_id` + "`" + `. Parameters which can be updated include the ` + "`" + `fallback_ttl` + "`" + `, ` + "`" + `include_cookies` + "`" + ` and ` + "`" + `backend_stage_id` + "`" + `.`,
 		Namespace: "edge-services",
 		Resource:  "cache-stage",
 		Verb:      "update",
@@ -1032,6 +1039,13 @@ func edgeServicesCacheStageUpdate() *core.Command {
 			{
 				Name:       "fallback-ttl",
 				Short:      `Time To Live (TTL) in seconds. Defines how long content is cached`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "include-cookies",
+				Short:      `Defines whether responses to requests with cookies must be stored in the cache`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
