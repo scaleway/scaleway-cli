@@ -14,6 +14,7 @@ Domain          -
 BootType        normal
 Zone            fr-par-2
 PingStatus      unknown
+Protected       false
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
@@ -59,5 +60,6 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
   "install": null,
   "ping_status": "ping_status_unknown",
   "options": [],
-  "rescue_server": null
+  "rescue_server": null,
+  "protected": false
 }

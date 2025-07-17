@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+If no pool is specified, all pools of the cluster will be migrated to new images.
+
+USAGE:
+  scw k8s pool migrate-to-new-images [arg=value ...]
+
+EXAMPLES:
+  Migrate all pools of a cluster to new images
+    scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111
+
+  Migrate a specific pool of a cluster to new images
+    scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111 pools.0=22222222-2222-2222-2222-222222222222
+
+ARGS:
+  cluster-id           
+  [pool-ids.{index}]   
+  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for migrate-to-new-images
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
