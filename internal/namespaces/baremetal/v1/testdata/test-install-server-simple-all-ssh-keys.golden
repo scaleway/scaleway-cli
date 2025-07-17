@@ -14,6 +14,7 @@ Domain          94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.clou
 BootType        normal
 Zone            fr-par-2
 PingStatus      unknown
+Protected       false
 
 IPs:
 ID                                    ADDRESS                                REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
@@ -249,5 +250,6 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
   },
   "ping_status": "ping_status_unknown",
   "options": [],
-  "rescue_server": null
+  "rescue_server": null,
+  "protected": false
 }
