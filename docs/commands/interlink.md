@@ -113,6 +113,7 @@ scw interlink link create [arg=value ...]
 | connection-id |  | If set, creates a self-hosted link using this dedicated physical connection. As the customer, specify the ID of the physical connection you already have for this link. |
 | partner-id |  | If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth. |
 | peer-asn |  | For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned. |
+| vlan |  | For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

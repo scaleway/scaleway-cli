@@ -196,6 +196,7 @@ scw edge-services cache-stage create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | fallback-ttl | Default: `3600s` | Time To Live (TTL) in seconds. Defines how long content is cached |
+| include-cookies |  | Defines whether responses to requests with cookies must be stored in the cache |
 | backend-stage-id |  | Backend stage ID the cache stage will be linked to |
 | pipeline-id | Required | Pipeline ID the Cache stage belongs to |
 | waf-stage-id |  |  |
@@ -263,7 +264,7 @@ scw edge-services cache-stage list [arg=value ...]
 
 ### Update cache stage
 
-Update the parameters of an existing cache stage, specified by its `cache_stage_id`. Parameters which can be updated include the `fallback_ttl` and `backend_stage_id`.
+Update the parameters of an existing cache stage, specified by its `cache_stage_id`. Parameters which can be updated include the `fallback_ttl`, `include_cookies` and `backend_stage_id`.
 
 **Usage:**
 
@@ -278,6 +279,7 @@ scw edge-services cache-stage update <cache-stage-id ...> [arg=value ...]
 |------|---|-------------|
 | cache-stage-id | Required | ID of the cache stage to update |
 | fallback-ttl |  | Time To Live (TTL) in seconds. Defines how long content is cached |
+| include-cookies |  | Defines whether responses to requests with cookies must be stored in the cache |
 | backend-stage-id |  | Backend stage ID the cache stage will be linked to |
 | waf-stage-id |  |  |
 | route-stage-id |  |  |

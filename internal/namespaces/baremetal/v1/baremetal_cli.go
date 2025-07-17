@@ -499,6 +499,13 @@ func baremetalServerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "protected",
+				Short:      `If enabled, the server can not be deleted`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -529,7 +536,7 @@ func baremetalServerCreate() *core.Command {
 func baremetalServerUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an Elastic Metal server`,
-		Long:      `Update the server associated with the ID. You can update parameters such as the server's name, tags and description. Any parameters left null in the request body are not updated.`,
+		Long:      `Update the server associated with the ID. You can update parameters such as the server's name, tags, description and protection flag. Any parameters left null in the request body are not updated.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "update",
@@ -560,6 +567,13 @@ func baremetalServerUpdate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags associated with the server, not updated if null`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "protected",
+				Short:      `If enabled, the server can not be deleted`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
