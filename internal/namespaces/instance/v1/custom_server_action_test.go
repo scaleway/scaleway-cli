@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
@@ -18,15 +17,13 @@ import (
 // These tests needs to be run in sequence
 // since they are using the interactive print
 func Test_ServerTerminate(t *testing.T) {
-	interactive.IsInteractive = true
-
 	t.Run("without IP", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd(
 			"Server",
-			testServerCommand("image=ubuntu-jammy ip=new -w"),
+			testServerCommand("image=ubuntu-jammy ip=new root-volume=local:10GB -w"),
 		),
-		Cmd: `scw instance server terminate {{ .Server.ID }} with-block=true`,
+		Cmd: `scw instance server terminate {{ .Server.ID }}`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -48,16 +45,15 @@ func Test_ServerTerminate(t *testing.T) {
 		AfterFunc: core.ExecAfterCmd(
 			`scw instance ip delete {{ index .Server.PublicIP.ID }}`,
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("with IP", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd(
 			"Server",
-			testServerCommand("image=ubuntu-jammy ip=new -w"),
+			testServerCommand("image=ubuntu-jammy ip=new root-volume=local:10GB -w"),
 		),
-		Cmd: `scw instance server terminate {{ .Server.ID }} with-ip=true with-block=true`,
+		Cmd: `scw instance server terminate {{ .Server.ID }} with-ip=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -77,7 +73,6 @@ func Test_ServerTerminate(t *testing.T) {
 				require.ErrorAs(t, err, new(*scw.ResourceNotFoundError))
 			},
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("without block", core.Test(&core.TestConfig{
@@ -104,7 +99,6 @@ func Test_ServerTerminate(t *testing.T) {
 			),
 			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "0").ID }}`),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("with block", core.Test(&core.TestConfig{
@@ -141,10 +135,7 @@ func Test_ServerTerminate(t *testing.T) {
 				require.ErrorAs(t, err, new(*scw.ResourceNotFoundError))
 			},
 		),
-		DisableParallel: true,
 	}))
-
-	interactive.IsInteractive = false
 }
 
 // These tests needs to be run in sequence
