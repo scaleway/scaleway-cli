@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
@@ -321,8 +320,6 @@ func Test_ServerUpdateCustom(t *testing.T) {
 // These tests needs to be run in sequence
 // since they are using the interactive print
 func Test_ServerDelete(t *testing.T) {
-	interactive.IsInteractive = true
-
 	t.Run("with all volumes", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.ExecStoreBeforeCmd(
@@ -465,6 +462,4 @@ func Test_ServerDelete(t *testing.T) {
 			},
 		),
 	}))
-
-	interactive.IsInteractive = false
 }
