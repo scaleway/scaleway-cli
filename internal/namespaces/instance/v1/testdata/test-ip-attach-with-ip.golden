@@ -1,33 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            bf0e239d-7331-415a-adfd-ebf90a264d21
-IP.Address       51.15.134.67
-IP.Server.ID     5de48a83-4e74-40c0-8e47-3621340382b1
-IP.Server.Name   cli-srv-tender-antonelli
-IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+IP.ID            5cbb9e6e-d646-4c53-a1a4-92f0de9ebd43
+IP.Address       163.172.168.181
+IP.Server.ID     d5578dcd-2b6f-43e3-ac59-087bf455f38c
+IP.Server.Name   cli-srv-upbeat-lichterman
+IP.Organization  fa1e3217-dc80-42ac-85c3-3f034b78b552
+IP.Project       fa1e3217-dc80-42ac-85c3-3f034b78b552
 IP.Type          routed_ipv4
 IP.State         attached
 IP.Prefix        -
-IP.IpamID        f9abb4db-c097-4e82-aa56-5366f83ae6b9
+IP.IpamID        d7a6c480-56cb-424e-8597-a4a5466205b9
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "bf0e239d-7331-415a-adfd-ebf90a264d21",
-    "address": "51.15.134.67",
+    "id": "5cbb9e6e-d646-4c53-a1a4-92f0de9ebd43",
+    "address": "163.172.168.181",
     "reverse": null,
     "server": {
-      "id": "5de48a83-4e74-40c0-8e47-3621340382b1",
-      "name": "cli-srv-tender-antonelli"
+      "id": "d5578dcd-2b6f-43e3-ac59-087bf455f38c",
+      "name": "cli-srv-upbeat-lichterman"
     },
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "tags": [],
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "type": "routed_ipv4",
     "state": "attached",
     "prefix": "",
-    "ipam_id": "f9abb4db-c097-4e82-aa56-5366f83ae6b9",
+    "ipam_id": "d7a6c480-56cb-424e-8597-a4a5466205b9",
     "zone": "fr-par-1"
   }
 }

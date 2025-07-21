@@ -1,9 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-successfully deleted block volume "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0"
-successfully deleted ip 212.47.240.125
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",
