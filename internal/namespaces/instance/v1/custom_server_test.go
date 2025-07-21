@@ -42,8 +42,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				testAttachVolumeServerSBSVolumeSize("0", 10),
 				testAttachVolumeServerSBSVolumeSize("1", 10),
 			),
-			AfterFunc:       deleteServer("Server"),
-			DisableParallel: true,
+			AfterFunc: deleteServer("Server"),
 		}))
 
 		t.Run("simple local volume", core.Test(&core.TestConfig{
@@ -69,8 +68,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				},
 				testAttachVolumeServerSBSVolumeSize("0", 10),
 			),
-			AfterFunc:       deleteServer("Server"),
-			DisableParallel: true,
+			AfterFunc: deleteServer("Server"),
 		}))
 
 		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
@@ -81,8 +79,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(1),
 			),
-			AfterFunc:       deleteServer("Server"),
-			DisableParallel: true,
+			AfterFunc: deleteServer("Server"),
 		}))
 	})
 	t.Run("Detach", func(t *testing.T) {
@@ -111,7 +108,6 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
 				deleteServer("Server"),
 			),
-			DisableParallel: true,
 		}))
 
 		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
@@ -122,8 +118,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(1),
 			),
-			AfterFunc:       deleteServer("Server"),
-			DisableParallel: true,
+			AfterFunc: deleteServer("Server"),
 		}))
 	})
 }
@@ -334,7 +329,6 @@ func Test_ServerDelete(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("only block volumes", core.Test(&core.TestConfig{
@@ -351,7 +345,6 @@ func Test_ServerDelete(t *testing.T) {
 		AfterFunc: core.ExecAfterCmd(
 			`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`,
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("only local volumes", core.Test(&core.TestConfig{
@@ -374,7 +367,6 @@ func Test_ServerDelete(t *testing.T) {
 			),
 			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("with none volumes", core.Test(&core.TestConfig{
@@ -404,7 +396,6 @@ func Test_ServerDelete(t *testing.T) {
 			core.ExecAfterCmd(`scw instance volume delete {{ (index .Server.Volumes "0").ID }}`),
 			core.ExecAfterCmd(`scw block volume delete {{ (index .Server.Volumes "1").ID }}`),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("with sbs volumes", core.Test(&core.TestConfig{
@@ -437,7 +428,6 @@ func Test_ServerDelete(t *testing.T) {
 				assert.Error(t, err, "%v", resp)
 			},
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("with multiple IPs", core.Test(&core.TestConfig{
@@ -463,7 +453,6 @@ func Test_ServerDelete(t *testing.T) {
 				}
 			},
 		),
-		DisableParallel: true,
 	}))
 
 	interactive.IsInteractive = false
