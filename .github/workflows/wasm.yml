@@ -1,5 +1,8 @@
 name: WebAssembly
 
+permissions:
+  contents: read
+
 on:
   pull_request:
   merge_group:

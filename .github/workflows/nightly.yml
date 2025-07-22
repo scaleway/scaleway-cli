@@ -1,5 +1,8 @@
 name: Nightly Acceptance Tests
 
+permissions:
+  contents: read
+
 on:
   schedule:
     # Will run at 00:00 every day
