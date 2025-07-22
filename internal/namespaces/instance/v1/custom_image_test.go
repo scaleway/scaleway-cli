@@ -244,7 +244,7 @@ func Test_ImageUpdate(t *testing.T) {
 
 	t.Run("Add extra volume", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			createVolume("Volume", 20, instanceSDK.VolumeVolumeTypeBSSD),
+			createNonEmptyLocalVolume("Volume", 10),
 			core.ExecStoreBeforeCmd(
 				"SnapshotVol",
 				`scw instance snapshot create -w name=snapVol volume-id={{ .Volume.ID }}`,

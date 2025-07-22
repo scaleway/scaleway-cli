@@ -133,6 +133,31 @@ func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 	}
 }
 
+// createNonEmptyLocalVolume creates a server with a local root volume of the given size and registers the volume in
+// the context Meta at metaKey. The volume is then detached, and the server deleted, leaving a non-empty volume
+// ready to be snapshot, or any other use case that requires a non-empty local volume.
+func createNonEmptyLocalVolume(metaKey string, sizeInGB int) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		cmd := fmt.Sprintf(
+			"scw instance server create type=DEV1-S root-volume=local:%dGB stopped=true",
+			sizeInGB,
+		)
+		server := ctx.ExecuteCmd(strings.Split(cmd, " "))
+		createServerResponse := server.(*instance.ServerWithWarningsResponse)
+		serverID := createServerResponse.Server.ID
+		volume := createServerResponse.Server.Volumes["0"]
+		ctx.Meta[metaKey] = volume
+
+		cmd = "scw instance server detach-volume volume-id=" + volume.ID
+		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
+
+		cmd = "scw instance server delete " + serverID
+		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
+
+		return nil
+	}
+}
+
 //
 // IP
 //
