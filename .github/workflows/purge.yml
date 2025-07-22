@@ -1,4 +1,8 @@
 name: Manual Purge
+
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
 
