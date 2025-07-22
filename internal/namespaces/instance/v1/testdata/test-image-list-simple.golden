@@ -1,31 +1,59 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME                     STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
-4f0fe9c8-7b7c-44ca-9b85-fe2424edd9af  cli-img-youthful-agnesi  available  false   fr-par-1  20 GB    -            -          x86_64  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  few seconds ago  few seconds ago
+ID                                    NAME                  STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
+d1dd5ab4-c763-442e-8aeb-321d0b3e7d51  cli-img-sleepy-gates  available  false   fr-par-1  20 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+c38b8584-513d-4530-9b1e-42fb9b28f44f  basic build           available  false   fr-par-1  10 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "4f0fe9c8-7b7c-44ca-9b85-fe2424edd9af",
-    "name": "cli-img-youthful-agnesi",
+    "id": "d1dd5ab4-c763-442e-8aeb-321d0b3e7d51",
+    "name": "cli-img-sleepy-gates",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
     "extra_volumes": {},
     "from_server": "",
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "public": false,
     "root_volume": {
-      "id": "cefe7d54-6ad3-4ce0-a0a2-12bfc3cca922",
-      "name": "cli-snp-cool-euler",
+      "id": "ea6b1413-ef86-49f2-84e7-99796e15bec8",
+      "name": "cli-snp-priceless-golick",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
     "state": "available",
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "tags": [],
     "zone": "fr-par-1",
     "server_id": "",
     "server_name": ""
+  },
+  {
+    "id": "c38b8584-513d-4530-9b1e-42fb9b28f44f",
+    "name": "basic build",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "1f9998d3-a62f-4a0d-ad60-e74390acfc94",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": false,
+    "root_volume": {
+      "id": "ff0b5fa2-e106-492b-98a4-ea3603e68d05",
+      "name": "",
+      "size": 10000000000,
+      "volume_type": "sbs_snapshot"
+    },
+    "state": "available",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [
+      "foo",
+      "bar"
+    ],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": "-"
   }
 ]
