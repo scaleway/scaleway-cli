@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           e26d0bd5-e04d-4d92-8f39-7df210a40529
+ID           bda329b1-15cc-4f8d-99c0-d5ea18a4c7a5
 Name         1-pub-endpoint
 ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status       ready
@@ -15,13 +15,13 @@ UserName     admin
 
 Endpoints:
 ID                                    Port  IPs
-9212bfab-dead-42d6-80e2-5eaa4f8be5a6  6379  [163.172.151.197]
+fee8368e-3947-4a6a-bbe0-d54ed974ab44  6379  [51.15.243.33]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "e26d0bd5-e04d-4d92-8f39-7df210a40529",
+  "id": "bda329b1-15cc-4f8d-99c0-d5ea18a4c7a5",
   "name": "1-pub-endpoint",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
@@ -31,9 +31,9 @@ ID   IP CIDR  DESCRIPTION
       "port": 6379,
       "public_network": {},
       "ips": [
-        "163.172.151.197"
+        "51.15.243.33"
       ],
-      "id": "9212bfab-dead-42d6-80e2-5eaa4f8be5a6"
+      "id": "fee8368e-3947-4a6a-bbe0-d54ed974ab44"
     }
   ],
   "tags": [],

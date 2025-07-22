@@ -1,37 +1,37 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                           c0eda470-15af-4ce1-b57f-d334f5def8a7
+ID                           7075ab19-65a9-4e47-b1a2-0907d6549826
 CreatedAt                    few seconds ago
 UpdatedAt                    few seconds ago
-GatewayID                    58088b82-7940-40fe-9bef-c8c971642a66
-PrivateNetworkID             fd87fb88-d9d4-4406-82f9-dab6ec87336e
-MacAddress                   02:00:00:11:2B:E4
+GatewayID                    a9f29ab5-796b-4b37-8559-43e8e204ceb0
+PrivateNetworkID             9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a
+MacAddress                   02:00:00:15:3B:60
 EnableMasquerade             false
 Status                       ready
 EnableDHCP                   true
-Address                      172.16.88.2/22
+Address                      172.16.112.2/22
 IpamConfig.PushDefaultRoute  true
-IpamConfig.IpamIPID          496180b2-77ee-4239-9842-3e535b6b8daa
+IpamConfig.IpamIPID          11aa3537-aab2-4fbd-abf8-297ad90b8587
 Zone                         fr-par-1
 
 DHCP:
 -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "c0eda470-15af-4ce1-b57f-d334f5def8a7",
+  "id": "7075ab19-65a9-4e47-b1a2-0907d6549826",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
-  "gateway_id": "58088b82-7940-40fe-9bef-c8c971642a66",
-  "private_network_id": "fd87fb88-d9d4-4406-82f9-dab6ec87336e",
-  "mac_address": "02:00:00:11:2B:E4",
+  "gateway_id": "a9f29ab5-796b-4b37-8559-43e8e204ceb0",
+  "private_network_id": "9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a",
+  "mac_address": "02:00:00:15:3B:60",
   "enable_masquerade": false,
   "status": "ready",
   "dhcp": null,
   "enable_dhcp": true,
-  "address": "172.16.88.2/22",
+  "address": "172.16.112.2/22",
   "ipam_config": {
     "push_default_route": true,
-    "ipam_ip_id": "496180b2-77ee-4239-9842-3e535b6b8daa"
+    "ipam_ip_id": "11aa3537-aab2-4fbd-abf8-297ad90b8587"
   },
   "zone": "fr-par-1"
 }

@@ -1,24 +1,24 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rule 1.2.3.4/32 successfully deleted.
-IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       10411  tcp       inbound    allow   Allow All
-10.10.10.10/32  10411  tcp       inbound    allow   Allow 10.10.10.10/32
-192.168.1.0/32  10411  tcp       inbound    allow   Allow 192.168.1.0/32
+IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0       9618  tcp       inbound    allow   Allow All
+10.10.10.10/32  9618  tcp       inbound    allow   Allow 10.10.10.10/32
+192.168.1.0/32  9618  tcp       inbound    allow   Allow 192.168.1.0/32
 ✅ ACL rule 192.168.1.0/32 successfully deleted.
-IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       10411  tcp       inbound    allow   Allow All
-10.10.10.10/32  10411  tcp       inbound    allow   Allow 10.10.10.10/32
+IP              PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0       9618  tcp       inbound    allow   Allow All
+10.10.10.10/32  9618  tcp       inbound    allow   Allow 10.10.10.10/32
 ✅ ACL rule 10.10.10.10/32 successfully deleted.
-IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  10411  tcp       inbound    allow   Allow All
+IP         PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0  9618  tcp       inbound    allow   Allow All
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 10411,
+        "port": 9618,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -26,7 +26,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "10.10.10.10/32",
-        "port": 10411,
+        "port": 9618,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -34,7 +34,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "192.168.1.0/32",
-        "port": 10411,
+        "port": 9618,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -50,7 +50,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 10411,
+        "port": 9618,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -58,7 +58,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "10.10.10.10/32",
-        "port": 10411,
+        "port": 9618,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -74,7 +74,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 10411,
+        "port": 9618,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
