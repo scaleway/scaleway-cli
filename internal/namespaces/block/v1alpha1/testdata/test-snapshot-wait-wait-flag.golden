@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   c15492e2-fc63-4cc5-8b8f-de07eedfc1de
-Name                 cli-snp-serene-wu
-ParentVolume.ID      dba8cdf8-4d13-4456-acdf-d0637d5a8f50
-ParentVolume.Name    cli-vol-bold-morse
+ID                   36e7bb66-d284-4d7e-bbd6-bc208cfcde29
+Name                 cli-snp-nostalgic-bouman
+ParentVolume.ID      c6321444-4d2f-47ad-a93a-074f14df83d8
+ParentVolume.Name    cli-vol-jovial-merkle
 ParentVolume.Type    sbs_5k
 ParentVolume.Status  available
 Size                 20 GB
-ProjectID            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID            fa1e3217-dc80-42ac-85c3-3f034b78b552
 CreatedAt            few seconds ago
 UpdatedAt            few seconds ago
 Status               available
@@ -15,16 +15,16 @@ Zone                 fr-par-1
 Class                sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "c15492e2-fc63-4cc5-8b8f-de07eedfc1de",
-  "name": "cli-snp-serene-wu",
+  "id": "36e7bb66-d284-4d7e-bbd6-bc208cfcde29",
+  "name": "cli-snp-nostalgic-bouman",
   "parent_volume": {
-    "id": "dba8cdf8-4d13-4456-acdf-d0637d5a8f50",
-    "name": "cli-vol-bold-morse",
+    "id": "c6321444-4d2f-47ad-a93a-074f14df83d8",
+    "name": "cli-vol-jovial-merkle",
     "type": "sbs_5k",
     "status": "available"
   },
   "size": 20000000000,
-  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "references": [],

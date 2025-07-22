@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           89ee8049-b2db-4204-96f0-4a1e69f87e45
+ID           46d23045-596b-4534-a17d-5d22e2784de8
 Name         2-static-priv-endpoints
 ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status       ready
@@ -15,14 +15,14 @@ UserName     admin
 
 Endpoints:
 ID                                    Port  IPs
-13199053-663b-40e8-bf06-56161d32271b  6379  [172.16.4.1]
-1ede35c6-c45a-4a24-b34b-0486a33c01f8  6379  [10.16.4.1]
+27569a9c-0e8b-42cd-9f93-307362cf1324  6379  [10.16.4.1]
+33e14efb-a511-44d0-a611-1b4635040340  6379  [172.16.4.1]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "89ee8049-b2db-4204-96f0-4a1e69f87e45",
+  "id": "46d23045-596b-4534-a17d-5d22e2784de8",
   "name": "2-static-priv-endpoints",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
@@ -31,22 +31,7 @@ ID   IP CIDR  DESCRIPTION
     {
       "port": 6379,
       "private_network": {
-        "id": "7d5d5e13-7f07-44df-962d-5edad547ee62",
-        "service_ips": [
-          "172.16.4.1/22"
-        ],
-        "zone": "fr-par-1",
-        "provisioning_mode": "static"
-      },
-      "ips": [
-        "172.16.4.1"
-      ],
-      "id": "13199053-663b-40e8-bf06-56161d32271b"
-    },
-    {
-      "port": 6379,
-      "private_network": {
-        "id": "f8ecd537-56c8-49a6-9da0-e4e0ba6d2c12",
+        "id": "0a8cbbf0-fa31-40fa-a15b-7dc0665acd44",
         "service_ips": [
           "10.16.4.1/22"
         ],
@@ -56,7 +41,22 @@ ID   IP CIDR  DESCRIPTION
       "ips": [
         "10.16.4.1"
       ],
-      "id": "1ede35c6-c45a-4a24-b34b-0486a33c01f8"
+      "id": "27569a9c-0e8b-42cd-9f93-307362cf1324"
+    },
+    {
+      "port": 6379,
+      "private_network": {
+        "id": "b880e450-3db9-4f66-a655-eb6c242ccc0d",
+        "service_ips": [
+          "172.16.4.1/22"
+        ],
+        "zone": "fr-par-1",
+        "provisioning_mode": "static"
+      },
+      "ips": [
+        "172.16.4.1"
+      ],
+      "id": "33e14efb-a511-44d0-a611-1b4635040340"
     }
   ],
   "tags": [],

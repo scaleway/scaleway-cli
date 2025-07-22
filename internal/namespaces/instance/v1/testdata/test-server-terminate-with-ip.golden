@@ -3,7 +3,7 @@
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 successfully deleted block volume "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0"
-successfully deleted ip 212.47.240.125
+successfully deleted ip 163.172.155.41
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",
