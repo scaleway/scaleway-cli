@@ -23,8 +23,7 @@ func Test_ServerSSH(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc:       deleteServer("Server"),
-		DisableParallel: true,
+		AfterFunc: deleteServer("Server"),
 	}))
 
 	t.Run("With-Exit-Code", core.Test(&core.TestConfig{
@@ -42,8 +41,7 @@ func Test_ServerSSH(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(130),
 		),
-		AfterFunc:       deleteServer("Server"),
-		DisableParallel: true,
+		AfterFunc: deleteServer("Server"),
 	}))
 
 	t.Run("Stopped server", core.Test(&core.TestConfig{
@@ -54,7 +52,6 @@ func Test_ServerSSH(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:       deleteServer("Server"),
-		DisableParallel: true,
+		AfterFunc: deleteServer("Server"),
 	}))
 }

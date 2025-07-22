@@ -25,7 +25,6 @@ func Test_IPAttach(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("With IP", core.Test(&core.TestConfig{
@@ -45,7 +44,6 @@ func Test_IPAttach(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			deleteServer("Server"),
 		),
-		DisableParallel: true,
 	}))
 }
 
@@ -71,7 +69,6 @@ func Test_IPDetach(t *testing.T) {
 			deleteServer("Server"),
 			deleteIP("Ip"),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("With IP", core.Test(&core.TestConfig{
@@ -95,6 +92,5 @@ func Test_IPDetach(t *testing.T) {
 			deleteServer("Server"),
 			deleteIP("Ip"),
 		),
-		DisableParallel: true,
 	}))
 }

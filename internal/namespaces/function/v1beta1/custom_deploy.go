@@ -166,8 +166,9 @@ func DeployStepCreateNamespace(
 		})
 
 		namespace, err = api.WaitForNamespace(&function.WaitForNamespaceRequest{
-			NamespaceID: namespace.ID,
-			Region:      namespace.Region,
+			NamespaceID:   namespace.ID,
+			Region:        namespace.Region,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("could not fetch created namespace: %w", err)
