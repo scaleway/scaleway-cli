@@ -1,5 +1,8 @@
 name: CodeCov Coverage
 
+permissions:
+  contents: read
+
 on:
   push:
   pull_request:
