@@ -1,0 +1,103 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 230
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"761b7898-3a20-45d6-b627-561870ad2dc9", "name":"cli-inference-bold-carson", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"creating", "tags":[], "node_type":"L4", "endpoints":[{"id":"e418e67c-93f0-4e47-84e9-321c144a62ac", "url":"https://761b7898-3a20-45d6-b627-561870ad2dc9.ifr.fr-par.scaleway.com", "public_access":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null, "model_name":"meta/llama-3-8b-instruct:bf16", "created_at":"2025-07-22T15:54:31.861413Z", "updated_at":null, "model_id":"6c68b256-ef4a-48d2-a794-9b63b5c6ba5d", "region":"fr-par"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/inference/v1beta1/regions/fr-par/deployments
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 604
+        uncompressed: false
+        body: '{"id":"761b7898-3a20-45d6-b627-561870ad2dc9", "name":"cli-inference-bold-carson", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"creating", "tags":[], "node_type":"L4", "endpoints":[{"id":"e418e67c-93f0-4e47-84e9-321c144a62ac", "url":"https://761b7898-3a20-45d6-b627-561870ad2dc9.ifr.fr-par.scaleway.com", "public_access":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null, "model_name":"meta/llama-3-8b-instruct:bf16", "created_at":"2025-07-22T15:54:31.861413Z", "updated_at":null, "model_id":"6c68b256-ef4a-48d2-a794-9b63b5c6ba5d", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "604"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 22 Jul 2025 15:54:32 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - a7498b2e-ad05-443d-9bb4-7e4051f54f4e
+        status: 200 OK
+        code: 200
+        duration: 541.197966ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"761b7898-3a20-45d6-b627-561870ad2dc9", "name":"cli-inference-bold-carson", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "tags":[], "node_type":"L4", "endpoints":[{"id":"e418e67c-93f0-4e47-84e9-321c144a62ac", "url":"https://761b7898-3a20-45d6-b627-561870ad2dc9.ifr.fr-par.scaleway.com", "public_access":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null, "model_name":"meta/llama-3-8b-instruct:bf16", "created_at":"2025-07-22T15:54:31.861413Z", "updated_at":null, "model_id":"6c68b256-ef4a-48d2-a794-9b63b5c6ba5d", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/inference/v1beta1/regions/fr-par/deployments/761b7898-3a20-45d6-b627-561870ad2dc9
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 604
+        uncompressed: false
+        body: '{"id":"761b7898-3a20-45d6-b627-561870ad2dc9", "name":"cli-inference-bold-carson", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "tags":[], "node_type":"L4", "endpoints":[{"id":"e418e67c-93f0-4e47-84e9-321c144a62ac", "url":"https://761b7898-3a20-45d6-b627-561870ad2dc9.ifr.fr-par.scaleway.com", "public_access":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1, "error_message":null, "model_name":"meta/llama-3-8b-instruct:bf16", "created_at":"2025-07-22T15:54:31.861413Z", "updated_at":null, "model_id":"6c68b256-ef4a-48d2-a794-9b63b5c6ba5d", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "604"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 22 Jul 2025 15:54:32 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 66461d85-f623-47ec-a08f-d6ced8bbb74d
+        status: 200 OK
+        code: 200
+        duration: 134.62269ms

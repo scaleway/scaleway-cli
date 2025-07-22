@@ -4,42 +4,34 @@ Entity Type:
 application
 
 Api Key:
-AccessKey         SCW2NSMT7HPTHMJBWP0S
-ApplicationID     370d4bad-80b5-4602-8def-f2a34b7581de
+AccessKey         SCW9GYPGY01AJ939C94F
+ApplicationID     baca7695-fe4e-48eb-8f24-e479c20ca3a6
 Description       -
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
-DefaultProjectID  6867048b-fe12-4e96-835e-41c79a39604b
+DefaultProjectID  105bdce1-64c0-48ab-899d-868455867ecf
 Editable          true
 Deletable         true
 Managed           false
-CreationIP        51.159.46.153
+CreationIP        51.159.73.9
 
 Policies:
-Copy of Editors (4feb1f44-1726-4373-bf9b-01c828ddb0ca)  AllProductsFullAccess OrganizationReadOnly ProjectManager SupportTicketReadOnly
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "APIKey": {
-    "access_key": "SCW2NSMT7HPTHMJBWP0S",
+    "access_key": "SCW9GYPGY01AJ939C94F",
     "secret_key": null,
-    "application_id": "370d4bad-80b5-4602-8def-f2a34b7581de",
+    "application_id": "baca7695-fe4e-48eb-8f24-e479c20ca3a6",
     "description": "",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "expires_at": null,
-    "default_project_id": "6867048b-fe12-4e96-835e-41c79a39604b",
+    "default_project_id": "105bdce1-64c0-48ab-899d-868455867ecf",
     "editable": true,
     "deletable": true,
     "managed": false,
-    "creation_ip": "51.159.46.153"
+    "creation_ip": "51.159.73.9"
   },
   "entity_type": "application",
-  "policies": {
-    "Copy of Editors (4feb1f44-1726-4373-bf9b-01c828ddb0ca)": [
-      "AllProductsFullAccess",
-      "OrganizationReadOnly",
-      "ProjectManager",
-      "SupportTicketReadOnly"
-    ]
-  }
+  "policies": {}
 }
