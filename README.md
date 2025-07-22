@@ -81,7 +81,7 @@ After you [installed](#Installation) the latest release just run the initializat
 scw init
 ```
 
-It will set up your profile, the authentication, and the auto-completion.  
+It will set up your profile, the authentication, and the auto-completion.
 NB: you'll need to have an **API-key** (access-key + access-secret), so be sure to create one on the [scaleway web console](https://console.scaleway.com/iam/api-keys).
 
 ## Basic commands
@@ -175,6 +175,16 @@ See more in-depth information about running the CLI in Docker [here](./docs/dock
 
 This repository is at its early stage and is still in active development.
 If you are looking for a way to contribute please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
+
+# Automate CLI actions with Scaleway Serverless Jobs
+
+You can automate your CLI actions by scheduling them with Scaleway Serverless Jobs. This allows you to run your Scaleway CLI commands at specific times or intervals without needing to manually execute them.
+
+For step-by-step guides, check out the following tutorials:
+- [Power on and off your instances using Serverless Jobs](https://www.scaleway.com/en/docs/tutorials/power-on-off-instances-jobs/)
+- [Create snapshots of a Managed MongoDB® database](https://www.scaleway.com/en/docs/tutorials/backup-mongodb-jobs/)
+- [Create recurring scheduled backups and snapshots of a database](https://www.scaleway.com/en/docs/tutorials/snapshot-managed-databases/)
+- [Create snapshots of an Instance](https://www.scaleway.com/en/docs/tutorials/snapshot-instances-jobs/)
 
 # Reach Us
 
