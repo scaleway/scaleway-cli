@@ -1,1293 +1,1130 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0", "name":"pn-wizardly-margulis",
-      "tags":[], "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "created_at":"2025-01-07T14:04:03.472611Z",
-      "updated_at":"2025-01-07T14:04:03.472611Z", "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "subnets":[{"id":"f0d1eff6-a4b0-4eff-918c-173ba6d8a38d", "created_at":"2025-01-07T14:04:03.472611Z",
-      "updated_at":"2025-01-07T14:04:03.472611Z", "subnet":"172.16.124.0/22", "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0", "vpc_id":"d4535842-cddd-478d-a978-1797d57da787"},
-      {"id":"ec826e68-3d81-4def-ab15-f8120ce74f01", "created_at":"2025-01-07T14:04:03.472611Z",
-      "updated_at":"2025-01-07T14:04:03.472611Z", "subnet":"fdcd:e4f1:8712:5665::/64",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "vpc_id":"d4535842-cddd-478d-a978-1797d57da787"}], "vpc_id":"d4535842-cddd-478d-a978-1797d57da787",
-      "dhcp_enabled":true, "region":"fr-par"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
-    method: POST
-  response:
-    body: '{"id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0", "name":"pn-wizardly-margulis",
-      "tags":[], "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "created_at":"2025-01-07T14:04:03.472611Z",
-      "updated_at":"2025-01-07T14:04:03.472611Z", "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "subnets":[{"id":"f0d1eff6-a4b0-4eff-918c-173ba6d8a38d", "created_at":"2025-01-07T14:04:03.472611Z",
-      "updated_at":"2025-01-07T14:04:03.472611Z", "subnet":"172.16.124.0/22", "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0", "vpc_id":"d4535842-cddd-478d-a978-1797d57da787"},
-      {"id":"ec826e68-3d81-4def-ab15-f8120ce74f01", "created_at":"2025-01-07T14:04:03.472611Z",
-      "updated_at":"2025-01-07T14:04:03.472611Z", "subnet":"fdcd:e4f1:8712:5665::/64",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "vpc_id":"d4535842-cddd-478d-a978-1797d57da787"}], "vpc_id":"d4535842-cddd-478d-a978-1797d57da787",
-      "dhcp_enabled":true, "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1048"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:04:04 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - fe54e39b-a34c-452d-b033-7e513d27f48a
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances
-    method: POST
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:04:05 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - e3af0d9f-04a6-401e-8459-b842bc851a88
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:04:05 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - ea712758-508a-4d0c-ade9-7d9b656db921
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:04:20 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - dc8e30b0-90d9-48bc-a1b2-76b5bd02730a
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:04:35 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - fe03a64e-155a-4bbf-89b1-5c51cbc50066
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:04:51 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - a86da19f-fb4c-4c12-a52a-d67053873789
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:05:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - fdc7e88c-7b91-477e-afaf-5ddacc9bb099
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:05:21 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 9e63c61f-3ce1-4f03-8167-80cd08289685
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:05:36 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 8836696c-ba82-4024-9d95-d077bec32867
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:05:51 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - b92bd69e-56af-485a-b7bb-476f1d1a1c8e
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:06:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - f40c6799-e0c4-4023-9df0-19d164e4df64
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1033"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:06:21 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - fb521d28-c3ae-409f-94d6-2cd9dd15e733
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1308"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:06:36 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 72bacf22-23a0-4abf-a0cb-0e2a815b5df6
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}],
-      "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false,
-      "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1308"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:06:52 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - cdc5dc6d-102e-4acf-9718-d10d793fb6d5
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}},
-      {"ip":"195.154.69.50", "port":16911, "name":null, "id":"ec317642-611b-4234-b9cd-f909c7dfe2de",
-      "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
-      "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:04:04.790580Z", "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}},
-      {"ip":"195.154.69.50", "port":16911, "name":null, "id":"ec317642-611b-4234-b9cd-f909c7dfe2de",
-      "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
-      "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:04:04.790580Z", "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1527"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:07 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - eaafa3b6-07dd-4f9a-af3c-12daa99965b2
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/endpoints/44cae8be-10da-47e4-abd3-a0dd32736313
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:07 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 0081a31b-9c7b-441d-8900-77342885c933
-    status: 204 No Content
-    code: 204
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"configuring",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":{"ip":"195.154.69.50",
-      "port":16911, "name":null, "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}},
-      "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}},
-      {"ip":"195.154.69.50", "port":16911, "name":null, "id":"ec317642-611b-4234-b9cd-f909c7dfe2de",
-      "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
-      "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:04:04.790580Z", "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"configuring",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":{"ip":"195.154.69.50",
-      "port":16911, "name":null, "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}},
-      "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null,
-      "id":"44cae8be-10da-47e4-abd3-a0dd32736313", "private_network":{"private_network_id":"29f6afd4-a6c2-40c8-920f-43c40b68c3b0",
-      "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}},
-      {"ip":"195.154.69.50", "port":16911, "name":null, "id":"ec317642-611b-4234-b9cd-f909c7dfe2de",
-      "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
-      "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:04:04.790580Z", "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1533"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:07 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - e54870b0-6083-42b1-8c94-43a7fc51e7fc
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"configuring",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":{"ip":"195.154.69.50",
-      "port":16911, "name":null, "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}},
-      "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"configuring",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":{"ip":"195.154.69.50",
-      "port":16911, "name":null, "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}},
-      "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1281"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:22 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 357b1346-868c-4628-bb70-0dc16b735fd6
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1275"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:37 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 8b6e4edb-21b6-4400-abcb-dbd6b47d3fa0
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1275"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:37 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 66f20cf3-639b-426f-a1f1-6c513e7b6d68
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"deleting", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: DELETE
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"deleting", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1278"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:38 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - a87319d7-76b2-499d-8b03-15fd3da25a8f
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"deleting", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"deleting", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}, "tags":[],
-      "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
-      "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
-      "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
-      "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:04:04.790580Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"195.154.69.50", "port":16911, "name":null,
-      "id":"ec317642-611b-4234-b9cd-f909c7dfe2de", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
-      "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:04:04.790580Z",
-      "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "1278"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:38 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - a3cd990d-d25c-4091-ae95-1b15f0f5452f
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"message":"resource is not found","resource":"instance","resource_id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f","type":"not_found"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/b0a5ae29-b1d2-40fb-aecb-86b13f304c7f
-    method: GET
-  response:
-    body: '{"message":"resource is not found","resource":"instance","resource_id":"b0a5ae29-b1d2-40fb-aecb-86b13f304c7f","type":"not_found"}'
-    headers:
-      Content-Length:
-      - "129"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:53 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - b68575ae-324d-4dab-a289-b9d1341189de
-    status: 404 Not Found
-    code: 404
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/29f6afd4-a6c2-40c8-920f-43c40b68c3b0
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 14:07:55 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - d015b66c-9131-4451-b6d8-1ad16ad3d5c6
-    status: 204 No Content
-    code: 204
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 147
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "name":"pn-hopeful-pare", "tags":[], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T09:05:19.677661Z", "updated_at":"2025-07-24T09:05:19.677661Z", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"5cba6f06-94cd-4c77-97cb-9ea0ac5dce4b", "created_at":"2025-07-24T09:05:19.677661Z", "updated_at":"2025-07-24T09:05:19.677661Z", "subnet":"172.16.184.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}, {"id":"0c57dc0c-a591-4eba-9033-b5e4522d03a3", "created_at":"2025-07-24T09:05:19.677661Z", "updated_at":"2025-07-24T09:05:19.677661Z", "subnet":"fd63:256c:45f7:3d7d::/64", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c", "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1086
+        uncompressed: false
+        body: '{"id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "name":"pn-hopeful-pare", "tags":[], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T09:05:19.677661Z", "updated_at":"2025-07-24T09:05:19.677661Z", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"5cba6f06-94cd-4c77-97cb-9ea0ac5dce4b", "created_at":"2025-07-24T09:05:19.677661Z", "updated_at":"2025-07-24T09:05:19.677661Z", "subnet":"172.16.184.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}, {"id":"0c57dc0c-a591-4eba-9033-b5e4522d03a3", "created_at":"2025-07-24T09:05:19.677661Z", "updated_at":"2025-07-24T09:05:19.677661Z", "subnet":"fd63:256c:45f7:3d7d::/64", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c", "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1086"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:05:20 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - c855ea41-5826-49b2-8fde-06600bc3371d
+        status: 200 OK
+        code: 200
+        duration: 889.743019ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 473
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:05:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - aad4e80b-923e-45e5-810d-cfaa9bc4b505
+        status: 200 OK
+        code: 200
+        duration: 941.403048ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:05:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - e6ce0780-3b24-4448-8ab2-5c48189e956a
+        status: 200 OK
+        code: 200
+        duration: 126.674054ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:05:36 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - b98a865c-22b9-4d49-9af8-a509af2dffc0
+        status: 200 OK
+        code: 200
+        duration: 114.823873ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:05:51 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - d664ea91-61c1-497e-98bf-7ed6b1eb5b5f
+        status: 200 OK
+        code: 200
+        duration: 107.458825ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:06:06 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - be7ec4ac-ec9b-443c-9a09-35043acb5ebd
+        status: 200 OK
+        code: 200
+        duration: 150.907744ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:06:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 885703c1-31d3-40e9-8f0c-7a5c31fdcd86
+        status: 200 OK
+        code: 200
+        duration: 129.172257ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:06:36 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 711e1418-6928-44c4-b1c5-235172bdc9d3
+        status: 200 OK
+        code: 200
+        duration: 101.489139ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:06:52 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 2c17fa8a-aae1-4efd-ae80-41ee081dd7f5
+        status: 200 OK
+        code: 200
+        duration: 137.257355ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:07:07 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 3b868590-a8e5-4ba9-bbda-f50cc145faeb
+        status: 200 OK
+        code: 200
+        duration: 133.772343ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1142
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1142"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:07:22 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - c48f4dd1-4dad-422d-af00-446ee457e0c0
+        status: 200 OK
+        code: 200
+        duration: 121.637984ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1417
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1417"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:07:37 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - c7053c04-f30d-41d8-9cd4-61ff6fac5da7
+        status: 200 OK
+        code: 200
+        duration: 94.442374ms
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1417
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":null, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1417"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:07:52 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - c4d6ef83-61eb-41ab-933c-7a7b71453520
+        status: 200 OK
+        code: 200
+        duration: 105.849256ms
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}, {"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1634
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}, {"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1634"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:07 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 73273889-ebc6-4f8f-9c75-a176bd0f44c9
+        status: 200 OK
+        code: 200
+        duration: 179.960723ms
+    - id: 14
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/endpoints/d4334547-5635-419e-852f-c04953d8f317
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 0
+        uncompressed: false
+        body: ""
+        headers:
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:08 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 2a9037ec-5d9c-44cf-9242-58740780532a
+        status: 204 No Content
+        code: 204
+        duration: 244.957573ms
+    - id: 15
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"configuring", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}, {"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1640
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"configuring", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"172.16.0.3", "port":5432, "name":null, "id":"d4334547-5635-419e-852f-c04953d8f317", "private_network":{"private_network_id":"9e503a2d-271e-459e-b385-c00779c3cb7e", "service_ip":"172.16.0.3/22", "zone":"fr-par-1", "provisioning_mode":"static"}}, {"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1640"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:08 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 56cc761f-642e-4c94-8118-cfcc88eda620
+        status: 200 OK
+        code: 200
+        duration: 152.908794ms
+    - id: 16
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1382
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1382"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:23 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 395fda0c-aaac-4034-81d7-bf61480aed1d
+        status: 200 OK
+        code: 200
+        duration: 416.361634ms
+    - id: 17
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1382
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1382"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:23 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 936c1c74-d8ac-43db-97a6-5d51247be9ef
+        status: 200 OK
+        code: 200
+        duration: 131.634639ms
+    - id: 18
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1385
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1385"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:24 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 79cf7740-4b2f-4a7a-8c6d-5812bc8514ac
+        status: 200 OK
+        code: 200
+        duration: 311.819568ms
+    - id: 19
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1385
+        uncompressed: false
+        body: '{"id":"17163811-ec58-4ce9-952c-36bcacf7d2ee", "name":"cli-test", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "engine":"PostgreSQL-15", "upgradable_version":[{"id":"1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d", "name":"PostgreSQL-16", "version":"16", "minor_version":"16.9"}], "endpoint":{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}, "tags":[], "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem", "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers", "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem", "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false, "next_run_at":"2025-07-25T09:05:20.600148Z"}, "is_ha_cluster":false, "read_replicas":[], "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"}, "init_settings":[], "endpoints":[{"ip":"51.159.75.144", "port":1469, "name":null, "id":"d6307ccf-f3b5-4c03-b7c5-bcc46388ab13", "load_balancer":{}}], "logs_policy":{"max_age_retention":30, "total_disk_retention":null}, "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false}, "created_at":"2025-07-24T09:05:20.600148Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1385"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:24 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - d71db07d-14c0-433f-b887-ba0aa98cc39f
+        status: 200 OK
+        code: 200
+        duration: 122.303587ms
+    - id: 20
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"message":"resource is not found","resource":"instance","resource_id":"17163811-ec58-4ce9-952c-36bcacf7d2ee","type":"not_found"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/17163811-ec58-4ce9-952c-36bcacf7d2ee
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 129
+        uncompressed: false
+        body: '{"message":"resource is not found","resource":"instance","resource_id":"17163811-ec58-4ce9-952c-36bcacf7d2ee","type":"not_found"}'
+        headers:
+            Content-Length:
+                - "129"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:39 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 7188e760-3123-4404-921b-de2360261e0b
+        status: 404 Not Found
+        code: 404
+        duration: 102.270265ms
+    - id: 21
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"message":"internal error"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/9e503a2d-271e-459e-b385-c00779c3cb7e
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 28
+        uncompressed: false
+        body: '{"message":"internal error"}'
+        headers:
+            Content-Length:
+                - "28"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:44 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - b684e01d-a7d5-4768-89df-647d4758443b
+        status: 500 Internal Server Error
+        code: 500
+        duration: 5.074677198s
+    - id: 22
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/9e503a2d-271e-459e-b385-c00779c3cb7e
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 0
+        uncompressed: false
+        body: ""
+        headers:
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:08:52 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - c3187f99-dced-45e7-b2c6-32c7cbb36359
+        status: 204 No Content
+        code: 204
+        duration: 2.613791964s

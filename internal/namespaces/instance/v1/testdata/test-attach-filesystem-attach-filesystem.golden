@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Server.ID                          e127680a-3606-4118-b785-d76e87c16931
-Server.Name                        cli-srv-eager-tereshkova
-Server.Organization                d3520a52-2c75-4ba0-bda8-82dd087f07f2
-Server.Project                     d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Server.ID                          24b7ff60-3486-45d8-9ac2-954b40f64e1a
+Server.Name                        cli-srv-heuristic-bose
+Server.Organization                fa1e3217-dc80-42ac-85c3-3f034b78b552
+Server.Project                     fa1e3217-dc80-42ac-85c3-3f034b78b552
 Server.AllowedActions.0            poweron
 Server.AllowedActions.1            backup
 Server.CommercialType              POP2-2C-8G
@@ -11,8 +11,8 @@ Server.CreationDate                few seconds ago
 Server.DynamicIPRequired           false
 Server.RoutedIPEnabled             true
 Server.EnableIPv6                  false
-Server.Hostname                    cli-srv-eager-tereshkova
-Server.Image.ID                    63d40353-5519-46d0-9172-ccf4885954e1
+Server.Hostname                    cli-srv-heuristic-bose
+Server.Image.ID                    a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
 Server.Image.Name                  Ubuntu 22.04 Jammy Jellyfish
 Server.Image.Arch                  x86_64
 Server.Image.CreationDate          few seconds ago
@@ -21,34 +21,34 @@ Server.Image.ExtraVolumes          0
 Server.Image.FromServer            -
 Server.Image.Organization          51b656e3-4865-41e8-adbc-0c45bdd780db
 Server.Image.Public                true
-Server.Image.RootVolume            905845fc-a6eb-4401-8e9d-5810071b7119
+Server.Image.RootVolume            8ce605f7-c1f9-4f32-a8c1-976d0a977ad2
 Server.Image.State                 available
 Server.Image.Project               51b656e3-4865-41e8-adbc-0c45bdd780db
 Server.Image.Zone                  fr-par-1
 Server.Protected                   false
-Server.MacAddress                  de:00:00:b5:91:c3
+Server.MacAddress                  de:00:00:c0:c4:ff
 Server.ModificationDate            few seconds ago
 Server.State                       archived
 Server.BootType                    local
-Server.Volumes.0.ID                26f21c8e-6de6-443e-8d64-d039c9e2dfa6
+Server.Volumes.0.ID                b7f8f3be-5596-4caf-95e4-57860fa2ce45
 Server.Volumes.0.VolumeType        sbs_volume
 Server.Volumes.0.Boot              false
 Server.Volumes.0.Zone              fr-par-1
-Server.SecurityGroup.ID            1c1fc99f-b2de-408d-9eb0-da801a3e2744
+Server.SecurityGroup.ID            da505169-540e-4c2b-b0da-c854139224e0
 Server.SecurityGroup.Name          Default security group
 Server.StateDetail                 -
 Server.Arch                        x86_64
 Server.Zone                        fr-par-1
-Server.Filesystems.0.FilesystemID  aab9e768-c1e9-407a-829c-4be5a38787dd
+Server.Filesystems.0.FilesystemID  47e942af-0861-4b17-8823-9d63318833ed
 Server.Filesystems.0.State         available
 Server.EndOfService                false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "server": {
-    "id": "e127680a-3606-4118-b785-d76e87c16931",
-    "name": "cli-srv-eager-tereshkova",
-    "organization": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-    "project": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+    "id": "24b7ff60-3486-45d8-9ac2-954b40f64e1a",
+    "name": "cli-srv-heuristic-bose",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "allowed_actions": [
       "poweron",
       "backup"
@@ -59,9 +59,9 @@ Server.EndOfService                false
     "dynamic_ip_required": false,
     "routed_ip_enabled": true,
     "enable_ipv6": false,
-    "hostname": "cli-srv-eager-tereshkova",
+    "hostname": "cli-srv-heuristic-bose",
     "image": {
-      "id": "63d40353-5519-46d0-9172-ccf4885954e1",
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
       "name": "Ubuntu 22.04 Jammy Jellyfish",
       "arch": "x86_64",
       "creation_date": "1970-01-01T00:00:00.0Z",
@@ -72,7 +72,7 @@ Server.EndOfService                false
       "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
       "public": true,
       "root_volume": {
-        "id": "905845fc-a6eb-4401-8e9d-5810071b7119",
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
         "name": "",
         "size": 0,
         "volume_type": "sbs_snapshot"
@@ -86,7 +86,7 @@ Server.EndOfService                false
     "private_ip": null,
     "public_ip": null,
     "public_ips": [],
-    "mac_address": "de:00:00:b5:91:c3",
+    "mac_address": "de:00:00:c0:c4:ff",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "state": "stopped",
     "location": null,
@@ -94,7 +94,7 @@ Server.EndOfService                false
     "boot_type": "local",
     "volumes": {
       "0": {
-        "id": "26f21c8e-6de6-443e-8d64-d039c9e2dfa6",
+        "id": "b7f8f3be-5596-4caf-95e4-57860fa2ce45",
         "name": null,
         "export_uri": null,
         "organization": null,
@@ -110,7 +110,7 @@ Server.EndOfService                false
       }
     },
     "security_group": {
-      "id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744",
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
       "name": "Default security group"
     },
     "maintenances": [],
@@ -123,7 +123,7 @@ Server.EndOfService                false
     "admin_password_encrypted_value": null,
     "filesystems": [
       {
-        "filesystem_id": "aab9e768-c1e9-407a-829c-4be5a38787dd",
+        "filesystem_id": "47e942af-0861-4b17-8823-9d63318833ed",
         "state": "available"
       }
     ],

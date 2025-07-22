@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                            ce7ee10c-e95f-4b82-834e-ab24b65c427d
-Name                          cli-srv-practical-hellman
+ID                            ec010721-c229-46e8-aaca-4fdcee9904eb
+Name                          cli-srv-nervous-haibt
 Organization                  fa1e3217-dc80-42ac-85c3-3f034b78b552
 Project                       fa1e3217-dc80-42ac-85c3-3f034b78b552
 AllowedActions.0              poweron
@@ -11,8 +11,8 @@ CreationDate                  few seconds ago
 DynamicIPRequired             true
 RoutedIPEnabled               true
 EnableIPv6                    false
-Hostname                      cli-srv-practical-hellman
-Image.ID                      19714912-ac22-40a6-8dd1-27cd53fd15b0
+Hostname                      cli-srv-nervous-haibt
+Image.ID                      58b9137c-8a05-4439-a90c-1078ec250e12
 Image.Name                    Ubuntu Jammy GPU OS 12 passthrough
 Image.Arch                    x86_64
 Image.CreationDate            few seconds ago
@@ -21,42 +21,42 @@ Image.ExtraVolumes            0
 Image.FromServer              -
 Image.Organization            51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Public                  true
-Image.RootVolume              ca415be5-cb15-4433-b385-432836fb3aaa
+Image.RootVolume              668bad03-3832-4b04-ad8e-39efd00332b4
 Image.State                   available
 Image.Project                 51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone                    fr-par-2
 Protected                     false
-PublicIP.ID                   05e01d7d-9e80-4ab4-a020-3ffbee31f1bb
-PublicIP.Address              51.159.188.208
+PublicIP.ID                   06d6e709-fa7e-46cc-87bc-dd653caf39ba
+PublicIP.Address              51.159.133.226
 PublicIP.Gateway              62.210.0.1
 PublicIP.Netmask              32
 PublicIP.Family               inet
 PublicIP.Dynamic              false
 PublicIP.ProvisioningMode     dhcp
-PublicIP.IpamID               5f027cbe-2fff-4a89-b30e-e7bd0de832a9
+PublicIP.IpamID               408b6940-eb5d-41c5-8b12-e55609c60e8d
 PublicIP.State                attached
-PublicIPs.0.ID                05e01d7d-9e80-4ab4-a020-3ffbee31f1bb
-PublicIPs.0.Address           51.159.188.208
+PublicIPs.0.ID                06d6e709-fa7e-46cc-87bc-dd653caf39ba
+PublicIPs.0.Address           51.159.133.226
 PublicIPs.0.Gateway           62.210.0.1
 PublicIPs.0.Netmask           32
 PublicIPs.0.Family            inet
 PublicIPs.0.Dynamic           false
 PublicIPs.0.ProvisioningMode  dhcp
-PublicIPs.0.IpamID            5f027cbe-2fff-4a89-b30e-e7bd0de832a9
+PublicIPs.0.IpamID            408b6940-eb5d-41c5-8b12-e55609c60e8d
 PublicIPs.0.State             attached
-MacAddress                    de:00:00:78:9e:13
+MacAddress                    de:00:00:80:c1:19
 ModificationDate              few seconds ago
 State                         archived
 BootType                      local
-Volumes.0.ID                  3897febc-66eb-4ef9-b8c3-5d04a4896425
+Volumes.0.ID                  f80f837b-4019-4415-9bf2-d1076441c3ca
 Volumes.0.VolumeType          sbs_volume
 Volumes.0.Boot                false
 Volumes.0.Zone                fr-par-2
-Volumes.1.ID                  34e1f7fa-7c94-494a-a14d-32e684d8476e
-Volumes.1.Name                cli-srv-practical-hellman-1
+Volumes.1.ID                  60dfc56e-a945-412f-a166-06f97049eb16
+Volumes.1.Name                cli-srv-nervous-haibt-1
 Volumes.1.Organization        fa1e3217-dc80-42ac-85c3-3f034b78b552
-Volumes.1.Server.ID           ce7ee10c-e95f-4b82-834e-ab24b65c427d
-Volumes.1.Server.Name         cli-srv-practical-hellman
+Volumes.1.Server.ID           ec010721-c229-46e8-aaca-4fdcee9904eb
+Volumes.1.Server.Name         cli-srv-nervous-haibt
 Volumes.1.Size                3.0 TB
 Volumes.1.VolumeType          scratch
 Volumes.1.CreationDate        few seconds ago
@@ -65,7 +65,7 @@ Volumes.1.State               available
 Volumes.1.Project             fa1e3217-dc80-42ac-85c3-3f034b78b552
 Volumes.1.Boot                false
 Volumes.1.Zone                fr-par-2
-SecurityGroup.ID              38c2964c-b7f1-4586-acca-4b2d33231b6c
+SecurityGroup.ID              22961510-2391-4fc7-83bd-d4c9d2d5c7fd
 SecurityGroup.Name            Default security group
 StateDetail                   -
 Arch                          x86_64
@@ -73,8 +73,8 @@ Zone                          fr-par-2
 EndOfService                  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "ce7ee10c-e95f-4b82-834e-ab24b65c427d",
-  "name": "cli-srv-practical-hellman",
+  "id": "ec010721-c229-46e8-aaca-4fdcee9904eb",
+  "name": "cli-srv-nervous-haibt",
   "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
@@ -87,9 +87,9 @@ EndOfService                  false
   "dynamic_ip_required": true,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-practical-hellman",
+  "hostname": "cli-srv-nervous-haibt",
   "image": {
-    "id": "19714912-ac22-40a6-8dd1-27cd53fd15b0",
+    "id": "58b9137c-8a05-4439-a90c-1078ec250e12",
     "name": "Ubuntu Jammy GPU OS 12 passthrough",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -100,7 +100,7 @@ EndOfService                  false
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "ca415be5-cb15-4433-b385-432836fb3aaa",
+      "id": "668bad03-3832-4b04-ad8e-39efd00332b4",
       "name": "",
       "size": 0,
       "volume_type": "sbs_snapshot"
@@ -113,32 +113,32 @@ EndOfService                  false
   "protected": false,
   "private_ip": null,
   "public_ip": {
-    "id": "05e01d7d-9e80-4ab4-a020-3ffbee31f1bb",
-    "address": "51.159.188.208",
+    "id": "06d6e709-fa7e-46cc-87bc-dd653caf39ba",
+    "address": "51.159.133.226",
     "gateway": "62.210.0.1",
     "netmask": "32",
     "family": "inet",
     "dynamic": false,
     "provisioning_mode": "dhcp",
     "tags": [],
-    "ipam_id": "5f027cbe-2fff-4a89-b30e-e7bd0de832a9",
+    "ipam_id": "408b6940-eb5d-41c5-8b12-e55609c60e8d",
     "state": "attached"
   },
   "public_ips": [
     {
-      "id": "05e01d7d-9e80-4ab4-a020-3ffbee31f1bb",
-      "address": "51.159.188.208",
+      "id": "06d6e709-fa7e-46cc-87bc-dd653caf39ba",
+      "address": "51.159.133.226",
       "gateway": "62.210.0.1",
       "netmask": "32",
       "family": "inet",
       "dynamic": false,
       "provisioning_mode": "dhcp",
       "tags": [],
-      "ipam_id": "5f027cbe-2fff-4a89-b30e-e7bd0de832a9",
+      "ipam_id": "408b6940-eb5d-41c5-8b12-e55609c60e8d",
       "state": "attached"
     }
   ],
-  "mac_address": "de:00:00:78:9e:13",
+  "mac_address": "de:00:00:80:c1:19",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -146,7 +146,7 @@ EndOfService                  false
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "3897febc-66eb-4ef9-b8c3-5d04a4896425",
+      "id": "f80f837b-4019-4415-9bf2-d1076441c3ca",
       "name": null,
       "export_uri": null,
       "organization": null,
@@ -161,13 +161,13 @@ EndOfService                  false
       "zone": "fr-par-2"
     },
     "1": {
-      "id": "34e1f7fa-7c94-494a-a14d-32e684d8476e",
-      "name": "cli-srv-practical-hellman-1",
+      "id": "60dfc56e-a945-412f-a166-06f97049eb16",
+      "name": "cli-srv-nervous-haibt-1",
       "export_uri": null,
       "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "server": {
-        "id": "ce7ee10c-e95f-4b82-834e-ab24b65c427d",
-        "name": "cli-srv-practical-hellman"
+        "id": "ec010721-c229-46e8-aaca-4fdcee9904eb",
+        "name": "cli-srv-nervous-haibt"
       },
       "size": 3000000000000,
       "volume_type": "scratch",
@@ -180,7 +180,7 @@ EndOfService                  false
     }
   },
   "security_group": {
-    "id": "38c2964c-b7f1-4586-acca-4b2d33231b6c",
+    "id": "22961510-2391-4fc7-83bd-d4c9d2d5c7fd",
     "name": "Default security group"
   },
   "maintenances": [],

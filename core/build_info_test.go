@@ -37,7 +37,7 @@ func Test_CheckVersion(t *testing.T) {
 				t.Helper()
 				assert.Equal(
 					t,
-					"A new version of scw is available (2.5.4), beware that you are currently running 1.20.0\n",
+					"A new version of scw is available (2.42.0), beware that you are currently running 1.20.0\n",
 					ctx.LogBuffer,
 				)
 			},
@@ -104,7 +104,7 @@ func Test_CheckVersion(t *testing.T) {
 				assert.Contains(
 					t,
 					ctx.LogBuffer,
-					"A new version of scw is available (2.5.4), beware that you are currently running 1.0.0\n",
+					"A new version of scw is available (2.42.0), beware that you are currently running 1.0.0\n",
 				)
 			},
 		),

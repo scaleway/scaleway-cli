@@ -1,6 +1,7 @@
-🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Your application is now available at https://clitctnrdeploysnaeu9odv-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud
-
-🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-"Your application is now available at https://clitctnrdeploysnaeu9odv-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud\n"
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Task 4 "Building image" failed: could not build image: error during connect: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.47/build?buildargs=null&cachefrom=null&cgroupparent=&cpuperiod=0&cpuquota=0&cpusetcpus=&cpusetmems=&cpushares=0&dockerfile=Dockerfile&labels=null&memory=0&memswap=0&networkmode=&rm=0&shmsize=0&t=rg.fr-par.scw.cloud%2Ffuncscwclitctnrdeploys2inwmgru%2Fcli-t-ctnr-deploy-s%3Alatest&target=&ulimits=null&version=": parse "http://%2Fvar%2Frun%2Fdocker.sock/v1.47/build?buildargs=null&cachefrom=null&cgroupparent=&cpuperiod=0&cpuquota=0&cpusetcpus=&cpusetmems=&cpushares=0&dockerfile=Dockerfile&labels=null&memory=0&memswap=0&networkmode=&rm=0&shmsize=0&t=rg.fr-par.scw.cloud%2Ffuncscwclitctnrdeploys2inwmgru%2Fcli-t-ctnr-deploy-s%3Alatest&target=&ulimits=null&version=": invalid URL escape "%2F"
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "task 4 \"Building image\" failed: could not build image: error during connect: Post \"http://%2Fvar%2Frun%2Fdocker.sock/v1.47/build?buildargs=null\u0026cachefrom=null\u0026cgroupparent=\u0026cpuperiod=0\u0026cpuquota=0\u0026cpusetcpus=\u0026cpusetmems=\u0026cpushares=0\u0026dockerfile=Dockerfile\u0026labels=null\u0026memory=0\u0026memswap=0\u0026networkmode=\u0026rm=0\u0026shmsize=0\u0026t=rg.fr-par.scw.cloud%2Ffuncscwclitctnrdeploys2inwmgru%2Fcli-t-ctnr-deploy-s%3Alatest\u0026target=\u0026ulimits=null\u0026version=\": parse \"http://%2Fvar%2Frun%2Fdocker.sock/v1.47/build?buildargs=null\u0026cachefrom=null\u0026cgroupparent=\u0026cpuperiod=0\u0026cpuquota=0\u0026cpusetcpus=\u0026cpusetmems=\u0026cpushares=0\u0026dockerfile=Dockerfile\u0026labels=null\u0026memory=0\u0026memswap=0\u0026networkmode=\u0026rm=0\u0026shmsize=0\u0026t=rg.fr-par.scw.cloud%2Ffuncscwclitctnrdeploys2inwmgru%2Fcli-t-ctnr-deploy-s%3Alatest\u0026target=\u0026ulimits=null\u0026version=\": invalid URL escape \"%2F\""
+}

@@ -1,20 +1,48 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Name                                      Creation Date
-cli-test-bucket-list-8501647004036398711  few seconds ago
-cli-test-bucket-list-9206072663127448888  few seconds ago
+cli-test-bucket-list-5522396867074744129  few seconds ago
+cli-test-bucket-list-6241634617310405142  few seconds ago
+kops-images                               few seconds ago
+kops-images-testing                       few seconds ago
+kops-state-store                          few seconds ago
+kops-state-store-testing                  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2024-04-30T16:43:46Z",
-    "Name": "cli-test-bucket-list-8501647004036398711"
+    "CreationDate": "2025-07-22T15:54:56Z",
+    "Name": "cli-test-bucket-list-5522396867074744129"
   },
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2024-04-30T16:43:46Z",
-    "Name": "cli-test-bucket-list-9206072663127448888"
+    "CreationDate": "2025-07-22T15:54:51Z",
+    "Name": "cli-test-bucket-list-6241634617310405142"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2022-09-02T13:09:05Z",
+    "Name": "kops-images"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2023-09-08T12:47:47Z",
+    "Name": "kops-images-testing"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2022-09-02T12:39:16Z",
+    "Name": "kops-state-store"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2023-03-10T13:24:03Z",
+    "Name": "kops-state-store-testing"
   }
 ]

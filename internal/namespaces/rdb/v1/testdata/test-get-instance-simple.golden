@@ -2,25 +2,25 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          ee17644d-8d1c-4fc1-86db-3ad64dd8e2dd
+ID                          832ad97d-4302-4286-86a1-aa5c73db9da2
 Name                        cli-test
-OrganizationID              5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID                   5ebc0159-7cb7-406c-9521-9347d1987fb2
+OrganizationID              fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                   fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status                      ready
-Engine                      PostgreSQL-15
+Engine                      PostgreSQL-16
 IsHaCluster                 false
 NodeType                    db-dev-s
-Endpoints.0.ID              737d3510-55ac-475d-9adc-ab0ddc56a9f6
-Endpoints.0.IP              51.159.8.181
-Endpoints.0.Port            27851
+Endpoints.0.ID              bca43e88-26b0-40a5-a051-c3212ca18669
+Endpoints.0.IP              51.159.75.144
+Endpoints.0.Port            16512
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 Encryption.Enabled          false
 
 Endpoint:
-ID    737d3510-55ac-475d-9adc-ab0ddc56a9f6
-IP    51.159.8.181
-Port  27851
+ID    bca43e88-26b0-40a5-a051-c3212ca18669
+IP    51.159.75.144
+Port  16512
 
 Volume:
 Type   lssd
@@ -44,7 +44,7 @@ work_mem                         4
 
 ACLs:
 IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  27851  tcp       inbound    allow   Allow All
+0.0.0.0/0  16512  tcp       inbound    allow   Allow All
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -54,17 +54,17 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "ee17644d-8d1c-4fc1-86db-3ad64dd8e2dd",
+  "id": "832ad97d-4302-4286-86a1-aa5c73db9da2",
   "name": "cli-test",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
-  "engine": "PostgreSQL-15",
+  "engine": "PostgreSQL-16",
   "upgradable_version": [],
   "endpoint": {
-    "id": "737d3510-55ac-475d-9adc-ab0ddc56a9f6",
-    "ip": "51.159.8.181",
-    "port": 27851,
+    "id": "bca43e88-26b0-40a5-a051-c3212ca18669",
+    "ip": "51.159.75.144",
+    "port": 16512,
     "name": null,
     "load_balancer": {}
   },
@@ -107,9 +107,9 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
   "init_settings": [],
   "endpoints": [
     {
-      "id": "737d3510-55ac-475d-9adc-ab0ddc56a9f6",
-      "ip": "51.159.8.181",
-      "port": 27851,
+      "id": "bca43e88-26b0-40a5-a051-c3212ca18669",
+      "ip": "51.159.75.144",
+      "port": 16512,
       "name": null,
       "load_balancer": {}
     }
@@ -126,7 +126,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
   "acls": [
     {
       "ip": "0.0.0.0/0",
-      "port": 27851,
+      "port": 16512,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",

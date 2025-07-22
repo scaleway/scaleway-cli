@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         a2844e21-3cf0-42a3-bab0-194ff3ddcae4
-Name                                       cli-test-quirky-northcutt
-NamespaceID                                213fb58c-6b93-4713-94db-f747a8b2e400
+ID                                         5271d03d-7261-44c2-a3dd-45108c165ffa
+Name                                       cli-test-tender-noyce
+NamespaceID                                7ba34dbe-5cc5-43c0-ab56-9d8ec1754e05
 Status                                     pending
 MinScale                                   0
 MaxScale                                   5
@@ -11,9 +11,9 @@ CPULimit                                   1000
 Timeout                                    5 minutes
 Privacy                                    public
 Description                                -
-RegistryImage                              rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest
+RegistryImage                              rg.fr-par.scw.cloud/funcscwclicnsblissfulwuyumgjd1h/cli-test-tender-noyce:latest
 MaxConcurrency                             50
-DomainName                                 clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud
+DomainName                                 clicnsblissfulwuyumgjd1h-cli-test-tender-noyce.functions.fnc.fr-par.scw.cloud
 Protocol                                   http1
 Port                                       8080
 HTTPOption                                 enabled
@@ -27,9 +27,9 @@ UpdatedAt                                  few seconds ago
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "a2844e21-3cf0-42a3-bab0-194ff3ddcae4",
-  "name": "cli-test-quirky-northcutt",
-  "namespace_id": "213fb58c-6b93-4713-94db-f747a8b2e400",
+  "id": "5271d03d-7261-44c2-a3dd-45108c165ffa",
+  "name": "cli-test-tender-noyce",
+  "namespace_id": "7ba34dbe-5cc5-43c0-ab56-9d8ec1754e05",
   "status": "pending",
   "environment_variables": {},
   "min_scale": 0,
@@ -40,9 +40,9 @@ Region                                     fr-par
   "error_message": null,
   "privacy": "public",
   "description": "",
-  "registry_image": "rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest",
+  "registry_image": "rg.fr-par.scw.cloud/funcscwclicnsblissfulwuyumgjd1h/cli-test-tender-noyce:latest",
   "max_concurrency": 50,
-  "domain_name": "clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clicnsblissfulwuyumgjd1h-cli-test-tender-noyce.functions.fnc.fr-par.scw.cloud",
   "protocol": "http1",
   "port": 8080,
   "secret_environment_variables": [],
@@ -63,6 +63,6 @@ Region                                     fr-par
   "region": "fr-par",
   "tags": [],
   "private_network_id": null,
-  "command": null,
-  "args": null
+  "command": [],
+  "args": []
 }

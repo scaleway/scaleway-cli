@@ -1,6 +1,7 @@
-🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Your application is now available at https://clitctnrdeploybpxovfnujd-cli-t-ctnr-deploy-bp.functions.fnc.fr-par.scw.cloud
-
-🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-"Your application is now available at https://clitctnrdeploybpxovfnujd-cli-t-ctnr-deploy-bp.functions.fnc.fr-par.scw.cloud\n"
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Task 3 "Building image" failed: could not build: failed to fetch builder image 'index.docker.io/paketobuildpacks/builder-jammy-base:latest': error during connect: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.47/images/create?fromImage=paketobuildpacks%2Fbuilder-jammy-base&tag=latest": parse "http://%2Fvar%2Frun%2Fdocker.sock/v1.47/images/create?fromImage=paketobuildpacks%2Fbuilder-jammy-base&tag=latest": invalid URL escape "%2F"
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "task 3 \"Building image\" failed: could not build: failed to fetch builder image 'index.docker.io/paketobuildpacks/builder-jammy-base:latest': error during connect: Post \"http://%2Fvar%2Frun%2Fdocker.sock/v1.47/images/create?fromImage=paketobuildpacks%2Fbuilder-jammy-base\u0026tag=latest\": parse \"http://%2Fvar%2Frun%2Fdocker.sock/v1.47/images/create?fromImage=paketobuildpacks%2Fbuilder-jammy-base\u0026tag=latest\": invalid URL escape \"%2F\""
+}

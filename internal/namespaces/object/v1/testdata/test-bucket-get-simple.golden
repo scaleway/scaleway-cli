@@ -5,11 +5,11 @@ Region            fr-par
 APIEndpoint       https://s3.fr-par.scw.cloud
 BucketEndpoint    https://cli-test-bucket-get-.s3.fr-par.scw.cloud
 EnableVersioning  false
-Owner             105bdce1-64c0-48ab-899d-868455867ecf
+Owner             fa1e3217-dc80-42ac-85c3-3f034b78b552
 
 Acl:
 GRANTEE                               PERMISSION
-105bdce1-64c0-48ab-899d-868455867ecf  FULL_CONTROL
+fa1e3217-dc80-42ac-85c3-3f034b78b552  FULL_CONTROL
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ID": "cli-test-bucket-get-",
@@ -20,11 +20,11 @@ GRANTEE                               PERMISSION
   "Tags": null,
   "ACL": [
     {
-      "Grantee": "105bdce1-64c0-48ab-899d-868455867ecf",
+      "Grantee": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
       "Permission": "FULL_CONTROL"
     }
   ],
-  "Owner": "105bdce1-64c0-48ab-899d-868455867ecf",
+  "Owner": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "Size": null,
   "NbObjects": null,
   "NbParts": null

@@ -2,32 +2,36 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                                    few seconds ago
 Region                                       fr-par
-ID                                           5a9a79b2-6e76-40ab-a26e-d6bffabd68e0
+ID                                           e41bd693-e620-466b-91b3-c887339e51ef
 Name                                         cli-test
-OrganizationID                               5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID                                    5ebc0159-7cb7-406c-9521-9347d1987fb2
+OrganizationID                               fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                                    fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status                                       ready
 Engine                                       PostgreSQL-15
+UpgradableVersion.0.ID                       1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d
+UpgradableVersion.0.Name                     PostgreSQL-16
+UpgradableVersion.0.Version                  16
+UpgradableVersion.0.MinorVersion             16.9
 IsHaCluster                                  false
 NodeType                                     db-dev-s
-Endpoints.0.ID                               ed060d32-1ae4-4a7d-9b37-9502a5a9b4ba
+Endpoints.0.ID                               848aa7e6-b2d1-493e-a3e6-145be3a9ab03
 Endpoints.0.IP                               172.16.0.3
 Endpoints.0.Port                             5432
-Endpoints.0.PrivateNetwork.PrivateNetworkID  d11983de-bfca-49b3-9f1a-311153d6d80f
+Endpoints.0.PrivateNetwork.PrivateNetworkID  4030b706-aaae-4c32-8cd9-4d5f082879cb
 Endpoints.0.PrivateNetwork.ServiceIP         172.16.0.3/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
 Endpoints.0.PrivateNetwork.ProvisioningMode  static
-Endpoints.1.ID                               efc7ca3b-9f17-41cc-9cdf-bebb5415748d
-Endpoints.1.IP                               51.159.8.181
-Endpoints.1.Port                             14800
+Endpoints.1.ID                               bc22c03d-0644-4909-993d-2099e82154ba
+Endpoints.1.IP                               51.159.8.143
+Endpoints.1.Port                             25430
 LogsPolicy.MaxAgeRetention                   30
 BackupSameRegion                             false
 Encryption.Enabled                           false
 
 Endpoint:
-ID    efc7ca3b-9f17-41cc-9cdf-bebb5415748d
-IP    51.159.8.181
-Port  14800
+ID    bc22c03d-0644-4909-993d-2099e82154ba
+IP    51.159.8.143
+Port  25430
 
 Volume:
 Type   lssd
@@ -60,17 +64,24 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "5a9a79b2-6e76-40ab-a26e-d6bffabd68e0",
+  "id": "e41bd693-e620-466b-91b3-c887339e51ef",
   "name": "cli-test",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
   "engine": "PostgreSQL-15",
-  "upgradable_version": [],
+  "upgradable_version": [
+    {
+      "id": "1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d",
+      "name": "PostgreSQL-16",
+      "version": "16",
+      "minor_version": "16.9"
+    }
+  ],
   "endpoint": {
-    "id": "efc7ca3b-9f17-41cc-9cdf-bebb5415748d",
-    "ip": "51.159.8.181",
-    "port": 14800,
+    "id": "bc22c03d-0644-4909-993d-2099e82154ba",
+    "ip": "51.159.8.143",
+    "port": 25430,
     "name": null,
     "load_balancer": {}
   },
@@ -113,21 +124,21 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "ed060d32-1ae4-4a7d-9b37-9502a5a9b4ba",
+      "id": "848aa7e6-b2d1-493e-a3e6-145be3a9ab03",
       "ip": "172.16.0.3",
       "port": 5432,
       "name": null,
       "private_network": {
-        "private_network_id": "d11983de-bfca-49b3-9f1a-311153d6d80f",
+        "private_network_id": "4030b706-aaae-4c32-8cd9-4d5f082879cb",
         "service_ip": "172.16.0.3/22",
         "zone": "fr-par-1",
         "provisioning_mode": "static"
       }
     },
     {
-      "id": "efc7ca3b-9f17-41cc-9cdf-bebb5415748d",
-      "ip": "51.159.8.181",
-      "port": 14800,
+      "id": "bc22c03d-0644-4909-993d-2099e82154ba",
+      "ip": "51.159.8.143",
+      "port": 25430,
       "name": null,
       "load_balancer": {}
     }

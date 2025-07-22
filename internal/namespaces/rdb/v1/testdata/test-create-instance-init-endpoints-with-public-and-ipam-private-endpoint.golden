@@ -2,32 +2,36 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                                    few seconds ago
 Region                                       fr-par
-ID                                           7dcc0495-dd11-43d5-9b24-cde1900503e3
+ID                                           369d1095-7ee2-4e21-8378-ea23f31db25a
 Name                                         cli-test
-OrganizationID                               5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID                                    5ebc0159-7cb7-406c-9521-9347d1987fb2
+OrganizationID                               fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                                    fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status                                       ready
 Engine                                       PostgreSQL-15
+UpgradableVersion.0.ID                       1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d
+UpgradableVersion.0.Name                     PostgreSQL-16
+UpgradableVersion.0.Version                  16
+UpgradableVersion.0.MinorVersion             16.9
 IsHaCluster                                  false
 NodeType                                     db-dev-s
-Endpoints.0.ID                               ffce9c00-0a4f-44a7-a2ce-d41661290a14
-Endpoints.0.IP                               172.16.28.2
+Endpoints.0.ID                               60a96069-774a-4730-8905-113f25f2c6cb
+Endpoints.0.IP                               172.16.232.2
 Endpoints.0.Port                             5432
-Endpoints.0.PrivateNetwork.PrivateNetworkID  c3f95c45-66c1-4b17-aa69-ef8668792e00
-Endpoints.0.PrivateNetwork.ServiceIP         172.16.28.2/22
+Endpoints.0.PrivateNetwork.PrivateNetworkID  261f628f-abc8-4ce8-9fc5-379d37669557
+Endpoints.0.PrivateNetwork.ServiceIP         172.16.232.2/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
 Endpoints.0.PrivateNetwork.ProvisioningMode  ipam
-Endpoints.1.ID                               02229f84-eb4c-4ba6-a94a-f8f07131ae21
-Endpoints.1.IP                               195.154.70.203
-Endpoints.1.Port                             4837
+Endpoints.1.ID                               8d313f93-b1cb-4dc5-a018-ee62487608c7
+Endpoints.1.IP                               195.154.70.155
+Endpoints.1.Port                             3539
 LogsPolicy.MaxAgeRetention                   30
 BackupSameRegion                             false
 Encryption.Enabled                           false
 
 Endpoint:
-ID    02229f84-eb4c-4ba6-a94a-f8f07131ae21
-IP    195.154.70.203
-Port  4837
+ID    8d313f93-b1cb-4dc5-a018-ee62487608c7
+IP    195.154.70.155
+Port  3539
 
 Volume:
 Type   lssd
@@ -60,17 +64,24 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "7dcc0495-dd11-43d5-9b24-cde1900503e3",
+  "id": "369d1095-7ee2-4e21-8378-ea23f31db25a",
   "name": "cli-test",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
   "engine": "PostgreSQL-15",
-  "upgradable_version": [],
+  "upgradable_version": [
+    {
+      "id": "1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d",
+      "name": "PostgreSQL-16",
+      "version": "16",
+      "minor_version": "16.9"
+    }
+  ],
   "endpoint": {
-    "id": "02229f84-eb4c-4ba6-a94a-f8f07131ae21",
-    "ip": "195.154.70.203",
-    "port": 4837,
+    "id": "8d313f93-b1cb-4dc5-a018-ee62487608c7",
+    "ip": "195.154.70.155",
+    "port": 3539,
     "name": null,
     "load_balancer": {}
   },
@@ -113,21 +124,21 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "ffce9c00-0a4f-44a7-a2ce-d41661290a14",
-      "ip": "172.16.28.2",
+      "id": "60a96069-774a-4730-8905-113f25f2c6cb",
+      "ip": "172.16.232.2",
       "port": 5432,
       "name": null,
       "private_network": {
-        "private_network_id": "c3f95c45-66c1-4b17-aa69-ef8668792e00",
-        "service_ip": "172.16.28.2/22",
+        "private_network_id": "261f628f-abc8-4ce8-9fc5-379d37669557",
+        "service_ip": "172.16.232.2/22",
         "zone": "fr-par-1",
         "provisioning_mode": "ipam"
       }
     },
     {
-      "id": "02229f84-eb4c-4ba6-a94a-f8f07131ae21",
-      "ip": "195.154.70.203",
-      "port": 4837,
+      "id": "8d313f93-b1cb-4dc5-a018-ee62487608c7",
+      "ip": "195.154.70.155",
+      "port": 3539,
       "name": null,
       "load_balancer": {}
     }

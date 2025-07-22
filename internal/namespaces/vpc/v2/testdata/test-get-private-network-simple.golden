@@ -1,79 +1,79 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              3f26c4fe-061a-4b86-8b3b-07ab95c768c9
-Name                            cli-pn-serene-mendeleev
-OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ID                              330e4cc7-6ab3-4691-be41-192359831aab
+Name                            cli-pn-zen-cartwright
+OrganizationID                  fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                       fa1e3217-dc80-42ac-85c3-3f034b78b552
 Region                          fr-par
 CreatedAt                       few seconds ago
 UpdatedAt                       few seconds ago
-VpcID                           086a5171-f7ab-4667-a231-840a81203f19
+VpcID                           1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-2575fda0-e06c-4149-bcd1-274c76c7dcd8  few seconds ago  few seconds ago  172.16.52.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3f26c4fe-061a-4b86-8b3b-07ab95c768c9  086a5171-f7ab-4667-a231-840a81203f19
-5398d0ef-54a7-4037-81e0-a2835618fd37  few seconds ago  few seconds ago  fd46:78ab:30b8:83ca::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3f26c4fe-061a-4b86-8b3b-07ab95c768c9  086a5171-f7ab-4667-a231-840a81203f19
+aba00498-d6d4-4b8d-8b72-70f9c635fbc9  few seconds ago  few seconds ago  172.16.124.0/22           fa1e3217-dc80-42ac-85c3-3f034b78b552  330e4cc7-6ab3-4691-be41-192359831aab  1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
+f9ad1def-7cf2-4d13-bb73-71c18f909b36  few seconds ago  few seconds ago  fd63:256c:45f7:7c8d::/64  fa1e3217-dc80-42ac-85c3-3f034b78b552  330e4cc7-6ab3-4691-be41-192359831aab  1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
 
 Instance Servers:
-ID                                    NAME                       STATE     NIC ID                                MAC ADDRESS
-11d289ea-9848-4c72-b3da-eaba461d1828  cli-srv-wizardly-sinoussi  archived  bee0e62c-32ff-4efb-baec-5aca70dbfdba  02:00:00:11:07:cb
+ID                                    NAME                 STATE     NIC ID                                MAC ADDRESS
+4465f5d3-7846-4d63-bc77-e55b9455a8d0  cli-srv-angry-curie  archived  7c8a18e5-b5b1-4250-be33-423b33b79da2  02:00:00:1d:b8:b2
 
 IPAM IPs:
 ID                                    ADDRESS
-e8eee783-12e1-4753-83b9-a961add1cc33  fd46:78ab:30b8:83ca:5ec9:85b2:db69:4e78/64
-8347d6f5-f42d-44da-97ad-72f16d466e7e  172.16.52.2/22
+29e6debc-fce0-4cbd-9363-5b4c9ab37426  fd63:256c:45f7:7c8d:bcde:4f37:2181:673/64
+a8d0c03b-e6ac-4736-8562-ac395c50442d  172.16.124.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
-  "name": "cli-pn-serene-mendeleev",
-  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "id": "330e4cc7-6ab3-4691-be41-192359831aab",
+  "name": "cli-pn-zen-cartwright",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "2575fda0-e06c-4149-bcd1-274c76c7dcd8",
+      "id": "aba00498-d6d4-4b8d-8b72-70f9c635fbc9",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.52.0/22",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "subnet": "172.16.124.0/22",
+      "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "private_network_id": "330e4cc7-6ab3-4691-be41-192359831aab",
+      "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"
     },
     {
-      "id": "5398d0ef-54a7-4037-81e0-a2835618fd37",
+      "id": "f9ad1def-7cf2-4d13-bb73-71c18f909b36",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:83ca::/64",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "subnet": "fd63:256c:45f7:7c8d::/64",
+      "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "private_network_id": "330e4cc7-6ab3-4691-be41-192359831aab",
+      "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"
     }
   ],
-  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+  "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c",
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "11d289ea-9848-4c72-b3da-eaba461d1828",
-      "name": "cli-srv-wizardly-sinoussi",
+      "id": "4465f5d3-7846-4d63-bc77-e55b9455a8d0",
+      "name": "cli-srv-angry-curie",
       "state": "stopped",
-      "nic_id": "bee0e62c-32ff-4efb-baec-5aca70dbfdba",
-      "mac": "02:00:00:11:07:cb"
+      "nic_id": "7c8a18e5-b5b1-4250-be33-423b33b79da2",
+      "mac": "02:00:00:1d:b8:b2"
     }
   ],
   "ipam_ips": [
     {
-      "id": "e8eee783-12e1-4753-83b9-a961add1cc33",
-      "address": "fd46:78ab:30b8:83ca:5ec9:85b2:db69:4e78/64"
+      "id": "29e6debc-fce0-4cbd-9363-5b4c9ab37426",
+      "address": "fd63:256c:45f7:7c8d:bcde:4f37:2181:673/64"
     },
     {
-      "id": "8347d6f5-f42d-44da-97ad-72f16d466e7e",
-      "address": "172.16.52.2/22"
+      "id": "a8d0c03b-e6ac-4736-8562-ac395c50442d",
+      "address": "172.16.124.2/22"
     }
   ]
 }
