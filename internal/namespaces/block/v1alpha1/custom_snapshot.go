@@ -80,8 +80,9 @@ func blockSnapshotCreateBuilder(c *core.Command) *core.Command {
 		resp := respI.(*block.Snapshot)
 
 		return block.NewAPI(core.ExtractClient(ctx)).WaitForSnapshot(&block.WaitForSnapshotRequest{
-			SnapshotID: resp.ID,
-			Zone:       resp.Zone,
+			SnapshotID:    resp.ID,
+			Zone:          resp.Zone,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 
