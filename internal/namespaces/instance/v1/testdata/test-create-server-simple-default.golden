@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                      176d6dbb-af75-4587-8dea-04f0142b544f
-Name                    cli-srv-amazing-moser
+ID                      bb62966c-95bb-4499-8a20-50addb0dcf82
+Name                    cli-srv-infallible-stallman
 Organization            fa1e3217-dc80-42ac-85c3-3f034b78b552
 Project                 fa1e3217-dc80-42ac-85c3-3f034b78b552
 AllowedActions.0        poweron
@@ -11,7 +11,7 @@ CreationDate            few seconds ago
 DynamicIPRequired       false
 RoutedIPEnabled         true
 EnableIPv6              false
-Hostname                cli-srv-amazing-moser
+Hostname                cli-srv-infallible-stallman
 Image.ID                a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
 Image.Name              Ubuntu 22.04 Jammy Jellyfish
 Image.Arch              x86_64
@@ -26,11 +26,11 @@ Image.State             available
 Image.Project           51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone              fr-par-1
 Protected               false
-MacAddress              de:00:00:c0:79:f9
+MacAddress              de:00:00:c0:c4:5d
 ModificationDate        few seconds ago
 State                   archived
 BootType                local
-Volumes.0.ID            cf336ec6-93ff-45f6-acdd-3d9b880bc7fe
+Volumes.0.ID            ee288d24-9257-4fef-899a-151821aeefc0
 Volumes.0.VolumeType    sbs_volume
 Volumes.0.Boot          false
 Volumes.0.Zone          fr-par-1
@@ -42,8 +42,8 @@ Zone                    fr-par-1
 EndOfService            false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "176d6dbb-af75-4587-8dea-04f0142b544f",
-  "name": "cli-srv-amazing-moser",
+  "id": "bb62966c-95bb-4499-8a20-50addb0dcf82",
+  "name": "cli-srv-infallible-stallman",
   "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
@@ -56,7 +56,7 @@ EndOfService            false
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-amazing-moser",
+  "hostname": "cli-srv-infallible-stallman",
   "image": {
     "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
@@ -83,7 +83,7 @@ EndOfService            false
   "private_ip": null,
   "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:c0:79:f9",
+  "mac_address": "de:00:00:c0:c4:5d",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -91,7 +91,7 @@ EndOfService            false
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "cf336ec6-93ff-45f6-acdd-3d9b880bc7fe",
+      "id": "ee288d24-9257-4fef-899a-151821aeefc0",
       "name": null,
       "export_uri": null,
       "organization": null,

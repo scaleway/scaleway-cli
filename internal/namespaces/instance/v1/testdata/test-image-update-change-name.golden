@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Image.ID                4a2ad664-5840-499a-85f7-c71cb9a4bb81
+Image.ID                6fc43b32-ab60-440e-9a0e-cce581154760
 Image.Name              foo
 Image.Arch              x86_64
 Image.CreationDate      few seconds ago
@@ -9,14 +9,14 @@ Image.ExtraVolumes      0
 Image.FromServer        -
 Image.Organization      fa1e3217-dc80-42ac-85c3-3f034b78b552
 Image.Public            false
-Image.RootVolume        837a4f4d-e313-49da-9f23-7449baad69bc
+Image.RootVolume        453a5a54-51c7-4abe-a604-c3a0efd027f4
 Image.State             available
 Image.Project           fa1e3217-dc80-42ac-85c3-3f034b78b552
 Image.Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "4a2ad664-5840-499a-85f7-c71cb9a4bb81",
+    "id": "6fc43b32-ab60-440e-9a0e-cce581154760",
     "name": "foo",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -27,8 +27,8 @@ Image.Zone              fr-par-1
     "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "public": false,
     "root_volume": {
-      "id": "837a4f4d-e313-49da-9f23-7449baad69bc",
-      "name": "cli-snp-recursing-yonath",
+      "id": "453a5a54-51c7-4abe-a604-c3a0efd027f4",
+      "name": "cli-snp-quizzical-bardeen",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },

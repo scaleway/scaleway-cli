@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID               bf6aa732-12a9-44e7-a154-19f584a55fc4
-Name             cli-pg-hopeful-brahmagupta
+ID               a5af9b0e-aa19-4126-82f4-dc67fa368750
+Name             cli-pg-vigilant-wiles
 Organization     fa1e3217-dc80-42ac-85c3-3f034b78b552
 Project          fa1e3217-dc80-42ac-85c3-3f034b78b552
 PolicyMode       optional
@@ -10,8 +10,8 @@ PolicyRespected  true
 Zone             fr-par-1
 
 Placement Group:
-ID               bf6aa732-12a9-44e7-a154-19f584a55fc4
-Name             cli-pg-hopeful-brahmagupta
+ID               a5af9b0e-aa19-4126-82f4-dc67fa368750
+Name             cli-pg-vigilant-wiles
 Organization     fa1e3217-dc80-42ac-85c3-3f034b78b552
 Project          fa1e3217-dc80-42ac-85c3-3f034b78b552
 PolicyMode       optional
@@ -20,12 +20,12 @@ PolicyRespected  true
 Zone             fr-par-1
 
 Servers:
-ID                                    NAME                     POLICY RESPECTED
-0392e545-308f-4212-be9e-39c16684c6cf  cli-srv-jovial-goldberg  true
+ID                                    NAME                      POLICY RESPECTED
+7cd28822-d23f-4f77-8b73-9e23ad741261  cli-srv-vigilant-kapitsa  true
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "bf6aa732-12a9-44e7-a154-19f584a55fc4",
-  "name": "cli-pg-hopeful-brahmagupta",
+  "id": "a5af9b0e-aa19-4126-82f4-dc67fa368750",
+  "name": "cli-pg-vigilant-wiles",
   "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "tags": [],
@@ -35,8 +35,8 @@ ID                                    NAME                     POLICY RESPECTED
   "zone": "fr-par-1",
   "servers": [
     {
-      "id": "0392e545-308f-4212-be9e-39c16684c6cf",
-      "name": "cli-srv-jovial-goldberg",
+      "id": "7cd28822-d23f-4f77-8b73-9e23ad741261",
+      "name": "cli-srv-vigilant-kapitsa",
       "policy_respected": true
     }
   ]
