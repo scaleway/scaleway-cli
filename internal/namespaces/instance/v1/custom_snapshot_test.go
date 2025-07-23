@@ -14,7 +14,7 @@ func Test_UpdateSnapshot(t *testing.T) {
 		t.Run("Change tags", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				createVolume("Volume", 10, instanceSDK.VolumeVolumeTypeBSSD),
+				createNonEmptyLocalVolume("Volume", 10),
 				core.ExecStoreBeforeCmd(
 					"CreateSnapshot",
 					"scw instance snapshot create volume-id={{ .Volume.ID }} name=cli-test-snapshot-update-tags tags.0=foo tags.1=bar",
@@ -42,7 +42,7 @@ func Test_UpdateSnapshot(t *testing.T) {
 		t.Run("Change name", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
-				createVolume("Volume", 10, instanceSDK.VolumeVolumeTypeBSSD),
+				createNonEmptyLocalVolume("Volume", 10),
 				core.ExecStoreBeforeCmd(
 					"CreateSnapshot",
 					"scw instance snapshot create volume-id={{ .Volume.ID }} name=cli-test-snapshot-update-name tags.0=foo tags.1=bar",
