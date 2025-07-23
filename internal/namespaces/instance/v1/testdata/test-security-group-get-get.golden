@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Security Group:
-ID                     d02b80df-fee8-45ce-ab5c-e72249bd0791
-Name                   cli-sg-nice-khorana
+ID                     163141d1-6e3a-4791-831f-4dd776a94ef9
+Name                   cli-sg-fervent-darwin
 State                  available
 Description            -
 EnableDefaultSecurity  true
@@ -30,8 +30,8 @@ Servers:
 ID   NAME
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d02b80df-fee8-45ce-ab5c-e72249bd0791",
-  "name": "cli-sg-nice-khorana",
+  "id": "163141d1-6e3a-4791-831f-4dd776a94ef9",
+  "name": "cli-sg-fervent-darwin",
   "description": "",
   "enable_default_security": true,
   "inbound_default_policy": "accept",

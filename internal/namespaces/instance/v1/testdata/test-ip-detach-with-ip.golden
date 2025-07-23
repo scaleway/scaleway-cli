@@ -7,7 +7,7 @@ IP.Project       fa1e3217-dc80-42ac-85c3-3f034b78b552
 IP.Type          routed_ipv4
 IP.State         detached
 IP.Prefix        -
-IP.IpamID        7a02471c-d4cd-41dc-b30b-6b77f35259a1
+IP.IpamID        65698862-42f9-4cb6-89bd-a87ea3a16aa4
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
@@ -22,7 +22,7 @@ IP.Zone          fr-par-1
     "type": "routed_ipv4",
     "state": "detached",
     "prefix": "",
-    "ipam_id": "7a02471c-d4cd-41dc-b30b-6b77f35259a1",
+    "ipam_id": "65698862-42f9-4cb6-89bd-a87ea3a16aa4",
     "zone": "fr-par-1"
   }
 }

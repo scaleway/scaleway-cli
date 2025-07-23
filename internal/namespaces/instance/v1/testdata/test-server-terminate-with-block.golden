@@ -3,7 +3,7 @@
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 successfully deleted block volume "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0"
-successfully deleted block volume "cli-vol-great-hugle"
+successfully deleted block volume "cli-vol-cocky-hodgkin"
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",
