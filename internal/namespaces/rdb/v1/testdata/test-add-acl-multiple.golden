@@ -2,26 +2,26 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rule 1.2.3.4/32 successfully added.
 IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0   22312  tcp       inbound    allow   Allow All
-1.2.3.4/32  22312  tcp       inbound    allow   Allow 1.2.3.4/32
+0.0.0.0/0   27010  tcp       inbound    allow   Allow All
+1.2.3.4/32  27010  tcp       inbound    allow   Allow 1.2.3.4/32
 ✅ ACL rule 192.168.1.0/30 successfully added.
 IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       22312  tcp       inbound    allow   Allow All
-1.2.3.4/32      22312  tcp       inbound    allow   Allow 1.2.3.4/32
-192.168.1.0/30  22312  tcp       inbound    allow   Allow 192.168.1.0/30
+0.0.0.0/0       27010  tcp       inbound    allow   Allow All
+1.2.3.4/32      27010  tcp       inbound    allow   Allow 1.2.3.4/32
+192.168.1.0/30  27010  tcp       inbound    allow   Allow 192.168.1.0/30
 ✅ ACL rule 10.10.10.10/32 successfully added.
 IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       22312  tcp       inbound    allow   Allow All
-1.2.3.4/32      22312  tcp       inbound    allow   Allow 1.2.3.4/32
-10.10.10.10/32  22312  tcp       inbound    allow   Allow 10.10.10.10/32
-192.168.1.0/30  22312  tcp       inbound    allow   Allow 192.168.1.0/30
+0.0.0.0/0       27010  tcp       inbound    allow   Allow All
+1.2.3.4/32      27010  tcp       inbound    allow   Allow 1.2.3.4/32
+10.10.10.10/32  27010  tcp       inbound    allow   Allow 10.10.10.10/32
+192.168.1.0/30  27010  tcp       inbound    allow   Allow 192.168.1.0/30
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 22312,
+        "port": 27010,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -29,7 +29,7 @@ IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "1.2.3.4/32",
-        "port": 22312,
+        "port": 27010,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -45,7 +45,7 @@ IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 22312,
+        "port": 27010,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -53,7 +53,7 @@ IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "1.2.3.4/32",
-        "port": 22312,
+        "port": 27010,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -61,7 +61,7 @@ IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "192.168.1.0/30",
-        "port": 22312,
+        "port": 27010,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -77,7 +77,7 @@ IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 22312,
+        "port": 27010,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -85,7 +85,7 @@ IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "1.2.3.4/32",
-        "port": 22312,
+        "port": 27010,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -93,7 +93,7 @@ IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "10.10.10.10/32",
-        "port": 22312,
+        "port": 27010,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -101,7 +101,7 @@ IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "192.168.1.0/30",
-        "port": 22312,
+        "port": 27010,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",

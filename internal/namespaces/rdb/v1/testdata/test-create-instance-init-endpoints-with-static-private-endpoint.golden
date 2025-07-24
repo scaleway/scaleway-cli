@@ -2,18 +2,22 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                                    few seconds ago
 Region                                       fr-par
-ID                                           983f229a-3fa8-45b2-9835-97cae2c2d1cf
+ID                                           dfc60e5c-d31c-4eb6-8a4c-fd042f5bae2c
 Name                                         cli-test
-OrganizationID                               5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID                                    5ebc0159-7cb7-406c-9521-9347d1987fb2
+OrganizationID                               fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                                    fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status                                       ready
 Engine                                       PostgreSQL-15
+UpgradableVersion.0.ID                       1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d
+UpgradableVersion.0.Name                     PostgreSQL-16
+UpgradableVersion.0.Version                  16
+UpgradableVersion.0.MinorVersion             16.9
 IsHaCluster                                  false
 NodeType                                     db-dev-s
-Endpoints.0.ID                               985255dc-9b99-487a-93d8-4847c892df7a
+Endpoints.0.ID                               07ec17ff-ed9c-4f7c-989b-097df00e1483
 Endpoints.0.IP                               172.16.0.3
 Endpoints.0.Port                             5432
-Endpoints.0.PrivateNetwork.PrivateNetworkID  53fbd31b-aa1e-4e17-b6bd-cd807f9ba171
+Endpoints.0.PrivateNetwork.PrivateNetworkID  fc6e31d0-1b1d-4fec-8d62-165f57c93c17
 Endpoints.0.PrivateNetwork.ServiceIP         172.16.0.3/22
 Endpoints.0.PrivateNetwork.Zone              fr-par-1
 Endpoints.0.PrivateNetwork.ProvisioningMode  static
@@ -55,13 +59,20 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "983f229a-3fa8-45b2-9835-97cae2c2d1cf",
+  "id": "dfc60e5c-d31c-4eb6-8a4c-fd042f5bae2c",
   "name": "cli-test",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
   "engine": "PostgreSQL-15",
-  "upgradable_version": [],
+  "upgradable_version": [
+    {
+      "id": "1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d",
+      "name": "PostgreSQL-16",
+      "version": "16",
+      "minor_version": "16.9"
+    }
+  ],
   "tags": [],
   "settings": [
     {
@@ -101,12 +112,12 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "985255dc-9b99-487a-93d8-4847c892df7a",
+      "id": "07ec17ff-ed9c-4f7c-989b-097df00e1483",
       "ip": "172.16.0.3",
       "port": 5432,
       "name": null,
       "private_network": {
-        "private_network_id": "53fbd31b-aa1e-4e17-b6bd-cd807f9ba171",
+        "private_network_id": "fc6e31d0-1b1d-4fec-8d62-165f57c93c17",
         "service_ip": "172.16.0.3/22",
         "zone": "fr-par-1",
         "provisioning_mode": "static"
