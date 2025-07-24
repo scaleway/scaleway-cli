@@ -4527,7 +4527,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/inference/v1beta1/regions/fr-par/deployments?order_by=created_at_desc&page=1
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments?order_by=created_at_desc&page=1
     method: GET
   response:
     body: '{"deployments":[],"total_count":0}'

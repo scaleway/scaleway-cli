@@ -7,7 +7,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
-	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
+	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
