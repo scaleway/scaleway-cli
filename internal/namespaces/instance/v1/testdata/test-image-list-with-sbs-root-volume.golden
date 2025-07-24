@@ -1,12 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME                STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
-022d8dcc-e8c5-4e4a-92b1-8bf1a699814a  cli-img-nifty-jang  available  false   fr-par-1  20 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+ID                                    NAME                    STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
+adb74922-6e42-47c6-b17c-e2b6cfe18bab  cli-img-priceless-boyd  available  false   fr-par-1  20 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+c38b8584-513d-4530-9b1e-42fb9b28f44f  basic build             available  false   fr-par-1  10 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "022d8dcc-e8c5-4e4a-92b1-8bf1a699814a",
-    "name": "cli-img-nifty-jang",
+    "id": "adb74922-6e42-47c6-b17c-e2b6cfe18bab",
+    "name": "cli-img-priceless-boyd",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
@@ -16,7 +17,7 @@ ID                                    NAME                STATE      PUBLIC  ZON
     "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "public": false,
     "root_volume": {
-      "id": "55306964-344f-45f8-9b72-d064d991512d",
+      "id": "9628ff03-1125-4fc3-a66e-ea7ff3e9361e",
       "name": "",
       "size": 20000000000,
       "volume_type": "sbs_snapshot"
@@ -27,5 +28,32 @@ ID                                    NAME                STATE      PUBLIC  ZON
     "zone": "fr-par-1",
     "server_id": "",
     "server_name": ""
+  },
+  {
+    "id": "c38b8584-513d-4530-9b1e-42fb9b28f44f",
+    "name": "basic build",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "1f9998d3-a62f-4a0d-ad60-e74390acfc94",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": false,
+    "root_volume": {
+      "id": "ff0b5fa2-e106-492b-98a4-ea3603e68d05",
+      "name": "",
+      "size": 10000000000,
+      "volume_type": "sbs_snapshot"
+    },
+    "state": "available",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [
+      "foo",
+      "bar"
+    ],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": "-"
   }
 ]
