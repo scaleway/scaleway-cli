@@ -2,25 +2,25 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          d306cf1c-c111-498e-b48b-0b099ba3687b
+ID                          4022a030-6033-47f3-a63d-bec3d24624b1
 Name                        cli-test
-OrganizationID              5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID                   5ebc0159-7cb7-406c-9521-9347d1987fb2
+OrganizationID              fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                   fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status                      ready
-Engine                      PostgreSQL-15
+Engine                      PostgreSQL-16
 IsHaCluster                 false
 NodeType                    db-dev-s
-Endpoints.0.ID              8834804a-b146-4719-8d0d-de6c114ee328
-Endpoints.0.IP              51.159.74.117
-Endpoints.0.Port            5417
+Endpoints.0.ID              18af9055-f3d8-4a06-97fc-d025b522e56b
+Endpoints.0.IP              51.159.75.144
+Endpoints.0.Port            1444
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 Encryption.Enabled          false
 
 Endpoint:
-ID    8834804a-b146-4719-8d0d-de6c114ee328
-IP    51.159.74.117
-Port  5417
+ID    18af9055-f3d8-4a06-97fc-d025b522e56b
+IP    51.159.75.144
+Port  1444
 
 Volume:
 Type   lssd
@@ -50,17 +50,17 @@ work_mem                         8
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "d306cf1c-c111-498e-b48b-0b099ba3687b",
+  "id": "4022a030-6033-47f3-a63d-bec3d24624b1",
   "name": "cli-test",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
-  "engine": "PostgreSQL-15",
+  "engine": "PostgreSQL-16",
   "upgradable_version": [],
   "endpoint": {
-    "id": "8834804a-b146-4719-8d0d-de6c114ee328",
-    "ip": "51.159.74.117",
-    "port": 5417,
+    "id": "18af9055-f3d8-4a06-97fc-d025b522e56b",
+    "ip": "51.159.75.144",
+    "port": 1444,
     "name": null,
     "load_balancer": {}
   },
@@ -103,9 +103,9 @@ work_mem                         8
   "init_settings": [],
   "endpoints": [
     {
-      "id": "8834804a-b146-4719-8d0d-de6c114ee328",
-      "ip": "51.159.74.117",
-      "port": 5417,
+      "id": "18af9055-f3d8-4a06-97fc-d025b522e56b",
+      "ip": "51.159.75.144",
+      "port": 1444,
       "name": null,
       "load_balancer": {}
     }

@@ -6,13 +6,13 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 154
+        content_length: 152
         transfer_encoding: []
         trailer: {}
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "name":"cli-pn-nostalgic-hugle", "tags":[], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:41.485488Z", "updated_at":"2025-07-22T15:54:41.485488Z", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"5b70fd75-3895-4d78-aef5-eb3fa1a57c4f", "created_at":"2025-07-22T15:54:41.485488Z", "updated_at":"2025-07-22T15:54:41.485488Z", "subnet":"172.16.112.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}, {"id":"20f32e20-29ef-4a80-b698-dda953db17cf", "created_at":"2025-07-22T15:54:41.485488Z", "updated_at":"2025-07-22T15:54:41.485488Z", "subnet":"fd63:256c:45f7:cbd3::/64", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c", "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
+        body: '{"id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "name":"cli-pn-focused-hertz", "tags":[], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:01.429225Z", "updated_at":"2025-07-24T08:55:01.429225Z", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"b9913cb6-03b0-4fef-82fa-2fafa06ef879", "created_at":"2025-07-24T08:55:01.429225Z", "updated_at":"2025-07-24T08:55:01.429225Z", "subnet":"172.16.184.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}, {"id":"859eb2a2-2bb7-478b-9d5d-ed1ecc8f7f81", "created_at":"2025-07-24T08:55:01.429225Z", "updated_at":"2025-07-24T08:55:01.429225Z", "subnet":"fd63:256c:45f7:fe28::/64", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c", "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
         form: {}
         headers:
             Content-Type:
@@ -27,20 +27,20 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1093
+        content_length: 1091
         uncompressed: false
-        body: '{"id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "name":"cli-pn-nostalgic-hugle", "tags":[], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:41.485488Z", "updated_at":"2025-07-22T15:54:41.485488Z", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"5b70fd75-3895-4d78-aef5-eb3fa1a57c4f", "created_at":"2025-07-22T15:54:41.485488Z", "updated_at":"2025-07-22T15:54:41.485488Z", "subnet":"172.16.112.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}, {"id":"20f32e20-29ef-4a80-b698-dda953db17cf", "created_at":"2025-07-22T15:54:41.485488Z", "updated_at":"2025-07-22T15:54:41.485488Z", "subnet":"fd63:256c:45f7:cbd3::/64", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c", "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
+        body: '{"id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "name":"cli-pn-focused-hertz", "tags":[], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:01.429225Z", "updated_at":"2025-07-24T08:55:01.429225Z", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"b9913cb6-03b0-4fef-82fa-2fafa06ef879", "created_at":"2025-07-24T08:55:01.429225Z", "updated_at":"2025-07-24T08:55:01.429225Z", "subnet":"172.16.184.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}, {"id":"859eb2a2-2bb7-478b-9d5d-ed1ecc8f7f81", "created_at":"2025-07-24T08:55:01.429225Z", "updated_at":"2025-07-24T08:55:01.429225Z", "subnet":"fd63:256c:45f7:fe28::/64", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c", "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
         headers:
             Content-Length:
-                - "1093"
+                - "1091"
             Content-Security-Policy:
                 - default-src 'none'; frame-ancestors 'none'
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:54:42 GMT
+                - Thu, 24 Jul 2025 08:55:01 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -48,22 +48,22 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 368be081-4974-4e6f-a4cb-0b77ccdeef76
+                - 78eb1858-f35c-411d-803d-cc125930a294
         status: 200 OK
         code: 200
-        duration: 1.019813532s
+        duration: 808.179434ms
     - id: 1
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 187
+        content_length: 191
         transfer_encoding: []
         trailer: {}
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.063273Z", "updated_at":"2025-07-22T15:54:43.063273Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"allocating", "name":"cli-gw-brave-chatterjee", "tags":[], "ip":{"id":"85b5c53c-4a61-4f18-93b0-d933f4081052", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.042429Z", "updated_at":"2025-07-22T15:54:43.042429Z", "tags":[], "address":"212.47.245.189", "reverse":"189-245-47-212.instances.scw.cloud", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":null, "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":false, "zone":"fr-par-1"}'
+        body: '{"id":"e305dd29-22c0-4306-bb09-f536621707b5", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.747066Z", "updated_at":"2025-07-24T08:55:02.747066Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"allocating", "name":"cli-gw-condescending-hopper", "tags":[], "ip":{"id":"1888df5e-7a37-4edc-aed1-f9b10f27eff9", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.723072Z", "updated_at":"2025-07-24T08:55:02.723072Z", "tags":[], "address":"51.15.196.2", "reverse":"2-196-15-51.instances.scw.cloud", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":null, "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":false, "zone":"fr-par-1"}'
         form: {}
         headers:
             Content-Type:
@@ -78,20 +78,20 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1017
+        content_length: 1015
         uncompressed: false
-        body: '{"id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.063273Z", "updated_at":"2025-07-22T15:54:43.063273Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"allocating", "name":"cli-gw-brave-chatterjee", "tags":[], "ip":{"id":"85b5c53c-4a61-4f18-93b0-d933f4081052", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.042429Z", "updated_at":"2025-07-22T15:54:43.042429Z", "tags":[], "address":"212.47.245.189", "reverse":"189-245-47-212.instances.scw.cloud", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":null, "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":false, "zone":"fr-par-1"}'
+        body: '{"id":"e305dd29-22c0-4306-bb09-f536621707b5", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.747066Z", "updated_at":"2025-07-24T08:55:02.747066Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"allocating", "name":"cli-gw-condescending-hopper", "tags":[], "ip":{"id":"1888df5e-7a37-4edc-aed1-f9b10f27eff9", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.723072Z", "updated_at":"2025-07-24T08:55:02.723072Z", "tags":[], "address":"51.15.196.2", "reverse":"2-196-15-51.instances.scw.cloud", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":null, "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":false, "zone":"fr-par-1"}'
         headers:
             Content-Length:
-                - "1017"
+                - "1015"
             Content-Security-Policy:
                 - default-src 'none'; frame-ancestors 'none'
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:54:43 GMT
+                - Thu, 24 Jul 2025 08:55:02 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -99,10 +99,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 258d0ced-2728-4033-9f92-68f77d174fff
+                - c6f1d114-47de-4c15-8908-75067d505aae
         status: 200 OK
         code: 200
-        duration: 857.76678ms
+        duration: 803.683823ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -114,12 +114,12 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.063273Z", "updated_at":"2025-07-22T15:54:43.106694Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"allocating", "name":"cli-gw-brave-chatterjee", "tags":[], "ip":{"id":"85b5c53c-4a61-4f18-93b0-d933f4081052", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.042429Z", "updated_at":"2025-07-22T15:54:43.042429Z", "tags":[], "address":"212.47.245.189", "reverse":"189-245-47-212.instances.scw.cloud", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":"0.7.4", "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":true, "zone":"fr-par-1"}'
+        body: '{"id":"e305dd29-22c0-4306-bb09-f536621707b5", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.747066Z", "updated_at":"2025-07-24T08:55:02.793616Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"allocating", "name":"cli-gw-condescending-hopper", "tags":[], "ip":{"id":"1888df5e-7a37-4edc-aed1-f9b10f27eff9", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.723072Z", "updated_at":"2025-07-24T08:55:02.723072Z", "tags":[], "address":"51.15.196.2", "reverse":"2-196-15-51.instances.scw.cloud", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":"0.7.4", "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":true, "zone":"fr-par-1"}'
         form: {}
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateways/a9f29ab5-796b-4b37-8559-43e8e204ceb0
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateways/e305dd29-22c0-4306-bb09-f536621707b5
         method: GET
       response:
         proto: HTTP/2.0
@@ -127,20 +127,20 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1019
+        content_length: 1017
         uncompressed: false
-        body: '{"id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.063273Z", "updated_at":"2025-07-22T15:54:43.106694Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"allocating", "name":"cli-gw-brave-chatterjee", "tags":[], "ip":{"id":"85b5c53c-4a61-4f18-93b0-d933f4081052", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.042429Z", "updated_at":"2025-07-22T15:54:43.042429Z", "tags":[], "address":"212.47.245.189", "reverse":"189-245-47-212.instances.scw.cloud", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":"0.7.4", "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":true, "zone":"fr-par-1"}'
+        body: '{"id":"e305dd29-22c0-4306-bb09-f536621707b5", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.747066Z", "updated_at":"2025-07-24T08:55:02.793616Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"allocating", "name":"cli-gw-condescending-hopper", "tags":[], "ip":{"id":"1888df5e-7a37-4edc-aed1-f9b10f27eff9", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.723072Z", "updated_at":"2025-07-24T08:55:02.723072Z", "tags":[], "address":"51.15.196.2", "reverse":"2-196-15-51.instances.scw.cloud", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":"0.7.4", "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":true, "zone":"fr-par-1"}'
         headers:
             Content-Length:
-                - "1019"
+                - "1017"
             Content-Security-Policy:
                 - default-src 'none'; frame-ancestors 'none'
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:54:43 GMT
+                - Thu, 24 Jul 2025 08:55:02 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -148,10 +148,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 38027d04-6531-4d70-82d3-dff3ac6310ae
+                - 1998ce7f-1597-4063-9a42-30293d522494
         status: 200 OK
         code: 200
-        duration: 55.87316ms
+        duration: 54.733216ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -163,12 +163,12 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.063273Z", "updated_at":"2025-07-22T15:54:47.924602Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"running", "name":"cli-gw-brave-chatterjee", "tags":[], "ip":{"id":"85b5c53c-4a61-4f18-93b0-d933f4081052", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.042429Z", "updated_at":"2025-07-22T15:54:43.042429Z", "tags":[], "address":"212.47.245.189", "reverse":"189-245-47-212.instances.scw.cloud", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":"0.7.4", "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":true, "zone":"fr-par-1"}'
+        body: '{"id":"e305dd29-22c0-4306-bb09-f536621707b5", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.747066Z", "updated_at":"2025-07-24T08:55:07.664369Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"running", "name":"cli-gw-condescending-hopper", "tags":[], "ip":{"id":"1888df5e-7a37-4edc-aed1-f9b10f27eff9", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.723072Z", "updated_at":"2025-07-24T08:55:02.723072Z", "tags":[], "address":"51.15.196.2", "reverse":"2-196-15-51.instances.scw.cloud", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":"0.7.4", "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":true, "zone":"fr-par-1"}'
         form: {}
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateways/a9f29ab5-796b-4b37-8559-43e8e204ceb0
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateways/e305dd29-22c0-4306-bb09-f536621707b5
         method: GET
       response:
         proto: HTTP/2.0
@@ -176,20 +176,20 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1016
+        content_length: 1014
         uncompressed: false
-        body: '{"id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.063273Z", "updated_at":"2025-07-22T15:54:47.924602Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"running", "name":"cli-gw-brave-chatterjee", "tags":[], "ip":{"id":"85b5c53c-4a61-4f18-93b0-d933f4081052", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-22T15:54:43.042429Z", "updated_at":"2025-07-22T15:54:43.042429Z", "tags":[], "address":"212.47.245.189", "reverse":"189-245-47-212.instances.scw.cloud", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":"0.7.4", "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":true, "zone":"fr-par-1"}'
+        body: '{"id":"e305dd29-22c0-4306-bb09-f536621707b5", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.747066Z", "updated_at":"2025-07-24T08:55:07.664369Z", "type":{"name":"VPC-GW-S", "bandwidth":100000000, "zone":"fr-par-1"}, "status":"running", "name":"cli-gw-condescending-hopper", "tags":[], "ip":{"id":"1888df5e-7a37-4edc-aed1-f9b10f27eff9", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T08:55:02.723072Z", "updated_at":"2025-07-24T08:55:02.723072Z", "tags":[], "address":"51.15.196.2", "reverse":"2-196-15-51.instances.scw.cloud", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "zone":"fr-par-1"}, "gateway_networks":[], "upstream_dns_servers":[], "version":"0.7.4", "can_upgrade_to":null, "bastion_enabled":false, "bastion_port":61000, "smtp_enabled":false, "is_legacy":false, "ip_mobility_enabled":true, "zone":"fr-par-1"}'
         headers:
             Content-Length:
-                - "1016"
+                - "1014"
             Content-Security-Policy:
                 - default-src 'none'; frame-ancestors 'none'
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:54:58 GMT
+                - Thu, 24 Jul 2025 08:55:17 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -197,10 +197,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - cc1e2b7f-8c72-4ec9-a05f-be5f5c8b4117
+                - 773e4ef1-0e64-4b8f-b21b-a9b96a0306c3
         status: 200 OK
         code: 200
-        duration: 51.802268ms
+        duration: 59.510871ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -212,7 +212,7 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:01.701637Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":null, "enable_masquerade":false, "status":"created", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:20.381428Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":null, "enable_masquerade":false, "status":"created", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         form: {}
         headers:
             Content-Type:
@@ -229,7 +229,7 @@ interactions:
         trailer: {}
         content_length: 491
         uncompressed: false
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:01.701637Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":null, "enable_masquerade":false, "status":"created", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:20.381428Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":null, "enable_masquerade":false, "status":"created", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         headers:
             Content-Length:
                 - "491"
@@ -238,9 +238,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:55:01 GMT
+                - Thu, 24 Jul 2025 08:55:20 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -248,10 +248,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - a68a98d7-0c6a-40b3-b59b-02ae168173f8
+                - 0aab8449-90fa-40f7-87a3-c516e5203e4e
         status: 200 OK
         code: 200
-        duration: 3.593417981s
+        duration: 2.569609887s
     - id: 5
       request:
         proto: HTTP/1.1
@@ -263,12 +263,12 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:01.701637Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":null, "enable_masquerade":false, "status":"created", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:20.381428Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":null, "enable_masquerade":false, "status":"created", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         form: {}
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/7075ab19-65a9-4e47-b1a2-0907d6549826
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/6bfabdec-05ac-4c17-badb-840e80eb62bf
         method: GET
       response:
         proto: HTTP/2.0
@@ -278,7 +278,7 @@ interactions:
         trailer: {}
         content_length: 491
         uncompressed: false
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:01.701637Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":null, "enable_masquerade":false, "status":"created", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:20.381428Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":null, "enable_masquerade":false, "status":"created", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         headers:
             Content-Length:
                 - "491"
@@ -287,9 +287,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:55:01 GMT
+                - Thu, 24 Jul 2025 08:55:20 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -297,10 +297,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 4b4a8547-e998-4b5d-8ebb-a06ca6fdc292
+                - 8d24b574-f178-4a1e-aa0b-af2fd24b58d7
         status: 200 OK
         code: 200
-        duration: 82.047184ms
+        duration: 80.813586ms
     - id: 6
       request:
         proto: HTTP/1.1
@@ -312,12 +312,12 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:10.941115Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":"02:00:00:15:3B:60", "enable_masquerade":false, "status":"ready", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:29.783068Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":"02:00:00:1A:7F:11", "enable_masquerade":false, "status":"ready", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         form: {}
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/7075ab19-65a9-4e47-b1a2-0907d6549826
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/6bfabdec-05ac-4c17-badb-840e80eb62bf
         method: GET
       response:
         proto: HTTP/2.0
@@ -327,7 +327,7 @@ interactions:
         trailer: {}
         content_length: 504
         uncompressed: false
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:10.941115Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":"02:00:00:15:3B:60", "enable_masquerade":false, "status":"ready", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:29.783068Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":"02:00:00:1A:7F:11", "enable_masquerade":false, "status":"ready", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         headers:
             Content-Length:
                 - "504"
@@ -336,9 +336,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:55:16 GMT
+                - Thu, 24 Jul 2025 08:55:35 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -346,10 +346,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 61c512e5-60ee-453e-b89c-4cc8f60b9a60
+                - 062ee96b-8c27-4372-9d4c-553c401a1329
         status: 200 OK
         code: 200
-        duration: 65.886687ms
+        duration: 71.543618ms
     - id: 7
       request:
         proto: HTTP/1.1
@@ -361,12 +361,12 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:10.941115Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":"02:00:00:15:3B:60", "enable_masquerade":false, "status":"ready", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:29.783068Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":"02:00:00:1A:7F:11", "enable_masquerade":false, "status":"ready", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         form: {}
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/7075ab19-65a9-4e47-b1a2-0907d6549826
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/6bfabdec-05ac-4c17-badb-840e80eb62bf
         method: GET
       response:
         proto: HTTP/2.0
@@ -376,7 +376,7 @@ interactions:
         trailer: {}
         content_length: 504
         uncompressed: false
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:10.941115Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":"02:00:00:15:3B:60", "enable_masquerade":false, "status":"ready", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:29.783068Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":"02:00:00:1A:7F:11", "enable_masquerade":false, "status":"ready", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         headers:
             Content-Length:
                 - "504"
@@ -385,9 +385,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:55:17 GMT
+                - Thu, 24 Jul 2025 08:55:35 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -395,10 +395,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - c149fa4a-fd83-47a1-9452-be87759443d3
+                - 0a43381b-38d7-4799-b293-ba3a3826823a
         status: 200 OK
         code: 200
-        duration: 48.478464ms
+        duration: 46.359218ms
     - id: 8
       request:
         proto: HTTP/1.1
@@ -415,7 +415,7 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/7075ab19-65a9-4e47-b1a2-0907d6549826?cleanup_dhcp=false
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/6bfabdec-05ac-4c17-badb-840e80eb62bf?cleanup_dhcp=false
         method: DELETE
       response:
         proto: HTTP/2.0
@@ -432,9 +432,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:55:17 GMT
+                - Thu, 24 Jul 2025 08:55:35 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -442,10 +442,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 056e3f38-25fd-45a2-8bf5-b03361b14b94
+                - 7954b89b-bf03-4734-960c-9691fac2476b
         status: 204 No Content
         code: 204
-        duration: 90.869624ms
+        duration: 96.245964ms
     - id: 9
       request:
         proto: HTTP/1.1
@@ -457,12 +457,12 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:17.106640Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":"02:00:00:15:3B:60", "enable_masquerade":false, "status":"detaching", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:35.775121Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":"02:00:00:1A:7F:11", "enable_masquerade":false, "status":"detaching", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         form: {}
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/7075ab19-65a9-4e47-b1a2-0907d6549826
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/6bfabdec-05ac-4c17-badb-840e80eb62bf
         method: GET
       response:
         proto: HTTP/2.0
@@ -472,7 +472,7 @@ interactions:
         trailer: {}
         content_length: 508
         uncompressed: false
-        body: '{"id":"7075ab19-65a9-4e47-b1a2-0907d6549826", "created_at":"2025-07-22T15:55:01.701637Z", "updated_at":"2025-07-22T15:55:17.106640Z", "gateway_id":"a9f29ab5-796b-4b37-8559-43e8e204ceb0", "private_network_id":"9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a", "mac_address":"02:00:00:15:3B:60", "enable_masquerade":false, "status":"detaching", "dhcp":null, "enable_dhcp":true, "address":"172.16.112.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"11aa3537-aab2-4fbd-abf8-297ad90b8587"}, "zone":"fr-par-1"}'
+        body: '{"id":"6bfabdec-05ac-4c17-badb-840e80eb62bf", "created_at":"2025-07-24T08:55:20.381428Z", "updated_at":"2025-07-24T08:55:35.775121Z", "gateway_id":"e305dd29-22c0-4306-bb09-f536621707b5", "private_network_id":"aa9ff68e-d20d-452e-bdfe-e2e26205ffa5", "mac_address":"02:00:00:1A:7F:11", "enable_masquerade":false, "status":"detaching", "dhcp":null, "enable_dhcp":true, "address":"172.16.184.2/22", "ipam_config":{"push_default_route":true, "ipam_ip_id":"be2b0d89-8e8a-4488-936b-9e48e28d50bd"}, "zone":"fr-par-1"}'
         headers:
             Content-Length:
                 - "508"
@@ -481,9 +481,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:55:17 GMT
+                - Thu, 24 Jul 2025 08:55:35 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -491,10 +491,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - f33630cc-d770-416d-bcdf-46f7f294fa9e
+                - a254b8d7-9fc8-4845-821d-58a7af80d824
         status: 200 OK
         code: 200
-        duration: 41.127611ms
+        duration: 44.998381ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -506,12 +506,12 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"message":"resource is not found","resource":"gateway_network","resource_id":"7075ab19-65a9-4e47-b1a2-0907d6549826","type":"not_found"}'
+        body: '{"message":"resource is not found","resource":"gateway_network","resource_id":"6bfabdec-05ac-4c17-badb-840e80eb62bf","type":"not_found"}'
         form: {}
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/7075ab19-65a9-4e47-b1a2-0907d6549826
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateway-networks/6bfabdec-05ac-4c17-badb-840e80eb62bf
         method: GET
       response:
         proto: HTTP/2.0
@@ -521,7 +521,7 @@ interactions:
         trailer: {}
         content_length: 136
         uncompressed: false
-        body: '{"message":"resource is not found","resource":"gateway_network","resource_id":"7075ab19-65a9-4e47-b1a2-0907d6549826","type":"not_found"}'
+        body: '{"message":"resource is not found","resource":"gateway_network","resource_id":"6bfabdec-05ac-4c17-badb-840e80eb62bf","type":"not_found"}'
         headers:
             Content-Length:
                 - "136"
@@ -530,9 +530,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:55:32 GMT
+                - Thu, 24 Jul 2025 08:55:50 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -540,10 +540,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - f0dab956-3fdd-44cd-a87f-80f254847ab7
+                - 15f914a1-70b8-4980-9e8a-88b40aeb8e5c
         status: 404 Not Found
         code: 404
-        duration: 20.375673ms
+        duration: 34.212528ms
     - id: 11
       request:
         proto: HTTP/1.1
@@ -560,7 +560,7 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/9f4de3ce-3ba4-4f39-bcc2-9fcbefc9db7a
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/aa9ff68e-d20d-452e-bdfe-e2e26205ffa5
         method: DELETE
       response:
         proto: HTTP/2.0
@@ -579,9 +579,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Tue, 22 Jul 2025 15:55:37 GMT
+                - Thu, 24 Jul 2025 08:55:55 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge01)
+                - Scaleway API Gateway (fr-par-2;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -589,7 +589,344 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - ad588541-bec0-435c-8d6f-efeb08a99198
+                - 5af2f000-90c6-4952-8d80-b455307a0c4b
         status: 500 Internal Server Error
         code: 500
-        duration: 5.09131834s
+        duration: 5.092792863s
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"message":"internal error"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/aa9ff68e-d20d-452e-bdfe-e2e26205ffa5
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 28
+        uncompressed: false
+        body: '{"message":"internal error"}'
+        headers:
+            Content-Length:
+                - "28"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 08:56:06 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - ea98e6c0-ecaa-4288-ba1b-c0e1f52e26c1
+        status: 500 Internal Server Error
+        code: 500
+        duration: 5.286551161s
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"message":"internal error"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/aa9ff68e-d20d-452e-bdfe-e2e26205ffa5
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 28
+        uncompressed: false
+        body: '{"message":"internal error"}'
+        headers:
+            Content-Length:
+                - "28"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 08:56:16 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 43d3e8f3-751e-407a-bda3-6b7e31e2b736
+        status: 500 Internal Server Error
+        code: 500
+        duration: 5.080179927s
+    - id: 14
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"message":"internal error"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/aa9ff68e-d20d-452e-bdfe-e2e26205ffa5
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 28
+        uncompressed: false
+        body: '{"message":"internal error"}'
+        headers:
+            Content-Length:
+                - "28"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 08:56:26 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - ee7145a7-714d-4708-815a-1cd143c6ef49
+        status: 500 Internal Server Error
+        code: 500
+        duration: 5.069258275s
+    - id: 15
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"message":"internal error"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/aa9ff68e-d20d-452e-bdfe-e2e26205ffa5
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 28
+        uncompressed: false
+        body: '{"message":"internal error"}'
+        headers:
+            Content-Length:
+                - "28"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 08:56:36 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 647e2241-257c-4d77-8f15-be0240121ffa
+        status: 500 Internal Server Error
+        code: 500
+        duration: 5.078510118s
+    - id: 16
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/aa9ff68e-d20d-452e-bdfe-e2e26205ffa5
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 0
+        uncompressed: false
+        body: ""
+        headers:
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 08:56:43 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 87455a1f-e75c-4a4e-a894-9d1d07d4c977
+        status: 204 No Content
+        code: 204
+        duration: 2.178381627s
+    - id: 17
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/gateways/e305dd29-22c0-4306-bb09-f536621707b5?cleanup_dhcp=false
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 0
+        uncompressed: false
+        body: ""
+        headers:
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 08:56:43 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - ff1ec946-6110-4883-a1e3-50fb502ec2f8
+        status: 204 No Content
+        code: 204
+        duration: 43.116943ms
+    - id: 18
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc-gw/v1/zones/fr-par-1/ips/1888df5e-7a37-4edc-aed1-f9b10f27eff9
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 0
+        uncompressed: false
+        body: ""
+        headers:
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 08:56:44 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - f236a065-a514-47b9-8734-5f11daef6bc7
+        status: 204 No Content
+        code: 204
+        duration: 771.437337ms
