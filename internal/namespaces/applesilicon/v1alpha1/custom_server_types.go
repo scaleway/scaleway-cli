@@ -10,6 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	productcatalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var serverTypeStockMarshalSpecs = human.EnumMarshalSpecs{
@@ -117,6 +118,7 @@ func serverTypeBuilder(c *core.Command) *core.Command {
 					},
 					Zone: &req.Zone,
 				},
+				scw.WithAllPages(),
 			)
 			if err != nil {
 				return nil, err

@@ -2,44 +2,106 @@
 version: 1
 interactions:
 - request:
-    body: '{"server_types":[{"name":"M4-S","cpu":{"name":"Apple M4","core_count":10,"frequency":4400000000},"disk":{"capacity":256000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5X"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5","name":"macos-sequoia-15.3.1","label":"macOS
-      Sequoia 15.3.1","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.3.1","compatible_server_types":["M1-M","M2-M","M2-L","M4-L","M4-XL","M4-M","M4-S"]},"gpu":{"count":10},"network":{"public_bandwidth_bps":1000000000,"supported_bandwidth":[1000000000]}},{"name":"M4-M","cpu":{"name":"Apple
-      M4","core_count":10,"frequency":4400000000},"disk":{"capacity":1024000000000,"type":"SSD"},"memory":{"capacity":32000000000,"type":"LPDDR5X"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5","name":"macos-sequoia-15.3.1","label":"macOS
-      Sequoia 15.3.1","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.3.1","compatible_server_types":["M1-M","M2-M","M2-L","M4-L","M4-XL","M4-M","M4-S"]},"gpu":{"count":10},"network":{"public_bandwidth_bps":10000000000,"supported_bandwidth":[1000000000,2000000000,3000000000,4000000000,5000000000,6000000000,7000000000,8000000000,9000000000,10000000000]}},{"name":"M2-M","cpu":{"name":"Apple
-      M2","core_count":8,"frequency":3500000000},"disk":{"capacity":256000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"367b9c18-d57f-4c9a-bcea-9e1fda66fc70","name":"macos-sequoia-15.2","label":"macOS
-      Sequoia 15.2","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.2","compatible_server_types":["M1-M","M2-M","M2-L","M4-S"]},"gpu":{"count":10},"network":{"public_bandwidth_bps":1000000000,"supported_bandwidth":[1000000000]}},{"name":"M4-XL","cpu":{"name":"Apple
-      M4 Pro","core_count":14,"frequency":4500000000},"disk":{"capacity":2048000000000,"type":"SSD"},"memory":{"capacity":64000000000,"type":"LPDDR5X"},"stock":"no_stock","minimum_lease_duration":"86400s","default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5","name":"macos-sequoia-15.3.1","label":"macOS
-      Sequoia 15.3.1","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.3.1","compatible_server_types":["M1-M","M2-M","M2-L","M4-L","M4-XL","M4-M","M4-S"]},"gpu":{"count":20},"network":{"public_bandwidth_bps":10000000000,"supported_bandwidth":[1000000000,2000000000,3000000000,4000000000,5000000000,6000000000,7000000000,8000000000,9000000000,10000000000]}},{"name":"M2-L","cpu":{"name":"Apple
-      M2 Pro","core_count":10,"frequency":3500000000},"disk":{"capacity":512000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"367b9c18-d57f-4c9a-bcea-9e1fda66fc70","name":"macos-sequoia-15.2","label":"macOS
-      Sequoia 15.2","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.2","compatible_server_types":["M1-M","M2-M","M2-L","M4-S"]},"gpu":{"count":16},"network":{"public_bandwidth_bps":1000000000,"supported_bandwidth":[1000000000]}}]}'
+    body: '{"server_types":[{"name":"M4-S", "cpu":{"name":"Apple M4", "core_count":10,
+      "frequency":4400000000}, "disk":{"capacity":256000000000, "type":"SSD"}, "memory":{"capacity":16000000000,
+      "type":"LPDDR5X"}, "stock":"high_stock", "minimum_lease_duration":"86400s",
+      "default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5", "name":"macos-sequoia-15.3.1",
+      "label":"macOS Sequoia 15.3.1", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.3.1",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-L", "M4-XL", "M4-M",
+      "M4-S"]}, "gpu":{"count":10}, "network":{"public_bandwidth_bps":1000000000,
+      "supported_bandwidth":[1000000000]}}, {"name":"M4-M", "cpu":{"name":"Apple M4",
+      "core_count":10, "frequency":4400000000}, "disk":{"capacity":1024000000000,
+      "type":"SSD"}, "memory":{"capacity":32000000000, "type":"LPDDR5X"}, "stock":"high_stock",
+      "minimum_lease_duration":"86400s", "default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5",
+      "name":"macos-sequoia-15.3.1", "label":"macOS Sequoia 15.3.1", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.3.1",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-L", "M4-XL", "M4-M",
+      "M4-S"]}, "gpu":{"count":10}, "network":{"public_bandwidth_bps":10000000000,
+      "supported_bandwidth":[1000000000, 2000000000, 3000000000, 4000000000, 5000000000,
+      6000000000, 7000000000, 8000000000, 9000000000, 10000000000]}}, {"name":"M2-M",
+      "cpu":{"name":"Apple M2", "core_count":8, "frequency":3500000000}, "disk":{"capacity":256000000000,
+      "type":"SSD"}, "memory":{"capacity":16000000000, "type":"LPDDR5"}, "stock":"high_stock",
+      "minimum_lease_duration":"86400s", "default_os":{"id":"367b9c18-d57f-4c9a-bcea-9e1fda66fc70",
+      "name":"macos-sequoia-15.2", "label":"macOS Sequoia 15.2", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.2",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-S"]}, "gpu":{"count":10},
+      "network":{"public_bandwidth_bps":1000000000, "supported_bandwidth":[1000000000]}},
+      {"name":"M4-XL", "cpu":{"name":"Apple M4 Pro", "core_count":14, "frequency":4500000000},
+      "disk":{"capacity":2048000000000, "type":"SSD"}, "memory":{"capacity":64000000000,
+      "type":"LPDDR5X"}, "stock":"no_stock", "minimum_lease_duration":"86400s", "default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5",
+      "name":"macos-sequoia-15.3.1", "label":"macOS Sequoia 15.3.1", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.3.1",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-L", "M4-XL", "M4-M",
+      "M4-S"]}, "gpu":{"count":20}, "network":{"public_bandwidth_bps":10000000000,
+      "supported_bandwidth":[1000000000, 2000000000, 3000000000, 4000000000, 5000000000,
+      6000000000, 7000000000, 8000000000, 9000000000, 10000000000]}}, {"name":"M2-L",
+      "cpu":{"name":"Apple M2 Pro", "core_count":10, "frequency":3500000000}, "disk":{"capacity":512000000000,
+      "type":"SSD"}, "memory":{"capacity":16000000000, "type":"LPDDR5"}, "stock":"high_stock",
+      "minimum_lease_duration":"86400s", "default_os":{"id":"367b9c18-d57f-4c9a-bcea-9e1fda66fc70",
+      "name":"macos-sequoia-15.2", "label":"macOS Sequoia 15.2", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.2",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-S"]}, "gpu":{"count":16},
+      "network":{"public_bandwidth_bps":1000000000, "supported_bandwidth":[1000000000]}}]}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; darwin; arm64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
     url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/server-types
     method: GET
   response:
-    body: '{"server_types":[{"name":"M4-S","cpu":{"name":"Apple M4","core_count":10,"frequency":4400000000},"disk":{"capacity":256000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5X"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5","name":"macos-sequoia-15.3.1","label":"macOS
-      Sequoia 15.3.1","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.3.1","compatible_server_types":["M1-M","M2-M","M2-L","M4-L","M4-XL","M4-M","M4-S"]},"gpu":{"count":10},"network":{"public_bandwidth_bps":1000000000,"supported_bandwidth":[1000000000]}},{"name":"M4-M","cpu":{"name":"Apple
-      M4","core_count":10,"frequency":4400000000},"disk":{"capacity":1024000000000,"type":"SSD"},"memory":{"capacity":32000000000,"type":"LPDDR5X"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5","name":"macos-sequoia-15.3.1","label":"macOS
-      Sequoia 15.3.1","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.3.1","compatible_server_types":["M1-M","M2-M","M2-L","M4-L","M4-XL","M4-M","M4-S"]},"gpu":{"count":10},"network":{"public_bandwidth_bps":10000000000,"supported_bandwidth":[1000000000,2000000000,3000000000,4000000000,5000000000,6000000000,7000000000,8000000000,9000000000,10000000000]}},{"name":"M2-M","cpu":{"name":"Apple
-      M2","core_count":8,"frequency":3500000000},"disk":{"capacity":256000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"367b9c18-d57f-4c9a-bcea-9e1fda66fc70","name":"macos-sequoia-15.2","label":"macOS
-      Sequoia 15.2","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.2","compatible_server_types":["M1-M","M2-M","M2-L","M4-S"]},"gpu":{"count":10},"network":{"public_bandwidth_bps":1000000000,"supported_bandwidth":[1000000000]}},{"name":"M4-XL","cpu":{"name":"Apple
-      M4 Pro","core_count":14,"frequency":4500000000},"disk":{"capacity":2048000000000,"type":"SSD"},"memory":{"capacity":64000000000,"type":"LPDDR5X"},"stock":"no_stock","minimum_lease_duration":"86400s","default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5","name":"macos-sequoia-15.3.1","label":"macOS
-      Sequoia 15.3.1","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.3.1","compatible_server_types":["M1-M","M2-M","M2-L","M4-L","M4-XL","M4-M","M4-S"]},"gpu":{"count":20},"network":{"public_bandwidth_bps":10000000000,"supported_bandwidth":[1000000000,2000000000,3000000000,4000000000,5000000000,6000000000,7000000000,8000000000,9000000000,10000000000]}},{"name":"M2-L","cpu":{"name":"Apple
-      M2 Pro","core_count":10,"frequency":3500000000},"disk":{"capacity":512000000000,"type":"SSD"},"memory":{"capacity":16000000000,"type":"LPDDR5"},"stock":"high_stock","minimum_lease_duration":"86400s","default_os":{"id":"367b9c18-d57f-4c9a-bcea-9e1fda66fc70","name":"macos-sequoia-15.2","label":"macOS
-      Sequoia 15.2","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png","family":"Sequoia","is_beta":false,"xcode_version":"16","version":"15.2","compatible_server_types":["M1-M","M2-M","M2-L","M4-S"]},"gpu":{"count":16},"network":{"public_bandwidth_bps":1000000000,"supported_bandwidth":[1000000000]}}]}'
+    body: '{"server_types":[{"name":"M4-S", "cpu":{"name":"Apple M4", "core_count":10,
+      "frequency":4400000000}, "disk":{"capacity":256000000000, "type":"SSD"}, "memory":{"capacity":16000000000,
+      "type":"LPDDR5X"}, "stock":"high_stock", "minimum_lease_duration":"86400s",
+      "default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5", "name":"macos-sequoia-15.3.1",
+      "label":"macOS Sequoia 15.3.1", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.3.1",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-L", "M4-XL", "M4-M",
+      "M4-S"]}, "gpu":{"count":10}, "network":{"public_bandwidth_bps":1000000000,
+      "supported_bandwidth":[1000000000]}}, {"name":"M4-M", "cpu":{"name":"Apple M4",
+      "core_count":10, "frequency":4400000000}, "disk":{"capacity":1024000000000,
+      "type":"SSD"}, "memory":{"capacity":32000000000, "type":"LPDDR5X"}, "stock":"high_stock",
+      "minimum_lease_duration":"86400s", "default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5",
+      "name":"macos-sequoia-15.3.1", "label":"macOS Sequoia 15.3.1", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.3.1",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-L", "M4-XL", "M4-M",
+      "M4-S"]}, "gpu":{"count":10}, "network":{"public_bandwidth_bps":10000000000,
+      "supported_bandwidth":[1000000000, 2000000000, 3000000000, 4000000000, 5000000000,
+      6000000000, 7000000000, 8000000000, 9000000000, 10000000000]}}, {"name":"M2-M",
+      "cpu":{"name":"Apple M2", "core_count":8, "frequency":3500000000}, "disk":{"capacity":256000000000,
+      "type":"SSD"}, "memory":{"capacity":16000000000, "type":"LPDDR5"}, "stock":"high_stock",
+      "minimum_lease_duration":"86400s", "default_os":{"id":"367b9c18-d57f-4c9a-bcea-9e1fda66fc70",
+      "name":"macos-sequoia-15.2", "label":"macOS Sequoia 15.2", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.2",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-S"]}, "gpu":{"count":10},
+      "network":{"public_bandwidth_bps":1000000000, "supported_bandwidth":[1000000000]}},
+      {"name":"M4-XL", "cpu":{"name":"Apple M4 Pro", "core_count":14, "frequency":4500000000},
+      "disk":{"capacity":2048000000000, "type":"SSD"}, "memory":{"capacity":64000000000,
+      "type":"LPDDR5X"}, "stock":"no_stock", "minimum_lease_duration":"86400s", "default_os":{"id":"87135053-e968-4a38-8735-86901accc6f5",
+      "name":"macos-sequoia-15.3.1", "label":"macOS Sequoia 15.3.1", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.3.1",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-L", "M4-XL", "M4-M",
+      "M4-S"]}, "gpu":{"count":20}, "network":{"public_bandwidth_bps":10000000000,
+      "supported_bandwidth":[1000000000, 2000000000, 3000000000, 4000000000, 5000000000,
+      6000000000, 7000000000, 8000000000, 9000000000, 10000000000]}}, {"name":"M2-L",
+      "cpu":{"name":"Apple M2 Pro", "core_count":10, "frequency":3500000000}, "disk":{"capacity":512000000000,
+      "type":"SSD"}, "memory":{"capacity":16000000000, "type":"LPDDR5"}, "stock":"high_stock",
+      "minimum_lease_duration":"86400s", "default_os":{"id":"367b9c18-d57f-4c9a-bcea-9e1fda66fc70",
+      "name":"macos-sequoia-15.2", "label":"macOS Sequoia 15.2", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
+      "family":"Sequoia", "is_beta":false, "xcode_version":"16", "version":"15.2",
+      "compatible_server_types":["M1-M", "M2-M", "M2-L", "M4-S"]}, "gpu":{"count":16},
+      "network":{"public_bandwidth_bps":1000000000, "supported_bandwidth":[1000000000]}}]}'
     headers:
       Content-Length:
-      - "3665"
+      - "3816"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 02 Jul 2025 10:13:57 GMT
+      - Tue, 22 Jul 2025 10:10:47 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge01)
+      - Scaleway API Gateway (fr-par-2;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -47,199 +109,323 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 648599b2-4ec3-4b91-89b8-d774a74c8026
+      - 0ca901a0-95af-4d37-9202-e2de7c8f1c79
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"products":[{"sku":"/apple-silicon/m2-m/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M2 - M","variant":"Mac Mini M2 - M - Monthly - fr-par-1","description":"Mac
-      Mini M2 - M - Monthly - fr-par-1 (115€ per month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":115,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
+    body: '{"products":[{"sku":"/apple-silicon/m2-m/monthly/run_par1", "service_category":"Bare
+      Metal", "product":"Mac Mini M2 - M", "variant":"Mac Mini M2 - M - Monthly -
+      fr-par-1", "description":"Mac Mini M2 - M - Monthly - fr-par-1 (115€ per month)",
+      "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":115, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M2, apple_silicon, Sockets: 1, Cores per socket: 8, Threads per core: 1, Frequency:
-      3.5 GHz","arch":"apple_silicon","type":"Apple M2","physical":{"sockets":1,"cores_per_socket":8,"threads_per_core":1,"frequency":3500000000,"benchmark":0},"threads":8},"ram":{"description":"16
-      GiB LPDDR5","size":17179869184,"type":"LPDDR5"},"storage":{"description":"Fixed
-      local: 1 x 256 GB SSD","total":256000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"10
-      x Apple M2","count":10,"type":"Apple M2"}},"apple_silicon":{"range":"M2"}},"environmental_impact_estimation":{"kg_co2_equivalent":9.86848,"m3_water_usage":0.00090553873},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m2-m/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M2 - M","variant":"Mac Mini M2 - M - Hourly - fr-par-1","description":"Mac
-      Mini M2 - M - Hourly - fr-par-1 (0.17€ per hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":170000000}},"properties":{"hardware":{"cpu":{"description":"Apple
-      M2, apple_silicon, Sockets: 1, Cores per socket: 8, Threads per core: 1, Frequency:
-      3.5 GHz","arch":"apple_silicon","type":"Apple M2","physical":{"sockets":1,"cores_per_socket":8,"threads_per_core":1,"frequency":3500000000,"benchmark":0},"threads":8},"ram":{"description":"16
-      GiB LPDDR5","size":17179869184,"type":"LPDDR5"},"storage":{"description":"Fixed
-      local: 1 x 256 GB SSD","total":256000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"10
-      x Apple M2","count":10,"type":"Apple M2"}},"apple_silicon":{"range":"M2"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.013518465,"m3_water_usage":0.000001240464},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m2-l/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M2 Pro - L","variant":"Mac Mini M2 Pro - L - Monthly
-      - fr-par-1","description":"Mac Mini M2 Pro - L - Monthly - fr-par-1 (139€ per
-      month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":139,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
+      3.5 GHz", "arch":"apple_silicon", "type":"Apple M2", "physical":{"sockets":1,
+      "cores_per_socket":8, "threads_per_core":1, "frequency":3500000000, "benchmark":0},
+      "threads":8}, "ram":{"description":"16 GiB LPDDR5", "size":17179869184, "type":"LPDDR5"},
+      "storage":{"description":"Fixed local: 1 x 256 GB SSD", "total":256000000000},
+      "network":{"description":"Internal: 1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000,
+      "public_bandwidth":1000000000, "max_public_bandwidth":1000000000}, "gpu":{"description":"10
+      x Apple M2", "count":10, "type":"Apple M2"}}, "apple_silicon":{"range":"M2"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":9.889786, "m3_water_usage":0.00090913416},
+      "unit_of_measure":{"unit":"month", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m2-m/run_par1", "service_category":"Bare Metal", "product":"Mac
+      Mini M2 - M", "variant":"Mac Mini M2 - M - Hourly - fr-par-1", "description":"Mac
+      Mini M2 - M - Hourly - fr-par-1 (0.17€ per hour)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":0, "nanos":170000000}},
+      "properties":{"hardware":{"cpu":{"description":"Apple M2, apple_silicon, Sockets:
+      1, Cores per socket: 8, Threads per core: 1, Frequency: 3.5 GHz", "arch":"apple_silicon",
+      "type":"Apple M2", "physical":{"sockets":1, "cores_per_socket":8, "threads_per_core":1,
+      "frequency":3500000000, "benchmark":0}, "threads":8}, "ram":{"description":"16
+      GiB LPDDR5", "size":17179869184, "type":"LPDDR5"}, "storage":{"description":"Fixed
+      local: 1 x 256 GB SSD", "total":256000000000}, "network":{"description":"Internal:
+      1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000, "public_bandwidth":1000000000,
+      "max_public_bandwidth":1000000000}, "gpu":{"description":"10 x Apple M2", "count":10,
+      "type":"Apple M2"}}, "apple_silicon":{"range":"M2"}}, "environmental_impact_estimation":{"kg_co2_equivalent":0.013547652,
+      "m3_water_usage":0.0000012453893}, "unit_of_measure":{"unit":"hour", "size":1},
+      "status":"general_availability"}, {"sku":"/apple-silicon/m2-l/monthly/run_par1",
+      "service_category":"Bare Metal", "product":"Mac Mini M2 Pro - L", "variant":"Mac
+      Mini M2 Pro - L - Monthly - fr-par-1", "description":"Mac Mini M2 Pro - L -
+      Monthly - fr-par-1 (139€ per month)", "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":139, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M2 Pro, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1,
-      Frequency: 3.5 GHz","arch":"apple_silicon","type":"Apple M2 Pro","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":3500000000,"benchmark":0},"threads":10},"ram":{"description":"16
-      GiB LPDDR5","size":17179869184,"type":"LPDDR5"},"storage":{"description":"Fixed
-      local: 1 x 512 GB SSD","total":512000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"16
-      x Apple M2 Pro","count":16,"type":"Apple M2 Pro"}},"apple_silicon":{"range":"M2"}},"environmental_impact_estimation":{"kg_co2_equivalent":12.539373,"m3_water_usage":0.0012828466},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m2-l/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M2 Pro - L","variant":"Mac Mini M2 Pro - L - Hourly
-      - fr-par-1","description":"Mac Mini M2 Pro - L - Hourly - fr-par-1 (0.21€ per
-      hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":210000000}},"properties":{"hardware":{"cpu":{"description":"Apple
-      M2 Pro, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1,
-      Frequency: 3.5 GHz","arch":"apple_silicon","type":"Apple M2 Pro","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":3500000000,"benchmark":0},"threads":10},"ram":{"description":"16
-      GiB LPDDR5","size":17179869184,"type":"LPDDR5"},"storage":{"description":"Fixed
-      local: 1 x 512 GB SSD","total":512000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"16
-      x Apple M2 Pro","count":16,"type":"Apple M2 Pro"}},"apple_silicon":{"range":"M2"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.017177224,"m3_water_usage":0.000001757324},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-s/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 - S","variant":"Mac Mini M4 - S - Monthly - fr-par-1","description":"Mac
-      Mini M4 - S - Monthly - fr-par-1 (149€ per month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":149,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
+      Frequency: 3.5 GHz", "arch":"apple_silicon", "type":"Apple M2 Pro", "physical":{"sockets":1,
+      "cores_per_socket":10, "threads_per_core":1, "frequency":3500000000, "benchmark":0},
+      "threads":10}, "ram":{"description":"16 GiB LPDDR5", "size":17179869184, "type":"LPDDR5"},
+      "storage":{"description":"Fixed local: 1 x 512 GB SSD", "total":512000000000},
+      "network":{"description":"Internal: 1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000,
+      "public_bandwidth":1000000000, "max_public_bandwidth":1000000000}, "gpu":{"description":"16
+      x Apple M2 Pro", "count":16, "type":"Apple M2 Pro"}}, "apple_silicon":{"range":"M2"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":12.569558, "m3_water_usage":0.0012879401},
+      "unit_of_measure":{"unit":"month", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m2-l/run_par1", "service_category":"Bare Metal", "product":"Mac
+      Mini M2 Pro - L", "variant":"Mac Mini M2 Pro - L - Hourly - fr-par-1", "description":"Mac
+      Mini M2 Pro - L - Hourly - fr-par-1 (0.21€ per hour)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":0, "nanos":210000000}},
+      "properties":{"hardware":{"cpu":{"description":"Apple M2 Pro, apple_silicon,
+      Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency: 3.5 GHz",
+      "arch":"apple_silicon", "type":"Apple M2 Pro", "physical":{"sockets":1, "cores_per_socket":10,
+      "threads_per_core":1, "frequency":3500000000, "benchmark":0}, "threads":10},
+      "ram":{"description":"16 GiB LPDDR5", "size":17179869184, "type":"LPDDR5"},
+      "storage":{"description":"Fixed local: 1 x 512 GB SSD", "total":512000000000},
+      "network":{"description":"Internal: 1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000,
+      "public_bandwidth":1000000000, "max_public_bandwidth":1000000000}, "gpu":{"description":"16
+      x Apple M2 Pro", "count":16, "type":"Apple M2 Pro"}}, "apple_silicon":{"range":"M2"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":0.017218573, "m3_water_usage":0.0000017643015},
+      "unit_of_measure":{"unit":"hour", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m4-s/monthly/run_par1", "service_category":"Bare Metal",
+      "product":"Mac Mini M4 - S", "variant":"Mac Mini M4 - S - Monthly - fr-par-1",
+      "description":"Mac Mini M4 - S - Monthly - fr-par-1 (149€ per month)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":149, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M4, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency:
-      4.4 GHz","arch":"apple_silicon","type":"Apple M4","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":4400000000,"benchmark":0},"threads":10},"ram":{"description":"16
-      GiB LPDDR5X","size":17179869184,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 256 GB SSD","total":256000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"10
-      x Apple M4","count":10,"type":"Apple M4"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":10.347103,"m3_water_usage":0.0009810003},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-s/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 - S","variant":"Mac Mini M4 - S - Hourly - fr-par-1","description":"Mac
-      Mini M4 - S - Hourly - fr-par-1 (0.22€ per hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":220000000}},"properties":{"hardware":{"cpu":{"description":"Apple
+      4.4 GHz", "arch":"apple_silicon", "type":"Apple M4", "physical":{"sockets":1,
+      "cores_per_socket":10, "threads_per_core":1, "frequency":4400000000, "benchmark":0},
+      "threads":10}, "ram":{"description":"16 GiB LPDDR5X", "size":17179869184, "type":"LPDDR5X"},
+      "storage":{"description":"Fixed local: 1 x 256 GB SSD", "total":256000000000},
+      "network":{"description":"Internal: 1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000,
+      "public_bandwidth":1000000000, "max_public_bandwidth":1000000000}, "gpu":{"description":"10
+      x Apple M4", "count":10, "type":"Apple M4"}}, "apple_silicon":{"range":"M4"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":10.370185, "m3_water_usage":0.0009848954},
+      "unit_of_measure":{"unit":"month", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m4-s/run_par1", "service_category":"Bare Metal", "product":"Mac
+      Mini M4 - S", "variant":"Mac Mini M4 - S - Hourly - fr-par-1", "description":"Mac
+      Mini M4 - S - Hourly - fr-par-1 (0.22€ per hour)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":0, "nanos":220000000}},
+      "properties":{"hardware":{"cpu":{"description":"Apple M4, apple_silicon, Sockets:
+      1, Cores per socket: 10, Threads per core: 1, Frequency: 4.4 GHz", "arch":"apple_silicon",
+      "type":"Apple M4", "physical":{"sockets":1, "cores_per_socket":10, "threads_per_core":1,
+      "frequency":4400000000, "benchmark":0}, "threads":10}, "ram":{"description":"16
+      GiB LPDDR5X", "size":17179869184, "type":"LPDDR5X"}, "storage":{"description":"Fixed
+      local: 1 x 256 GB SSD", "total":256000000000}, "network":{"description":"Internal:
+      1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000, "public_bandwidth":1000000000,
+      "max_public_bandwidth":1000000000}, "gpu":{"description":"10 x Apple M4", "count":10,
+      "type":"Apple M4"}}, "apple_silicon":{"range":"M4"}}, "environmental_impact_estimation":{"kg_co2_equivalent":0.014205732,
+      "m3_water_usage":0.0000013491717}, "unit_of_measure":{"unit":"hour", "size":1},
+      "status":"general_availability"}, {"sku":"/apple-silicon/m4-m/monthly/run_par1",
+      "service_category":"Bare Metal", "product":"Mac Mini M4 - M", "variant":"Mac
+      Mini M4 - M - Monthly - fr-par-1", "description":"Mac Mini M4 - M - Monthly
+      - fr-par-1 (199€ per month)", "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":199, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M4, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency:
-      4.4 GHz","arch":"apple_silicon","type":"Apple M4","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":4400000000,"benchmark":0},"threads":10},"ram":{"description":"16
-      GiB LPDDR5X","size":17179869184,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 256 GB SSD","total":256000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"10
-      x Apple M4","count":10,"type":"Apple M4"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.014174113,"m3_water_usage":0.000001343836},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-m/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 - M","variant":"Mac Mini M4 - M - Monthly - fr-par-1","description":"Mac
-      Mini M4 - M - Monthly - fr-par-1 (199€ per month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":199,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
-      M4, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency:
-      4.4 GHz","arch":"apple_silicon","type":"Apple M4","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":4400000000,"benchmark":0},"threads":10},"ram":{"description":"32
-      GiB LPDDR5X","size":34359738368,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 1.02 TB SSD","total":1024000000000},"network":{"description":"Internal:
-      10 Gb/s, Public: 10 Gb/s","internal_bandwidth":10000000000,"public_bandwidth":10000000000,"max_public_bandwidth":10000000000},"gpu":{"description":"10
-      x Apple M4","count":10,"type":"Apple M4"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":11.124881,"m3_water_usage":0.0009810003},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-m/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 - M","variant":"Mac Mini M4 - M - Hourly - fr-par-1","description":"Mac
-      Mini M4 - M - Hourly - fr-par-1 (0.29€ per hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":290000000}},"properties":{"hardware":{"cpu":{"description":"Apple
-      M4, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency:
-      4.4 GHz","arch":"apple_silicon","type":"Apple M4","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":4400000000,"benchmark":0},"threads":10},"ram":{"description":"32
-      GiB LPDDR5X","size":34359738368,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 1.02 TB SSD","total":1024000000000},"network":{"description":"Internal:
-      10 Gb/s, Public: 10 Gb/s","internal_bandwidth":10000000000,"public_bandwidth":10000000000,"max_public_bandwidth":10000000000},"gpu":{"description":"10
-      x Apple M4","count":10,"type":"Apple M4"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.015239562,"m3_water_usage":0.000001343836},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-xl/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 Pro - XL","variant":"Mac Mini M4 Pro - XL - Monthly
-      - fr-par-1","description":"Mac Mini M4 Pro - XL - Monthly - fr-par-1 (335€ per
-      month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":335,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
+      4.4 GHz", "arch":"apple_silicon", "type":"Apple M4", "physical":{"sockets":1,
+      "cores_per_socket":10, "threads_per_core":1, "frequency":4400000000, "benchmark":0},
+      "threads":10}, "ram":{"description":"32 GiB LPDDR5X", "size":34359738368, "type":"LPDDR5X"},
+      "storage":{"description":"Fixed local: 1 x 1.02 TB SSD", "total":1024000000000},
+      "network":{"description":"Internal: 10 Gb/s, Public: 1 Gb/s (max 10 Gb/s)",
+      "internal_bandwidth":10000000000, "public_bandwidth":1000000000, "max_public_bandwidth":10000000000},
+      "gpu":{"description":"10 x Apple M4", "count":10, "type":"Apple M4"}}, "apple_silicon":{"range":"M4"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":11.147963, "m3_water_usage":0.0009848954},
+      "unit_of_measure":{"unit":"month", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m4-m/run_par1", "service_category":"Bare Metal", "product":"Mac
+      Mini M4 - M", "variant":"Mac Mini M4 - M - Hourly - fr-par-1", "description":"Mac
+      Mini M4 - M - Hourly - fr-par-1 (0.29€ per hour)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":0, "nanos":290000000}},
+      "properties":{"hardware":{"cpu":{"description":"Apple M4, apple_silicon, Sockets:
+      1, Cores per socket: 10, Threads per core: 1, Frequency: 4.4 GHz", "arch":"apple_silicon",
+      "type":"Apple M4", "physical":{"sockets":1, "cores_per_socket":10, "threads_per_core":1,
+      "frequency":4400000000, "benchmark":0}, "threads":10}, "ram":{"description":"32
+      GiB LPDDR5X", "size":34359738368, "type":"LPDDR5X"}, "storage":{"description":"Fixed
+      local: 1 x 1.02 TB SSD", "total":1024000000000}, "network":{"description":"Internal:
+      10 Gb/s, Public: 1 Gb/s (max 10 Gb/s)", "internal_bandwidth":10000000000, "public_bandwidth":1000000000,
+      "max_public_bandwidth":10000000000}, "gpu":{"description":"10 x Apple M4", "count":10,
+      "type":"Apple M4"}}, "apple_silicon":{"range":"M4"}}, "environmental_impact_estimation":{"kg_co2_equivalent":0.015271181,
+      "m3_water_usage":0.0000013491717}, "unit_of_measure":{"unit":"hour", "size":1},
+      "status":"general_availability"}, {"sku":"/apple-silicon/m4-xl/monthly/run_par1",
+      "service_category":"Bare Metal", "product":"Mac Mini M4 Pro - XL", "variant":"Mac
+      Mini M4 Pro - XL - Monthly - fr-par-1", "description":"Mac Mini M4 Pro - XL
+      - Monthly - fr-par-1 (335€ per month)", "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":335, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M4 Pro, apple_silicon, Sockets: 1, Cores per socket: 14, Threads per core: 1,
-      Frequency: 4.5 GHz","arch":"apple_silicon","type":"Apple M4 Pro","physical":{"sockets":1,"cores_per_socket":14,"threads_per_core":1,"frequency":4500000000,"benchmark":0},"threads":14},"ram":{"description":"64
-      GiB LPDDR5X","size":68719476736,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 2.05 TB SSD","total":2048000000000},"network":{"description":"Internal:
-      10 Gb/s, Public: 10 Gb/s","internal_bandwidth":10000000000,"public_bandwidth":10000000000,"max_public_bandwidth":10000000000},"gpu":{"description":"20
-      x Apple M4 Pro","count":20,"type":"Apple M4 Pro"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":14.976331,"m3_water_usage":0.001358308},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-xl/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 Pro - XL","variant":"Mac Mini M4 Pro - XL - Hourly
-      - fr-par-1","description":"Mac Mini M4 Pro - XL - Hourly - fr-par-1 (0.49€ per
-      hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":490000000}},"properties":{"hardware":{"cpu":{"description":"Apple
+      Frequency: 4.5 GHz", "arch":"apple_silicon", "type":"Apple M4 Pro", "physical":{"sockets":1,
+      "cores_per_socket":14, "threads_per_core":1, "frequency":4500000000, "benchmark":0},
+      "threads":14}, "ram":{"description":"64 GiB LPDDR5X", "size":68719476736, "type":"LPDDR5X"},
+      "storage":{"description":"Fixed local: 1 x 2.05 TB SSD", "total":2048000000000},
+      "network":{"description":"Internal: 10 Gb/s, Public: 1 Gb/s (max 10 Gb/s)",
+      "internal_bandwidth":10000000000, "public_bandwidth":1000000000, "max_public_bandwidth":10000000000},
+      "gpu":{"description":"20 x Apple M4 Pro", "count":20, "type":"Apple M4 Pro"}},
+      "apple_silicon":{"range":"M4"}}, "environmental_impact_estimation":{"kg_co2_equivalent":15.00829,
+      "m3_water_usage":0.0013637012}, "unit_of_measure":{"unit":"month", "size":1},
+      "status":"general_availability"}, {"sku":"/apple-silicon/m4-xl/run_par1", "service_category":"Bare
+      Metal", "product":"Mac Mini M4 Pro - XL", "variant":"Mac Mini M4 Pro - XL -
+      Hourly - fr-par-1", "description":"Mac Mini M4 Pro - XL - Hourly - fr-par-1
+      (0.49€ per hour)", "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":0, "nanos":490000000}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M4 Pro, apple_silicon, Sockets: 1, Cores per socket: 14, Threads per core: 1,
-      Frequency: 4.5 GHz","arch":"apple_silicon","type":"Apple M4 Pro","physical":{"sockets":1,"cores_per_socket":14,"threads_per_core":1,"frequency":4500000000,"benchmark":0},"threads":14},"ram":{"description":"64
-      GiB LPDDR5X","size":68719476736,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 2.05 TB SSD","total":2048000000000},"network":{"description":"Internal:
-      10 Gb/s, Public: 10 Gb/s","internal_bandwidth":10000000000,"public_bandwidth":10000000000,"max_public_bandwidth":10000000000},"gpu":{"description":"20
-      x Apple M4 Pro","count":20,"type":"Apple M4 Pro"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.02051552,"m3_water_usage":0.000001860696},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"}],"total_count":10}'
+      Frequency: 4.5 GHz", "arch":"apple_silicon", "type":"Apple M4 Pro", "physical":{"sockets":1,
+      "cores_per_socket":14, "threads_per_core":1, "frequency":4500000000, "benchmark":0},
+      "threads":14}, "ram":{"description":"64 GiB LPDDR5X", "size":68719476736, "type":"LPDDR5X"},
+      "storage":{"description":"Fixed local: 1 x 2.05 TB SSD", "total":2048000000000},
+      "network":{"description":"Internal: 10 Gb/s, Public: 1 Gb/s (max 10 Gb/s)",
+      "internal_bandwidth":10000000000, "public_bandwidth":1000000000, "max_public_bandwidth":10000000000},
+      "gpu":{"description":"20 x Apple M4 Pro", "count":20, "type":"Apple M4 Pro"}},
+      "apple_silicon":{"range":"M4"}}, "environmental_impact_estimation":{"kg_co2_equivalent":0.020559302,
+      "m3_water_usage":0.0000018680839}, "unit_of_measure":{"unit":"hour", "size":1},
+      "status":"general_availability"}], "total_count":10}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/product-catalog/v2alpha1/public-catalog/products?product_types=apple_silicon&zone=fr-par-1
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/product-catalog/v2alpha1/public-catalog/products?page=1&product_types=apple_silicon&zone=fr-par-1
     method: GET
   response:
-    body: '{"products":[{"sku":"/apple-silicon/m2-m/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M2 - M","variant":"Mac Mini M2 - M - Monthly - fr-par-1","description":"Mac
-      Mini M2 - M - Monthly - fr-par-1 (115€ per month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":115,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
+    body: '{"products":[{"sku":"/apple-silicon/m2-m/monthly/run_par1", "service_category":"Bare
+      Metal", "product":"Mac Mini M2 - M", "variant":"Mac Mini M2 - M - Monthly -
+      fr-par-1", "description":"Mac Mini M2 - M - Monthly - fr-par-1 (115€ per month)",
+      "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":115, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M2, apple_silicon, Sockets: 1, Cores per socket: 8, Threads per core: 1, Frequency:
-      3.5 GHz","arch":"apple_silicon","type":"Apple M2","physical":{"sockets":1,"cores_per_socket":8,"threads_per_core":1,"frequency":3500000000,"benchmark":0},"threads":8},"ram":{"description":"16
-      GiB LPDDR5","size":17179869184,"type":"LPDDR5"},"storage":{"description":"Fixed
-      local: 1 x 256 GB SSD","total":256000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"10
-      x Apple M2","count":10,"type":"Apple M2"}},"apple_silicon":{"range":"M2"}},"environmental_impact_estimation":{"kg_co2_equivalent":9.86848,"m3_water_usage":0.00090553873},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m2-m/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M2 - M","variant":"Mac Mini M2 - M - Hourly - fr-par-1","description":"Mac
-      Mini M2 - M - Hourly - fr-par-1 (0.17€ per hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":170000000}},"properties":{"hardware":{"cpu":{"description":"Apple
-      M2, apple_silicon, Sockets: 1, Cores per socket: 8, Threads per core: 1, Frequency:
-      3.5 GHz","arch":"apple_silicon","type":"Apple M2","physical":{"sockets":1,"cores_per_socket":8,"threads_per_core":1,"frequency":3500000000,"benchmark":0},"threads":8},"ram":{"description":"16
-      GiB LPDDR5","size":17179869184,"type":"LPDDR5"},"storage":{"description":"Fixed
-      local: 1 x 256 GB SSD","total":256000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"10
-      x Apple M2","count":10,"type":"Apple M2"}},"apple_silicon":{"range":"M2"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.013518465,"m3_water_usage":0.000001240464},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m2-l/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M2 Pro - L","variant":"Mac Mini M2 Pro - L - Monthly
-      - fr-par-1","description":"Mac Mini M2 Pro - L - Monthly - fr-par-1 (139€ per
-      month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":139,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
+      3.5 GHz", "arch":"apple_silicon", "type":"Apple M2", "physical":{"sockets":1,
+      "cores_per_socket":8, "threads_per_core":1, "frequency":3500000000, "benchmark":0},
+      "threads":8}, "ram":{"description":"16 GiB LPDDR5", "size":17179869184, "type":"LPDDR5"},
+      "storage":{"description":"Fixed local: 1 x 256 GB SSD", "total":256000000000},
+      "network":{"description":"Internal: 1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000,
+      "public_bandwidth":1000000000, "max_public_bandwidth":1000000000}, "gpu":{"description":"10
+      x Apple M2", "count":10, "type":"Apple M2"}}, "apple_silicon":{"range":"M2"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":9.889786, "m3_water_usage":0.00090913416},
+      "unit_of_measure":{"unit":"month", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m2-m/run_par1", "service_category":"Bare Metal", "product":"Mac
+      Mini M2 - M", "variant":"Mac Mini M2 - M - Hourly - fr-par-1", "description":"Mac
+      Mini M2 - M - Hourly - fr-par-1 (0.17€ per hour)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":0, "nanos":170000000}},
+      "properties":{"hardware":{"cpu":{"description":"Apple M2, apple_silicon, Sockets:
+      1, Cores per socket: 8, Threads per core: 1, Frequency: 3.5 GHz", "arch":"apple_silicon",
+      "type":"Apple M2", "physical":{"sockets":1, "cores_per_socket":8, "threads_per_core":1,
+      "frequency":3500000000, "benchmark":0}, "threads":8}, "ram":{"description":"16
+      GiB LPDDR5", "size":17179869184, "type":"LPDDR5"}, "storage":{"description":"Fixed
+      local: 1 x 256 GB SSD", "total":256000000000}, "network":{"description":"Internal:
+      1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000, "public_bandwidth":1000000000,
+      "max_public_bandwidth":1000000000}, "gpu":{"description":"10 x Apple M2", "count":10,
+      "type":"Apple M2"}}, "apple_silicon":{"range":"M2"}}, "environmental_impact_estimation":{"kg_co2_equivalent":0.013547652,
+      "m3_water_usage":0.0000012453893}, "unit_of_measure":{"unit":"hour", "size":1},
+      "status":"general_availability"}, {"sku":"/apple-silicon/m2-l/monthly/run_par1",
+      "service_category":"Bare Metal", "product":"Mac Mini M2 Pro - L", "variant":"Mac
+      Mini M2 Pro - L - Monthly - fr-par-1", "description":"Mac Mini M2 Pro - L -
+      Monthly - fr-par-1 (139€ per month)", "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":139, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M2 Pro, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1,
-      Frequency: 3.5 GHz","arch":"apple_silicon","type":"Apple M2 Pro","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":3500000000,"benchmark":0},"threads":10},"ram":{"description":"16
-      GiB LPDDR5","size":17179869184,"type":"LPDDR5"},"storage":{"description":"Fixed
-      local: 1 x 512 GB SSD","total":512000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"16
-      x Apple M2 Pro","count":16,"type":"Apple M2 Pro"}},"apple_silicon":{"range":"M2"}},"environmental_impact_estimation":{"kg_co2_equivalent":12.539373,"m3_water_usage":0.0012828466},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m2-l/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M2 Pro - L","variant":"Mac Mini M2 Pro - L - Hourly
-      - fr-par-1","description":"Mac Mini M2 Pro - L - Hourly - fr-par-1 (0.21€ per
-      hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":210000000}},"properties":{"hardware":{"cpu":{"description":"Apple
-      M2 Pro, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1,
-      Frequency: 3.5 GHz","arch":"apple_silicon","type":"Apple M2 Pro","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":3500000000,"benchmark":0},"threads":10},"ram":{"description":"16
-      GiB LPDDR5","size":17179869184,"type":"LPDDR5"},"storage":{"description":"Fixed
-      local: 1 x 512 GB SSD","total":512000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"16
-      x Apple M2 Pro","count":16,"type":"Apple M2 Pro"}},"apple_silicon":{"range":"M2"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.017177224,"m3_water_usage":0.000001757324},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-s/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 - S","variant":"Mac Mini M4 - S - Monthly - fr-par-1","description":"Mac
-      Mini M4 - S - Monthly - fr-par-1 (149€ per month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":149,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
+      Frequency: 3.5 GHz", "arch":"apple_silicon", "type":"Apple M2 Pro", "physical":{"sockets":1,
+      "cores_per_socket":10, "threads_per_core":1, "frequency":3500000000, "benchmark":0},
+      "threads":10}, "ram":{"description":"16 GiB LPDDR5", "size":17179869184, "type":"LPDDR5"},
+      "storage":{"description":"Fixed local: 1 x 512 GB SSD", "total":512000000000},
+      "network":{"description":"Internal: 1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000,
+      "public_bandwidth":1000000000, "max_public_bandwidth":1000000000}, "gpu":{"description":"16
+      x Apple M2 Pro", "count":16, "type":"Apple M2 Pro"}}, "apple_silicon":{"range":"M2"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":12.569558, "m3_water_usage":0.0012879401},
+      "unit_of_measure":{"unit":"month", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m2-l/run_par1", "service_category":"Bare Metal", "product":"Mac
+      Mini M2 Pro - L", "variant":"Mac Mini M2 Pro - L - Hourly - fr-par-1", "description":"Mac
+      Mini M2 Pro - L - Hourly - fr-par-1 (0.21€ per hour)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":0, "nanos":210000000}},
+      "properties":{"hardware":{"cpu":{"description":"Apple M2 Pro, apple_silicon,
+      Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency: 3.5 GHz",
+      "arch":"apple_silicon", "type":"Apple M2 Pro", "physical":{"sockets":1, "cores_per_socket":10,
+      "threads_per_core":1, "frequency":3500000000, "benchmark":0}, "threads":10},
+      "ram":{"description":"16 GiB LPDDR5", "size":17179869184, "type":"LPDDR5"},
+      "storage":{"description":"Fixed local: 1 x 512 GB SSD", "total":512000000000},
+      "network":{"description":"Internal: 1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000,
+      "public_bandwidth":1000000000, "max_public_bandwidth":1000000000}, "gpu":{"description":"16
+      x Apple M2 Pro", "count":16, "type":"Apple M2 Pro"}}, "apple_silicon":{"range":"M2"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":0.017218573, "m3_water_usage":0.0000017643015},
+      "unit_of_measure":{"unit":"hour", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m4-s/monthly/run_par1", "service_category":"Bare Metal",
+      "product":"Mac Mini M4 - S", "variant":"Mac Mini M4 - S - Monthly - fr-par-1",
+      "description":"Mac Mini M4 - S - Monthly - fr-par-1 (149€ per month)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":149, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M4, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency:
-      4.4 GHz","arch":"apple_silicon","type":"Apple M4","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":4400000000,"benchmark":0},"threads":10},"ram":{"description":"16
-      GiB LPDDR5X","size":17179869184,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 256 GB SSD","total":256000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"10
-      x Apple M4","count":10,"type":"Apple M4"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":10.347103,"m3_water_usage":0.0009810003},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-s/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 - S","variant":"Mac Mini M4 - S - Hourly - fr-par-1","description":"Mac
-      Mini M4 - S - Hourly - fr-par-1 (0.22€ per hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":220000000}},"properties":{"hardware":{"cpu":{"description":"Apple
+      4.4 GHz", "arch":"apple_silicon", "type":"Apple M4", "physical":{"sockets":1,
+      "cores_per_socket":10, "threads_per_core":1, "frequency":4400000000, "benchmark":0},
+      "threads":10}, "ram":{"description":"16 GiB LPDDR5X", "size":17179869184, "type":"LPDDR5X"},
+      "storage":{"description":"Fixed local: 1 x 256 GB SSD", "total":256000000000},
+      "network":{"description":"Internal: 1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000,
+      "public_bandwidth":1000000000, "max_public_bandwidth":1000000000}, "gpu":{"description":"10
+      x Apple M4", "count":10, "type":"Apple M4"}}, "apple_silicon":{"range":"M4"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":10.370185, "m3_water_usage":0.0009848954},
+      "unit_of_measure":{"unit":"month", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m4-s/run_par1", "service_category":"Bare Metal", "product":"Mac
+      Mini M4 - S", "variant":"Mac Mini M4 - S - Hourly - fr-par-1", "description":"Mac
+      Mini M4 - S - Hourly - fr-par-1 (0.22€ per hour)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":0, "nanos":220000000}},
+      "properties":{"hardware":{"cpu":{"description":"Apple M4, apple_silicon, Sockets:
+      1, Cores per socket: 10, Threads per core: 1, Frequency: 4.4 GHz", "arch":"apple_silicon",
+      "type":"Apple M4", "physical":{"sockets":1, "cores_per_socket":10, "threads_per_core":1,
+      "frequency":4400000000, "benchmark":0}, "threads":10}, "ram":{"description":"16
+      GiB LPDDR5X", "size":17179869184, "type":"LPDDR5X"}, "storage":{"description":"Fixed
+      local: 1 x 256 GB SSD", "total":256000000000}, "network":{"description":"Internal:
+      1 Gb/s, Public: 1 Gb/s", "internal_bandwidth":1000000000, "public_bandwidth":1000000000,
+      "max_public_bandwidth":1000000000}, "gpu":{"description":"10 x Apple M4", "count":10,
+      "type":"Apple M4"}}, "apple_silicon":{"range":"M4"}}, "environmental_impact_estimation":{"kg_co2_equivalent":0.014205732,
+      "m3_water_usage":0.0000013491717}, "unit_of_measure":{"unit":"hour", "size":1},
+      "status":"general_availability"}, {"sku":"/apple-silicon/m4-m/monthly/run_par1",
+      "service_category":"Bare Metal", "product":"Mac Mini M4 - M", "variant":"Mac
+      Mini M4 - M - Monthly - fr-par-1", "description":"Mac Mini M4 - M - Monthly
+      - fr-par-1 (199€ per month)", "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":199, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M4, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency:
-      4.4 GHz","arch":"apple_silicon","type":"Apple M4","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":4400000000,"benchmark":0},"threads":10},"ram":{"description":"16
-      GiB LPDDR5X","size":17179869184,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 256 GB SSD","total":256000000000},"network":{"description":"Internal:
-      1 Gb/s, Public: 1 Gb/s","internal_bandwidth":1000000000,"public_bandwidth":1000000000,"max_public_bandwidth":1000000000},"gpu":{"description":"10
-      x Apple M4","count":10,"type":"Apple M4"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.014174113,"m3_water_usage":0.000001343836},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-m/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 - M","variant":"Mac Mini M4 - M - Monthly - fr-par-1","description":"Mac
-      Mini M4 - M - Monthly - fr-par-1 (199€ per month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":199,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
-      M4, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency:
-      4.4 GHz","arch":"apple_silicon","type":"Apple M4","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":4400000000,"benchmark":0},"threads":10},"ram":{"description":"32
-      GiB LPDDR5X","size":34359738368,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 1.02 TB SSD","total":1024000000000},"network":{"description":"Internal:
-      10 Gb/s, Public: 10 Gb/s","internal_bandwidth":10000000000,"public_bandwidth":10000000000,"max_public_bandwidth":10000000000},"gpu":{"description":"10
-      x Apple M4","count":10,"type":"Apple M4"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":11.124881,"m3_water_usage":0.0009810003},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-m/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 - M","variant":"Mac Mini M4 - M - Hourly - fr-par-1","description":"Mac
-      Mini M4 - M - Hourly - fr-par-1 (0.29€ per hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":290000000}},"properties":{"hardware":{"cpu":{"description":"Apple
-      M4, apple_silicon, Sockets: 1, Cores per socket: 10, Threads per core: 1, Frequency:
-      4.4 GHz","arch":"apple_silicon","type":"Apple M4","physical":{"sockets":1,"cores_per_socket":10,"threads_per_core":1,"frequency":4400000000,"benchmark":0},"threads":10},"ram":{"description":"32
-      GiB LPDDR5X","size":34359738368,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 1.02 TB SSD","total":1024000000000},"network":{"description":"Internal:
-      10 Gb/s, Public: 10 Gb/s","internal_bandwidth":10000000000,"public_bandwidth":10000000000,"max_public_bandwidth":10000000000},"gpu":{"description":"10
-      x Apple M4","count":10,"type":"Apple M4"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.015239562,"m3_water_usage":0.000001343836},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-xl/monthly/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 Pro - XL","variant":"Mac Mini M4 Pro - XL - Monthly
-      - fr-par-1","description":"Mac Mini M4 Pro - XL - Monthly - fr-par-1 (335€ per
-      month)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":335,"nanos":0}},"properties":{"hardware":{"cpu":{"description":"Apple
+      4.4 GHz", "arch":"apple_silicon", "type":"Apple M4", "physical":{"sockets":1,
+      "cores_per_socket":10, "threads_per_core":1, "frequency":4400000000, "benchmark":0},
+      "threads":10}, "ram":{"description":"32 GiB LPDDR5X", "size":34359738368, "type":"LPDDR5X"},
+      "storage":{"description":"Fixed local: 1 x 1.02 TB SSD", "total":1024000000000},
+      "network":{"description":"Internal: 10 Gb/s, Public: 1 Gb/s (max 10 Gb/s)",
+      "internal_bandwidth":10000000000, "public_bandwidth":1000000000, "max_public_bandwidth":10000000000},
+      "gpu":{"description":"10 x Apple M4", "count":10, "type":"Apple M4"}}, "apple_silicon":{"range":"M4"}},
+      "environmental_impact_estimation":{"kg_co2_equivalent":11.147963, "m3_water_usage":0.0009848954},
+      "unit_of_measure":{"unit":"month", "size":1}, "status":"general_availability"},
+      {"sku":"/apple-silicon/m4-m/run_par1", "service_category":"Bare Metal", "product":"Mac
+      Mini M4 - M", "variant":"Mac Mini M4 - M - Hourly - fr-par-1", "description":"Mac
+      Mini M4 - M - Hourly - fr-par-1 (0.29€ per hour)", "locality":{"zone":"fr-par-1"},
+      "price":{"retail_price":{"currency_code":"EUR", "units":0, "nanos":290000000}},
+      "properties":{"hardware":{"cpu":{"description":"Apple M4, apple_silicon, Sockets:
+      1, Cores per socket: 10, Threads per core: 1, Frequency: 4.4 GHz", "arch":"apple_silicon",
+      "type":"Apple M4", "physical":{"sockets":1, "cores_per_socket":10, "threads_per_core":1,
+      "frequency":4400000000, "benchmark":0}, "threads":10}, "ram":{"description":"32
+      GiB LPDDR5X", "size":34359738368, "type":"LPDDR5X"}, "storage":{"description":"Fixed
+      local: 1 x 1.02 TB SSD", "total":1024000000000}, "network":{"description":"Internal:
+      10 Gb/s, Public: 1 Gb/s (max 10 Gb/s)", "internal_bandwidth":10000000000, "public_bandwidth":1000000000,
+      "max_public_bandwidth":10000000000}, "gpu":{"description":"10 x Apple M4", "count":10,
+      "type":"Apple M4"}}, "apple_silicon":{"range":"M4"}}, "environmental_impact_estimation":{"kg_co2_equivalent":0.015271181,
+      "m3_water_usage":0.0000013491717}, "unit_of_measure":{"unit":"hour", "size":1},
+      "status":"general_availability"}, {"sku":"/apple-silicon/m4-xl/monthly/run_par1",
+      "service_category":"Bare Metal", "product":"Mac Mini M4 Pro - XL", "variant":"Mac
+      Mini M4 Pro - XL - Monthly - fr-par-1", "description":"Mac Mini M4 Pro - XL
+      - Monthly - fr-par-1 (335€ per month)", "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":335, "nanos":0}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M4 Pro, apple_silicon, Sockets: 1, Cores per socket: 14, Threads per core: 1,
-      Frequency: 4.5 GHz","arch":"apple_silicon","type":"Apple M4 Pro","physical":{"sockets":1,"cores_per_socket":14,"threads_per_core":1,"frequency":4500000000,"benchmark":0},"threads":14},"ram":{"description":"64
-      GiB LPDDR5X","size":68719476736,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 2.05 TB SSD","total":2048000000000},"network":{"description":"Internal:
-      10 Gb/s, Public: 10 Gb/s","internal_bandwidth":10000000000,"public_bandwidth":10000000000,"max_public_bandwidth":10000000000},"gpu":{"description":"20
-      x Apple M4 Pro","count":20,"type":"Apple M4 Pro"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":14.976331,"m3_water_usage":0.001358308},"unit_of_measure":{"unit":"month","size":1},"status":"general_availability"},{"sku":"/apple-silicon/m4-xl/run_par1","service_category":"Bare
-      Metal","product":"Mac Mini M4 Pro - XL","variant":"Mac Mini M4 Pro - XL - Hourly
-      - fr-par-1","description":"Mac Mini M4 Pro - XL - Hourly - fr-par-1 (0.49€ per
-      hour)","locality":{"zone":"fr-par-1"},"price":{"retail_price":{"currency_code":"EUR","units":0,"nanos":490000000}},"properties":{"hardware":{"cpu":{"description":"Apple
+      Frequency: 4.5 GHz", "arch":"apple_silicon", "type":"Apple M4 Pro", "physical":{"sockets":1,
+      "cores_per_socket":14, "threads_per_core":1, "frequency":4500000000, "benchmark":0},
+      "threads":14}, "ram":{"description":"64 GiB LPDDR5X", "size":68719476736, "type":"LPDDR5X"},
+      "storage":{"description":"Fixed local: 1 x 2.05 TB SSD", "total":2048000000000},
+      "network":{"description":"Internal: 10 Gb/s, Public: 1 Gb/s (max 10 Gb/s)",
+      "internal_bandwidth":10000000000, "public_bandwidth":1000000000, "max_public_bandwidth":10000000000},
+      "gpu":{"description":"20 x Apple M4 Pro", "count":20, "type":"Apple M4 Pro"}},
+      "apple_silicon":{"range":"M4"}}, "environmental_impact_estimation":{"kg_co2_equivalent":15.00829,
+      "m3_water_usage":0.0013637012}, "unit_of_measure":{"unit":"month", "size":1},
+      "status":"general_availability"}, {"sku":"/apple-silicon/m4-xl/run_par1", "service_category":"Bare
+      Metal", "product":"Mac Mini M4 Pro - XL", "variant":"Mac Mini M4 Pro - XL -
+      Hourly - fr-par-1", "description":"Mac Mini M4 Pro - XL - Hourly - fr-par-1
+      (0.49€ per hour)", "locality":{"zone":"fr-par-1"}, "price":{"retail_price":{"currency_code":"EUR",
+      "units":0, "nanos":490000000}}, "properties":{"hardware":{"cpu":{"description":"Apple
       M4 Pro, apple_silicon, Sockets: 1, Cores per socket: 14, Threads per core: 1,
-      Frequency: 4.5 GHz","arch":"apple_silicon","type":"Apple M4 Pro","physical":{"sockets":1,"cores_per_socket":14,"threads_per_core":1,"frequency":4500000000,"benchmark":0},"threads":14},"ram":{"description":"64
-      GiB LPDDR5X","size":68719476736,"type":"LPDDR5X"},"storage":{"description":"Fixed
-      local: 1 x 2.05 TB SSD","total":2048000000000},"network":{"description":"Internal:
-      10 Gb/s, Public: 10 Gb/s","internal_bandwidth":10000000000,"public_bandwidth":10000000000,"max_public_bandwidth":10000000000},"gpu":{"description":"20
-      x Apple M4 Pro","count":20,"type":"Apple M4 Pro"}},"apple_silicon":{"range":"M4"}},"environmental_impact_estimation":{"kg_co2_equivalent":0.02051552,"m3_water_usage":0.000001860696},"unit_of_measure":{"unit":"hour","size":1},"status":"general_availability"}],"total_count":10}'
+      Frequency: 4.5 GHz", "arch":"apple_silicon", "type":"Apple M4 Pro", "physical":{"sockets":1,
+      "cores_per_socket":14, "threads_per_core":1, "frequency":4500000000, "benchmark":0},
+      "threads":14}, "ram":{"description":"64 GiB LPDDR5X", "size":68719476736, "type":"LPDDR5X"},
+      "storage":{"description":"Fixed local: 1 x 2.05 TB SSD", "total":2048000000000},
+      "network":{"description":"Internal: 10 Gb/s, Public: 1 Gb/s (max 10 Gb/s)",
+      "internal_bandwidth":10000000000, "public_bandwidth":1000000000, "max_public_bandwidth":10000000000},
+      "gpu":{"description":"20 x Apple M4 Pro", "count":20, "type":"Apple M4 Pro"}},
+      "apple_silicon":{"range":"M4"}}, "environmental_impact_estimation":{"kg_co2_equivalent":0.020559302,
+      "m3_water_usage":0.0000018680839}, "unit_of_measure":{"unit":"hour", "size":1},
+      "status":"general_availability"}], "total_count":10}'
     headers:
       Content-Length:
-      - "12347"
+      - "12762"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 02 Jul 2025 10:13:57 GMT
+      - Tue, 22 Jul 2025 10:10:47 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge01)
+      - Scaleway API Gateway (fr-par-2;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -247,7 +433,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c5e9d947-237b-4c08-b40d-dd37497ea908
+      - c6069a7f-5727-4488-a85a-6fbd1664e5b4
     status: 200 OK
     code: 200
     duration: ""
