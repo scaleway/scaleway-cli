@@ -419,6 +419,7 @@ func serverTerminateCommand() *core.Command {
 						VolumeID:       volume.ID,
 						Zone:           volume.Zone,
 						TerminalStatus: &terminalStatus,
+						RetryInterval:  core.DefaultRetryInterval,
 					})
 					if err != nil {
 						return nil, fmt.Errorf("failed to wait for block volume %s: %w", volume.ID, err)

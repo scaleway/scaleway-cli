@@ -79,8 +79,9 @@ func blockVolumeCreateBuilder(c *core.Command) *core.Command {
 		resp := respI.(*block.Volume)
 
 		return block.NewAPI(core.ExtractClient(ctx)).WaitForVolume(&block.WaitForVolumeRequest{
-			VolumeID: resp.ID,
-			Zone:     resp.Zone,
+			VolumeID:      resp.ID,
+			Zone:          resp.Zone,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 
