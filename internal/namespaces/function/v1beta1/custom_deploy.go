@@ -166,8 +166,9 @@ func DeployStepCreateNamespace(
 		})
 
 		namespace, err = api.WaitForNamespace(&function.WaitForNamespaceRequest{
-			NamespaceID: namespace.ID,
-			Region:      namespace.Region,
+			NamespaceID:   namespace.ID,
+			Region:        namespace.Region,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("could not fetch created namespace: %w", err)
@@ -184,8 +185,9 @@ func DeployStepFetchNamespace(
 ) tasks.TaskFunc[any, *function.Namespace] {
 	return func(_ *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
 		namespace, err := api.WaitForNamespace(&function.WaitForNamespaceRequest{
-			NamespaceID: namespaceID,
-			Region:      region,
+			NamespaceID:   namespaceID,
+			Region:        region,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("could not fetch namespace: %w", err)

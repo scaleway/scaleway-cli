@@ -334,6 +334,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 							SnapshotID:     snapshot.ID,
 							Zone:           args.Zone,
 							TerminalStatus: &terminalStatus,
+							RetryInterval:  core.DefaultRetryInterval,
 						})
 						if err != nil {
 							return nil, err
