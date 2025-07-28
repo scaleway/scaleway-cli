@@ -6,11 +6,13 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"os/exec"
 	"reflect"
 	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -34,6 +36,7 @@ func GetCommands() *core.Commands {
 		configInfoCommand(),
 		configImportCommand(),
 		configValidateCommand(),
+		configEditCommand(),
 	)
 }
 
@@ -765,6 +768,38 @@ The command goes through each profile present in the config file and validates i
 
 			return &core.SuccessResult{
 				Message: "successfully validate config",
+			}, nil
+		},
+	}
+}
+
+func configEditCommand() *core.Command {
+	type configEditArgs struct{}
+
+	return &core.Command{
+		Namespace:            "config",
+		Resource:             "edit",
+		Short:                "Edit the configuration file",
+		Long:                 "Edit the configuration file with the default editor",
+		ArgsType:             reflect.TypeOf(configEditArgs{}),
+		AllowAnonymousClient: true,
+		Run: func(ctx context.Context, _ any) (i any, e error) {
+			configPath := core.ExtractConfigPath(ctx)
+
+			defaultEditor := config.GetDefaultEditor()
+			args := []string{configPath}
+
+			cmd := exec.Command(defaultEditor, args...)
+			cmd.Stdin = os.Stdin
+			cmd.Stdout = os.Stdout
+
+			err := cmd.Run()
+			if err != nil {
+				return nil, fmt.Errorf("failed to edit file %q: %w", configPath, err)
+			}
+
+			return &core.SuccessResult{
+				Message: "successfully wrote config",
 			}, nil
 		},
 	}
