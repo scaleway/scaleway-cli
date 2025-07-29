@@ -1,25 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                3b05ac16-ad9f-468b-beb7-63c68671ebf7
+ID                819b10dd-aca1-4574-938c-49410b2c03a5
 Name              cli-test-snapshot-update-name-updated
-Organization      fa1e3217-dc80-42ac-85c3-3f034b78b552
-Project           fa1e3217-dc80-42ac-85c3-3f034b78b552
+Organization      d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Project           d3520a52-2c75-4ba0-bda8-82dd087f07f2
 Tags.0            foo
 Tags.1            bar
 VolumeType        l_ssd
 Size              10 GB
 State             available
-BaseVolume.ID     36de93d9-7385-4e94-a595-1eb8240f4704
+BaseVolume.ID     f6c820e0-4f10-4649-85b2-e47b7747ffeb
 BaseVolume.Name   Ubuntu 22.04 Jammy Jellyfish
 CreationDate      few seconds ago
 ModificationDate  few seconds ago
 Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "3b05ac16-ad9f-468b-beb7-63c68671ebf7",
+  "id": "819b10dd-aca1-4574-938c-49410b2c03a5",
   "name": "cli-test-snapshot-update-name-updated",
-  "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "organization": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "project": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
   "tags": [
     "foo",
     "bar"
@@ -28,7 +28,7 @@ Zone              fr-par-1
   "size": 10000000000,
   "state": "available",
   "base_volume": {
-    "id": "36de93d9-7385-4e94-a595-1eb8240f4704",
+    "id": "f6c820e0-4f10-4649-85b2-e47b7747ffeb",
     "name": "Ubuntu 22.04 Jammy Jellyfish"
   },
   "creation_date": "1970-01-01T00:00:00.0Z",

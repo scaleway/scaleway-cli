@@ -1,30 +1,30 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Image.ID                b387b0dc-f00f-47c8-9e4e-cba700f447ef
-Image.Name              cli-img-admiring-borg
+Image.ID                327f66d8-29c9-434d-b138-f2e05a627aaf
+Image.Name              cli-img-amazing-bassi
 Image.Arch              x86_64
 Image.CreationDate      few seconds ago
 Image.ModificationDate  few seconds ago
 Image.ExtraVolumes      1
 Image.FromServer        -
-Image.Organization      fa1e3217-dc80-42ac-85c3-3f034b78b552
+Image.Organization      d3520a52-2c75-4ba0-bda8-82dd087f07f2
 Image.Public            false
-Image.RootVolume        ac2f2110-81f6-49b7-a758-22df9c98078c
+Image.RootVolume        f0936091-26e9-4d9b-aeb9-ecb7d7d80e56
 Image.State             available
-Image.Project           fa1e3217-dc80-42ac-85c3-3f034b78b552
+Image.Project           d3520a52-2c75-4ba0-bda8-82dd087f07f2
 Image.Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "b387b0dc-f00f-47c8-9e4e-cba700f447ef",
-    "name": "cli-img-admiring-borg",
+    "id": "327f66d8-29c9-434d-b138-f2e05a627aaf",
+    "name": "cli-img-amazing-bassi",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
     "extra_volumes": {
       "1": {
-        "id": "ed47263f-b747-4c96-abd1-7e0429196fa7",
+        "id": "a712d42e-ba8a-434a-9781-4455205c3593",
         "name": "snapVol",
         "export_uri": null,
         "size": 10000000000,
@@ -40,16 +40,16 @@ Image.Zone              fr-par-1
       }
     },
     "from_server": "",
-    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "organization": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
     "public": false,
     "root_volume": {
-      "id": "ac2f2110-81f6-49b7-a758-22df9c98078c",
-      "name": "cli-snp-cool-moser",
+      "id": "f0936091-26e9-4d9b-aeb9-ecb7d7d80e56",
+      "name": "cli-snp-epic-chaplygin",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
     "state": "available",
-    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
     "tags": [],
     "zone": "fr-par-1"
   }
