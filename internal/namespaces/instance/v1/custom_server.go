@@ -606,22 +606,27 @@ func serverDetachVolumeCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "detach-volume",
-		ArgsType:  reflect.TypeOf(instance.DetachVolumeRequest{}),
+		ArgsType:  reflect.TypeOf(instance.DetachServerVolumeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "volume-id",
 				Short:    `ID of the volume to detach`,
 				Required: true,
 			},
+			{
+				Name:     "server-id",
+				Short:    `ID of the server`,
+				Required: true,
+			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
-			request := argsI.(*instance.DetachVolumeRequest)
+			request := argsI.(*instance.DetachServerVolumeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.DetachVolume(request)
+			return api.DetachServerVolume(request)
 		},
 		Examples: []*core.Example{
 			{
