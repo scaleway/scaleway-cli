@@ -99,10 +99,10 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				resp := testhelpers.Value[*instanceSDK.DetachVolumeResponse](t, ctx.Result)
+				resp := testhelpers.Value[*instanceSDK.DetachServerVolumeResponse](t, ctx.Result)
 				assert.NotZero(t, resp.Server.Volumes["0"])
 				assert.Nil(t, resp.Server.Volumes["1"])
-				assert.Len(t, ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes, 1)
+				assert.Len(t, ctx.Result.(*instanceSDK.DetachServerVolumeResponse).Server.Volumes, 1)
 			},
 			AfterFunc: core.AfterFuncCombine(
 				core.ExecAfterCmd(
