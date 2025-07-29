@@ -28,6 +28,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
   
 - [Destroy the config file](#destroy-the-config-file)
 - [Dump the config file](#dump-the-config-file)
+- [Edit the configuration file](#edit-the-configuration-file)
 - [Get a value from the config file](#get-a-value-from-the-config-file)
 - [Import configurations from another file](#import-configurations-from-another-file)
 - [Get config values from the config file for the current profile](#get-config-values-from-the-config-file-for-the-current-profile)
@@ -64,6 +65,20 @@ scw config destroy
 
 ```
 scw config dump
+```
+
+
+
+## Edit the configuration file
+
+Edit the configuration file with the default editor
+
+Edit the configuration file with the default editor
+
+**Usage:**
+
+```
+scw config edit
 ```
 
 
