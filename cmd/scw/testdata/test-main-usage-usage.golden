@@ -3,7 +3,7 @@
 USAGE:
   scw <command>
 
-AVAILABLE COMMANDS:
+AI COMMANDS:
   inference     This API allows you to handle your Managed Inference services
 
 BAREMETAL COMMANDS:
