@@ -102,7 +102,11 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				resp := testhelpers.Value[*instanceSDK.DetachServerVolumeResponse](t, ctx.Result)
 				assert.NotZero(t, resp.Server.Volumes["0"])
 				assert.Nil(t, resp.Server.Volumes["1"])
-				assert.Len(t, ctx.Result.(*instanceSDK.DetachServerVolumeResponse).Server.Volumes, 1)
+				assert.Len(
+					t,
+					ctx.Result.(*instanceSDK.DetachServerVolumeResponse).Server.Volumes,
+					1,
+				)
 			},
 			AfterFunc: core.AfterFuncCombine(
 				core.ExecAfterCmd(
