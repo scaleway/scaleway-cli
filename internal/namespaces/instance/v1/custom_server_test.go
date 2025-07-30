@@ -95,14 +95,18 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 				"Server",
 				testServerCommand("stopped=true image=ubuntu-jammy additional-volumes.0=block:10G"),
 			),
-			Cmd: `scw instance server detach-volume volume-id={{ (index .Server.Volumes "1").ID }}`,
+			Cmd: `scw instance server detach-volume volume-id={{ (index .Server.Volumes "1").ID }} server-id={{ .Server.ID }}`,
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				resp := testhelpers.Value[*instanceSDK.DetachVolumeResponse](t, ctx.Result)
+				resp := testhelpers.Value[*instanceSDK.DetachServerVolumeResponse](t, ctx.Result)
 				assert.NotZero(t, resp.Server.Volumes["0"])
 				assert.Nil(t, resp.Server.Volumes["1"])
-				assert.Len(t, ctx.Result.(*instanceSDK.DetachVolumeResponse).Server.Volumes, 1)
+				assert.Len(
+					t,
+					ctx.Result.(*instanceSDK.DetachServerVolumeResponse).Server.Volumes,
+					1,
+				)
 			},
 			AfterFunc: core.AfterFuncCombine(
 				core.ExecAfterCmd(
@@ -117,7 +121,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 		t.Run("invalid volume UUID", core.Test(&core.TestConfig{
 			Commands:   instance.GetCommands(),
 			BeforeFunc: createServer("Server"),
-			Cmd:        "scw instance server detach-volume volume-id=11111111-1111-1111-1111-111111111111",
+			Cmd:        "scw instance server detach-volume volume-id=11111111-1111-1111-1111-111111111111 server-id={{ .Server.ID }}",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(1),
