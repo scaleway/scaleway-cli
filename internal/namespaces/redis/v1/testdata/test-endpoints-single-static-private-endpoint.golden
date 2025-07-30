@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           62e071a3-e206-471b-afdb-1bc013b7c426
+ID           7244cdb4-c52c-4b5e-8465-021603f41cc7
 Name         1-static-priv-endpoint
 ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status       ready
@@ -15,13 +15,13 @@ UserName     admin
 
 Endpoints:
 ID                                    Port  IPs
-a56f3126-4e97-46cf-89c6-f179359f96e9  6379  [172.16.4.1]
+c00b715a-fa2d-4686-a6a0-008b99fa04d0  6379  [172.16.4.1]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "62e071a3-e206-471b-afdb-1bc013b7c426",
+  "id": "7244cdb4-c52c-4b5e-8465-021603f41cc7",
   "name": "1-static-priv-endpoint",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
@@ -30,7 +30,7 @@ ID   IP CIDR  DESCRIPTION
     {
       "port": 6379,
       "private_network": {
-        "id": "9104c8f2-09a7-4124-a44c-26a699d143cc",
+        "id": "1a93cecf-3fcb-44ca-8fd2-1a7d7e4e1aa2",
         "service_ips": [
           "172.16.4.1/22"
         ],
@@ -40,7 +40,7 @@ ID   IP CIDR  DESCRIPTION
       "ips": [
         "172.16.4.1"
       ],
-      "id": "a56f3126-4e97-46cf-89c6-f179359f96e9"
+      "id": "c00b715a-fa2d-4686-a6a0-008b99fa04d0"
     }
   ],
   "tags": [],

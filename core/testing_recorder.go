@@ -10,9 +10,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/dnaeon/go-vcr/cassette"
-	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/stretchr/testify/assert"
+	"gopkg.in/dnaeon/go-vcr.v3/cassette"
+	"gopkg.in/dnaeon/go-vcr.v3/recorder"
 )
 
 func cassetteRequestFilter(i *cassette.Interaction) error {
@@ -21,11 +21,11 @@ func cassetteRequestFilter(i *cassette.Interaction) error {
 	orgIDRegex := regexp.MustCompile(`(.+)organization_id=[0-9a-f-]{36}(.+)`)
 	tokenRegex := regexp.MustCompile(`^https://api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}$`)
 
-	i.URL = orgIDRegex.ReplaceAllString(
-		i.URL,
+	i.Request.URL = orgIDRegex.ReplaceAllString(
+		i.Request.URL,
 		"${1}organization_id=11111111-1111-1111-1111-111111111111${2}")
-	i.URL = tokenRegex.ReplaceAllString(
-		i.URL,
+	i.Request.URL = tokenRegex.ReplaceAllString(
+		i.Request.URL,
 		"api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
 
 	return nil
@@ -36,10 +36,10 @@ func cassetteResponseFilter(i *cassette.Interaction) error {
 		ReplaceAllString(i.Response.Body, `"secret_key":"11111111-1111-1111-1111-111111111111"`)
 
 	// Buildpacks
-	i.URL = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).
-		ReplaceAllString(i.URL, "pack.local%2Fbuilder%2F11111111111111111111")
-	i.URL = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
-		ReplaceAllString(i.URL, "pack.local/builder/11111111111111111111")
+	i.Request.URL = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).
+		ReplaceAllString(i.Request.URL, "pack.local%2Fbuilder%2F11111111111111111111")
+	i.Request.URL = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
+		ReplaceAllString(i.Request.URL, "pack.local/builder/11111111111111111111")
 
 	i.Request.Body = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
 		ReplaceAllString(i.Response.Body, "pack.local/builder/11111111111111111111")
@@ -128,26 +128,27 @@ func customS3Matcher(r *http.Request, i cassette.Request) bool {
 // closed and saved after the requests.
 func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
 	t.Helper()
-	recorderMode := recorder.ModeReplaying
+	recorderMode := recorder.ModeReplayOnly
 	if update {
-		recorderMode = recorder.ModeRecording
+		recorderMode = recorder.ModeRecordOnly
 	}
 
 	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(
-		getTestFilePath(t, ".cassette"),
-		recorderMode,
-		&SocketPassthroughTransport{},
-	)
+	r, err := recorder.NewWithOptions(&recorder.Options{
+		CassetteName:       getTestFilePath(t, ".cassette"),
+		Mode:               recorderMode,
+		RealTransport:      &SocketPassthroughTransport{},
+		SkipRequestLatency: true,
+	})
 	if err != nil {
 		return nil, nil, err
 	}
 
 	// Add a filter which removes Authorization headers from all requests:
-	r.AddFilter(cassetteRequestFilter)
+	r.AddHook(cassetteRequestFilter, recorder.BeforeSaveHook)
 
 	// Remove secrets from response
-	r.AddSaveFilter(cassetteResponseFilter)
+	r.AddHook(cassetteResponseFilter, recorder.BeforeSaveHook)
 
 	r.SetMatcher(cassetteMatcher)
 

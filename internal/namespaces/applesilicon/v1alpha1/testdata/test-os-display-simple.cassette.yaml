@@ -1,37 +1,52 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"id":"e08d1e5d-b4b9-402a-9f9a-97732d17e374","name":"macos-sonoma-14.4","label":"macOS
-      Sonoma 14.4","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png","family":"Sonoma","is_beta":false,"xcode_version":"15","version":"14.4","compatible_server_types":["M1-M","M2-M","M2-L"]}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.2; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/os/e08d1e5d-b4b9-402a-9f9a-97732d17e374
-    method: GET
-  response:
-    body: '{"id":"e08d1e5d-b4b9-402a-9f9a-97732d17e374","name":"macos-sonoma-14.4","label":"macOS
-      Sonoma 14.4","image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png","family":"Sonoma","is_beta":false,"xcode_version":"15","version":"14.4","compatible_server_types":["M1-M","M2-M","M2-L"]}'
-    headers:
-      Content-Length:
-      - "313"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 11 Dec 2024 10:57:15 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 99d01325-b45c-45e6-9e05-875caec82c88
-    status: 200 OK
-    code: 200
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"e08d1e5d-b4b9-402a-9f9a-97732d17e374", "name":"macos-sonoma-14.4", "label":"macOS Sonoma 14.4", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png", "family":"Sonoma", "is_beta":false, "xcode_version":"15", "version":"14.4", "compatible_server_types":["M1-M", "M2-M", "M2-L"]}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/apple-silicon/v1alpha1/zones/fr-par-1/os/e08d1e5d-b4b9-402a-9f9a-97732d17e374
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 323
+        uncompressed: false
+        body: '{"id":"e08d1e5d-b4b9-402a-9f9a-97732d17e374", "name":"macos-sonoma-14.4", "label":"macOS Sonoma 14.4", "image_url":"https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png", "family":"Sonoma", "is_beta":false, "xcode_version":"15", "version":"14.4", "compatible_server_types":["M1-M", "M2-M", "M2-L"]}'
+        headers:
+            Content-Length:
+                - "323"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 22 Jul 2025 15:54:27 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - d41c1391-1ae9-466d-a26d-bdd9563d89c5
+        status: 200 OK
+        code: 200
+        duration: 555.743711ms

@@ -1,549 +1,838 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"id":"8084b2d3-6adc-428d-a04f-378332590f92","name":"cli-pn-ecstatic-zhukovsky","tags":[],"organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","created_at":"2023-11-23T13:33:57.301521Z","updated_at":"2023-11-23T13:33:57.301521Z","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","subnets":[{"id":"38f0a49a-eab8-4745-ada8-d4be11b2654f","created_at":"2023-11-23T13:33:57.301521Z","updated_at":"2023-11-23T13:33:57.301521Z","subnet":"172.16.232.0/22"},{"id":"36fcadd7-ec00-42d0-89bd-0e3a08b7ace7","created_at":"2023-11-23T13:33:57.301521Z","updated_at":"2023-11-23T13:33:57.301521Z","subnet":"fd63:256c:45f7:70f::/64"}],"vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c","dhcp_enabled":true,"region":"fr-par"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
-    method: POST
-  response:
-    body: '{"id":"8084b2d3-6adc-428d-a04f-378332590f92","name":"cli-pn-ecstatic-zhukovsky","tags":[],"organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","created_at":"2023-11-23T13:33:57.301521Z","updated_at":"2023-11-23T13:33:57.301521Z","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","subnets":[{"id":"38f0a49a-eab8-4745-ada8-d4be11b2654f","created_at":"2023-11-23T13:33:57.301521Z","updated_at":"2023-11-23T13:33:57.301521Z","subnet":"172.16.232.0/22"},{"id":"36fcadd7-ec00-42d0-89bd-0e3a08b7ace7","created_at":"2023-11-23T13:33:57.301521Z","updated_at":"2023-11-23T13:33:57.301521Z","subnet":"fd63:256c:45f7:70f::/64"}],"vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c","dhcp_enabled":true,"region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "709"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:33:57 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - aaaa8ad0-d130-4184-8e65-f5ce8948cf2c
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters
-    method: POST
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "640"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:34:59 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - d0d5a2d7-4bac-48b9-8765-2366b5cbac26
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "640"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:34:59 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 4a96ab6c-e4ac-43a6-b274-faa1bdaa5bee
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "640"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:35:14 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 10c3c201-4875-4715-9300-ff2bb3d9055b
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "640"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:35:29 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 7305c8b1-735e-4308-a3d8-c42e8ea06919
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "640"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:35:44 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 94d1b8e3-affe-4b6a-a2fa-76c36db3b65a
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "640"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:35:59 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 1b1987b5-fdf0-4c99-8648-edffce867004
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "640"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:36:15 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - f46f6420-7adc-42ea-8b04-4f6c0828fa4a
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"provisioning","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":null,"tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "640"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:36:30 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 9687d4a4-13df-42be-993b-ba23f187998f
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"initializing","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:36:25.410816Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"initializing","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:36:25.410816Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "665"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:36:45 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 4f905079-5f16-403e-ac51-aa33691d4a19
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"initializing","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:36:25.410816Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"initializing","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:36:25.410816Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "665"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:37:00 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - c33d4280-58ff-43af-8729-703ac4998a65
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:37:07.847917Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:37:07.847917Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "658"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:37:15 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 539c54da-e259-4e92-969e-0a88d02298cd
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:37:15.852763Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: DELETE
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:37:15.852763Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "661"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:37:16 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 6caee823-683f-43bc-92dc-d80a890c4255
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:37:15.852763Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:37:15.852763Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "661"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:37:16 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - fea77497-ebf3-4882-b4a8-acbb726ec6b0
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:37:15.852763Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"id":"caac7795-b1c1-407f-8635-7da21563691e","name":"1-ipam-priv-endpoint","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","version":"7.0.5","endpoints":[{"port":6379,"private_network":{"id":"8084b2d3-6adc-428d-a04f-378332590f92","service_ips":["172.16.232.2/22"],"provisioning_mode":"ipam","zone":"fr-par-1"},"ips":["172.16.232.2"],"id":"2aaf6524-7ce6-4f6e-96aa-3f5cdc24ce04"}],"tags":[],"node_type":"RED1-micro","created_at":"2023-11-23T13:34:58.220770Z","updated_at":"2023-11-23T13:37:15.852763Z","tls_enabled":false,"cluster_settings":[],"acl_rules":[],"cluster_size":1,"user_name":"admin","upgradable_versions":[],"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "661"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:37:32 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 1ceed897-203f-468c-867d-ca78b2d79311
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"message":"resource is not found","resource":"cluster","resource_id":"caac7795-b1c1-407f-8635-7da21563691e","type":"not_found"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/caac7795-b1c1-407f-8635-7da21563691e
-    method: GET
-  response:
-    body: '{"message":"resource is not found","resource":"cluster","resource_id":"caac7795-b1c1-407f-8635-7da21563691e","type":"not_found"}'
-    headers:
-      Content-Length:
-      - "128"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:37:47 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 0b5c3514-30c3-4fc6-8d6d-3062470dfc16
-    status: 404 Not Found
-    code: 404
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/8084b2d3-6adc-428d-a04f-378332590f92
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 23 Nov 2023 13:37:47 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 062ccd29-2c81-48dc-8749-de7dcfe409d8
-    status: 204 No Content
-    code: 204
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 160
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "name":"cli-pn-flamboyant-tereshkova", "tags":[], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T09:50:34.153401Z", "updated_at":"2025-07-24T09:50:34.153401Z", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"f9b145d3-fcc3-48d9-a134-87df124bae30", "created_at":"2025-07-24T09:50:34.153401Z", "updated_at":"2025-07-24T09:50:34.153401Z", "subnet":"172.16.232.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}, {"id":"94418027-1d5f-495b-a279-75bbe34b64f4", "created_at":"2025-07-24T09:50:34.153401Z", "updated_at":"2025-07-24T09:50:34.153401Z", "subnet":"fd63:256c:45f7:27ae::/64", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c", "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1099
+        uncompressed: false
+        body: '{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "name":"cli-pn-flamboyant-tereshkova", "tags":[], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-24T09:50:34.153401Z", "updated_at":"2025-07-24T09:50:34.153401Z", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"f9b145d3-fcc3-48d9-a134-87df124bae30", "created_at":"2025-07-24T09:50:34.153401Z", "updated_at":"2025-07-24T09:50:34.153401Z", "subnet":"172.16.232.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}, {"id":"94418027-1d5f-495b-a279-75bbe34b64f4", "created_at":"2025-07-24T09:50:34.153401Z", "updated_at":"2025-07-24T09:50:34.153401Z", "subnet":"fd63:256c:45f7:27ae::/64", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c", "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1099"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:50:34 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 3722edbf-d1f0-4e55-a158-4dd4dd40c538
+        status: 200 OK
+        code: 200
+        duration: 873.380194ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 357
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 662
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "662"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:51:38 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - bb59d7bc-5542-463c-a41a-25f02b88660e
+        status: 200 OK
+        code: 200
+        duration: 3.288733547s
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 662
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "662"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:51:38 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - c18b2b79-baa0-44a6-a096-8bdd21ac6f05
+        status: 200 OK
+        code: 200
+        duration: 111.58313ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 662
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "662"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:51:53 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - d8f6449b-84ac-480c-8d97-3e8006f13f40
+        status: 200 OK
+        code: 200
+        duration: 101.008874ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 662
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "662"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:52:08 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 1f4e346e-c52b-4d0d-9ffc-33bad3962aed
+        status: 200 OK
+        code: 200
+        duration: 118.546192ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 662
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"provisioning", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":null, "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "662"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:52:23 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 0855d24e-bc3f-494b-a985-09483df51eef
+        status: 200 OK
+        code: 200
+        duration: 100.750391ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:52:35.454399Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 687
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:52:35.454399Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "687"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:52:38 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - d0bc348d-1338-49ba-ad29-f35ae2e94f9f
+        status: 200 OK
+        code: 200
+        duration: 97.65679ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:52:35.454399Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 687
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:52:35.454399Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "687"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:52:53 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - fb795013-846d-4ca2-9c8a-d3b25e1d7826
+        status: 200 OK
+        code: 200
+        duration: 107.669711ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:52:35.454399Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 687
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"initializing", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:52:35.454399Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "687"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:53:08 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 151db243-5910-4604-a349-451d49ea691b
+        status: 200 OK
+        code: 200
+        duration: 96.416729ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:53:17.517980Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 680
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:53:17.517980Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "680"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:53:23 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - b5478264-d84a-4e4f-a7fc-844af84dee83
+        status: 200 OK
+        code: 200
+        duration: 135.213782ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:53:24.105882Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 683
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:53:24.105882Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "683"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:53:24 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - cef4e707-6a0f-4c10-9988-764dbaf63f0d
+        status: 200 OK
+        code: 200
+        duration: 941.770234ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:53:24.105882Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 683
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:53:24.105882Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "683"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:53:25 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - f48bc7b9-1266-44d9-aedc-dce9002bc8d6
+        status: 200 OK
+        code: 200
+        duration: 111.873693ms
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:53:24.105882Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 683
+        uncompressed: false
+        body: '{"id":"702cad6c-aac0-4dde-8021-1bd30c4610ed", "name":"1-ipam-priv-endpoint", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "version":"7.0.5", "endpoints":[{"port":6379, "private_network":{"id":"465f3557-aa80-4381-84a1-83f2e72c2b9f", "service_ips":["172.16.232.2/22"], "provisioning_mode":"ipam", "zone":"fr-par-1"}, "ips":["172.16.232.2"], "id":"46b1779d-6684-43df-a347-4649c1c2a012"}], "tags":[], "node_type":"RED1-micro", "created_at":"2025-07-24T09:51:35.262558Z", "updated_at":"2025-07-24T09:53:24.105882Z", "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "683"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:53:40 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 807bd1aa-023e-48b4-853f-7bebcd106857
+        status: 200 OK
+        code: 200
+        duration: 114.616607ms
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"message":"resource is not found","resource":"cluster","resource_id":"702cad6c-aac0-4dde-8021-1bd30c4610ed","type":"not_found"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/702cad6c-aac0-4dde-8021-1bd30c4610ed
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 128
+        uncompressed: false
+        body: '{"message":"resource is not found","resource":"cluster","resource_id":"702cad6c-aac0-4dde-8021-1bd30c4610ed","type":"not_found"}'
+        headers:
+            Content-Length:
+                - "128"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:53:55 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 628f2da9-456c-4b1a-9581-340ec142618d
+        status: 404 Not Found
+        code: 404
+        duration: 34.163534ms
+    - id: 14
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"message":"internal error"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/465f3557-aa80-4381-84a1-83f2e72c2b9f
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 28
+        uncompressed: false
+        body: '{"message":"internal error"}'
+        headers:
+            Content-Length:
+                - "28"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:54:00 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 7460550e-e298-41ae-9012-030a8d7899ec
+        status: 500 Internal Server Error
+        code: 500
+        duration: 5.09166532s
+    - id: 15
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"message":"internal error"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/465f3557-aa80-4381-84a1-83f2e72c2b9f
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 28
+        uncompressed: false
+        body: '{"message":"internal error"}'
+        headers:
+            Content-Length:
+                - "28"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:54:10 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - cf0a85a8-b40c-4928-9b7f-d88e77deb030
+        status: 500 Internal Server Error
+        code: 500
+        duration: 5.092931202s
+    - id: 16
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/465f3557-aa80-4381-84a1-83f2e72c2b9f
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 0
+        uncompressed: false
+        body: ""
+        headers:
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 24 Jul 2025 09:54:17 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 370eb611-dfec-423b-93f4-147c9b02ed27
+        status: 204 No Content
+        code: 204
+        duration: 2.065638487s

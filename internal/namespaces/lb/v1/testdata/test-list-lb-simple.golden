@@ -1,18 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    NAME      DESCRIPTION  STATUS  INSTANCES  ORGANIZATION ID                       PROJECT ID                            IP   TAGS  FRONTEND COUNT  BACKEND COUNT  TYPE  SSL COMPATIBILITY LEVEL               CREATED AT       UPDATED AT       PRIVATE NETWORK COUNT  ROUTE COUNT  REGION  ZONE
-48bb4f85-f033-4195-a13e-866b20434d07  cli-test  cli-test     ready   1          564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  few seconds ago  few seconds ago  0                      0            fr-par  fr-par-1
-366aad88-8a85-4672-8e99-aacd8f249423  cli-test  cli-test     ready   1          564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  few seconds ago  few seconds ago  0                      0            fr-par  fr-par-1
+368a9f46-85f5-47f3-a1e6-59dcc6fd807f  cli-test  cli-test     ready   1          fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  few seconds ago  few seconds ago  1                      0            fr-par  fr-par-1
+84a11b37-5946-4bd5-822c-d8300c9e5eeb  cli-test  cli-test     ready   1          fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  1    []    0               0              lb-s  ssl_compatibility_level_intermediate  few seconds ago  few seconds ago  0                      0            fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "48bb4f85-f033-4195-a13e-866b20434d07",
+    "id": "368a9f46-85f5-47f3-a1e6-59dcc6fd807f",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "b52aa81d-6f28-4013-9ed8-0ebbfa420090",
+        "id": "e60b46a1-5da7-4a86-82a2-a337f04589d4",
         "status": "ready",
         "ip_address": "",
         "created_at": "1970-01-01T00:00:00.0Z",
@@ -21,16 +21,16 @@ ID                                    NAME      DESCRIPTION  STATUS  INSTANCES  
         "zone": "fr-par-1"
       }
     ],
-    "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-    "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "ip": [
       {
-        "id": "797c2c68-cd6d-4ebd-bee5-763f4fb0c139",
-        "ip_address": "51.158.56.76",
-        "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "lb_id": "48bb4f85-f033-4195-a13e-866b20434d07",
-        "reverse": "51-158-56-76.lb.fr-par.scw.cloud",
+        "id": "5d1bc7ab-fb9c-4d2d-b8fd-0f12ddc02abf",
+        "ip_address": "163.172.181.199",
+        "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "lb_id": "368a9f46-85f5-47f3-a1e6-59dcc6fd807f",
+        "reverse": "163-172-181-199.lb.fr-par.scw.cloud",
         "tags": [],
         "region": "fr-par",
         "zone": "fr-par-1"
@@ -44,19 +44,19 @@ ID                                    NAME      DESCRIPTION  STATUS  INSTANCES  
     "ssl_compatibility_level": "ssl_compatibility_level_intermediate",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
-    "private_network_count": 0,
+    "private_network_count": 1,
     "route_count": 0,
     "region": "fr-par",
     "zone": "fr-par-1"
   },
   {
-    "id": "366aad88-8a85-4672-8e99-aacd8f249423",
+    "id": "84a11b37-5946-4bd5-822c-d8300c9e5eeb",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "6e0fd52c-d440-4abc-9708-c5950c535328",
+        "id": "77296252-e8dc-48bc-9103-e11cbfb51021",
         "status": "ready",
         "ip_address": "",
         "created_at": "1970-01-01T00:00:00.0Z",
@@ -65,16 +65,16 @@ ID                                    NAME      DESCRIPTION  STATUS  INSTANCES  
         "zone": "fr-par-1"
       }
     ],
-    "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-    "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "ip": [
       {
-        "id": "10f0e543-9cf1-4fcc-b939-c9ec675c01db",
-        "ip_address": "51.159.25.215",
-        "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-        "lb_id": "366aad88-8a85-4672-8e99-aacd8f249423",
-        "reverse": "51-159-25-215.lb.fr-par.scw.cloud",
+        "id": "ed41b46a-0120-4740-9224-c2ac389885be",
+        "ip_address": "163.172.171.180",
+        "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "lb_id": "84a11b37-5946-4bd5-822c-d8300c9e5eeb",
+        "reverse": "163-172-171-180.lb.fr-par.scw.cloud",
         "tags": [],
         "region": "fr-par",
         "zone": "fr-par-1"

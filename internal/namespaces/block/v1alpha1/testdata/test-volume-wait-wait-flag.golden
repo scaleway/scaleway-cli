@@ -1,10 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              105004b5-6b18-4f2a-957c-653d42391e00
-Name            cli-vol-practical-shirley
+ID              44928842-d62c-4046-85de-09249e6ceaa4
+Name            cli-vol-wizardly-solomon
 Type            sbs_5k
 Size            20 GB
-ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
 Status          available
@@ -13,11 +13,11 @@ Specs.PerfIops  5000
 Specs.Class     sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "105004b5-6b18-4f2a-957c-653d42391e00",
-  "name": "cli-vol-practical-shirley",
+  "id": "44928842-d62c-4046-85de-09249e6ceaa4",
+  "name": "cli-vol-wizardly-solomon",
   "type": "sbs_5k",
   "size": 20000000000,
-  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "references": [],

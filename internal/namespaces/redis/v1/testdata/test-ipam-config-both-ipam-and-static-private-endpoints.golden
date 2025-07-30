@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           79e54364-9013-427d-9e56-8085da929b70
+ID           aeedc6fd-1ce9-4f1a-8ed9-7b153d9a6b1d
 Name         1-ipam-1-static-priv-endpoints
 ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status       ready
@@ -15,14 +15,14 @@ UserName     admin
 
 Endpoints:
 ID                                    Port  IPs
-0b9e8061-e10c-4fb8-815d-1dfd94bf2745  6379  [10.16.4.1]
-c0be2bbb-d4d6-4043-9aaa-f8a96e1685dc  6379  [172.16.228.2]
+25490e2b-b73c-4667-945a-2960f95b7f38  6379  [172.16.232.2]
+bf685b6a-bcd9-4fb9-b8f3-49548703c6ab  6379  [10.16.4.1]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "79e54364-9013-427d-9e56-8085da929b70",
+  "id": "aeedc6fd-1ce9-4f1a-8ed9-7b153d9a6b1d",
   "name": "1-ipam-1-static-priv-endpoints",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
@@ -31,7 +31,22 @@ ID   IP CIDR  DESCRIPTION
     {
       "port": 6379,
       "private_network": {
-        "id": "72e054f3-77b4-4e65-b89d-7c955fe92d58",
+        "id": "ed023e0e-43a6-4104-bb9e-d20be8a94254",
+        "service_ips": [
+          "172.16.232.2/22"
+        ],
+        "zone": "fr-par-1",
+        "provisioning_mode": "ipam"
+      },
+      "ips": [
+        "172.16.232.2"
+      ],
+      "id": "25490e2b-b73c-4667-945a-2960f95b7f38"
+    },
+    {
+      "port": 6379,
+      "private_network": {
+        "id": "b6d6e454-7b0f-4502-af53-78a930f62887",
         "service_ips": [
           "10.16.4.1/22"
         ],
@@ -41,22 +56,7 @@ ID   IP CIDR  DESCRIPTION
       "ips": [
         "10.16.4.1"
       ],
-      "id": "0b9e8061-e10c-4fb8-815d-1dfd94bf2745"
-    },
-    {
-      "port": 6379,
-      "private_network": {
-        "id": "eacb55ae-6fce-4205-bce7-7dd55f710b11",
-        "service_ips": [
-          "172.16.228.2/22"
-        ],
-        "zone": "fr-par-1",
-        "provisioning_mode": "ipam"
-      },
-      "ips": [
-        "172.16.228.2"
-      ],
-      "id": "c0be2bbb-d4d6-4043-9aaa-f8a96e1685dc"
+      "id": "bf685b6a-bcd9-4fb9-b8f3-49548703c6ab"
     }
   ],
   "tags": [],
