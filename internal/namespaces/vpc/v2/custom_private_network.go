@@ -2,9 +2,6 @@ package vpc
 
 import (
 	"context"
-	"errors"
-	"net/http"
-	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
@@ -726,31 +723,8 @@ func privateNetworkDeleteBuilder(c *core.Command) *core.Command {
 		client := core.ExtractClient(ctx)
 		api := vpc.NewAPI(client)
 
-		return tryDeletingPrivateNetwork(ctx, api, request.Region, request.PrivateNetworkID, 5)
+		return api.TryDeletingPrivateNetwork(request, 5, scw.WithContext(ctx))
 	}
 
 	return c
-}
-
-func tryDeletingPrivateNetwork(
-	ctx context.Context,
-	api *vpc.API,
-	region scw.Region,
-	pnID string,
-	retriesLeft int,
-) (*vpc.PrivateNetwork, error) {
-	err := api.DeletePrivateNetwork(&vpc.DeletePrivateNetworkRequest{
-		PrivateNetworkID: pnID,
-		Region:           region,
-	}, scw.WithContext(ctx))
-
-	var respErr *scw.ResponseError
-	if errors.As(err, &respErr) && respErr.StatusCode == http.StatusInternalServerError {
-		time.Sleep(time.Second * 5)
-		if retriesLeft > 0 {
-			return tryDeletingPrivateNetwork(ctx, api, region, pnID, retriesLeft-1)
-		}
-	}
-
-	return nil, err
 }
