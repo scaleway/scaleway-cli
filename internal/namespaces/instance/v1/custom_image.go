@@ -228,7 +228,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 				if volume.VolumeType == instance.VolumeVolumeTypeSbsSnapshot {
 					blockVolume, err := blockAPI.GetSnapshot(&block.GetSnapshotRequest{
 						SnapshotID: volume.ID,
-						Zone:       volume.Zone,
+						Zone:       image.Zone,
 					}, scw.WithContext(ctx))
 					if err != nil {
 						return nil, err
