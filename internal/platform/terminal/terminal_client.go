@@ -101,7 +101,7 @@ func configErrorDetails(configKey, varEnv string) string {
 
 After initialization, there are three ways to provide %s:
 - with the Scaleway config file, in the %s key: %s;
-- with the %s environement variable;
+- with the %s environment variable;
 
 Note that the last method has the highest priority.
 
