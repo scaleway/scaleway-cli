@@ -1018,6 +1018,13 @@ func webhostingHostingCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "subdomain",
+				Short:      `The name prefix to use as a free subdomain (for example, ` + "`" + `mysite` + "`" + `) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. ` + "`" + `mysite.scw.site` + "`" + `). You do not need to include the base domain yourself.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "offer-options.{index}.id",
 				Short:      `Offer option ID`,
 				Required:   false,
@@ -1169,6 +1176,7 @@ func webhostingHostingList() *core.Command {
 					"error",
 					"locked",
 					"migrating",
+					"updating",
 				},
 			},
 			{
@@ -1188,6 +1196,13 @@ func webhostingHostingList() *core.Command {
 			{
 				Name:       "control-panels.{index}",
 				Short:      `Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "subdomain",
+				Short:      `Optional free subdomain linked to the Web Hosting plan`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

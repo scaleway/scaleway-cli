@@ -1,17 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Detach a volume from its server
+Detach a volume from an Instance.
 
 USAGE:
   scw instance server detach-volume [arg=value ...]
 
-EXAMPLES:
-  Detach a volume from its server
-    scw instance server detach-volume volume-id=22222222-1111-5555-2222-666666111111
-
 ARGS:
-  volume-id         ID of the volume to detach
-  server-id         ID of the server
+  server-id         
+  [volume-id]       
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:

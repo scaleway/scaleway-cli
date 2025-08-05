@@ -504,6 +504,7 @@ scw webhosting hosting create [arg=value ...]
 | email |  | Contact email for the Web Hosting client |
 | tags.{index} |  | List of tags for the Web Hosting plan |
 | domain |  | Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand |
+| subdomain |  | The name prefix to use as a free subdomain (for example, `mysite`) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. `mysite.scw.site`). You do not need to include the base domain yourself. |
 | offer-options.{index}.id |  | Offer option ID |
 | offer-options.{index}.quantity |  | The option requested quantity to set for the Web Hosting plan |
 | language | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` | Default language for the control panel interface |
@@ -618,10 +619,11 @@ scw webhosting hosting list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` | Sort order for Web Hosting plans in the response |
 | tags.{index} |  | Tags to filter for, only Web Hosting plans with matching tags will be returned |
-| statuses.{index} | One of: `unknown_status`, `delivering`, `ready`, `deleting`, `error`, `locked`, `migrating` | Statuses to filter for, only Web Hosting plans with matching statuses will be returned |
+| statuses.{index} | One of: `unknown_status`, `delivering`, `ready`, `deleting`, `error`, `locked`, `migrating`, `updating` | Statuses to filter for, only Web Hosting plans with matching statuses will be returned |
 | domain |  | Domain to filter for, only Web Hosting plans associated with this domain will be returned |
 | project-id |  | Project ID to filter for, only Web Hosting plans from this Project will be returned |
 | control-panels.{index} |  | Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned |
+| subdomain |  | Optional free subdomain linked to the Web Hosting plan |
 | organization-id |  | Organization ID to filter for, only Web Hosting plans from this Organization will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 

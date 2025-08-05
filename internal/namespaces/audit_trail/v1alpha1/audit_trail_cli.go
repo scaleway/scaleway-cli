@@ -97,8 +97,11 @@ func auditTrailEventList() *core.Command {
 					"key_manager_key",
 					"account_user",
 					"account_organization",
+					"account_project",
 					"instance_server",
 					"apple_silicon_server",
+					"baremetal_server",
+					"baremetal_setting",
 				},
 			},
 			{
