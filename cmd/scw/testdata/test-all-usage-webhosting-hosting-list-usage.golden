@@ -12,10 +12,11 @@ EXAMPLES:
 ARGS:
   [order-by]                 Sort order for Web Hosting plans in the response (created_at_asc | created_at_desc)
   [tags.{index}]             Tags to filter for, only Web Hosting plans with matching tags will be returned
-  [statuses.{index}]         Statuses to filter for, only Web Hosting plans with matching statuses will be returned (unknown_status | delivering | ready | deleting | error | locked | migrating)
+  [statuses.{index}]         Statuses to filter for, only Web Hosting plans with matching statuses will be returned (unknown_status | delivering | ready | deleting | error | locked | migrating | updating)
   [domain]                   Domain to filter for, only Web Hosting plans associated with this domain will be returned
   [project-id]               Project ID to filter for, only Web Hosting plans from this Project will be returned
   [control-panels.{index}]   Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned
+  [subdomain]                Optional free subdomain linked to the Web Hosting plan
   [organization-id]          Organization ID to filter for, only Web Hosting plans from this Organization will be returned
   [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 

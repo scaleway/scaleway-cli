@@ -11,6 +11,7 @@ ARGS:
   [email]                                     Contact email for the Web Hosting client
   [tags.{index}]                              List of tags for the Web Hosting plan
   [domain]                                    Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand
+  [subdomain]                                 The name prefix to use as a free subdomain (for example, `mysite`) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. `mysite.scw.site`). You do not need to include the base domain yourself.
   [offer-options.{index}.id]                  Offer option ID
   [offer-options.{index}.quantity]            The option requested quantity to set for the Web Hosting plan
   [language]                                  Default language for the control panel interface (unknown_language_code | en_US | fr_FR | de_DE)
