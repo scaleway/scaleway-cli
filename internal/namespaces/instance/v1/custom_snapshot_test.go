@@ -10,7 +10,6 @@ import (
 )
 
 func Test_UpdateSnapshot(t *testing.T) {
-	t.Skip("Skipping 'UpdateSnapshot' test temporarily")
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Change tags", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),

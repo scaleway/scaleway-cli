@@ -16,7 +16,6 @@ import (
 )
 
 func Test_ServerVolumeUpdate(t *testing.T) {
-	t.Skip("Skipping temporarily")
 	t.Run("Attach", func(t *testing.T) {
 		t.Run("simple block volume", core.Test(&core.TestConfig{
 			Commands: core.NewCommandsMerge(
@@ -412,44 +411,41 @@ func Test_ServerDelete(t *testing.T) {
 		DisableParallel: true,
 	}))
 
-	t.Run("with sbs volumes", func(t *testing.T) {
-		t.Skip("Skipping 'with sbs volumes' test temporarily")
-		core.Test(&core.TestConfig{
-			Commands: core.NewCommandsMerge(
-				instance.GetCommands(),
-				block.GetCommands(),
+	t.Run("with sbs volumes", core.Test(&core.TestConfig{
+		Commands: core.NewCommandsMerge(
+			instance.GetCommands(),
+			block.GetCommands(),
+		),
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmd(
+				"BlockVolume",
+				"scw block volume create perf-iops=5000 from-empty.size=10G name=cli-test-server-delete-with-sbs-volumes",
 			),
-			BeforeFunc: core.BeforeFuncCombine(
-				core.ExecStoreBeforeCmd(
-					"BlockVolume",
-					"scw block volume create perf-iops=5000 from-empty.size=10G name=cli-test-server-delete-with-sbs-volumes",
-				),
-				core.ExecStoreBeforeCmd(
-					"Server",
-					testServerCommand("stopped=true image=ubuntu-jammy"),
-				),
-				core.ExecBeforeCmd(
-					"scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .BlockVolume.ID }}",
-				),
+			core.ExecStoreBeforeCmd(
+				"Server",
+				testServerCommand("stopped=true image=ubuntu-jammy"),
 			),
-			Cmd: `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
-			Check: core.TestCheckCombine(
-				core.TestCheckGolden(),
-				core.TestCheckExitCode(0),
-				func(t *testing.T, ctx *core.CheckFuncCtx) {
-					t.Helper()
-					api := blockSDK.NewAPI(ctx.Client)
-					blockVolume := ctx.Meta["BlockVolume"].(*blockSDK.Volume)
-					resp, err := api.GetVolume(&blockSDK.GetVolumeRequest{
-						Zone:     blockVolume.Zone,
-						VolumeID: blockVolume.ID,
-					})
-					assert.Error(t, err, "%v", resp)
-				},
+			core.ExecBeforeCmd(
+				"scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .BlockVolume.ID }}",
 			),
-			DisableParallel: true,
-		})
-	})
+		),
+		Cmd: `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all`,
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				api := blockSDK.NewAPI(ctx.Client)
+				blockVolume := ctx.Meta["BlockVolume"].(*blockSDK.Volume)
+				resp, err := api.GetVolume(&blockSDK.GetVolumeRequest{
+					Zone:     blockVolume.Zone,
+					VolumeID: blockVolume.ID,
+				})
+				assert.Error(t, err, "%v", resp)
+			},
+		),
+		DisableParallel: true,
+	}))
 
 	t.Run("with multiple IPs", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
