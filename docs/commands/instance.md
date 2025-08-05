@@ -52,12 +52,14 @@ This API allows you to manage your CPU and GPU Instances.
   - [Perform a raw API action on a server](#perform-a-raw-api-action-on-a-server)
   - [Attach a filesystem volume to an Instance](#attach-a-filesystem-volume-to-an-instance)
   - [Attach an IP to a server](#attach-an-ip-to-a-server)
+  - [Attach a volume to an Instance](#attach-a-volume-to-an-instance)
   - [Backup server](#backup-server)
   - [Connect to the serial console of an instance](#connect-to-the-serial-console-of-an-instance)
   - [Create server](#create-server)
   - [Delete server](#delete-server)
-  - [Detach a filesystem volume to an Instance](#detach-a-filesystem-volume-to-an-instance)
+  - [Detach a filesystem volume from an Instance](#detach-a-filesystem-volume-from-an-instance)
   - [Detach an IP from a server](#detach-an-ip-from-a-server)
+  - [Detach a volume from an Instance](#detach-a-volume-from-an-instance)
   - [Migrate server to IP mobility](#migrate-server-to-ip-mobility)
   - [Get an Instance](#get-an-instance)
   - [Get Instance compatible types](#get-instance-compatible-types)
@@ -1626,6 +1628,29 @@ scw instance server attach-ip 11111111-1111-1111-1111-111111111111 ip=1.2.3.4
 
 
 
+### Attach a volume to an Instance
+
+Attach a volume to an Instance.
+
+**Usage:**
+
+```
+scw instance server attach-volume [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required |  |
+| volume-id |  |  |
+| volume-type | One of: `unknown_volume_type`, `l_ssd`, `b_ssd`, `sbs_volume` |  |
+| boot |  |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ### Backup server
 
 Create a new image based on the server.
@@ -1810,9 +1835,9 @@ scw instance server delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
-### Detach a filesystem volume to an Instance
+### Detach a filesystem volume from an Instance
 
-Detach a filesystem volume to an Instance.
+Detach a filesystem volume from an Instance.
 
 **Usage:**
 
@@ -1858,6 +1883,27 @@ Detach IP from a given server
 scw instance server detach-ip 11111111-1111-1111-1111-111111111111
 ```
 
+
+
+
+### Detach a volume from an Instance
+
+Detach a volume from an Instance.
+
+**Usage:**
+
+```
+scw instance server detach-volume [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required |  |
+| volume-id |  |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 

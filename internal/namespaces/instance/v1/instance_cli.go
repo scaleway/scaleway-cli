@@ -43,6 +43,8 @@ func GetGeneratedCommands() *core.Commands {
 		instanceUserDataSet(),
 		instanceUserDataGet(),
 		instanceServerGetCompatibleTypes(),
+		instanceServerAttachVolume(),
+		instanceServerDetachVolume(),
 		instanceServerAttachFilesystem(),
 		instanceServerDetachFilesystem(),
 		instanceImageList(),
@@ -1135,6 +1137,114 @@ If the specified Instance offer is flagged as end of service, the best compatibl
 	}
 }
 
+func instanceServerAttachVolume() *core.Command {
+	return &core.Command{
+		Short:     `Attach a volume to an Instance`,
+		Long:      `Attach a volume to an Instance.`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "attach-volume",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.AttachServerVolumeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volume-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volume-type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_volume_type",
+					"l_ssd",
+					"b_ssd",
+					"sbs_volume",
+				},
+			},
+			{
+				Name:       "boot",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.AttachServerVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			return api.AttachServerVolume(request)
+		},
+	}
+}
+
+func instanceServerDetachVolume() *core.Command {
+	return &core.Command{
+		Short:     `Detach a volume from an Instance`,
+		Long:      `Detach a volume from an Instance.`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "detach-volume",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(instance.DetachServerVolumeRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volume-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.DetachServerVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			return api.DetachServerVolume(request)
+		},
+	}
+}
+
 func instanceServerAttachFilesystem() *core.Command {
 	return &core.Command{
 		Short:     `Attach a filesystem volume to an Instance`,
@@ -1182,8 +1292,8 @@ func instanceServerAttachFilesystem() *core.Command {
 
 func instanceServerDetachFilesystem() *core.Command {
 	return &core.Command{
-		Short:     `Detach a filesystem volume to an Instance`,
-		Long:      `Detach a filesystem volume to an Instance.`,
+		Short:     `Detach a filesystem volume from an Instance`,
+		Long:      `Detach a filesystem volume from an Instance.`,
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "detach-filesystem",
