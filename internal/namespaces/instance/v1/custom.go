@@ -54,12 +54,10 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "server", "get").Override(serverGetBuilder)
 
 	cmds.Merge(core.NewCommands(
-		serverAttachVolumeCommand(),
 		serverBackupCommand(),
 		serverCreateCommand(),
 		serverDeleteCommand(),
 		serverTerminateCommand(),
-		serverDetachVolumeCommand(),
 		serverSSHCommand(),
 		serverActionCommand(),
 		serverStartCommand(),

@@ -11,14 +11,12 @@ AVAILABLE COMMANDS:
   action               Perform a raw API action on a server
   attach-filesystem    Attach a filesystem volume to an Instance
   attach-ip            Attach an IP to a server
-  attach-volume        Attach a volume to a server
   backup               Backup server
   console              Connect to the serial console of an instance
   create               Create server
   delete               Delete server
   detach-filesystem    Detach a filesystem volume to an Instance
   detach-ip            Detach an IP from a server
-  detach-volume        Detach a volume from its server
   enable-routed-ip     Migrate server to IP mobility
   get                  Get an Instance
   get-compatible-types Get Instance compatible types
