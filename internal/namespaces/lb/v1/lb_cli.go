@@ -1996,6 +1996,13 @@ func lbFrontendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "enable-access-logs",
+				Short:      `Defines whether to enable access logs on the frontend`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -2127,6 +2134,13 @@ func lbFrontendUpdate() *core.Command {
 			{
 				Name:       "connection-rate-limit",
 				Short:      `Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-access-logs",
+				Short:      `Defines whether to enable access logs on the frontend`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
