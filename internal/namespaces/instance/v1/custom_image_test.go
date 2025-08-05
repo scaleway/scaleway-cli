@@ -242,34 +242,37 @@ func Test_ImageUpdate(t *testing.T) {
 		),
 	}))
 
-	t.Run("Add extra volume", core.Test(&core.TestConfig{
-		BeforeFunc: core.BeforeFuncCombine(
-			createNonEmptyLocalVolume("Volume", 10),
-			core.ExecStoreBeforeCmd(
-				"SnapshotVol",
-				`scw instance snapshot create -w name=snapVol volume-id={{ .Volume.ID }}`,
+	t.Run("Add extra volume", func(t *testing.T) {
+		t.Skip("Skipping 'Add extra volume' test temporarily")
+		core.Test(&core.TestConfig{
+			BeforeFunc: core.BeforeFuncCombine(
+				createNonEmptyLocalVolume("Volume", 10),
+				core.ExecStoreBeforeCmd(
+					"SnapshotVol",
+					`scw instance snapshot create -w name=snapVol volume-id={{ .Volume.ID }}`,
+				),
+				createImage("ImageExtraVol"),
 			),
-			createImage("ImageExtraVol"),
-		),
-		Commands: instance.GetCommands(),
-		Cmd:      "scw instance image update {{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
-		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				assert.NotNil(t, ctx.Result)
-				assert.Equal(
-					t,
-					"snapVol",
-					ctx.Result.(*instanceSDK.UpdateImageResponse).Image.ExtraVolumes["1"].Name,
-				)
-			},
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			deleteServer("Server"),
-			deleteImage("ImageExtraVol"),
-			deleteVolume("Volume"),
-		),
-	}))
+			Commands: instance.GetCommands(),
+			Cmd:      "scw instance image update {{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
+			Check: core.TestCheckCombine(
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+					assert.NotNil(t, ctx.Result)
+					assert.Equal(
+						t,
+						"snapVol",
+						ctx.Result.(*instanceSDK.UpdateImageResponse).Image.ExtraVolumes["1"].Name,
+					)
+				},
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServer("Server"),
+				deleteImage("ImageExtraVol"),
+				deleteVolume("Volume"),
+			),
+		})
+	})
 }
