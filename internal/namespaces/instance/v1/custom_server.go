@@ -389,6 +389,35 @@ func volumeIsFromSBS(api *block.API, zone scw.Zone, volumeID string) bool {
 	return err == nil
 }
 
+func serverAttachVolumeBuilder(c *core.Command) *core.Command {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		request := argsI.(*instance.AttachServerVolumeRequest)
+		api := instance.NewAPI(core.ExtractClient(ctx))
+
+		return api.AttachVolume(&instance.AttachVolumeRequest{
+			Zone:     request.Zone,
+			VolumeID: request.VolumeID,
+			ServerID: request.ServerID,
+		})
+	}
+
+	return c
+}
+
+func serverDetachVolumeBuilder(c *core.Command) *core.Command {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		request := argsI.(*instance.DetachServerVolumeRequest)
+		api := instance.NewAPI(core.ExtractClient(ctx))
+
+		return api.DetachVolume(&instance.DetachVolumeRequest{
+			Zone:     request.Zone,
+			VolumeID: request.VolumeID,
+		})
+	}
+
+	return c
+}
+
 func serverGetBuilder(c *core.Command) *core.Command {
 	// This method is here as a proof of concept before we find the correct way to implement it at larger scale
 	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
