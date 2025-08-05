@@ -208,6 +208,9 @@ scw k8s cluster create [arg=value ...]
 | open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value |
 | apiserver-cert-sans.{index} |  | Additional Subject Alternative Names for the Kubernetes API server certificate |
 | private-network-id |  | Private network ID for internal cluster communication (cannot be changed later). For Kapsule clusters, if none is provided, a private network will be created |
+| pod-cidr |  | Subnet used for the Pod CIDR (cannot be changed later) |
+| service-cidr |  | Subnet used for the Service CIDR (cannot be changed later) |
+| service-dns-ip |  | IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10 |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 

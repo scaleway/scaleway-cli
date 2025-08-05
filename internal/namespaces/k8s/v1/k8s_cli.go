@@ -677,6 +677,27 @@ func k8sClusterCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "pod-cidr",
+				Short:      `Subnet used for the Pod CIDR (cannot be changed later)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "service-cidr",
+				Short:      `Subnet used for the Service CIDR (cannot be changed later)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "service-dns-ip",
+				Short:      `IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(
 				scw.RegionFrPar,
