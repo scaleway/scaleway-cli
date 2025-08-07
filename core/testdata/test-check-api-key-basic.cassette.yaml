@@ -17,7 +17,7 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCW2DWFM69FT5GRJARV0
+        url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
         method: GET
       response:
         proto: HTTP/2.0
@@ -36,7 +36,7 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 18:36:56 GMT
+                - Thu, 07 Aug 2025 13:42:47 GMT
             Server:
                 - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
@@ -46,10 +46,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - ee728da1-59aa-42dc-90f3-3fb27c43b4a7
+                - 24b5e550-70fe-4efa-8fcc-6c470623e1d3
         status: 200 OK
         code: 200
-        duration: 263.424341ms
+        duration: 250.591893ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -61,7 +61,7 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"access_key":"SCWN8XYH10FBMF8K2BXR", "secret_key":"11111111-1111-1111-1111-111111111111", "description":"test-cli-TestCheckAPIKey", "created_at":"2025-08-06T18:36:56.366513Z", "updated_at":"2025-08-06T18:36:56.366513Z", "expires_at":"2025-08-06T19:36:56.292041Z", "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"92.170.169.4", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
+        body: '{"access_key":"SCWKRVBK27JW6A8AYM6Y", "secret_key":"11111111-1111-1111-1111-111111111111", "description":"test-cli-TestCheckAPIKey", "created_at":"2025-08-07T13:42:47.083089Z", "updated_at":"2025-08-07T13:42:47.083089Z", "expires_at":"2025-08-07T14:42:47.020954Z", "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"92.170.169.4", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
         form: {}
         headers:
             Content-Type:
@@ -78,7 +78,7 @@ interactions:
         trailer: {}
         content_length: 457
         uncompressed: false
-        body: '{"access_key":"SCWN8XYH10FBMF8K2BXR", "secret_key":"11111111-1111-1111-1111-111111111111", "description":"test-cli-TestCheckAPIKey", "created_at":"2025-08-06T18:36:56.366513Z", "updated_at":"2025-08-06T18:36:56.366513Z", "expires_at":"2025-08-06T19:36:56.292041Z", "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"92.170.169.4", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
+        body: '{"access_key":"SCWKRVBK27JW6A8AYM6Y", "secret_key":"11111111-1111-1111-1111-111111111111", "description":"test-cli-TestCheckAPIKey", "created_at":"2025-08-07T13:42:47.083089Z", "updated_at":"2025-08-07T13:42:47.083089Z", "expires_at":"2025-08-07T14:42:47.020954Z", "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"92.170.169.4", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
         headers:
             Content-Length:
                 - "457"
@@ -87,7 +87,7 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 18:36:56 GMT
+                - Thu, 07 Aug 2025 13:42:47 GMT
             Server:
                 - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
@@ -97,10 +97,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - e40d9432-aa17-4dc7-947a-4fc29bcd7958
+                - d63c5db0-f502-4fa0-b0d0-9cf73c4a4d86
         status: 200 OK
         code: 200
-        duration: 100.968822ms
+        duration: 86.259571ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -112,12 +112,12 @@ interactions:
         host: api.scaleway.com
         remote_addr: ""
         request_uri: ""
-        body: '{"access_key":"SCWN8XYH10FBMF8K2BXR", "secret_key":null, "description":"test-cli-TestCheckAPIKey", "created_at":"2025-08-06T18:36:56.366513Z", "updated_at":"2025-08-06T18:36:56.366513Z", "expires_at":"2025-08-06T19:36:56.292041Z", "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"92.170.169.4", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
+        body: '{"access_key":"SCWKRVBK27JW6A8AYM6Y", "secret_key":null, "description":"test-cli-TestCheckAPIKey", "created_at":"2025-08-07T13:42:47.083089Z", "updated_at":"2025-08-07T13:42:47.083089Z", "expires_at":"2025-08-07T14:42:47.020954Z", "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"92.170.169.4", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
         form: {}
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) scaleway-cli/0.0.0+test
-        url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWN8XYH10FBMF8K2BXR
+        url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
         method: GET
       response:
         proto: HTTP/2.0
@@ -127,7 +127,7 @@ interactions:
         trailer: {}
         content_length: 423
         uncompressed: false
-        body: '{"access_key":"SCWN8XYH10FBMF8K2BXR", "secret_key":null, "description":"test-cli-TestCheckAPIKey", "created_at":"2025-08-06T18:36:56.366513Z", "updated_at":"2025-08-06T18:36:56.366513Z", "expires_at":"2025-08-06T19:36:56.292041Z", "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"92.170.169.4", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
+        body: '{"access_key":"SCWKRVBK27JW6A8AYM6Y", "secret_key":null, "description":"test-cli-TestCheckAPIKey", "created_at":"2025-08-07T13:42:47.083089Z", "updated_at":"2025-08-07T13:42:47.083089Z", "expires_at":"2025-08-07T14:42:47.020954Z", "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"92.170.169.4", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
         headers:
             Content-Length:
                 - "423"
@@ -136,7 +136,7 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 18:36:56 GMT
+                - Thu, 07 Aug 2025 13:42:47 GMT
             Server:
                 - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
@@ -146,10 +146,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - f734475b-5c13-43dc-9ef1-09643587f023
+                - 3480e36b-cd93-4a29-8a74-10b8062c5da0
         status: 200 OK
         code: 200
-        duration: 56.639979ms
+        duration: 53.637556ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -166,7 +166,7 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWN8XYH10FBMF8K2BXR
+        url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
         method: DELETE
       response:
         proto: HTTP/2.0
@@ -183,9 +183,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 18:37:38 GMT
+                - Thu, 07 Aug 2025 13:42:47 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -193,7 +193,7 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - a54e53b3-2240-4721-88c0-962114af3e48
+                - dea17aab-1ff8-46dd-9470-14c2e8283e8d
         status: 204 No Content
         code: 204
-        duration: 163.801034ms
+        duration: 70.680285ms
