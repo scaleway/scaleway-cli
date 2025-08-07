@@ -20,6 +20,7 @@ func cassetteRequestFilter(i *cassette.Interaction) error {
 	delete(i.Request.Headers, "X-Auth-Token")
 	orgIDRegex := regexp.MustCompile(`(.+)organization_id=[0-9a-f-]{36}(.+)`)
 	tokenRegex := regexp.MustCompile(`^https://api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}$`)
+	accessKeyRegex := regexp.MustCompile(`(.+)?SCW[0-9A-Z]{17}(.+)?`)
 
 	i.Request.URL = orgIDRegex.ReplaceAllString(
 		i.Request.URL,
@@ -27,6 +28,9 @@ func cassetteRequestFilter(i *cassette.Interaction) error {
 	i.Request.URL = tokenRegex.ReplaceAllString(
 		i.Request.URL,
 		"api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
+	i.Request.URL = accessKeyRegex.ReplaceAllString(
+		i.Request.URL,
+		"${1}SCWXXXXXXXXXXXXXXXXX${2}")
 
 	return nil
 }
