@@ -1,85 +1,152 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"ssh_keys":[{"id":"495d0e9f-a22b-4ff5-8324-0cb4746c57dc", "name":"rleone@scaleway.com",
-      "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6Lfs9IrfEUsw2oALOKucAqjeJo3vdADJAZS0BrJ4Vl
-      rleone@scaleway.com", "fingerprint":"256 MD5:0d:6d:20:43:4c:0f:38:a3:65:de:8f:72:77:70:26:55
-      rleone@scaleway.com (ssh-ed25519)", "created_at":"2022-03-29T07:50:11.839583Z",
-      "updated_at":"2022-03-29T07:50:17.762922Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e2e9d140-c387-43e8-af1b-5b133f8fe90d",
-      "name":"leila''s ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIG4S+vO03k8VY0qdhRThHbyiDFbIqvzH+94x24b4hbQ
-      lmarabese", "fingerprint":"256 MD5:69:c9:cf:52:7d:07:cc:ff:a4:58:e4:7e:96:77:18:63
-      lmarabese (ssh-ed25519)", "created_at":"2023-02-07T10:19:17.608707Z", "updated_at":"2023-02-07T10:19:17.608707Z",
-      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "disabled":false}, {"id":"1f5abae8-78f7-41a2-a787-780166d3f736", "name":"foobar",
-      "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
-      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
-      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:52.688903Z",
-      "updated_at":"2023-07-17T14:47:52.688903Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"459e72de-56f0-4177-a3fd-f8bf47571915",
-      "name":"foobar", "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
-      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
-      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:55.834080Z",
-      "updated_at":"2023-07-17T14:47:55.834080Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e4572020-36e1-41fc-9bbc-2faa56c12e93",
-      "name":"key-elastic-allen", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x
-      foo@foobar.com", "fingerprint":"256 MD5:1e:f8:f7:cb:c4:b7:a8:6d:96:20:49:d0:d0:af:a0:9e
-      foo@foobar.com (ssh-ed25519)", "created_at":"2023-07-17T15:05:30.415306Z", "updated_at":"2023-07-17T15:05:30.415306Z",
-      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "disabled":false}], "total_count":5}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.6; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys?order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"ssh_keys":[{"id":"495d0e9f-a22b-4ff5-8324-0cb4746c57dc", "name":"rleone@scaleway.com",
-      "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6Lfs9IrfEUsw2oALOKucAqjeJo3vdADJAZS0BrJ4Vl
-      rleone@scaleway.com", "fingerprint":"256 MD5:0d:6d:20:43:4c:0f:38:a3:65:de:8f:72:77:70:26:55
-      rleone@scaleway.com (ssh-ed25519)", "created_at":"2022-03-29T07:50:11.839583Z",
-      "updated_at":"2022-03-29T07:50:17.762922Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e2e9d140-c387-43e8-af1b-5b133f8fe90d",
-      "name":"leila''s ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIG4S+vO03k8VY0qdhRThHbyiDFbIqvzH+94x24b4hbQ
-      lmarabese", "fingerprint":"256 MD5:69:c9:cf:52:7d:07:cc:ff:a4:58:e4:7e:96:77:18:63
-      lmarabese (ssh-ed25519)", "created_at":"2023-02-07T10:19:17.608707Z", "updated_at":"2023-02-07T10:19:17.608707Z",
-      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "disabled":false}, {"id":"1f5abae8-78f7-41a2-a787-780166d3f736", "name":"foobar",
-      "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
-      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
-      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:52.688903Z",
-      "updated_at":"2023-07-17T14:47:52.688903Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"459e72de-56f0-4177-a3fd-f8bf47571915",
-      "name":"foobar", "public_key":"ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
-      foobar@foobar", "fingerprint":"256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44
-      foobar@foobar (ecdsa-sha2-nistp256)", "created_at":"2023-07-17T14:47:55.834080Z",
-      "updated_at":"2023-07-17T14:47:55.834080Z", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "disabled":false}, {"id":"e4572020-36e1-41fc-9bbc-2faa56c12e93",
-      "name":"key-elastic-allen", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x
-      foo@foobar.com", "fingerprint":"256 MD5:1e:f8:f7:cb:c4:b7:a8:6d:96:20:49:d0:d0:af:a0:9e
-      foo@foobar.com (ssh-ed25519)", "created_at":"2023-07-17T15:05:30.415306Z", "updated_at":"2023-07-17T15:05:30.415306Z",
-      "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
-      "disabled":false}], "total_count":5}'
-    headers:
-      Content-Length:
-      - "2710"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 17 Jul 2023 15:18:21 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - c75be1c4-288c-486f-86af-5737738288b6
-    status: 200 OK
-    code: 200
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"ssh_keys":[{"id":"cd488dd7-5a19-4a6e-8a3b-30ff7da20c90", "name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-15T01:30:56.751383Z", "updated_at":"2025-06-15T01:30:56.751383Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"124d688e-498c-4ec3-a055-3b6f15cb8017", "name":"TestAccScalewayBaremetalServer_AddAnotherPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-15T01:32:33.950851Z", "updated_at":"2025-06-15T01:32:33.950851Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"d545b080-296f-4730-bc83-9809f7dc5c7b", "name":"TestAccScalewayBaremetalServer_AddPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-15T01:36:40.538112Z", "updated_at":"2025-06-15T01:36:40.538112Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"6e5d3cf0-e148-4db5-876c-6cbc43747c71", "name":"TestAccScalewayBaremetalServer_CreateServerWithPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-15T01:36:56.011897Z", "updated_at":"2025-06-15T01:36:56.011897Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"b402939c-f982-4b58-a683-bea304a7aa74", "name":"TestAccScalewayBaremetalServer_AddAnotherPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-16T01:21:18.469782Z", "updated_at":"2025-06-16T01:21:18.469782Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"175638d7-23a8-4c7f-aff5-37c63e689107", "name":"TestAccScalewayBaremetalServer_AddPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-16T01:24:47.677002Z", "updated_at":"2025-06-16T01:24:47.677002Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"115c286d-28c4-45da-a31f-10bd68200cc9", "name":"TestAccScalewayBaremetalServer_CreateServerWithPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-16T01:24:52.503376Z", "updated_at":"2025-06-16T01:24:52.503376Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"777e3fae-e470-41b9-9b04-5167eaa13efb", "name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-16T02:12:28.826297Z", "updated_at":"2025-06-16T02:12:28.826297Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"edb82c63-56ba-414c-8f83-7c1b0589995e", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-07-27T01:28:05.157698Z", "updated_at":"2025-07-27T01:28:05.157698Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"2ce50c87-ae78-46bf-b3d3-1eb4bc4a6d81", "name":"TestAccScalewayFlexibleIP_CreateAndAttachToBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-07-27T01:28:08.592643Z", "updated_at":"2025-07-27T01:28:08.592643Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"2494234b-2db9-49f1-9ea5-4f21968ed12d", "name":"TestAccScalewayFlexibleIP_CreateAndAttachToBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-07-28T01:25:20.176100Z", "updated_at":"2025-07-28T01:25:20.176100Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"48e2b92d-e7a2-4861-a7c5-24c2a2776b52", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-07-28T01:25:28.994328Z", "updated_at":"2025-07-28T01:25:28.994328Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"51fc33e2-d625-454c-985c-c127dae72186", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-03T01:27:51.400174Z", "updated_at":"2025-08-03T01:27:51.400174Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"f6833cdb-bce9-4ce3-ac9c-ad693567b190", "name":"TestAccScalewayFlexibleIP_CreateAndAttachToBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-03T01:27:55.252473Z", "updated_at":"2025-08-03T01:27:55.252473Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"1cea220c-5d88-4654-90e4-32ff9c4952ac", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-04T01:26:44.622056Z", "updated_at":"2025-08-04T01:26:44.622056Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"064c8466-4303-4d51-bed3-52c26afb1fca", "name":"test-acc-admin-pwd-encryption", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEEYrzDOZmhItdKaDAEqJQ4ORS2GyBMtBozYsK5kiXXX", "fingerprint":"256 MD5:94:db:c3:76:58:e4:37:0a:ce:30:ae:ad:7d:86:b1:f0 (ssh-ed25519)", "created_at":"2025-08-05T01:24:33.118226Z", "updated_at":"2025-08-05T01:24:33.118226Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"97f803ae-c05b-404f-94b3-6e810f178a5d", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:27.450777Z", "updated_at":"2025-08-07T01:22:27.450777Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"8040e2f9-3c21-4136-a9c5-1ac02b13fe21", "name":"TestAccScalewayFlexibleIP_CreateAndAttachToBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:33.265630Z", "updated_at":"2025-08-07T01:22:33.265630Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"8b8298ab-463e-4f2f-b63b-a86f301b9569", "name":"TestAccScalewayBaremetalServer_AddTwoOptionsThenDeleteOne", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:44.494041Z", "updated_at":"2025-08-07T01:22:44.494041Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"c9d4113b-1b88-4c48-9a76-c36e5ed4f5ca", "name":"TestAccServer_Basic", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:44.515809Z", "updated_at":"2025-08-07T01:22:44.515809Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}], "total_count":25}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iam/v1alpha1/ssh-keys?order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 10282
+        uncompressed: false
+        body: '{"ssh_keys":[{"id":"cd488dd7-5a19-4a6e-8a3b-30ff7da20c90", "name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-15T01:30:56.751383Z", "updated_at":"2025-06-15T01:30:56.751383Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"124d688e-498c-4ec3-a055-3b6f15cb8017", "name":"TestAccScalewayBaremetalServer_AddAnotherPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-15T01:32:33.950851Z", "updated_at":"2025-06-15T01:32:33.950851Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"d545b080-296f-4730-bc83-9809f7dc5c7b", "name":"TestAccScalewayBaremetalServer_AddPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-15T01:36:40.538112Z", "updated_at":"2025-06-15T01:36:40.538112Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"6e5d3cf0-e148-4db5-876c-6cbc43747c71", "name":"TestAccScalewayBaremetalServer_CreateServerWithPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-15T01:36:56.011897Z", "updated_at":"2025-06-15T01:36:56.011897Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"b402939c-f982-4b58-a683-bea304a7aa74", "name":"TestAccScalewayBaremetalServer_AddAnotherPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-16T01:21:18.469782Z", "updated_at":"2025-06-16T01:21:18.469782Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"175638d7-23a8-4c7f-aff5-37c63e689107", "name":"TestAccScalewayBaremetalServer_AddPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-16T01:24:47.677002Z", "updated_at":"2025-06-16T01:24:47.677002Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"115c286d-28c4-45da-a31f-10bd68200cc9", "name":"TestAccScalewayBaremetalServer_CreateServerWithPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-16T01:24:52.503376Z", "updated_at":"2025-06-16T01:24:52.503376Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"777e3fae-e470-41b9-9b04-5167eaa13efb", "name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-06-16T02:12:28.826297Z", "updated_at":"2025-06-16T02:12:28.826297Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"edb82c63-56ba-414c-8f83-7c1b0589995e", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-07-27T01:28:05.157698Z", "updated_at":"2025-07-27T01:28:05.157698Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"2ce50c87-ae78-46bf-b3d3-1eb4bc4a6d81", "name":"TestAccScalewayFlexibleIP_CreateAndAttachToBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-07-27T01:28:08.592643Z", "updated_at":"2025-07-27T01:28:08.592643Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"2494234b-2db9-49f1-9ea5-4f21968ed12d", "name":"TestAccScalewayFlexibleIP_CreateAndAttachToBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-07-28T01:25:20.176100Z", "updated_at":"2025-07-28T01:25:20.176100Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"48e2b92d-e7a2-4861-a7c5-24c2a2776b52", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-07-28T01:25:28.994328Z", "updated_at":"2025-07-28T01:25:28.994328Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"51fc33e2-d625-454c-985c-c127dae72186", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-03T01:27:51.400174Z", "updated_at":"2025-08-03T01:27:51.400174Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"f6833cdb-bce9-4ce3-ac9c-ad693567b190", "name":"TestAccScalewayFlexibleIP_CreateAndAttachToBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-03T01:27:55.252473Z", "updated_at":"2025-08-03T01:27:55.252473Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"1cea220c-5d88-4654-90e4-32ff9c4952ac", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-04T01:26:44.622056Z", "updated_at":"2025-08-04T01:26:44.622056Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"064c8466-4303-4d51-bed3-52c26afb1fca", "name":"test-acc-admin-pwd-encryption", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEEYrzDOZmhItdKaDAEqJQ4ORS2GyBMtBozYsK5kiXXX", "fingerprint":"256 MD5:94:db:c3:76:58:e4:37:0a:ce:30:ae:ad:7d:86:b1:f0 (ssh-ed25519)", "created_at":"2025-08-05T01:24:33.118226Z", "updated_at":"2025-08-05T01:24:33.118226Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"97f803ae-c05b-404f-94b3-6e810f178a5d", "name":"TestAccScalewayFlexibleIP_AttachAndDetachFromBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:27.450777Z", "updated_at":"2025-08-07T01:22:27.450777Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"8040e2f9-3c21-4136-a9c5-1ac02b13fe21", "name":"TestAccScalewayFlexibleIP_CreateAndAttachToBaremetalServer", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:33.265630Z", "updated_at":"2025-08-07T01:22:33.265630Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"8b8298ab-463e-4f2f-b63b-a86f301b9569", "name":"TestAccScalewayBaremetalServer_AddTwoOptionsThenDeleteOne", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:44.494041Z", "updated_at":"2025-08-07T01:22:44.494041Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"c9d4113b-1b88-4c48-9a76-c36e5ed4f5ca", "name":"TestAccServer_Basic", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:44.515809Z", "updated_at":"2025-08-07T01:22:44.515809Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}], "total_count":25}'
+        headers:
+            Content-Length:
+                - "10282"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 07 Aug 2025 09:56:51 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - f88b595a-677d-4f2e-baa5-b8640946e638
+        status: 200 OK
+        code: 200
+        duration: 88.879842ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"ssh_keys":[{"id":"f84c076a-ab51-45c1-96e2-c1e31fa07e70", "name":"TestAccScalewayBaremetalServer_AddAnotherPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:49.415982Z", "updated_at":"2025-08-07T01:22:49.415982Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"1d744a34-da9a-4c1d-81a9-6a1fcdf4c79b", "name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T02:48:42.980556Z", "updated_at":"2025-08-07T02:48:42.980556Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"304ec6ea-63d5-443e-bbab-62c41506a245", "name":"TestAccScalewayBaremetalServer_AddPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T04:06:52.807921Z", "updated_at":"2025-08-07T04:06:52.807921Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"30820886-58be-4ef8-a99d-7ee8ca7d4eb2", "name":"TestAccScalewayBaremetalServer_CreateServerWithPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T04:06:54.613762Z", "updated_at":"2025-08-07T04:06:54.613762Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"e966d85d-44d5-4ece-88a4-540ac3dbfe64", "name":"TestAccServer_CreateServerWithServicePassword", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T04:06:57.647235Z", "updated_at":"2025-08-07T04:06:57.647235Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}], "total_count":25}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iam/v1alpha1/ssh-keys?order_by=created_at_asc&page=2
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 2588
+        uncompressed: false
+        body: '{"ssh_keys":[{"id":"f84c076a-ab51-45c1-96e2-c1e31fa07e70", "name":"TestAccScalewayBaremetalServer_AddAnotherPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T01:22:49.415982Z", "updated_at":"2025-08-07T01:22:49.415982Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"1d744a34-da9a-4c1d-81a9-6a1fcdf4c79b", "name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T02:48:42.980556Z", "updated_at":"2025-08-07T02:48:42.980556Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"304ec6ea-63d5-443e-bbab-62c41506a245", "name":"TestAccScalewayBaremetalServer_AddPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T04:06:52.807921Z", "updated_at":"2025-08-07T04:06:52.807921Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"30820886-58be-4ef8-a99d-7ee8ca7d4eb2", "name":"TestAccScalewayBaremetalServer_CreateServerWithPrivateNetwork", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T04:06:54.613762Z", "updated_at":"2025-08-07T04:06:54.613762Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}, {"id":"e966d85d-44d5-4ece-88a4-540ac3dbfe64", "name":"TestAccServer_CreateServerWithServicePassword", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH", "fingerprint":"256 MD5:17:d1:55:c9:1b:be:f2:b2:9a:92:33:d6:ac:16:de:41 (ssh-ed25519)", "created_at":"2025-08-07T04:06:57.647235Z", "updated_at":"2025-08-07T04:06:57.647235Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}], "total_count":25}'
+        headers:
+            Content-Length:
+                - "2588"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 07 Aug 2025 09:56:51 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 17648ceb-88c4-40d6-b03a-995f413a97d1
+        status: 200 OK
+        code: 200
+        duration: 90.520061ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 191
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"58f3ce3c-5886-482d-9c08-234ef4a6cc0a", "name":"key-eager-volhard", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x", "fingerprint":"256 MD5:1e:f8:f7:cb:c4:b7:a8:6d:96:20:49:d0:d0:af:a0:9e (ssh-ed25519)", "created_at":"2025-08-07T09:56:51.666893Z", "updated_at":"2025-08-07T09:56:51.666893Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 474
+        uncompressed: false
+        body: '{"id":"58f3ce3c-5886-482d-9c08-234ef4a6cc0a", "name":"key-eager-volhard", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn9mGL7LGZ6/RTIVP7GExiD5gOwgl63MbJGlL7a6U3x", "fingerprint":"256 MD5:1e:f8:f7:cb:c4:b7:a8:6d:96:20:49:d0:d0:af:a0:9e (ssh-ed25519)", "created_at":"2025-08-07T09:56:51.666893Z", "updated_at":"2025-08-07T09:56:51.666893Z", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf", "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "disabled":false}'
+        headers:
+            Content-Length:
+                - "474"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 07 Aug 2025 09:56:51 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 7fe420b2-f4c1-4c6d-8504-84ecd5f652f2
+        status: 200 OK
+        code: 200
+        duration: 192.740874ms

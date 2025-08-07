@@ -1,23 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              61feb7c8-3878-42e4-9d57-cdc491c20634
+ID              d15c2e40-7442-4b7c-acd5-42a9f065fd3c
 Name            foobar
-PublicKey       ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar
-Fingerprint     256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 foobar@foobar (ecdsa-sha2-nistp256)
+PublicKey       ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+Fingerprint     256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 (ecdsa-sha2-nistp256)
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-OrganizationID  63a66ec9-a385-4194-bc15-04aa6921274a
-ProjectID       63a66ec9-a385-4194-bc15-04aa6921274a
+OrganizationID  105bdce1-64c0-48ab-899d-868455867ecf
+ProjectID       105bdce1-64c0-48ab-899d-868455867ecf
 Disabled        false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "61feb7c8-3878-42e4-9d57-cdc491c20634",
+  "id": "d15c2e40-7442-4b7c-acd5-42a9f065fd3c",
   "name": "foobar",
-  "public_key": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar",
-  "fingerprint": "256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 foobar@foobar (ecdsa-sha2-nistp256)",
+  "public_key": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=",
+  "fingerprint": "256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 (ecdsa-sha2-nistp256)",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
-  "organization_id": "63a66ec9-a385-4194-bc15-04aa6921274a",
-  "project_id": "63a66ec9-a385-4194-bc15-04aa6921274a",
+  "organization_id": "105bdce1-64c0-48ab-899d-868455867ecf",
+  "project_id": "105bdce1-64c0-48ab-899d-868455867ecf",
   "disabled": false
 }
